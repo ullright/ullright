@@ -3,13 +3,13 @@ default:
     content-type: text/html
 
   metas:
-    title:        symfony project
+    title:        ullright
     robots:       index, follow
-    description:  symfony project
-    keywords:     symfony, project
-    language:     en
+    description:  ullright is an opensource web framework initiated by ull.at business websolutions 
+    keywords:     ullright ull.at business websolutions workflow management open source
+#    language:     de
 
-  stylesheets:    [main]
+  stylesheets:    []
 
   javascripts:    []
 

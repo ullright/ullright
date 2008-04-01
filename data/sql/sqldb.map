@@ -1,0 +1,4 @@
+# Sqlfile -> Database map
+plugins.ullWikiPlugin.lib.model.schema.sql=propel
+plugins.ullCorePlugin.lib.model.schema.sql=propel
+plugins.ullFlowPlugin.lib.model.schema.sql=propel
