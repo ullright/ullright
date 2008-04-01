@@ -50,7 +50,7 @@ CREATE TABLE `ull_column_info` (
   `caption_i18n_default` varchar(64) default NULL,
   `description_i18n_default` text,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ull_column_info`
@@ -58,7 +58,7 @@ CREATE TABLE `ull_column_info` (
 
 LOCK TABLES `ull_column_info` WRITE;
 /*!40000 ALTER TABLE `ull_column_info` DISABLE KEYS */;
-INSERT INTO `ull_column_info` VALUES (1,'ull_user','id',0,1,1,NULL,'ID','The unique ID of the User'),(9,'ull_user','first_name',1,1,1,1,'',''),(10,'ull_user','last_name',1,1,1,1,'Last name',''),(11,'ull_user','email',1,1,1,1,'Email',''),(12,'ull_user','username',1,1,1,1,'Username',''),(13,'ull_user','password',0,1,NULL,NULL,'Password',''),(14,'ull_user','location_id',1,1,1,NULL,'Location',''),(15,'ull_user','user_type',NULL,NULL,NULL,NULL,'User type',NULL),(16,'ull_user','birthday',1,0,0,0,'Day of Birth',''),(17,'ull_flow_field','ull_flow_app_id',5,1,1,NULL,'Workflow Application',''),(19,'ull_flow_field','ull_field_id',5,1,1,NULL,'Field Type',''),(20,'ull_column_info','ull_field_id',5,1,1,1,'Fieldtype',''),(22,'ull_column_info','db_table_name',1,1,1,1,'',''),(23,'ull_column_info','db_column_name',1,1,1,1,'',''),(28,'ull_flow_step','ull_flow_app_id',5,1,1,1,'ullFlow Application',''),(30,'ull_flow_step_action','ull_flow_step_id',5,1,1,1,'ullFlow Step',''),(31,'ull_flow_step_action','ull_flow_action_id',5,1,1,1,'ullFlow Action',''),(32,'ull_flow_memory','ull_flow_doc_id',5,1,1,1,'ullFlow document',''),(33,'ull_flow_memory','ull_flow_step_id',5,1,1,1,'ullFlow step',''),(34,'ull_flow_memory','ull_flow_action_id',5,1,1,1,'ullFlow action',''),(35,'ull_flow_doc','ull_flow_app_id',5,1,1,1,'ullFlow application',''),(36,'ull_flow_doc','ull_flow_action_id',5,1,1,1,'ullFlow action',''),(37,'ull_flow_doc','assigned_to_ull_user_id',9,1,1,0,'Assigned to user','');
+INSERT INTO `ull_column_info` VALUES (1,'ull_user','id',0,1,1,NULL,'ID','The unique ID of the User'),(9,'ull_user','first_name',1,1,1,1,'',''),(10,'ull_user','last_name',1,1,1,1,'Last name',''),(11,'ull_user','email',1,1,1,1,'Email',''),(12,'ull_user','username',1,1,1,1,'Username',''),(13,'ull_user','password',0,1,NULL,NULL,'Password',''),(14,'ull_user','location_id',1,1,1,NULL,'Location',''),(15,'ull_user','user_type',NULL,NULL,NULL,NULL,'User type',NULL),(16,'ull_user','birthday',1,0,0,0,'Day of Birth',''),(17,'ull_flow_field','ull_flow_app_id',5,1,1,NULL,'Workflow Application',''),(19,'ull_flow_field','ull_field_id',5,1,1,NULL,'Field Type',''),(20,'ull_column_info','ull_field_id',5,1,1,1,'Fieldtype',''),(22,'ull_column_info','db_table_name',1,1,1,1,'',''),(23,'ull_column_info','db_column_name',1,1,1,1,'',''),(28,'ull_flow_step','ull_flow_app_id',5,1,1,1,'ullFlow Application',''),(30,'ull_flow_step_action','ull_flow_step_id',5,1,1,1,'ullFlow Step',''),(31,'ull_flow_step_action','ull_flow_action_id',5,1,1,1,'ullFlow Action',''),(32,'ull_flow_memory','ull_flow_doc_id',5,1,1,1,'ullFlow document',''),(33,'ull_flow_memory','ull_flow_step_id',5,1,1,1,'ullFlow step',''),(34,'ull_flow_memory','ull_flow_action_id',5,1,1,1,'ullFlow action',''),(35,'ull_flow_doc','ull_flow_app_id',5,1,1,1,'ullFlow application',''),(36,'ull_flow_doc','ull_flow_action_id',5,1,1,1,'ullFlow action',''),(37,'ull_flow_doc','assigned_to_ull_user_id',9,1,1,0,'Assigned to user',''),(38,'ull_user_group','user_id',5,1,1,1,'User','');
 /*!40000 ALTER TABLE `ull_column_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +81,7 @@ CREATE TABLE `ull_column_info_i18n` (
 
 LOCK TABLES `ull_column_info_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_column_info_i18n` DISABLE KEYS */;
-INSERT INTO `ull_column_info_i18n` VALUES ('ID','Die eindeutige ID des Users',1,'de'),('Vorname','',9,'de'),('Nachname','',10,'de'),('E-Mail','',11,'de'),('Benutzername','',12,'de'),('Passwort','',13,'de'),('Standort','',14,'de'),('Benutzertyp',NULL,15,'de'),('Geburtstag','',16,'de'),('Workflow Applikation','',17,'de'),('Feldtyp','',19,'de'),('Feldtyp','',20,'de'),('ullFlow Anwendung','',28,'de'),('','',22,'de'),('','',23,'de'),('ullFlow Schritt','',30,'de'),('ullFlow Aktion','',31,'de'),('ullFlow Dokument','',32,'de'),('ullFlow Schritt','',33,'de'),('ullFlow Aktion','',34,'de'),('ullFlow Anwendung','',35,'de'),('ullFlow Aktion','',36,'de'),('Zugewiesen an Benutzer','',37,'de');
+INSERT INTO `ull_column_info_i18n` VALUES ('ID','Die eindeutige ID des Users',1,'de'),('Vorname','',9,'de'),('Nachname','',10,'de'),('E-Mail','',11,'de'),('Benutzername','',12,'de'),('Passwort','',13,'de'),('Standort','',14,'de'),('Benutzertyp',NULL,15,'de'),('Geburtstag','',16,'de'),('Workflow Applikation','',17,'de'),('Feldtyp','',19,'de'),('Feldtyp','',20,'de'),('ullFlow Anwendung','',28,'de'),('','',22,'de'),('','',23,'de'),('ullFlow Schritt','',30,'de'),('ullFlow Aktion','',31,'de'),('ullFlow Dokument','',32,'de'),('ullFlow Schritt','',33,'de'),('ullFlow Aktion','',34,'de'),('ullFlow Anwendung','',35,'de'),('ullFlow Aktion','',36,'de'),('Zugewiesen an Benutzer','',37,'de'),('Benutzer','',38,'de');
 /*!40000 ALTER TABLE `ull_column_info_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,7 +280,7 @@ CREATE TABLE `ull_flow_doc` (
 
 LOCK TABLES `ull_flow_doc` WRITE;
 /*!40000 ALTER TABLE `ull_flow_doc` DISABLE KEYS */;
-INSERT INTO `ull_flow_doc` VALUES (20,1,'Maus piepst',1,1,NULL,1,1,'2008-03-28 10:36:42',1,'2008-03-28 10:47:10'),(22,2,'Patrick anrufen',1,1,NULL,NULL,1,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(23,2,'Kletterkurs checken',1,NULL,NULL,NULL,1,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35'),(29,1,'bier aus!',5,0,0,3,1,'2008-03-29 20:17:29',1,'2008-03-31 11:17:38'),(40,1,'lina kaputt',6,0,0,0,1,'2008-03-31 12:48:10',1,'2008-03-31 12:50:29'),(44,1,'test',3,16,0,2,1,'2008-03-31 12:58:40',1,'2008-03-31 13:00:34');
+INSERT INTO `ull_flow_doc` VALUES (22,2,'Patrick anrufen',1,1,NULL,NULL,1,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(23,2,'Kletterkurs checken',1,NULL,NULL,NULL,1,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35');
 /*!40000 ALTER TABLE `ull_flow_doc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -474,7 +474,7 @@ CREATE TABLE `ull_flow_value` (
 
 LOCK TABLES `ull_flow_value` WRITE;
 /*!40000 ALTER TABLE `ull_flow_value` DISABLE KEYS */;
-INSERT INTO `ull_flow_value` VALUES (44,20,3,NULL,1,'1',NULL,'2008-03-28 10:36:42',1,'2008-03-28 10:47:10'),(45,20,1,NULL,1,'Maus piepst',NULL,'2008-03-28 10:36:42',1,'2008-03-28 10:47:10'),(46,20,2,NULL,1,'Die Maus piepst stÃ¤ndig, ist ja ur nervig!\r\n\r\nBitte lÃ¶sen!',NULL,'2008-03-28 10:36:42',1,'2008-03-28 10:47:10'),(47,20,5,NULL,1,'31.03.2008',NULL,'2008-03-28 10:36:42',1,'2008-03-28 10:47:10'),(48,20,4,NULL,1,'kommentar',NULL,'2008-03-28 10:36:42',1,'2008-03-28 10:47:10'),(54,22,6,NULL,1,'Patrick anrufen',NULL,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(55,22,7,NULL,1,'wegen Tickettool',NULL,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(56,22,8,NULL,1,'31.03.2008',NULL,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(57,23,6,NULL,1,'Kletterkurs checken',NULL,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35'),(58,23,7,NULL,1,'',NULL,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35'),(59,23,8,NULL,1,'',NULL,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35'),(85,29,3,NULL,1,'1',NULL,'2008-03-29 20:17:29',1,'2008-03-31 11:17:38'),(86,29,1,NULL,1,'bier aus!',NULL,'2008-03-29 20:17:29',1,'2008-03-31 11:17:38'),(87,29,2,NULL,1,'nachbestellen, aber schnell!',NULL,'2008-03-29 20:17:29',1,'2008-03-31 11:17:38'),(88,29,5,0,1,'Array',NULL,'2008-03-29 20:17:29',1,'2008-03-31 11:17:38'),(89,29,4,NULL,1,'test',NULL,'2008-03-29 20:17:29',1,'2008-03-31 11:17:38'),(164,44,4,NULL,1,'',NULL,'2008-03-31 12:58:40',1,'2008-03-31 13:00:33'),(163,44,5,NULL,1,'Array',NULL,'2008-03-31 12:58:40',1,'2008-03-31 13:00:33'),(144,40,4,NULL,1,'blabla',NULL,'2008-03-31 12:48:11',1,'2008-03-31 12:50:29'),(143,40,5,NULL,1,'Array',NULL,'2008-03-31 12:48:11',1,'2008-03-31 12:50:29'),(142,40,2,NULL,1,'bitte reparieren',NULL,'2008-03-31 12:48:10',1,'2008-03-31 12:50:29'),(140,40,3,NULL,1,'1',NULL,'2008-03-31 12:48:10',1,'2008-03-31 12:50:29'),(141,40,1,NULL,1,'lina kaputt',NULL,'2008-03-31 12:48:10',1,'2008-03-31 12:50:29'),(162,44,2,NULL,1,'blabla',NULL,'2008-03-31 12:58:40',1,'2008-03-31 13:00:33'),(161,44,1,NULL,1,'test',NULL,'2008-03-31 12:58:40',1,'2008-03-31 13:00:33'),(160,44,3,NULL,1,'1',NULL,'2008-03-31 12:58:40',1,'2008-03-31 13:00:33');
+INSERT INTO `ull_flow_value` VALUES (54,22,6,NULL,1,'Patrick anrufen',NULL,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(55,22,7,NULL,1,'wegen Tickettool',NULL,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(56,22,8,NULL,1,'31.03.2008',NULL,'2008-03-28 10:52:22',1,'2008-03-28 10:52:22'),(57,23,6,NULL,1,'Kletterkurs checken',NULL,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35'),(58,23,7,NULL,1,'',NULL,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35'),(59,23,8,NULL,1,'',NULL,'2008-03-28 10:52:35',1,'2008-03-28 10:52:35');
 /*!40000 ALTER TABLE `ull_flow_value` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -618,7 +618,7 @@ CREATE TABLE `ull_user` (
 
 LOCK TABLES `ull_user` WRITE;
 /*!40000 ALTER TABLE `ull_user` DISABLE KEYS */;
-INSERT INTO `ull_user` VALUES (1,'Klemens','Ullmann','klemens.ullmann@ull.at','klemens','37601911917981896e9ea414233b4f2004235639',1,NULL,'1977-05-20',NULL,NULL,1,'2008-03-14 11:02:54'),(2,'Elisa','Marx','elisa@ull.at','elisa','',NULL,2,'1977-03-24',NULL,'2007-09-03 08:58:07',1,'2008-03-16 10:07:46'),(16,'Tom','Turbo','t','t','',0,NULL,NULL,1,'2008-03-27 11:31:40',1,'2008-03-27 11:46:10');
+INSERT INTO `ull_user` VALUES (1,'Master','Admin','admin@example.com','admin','21232f297a57a5a743894a0e4a801fc3',0,NULL,'1977-05-20',NULL,NULL,1,'2008-04-01 10:47:02'),(2,'Thomas','Test','test@example.com','test','098f6bcd4621d373cade4e832627b4f6',0,2,'1977-03-24',NULL,'2007-09-03 08:58:07',1,'2008-04-01 10:48:12');
 /*!40000 ALTER TABLE `ull_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -673,7 +673,7 @@ CREATE TABLE `ull_wiki` (
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `wiki_docid_index` (`docid`)
-) ENGINE=MyISAM AUTO_INCREMENT=235 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=236 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ull_wiki`
@@ -681,6 +681,7 @@ CREATE TABLE `ull_wiki` (
 
 LOCK TABLES `ull_wiki` WRITE;
 /*!40000 ALTER TABLE `ull_wiki` DISABLE KEYS */;
+INSERT INTO `ull_wiki` VALUES (235,1,1,'en','<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>','My first entry','',NULL,1,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-01 10:43:03');
 /*!40000 ALTER TABLE `ull_wiki` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -693,4 +694,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-04-01  7:19:58
+-- Dump completed on 2008-04-01  9:16:37

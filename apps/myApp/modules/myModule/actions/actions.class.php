@@ -16,6 +16,6 @@ class myModuleActions extends sfActions
    */
   public function executeIndex()
   {
-    $this->forward('default', 'module');
+    //$this->forward('default', 'module');
   }
 }
