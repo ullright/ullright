@@ -1,0 +1,16 @@
+rendering: ~
+web_debug: ~
+security:  ~
+
+# generally, you will want to insert your own filters here
+i18n:
+  class: i18nFilter
+referer:
+  class: refererFilter
+theme:
+  class: themeFilter
+
+cache:     ~
+common:    ~
+flash:     ~
+execution: ~

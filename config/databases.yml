@@ -1,0 +1,11 @@
+all:
+  propel:
+    class:          sfPropelDatabase
+    param:
+      phptype:      mysql
+      hostspec:     localhost
+      database:     ullright
+      username:     ullright
+      password:     right&wrong!
+      port:         3306
+      persistant:   true

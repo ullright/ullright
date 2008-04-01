@@ -1,0 +1,16 @@
+Apr 01 08:36:49 symfony [warning] {sfPhpConfigHandler} php.ini "magic_quotes_gpc" key is better set to "false" (current value is "'1'" - php.ini location: "/etc/php5/apache2/php.ini")
+Apr 01 08:36:49 symfony [info] {sfRouting} connect "/"
+Apr 01 08:36:49 symfony [info] {sfRouting} connect "/symfony/:action/*"
+Apr 01 08:36:49 symfony [info] {sfRouting} connect "/:module"
+Apr 01 08:36:49 symfony [info] {sfRouting} connect "/:module/:action/*"
+Apr 01 08:36:49 symfony [info] {sfContext} initialization
+Apr 01 08:36:49 symfony [info] {sfController} initialization
+Apr 01 08:36:49 symfony [info] {sfRouting} match route [homepage] "/"
+Apr 01 08:36:49 symfony [info] {sfRequest} request parameters array (  'module' => 'default',  'action' => 'index',)
+Apr 01 08:36:50 symfony [info] {sfController} dispatch request
+Apr 01 08:37:23 symfony [warning] {sfPhpConfigHandler} php.ini "magic_quotes_gpc" key is better set to "false" (current value is "'1'" - php.ini location: "/etc/php5/apache2/php.ini")
+Apr 01 08:37:23 symfony [info] {sfContext} initialization
+Apr 01 08:37:23 symfony [info] {sfController} initialization
+Apr 01 08:37:23 symfony [info] {sfRouting} match route [homepage] "/"
+Apr 01 08:37:23 symfony [info] {sfRequest} request parameters array (  'module' => 'default',  'action' => 'index',)
+Apr 01 08:37:23 symfony [info] {sfController} dispatch request
