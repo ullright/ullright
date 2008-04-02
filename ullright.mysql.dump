@@ -272,7 +272,7 @@ CREATE TABLE `ull_flow_doc` (
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `ull_flow_instance_FI_1` (`ull_flow_app_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ull_flow_doc`
@@ -355,7 +355,7 @@ CREATE TABLE `ull_flow_memory` (
   KEY `ull_flow_memory_FI_1` (`ull_flow_doc_id`),
   KEY `ull_flow_memory_FI_2` (`ull_flow_step_id`),
   KEY `ull_flow_memory_FI_3` (`ull_flow_action_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ull_flow_memory`
@@ -466,7 +466,7 @@ CREATE TABLE `ull_flow_value` (
   PRIMARY KEY  (`id`),
   KEY `ull_flow_value_FI_1` (`ull_flow_doc_id`),
   KEY `ull_flow_value_FI_2` (`ull_flow_field_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=196 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=201 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ull_flow_value`
@@ -673,7 +673,7 @@ CREATE TABLE `ull_wiki` (
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `wiki_docid_index` (`docid`)
-) ENGINE=MyISAM AUTO_INCREMENT=236 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=241 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ull_wiki`
@@ -681,7 +681,7 @@ CREATE TABLE `ull_wiki` (
 
 LOCK TABLES `ull_wiki` WRITE;
 /*!40000 ALTER TABLE `ull_wiki` DISABLE KEYS */;
-INSERT INTO `ull_wiki` VALUES (235,1,1,'en','<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>','My first entry','',NULL,1,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-01 10:43:03');
+INSERT INTO `ull_wiki` VALUES (235,1,0,'en','<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>','My first entry','',NULL,1,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-02 10:49:31'),(236,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>blabla</li>\r\n    <li>dieses:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,1,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(237,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>blabla</li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,2,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(238,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>bl<strong>abla</strong></li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,3,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(239,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>bl<strong>abla</strong></li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>\r\n<p><a href=\"/uploads/assets/file/indent1.png\">schnu</a></p>','test','',NULL,4,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:44:58'),(240,1,1,'de','<h1>Test</h1>\r\n<p>&nbsp;</p>\r\n<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<p>Testimage: <img width=\"48\" height=\"49\" src=\"/uploads/assets/image/test_image.png\" alt=\"test_image\" /></p>\r\n<p>&nbsp;</p>\r\n<p><a href=\"/uploads/assets/test_doc.pdf\">Testlink to document</a></p>','My first entry','',NULL,2,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-02 10:49:31');
 /*!40000 ALTER TABLE `ull_wiki` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -694,4 +694,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-04-01 12:48:58
+-- Dump completed on 2008-04-02  8:58:48
