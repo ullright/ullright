@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+
+PROJECT=`cat ../config/ull_project_name.txt`
+DBPASS=`cat ../config/ull_db_password.txt`
+
+mysqldump -u $PROJECT --password=$DBPASS --add-drop-table $PROJECT > ../data/sql/$PROJECT.production.mysql.dump

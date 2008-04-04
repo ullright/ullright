@@ -1,6 +1,4 @@
-/* old definition: int(10) unsigned default NULL
-   new definition: INTEGER */
-ALTER TABLE `schema_info` CHANGE `version` `version` INTEGER;
+DROP TABLE `schema_info`;
 /* old definition: varchar(7) NOT NULL
    new definition: VARCHAR(7) default 'null' NOT NULL */
 ALTER TABLE `ull_culture` CHANGE `iso_code` `iso_code` VARCHAR(7) default 'null' NOT NULL;
@@ -82,8 +80,6 @@ ALTER TABLE `ull_flow_value` ADD CONSTRAINT `ull_flow_value_FK_2`
 ALTER TABLE `ull_flow_value` ADD CONSTRAINT `ull_flow_value_FK_3`
 		FOREIGN KEY (`ull_flow_memory_id`)
 		REFERENCES `ull_flow_memory` (`id`);
-ALTER TABLE `schema_info` ADD `id` INTEGER  NOT NULL AUTO_INCREMENT;
-ALTER TABLE `schema_info` ADD PRIMARY INDEX `` (`id`);
 ALTER TABLE `ull_column_info` ADD  INDEX `ull_column_info_FI_1` (`ull_field_id`);
 ALTER TABLE `ull_column_info` ADD CONSTRAINT `ull_column_info_FK_1`
 		FOREIGN KEY (`ull_field_id`)
