@@ -1,3 +1,12 @@
 # default values
 all:
   theme:         ullThemeDefault
+  
+  mailing:
+    charset:        utf-8
+    mailer:         sendmailsmtp
+    #smtp_hostname:  
+    #smtp_username:  
+    #smtp_passwort:  
+    debug_address:  me@example.com
+    send_copy_flag: true     # in prod environment: send a copy of every mail to the debug_address  
