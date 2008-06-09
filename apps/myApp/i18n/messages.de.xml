@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+
+
+
+
+<trans-unit id="1">
+<source>Tickets assigned to group IT-Helpdesk</source>
+<target>Tickets die an Gruppe IT-Helpdesk zugewiesen sind</target>
+</trans-unit>
+
+<trans-unit id="2">
+<source>Send to IT-Helpdesk</source>
+<target>Sende an IT-Helpdesk</target>
+</trans-unit>
+
+<trans-unit id="2">
+<source>Send to caller</source>
+<target>Sende an Anrufer</target>
+</trans-unit>
+
+    </body>
+  </file>
+</xliff>

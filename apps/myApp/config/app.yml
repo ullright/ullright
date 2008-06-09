@@ -5,8 +5,11 @@ all:
   mailing:
     charset:        utf-8
     mailer:         sendmailsmtp
-    #smtp_hostname:  
+    smtp_hostname:  localhost  
     #smtp_username:  
     #smtp_passwort:  
     debug_address:  me@example.com
-    send_copy_flag: true     # in prod environment: send a copy of every mail to the debug_address  
+    send_copy_flag: true     # in prod environment: send a copy of every mail to the debug_address
+    
+  auth:
+    function: internal      
