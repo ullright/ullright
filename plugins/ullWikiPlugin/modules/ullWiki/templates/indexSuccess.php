@@ -24,7 +24,7 @@
 <h4><?php echo __('Queries', null, 'common'); ?></h4>
 <ul>
   <li><?php echo ull_reqpass_link_to(__('New entries', null, 'common'), array('action' => 'list')) ?></li>
-  <li><?php echo ull_reqpass_link_to(__('Ordered by subject', null, 'common'), array('action' => 'list', 'order' => 'SUBJECT')) ?></li>
+  <li><?php echo ull_reqpass_link_to(__('Ordered by subject', null, 'common'), array('action' => 'list', 'sort' => 'subject')) ?></li>
 </ul>
 
 <?php
