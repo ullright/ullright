@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: ullright
 -- ------------------------------------------------------
--- Server version	5.0.45-Debian_1ubuntu3.3-log
+-- Server version	5.0.51a-3ubuntu5.1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -20,9 +20,12 @@
 --
 
 DROP TABLE IF EXISTS `schema_info`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `schema_info` (
   `version` int(10) unsigned default NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `schema_info`
@@ -35,10 +38,125 @@ INSERT INTO `schema_info` VALUES (24);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sf_tag`
+--
+
+DROP TABLE IF EXISTS `sf_tag`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `sf_tag` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(100) default NULL,
+  `is_triple` int(11) default NULL,
+  `triple_namespace` varchar(100) default NULL,
+  `triple_key` varchar(100) default NULL,
+  `triple_value` varchar(100) default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `name` (`name`),
+  KEY `triple1` (`triple_namespace`),
+  KEY `triple2` (`triple_key`),
+  KEY `triple3` (`triple_value`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping data for table `sf_tag`
+--
+
+LOCK TABLES `sf_tag` WRITE;
+/*!40000 ALTER TABLE `sf_tag` DISABLE KEYS */;
+INSERT INTO `sf_tag` VALUES (1,'bla',0,NULL,NULL,NULL),(2,'hardware',0,NULL,NULL,NULL),(3,'lcd',0,NULL,NULL,NULL),(4,'software',0,NULL,NULL,NULL),(5,'openoffice',0,NULL,NULL,NULL),(6,'install',0,NULL,NULL,NULL),(7,'printer',0,NULL,NULL,NULL),(8,'windows',0,NULL,NULL,NULL),(9,'ubuntu',0,NULL,NULL,NULL),(10,'error',0,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `sf_tag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sf_tagging`
+--
+
+DROP TABLE IF EXISTS `sf_tagging`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `sf_tagging` (
+  `id` int(11) NOT NULL auto_increment,
+  `tag_id` int(11) NOT NULL,
+  `taggable_model` varchar(30) default NULL,
+  `taggable_id` int(11) default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `tag` (`tag_id`),
+  KEY `taggable` (`taggable_model`,`taggable_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping data for table `sf_tagging`
+--
+
+LOCK TABLES `sf_tagging` WRITE;
+/*!40000 ALTER TABLE `sf_tagging` DISABLE KEYS */;
+INSERT INTO `sf_tagging` VALUES (1,1,'UllFlowDoc',53),(2,2,'UllFlowDoc',55),(3,3,'UllFlowDoc',55),(4,4,'UllFlowDoc',56),(5,5,'UllFlowDoc',56),(6,6,'UllFlowDoc',56),(7,2,'UllFlowDoc',57),(8,7,'UllFlowDoc',57),(9,2,'UllFlowDoc',58),(10,6,'UllFlowDoc',58),(11,3,'UllFlowDoc',58),(12,4,'UllFlowDoc',58),(13,6,'UllFlowDoc',59),(14,4,'UllFlowDoc',59),(15,8,'UllFlowDoc',59),(16,9,'UllFlowDoc',59),(17,4,'UllFlowDoc',60),(18,8,'UllFlowDoc',60),(19,10,'UllFlowDoc',60),(20,10,'UllWiki',241),(21,2,'UllWiki',241),(22,7,'UllWiki',241);
+/*!40000 ALTER TABLE `sf_tagging` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ull_access_group`
+--
+
+DROP TABLE IF EXISTS `ull_access_group`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `ull_access_group` (
+  `id` int(11) NOT NULL auto_increment,
+  `useless_flag` tinyint(1) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping data for table `ull_access_group`
+--
+
+LOCK TABLES `ull_access_group` WRITE;
+/*!40000 ALTER TABLE `ull_access_group` DISABLE KEYS */;
+INSERT INTO `ull_access_group` VALUES (1,1);
+/*!40000 ALTER TABLE `ull_access_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ull_access_group_group`
+--
+
+DROP TABLE IF EXISTS `ull_access_group_group`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `ull_access_group_group` (
+  `id` int(11) NOT NULL auto_increment,
+  `ull_access_group_id` int(11) default NULL,
+  `ull_group_id` int(11) default NULL,
+  `read_flag` int(11) default NULL,
+  `write_flag` int(11) default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `ull_access_group_group_FI_1` (`ull_access_group_id`),
+  KEY `ull_access_group_group_FI_2` (`ull_group_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping data for table `ull_access_group_group`
+--
+
+LOCK TABLES `ull_access_group_group` WRITE;
+/*!40000 ALTER TABLE `ull_access_group_group` DISABLE KEYS */;
+INSERT INTO `ull_access_group_group` VALUES (1,1,1,1,1);
+/*!40000 ALTER TABLE `ull_access_group_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ull_column_info`
 --
 
 DROP TABLE IF EXISTS `ull_column_info`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_column_info` (
   `id` int(11) NOT NULL auto_increment,
   `db_table_name` varchar(32) default NULL,
@@ -51,7 +169,8 @@ CREATE TABLE `ull_column_info` (
   `caption_i18n_default` varchar(64) default NULL,
   `description_i18n_default` text,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_column_info`
@@ -59,7 +178,7 @@ CREATE TABLE `ull_column_info` (
 
 LOCK TABLES `ull_column_info` WRITE;
 /*!40000 ALTER TABLE `ull_column_info` DISABLE KEYS */;
-INSERT INTO `ull_column_info` VALUES (1,'ull_user','id',0,NULL,1,1,NULL,'ID','The unique ID of the User'),(9,'ull_user','first_name',1,NULL,1,1,1,'',''),(10,'ull_user','last_name',1,NULL,1,1,1,'Last name',''),(11,'ull_user','email',1,NULL,1,1,1,'Email',''),(12,'ull_user','username',1,NULL,1,1,1,'Username',''),(13,'ull_user','password',11,NULL,1,NULL,NULL,'Password',''),(14,'ull_user','location_id',1,NULL,0,0,0,'Location',''),(15,'ull_user','user_type',NULL,NULL,NULL,NULL,NULL,'User type',NULL),(16,'ull_user','birthday',1,NULL,0,0,0,'Day of Birth',''),(17,'ull_flow_field','ull_flow_app_id',5,NULL,1,1,NULL,'Workflow Application',''),(19,'ull_flow_field','ull_field_id',5,NULL,1,1,NULL,'Field Type',''),(20,'ull_column_info','ull_field_id',5,NULL,1,1,1,'Fieldtype',''),(22,'ull_column_info','db_table_name',1,NULL,1,1,1,'',''),(23,'ull_column_info','db_column_name',1,NULL,1,1,1,'',''),(28,'ull_flow_step','ull_flow_app_id',5,NULL,1,1,1,'ullFlow Application',''),(30,'ull_flow_step_action','ull_flow_step_id',5,NULL,1,1,1,'ullFlow Step',''),(31,'ull_flow_step_action','ull_flow_action_id',5,NULL,1,1,1,'ullFlow Action',''),(32,'ull_flow_memory','ull_flow_doc_id',5,NULL,1,1,1,'ullFlow document',''),(33,'ull_flow_memory','ull_flow_step_id',5,NULL,1,1,1,'ullFlow step',''),(34,'ull_flow_memory','ull_flow_action_id',5,NULL,1,1,1,'ullFlow action',''),(35,'ull_flow_doc','ull_flow_app_id',5,NULL,1,1,1,'ullFlow application',''),(36,'ull_flow_doc','ull_flow_action_id',5,NULL,1,1,1,'ullFlow action',''),(37,'ull_flow_doc','assigned_to_ull_user_id',9,NULL,1,1,0,'Assigned to user',''),(38,'ull_user_group','ull_user_id',9,'',1,1,1,'User',''),(39,'ull_user_group','ull_group_id',5,NULL,1,1,1,'Group',''),(40,'ull_flow_step','is_start',3,NULL,1,1,0,'is startstep?',''),(41,'ull_select_child','ull_select_id',5,NULL,1,1,NULL,'Select Box',NULL);
+INSERT INTO `ull_column_info` VALUES (1,'ull_user','id',0,NULL,1,1,NULL,'ID','The unique ID of the User'),(9,'ull_user','first_name',1,NULL,1,1,1,'',''),(10,'ull_user','last_name',1,NULL,1,1,1,'Last name',''),(11,'ull_user','email',1,NULL,1,1,1,'Email',''),(12,'ull_user','username',1,NULL,1,1,1,'Username',''),(13,'ull_user','password',11,NULL,1,NULL,NULL,'Password',''),(14,'ull_user','location_id',1,NULL,0,0,0,'Location',''),(15,'ull_user','user_type',NULL,NULL,NULL,NULL,NULL,'User type',NULL),(16,'ull_user','birthday',1,NULL,0,0,0,'Day of Birth',''),(17,'ull_flow_field','ull_flow_app_id',5,NULL,1,1,NULL,'Workflow Application',''),(19,'ull_flow_field','ull_field_id',5,NULL,1,1,NULL,'Field Type',''),(20,'ull_column_info','ull_field_id',5,NULL,1,1,1,'Fieldtype',''),(22,'ull_column_info','db_table_name',1,NULL,1,1,1,'',''),(23,'ull_column_info','db_column_name',1,NULL,1,1,1,'',''),(28,'ull_flow_step','ull_flow_app_id',5,NULL,1,1,1,'ullFlow Application',''),(30,'ull_flow_step_action','ull_flow_step_id',5,NULL,1,1,1,'ullFlow Step',''),(31,'ull_flow_step_action','ull_flow_action_id',5,NULL,1,1,1,'ullFlow Action',''),(32,'ull_flow_memory','ull_flow_doc_id',5,NULL,1,1,1,'ullFlow document',''),(33,'ull_flow_memory','ull_flow_step_id',5,NULL,1,1,1,'ullFlow step',''),(34,'ull_flow_memory','ull_flow_action_id',5,NULL,1,1,1,'ullFlow action',''),(35,'ull_flow_doc','ull_flow_app_id',5,'',1,1,1,'Application',''),(36,'ull_flow_doc','ull_flow_action_id',5,NULL,1,1,1,'ullFlow action',''),(37,'ull_flow_doc','assigned_to_ull_user_id',9,NULL,1,1,0,'Assigned to user',''),(38,'ull_user_group','ull_user_id',9,'',1,1,1,'User',''),(39,'ull_user_group','ull_group_id',5,NULL,1,1,1,'Group',''),(40,'ull_flow_step','is_start',3,NULL,1,1,0,'is startstep?',''),(41,'ull_select_child','ull_select_id',5,NULL,1,1,NULL,'Select Box',NULL),(42,'ull_flow_doc','title',1,'',1,1,0,'Subject',''),(43,'ull_flow_doc','priority',1,'',1,1,0,'Priority',''),(44,'ull_access_group_group','ull_group_id',5,'',1,1,0,'Group','');
 /*!40000 ALTER TABLE `ull_column_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,6 +187,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_column_info_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_column_info_i18n` (
   `caption_i18n` varchar(64) default NULL,
   `description_i18n` text,
@@ -75,6 +196,7 @@ CREATE TABLE `ull_column_info_i18n` (
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_column_info_i18n`
@@ -82,7 +204,7 @@ CREATE TABLE `ull_column_info_i18n` (
 
 LOCK TABLES `ull_column_info_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_column_info_i18n` DISABLE KEYS */;
-INSERT INTO `ull_column_info_i18n` VALUES ('ID','Die eindeutige ID des Users',1,'de'),('Vorname','',9,'de'),('Nachname','',10,'de'),('E-Mail','',11,'de'),('Benutzername','',12,'de'),('Passwort','',13,'de'),('Standort','',14,'de'),('Benutzertyp',NULL,15,'de'),('Geburtstag','',16,'de'),('Workflow Applikation','',17,'de'),('Feldtyp','',19,'de'),('Feldtyp','',20,'de'),('ullFlow Anwendung','',28,'de'),('','',22,'de'),('','',23,'de'),('ullFlow Schritt','',30,'de'),('ullFlow Aktion','',31,'de'),('ullFlow Dokument','',32,'de'),('ullFlow Schritt','',33,'de'),('ullFlow Aktion','',34,'de'),('ullFlow Anwendung','',35,'de'),('ullFlow Aktion','',36,'de'),('Zugewiesen an Benutzer','',37,'de'),('Benutzer','',38,'de'),('Gruppe','',39,'de'),('ist der Startschritt?','',40,'de'),('SelectBox',NULL,41,'de');
+INSERT INTO `ull_column_info_i18n` VALUES ('ID','Die eindeutige ID des Users',1,'de'),('Vorname','',9,'de'),('Nachname','',10,'de'),('E-Mail','',11,'de'),('Benutzername','',12,'de'),('Passwort','',13,'de'),('Standort','',14,'de'),('Benutzertyp',NULL,15,'de'),('Geburtstag','',16,'de'),('Workflow Applikation','',17,'de'),('Feldtyp','',19,'de'),('Feldtyp','',20,'de'),('ullFlow Anwendung','',28,'de'),('','',22,'de'),('','',23,'de'),('ullFlow Schritt','',30,'de'),('ullFlow Aktion','',31,'de'),('ullFlow Dokument','',32,'de'),('ullFlow Schritt','',33,'de'),('ullFlow Aktion','',34,'de'),('Anwendung','',35,'de'),('ullFlow Aktion','',36,'de'),('Zugewiesen an Benutzer','',37,'de'),('Benutzer','',38,'de'),('Gruppe','',39,'de'),('ist der Startschritt?','',40,'de'),('SelectBox',NULL,41,'de'),('Betreff','',42,'de'),('Wichtigkeit','',43,'de'),('Gruppe','',44,'de');
 /*!40000 ALTER TABLE `ull_column_info_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,6 +213,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_culture`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_culture` (
   `id` int(11) NOT NULL auto_increment,
   `iso_code` varchar(7) NOT NULL,
@@ -98,6 +222,7 @@ CREATE TABLE `ull_culture` (
   PRIMARY KEY  (`id`),
   KEY `culture_iso_code_index` (`iso_code`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_culture`
@@ -114,6 +239,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_field`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_field` (
   `id` int(11) NOT NULL auto_increment,
   `field_type` varchar(32) default NULL,
@@ -123,7 +250,8 @@ CREATE TABLE `ull_field` (
   `updator_user_id` int(11) default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_field`
@@ -131,7 +259,7 @@ CREATE TABLE `ull_field` (
 
 LOCK TABLES `ull_field` WRITE;
 /*!40000 ALTER TABLE `ull_field` DISABLE KEYS */;
-INSERT INTO `ull_field` VALUES (1,'text','Single-row text field',1,'2008-03-14 15:43:57',1,'2008-03-18 10:00:11'),(2,'textarea','Multi-row text field',1,'2008-03-14 15:44:33',1,'2008-03-14 15:44:33'),(3,'checkbox','Checkbox',1,'2008-03-14 15:48:54',1,'2008-03-14 15:48:54'),(5,'select_auto','Automatical Select Box',1,'2008-03-23 16:29:27',1,'2008-03-23 16:40:40'),(6,'date','Date',1,'2008-03-28 10:28:48',1,'2008-03-28 10:28:48'),(7,'datetime','Date and time',1,'2008-03-28 10:29:04',1,'2008-03-28 10:29:04'),(8,'integer','Integer',1,'2008-03-28 10:29:29',1,'2008-03-28 10:29:29'),(9,'user','User',1,'2008-03-28 10:29:58',1,'2008-03-28 10:29:58'),(10,'select','Select Box',1,'2008-04-14 09:22:54',1,'2008-04-14 09:22:54'),(11,'password','Password',1,'2008-04-14 09:22:54',1,'2008-04-14 09:22:54');
+INSERT INTO `ull_field` VALUES (1,'text','Single-row text field',1,'2008-03-14 15:43:57',1,'2008-03-18 10:00:11'),(2,'textarea','Multi-row text field',1,'2008-03-14 15:44:33',1,'2008-03-14 15:44:33'),(3,'checkbox','Checkbox',1,'2008-03-14 15:48:54',1,'2008-03-14 15:48:54'),(5,'select_auto','Automatical Select Box',1,'2008-03-23 16:29:27',1,'2008-03-23 16:40:40'),(6,'date','Date',1,'2008-03-28 10:28:48',1,'2008-03-28 10:28:48'),(7,'datetime','Date and time',1,'2008-03-28 10:29:04',1,'2008-03-28 10:29:04'),(8,'integer','Integer',1,'2008-03-28 10:29:29',1,'2008-03-28 10:29:29'),(9,'user','User',1,'2008-03-28 10:29:58',1,'2008-03-28 10:29:58'),(10,'select','Select Box',1,'2008-04-14 09:22:54',1,'2008-04-14 09:22:54'),(11,'password','Password',1,'2008-04-14 09:22:54',1,'2008-04-14 09:22:54'),(12,'upload','Upload',1,'2008-06-09 09:10:58',1,'2008-06-09 09:10:58'),(13,'wiki_link','Wiki links',1,'2008-06-09 09:14:06',1,'2008-06-09 09:14:06'),(14,'information_update','Information update',1,'2008-06-09 09:15:41',1,'2008-06-09 09:15:41'),(15,'tags','Tags',1,'2008-06-09 09:19:54',1,'2008-06-09 09:19:54');
 /*!40000 ALTER TABLE `ull_field` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,12 +268,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_field_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_field_i18n` (
   `caption_i18n` varchar(64) default NULL,
   `id` int(11) NOT NULL,
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_field_i18n`
@@ -153,7 +284,7 @@ CREATE TABLE `ull_field_i18n` (
 
 LOCK TABLES `ull_field_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_field_i18n` DISABLE KEYS */;
-INSERT INTO `ull_field_i18n` VALUES ('Einzeiliges Textfeld',1,'de'),('Mehrzeiliges Textfeld',2,'de'),('Ankreuzfeld @:-)',3,'de'),('Automatisches Auswahlfeld',5,'de'),('Datum',6,'de'),('Datum und Uhrzeit',7,'de'),('Ganzzahl',8,'de'),('Benutzer',9,'de'),('Auswahlfeld',10,'de'),('Passwort',11,'de');
+INSERT INTO `ull_field_i18n` VALUES ('Einzeiliges Textfeld',1,'de'),('Mehrzeiliges Textfeld',2,'de'),('Ankreuzfeld @:-)',3,'de'),('Automatisches Auswahlfeld',5,'de'),('Datum',6,'de'),('Datum und Uhrzeit',7,'de'),('Ganzzahl',8,'de'),('Benutzer',9,'de'),('Auswahlfeld',10,'de'),('Passwort',11,'de'),('Anhang',12,'de'),('Wiki Links',13,'de'),('Informations Update',14,'de'),('Tags',15,'de');
 /*!40000 ALTER TABLE `ull_field_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,6 +293,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_action`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_action` (
   `id` int(11) NOT NULL auto_increment,
   `slug` varchar(32) default NULL,
@@ -172,12 +305,14 @@ CREATE TABLE `ull_flow_action` (
   `notify_next` tinyint(1) default NULL,
   `in_resultlist_by_default` tinyint(1) default NULL,
   `show_assigned_to` tinyint(1) default NULL,
+  `comment_is_mandatory` int(11) default NULL,
   `creator_user_id` int(11) default NULL,
   `created_at` datetime default NULL,
   `updator_user_id` int(11) default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_action`
@@ -185,7 +320,7 @@ CREATE TABLE `ull_flow_action` (
 
 LOCK TABLES `ull_flow_action` WRITE;
 /*!40000 ALTER TABLE `ull_flow_action` DISABLE KEYS */;
-INSERT INTO `ull_flow_action` VALUES (1,'create','Created',1,NULL,NULL,NULL,1,NULL,1,'2008-03-28 15:24:05',1,'2008-03-31 10:15:37'),(2,'edit','Edited',1,NULL,NULL,NULL,1,NULL,1,'2008-03-28 15:24:44',1,'2008-03-31 10:15:44'),(3,'assign_to_user','Assigned to user',0,NULL,NULL,1,1,1,1,'2008-03-28 15:29:37',1,'2008-03-28 17:14:26'),(4,'assign_to_group','Assigned to group',0,NULL,NULL,1,1,1,1,'2008-03-28 15:29:57',1,'2008-03-28 17:14:18'),(5,'close','Closed',0,NULL,1,NULL,NULL,NULL,1,'2008-03-28 15:30:58',1,'2008-03-28 17:13:50'),(6,'save_close','Edited',1,1,NULL,NULL,1,NULL,1,'2008-03-31 12:34:44',1,'2008-03-31 12:35:34'),(7,'send','Sent',NULL,NULL,NULL,1,1,NULL,1,'2008-04-14 09:22:54',1,'2008-04-14 09:22:54');
+INSERT INTO `ull_flow_action` VALUES (1,'create','Created',1,NULL,NULL,NULL,1,NULL,NULL,1,'2008-03-28 15:24:05',1,'2008-03-31 10:15:37'),(2,'edit','Edited',1,NULL,NULL,NULL,1,NULL,NULL,1,'2008-03-28 15:24:44',1,'2008-03-31 10:15:44'),(3,'assign_to_user','Assigned to user',0,NULL,NULL,1,1,1,NULL,1,'2008-03-28 15:29:37',1,'2008-03-28 17:14:26'),(4,'assign_to_group','Assigned to group',0,NULL,NULL,1,1,1,NULL,1,'2008-03-28 15:29:57',1,'2008-03-28 17:14:18'),(5,'close','Closed',0,NULL,1,NULL,NULL,NULL,NULL,1,'2008-03-28 15:30:58',1,'2008-03-28 17:13:50'),(6,'save_close','Edited',1,1,NULL,NULL,1,NULL,NULL,1,'2008-03-31 12:34:44',1,'2008-03-31 12:35:34'),(7,'send','Sent',NULL,NULL,NULL,1,1,NULL,NULL,1,'2008-04-14 09:22:54',1,'2008-04-14 09:22:54'),(8,'reopen','Reopened',0,0,0,0,1,0,0,1,'2008-06-09 09:05:48',1,'2008-06-09 09:05:48'),(9,'save_only','Saved only',1,1,0,0,1,0,0,1,'2008-06-09 09:13:15',1,'2008-06-09 09:13:15'),(10,'reject','Rejected',0,0,0,1,1,0,1,1,'2008-06-09 09:29:02',1,'2008-06-09 09:30:07'),(11,'return','Returned',0,0,0,1,1,0,0,1,'2008-06-09 09:29:54',1,'2008-06-09 09:29:54'),(12,'save','Saved',0,0,0,0,1,0,0,1,'2008-06-09 09:31:01',1,'2008-06-09 09:31:01'),(13,'send_to_helpdesk','Sent to IT-helpdesk',0,0,0,1,1,0,0,1,'2008-06-09 11:15:46',1,'2008-06-09 11:15:46'),(14,'send_to_caller','Sent to caller',0,0,0,1,1,0,0,1,'2008-06-09 11:16:12',1,'2008-06-09 11:16:12');
 /*!40000 ALTER TABLE `ull_flow_action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,12 +329,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_action_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_action_i18n` (
   `caption_i18n` varchar(32) default NULL,
   `id` int(11) NOT NULL,
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_action_i18n`
@@ -207,7 +345,7 @@ CREATE TABLE `ull_flow_action_i18n` (
 
 LOCK TABLES `ull_flow_action_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_flow_action_i18n` DISABLE KEYS */;
-INSERT INTO `ull_flow_action_i18n` VALUES ('Erstellt',1,'de'),('Bearbeitet',2,'de'),('Zugewiesen an Benutzer',3,'de'),('Zugewiesen an Gruppe',4,'de'),('Abgeschlossen',5,'de'),('Bearbeitet',6,'de'),('Abgeschickt',7,'de');
+INSERT INTO `ull_flow_action_i18n` VALUES ('Erstellt',1,'de'),('Bearbeitet',2,'de'),('Zugewiesen an Benutzer',3,'de'),('Zugewiesen an Gruppe',4,'de'),('Abgeschlossen',5,'de'),('Bearbeitet',6,'de'),('Abgeschickt',7,'de'),('WiedererÃ¶ffnet',8,'de'),('Gespeichert',9,'de'),('Abgelehnt',10,'de'),('Retourniert',11,'de'),('Gespeichert',12,'de'),('Gesendet an IT-Helpdesk',13,'de'),('Gesendet an Anrufer',14,'de');
 /*!40000 ALTER TABLE `ull_flow_action_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,9 +354,14 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_app`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_app` (
   `caption_i18n_default` varchar(32) default NULL,
   `doc_caption_i18n_default` varchar(32) default NULL,
+  `icon` varchar(256) default NULL,
+  `ull_access_group_id` int(11) default NULL,
+  `default_list_columns` varchar(255) default NULL,
   `creator_user_id` int(11) default NULL,
   `created_at` datetime default NULL,
   `updator_user_id` int(11) default NULL,
@@ -227,6 +370,7 @@ CREATE TABLE `ull_flow_app` (
   `slug` varchar(32) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_app`
@@ -234,7 +378,7 @@ CREATE TABLE `ull_flow_app` (
 
 LOCK TABLES `ull_flow_app` WRITE;
 /*!40000 ALTER TABLE `ull_flow_app` DISABLE KEYS */;
-INSERT INTO `ull_flow_app` VALUES ('Helpdesk Tool',NULL,1,'2008-03-28 09:25:15',1,'2008-04-01 14:40:28',1,'helpdesk_tool'),('Todo List',NULL,1,'2008-03-28 09:25:50',1,'2008-04-01 14:40:40',2,'todo');
+INSERT INTO `ull_flow_app` VALUES ('Trouble Ticket','Ticket','',1,'id,title,priority,custom_field1,created_at,assigned_to_ull_user_id',1,'2008-03-28 09:25:15',1,'2008-06-09 12:04:45',1,'helpdesk_tool'),('Todo','Todo','',0,'',1,'2008-03-28 09:25:50',1,'2008-06-09 09:37:31',2,'todo');
 /*!40000 ALTER TABLE `ull_flow_app` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,6 +387,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_app_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_app_i18n` (
   `caption_i18n` varchar(32) default NULL,
   `doc_caption_i18n` varchar(32) default NULL,
@@ -250,6 +396,7 @@ CREATE TABLE `ull_flow_app_i18n` (
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_app_i18n`
@@ -257,7 +404,7 @@ CREATE TABLE `ull_flow_app_i18n` (
 
 LOCK TABLES `ull_flow_app_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_flow_app_i18n` DISABLE KEYS */;
-INSERT INTO `ull_flow_app_i18n` VALUES ('Helpdesk Tool',NULL,1,'de'),('Aufgaben',NULL,2,'de');
+INSERT INTO `ull_flow_app_i18n` VALUES ('Trouble Ticket','Ticket',1,'de'),('Todo','Todo',2,'de');
 /*!40000 ALTER TABLE `ull_flow_app_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,6 +413,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_doc`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_doc` (
   `id` int(11) NOT NULL auto_increment,
   `ull_flow_app_id` int(11) default NULL,
@@ -274,13 +423,19 @@ CREATE TABLE `ull_flow_doc` (
   `assigned_to_ull_user_id` int(11) default NULL,
   `assigned_to_ull_group_id` int(11) default NULL,
   `assigned_to_ull_flow_step_id` int(11) default NULL,
+  `priority` int(11) default NULL,
+  `deadline` datetime default NULL,
+  `custom_field1` varchar(255) default NULL,
+  `read_ull_group_id` int(11) default NULL,
+  `write_ull_group_id` int(11) default NULL,
   `creator_user_id` int(11) default NULL,
   `created_at` datetime default NULL,
   `updator_user_id` int(11) default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `ull_flow_instance_FI_1` (`ull_flow_app_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_doc`
@@ -288,7 +443,7 @@ CREATE TABLE `ull_flow_doc` (
 
 LOCK TABLES `ull_flow_doc` WRITE;
 /*!40000 ALTER TABLE `ull_flow_doc` DISABLE KEYS */;
-INSERT INTO `ull_flow_doc` VALUES (46,1,'I want a personal ullright installation',6,1,NULL,1,1,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(45,1,'My PC is on fire!',4,0,2,2,1,'2008-04-01 14:27:58',1,'2008-04-01 14:27:59'),(47,2,'Update ullright documentation',6,1,NULL,4,1,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(48,2,'Find excuses to quit work early',6,1,NULL,4,1,'2008-04-01 14:39:11',1,'2008-04-01 14:39:12'),(51,1,'Power outage in server room',4,0,2,2,1,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00');
+INSERT INTO `ull_flow_doc` VALUES (46,1,'I want a personal ullright installation',6,1,NULL,1,NULL,NULL,NULL,NULL,NULL,1,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(45,1,'My PC is on fire!',4,0,2,2,NULL,NULL,NULL,NULL,NULL,1,'2008-04-01 14:27:58',1,'2008-04-01 14:27:59'),(47,2,'Update ullright documentation',6,1,NULL,4,NULL,NULL,NULL,NULL,NULL,1,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(48,2,'Find excuses to quit work early',6,1,NULL,4,NULL,NULL,NULL,NULL,NULL,1,'2008-04-01 14:39:11',1,'2008-04-01 14:39:12'),(51,1,'Power outage in server room',4,0,2,2,NULL,NULL,NULL,NULL,NULL,1,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(53,2,'do something',12,1,NULL,6,3,NULL,NULL,151,152,1,'2008-06-09 10:41:35',1,'2008-06-09 12:13:28'),(56,1,'pls install openoffice',13,0,2,2,3,NULL,'1',157,158,1,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(55,1,'Broken LCD',5,0,2,3,2,NULL,'2',155,156,1,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(57,1,'team-printer myPrint031 out of function',13,0,2,2,1,NULL,'1',159,160,1,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(58,1,'lcd-monitor config software',13,0,2,2,4,NULL,'1',161,162,1,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(59,1,'migrate windows xp -> ubuntu',3,2,0,10,1,NULL,'2',163,164,1,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(60,1,'error msg...',3,1,0,10,3,NULL,'1',165,166,1,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34');
 /*!40000 ALTER TABLE `ull_flow_doc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,6 +452,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_field`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_field` (
   `id` int(11) NOT NULL auto_increment,
   `ull_flow_app_id` int(11) default NULL,
@@ -307,13 +464,18 @@ CREATE TABLE `ull_flow_field` (
   `enabled` int(11) default NULL,
   `mandatory` int(11) default NULL,
   `is_title` int(11) default NULL,
+  `is_priority` tinyint(1) default NULL,
+  `is_deadline` tinyint(1) default NULL,
+  `is_custom_field1` tinyint(1) default NULL,
+  `ull_access_group_id` int(11) default NULL,
   `creator_user_id` int(11) default NULL,
   `created_at` datetime default NULL,
   `updator_user_id` int(11) default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `ull_flow_element_FI_1` (`ull_flow_app_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_field`
@@ -321,7 +483,7 @@ CREATE TABLE `ull_flow_field` (
 
 LOCK TABLES `ull_flow_field` WRITE;
 /*!40000 ALTER TABLE `ull_flow_field` DISABLE KEYS */;
-INSERT INTO `ull_flow_field` VALUES (1,1,1,NULL,'Subject',1000,1,1,1,NULL,'2008-03-14 15:52:00',NULL,'2008-03-14 15:52:00'),(2,1,2,NULL,'Body',2000,1,1,NULL,NULL,'2008-03-14 15:52:27',NULL,'2008-03-14 15:52:27'),(3,1,9,NULL,'Caller',500,1,1,0,1,'2008-03-21 13:51:36',1,'2008-03-28 10:30:24'),(4,1,2,NULL,'Comment',5000,1,0,0,1,'2008-03-21 15:41:00',1,'2008-03-28 10:34:31'),(5,1,6,NULL,'Deadline',4000,1,0,0,1,'2008-03-28 10:35:41',1,'2008-03-28 10:35:41'),(6,2,1,NULL,'Subject',1000,1,1,1,1,'2008-03-28 10:50:13',1,'2008-03-28 10:50:13'),(7,2,2,NULL,'Text',2000,1,0,0,1,'2008-03-28 10:51:07',1,'2008-03-28 10:51:07'),(8,2,6,NULL,'Deadline',3000,1,0,0,1,'2008-03-28 10:51:42',1,'2008-03-28 10:51:42');
+INSERT INTO `ull_flow_field` VALUES (1,1,1,NULL,'Subject',1000,1,1,1,NULL,NULL,NULL,NULL,NULL,'2008-03-14 15:52:00',NULL,'2008-03-14 15:52:00'),(2,1,14,'','Body',2000,1,0,0,0,0,0,0,NULL,'2008-03-14 15:52:27',1,'2008-06-09 11:51:39'),(3,1,9,'','Caller',500,1,1,0,0,0,1,0,1,'2008-03-21 13:51:36',1,'2008-06-09 11:47:01'),(4,1,2,NULL,'Comment',5000,1,0,0,NULL,NULL,NULL,NULL,1,'2008-03-21 15:41:00',1,'2008-03-28 10:34:31'),(5,1,6,'','Deadline',4000,0,0,0,0,0,0,0,1,'2008-03-28 10:35:41',1,'2008-06-09 09:20:54'),(6,2,1,NULL,'Subject',1000,1,1,1,NULL,NULL,NULL,NULL,1,'2008-03-28 10:50:13',1,'2008-03-28 10:50:13'),(7,2,2,NULL,'Text',2000,1,0,0,NULL,NULL,NULL,NULL,1,'2008-03-28 10:51:07',1,'2008-03-28 10:51:07'),(8,2,6,'','Deadline',3000,0,0,0,0,0,0,0,1,'2008-03-28 10:51:42',1,'2008-06-09 09:20:42'),(9,1,12,'','Attachments',10000,1,0,0,0,0,0,0,1,'2008-06-09 09:12:02',1,'2008-06-09 09:12:02'),(10,1,13,'','Solutions',11000,1,0,0,0,0,0,0,1,'2008-06-09 09:14:52',1,'2008-06-09 09:14:52'),(11,1,15,'','Tags',12000,1,0,0,0,0,0,0,1,'2008-06-09 09:21:20',1,'2008-06-09 09:21:20'),(12,2,15,'','Tags',12000,1,0,0,0,0,0,0,1,'2008-06-09 09:21:46',1,'2008-06-09 09:21:46'),(13,1,10,'ull_select=priority include_blank=true','Priority',5500,1,1,0,1,0,0,0,1,'2008-06-09 11:44:08',1,'2008-06-09 11:44:08'),(14,2,10,'ull_select=priority include_blank=true','Priority',2500,1,1,0,1,0,0,0,1,'2008-06-09 11:44:53',1,'2008-06-09 11:44:53');
 /*!40000 ALTER TABLE `ull_flow_field` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,12 +492,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_field_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_field_i18n` (
   `caption_i18n` varchar(32) default NULL,
   `id` int(11) NOT NULL,
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_field_i18n`
@@ -343,7 +508,7 @@ CREATE TABLE `ull_flow_field_i18n` (
 
 LOCK TABLES `ull_flow_field_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_flow_field_i18n` DISABLE KEYS */;
-INSERT INTO `ull_flow_field_i18n` VALUES ('Betreff',1,'de'),('Text',2,'de'),('Anrufer',3,'de'),('Kommentar',4,'de'),('Zieltermin',5,'de'),('Betreff',6,'de'),('Text',7,'de'),('Zieltermin',8,'de');
+INSERT INTO `ull_flow_field_i18n` VALUES ('Betreff',1,'de'),('Text',2,'de'),('Anrufer',3,'de'),('Kommentar',4,'de'),('Zieltermin',5,'de'),('Betreff',6,'de'),('Text',7,'de'),('Zieltermin',8,'de'),('AnhÃ¤nge',9,'de'),('LÃ¶sungen',10,'de'),('Tags',11,'de'),('Tags',12,'de'),('Wichtigkeit',13,'de'),('Wichtigkeit',14,'de');
 /*!40000 ALTER TABLE `ull_flow_field_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,6 +517,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_memory`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_memory` (
   `id` int(11) NOT NULL auto_increment,
   `ull_flow_doc_id` int(11) default NULL,
@@ -360,13 +527,15 @@ CREATE TABLE `ull_flow_memory` (
   `assigned_to_ull_user_id` varchar(32) default NULL,
   `assigned_to_ull_group_id` varchar(32) default NULL,
   `comment` varchar(255) default NULL,
+  `creator_group_id` int(11) default NULL,
   `creator_user_id` int(11) default NULL,
   `created_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `ull_flow_memory_FI_1` (`ull_flow_doc_id`),
   KEY `ull_flow_memory_FI_2` (`ull_flow_step_id`),
   KEY `ull_flow_memory_FI_3` (`ull_flow_action_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_memory`
@@ -374,7 +543,7 @@ CREATE TABLE `ull_flow_memory` (
 
 LOCK TABLES `ull_flow_memory` WRITE;
 /*!40000 ALTER TABLE `ull_flow_memory` DISABLE KEYS */;
-INSERT INTO `ull_flow_memory` VALUES (30,45,1,1,NULL,NULL,NULL,1,'2008-04-01 14:27:58'),(31,45,2,4,NULL,NULL,NULL,1,'2008-04-01 14:27:58'),(32,46,1,1,NULL,NULL,NULL,1,'2008-04-01 14:29:03'),(33,46,1,6,NULL,NULL,NULL,1,'2008-04-01 14:29:03'),(34,46,1,6,NULL,NULL,NULL,1,'2008-04-01 14:31:29'),(41,51,1,1,NULL,NULL,NULL,1,'2008-04-01 14:44:00'),(42,51,2,4,NULL,NULL,NULL,1,'2008-04-01 14:44:00');
+INSERT INTO `ull_flow_memory` VALUES (30,45,1,1,NULL,NULL,NULL,NULL,1,'2008-04-01 14:27:58'),(31,45,2,4,NULL,NULL,NULL,NULL,1,'2008-04-01 14:27:58'),(32,46,1,1,NULL,NULL,NULL,NULL,1,'2008-04-01 14:29:03'),(33,46,1,6,NULL,NULL,NULL,NULL,1,'2008-04-01 14:29:03'),(34,46,1,6,NULL,NULL,NULL,NULL,1,'2008-04-01 14:31:29'),(41,51,1,1,NULL,NULL,NULL,NULL,1,'2008-04-01 14:44:00'),(42,51,2,4,NULL,NULL,NULL,NULL,1,'2008-04-01 14:44:00'),(45,53,4,1,NULL,NULL,'',NULL,1,'2008-06-09 10:41:35'),(46,53,4,12,'1',NULL,NULL,NULL,1,'2008-06-09 10:41:35'),(56,57,1,1,NULL,NULL,'',NULL,1,'2008-06-09 11:55:12'),(55,56,1,13,NULL,'2',NULL,NULL,1,'2008-06-09 11:53:50'),(54,56,1,1,NULL,NULL,'',NULL,1,'2008-06-09 11:53:50'),(53,55,1,13,NULL,'2',NULL,NULL,1,'2008-06-09 11:53:05'),(52,55,1,1,NULL,NULL,'',NULL,1,'2008-06-09 11:53:05'),(57,57,1,13,NULL,'2',NULL,NULL,1,'2008-06-09 11:55:12'),(58,58,1,1,NULL,NULL,'',NULL,1,'2008-06-09 11:56:33'),(59,58,1,13,NULL,'2',NULL,NULL,1,'2008-06-09 11:56:33'),(60,59,1,1,NULL,NULL,'',NULL,1,'2008-06-09 11:57:40'),(61,59,1,13,NULL,'2',NULL,NULL,1,'2008-06-09 11:57:40'),(62,60,1,1,NULL,NULL,'',NULL,1,'2008-06-09 12:00:05'),(63,60,1,9,'1',NULL,NULL,NULL,1,'2008-06-09 12:00:05'),(64,60,1,9,'1',NULL,NULL,NULL,1,'2008-06-09 12:00:19'),(65,60,1,13,NULL,'2','',NULL,1,'2008-06-09 12:00:33'),(66,55,2,5,NULL,'2','',2,2,'2008-06-09 12:02:33'),(67,59,2,3,'2',NULL,'I\'ll do this',2,2,'2008-06-09 12:02:59'),(68,60,2,3,'1',NULL,'that\'s a problem for you...',2,2,'2008-06-09 12:03:34'),(69,57,2,9,NULL,'2','',2,2,'2008-06-09 12:03:51'),(70,57,2,9,NULL,'2','',2,1,'2008-06-09 12:05:44'),(71,57,2,9,NULL,'2',NULL,2,1,'2008-06-09 12:07:55'),(72,57,2,6,NULL,'2','',2,1,'2008-06-09 12:08:06'),(73,53,6,6,'1',NULL,'',NULL,1,'2008-06-09 12:13:28');
 /*!40000 ALTER TABLE `ull_flow_memory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,6 +552,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_step`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_step` (
   `id` int(11) NOT NULL auto_increment,
   `ull_flow_app_id` int(11) default NULL,
@@ -395,7 +566,8 @@ CREATE TABLE `ull_flow_step` (
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `ull_flow_step_FI_1` (`ull_flow_app_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_step`
@@ -403,7 +575,7 @@ CREATE TABLE `ull_flow_step` (
 
 LOCK TABLES `ull_flow_step` WRITE;
 /*!40000 ALTER TABLE `ull_flow_step` DISABLE KEYS */;
-INSERT INTO `ull_flow_step` VALUES (1,1,'creator','Creator',1,1,'2008-03-28 15:39:48',1,'2008-03-31 10:16:22'),(2,1,'it-helpdesk','IT-Helpdesk',0,1,'2008-03-31 10:16:41',1,'2008-03-31 10:16:41'),(3,1,'closed','Closed',0,1,'2008-03-31 10:17:02',1,'2008-03-31 11:16:36'),(4,2,'creator','Creator',1,1,'2008-04-01 14:35:54',1,'2008-04-01 14:35:54');
+INSERT INTO `ull_flow_step` VALUES (1,1,'creator','Creator',1,1,'2008-03-28 15:39:48',1,'2008-03-31 10:16:22'),(2,1,'it-helpdesk','IT-Helpdesk',0,1,'2008-03-31 10:16:41',1,'2008-03-31 10:16:41'),(3,1,'closed','Closed',0,1,'2008-03-31 10:17:02',1,'2008-03-31 11:16:36'),(4,2,'creator','Creator',1,1,'2008-04-01 14:35:54',1,'2008-04-01 14:35:54'),(5,1,'reopen','Reopen',0,1,'2008-06-09 09:06:27',1,'2008-06-09 09:06:27'),(6,2,'open','Open',0,1,'2008-06-09 09:31:57',1,'2008-06-09 09:34:02'),(8,2,'closed','Closed',0,1,'2008-06-09 09:34:28',1,'2008-06-09 09:34:28'),(9,1,'question_for_caller ','Question for Caller',0,1,'2008-06-09 11:13:10',1,'2008-06-09 11:13:10'),(10,1,'helpdesk_agent','Helpdesk Agent',0,1,'2008-06-09 11:13:31',1,'2008-06-09 11:13:31');
 /*!40000 ALTER TABLE `ull_flow_step` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,11 +584,14 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_step_action`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_step_action` (
   `id` int(11) NOT NULL auto_increment,
   `ull_flow_step_id` int(11) default NULL,
   `ull_flow_action_id` int(11) default NULL,
   `options` varchar(255) default NULL,
+  `sequence` int(11) default NULL,
   `creator_user_id` int(11) default NULL,
   `created_at` datetime default NULL,
   `updator_user_id` int(11) default NULL,
@@ -424,7 +599,8 @@ CREATE TABLE `ull_flow_step_action` (
   PRIMARY KEY  (`id`),
   KEY `ull_flow_step_action_FI_1` (`ull_flow_step_id`),
   KEY `ull_flow_step_action_FI_2` (`ull_flow_action_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_step_action`
@@ -432,7 +608,7 @@ CREATE TABLE `ull_flow_step_action` (
 
 LOCK TABLES `ull_flow_step_action` WRITE;
 /*!40000 ALTER TABLE `ull_flow_step_action` DISABLE KEYS */;
-INSERT INTO `ull_flow_step_action` VALUES (1,1,3,'',1,'2008-03-28 16:16:35',1,'2008-03-28 16:17:09'),(2,1,4,'',1,'2008-03-28 16:17:18',1,'2008-03-28 16:17:18'),(3,1,5,'',1,'2008-03-28 16:17:31',1,'2008-03-28 16:17:31'),(4,2,3,'',1,'2008-03-31 11:12:17',1,'2008-03-31 11:12:17'),(5,2,4,'',1,'2008-03-31 11:12:27',1,'2008-03-31 11:12:27'),(6,2,5,'',1,'2008-03-31 11:12:46',1,'2008-03-31 11:12:46');
+INSERT INTO `ull_flow_step_action` VALUES (1,1,13,'',10000,1,'2008-03-28 16:16:35',1,'2008-06-09 11:16:32'),(4,2,3,'group=IT-Helpdesk ',20000,1,'2008-03-31 11:12:17',1,'2008-06-09 11:17:30'),(5,2,14,'',20100,1,'2008-03-31 11:12:27',1,'2008-06-09 11:18:01'),(6,2,5,'',20200,1,'2008-03-31 11:12:46',1,'2008-06-09 11:18:10'),(7,3,8,'',50000,1,'2008-06-09 09:07:01',1,'2008-06-09 11:22:02'),(8,4,12,'',1000,1,'2008-06-09 09:19:17',1,'2008-06-09 09:35:07'),(9,6,5,'',2000,1,'2008-06-09 09:35:29',1,'2008-06-09 09:35:29'),(10,10,14,'',30000,1,'2008-06-09 11:18:47',1,'2008-06-09 11:18:47'),(11,10,3,'group=IT-Helpdesk ',30100,1,'2008-06-09 11:20:26',1,'2008-06-09 11:20:26'),(12,10,10,'',30200,1,'2008-06-09 11:20:44',1,'2008-06-09 11:20:44'),(13,10,5,'',30300,1,'2008-06-09 11:21:03',1,'2008-06-09 11:21:03'),(14,9,11,'',40000,1,'2008-06-09 11:21:28',1,'2008-06-09 11:21:28');
 /*!40000 ALTER TABLE `ull_flow_step_action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,12 +617,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_step_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_step_i18n` (
   `caption_i18n` varchar(32) default NULL,
   `id` int(11) NOT NULL,
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_step_i18n`
@@ -454,7 +633,7 @@ CREATE TABLE `ull_flow_step_i18n` (
 
 LOCK TABLES `ull_flow_step_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_flow_step_i18n` DISABLE KEYS */;
-INSERT INTO `ull_flow_step_i18n` VALUES ('Ersteller',1,'de'),('IT-Helpdesk',2,'de'),('Abgeschlossen',3,'de'),('Ersteller',4,'de');
+INSERT INTO `ull_flow_step_i18n` VALUES ('Ersteller',1,'de'),('IT-Helpdesk',2,'de'),('Abgeschlossen',3,'de'),('Ersteller',4,'de'),('WiedererÃ¶ffnung',5,'de'),('Offen',6,'de'),('Abgeschlossen',8,'de'),('RÃ¼ckfrage an Anrufer',9,'de'),('Helpdesk Mitarbeiter',10,'de');
 /*!40000 ALTER TABLE `ull_flow_step_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -463,6 +642,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_flow_value`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_flow_value` (
   `id` int(11) NOT NULL auto_increment,
   `ull_flow_doc_id` int(11) default NULL,
@@ -477,7 +658,8 @@ CREATE TABLE `ull_flow_value` (
   PRIMARY KEY  (`id`),
   KEY `ull_flow_value_FI_1` (`ull_flow_doc_id`),
   KEY `ull_flow_value_FI_2` (`ull_flow_field_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=201 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=261 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_flow_value`
@@ -485,7 +667,7 @@ CREATE TABLE `ull_flow_value` (
 
 LOCK TABLES `ull_flow_value` WRITE;
 /*!40000 ALTER TABLE `ull_flow_value` DISABLE KEYS */;
-INSERT INTO `ull_flow_value` VALUES (165,45,3,NULL,1,'2',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(166,45,1,NULL,1,'My PC is on fire!',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(167,45,2,NULL,1,'Please, water, fast!\r\n\r\nPS: I didn\'t do it.',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(168,45,5,NULL,1,'Array',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(169,45,4,NULL,1,'',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(170,46,3,NULL,1,'1',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(171,46,1,NULL,1,'I want a personal ullright installation',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(172,46,2,NULL,1,'Since I\'ve got privat data, please install a personal ullright installation for me.\r\n\r\nThanks.',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(173,46,5,NULL,1,'Array',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(174,46,4,NULL,1,'',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(175,47,6,NULL,1,'Update ullright documentation',NULL,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(176,47,7,NULL,1,'Won\'t probably ever be set to \'done\'...',NULL,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(177,47,8,NULL,1,'Array',NULL,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(178,48,6,NULL,1,'Find excuses to quit work early',NULL,'2008-04-01 14:39:11',1,'2008-04-01 14:39:11'),(179,48,7,NULL,1,'Get better workflow tool?',NULL,'2008-04-01 14:39:12',1,'2008-04-01 14:39:11'),(180,48,8,NULL,1,'Array',NULL,'2008-04-01 14:39:12',1,'2008-04-01 14:39:11'),(191,51,3,NULL,1,'1',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(192,51,1,NULL,1,'Power outage in server room',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(193,51,2,NULL,1,'I\'m running on batteries and wireless. If you read this, this ticket will probably be resolved already...',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(194,51,5,NULL,1,'Array',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(195,51,4,NULL,1,'',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00');
+INSERT INTO `ull_flow_value` VALUES (165,45,3,NULL,1,'2',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(166,45,1,NULL,1,'My PC is on fire!',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(167,45,2,NULL,1,'Please, water, fast!\r\n\r\nPS: I didn\'t do it.',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(168,45,5,NULL,1,'Array',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(169,45,4,NULL,1,'',NULL,'2008-04-01 14:27:59',1,'2008-04-01 14:27:58'),(170,46,3,NULL,1,'1',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(171,46,1,NULL,1,'I want a personal ullright installation',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(172,46,2,NULL,1,'Since I\'ve got privat data, please install a personal ullright installation for me.\r\n\r\nThanks.',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(173,46,5,NULL,1,'Array',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(174,46,4,NULL,1,'',NULL,'2008-04-01 14:29:03',1,'2008-04-01 14:31:29'),(175,47,6,NULL,1,'Update ullright documentation',NULL,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(176,47,7,NULL,1,'Won\'t probably ever be set to \'done\'...',NULL,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(177,47,8,NULL,1,'Array',NULL,'2008-04-01 14:37:03',1,'2008-04-01 14:37:03'),(178,48,6,NULL,1,'Find excuses to quit work early',NULL,'2008-04-01 14:39:11',1,'2008-04-01 14:39:11'),(179,48,7,NULL,1,'Get better workflow tool?',NULL,'2008-04-01 14:39:12',1,'2008-04-01 14:39:11'),(180,48,8,NULL,1,'Array',NULL,'2008-04-01 14:39:12',1,'2008-04-01 14:39:11'),(191,51,3,NULL,1,'1',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(192,51,1,NULL,1,'Power outage in server room',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(193,51,2,NULL,1,'I\'m running on batteries and wireless. If you read this, this ticket will probably be resolved already...',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(194,51,5,NULL,1,'Array',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(195,51,4,NULL,1,'',NULL,'2008-04-01 14:44:00',1,'2008-04-01 14:44:00'),(201,53,6,NULL,1,'do something',NULL,'2008-06-09 10:41:35',1,'2008-06-09 12:13:28'),(202,53,7,NULL,1,'bla',NULL,'2008-06-09 10:41:35',1,'2008-06-09 12:13:28'),(203,53,12,NULL,1,'bla',NULL,'2008-06-09 10:41:35',1,'2008-06-09 12:13:28'),(216,55,13,NULL,1,'2',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(215,55,4,NULL,1,'',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(214,55,2,NULL,1,'Thomas Test (9.6.2008 12:02h):\nreplaced and done.\n\nMaster Admin (9.6.2008 11:53h):\nMy LC-Disply is broken. Pls buy me a new one.\n\n',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(213,55,1,NULL,1,'Broken LCD',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(212,55,3,NULL,1,'2',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(217,55,9,NULL,1,'',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(218,55,10,NULL,1,'',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(219,55,11,NULL,1,'hardware, lcd',NULL,'2008-06-09 11:53:05',2,'2008-06-09 12:02:33'),(220,56,3,NULL,1,'1',NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(221,56,1,NULL,1,'pls install openoffice',NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(222,56,2,NULL,1,NULL,NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(223,56,4,NULL,1,'',NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(224,56,13,NULL,1,'3',NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(225,56,9,NULL,1,'',NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(226,56,10,NULL,1,'',NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(227,56,11,NULL,1,'software, openoffice, install',NULL,'2008-06-09 11:53:50',1,'2008-06-09 11:53:50'),(228,57,3,NULL,1,'1',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(229,57,1,NULL,1,'team-printer myPrint031 out of function',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(230,57,2,NULL,1,'Master Admin (9.6.2008 11:55h):\nno function - all lights are blinking...\n\n',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(231,57,4,NULL,1,'',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(232,57,13,NULL,1,'1',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(233,57,9,NULL,1,'',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(234,57,10,NULL,1,'3',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(235,57,11,NULL,1,'hardware, printer',NULL,'2008-06-09 11:55:12',1,'2008-06-09 12:08:06'),(236,58,3,NULL,1,'1',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(237,58,1,NULL,1,'lcd-monitor config software',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(238,58,2,NULL,1,'Master Admin (9.6.2008 11:56h):\npls install the config software for my lcd-monitor on my pc.\n\n',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(239,58,4,NULL,1,'',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(240,58,13,NULL,1,'4',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(241,58,9,NULL,1,'',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(242,58,10,NULL,1,'',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(243,58,11,NULL,1,'hardware, install, lcd, software',NULL,'2008-06-09 11:56:33',1,'2008-06-09 11:56:33'),(244,59,3,NULL,1,'2',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(245,59,1,NULL,1,'migrate windows xp -> ubuntu',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(246,59,2,NULL,1,'Master Admin (9.6.2008 11:57h):\nas discussed earlier: I can\'t wait to try out ubuntu on my pc\n\n',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(247,59,4,NULL,1,'',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(248,59,13,NULL,1,'1',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(249,59,9,NULL,1,'',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(250,59,10,NULL,1,'',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(251,59,11,NULL,1,'install, software, windows, ubuntu',NULL,'2008-06-09 11:57:40',2,'2008-06-09 12:02:59'),(252,60,3,NULL,1,'1',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(253,60,1,NULL,1,'error msg...',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(254,60,2,NULL,1,'Master Admin (9.6.2008 12:00h):\n???\n\n',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(255,60,4,NULL,1,'',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(256,60,13,NULL,1,'3',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(257,60,9,NULL,1,'stupid_error_msg.jpg;/uploads/ullFlow/helpdesk_tool/60/2008-06-09-12-00-15_stupid_error_msg.jpg;image/jpeg;1;2008-06-09 12:00:15',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(258,60,10,NULL,1,'',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(259,60,11,NULL,1,'software, windows, error',NULL,'2008-06-09 12:00:05',2,'2008-06-09 12:03:34'),(260,53,14,NULL,1,'3',NULL,'2008-06-09 12:13:28',1,'2008-06-09 12:13:28');
 /*!40000 ALTER TABLE `ull_flow_value` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -494,16 +676,20 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_group`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_group` (
   `id` int(11) NOT NULL auto_increment,
   `caption` varchar(128) default NULL,
   `email` varchar(64) default NULL,
+  `system` tinyint(1) default NULL,
   `creator_user_id` int(11) default NULL,
   `created_at` datetime default NULL,
   `updator_user_id` int(11) default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=151 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=167 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_group`
@@ -511,7 +697,7 @@ CREATE TABLE `ull_group` (
 
 LOCK TABLES `ull_group` WRITE;
 /*!40000 ALTER TABLE `ull_group` DISABLE KEYS */;
-INSERT INTO `ull_group` VALUES (1,'Master-Administrator',NULL,1,'2008-03-29 09:23:32',1,'2008-03-29 09:29:57'),(2,'IT-Helpdesk',NULL,1,'2008-03-29 09:30:09',1,'2008-03-29 09:30:09');
+INSERT INTO `ull_group` VALUES (1,'Master-Administrator',NULL,NULL,1,'2008-03-29 09:23:32',1,'2008-03-29 09:29:57'),(2,'IT-Helpdesk',NULL,NULL,1,'2008-03-29 09:30:09',1,'2008-03-29 09:30:09'),(151,NULL,NULL,1,NULL,'2008-06-09 10:41:35',NULL,'2008-06-09 10:41:35'),(152,NULL,NULL,1,NULL,'2008-06-09 10:41:35',NULL,'2008-06-09 10:41:35'),(156,NULL,NULL,1,NULL,'2008-06-09 11:53:05',NULL,'2008-06-09 11:53:05'),(155,NULL,NULL,1,NULL,'2008-06-09 11:53:05',NULL,'2008-06-09 11:53:05'),(157,NULL,NULL,1,NULL,'2008-06-09 11:53:50',NULL,'2008-06-09 11:53:50'),(158,NULL,NULL,1,NULL,'2008-06-09 11:53:50',NULL,'2008-06-09 11:53:50'),(159,NULL,NULL,1,NULL,'2008-06-09 11:55:12',NULL,'2008-06-09 11:55:12'),(160,NULL,NULL,1,NULL,'2008-06-09 11:55:12',NULL,'2008-06-09 11:55:12'),(161,NULL,NULL,1,NULL,'2008-06-09 11:56:33',NULL,'2008-06-09 11:56:33'),(162,NULL,NULL,1,NULL,'2008-06-09 11:56:33',NULL,'2008-06-09 11:56:33'),(163,NULL,NULL,1,NULL,'2008-06-09 11:57:41',NULL,'2008-06-09 11:57:41'),(164,NULL,NULL,1,NULL,'2008-06-09 11:57:41',NULL,'2008-06-09 11:57:41'),(165,NULL,NULL,1,NULL,'2008-06-09 12:00:05',NULL,'2008-06-09 12:00:05'),(166,NULL,NULL,1,NULL,'2008-06-09 12:00:05',NULL,'2008-06-09 12:00:05');
 /*!40000 ALTER TABLE `ull_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,6 +706,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_location`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_location` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) default NULL,
@@ -538,6 +726,7 @@ CREATE TABLE `ull_location` (
   `updator_user_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_location`
@@ -554,6 +743,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_select`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_select` (
   `id` int(11) NOT NULL auto_increment,
   `slug` varchar(32) default NULL,
@@ -564,6 +755,7 @@ CREATE TABLE `ull_select` (
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_select`
@@ -580,6 +772,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_select_child`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_select_child` (
   `id` int(11) NOT NULL auto_increment,
   `ull_select_id` int(11) default NULL,
@@ -592,6 +786,7 @@ CREATE TABLE `ull_select_child` (
   PRIMARY KEY  (`id`),
   KEY `ull_select_child_FI_1` (`ull_select_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_select_child`
@@ -608,12 +803,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_select_child_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_select_child_i18n` (
   `caption_i18n` varchar(64) default NULL,
   `id` int(11) NOT NULL,
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_select_child_i18n`
@@ -630,12 +828,15 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_select_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_select_i18n` (
   `caption_i18n` varchar(64) default NULL,
   `id` int(11) NOT NULL,
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_select_i18n`
@@ -652,6 +853,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_table_info`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_table_info` (
   `id` int(11) NOT NULL auto_increment,
   `db_table_name` varchar(32) default NULL,
@@ -664,7 +867,8 @@ CREATE TABLE `ull_table_info` (
   `updator_user_id` int(11) default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_table_info`
@@ -672,7 +876,7 @@ CREATE TABLE `ull_table_info` (
 
 LOCK TABLES `ull_table_info` WRITE;
 /*!40000 ALTER TABLE `ull_table_info` DISABLE KEYS */;
-INSERT INTO `ull_table_info` VALUES (1,'ull_column_info','Column Information','Column Information and Settings','','db_table_name',1,'2008-03-21 16:44:09',1,'2008-03-21 17:05:49');
+INSERT INTO `ull_table_info` VALUES (1,'ull_column_info','Column Information','Column Information and Settings','','db_table_name',1,'2008-03-21 16:44:09',1,'2008-03-21 17:05:49'),(2,'ull_flow_step_action','ullFlow actions for steps','','sequence','',1,'2008-06-09 11:19:47',1,'2008-06-09 11:19:47');
 /*!40000 ALTER TABLE `ull_table_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -681,6 +885,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_table_info_i18n`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_table_info_i18n` (
   `caption_i18n` varchar(64) default NULL,
   `description_i18n` text,
@@ -688,6 +894,7 @@ CREATE TABLE `ull_table_info_i18n` (
   `culture` varchar(7) NOT NULL,
   PRIMARY KEY  (`id`,`culture`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_table_info_i18n`
@@ -695,7 +902,7 @@ CREATE TABLE `ull_table_info_i18n` (
 
 LOCK TABLES `ull_table_info_i18n` WRITE;
 /*!40000 ALTER TABLE `ull_table_info_i18n` DISABLE KEYS */;
-INSERT INTO `ull_table_info_i18n` VALUES ('Spalteninformationen','Informationen und Einstellungen der Tabellenspalten',1,'de');
+INSERT INTO `ull_table_info_i18n` VALUES ('Spalteninformationen','Informationen und Einstellungen der Tabellenspalten',1,'de'),('','',2,'de');
 /*!40000 ALTER TABLE `ull_table_info_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -704,6 +911,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_user`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_user` (
   `id` int(11) NOT NULL auto_increment,
   `first_name` varchar(64) default NULL,
@@ -721,6 +930,7 @@ CREATE TABLE `ull_user` (
   PRIMARY KEY  (`id`),
   KEY `user_FI_1` (`location_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_user`
@@ -737,6 +947,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_user_group`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_user_group` (
   `id` int(11) NOT NULL auto_increment,
   `ull_user_id` int(11) default NULL,
@@ -748,7 +960,8 @@ CREATE TABLE `ull_user_group` (
   PRIMARY KEY  (`id`),
   KEY `user_group_FI_1` (`ull_user_id`),
   KEY `user_group_FI_2` (`ull_group_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_user_group`
@@ -756,7 +969,7 @@ CREATE TABLE `ull_user_group` (
 
 LOCK TABLES `ull_user_group` WRITE;
 /*!40000 ALTER TABLE `ull_user_group` DISABLE KEYS */;
-INSERT INTO `ull_user_group` VALUES (1,1,1,1,'2007-09-01 00:00:00',1,'2008-04-01 14:14:21'),(2,2,2,1,'2008-04-01 14:15:32',1,'2008-04-01 14:15:32');
+INSERT INTO `ull_user_group` VALUES (1,1,1,1,'2007-09-01 00:00:00',1,'2008-04-01 14:14:21'),(2,2,2,1,'2008-04-01 14:15:32',1,'2008-04-01 14:15:32'),(78,1,151,NULL,'2008-06-09 12:13:28',NULL,'2008-06-09 12:13:28'),(79,1,152,NULL,'2008-06-09 12:13:28',NULL,'2008-06-09 12:13:28'),(53,1,156,NULL,'2008-06-09 12:02:33',NULL,'2008-06-09 12:02:33'),(52,2,156,NULL,'2008-06-09 12:02:33',NULL,'2008-06-09 12:02:33'),(51,1,155,NULL,'2008-06-09 12:02:33',NULL,'2008-06-09 12:02:33'),(50,2,155,NULL,'2008-06-09 12:02:33',NULL,'2008-06-09 12:02:33'),(17,1,2,1,'2008-06-09 11:50:25',1,'2008-06-09 11:50:25'),(26,2,157,NULL,'2008-06-09 11:53:50',NULL,'2008-06-09 11:53:50'),(27,1,157,NULL,'2008-06-09 11:53:50',NULL,'2008-06-09 11:53:50'),(28,2,158,NULL,'2008-06-09 11:53:50',NULL,'2008-06-09 11:53:50'),(29,1,158,NULL,'2008-06-09 11:53:50',NULL,'2008-06-09 11:53:50'),(75,1,159,NULL,'2008-06-09 12:08:06',NULL,'2008-06-09 12:08:06'),(74,2,159,NULL,'2008-06-09 12:08:06',NULL,'2008-06-09 12:08:06'),(77,1,160,NULL,'2008-06-09 12:08:06',NULL,'2008-06-09 12:08:06'),(76,2,160,NULL,'2008-06-09 12:08:06',NULL,'2008-06-09 12:08:06'),(34,2,161,NULL,'2008-06-09 11:56:33',NULL,'2008-06-09 11:56:33'),(35,1,161,NULL,'2008-06-09 11:56:33',NULL,'2008-06-09 11:56:33'),(36,2,162,NULL,'2008-06-09 11:56:33',NULL,'2008-06-09 11:56:33'),(37,1,162,NULL,'2008-06-09 11:56:33',NULL,'2008-06-09 11:56:33'),(55,1,163,NULL,'2008-06-09 12:02:59',NULL,'2008-06-09 12:02:59'),(54,2,163,NULL,'2008-06-09 12:02:59',NULL,'2008-06-09 12:02:59'),(57,1,164,NULL,'2008-06-09 12:02:59',NULL,'2008-06-09 12:02:59'),(56,2,164,NULL,'2008-06-09 12:02:59',NULL,'2008-06-09 12:02:59'),(59,2,165,NULL,'2008-06-09 12:03:34',NULL,'2008-06-09 12:03:34'),(61,2,166,NULL,'2008-06-09 12:03:34',NULL,'2008-06-09 12:03:34'),(58,1,165,NULL,'2008-06-09 12:03:34',NULL,'2008-06-09 12:03:34'),(60,1,166,NULL,'2008-06-09 12:03:34',NULL,'2008-06-09 12:03:34');
 /*!40000 ALTER TABLE `ull_user_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -765,6 +978,8 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `ull_wiki`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `ull_wiki` (
   `id` int(11) NOT NULL auto_increment,
   `docid` int(11) NOT NULL,
@@ -783,7 +998,8 @@ CREATE TABLE `ull_wiki` (
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `wiki_docid_index` (`docid`)
-) ENGINE=MyISAM AUTO_INCREMENT=241 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=242 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping data for table `ull_wiki`
@@ -791,7 +1007,7 @@ CREATE TABLE `ull_wiki` (
 
 LOCK TABLES `ull_wiki` WRITE;
 /*!40000 ALTER TABLE `ull_wiki` DISABLE KEYS */;
-INSERT INTO `ull_wiki` VALUES (235,1,0,'en','<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>','My first entry','',NULL,1,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-02 10:49:31'),(236,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>blabla</li>\r\n    <li>dieses:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,1,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(237,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>blabla</li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,2,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(238,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>bl<strong>abla</strong></li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,3,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(239,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>bl<strong>abla</strong></li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>\r\n<p><a href=\"/uploads/assets/file/indent1.png\">schnu</a></p>','test','',NULL,4,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:44:58'),(240,1,1,'de','<h1>Test</h1>\r\n<p>&nbsp;</p>\r\n<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<p>Testimage: <img width=\"48\" height=\"49\" src=\"/uploads/assets/image/test_image.png\" alt=\"test_image\" /></p>\r\n<p>&nbsp;</p>\r\n<p><a href=\"/uploads/assets/test_doc.pdf\">Testlink to document</a></p>','My first entry','',NULL,2,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-02 10:49:31');
+INSERT INTO `ull_wiki` VALUES (235,1,0,'en','<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>','My first entry','',NULL,1,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-02 10:49:31'),(236,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>blabla</li>\r\n    <li>dieses:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,1,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(237,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>blabla</li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,2,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(238,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>bl<strong>abla</strong></li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>','test','',NULL,3,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:43:23'),(239,2,0,'de','<h1>Hallo 123</h1>\r\n<p>Test:</p>\r\n<ul>\r\n    <li>bl<strong>abla</strong></li>\r\n    <li><em>dies</em>es:</li>\r\n    <li>jenes</li>\r\n    <li>quack</li>\r\n</ul>\r\n<p><a href=\"/uploads/assets/file/indent1.png\">schnu</a></p>','test','',NULL,4,NULL,NULL,1,'2008-04-02 08:59:58',1,'2008-04-02 10:44:58'),(240,1,1,'de','<h1>Test</h1>\r\n<p>&nbsp;</p>\r\n<p>This is the first entry since</p>\r\n<ul>\r\n    <li>there is no other entry yet</li>\r\n    <li>all other test entries have been deleted ;-)</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<p>Testimage: <img width=\"48\" height=\"49\" src=\"/uploads/assets/image/test_image.png\" alt=\"test_image\" /></p>\r\n<p>&nbsp;</p>\r\n<p><a href=\"/uploads/assets/test_doc.pdf\">Testlink to document</a></p>','My first entry','',NULL,2,NULL,NULL,1,'2008-04-01 10:43:03',1,'2008-04-02 10:49:31'),(241,3,1,'en','<h2>Problem:</h2>\r\n<ul>\r\n    <li>All lights are blinking</li>\r\n</ul>\r\n<h2>Solution:</h2>\r\n<ul>\r\n    <li>Press [CTRL]-[RESET]</li>\r\n    <li>Enter service-code &quot;fix ojda&quot;</li>\r\n    <li>Reboot</li>\r\n</ul>\r\n<h2>&nbsp;</h2>','how to fix team-printer031','',NULL,1,NULL,NULL,1,'2008-06-09 12:07:53',1,'2008-06-09 12:07:53');
 /*!40000 ALTER TABLE `ull_wiki` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -804,4 +1020,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-04-14  7:26:28
+-- Dump completed on 2008-06-09 10:33:57
