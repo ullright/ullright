@@ -1,0 +1,101 @@
+<?php
+?>
+
+<?php echo $breadcrumbTree->getHtml() ?>
+
+<?php echo form_tag('ullTableTool/update'); ?>
+
+
+<?php if ($sf_request->hasErrors()): ?>
+  <div class='form_error'>
+  <?php echo __('Please correct the following errors', null, 'common') ?>:
+  </div>  
+  <br /><br />
+<?php endif; ?>
+    
+  
+<table>
+<tbody>
+
+
+<?php foreach ($ull_form->getFieldsInfo() as $field_name => $field_info): ?>
+  <?php if (@$field_info['enabled']): ?>
+    <tr>
+      <td>
+      <?php //weflowTools::printR($col); ?>
+        <?php echo $field_info['name_humanized'] . ':'; ?>
+      </td>
+      <td>  
+        <?php 
+          $fields_data  = $ull_form->getFieldsDataOne();
+          $field_data   = $fields_data[$field_name]; 
+          
+//          ullCoreTools::printR($field_data);
+        
+          if ($value = @$field_data['value']) {
+            echo $value; 
+            
+          } elseif (@$field_data['function']) {
+            echo call_user_func_array($field_data['function'], $field_data['parameters']);
+
+          }
+          
+          if (@$field_info['primary_key']) {
+            echo input_hidden_tag($field_name, $id);
+          }
+          
+          echo form_error($field_name);
+          
+//          echo 'req:' . $sf_params->get($field_name);
+          ?>
+  
+      </td>
+    </tr>
+  <?php endif; // end of enabled ?>
+<?php endforeach; ?>  
+
+</tbody>
+</table>
+
+
+<br />
+
+<div class='action_buttons'>
+    
+  <div class='action_buttons_left'>
+    <?php
+      echo button_to(
+        __('Cancel', null, 'common') 
+//        , $refererHandler->getReferer('edit')
+        , 'ullTableTool/list?table=' . $table_name
+        , 'confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common')
+      );
+    ?> &nbsp;
+    <?php if ($id): ?>    
+      <?php 
+        echo button_to(
+          __('Delete', null, 'common')
+          , 'ullTableTool/delete?table=' . $table_name . '&id=' . $id
+          , 'confirm='.__('Are you sure?', null, 'common')
+          ); 
+      ?> &nbsp; 
+    <?php endif; ?>
+  </div>
+
+  <div class='action_buttons_right'>
+    &nbsp; 
+    <?php echo submit_tag(__('Save', null, 'common')) ?>
+  </div>  
+  
+  <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
+  
+</div> <!-- end of action_buttons-->
+
+
+
+<?php echo input_hidden_tag('table', $table_name) ?>
+</form>   
+
+<?php
+//  ullCoreTools::printR($ull_form);
+?>  

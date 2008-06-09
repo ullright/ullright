@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+<trans-unit id="1000">
+<source>Manage users</source>
+<target>Benutzerverwaltung</target>
+</trans-unit>
+
+<trans-unit id="1001">
+<source>Manage groups</source>
+<target>Gruppenverwaltung</target>
+</trans-unit>
+
+<trans-unit id="1002">
+<source>Manage group memberships</source>
+<target>Verwalte Gruppen-Mitgliedschaften</target>
+</trans-unit>
+
+</body>
+  </file>
+</xliff>

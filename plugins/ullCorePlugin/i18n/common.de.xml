@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+<!--  Actions -->
+
+<trans-unit id="1">
+<source>Edit</source>
+<target>Bearbeiten</target>
+</trans-unit>
+
+<trans-unit id="2">
+<source>Delete</source>
+<target>L&#xF6;schen</target>
+</trans-unit>
+
+<trans-unit id="3">
+<source>Create</source>
+<target>Erstellen</target>
+</trans-unit>
+
+<trans-unit id="4">
+<source>create new entry</source>
+<target>Einen neuen Eintrag erstellen</target>
+</trans-unit>
+
+<trans-unit id="5">
+<source>Save</source>
+<target>Speichern</target>
+</trans-unit>
+
+<trans-unit id="6">
+<source>Save and close</source>
+<target>Speichern und schlie&#xDF;en</target>
+</trans-unit>
+
+<trans-unit id="7">
+<source>Save only</source>
+<target>Zwischenspeichern</target>
+</trans-unit>
+
+<trans-unit id="8">
+<source>Save and show</source>
+<target>Speichern und anzeigen</target>
+</trans-unit>
+
+<trans-unit id="9">
+<source>Cancel</source>
+<target>Abbrechen</target>
+</trans-unit>
+
+<trans-unit id="10">
+<source>Search</source>
+<target>Suche</target>
+</trans-unit>
+
+<trans-unit id="11">
+<source>Quick search</source>
+<target>Schnellsuche</target>
+</trans-unit>
+
+
+
+<!-- Common Field Names -->
+
+<trans-unit id="101">
+<source>Subject</source>
+<target>Betreff</target>
+</trans-unit>
+
+<trans-unit id="102">
+<source>Text</source>
+<target>Text</target>
+</trans-unit>
+
+<trans-unit id="103">
+<source>Language</source>
+<target>Sprache</target>
+</trans-unit>
+
+
+
+<!-- Questions -->
+
+<trans-unit id="201">
+<source>Are you sure?</source>
+<target>Sind Sie sicher?</target>
+</trans-unit>
+
+<trans-unit id="202">
+<source>You will loose unsaved changes! Are you sure?</source>
+<target>Ungespeicherte &#xC4;nderungen werden verlorengehen! Sind Sie sicher?</target>
+</trans-unit>
+
+
+
+<!-- Common index action phrases -->
+
+<trans-unit id="1002">
+<source>Full text</source>
+<target>Volltext</target>
+</trans-unit>
+
+<trans-unit id="1003">
+<source>Actions</source>
+<target>Aktionen</target>
+</trans-unit>
+
+<trans-unit id="1004">
+<source>Queries</source>
+<target>Abfragen</target>
+</trans-unit>
+
+<trans-unit id="1005">
+<source>New entries</source>
+<target>Neueste Eintr&#xE4;ge</target>
+</trans-unit>
+
+<trans-unit id="1006">
+<source>Ordered by subject</source>
+<target>Sortiert nach Betreff</target>
+</trans-unit>
+
+<trans-unit id="1007">
+<source>Home</source>
+<target>Startseite</target>
+</trans-unit>
+
+<trans-unit id="1008">
+<source>By popular tags</source>
+<target>Nach häufig benutzten Tags</target>
+</trans-unit>
+
+<trans-unit id="1009">
+<source>Searches in subject and tags</source>
+<target>Sucht im Betreff und in den Tags</target>
+</trans-unit>
+
+
+
+
+<!-- Common list action phrases-->
+
+<trans-unit id="2001">
+<source>List</source>
+<target>Liste</target>
+</trans-unit>
+
+<trans-unit id="2002">
+<source>Result list</source>
+<target>Ergebnisliste</target>
+</trans-unit>
+
+<trans-unit id="2003">
+<source>[0]No results found|[1]1 result found|(1,+Inf]%1% results found</source>
+<target>[0]Keine Eintr&#xE4;ge gefunden|[1]1 Eintrag gefunden|(1,+Inf]%1% Eintr&#xE4;ge gefunden</target>
+</trans-unit>
+
+<trans-unit id="2004">
+<source>Displaying results %1% to %2%</source>
+<target>Zeige Eintr&#xE4;ge %1% bis %2%</target>
+</trans-unit>
+
+<trans-unit id="2005">
+<source>Sort by</source>
+<target>Sortieren nach</target>
+</trans-unit>
+
+<trans-unit id="2006">
+<source>Date ascending</source>
+<target>Datum aufsteigend</target>
+</trans-unit>
+
+<trans-unit id="2007">
+<source>Date descending</source>
+<target>Datum absteigend</target>
+</trans-unit>
+
+<trans-unit id="2008">
+<source>Created by</source>
+<target>Erstellt von</target>
+</trans-unit>
+
+<trans-unit id="2009">
+<source>Updated by</source>
+<target>Ge&#xE4;ndert von</target>
+</trans-unit>
+
+<trans-unit id="2010">
+<source>List view</source>
+<target>Listenansicht</target>
+</trans-unit>
+
+<trans-unit id="2011">
+<source>Tabular view</source>
+<target>Tabellenansicht</target>
+</trans-unit>
+
+<trans-unit id="2012">
+<source>Query</source>
+<target>Abfrage</target>
+</trans-unit>
+
+<trans-unit id="2013">
+<source>Search</source>
+<target>Suche</target>
+</trans-unit>
+
+<!-- common show action phrases -->
+
+<trans-unit id="3001">
+<source>Show</source>
+<target>Ansicht</target>
+</trans-unit>
+
+
+
+<!-- common edit action phrases -->
+
+<trans-unit id="4001">
+<source>Changelog comment</source>
+<target>&#xC4;nderungs- Anmerkung</target>
+</trans-unit>
+
+<trans-unit id="4002">
+<source>Common actions</source>
+<target>Allgemeine Aktionen</target>
+</trans-unit>
+
+
+<!-- common validation phrases -->
+
+<trans-unit id="5001">
+<source>This field cannot be left blank</source>
+<target>Bitte dieses Pflichtfeld ausfüllen</target>
+</trans-unit>
+
+<trans-unit id="5001">
+<source>Please correct the following errors</source>
+<target>Bitte korrigieren Sie folgende Fehler</target>
+</trans-unit>
+
+
+
+<!--  miscellaneous -->
+
+<trans-unit id="9001">
+<source>group</source>
+<target>Gruppe</target>
+</trans-unit>
+
+<trans-unit id="9002">
+<source>Group</source>
+<target>Gruppe</target>
+</trans-unit>
+
+<trans-unit id="9003">
+<source>Set</source>
+<target>Gesetzt</target>
+</trans-unit>
+
+
+
+<!-- top navigation login -->
+
+<trans-unit id="10001">
+<source>Logged in as</source>
+<target>Angemeldet als</target>
+</trans-unit>
+
+<trans-unit id="10002">
+<source>Log out</source>
+<target>Abmelden</target>
+</trans-unit>
+
+<trans-unit id="10003">
+<source>Log in</source>
+<target>Anmelden</target>
+</trans-unit>
+
+
+<!-- system column humanized names -->
+
+<trans-unit id="11000">
+<source>ID</source>
+<target>ID</target>
+</trans-unit>
+
+<trans-unit id="11001">
+<source>Created by</source>
+<target>Erstellt von</target>
+</trans-unit>
+
+<trans-unit id="11002">
+<source>Created at</source>
+<target>Erstellt am</target>
+</trans-unit>
+
+<trans-unit id="11003">
+<source>Updated by</source>
+<target>Aktualisiert von</target>
+</trans-unit>
+
+<trans-unit id="11004">
+<source>Updated at</source>
+<target>Aktualisiert am</target>
+</trans-unit>
+
+<trans-unit id="11005">
+<source>Table name</source>
+<target>Name der Tabelle</target>
+</trans-unit>
+
+<trans-unit id="11006">
+<source>Column name</source>
+<target>Name der Spalte</target>
+</trans-unit>
+
+<trans-unit id="11007">
+<source>Field Type</source>
+<target>Feldtyp</target>
+</trans-unit>
+
+<trans-unit id="11008">
+<source>Enabled</source>
+<target>Aktiviert</target>
+</trans-unit>
+
+<trans-unit id="11009">
+<source>Show in list</source>
+<target>Zeige in Liste</target>
+</trans-unit>
+
+<trans-unit id="11010">
+<source>Mandatory</source>
+<target>Pflichtfeld</target>
+</trans-unit>
+
+<trans-unit id="11011">
+<source>Caption</source>
+<target>Beschriftung</target>
+</trans-unit>
+
+<trans-unit id="11012">
+<source>Description</source>
+<target>Beschreibung</target>
+</trans-unit>
+
+<trans-unit id="11013">
+<source>Caption i18n</source>
+<target>Beschriftung i18n</target>
+</trans-unit>
+
+<trans-unit id="11014">
+<source>Description i18n</source>
+<target>Beschreibung i18n</target>
+</trans-unit>
+
+<trans-unit id="11015">
+<source>Options</source>
+<target>Optionen</target>
+</trans-unit>
+
+
+<!-- upload -->
+
+<trans-unit id="12000">
+<source>Manage files</source>
+<target>Verwalte Dateien</target>
+</trans-unit>
+
+<trans-unit id="12001">
+<source>Filename</source>
+<target>Dateiname</target>
+</trans-unit>
+
+<trans-unit id="12002">
+<source>Uploaded by</source>
+<target>Hochgeladen von</target>
+</trans-unit>
+
+<trans-unit id="12003">
+<source>Uploaded at</source>
+<target>Hochgeladen am</target>
+</trans-unit>
+
+<trans-unit id="12004">
+<source>Step 1: Select file</source>
+<target>Schritt 1: Datei auswählen</target>
+</trans-unit>
+
+<trans-unit id="12005">
+<source>Step 2</source>
+<target>Schritt 2</target>
+</trans-unit>
+
+<trans-unit id="12006">
+<source>Upload new file</source>
+<target>Neue Datei hochladen</target>
+</trans-unit>
+
+<trans-unit id="12007">
+<source>Upload file</source>
+<target>Datei hochladen</target>
+</trans-unit>
+
+
+<!-- wiki links-->
+
+<trans-unit id="13000">
+<source>Manage wiki links</source>
+<target>Verwalte Wiki-Links</target>
+</trans-unit>
+
+<trans-unit id="13001">
+<source>Create Link</source>
+<target>Erstelle Link</target>
+</trans-unit>
+
+<trans-unit id="13002">
+<source>Link to new wiki document</source>
+<target>Link zu einem neuem Wiki-Eintrag</target>
+</trans-unit>
+
+<trans-unit id="13003">
+<source>Link to existing wiki document</source>
+<target>Link zu einem bestehenden Wiki-Eintrag</target>
+</trans-unit>
+
+<trans-unit id="13004">
+<source>Link to this document</source>
+<target>Link zu diesem Eintrag</target>
+</trans-unit>
+
+
+<!-- ull_icon -->
+
+<trans-unit id="14000">
+<source>edit</source>
+<target>Bearbeiten</target>
+</trans-unit>
+
+<trans-unit id="14001">
+<source>delete</source>
+<target>Löschen</target>
+</trans-unit>
+
+
+<!-- startpage / navigation -->
+
+<trans-unit id="15000">
+<source>Active tickets</source>
+<target>Offene Tickets</target>
+</trans-unit>
+
+<trans-unit id="15001">
+<source>My todo list</source>
+<target>Meine Todo-Liste</target>
+</trans-unit>
+
+</body>
+  </file>
+</xliff>

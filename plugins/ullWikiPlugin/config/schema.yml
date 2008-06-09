@@ -1,0 +1,46 @@
+---
+propel:
+  _attributes: { package: plugins.ullWikiPlugin.lib.model } 
+  ull_wiki: 
+    _attributes: 
+      idMethod: native
+    id: 
+      type: INTEGER
+      required: true
+      autoIncrement: true
+      primaryKey: true
+    docid: 
+      type: INTEGER
+      required: true 
+    current: 
+      type: INTEGER
+    culture: 
+      type: VARCHAR
+      size: 7
+    body: 
+      type: LONGVARCHAR
+    subject: 
+      type: VARCHAR
+      size: 255
+    changelog_comment: 
+      type: VARCHAR
+      size: 255
+    read_counter: 
+      type: INTEGER
+    edit_counter: 
+      type: INTEGER
+    locked_by_user_id: 
+      type: INTEGER
+    locked_at: 
+      type: TIMESTAMP
+    creator_user_id: 
+      type: INTEGER
+    created_at: 
+      type: TIMESTAMP
+    updator_user_id: 
+      type: INTEGER
+    updated_at: 
+      type: TIMESTAMP
+    _indexes: 
+      wiki_docid_index: 
+        - docid

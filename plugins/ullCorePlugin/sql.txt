@@ -1,0 +1,74 @@
+ALTER TABLE `ull_user_group` CHANGE `user_id` `ull_user_id` INTEGER;
+ALTER TABLE `ull_user_group` CHANGE `group_id` `ull_group_id` INTEGER;
+ALTER TABLE `ull_flow_doc` CHANGE `title` `title` VARCHAR(256);
+
+/* 2008-04-07 */
+CREATE TABLE `ull_select`
+(
+  `id` INTEGER  NOT NULL AUTO_INCREMENT,
+  `caption_i18n_default` VARCHAR(64),
+  `creator_user_id` INTEGER,
+  `created_at` DATETIME,
+  `updator_user_id` INTEGER,
+  `updated_at` DATETIME,
+  PRIMARY KEY (`id`)
+)Type=MyISAM;
+
+CREATE TABLE `ull_select_i18n`
+(
+  `caption_i18n` VARCHAR(64),
+  `id` INTEGER  NOT NULL,
+  `culture` VARCHAR(7)  NOT NULL,
+  PRIMARY KEY (`id`,`culture`),
+  CONSTRAINT `ull_select_i18n_FK_1`
+    FOREIGN KEY (`id`)
+    REFERENCES `ull_select` (`id`)
+    ON DELETE CASCADE
+)Type=MyISAM;
+
+CREATE TABLE `ull_select_child`
+(
+  `id` INTEGER  NOT NULL AUTO_INCREMENT,
+  `ull_select_id` INTEGER,
+  `caption_i18n_default` VARCHAR(64),
+  `sequence` INTEGER,
+  `creator_user_id` INTEGER,
+  `created_at` DATETIME,
+  `updator_user_id` INTEGER,
+  `updated_at` DATETIME,
+  PRIMARY KEY (`id`),
+  INDEX `ull_select_child_FI_1` (`ull_select_id`),
+  CONSTRAINT `ull_select_child_FK_1`
+    FOREIGN KEY (`ull_select_id`)
+    REFERENCES `ull_select` (`id`)
+)Type=MyISAM;
+
+CREATE TABLE `ull_select_child_i18n`
+(
+  `caption_i18n` VARCHAR(64),
+  `id` INTEGER  NOT NULL,
+  `culture` VARCHAR(7)  NOT NULL,
+  PRIMARY KEY (`id`,`culture`),
+  CONSTRAINT `ull_select_child_i18n_FK_1`
+    FOREIGN KEY (`id`)
+    REFERENCES `ull_select_child` (`id`)
+    ON DELETE CASCADE
+)Type=MyISAM;
+
+INSERT INTO ull_column_info (DB_TABLE_NAME,DB_COLUMN_NAME,ULL_FIELD_ID,ENABLED,SHOW_IN_LIST,MANDATORY,CAPTION_I18N_DEFAULT,DESCRIPTION_I18N_DEFAULT) VALUES ('ull_select_child','ull_select_id',5,1,1,0,'Select Box','')
+INSERT INTO ull_column_info_i18n (CAPTION_I18N,DESCRIPTION_I18N,ID,CULTURE) VALUES ('Select Box','',41,'de')
+
+enter priority children
+
+add ull_field select
+
+ull_field: 'password'
+ull_user -> field_info -> type 'password'
+
+ALTER TABLE `ull_column_info` ADD `options` TEXT after `ull_field_id`;
+ALTER TABLE `ull_flow_field` ADD `options` TEXT after `ull_field_id`;
+
+ALTER TABLE `ull_select` ADD `slug` VARCHAR(32) AFTER `id`;
+
+ull_action: 'send'#
+

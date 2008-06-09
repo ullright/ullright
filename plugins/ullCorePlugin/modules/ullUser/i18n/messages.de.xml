@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+<trans-unit id="39">
+<source>Login failed. Please try again:</source>
+<target>Anmeldung fehlgeschlagen. Bitte versuchen Sie es noch einmal:</target>
+</trans-unit>
+
+<trans-unit id="40">
+<source>Username</source>
+<target>Benutzername</target>
+</trans-unit>
+
+<trans-unit id="41">
+<source>Password</source>
+<target>Passwort</target>
+</trans-unit>
+
+<trans-unit id="42">
+<source>Your username is required!</source>
+<target>Bitte geben Sie ihren Benutzernamen ein!</target>
+</trans-unit>
+
+<trans-unit id="43">
+<source>Your password is required!</source>
+<target>Bitte geben Sie ihr Passwort ein!</target>
+</trans-unit>
+
+<trans-unit id="44">
+<source>Username must be 4 or more characters</source>
+<target>Der Benutzername mu&#xDF; aus mindestens 4 Zeichen bestehen</target>
+</trans-unit>
+
+<trans-unit id="49">
+<source>Please login to verify access</source>
+<target>Bitte anmelden um die Zugriffsberechtigung zu &#xFC;berpr&#xFC;fen</target>
+</trans-unit>
+
+<trans-unit id="50">
+<source>No Access. Please contact your administrator if you need access to this page.</source>
+<target>Kein Zugriff. Bitte kontaktieren Sie Ihren Administrator, wenn Sie Zugriff auf diese Seite ben&#xF6;tigen</target>
+</trans-unit>
+
+</body>
+  </file>
+</xliff>

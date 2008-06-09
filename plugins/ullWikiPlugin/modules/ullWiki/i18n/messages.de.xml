@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+    
+<trans-unit id="4">
+<source>Docid</source>
+<target>Docid</target>
+</trans-unit>
+
+<trans-unit id="14">
+<source>DocId</source>
+<target/>
+</trans-unit>
+
+<trans-unit id="15">
+<source>Version</source>
+<target/>
+</trans-unit>
+
+<trans-unit id="26">
+<source>Wiki Startpage</source>
+<target>Wiki Startseite</target>
+</trans-unit>
+
+<trans-unit id="33">
+<source>Wiki Result List</source>
+<target>Wiki Ergebnisliste</target>
+</trans-unit>
+
+<trans-unit id="34">
+<source>Wiki Show</source>
+<target>Wiki Ansicht</target>
+</trans-unit>
+
+</body>
+  </file>
+</xliff>
