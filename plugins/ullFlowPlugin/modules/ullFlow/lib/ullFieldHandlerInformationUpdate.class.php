@@ -61,6 +61,8 @@ class ullFieldHandlerInformationUpdate extends ullFieldHandler
 //    if (!$selected_id = $default_value) {
 //      $selected_id = $object->$method();
 //    }
+
+    $options['size'] = '92x2'; 
     
     $return .= textarea_tag(_convert_method_to_name($method, $options), $default_value, $options);
     

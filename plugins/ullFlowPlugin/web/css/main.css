@@ -188,11 +188,11 @@ ul.ull_flow_actions li{
 
 /* styles for the information update fieldtype */
 .ull_flow_fieldtype_information_update {
-  max-height:150px;
-  width:34em; 
-  overflow:auto; 
-  border:1px solid silver; 
-  padding: .1em; 
+  max-height: 250px;
+  width:      51.35em; 
+  overflow:   auto; 
+  border:     1px solid silver; 
+  padding:    .1em; 
   margin-bottom: 1em;
   background-color: #eeeeee;
 }

@@ -47,12 +47,17 @@ class ullFieldHandler
     
     $method_name = $this->buildPropelMethodName($value_field);
     
+    //default size
+    if(!isset($this->options['size'])) {
+      $this->options['size'] = '80';
+    }
+    
     $return  = array(
       'function' => 'object_input_tag'
       , 'parameters' => array(
                           'object' => $this->propelObject
                           ,'method' => $method_name
-                          ,'options' => array('size' => '50') // TODO: maxlength
+                          ,'options' => $this->options
                           
                         )
       );

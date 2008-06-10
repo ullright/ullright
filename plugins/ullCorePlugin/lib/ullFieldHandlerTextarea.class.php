@@ -24,12 +24,17 @@ class ullFieldHandlerTextarea extends ullFieldHandler
     
     $method_name = $this->buildPropelMethodName($value_field);
     
+    //default size
+    if(!isset($this->options['size'])) {
+      $this->options['size'] = '92x4';
+    }
+    
     return array(
       'function' => 'object_textarea_tag'
       , 'parameters' => array(
                           'object'    => $this->propelObject
                           ,'method'   => $method_name
-                          , 'options' => array('size' => '60x4')
+                          , 'options' => $this->options
                           , sfContext::getInstance()->getRequest()->getParameter($field_name)
                         )
       );
