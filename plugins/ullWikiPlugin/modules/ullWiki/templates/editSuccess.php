@@ -96,7 +96,7 @@
   
   <div class='action_buttons_edit_left'>
 
-    <ul class="ull_wiki_actions">
+    <ul>
 
       <li>
 		    <?php 
@@ -122,7 +122,7 @@
 
   <div class='action_buttons_edit_right'>
 
-    <ul class="ull_wiki_actions">
+    <ul>
 
       <li>
 		    <?php

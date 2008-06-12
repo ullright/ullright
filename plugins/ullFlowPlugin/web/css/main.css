@@ -175,17 +175,6 @@ table.ull_flow_upload {
 
 
 
-/* styles for the workflow actions */
-ul.ull_flow_actions {
-  list-style: none;
-}
-
-ul.ull_flow_actions li{
-  margin-left: 0;
-}
-
-
-
 /* styles for the information update fieldtype */
 .ull_flow_fieldtype_information_update {
   max-height: 250px;

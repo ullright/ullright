@@ -105,7 +105,7 @@
         echo form_error('ull_flow_action_comment');
       ?>
       
-      <ul class="ull_flow_actions">
+      <ul>
         <?php 
           foreach ($step_actions as $step_action) {
             
@@ -130,7 +130,7 @@
 
     
   <div class='action_buttons_edit_right'>
-    <ul class="ull_flow_actions">
+    <ul>
       
       <?php if ($ull_form->getAccessDefault() == 'w'): ?>
       

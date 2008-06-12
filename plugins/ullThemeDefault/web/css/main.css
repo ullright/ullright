@@ -512,6 +512,7 @@ ul.tag-cloud li {
 .action_buttons_edit ul {
 	margin: 0;
 	padding: 0;
+  list-style: none;
 }
 
 .action_buttons_edit ul li {

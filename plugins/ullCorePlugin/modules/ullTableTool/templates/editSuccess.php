@@ -67,7 +67,7 @@
   
   <div class='action_buttons_edit_left'>
 
-    <ul class="ull_tabletool_actions">
+    <ul>
 
       <li>
         <?php echo submit_tag(__('Save', null, 'common')) ?>
@@ -79,7 +79,7 @@
 
   <div class='action_buttons_edit_right'>
 
-    <ul class="ull_tabletool_actions">
+    <ul>
 
       <li>
 <?php
