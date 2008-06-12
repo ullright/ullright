@@ -89,46 +89,72 @@
 </table>
 <br />
 
-<div class='action_buttons'>
-    
-  <div class='action_buttons_left'>
-    <?php
-      echo button_to(
-        __('Cancel', null, 'common'), 
-        $refererHandler->getReferer('edit'),
-        'confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common')
-      );
-    ?> &nbsp;
-    <?php if ($ullwiki->getId()): ?>    
-      <?php 
-        echo button_to(
-          __('Delete', null, 'common'), 
-          'ullwiki/delete?docid='.$ullwiki->getDocid(), 
-          'confirm='.__('Are you sure?', null, 'common')
-          ); 
-      ?> &nbsp; 
-    <?php endif; ?>
-  </div>
 
-  <div class='action_buttons_right'>
-     &nbsp; 
-    <?php 
-      echo input_tag('save', __('Save only', null, 'common'), array(
-        'type'      => 'button',
-        'onclick'   => 'setSaveMode("saveonly");'
-      )); ?>
-     &nbsp; 
-    <?php 
-      echo input_tag('save', __('Save and show', null, 'common'), array(
-        'type'      => 'button',
-        'onclick'   => 'setSaveMode("saveshow");'
-      )); ?>
-     &nbsp; <?php echo submit_tag(__('Save and close', null, 'common')) ?>
-  </div>  
+<div class='action_buttons_edit'>
+<fieldset>
+  <legend><?php echo __('Actions', null, 'common') ?></legend>
   
-  <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
+  <div class='action_buttons_edit_left'>
+
+    <ul class="ull_wiki_actions">
+
+      <li>
+		    <?php 
+		      echo input_tag('save', __('Save only', null, 'common'), array(
+		        'type'      => 'button',
+		        'onclick'   => 'setSaveMode("saveonly");'
+		      )); ?>
+		  </li>
+		  <li>
+	    <?php 
+	      echo input_tag('save', __('Save and show', null, 'common'), array(
+	        'type'      => 'button',
+	        'onclick'   => 'setSaveMode("saveshow");'
+	      )); ?>
+	    </li>
+      <li>
+        <?php echo submit_tag(__('Save and close', null, 'common')) ?>
+      </li>
+
+    </ul>
+
+  </div>    
+
+  <div class='action_buttons_edit_right'>
+
+    <ul class="ull_wiki_actions">
+
+      <li>
+		    <?php
+          echo link_to(
+            __('Cancel', null, 'common'), 
+            $refererHandler->getReferer('edit'),
+            'confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common')
+          );
+		    
+		    ?>
+      </li>
+      <li>
+		    <?php if ($ullwiki->getId()): ?>    
+		      <?php 
+		        echo link_to(
+		          __('Delete', null, 'common'), 
+		          'ullwiki/delete?docid='.$ullwiki->getDocid(), 
+		          'confirm='.__('Are you sure?', null, 'common')
+		          ); 
+		      ?>
+		    <?php endif; ?>
+      </li>
+
+    </ul>
+
+  </div>    
+
+  <div class="clear"></div>  
   
-</div> <!-- end of action_buttons-->
+</fieldset>
+
+</div>
 
 
 </form>

@@ -60,37 +60,58 @@
 
 <br />
 
-<div class='action_buttons'>
+
+<div class='action_buttons_edit'>
+<fieldset>
+  <legend><?php echo __('Actions', null, 'common') ?></legend>
+  
+  <div class='action_buttons_edit_left'>
+
+    <ul class="ull_tabletool_actions">
+
+      <li>
+        <?php echo submit_tag(__('Save', null, 'common')) ?>
+      </li>
+
+    </ul>
     
-  <div class='action_buttons_left'>
-    <?php
-      echo button_to(
+  </div>
+
+  <div class='action_buttons_edit_right'>
+
+    <ul class="ull_tabletool_actions">
+
+      <li>
+<?php
+      echo link_to(
         __('Cancel', null, 'common') 
 //        , $refererHandler->getReferer('edit')
         , 'ullTableTool/list?table=' . $table_name
         , 'confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common')
       );
-    ?> &nbsp;
-    <?php if ($id): ?>    
-      <?php 
-        echo button_to(
-          __('Delete', null, 'common')
-          , 'ullTableTool/delete?table=' . $table_name . '&id=' . $id
-          , 'confirm='.__('Are you sure?', null, 'common')
-          ); 
-      ?> &nbsp; 
-    <?php endif; ?>
+?>
+      </li>
+      <li>
+		    <?php if ($id): ?>    
+		      <?php 
+		        echo link_to(
+		          __('Delete', null, 'common')
+		          , 'ullTableTool/delete?table=' . $table_name . '&id=' . $id
+		          , 'confirm='.__('Are you sure?', null, 'common')
+		          ); 
+		      ?> &nbsp; 
+		    <?php endif; ?>
+      </li>
+      
+    </ul>
+    
   </div>
 
-  <div class='action_buttons_right'>
-    &nbsp; 
-    <?php echo submit_tag(__('Save', null, 'common')) ?>
-  </div>  
+  <div class="clear"></div>  
   
-  <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
-  
-</div> <!-- end of action_buttons-->
+</fieldset>
 
+</div>
 
 
 <?php echo input_hidden_tag('table', $table_name) ?>

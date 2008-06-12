@@ -133,3 +133,13 @@ table.ull_wiki_edit {
 .ull_wiki_edit .odd {
   background:       #e3f5fd;
 }
+
+/* styles for the wiki actions */
+ul.ull_wiki_actions {
+  list-style: none;
+}
+
+ul.ull_wiki_actions li{
+  margin-left: 0;
+}
+

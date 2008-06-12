@@ -1,0 +1,2 @@
+default:
+  stylesheets:    [ /ullCorePlugin/css/main.css: { media: all } ]
