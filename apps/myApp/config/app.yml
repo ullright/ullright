@@ -13,3 +13,6 @@ all:
     
   auth:
     function: internal      
+
+  tags:
+    limit:   16
