@@ -103,7 +103,12 @@ class ullFieldHandlerWikiLink extends ullFieldHandler
           $cols = explode(";", $row);
   
           if ($ull_wiki_doc_id = $cols[0]) {
-            $subject = UllWikiPeer::retrieveByDocid($ull_wiki_doc_id)->getSubject();
+            $wiki_doc = UllWikiPeer::retrieveByDocid($ull_wiki_doc_id);
+            if ($wiki_doc) {
+              $subject = UllWikiPeer::retrieveByDocid($ull_wiki_doc_id)->getSubject();
+            } else {
+              $subject = 'Invalid Wiki Doc!';
+            }
             
             $html .= '<tr>';
               $html .= '<td>' . link_to($ull_wiki_doc_id, 'ullWiki/show?docid=' . $ull_wiki_doc_id) . '</td>';

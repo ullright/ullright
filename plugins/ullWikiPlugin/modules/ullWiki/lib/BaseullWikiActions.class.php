@@ -173,6 +173,7 @@ class BaseullWikiActions extends ullsfActions
     
     // get document
     $this->ullwiki = UllWikiPeer::retrieveByDocid($this->getRequestParameter('docid'));
+    $this->forward404Unless($this->ullwiki);
     
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
     if ($this->return_var = $this->getRequestParameter('return_var')) {
