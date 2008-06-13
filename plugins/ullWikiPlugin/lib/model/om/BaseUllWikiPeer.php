@@ -19,7 +19,7 @@ abstract class BaseUllWikiPeer {
 	const CLASS_DEFAULT = 'plugins.ullWikiPlugin.lib.model.UllWiki';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 15;
+	const NUM_COLUMNS = 16;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -52,6 +52,9 @@ abstract class BaseUllWikiPeer {
 	/** the column name for the EDIT_COUNTER field */
 	const EDIT_COUNTER = 'ull_wiki.EDIT_COUNTER';
 
+	/** the column name for the DUPLICATE_TAGS_FOR_PROPEL_SEARCH field */
+	const DUPLICATE_TAGS_FOR_PROPEL_SEARCH = 'ull_wiki.DUPLICATE_TAGS_FOR_PROPEL_SEARCH';
+
 	/** the column name for the LOCKED_BY_USER_ID field */
 	const LOCKED_BY_USER_ID = 'ull_wiki.LOCKED_BY_USER_ID';
 
@@ -81,10 +84,10 @@ abstract class BaseUllWikiPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Docid', 'Current', 'Culture', 'Body', 'Subject', 'ChangelogComment', 'ReadCounter', 'EditCounter', 'LockedByUserId', 'LockedAt', 'CreatorUserId', 'CreatedAt', 'UpdatorUserId', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (UllWikiPeer::ID, UllWikiPeer::DOCID, UllWikiPeer::CURRENT, UllWikiPeer::CULTURE, UllWikiPeer::BODY, UllWikiPeer::SUBJECT, UllWikiPeer::CHANGELOG_COMMENT, UllWikiPeer::READ_COUNTER, UllWikiPeer::EDIT_COUNTER, UllWikiPeer::LOCKED_BY_USER_ID, UllWikiPeer::LOCKED_AT, UllWikiPeer::CREATOR_USER_ID, UllWikiPeer::CREATED_AT, UllWikiPeer::UPDATOR_USER_ID, UllWikiPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'docid', 'current', 'culture', 'body', 'subject', 'changelog_comment', 'read_counter', 'edit_counter', 'locked_by_user_id', 'locked_at', 'creator_user_id', 'created_at', 'updator_user_id', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Docid', 'Current', 'Culture', 'Body', 'Subject', 'ChangelogComment', 'ReadCounter', 'EditCounter', 'DuplicateTagsForPropelSearch', 'LockedByUserId', 'LockedAt', 'CreatorUserId', 'CreatedAt', 'UpdatorUserId', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (UllWikiPeer::ID, UllWikiPeer::DOCID, UllWikiPeer::CURRENT, UllWikiPeer::CULTURE, UllWikiPeer::BODY, UllWikiPeer::SUBJECT, UllWikiPeer::CHANGELOG_COMMENT, UllWikiPeer::READ_COUNTER, UllWikiPeer::EDIT_COUNTER, UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, UllWikiPeer::LOCKED_BY_USER_ID, UllWikiPeer::LOCKED_AT, UllWikiPeer::CREATOR_USER_ID, UllWikiPeer::CREATED_AT, UllWikiPeer::UPDATOR_USER_ID, UllWikiPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'docid', 'current', 'culture', 'body', 'subject', 'changelog_comment', 'read_counter', 'edit_counter', 'duplicate_tags_for_propel_search', 'locked_by_user_id', 'locked_at', 'creator_user_id', 'created_at', 'updator_user_id', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
 	);
 
 	/**
@@ -94,10 +97,10 @@ abstract class BaseUllWikiPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Docid' => 1, 'Current' => 2, 'Culture' => 3, 'Body' => 4, 'Subject' => 5, 'ChangelogComment' => 6, 'ReadCounter' => 7, 'EditCounter' => 8, 'LockedByUserId' => 9, 'LockedAt' => 10, 'CreatorUserId' => 11, 'CreatedAt' => 12, 'UpdatorUserId' => 13, 'UpdatedAt' => 14, ),
-		BasePeer::TYPE_COLNAME => array (UllWikiPeer::ID => 0, UllWikiPeer::DOCID => 1, UllWikiPeer::CURRENT => 2, UllWikiPeer::CULTURE => 3, UllWikiPeer::BODY => 4, UllWikiPeer::SUBJECT => 5, UllWikiPeer::CHANGELOG_COMMENT => 6, UllWikiPeer::READ_COUNTER => 7, UllWikiPeer::EDIT_COUNTER => 8, UllWikiPeer::LOCKED_BY_USER_ID => 9, UllWikiPeer::LOCKED_AT => 10, UllWikiPeer::CREATOR_USER_ID => 11, UllWikiPeer::CREATED_AT => 12, UllWikiPeer::UPDATOR_USER_ID => 13, UllWikiPeer::UPDATED_AT => 14, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'docid' => 1, 'current' => 2, 'culture' => 3, 'body' => 4, 'subject' => 5, 'changelog_comment' => 6, 'read_counter' => 7, 'edit_counter' => 8, 'locked_by_user_id' => 9, 'locked_at' => 10, 'creator_user_id' => 11, 'created_at' => 12, 'updator_user_id' => 13, 'updated_at' => 14, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Docid' => 1, 'Current' => 2, 'Culture' => 3, 'Body' => 4, 'Subject' => 5, 'ChangelogComment' => 6, 'ReadCounter' => 7, 'EditCounter' => 8, 'DuplicateTagsForPropelSearch' => 9, 'LockedByUserId' => 10, 'LockedAt' => 11, 'CreatorUserId' => 12, 'CreatedAt' => 13, 'UpdatorUserId' => 14, 'UpdatedAt' => 15, ),
+		BasePeer::TYPE_COLNAME => array (UllWikiPeer::ID => 0, UllWikiPeer::DOCID => 1, UllWikiPeer::CURRENT => 2, UllWikiPeer::CULTURE => 3, UllWikiPeer::BODY => 4, UllWikiPeer::SUBJECT => 5, UllWikiPeer::CHANGELOG_COMMENT => 6, UllWikiPeer::READ_COUNTER => 7, UllWikiPeer::EDIT_COUNTER => 8, UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH => 9, UllWikiPeer::LOCKED_BY_USER_ID => 10, UllWikiPeer::LOCKED_AT => 11, UllWikiPeer::CREATOR_USER_ID => 12, UllWikiPeer::CREATED_AT => 13, UllWikiPeer::UPDATOR_USER_ID => 14, UllWikiPeer::UPDATED_AT => 15, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'docid' => 1, 'current' => 2, 'culture' => 3, 'body' => 4, 'subject' => 5, 'changelog_comment' => 6, 'read_counter' => 7, 'edit_counter' => 8, 'duplicate_tags_for_propel_search' => 9, 'locked_by_user_id' => 10, 'locked_at' => 11, 'creator_user_id' => 12, 'created_at' => 13, 'updator_user_id' => 14, 'updated_at' => 15, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
 	);
 
 	/**
@@ -215,6 +218,8 @@ abstract class BaseUllWikiPeer {
 		$criteria->addSelectColumn(UllWikiPeer::READ_COUNTER);
 
 		$criteria->addSelectColumn(UllWikiPeer::EDIT_COUNTER);
+
+		$criteria->addSelectColumn(UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH);
 
 		$criteria->addSelectColumn(UllWikiPeer::LOCKED_BY_USER_ID);
 

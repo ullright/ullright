@@ -103,33 +103,44 @@ class BaseullWikiActions extends ullsfActions
     }
     
     if ($this->search = $this->getRequestParameter('search')) {
+      
+//      ullCoreTools::printR($this->search);
+
+      $cton_id = $c->getNewCriterion(UllWikiPeer::DOCID, $this->search);
+      
       $fulltext = $this->getRequestParameter('fulltext');
       
-      $this->search_words_arr = explode(' ', $this->search);
-      foreach($this->search_words_arr as $key => $this->search) {
-        $this->search_words_arr[$key] = '%'.$this->search.'%';
+      $search_words_arr = explode(' ', $this->search);
+      foreach($search_words_arr as $key => $search_word) {
+        $search_words_arr[$key] = '%'.$search_word.'%';
       }
       
-      $this->search_word_first = array_shift($this->search_words_arr);
+      $search_word_first = array_shift($search_words_arr);
       
       // use propel criterions to build a vaild "OR" query
       // the first word uses getNewCriterion
-      $cton_subject = $c->getNewCriterion(UllWikiPeer::SUBJECT, $this->search_word_first, Criteria::LIKE);
+      $cton_subject = $c->getNewCriterion(UllWikiPeer::SUBJECT, $search_word_first, Criteria::LIKE);
+      $cton_tags = $c->getNewCriterion(UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $search_word_first, Criteria::LIKE);
       if ($fulltext) {
-        $cton_body = $c->getNewCriterion(UllWikiPeer::BODY, $this->search_word_first, Criteria::LIKE);
+        $cton_body = $c->getNewCriterion(UllWikiPeer::BODY, $search_word_first, Criteria::LIKE);
       }
       
       //all subsequent words have to use addAnd
-      foreach($this->search_words_arr as $key => $this->search) {
-        $cton_subject->addAnd($c->getNewCriterion(UllWikiPeer::SUBJECT, $this->search, Criteria::LIKE));
+      foreach($search_words_arr as $search_word) {
+        $cton_subject->addAnd($c->getNewCriterion(UllWikiPeer::SUBJECT, $search_word, Criteria::LIKE));
+        $cton_tags->addAnd($c->getNewCriterion(UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $search_word, Criteria::LIKE));
         if ($fulltext) {
-          $cton_body->addAnd($c->getNewCriterion(UllWikiPeer::BODY, $this->search, Criteria::LIKE));
+          $cton_body->addAnd($c->getNewCriterion(UllWikiPeer::BODY, $search_word, Criteria::LIKE));
         }
       }
 
+      $cton_subject->addOr($cton_tags);
+      $cton_subject->addOr($cton_id);
+      
       if ($fulltext) {
         $cton_subject->addOr($cton_body);
       }
+
       $c->add($cton_subject);
 
     }
@@ -406,6 +417,7 @@ class BaseullWikiActions extends ullsfActions
     $ullwiki->setBody($this->getRequestParameter('body'));
     $ullwiki->setChangelogComment($this->getRequestParameter('changelog_comment'));
     $ullwiki->setTags(strtolower($this->getRequestParameter('tags')));
+    $ullwiki->setDuplicateTagsForPropelSearch(strtolower($this->getRequestParameter('tags')));
     
     $ullwiki->save();
 
@@ -476,4 +488,5 @@ class BaseullWikiActions extends ullsfActions
     
     return $this->redirect('ullwiki/list');
   }
+  
 }

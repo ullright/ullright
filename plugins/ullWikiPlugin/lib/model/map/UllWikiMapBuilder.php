@@ -79,6 +79,8 @@ class UllWikiMapBuilder {
 
 		$tMap->addColumn('EDIT_COUNTER', 'EditCounter', 'int', CreoleTypes::INTEGER, false, null);
 
+		$tMap->addColumn('DUPLICATE_TAGS_FOR_PROPEL_SEARCH', 'DuplicateTagsForPropelSearch', 'string', CreoleTypes::LONGVARCHAR, false, null);
+
 		$tMap->addColumn('LOCKED_BY_USER_ID', 'LockedByUserId', 'int', CreoleTypes::INTEGER, false, null);
 
 		$tMap->addColumn('LOCKED_AT', 'LockedAt', 'int', CreoleTypes::TIMESTAMP, false, null);

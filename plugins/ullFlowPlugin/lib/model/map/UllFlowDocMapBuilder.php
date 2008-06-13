@@ -83,6 +83,8 @@ class UllFlowDocMapBuilder {
 
 		$tMap->addColumn('READ_ULL_GROUP_ID', 'ReadUllGroupId', 'int', CreoleTypes::INTEGER, false, null);
 
+		$tMap->addColumn('DUPLICATE_TAGS_FOR_PROPEL_SEARCH', 'DuplicateTagsForPropelSearch', 'string', CreoleTypes::LONGVARCHAR, false, null);
+
 		$tMap->addColumn('WRITE_ULL_GROUP_ID', 'WriteUllGroupId', 'int', CreoleTypes::INTEGER, false, null);
 
 		$tMap->addColumn('CREATOR_USER_ID', 'CreatorUserId', 'int', CreoleTypes::INTEGER, false, null);

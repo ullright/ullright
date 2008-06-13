@@ -97,6 +97,13 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 
 
 	/**
+	 * The value for the duplicate_tags_for_propel_search field.
+	 * @var        string
+	 */
+	protected $duplicate_tags_for_propel_search;
+
+
+	/**
 	 * The value for the write_ull_group_id field.
 	 * @var        int
 	 */
@@ -317,6 +324,17 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 	{
 
 		return $this->read_ull_group_id;
+	}
+
+	/**
+	 * Get the [duplicate_tags_for_propel_search] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getDuplicateTagsForPropelSearch()
+	{
+
+		return $this->duplicate_tags_for_propel_search;
 	}
 
 	/**
@@ -667,6 +685,28 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 	} // setReadUllGroupId()
 
 	/**
+	 * Set the value of [duplicate_tags_for_propel_search] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     void
+	 */
+	public function setDuplicateTagsForPropelSearch($v)
+	{
+
+		// Since the native PHP type for this column is string,
+		// we will cast the input to a string (if it is not).
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->duplicate_tags_for_propel_search !== $v) {
+			$this->duplicate_tags_for_propel_search = $v;
+			$this->modifiedColumns[] = UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH;
+		}
+
+	} // setDuplicateTagsForPropelSearch()
+
+	/**
 	 * Set the value of [write_ull_group_id] column.
 	 * 
 	 * @param      int $v new value
@@ -819,22 +859,24 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 
 			$this->read_ull_group_id = $rs->getInt($startcol + 10);
 
-			$this->write_ull_group_id = $rs->getInt($startcol + 11);
+			$this->duplicate_tags_for_propel_search = $rs->getString($startcol + 11);
 
-			$this->creator_user_id = $rs->getInt($startcol + 12);
+			$this->write_ull_group_id = $rs->getInt($startcol + 12);
 
-			$this->created_at = $rs->getTimestamp($startcol + 13, null);
+			$this->creator_user_id = $rs->getInt($startcol + 13);
 
-			$this->updator_user_id = $rs->getInt($startcol + 14);
+			$this->created_at = $rs->getTimestamp($startcol + 14, null);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 15, null);
+			$this->updator_user_id = $rs->getInt($startcol + 15);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 16, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 16; // 16 = UllFlowDocPeer::NUM_COLUMNS - UllFlowDocPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 17; // 17 = UllFlowDocPeer::NUM_COLUMNS - UllFlowDocPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating UllFlowDoc object", $e);
@@ -1186,18 +1228,21 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 				return $this->getReadUllGroupId();
 				break;
 			case 11:
-				return $this->getWriteUllGroupId();
+				return $this->getDuplicateTagsForPropelSearch();
 				break;
 			case 12:
-				return $this->getCreatorUserId();
+				return $this->getWriteUllGroupId();
 				break;
 			case 13:
-				return $this->getCreatedAt();
+				return $this->getCreatorUserId();
 				break;
 			case 14:
-				return $this->getUpdatorUserId();
+				return $this->getCreatedAt();
 				break;
 			case 15:
+				return $this->getUpdatorUserId();
+				break;
+			case 16:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -1231,11 +1276,12 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 			$keys[8] => $this->getDeadline(),
 			$keys[9] => $this->getCustomField1(),
 			$keys[10] => $this->getReadUllGroupId(),
-			$keys[11] => $this->getWriteUllGroupId(),
-			$keys[12] => $this->getCreatorUserId(),
-			$keys[13] => $this->getCreatedAt(),
-			$keys[14] => $this->getUpdatorUserId(),
-			$keys[15] => $this->getUpdatedAt(),
+			$keys[11] => $this->getDuplicateTagsForPropelSearch(),
+			$keys[12] => $this->getWriteUllGroupId(),
+			$keys[13] => $this->getCreatorUserId(),
+			$keys[14] => $this->getCreatedAt(),
+			$keys[15] => $this->getUpdatorUserId(),
+			$keys[16] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -1301,18 +1347,21 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 				$this->setReadUllGroupId($value);
 				break;
 			case 11:
-				$this->setWriteUllGroupId($value);
+				$this->setDuplicateTagsForPropelSearch($value);
 				break;
 			case 12:
-				$this->setCreatorUserId($value);
+				$this->setWriteUllGroupId($value);
 				break;
 			case 13:
-				$this->setCreatedAt($value);
+				$this->setCreatorUserId($value);
 				break;
 			case 14:
-				$this->setUpdatorUserId($value);
+				$this->setCreatedAt($value);
 				break;
 			case 15:
+				$this->setUpdatorUserId($value);
+				break;
+			case 16:
 				$this->setUpdatedAt($value);
 				break;
 		} // switch()
@@ -1349,11 +1398,12 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[8], $arr)) $this->setDeadline($arr[$keys[8]]);
 		if (array_key_exists($keys[9], $arr)) $this->setCustomField1($arr[$keys[9]]);
 		if (array_key_exists($keys[10], $arr)) $this->setReadUllGroupId($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setWriteUllGroupId($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setCreatorUserId($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setCreatedAt($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setUpdatorUserId($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setUpdatedAt($arr[$keys[15]]);
+		if (array_key_exists($keys[11], $arr)) $this->setDuplicateTagsForPropelSearch($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setWriteUllGroupId($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setCreatorUserId($arr[$keys[13]]);
+		if (array_key_exists($keys[14], $arr)) $this->setCreatedAt($arr[$keys[14]]);
+		if (array_key_exists($keys[15], $arr)) $this->setUpdatorUserId($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setUpdatedAt($arr[$keys[16]]);
 	}
 
 	/**
@@ -1376,6 +1426,7 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(UllFlowDocPeer::DEADLINE)) $criteria->add(UllFlowDocPeer::DEADLINE, $this->deadline);
 		if ($this->isColumnModified(UllFlowDocPeer::CUSTOM_FIELD1)) $criteria->add(UllFlowDocPeer::CUSTOM_FIELD1, $this->custom_field1);
 		if ($this->isColumnModified(UllFlowDocPeer::READ_ULL_GROUP_ID)) $criteria->add(UllFlowDocPeer::READ_ULL_GROUP_ID, $this->read_ull_group_id);
+		if ($this->isColumnModified(UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH)) $criteria->add(UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $this->duplicate_tags_for_propel_search);
 		if ($this->isColumnModified(UllFlowDocPeer::WRITE_ULL_GROUP_ID)) $criteria->add(UllFlowDocPeer::WRITE_ULL_GROUP_ID, $this->write_ull_group_id);
 		if ($this->isColumnModified(UllFlowDocPeer::CREATOR_USER_ID)) $criteria->add(UllFlowDocPeer::CREATOR_USER_ID, $this->creator_user_id);
 		if ($this->isColumnModified(UllFlowDocPeer::CREATED_AT)) $criteria->add(UllFlowDocPeer::CREATED_AT, $this->created_at);
@@ -1454,6 +1505,8 @@ abstract class BaseUllFlowDoc extends BaseObject  implements Persistent {
 		$copyObj->setCustomField1($this->custom_field1);
 
 		$copyObj->setReadUllGroupId($this->read_ull_group_id);
+
+		$copyObj->setDuplicateTagsForPropelSearch($this->duplicate_tags_for_propel_search);
 
 		$copyObj->setWriteUllGroupId($this->write_ull_group_id);
 

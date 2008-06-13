@@ -83,6 +83,13 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 
 
 	/**
+	 * The value for the duplicate_tags_for_propel_search field.
+	 * @var        string
+	 */
+	protected $duplicate_tags_for_propel_search;
+
+
+	/**
 	 * The value for the locked_by_user_id field.
 	 * @var        int
 	 */
@@ -234,6 +241,17 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 	{
 
 		return $this->edit_counter;
+	}
+
+	/**
+	 * Get the [duplicate_tags_for_propel_search] column value.
+	 * 
+	 * @return     string
+	 */
+	public function getDuplicateTagsForPropelSearch()
+	{
+
+		return $this->duplicate_tags_for_propel_search;
 	}
 
 	/**
@@ -561,6 +579,28 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 	} // setEditCounter()
 
 	/**
+	 * Set the value of [duplicate_tags_for_propel_search] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     void
+	 */
+	public function setDuplicateTagsForPropelSearch($v)
+	{
+
+		// Since the native PHP type for this column is string,
+		// we will cast the input to a string (if it is not).
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->duplicate_tags_for_propel_search !== $v) {
+			$this->duplicate_tags_for_propel_search = $v;
+			$this->modifiedColumns[] = UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH;
+		}
+
+	} // setDuplicateTagsForPropelSearch()
+
+	/**
 	 * Set the value of [locked_by_user_id] column.
 	 * 
 	 * @param      int $v new value
@@ -733,24 +773,26 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 
 			$this->edit_counter = $rs->getInt($startcol + 8);
 
-			$this->locked_by_user_id = $rs->getInt($startcol + 9);
+			$this->duplicate_tags_for_propel_search = $rs->getString($startcol + 9);
 
-			$this->locked_at = $rs->getTimestamp($startcol + 10, null);
+			$this->locked_by_user_id = $rs->getInt($startcol + 10);
 
-			$this->creator_user_id = $rs->getInt($startcol + 11);
+			$this->locked_at = $rs->getTimestamp($startcol + 11, null);
 
-			$this->created_at = $rs->getTimestamp($startcol + 12, null);
+			$this->creator_user_id = $rs->getInt($startcol + 12);
 
-			$this->updator_user_id = $rs->getInt($startcol + 13);
+			$this->created_at = $rs->getTimestamp($startcol + 13, null);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 14, null);
+			$this->updator_user_id = $rs->getInt($startcol + 14);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 15, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 15; // 15 = UllWikiPeer::NUM_COLUMNS - UllWikiPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 16; // 16 = UllWikiPeer::NUM_COLUMNS - UllWikiPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating UllWiki object", $e);
@@ -1026,21 +1068,24 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 				return $this->getEditCounter();
 				break;
 			case 9:
-				return $this->getLockedByUserId();
+				return $this->getDuplicateTagsForPropelSearch();
 				break;
 			case 10:
-				return $this->getLockedAt();
+				return $this->getLockedByUserId();
 				break;
 			case 11:
-				return $this->getCreatorUserId();
+				return $this->getLockedAt();
 				break;
 			case 12:
-				return $this->getCreatedAt();
+				return $this->getCreatorUserId();
 				break;
 			case 13:
-				return $this->getUpdatorUserId();
+				return $this->getCreatedAt();
 				break;
 			case 14:
+				return $this->getUpdatorUserId();
+				break;
+			case 15:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -1072,12 +1117,13 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 			$keys[6] => $this->getChangelogComment(),
 			$keys[7] => $this->getReadCounter(),
 			$keys[8] => $this->getEditCounter(),
-			$keys[9] => $this->getLockedByUserId(),
-			$keys[10] => $this->getLockedAt(),
-			$keys[11] => $this->getCreatorUserId(),
-			$keys[12] => $this->getCreatedAt(),
-			$keys[13] => $this->getUpdatorUserId(),
-			$keys[14] => $this->getUpdatedAt(),
+			$keys[9] => $this->getDuplicateTagsForPropelSearch(),
+			$keys[10] => $this->getLockedByUserId(),
+			$keys[11] => $this->getLockedAt(),
+			$keys[12] => $this->getCreatorUserId(),
+			$keys[13] => $this->getCreatedAt(),
+			$keys[14] => $this->getUpdatorUserId(),
+			$keys[15] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -1137,21 +1183,24 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 				$this->setEditCounter($value);
 				break;
 			case 9:
-				$this->setLockedByUserId($value);
+				$this->setDuplicateTagsForPropelSearch($value);
 				break;
 			case 10:
-				$this->setLockedAt($value);
+				$this->setLockedByUserId($value);
 				break;
 			case 11:
-				$this->setCreatorUserId($value);
+				$this->setLockedAt($value);
 				break;
 			case 12:
-				$this->setCreatedAt($value);
+				$this->setCreatorUserId($value);
 				break;
 			case 13:
-				$this->setUpdatorUserId($value);
+				$this->setCreatedAt($value);
 				break;
 			case 14:
+				$this->setUpdatorUserId($value);
+				break;
+			case 15:
 				$this->setUpdatedAt($value);
 				break;
 		} // switch()
@@ -1186,12 +1235,13 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[6], $arr)) $this->setChangelogComment($arr[$keys[6]]);
 		if (array_key_exists($keys[7], $arr)) $this->setReadCounter($arr[$keys[7]]);
 		if (array_key_exists($keys[8], $arr)) $this->setEditCounter($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setLockedByUserId($arr[$keys[9]]);
-		if (array_key_exists($keys[10], $arr)) $this->setLockedAt($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setCreatorUserId($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setCreatedAt($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setUpdatorUserId($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setUpdatedAt($arr[$keys[14]]);
+		if (array_key_exists($keys[9], $arr)) $this->setDuplicateTagsForPropelSearch($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setLockedByUserId($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setLockedAt($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setCreatorUserId($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setCreatedAt($arr[$keys[13]]);
+		if (array_key_exists($keys[14], $arr)) $this->setUpdatorUserId($arr[$keys[14]]);
+		if (array_key_exists($keys[15], $arr)) $this->setUpdatedAt($arr[$keys[15]]);
 	}
 
 	/**
@@ -1212,6 +1262,7 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(UllWikiPeer::CHANGELOG_COMMENT)) $criteria->add(UllWikiPeer::CHANGELOG_COMMENT, $this->changelog_comment);
 		if ($this->isColumnModified(UllWikiPeer::READ_COUNTER)) $criteria->add(UllWikiPeer::READ_COUNTER, $this->read_counter);
 		if ($this->isColumnModified(UllWikiPeer::EDIT_COUNTER)) $criteria->add(UllWikiPeer::EDIT_COUNTER, $this->edit_counter);
+		if ($this->isColumnModified(UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH)) $criteria->add(UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $this->duplicate_tags_for_propel_search);
 		if ($this->isColumnModified(UllWikiPeer::LOCKED_BY_USER_ID)) $criteria->add(UllWikiPeer::LOCKED_BY_USER_ID, $this->locked_by_user_id);
 		if ($this->isColumnModified(UllWikiPeer::LOCKED_AT)) $criteria->add(UllWikiPeer::LOCKED_AT, $this->locked_at);
 		if ($this->isColumnModified(UllWikiPeer::CREATOR_USER_ID)) $criteria->add(UllWikiPeer::CREATOR_USER_ID, $this->creator_user_id);
@@ -1287,6 +1338,8 @@ abstract class BaseUllWiki extends BaseObject  implements Persistent {
 		$copyObj->setReadCounter($this->read_counter);
 
 		$copyObj->setEditCounter($this->edit_counter);
+
+		$copyObj->setDuplicateTagsForPropelSearch($this->duplicate_tags_for_propel_search);
 
 		$copyObj->setLockedByUserId($this->locked_by_user_id);
 

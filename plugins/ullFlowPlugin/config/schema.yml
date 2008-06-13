@@ -101,6 +101,8 @@ propel:
       size: 256
     read_ull_group_id:
       type: INTEGER
+    duplicate_tags_for_propel_search:
+      type: LONGVARCHAR
     write_ull_group_id:
       type: INTEGER
     creator_user_id: 

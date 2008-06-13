@@ -59,6 +59,7 @@ class ullFieldHandlerTags extends ullFieldHandler
   public function updateHandler($value_field, $value, $object) {
     
     $object->setTags(strtolower($value));
+    $object->setDuplicateTagsForPropelSearch(strtolower($value));
 
     return $value;
 

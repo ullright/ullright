@@ -19,7 +19,7 @@ abstract class BaseUllFlowDocPeer {
 	const CLASS_DEFAULT = 'plugins.ullFlowPlugin.lib.model.UllFlowDoc';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 16;
+	const NUM_COLUMNS = 17;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -58,6 +58,9 @@ abstract class BaseUllFlowDocPeer {
 	/** the column name for the READ_ULL_GROUP_ID field */
 	const READ_ULL_GROUP_ID = 'ull_flow_doc.READ_ULL_GROUP_ID';
 
+	/** the column name for the DUPLICATE_TAGS_FOR_PROPEL_SEARCH field */
+	const DUPLICATE_TAGS_FOR_PROPEL_SEARCH = 'ull_flow_doc.DUPLICATE_TAGS_FOR_PROPEL_SEARCH';
+
 	/** the column name for the WRITE_ULL_GROUP_ID field */
 	const WRITE_ULL_GROUP_ID = 'ull_flow_doc.WRITE_ULL_GROUP_ID';
 
@@ -84,10 +87,10 @@ abstract class BaseUllFlowDocPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'UllFlowAppId', 'Title', 'UllFlowActionId', 'AssignedToUllUserId', 'AssignedToUllGroupId', 'AssignedToUllFlowStepId', 'Priority', 'Deadline', 'CustomField1', 'ReadUllGroupId', 'WriteUllGroupId', 'CreatorUserId', 'CreatedAt', 'UpdatorUserId', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (UllFlowDocPeer::ID, UllFlowDocPeer::ULL_FLOW_APP_ID, UllFlowDocPeer::TITLE, UllFlowDocPeer::ULL_FLOW_ACTION_ID, UllFlowDocPeer::ASSIGNED_TO_ULL_USER_ID, UllFlowDocPeer::ASSIGNED_TO_ULL_GROUP_ID, UllFlowDocPeer::ASSIGNED_TO_ULL_FLOW_STEP_ID, UllFlowDocPeer::PRIORITY, UllFlowDocPeer::DEADLINE, UllFlowDocPeer::CUSTOM_FIELD1, UllFlowDocPeer::READ_ULL_GROUP_ID, UllFlowDocPeer::WRITE_ULL_GROUP_ID, UllFlowDocPeer::CREATOR_USER_ID, UllFlowDocPeer::CREATED_AT, UllFlowDocPeer::UPDATOR_USER_ID, UllFlowDocPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'ull_flow_app_id', 'title', 'ull_flow_action_id', 'assigned_to_ull_user_id', 'assigned_to_ull_group_id', 'assigned_to_ull_flow_step_id', 'priority', 'deadline', 'custom_field1', 'read_ull_group_id', 'write_ull_group_id', 'creator_user_id', 'created_at', 'updator_user_id', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'UllFlowAppId', 'Title', 'UllFlowActionId', 'AssignedToUllUserId', 'AssignedToUllGroupId', 'AssignedToUllFlowStepId', 'Priority', 'Deadline', 'CustomField1', 'ReadUllGroupId', 'DuplicateTagsForPropelSearch', 'WriteUllGroupId', 'CreatorUserId', 'CreatedAt', 'UpdatorUserId', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (UllFlowDocPeer::ID, UllFlowDocPeer::ULL_FLOW_APP_ID, UllFlowDocPeer::TITLE, UllFlowDocPeer::ULL_FLOW_ACTION_ID, UllFlowDocPeer::ASSIGNED_TO_ULL_USER_ID, UllFlowDocPeer::ASSIGNED_TO_ULL_GROUP_ID, UllFlowDocPeer::ASSIGNED_TO_ULL_FLOW_STEP_ID, UllFlowDocPeer::PRIORITY, UllFlowDocPeer::DEADLINE, UllFlowDocPeer::CUSTOM_FIELD1, UllFlowDocPeer::READ_ULL_GROUP_ID, UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, UllFlowDocPeer::WRITE_ULL_GROUP_ID, UllFlowDocPeer::CREATOR_USER_ID, UllFlowDocPeer::CREATED_AT, UllFlowDocPeer::UPDATOR_USER_ID, UllFlowDocPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'ull_flow_app_id', 'title', 'ull_flow_action_id', 'assigned_to_ull_user_id', 'assigned_to_ull_group_id', 'assigned_to_ull_flow_step_id', 'priority', 'deadline', 'custom_field1', 'read_ull_group_id', 'duplicate_tags_for_propel_search', 'write_ull_group_id', 'creator_user_id', 'created_at', 'updator_user_id', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
 	);
 
 	/**
@@ -97,10 +100,10 @@ abstract class BaseUllFlowDocPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UllFlowAppId' => 1, 'Title' => 2, 'UllFlowActionId' => 3, 'AssignedToUllUserId' => 4, 'AssignedToUllGroupId' => 5, 'AssignedToUllFlowStepId' => 6, 'Priority' => 7, 'Deadline' => 8, 'CustomField1' => 9, 'ReadUllGroupId' => 10, 'WriteUllGroupId' => 11, 'CreatorUserId' => 12, 'CreatedAt' => 13, 'UpdatorUserId' => 14, 'UpdatedAt' => 15, ),
-		BasePeer::TYPE_COLNAME => array (UllFlowDocPeer::ID => 0, UllFlowDocPeer::ULL_FLOW_APP_ID => 1, UllFlowDocPeer::TITLE => 2, UllFlowDocPeer::ULL_FLOW_ACTION_ID => 3, UllFlowDocPeer::ASSIGNED_TO_ULL_USER_ID => 4, UllFlowDocPeer::ASSIGNED_TO_ULL_GROUP_ID => 5, UllFlowDocPeer::ASSIGNED_TO_ULL_FLOW_STEP_ID => 6, UllFlowDocPeer::PRIORITY => 7, UllFlowDocPeer::DEADLINE => 8, UllFlowDocPeer::CUSTOM_FIELD1 => 9, UllFlowDocPeer::READ_ULL_GROUP_ID => 10, UllFlowDocPeer::WRITE_ULL_GROUP_ID => 11, UllFlowDocPeer::CREATOR_USER_ID => 12, UllFlowDocPeer::CREATED_AT => 13, UllFlowDocPeer::UPDATOR_USER_ID => 14, UllFlowDocPeer::UPDATED_AT => 15, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'ull_flow_app_id' => 1, 'title' => 2, 'ull_flow_action_id' => 3, 'assigned_to_ull_user_id' => 4, 'assigned_to_ull_group_id' => 5, 'assigned_to_ull_flow_step_id' => 6, 'priority' => 7, 'deadline' => 8, 'custom_field1' => 9, 'read_ull_group_id' => 10, 'write_ull_group_id' => 11, 'creator_user_id' => 12, 'created_at' => 13, 'updator_user_id' => 14, 'updated_at' => 15, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UllFlowAppId' => 1, 'Title' => 2, 'UllFlowActionId' => 3, 'AssignedToUllUserId' => 4, 'AssignedToUllGroupId' => 5, 'AssignedToUllFlowStepId' => 6, 'Priority' => 7, 'Deadline' => 8, 'CustomField1' => 9, 'ReadUllGroupId' => 10, 'DuplicateTagsForPropelSearch' => 11, 'WriteUllGroupId' => 12, 'CreatorUserId' => 13, 'CreatedAt' => 14, 'UpdatorUserId' => 15, 'UpdatedAt' => 16, ),
+		BasePeer::TYPE_COLNAME => array (UllFlowDocPeer::ID => 0, UllFlowDocPeer::ULL_FLOW_APP_ID => 1, UllFlowDocPeer::TITLE => 2, UllFlowDocPeer::ULL_FLOW_ACTION_ID => 3, UllFlowDocPeer::ASSIGNED_TO_ULL_USER_ID => 4, UllFlowDocPeer::ASSIGNED_TO_ULL_GROUP_ID => 5, UllFlowDocPeer::ASSIGNED_TO_ULL_FLOW_STEP_ID => 6, UllFlowDocPeer::PRIORITY => 7, UllFlowDocPeer::DEADLINE => 8, UllFlowDocPeer::CUSTOM_FIELD1 => 9, UllFlowDocPeer::READ_ULL_GROUP_ID => 10, UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH => 11, UllFlowDocPeer::WRITE_ULL_GROUP_ID => 12, UllFlowDocPeer::CREATOR_USER_ID => 13, UllFlowDocPeer::CREATED_AT => 14, UllFlowDocPeer::UPDATOR_USER_ID => 15, UllFlowDocPeer::UPDATED_AT => 16, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'ull_flow_app_id' => 1, 'title' => 2, 'ull_flow_action_id' => 3, 'assigned_to_ull_user_id' => 4, 'assigned_to_ull_group_id' => 5, 'assigned_to_ull_flow_step_id' => 6, 'priority' => 7, 'deadline' => 8, 'custom_field1' => 9, 'read_ull_group_id' => 10, 'duplicate_tags_for_propel_search' => 11, 'write_ull_group_id' => 12, 'creator_user_id' => 13, 'created_at' => 14, 'updator_user_id' => 15, 'updated_at' => 16, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
 	);
 
 	/**
@@ -222,6 +225,8 @@ abstract class BaseUllFlowDocPeer {
 		$criteria->addSelectColumn(UllFlowDocPeer::CUSTOM_FIELD1);
 
 		$criteria->addSelectColumn(UllFlowDocPeer::READ_ULL_GROUP_ID);
+
+		$criteria->addSelectColumn(UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH);
 
 		$criteria->addSelectColumn(UllFlowDocPeer::WRITE_ULL_GROUP_ID);
 

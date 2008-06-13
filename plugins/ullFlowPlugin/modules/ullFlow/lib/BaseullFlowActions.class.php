@@ -258,9 +258,11 @@ class BaseullFlowActions extends ullsfActions
     
     if ($this->ull_flow_search) {
       
+      $cton_id = $c->getNewCriterion(UllFlowDocPeer::ID, $this->ull_flow_search);
+      
       $search_words_arr = explode(' ', $this->ull_flow_search);
-      foreach($search_words_arr as $key => $search) {
-        $search_words_arr[$key] = '%'.$search.'%';
+      foreach($search_words_arr as $key => $search_word) {
+        $search_words_arr[$key] = '%'.$search_word.'%';
       }
       
       $search_word_first = array_shift($search_words_arr);
@@ -268,13 +270,15 @@ class BaseullFlowActions extends ullsfActions
       // use propel criterions to build a vaild "OR" query
       // the first word uses 'getNewCriterion'
       $cton_title = $c->getNewCriterion(UllFlowDocPeer::TITLE, $search_word_first, Criteria::LIKE);
+      $cton_tags = $c->getNewCriterion(UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $search_word_first, Criteria::LIKE);
 //      if ($fulltext) {
 //        $cton_body = $c->getNewCriterion(UllWikiPeer::BODY, $search_word_first, Criteria::LIKE);
 //      }
       
       //all subsequent words use 'addAnd'
-      foreach($search_words_arr as $key => $search) {
-        $cton_title->addAnd($c->getNewCriterion(UllFlowDocPeer::TITLE, $search, Criteria::LIKE));
+      foreach($search_words_arr as $search_word) {
+        $cton_title->addAnd($c->getNewCriterion(UllFlowDocPeer::TITLE, $search_word, Criteria::LIKE));
+        $cton_tags->addAnd($c->getNewCriterion(UllFlowDocPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $search_word, Criteria::LIKE));
 //        if ($fulltext) {
 //          $cton_body->addAnd($c->getNewCriterion(UllWikiPeer::BODY, $search, Criteria::LIKE));
 //        }
@@ -283,6 +287,8 @@ class BaseullFlowActions extends ullsfActions
 //      if ($fulltext) {
 //        $cton_subject->addOr($cton_body);
 //      }
+      $cton_title->addOr($cton_tags);
+      $cton_title->addOr($cton_id);
       $c->add($cton_title);
       
       $this->ull_filter->add(

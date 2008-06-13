@@ -29,6 +29,8 @@ propel:
       type: INTEGER
     edit_counter: 
       type: INTEGER
+    duplicate_tags_for_propel_search:
+      type: LONGVARCHAR
     locked_by_user_id: 
       type: INTEGER
     locked_at: 
