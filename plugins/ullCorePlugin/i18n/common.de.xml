@@ -133,8 +133,8 @@
 </trans-unit>
 
 <trans-unit id="1009">
-<source>Searches in subject and tags</source>
-<target>Sucht im Betreff und in den Tags</target>
+<source>Searches for ID, subject and tags</source>
+<target>Suche nach ID, Betreff und Tags</target>
 </trans-unit>
 
 

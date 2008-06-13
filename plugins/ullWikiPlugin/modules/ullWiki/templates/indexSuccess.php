@@ -8,8 +8,8 @@
 <ul>
   <li>
   <?php echo ull_reqpass_form_tag(array('action' => 'list')); ?>
-  <?php echo input_tag('search'); ?>
-  &nbsp; <?php echo submit_tag(__('Search', null, 'common')) ?>
+  <?php echo input_tag('search', null, array('size' => '30', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common'))); ?>
+  &nbsp; <?php echo submit_tag(__('Search', null, 'common'), 'title = ' . __('Searches for ID, subject and tags', null, 'common')) ?>
   <br /><?php echo checkbox_tag('fulltext'); ?> 
   <?php echo __('Full text', null, 'common'); ?>
   </li>

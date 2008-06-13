@@ -52,7 +52,7 @@
       echo __('Suche', null, 'common') . ': ';
       echo ull_reqpass_form_tag(array('page' => '', 'flow_search' => ''), array('class' => 'inline'));
     
-      echo input_tag('flow_search', $ull_flow_search , array('size' => '15', 'onchange' => 'submit()'));
+      echo input_tag('flow_search', $ull_flow_search , array('size' => '15', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common')));
       echo '</form>';
       echo ' &nbsp ';
   

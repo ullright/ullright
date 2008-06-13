@@ -47,9 +47,9 @@
   <li>
     <?php
       echo __('Quick search', null, 'common') . ': ';
-      echo input_tag('flow_search', null, array('size' => '30', 'onchange' => 'submit()', 'title' => __('Searches in subject and tags', null, 'common')));
+      echo input_tag('flow_search', null, array('size' => '30', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common')));
       echo ($app_slug) ? input_hidden_tag('app', $app_slug) : '';
-      echo ' ' . submit_tag(__('Search', null, 'common'), 'title = ' . __('Searches in subject and tags', null, 'common'));
+      echo ' ' . submit_tag(__('Search', null, 'common'), 'title = ' . __('Searches for ID, subject and tags', null, 'common'));
     ?>
   </li>
   <li>
