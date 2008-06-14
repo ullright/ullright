@@ -62,7 +62,7 @@ class ullFieldHandlerInformationUpdate extends ullFieldHandler
 //      $selected_id = $object->$method();
 //    }
 
-    $options['size'] = '92x2'; 
+    $options['size'] = '92x4'; 
     
     $return .= textarea_tag(_convert_method_to_name($method, $options), $default_value, $options);
     
@@ -86,7 +86,7 @@ class ullFieldHandlerInformationUpdate extends ullFieldHandler
     
     if ($add_value) {
 
-      $return_value = "$user_name ($now):\n$add_value\n";
+      $return_value = "--------------------------------\n$user_name ($now):\n$add_value\n";
 
       // new line handling improvement
       if (substr($add_value, -1) <> "\n") {
