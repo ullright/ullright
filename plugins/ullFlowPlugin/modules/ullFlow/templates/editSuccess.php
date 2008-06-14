@@ -171,7 +171,7 @@
         echo ull_link_to(
           __('Cancel', null, 'common') 
           , $referer_edit
-          , 'ull_js_observer_confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common')
+          , 'ull_js_observer_confirm=true'
         );
       ?>
       </li>

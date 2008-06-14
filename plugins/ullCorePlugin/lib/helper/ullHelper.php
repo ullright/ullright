@@ -211,46 +211,29 @@ function ull_reqpass_link_to($name = 'link', $merge_array = array()) {
 }
 
 
+
+
 /**
  * Enhancement of symfony link_to() helper
  *  
  * - Supports ull_reqpass (Request passing):
  *     Get current request params, and allows adding or overriding of specific params
  * - It supports ull_js_observer_confirm (detect form changes)
- *     -> Make sure you loaded the ull_js_observer($form_id) helper at the end of your template
+ *     -> Make sure you that you load the ull_js_observer($form_id) helper at the end of your template
+ * 
+ * options:
+ *   ull_js_observer_confirm  (boolean) 'true' for default msg or (string) a custom message
+ *    
  *
  * @param name string         link name to display
  * @param url mixed           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
+ * @param options mixed       string or array of options 
  * @return string             html link
  */
 
 function ull_link_to($name = 'link', $url = array(), $options = array()) {
   
-  if (is_array($url)) {
-    $params = _ull_reqpass_initialize($merge_array);  
-    $url = _ull_reqpass_build_url($params);
-  }
-  
-  $html_options = _convert_options($options);
-  if (isset($html_options['ull_js_observer_confirm'])) {
-    
-    $js_function =
-      'if (ull_js_observer_detect_change()) { ' 
-      . 'if (confirm("' 
-      . $html_options['ull_js_observer_confirm'] 
-      . '")) { return document.location.href="'
-      . $url 
-      . '";} else return false; } else return document.location.href="'
-      . $url
-      . '";';
-      
-    unset($html_options['ull_js_observer_confirm']);
-    
-    return link_to_function($name, $js_function, $html_options);
-    
-  } else {
-    return link_to($name, $url, $options);
-  }
+  return _ull_link_to($name, $url, $options, 'link');
   
 }
 
@@ -262,14 +245,45 @@ function ull_link_to($name = 'link', $url = array(), $options = array()) {
  * - Supports ull_reqpass (Request passing):
  *     Get current request params, and allows adding or overriding of specific params
  * - It supports ull_js_observer_confirm (detect form changes)
- *     -> Make sure you loaded the ull_js_observer($form_id) helper at the end of your template
+ *     -> Make sure you that you load the ull_js_observer($form_id) helper at the end of your template
+ * 
+ * options:
+ *   ull_js_observer_confirm  (boolean) 'true' for default msg or (string) a custom message
+ *    
  *
  * @param name string         link name to display
  * @param url mixed           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
+ * @param options mixed       string or array of options 
  * @return string             html link
  */
 
 function ull_button_to($name = 'link', $url = array(), $options = array()) {
+  
+  return _ull_link_to($name, $url, $options, 'button');
+  
+}
+
+
+/**
+ * generic enhancement for symfony xxx_to() helper
+ *  
+ * - Supports ull_reqpass (Request passing):
+ *     Get current request params, and allows adding or overriding of specific params
+ * - It supports ull_js_observer_confirm (detect form changes)
+ *     -> Make sure you that you load the ull_js_observer($form_id) helper at the end of your template
+ * 
+ * options:
+ *   ull_js_observer_confirm  (boolean) 'true' for default msg or (string) a custom message
+ *    
+ *
+ * @param name string         link name to display
+ * @param url mixed           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
+ * @param options mixed       string or array of options
+ * @param type string         'link' or 'button' 
+ * @return string             html link
+ */
+
+function _ull_link_to($name = 'link', $url = array(), $options = array(), $type = 'link') {
   
   if (is_array($url)) {
     $params = _ull_reqpass_initialize($merge_array);  
@@ -279,22 +293,37 @@ function ull_button_to($name = 'link', $url = array(), $options = array()) {
   $html_options = _convert_options($options);
   if (isset($html_options['ull_js_observer_confirm'])) {
     
+//    ullCoreTools::printR($html_options['ull_js_observer_confirm']);
+//    sfContext::getInstance()->getLogger()->info('xxx: '.gettype($html_options['ull_js_observer_confirm']));
+
+    // use default msg if no custom msg
+    if (is_bool($html_options['ull_js_observer_confirm'])) {
+      $msg = __('You will loose unsaved changes! Are you sure?', null, 'common');
+    } else {
+      $msg = $html_options['ull_js_observer_confirm'];
+    }
+    
+    // check for the existence of the ull_js_observer hidden input tag and 
+    //   do the check only if the tag exists (= check if we have a page with a form)
     $js_function =
-      'if (ull_js_observer_detect_change()) { ' 
-      . 'if (confirm("' 
-      . $html_options['ull_js_observer_confirm'] 
-      . '")) { return document.location.href="'
-      . $url 
-      . '";} else return false; } else return document.location.href="'
-      . $url
-      . '";';
+        'if (document.getElementById("ull_js_observer_initial_state") != null'
+      . '   && ull_js_observer_detect_change()) { '
+      . '   if (confirm("' . $msg . '")) { '
+      . '     return document.location.href="' . $url . '";'
+      . '   } else {'
+      . '     return false;'
+      . '   }'
+      . '} else {'
+      . '   return document.location.href="' . $url . '";'
+      . '}'
+    ;
       
     unset($html_options['ull_js_observer_confirm']);
     
-    return button_to_function($name, $js_function, $html_options);
+    return call_user_func($type . '_to_function', $name, $js_function, $html_options);
     
   } else {
-    return button_to($name, $url, $options);
+    return call_user_func($type . '_to', $name, $url, $options);
   }
   
 }
