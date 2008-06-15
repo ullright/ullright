@@ -304,6 +304,7 @@ class BaseullWikiActions extends ullsfActions
     
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->setEditFlag(true);
     $this->breadcrumbTree->add(__('Wiki'), 'ullwiki/index');
     
     // display result list link only when there is a "show" or "edit" referer 

@@ -58,32 +58,31 @@
               }
             ?>
           </div>
-          
+
           <div id="nav_searchbox">                   
             <?php include_partial('ullWiki/header_search'); ?>
           </div>
-                             
+
          </div>
 
-          
-             
-      
+
+
         <div id='nav_links'>             
           <ul class="nav_top_links">            
-            <li><?php echo link_to(__('Home', null, 'common'), '/'); ?></li>
-            <li><?php echo link_to(__('Workflows', null, 'common'), 'ullFlow'); ?></li>
-            <li><?php echo link_to(__('Active tickets', null, 'common'), 'ullFlow/tabular?app=helpdesk_tool&order=priority&order_dir=asc'); ?></li>
-            <li><?php echo link_to(__('My todo list', null, 'common'), 'ullFlow/tabular?query=to_me&order=priority&order_dir=asc'); ?></li>
-            <li><?php echo link_to(__('Wiki', null, 'common'), 'ullWiki/list'); ?></li>
+            <li><?php echo ull_link_to(__('Home', null, 'common'),           url_for('/'),                                                              'ull_js_observer_confirm=true'); ?></li>
+            <li><?php echo ull_link_to(__('Workflows', null, 'common'),      url_for('ullFlow'),                                                        'ull_js_observer_confirm=true'); ?></li>
+            <li><?php echo ull_link_to(__('Active tickets', null, 'common'), url_for('ullFlow/tabular?app=helpdesk_tool&order=priority&order_dir=asc'), 'ull_js_observer_confirm=true'); ?></li>
+            <li><?php echo ull_link_to(__('My todo list', null, 'common'),   url_for('ullFlow/tabular?query=to_me&order=priority&order_dir=asc'),       'ull_js_observer_confirm=true'); ?></li>
+            <li><?php echo ull_link_to(__('Wiki', null, 'common'),           url_for('ullWiki/list'),                                                   'ull_js_observer_confirm=true'); ?></li>
             <?php 
               if (UllUserPeer::userHasGroup(1)) {
-                echo '<li>' . link_to(__('Admin'), 'ullAdmin') . '</li>';
+                echo '<li>' . ull_link_to(__('Admin'), url_for('ullAdmin'), 'ull_js_observer_confirm=true') . '</li>';
               } 
             ?>
 
           </ul>
         </div>
-        
+
         <?php
 //        ullCoreTools::printR($sf_request->getLanguages());
 //        echo 'Current User Culture: ', $sf_user->getCulture();

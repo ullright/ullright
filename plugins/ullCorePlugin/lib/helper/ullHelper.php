@@ -289,7 +289,7 @@ function _ull_link_to($name = 'link', $url = array(), $options = array(), $type 
     $params = _ull_reqpass_initialize($merge_array);  
     $url = _ull_reqpass_build_url($params);
   }
-  
+
   $html_options = _convert_options($options);
   if (isset($html_options['ull_js_observer_confirm'])) {
     
@@ -302,6 +302,13 @@ function _ull_link_to($name = 'link', $url = array(), $options = array(), $type 
     } else {
       $msg = $html_options['ull_js_observer_confirm'];
     }
+
+    //if given $url is a javascript function
+    if (isset($html_options['ull_js_observer_function'])) {
+      $action = $url;
+    } else {
+      $action = 'return document.location.href="' . $url . '";';
+    }
     
     // check for the existence of the ull_js_observer hidden input tag and 
     //   do the check only if the tag exists (= check if we have a page with a form)
@@ -309,17 +316,18 @@ function _ull_link_to($name = 'link', $url = array(), $options = array(), $type 
         'if (document.getElementById("ull_js_observer_initial_state") != null'
       . '   && ull_js_observer_detect_change()) { '
       . '   if (confirm("' . $msg . '")) { '
-      . '     return document.location.href="' . $url . '";'
+      . '     '.$action
       . '   } else {'
       . '     return false;'
       . '   }'
       . '} else {'
-      . '   return document.location.href="' . $url . '";'
+      . '   '.$action
       . '}'
     ;
-      
+
     unset($html_options['ull_js_observer_confirm']);
-    
+    unset($html_options['ull_js_observer_function']);
+
     return call_user_func($type . '_to_function', $name, $js_function, $html_options);
     
   } else {
@@ -619,43 +627,91 @@ function get_part($stream, $msg_number, $mime_type, $structure = false, $part_nu
 
 
 function ull_js_observer($form_id) {
-  
+
   // js_observer form to store initial form values
   $html = form_tag(null, 'id=ull_js_observer');
   $html .= input_hidden_tag('ull_js_observer_initial_state');
   $html .= '</form>';
-  
+
   $html .= javascript_tag('
     var elements = document.getElementById("' . $form_id . '");
     var initial_state = new Array();
-    
+
     for (i=0; i<elements.length; i++) {
       if (elements[i]) {
         initial_state[i] = elements[i].value;
       }
     }
-    
+
     document.getElementById("ull_js_observer_initial_state").value = initial_state.join("@@@");
-    
-    
-    
+
+
+
     function ull_js_observer_detect_change() {
-    
+
       var inital_state = document.getElementById("ull_js_observer_initial_state").value.split("@@@");
       var elements = document.getElementById("' . $form_id . '");
-    
+
       for (i=0; i<elements.length; i++) {
         if (elements[i].value != initial_state[i]) {
-          //alert("changed!");
+          //alert("Field "+elements[i].id+" changed! Old value: "+initial_state[i]+" New value: "+elements[i].value);
           return true;
         }
       }
     }
   ');
-  
+
   return $html;
   
 }
 
+
+/**
+  * Create a javascript dubug popup
+  */
+function ull_trap($v)
+{
+  if (SF_DEBUG)
+  {
+
+    error_reporting(E_ERROR | E_PARSE);
+
+    $key = rand(1,10000000);
+    $args = debug_backtrace();
+    $file = $args[0]['file'];
+    $line = $args[0]['line'];
+
+    SF_ROOT_DIR ? $file = str_replace(SF_ROOT_DIR, '/..', $file) : '';
+    $file = str_replace('\\', '\\\\', $file);
+    ob_start();
+    print_r($v);
+    $result = ob_get_contents();
+    ob_end_clean();
+    $or = array("\n", " "   );
+    $pr = array("<br>", "&nbsp;");
+
+    $result = str_replace($or, $pr, $result);
+    $result = str_replace('=>', '<font color="00FF00">=></font>', $result);
+    $result = str_replace('Array', '<font color="00FF00"><b>Array</b></font>', $result);
+    $result = preg_replace("/\[(\w*)\]/i", '<font color="CACACA">[$1]</font>', $result);
+
+    $result = preg_replace('/([^ !#$%@()*+,-.\x30-\x5b\x5d-\x7e])/e',"'\\x'.(ord('\\1')<16? '0': '').dechex(ord('\\1'))",$result);
+?>
+
+<script language="JavaScript">
+  ullPopup<?php echo $key; ?> = window.open("","ullWin<?php echo $key; ?>","toolbar=no,scrollbars=yes,resizable=yes,width=700,height=400");
+  ullPopup<?php echo $key; ?>.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ull_trap()</title><style>body{background-color: #000000; padding: 0; margin: 0}</style></head><body>');
+  ullPopup<?php echo $key; ?>.document.writeln('<div style="background-color: #333333; font-family: courier; color: white; font-size: 8px; padding: 5px; position: fixed; width: 100%">Trap in <span style="color: #00FF00; font-weight: bold"><?php echo $file; ?></span> on line <span style="color: #00FF00; font-weight: bold"><?php echo $line; ?></span></div>');
+  ullPopup<?php echo $key; ?>.document.writeln('<br><br><div style="color: yellow; font-size: 8px; font-family: courier"><?php echo $result; ?></div>');
+  ullPopup<?php echo $key; ?>.document.writeln('</div> </bb> </html>');
+</script>
+
+<?
+  }
+  else
+  {
+    return null;
+  }
+} // end function
 
 ?>

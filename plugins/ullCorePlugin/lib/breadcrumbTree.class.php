@@ -84,7 +84,7 @@ class breadcrumbTree
     foreach ($this->breadcrumbTree as $breadcrumb) {
       if (@$breadcrumb['internal_uri']) {
         if ($this->edit) {
-          $options = 'ull_js_observer_confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common'); 
+          $options = 'ull_js_observer_confirm=true';
         } else {
           $options = '';
         }
@@ -99,7 +99,7 @@ class breadcrumbTree
 //        }
       }      
     }
-    
+
     $return = "<ol id='breadcrumbs'>\n";
     $return .= "<li class='first'>";
     $return .= link_to(

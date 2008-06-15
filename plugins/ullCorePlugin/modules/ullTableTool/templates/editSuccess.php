@@ -3,7 +3,7 @@
 
 <?php echo $breadcrumbTree->getHtml() ?>
 
-<?php echo form_tag('ullTableTool/update'); ?>
+<?php echo form_tag('ullTableTool/update', 'id="ull_tabletool_form"'); ?>
 
 
 <?php if ($sf_request->hasErrors()): ?>
@@ -29,21 +29,21 @@
         <?php 
           $fields_data  = $ull_form->getFieldsDataOne();
           $field_data   = $fields_data[$field_name]; 
-          
+
 //          ullCoreTools::printR($field_data);
-        
+
           if ($value = @$field_data['value']) {
             echo $value; 
-            
+
           } elseif (@$field_data['function']) {
             echo call_user_func_array($field_data['function'], $field_data['parameters']);
 
           }
-          
+
           if (@$field_info['primary_key']) {
             echo input_hidden_tag($field_name, $id);
           }
-          
+
           echo form_error($field_name);
           
 //          echo 'req:' . $sf_params->get($field_name);
@@ -83,11 +83,10 @@
 
       <li>
 <?php
-      echo link_to(
+      echo ull_link_to(
         __('Cancel', null, 'common') 
-//        , $refererHandler->getReferer('edit')
-        , 'ullTableTool/list?table=' . $table_name
-        , 'confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common')
+        , url_for('ullTableTool/list?table=' . $table_name)
+        , 'ull_js_observer_confirm=true'
       );
 ?>
       </li>
@@ -118,5 +117,6 @@
 </form>   
 
 <?php
+  echo ull_js_observer("ull_tabletool_form");
 //  ullCoreTools::printR($ull_form);
 ?>  

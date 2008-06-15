@@ -7,7 +7,7 @@
 <?php echo $breadcrumbTree->getHtml() ?>
 
 
-<?php echo form_tag('ullwiki/update', 'name=form1'); ?>
+<?php echo form_tag('ullwiki/update', 'name=form1 id="ull_wiki_form"'); ?>
 
 <?php echo object_input_hidden_tag($ullwiki, 'getId'); ?>
 <?php echo object_input_hidden_tag($ullwiki, 'getDocid'); ?>
@@ -126,12 +126,11 @@
 
       <li>
 		    <?php
-          echo link_to(
-            __('Cancel', null, 'common'), 
-            $refererHandler->getReferer('edit'),
-            'confirm='.__('You will loose unsaved changes! Are you sure?', null, 'common')
+          echo ull_link_to(
+            __('Cancel', null, 'common') 
+            , $refererHandler->getReferer('edit')
+            , 'ull_js_observer_confirm=true'
           );
-		    
 		    ?>
       </li>
       <li>
@@ -166,6 +165,7 @@
       document.form1.submit();
     }
   ');
+
+  echo ull_js_observer("ull_wiki_form");
+//  ullCoreTools::printR($ull_form);
 ?>
-
-
