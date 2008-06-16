@@ -98,13 +98,7 @@
 
     <ul>
 
-      <li>
-		    <?php 
-		      echo input_tag('save', __('Save only', null, 'common'), array(
-		        'type'      => 'button',
-		        'onclick'   => 'setSaveMode("saveonly");'
-		      )); ?>
-		  </li>
+
 		  <li>
 	    <?php 
 	      echo input_tag('save', __('Save and show', null, 'common'), array(
@@ -123,6 +117,15 @@
   <div class='action_buttons_edit_right'>
 
     <ul>
+
+      <li>
+        <?php 
+          echo ull_link_to_function(
+            __('Save only', null, 'common')
+            , 'setSaveMode("saveonly");'
+          ); 
+        ?>
+      </li>
 
       <li>
 		    <?php
