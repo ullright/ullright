@@ -65,7 +65,7 @@
 
 <?php
   // switch list/tabular style
-  echo ull_reqpass_link_to(
+  echo ull_link_to(
           __('Tabular view', null, 'common')
           , array(
               'action' => 'tabular'
@@ -98,15 +98,15 @@
 <br />
 
 <?php if ($ull_flow_doc_pager->haveToPaginate()): ?>
-  <?php echo ull_reqpass_link_to('&laquo;', array('page' => $ull_flow_doc_pager->getFirstPage())) ?>
-  <?php echo ull_reqpass_link_to('&lt;', array('page' => $ull_flow_doc_pager->getPreviousPage())) ?>
+  <?php echo ull_link_to('&laquo;', array('page' => $ull_flow_doc_pager->getFirstPage())) ?>
+  <?php echo ull_link_to('&lt;', array('page' => $ull_flow_doc_pager->getPreviousPage())) ?>
   
   <?php $links = $ull_flow_doc_pager->getLinks(); foreach ($links as $page): ?>
-    <?php echo ($page == $ull_flow_doc_pager->getPage()) ? $page : ull_reqpass_link_to($page, array('page' => $page)) ?>
+    <?php echo ($page == $ull_flow_doc_pager->getPage()) ? $page : ull_link_to($page, array('page' => $page)) ?>
     <?php if ($page != $ull_flow_doc_pager->getCurrentMaxLink()): ?> - <?php endif ?>
   <?php endforeach ?>
-  <?php echo ull_reqpass_link_to('&gt;', array('page' => $ull_flow_doc_pager->getNextPage())) ?>
-  <?php echo ull_reqpass_link_to('&raquo;', array('page' => $ull_flow_doc_pager->getLastPage())) ?>
+  <?php echo ull_link_to('&gt;', array('page' => $ull_flow_doc_pager->getNextPage())) ?>
+  <?php echo ull_link_to('&raquo;', array('page' => $ull_flow_doc_pager->getLastPage())) ?>
 <?php endif ?>
 
 <br /><br />

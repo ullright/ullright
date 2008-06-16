@@ -31,9 +31,10 @@
       <div id="nav_top">
       
         <div id="nav_logo">
-          <?php echo link_to(
-            image_tag('/' . $layout . '/images/logo', 'alt="logo"'),
-            '/'
+          <?php echo ull_link_to(
+              image_tag('/' . $layout . '/images/logo', 'alt="logo"')
+            , '/'
+            , 'ull_js_observer_confirm=true'
             ); ?> 
         </div>
 
@@ -51,10 +52,10 @@
                 $language = 'en';
               }
               if ($language <> 'en') {
-                echo link_to('English', 'ullText/change_culture?culture=en');
+                echo ull_link_to('English', '/ullText/change_culture?culture=en', 'ull_js_observer_confirm=true');
               }
               if ($language <> 'de') {
-                echo link_to('Deutsch', 'ullText/change_culture?culture=de');
+                echo ull_link_to('Deutsch', '/ullText/change_culture?culture=de', 'ull_js_observer_confirm=true');
               }
             ?>
           </div>

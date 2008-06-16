@@ -70,7 +70,7 @@
 
 <?php
   // switch list/tabular style
-//  echo ull_reqpass_link_to(
+//  echo ull_link_to(
 //          __('List view', null, 'common')
 //          , array(
 //              'action' => 'list'
@@ -108,7 +108,7 @@
           $dir = 'asc'; // always default to 'asc' order for a new column
         }
         
-        echo ull_reqpass_link_to(
+        echo ull_link_to(
           $field_info['name_humanized'] . $arrow
           , array(
               'order' => $field_name
