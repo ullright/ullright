@@ -56,6 +56,8 @@ class ullFilter
       
       $return .= "<ol>\n";
       
+//      ullCoreTools::printR($this->filters);
+      
       foreach ($this->filters as $request_param => $filter) {
           $return .= '<li>';
           $return .= $filter;

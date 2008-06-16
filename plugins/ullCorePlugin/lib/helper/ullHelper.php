@@ -176,7 +176,7 @@ function ull_icon_to_function($function, $icon, $alt = null, $link_option = null
 
 function ull_reqpass_icon($merge_array = array(), $icon, $alt = null, $link_option = null) {
   
-//  ullCoreTools::printR($array);
+//  ullCoreTools::printR($merge_array);
   
   $params = _ull_reqpass_initialize($merge_array);  
 
@@ -277,7 +277,7 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
       $msg = $html_options['ull_js_observer_confirm'];
     }
 
-    $action = 'return document.location.href="' . $url . '";';
+    $action = 'return document.location.href="' . url_for($url) . '";';
     
     // check for the existence of the ull_js_observer hidden input tag and 
     //   do the check only if the tag exists (= check if we have a page with a form)
@@ -450,12 +450,16 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
   
   $params = sfContext::getInstance()->getRequest()->getParameterHolder()->getAll();
   
+//  ullCoreTools::printR($params);
+  
+  
   // overwrite / add params
   foreach ($merge_array as $key => $value) {
     $params[$key] = $value;
   }
   
-
+//  ullCoreTools::printR(sfContext::getInstance()->getRequest()->getParameterHolder()->getAll());
+  
   foreach ($params as $key => $value) {
     // remove empty params
     if (!$value) {
