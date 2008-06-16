@@ -106,7 +106,7 @@
   
     <div id="footer">
       <div id="footer_copyright">© 2007-2008 by Klemens Ullmann</div>
-      <div id="footer_links">powered by <?php echo link_to('ull.at', 'http://www.ull.at'); ?></div>
+      <div id="footer_links">powered by <?php echo ull_link_to('ull.at', 'http://www.ull.at', 'ull_js_observer_confirm=true'); ?></div>
       <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
     </div>  
     
