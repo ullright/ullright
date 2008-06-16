@@ -455,12 +455,13 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
     $params[$key] = $value;
   }
   
-  // remove empty params
+
   foreach ($params as $key => $value) {
+    // remove empty params
     if (!$value) {
       unset($params[$key]);
-    } else{
-      if (@$rawurlencode) {
+    } else {
+      if (isset($rawurlencode)) {
         $params[$key] = rawurlencode($value);
       }
     }

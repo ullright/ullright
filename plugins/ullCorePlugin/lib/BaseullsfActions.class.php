@@ -88,7 +88,10 @@ class BaseullsfActions extends sfActions
       // remove the reqpass hidden field
       $ull_reqpass['ull_reqpass'] = '';
     
-      $params = _ull_reqpass_initialize($ull_reqpass, false);  
+      $params = _ull_reqpass_initialize($ull_reqpass, true);
+
+//      ullCoreTools::printR($params);
+//      exit();
 
       $url = _ull_reqpass_build_url($params);
 
