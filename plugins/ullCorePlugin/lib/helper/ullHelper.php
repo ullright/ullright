@@ -558,7 +558,8 @@ function ull_sf_url_encode($string)
 function ull_sf_url_decode($string) 
 {
   
-  return str_replace('&#x2E;', '.', $string);
+  // TODO: check why it is necessary to do raw_url_decode on some webservers and and on some not 
+  return rawurldecode(str_replace('&#x2E;', '.', $string));
   
 }
 
