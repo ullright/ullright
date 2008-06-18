@@ -10,6 +10,7 @@ body {
   /* background-color: #C9CACC; */
   /* background-repeat: repeat-x; */
   background-color: white;
+  /* border: 1px solid grey; */
   
 }
 
@@ -60,6 +61,7 @@ body {
   /* padding: 15px 25px; */
   /* min-height: 130px; */
   text-align: left;
+  position: relative; /* workaround for IE 6 */
   
   /* background-color: #e3f5fd; */
   background-color: white;
@@ -73,6 +75,7 @@ body {
 #nav_logo {
   /* border: green solid 1px; */
   float: left;
+  position: relative; /* workaround for IE 6 */
   /* padding-top: 42px; */ 
   /* #padding-left: 10px; */
   /* width: 200px; */
@@ -81,13 +84,15 @@ body {
   
 }
 
-#nav_syslinks_container {
+#nav_syslinks_container {	
 	float: right;
+	position: relative; /* workaround for IE 6 */
 	margin-top: .3em;
 }
 
 #nav_syslinks {
 	float: left;
+	position: relative; /* workaround for IE 6 */
 	margin-top: .55em;
   /* border: 1px green solid; */
   /* padding: 42px 0 0 0; */
@@ -98,6 +103,7 @@ body {
 
 #nav_searchbox {
 	float: left;
+	position: relative; /* workaround for IE 6 */
   /* border: 1px green solid; */
   /* padding: 42px 0 0 0; */
   margin-left: 15px;
@@ -107,6 +113,7 @@ body {
 ul.nav_top_links {
 	clear: both;
 	float: left;
+	position: relative; /* workaround for IE 6 */
 	margin: 0;
   margin-top: .2em;
   /* margin-right: 3px; */
@@ -213,6 +220,7 @@ ul.nav_top_links li {
 	margin: 0;
 	padding: 0;
   float: left;
+  position: relative; /* workaround for IE 6 */
   /* padding-top: 4px; */
   width: 250px;
   /* font-size: .8em; */
@@ -227,6 +235,7 @@ ul.nav_top_links li {
 	/* padding-top: 4px; */
 	/* padding-right: 42px; */
   float: right;
+  position: relative; /* workaround for IE 6 */
   /* font-size: .8em; */ 
 }
 
@@ -480,10 +489,12 @@ ul.tag-cloud li {
 
 .action_buttons_left {
   float: left;
+  position: relative; /* workaround for IE 6 */
 }
 
 .action_buttons_right {
   float: right;
+  position: relative; /* workaround for IE 6 */
 }
 
  
@@ -503,10 +514,12 @@ ul.tag-cloud li {
 
 .action_buttons_edit_left {
   float: left;
+  position: relative; /* workaround for IE 6 */
 }
 
 .action_buttons_edit_right {
   float: right;
+  position: relative; /* workaround for IE 6 */
 }
 
 .action_buttons_edit ul {
@@ -532,9 +545,11 @@ ul.tag-cloud li {
 
 .pager_left {
   float: left;
+  position: relative; /* workaround for IE 6 */
 }
 
 .pager_right {
   float: right;
+  position: relative; /* workaround for IE 6 */
 } 
 
