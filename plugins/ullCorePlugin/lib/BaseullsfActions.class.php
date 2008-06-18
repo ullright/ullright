@@ -89,6 +89,14 @@ class BaseullsfActions extends sfActions
       $ull_reqpass['ull_reqpass'] = '';
     
       $params = _ull_reqpass_initialize($ull_reqpass, true);
+      
+      foreach ($params as $key => $value) {
+        
+        // encode '.' in url params
+        $params[$key] = ull_sf_url_encode($value);
+        
+        
+      }
 
 //      ullCoreTools::printR($params);
 //      exit();
@@ -97,9 +105,23 @@ class BaseullsfActions extends sfActions
 
       return $this->redirect($url);
 
+    } else {
+      
+      // decode params encoded by ull_sf_url_encode()
+    
+      $params = $this->getRequest()->getParameterHolder()->getAll();
+//      ullCoreTools::printR($params);
+      
+      foreach ($params as $key => $value) {
+        $this->getRequest()->setParameter($key, ull_sf_url_decode($value));  
+      }
+      
+//      $params = $this->getRequest()->getParameterHolder()->getAll();
+//      ullCoreTools::printR($params);
+      
     }
   
-  }
+  } 
   
 }
 

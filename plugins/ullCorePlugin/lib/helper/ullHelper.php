@@ -531,6 +531,36 @@ function _ull_reqpass_build_base_url($params) {
 }
 
 
+/** 
+ * encodes special chars in urls
+ * used mainly for encoding '.' in url params because '.' breaks the symfony rewrite rules
+ * example symfony url that does not work: 'myModule/myAction/search/file.txt'
+ * 
+ * @param string string   
+ * @return string
+ */
+
+function ull_sf_url_encode($string) 
+{
+  
+  // replace '.' by the corresponding html entity
+  return rawurlencode(str_replace('.', '&#x2E;', $string));
+  
+}
+
+/** 
+ * decodes special chars in urls
+ * counterpart for ull_sf_url_encode
+ * 
+ * @param string string   
+ * @return string
+ */
+function ull_sf_url_decode($string) 
+{
+  
+  return str_replace('&#x2E;', '.', $string);
+  
+}
 
 
 /**
