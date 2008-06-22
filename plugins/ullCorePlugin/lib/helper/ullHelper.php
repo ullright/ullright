@@ -761,9 +761,23 @@ function ull_js_observer($form_id) {
       var elements = document.getElementById("' . $form_id . '");
 
       for (i=0; i<elements.length; i++) {
-        if (elements[i].value != initial_state[i]) {
-          //alert("Field "+elements[i].id+" changed! Old value: "+initial_state[i]+" New value: "+elements[i].value);
-          return true;
+        var e = elements[i];
+
+        //detect FCKEditor Field
+        if (e.id.indexOf("___Config") > -1) {
+          var instance_name = e.id.replace(/___Config/, "");
+          var oEditor = FCKeditorAPI.GetInstance(instance_name);
+          if (oEditor.IsDirty()) {
+            return true;
+          }
+        } else {
+
+          //normal form field
+          if (e.value != initial_state[i]) {
+            //alert("Field "+e.id+" changed! Old value: "+initial_state[i]+" New value: "+e.value);
+            return true;
+          }
+
         }
       }
     }
