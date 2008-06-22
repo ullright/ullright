@@ -155,3 +155,20 @@ li.li_big_list {
    margin-bottom: .6em;
 }
 
+a.link_external
+{
+  background-image: url(/ullThemeDefault/images/external.png);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: right center;
+  padding-right: 13px;
+}
+
+a.link_new_window
+{
+  background-image: url(/ullThemeDefault/images/new_window.png);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: right center;
+  padding-right: 17px;
+}

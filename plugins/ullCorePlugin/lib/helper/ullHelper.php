@@ -265,6 +265,22 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
   }
 
   $html_options = _convert_options($options);
+
+  if (isset($html_options['link_new_window'])) {
+    unset($html_options['link_new_window']);
+    $html_options['class'] = 'link_new_window';
+    $html_options['target'] = '_blank';
+    $options = _convert_array_to_string($html_options);
+  }
+
+  if (isset($html_options['link_external'])) {
+    unset($html_options['link_external']);
+    $html_options['class'] = 'link_external';
+    $html_options['target'] = '_blank';
+    $options = _convert_array_to_string($html_options);
+  }
+
+
   if (isset($html_options['ull_js_observer_confirm'])) {
     
 //    ullCoreTools::printR($html_options['ull_js_observer_confirm']);
@@ -278,7 +294,7 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
     }
 
     $action = 'return document.location.href="' . url_for($url) . '";';
-    
+
     // check for the existence of the ull_js_observer hidden input tag and 
     //   do the check only if the tag exists (= check if we have a page with a form)
     $js_function =
@@ -295,9 +311,9 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
     ;
 
     unset($html_options['ull_js_observer_confirm']);
-
-    return call_user_func($type . '_to_function', $name, $js_function, $html_options);
     
+    return call_user_func($type . '_to_function', $name, $js_function, $html_options);
+
   } else {
     return call_user_func($type . '_to', $name, $url, $options);
   }
@@ -835,5 +851,13 @@ function ull_trap($v, $force = false)
     return null;
   }
 } // end function
+
+function _convert_array_to_string($arr) {
+	$str = '';
+	foreach ($arr as $key => $value) {
+		$str .= ' '.$key.'="'.$value.'" ';
+	}
+	return $str;
+}
 
 ?>

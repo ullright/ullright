@@ -103,9 +103,9 @@ class ullFieldHandlerUpload extends ullFieldHandler
             $ull_user_id  = $cols[3];
             $user_name    = UllUserPeer::retrieveByPK($ull_user_id)->__toString();
             $date         = ull_format_datetime($cols[4]);
-            
+
             $html .= '<tr>';
-              $html .= '<td>' . link_to($filename, 'http://' . $_SERVER['SERVER_NAME'] . $path) . '</td>';
+              $html .= '<td>' . ull_link_to($filename, 'http://' . $_SERVER['SERVER_NAME'] . $path, 'link_new_window=true') . '</td>';
               $html .= '<td>' . $user_name . '</td>';
               $html .= '<td>' . $date . '</td>';
             $html .= '</tr>';
