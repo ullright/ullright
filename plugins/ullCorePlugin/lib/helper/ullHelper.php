@@ -777,9 +777,9 @@ function ull_js_observer($form_id) {
 /**
   * Create a javascript debug popup
   */
-function ull_trap($v)
+function ull_trap($v, $force = false)
 {
-  if (SF_DEBUG)
+  if (SF_DEBUG || $force)
   {
 
     error_reporting(E_ERROR | E_PARSE);
