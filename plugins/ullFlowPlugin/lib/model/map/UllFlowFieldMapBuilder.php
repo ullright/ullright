@@ -73,6 +73,8 @@ class UllFlowFieldMapBuilder {
 
 		$tMap->addColumn('SEQUENCE', 'Sequence', 'int', CreoleTypes::INTEGER, false, null);
 
+		$tMap->addColumn('DEFAULT_VALUE', 'DefaultValue', 'int', CreoleTypes::INTEGER, false, null);
+
 		$tMap->addColumn('ENABLED', 'Enabled', 'boolean', CreoleTypes::BOOLEAN, false, null);
 
 		$tMap->addColumn('MANDATORY', 'Mandatory', 'boolean', CreoleTypes::BOOLEAN, false, null);

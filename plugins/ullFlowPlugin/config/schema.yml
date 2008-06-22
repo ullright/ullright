@@ -127,6 +127,8 @@ propel:
       size: 32
     sequence:
       type: INTEGER
+    default_value:
+      type: INTEGER
     enabled:
       type: BOOLEAN
     mandatory:

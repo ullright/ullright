@@ -62,6 +62,13 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 
 
 	/**
+	 * The value for the default_value field.
+	 * @var        int
+	 */
+	protected $default_value;
+
+
+	/**
 	 * The value for the enabled field.
 	 * @var        boolean
 	 */
@@ -250,6 +257,17 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 	{
 
 		return $this->sequence;
+	}
+
+	/**
+	 * Get the [default_value] column value.
+	 * 
+	 * @return     int
+	 */
+	public function getDefaultValue()
+	{
+
+		return $this->default_value;
 	}
 
 	/**
@@ -550,6 +568,28 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 	} // setSequence()
 
 	/**
+	 * Set the value of [default_value] column.
+	 * 
+	 * @param      int $v new value
+	 * @return     void
+	 */
+	public function setDefaultValue($v)
+	{
+
+		// Since the native PHP type for this column is integer,
+		// we will cast the input value to an int (if it is not).
+		if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->default_value !== $v) {
+			$this->default_value = $v;
+			$this->modifiedColumns[] = UllFlowFieldPeer::DEFAULT_VALUE;
+		}
+
+	} // setDefaultValue()
+
+	/**
 	 * Set the value of [enabled] column.
 	 * 
 	 * @param      boolean $v new value
@@ -788,34 +828,36 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 
 			$this->sequence = $rs->getInt($startcol + 5);
 
-			$this->enabled = $rs->getBoolean($startcol + 6);
+			$this->default_value = $rs->getInt($startcol + 6);
 
-			$this->mandatory = $rs->getBoolean($startcol + 7);
+			$this->enabled = $rs->getBoolean($startcol + 7);
 
-			$this->is_title = $rs->getBoolean($startcol + 8);
+			$this->mandatory = $rs->getBoolean($startcol + 8);
 
-			$this->is_priority = $rs->getBoolean($startcol + 9);
+			$this->is_title = $rs->getBoolean($startcol + 9);
 
-			$this->is_deadline = $rs->getBoolean($startcol + 10);
+			$this->is_priority = $rs->getBoolean($startcol + 10);
 
-			$this->is_custom_field1 = $rs->getBoolean($startcol + 11);
+			$this->is_deadline = $rs->getBoolean($startcol + 11);
 
-			$this->ull_access_group_id = $rs->getInt($startcol + 12);
+			$this->is_custom_field1 = $rs->getBoolean($startcol + 12);
 
-			$this->creator_user_id = $rs->getInt($startcol + 13);
+			$this->ull_access_group_id = $rs->getInt($startcol + 13);
 
-			$this->created_at = $rs->getTimestamp($startcol + 14, null);
+			$this->creator_user_id = $rs->getInt($startcol + 14);
 
-			$this->updator_user_id = $rs->getInt($startcol + 15);
+			$this->created_at = $rs->getTimestamp($startcol + 15, null);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 16, null);
+			$this->updator_user_id = $rs->getInt($startcol + 16);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 17, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 17; // 17 = UllFlowFieldPeer::NUM_COLUMNS - UllFlowFieldPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 18; // 18 = UllFlowFieldPeer::NUM_COLUMNS - UllFlowFieldPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating UllFlowField object", $e);
@@ -1139,36 +1181,39 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 				return $this->getSequence();
 				break;
 			case 6:
-				return $this->getEnabled();
+				return $this->getDefaultValue();
 				break;
 			case 7:
-				return $this->getMandatory();
+				return $this->getEnabled();
 				break;
 			case 8:
-				return $this->getIsTitle();
+				return $this->getMandatory();
 				break;
 			case 9:
-				return $this->getIsPriority();
+				return $this->getIsTitle();
 				break;
 			case 10:
-				return $this->getIsDeadline();
+				return $this->getIsPriority();
 				break;
 			case 11:
-				return $this->getIsCustomField1();
+				return $this->getIsDeadline();
 				break;
 			case 12:
-				return $this->getUllAccessGroupId();
+				return $this->getIsCustomField1();
 				break;
 			case 13:
-				return $this->getCreatorUserId();
+				return $this->getUllAccessGroupId();
 				break;
 			case 14:
-				return $this->getCreatedAt();
+				return $this->getCreatorUserId();
 				break;
 			case 15:
-				return $this->getUpdatorUserId();
+				return $this->getCreatedAt();
 				break;
 			case 16:
+				return $this->getUpdatorUserId();
+				break;
+			case 17:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -1197,17 +1242,18 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 			$keys[3] => $this->getOptions(),
 			$keys[4] => $this->getCaptionI18nDefault(),
 			$keys[5] => $this->getSequence(),
-			$keys[6] => $this->getEnabled(),
-			$keys[7] => $this->getMandatory(),
-			$keys[8] => $this->getIsTitle(),
-			$keys[9] => $this->getIsPriority(),
-			$keys[10] => $this->getIsDeadline(),
-			$keys[11] => $this->getIsCustomField1(),
-			$keys[12] => $this->getUllAccessGroupId(),
-			$keys[13] => $this->getCreatorUserId(),
-			$keys[14] => $this->getCreatedAt(),
-			$keys[15] => $this->getUpdatorUserId(),
-			$keys[16] => $this->getUpdatedAt(),
+			$keys[6] => $this->getDefaultValue(),
+			$keys[7] => $this->getEnabled(),
+			$keys[8] => $this->getMandatory(),
+			$keys[9] => $this->getIsTitle(),
+			$keys[10] => $this->getIsPriority(),
+			$keys[11] => $this->getIsDeadline(),
+			$keys[12] => $this->getIsCustomField1(),
+			$keys[13] => $this->getUllAccessGroupId(),
+			$keys[14] => $this->getCreatorUserId(),
+			$keys[15] => $this->getCreatedAt(),
+			$keys[16] => $this->getUpdatorUserId(),
+			$keys[17] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -1258,36 +1304,39 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 				$this->setSequence($value);
 				break;
 			case 6:
-				$this->setEnabled($value);
+				$this->setDefaultValue($value);
 				break;
 			case 7:
-				$this->setMandatory($value);
+				$this->setEnabled($value);
 				break;
 			case 8:
-				$this->setIsTitle($value);
+				$this->setMandatory($value);
 				break;
 			case 9:
-				$this->setIsPriority($value);
+				$this->setIsTitle($value);
 				break;
 			case 10:
-				$this->setIsDeadline($value);
+				$this->setIsPriority($value);
 				break;
 			case 11:
-				$this->setIsCustomField1($value);
+				$this->setIsDeadline($value);
 				break;
 			case 12:
-				$this->setUllAccessGroupId($value);
+				$this->setIsCustomField1($value);
 				break;
 			case 13:
-				$this->setCreatorUserId($value);
+				$this->setUllAccessGroupId($value);
 				break;
 			case 14:
-				$this->setCreatedAt($value);
+				$this->setCreatorUserId($value);
 				break;
 			case 15:
-				$this->setUpdatorUserId($value);
+				$this->setCreatedAt($value);
 				break;
 			case 16:
+				$this->setUpdatorUserId($value);
+				break;
+			case 17:
 				$this->setUpdatedAt($value);
 				break;
 		} // switch()
@@ -1319,17 +1368,18 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[3], $arr)) $this->setOptions($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setCaptionI18nDefault($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setSequence($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setEnabled($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setMandatory($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setIsTitle($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setIsPriority($arr[$keys[9]]);
-		if (array_key_exists($keys[10], $arr)) $this->setIsDeadline($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setIsCustomField1($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setUllAccessGroupId($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setCreatorUserId($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setCreatedAt($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setUpdatorUserId($arr[$keys[15]]);
-		if (array_key_exists($keys[16], $arr)) $this->setUpdatedAt($arr[$keys[16]]);
+		if (array_key_exists($keys[6], $arr)) $this->setDefaultValue($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setEnabled($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setMandatory($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setIsTitle($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setIsPriority($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setIsDeadline($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setIsCustomField1($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setUllAccessGroupId($arr[$keys[13]]);
+		if (array_key_exists($keys[14], $arr)) $this->setCreatorUserId($arr[$keys[14]]);
+		if (array_key_exists($keys[15], $arr)) $this->setCreatedAt($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setUpdatorUserId($arr[$keys[16]]);
+		if (array_key_exists($keys[17], $arr)) $this->setUpdatedAt($arr[$keys[17]]);
 	}
 
 	/**
@@ -1347,6 +1397,7 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(UllFlowFieldPeer::OPTIONS)) $criteria->add(UllFlowFieldPeer::OPTIONS, $this->options);
 		if ($this->isColumnModified(UllFlowFieldPeer::CAPTION_I18N_DEFAULT)) $criteria->add(UllFlowFieldPeer::CAPTION_I18N_DEFAULT, $this->caption_i18n_default);
 		if ($this->isColumnModified(UllFlowFieldPeer::SEQUENCE)) $criteria->add(UllFlowFieldPeer::SEQUENCE, $this->sequence);
+		if ($this->isColumnModified(UllFlowFieldPeer::DEFAULT_VALUE)) $criteria->add(UllFlowFieldPeer::DEFAULT_VALUE, $this->default_value);
 		if ($this->isColumnModified(UllFlowFieldPeer::ENABLED)) $criteria->add(UllFlowFieldPeer::ENABLED, $this->enabled);
 		if ($this->isColumnModified(UllFlowFieldPeer::MANDATORY)) $criteria->add(UllFlowFieldPeer::MANDATORY, $this->mandatory);
 		if ($this->isColumnModified(UllFlowFieldPeer::IS_TITLE)) $criteria->add(UllFlowFieldPeer::IS_TITLE, $this->is_title);
@@ -1421,6 +1472,8 @@ abstract class BaseUllFlowField extends BaseObject  implements Persistent {
 		$copyObj->setCaptionI18nDefault($this->caption_i18n_default);
 
 		$copyObj->setSequence($this->sequence);
+
+		$copyObj->setDefaultValue($this->default_value);
 
 		$copyObj->setEnabled($this->enabled);
 

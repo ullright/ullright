@@ -18,11 +18,13 @@ class ullFormFlow extends ullForm
     foreach ($fields as $field) {
       
 //      ullCoreTools::printR($field);
-      
+
       $field_id = $field->getID();
       $field_name  = 'field' . $field_id;
-      
-      
+
+      $this->fields_info[$field_name]['default_value'] =
+        $field->getDefaultValue();
+
       if ($field->getIsTitle()) {
         $this->fields_info[$field_name]['is_title']        = true;
       }
@@ -70,8 +72,10 @@ class ullFormFlow extends ullForm
 
       $this->fields_info[$field_name]['mandatory'] = 
         $ull_field->getMandatory();
+
+
         
-        
+
       // == per field access
       $access_group_id = $ull_field->getUllAccessGroupId(); 
 
@@ -109,13 +113,12 @@ class ullFormFlow extends ullForm
   
   
   function retrieveFieldsData() {
-    
     // loop through columns  
     foreach ($this->fields_info as $field_name => $field) {
       
       // field enabled?
       if (isset($field['access'])) {
-      
+
         $c = new Criteria();
         $c->add(UllFlowValuePeer::ULL_FLOW_DOC_ID, $this->doc);
         $c->add(UllFlowValuePeer::ULL_FLOW_FIELD_ID, str_replace('field','',$field_name));
@@ -132,6 +135,9 @@ class ullFormFlow extends ullForm
 //  
 //        $array[$field_name] = 
 //          $this->callFieldHandler($value_object, 'value', $field_name, $options);
+
+
+
         $array[$field_name] = 
           $this->callFieldHandler(
             $value_object
@@ -140,17 +146,16 @@ class ullFormFlow extends ullForm
             , $field['field_type']
             , $field['access']
             , @$field['options']
+            , $field['default_value']
           );
         // rename field (numeric html field names are not allowed)
-        $array[$field_name]['parameters']['options']['name']  = $field_name;
-        $array[$field_name]['parameters']['options']['id']    = $field_name;
-         
-          
+        $array[$field_name]['parameters']['options']['name']          = $field_name;
+        $array[$field_name]['parameters']['options']['id']            = $field_name;
       }
     }      
 
     $this->fields_data[] = @$array; 
-    
+//print_r($this->fields_data);
   }
 
   public function setDoc($value) {

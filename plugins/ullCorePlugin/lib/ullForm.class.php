@@ -60,8 +60,9 @@ abstract class ullForm
     $field_name,
     $field_type,
     $access = 'r', 
-    $options = '') {
-    
+    $options = '',
+    $default_value = '') {
+
     // use ullFieldType classes
 //    $field_type = $this->fields_info[$field_name]['field_type'];
     
@@ -100,7 +101,7 @@ abstract class ullForm
         return $field_handler->getShowWidget($value_field);
         
       } else {
-        return $field_handler->getEditWidget($value_field, $field_name);
+        return $field_handler->getEditWidget($value_field, $field_name, $default_value);
         
       }                          
         

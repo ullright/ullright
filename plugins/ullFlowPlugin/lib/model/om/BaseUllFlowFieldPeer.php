@@ -19,7 +19,7 @@ abstract class BaseUllFlowFieldPeer {
 	const CLASS_DEFAULT = 'plugins.ullFlowPlugin.lib.model.UllFlowField';
 
 	/** The total number of columns. */
-	const NUM_COLUMNS = 17;
+	const NUM_COLUMNS = 18;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -42,6 +42,9 @@ abstract class BaseUllFlowFieldPeer {
 
 	/** the column name for the SEQUENCE field */
 	const SEQUENCE = 'ull_flow_field.SEQUENCE';
+
+	/** the column name for the DEFAULT_VALUE field */
+	const DEFAULT_VALUE = 'ull_flow_field.DEFAULT_VALUE';
 
 	/** the column name for the ENABLED field */
 	const ENABLED = 'ull_flow_field.ENABLED';
@@ -87,10 +90,10 @@ abstract class BaseUllFlowFieldPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'UllFlowAppId', 'UllFieldId', 'Options', 'CaptionI18nDefault', 'Sequence', 'Enabled', 'Mandatory', 'IsTitle', 'IsPriority', 'IsDeadline', 'IsCustomField1', 'UllAccessGroupId', 'CreatorUserId', 'CreatedAt', 'UpdatorUserId', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (UllFlowFieldPeer::ID, UllFlowFieldPeer::ULL_FLOW_APP_ID, UllFlowFieldPeer::ULL_FIELD_ID, UllFlowFieldPeer::OPTIONS, UllFlowFieldPeer::CAPTION_I18N_DEFAULT, UllFlowFieldPeer::SEQUENCE, UllFlowFieldPeer::ENABLED, UllFlowFieldPeer::MANDATORY, UllFlowFieldPeer::IS_TITLE, UllFlowFieldPeer::IS_PRIORITY, UllFlowFieldPeer::IS_DEADLINE, UllFlowFieldPeer::IS_CUSTOM_FIELD1, UllFlowFieldPeer::ULL_ACCESS_GROUP_ID, UllFlowFieldPeer::CREATOR_USER_ID, UllFlowFieldPeer::CREATED_AT, UllFlowFieldPeer::UPDATOR_USER_ID, UllFlowFieldPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'ull_flow_app_id', 'ull_field_id', 'options', 'caption_i18n_default', 'sequence', 'enabled', 'mandatory', 'is_title', 'is_priority', 'is_deadline', 'is_custom_field1', 'ull_access_group_id', 'creator_user_id', 'created_at', 'updator_user_id', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'UllFlowAppId', 'UllFieldId', 'Options', 'CaptionI18nDefault', 'Sequence', 'DefaultValue', 'Enabled', 'Mandatory', 'IsTitle', 'IsPriority', 'IsDeadline', 'IsCustomField1', 'UllAccessGroupId', 'CreatorUserId', 'CreatedAt', 'UpdatorUserId', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (UllFlowFieldPeer::ID, UllFlowFieldPeer::ULL_FLOW_APP_ID, UllFlowFieldPeer::ULL_FIELD_ID, UllFlowFieldPeer::OPTIONS, UllFlowFieldPeer::CAPTION_I18N_DEFAULT, UllFlowFieldPeer::SEQUENCE, UllFlowFieldPeer::DEFAULT_VALUE, UllFlowFieldPeer::ENABLED, UllFlowFieldPeer::MANDATORY, UllFlowFieldPeer::IS_TITLE, UllFlowFieldPeer::IS_PRIORITY, UllFlowFieldPeer::IS_DEADLINE, UllFlowFieldPeer::IS_CUSTOM_FIELD1, UllFlowFieldPeer::ULL_ACCESS_GROUP_ID, UllFlowFieldPeer::CREATOR_USER_ID, UllFlowFieldPeer::CREATED_AT, UllFlowFieldPeer::UPDATOR_USER_ID, UllFlowFieldPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'ull_flow_app_id', 'ull_field_id', 'options', 'caption_i18n_default', 'sequence', 'default_value', 'enabled', 'mandatory', 'is_title', 'is_priority', 'is_deadline', 'is_custom_field1', 'ull_access_group_id', 'creator_user_id', 'created_at', 'updator_user_id', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, )
 	);
 
 	/**
@@ -100,10 +103,10 @@ abstract class BaseUllFlowFieldPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UllFlowAppId' => 1, 'UllFieldId' => 2, 'Options' => 3, 'CaptionI18nDefault' => 4, 'Sequence' => 5, 'Enabled' => 6, 'Mandatory' => 7, 'IsTitle' => 8, 'IsPriority' => 9, 'IsDeadline' => 10, 'IsCustomField1' => 11, 'UllAccessGroupId' => 12, 'CreatorUserId' => 13, 'CreatedAt' => 14, 'UpdatorUserId' => 15, 'UpdatedAt' => 16, ),
-		BasePeer::TYPE_COLNAME => array (UllFlowFieldPeer::ID => 0, UllFlowFieldPeer::ULL_FLOW_APP_ID => 1, UllFlowFieldPeer::ULL_FIELD_ID => 2, UllFlowFieldPeer::OPTIONS => 3, UllFlowFieldPeer::CAPTION_I18N_DEFAULT => 4, UllFlowFieldPeer::SEQUENCE => 5, UllFlowFieldPeer::ENABLED => 6, UllFlowFieldPeer::MANDATORY => 7, UllFlowFieldPeer::IS_TITLE => 8, UllFlowFieldPeer::IS_PRIORITY => 9, UllFlowFieldPeer::IS_DEADLINE => 10, UllFlowFieldPeer::IS_CUSTOM_FIELD1 => 11, UllFlowFieldPeer::ULL_ACCESS_GROUP_ID => 12, UllFlowFieldPeer::CREATOR_USER_ID => 13, UllFlowFieldPeer::CREATED_AT => 14, UllFlowFieldPeer::UPDATOR_USER_ID => 15, UllFlowFieldPeer::UPDATED_AT => 16, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'ull_flow_app_id' => 1, 'ull_field_id' => 2, 'options' => 3, 'caption_i18n_default' => 4, 'sequence' => 5, 'enabled' => 6, 'mandatory' => 7, 'is_title' => 8, 'is_priority' => 9, 'is_deadline' => 10, 'is_custom_field1' => 11, 'ull_access_group_id' => 12, 'creator_user_id' => 13, 'created_at' => 14, 'updator_user_id' => 15, 'updated_at' => 16, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UllFlowAppId' => 1, 'UllFieldId' => 2, 'Options' => 3, 'CaptionI18nDefault' => 4, 'Sequence' => 5, 'DefaultValue' => 6, 'Enabled' => 7, 'Mandatory' => 8, 'IsTitle' => 9, 'IsPriority' => 10, 'IsDeadline' => 11, 'IsCustomField1' => 12, 'UllAccessGroupId' => 13, 'CreatorUserId' => 14, 'CreatedAt' => 15, 'UpdatorUserId' => 16, 'UpdatedAt' => 17, ),
+		BasePeer::TYPE_COLNAME => array (UllFlowFieldPeer::ID => 0, UllFlowFieldPeer::ULL_FLOW_APP_ID => 1, UllFlowFieldPeer::ULL_FIELD_ID => 2, UllFlowFieldPeer::OPTIONS => 3, UllFlowFieldPeer::CAPTION_I18N_DEFAULT => 4, UllFlowFieldPeer::SEQUENCE => 5, UllFlowFieldPeer::DEFAULT_VALUE => 6, UllFlowFieldPeer::ENABLED => 7, UllFlowFieldPeer::MANDATORY => 8, UllFlowFieldPeer::IS_TITLE => 9, UllFlowFieldPeer::IS_PRIORITY => 10, UllFlowFieldPeer::IS_DEADLINE => 11, UllFlowFieldPeer::IS_CUSTOM_FIELD1 => 12, UllFlowFieldPeer::ULL_ACCESS_GROUP_ID => 13, UllFlowFieldPeer::CREATOR_USER_ID => 14, UllFlowFieldPeer::CREATED_AT => 15, UllFlowFieldPeer::UPDATOR_USER_ID => 16, UllFlowFieldPeer::UPDATED_AT => 17, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'ull_flow_app_id' => 1, 'ull_field_id' => 2, 'options' => 3, 'caption_i18n_default' => 4, 'sequence' => 5, 'default_value' => 6, 'enabled' => 7, 'mandatory' => 8, 'is_title' => 9, 'is_priority' => 10, 'is_deadline' => 11, 'is_custom_field1' => 12, 'ull_access_group_id' => 13, 'creator_user_id' => 14, 'created_at' => 15, 'updator_user_id' => 16, 'updated_at' => 17, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, )
 	);
 
 	/**
@@ -215,6 +218,8 @@ abstract class BaseUllFlowFieldPeer {
 		$criteria->addSelectColumn(UllFlowFieldPeer::CAPTION_I18N_DEFAULT);
 
 		$criteria->addSelectColumn(UllFlowFieldPeer::SEQUENCE);
+
+		$criteria->addSelectColumn(UllFlowFieldPeer::DEFAULT_VALUE);
 
 		$criteria->addSelectColumn(UllFlowFieldPeer::ENABLED);
 
