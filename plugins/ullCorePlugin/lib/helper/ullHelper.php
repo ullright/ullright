@@ -806,6 +806,20 @@ function ull_js_observer($form_id) {
     }
   ');
 
+/*
+ * Kommentar zum Aufspüren von FCKEditor-Feldern
+ * 
+ * zu jedem Textfeld, dass mit FCKEditor dargestellt wird, wird zusätzlich ein Feld angelegt. In
+ * unserem Beispiel heißt das Feld body, das zusätzliche Feld heißt damit body___Config.
+ * Ich suche nun nach allen Feldern mit ___Config in Namen und weiß, dass wenn ich mit dem Präfix den Namen
+ * das FCKEditor-Feldes herausbekomme.
+ *
+ * e            = HTML-Element
+ * e.id         = ID des HTML-Element
+ * e.id.indexOf = durchsucht den String id nach dem Vorkommen von ___Config. Wenn gefunden, dann ist
+ *                Rückgabewert größer als -1
+*/
+
   return $html;
   
 }
