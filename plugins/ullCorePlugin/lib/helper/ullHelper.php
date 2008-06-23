@@ -207,6 +207,22 @@ function ull_reqpass_icon($merge_array = array(), $icon, $alt = null, $link_opti
 
 function ull_link_to($name = 'link', $url = array(), $options = array()) {
   
+  $options = _convert_options($options);
+  
+  if (isset($options['link_new_window'])) {
+    unset($options['link_new_window']);
+    $options['class']   = 'link_new_window';
+    $options['target']  = '_blank';
+    $options['title']   = __('Link opens in a new window', null, 'common');
+  }
+
+  if (isset($options['link_external'])) {
+    unset($options['link_external']);
+    $options['class'] = 'link_external';
+    $options['target'] = '_blank';
+    $options['title']   = __('Link opens in a new window', null, 'common');
+  }
+  
   return _ull_to($name, $url, $options, 'link');
   
 }
@@ -264,33 +280,24 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
     $url = _ull_reqpass_build_url($params);
   }
 
-  $html_options = _convert_options($options);
+  $options = _convert_options($options);
 
-  if (isset($html_options['link_new_window'])) {
-    unset($html_options['link_new_window']);
-    $html_options['class'] = 'link_new_window';
-    $html_options['target'] = '_blank';
-    $options = _convert_array_to_string($html_options);
+
+  // disable ull_js_observer for target='_blank' (makes no sense)
+  if (isset($options['target']) && $options['target'] == '_blank') {
+    unset($options['ull_js_observer_confirm']);    
   }
 
-  if (isset($html_options['link_external'])) {
-    unset($html_options['link_external']);
-    $html_options['class'] = 'link_external';
-    $html_options['target'] = '_blank';
-    $options = _convert_array_to_string($html_options);
-  }
-
-
-  if (isset($html_options['ull_js_observer_confirm'])) {
+  if (isset($options['ull_js_observer_confirm'])) {
     
 //    ullCoreTools::printR($html_options['ull_js_observer_confirm']);
-//    sfContext::getInstance()->getLogger()->info('xxx: '.gettype($html_options['ull_js_observer_confirm']));
+//    sfContext::getInstance()->getLogger()->info('xxx: '.gettype($options['ull_js_observer_confirm']));
 
     // use default msg if no custom msg
-    if (is_bool($html_options['ull_js_observer_confirm'])) {
+    if (is_bool($options['ull_js_observer_confirm'])) {
       $msg = __('You will loose unsaved changes! Are you sure?', null, 'common');
     } else {
-      $msg = $html_options['ull_js_observer_confirm'];
+      $msg = $options['ull_js_observer_confirm'];
     }
 
     $action = 'return document.location.href="' . url_for($url) . '";';
@@ -301,18 +308,18 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
         'if (document.getElementById("ull_js_observer_initial_state") != null'
       . '   && ull_js_observer_detect_change()) { '
       . '   if (confirm("' . $msg . '")) { '
-      . '     '.$action
+      . '     ' . $action . 'return false;'
       . '   } else {'
       . '     return false;'
       . '   }'
       . '} else {'
-      . '   '.$action
+      . '   ' . $action . 'return false;'
       . '}'
     ;
 
-    unset($html_options['ull_js_observer_confirm']);
+    unset($options['ull_js_observer_confirm']);
     
-    return call_user_func($type . '_to_function', $name, $js_function, $html_options);
+    return call_user_func($type . '_to_function', $name, $js_function, $options);
 
   } else {
     return call_user_func($type . '_to', $name, $url, $options);

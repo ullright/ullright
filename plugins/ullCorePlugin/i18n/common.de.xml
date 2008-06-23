@@ -260,6 +260,12 @@
 <target>Gesetzt</target>
 </trans-unit>
 
+<trans-unit id="9004">
+<source>Link opens in a new window</source>
+<target>Link öffnet sich in einem neuen Fenster</target>
+</trans-unit>
+
+
 
 
 <!-- top navigation login -->
