@@ -193,7 +193,7 @@ class BaseullUserActions extends ullsfActions
 //    $this->getUser()->clearCredentials();
 //    $this->getUser()->getAttributeHolder()->removeNamespace('subscriber');
    
-    $this->redirect('/');
+    $this->redirect('@homepage');
   }
   
   public function handleErrorLogin() {

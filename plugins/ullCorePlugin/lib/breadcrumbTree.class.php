@@ -109,7 +109,7 @@ class breadcrumbTree
                       '/images/breadcrumb_home.png',
                     'alt=' . __('Home', null, 'common') . ' title=' . __('Home', null, 'common')
                   ),  
-                  '/'
+                  '@homepage'
                 ); 
     $return .= "</li>";                
     

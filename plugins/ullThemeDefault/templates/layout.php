@@ -33,7 +33,7 @@
         <div id="nav_logo">
           <?php echo ull_link_to(
               image_tag('/' . $layout . '/images/logo', 'alt="logo"')
-            , '/'
+            , '@homepage'
             , 'ull_js_observer_confirm=true'
             ); ?> 
         </div>
@@ -70,14 +70,14 @@
 
         <div id='nav_links'>             
           <ul class="nav_top_links">            
-            <li><?php echo ull_link_to(__('Home', null, 'common'),           '/',                                                             'ull_js_observer_confirm=true'); ?></li>
-            <li><?php echo ull_link_to(__('Workflows', null, 'common'),      'ullFlow',                                                       'ull_js_observer_confirm=true'); ?></li>
+            <li><?php echo ull_link_to(__('Home', null, 'common'),           '@homepage',                                                             'ull_js_observer_confirm=true'); ?></li>
+            <li><?php echo ull_link_to(__('Workflows', null, 'common'),      'ullFlow/index',                                                       'ull_js_observer_confirm=true'); ?></li>
             <li><?php echo ull_link_to(__('Active tickets', null, 'common'), 'ullFlow/tabular?app=helpdesk_tool&order=priority&order_dir=asc','ull_js_observer_confirm=true'); ?></li>
             <li><?php echo ull_link_to(__('My todo list', null, 'common'),   'ullFlow/tabular?query=to_me&order=priority&order_dir=asc',      'ull_js_observer_confirm=true'); ?></li>
             <li><?php echo ull_link_to(__('Wiki', null, 'common'),           'ullWiki/list',                                                  'ull_js_observer_confirm=true'); ?></li>
             <?php 
               if (UllUserPeer::userHasGroup(1)) {
-                echo '<li>' . ull_link_to(__('Admin'), 'ullAdmin', 'ull_js_observer_confirm=true') . '</li>';
+                echo '<li>' . ull_link_to(__('Admin'), 'ullAdmin/index', 'ull_js_observer_confirm=true') . '</li>';
               } 
             ?>
 

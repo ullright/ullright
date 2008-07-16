@@ -1,5 +1,4 @@
 rendering: ~
-web_debug: ~
 security:  ~
 
 # generally, you will want to insert your own filters here
@@ -12,5 +11,4 @@ theme:
 
 cache:     ~
 common:    ~
-flash:     ~
 execution: ~

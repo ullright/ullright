@@ -1,11 +1,12 @@
 prod:
   .settings:
+    logging_enabled: off
     no_script_name:           on
 
 dev:
   .settings:
     # E_ALL | E_STRICT = 4095
-    error_reporting:        4095
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
     web_debug:              on
     cache:                  off
     no_script_name:         off
@@ -14,7 +15,7 @@ dev:
 test:
   .settings:
     # E_ALL | E_STRICT & ~E_NOTICE = 2047
-    error_reporting:        2047
+    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
     cache:                  off
     web_debug:              off
     no_script_name:         off
@@ -47,6 +48,7 @@ all:
 #    unavailable_action:  unavailable  # From an application disabled via the available setting below
 #
   .settings:
+    compat_10:              on          #symfony 1.0 compatibility mode
 #    available:              on        # Enable the whole application. Switch to off to redirect all requests to the unavailable module and action.
 #
 #    # Optional features. Deactivating unused features boots performance a bit.
@@ -108,7 +110,7 @@ all:
 #    strip_comments:         on         # Remove comments in core framework classes as defined in the core_compile.yml
 #    autoloading_functions:  ~          # Functions called when a class is requested and this it is not already loaded. Expects an array of callables. Used by the framework bridges.
 #    timeout:                1800       # Session timeout, in seconds
-    timeout:                50000       # Session timeout, in seconds
+#    timeout:                50000       # Session timeout, in seconds
 #    max_forwards:           5
 #    path_info_array:        SERVER
 #    path_info_key:          PATH_INFO
@@ -116,3 +118,7 @@ all:
 #
 #    # ORM
 #    orm:                    propel
+#
+# set default_culture to invalid 'xx_XX' to detect unset culture and 
+# allow auto-detect browser HTTP accept-language by i18nFilter
+    default_culture:     xx_XX
