@@ -21,7 +21,7 @@ class BaseullTableToolActions extends ullsfActions
    *
    */
   public function executeIndex()
-  {
+  {    
     $this->forward($this->getModuleName(), 'list');
   }
 
@@ -42,7 +42,7 @@ class BaseullTableToolActions extends ullsfActions
     
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin');
+    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
     $this->breadcrumbTree->add('ullTableTool');
     $this->breadcrumbTree->add(__('Table') . ' ' . $this->table_name);
     $this->breadcrumbTree->addFinal(__('List', null, 'common'));
@@ -212,7 +212,7 @@ class BaseullTableToolActions extends ullsfActions
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin');
+    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
     $this->breadcrumbTree->add('ullTableTool');
     $this->breadcrumbTree->add(__('Table') . ' ' . $this->table_name);
     if ($this->id) {

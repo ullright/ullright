@@ -19,7 +19,7 @@ class BaseUllAdminActions extends ullsfActions
     
   // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add('UllAdmin', 'UllAdmin');    
+    $this->breadcrumbTree->add('UllAdmin', 'UllAdmin/index');    
     
     
     // check access

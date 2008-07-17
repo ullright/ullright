@@ -10,7 +10,7 @@ class themeFilter extends sfFilter {
     $this->theme = sfConfig::get('app_theme', 'ullThemeDefault');
     $theme = $sf_root_dir.'/plugins/'.$this->theme.'/templates/layout';
 
-    $this->getContext()->getController()->getActionStack()->getFirstEntry()->getActionInstance()->setLayout($theme);
+    $this->getContext()->getController()->getActionStack()->getLastEntry()->getActionInstance()->setLayout($theme);
               
  
 //        switch (SF_ENVIRONMENT) {

@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: ullright
 -- ------------------------------------------------------
--- Server version	5.0.51a-3ubuntu5.1-log
+-- Server version	5.0.51a-3ubuntu5.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -462,6 +462,7 @@ CREATE TABLE `ull_flow_field` (
   `options` text,
   `caption_i18n_default` varchar(32) default NULL,
   `sequence` int(11) default NULL,
+  `default_value` int(11) default NULL,
   `enabled` int(11) default NULL,
   `mandatory` int(11) default NULL,
   `is_title` int(11) default NULL,
@@ -484,7 +485,7 @@ SET character_set_client = @saved_cs_client;
 
 LOCK TABLES `ull_flow_field` WRITE;
 /*!40000 ALTER TABLE `ull_flow_field` DISABLE KEYS */;
-INSERT INTO `ull_flow_field` VALUES (1,1,1,NULL,'Subject',1000,1,1,1,NULL,NULL,NULL,NULL,NULL,'2008-03-14 15:52:00',NULL,'2008-03-14 15:52:00'),(2,1,14,'','Body',2000,1,0,0,0,0,0,0,NULL,'2008-03-14 15:52:27',1,'2008-06-09 11:51:39'),(3,1,9,'','Caller',500,1,1,0,0,0,1,0,1,'2008-03-21 13:51:36',1,'2008-06-09 11:47:01'),(4,1,2,NULL,'Comment',5000,1,0,0,NULL,NULL,NULL,NULL,1,'2008-03-21 15:41:00',1,'2008-03-28 10:34:31'),(5,1,6,'','Deadline',4000,0,0,0,0,0,0,0,1,'2008-03-28 10:35:41',1,'2008-06-09 09:20:54'),(6,2,1,NULL,'Subject',1000,1,1,1,NULL,NULL,NULL,NULL,1,'2008-03-28 10:50:13',1,'2008-03-28 10:50:13'),(7,2,2,NULL,'Text',2000,1,0,0,NULL,NULL,NULL,NULL,1,'2008-03-28 10:51:07',1,'2008-03-28 10:51:07'),(8,2,6,'','Deadline',3000,0,0,0,0,0,0,0,1,'2008-03-28 10:51:42',1,'2008-06-09 09:20:42'),(9,1,12,'','Attachments',10000,1,0,0,0,0,0,0,1,'2008-06-09 09:12:02',1,'2008-06-09 09:12:02'),(10,1,13,'','Solutions',11000,1,0,0,0,0,0,0,1,'2008-06-09 09:14:52',1,'2008-06-09 09:14:52'),(11,1,15,'','Tags',12000,1,0,0,0,0,0,0,1,'2008-06-09 09:21:20',1,'2008-06-09 09:21:20'),(12,2,15,'','Tags',12000,1,0,0,0,0,0,0,1,'2008-06-09 09:21:46',1,'2008-06-09 09:21:46'),(13,1,10,'ull_select=priority include_blank=true','Priority',5500,1,1,0,1,0,0,0,1,'2008-06-09 11:44:08',1,'2008-06-09 11:44:08'),(14,2,10,'ull_select=priority include_blank=true','Priority',2500,1,1,0,1,0,0,0,1,'2008-06-09 11:44:53',1,'2008-06-09 11:44:53');
+INSERT INTO `ull_flow_field` VALUES (1,1,1,NULL,'Subject',1000,NULL,1,1,1,NULL,NULL,NULL,NULL,NULL,'2008-03-14 15:52:00',NULL,'2008-03-14 15:52:00'),(2,1,14,'','Body',2000,NULL,1,0,0,0,0,0,0,NULL,'2008-03-14 15:52:27',1,'2008-06-09 11:51:39'),(3,1,9,'','Caller',500,NULL,1,1,0,0,0,1,0,1,'2008-03-21 13:51:36',1,'2008-06-09 11:47:01'),(4,1,2,NULL,'Comment',5000,NULL,1,0,0,NULL,NULL,NULL,NULL,1,'2008-03-21 15:41:00',1,'2008-03-28 10:34:31'),(5,1,6,'','Deadline',4000,NULL,0,0,0,0,0,0,0,1,'2008-03-28 10:35:41',1,'2008-06-09 09:20:54'),(6,2,1,NULL,'Subject',1000,NULL,1,1,1,NULL,NULL,NULL,NULL,1,'2008-03-28 10:50:13',1,'2008-03-28 10:50:13'),(7,2,2,NULL,'Text',2000,NULL,1,0,0,NULL,NULL,NULL,NULL,1,'2008-03-28 10:51:07',1,'2008-03-28 10:51:07'),(8,2,6,'','Deadline',3000,NULL,0,0,0,0,0,0,0,1,'2008-03-28 10:51:42',1,'2008-06-09 09:20:42'),(9,1,12,'','Attachments',10000,NULL,1,0,0,0,0,0,0,1,'2008-06-09 09:12:02',1,'2008-06-09 09:12:02'),(10,1,13,'','Solutions',11000,NULL,1,0,0,0,0,0,0,1,'2008-06-09 09:14:52',1,'2008-06-09 09:14:52'),(11,1,15,'','Tags',12000,NULL,1,0,0,0,0,0,0,1,'2008-06-09 09:21:20',1,'2008-06-09 09:21:20'),(12,2,15,'','Tags',12000,NULL,1,0,0,0,0,0,0,1,'2008-06-09 09:21:46',1,'2008-06-09 09:21:46'),(13,1,10,'ull_select=priority include_blank=true','Priority',5500,NULL,1,1,0,1,0,0,0,1,'2008-06-09 11:44:08',1,'2008-06-09 11:44:08'),(14,2,10,'ull_select=priority include_blank=true','Priority',2500,NULL,1,1,0,1,0,0,0,1,'2008-06-09 11:44:53',1,'2008-06-09 11:44:53');
 /*!40000 ALTER TABLE `ull_flow_field` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1022,4 +1023,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-06-13 18:02:40
+-- Dump completed on 2008-07-17 12:24:39

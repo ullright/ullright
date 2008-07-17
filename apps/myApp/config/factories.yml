@@ -61,8 +61,17 @@ all:
 #          lifetime:                  86400
 #          prefix:                    %SF_APP_DIR%
 
-  all:
-    user:
+
+  user:
     class: myUser
     param:
       timeout:     1000000     # session timeout in seconds
+
+      
+  routing:
+    class: sfPatternRouting
+    param:
+      load_configuration: true
+      suffix:             .       # Default suffix for generated URLs. If set to a single dot (.), no suffix is added. Possible values: .html, .php, and so on.
+      default_module:     myModule # Default module and action to be called when
+      default_action:     index   # A routing rule doesn't set it      

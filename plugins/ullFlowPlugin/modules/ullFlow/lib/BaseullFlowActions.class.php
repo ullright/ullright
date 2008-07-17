@@ -166,7 +166,7 @@ class BaseullFlowActions extends ullsfActions
     
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow');
+    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
     if ($this->app_slug) {
       $this->breadcrumbTree->add(ullCoreTools::getI18nField($this->app, 'caption'));
     }
@@ -504,7 +504,7 @@ class BaseullFlowActions extends ullsfActions
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow');
+    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
     $this->breadcrumbTree->add(ullCoreTools::getI18nField($this->app, 'caption'));
     if (!$this->referer_edit = $this->refererHandler->getReferer()) {
       $this->referer_edit = 'ullFlow/list?app=' . $this->app->getSlug();

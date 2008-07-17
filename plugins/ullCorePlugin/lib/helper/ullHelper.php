@@ -760,7 +760,9 @@ function get_part($stream, $msg_number, $mime_type, $structure = false, $part_nu
 function ull_js_observer($form_id) {
 
   // js_observer form to store initial form values
-  $html = form_tag(null, 'id=ull_js_observer');
+  $a = sfContext::getInstance()->getActionName();
+  $m = sfContext::getInstance()->getModuleName();
+  $html = form_tag($a . '/' . $m, 'id=ull_js_observer');
   $html .= input_hidden_tag('ull_js_observer_initial_state');
   $html .= '</form>';
 
