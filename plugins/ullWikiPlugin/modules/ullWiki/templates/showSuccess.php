@@ -12,12 +12,12 @@
 //  echo link_to_if(
 //    $previous_cursor,
 //    'previous',
-//    'ullwiki/show?cursor=' . $previous_cursor);
+//    'ullWiki/show?cursor=' . $previous_cursor);
 //  echo ' - ';
 //  echo link_to_if(
 //    $next_cursor,
 //    'next',
-//    'ullwiki/show?cursor=' . $next_cursor);
+//    'ullWiki/show?cursor=' . $next_cursor);
 //}
 ?>
 

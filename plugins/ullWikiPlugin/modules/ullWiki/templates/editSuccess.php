@@ -7,7 +7,7 @@
 <?php echo $breadcrumbTree->getHtml() ?>
 
 
-<?php echo form_tag('ullwiki/update', 'name=form1 id="ull_wiki_form"'); ?>
+<?php echo form_tag('ullWiki/update', 'name=form1 id="ull_wiki_form"'); ?>
 
 <?php echo object_input_hidden_tag($ullwiki, 'getId'); ?>
 <?php echo object_input_hidden_tag($ullwiki, 'getDocid'); ?>
@@ -141,7 +141,7 @@
 		      <?php 
 		        echo link_to(
 		          __('Delete', null, 'common'), 
-		          'ullwiki/delete?docid='.$ullwiki->getDocid(), 
+		          'ullWiki/delete?docid='.$ullwiki->getDocid(), 
 		          'confirm='.__('Are you sure?', null, 'common')
 		          ); 
 		      ?>

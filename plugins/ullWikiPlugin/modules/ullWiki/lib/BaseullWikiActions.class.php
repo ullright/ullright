@@ -77,7 +77,7 @@ class BaseullWikiActions extends ullsfActions
     
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullwiki/index');
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
     $this->breadcrumbTree->addFinal(__('Result list', null, 'common'));
     
 
@@ -184,7 +184,7 @@ class BaseullWikiActions extends ullsfActions
 
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullwiki/index');
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
     
 
     
@@ -192,8 +192,8 @@ class BaseullWikiActions extends ullsfActions
     // display result list link only when there is a "show" or "edit" referer containing 
     //  the list action    
     if (
-      strstr($refererHandler->getReferer('show'), 'ullwiki/list')
-      or strstr($refererHandler->getReferer('edit'), 'ullwiki/list')
+      strstr($refererHandler->getReferer('show'), 'ullWiki/list')
+      or strstr($refererHandler->getReferer('edit'), 'ullWiki/list')
       ) {
     $this->breadcrumbTree->add(
         __('Result list', null, 'common'),
@@ -259,13 +259,13 @@ class BaseullWikiActions extends ullsfActions
     
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullwiki/index');
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
     
     // display result list link only when there is a "show" or "edit" referer 
     //  containing the list action    
     if (
-      strstr($this->refererHandler->getReferer('show'), 'ullwiki/list')
-      or strstr($this->refererHandler->getReferer('edit'), 'ullwiki/list')
+      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
+      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
        ) {
     $this->breadcrumbTree->add(
         __('Result list', null, 'common'),
@@ -305,13 +305,13 @@ class BaseullWikiActions extends ullsfActions
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add(__('Wiki'), 'ullwiki/index');
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
     
     // display result list link only when there is a "show" or "edit" referer 
     //  containing the list action    
     if (
-      strstr($this->refererHandler->getReferer('show'), 'ullwiki/list')
-      or strstr($this->refererHandler->getReferer('edit'), 'ullwiki/list')
+      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
+      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
        ) {
       $this->breadcrumbTree->add(
         __('Result list', null, 'common'),
@@ -321,7 +321,7 @@ class BaseullWikiActions extends ullsfActions
     
     // display breadcrumb show link only when there is an "edit" referer 
     //  containing the show action 
-    if (strstr($this->refererHandler->getReferer('edit'), 'ullwiki/show')) {
+    if (strstr($this->refererHandler->getReferer('edit'), 'ullWiki/show')) {
       $this->breadcrumbTree->add(
         __('Result list', null, 'common'),
         $this->refererHandler->getReferer()
@@ -427,7 +427,7 @@ class BaseullWikiActions extends ullsfActions
     
     // == forward junction
     if ($this->getRequestParameter('save_mode') == 'saveonly') {
-      return $this->redirect('ullwiki/edit?docid='.$docid);
+      return $this->redirect('ullWiki/edit?docid='.$docid);
       
       // plugin mode
     } elseif (isset($return_url)) {
@@ -438,7 +438,7 @@ class BaseullWikiActions extends ullsfActions
       return $this->redirect($return_url);
 
     } elseif ($this->getRequestParameter('save_mode') == 'saveshow') {
-      return $this->redirect('ullwiki/show?docid='.$docid);
+      return $this->redirect('ullWiki/show?docid='.$docid);
       
     } else {
       
@@ -488,7 +488,7 @@ class BaseullWikiActions extends ullsfActions
 
     
     
-    return $this->redirect('ullwiki/list');
+    return $this->redirect('ullWiki/list');
   }
   
 }

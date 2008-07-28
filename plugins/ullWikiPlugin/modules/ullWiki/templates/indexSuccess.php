@@ -18,7 +18,7 @@
 
 <h4><?php echo __('Actions', null, 'common'); ?></h4>
 <ul>
-  <li><?php echo link_to(__('Create', null, 'common'), 'ullwiki/create') ?></li>
+  <li><?php echo link_to(__('Create', null, 'common'), 'ullWiki/create') ?></li>
 </ul>
 
 <h4><?php echo __('Queries', null, 'common'); ?></h4>

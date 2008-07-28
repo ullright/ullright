@@ -42,13 +42,13 @@
 
 <br />
 <?php echo __('Sort by', null, 'common'); ?>: 
-<?php echo link_to(__('Subject', null, 'common'), 'ullwiki/list?sort=subject') ?>
+<?php echo link_to(__('Subject', null, 'common'), 'ullWiki/list?sort=subject') ?>
  -
-<?php echo link_to(__('DocId'), 'ullwiki/list?sort=docid') ?>
+<?php echo link_to(__('DocId'), 'ullWiki/list?sort=docid') ?>
  -  
-<?php echo link_to(__('Date ascending', null, 'common'), 'ullwiki/list?sort=updated_at') ?>
+<?php echo link_to(__('Date ascending', null, 'common'), 'ullWiki/list?sort=updated_at') ?>
  -  
-<?php echo link_to(__('Date descending', null, 'common'), 'ullwiki/list') ?>
+<?php echo link_to(__('Date descending', null, 'common'), 'ullWiki/list') ?>
 
 <br />
 <br />
