@@ -17,15 +17,15 @@
    
   <li>
     <?php echo ull_reqpass_icon(
-            array('action' => 'edit', 'docid' => $ullwiki->getDocid())
+            array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $ullwiki->getDocid())
             , 'edit'
             , __('Edit', null, 'common')
           ); ?>
   </li>
-  
+
   <li>
     <?php echo ull_reqpass_icon(
-            array('action' => 'delete', 'docid' => $ullwiki->getDocid())
+            array('module' => 'ullWiki', 'action' => 'delete', 'docid' => $ullwiki->getDocid())
             , 'delete'
             ,  __('Delete', null, 'common')
             , 'confirm='.__('Are you sure?', null, 'common')
