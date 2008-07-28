@@ -507,26 +507,24 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
  */
 
 function _ull_reqpass_build_url($params) {
-  
+
   // module
   $url = $params['module'];
   unset($params['module']);
-  
+
   // action
   $url .= '/' . $params['action'];
   unset($params['action']);
-  
+
   // check if any params left...
   if ($params) { 
-    // first param
-    $url .= '?' . key($params) . '=' . array_shift($params); 
-  
-    // other params
+    $addition = '?';
     foreach($params as $key => $value) {
-      $url .= '&' . $key . '=' . $value;
+      $url .= $addition . $key . '=' . $value;
+      $addition = '&';
     }
   }
-  
+
   return $url;
   
 }
