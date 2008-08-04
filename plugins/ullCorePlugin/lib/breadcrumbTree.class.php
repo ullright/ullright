@@ -89,13 +89,15 @@ class breadcrumbTree
           $options = '';
         }
         $breadcrumbTreeReturn[] = 
-          ull_link_to($breadcrumb['name'], $breadcrumb['internal_uri'], $options);
+          ull_link_to(htmlspecialchars($breadcrumb['name']),
+                      $breadcrumb['internal_uri'],
+                      $options);
       
       } else {
 //        if (@$breadcrumb['final']) {
 //          $breadcrumbTreeReturn[] = '<b>'.$breadcrumb['name'].'</b>';
 //        } else {
-          $breadcrumbTreeReturn[] = $breadcrumb['name'];
+          $breadcrumbTreeReturn[] = htmlspecialchars($breadcrumb['name']);
 //        }
       }      
     }

@@ -54,7 +54,7 @@ class ullFieldHandlerInformationUpdate extends ullFieldHandler
     $return = '';
     
     if ($value) {
-      $return .= '<div class="ull_flow_fieldtype_information_update">' . nl2br($value) . '</div>';
+      $return .= '<div class="ull_flow_fieldtype_information_update">' . nl2br(htmlspecialchars($value)) . '</div>';
     }
     
     
