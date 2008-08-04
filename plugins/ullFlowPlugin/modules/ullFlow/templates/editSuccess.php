@@ -1,7 +1,7 @@
 <?php
 ?>
 
-<?php echo $breadcrumbTree->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 
 <?php
@@ -37,9 +37,9 @@
 ?>
 
 <?php $odd = false; ?>
-<?php foreach ($ull_form->getFieldsInfo() as $field_name => $field_info): ?>
+<?php foreach ($sf_data->getRaw('ull_form')->getFieldsInfo() as $field_name => $field_info): ?>
   <?php if (isset($field_info['access'])): ?>
-  
+
     <?php
       if ($odd) {
         $odd_style = ' class=\'odd\'';
@@ -58,23 +58,23 @@
       <td>  
         <?php 
         
-          $fields_data  = $ull_form->getFieldsDataOne();
+          $fields_data  = $sf_data->getRaw('ull_form')->getFieldsDataOne();
           $field_data   = $fields_data[$field_name]; 
-        
+
           if (isset($field_data['function'])) {
             echo call_user_func_array($field_data['function'], $field_data['parameters']);
-            
+
           } else {
             if (isset($field_data['value'])) {
               echo $field_data['value'];
-            }            
+            }
 
           }
 
           echo form_error($field_name);
-          
+
           ?>
-  
+
       </td>
     </tr>
   <?php endif; // end of enabled ?>
@@ -90,7 +90,7 @@
 <div class='action_buttons_edit'>
 <fieldset>
   <legend><?php echo __('Actions', null, 'common') ?></legend>
-  
+
   <div class='action_buttons_edit_left'>
     
     

@@ -1,7 +1,7 @@
 <?php
 ?>
 
-<?php echo $breadcrumbTree->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 <?php echo form_tag('ullTableTool/update', 'id="ull_tabletool_form"'); ?>
 
@@ -18,7 +18,7 @@
 <tbody>
 
 
-<?php foreach ($ull_form->getFieldsInfo() as $field_name => $field_info): ?>
+<?php foreach ($sf_data->getRaw('ull_form')->getFieldsInfo() as $field_name => $field_info): ?>
   <?php if (@$field_info['enabled']): ?>
     <tr>
       <td>
@@ -27,7 +27,7 @@
       </td>
       <td>  
         <?php 
-          $fields_data  = $ull_form->getFieldsDataOne();
+          $fields_data  = $sf_data->getRaw('ull_form')->getFieldsDataOne();
           $field_data   = $fields_data[$field_name]; 
 
 //          ullCoreTools::printR($field_data);

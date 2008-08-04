@@ -1,4 +1,4 @@
-<?php echo $breadcrumbTree->getHtml(); ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 <h1><?php echo __('ullUser Startpage'); ?></h1>
 

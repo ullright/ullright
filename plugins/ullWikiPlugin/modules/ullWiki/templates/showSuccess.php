@@ -3,7 +3,7 @@
 // date: 2007/11/13 09:04:50
 ?>
 
-<?php echo $breadcrumbTree->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 <!--<h1><?php echo __('Wiki Show'); ?></h1>-->
 
@@ -41,7 +41,7 @@
 <div class='ullwiki_body'>
   <?php
   
-  $body = $ullwiki->getBody();
+  $body = $sf_data->getRaw('ullwiki')->getBody();
   
   /*
   // 's' extend the meaning of '.' beyond newlines

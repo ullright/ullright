@@ -4,7 +4,7 @@
 ?>
 <?php //use_helper('Object') ?>
 
-<?php echo $breadcrumbTree->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 
 <?php echo form_tag('ullWiki/update', 'name=form1 id="ull_wiki_form"'); ?>
@@ -28,14 +28,14 @@
   <td>
     <?php 
       //weflowTools::printR($cultures); 
-      
-      echo object_select_tag($cultures, 'getUllCultureId');
-      //                                    \________/
-      //                                         v 
-      //                               =Model peer class name      
+
+      echo object_select_tag($sf_data->getRaw('cultures'), 'getUllCultureId');
+      //                                                       \________/
+      //                                                           v 
+      //                                                 =Model peer class name      
     ?>
   </td>
-  
+
 </tr>
 <tr class='odd'>
   <td><b><?php echo __('Subject', null, 'common'); ?>:</b></td>
@@ -47,8 +47,8 @@
 <tr>
   <td><b><?php echo __('Text', null, 'common'); ?>:</b></td>
   <td><?php 
-  
-  echo object_textarea_tag($ullwiki, 'getBody', array (
+
+  echo object_textarea_tag($sf_data->getRaw('ullwiki'), 'getBody', array (
   'rich' => 'fck', 'size' => '80x40', 'config' => '../ullWikiPlugin/js/FCKeditor_config.js'
 )) 
 
@@ -68,7 +68,7 @@
       <?php
         $tags_out = sfContext::getInstance()->getRequest()->getParameter('tags');
         if (!$tags_out) {
-          $tags = $ullwiki->getTags();
+          $tags = $sf_data->getRaw('ullwiki')->getTags();
           $tags_out = implode(', ', array_keys($tags));
         }
 //        ullCoreTools::printR($tags);

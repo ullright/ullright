@@ -28,7 +28,7 @@
     <h3>
       <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID()); ?>
       <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID().'&cursor='.$cursor); ?>
-      <?php echo link_to($ullwiki->getSubject(), $subject_link); ?>
+      <?php echo link_to($ullwiki->getSubject(), $sf_data->getRaw('subject_link')); ?>
     </h3>
     <!--  Tag1, Tag2, Tag3 -->
   </div>  

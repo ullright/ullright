@@ -1,4 +1,4 @@
-<?php echo $breadcrumbTree->getHtml(); 
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml();
 //$sf_user->setCulture('de');
 ?>
 

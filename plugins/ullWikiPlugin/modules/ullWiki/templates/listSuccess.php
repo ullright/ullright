@@ -3,7 +3,7 @@
 // date: 2007/11/13 09:04:50
 ?>
 
-<?php echo $breadcrumbTree->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 <!-- <h1><?php echo __('Wiki Result List'); ?></h1> -->
 
@@ -59,7 +59,7 @@
       'ullwiki' => $ullwiki
 //      ,'cursor' => $cursor
     )); ?>
-  <?php //++$cursor; ?>
+  <?php //++$cursor;/?>
 <?php endforeach; ?>
 
 

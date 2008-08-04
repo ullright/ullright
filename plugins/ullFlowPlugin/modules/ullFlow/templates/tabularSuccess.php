@@ -1,8 +1,8 @@
 <?php //ullCoreTools::printR($ull_form);?>
 
-<?php echo $breadcrumbTree->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-<?php echo $ull_filter->getHtml() ?>
+<?php echo $sf_data->getRaw('ull_filter')->getHtml() ?>
 
 
 <!-- Action row -->
