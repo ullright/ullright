@@ -50,14 +50,22 @@ class ullFlowMailNotifyNext extends ullFlowMail
       
       $greeting = $user_name;
     }
+
     
     $subject =
-      __('Please take care of')
-      . ' ' 
-      . $this->app_doc_caption 
-      . ' "'
-      . $this->doc_title
-      . '"'
+          $this->app_doc_caption 
+        . ': "'
+        . $this->doc_title
+        . '"'
+    ;
+    
+    $request =
+          __('Please take care of')
+        . ' ' 
+        . $this->app_doc_caption 
+        . ' "'
+        . $this->doc_title
+        . '"'
     ;
     
     $mail->setSubject($subject);
@@ -67,7 +75,7 @@ class ullFlowMailNotifyNext extends ullFlowMail
     $mail->setBody(
       __('Hello') . ' ' . $greeting . ",\n"
       . "\n"
-      . $subject . ".\n"
+      . $request . ".\n"
       . "\n"
       . $comment
       . $this->buildEditLink() . "\n"
