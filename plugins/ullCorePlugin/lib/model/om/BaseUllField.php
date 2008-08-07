@@ -1006,7 +1006,6 @@ abstract class BaseUllField extends BaseObject  implements Persistent {
 	public function getUllColumnInfos($criteria = null, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllColumnInfoPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1056,7 +1055,6 @@ abstract class BaseUllField extends BaseObject  implements Persistent {
 	public function countUllColumnInfos($criteria = null, $distinct = false, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllColumnInfoPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1113,7 +1111,6 @@ abstract class BaseUllField extends BaseObject  implements Persistent {
 	public function getUllFieldI18ns($criteria = null, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllFieldI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1163,7 +1160,6 @@ abstract class BaseUllField extends BaseObject  implements Persistent {
 	public function countUllFieldI18ns($criteria = null, $distinct = false, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllFieldI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1201,37 +1197,40 @@ abstract class BaseUllField extends BaseObject  implements Persistent {
     $this->culture = $culture;
   }
 
-  public function getCaptionI18n()
+  public function getCaptionI18n($culture = null)
   {
-    $obj = $this->getCurrentUllFieldI18n();
-
-    return ($obj ? $obj->getCaptionI18n() : null);
+    return $this->getCurrentUllFieldI18n($culture)->getCaptionI18n();
   }
 
-  public function setCaptionI18n($value)
+  public function setCaptionI18n($value, $culture = null)
   {
-    $this->getCurrentUllFieldI18n()->setCaptionI18n($value);
+    $this->getCurrentUllFieldI18n($culture)->setCaptionI18n($value);
   }
 
   protected $current_i18n = array();
 
-  public function getCurrentUllFieldI18n()
+  public function getCurrentUllFieldI18n($culture = null)
   {
-    if (!isset($this->current_i18n[$this->culture]))
+    if (is_null($culture))
     {
-      $obj = UllFieldI18nPeer::retrieveByPK($this->getId(), $this->culture);
+      $culture = is_null($this->culture) ? sfPropel::getDefaultCulture() : $this->culture;
+    }
+
+    if (!isset($this->current_i18n[$culture]))
+    {
+      $obj = UllFieldI18nPeer::retrieveByPK($this->getId(), $culture);
       if ($obj)
       {
-        $this->setUllFieldI18nForCulture($obj, $this->culture);
+        $this->setUllFieldI18nForCulture($obj, $culture);
       }
       else
       {
-        $this->setUllFieldI18nForCulture(new UllFieldI18n(), $this->culture);
-        $this->current_i18n[$this->culture]->setCulture($this->culture);
+        $this->setUllFieldI18nForCulture(new UllFieldI18n(), $culture);
+        $this->current_i18n[$culture]->setCulture($culture);
       }
     }
 
-    return $this->current_i18n[$this->culture];
+    return $this->current_i18n[$culture];
   }
 
   public function setUllFieldI18nForCulture($object, $culture)

@@ -110,7 +110,6 @@ abstract class BaseUllWikiPeer {
 	 */
 	public static function getMapBuilder()
 	{
-		include_once 'plugins/ullWikiPlugin/lib/model/map/UllWikiMapBuilder.php';
 		return BasePeer::getMapBuilder('plugins.ullWikiPlugin.lib.model.map.UllWikiMapBuilder');
 	}
 	/**
@@ -322,7 +321,7 @@ abstract class BaseUllWikiPeer {
 	public static function doSelectRS(Criteria $criteria, $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseUllWikiPeer:addDoSelectRS:addDoSelectRS') as $callable)
+    foreach (sfMixer::getCallables('BaseUllWikiPeer:doSelectRS:doSelectRS') as $callable)
     {
       call_user_func($callable, 'BaseUllWikiPeer', $criteria, $con);
     }
@@ -368,6 +367,11 @@ abstract class BaseUllWikiPeer {
 		}
 		return $results;
 	}
+
+  static public function getUniqueColumnNames()
+  {
+    return array();
+  }
 	/**
 	 * Returns the TableMap related to this peer.
 	 * This method is not needed for general use but a specific application could have a need.
@@ -684,6 +688,5 @@ if (Propel::isInit()) {
 } else {
 	// even if Propel is not yet initialized, the map builder class can be registered
 	// now and then it will be loaded when Propel initializes.
-	require_once 'plugins/ullWikiPlugin/lib/model/map/UllWikiMapBuilder.php';
 	Propel::registerMapBuilder('plugins.ullWikiPlugin.lib.model.map.UllWikiMapBuilder');
 }

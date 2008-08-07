@@ -160,7 +160,7 @@ class BaseullUserActions extends ullsfActions
 //        ullCoreTools::printR($auth_class);
 //        exit();
           
-        if (call_user_func(array($auth_class, 'authenticate'), $user, $password)) {
+        if (call_user_func($auth_class . '::authenticate', $user, $password)) {
           
             
           

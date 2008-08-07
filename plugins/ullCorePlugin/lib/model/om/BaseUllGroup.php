@@ -1015,7 +1015,6 @@ abstract class BaseUllGroup extends BaseObject  implements Persistent {
 	public function getUllAccessGroupGroups($criteria = null, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllAccessGroupGroupPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1065,7 +1064,6 @@ abstract class BaseUllGroup extends BaseObject  implements Persistent {
 	public function countUllAccessGroupGroups($criteria = null, $distinct = false, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllAccessGroupGroupPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1108,7 +1106,6 @@ abstract class BaseUllGroup extends BaseObject  implements Persistent {
 	public function getUllAccessGroupGroupsJoinUllAccessGroup($criteria = null, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllAccessGroupGroupPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}

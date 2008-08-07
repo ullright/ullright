@@ -83,7 +83,6 @@ abstract class BaseUllUserGroupPeer {
 	 */
 	public static function getMapBuilder()
 	{
-		include_once 'plugins/ullCorePlugin/lib/model/map/UllUserGroupMapBuilder.php';
 		return BasePeer::getMapBuilder('plugins.ullCorePlugin.lib.model.map.UllUserGroupMapBuilder');
 	}
 	/**
@@ -277,7 +276,7 @@ abstract class BaseUllUserGroupPeer {
 	public static function doSelectRS(Criteria $criteria, $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseUllUserGroupPeer:addDoSelectRS:addDoSelectRS') as $callable)
+    foreach (sfMixer::getCallables('BaseUllUserGroupPeer:doSelectRS:doSelectRS') as $callable)
     {
       call_user_func($callable, 'BaseUllUserGroupPeer', $criteria, $con);
     }
@@ -323,6 +322,11 @@ abstract class BaseUllUserGroupPeer {
 		}
 		return $results;
 	}
+
+  static public function getUniqueColumnNames()
+  {
+    return array();
+  }
 	/**
 	 * Returns the TableMap related to this peer.
 	 * This method is not needed for general use but a specific application could have a need.
@@ -639,6 +643,5 @@ if (Propel::isInit()) {
 } else {
 	// even if Propel is not yet initialized, the map builder class can be registered
 	// now and then it will be loaded when Propel initializes.
-	require_once 'plugins/ullCorePlugin/lib/model/map/UllUserGroupMapBuilder.php';
 	Propel::registerMapBuilder('plugins.ullCorePlugin.lib.model.map.UllUserGroupMapBuilder');
 }

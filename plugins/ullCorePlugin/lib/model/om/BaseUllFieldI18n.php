@@ -314,7 +314,7 @@ abstract class BaseUllFieldI18n extends BaseObject  implements Persistent {
 			// foreign key reference.
 
 			if ($this->aUllField !== null) {
-				if ($this->aUllField->isModified() || $this->aUllField->getCurrentUllFieldI18n()->isModified()) {
+				if ($this->aUllField->isModified() || ($this->aUllField->getCulture() && $this->aUllField->getCurrentUllFieldI18n()->isModified())) {
 					$affectedRows += $this->aUllField->save($con);
 				}
 				$this->setUllField($this->aUllField);
@@ -710,8 +710,6 @@ abstract class BaseUllFieldI18n extends BaseObject  implements Persistent {
 	{
 		if ($this->aUllField === null && ($this->id !== null)) {
 			// include the related Peer class
-			include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllFieldPeer.php';
-
 			$this->aUllField = UllFieldPeer::retrieveByPK($this->id, $con);
 
 			/* The following can be used instead of the line above to

@@ -314,7 +314,7 @@ abstract class BaseUllSelectI18n extends BaseObject  implements Persistent {
 			// foreign key reference.
 
 			if ($this->aUllSelect !== null) {
-				if ($this->aUllSelect->isModified() || $this->aUllSelect->getCurrentUllSelectI18n()->isModified()) {
+				if ($this->aUllSelect->isModified() || ($this->aUllSelect->getCulture() && $this->aUllSelect->getCurrentUllSelectI18n()->isModified())) {
 					$affectedRows += $this->aUllSelect->save($con);
 				}
 				$this->setUllSelect($this->aUllSelect);
@@ -710,8 +710,6 @@ abstract class BaseUllSelectI18n extends BaseObject  implements Persistent {
 	{
 		if ($this->aUllSelect === null && ($this->id !== null)) {
 			// include the related Peer class
-			include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllSelectPeer.php';
-
 			$this->aUllSelect = UllSelectPeer::retrieveByPK($this->id, $con);
 
 			/* The following can be used instead of the line above to

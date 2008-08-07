@@ -816,8 +816,6 @@ abstract class BaseUllAccessGroupGroup extends BaseObject  implements Persistent
 	{
 		if ($this->aUllAccessGroup === null && ($this->ull_access_group_id !== null)) {
 			// include the related Peer class
-			include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllAccessGroupPeer.php';
-
 			$this->aUllAccessGroup = UllAccessGroupPeer::retrieveByPK($this->ull_access_group_id, $con);
 
 			/* The following can be used instead of the line above to
@@ -866,8 +864,6 @@ abstract class BaseUllAccessGroupGroup extends BaseObject  implements Persistent
 	{
 		if ($this->aUllGroup === null && ($this->ull_group_id !== null)) {
 			// include the related Peer class
-			include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllGroupPeer.php';
-
 			$this->aUllGroup = UllGroupPeer::retrieveByPK($this->ull_group_id, $con);
 
 			/* The following can be used instead of the line above to

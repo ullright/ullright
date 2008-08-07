@@ -608,7 +608,7 @@ abstract class BaseUllColumnInfo extends BaseObject  implements Persistent {
 			// foreign key reference.
 
 			if ($this->aUllField !== null) {
-				if ($this->aUllField->isModified() || $this->aUllField->getCurrentUllFieldI18n()->isModified()) {
+				if ($this->aUllField->isModified() || ($this->aUllField->getCulture() && $this->aUllField->getCurrentUllFieldI18n()->isModified())) {
 					$affectedRows += $this->aUllField->save($con);
 				}
 				$this->setUllField($this->aUllField);
@@ -1099,8 +1099,6 @@ abstract class BaseUllColumnInfo extends BaseObject  implements Persistent {
 	{
 		if ($this->aUllField === null && ($this->ull_field_id !== null)) {
 			// include the related Peer class
-			include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllFieldPeer.php';
-
 			$this->aUllField = UllFieldPeer::retrieveByPK($this->ull_field_id, $con);
 
 			/* The following can be used instead of the line above to
@@ -1145,7 +1143,6 @@ abstract class BaseUllColumnInfo extends BaseObject  implements Persistent {
 	public function getUllColumnInfoI18ns($criteria = null, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllColumnInfoI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1195,7 +1192,6 @@ abstract class BaseUllColumnInfo extends BaseObject  implements Persistent {
 	public function countUllColumnInfoI18ns($criteria = null, $distinct = false, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllColumnInfoI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1233,49 +1229,50 @@ abstract class BaseUllColumnInfo extends BaseObject  implements Persistent {
     $this->culture = $culture;
   }
 
-  public function getCaptionI18n()
+  public function getCaptionI18n($culture = null)
   {
-    $obj = $this->getCurrentUllColumnInfoI18n();
-
-    return ($obj ? $obj->getCaptionI18n() : null);
+    return $this->getCurrentUllColumnInfoI18n($culture)->getCaptionI18n();
   }
 
-  public function setCaptionI18n($value)
+  public function setCaptionI18n($value, $culture = null)
   {
-    $this->getCurrentUllColumnInfoI18n()->setCaptionI18n($value);
+    $this->getCurrentUllColumnInfoI18n($culture)->setCaptionI18n($value);
   }
 
-  public function getDescriptionI18n()
+  public function getDescriptionI18n($culture = null)
   {
-    $obj = $this->getCurrentUllColumnInfoI18n();
-
-    return ($obj ? $obj->getDescriptionI18n() : null);
+    return $this->getCurrentUllColumnInfoI18n($culture)->getDescriptionI18n();
   }
 
-  public function setDescriptionI18n($value)
+  public function setDescriptionI18n($value, $culture = null)
   {
-    $this->getCurrentUllColumnInfoI18n()->setDescriptionI18n($value);
+    $this->getCurrentUllColumnInfoI18n($culture)->setDescriptionI18n($value);
   }
 
   protected $current_i18n = array();
 
-  public function getCurrentUllColumnInfoI18n()
+  public function getCurrentUllColumnInfoI18n($culture = null)
   {
-    if (!isset($this->current_i18n[$this->culture]))
+    if (is_null($culture))
     {
-      $obj = UllColumnInfoI18nPeer::retrieveByPK($this->getId(), $this->culture);
+      $culture = is_null($this->culture) ? sfPropel::getDefaultCulture() : $this->culture;
+    }
+
+    if (!isset($this->current_i18n[$culture]))
+    {
+      $obj = UllColumnInfoI18nPeer::retrieveByPK($this->getId(), $culture);
       if ($obj)
       {
-        $this->setUllColumnInfoI18nForCulture($obj, $this->culture);
+        $this->setUllColumnInfoI18nForCulture($obj, $culture);
       }
       else
       {
-        $this->setUllColumnInfoI18nForCulture(new UllColumnInfoI18n(), $this->culture);
-        $this->current_i18n[$this->culture]->setCulture($this->culture);
+        $this->setUllColumnInfoI18nForCulture(new UllColumnInfoI18n(), $culture);
+        $this->current_i18n[$culture]->setCulture($culture);
       }
     }
 
-    return $this->current_i18n[$this->culture];
+    return $this->current_i18n[$culture];
   }
 
   public function setUllColumnInfoI18nForCulture($object, $culture)
