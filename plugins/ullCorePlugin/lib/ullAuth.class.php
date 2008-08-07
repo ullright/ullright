@@ -3,7 +3,7 @@
 abstract class ullAuth 
 {
   
-  static function authenticate(UllUser $user, $password) {
+  public static function authenticate(UllUser $user, $password) {
     
   }
   

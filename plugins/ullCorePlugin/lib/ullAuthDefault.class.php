@@ -1,9 +1,9 @@
 <?php
 
-class ullAuthInternal extends ullAuth 
+class ullAuthDefault extends ullAuth 
 {
   
-  static function authenticate(UllUser $user, $password) {
+  public static function authenticate(UllUser $user, $password) {
     
     return (self::authInternal($user, $password));
     
