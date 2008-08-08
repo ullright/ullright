@@ -142,7 +142,13 @@ class BaseullUserActions extends ullsfActions
       // handle the form submission
       $username = $this->getRequestParameter('username');
       $password = $this->getRequestParameter('password');
-   
+
+      //user has javascript enabled?
+      $this->getUser()->setAttribute('has_javascript', false);
+      if ($this->getRequestParameter('js_check') == 1) {
+        $this->getUser()->setAttribute('has_javascript', true);
+      }
+
       $c = new Criteria();
       $c->add(UllUserPeer::USERNAME, $username);
       $user = UllUserPeer::doSelectOne($c);
@@ -175,7 +181,7 @@ class BaseullUserActions extends ullsfActions
 //          ullCoreTools::printR($this->getUser()->getAttribute('user_id'));
 //          echo "hallo";
 //          exit();
-   
+
           // redirect to last page
           $refererHandler = new refererHandler();
           return $this->redirect($refererHandler->getRefererAndDelete('login'));
@@ -188,11 +194,12 @@ class BaseullUserActions extends ullsfActions
   }
   
   public function executeLogout() {
-    $this->getUser()->setAttribute('user_id',0);
-    
+    $this->getUser()->setAttribute('user_id', 0);
+    $this->getUser()->setAttribute('has_javascript', false);
+
 //    $this->getUser()->clearCredentials();
 //    $this->getUser()->getAttributeHolder()->removeNamespace('subscriber');
-   
+
     $this->redirect('@homepage');
   }
   

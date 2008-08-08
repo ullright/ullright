@@ -18,7 +18,10 @@
       <td><?php echo form_error('password'); ?></td>
     </tr>
   </table>
-  
+
+  <?php echo input_hidden_tag('js_check', '0'); ?>
+  <?php echo javascript_tag('document.getElementById("js_check").value = 1;'); ?>
+
   <?php echo javascript_tag('document.getElementById("username").focus();'); ?>
   
   <br />
