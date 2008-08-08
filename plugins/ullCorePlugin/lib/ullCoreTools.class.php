@@ -195,12 +195,12 @@ class ullCoreTools
         '"xxx<input type=text value=\'$0\' />xxx"',
         $text);
     */
-    
+
     $text = preg_replace(
         "#(<a[^>]+>[^<]+</a>)|(<[^>]+http[s]?://[^>]+>)|http[s]?://[^<> ]+#ie",
-        '"$0"=="$1" || "$0"=="$2" ? "$0" : "<a href=\"$0\">$0</a>"',
+        '"$0"=="$1" || "$0"=="$2" ? "$0" : "<a href=\"$0\" class=\"link_new_window\" target=\"_blank\" title=\"'.__('Link opens in a new window', null, 'common').'\">$0</a>"',
         $text);
-    
+
     return $text;
   }  
 
