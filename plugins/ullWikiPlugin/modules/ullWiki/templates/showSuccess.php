@@ -75,7 +75,10 @@
             '#<pre>.*?</pre>#is'
             , 'u_func'
             , $body);
-            
+
+  //auto "link" links
+  $body = ullCoreTools::makelinks($body);
+
   echo $body;
   
   

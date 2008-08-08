@@ -179,11 +179,13 @@ class ullCoreTools
     }
        
   }  
-  
 
-  function makelinks($text) {
+
+  public static function makelinks($text) {
     // this function converts URLs in the form http://... or https:// into links
-    // What actually does the trick happens in the replacement argument. The logic is: If the complete match equals one of the unwanted matches, replace it with itself (i.e. do nothing), else add the <a href=...> </a> tags around it.
+    // What actually does the trick happens in the replacement argument.
+    // The logic is: If the complete match equals one of the unwanted matches,
+    // replace it with itself (i.e. do nothing), else add the <a href=...> </a> tags around it.
    /* 
     for preg debugging:
     $text = preg_replace(
@@ -201,7 +203,7 @@ class ullCoreTools
     
     return $text;
   }  
-  
+
 }
 
 ?>
