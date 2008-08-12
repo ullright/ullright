@@ -1,11 +1,5 @@
 all:
-  propel:
-    class:          sfPropelDatabase
+  doctrine:
+    class:          sfDoctrineDatabase
     param:
-      phptype:      mysql
-      hostspec:     localhost
-      database:     ullright
-      username:     ullright
-      password:     right&wrong!
-      port:         3306
-      persistant:   true
+      dsn:          mysql://ullright:right&wrong!@localhost/ullright
