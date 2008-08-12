@@ -1,0 +1,36 @@
+User:
+  adminuser:
+    id:                 1               # force id for admin
+    first_name:         Master
+    last_name:          Admin
+    email:              admin@example.com
+    username:           admin
+    password:           21232f297a57a5a743894a0e4a801fc3
+    creator_user_id:    1               # integer since there is no adminuser yet
+    updator_user_id:    1               # integer since there is no adminuser yet
+    namespace:          ullCore
+    Group:              [admingroup]    # many to many relations are given by array
+  testuser:
+    first_name:         Thomas
+    last_name:          Test
+    email:              test@example.com
+    username:           test
+    password:           098f6bcd4621d373cade4e832627b4f6
+    Creator:            adminuser
+    Updator:            adminuser
+    namespace:          ullCore
+    Group:              [helpdeskgroup]
+    
+Group:
+  admingroup:
+    caption:            MasterAdmins
+    Creator:            adminuser
+    Updator:            adminuser
+    namespace:          ullCore    
+  helpdeskgroup:
+    caption:            Helpdesk
+    Creator:            adminuser
+    Updator:            adminuser
+    namespace:          ullCore
+
+    

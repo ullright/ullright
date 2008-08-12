@@ -3,9 +3,12 @@
 
 REPO_URL="https://ssl.ull.at/svn/ullright/trunk"
 
-svn propset svn:externals "sfDoctrinePlugin http://svn.symfony-project.com/plugins/sfDoctrinePlugin/trunk/" plugins
-svn update
-php symfony cc
+# the following doesn't work because proset overwrites existing properties
+#svn propset svn:externals "sfDoctrinePlugin http://svn.symfony-project.com/plugins/sfDoctrinePlugin/trunk" plugins
+#rm -rf plugins/ dkGeshiPlugin
+#svn propset svn:externals "dkGeshiPlugin http://svn.symfony-project.com/plugins/dkGeshiPlugin/trunk" plugins
+#svn update
+#php symfony cc
 
 echo ""
 echo "Getting new config files from ullright repository"

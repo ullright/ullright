@@ -17,8 +17,8 @@ abstract class BaseGroup extends UllRecord
   public function setUp()
   {
     parent::setUp();
-    $this->hasMany('User as Users', array('refClass' => 'UserGroup',
-                                          'local' => 'group_id',
-                                          'foreign' => 'user_id'));
+    $this->hasMany('User', array('refClass' => 'UserGroup',
+                                 'local' => 'group_id',
+                                 'foreign' => 'user_id'));
   }
 }

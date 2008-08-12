@@ -11,10 +11,22 @@ UllRecord:
   columns:
     namespace:
       type: string(32)
+      default: ullCore
     creator_user_id: 
       type: integer
+      default: 1        #masteradmin
     updator_user_id: 
       type: integer
+      default: 1        #masteradmin
+  relations:
+    Creator:
+      class: User
+      local: creator_user_id
+      foreign: id
+    Updator:
+      class: User
+      local: updator_user_id
+      foreign: id
 
 User:
   inheritance:
@@ -44,7 +56,6 @@ User:
       refClass: UserGroup
       local: user_id
       foreign: group_id
-      foreignAlias: Users
 
 Group:
   inheritance:
@@ -61,7 +72,7 @@ Group:
       type: boolean
       default: false
       notnull: true    
-
+      
 UserGroup:
   inheritance:
     extends: UllRecord

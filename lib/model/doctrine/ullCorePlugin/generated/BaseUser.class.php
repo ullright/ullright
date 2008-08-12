@@ -25,5 +25,8 @@ abstract class BaseUser extends UllRecord
     $this->hasMany('Group', array('refClass' => 'UserGroup',
                                   'local' => 'user_id',
                                   'foreign' => 'group_id'));
+
+    $this->hasMany('UllRecord', array('local' => 'id',
+                                      'foreign' => 'creator_user_id'));
   }
 }
