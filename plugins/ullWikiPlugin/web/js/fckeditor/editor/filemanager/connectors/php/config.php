@@ -1,4 +1,5 @@
 <?php
+
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2008 Frederico Caldeira Knabben
@@ -38,7 +39,8 @@ $Config['UserFilesPath'] = '/uploads/assets/' ;
 // user files directory. Useful if you are using a virtual directory, symbolic
 // link or alias. Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
 // Attention: The above 'UserFilesPath' must point to the same directory.
-$Config['UserFilesAbsolutePath'] = '' ;
+$myPath = realpath(dirname(__FILE__).'/../../../../../../../../../web' . $Config['UserFilesPath']) . '/';
+$Config['UserFilesAbsolutePath'] = $myPath;
 
 // Due to security issues with Apache modules, it is recommended to leave the
 // following setting enabled.
