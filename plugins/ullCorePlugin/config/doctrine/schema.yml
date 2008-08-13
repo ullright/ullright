@@ -33,13 +33,22 @@ Entity:
     extends: UllRecord
     type: concrete
   columns:
-    first_name: 
-      type: string(64)
-    last_name: 
-      type: string(64)
     name:
       type: string(64)  
     email: 
+      type: string(64)
+
+User:
+  inheritance:
+    extends: Entity
+    type: columns_aggregation
+    keyField: type
+    keyValue: user
+  package: ullCorePlugin.lib.model.doctrine      
+  columns:
+    first_name: 
+      type: string(64)
+    last_name: 
       type: string(64)
     username: 
       type: string(32)
@@ -50,18 +59,10 @@ Entity:
     user_type: 
       type: integer
     birthday: 
-      type: date    
-
-User:
-  inheritance:
-    extends: Entity
-    type: columns_aggregation
-    keyField: type
-    keyValue: user
-  package: ullCorePlugin.lib.model.doctrine      
+      type: date            
   relations:
     Group:
-      refClass: EntityEntity
+      refClass: EntityGroup
       local: entity_id
       foreign: group_id
 
@@ -73,11 +74,11 @@ Group:
     keyValue: group
   package: ullCorePlugin.lib.model.doctrine    
       
-EntityEntity:
+EntityGroup:
   inheritance:
     extends: UllRecord
     type: concrete
-  tableName: ull_entity_entity
+  tableName: ull_entity_group
   package: ullCorePlugin.lib.model.doctrine
   columns:
     entity_id:
