@@ -3,6 +3,8 @@
 /**
  * Test class to test classes or applications that depend on a Doctrine
  * connection.
+ * 
+ * @author Bernhard Schussek
  */
 class sfDoctrineTestCase extends lime_test
 {
