@@ -12,7 +12,6 @@ UllRecord:
   columns:
     namespace:
       type: string(32)
-      default: ullCore
     creator_user_id: 
       type: integer
       default: 1        #masteradmin
@@ -36,16 +35,16 @@ ParentEntity:
     extends: UllRecord
     type: concrete
   columns:
-    name:
-      type: string(64)
     first_name: 
       type: string(64)
     last_name: 
       type: string(64)
+    name:
+      type: string(64)
+      unique: true
+      notnull: true      
     email: 
       type: string(64)      
-    username: 
-      type: string(32)
     password: 
       type: string(40)
     user_type: 
@@ -72,7 +71,7 @@ User:
       refClass: EntityGroup
       local: entity_id
       foreign: group_id
-                    
+                   
 Group:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:

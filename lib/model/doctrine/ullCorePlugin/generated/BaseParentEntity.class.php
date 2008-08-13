@@ -9,11 +9,10 @@ abstract class BaseParentEntity extends UllRecord
   {
     parent::setTableDefinition();
     $this->setTableName('parent_entity');
-    $this->hasColumn('name', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('first_name', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('last_name', 'string', 64, array('type' => 'string', 'length' => '64'));
+    $this->hasColumn('name', 'string', 64, array('type' => 'string', 'unique' => true, 'notnull' => true, 'length' => '64'));
     $this->hasColumn('email', 'string', 64, array('type' => 'string', 'length' => '64'));
-    $this->hasColumn('username', 'string', 32, array('type' => 'string', 'length' => '32'));
     $this->hasColumn('password', 'string', 40, array('type' => 'string', 'length' => '40'));
     $this->hasColumn('user_type', 'integer', null, array('type' => 'integer'));
   }
