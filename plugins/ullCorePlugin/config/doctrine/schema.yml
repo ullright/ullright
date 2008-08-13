@@ -28,17 +28,17 @@ UllRecord:
       local: updator_user_id
       foreign: id
 
-User:
-  inheritance:
+Entity:
+  inheritance: 
     extends: UllRecord
     type: concrete
-  tableName: ull_user
-  package: ullCorePlugin.lib.model.doctrine
   columns:
     first_name: 
       type: string(64)
     last_name: 
       type: string(64)
+    name:
+      type: string(64)  
     email: 
       type: string(64)
     username: 
@@ -51,36 +51,36 @@ User:
       type: integer
     birthday: 
       type: date    
+
+User:
+  inheritance:
+    extends: Entity
+    type: columns_aggregation
+    keyField: type
+    keyValue: user
+  package: ullCorePlugin.lib.model.doctrine      
   relations:
     Group:
-      refClass: UserGroup
-      local: user_id
+      refClass: EntityEntity
+      local: entity_id
       foreign: group_id
 
 Group:
   inheritance:
-    extends: UllRecord
-    type: concrete
-  tableName: ull_group
-  package: ullCorePlugin.lib.model.doctrine
-  columns:
-    caption: 
-      type: string(128)
-    email:
-      type: string(64)
-    system:
-      type: boolean
-      default: false
-      notnull: true    
+    extends: Entity
+    type: columns_aggregation
+    keyField: type
+    keyValue: group
+  package: ullCorePlugin.lib.model.doctrine    
       
-UserGroup:
+EntityEntity:
   inheritance:
     extends: UllRecord
     type: concrete
-  tableName: ull_user_group
+  tableName: ull_entity_entity
   package: ullCorePlugin.lib.model.doctrine
   columns:
-    user_id:
+    entity_id:
       type: integer
       primary: true
     group_id:

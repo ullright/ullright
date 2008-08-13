@@ -23,12 +23,12 @@ User:
     
 Group:
   admingroup:
-    caption:            MasterAdmins
+    name:            MasterAdmins
     Creator:            adminuser
     Updator:            adminuser
     namespace:          ullCore    
   helpdeskgroup:
-    caption:            Helpdesk
+    name:            Helpdesk
     Creator:            adminuser
     Updator:            adminuser
     namespace:          ullCore
