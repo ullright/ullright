@@ -8,25 +8,31 @@ class PluginUserTable extends EntityTable
   /**
    * check if a user is member of a group
    *
-   * @param string $name      groupname
+   * @param mixed $group      group_id or group name
    * @param integer $user_id  
    * @return boolean
    */
-  public static function hasGroupByName($name, $user_id = null) {
-    
+  public static function hasGroup($group, $user_id = null) 
+  {
+           
     // use session user_id as default entity
     if ($user_id === null) {
       $user_id = sfContext::getInstance()->getUser()->getAttribute('user_id'); 
     }
     
-    var_dump($name);
-    var_dump($user_id);
-    
     $q = new Doctrine_Query;
     $q->from('User u, u.Group g')
       ->where('u.id = ?', $user_id)
-      ->addWhere('g.name = ?', $name)
     ;
+    
+    if (is_integer($group))
+    {
+      $q->addWhere('g.id = ?', $group);
+    }
+    else
+    {
+      $q->addWhere('g.name = ?', $group);
+    }
       
     if ($q->count())
     {

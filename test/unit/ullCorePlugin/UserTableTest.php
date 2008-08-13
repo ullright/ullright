@@ -2,44 +2,49 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
-
-class myTestCase extends sfDoctrineTestCase
-{
-}
-
-// create context since it is required by getSkiRentalRoute() etc.
+// create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(8, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(7, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/fixtures.yml';
 $t->setFixturesPath($path);
 
 
-$t->begin('hasGroupByName() returns correct result');
-
+$t->begin('hasGroup() returns correct result');
   $t->is(
-        UserTable::hasGroupByName('MasterAdmins', 1)
+        UserTable::hasGroup('MasterAdmins', 1)
       , true
-      , 'returns true for admin (id 1) is member of group Masteradmins'
-      );
-      
+      , 'returns true for a given group and user_id'
+      );      
   $t->is(
-        UserTable::hasGroupByName('MasterAdmins', 2)
+        UserTable::hasGroup('MasterAdmins', 3)
       , false
-      , 'returns false for test (id 2) is member of group Masteradmins'
+      , 'returns false for a given group and user_id'
       );
-      
+  $t->is(
+        UserTable::hasGroup(2, 1)
+      , true
+      , 'returns true for a given group_id and user_id'
+      );
+  $t->is(
+        UserTable::hasGroup(2, 3)
+      , false
+      , 'returns false for a given group_id and user_id'
+      );      
+  $t->is(
+        UserTable::hasGroup('Masteradmins')
+      , false
+      , 'returns false for a given group and using the sessions user_id and not logged in'
+      );      
   sfContext::getInstance()->getUser()->setAttribute('user_id', 1);
-  
   $t->is(
-        UserTable::hasGroupByName('MasterAdmins')
+        UserTable::hasGroup('MasterAdmins')
       , true
-      , 'returns true without passing the user_id'
+      , 'returns true for a given group and using the sessions user_id'
       );
-      
   $t->is(
-        UserTable::hasGroupByName('Helpdesk')
+        UserTable::hasGroup('Helpdesk')
       , false
-      , 'returns false without passing the user_id'
+      , 'returns false for a given group and using the sessions user_id'
       );  
   
