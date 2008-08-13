@@ -28,69 +28,65 @@ UllRecord:
       class: User
       local: updator_user_id
       foreign: id
-      
-# Parent entity
-ParentEntity:
-  package: ullCorePlugin.lib.model.doctrine
+
+# user and groups
+Entity:
   inheritance: 
     extends: UllRecord
     type: concrete
+  tableName: ull_entity
   columns:
     name:
+      type: string(64)  
+    email: 
       type: string(64)
+
+User:
+  inheritance:
+    extends: Entity
+    type: columns_aggregation
+    keyField: type
+    keyValue: user
+  package: ullCorePlugin.lib.model.doctrine      
+  columns:
     first_name: 
       type: string(64)
     last_name: 
       type: string(64)
-    email: 
-      type: string(64)      
     username: 
       type: string(32)
     password: 
       type: string(40)
+    location_id: 
+      type: integer
     user_type: 
-      type: integer    
-
-# empty entity class to be overridden by custom Entity class 
-# (in config/doctrine/schema.yml) to allow definition of additional userfields
-Entity:
-  package: ullCorePlugin.lib.model.doctrine
-  inheritance: 
-    extends: ParentEntity
-    type: concrete
-  tableName: ull_entity
-    
-User:
-  package: ullCorePlugin.lib.model.doctrine
-  inheritance:
-    extends: Entity
-    type: column_aggregation
-    keyField: type
-    keyValue: user           
+      type: integer
+    birthday: 
+      type: date            
   relations:
     Group:
       refClass: EntityGroup
       local: entity_id
       foreign: group_id
-                    
+
 Group:
-  package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: Entity
-    type: column_aggregation
+    type: columns_aggregation
     keyField: type
-    keyValue: group      
+    keyValue: group
+  package: ullCorePlugin.lib.model.doctrine    
 
 EntityGroup:
-  package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
     type: concrete
-  tableName: ull_entity_group  
+  tableName: ull_entity_group
+  package: ullCorePlugin.lib.model.doctrine
   columns:
     entity_id:
       type: integer
       primary: true
     group_id:
       type: integer
-      primary: true                           
+      primary: true      
