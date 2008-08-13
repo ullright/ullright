@@ -14,6 +14,7 @@ $b
 	->isStatusCode(200)
 	->isRequestParameter('module', 'myModule')
 	->isRequestParameter('action', 'index')
+	->responseContains('Welcome, I hope you\'re ullright!')
 //	->responseContains('!/error/')
 //	->checkResponseElement('body', '!/error|Error|ERROR/')
 ;
