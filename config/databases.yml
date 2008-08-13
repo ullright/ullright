@@ -1,3 +1,10 @@
+### Test Environment
+test:
+  test:
+    class:          sfDoctrineDatabase
+    param:
+      dsn:          mysql://ullright_test:test@localhost/ullright_test
+
 all:
   doctrine:
     class:          sfDoctrineDatabase
