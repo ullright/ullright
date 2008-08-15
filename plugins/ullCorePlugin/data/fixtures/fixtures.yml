@@ -18,7 +18,6 @@ User:
     password:           098f6bcd4621d373cade4e832627b4f6
     Creator:            adminuser
     Updator:            adminuser
-    namespace:          ullCore
     Group:              [helpdeskgroup]
     
 Group:
@@ -31,6 +30,5 @@ Group:
     name:            Helpdesk
     Creator:            adminuser
     Updator:            adminuser
-    namespace:          ullCore
 
     
