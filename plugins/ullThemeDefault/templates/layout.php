@@ -41,7 +41,7 @@
         <div id="nav_syslinks_container">
 
           <div id="nav_syslinks">
-            <?php include_partial('ullUser/header_login'); ?>
+            <?php include_component('ullUser', 'headerLogin'); ?>
             
              &nbsp; | &nbsp;
             <?php
