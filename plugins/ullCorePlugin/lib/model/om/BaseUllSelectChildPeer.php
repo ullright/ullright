@@ -86,7 +86,6 @@ abstract class BaseUllSelectChildPeer {
 	 */
 	public static function getMapBuilder()
 	{
-		include_once 'plugins/ullCorePlugin/lib/model/map/UllSelectChildMapBuilder.php';
 		return BasePeer::getMapBuilder('plugins.ullCorePlugin.lib.model.map.UllSelectChildMapBuilder');
 	}
 	/**
@@ -282,7 +281,7 @@ abstract class BaseUllSelectChildPeer {
 	public static function doSelectRS(Criteria $criteria, $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseUllSelectChildPeer:addDoSelectRS:addDoSelectRS') as $callable)
+    foreach (sfMixer::getCallables('BaseUllSelectChildPeer:doSelectRS:doSelectRS') as $callable)
     {
       call_user_func($callable, 'BaseUllSelectChildPeer', $criteria, $con);
     }
@@ -377,6 +376,13 @@ abstract class BaseUllSelectChildPeer {
 	 */
 	public static function doSelectJoinUllSelect(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllSelectChildPeer:doSelectJoin:doSelectJoin') as $callable)
+    {
+      call_user_func($callable, 'BaseUllSelectChildPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -473,6 +479,13 @@ abstract class BaseUllSelectChildPeer {
 	 */
 	public static function doSelectJoinAll(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllSelectChildPeer:doSelectJoinAll:doSelectJoinAll') as $callable)
+    {
+      call_user_func($callable, 'BaseUllSelectChildPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -543,8 +556,15 @@ abstract class BaseUllSelectChildPeer {
   {
     if ($culture === null)
     {
-      $culture = sfContext::getInstance()->getUser()->getCulture();
+      $culture = sfPropel::getDefaultCulture();
     }
+
+
+    foreach (sfMixer::getCallables('BaseUllSelectChildPeer:doSelectJoin:doSelectJoin') as $callable)
+    {
+      call_user_func($callable, 'BaseUllSelectChildPeer', $c, $con);
+    }
+
 
     // Set the correct dbName if it has not been overridden
     if ($c->getDbName() == Propel::getDefaultDB())
@@ -586,6 +606,22 @@ abstract class BaseUllSelectChildPeer {
     return $results;
   }
 
+
+  /**
+   * Returns the i18n model class name.
+   *
+   * @return string The i18n model class name
+   */
+  public static function getI18nModel()
+  {
+    return 'UllSelectChildI18n';
+  }
+
+
+  static public function getUniqueColumnNames()
+  {
+    return array();
+  }
 	/**
 	 * Returns the TableMap related to this peer.
 	 * This method is not needed for general use but a specific application could have a need.
@@ -937,6 +973,5 @@ if (Propel::isInit()) {
 } else {
 	// even if Propel is not yet initialized, the map builder class can be registered
 	// now and then it will be loaded when Propel initializes.
-	require_once 'plugins/ullCorePlugin/lib/model/map/UllSelectChildMapBuilder.php';
 	Propel::registerMapBuilder('plugins.ullCorePlugin.lib.model.map.UllSelectChildMapBuilder');
 }

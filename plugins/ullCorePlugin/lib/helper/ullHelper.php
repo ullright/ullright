@@ -206,9 +206,9 @@ function ull_reqpass_icon($merge_array = array(), $icon, $alt = null, $link_opti
  */
 
 function ull_link_to($name = 'link', $url = array(), $options = array()) {
-  
+
   $options = _convert_options($options);
-  
+
   if (isset($options['link_new_window'])) {
     unset($options['link_new_window']);
     $options['class']   = 'link_new_window';
@@ -222,9 +222,9 @@ function ull_link_to($name = 'link', $url = array(), $options = array()) {
     $options['target'] = '_blank';
     $options['title']   = __('Link opens in a new window', null, 'common');
   }
-  
+
   return _ull_to($name, $url, $options, 'link');
-  
+
 }
 
 
@@ -282,12 +282,22 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
 
   $options = _convert_options($options);
 
+  // diable ull_js_observer if user has no javascript
+  if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript', false)) {
+  	unset($options['ull_js_observer_confirm']);
+  }
+
+  $action = sfContext::getInstance()->getActionName();
+  // disable ull_js_observer if action is not edit or create
+  if (!$action != 'create' && $action != 'edit') {
+    unset($options['ull_js_observer_confirm']);
+  }
 
   // disable ull_js_observer for target='_blank' (makes no sense)
   if (isset($options['target']) && $options['target'] == '_blank') {
     unset($options['ull_js_observer_confirm']);    
   }
-
+ 
   if (isset($options['ull_js_observer_confirm'])) {
     
 //    ullCoreTools::printR($html_options['ull_js_observer_confirm']);

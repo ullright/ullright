@@ -1133,7 +1133,6 @@ abstract class BaseUllTableInfo extends BaseObject  implements Persistent {
 	public function getUllTableInfoI18ns($criteria = null, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllTableInfoI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1183,7 +1182,6 @@ abstract class BaseUllTableInfo extends BaseObject  implements Persistent {
 	public function countUllTableInfoI18ns($criteria = null, $distinct = false, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllTableInfoI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1221,49 +1219,50 @@ abstract class BaseUllTableInfo extends BaseObject  implements Persistent {
     $this->culture = $culture;
   }
 
-  public function getCaptionI18n()
+  public function getCaptionI18n($culture = null)
   {
-    $obj = $this->getCurrentUllTableInfoI18n();
-
-    return ($obj ? $obj->getCaptionI18n() : null);
+    return $this->getCurrentUllTableInfoI18n($culture)->getCaptionI18n();
   }
 
-  public function setCaptionI18n($value)
+  public function setCaptionI18n($value, $culture = null)
   {
-    $this->getCurrentUllTableInfoI18n()->setCaptionI18n($value);
+    $this->getCurrentUllTableInfoI18n($culture)->setCaptionI18n($value);
   }
 
-  public function getDescriptionI18n()
+  public function getDescriptionI18n($culture = null)
   {
-    $obj = $this->getCurrentUllTableInfoI18n();
-
-    return ($obj ? $obj->getDescriptionI18n() : null);
+    return $this->getCurrentUllTableInfoI18n($culture)->getDescriptionI18n();
   }
 
-  public function setDescriptionI18n($value)
+  public function setDescriptionI18n($value, $culture = null)
   {
-    $this->getCurrentUllTableInfoI18n()->setDescriptionI18n($value);
+    $this->getCurrentUllTableInfoI18n($culture)->setDescriptionI18n($value);
   }
 
   protected $current_i18n = array();
 
-  public function getCurrentUllTableInfoI18n()
+  public function getCurrentUllTableInfoI18n($culture = null)
   {
-    if (!isset($this->current_i18n[$this->culture]))
+    if (is_null($culture))
     {
-      $obj = UllTableInfoI18nPeer::retrieveByPK($this->getId(), $this->culture);
+      $culture = is_null($this->culture) ? sfPropel::getDefaultCulture() : $this->culture;
+    }
+
+    if (!isset($this->current_i18n[$culture]))
+    {
+      $obj = UllTableInfoI18nPeer::retrieveByPK($this->getId(), $culture);
       if ($obj)
       {
-        $this->setUllTableInfoI18nForCulture($obj, $this->culture);
+        $this->setUllTableInfoI18nForCulture($obj, $culture);
       }
       else
       {
-        $this->setUllTableInfoI18nForCulture(new UllTableInfoI18n(), $this->culture);
-        $this->current_i18n[$this->culture]->setCulture($this->culture);
+        $this->setUllTableInfoI18nForCulture(new UllTableInfoI18n(), $culture);
+        $this->current_i18n[$culture]->setCulture($culture);
       }
     }
 
-    return $this->current_i18n[$this->culture];
+    return $this->current_i18n[$culture];
   }
 
   public function setUllTableInfoI18nForCulture($object, $culture)

@@ -92,7 +92,6 @@ abstract class BaseUllTableInfoPeer {
 	 */
 	public static function getMapBuilder()
 	{
-		include_once 'plugins/ullCorePlugin/lib/model/map/UllTableInfoMapBuilder.php';
 		return BasePeer::getMapBuilder('plugins.ullCorePlugin.lib.model.map.UllTableInfoMapBuilder');
 	}
 	/**
@@ -292,7 +291,7 @@ abstract class BaseUllTableInfoPeer {
 	public static function doSelectRS(Criteria $criteria, $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseUllTableInfoPeer:addDoSelectRS:addDoSelectRS') as $callable)
+    foreach (sfMixer::getCallables('BaseUllTableInfoPeer:doSelectRS:doSelectRS') as $callable)
     {
       call_user_func($callable, 'BaseUllTableInfoPeer', $criteria, $con);
     }
@@ -350,8 +349,15 @@ abstract class BaseUllTableInfoPeer {
   {
     if ($culture === null)
     {
-      $culture = sfContext::getInstance()->getUser()->getCulture();
+      $culture = sfPropel::getDefaultCulture();
     }
+
+
+    foreach (sfMixer::getCallables('BaseUllTableInfoPeer:doSelectJoin:doSelectJoin') as $callable)
+    {
+      call_user_func($callable, 'BaseUllTableInfoPeer', $c, $con);
+    }
+
 
     // Set the correct dbName if it has not been overridden
     if ($c->getDbName() == Propel::getDefaultDB())
@@ -393,6 +399,22 @@ abstract class BaseUllTableInfoPeer {
     return $results;
   }
 
+
+  /**
+   * Returns the i18n model class name.
+   *
+   * @return string The i18n model class name
+   */
+  public static function getI18nModel()
+  {
+    return 'UllTableInfoI18n';
+  }
+
+
+  static public function getUniqueColumnNames()
+  {
+    return array();
+  }
 	/**
 	 * Returns the TableMap related to this peer.
 	 * This method is not needed for general use but a specific application could have a need.
@@ -744,6 +766,5 @@ if (Propel::isInit()) {
 } else {
 	// even if Propel is not yet initialized, the map builder class can be registered
 	// now and then it will be loaded when Propel initializes.
-	require_once 'plugins/ullCorePlugin/lib/model/map/UllTableInfoMapBuilder.php';
 	Propel::registerMapBuilder('plugins.ullCorePlugin.lib.model.map.UllTableInfoMapBuilder');
 }

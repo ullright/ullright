@@ -356,7 +356,7 @@ abstract class BaseUllColumnInfoI18n extends BaseObject  implements Persistent {
 			// foreign key reference.
 
 			if ($this->aUllColumnInfo !== null) {
-				if ($this->aUllColumnInfo->isModified() || $this->aUllColumnInfo->getCurrentUllColumnInfoI18n()->isModified()) {
+				if ($this->aUllColumnInfo->isModified() || ($this->aUllColumnInfo->getCulture() && $this->aUllColumnInfo->getCurrentUllColumnInfoI18n()->isModified())) {
 					$affectedRows += $this->aUllColumnInfo->save($con);
 				}
 				$this->setUllColumnInfo($this->aUllColumnInfo);
@@ -763,8 +763,6 @@ abstract class BaseUllColumnInfoI18n extends BaseObject  implements Persistent {
 	{
 		if ($this->aUllColumnInfo === null && ($this->id !== null)) {
 			// include the related Peer class
-			include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllColumnInfoPeer.php';
-
 			$this->aUllColumnInfo = UllColumnInfoPeer::retrieveByPK($this->id, $con);
 
 			/* The following can be used instead of the line above to

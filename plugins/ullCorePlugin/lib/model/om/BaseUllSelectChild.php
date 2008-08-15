@@ -596,7 +596,7 @@ abstract class BaseUllSelectChild extends BaseObject  implements Persistent {
 			// foreign key reference.
 
 			if ($this->aUllSelect !== null) {
-				if ($this->aUllSelect->isModified() || $this->aUllSelect->getCurrentUllSelectI18n()->isModified()) {
+				if ($this->aUllSelect->isModified() || ($this->aUllSelect->getCulture() && $this->aUllSelect->getCurrentUllSelectI18n()->isModified())) {
 					$affectedRows += $this->aUllSelect->save($con);
 				}
 				$this->setUllSelect($this->aUllSelect);
@@ -1065,8 +1065,6 @@ abstract class BaseUllSelectChild extends BaseObject  implements Persistent {
 	{
 		if ($this->aUllSelect === null && ($this->ull_select_id !== null)) {
 			// include the related Peer class
-			include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllSelectPeer.php';
-
 			$this->aUllSelect = UllSelectPeer::retrieveByPK($this->ull_select_id, $con);
 
 			/* The following can be used instead of the line above to
@@ -1111,7 +1109,6 @@ abstract class BaseUllSelectChild extends BaseObject  implements Persistent {
 	public function getUllSelectChildI18ns($criteria = null, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllSelectChildI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1161,7 +1158,6 @@ abstract class BaseUllSelectChild extends BaseObject  implements Persistent {
 	public function countUllSelectChildI18ns($criteria = null, $distinct = false, $con = null)
 	{
 		// include the Peer class
-		include_once 'plugins/ullCorePlugin/lib/model/om/BaseUllSelectChildI18nPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1199,37 +1195,40 @@ abstract class BaseUllSelectChild extends BaseObject  implements Persistent {
     $this->culture = $culture;
   }
 
-  public function getCaptionI18n()
+  public function getCaptionI18n($culture = null)
   {
-    $obj = $this->getCurrentUllSelectChildI18n();
-
-    return ($obj ? $obj->getCaptionI18n() : null);
+    return $this->getCurrentUllSelectChildI18n($culture)->getCaptionI18n();
   }
 
-  public function setCaptionI18n($value)
+  public function setCaptionI18n($value, $culture = null)
   {
-    $this->getCurrentUllSelectChildI18n()->setCaptionI18n($value);
+    $this->getCurrentUllSelectChildI18n($culture)->setCaptionI18n($value);
   }
 
   protected $current_i18n = array();
 
-  public function getCurrentUllSelectChildI18n()
+  public function getCurrentUllSelectChildI18n($culture = null)
   {
-    if (!isset($this->current_i18n[$this->culture]))
+    if (is_null($culture))
     {
-      $obj = UllSelectChildI18nPeer::retrieveByPK($this->getId(), $this->culture);
+      $culture = is_null($this->culture) ? sfPropel::getDefaultCulture() : $this->culture;
+    }
+
+    if (!isset($this->current_i18n[$culture]))
+    {
+      $obj = UllSelectChildI18nPeer::retrieveByPK($this->getId(), $culture);
       if ($obj)
       {
-        $this->setUllSelectChildI18nForCulture($obj, $this->culture);
+        $this->setUllSelectChildI18nForCulture($obj, $culture);
       }
       else
       {
-        $this->setUllSelectChildI18nForCulture(new UllSelectChildI18n(), $this->culture);
-        $this->current_i18n[$this->culture]->setCulture($this->culture);
+        $this->setUllSelectChildI18nForCulture(new UllSelectChildI18n(), $culture);
+        $this->current_i18n[$culture]->setCulture($culture);
       }
     }
 
-    return $this->current_i18n[$this->culture];
+    return $this->current_i18n[$culture];
   }
 
   public function setUllSelectChildI18nForCulture($object, $culture)

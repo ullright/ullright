@@ -71,7 +71,6 @@ abstract class BaseUllSelectI18nPeer {
 	 */
 	public static function getMapBuilder()
 	{
-		include_once 'plugins/ullCorePlugin/lib/model/map/UllSelectI18nMapBuilder.php';
 		return BasePeer::getMapBuilder('plugins.ullCorePlugin.lib.model.map.UllSelectI18nMapBuilder');
 	}
 	/**
@@ -257,7 +256,7 @@ abstract class BaseUllSelectI18nPeer {
 	public static function doSelectRS(Criteria $criteria, $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseUllSelectI18nPeer:addDoSelectRS:addDoSelectRS') as $callable)
+    foreach (sfMixer::getCallables('BaseUllSelectI18nPeer:doSelectRS:doSelectRS') as $callable)
     {
       call_user_func($callable, 'BaseUllSelectI18nPeer', $criteria, $con);
     }
@@ -352,6 +351,13 @@ abstract class BaseUllSelectI18nPeer {
 	 */
 	public static function doSelectJoinUllSelect(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllSelectI18nPeer:doSelectJoin:doSelectJoin') as $callable)
+    {
+      call_user_func($callable, 'BaseUllSelectI18nPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -448,6 +454,13 @@ abstract class BaseUllSelectI18nPeer {
 	 */
 	public static function doSelectJoinAll(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllSelectI18nPeer:doSelectJoinAll:doSelectJoinAll') as $callable)
+    {
+      call_user_func($callable, 'BaseUllSelectI18nPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -506,6 +519,11 @@ abstract class BaseUllSelectI18nPeer {
 		return $results;
 	}
 
+
+  static public function getUniqueColumnNames()
+  {
+    return array();
+  }
 	/**
 	 * Returns the TableMap related to this peer.
 	 * This method is not needed for general use but a specific application could have a need.
@@ -811,6 +829,5 @@ if (Propel::isInit()) {
 } else {
 	// even if Propel is not yet initialized, the map builder class can be registered
 	// now and then it will be loaded when Propel initializes.
-	require_once 'plugins/ullCorePlugin/lib/model/map/UllSelectI18nMapBuilder.php';
 	Propel::registerMapBuilder('plugins.ullCorePlugin.lib.model.map.UllSelectI18nMapBuilder');
 }

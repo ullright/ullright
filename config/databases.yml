@@ -1,6 +1,6 @@
 ### Test Environment
 test:
-  test:
+  test: # should this be the database name?
     class:          sfDoctrineDatabase
     param:
       dsn:          mysql://ullright_test:test@localhost/ullright_test

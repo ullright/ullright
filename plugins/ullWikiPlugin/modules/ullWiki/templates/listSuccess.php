@@ -22,10 +22,12 @@
       echo $create_link;
   
       // == search field
-      echo __('Suche', null, 'common') . ': ';
-      echo ull_reqpass_form_tag(array('page' => '', 'search' => ''), array('class' => 'inline'));
-    
+      //echo __('Search', null, 'common') . ': ';
+      echo ull_reqpass_form_tag(array('page' => '', 'search' => ''), array('class' => 'inline', 'name' => 'ull_wiki_search_form'));
+
       echo input_tag('search', $search , array('size' => '15', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common')));
+      echo ull_button_to_function(__('Search', null, 'common'), 'document.ull_wiki_search_form.submit();');
+      
       echo '</form>';
       echo ' &nbsp ';
   

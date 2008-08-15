@@ -12,7 +12,7 @@ all:
     send_copy_flag: true     # in prod environment: send a copy of every mail to the debug_address
     
   auth:
-    function: internal      
+    function: default      
 
   tags:
     limit:   16

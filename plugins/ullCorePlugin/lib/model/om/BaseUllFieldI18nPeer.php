@@ -71,7 +71,6 @@ abstract class BaseUllFieldI18nPeer {
 	 */
 	public static function getMapBuilder()
 	{
-		include_once 'plugins/ullCorePlugin/lib/model/map/UllFieldI18nMapBuilder.php';
 		return BasePeer::getMapBuilder('plugins.ullCorePlugin.lib.model.map.UllFieldI18nMapBuilder');
 	}
 	/**
@@ -257,7 +256,7 @@ abstract class BaseUllFieldI18nPeer {
 	public static function doSelectRS(Criteria $criteria, $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseUllFieldI18nPeer:addDoSelectRS:addDoSelectRS') as $callable)
+    foreach (sfMixer::getCallables('BaseUllFieldI18nPeer:doSelectRS:doSelectRS') as $callable)
     {
       call_user_func($callable, 'BaseUllFieldI18nPeer', $criteria, $con);
     }
@@ -352,6 +351,13 @@ abstract class BaseUllFieldI18nPeer {
 	 */
 	public static function doSelectJoinUllField(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllFieldI18nPeer:doSelectJoin:doSelectJoin') as $callable)
+    {
+      call_user_func($callable, 'BaseUllFieldI18nPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -448,6 +454,13 @@ abstract class BaseUllFieldI18nPeer {
 	 */
 	public static function doSelectJoinAll(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllFieldI18nPeer:doSelectJoinAll:doSelectJoinAll') as $callable)
+    {
+      call_user_func($callable, 'BaseUllFieldI18nPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -506,6 +519,11 @@ abstract class BaseUllFieldI18nPeer {
 		return $results;
 	}
 
+
+  static public function getUniqueColumnNames()
+  {
+    return array();
+  }
 	/**
 	 * Returns the TableMap related to this peer.
 	 * This method is not needed for general use but a specific application could have a need.
@@ -811,6 +829,5 @@ if (Propel::isInit()) {
 } else {
 	// even if Propel is not yet initialized, the map builder class can be registered
 	// now and then it will be loaded when Propel initializes.
-	require_once 'plugins/ullCorePlugin/lib/model/map/UllFieldI18nMapBuilder.php';
 	Propel::registerMapBuilder('plugins.ullCorePlugin.lib.model.map.UllFieldI18nMapBuilder');
 }

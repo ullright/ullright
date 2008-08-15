@@ -77,7 +77,6 @@ abstract class BaseUllAccessGroupGroupPeer {
 	 */
 	public static function getMapBuilder()
 	{
-		include_once 'plugins/ullCorePlugin/lib/model/map/UllAccessGroupGroupMapBuilder.php';
 		return BasePeer::getMapBuilder('plugins.ullCorePlugin.lib.model.map.UllAccessGroupGroupMapBuilder');
 	}
 	/**
@@ -267,7 +266,7 @@ abstract class BaseUllAccessGroupGroupPeer {
 	public static function doSelectRS(Criteria $criteria, $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseUllAccessGroupGroupPeer:addDoSelectRS:addDoSelectRS') as $callable)
+    foreach (sfMixer::getCallables('BaseUllAccessGroupGroupPeer:doSelectRS:doSelectRS') as $callable)
     {
       call_user_func($callable, 'BaseUllAccessGroupGroupPeer', $criteria, $con);
     }
@@ -401,6 +400,13 @@ abstract class BaseUllAccessGroupGroupPeer {
 	 */
 	public static function doSelectJoinUllAccessGroup(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllAccessGroupGroupPeer:doSelectJoin:doSelectJoin') as $callable)
+    {
+      call_user_func($callable, 'BaseUllAccessGroupGroupPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -459,6 +465,13 @@ abstract class BaseUllAccessGroupGroupPeer {
 	 */
 	public static function doSelectJoinUllGroup(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllAccessGroupGroupPeer:doSelectJoin:doSelectJoin') as $callable)
+    {
+      call_user_func($callable, 'BaseUllAccessGroupGroupPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -557,6 +570,13 @@ abstract class BaseUllAccessGroupGroupPeer {
 	 */
 	public static function doSelectJoinAll(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllAccessGroupGroupPeer:doSelectJoinAll:doSelectJoinAll') as $callable)
+    {
+      call_user_func($callable, 'BaseUllAccessGroupGroupPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -734,6 +754,13 @@ abstract class BaseUllAccessGroupGroupPeer {
 	 */
 	public static function doSelectJoinAllExceptUllAccessGroup(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllAccessGroupGroupPeer:doSelectJoinAllExcept:doSelectJoinAllExcept') as $callable)
+    {
+      call_user_func($callable, 'BaseUllAccessGroupGroupPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -801,6 +828,13 @@ abstract class BaseUllAccessGroupGroupPeer {
 	 */
 	public static function doSelectJoinAllExceptUllGroup(Criteria $c, $con = null)
 	{
+
+    foreach (sfMixer::getCallables('BaseUllAccessGroupGroupPeer:doSelectJoinAllExcept:doSelectJoinAllExcept') as $callable)
+    {
+      call_user_func($callable, 'BaseUllAccessGroupGroupPeer', $c, $con);
+    }
+
+
 		$c = clone $c;
 
 		// Set the correct dbName if it has not been overridden
@@ -858,6 +892,11 @@ abstract class BaseUllAccessGroupGroupPeer {
 		return $results;
 	}
 
+
+  static public function getUniqueColumnNames()
+  {
+    return array();
+  }
 	/**
 	 * Returns the TableMap related to this peer.
 	 * This method is not needed for general use but a specific application could have a need.
@@ -1174,6 +1213,5 @@ if (Propel::isInit()) {
 } else {
 	// even if Propel is not yet initialized, the map builder class can be registered
 	// now and then it will be loaded when Propel initializes.
-	require_once 'plugins/ullCorePlugin/lib/model/map/UllAccessGroupGroupMapBuilder.php';
 	Propel::registerMapBuilder('plugins.ullCorePlugin.lib.model.map.UllAccessGroupGroupMapBuilder');
 }
