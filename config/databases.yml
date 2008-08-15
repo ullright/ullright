@@ -1,3 +1,24 @@
+### prod Environment
+prod:
+  doctrine:
+    class:          sfDoctrineDatabase
+    param:
+      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+
+### dev Environment
+dev:
+  doctrine:
+    class:          sfDoctrineDatabase
+    param:
+      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+      
+### cli Environment
+cli:
+  doctrine:
+    class:          sfDoctrineDatabase
+    param:
+      dsn:          mysql://ullright:right&wrong!@localhost/ullright      
+
 ### Test Environment
 test:
   test: # should this be the database name?
@@ -5,8 +26,10 @@ test:
     param:
       dsn:          mysql://ullright_test:test@localhost/ullright_test
 
-all:
-  doctrine:
-    class:          sfDoctrineDatabase
-    param:
-      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+### Other
+#all:   all does not work since DoctrineTestbrowser is deleting all the tables...
+#  doctrine:
+#    class:          sfDoctrineDatabase
+#    param:
+#      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+
