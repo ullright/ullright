@@ -4,8 +4,8 @@ $app = 'myApp';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $b = new sfDoctrineTestBrowser(null, null, array('configuration' => $configuration));
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/fixtures.yml';
-//$b->setFixturesPath($path);
+$path = dirname(__FILE__);
+$b->setFixturesPath($path);
 $b->resetDatabase();
 
 // wiki index 
@@ -18,12 +18,13 @@ $b
 ;	
 
 // wiki create
-$b
-  ->click('Create')
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullWiki')
-  ->isRequestParameter('action', 'create')
-;
+//$b
+//  ->click('Create')
+//  ->isStatusCode(200)
+//  ->isRequestParameter('module', 'ullWiki')
+//  ->isRequestParameter('action', 'create')
+//;
+
 //TODO: continue ullWiki migration
 
 
