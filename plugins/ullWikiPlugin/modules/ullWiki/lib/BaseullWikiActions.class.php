@@ -16,26 +16,8 @@
 class BaseullWikiActions extends ullsfActions
 {
   
-//  public function preExecute() {
-//    
-//    sfLoader::loadHelpers('I18N');
-//    $sf_root_dir = sfConfig::get('sf_root_dir');
-//    $this->setLayout($sf_root_dir.'/plugins/ullThemeDefault/templates/layout');
-////    weflowTools::printR($this);
-//    
-//  }
-
-//  public function preExecute() {
-//    
-////    echo "###blabla###";
-//    
-//    parent::ullpreExecute();
-//    
-//  } 
-  
-  
-  public function executeIndex() {
-    
+  public function executeIndex() 
+  {
     // referer handling -> reset all wiki referers 
     $refererHandler = new refererHandler();
     $refererHandler->delete('show');
@@ -43,17 +25,12 @@ class BaseullWikiActions extends ullsfActions
 
     // == handle request params
     
-    // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
-//    $this->return_url = $this->getRequestParameter('return_url');
+    // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
-    
     
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->addFinal(__('Wiki'));
-    
-
-    
   }
 
   

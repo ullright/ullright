@@ -2,6 +2,8 @@
 //$sf_user->setCulture('de');
 ?>
 
+
+
 <h1><?php echo __('Wiki') . ' ' . __('Home', null, 'common'); ?></h1>
 
 <h4><?php echo __('Search', null, 'common'); ?></h4>

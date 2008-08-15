@@ -483,8 +483,9 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
   
   $params = sfContext::getInstance()->getRequest()->getParameterHolder()->getAll();
   
+  // TODO: where does sf_culture come from? appeared in functional testing...
+  unset($params['sf_culture']);
 //  ullCoreTools::printR($params);
-  
   
   // overwrite / add params
   foreach ($merge_array as $key => $value) {
