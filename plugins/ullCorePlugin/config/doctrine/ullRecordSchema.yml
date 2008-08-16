@@ -1,0 +1,29 @@
+# base table definition which is inherited by all tables
+UllRecord:
+  package: ullCorePlugin.lib.model.doctrine
+  actAs:
+    Timestampable:
+      created:
+        name: created_at
+        type: timestamp
+      updated:
+        name: updated_at
+        type: timestamp
+  columns:
+    namespace:
+      type: string(32)
+    creator_user_id: 
+      type: integer
+      default: 1        #masteradmin
+    updator_user_id: 
+      type: integer
+      default: 1        #masteradmin
+  relations:
+    Creator:
+      class: User
+      local: creator_user_id
+      foreign: id
+    Updator:
+      class: User
+      local: updator_user_id
+      foreign: id

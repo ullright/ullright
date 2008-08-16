@@ -4,7 +4,7 @@ $app = 'myApp';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $b = new sfDoctrineTestBrowser(null, null, array('configuration' => $configuration));
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/fixtures.yml';
+$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $b->setFixturesPath($path);
 $b->resetDatabase();
 

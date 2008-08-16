@@ -19,6 +19,7 @@ User:
     Creator:            adminuser
     Updator:            adminuser
     Group:              [helpdeskgroup]
+
     
 Group:
   admingroup:
@@ -31,4 +32,22 @@ Group:
     Creator:            adminuser
     Updator:            adminuser
 
-    
+
+TableInfo:
+  user:
+    db_table_name: User
+    sort_fields: last_name,first_name
+    search_fields: last_name,first_name,name
+    Translation:
+      en:
+        caption: All Users
+        description: List of all users
+      de:
+        caption: Alle Benutzer
+        description: Liste aller Benutzer
+  test:
+    db_table_name: Test
+    Translation:
+      en:
+        caption: All Tests
+        description: List of all tests

@@ -1,0 +1,28 @@
+TableInfo:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  tableName: ull_table_info
+  actAs:
+    I18n:
+      fields: [caption, description]
+  columns:
+    # column name 'table' is not possible because it's a mysql reserved word
+    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   
+    db_table_name: 
+      type: string(32)
+    caption:
+      type: string(64)
+    description:
+      type: clob
+#    caption_i18n_default:
+#      type: VARCHAR
+#      size: 64
+#    description_i18n_default:
+#      type: LONGVARCHAR
+    sort_fields:
+      type: string(255)
+    search_fields:
+      type: string(255)
+      

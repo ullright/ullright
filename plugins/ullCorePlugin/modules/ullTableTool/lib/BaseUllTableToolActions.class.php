@@ -8,7 +8,7 @@
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
-class BaseullTableToolActions extends ullsfActions
+class BaseUllTableToolActions extends ullsfActions
 {
   
   private
@@ -26,21 +26,29 @@ class BaseullTableToolActions extends ullsfActions
   }
 
   
-  public function executeList() {
+  public function executeList() 
+  {
+    $this->checkAccess('Masteradmins');
     
-    // check access
-    $this->checkAccess(1);
+    //i18n doctrine tests:
+    $info = Doctrine::getTable('TableInfo')->findByDbTableName('User')->getFirst();
+    
+//    $info->setLanguage('en');
+    
+    var_dump($info->Translation['en']->toArray());
+    die;
+    
+    
+    
     
     // check request paramater and get propel table info
     if (!$this->handleTable()) {
       return sfView::ERROR;
     }
     
-    // referer handling
     $refererHandler = new refererHandler();
     $refererHandler->delete('edit');
     
-    // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
     $this->breadcrumbTree->add('ullTableTool');
@@ -49,19 +57,13 @@ class BaseullTableToolActions extends ullsfActions
     
     
 //    redirect search to build get url
-    if ($this->getRequest()->getMethod() == sfRequest::POST
-      and $this->hasRequestParameter('search')
-//      and $this->table_info_search_fields
-    ) {
+    if (  $this->getRequest()->getMethod() == sfRequest::POST
+          and $this->hasRequestParameter('search')) 
+    {
       
       $return = $this->getRequest()->getUri().'/table/'.$this->table_name;
       $return .= '/search/'.$this->getRequestParameter('search');
-      
-//      if ($this->hasRequestParameter('fulltext')) {
-//        $return .= '/fulltext/true'; 
-//      }
       return $this->redirect($return);
-
     }
     
     
@@ -441,8 +443,8 @@ class BaseullTableToolActions extends ullsfActions
   
   
   
-  public function handleTable() {
-        
+  public function handleTable() 
+  {
     // === get table request parameter
     if (!$this->hasRequestParameter('table')) {
       $this->error = __('Please specify a database table') . '!';
@@ -451,7 +453,8 @@ class BaseullTableToolActions extends ullsfActions
     
     $this->table_name = $this->getRequestParameter('table');
 
-    $this->table_class = sfInflector::classify($this->table_name);
+    // TODO: remove because tableClass is now (doctrine) the table name?
+    $this->table_class = $this->table_name;
     
     if (!class_exists($this->table_class)) {
       $this->error = __('Database table not found') . '!';
@@ -459,6 +462,8 @@ class BaseullTableToolActions extends ullsfActions
     }      
 
     
+    // TODO: handle....
+    /*
     // load table_info
     $c = new Criteria();
 
@@ -469,6 +474,7 @@ class BaseullTableToolActions extends ullsfActions
       $this->table_info_search_fields = $this->table_info->getSearchFields();
       $this->table_info_sort_fields   = $this->table_info->getSortFields();
     }
+    */
     
 //    ullCoreTools::printR($this->table_info);
    
@@ -476,8 +482,6 @@ class BaseullTableToolActions extends ullsfActions
 //    ullCoreTools::printR($this->map_builder);
 //    exit();
 
-    return true;
-    
   }
 
   
