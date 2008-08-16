@@ -8,30 +8,18 @@
  *  
  */
 
-class BaseullsfActions extends sfActions
+class BaseUllsfActions extends sfActions
 {
 
   // default preExecute, can be overwritten by modules actions class
-  public function preExecute() {
-    
+  public function preExecute() 
+  {
     sfLoader::loadHelpers('ull');
-
-//    echo "<h1>BaseUll</h1>";
     $this->ullpreExecute();
-    
   }
   
-  public function ullpreExecute() {   
-    
-//    $sf_root_dir = sfConfig::get('sf_root_dir');
-    
-    // load I18N helper to process __() function in actions
-//    sfLoader::loadHelpers('I18N');
-    
-    // load theme
-//    $this->theme = sfConfig::get('app_theme', 'ullThemeDefault');
-//    $this->setLayout($sf_root_dir.'/plugins/'.$this->theme.'/templates/layout');
-//    weflowTools::printR($this);
+  public function ullpreExecute() 
+  {   
   }
   
 /**
@@ -40,15 +28,17 @@ class BaseullsfActions extends sfActions
  * if not logged in -> redirect to login page
  * if the current user is not member of the group -> display access denied
  * 
- * @param group integer   id of the group
+ * @param group mixed   group id, group name or array of group ids/names (not mixed!)
  * @return none
  */   
-  public function checkAccess($group) {
+  public function checkAccess($group) 
+  {
 
     // check access
     $access_refererHandler = new refererHandler();
     $access_refererHandler->initialize('access','ullUser');
-    $this->redirectUnless(UllUserPeer::userHasGroup($group), 'ullUser/noaccess');
+    
+    $this->redirectUnless(UserTable::hasGroup($group), 'ullUser/noaccess');
   }
   
   
@@ -59,10 +49,11 @@ class BaseullsfActions extends sfActions
  * @param none
  * @return none
  */   
-  public function checkLoggedIn() {
-
+  public function checkLoggedIn() 
+  {
     $access_refererHandler = new refererHandler();
     $access_refererHandler->initialize('access','ullUser');
+    
     $this->redirectUnless($this->getUser()->getAttribute('user_id'), 'ullUser/noaccess');
   }  
   
@@ -76,12 +67,14 @@ class BaseullsfActions extends sfActions
  * @param none
  * @return none
  */   
-  public function ull_reqpass_redirect() {
+  public function ull_reqpass_redirect() 
+  {
   
-    if ($this->getRequest()->getMethod() == sfRequest::POST) {
-          
+    if ($this->getRequest()->getMethod() == sfRequest::POST) 
+    {
       $ull_reqpass = $this->getRequestParameter('ull_reqpass');
-      if ($ull_reqpass) {
+      if ($ull_reqpass) 
+      {
         $ull_reqpass = unserialize($ull_reqpass);
       }
       
@@ -90,12 +83,10 @@ class BaseullsfActions extends sfActions
     
       $params = _ull_reqpass_initialize($ull_reqpass, true);
       
-      foreach ($params as $key => $value) {
-        
+      foreach ($params as $key => $value) 
+      {
         // encode '.' in url params
         $params[$key] = ull_sf_url_encode($value);
-        
-        
       }
 
 //      ullCoreTools::printR($params);
@@ -105,25 +96,21 @@ class BaseullsfActions extends sfActions
 
       return $this->redirect($url);
 
-    } else {
-      
+    } 
+    else 
+    {
       // decode params encoded by ull_sf_url_encode()
-    
       $params = $this->getRequest()->getParameterHolder()->getAll();
 //      ullCoreTools::printR($params);
       
-      foreach ($params as $key => $value) {
+      foreach ($params as $key => $value) 
+      {
         $this->getRequest()->setParameter($key, ull_sf_url_decode($value));  
       }
       
 //      $params = $this->getRequest()->getParameterHolder()->getAll();
 //      ullCoreTools::printR($params);
-      
     }
-  
   } 
   
 }
-
-
-?>

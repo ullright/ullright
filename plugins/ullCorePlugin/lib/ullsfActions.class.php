@@ -11,7 +11,7 @@
  * 
  */
 
-class ullsfActions extends BaseullsfActions
+class ullsfActions extends BaseUllsfActions
 {
   
 }

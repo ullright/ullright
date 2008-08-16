@@ -8,7 +8,7 @@ class PluginUserTable extends EntityTable
   /**
    * check if a user is member of a group
    *
-   * @param mixed $group      group_id or group name
+   * @param mixed $group      group_id, group name or array of group ids/names (not mixed!)
    * @param integer $user_id  
    * @return boolean
    */
@@ -25,13 +25,20 @@ class PluginUserTable extends EntityTable
       ->where('u.id = ?', $user_id)
     ;
     
-    if (is_integer($group))
+    if (!is_array($group))
     {
-      $q->addWhere('g.id = ?', $group);
+      $group = array($group);
+    }
+    
+    if (is_integer($group[0]))
+    {
+      $group = implode(',', $group);
+      $q->addWhere("g.id IN ($group)");
     }
     else
     {
-      $q->addWhere('g.name = ?', $group);
+      $group = '"' . implode('","', $group) . '"';
+      $q->addWhere("g.name IN ($group)");
     }
       
     if ($q->count())

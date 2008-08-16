@@ -10,24 +10,13 @@
  */
 class BaseUllAdminActions extends ullsfActions
 {
-  
-  /*
-   * Basic actions for useradmin
-   */
-  
-  public function executeIndex() {
-    
-  // breadcrumb
+
+  public function executeIndex() 
+  {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add('UllAdmin', 'UllAdmin/index');    
     
-    
-    // check access
-    $this->checkAccess(1);
-    
+    $this->checkAccess('Masteradmins');
   }
-
-  
-  
   
 }
