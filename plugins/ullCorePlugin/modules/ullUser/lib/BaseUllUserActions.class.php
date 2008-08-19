@@ -15,55 +15,63 @@ class BaseUllUserActions extends ullsfActions
    * Other actions (Login,...)
    */
   
-  public function executeLogin() 
+  public function executeLogin($request) 
   {
+    $this->form = new LoginForm();
+    
     //check context
-    if ($this->getRequest()->getMethod() != sfRequest::POST) 
+    if ($request->isMethod('get')) 
     {
       // login form
       $refererHandler = new refererHandler();
       $refererHandler->initialize();
         
-      if ($this->getRequestParameter('option') == 'noaccess') 
+      if ($request->getParameter('option') == 'noaccess') 
       {
         $this->msg = 'Please login to verify access';
       }
-        
       return sfView::SUCCESS;
     } 
     else 
-    { 
-      // handle the form submission
-      $username = $this->getRequestParameter('username');
-      $password = $this->getRequestParameter('password');
-
-      //user has javascript enabled?
-      $this->getUser()->setAttribute('has_javascript', false);
-      if ($this->getRequestParameter('js_check') == 1) {
-        $this->getUser()->setAttribute('has_javascript', true);
-      }
-
-      $user = Doctrine::getTable('User')->findByName($username)->getFirst();
+    {
+      $this->form->bind($request->getParameter('login'));
       
-      if ($user !== false) 
+      if ($this->form->isValid())
       {
-//        echo md5($password) . ' - ' . $user->password;
+        // handle the form submission
+        $username = $this->form->getValue('username');
+        $password = $this->form->getValue('password');
+        $js_check = $this->form->getValue('js_check');
+  
+        //user has javascript enabled?
+        $this->getUser()->setAttribute('has_javascript', false);
+        if ($js_check == 1) {
+          $this->getUser()->setAttribute('has_javascript', true);
+        }
+  
+        $user = Doctrine::getTable('User')->findByName($username)->getFirst();
         
-        // authenticate        
-        $auth_class = 'ullAuth' 
-            . sfInflector::classify(sfConfig::get('app_auth_function', 'default'));
-          
-        if (call_user_func($auth_class . '::authenticate', $user, $password)) 
+        if ($user !== false) 
         {
-          $this->getUser()->setAttribute('user_id', $user->getId());
+  //        echo md5($password) . ' - ' . $user->password;
           
-          // redirect to last page
-          $refererHandler = new refererHandler();
-          return $this->redirect($refererHandler->getRefererAndDelete('login'));
+          // authenticate        
+          $auth_class = 'ullAuth' 
+              . sfInflector::classify(sfConfig::get('app_auth_function', 'default'));
+            
+          if (call_user_func($auth_class . '::authenticate', $user, $password)) 
+          {
+            $this->getUser()->setAttribute('user_id', $user->getId());
+            
+            // redirect to last page
+            $refererHandler = new refererHandler();
+            return $this->redirect($refererHandler->getRefererAndDelete('login'));
+          }
         }
       }
-    $this->msg = $this->getContext()->getI18N()->__('Login failed. Please try again:'); 
-    return sfView::SUCCESS;
+      
+      $this->msg = $this->getContext()->getI18N()->__('Login failed. Please try again:'); 
+//      return sfView::SUCCESS;
     }
   }
   

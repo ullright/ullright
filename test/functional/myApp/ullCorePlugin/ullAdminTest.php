@@ -24,7 +24,7 @@ $b
 //	->setField('username', 'admin')
 //	->setField('password', 'admin')
 //  ->click('Log in')
-  ->post('/ullUser/login', array('username' => 'admin', 'password' => 'admin'))
+  ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
   ->isRedirected()
   ->followRedirect()  
 	->isStatusCode(200)

@@ -7,35 +7,23 @@
   <?php endif; ?>
 
   <table>
-    <tr>
-      <td><?php echo __('Username').':'; ?></td>
-      <td><?php echo input_tag('username', $sf_params->get('username')); ?></td>
-      <td><?php echo form_error('username'); ?></td>
-    </tr>
-    <tr>
-      <td><?php echo __('Password').':'; ?></td>
-      <td><?php echo input_password_tag('password'); ?></td>
-      <td><?php echo form_error('password'); ?></td>
-    </tr>
+    <?php echo $form ?>
   </table>
 
-  <?php echo input_hidden_tag('js_check', '0'); ?>
-  <?php echo javascript_tag('document.getElementById("js_check").value = 1;'); ?>
-
-  <?php echo javascript_tag('document.getElementById("username").focus();'); ?>
+  <?php echo javascript_tag('document.getElementById("login_js_check").value = 1;'); ?>
+  <?php echo javascript_tag('document.getElementById("login_username").focus();'); ?>
   
   <br />
-  
-  <?php //echo input_hidden_tag('referer', $sf_request->getAttribute('referer')) ?>
   <?php echo submit_tag(__('Log in')); ?>
  
 </form>
 
 <?php
 // highlight error fields
-foreach ($sf_request->getErrors() as $error_field => $error_msg) {
+/*@var $form LoginForm*/
+foreach ($form->getErrorSchema()->getErrors() as $error_field => $error) {
   echo javascript_tag("
-    document.getElementById(\"$error_field\").className = \"form_error_background\";
+    document.getElementById(\"login_$error_field\").className = \"form_error_background\";
   ");
 }
 ?>

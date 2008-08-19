@@ -20,7 +20,7 @@ $b
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'login')  
   ->isRequestParameter('option', 'noaccess')
-	->post('/ullUser/login', array('username' => 'admin', 'password' => 'admin'))
+	->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
   ->isRedirected()
   ->followRedirect()  
   ->isStatusCode(200)		
