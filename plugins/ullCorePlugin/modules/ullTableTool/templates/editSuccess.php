@@ -5,12 +5,12 @@
 
 <?php echo form_tag('ullTableTool/update', 'id="ull_tabletool_form"'); ?>
 
-<?php echo $requestForm ?>
+<?php //echo $requestForm ?>
 
 <table>
 <tbody>
 
-<?php echo $form ?>
+<?php echo $tableTool->getForm() ?>
 
 <?php /*
 

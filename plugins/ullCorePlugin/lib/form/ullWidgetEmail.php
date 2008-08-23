@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetEmail extends sfWidgetForm
+class ullWidgetEmail extends ullWidget
 {
   
   public function render($name, $value = null, $attributes = array(), $errors = array())

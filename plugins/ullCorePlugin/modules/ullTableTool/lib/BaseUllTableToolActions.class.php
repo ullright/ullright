@@ -223,11 +223,18 @@ class BaseUllTableToolActions extends ullsfActions
     
     $this->breadcrumbEdit();
     
-    $this->requestForm = new TableToolRequestForm();
-    $this->requestForm->setDefault('id', $this->id);
-    $this->requestForm->setDefault('table_name', $this->tableName);
+    $this->tableTool = new ullTableTool($row);
     
-    $this->form = new UllForm($row->getTable()->getColumns(), $row);
+//    var_dump($this->tableTool);
+//    die;
+    
+    
+//    
+//    $this->requestForm = new TableToolRequestForm();
+//    $this->requestForm->setDefault('id', $this->id);
+//    $this->requestForm->setDefault('table_name', $this->tableName);
+//    
+//    $this->form = new UllForm($row->getTable()->getColumns(), $row);
        
       
 //    var_dump($this->form->getWidgetSchema());
