@@ -364,7 +364,6 @@ class BaseullFlowActions extends ullsfActions
     $this->ull_flow_doc_pager->setPage($this->getRequestParameter('page', 1));
     $this->ull_flow_doc_pager->init();
     
-    
     // create form
     $this->ull_form = new ullFormFlowDoc();
     $this->ull_form->setAccessDefault('r');  

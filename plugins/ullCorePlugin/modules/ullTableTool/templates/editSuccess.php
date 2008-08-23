@@ -5,6 +5,14 @@
 
 <?php echo form_tag('ullTableTool/update', 'id="ull_tabletool_form"'); ?>
 
+<?php echo $requestForm ?>
+
+<table>
+<tbody>
+
+<?php echo $form ?>
+
+<?php /*
 
 <?php if ($sf_request->hasErrors()): ?>
   <div class='form_error'>
@@ -53,6 +61,7 @@
     </tr>
   <?php endif; // end of enabled ?>
 <?php endforeach; ?>  
+*/ ?>
 
 </tbody>
 </table>
@@ -120,3 +129,5 @@
   echo ull_js_observer("ull_tabletool_form");
 //  ullCoreTools::printR($ull_form);
 ?>  
+
+

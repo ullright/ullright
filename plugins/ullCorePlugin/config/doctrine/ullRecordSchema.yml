@@ -20,10 +20,10 @@ UllRecord:
       default: 1        #masteradmin
   relations:
     Creator:
-      class: User
+      class: UllUser
       local: creator_user_id
       foreign: id
     Updator:
-      class: User
+      class: UllUser
       local: updator_user_id
       foreign: id

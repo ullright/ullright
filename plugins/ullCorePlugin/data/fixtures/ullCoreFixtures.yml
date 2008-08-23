@@ -1,4 +1,4 @@
-User:
+UllUser:
   adminuser:
     id:                 1               # force id for admin
     first_name:         Master
@@ -9,7 +9,7 @@ User:
     creator_user_id:    1               # integer since there is no adminuser yet
     updator_user_id:    1               # integer since there is no adminuser yet
     namespace:          ullCore
-    Group:              [admingroup]    # many to many relations are given by array
+    UllGroup:              [admingroup]    # many to many relations are given by array
   testuser:
     first_name:         Thomas
     last_name:          Test
@@ -18,10 +18,10 @@ User:
     password:           098f6bcd4621d373cade4e832627b4f6
     Creator:            adminuser
     Updator:            adminuser
-    Group:              [helpdeskgroup]
+    UllGroup:              [helpdeskgroup]
 
     
-Group:
+UllGroup:
   admingroup:
     name:            MasterAdmins
     Creator:            adminuser
@@ -33,9 +33,9 @@ Group:
     Updator:            adminuser
 
 
-TableInfo:
+UllTableConfig:
   user:
-    db_table_name: User
+    db_table_name: UllUser
     sort_fields: last_name,first_name
     search_fields: last_name,first_name,name
     Translation:

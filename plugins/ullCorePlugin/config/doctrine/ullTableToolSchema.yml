@@ -1,9 +1,9 @@
-TableInfo:
+UllTableConfig:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
     type: concrete
-  tableName: ull_table_info
+#  tableName: ull_table_info
   actAs:
     I18n:
       fields: [caption, description]

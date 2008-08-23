@@ -31,6 +31,11 @@ class BaseullWikiActions extends ullsfActions
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->addFinal(__('Wiki'));
+    
+    $this->ullwiki_pager = new sfDoctrinePager('Wiki', 25);
+    $this->ullwiki_pager->setPage($this->getRequestParameter('page', 1));
+    $this->ullwiki_pager->getQuery();
+    $this->ullwiki_pager->init();
   }
 
   

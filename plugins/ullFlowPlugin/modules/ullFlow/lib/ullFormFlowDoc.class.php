@@ -143,7 +143,7 @@ class ullFormFlowDoc extends ullForm
         if (method_exists($column_info_row, 'setCulture')) { 
           $column_info_row->setCulture(substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2));
         }
-              
+              getFieldsDataOne();
 //        ullCoreTools::printR($column_info_row);      
         
         $field_name         = $column_info_row->getDbColumnName();

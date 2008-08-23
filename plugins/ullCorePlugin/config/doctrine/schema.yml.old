@@ -1,3 +1,33 @@
+# base table definition which is inherited by all tables
+UllRecord:
+  package: ullCorePlugin.lib.model.doctrine
+  actAs:
+    Timestampable:
+      created:
+        name: created_at
+        type: timestamp
+      updated:
+        name: updated_at
+        type: timestamp
+  columns:
+    namespace:
+      type: string(32)
+    creator_user_id: 
+      type: integer
+      default: 1        #masteradmin
+    updator_user_id: 
+      type: integer
+      default: 1        #masteradmin
+  relations:
+    Creator:
+      class: UllUser
+      local: creator_user_id
+#      foreign: id
+    Updator:
+      class: UllUser
+      local: updator_user_id
+#      foreign: id
+      
 # Parent entity
 UllParentEntity:
   package: ullCorePlugin.lib.model.doctrine
@@ -37,7 +67,7 @@ UllUser:
     keyField: type
     keyValue: user           
   relations:
-    UllGroup:
+    Group:
       refClass: UllEntityGroup
       local: entity_id
       foreign: group_id
@@ -62,4 +92,4 @@ UllEntityGroup:
       primary: true
     group_id:
       type: integer
-      primary: true      
+      primary: true                           

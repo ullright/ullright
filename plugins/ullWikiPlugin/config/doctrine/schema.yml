@@ -29,6 +29,6 @@ Wiki:
     locked_at: 
       type: timestamp
   relations:
-    User:
+    UllUser:
       local: locked_by_user_id
       foreign: id

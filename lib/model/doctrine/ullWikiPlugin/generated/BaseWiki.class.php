@@ -25,7 +25,7 @@ abstract class BaseWiki extends UllRecord
   public function setUp()
   {
     parent::setUp();
-    $this->hasOne('User', array('local' => 'locked_by_user_id',
-                                'foreign' => 'id'));
+    $this->hasOne('UllUser', array('local' => 'locked_by_user_id',
+                                   'foreign' => 'id'));
   }
 }

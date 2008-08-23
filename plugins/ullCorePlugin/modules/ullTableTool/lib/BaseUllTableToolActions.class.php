@@ -31,7 +31,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->checkAccess('Masteradmins');
     
     //i18n doctrine tests:
-    $info = Doctrine::getTable('TableInfo')->findByDbTableName('User')->getFirst();
+    $info = Doctrine::getTable('TableInfo')->findByDbTableName('UllUser')->getFirst();
     
 //    $info->setLanguage('en');
     
@@ -191,66 +191,59 @@ class BaseUllTableToolActions extends ullsfActions
 
   
   
+//                           __
+//                   _.--""  |
+//    .----.     _.-'   |/\| |.--.
+//    |jrei|__.-'   _________|  |_)  _______________  
+//    |  .-""-.""""" ___,    `----'"))   __   .-""-.""""--._  
+//    '-' ,--. `    |tic|   .---.       |:.| ' ,--. `      _`.
+//     ( (    ) ) __|tac|__ \\|// _..--  \/ ( (    ) )--._".-.
+//      . `--' ;\__________________..--------. `--' ;--------'
+//       `-..-'                               `-..-'
+  
   public function executeEdit()
   {
     
     //ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
     //    exit(); 
         
-    // check access
-    $this->checkAccess(1);    
+    $this->checkAccess('Masteradmins');    
     
     // check request paramater and get propel table info
-    if (!$this->handleTable()) {
+    if (!$this->getTablefromRequest()) {
       return sfView::ERROR;
     }
-    
     $this->id = $this->getRequestParameter('id');
-    
-    // referer handling
+    $row = $this->getRowById();
+//    var_dump($row);
+//    die;
+
     $this->refererHandler = new refererHandler();  
     $this->refererHandler->initialize('edit');
     
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumbTree->add('ullTableTool');
-    $this->breadcrumbTree->add(__('Table') . ' ' . $this->table_name);
-    if ($this->id) {
-//      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
-        $this->breadcrumbTree->add(
-          __('List', null, 'common')
-          , $this->refererHandler->getReferer()
-        );
-      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
-    } else {
-      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
-    }
-
-
+    $this->breadcrumbEdit();
     
-    // get row (data)
-    if ($this->id) {
-      $row = call_user_func(
-                array($this->table_class . 'Peer', 'retrieveByPk')
-                , $this->id
-              );
-    } else {
-      $row = new $this->table_class();
-    }
+    $this->requestForm = new TableToolRequestForm();
+    $this->requestForm->setDefault('id', $this->id);
+    $this->requestForm->setDefault('table_name', $this->tableName);
     
-    $this->forward404Unless($row);
-                
- 
-    $this->ull_form = new ullFormTableTool();
-    $this->ull_form->setAccessDefault('w');
-    $this->ull_form->setContainerName($this->table_name);
+    $this->form = new UllForm($row->getTable()->getColumns(), $row);
+       
+      
+//    var_dump($this->form->getWidgetSchema());
+//    die;
     
-    $this->ull_form->buildFieldsInfo();
+//    var_dump($this->form);
+//    die;
     
-    $this->ull_form->setValueObject($row);
-    $this->ull_form->retrieveFieldsData();    
+//    $this->ull_form = new ullFormTableTool();
+//    $this->ull_form->setAccessDefault('w');
+//    $this->ull_form->setContainerName($this->table_name);
+//    
+//    $this->ull_form->buildFieldsInfo();
+//    
+//    $this->ull_form->setValueObject($row);
+//    $this->ull_form->retrieveFieldsData();    
     
 //    ullCoreTools::printR($this->ull_form);
 //    exit();
@@ -280,28 +273,45 @@ class BaseUllTableToolActions extends ullsfActions
 //    ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
 //    exit();    
     
-    $this->checkAccess(1);
+    $this->checkAccess('Masteradmins');
+      
+    $this->requestForm = new TableToolRequestForm();
+    $this->requestForm->bind($this->getRequestParameter('table_tool'));
     
-    // check request paramater and get propel table info
-    if (!$this->handleTable()) {
-      return sfView::ERROR;
+    if (!$this->requestForm->isValid())
+    {
+      die('request form invalid');
+    }    
+    $this->tableName = $this->requestForm->getValue('table_name');
+    $this->id        = $this->requestForm->getValue('id');
+    $row             = $this->getRowById();
+    
+    $this->form = new UllForm($row->getTable()->getColumns(), $row);
+    $this->form->bind($this->getRequestParameter('fields'));
+    
+    if ($this->form->isValid())
+    {
+      $columnInfo = $row->getTable()->getColumns();
+      
+      foreach ($columnInfo as $columnName => $column)
+      {
+        $row->$columnName = $this->form->getValue($columnName);
+      }
+      
+      $row->save();
+
+      // referer handling - redirect to the page where the edit action was called
+      $refererHandler = new refererHandler;
+//      var_dump($refererHandler->getRefererAndDelete('edit'));
+//      die;
+      return $this->redirect($refererHandler->getRefererAndDelete('edit'));        
+    }
+    else
+    {
+      $this->forward('ullTableTool','edit');
     }
     
-    
-//    ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
-//    exit();
-//    
-    // create new object for create action
-    if (!$id = $this->getRequestParameter('id')) {
-      $row = new $this->table_class();
-    
-    } else {
-      $row = call_user_func(array($this->table_class . 'Peer', 'retrieveByPk'), $id);   
-        
-    }
-    
-    $this->forward404Unless($row);
-    
+    /*
     // set culture to allow transparent access to i18n fields 
     if (method_exists($row, 'setCulture')) { 
       $row->setCulture(substr($this->getUser()->getCulture(), 0, 2));
@@ -396,6 +406,7 @@ class BaseUllTableToolActions extends ullsfActions
 
 //    return $this->redirect('ullTableTool/list?table=' . $this->table_name);
     
+    */
     // referer handling - redirect to the page where the edit action was called
     $refererHandler = new refererHandler();
       
@@ -443,7 +454,7 @@ class BaseUllTableToolActions extends ullsfActions
   
   
   
-  public function handleTable() 
+  protected function getTablefromRequest() 
   {
     // === get table request parameter
     if (!$this->hasRequestParameter('table')) {
@@ -451,16 +462,17 @@ class BaseUllTableToolActions extends ullsfActions
       return false;
     }
     
-    $this->table_name = $this->getRequestParameter('table');
+    $this->tableName = $this->getRequestParameter('table');
 
     // TODO: remove because tableClass is now (doctrine) the table name?
-    $this->table_class = $this->table_name;
+//    $this->table_class = $this->table_name;
     
-    if (!class_exists($this->table_class)) {
+    if (!class_exists($this->tableName)) {
       $this->error = __('Database table not found') . '!';
       return false;
     }      
 
+    return true;
     
     // TODO: handle....
     /*
@@ -485,7 +497,38 @@ class BaseUllTableToolActions extends ullsfActions
   }
 
   
+  protected function getRowById()
+  {
+    if ($this->id)
+    {
+      $row = Doctrine::getTable($this->tableName)->find($this->id);
+    } 
+    else 
+    {
+      $row = new $this->tableName;
+    }
+    $this->forward404Unless($row);
+    
+    return $row;
+  }
   
+  protected function breadcrumbEdit()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->setEditFlag(true);
+    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
+    $this->breadcrumbTree->add('ullTableTool');
+    $this->breadcrumbTree->add(__('Table') . ' ' . $this->table_name);
+    if ($this->id) {
+        $this->breadcrumbTree->add(
+          __('List', null, 'common')
+          , $this->refererHandler->getReferer()
+        );
+      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
+    } else {
+      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
+    }
+  }
   
   
   
