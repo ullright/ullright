@@ -1,0 +1,65 @@
+# Parent entity
+ParentEntity:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance: 
+    extends: UllRecord
+    type: concrete
+  columns:
+    first_name: 
+      type: string(64)
+    last_name: 
+      type: string(64)
+    name:
+      type: string(64)
+      unique: true
+      notnull: true      
+    email: 
+      type: string(64)      
+    password: 
+      type: string(40)
+    user_type: 
+      type: integer    
+
+# empty entity class to be overridden by custom Entity class 
+# (in config/doctrine/schema.yml) to allow definition of additional userfields
+Entity:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance: 
+    extends: ParentEntity
+    type: concrete
+  tableName: ull_entity
+    
+User:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: Entity
+    type: column_aggregation
+    keyField: type
+    keyValue: user           
+  relations:
+    Group:
+      refClass: EntityGroup
+      local: entity_id
+      foreign: group_id
+                   
+Group:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: Entity
+    type: column_aggregation
+    keyField: type
+    keyValue: group      
+
+EntityGroup:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  tableName: ull_entity_group  
+  columns:
+    entity_id:
+      type: integer
+      primary: true
+    group_id:
+      type: integer
+      primary: true                           
