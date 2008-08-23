@@ -2,18 +2,18 @@
 
 class ullMetaWidgetString extends ullMetaWidget
 {
-  public function __construct($parameter = array())
+  public function __construct($options = array())
   {
     
-    if ($parameter['access'] == 'w')
+    if ($options['access'] == 'w')
     {
       $attributes = array();
       $validatorParams = array();
       
-      if (isset($parameter['size']))
+      if (isset($options['size']))
       {
-        $attributes['maxlength']        = $parameter['size'];
-        $validatorParams['max_length']  = $parameter['size'];
+        $attributes['maxlength']        = $options['size'];
+        $validatorParams['max_length']  = $options['size'];
       }
       $this->sfWidget = new sfWidgetFormInput(array(), $attributes);
       

@@ -203,27 +203,59 @@ class BaseUllTableToolActions extends ullsfActions
   
   public function executeEdit()
   {
-    
-    //ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
-    //    exit(); 
-        
-    $this->checkAccess('Masteradmins');    
-    
-    // check request paramater and get propel table info
-    if (!$this->getTablefromRequest()) {
-      return sfView::ERROR;
-    }
-    $this->id = $this->getRequestParameter('id');
-    $row = $this->getRowById();
-//    var_dump($row);
-//    die;
+  
+    $this->checkAccess('Masteradmins');
 
     $this->refererHandler = new refererHandler();  
     $this->refererHandler->initialize('edit');
+
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->setEditFlag(true);
+    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
     
-    $this->breadcrumbEdit();
+    $this->requestForm = new TableToolRequestForm();
+    
+    if ($this->getRequest()->isMethod('get'))
+    {
+      if (!$this->getTablefromRequest()) {
+        return sfView::ERROR;
+      }
+      $this->id = $this->getRequestParameter('id');
+      $row = $this->getRowById();
+    }
+    else
+    {
+//      var_dump($this->getRequest()->getParameterHolder()->getAll());
+//      exit();
+      
+      $this->requestForm->bind($this->getRequestParameter('table_tool'));
+      
+      if (!$this->requestForm->isValid())
+      {
+        die('request form invalid');
+      }    
+      $this->tableName = $this->requestForm->getValue('table_name');
+      $this->id        = $this->requestForm->getValue('id');
+      $row             = $this->getRowById();      
+    }
     
     $this->tableTool = new ullTableTool($row);
+    
+    if ($this->getRequest()->isMethod('get'))
+    {
+      $this->requestForm->setDefault('id', $this->id);
+      $this->requestForm->setDefault('table_name', $this->tableName);
+    }
+    else
+    {
+      $this->tableTool->getForm()->bind($this->getRequestParameter('fields'));
+    
+      if ($this->tableTool->getForm()->isValid())
+      {
+        die('good');
+      }
+    }
+    
     
 //    var_dump($this->tableTool);
 //    die;

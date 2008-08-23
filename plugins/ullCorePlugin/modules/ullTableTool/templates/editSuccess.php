@@ -3,9 +3,9 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-<?php echo form_tag('ullTableTool/update', 'id="ull_tabletool_form"'); ?>
+<?php echo form_tag('ullTableTool/edit', 'id="ull_tabletool_form"'); ?>
 
-<?php //echo $requestForm ?>
+<?php echo $requestForm ?>
 
 <table>
 <tbody>

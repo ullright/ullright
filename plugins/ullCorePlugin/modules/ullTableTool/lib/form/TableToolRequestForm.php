@@ -8,7 +8,6 @@ class TableToolRequestForm extends sfForm
     $this->setWidgets(array(
           'id'          => new sfWidgetFormInputHidden
         , 'table_name'  => new sfWidgetFormInputHidden
-        , 'fuck'        => new sfWidgetFormDoctrineSelect()
         
     ));
     

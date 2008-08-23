@@ -2,17 +2,19 @@
 
 class ullMetaWidgetDateTime extends ullMetaWidget
 {
-  public function __construct($parameter = array())
+  public function __construct($options = array())
   {
+    $widgetOptions = array();
     
-    if ($parameter['access'] == 'w')
+    if ($options['access'] == 'w')
     {
-      $this->sfWidget = new sfWidgetFormDateTime();
+      $widgetOptions['culture'] = sfContext::getInstance()->getUser()->getCulture();
+      $this->sfWidget = new sfWidgetFormI18nDateTime($widgetOptions);
       $this->sfValidator = new sfValidatorDateTime();
     }
     else
     {
-      $this->sfWidget = new ullWidge();
+      $this->sfWidget = new ullWidget();
       $this->sfValidator = new sfValidatorPass();
     }
     

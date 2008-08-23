@@ -1,13 +1,19 @@
 <?php
 
-class ullMetaWidgetInteger extends ullMetaWidget
+class ullMetaWidgetForeignKey extends ullMetaWidget
 {
   public function __construct($options = array())
   {
     
+//    var_dump($options);
+    
     if ($options['access'] == 'w')
     {
-      $this->sfWidget = new sfWidgetFormInput();
+      $widgetOptions = array(
+          'model' => $options['relation']['model'],
+      );
+//      var_dump($widgetOptions);
+      $this->sfWidget = new sfWidgetFormDoctrineSelect($widgetOptions);
       $this->sfValidator = new sfValidatorInteger();
     }
     else

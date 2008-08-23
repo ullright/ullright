@@ -35,21 +35,30 @@ class ullTableTool
   
   protected function buildColumnsConfig()
   {
+    // get Doctrine relations
+    $relations = $this->rows[0]->getTable()->getRelations();
+    
+    $columnRelations = array();
+        
+    foreach ($relations as $relation) {
+      /*var $relation Doctrine_Relation_Association*/
+      $columnRelations[$relation->getLocal()] = array(
+          'model' => $relation->getClass(), 
+          'foreign_id' => $relation->getForeign()
+      );
+    }
+//    var_dump($relations);
+//    var_dump($columnRelations);
+//    die;
+    
     foreach ($this->rows[0]->getTable()->getColumns() as $columnName => $column)
     {
-      
       // create columnConfig and set defaults
       $columnConfig = array(
           'label'     => sfInflector::humanize($columnName),
           'metaWidget'    => 'ullMetaWidgetString',
           'access'    => 'w',
       );
-      
-      // Doctrine config
-      if (isset($column['primary']))
-      {
-        $columnConfig['access'] = 'r';
-      }
       
       switch ($column['type'])
       {
@@ -66,6 +75,20 @@ class ullTableTool
           $columnConfig['metaWidget'] = 'ullMetaWidgetDateTime';
           break;
       }
+      
+      if (isset($column['primary']))
+      {
+        $columnConfig['access'] = 'r';
+      }
+      else
+      // set relations
+      {
+        if (isset($columnRelations[$columnName]))
+        {
+          $columnConfig['metaWidget'] = 'ullMetaWidgetForeignKey';
+          $columnConfig['relation'] = $columnRelations[$columnName];
+        }
+      }      
       
 //      var_dump($column);
       
@@ -85,24 +108,21 @@ class ullTableTool
   
   protected function buildForm()
   {
-    // TODO: handle multiple rows
-    
-    $this->forms[0] = new ullForm();
-    
-    foreach($this->columnsConfig as $columnName => $columnConfig)
+    foreach ($this->rows as $key => $row) 
     {
-      //TODO: check if column enabled
+      $this->forms[$key] = new ullForm();
       
-      $ullWidgetWrapperClassName = $columnConfig['metaWidget'];
-      $ullWidgetWrapper = new $ullWidgetWrapperClassName($columnConfig);
-      $this->forms[0]->addUllWidgetWrapper($columnName, $ullWidgetWrapper);
-      
-      $this->forms[0]->setDefault($columnName, $this->rows[0]->$columnName);
-      
+      foreach ($this->columnsConfig as $columnName => $columnConfig)
+      {
+        //TODO: check if column enabled
+        
+        $ullMetaWidgetClassName = $columnConfig['metaWidget'];
+        $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
+        $this->forms[$key]->addUllWidgetWrapper($columnName, $ullMetaWidget);
+        
+        $this->forms[$key]->setDefault($columnName, $this->rows[$key]->$columnName);
+      }
     }
-    
-//    var_dump($form);
-//    die;
   }
   
   
