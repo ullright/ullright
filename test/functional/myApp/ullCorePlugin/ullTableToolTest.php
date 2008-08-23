@@ -20,14 +20,14 @@ $b
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'login')  
   ->isRequestParameter('option', 'noaccess')
-	->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
-  ->isRedirected()
-  ->followRedirect()  
-  ->isStatusCode(200)		
-	->isRequestParameter('module', 'ullTableTool')
-	->isRequestParameter('action', 'list')
-	->isRequestParameter('table', 'ull_user')
-	->responseContains('list')
+//	->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
+//  ->isRedirected()
+//  ->followRedirect()  
+//  ->isStatusCode(200)		
+//	->isRequestParameter('module', 'ullTableTool')
+//	->isRequestParameter('action', 'list')
+//	->isRequestParameter('table', 'ull_user')
+//	->responseContains('list')
 ;  
   
   

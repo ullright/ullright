@@ -38,7 +38,7 @@ class BaseUllsfActions extends sfActions
     $access_refererHandler = new refererHandler();
     $access_refererHandler->initialize('access','ullUser');
     
-    $this->redirectUnless(UserTable::hasGroup($group), 'ullUser/noaccess');
+    $this->redirectUnless(UllUserTable::hasGroup($group), 'ullUser/noaccess');
   }
   
   

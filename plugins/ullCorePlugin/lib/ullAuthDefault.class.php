@@ -9,7 +9,7 @@ class ullAuthDefault extends ullAuth
    * @param string $password
    * @return string
    */
-  public static function authenticate(User $user, $password) 
+  public static function authenticate(UllUser $user, $password) 
   {
     return self::authInternal($user, $password);
   }

@@ -3,9 +3,9 @@
 abstract class ullAuth 
 {
   
-  public static function authenticate(User $user, $password) {} 
+  public static function authenticate(UllUser $user, $password) {} 
   
-  protected static function authInternal(User $user, $password) 
+  protected static function authInternal(UllUser $user, $password) 
   {
     if (md5($password) == $user->password) 
     {
@@ -13,7 +13,7 @@ abstract class ullAuth
     }
   }
   
-  protected static function authFileShare(User $user, $password) 
+  protected static function authFileShare(UllUser $user, $password) 
   {
     $share      = sfConfig::get('app_auth_fileshare_share');
     $domain     = sfConfig::get('app_auth_fileshare_domain');
