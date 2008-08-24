@@ -2,14 +2,12 @@
 
 abstract class ullMetaWidget
 {
-  //TODO: extend sfWidget because of handy options checking system?
-  
   protected
     $sfWidget,
     $sfValidator
   ;
   
-  abstract public function __construct($options = array());
+  abstract public function __construct($columnConfig = array());
   
   public function getSfWidget()
   {

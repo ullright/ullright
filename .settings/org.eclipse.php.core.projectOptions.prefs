@@ -1,5 +1,5 @@
-#Sun Aug 17 10:07:07 CEST 2008
+#Sun Aug 24 08:10:16 CEST 2008
 eclipse.preferences.version=1
 org.eclipse.php.core.contextRoot=
 org.eclipse.php.core.defaultEncoding=
-org.eclipse.php.core.includePath=<?xml version\="1.0" encoding\="UTF-8"?>\n<includepath>\n\t<includepathentry createdReference\="false" path\="/usr/share/php/symfony1.1/lib" contentKind\="source" kind\="lib">\n</includepathentry>\n</includepath>\n
+org.eclipse.php.core.includePath=<?xml version\="1.0" encoding\="UTF-8"?>\n<includepath>\n\t<includepathentry createdReference\="true" resource\="symfony" path\="/symfony" contentKind\="source" kind\="prj">\n</includepathentry>\n</includepath>\n

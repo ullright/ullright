@@ -2,26 +2,17 @@
 
 class ullMetaWidgetString extends ullMetaWidget
 {
-  public function __construct($options = array())
+  public function __construct($columnConfig = array())
   {
     
-    if ($options['access'] == 'w')
+    if ($columnConfig['access'] == 'w')
     {
-      $attributes = array();
-      $validatorParams = array();
-      
-      if (isset($options['size']))
-      {
-        $attributes['maxlength']        = $options['size'];
-        $validatorParams['max_length']  = $options['size'];
-      }
-      $this->sfWidget = new sfWidgetFormInput(array(), $attributes);
-      
-      $this->sfValidator = new sfValidatorString($validatorParams);
+      $this->sfWidget = new sfWidgetFormInput($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
+      $this->sfValidator = new sfValidatorString($columnConfig['validatorOptions']);
     }
     else
     {
-      $this->sfWidget = new ullWidget();
+      $this->sfWidget = new ullWidget($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
       $this->sfValidator = new sfValidatorPass();
     }
     

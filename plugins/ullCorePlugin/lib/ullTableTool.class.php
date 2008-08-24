@@ -6,13 +6,19 @@ class ullTableTool
     $columnsConfig  = array(),
     $rows           = array(),
     $modelName,
-    $forms          = array()
+    $forms          = array(),
+    $default_access
     
   ;
   
-  public function __construct($rows)
+  public function __construct($rows, $default_access = 'r')
   {
+
     if (is_array($rows))
+    {
+      $this->rows = $rows;
+    }
+    elseif ($rows instanceof Doctrine_Collection)
     {
       $this->rows = $rows;
     }
@@ -21,7 +27,12 @@ class ullTableTool
       $this->rows[] = $rows;
     }
     
+//    var_dump($this->rows);
+//    die;
+    
     $this->modelName = get_class($this->rows[0]);
+    
+    $this->default_access = $default_access;
     
     $this->buildColumnsConfig();
     
@@ -33,12 +44,15 @@ class ullTableTool
     return $this->forms[0];
   }
   
+  public function getForms()
+  {
+    return $this->forms;
+  }
+  
   protected function buildColumnsConfig()
   {
     // get Doctrine relations
     $relations = $this->rows[0]->getTable()->getRelations();
-    
-    $columnRelations = array();
         
     foreach ($relations as $relation) {
       /*var $relation Doctrine_Relation_Association*/
@@ -51,20 +65,30 @@ class ullTableTool
 //    var_dump($columnRelations);
 //    die;
     
+//    var_dump($this->rows[0]->getTable()->getColumns());
+//    die;
+    
+    // loop through table (Doctrine) columns
     foreach ($this->rows[0]->getTable()->getColumns() as $columnName => $column)
     {
-      // create columnConfig and set defaults
       $columnConfig = array(
-          'label'     => sfInflector::humanize($columnName),
-          'metaWidget'    => 'ullMetaWidgetString',
-          'access'    => 'w',
+        'widgetOptions'      => array(),
+        'widgetAttributes'   => array(),
+        'validatorOptions'   => array(),
       );
+      
+      // create columnConfig and set defaults
+      $columnConfig['label']        = sfInflector::humanize($columnName);
+      $columnConfig['metaWidget']   = 'ullMetaWidgetString';
+      $columnConfig['access']       = $this->default_access;
+      $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
       
       switch ($column['type'])
       {
         case 'string':
           $columnConfig['metaWidget'] = 'ullMetaWidgetString'; 
-          $columnConfig['size']       = $column['length'];
+          $columnConfig['widgetAttributes']['maxlength'] = $column['length'];
+          $columnConfig['validatorOptions']['max_length'] = $column['length'];
           break;
           
         case 'integer':
@@ -76,12 +100,18 @@ class ullTableTool
           break;
       }
       
+      if (isset($column['notnull']))
+      {
+        $columnConfig['validatorOptions']['required'] = true;
+      }
+      
       if (isset($column['primary']))
       {
         $columnConfig['access'] = 'r';
+        $columnConfig['validatorOptions']['required'] = true;
       }
       else
-      // set relations
+      // set relations if not the primary key
       {
         if (isset($columnRelations[$columnName]))
         {
@@ -121,6 +151,8 @@ class ullTableTool
         $this->forms[$key]->addUllWidgetWrapper($columnName, $ullMetaWidget);
         
         $this->forms[$key]->setDefault($columnName, $this->rows[$key]->$columnName);
+        $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
+        
       }
     }
   }

@@ -2,17 +2,19 @@
 
 class ullMetaWidgetInteger extends ullMetaWidget
 {
-  public function __construct($options = array())
+  public function __construct($columnConfig = array())
   {
     
-    if ($options['access'] == 'w')
+//    var_dump($columnConfig);
+    
+    if ($columnConfig['access'] == 'w')
     {
-      $this->sfWidget = new sfWidgetFormInput();
-      $this->sfValidator = new sfValidatorInteger();
+      $this->sfWidget = new sfWidgetFormInput($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
+      $this->sfValidator = new sfValidatorInteger($columnConfig['validatorOptions']);
     }
     else
     {
-      $this->sfWidget = new ullWidget();
+      $this->sfWidget = new ullWidget($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
       $this->sfValidator = new sfValidatorPass();
     }
     

@@ -30,6 +30,26 @@ class BaseUllTableToolActions extends ullsfActions
   {
     $this->checkAccess('Masteradmins');
     
+    $refererHandler = new refererHandler();
+    $refererHandler->delete('edit');
+    
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
+    $this->breadcrumbTree->add('ullTableTool');
+    $this->breadcrumbTree->add(__('Table') . ' ' . $this->tableName);
+    $this->breadcrumbTree->addFinal(__('List', null, 'common'));
+    
+    if (!$this->getTablefromRequest()) {
+      return sfView::ERROR;
+    }
+    $rows = Doctrine::getTable($this->tableName)->findAll();
+//    var_dump($rows->);
+//    die;
+//    
+    $this->tableTool = new ullTableTool($rows);
+    
+    
+    /*
     //i18n doctrine tests:
     $info = Doctrine::getTable('TableInfo')->findByDbTableName('UllUser')->getFirst();
     
@@ -164,6 +184,8 @@ class BaseUllTableToolActions extends ullsfActions
     
 //    ullCoreTools::printR($this->request_params);
 
+    */
+
   }
 
   
@@ -239,7 +261,7 @@ class BaseUllTableToolActions extends ullsfActions
       $row             = $this->getRowById();      
     }
     
-    $this->tableTool = new ullTableTool($row);
+    $this->tableTool = new ullTableTool($row, 'w');
     
     if ($this->getRequest()->isMethod('get'))
     {

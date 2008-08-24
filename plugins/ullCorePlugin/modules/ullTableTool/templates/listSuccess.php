@@ -2,6 +2,12 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<?php foreach($tableTool->getForms() as $form): ?>
+  <?php echo $form ?>
+<?php endforeach; ?>
+
+<?php /*
+
 <?php echo form_tag('ullTableTool/list'); ?>
 
 <!-- TODO: add ordered list for options/actions -->
@@ -151,4 +157,4 @@
   <div class='clear'></div>
 </div>
 
-
+*/ ?>

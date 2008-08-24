@@ -3,6 +3,7 @@
 	<name>ullright</name>
 	<comment></comment>
 	<projects>
+		<project>symfony</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
