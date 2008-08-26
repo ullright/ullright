@@ -48,7 +48,12 @@ UllGroup:
     extends: UllEntity
     type: column_aggregation
     keyField: type
-    keyValue: group      
+    keyValue: group
+  relations:
+    UllUser:
+      refClass: UllEntityGroup
+      local: group_id
+      foreign: entity_id          
 
 UllEntityGroup:
   package: ullCorePlugin.lib.model.doctrine

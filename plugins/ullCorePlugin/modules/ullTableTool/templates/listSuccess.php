@@ -2,6 +2,47 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<?php echo form_tag('ullTableTool/list'); ?>
+
+<!-- TODO: add ordered list for options/actions -->
+
+<div class='action_buttons'>
+    
+  <div class='action_buttons_left'>
+  
+    <?php echo ull_button_to(__('Create', null, 'common'), array('action' => 'create')); ?> &nbsp;
+   
+    <?php 
+      if (isset($table_info_search_fields)) {
+        echo input_tag('search', $sf_params->get('search'), 'size=12');
+        echo input_hidden_tag('table', $tableName);
+        echo submit_tag(__('Search', null, 'common'), 'style=margin: 0;');
+        echo ' &nbsp; ';
+      }
+    ?> 
+
+    <?php
+       echo '&nbsp; &nbsp;';
+       echo ull_button_to(__('Edit column info', null, 'common'), 
+        array('table' => 'ull_column_info', 'search' => $tableName));
+    ?> &nbsp;
+    
+  </div>
+  <div class='clear'></div>
+</div>
+ 
+</form>
+
+<br />
+
+<?php /*include_partial('ullTableTool/ullPagerTop',
+        array('pager' => $pager)
+      ); */?>  
+      
+<br />
+
+
+
 <table class='result_list'>
 
 <!-- header -->
@@ -16,8 +57,39 @@
 
 <!-- data -->
 
-<?php foreach($tableTool->getForms() as $form): ?>
-  <tr><td></td><?php echo $form ?></tr>
+<?php $odd = false; ?>
+<?php foreach($tableTool->getForms() as $row => $form): ?>
+    <?php
+      if ($odd) {
+        $odd_style = ' class=\'odd\'';
+        $odd = false;
+      } else {
+        $odd_style = '';
+        $odd = true;
+      }
+      
+      $identifier = $tableTool->getIdentifierUrlParams($row, ESC_RAW);
+      
+    ?>
+  <tr <?php echo $odd_style ?>>
+    <td>          
+      <?php
+          echo ull_icon(
+            'ullTableTool/edit?table=' . $tableName . '&' . $identifier
+            , 'edit'
+            , __('Edit', null, 'common')
+          );
+      
+          echo ull_icon(
+            'ullTableTool/delete?table=' . $tableName . '&' . $identifier
+            , 'delete'
+            , __('Delete', null, 'common')
+            , 'confirm='.__('Are you sure?', null, 'common')
+          );
+      ?>
+    </td>
+    <?php echo $form ?>
+  </tr>
 <?php endforeach; ?>
 
 </tbody>
@@ -25,37 +97,7 @@
 
 <?php /*
 
-<?php echo form_tag('ullTableTool/list'); ?>
 
-<!-- TODO: add ordered list for options/actions -->
-
-<div class='action_buttons'>
-    
-  <div class='action_buttons_left'>
-  
-    <?php echo button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?> &nbsp;
-
-   
-    <?php 
-      if (@$table_info_search_fields) {
-        echo input_tag('search', $sf_params->get('search'), 'size=12');
-        echo input_hidden_tag('table', $table_name);
-        echo submit_tag(__('Search', null, 'common'), 'style=margin: 0;');
-        echo ' &nbsp; ';
-      }
-    ?> 
-
-    <?php
-       echo '&nbsp; &nbsp;';
-       echo button_to(__('Edit column info', null, 'common'), 
-        'ullTableTool/list?table=ull_column_info&search=' . $table_name);
-    ?> &nbsp;
-    
-  </div>
-  <div class='clear'></div>
-</div>
- 
-</form>
 <br />
 
 <?php include_partial('ullTableTool/ullPagerTop',

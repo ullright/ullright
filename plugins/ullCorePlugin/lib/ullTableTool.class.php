@@ -3,6 +3,7 @@
 class ullTableTool
 {
   protected
+    $tableConfig    = array(),
     $columnsConfig  = array(),
     $forms          = array(),
     $rows           = array(),
@@ -38,6 +39,8 @@ class ullTableTool
     
     $this->defaultAccess = $defaultAccess;
     
+    $this->buildTableConfig();
+    
     $this->buildColumnsConfig();
     
     $this->buildForm();
@@ -52,6 +55,11 @@ class ullTableTool
   {
     return $this->defaultAccess;
   }  
+
+  public function getTableConfig()
+  {
+    return $this->tableConfig;
+  }
   
   public function getColumnsConfig()
   {
@@ -81,6 +89,43 @@ class ullTableTool
     return $lables;
   }
   
+  public function getIdentifierUrlParams($row)
+  {
+    if (!is_integer($row)) {
+      throw new UnexpectedArgumentException;
+    }
+    
+    $array = array();
+    foreach ($this->getIdentifierAsArray() as $identifier)
+    {
+      $array[] = $identifier . '=' . $this->rows[$row]->$identifier;
+    }
+    
+    return implode('&', $array);
+  }
+  
+  protected function getIdentifierAsArray()
+  {
+    $identifier = $this->tableConfig['identifier'];
+    if (!is_array($identifier))
+    {
+      $identifier = array(0 => $identifier);
+    }
+    return $identifier;
+  }
+  
+  protected function buildTableConfig()
+  {
+    $tableConfig = array();
+    $tableConfig['label'] = $this->modelName;
+    $tableConfig['identifier'] = $this->rows[0]->getTable()->getIdentifier();
+    
+    $this->tableConfig = $tableConfig;
+    
+//    var_dump($this->tableConfig);
+//    die;
+  }
+  
   protected function buildColumnsConfig()
   {
     // get Doctrine relations
@@ -97,7 +142,8 @@ class ullTableTool
 //    var_dump($relations);
 //    var_dump($columnRelations);
 //    die;
-    
+//    
+
 //    var_dump($this->rows[0]->getTable()->getColumns());
 //    die;
     
@@ -143,8 +189,10 @@ class ullTableTool
         $columnConfig['access'] = 'r';
         $columnConfig['validatorOptions']['required'] = true;
       }
-      else
+      
+      
       // set relations if not the primary key
+      if (!isset($column['primary']) or $columnName != 'id')
       {
         if (isset($columnRelations[$columnName]))
         {

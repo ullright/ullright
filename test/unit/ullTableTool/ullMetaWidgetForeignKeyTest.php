@@ -39,7 +39,7 @@ $columnConfig = $t->getColumnConfig();
 $t->begin('for read access:');
   $widget = new ullMetaWidgetForeignKey($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetForeignKey', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'ullWidget', 'returns the correct widget for read access');
+  $t->isa_ok($widget->getSfWidget(), 'ullWidgetForeignKey', 'returns the correct widget for read access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorPass', 'returns the correct validator for read access');
   
 $t->begin('for write access:');
