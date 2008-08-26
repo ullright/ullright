@@ -26,3 +26,18 @@ UllTableConfig:
     search_fields:
       type: string(255)
       
+TestTable:
+  columns:
+    my_string:
+      type: string(64)
+      notnull: true
+    my_text:
+      type: clob
+    my_timestamp:
+      type: timestamp
+    my_boolean:
+      type: boolean
+    ull_user_id:
+      type: integer
+  relations:
+    UllUser:      

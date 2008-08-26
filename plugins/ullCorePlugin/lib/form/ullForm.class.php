@@ -16,7 +16,14 @@ class ullForm extends sfForm
   public function configure()
   {
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
-    $this->getWidgetSchema()->setFormFormatterName('ullTable');
+    if (sfContext::getInstance()->getRequest()->getParameter('action') == 'list')
+    {
+      $this->getWidgetSchema()->setFormFormatterName('ullList');
+    }
+    else
+    {
+      $this->getWidgetSchema()->setFormFormatterName('ullTable');
+    }
     
           
 
@@ -25,12 +32,12 @@ class ullForm extends sfForm
 //    die;
   }
   
-  public function addUllWidgetWrapper($fieldName, $ullWidgetWrapper)
+  public function addUllMetaWidget($fieldName, $ullMetaWidget)
   {
     $WidgetSchema     = $this->getWidgetSchema();
     $ValidatorSchema  = $this->getValidatorSchema();
     
-    $WidgetSchema[$fieldName] = $ullWidgetWrapper->getSfWidget();
-    $ValidatorSchema[$fieldName] = $ullWidgetWrapper->getSfValidator();
+    $WidgetSchema[$fieldName] = $ullMetaWidget->getSfWidget();
+    $ValidatorSchema[$fieldName] = $ullMetaWidget->getSfValidator();
   }
 }

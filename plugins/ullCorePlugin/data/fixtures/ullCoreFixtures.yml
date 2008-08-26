@@ -33,21 +33,36 @@ UllGroup:
     Updator:            adminuser
 
 
-UllTableConfig:
-  user:
-    db_table_name: UllUser
-    sort_fields: last_name,first_name
-    search_fields: last_name,first_name,name
-    Translation:
-      en:
-        caption: All Users
-        description: List of all users
-      de:
-        caption: Alle Benutzer
-        description: Liste aller Benutzer
-  test:
-    db_table_name: Test
-    Translation:
-      en:
-        caption: All Tests
-        description: List of all tests
+#UllTableConfig:
+#  user:
+#    db_table_name: UllUser
+#    sort_fields: last_name,first_name
+#    search_fields: last_name,first_name,name
+#    Translation:
+#      en:
+#        caption: All Users
+#        description: List of all users
+#      de:
+#        caption: Alle Benutzer
+#        description: Liste aller Benutzer
+#  test:
+#    db_table_name: Test
+#    Translation:
+#      en:
+#        caption: All Tests
+#        description: List of all tests
+
+# for tabletool testing
+TestTable:
+  test_1:
+    my_string:    Foo Bar
+    my_text:      Hello, this is my text
+    my_timestamp: 2008-08-26 11:22:33
+    my_boolean:   true
+    UllUser:      adminuser
+  test_2:
+    my_string:    Foo Bar More
+    my_text:      Hello, this is more of my text
+    my_timestamp: 2008-08-27 11:22:33
+    my_boolean:   false   
+    UllUser:      testuser

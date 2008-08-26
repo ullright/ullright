@@ -4,16 +4,20 @@ class ullTableTool
 {
   protected
     $columnsConfig  = array(),
+    $forms          = array(),
     $rows           = array(),
     $modelName,
-    $forms          = array(),
-    $default_access
-    
+    $defaultAccess
   ;
   
-  public function __construct($rows, $default_access = 'r')
+  public function __construct($rows = null, $defaultAccess = 'r')
   {
 
+    if ($rows === null)
+    {
+      throw new InvalidArgumentException('One or more data rows are required');
+    }
+    
     if (is_array($rows))
     {
       $this->rows = $rows;
@@ -32,11 +36,26 @@ class ullTableTool
     
     $this->modelName = get_class($this->rows[0]);
     
-    $this->default_access = $default_access;
+    $this->defaultAccess = $defaultAccess;
     
     $this->buildColumnsConfig();
     
     $this->buildForm();
+  }
+
+  public function getModelName()
+  {
+    return $this->modelName;
+  }
+
+  public function getDefaultAccess()
+  {
+    return $this->defaultAccess;
+  }  
+  
+  public function getColumnsConfig()
+  {
+    return $this->columnsConfig;
   }
   
   public function getForm()
@@ -49,13 +68,27 @@ class ullTableTool
     return $this->forms;
   }
   
+  public function getLabels()
+  {
+    $lables = array();
+    foreach ($this->columnsConfig as $columnName => $columnConfig)
+    {
+      if (isset($columnConfig['access']))
+      {
+        $lables[$columnName] = $columnConfig['label'];
+      }
+    }
+    return $lables;
+  }
+  
   protected function buildColumnsConfig()
   {
     // get Doctrine relations
     $relations = $this->rows[0]->getTable()->getRelations();
-        
+
+    $columnRelations = array();
+    
     foreach ($relations as $relation) {
-      /*var $relation Doctrine_Relation_Association*/
       $columnRelations[$relation->getLocal()] = array(
           'model' => $relation->getClass(), 
           'foreign_id' => $relation->getForeign()
@@ -77,10 +110,10 @@ class ullTableTool
         'validatorOptions'   => array(),
       );
       
-      // create columnConfig and set defaults
+      // set defaults
       $columnConfig['label']        = sfInflector::humanize($columnName);
       $columnConfig['metaWidget']   = 'ullMetaWidgetString';
-      $columnConfig['access']       = $this->default_access;
+      $columnConfig['access']       = $this->defaultAccess;
       $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
       
       switch ($column['type'])
@@ -141,18 +174,17 @@ class ullTableTool
     foreach ($this->rows as $key => $row) 
     {
       $this->forms[$key] = new ullForm();
-      
       foreach ($this->columnsConfig as $columnName => $columnConfig)
       {
-        //TODO: check if column enabled
+        if (isset($columnConfig['access'])) {
         
-        $ullMetaWidgetClassName = $columnConfig['metaWidget'];
-        $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
-        $this->forms[$key]->addUllWidgetWrapper($columnName, $ullMetaWidget);
-        
-        $this->forms[$key]->setDefault($columnName, $this->rows[$key]->$columnName);
-        $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
-        
+          $ullMetaWidgetClassName = $columnConfig['metaWidget'];
+          $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
+          $this->forms[$key]->addUllMetaWidget($columnName, $ullMetaWidget);
+          
+          $this->forms[$key]->setDefault($columnName, $this->rows[$key]->$columnName);
+          $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
+        }        
       }
     }
   }

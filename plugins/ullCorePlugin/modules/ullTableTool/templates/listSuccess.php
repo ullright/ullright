@@ -2,9 +2,26 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<table class='result_list'>
+
+<!-- header -->
+<thead>
+<tr>  
+  <th>&nbsp;</th>
+  <?php foreach ($tableTool->getLabels() as $label): ?>
+    <th><?php echo $label ?>:</th>
+  <?php endforeach; ?>
+</tr>
+</thead>
+
+<!-- data -->
+
 <?php foreach($tableTool->getForms() as $form): ?>
-  <?php echo $form ?>
+  <tr><td></td><?php echo $form ?></tr>
 <?php endforeach; ?>
+
+</tbody>
+</table>
 
 <?php /*
 
