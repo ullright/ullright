@@ -1,10 +1,13 @@
 <?php
-
+/**
+ * ullMetaWidgetString 
+ * 
+ * Used for strings
+ */
 class ullMetaWidgetString extends ullMetaWidget
 {
   public function __construct($columnConfig = array())
   {
-    
     if ($columnConfig['access'] == 'w')
     {
       $this->sfWidget = new sfWidgetFormInput($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
