@@ -1,4 +1,4 @@
-ullWiki:
+UllWiki:
   package: ullWikiPlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
