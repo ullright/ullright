@@ -5,5 +5,28 @@
  */
 abstract class PluginUllUser extends BaseUllUser
 {
+  /**
+   * get User's Shortname
+   *
+   * @return string
+   */
+  public function getShortName() {
 
+    $return = '';
+
+    $first_name = substr($this->getFirstName(), 0, 1);
+
+    if ($first_name) {
+      $return .= $first_name . '.';
+    }
+
+    $last_name = substr($this->getLastName(), 0, 7);
+    if (strlen($this->getLastName()) > 7) {
+       $last_name .= '.';
+    }
+
+    $return .= $last_name;
+
+    return $return;
+  }
 }
