@@ -14,22 +14,22 @@ class PluginUllUserTable extends UllEntityTable
    */
   public static function hasGroup($group, $user_id = null) 
   {
-           
+
     // use session user_id as default entity
     if ($user_id === null) {
-      $user_id = sfContext::getInstance()->getUser()->getAttribute('user_id'); 
+      $user_id = sfContext::getInstance()->getUser()->getAttribute('user_id');
     }
-    
+
     $q = new Doctrine_Query;
     $q->from('UllUser u, u.UllGroup g')
       ->where('u.id = ?', $user_id)
     ;
-    
+
     if (!is_array($group))
     {
       $group = array($group);
     }
-    
+
     if (is_integer($group[0]))
     {
       $group = implode(',', $group);
@@ -40,11 +40,11 @@ class PluginUllUserTable extends UllEntityTable
       $group = '"' . implode('","', $group) . '"';
       $q->addWhere("g.name IN ($group)");
     }
-      
+
     if ($q->count())
     {
       return true;
     }
-  }  
-  
+  }
+
 }
