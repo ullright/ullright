@@ -12,9 +12,9 @@
 ?>
 
 <?php if ($access): ?>
- 
+
 <ul class='ullwiki_headfoot_action_icons'>
-   
+
   <li>
     <?php echo ull_reqpass_icon(
             array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $ullwiki->getDocid())

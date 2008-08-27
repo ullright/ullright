@@ -5,4 +5,45 @@
 class PluginUllWikiTable extends UllRecordTable
 {
 
+  public static function findByDocid($docid)
+  {
+    $q = new Doctrine_Query;
+    $q->from('UllWiki w')
+      ->where('w.current = ? AND w.docid = ?', Array(true, $docid))
+    ;
+    $objs = $q->execute();
+    return $objs[0];
+  }
+
+  public static function setOldDocsNonCurrent($docid) {
+    //echo "###",$this->docid,'###';
+
+    $q = new Doctrine_Query;
+    $q->update('UllWiki w')
+      ->set('current', 0)
+      ->where('w.docid = ?', $docid)
+    ;
+    $rows = $q->execute();
+  }
+  
+  public static function getNextFreeDocid() {
+
+    $q = new Doctrine_Query;
+    $q->from('UllWiki w')
+      ->orderBy('w.docid DESC')
+      ->limit(1)
+    ;
+    $ullwiki = $q->execute();
+    $ullwiki = $ullwiki[0];
+
+    if (!$ullwiki) {
+      $docid = 1;
+    } else {
+      $docid = $ullwiki->getDocid() + 1;
+//      $docid++;
+    }
+//    die("### $docid ###");
+    return $docid;
+
+  }
 }

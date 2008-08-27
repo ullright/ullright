@@ -15,7 +15,7 @@
 
 class BaseullWikiActions extends ullsfActions
 {
-  
+
   public function executeIndex() 
   {
     // referer handling -> reset all wiki referers 
@@ -24,153 +24,121 @@ class BaseullWikiActions extends ullsfActions
     $refererHandler->delete('edit');
 
     // == handle request params
-    
+
     // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
-    
+
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->addFinal(__('Wiki'));
-    
-    $this->ullwiki_pager = new sfDoctrinePager('Wiki', 25);
+
+    $this->ullwiki_pager = new sfDoctrinePager('UllWiki', 25);
     $this->ullwiki_pager->setPage($this->getRequestParameter('page', 1));
     $this->ullwiki_pager->getQuery();
     $this->ullwiki_pager->init();
   }
 
-  
-  
+
+
   public function executeList() {
-      
+
     // referer handling -> reset all wiki referers
     $refererHandler = new refererHandler();
     $refererHandler->delete('show');
     $refererHandler->delete('edit');
 
-    
+
     // == handle request params
-    
+
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
 //    $this->return_url = $this->getRequestParameter('return_url');
     $this->return_var = $this->getRequestParameter('return_var');
-    
-    
+
+
     $this->ull_reqpass_redirect();
-    
+
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
     $this->breadcrumbTree->addFinal(__('Result list', null, 'common'));
-    
 
-  
-    
+
+
+
     // build query
-    $c = new Criteria();
-    $c->add(UllWikiPeer::CURRENT, true);
-    
-    if ($this->getRequestParameter('sort')) {
+    $q = new Doctrine_Query();
+    $q->from('UllWiki w')
+      ->where('w.current = ?', true)
+    ;
 
-        $c->addAscendingOrderByColumn(
-          UllWikiPeer::translateFieldName(
-            $this->getRequestParameter('sort'), 
-            BasePeer::TYPE_FIELDNAME, 
-            BasePeer::TYPE_COLNAME
-          )
-        );
-//      }
-      
+
+    if ($this->getRequestParameter('sort')) {
+    	$q->orderBy('w.'.$this->getRequestParameter('sort').' ASC');
     } else {
-      $c->addDescendingOrderByColumn(UllWikiPeer::UPDATED_AT);
+      $q->orderBy('w.updated_at DESC');
     }
-    
+
     if ($this->search = $this->getRequestParameter('search')) {
-      
+
 //      ullCoreTools::printR($this->search);
 
-      $cton_id = $c->getNewCriterion(UllWikiPeer::DOCID, $this->search);
-      
       $fulltext = $this->getRequestParameter('fulltext');
-      
+
+      $query_subject = '';
+      $query_tags = '';
+      $query_body = '';
+
       $search_words_arr = explode(' ', $this->search);
       foreach($search_words_arr as $key => $search_word) {
-        $search_words_arr[$key] = '%'.$search_word.'%';
-      }
-      
-      $search_word_first = array_shift($search_words_arr);
-      
-      // use propel criterions to build a vaild "OR" query
-      // the first word uses getNewCriterion
-      $cton_subject = $c->getNewCriterion(UllWikiPeer::SUBJECT, $search_word_first, Criteria::LIKE);
-      $cton_tags = $c->getNewCriterion(UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $search_word_first, Criteria::LIKE);
-      if ($fulltext) {
-        $cton_body = $c->getNewCriterion(UllWikiPeer::BODY, $search_word_first, Criteria::LIKE);
-      }
-      
-      //all subsequent words have to use addAnd
-      foreach($search_words_arr as $search_word) {
-        $cton_subject->addAnd($c->getNewCriterion(UllWikiPeer::SUBJECT, $search_word, Criteria::LIKE));
-        $cton_tags->addAnd($c->getNewCriterion(UllWikiPeer::DUPLICATE_TAGS_FOR_PROPEL_SEARCH, $search_word, Criteria::LIKE));
+        #$search_words_arr[$key] = '%'.$search_word.'%';
+        $search_word = '"%'.$search_word.'%"';
+
+        $query_subject .= ($query_subject!=''?' AND ':'') . 'w.subject LIKE '.$search_word;
+        $query_tags    .= ($query_tags!=''?' AND ':'')    . 'w.duplicate_tags_for_propel_search LIKE '.$search_word;
+
         if ($fulltext) {
-          $cton_body->addAnd($c->getNewCriterion(UllWikiPeer::BODY, $search_word, Criteria::LIKE));
+          $query_body  .= ($query_body!=''?' AND ':'')    . 'w.body LIKE '.$search_word;
         }
       }
 
-      $cton_subject->addOr($cton_tags);
-      $cton_subject->addOr($cton_id);
-      
-      if ($fulltext) {
-        $cton_subject->addOr($cton_body);
-      }
-
-      $c->add($cton_subject);
-
+      $q->addWhere($query_subject . ' OR ' . $query_tags . ($query_body!=''?' OR ':'') . $query_body);
     }
 
-//    $this->setFlash('c', $c);  
-  
-    $this->ullwiki_pager = new sfPropelPager('UllWiki', 25);
-    $this->ullwiki_pager->setCriteria($c);
+    $this->ullwiki_pager = new sfDoctrinePager('ullWiki', 25);
     $this->ullwiki_pager->setPage($this->getRequestParameter('page', 1));
-    //$this->wiki_pager->setPeerMethod('doSelectJoinUser');
+    $this->ullwiki_pager->setQuery($q);
     $this->ullwiki_pager->init();
-//    $this->setFlash('wiki_pager', $this->wiki_pager);    
-    
   }
 
-  
-  
+
+
   public function executeShow() {
 
     // referer handling -> reset show referer
     $refererHandler = new refererHandler();
     $refererHandler->initialize('show');
 
-    
-        
     // == handle request params
-    
 
-    
-    
+
     // get document
-    $this->ullwiki = UllWikiPeer::retrieveByDocid($this->getRequestParameter('docid'));
+    $this->ullwiki = UllWikiTable::findByDocid($this->getRequestParameter('docid'));
     $this->forward404Unless($this->ullwiki);
-    
+
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
     if ($this->return_var = $this->getRequestParameter('return_var')) {
        $this->return_url = $this->getUser()->getAttribute('wiki_return_url') 
         . '&' . $this->return_var . '=' . $this->ullwiki->getDocId(); ;
     }
-    
+
 
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
-    
 
-    
-    
+
+
+
     // display result list link only when there is a "show" or "edit" referer containing 
     //  the list action    
     if (
@@ -182,14 +150,14 @@ class BaseullWikiActions extends ullsfActions
         $refererHandler->getReferer()
       );
     }
-    
+
     $this->breadcrumbTree->add(__('Show', null, 'common'));    
     $this->breadcrumbTree->addFinal($this->ullwiki->getSubject());
-    
+
     // variable definition
 //    $this->previous_cursor = 0;
 //    $this->next_cursor = 0;
-    
+
 //    if ($this->getRequestParameter('cursor')) {
 //            
 ////      $c = $this->getFlash('c');   
@@ -216,13 +184,13 @@ class BaseullWikiActions extends ullsfActions
       
 //      $this->wiki = WikiPeer::retrieveByPK($this->getRequestParameter('id'));
 //    }
-    
-      
+
+
     $this->forward404Unless($this->ullwiki);
   }
 
   public function executeCreate() {
-    
+
     // "wiki create" referer handling
     // this has to take place before the access check, to correctly set the 
     //   referer, eg. for the 'cancel' button 
@@ -230,19 +198,19 @@ class BaseullWikiActions extends ullsfActions
     $this->refererHandler->initialize('edit');
 
     // check access
-    $this->checkAccess(1);
+    $this->checkAccess('MasterAdmins');
 
-    
+
     // == handle request params
-    
+
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
 //    $this->return_url = $this->getRequestParameter('return_url');
     $this->return_var = $this->getRequestParameter('return_var');    
-    
+
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
-    
+
     // display result list link only when there is a "show" or "edit" referer 
     //  containing the list action    
     if (
@@ -253,42 +221,44 @@ class BaseullWikiActions extends ullsfActions
         __('Result list', null, 'common'),
         $this->refererHandler->getReferer()
       );
-    }    
-    
+    }
+
 //    $this->breadcrumbTree->add(
 //      __('Result list', null, 'common'),
 //      $this->refererHandler->getReferer('edit')
-//    );       
+//    );
     $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
-    
+
     $this->ullwiki = new UllWiki();
     $this->setTemplate('edit');
-    
+
+    /*
     $c = new Criteria;
     $c->addAscendingOrderByColumn(UllCulturePeer::NAME);
     $this->cultures = UllCulturePeer::doSelect($c);
+    */
   }
-  
+
 
   public function executeEdit() {
-    
+
     $this->refererHandler = new refererHandler();
     $this->refererHandler->initialize();
-    
+
     // check access
-    $this->checkAccess(1);
-    
+    $this->checkAccess('MasterAdmins');
+
     // == handle request params
-    
+
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
 //    $this->return_url = $this->getRequestParameter('return_url');
     $this->return_var = $this->getRequestParameter('return_var');    
-    
+
     // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
     $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
-    
+
     // display result list link only when there is a "show" or "edit" referer 
     //  containing the list action    
     if (
@@ -299,8 +269,8 @@ class BaseullWikiActions extends ullsfActions
         __('Result list', null, 'common'),
         $this->refererHandler->getReferer()
       );
-    }    
-    
+    }
+
     // display breadcrumb show link only when there is an "edit" referer 
     //  containing the show action 
     if (strstr($this->refererHandler->getReferer('edit'), 'ullWiki/show')) {
@@ -308,10 +278,10 @@ class BaseullWikiActions extends ullsfActions
         __('Result list', null, 'common'),
         $this->refererHandler->getReferer()
       );
-    }     
-    
-    
-    
+    }
+
+
+
 //    if ($this->refererHandler->hasReferer('show')) {
 //      $this->breadcrumbTree->add(
 //        __('Result list'),
@@ -329,48 +299,51 @@ class BaseullWikiActions extends ullsfActions
 //      );       
 //    }
     $this->breadcrumbTree->add(__('Edit', null, 'common'));
-    
+
 //    $this->wiki = WikiPeer::retrieveByPk($this->getRequestParameter('id'));
-    $this->ullwiki = UllWikiPeer::retrieveByDocid($this->getRequestParameter('docid'));
+    $this->ullwiki = UllWikiTable::findByDocid($this->getRequestParameter('docid'));
 //    $this->wiki->setCulture('');
-    
+
+/*
     // get list of cultures for language select
     $c = new Criteria;
     $c->addAscendingOrderByColumn(UllCulturePeer::NAME);
     $this->cultures = UllCulturePeer::doSelect($c);
+*/
+
     $this->forward404Unless($this->ullwiki);
   }
 
-  
-  
+
+
   public function executeUpdate() {
-    
+
     // check access
-    $this->checkAccess(1);
-    
+    $this->checkAccess('MasterAdmins');
+
     $logged_in_user_id = $this->getUser()->getAttribute('user_id');
-    
-    $ullwiki = new UllWiki();  
-    
+
+    $ullwiki = new UllWiki();
+
     // check if this is a new or existing wiki article
     if ($docid = $this->getRequestParameter('docid')) {
       $ullwiki->setDocid($docid); // keep docid
-      $ullwiki->setOldDocsNonCurrent(); // remove 'current' flag from old entries
+      UllWikiTable::setOldDocsNonCurrent($docid);
+      #$ullwiki->setOldDocsNonCurrent(); // remove 'current' flag from old entries
       $ullwiki->setCreatorUserId($this->getRequestParameter('creator_user_id')); // keep creator
       $ullwiki->setCreatedAt($this->getRequestParameter('created_at')); // keep createdate
-    } else {      
-      $docid = $ullwiki->getNextFreeDocid();
+    } else {
+      $docid = UllWikiTable::getNextFreeDocid();
       $ullwiki->setDocid($docid);
       $ullwiki->setCreatorUserId($logged_in_user_id);
-      
     }
-    
+
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
     if ($return_var = $this->getRequestParameter('return_var')) {
        $return_url = $this->getUser()->getAttribute('wiki_return_url') 
         . '&' . $return_var . '=' . $docid;
     }
-    
+
     $ullwiki->setCurrent(true);
 //    $edit_counter = $this->getRequestParameter('edit_counter');
 //    $edit_counter++;
@@ -383,34 +356,36 @@ class BaseullWikiActions extends ullsfActions
     }
 //    $wiki->setCreatorUserId($this->getRequestParameter('creator_user_id') ? $this->getRequestParameter('creator_user_id') : null);
     $ullwiki->setUpdatorUserId($logged_in_user_id);
-    
+
 //    die ("culture: ".$this->getRequestParameter('culture_id'));
-    $culture = UllCulturePeer::retrieveByPK($this->getRequestParameter('ull_culture_id'));
+    //$culture = UllCulturePeer::retrieveByPK($this->getRequestParameter('ull_culture_id'));
 //    echo "###".$this->getRequestParameter('culture_id')."###".$culture->getIsoCode()."###";
 //    exit();
 
+/* TODO
     if (!is_object($culture)) {
       ullCoreTools::printR($culture);
       ullCoreTools::printR($this);
       exit();
     }
-    
-    
-    $ullwiki->setCulture($culture->getIsoCode());
+*/
+
+    #$ullwiki->setCulture($culture->getIsoCode());
+    $ullwiki->setCulture('en');
     $ullwiki->setSubject($this->getRequestParameter('subject'));
     $ullwiki->setBody($this->getRequestParameter('body'));
     $ullwiki->setChangelogComment($this->getRequestParameter('changelog_comment'));
-    $ullwiki->setTags(strtolower($this->getRequestParameter('tags')));
+    //$ullwiki->setTags(strtolower($this->getRequestParameter('tags'))); TODO
     $ullwiki->setDuplicateTagsForPropelSearch(strtolower($this->getRequestParameter('tags')));
-    
+
     $ullwiki->save();
 
-    
-    
+
+
     // == forward junction
     if ($this->getRequestParameter('save_mode') == 'saveonly') {
       return $this->redirect('ullWiki/edit?docid='.$docid);
-      
+
       // plugin mode
     } elseif (isset($return_url)) {
 //      $url = $return_url . '&' . $return_var . '=' . $docid;
@@ -455,12 +430,11 @@ class BaseullWikiActions extends ullsfActions
   }
 
   public function executeDelete() {
-    
+
     // check access
-    $this->checkAccess(1);  
-    
-    $ullwiki = UllWikiPeer::retrieveByDocid($this->getRequestParameter('docid'));
-//    $wiki = WikiPeer::retrieveByPk($this->getRequestParameter('id'));
+    $this->checkAccess('MasterAdmins');
+
+    $ullwiki = UllWikiTable::findByDocid($this->getRequestParameter('docid'));
 
     $this->forward404Unless($ullwiki);
 
@@ -468,9 +442,7 @@ class BaseullWikiActions extends ullsfActions
     $ullwiki->setCurrent(false);
     $ullwiki->save();
 
-    
-    
     return $this->redirect('ullWiki/list');
   }
-  
+
 }

@@ -28,11 +28,12 @@
   <td>
     <?php 
       //weflowTools::printR($cultures); 
-
+/*
       echo object_select_tag($sf_data->getRaw('cultures'), 'getUllCultureId');
       //                                                       \________/
       //                                                           v 
-      //                                                 =Model peer class name      
+      //                                                 =Model peer class name
+*/
     ?>
   </td>
 
@@ -50,7 +51,7 @@
 
   echo object_textarea_tag($sf_data->getRaw('ullwiki'), 'getBody', array (
   'rich' => 'fck', 'size' => '80x40', 'config' => '../ullWikiPlugin/js/FCKeditor_config.js'
-)) 
+))
 
 ?></td>
 </tr>
@@ -68,13 +69,15 @@
       <?php
         $tags_out = sfContext::getInstance()->getRequest()->getParameter('tags');
         if (!$tags_out) {
-          $tags = $sf_data->getRaw('ullwiki')->getTags();
+          //$tags = $sf_data->getRaw('ullwiki')->getTags(); //TODO
+          $tags = Array();
           $tags_out = implode(', ', array_keys($tags));
         }
 //        ullCoreTools::printR($tags);
         
         echo input_tag('tags', $tags_out, 'size=80'); 
-        $tags_pop = TagPeer::getPopulars();
+        //$tags_pop = TagPeer::getPopulars(); //TODO
+        $tags_pop = Array();
 //        ullCoreTools::printR($tags);
         sfLoader::loadHelpers(array('Tags'));
         echo '<br />' . __('Popular tags') . ':';
@@ -150,10 +153,10 @@
 
     </ul>
 
-  </div>    
+  </div>
 
   <div class="clear"></div>  
-  
+
 </fieldset>
 
 </div>

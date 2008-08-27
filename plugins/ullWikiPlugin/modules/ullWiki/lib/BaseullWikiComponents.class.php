@@ -3,7 +3,6 @@
 class BaseullWikiComponents extends sfComponents
 {
   public function executeUllWikiHeader() {
-    
     $show_link = array('module' => 'ullWiki', 'action' => 'show', 'docid' => $this->ullwiki->getDocid());
     $this->edit_link = array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $this->ullwiki->getDocid());
 
@@ -21,19 +20,15 @@ class BaseullWikiComponents extends sfComponents
       $this->subject_link = $show_link;
     }
   }
-  
+
   public function executeUllWikiHeaderShow() {
-    
     $this->executeUllWikiHeader();
-    
   }
-  
+
   public function executeUllWikiHeadFootActionIcons() {
-    
     $this->access = false;
-    
-    if (UllUserPeer::userHasGroup(1)) {
-      $this->access = true;      
+    if (UllUserTable::hasGroup('MasterAdmins')) {
+      $this->access = true;
     }
     
   }

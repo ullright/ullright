@@ -19,7 +19,7 @@
               'ullwiki'     => $ullwiki
             )
           ); ?>
-  </div>  
+  </div>
   
   <div class='ullwiki_header_headline'>
     <h3>
