@@ -93,7 +93,7 @@ class BaseullWikiActions extends ullsfActions
         #$search_words_arr[$key] = '%'.$search_word.'%';
         $search_word = '"%'.$search_word.'%"';
 
-        $query_subject .= ($query_subject!=''?' AND ':'') . 'w.subject LIKE '.$search_word;
+        $query_subject .= ($query_subject != '' ? ' AND ':'') . 'w.subject LIKE '.$search_word;
         $query_tags    .= ($query_tags!=''?' AND ':'')    . 'w.duplicate_tags_for_propel_search LIKE '.$search_word;
 
         if ($fulltext) {

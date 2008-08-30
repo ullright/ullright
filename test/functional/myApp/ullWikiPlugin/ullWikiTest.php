@@ -8,8 +8,9 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-// wiki index 
+ 
 $b
+  ->diag('crud workflow')
 	->get('ullWiki/index')
 	->isStatusCode(200)
 	->isRequestParameter('module', 'ullWiki')
@@ -17,6 +18,35 @@ $b
 	->responseContains('Wiki Home')
 ;	
 
+$b
+  ->click('Create')
+  ->isRedirected()
+  ->followRedirect()
+  ->isRedirected()
+  ->followRedirect()  
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullUser')
+  ->isRequestParameter('action', 'login')  
+  ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
+  ->isRedirected()
+  ->followRedirect()
+  ->responseContains('Create')
+  ->setField('subject', 'My new test subject')
+  ->setField('body', '<b>My body</b>')
+  ->click('Save and show')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'index')
+  ->click('New entries')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->responseContains('My new test subject')
+//  ->dump()
+;    
+  
 // wiki create
 //$b
 //  ->click('Create')

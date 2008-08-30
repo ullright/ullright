@@ -18,8 +18,8 @@ $b
 	->isStatusCode(200)
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'login')
-  ->responseContains('Username:')
-  ->responseContains('Password:')
+  ->responseContains('Username')
+  ->responseContains('Password')
 // we can't use the following, because there is a link and a button with the same name
 //	->setField('username', 'admin')
 //	->setField('password', 'admin')

@@ -9,10 +9,8 @@ abstract class BaseUllRecord extends sfDoctrineRecord
   {
     $this->setTableName('ull_record');
     $this->hasColumn('namespace', 'string', 32, array('type' => 'string', 'length' => '32'));
-    $this->hasColumn('creator_user_id', 'integer', null, array('type' => 'integer', 'default' => 1));
-    $this->hasColumn('updator_user_id', 'integer', null, array('type' => 'integer', 'default' => 1));
-
-    $this->setSubClasses(array('UllUser' => array('type' => 'user'), 'UllGroup' => array('type' => 'group')));
+    $this->hasColumn('creator_user_id', 'integer', null, array('type' => 'integer', 'default' => '1'));
+    $this->hasColumn('updator_user_id', 'integer', null, array('type' => 'integer', 'default' => '1'));
   }
 
   public function setUp()

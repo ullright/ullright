@@ -3,7 +3,7 @@ UllWiki:
   inheritance:
     extends: UllRecord
     type: concrete
-  tableName: ull_wiki  
+  #tableName: ull_wiki  
   columns:
     docid: 
       type: integer
@@ -31,4 +31,4 @@ UllWiki:
   relations:
     UllUser:
       local: locked_by_user_id
-      foreign: id
+#      foreign: id

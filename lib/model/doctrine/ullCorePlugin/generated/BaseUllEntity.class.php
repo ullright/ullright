@@ -10,6 +10,8 @@ abstract class BaseUllEntity extends UllParentEntity
     parent::setTableDefinition();
     $this->setTableName('ull_entity');
     $this->hasColumn('type', 'string', 255, array('type' => 'string', 'length' => 255));
+
+    $this->setSubClasses(array('UllUser' => array('type' => 'user'), 'UllGroup' => array('type' => 'group')));
   }
 
 }

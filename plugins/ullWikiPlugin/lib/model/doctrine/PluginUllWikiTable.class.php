@@ -11,8 +11,7 @@ class PluginUllWikiTable extends UllRecordTable
     $q->from('UllWiki w')
       ->where('w.current = ? AND w.docid = ?', Array(true, $docid))
     ;
-    $objs = $q->execute();
-    return $objs[0];
+    return $q->execute()->getFirst();
   }
 
   public static function setOldDocsNonCurrent($docid) {
@@ -33,8 +32,8 @@ class PluginUllWikiTable extends UllRecordTable
       ->orderBy('w.docid DESC')
       ->limit(1)
     ;
-    $ullwiki = $q->execute();
-    $ullwiki = $ullwiki[0];
+    $ullwiki = $q->execute()->getFirst();
+    
 
     if (!$ullwiki) {
       $docid = 1;
