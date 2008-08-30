@@ -89,4 +89,44 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 		return parent::call($uri, $method, $parameters, $changeStack);
 	}
 
+ public function diag($string)
+  {
+    //  there may be no "ok" in the output, because it somehow counts as an 
+    //  additional test when running test:all
+    //  (produces an error: 'Looks like you planned n tests but run 1 extra) 
+    $string = str_replace('ok', 'Ok', $string);
+    $lime_colorizer = new lime_colorizer();
+    echo $lime_colorizer->colorize("\n*** $string ***\n", array('fg' => 'blue'));
+    
+    return $this;
+  }
+	
+	public function dump()
+	{
+	  echo "--- html source ---\n";
+	  
+	  // check if program 'highlight' exists
+	  // installation under debian/ubuntu: sudo aptitude install highlight
+	  if (strstr(shell_exec('which highlight'), 'highlight'))
+	  {
+      $html = escapeshellarg($this->getResponse()->getContent()); 
+      echo shell_exec('echo ' . $html . ' | highlight -S xml -A');
+	  }
+    else
+    {
+      echo $this->getResponse()->getContent() . "\n";
+    }
+	  echo "--- /html source ---\n";
+	  
+	  return $this;
+	}
+	
+ public function dumpdie()
+  {
+    $this->dump();
+    
+    throw new exception('Dying as requested...');    
+  }
+	
+
 }
