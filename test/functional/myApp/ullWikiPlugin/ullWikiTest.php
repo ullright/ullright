@@ -10,7 +10,7 @@ $b->resetDatabase();
 
  
 $b
-  ->diag('crud workflow')
+  ->diag('Wiki Home')
 	->get('ullWiki/index')
 	->isStatusCode(200)
 	->isRequestParameter('module', 'ullWiki')
@@ -19,6 +19,7 @@ $b
 ;	
 
 $b
+  ->diag('security check')
   ->click('Create')
   ->isRedirected()
   ->followRedirect()
@@ -29,7 +30,10 @@ $b
   ->isRequestParameter('action', 'login')  
   ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
   ->isRedirected()
-  ->followRedirect()
+  ->followRedirect();
+  
+$b
+  ->diag('create')
   ->responseContains('Create')
   ->setField('subject', 'My new test subject')
   ->setField('body', '<b>My body</b>')
@@ -44,48 +48,66 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->responseContains('My new test subject')
-//  ->dump()
 ;    
-  
-// wiki create
-//$b
-//  ->click('Create')
-//  ->isStatusCode(200)
-//  ->isRequestParameter('module', 'ullWiki')
-//  ->isRequestParameter('action', 'create')
-//;
 
-//TODO: continue ullWiki migration
+$b
+  ->diag('update')
+  ->get('ullWiki/list')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->click('My new test subject')
+  ->responseContains('My new test subject')
+  ->get('ullWiki/edit/docid/3')
+  ->responseContains('My new test subject')
+  ->setField('subject', 'My new test subject, updated')
+  ->setField('body', '<b>My body, updated</b>')
+  ->click('Save and show')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->click('My new test subject, updated')
+  ->responseContains('<b>My body, updated</b>')
+;
 
+$b
+  ->diag('search')
+  ->get('ullWiki/list')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->post('ullWiki/list', Array('search' => 'updated'))
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->responseContains('My new test subject, updated')
+;
 
-//	->click('Log in')
-//	->isStatusCode(200)
-//  ->isRequestParameter('module', 'ullUser')
-//  ->isRequestParameter('action', 'login')
-//  ->responseContains('Username:')
-//  ->responseContains('Password:')
-//// we can't use the following, because there is a link and a button with the same name
-////	->setField('username', 'admin')
-////	->setField('password', 'admin')
-////  ->click('Log in')
-//  ->post('/ullUser/login', array('username' => 'admin', 'password' => 'admin'))
-//  ->isRedirected()
-//  ->followRedirect()  
-//	->isStatusCode(200)
-//  ->isRequestParameter('module', 'myModule')
-//  ->isRequestParameter('action', 'index')
-//  ->responseContains('Logged in as admin')
-//  ->click('Log out')  
-//  ->isRedirected()
-//  ->followRedirect()
-//  ->isStatusCode(200)
-//  ->isRequestParameter('module', 'myModule')
-//  ->isRequestParameter('action', 'index')
-//  ->responseContains('Log in')
-//;  
-  
-  
-//	->responseContains('!/error/')
-//	->checkResponseElement('body', '!/error|Error|ERROR/')
+$b
+  ->diag('sorting')
+  ->get('ullWiki/list')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->responseContains('3 results found.')
+  ->get('ullWiki/list/sort/docid')
+  ->diag('TODO check order')
+;
 
-//print $b->getResponse()->getContent();
+$b
+  ->diag('delete')
+  ->get('ullWiki/list')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->get('ullWiki/delete/docid/3')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->responseContains('2 results found.')
+  ->checkResponseElement('body', '!/My new test subject/')
+;
