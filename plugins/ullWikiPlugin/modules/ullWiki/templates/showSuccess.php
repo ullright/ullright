@@ -70,17 +70,10 @@
     
   }
 */
-  
-  $body = preg_replace_callback(
-            '#<pre>.*?</pre>#is'
-            , 'u_func'
-            , $body);
 
-  //auto "link" links
-  $body = ullCoreTools::makelinks($body);
-
-  echo $body;
   
+  
+if (!function_exists('u_func')) {
   
   function u_func($matches) {
     
@@ -112,6 +105,21 @@
     return $replace;
     
   }
+
+}
+
+  
+  $body = preg_replace_callback(
+            '#<pre>.*?</pre>#is'
+            , 'u_func'
+            , $body);
+
+  //auto "link" links
+  $body = ullCoreTools::makelinks($body);
+
+  echo $body;
+  
+  
 
   
   
