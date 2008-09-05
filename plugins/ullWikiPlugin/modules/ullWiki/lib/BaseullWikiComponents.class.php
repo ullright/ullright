@@ -30,9 +30,11 @@ class BaseullWikiComponents extends sfComponents
     if (UllUserTable::hasGroup('MasterAdmins')) {
       $this->access = true;
     }
-    
   }
-  
+
+  public function executeHeaderSearch() {
+    $this->form = new HeaderSearchForm();
+  }
 }
 
 ?>

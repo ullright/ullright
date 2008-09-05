@@ -82,6 +82,8 @@ class BaseullWikiActions extends ullsfActions
 
       $fulltext = $this->getRequestParameter('fulltext');
 
+      //print_r(Array($this->search, $fulltext));
+
       $query_subject = '';
       $query_tags = '';
       $query_body = '';

@@ -19,7 +19,7 @@
 class sfWidgetFormSchemaFormatterUllListLabelsRight extends sfWidgetFormSchemaFormatter
 {
   protected
-    $rowFormat       = "<tr><td>%field% %label%</td></tr>\n",
+    $rowFormat       = "<tr><td>%field% %label%%hidden_fields%</td></tr>\n",
     $errorRowFormat  = "",
     $helpFormat      = '',
     $decoratorFormat = "";

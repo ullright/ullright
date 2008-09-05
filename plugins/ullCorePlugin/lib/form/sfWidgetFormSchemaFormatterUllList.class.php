@@ -19,7 +19,7 @@
 class sfWidgetFormSchemaFormatterUllList extends sfWidgetFormSchemaFormatter
 {
   protected
-    $rowFormat       = "<td>%field%</td>\n",
+    $rowFormat       = "<td>%field%%hidden_fields%</td>\n",
     $errorRowFormat  = "",
     $helpFormat      = '',
     $decoratorFormat = "";

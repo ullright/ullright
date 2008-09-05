@@ -61,7 +61,7 @@
           </div>
 
           <div id="nav_searchbox">                   
-            <?php include_partial('ullWiki/header_search'); ?>
+            <?php include_component('ullWiki', 'headerSearch'); ?>
           </div>
 
          </div>
