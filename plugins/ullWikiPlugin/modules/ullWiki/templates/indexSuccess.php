@@ -10,13 +10,24 @@
 <ul>
   <li>
   <?php echo ull_reqpass_form_tag(array('action' => 'list')); ?>
-  <?php echo input_tag('search', null, array('size' => '30', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common'))); ?>
-  &nbsp; <?php echo submit_tag(__('Search', null, 'common'), 'title = ' . __('Searches for ID, subject and tags', null, 'common')) ?>
-  <br /><?php echo checkbox_tag('fulltext'); ?> 
-  <?php echo __('Full text', null, 'common'); ?>
+
+  <table style="float: left;">
+    <?php echo $form ?>
+  </table>
+
+  <table>
+    <tr>
+      <td>
+        <?php echo submit_tag(__('Search', null, 'common'),
+                              'title = ' . __('Searches for ID, subject and tags', null, 'common')) ?>
+      </td>
+    </tr>
+  </table>
   </li>
 </ul>
 </form>
+
+<br />
 
 <h4><?php echo __('Actions', null, 'common'); ?></h4>
 <ul>
