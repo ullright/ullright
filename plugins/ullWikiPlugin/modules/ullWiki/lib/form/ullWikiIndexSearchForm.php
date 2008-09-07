@@ -1,6 +1,6 @@
 <?php
 
-class IndexSearchForm extends sfForm
+class ullWikiIndexSearchForm extends sfForm
 {
   public function configure()
   {
@@ -12,8 +12,6 @@ class IndexSearchForm extends sfForm
       'fulltext' => new sfWidgetFormInputCheckbox(array(), array('value' => '1'))
     
     ));
-
-    $this->widgetSchema->setFormFormatterName('UllListLabelsRight');
 
     $this->widgetSchema->setLabels(array(
       'search'    => ' ',

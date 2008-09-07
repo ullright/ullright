@@ -1,6 +1,6 @@
 <?php
 
-class ListSearchForm extends sfForm
+class ullWikiListSearchForm extends sfForm
 {
   public function configure()
   {
@@ -10,8 +10,6 @@ class ListSearchForm extends sfForm
                                                         'title' => __('Searches for ID, subject and tags', null, 'common')))
     ));
 
-    $this->widgetSchema->setFormFormatterName('ullSimple');
-  
     $this->widgetSchema->setLabels(array(
       'search'    => ' '
     ));

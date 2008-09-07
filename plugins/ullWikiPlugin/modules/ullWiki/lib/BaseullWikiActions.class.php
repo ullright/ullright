@@ -18,7 +18,7 @@ class BaseullWikiActions extends ullsfActions
 
   public function executeIndex() 
   {
-    $this->form = new IndexSearchForm();
+    $this->form = new ullWikiIndexSearchForm();
 
     // referer handling -> reset all wiki referers 
     $refererHandler = new refererHandler();
@@ -60,7 +60,7 @@ class BaseullWikiActions extends ullsfActions
     $this->breadcrumbTree->addFinal(__('Result list', null, 'common'));
 
 
-    $this->form = new ListSearchForm();
+    $this->form = new ullWikiListSearchForm();
 
 
     // build query

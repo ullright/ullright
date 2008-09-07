@@ -7,7 +7,8 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 
-<?php echo form_tag('ullWiki/update', 'name=form1 id="ull_wiki_form"'); ?>
+<form name="form1" id="ull_wiki_form" method="post" action="ullWiki/update">
+
 
 <?php echo object_input_hidden_tag($ullwiki, 'getId'); ?>
 <?php echo object_input_hidden_tag($ullwiki, 'getDocid'); ?>
@@ -110,7 +111,7 @@
 	      )); ?>
 	    </li>
       <li>
-        <?php echo submit_tag(__('Save and close', null, 'common')) ?>
+        <input type="submit" name="commit" value="<? echo __('Save and close', null, 'common') ?>" />
       </li>
 
     </ul>

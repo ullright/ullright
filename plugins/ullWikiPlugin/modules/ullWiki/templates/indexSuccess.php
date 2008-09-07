@@ -9,23 +9,18 @@
 <h4><?php echo __('Search', null, 'common'); ?></h4>
 <ul>
   <li>
-  <?php echo ull_reqpass_form_tag(array('action' => 'list')); ?>
+    <?php echo ull_reqpass_form_tag(array('action' => 'list')); ?>
 
-  <table style="float: left;">
-    <?php echo $form ?>
-  </table>
-
-  <table>
-    <tr>
-      <td>
-        <?php echo submit_tag(__('Search', null, 'common'),
-                              'title = ' . __('Searches for ID, subject and tags', null, 'common')) ?>
-      </td>
-    </tr>
-  </table>
+      <?php echo $form['search']->render() ?>
+      &nbsp;
+      <input type="submit" name="commit" value="<?php __('Search', null, 'common') ?>"
+        title="<?php echo __('Searches for ID, subject and tags', null, 'common') ?>" />
+      <br />
+      <?php echo $form['fulltext']->render() ?>
+      <?php echo $form['fulltext']->renderLabel() ?>
+    </form>
   </li>
 </ul>
-</form>
 
 <br />
 

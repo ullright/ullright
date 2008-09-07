@@ -33,7 +33,7 @@ class BaseullWikiComponents extends sfComponents
   }
 
   public function executeHeaderSearch() {
-    $this->form = new HeaderSearchForm();
+    $this->form = new ullWikiHeaderSearchForm();
   }
 }
 
