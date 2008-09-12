@@ -3,10 +3,11 @@ UllTableConfig:
   inheritance:
     extends: UllRecord
     type: concrete
+# TODO: check problem with sfDoctrineTest
 #  tableName: ull_table_info
-  actAs:
-    I18n:
-      fields: [caption, description]
+#  actAs:
+#    I18n:
+#      fields: [caption, description]
   columns:
     # column name 'table' is not possible because it's a mysql reserved word
     # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   

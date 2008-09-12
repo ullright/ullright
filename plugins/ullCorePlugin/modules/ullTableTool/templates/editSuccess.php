@@ -3,9 +3,7 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-<?php echo form_tag('ullTableTool/edit', 'id="ull_tabletool_form"'); ?>
-
-<?php echo $requestForm ?>
+<form action="<?php url_for('ullTableTool/edit?table=' . $tableName . '&id=' . $id) ?>" method="post" id="ull_tabletool_form">
 
 <table>
 <tbody>
@@ -121,8 +119,6 @@
 
 </div>
 
-
-<?php echo input_hidden_tag('table', $table_name) ?>
 </form>   
 
 <?php

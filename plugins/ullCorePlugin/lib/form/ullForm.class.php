@@ -1,21 +1,22 @@
 <?php
 
-class ullForm extends sfForm
+class ullForm extends sfFormDoctrine
 {
-//  protected
-//    $row
-//  ;  
+  protected 
+    $modelName
+  ;
 
-  public function __construct(/*$row,*/ $defaults = array(), $options = array(), $CSRFSecret = null)
+  public function __construct($object = null, $options = array(), $CSRFSecret = null)
   {
-//    $this->row = $row;
+    $this->modelName = get_class($object);
     
-    parent::__construct($defaults, $options, $CSRFSecret);
+    parent::__construct($object, $options, $CSRFSecret);
   }  
   
   public function configure()
   {
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
+    //TODO: refactor
     if (sfContext::getInstance()->getRequest()->getParameter('action') == 'list')
     {
       $this->getWidgetSchema()->setFormFormatterName('ullList');
@@ -24,13 +25,12 @@ class ullForm extends sfForm
     {
       $this->getWidgetSchema()->setFormFormatterName('ullTable');
     }
-    
-          
-
-    
-//    var_dump($this->getWidgetSchema());
-//    die;
   }
+  
+  public function getModelName()
+  {
+    return $this->modelName;
+  }  
   
   public function addUllMetaWidget($fieldName, $ullMetaWidget)
   {

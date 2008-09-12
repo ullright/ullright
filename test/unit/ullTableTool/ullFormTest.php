@@ -34,25 +34,28 @@ $t->setFixturesPath($path);
 //$form = new ullForm;
 
 $t->begin('__construct()');
-  $form = new ullForm;
+  $test = Doctrine::getTable('TestTable')->find(1);
+  $form = new ullForm($test);
   $t->isa_ok($form, 'ullForm', '__construct() returns the correct object');
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullTable', 'The form uses the "ullTable" formatter by default');
   
   sfContext::getInstance()->getRequest()->setParameter('action', 'list');
-  $form = new ullForm;
+  $form = new ullForm($test);
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullList', 'The form uses the "ullList" formatter for list actions');
 
-$t->begin('__addUllMetaWidget()');
+// why doesn't this work?
+//$t->begin('addUllMetaWidget()');
+//  die;
   $columnConfig = $t->getColumnConfig();
 
-  $form = new ullForm;
+  $form = new ullForm($test);
   $widget = new ullMetaWidgetString($columnConfig);
   $form->addUllMetaWidget('test_field', $widget);
   $fields = $form->getWidgetSchema()->getFields();
   $t->isa_ok($fields['test_field'], 'ullWidget', 'added ullMetaWidgetString: read access: form now contains a ullWidget');
   
   $columnConfig['access'] = 'w';
-  $form = new ullForm;
+  $form = new ullForm($test);
   $widget = new ullMetaWidgetString($columnConfig);
   $form->addUllMetaWidget('test_field', $widget);
   $fields = $form->getWidgetSchema()->getFields();

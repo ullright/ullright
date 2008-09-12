@@ -221,7 +221,7 @@ class ullTableTool
   {
     foreach ($this->rows as $key => $row) 
     {
-      $this->forms[$key] = new ullForm();
+      $this->forms[$key] = new ullForm($row);
       foreach ($this->columnsConfig as $columnName => $columnConfig)
       {
         if (isset($columnConfig['access'])) {
@@ -230,7 +230,7 @@ class ullTableTool
           $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
           $this->forms[$key]->addUllMetaWidget($columnName, $ullMetaWidget);
           
-          $this->forms[$key]->setDefault($columnName, $this->rows[$key]->$columnName);
+//          $this->forms[$key]->setDefault($columnName, $this->rows[$key]->$columnName);
           $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
         }        
       }

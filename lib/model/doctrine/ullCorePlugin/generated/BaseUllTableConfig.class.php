@@ -16,10 +16,4 @@ abstract class BaseUllTableConfig extends UllRecord
     $this->hasColumn('search_fields', 'string', 255, array('type' => 'string', 'length' => '255'));
   }
 
-  public function setUp()
-  {
-    parent::setUp();
-    $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'caption', 1 => 'description')));
-    $this->actAs($i18n0);
-  }
 }
