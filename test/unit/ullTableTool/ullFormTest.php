@@ -1,5 +1,8 @@
 <?php
 
+phpinfo();
+die;
+
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase

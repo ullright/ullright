@@ -24,6 +24,7 @@ test:
   test: # should this be the database name?
     class:          sfDoctrineDatabase
     param:
+#      dsn:          "sqlite::memory:"
       dsn:          mysql://ullright_test:test@localhost/ullright_test
 
 ### Other
