@@ -458,13 +458,42 @@ function ull_reqpass_form_tag($merge_array = array(), $form_options = array()) {
 //  ullCoreTools::printR($params);
   
   $base_link = _ull_reqpass_build_base_url($params);
-  
-  echo form_tag($base_link, $form_options);
-  
-  echo input_hidden_tag('ull_reqpass', serialize($params));
-  
+
+  echo '
+
+<form action="'.url_for($base_link).'" method="post" '.ull_tag_options(ull_parse_attributes($form_options)).'>
+<input type="hidden" name="ull_reqpass" id="ull_reqpass" value="'.htmlentities(serialize($params)).'" />
+
+';
 }
 
+
+/**
+ * some tag helper 
+ * Taken from symfony/lib/helper/TagHelper.php, now deprecated in symfony 1.1
+ */
+function ull_tag_options($options = array())
+{
+  $options = _parse_attributes($options);
+
+  $html = '';
+  foreach ($options as $key => $value)
+  {
+    $html .= ' '.$key.'="'.escape_once($value).'"';
+  }
+
+  return $html;
+}
+
+
+/**
+ * some tag helper 
+* Taken from symfony/lib/helper/TagHelper.php, now deprecated in symfony 1.1
+ */
+function ull_parse_attributes($string)
+{
+  return is_array($string) ? $string : sfToolkit::stringToArray($string);
+}
 
 
 
