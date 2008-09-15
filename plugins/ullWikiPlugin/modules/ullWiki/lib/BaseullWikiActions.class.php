@@ -237,6 +237,8 @@ class BaseullWikiActions extends ullsfActions
     $c->addAscendingOrderByColumn(UllCulturePeer::NAME);
     $this->cultures = UllCulturePeer::doSelect($c);
     */
+    
+    $this->form = new ullWikiEditForm($this->ullwiki);
   }
 
 
@@ -312,6 +314,8 @@ class BaseullWikiActions extends ullsfActions
 */
 
     $this->forward404Unless($this->ullwiki);
+
+    $this->form = new ullWikiEditForm($this->ullwiki);
   }
 
 
