@@ -8,35 +8,27 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-// successfull login 
 $b
-	->get('/')
-	->isStatusCode(200)
-	->isRequestParameter('module', 'myModule')
-	->isRequestParameter('action', 'index')
-	->click('Log in')
-	->isStatusCode(200)
+  ->diag('login')
+  ->get('ullAdmin/index')
+  ->isRedirected()
+  ->followRedirect()
   ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'login')
-  ->responseContains('Username')
-  ->responseContains('Password')
-// we can't use the following, because there is a link and a button with the same name
-//	->setField('username', 'admin')
-//	->setField('password', 'admin')
-//  ->click('Log in')
+  ->isRequestParameter('action', 'noaccess')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullUser')
+  ->isRequestParameter('action', 'login')  
+  ->isRequestParameter('option', 'noaccess')
   ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
   ->isRedirected()
   ->followRedirect()  
-	->isStatusCode(200)
-  ->isRequestParameter('module', 'myModule')
-  ->isRequestParameter('action', 'index')
-  ->responseContains('Logged in as admin')
-  ->click('Admin')  
-  ->isStatusCode(200)
+  ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullAdmin')
   ->isRequestParameter('action', 'index')
-  ->responseContains('UllAdmin Startpage')
-;  
+  ->responseContains('ullAdmin')
+;
   
   
   
