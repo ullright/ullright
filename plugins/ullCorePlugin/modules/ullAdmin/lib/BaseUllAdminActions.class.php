@@ -14,7 +14,7 @@ class BaseUllAdminActions extends ullsfActions
   public function executeIndex() 
   {
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add('UllAdmin', 'UllAdmin/index');    
+    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');    
     
     $this->checkAccess('Masteradmins');
   }

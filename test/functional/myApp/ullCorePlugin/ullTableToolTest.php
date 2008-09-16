@@ -9,7 +9,8 @@ $b->setFixturesPath($path);
 $b->resetDatabase();
 
 $b
-	->get('ullTableTool/list/table/User')
+  ->diag('login')
+	->get('ullAdmin/index')
 	->isRedirected()
 	->followRedirect()
 	->isRequestParameter('module', 'ullUser')
@@ -20,19 +21,104 @@ $b
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'login')  
   ->isRequestParameter('option', 'noaccess')
-//	->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
-//  ->isRedirected()
-//  ->followRedirect()  
-//  ->isStatusCode(200)		
-//	->isRequestParameter('module', 'ullTableTool')
-//	->isRequestParameter('action', 'list')
-//	->isRequestParameter('table', 'ull_user')
-//	->responseContains('list')
-;  
-  
-  
-  
-//	->responseContains('!/error/')
-//	->checkResponseElement('body', '!/error|Error|ERROR/')
+	->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
+  ->isRedirected()
+  ->followRedirect()  
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullAdmin')
+  ->isRequestParameter('action', 'index')
+  ->responseContains('ullAdmin')
+;
 
-//print $b->getResponse()->getContent();
+$b
+  ->diag('list')
+  ->get('ullTableTool/list/table/TestTable')
+  ->isStatusCode(200)		
+	->isRequestParameter('module', 'ullTableTool')
+	->isRequestParameter('action', 'list')
+	->isRequestParameter('table', 'TestTable')
+	->responseContains('list')
+	->checkResponseElement('tr > td + td + td', 'Foo Bar')
+	->checkResponseElement('tr + tr > td + td + td', 'Foo Bar More')
+;
+	
+$b
+  ->diag('create')
+  ->get('ullTableTool/create/table/TestTable')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('table', 'TestTable')
+  ->setField('fields[my_string]', 'Quasimodo')
+  ->setField('fields[my_text]', "Hello,\nthis is a new line")
+  ->setField('fields[my_boolean]', 'true')
+  ->setField('fields[ull_user_id]', 1)
+  ->click('Save')
+  ->isRedirected()
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->followRedirect()
+;
+  
+$b
+  ->diag('check list for created entry')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'TestTable')
+  ->responseContains('list')
+  ->checkResponseElement('tr > td + td + td', 'Foo Bar')
+  ->checkResponseElement('tr + tr > td + td + td', 'Foo Bar More')
+  ->checkResponseElement('tr + tr + tr > td + td + td', 'Quasimodo')
+;
+
+$b
+  ->diag('edit')
+  ->get('ullTableTool/edit/table/TestTable/id/3')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 3)
+  ->responseContains('Quasimodo')
+  ->setField('fields[my_string]', 'Quasimodo is gone')
+  ->click('Save')
+  ->isRedirected()
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->followRedirect()
+;
+
+$b
+  ->diag('check list for edited entry')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'TestTable')
+  ->responseContains('list')
+  ->checkResponseElement('tr > td + td + td', 'Foo Bar')
+  ->checkResponseElement('tr + tr > td + td + td', 'Foo Bar More')
+  ->checkResponseElement('tr + tr + tr > td + td + td', 'Quasimodo is gone')
+;
+
+$b
+  ->diag('delete')
+  ->get('ullTableTool/delete/table/TestTable/id/3')
+  ->isRedirected()
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'delete')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 3)
+  ->followRedirect()
+;
+
+$b
+  ->diag('list')
+  ->get('ullTableTool/list/table/TestTable')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'TestTable')
+  ->responseContains('list')
+  ->checkResponseElement('body', '!/Quasimodo is gone/')
+;

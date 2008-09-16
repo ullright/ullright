@@ -1,6 +1,6 @@
 <?php //ullCoreTools::printR($ull_form); exit(); ?>
 
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
 <?php echo form_tag('ullTableTool/list'); ?>
 
@@ -15,7 +15,7 @@
     <?php 
       if (isset($table_info_search_fields)) {
         echo input_tag('search', $sf_params->get('search'), 'size=12');
-        echo input_hidden_tag('table', $tableName);
+        echo input_hidden_tag('table', $table_name);
         echo submit_tag(__('Search', null, 'common'), 'style=margin: 0;');
         echo ' &nbsp; ';
       }
@@ -24,7 +24,7 @@
     <?php
        echo '&nbsp; &nbsp;';
        echo ull_button_to(__('Edit column info', null, 'common'), 
-        array('table' => 'ull_column_info', 'search' => $tableName));
+        array('table' => 'ull_column_info', 'search' => $table_name));
     ?> &nbsp;
     
   </div>
@@ -49,7 +49,7 @@
 <thead>
 <tr>  
   <th>&nbsp;</th>
-  <?php foreach ($tableTool->getLabels() as $label): ?>
+  <?php foreach ($table_tool->getLabels() as $label): ?>
     <th><?php echo $label ?>:</th>
   <?php endforeach; ?>
 </tr>
@@ -58,7 +58,7 @@
 <!-- data -->
 
 <?php $odd = false; ?>
-<?php foreach($tableTool->getForms() as $row => $form): ?>
+<?php foreach($table_tool->getForms() as $row => $form): ?>
     <?php
       if ($odd) {
         $odd_style = ' class=\'odd\'';
@@ -68,20 +68,20 @@
         $odd = true;
       }
       
-      $identifier = $tableTool->getIdentifierUrlParams($row, ESC_RAW);
+      $identifier = $table_tool->getIdentifierUrlParams($row, ESC_RAW);
       
     ?>
   <tr <?php echo $odd_style ?>>
     <td>          
       <?php
           echo ull_icon(
-            'ullTableTool/edit?table=' . $tableName . '&' . $identifier
+            'ullTableTool/edit?table=' . $table_name . '&' . $identifier
             , 'edit'
             , __('Edit', null, 'common')
           );
       
           echo ull_icon(
-            'ullTableTool/delete?table=' . $tableName . '&' . $identifier
+            'ullTableTool/delete?table=' . $table_name . '&' . $identifier
             , 'delete'
             , __('Delete', null, 'common')
             , 'confirm='.__('Are you sure?', null, 'common')

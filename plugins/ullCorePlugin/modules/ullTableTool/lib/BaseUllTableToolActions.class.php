@@ -30,30 +30,27 @@ class BaseUllTableToolActions extends ullsfActions
   {
     $this->checkAccess('Masteradmins');
     
-    $refererHandler = new refererHandler();
-    $refererHandler->delete('edit');
+    $this->getTablefromRequest();
     
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumbTree->add('ullTableTool');
-    $this->breadcrumbTree->add(__('Table') . ' ' . $this->tableName);
-    $this->breadcrumbTree->addFinal(__('List', null, 'common'));
-    
-    if (!$this->getTablefromRequest()) {
-      return sfView::ERROR;
-    }
-//    $rows = Doctrine::getTable($this->tableName)->findAll();
     $q = new Doctrine_Query;
     // TODO: try to minimize queries -> doesn't work this way:
 //    $q->from($this->tableName . ' x, x.Creator, x.Updator');
-    $q->from($this->tableName . ' x');
+    $q->from($this->table_name . ' x');
     $rows = $q->execute();
     
 //    var_dump($rows->);
 //    die;
 //    
-    $this->tableTool = new ullTableTool($rows);
+    $this->table_tool = new ullTableTool($rows);
     
+    $refererHandler = new refererHandler();
+    $refererHandler->delete('edit');
+    
+    $this->breadcrumb_tree = new breadcrumbTree();
+    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
+    $this->breadcrumb_tree->add('ullTableTool');
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->tableName);
+    $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
     
     /*
     //i18n doctrine tests:
@@ -75,11 +72,11 @@ class BaseUllTableToolActions extends ullsfActions
     $refererHandler = new refererHandler();
     $refererHandler->delete('edit');
     
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumbTree->add('ullTableTool');
-    $this->breadcrumbTree->add(__('Table') . ' ' . $this->table_name);
-    $this->breadcrumbTree->addFinal(__('List', null, 'common'));
+    $this->breadcrumb_tree = new breadcrumbTree();
+    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
+    $this->breadcrumb_tree->add('ullTableTool');
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_name);
+    $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
     
     
 //    redirect search to build get url
@@ -229,11 +226,11 @@ class BaseUllTableToolActions extends ullsfActions
 //      . `--' ;\__________________..--------. `--' ;--------'
 //       `-..-'                               `-..-'
   
-  public function executeEdit()
+  public function executeEdit($request)
   {
+
     
-//    var_dump($_REQUEST);
-//    die;
+    
   
     // TODO: put access check in a protected function to allow custom override 
     $this->checkAccess('Masteradmins');
@@ -244,21 +241,22 @@ class BaseUllTableToolActions extends ullsfActions
     
     $row = $this->getRowFromRequestOrCreate();
     
-    $this->tableTool = new ullTableTool($row, 'w');
+    $this->table_tool = new ullTableTool($row, 'w');
     
-    if ($this->getRequest()->isMethod('post'))
+    if ($request->isMethod('post'))
     {
-      if ($this->tableTool->getForm()->bindAndSave($this->getRequestParameter('fields')))
+      if ($this->table_tool->getForm()->bindAndSave($request->getParameter('fields'), null))
       {
-        $this->refererHandler->getRefererAndDelete('edit');
+        $this->redirect($this->refererHandler->getRefererAndDelete('edit'));
       }
     }
-  
-    $this->refererHandler->initialize('edit');
-
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
+    else
+    {
+      $this->refererHandler->initialize('edit');
+      
+    }
+    $this->breadcrumbForEdit();
+    
 
       
 
@@ -346,7 +344,7 @@ class BaseUllTableToolActions extends ullsfActions
     else
     {
 //      $this->redirect($this->refererHandler->getRefererAndDelete('edit'));
-        $this->forward('ullTableTool', 'edit');
+      $this->forward('ullTableTool', 'edit');
     }   
     
     
@@ -498,37 +496,20 @@ class BaseUllTableToolActions extends ullsfActions
   public function executeDelete()
   { 
     // check access
-    $this->checkAccess(1);
+    $this->checkAccess('MasterAdmins');
     
-    // check request paramater and get propel table info
-    if (!$this->handleTable()) {
-      return sfView::ERROR;
-    }
+    $this->getTablefromRequest();
     
-    $row = call_user_func(
-              array($this->table_class . 'Peer', 'retrieveByPk')
-              , $this->getRequestParameter('id')
-            );     
-    
-    $this->forward404Unless($row);
-    
-    // set culture to allow transparent access to i18n fields 
-    if (method_exists($row, 'setCulture')) { 
-      $row->setCulture(substr($this->getUser()->getCulture(), 0, 2));
-    }    
-    
+    $row = $this->getRowFromRequest();   
     $row->delete();
-
+    
     $refererHandler = new refererHandler();
     
-    if (!$referer_edit = $refererHandler->getRefererAndDelete('edit')) {
-//      $referer_edit = 'ullTableTool/list?table=' . $this->table_name;
-        $referer_edit = $this->getUser()->getAttribute('referer');
+    if (!$referer = $refererHandler->getRefererAndDelete('edit')) {
+        $referer = $this->getUser()->getAttribute('referer');
     }   
     
-    return $this->redirect($referer_edit);
-    
-    
+    $this->redirect($referer);
   }  
   
   
@@ -536,15 +517,17 @@ class BaseUllTableToolActions extends ullsfActions
   
   protected function getTablefromRequest() 
   {
-    if (!$this->hasRequestParameter('table')) {
-      throw new UnexpectedValueException('Please specify a database table');
-    }
+    $this->forward404Unless(
+        $this->hasRequestParameter('table'), 
+        'Please specify a database table'
+    );
     
-    $this->tableName = $this->getRequestParameter('table');
-    
-    if (!class_exists($this->tableName)) {
-      throw new UnexpectedValueException('Database table not found: ' . $this->tableName);
-    }      
+    $this->table_name = $this->getRequestParameter('table');
+
+    $this->forward404Unless(
+        class_exists($this->table_name),
+        'Database table not found: ' . $this->table_name
+    );
 
     return true;
     
@@ -570,36 +553,48 @@ class BaseUllTableToolActions extends ullsfActions
 
   }
 
+  protected function getRowFromRequest()
+  {
+
+    $this->forward404Unless($this->getRequestParameter('id') > 0, 'ID is mandatory');
+    
+    return $this->getRowFromRequestOrCreate();
+    
+  }
+  
   protected function getRowFromRequestOrCreate()
   {
-    if ($this->hasRequestParameter('id')) 
+
+    if (($id = $this->getRequestParameter('id')) > 0) 
     {
-      $this->id = $this->getRequestParameter('id');
-      $row = Doctrine::getTable($this->tableName)->find($this->id);
+      $this->id = $id;
+      $row = Doctrine::getTable($this->table_name)->find($this->id);
       $this->forward404Unless($row);
+      
       return $row;
     }
       else 
     {
-      return new $this->tableName;
+//      $this->id = 0;
+      return new $this->table_name;
     }
-  }
+  }  
        
-  protected function breadcrumbEdit()
+  protected function breadcrumbForEdit()
   {
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumbTree->add('ullTableTool');
-    $this->breadcrumbTree->add(__('Table') . ' ' . $this->table_name);
+    $this->breadcrumb_tree = new breadcrumbTree();
+    $this->breadcrumb_tree->setEditFlag(true);
+    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
+    $this->breadcrumb_tree->add('ullTableTool');
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_name);
     if ($this->id) {
-        $this->breadcrumbTree->add(
+        $this->breadcrumb_tree->add(
           __('List', null, 'common')
           , $this->refererHandler->getReferer()
         );
-      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
+      $this->breadcrumb_tree->addFinal(__('Edit', null, 'common'));
     } else {
-      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
+      $this->breadcrumb_tree->addFinal(__('Create', null, 'common'));
     }
   }
   

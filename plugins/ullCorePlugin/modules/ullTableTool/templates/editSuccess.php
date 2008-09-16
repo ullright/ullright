@@ -1,14 +1,15 @@
 <?php
 ?>
 
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
-<form action="<?php url_for('ullTableTool/edit?table=' . $tableName . '&id=' . $id) ?>" method="post" id="ull_tabletool_form">
+<!-- <form action="<?php url_for('ullTableTool/edit?table=' . $table_name . '&id=' . $id) ?>" method="post" id="ull_tabletool_form"> --> 
+<?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&id=' . $id) ?>
 
 <table>
 <tbody>
 
-<?php echo $tableTool->getForm() ?>
+<?php echo $table_tool->getForm() ?>
 
 <?php /*
 
@@ -121,7 +122,7 @@
 
 </form>   
 
-<?php
+<?php 
   echo ull_js_observer("ull_tabletool_form");
 //  ullCoreTools::printR($ull_form);
 ?>  

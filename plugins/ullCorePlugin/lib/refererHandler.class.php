@@ -13,18 +13,18 @@
 
 class refererHandler
 {
-  private $context;
-  private $user;
+  protected $context;
+  protected $user;
   
-  private $action;
-//  private $default_action;
-  private $module;
-//  private $default_module;  
+  protected $action;
+//  protected $default_action;
+  protected $module;
+//  protected $default_module;  
   
-  private $referer_base_name;
-  private $referer_name;
+  protected $referer_base_name;
+  protected $referer_name;
   
-  private $blacklist = array (
+  protected $blacklist = array (
     '/update'     // to prevent looping 
     , '/login'    // login screen can never be a referer (session expire)
   ); // non-allowed referer actions
