@@ -1,66 +1,19 @@
-<?php
-?>
-
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
-<!-- <form action="<?php url_for('ullTableTool/edit?table=' . $table_name . '&id=' . $id) ?>" method="post" id="ull_tabletool_form"> --> 
-<?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&id=' . $id) ?>
-
-<table>
-<tbody>
-
-<?php echo $table_tool->getForm() ?>
-
-<?php /*
-
-<?php if ($sf_request->hasErrors()): ?>
+<?php if ($table_tool->getForm()->getErrorSchema()->getErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
   </div>  
   <br /><br />
 <?php endif; ?>
-    
-  
+
+<?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&id=' . $id, 
+    array('id' => 'ull_tabletool_form')) ?>
+
 <table>
 <tbody>
 
-
-<?php foreach ($sf_data->getRaw('ull_form')->getFieldsInfo() as $field_name => $field_info): ?>
-  <?php if (@$field_info['enabled']): ?>
-    <tr>
-      <td>
-      <?php //weflowTools::printR($col); ?>
-        <?php echo $field_info['name_humanized'] . ':'; ?>
-      </td>
-      <td>  
-        <?php 
-          $fields_data  = $sf_data->getRaw('ull_form')->getFieldsDataOne();
-          $field_data   = $fields_data[$field_name]; 
-
-//          ullCoreTools::printR($field_data);
-
-          if ($value = @$field_data['value']) {
-            echo $value; 
-
-          } elseif (@$field_data['function']) {
-            echo call_user_func_array($field_data['function'], $field_data['parameters']);
-
-          }
-
-          if (@$field_info['primary_key']) {
-            echo input_hidden_tag($field_name, $id);
-          }
-
-          echo form_error($field_name);
-          
-//          echo 'req:' . $sf_params->get($field_name);
-          ?>
-  
-      </td>
-    </tr>
-  <?php endif; // end of enabled ?>
-<?php endforeach; ?>  
-*/ ?>
+<?php echo $table_tool->getForm() ?>
 
 </tbody>
 </table>
@@ -74,21 +27,15 @@
   <legend><?php echo __('Actions', null, 'common') ?></legend>
   
   <div class='action_buttons_edit_left'>
-
     <ul>
-
       <li>
         <?php echo submit_tag(__('Save', null, 'common')) ?>
       </li>
-
     </ul>
-    
   </div>
 
   <div class='action_buttons_edit_right'>
-
     <ul>
-
       <li>
 <?php
       echo ull_link_to(
@@ -109,9 +56,7 @@
 		      ?> &nbsp; 
 		    <?php endif; ?>
       </li>
-      
     </ul>
-    
   </div>
 
   <div class="clear"></div>  
@@ -124,7 +69,6 @@
 
 <?php 
   echo ull_js_observer("ull_tabletool_form");
-//  ullCoreTools::printR($ull_form);
 ?>  
 
 
