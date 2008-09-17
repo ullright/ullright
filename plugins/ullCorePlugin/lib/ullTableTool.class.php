@@ -9,9 +9,15 @@ class ullTableTool
     $rows           = array(),
     $modelName,
     $defaultAccess,
-    $fieldsBlacklist = array(
+    $columnsBlacklist = array(
         'namespace',
         'type',
+    ),
+    $columnsOrderBottom = array(
+        'creator_user_id',
+        'created_at',
+        'updator_user_id',
+        'updated_at',
     )
   ;
   
@@ -216,9 +222,11 @@ class ullTableTool
       // TODO: handle default "ullRecord" columns like created_by, Namespace etc...
       
       $this->columnsConfig[$columnName] = $columnConfig;
-      
-      $this->removeBlacklistFields();
     }
+    
+    $this->removeBlacklistColumns();
+      
+    $this->sortColumns();
 //    var_dump($this->columnsConfig);
 //    die;    
   }
@@ -243,14 +251,25 @@ class ullTableTool
     }
   }
   
-  protected function removeBlacklistFields()
+  protected function removeBlacklistColumns()
   {
-    foreach ($this->fieldsBlacklist as $field)
+    foreach ($this->columnsBlacklist as $column)
     {
-      unset($this->columnsConfig[$field]);
+      unset($this->columnsConfig[$column]);
     }
   }
   
+  protected function sortColumns()
+  {
+    $bottom = array();
+    foreach ($this->columnsOrderBottom as $column)
+    {
+      $bottom[$column] = $this->columnsConfig[$column];
+      unset($this->columnsConfig[$column]);
+    }
+    
+    $this->columnsConfig = array_merge($this->columnsConfig, $bottom);
+  }
   
   
 }

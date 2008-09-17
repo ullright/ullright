@@ -8,7 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-$my_string_col_selector = 'td + td + td + td + td';
+$my_string_col_selector = 'td + td + td';
 
 $b
   ->diag('login')

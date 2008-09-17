@@ -28,41 +28,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My text',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'r',
-        ), 
-    'created_at' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Created at',
-        'metaWidget'          => 'ullMetaWidgetDateTime',
-        'access'              => 'r',
-        ),
-    'updated_at' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Updated at',
-        'metaWidget'          => 'ullMetaWidgetDateTime',
-        'access'              => 'r',
-        ),
-    'creator_user_id' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Creator user',
-        'metaWidget'          => 'ullMetaWidgetForeignKey',
-        'access'              => 'r',
-        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
-        ),
-    'updator_user_id' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Updator user',
-        'metaWidget'          => 'ullMetaWidgetForeignKey',
-        'access'              => 'r',
-        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
-        ),                           
+        ),                       
     'my_boolean' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -87,7 +53,41 @@ class myTestCase extends sfDoctrineTestCase
 //        'label'               => 'Namespace',
 //        'metaWidget'          => 'ullMetaWidgetString',
 //        'access'              => 'r',
-//        ),          
+//        ),     
+    'creator_user_id' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Creator user',
+        'metaWidget'          => 'ullMetaWidgetForeignKey',
+        'access'              => 'r',
+        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
+        ),
+    'created_at' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Created at',
+        'metaWidget'          => 'ullMetaWidgetDateTime',
+        'access'              => 'r',
+        ),
+    'updator_user_id' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Updator user',
+        'metaWidget'          => 'ullMetaWidgetForeignKey',
+        'access'              => 'r',
+        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
+        ),                  
+    'updated_at' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Updated at',
+        'metaWidget'          => 'ullMetaWidgetDateTime',
+        'access'              => 'r',
+        ),        
   ); 
 
   public function reset()
@@ -151,10 +151,16 @@ $t->begin('getColumnConfig()');
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
   $t->is(count($columnsConfig), 9, 'columnsConfig has the correct number of columns');
   
-  foreach ($columnsConfig as $columnName => $columnConfig)
+  // don't use foreach because it ignores the ordering of the fields  
+  $references = $t->getColumnsConfigReference();
+  while (list($key, $val) = each($columnsConfig))
   {
-    $reference = $t->getColumnsConfigReference();
-    $t->is($columnConfig, $reference[$columnName], 'columnConfig for column "' . $columnName . '" is correct');
+    $columnConfig = array($key => $val);
+    
+    list($key, $val) = each($references);
+    $ref = array($key => $val);
+    
+    $t->is($columnConfig, $ref, 'columnConfig for column "' . key($columnConfig) . '" is correct');
   }
       
 $t->begin('getForm()');
