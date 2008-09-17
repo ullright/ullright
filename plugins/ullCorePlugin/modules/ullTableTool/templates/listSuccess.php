@@ -1,5 +1,3 @@
-<?php //ullCoreTools::printR($ull_form); exit(); ?>
-
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
 <?php echo form_tag('ullTableTool/list'); ?>
