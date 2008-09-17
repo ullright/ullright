@@ -57,12 +57,17 @@ TestTable:
   test_1:
     my_string:    Foo Bar
     my_text:      Hello, this is my text
-    my_timestamp: 2008-08-26 11:22:33
     my_boolean:   true
     UllUser:      adminuser
+    namespace:    test
+    Creator:      adminuser
+    Updator:      adminuser    
+    
   test_2:
     my_string:    Foo Bar More
     my_text:      Hello, this is more of my text
-    my_timestamp: 2008-08-27 11:22:33
     my_boolean:   false   
     UllUser:      testuser
+    namespace:    test
+    Creator:      adminuser
+    Updator:      testuser

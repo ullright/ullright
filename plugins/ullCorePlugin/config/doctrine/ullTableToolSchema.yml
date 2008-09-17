@@ -28,14 +28,15 @@ UllTableConfig:
       type: string(255)
       
 TestTable:
+  inheritance:
+    extends: UllRecord
+    type: concrete
   columns:
     my_string:
       type: string(64)
       notnull: true
     my_text:
       type: clob
-    my_timestamp:
-      type: timestamp
     my_boolean:
       type: boolean
     ull_user_id:

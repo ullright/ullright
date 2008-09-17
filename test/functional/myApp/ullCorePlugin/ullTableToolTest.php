@@ -8,6 +8,8 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$my_string_col_selector = 'td + td + td + td + td + td';
+
 $b
   ->diag('login')
 	->get('ullAdmin/index')
@@ -38,8 +40,8 @@ $b
 	->isRequestParameter('action', 'list')
 	->isRequestParameter('table', 'TestTable')
 	->responseContains('list')
-	->checkResponseElement('tr > td + td + td', 'Foo Bar')
-	->checkResponseElement('tr + tr > td + td + td', 'Foo Bar More')
+	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
+	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
 	
 $b
@@ -67,9 +69,9 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('table', 'TestTable')
   ->responseContains('list')
-  ->checkResponseElement('tr > td + td + td', 'Foo Bar')
-  ->checkResponseElement('tr + tr > td + td + td', 'Foo Bar More')
-  ->checkResponseElement('tr + tr + tr > td + td + td', 'Quasimodo')
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
+  ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
+  ->checkResponseElement('tr + tr + tr > ' . $my_string_col_selector, 'Quasimodo')
 ;
 
 $b
@@ -96,9 +98,9 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('table', 'TestTable')
   ->responseContains('list')
-  ->checkResponseElement('tr > td + td + td', 'Foo Bar')
-  ->checkResponseElement('tr + tr > td + td + td', 'Foo Bar More')
-  ->checkResponseElement('tr + tr + tr > td + td + td', 'Quasimodo is gone')
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
+  ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
+  ->checkResponseElement('tr + tr + tr > ' . $my_string_col_selector, 'Quasimodo is gone')
 ;
 
 $b

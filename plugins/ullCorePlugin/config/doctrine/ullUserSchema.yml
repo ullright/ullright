@@ -34,7 +34,7 @@ UllUser:
   inheritance:
     extends: UllEntity
     type: column_aggregation
-    keyField: type
+#    keyField: type
     keyValue: user           
   relations:
     UllGroup:
@@ -47,7 +47,7 @@ UllGroup:
   inheritance:
     extends: UllEntity
     type: column_aggregation
-    keyField: type
+#    keyField: type
     keyValue: group
   relations:
     UllUser:

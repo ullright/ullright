@@ -29,14 +29,40 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'r',
         ), 
-    'my_timestamp' => array (
+    'created_at' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => false),
-        'label'               => 'My timestamp',
+        'label'               => 'Created at',
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
         ),
+    'updated_at' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Updated at',
+        'metaWidget'          => 'ullMetaWidgetDateTime',
+        'access'              => 'r',
+        ),
+    'creator_user_id' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Creator user',
+        'metaWidget'          => 'ullMetaWidgetForeignKey',
+        'access'              => 'r',
+        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
+        ),
+    'updator_user_id' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Updator user',
+        'metaWidget'          => 'ullMetaWidgetForeignKey',
+        'access'              => 'r',
+        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
+        ),                           
     'my_boolean' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -53,7 +79,15 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetForeignKey',
         'access'              => 'r',
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
-        ),   
+        ),  
+    'namespace' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array('maxlength' => 32),
+        'validatorOptions'    => array('required' => false, 'max_length' => 32),
+        'label'               => 'Namespace',
+        'metaWidget'          => 'ullMetaWidgetString',
+        'access'              => 'r',
+        ),          
   ); 
 
   public function reset()
@@ -70,7 +104,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(29, new lime_output_color, $configuration);
+$t = new myTestCase(33, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -115,7 +149,7 @@ $t->begin('getTableConfig() for a table with a multi-columns primary key');
 $t->begin('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 6, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 10, 'columnsConfig has the correct number of columns');
   
   foreach ($columnsConfig as $columnName => $columnConfig)
   {
