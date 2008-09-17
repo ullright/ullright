@@ -8,7 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-$my_string_col_selector = 'td + td + td + td + td + td';
+$my_string_col_selector = 'td + td + td + td + td';
 
 $b
   ->diag('login')
@@ -40,6 +40,7 @@ $b
 	->isRequestParameter('action', 'list')
 	->isRequestParameter('table', 'TestTable')
 	->responseContains('list')
+	->checkResponseElement('body', '!/namespace|Namespace/')
 	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
 	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;

@@ -8,7 +8,11 @@ class ullTableTool
     $forms          = array(),
     $rows           = array(),
     $modelName,
-    $defaultAccess
+    $defaultAccess,
+    $fieldsBlacklist = array(
+        'namespace',
+        'type',
+    )
   ;
   
   public function __construct($rows = null, $defaultAccess = 'r')
@@ -212,6 +216,8 @@ class ullTableTool
       // TODO: handle default "ullRecord" columns like created_by, Namespace etc...
       
       $this->columnsConfig[$columnName] = $columnConfig;
+      
+      $this->removeBlacklistFields();
     }
 //    var_dump($this->columnsConfig);
 //    die;    
@@ -234,6 +240,14 @@ class ullTableTool
           $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
         }        
       }
+    }
+  }
+  
+  protected function removeBlacklistFields()
+  {
+    foreach ($this->fieldsBlacklist as $field)
+    {
+      unset($this->columnsConfig[$field]);
     }
   }
   
