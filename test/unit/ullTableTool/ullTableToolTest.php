@@ -19,7 +19,7 @@ class myTestCase extends sfDoctrineTestCase
         'validatorOptions'    => array('required' => true, 'max_length' => 64),
         'label'               => 'My string',
         'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => 'r',
+        'access'              => 'w',
         ),   
     'my_text' => array (
         'widgetOptions'       => array(),
@@ -27,7 +27,7 @@ class myTestCase extends sfDoctrineTestCase
         'validatorOptions'    => array('required' => false),
         'label'               => 'My text',
         'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => 'r',
+        'access'              => 'w',
         ),                       
     'my_boolean' => array (
         'widgetOptions'       => array(),
@@ -35,7 +35,7 @@ class myTestCase extends sfDoctrineTestCase
         'validatorOptions'    => array('required' => false),
         'label'               => 'My boolean',
         'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => 'r',
+        'access'              => 'w',
         ),
     'ull_user_id' => array (
         'widgetOptions'       => array(),
@@ -43,7 +43,7 @@ class myTestCase extends sfDoctrineTestCase
         'validatorOptions'    => array('required' => false),
         'label'               => 'Ull user',
         'metaWidget'          => 'ullMetaWidgetForeignKey',
-        'access'              => 'r',
+        'access'              => 'w',
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
         ),  
 //    'namespace' => array (
@@ -104,7 +104,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(32, new lime_output_color, $configuration);
+$t = new myTestCase(34, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -126,7 +126,21 @@ $t->begin('__construct()');
 
   $t->is($tableTool->getModelName(), 'TestTable', '__construct() sets the right model name');
   
-  $t->is($tableTool->getDefaultAccess(), 'r', '__construct() sets the default access to "read"');
+  $t->is($tableTool->getDefaultAccess(), 'r', '__construct() sets the default access to "r"');
+  
+  try
+  {
+    new ullTableTool($tests, 'x');
+    $t->fail('__construct() doesn\'t throw an exception if an invalid access type is given');
+  }
+  catch(Exception $e)
+  {
+    $t->pass('__construct() throws an exception if an invalid access type is given');
+  }
+  
+  $tableTool = new ullTableTool($tests, 'w');
+  $t->is($tableTool->getDefaultAccess(), 'w', '__construct() sets the correct access type "w"');
+  
   
 $t->begin('getTableConfig()');
   $tableConfig = $tableTool->getTableConfig();

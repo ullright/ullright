@@ -18,7 +18,13 @@ class ullTableTool
         'created_at',
         'updator_user_id',
         'updated_at',
-    )
+    ),
+    $columnsReadOnly = array(
+        'creator_user_id',
+        'created_at',
+        'updator_user_id',
+        'updated_at',
+    ) 
   ;
   
   public function __construct($rows = null, $defaultAccess = 'r')
@@ -47,7 +53,7 @@ class ullTableTool
     
     $this->modelName = get_class($this->rows[0]);
     
-    $this->defaultAccess = $defaultAccess;
+    $this->setDefaultAccess($defaultAccess);
     
     $this->buildTableConfig();
     
@@ -60,6 +66,17 @@ class ullTableTool
   {
     return $this->modelName;
   }
+
+  // makes no sense as a public function because it doesn't rebuild the columnsConfig etc
+  protected function setDefaultAccess($access = 'r')
+  {
+    if (!in_array($access, array('r', 'w')))
+    {
+      throw new UnexpectedValueException('Invalid access type "'. $access .'. Has to be either "r" or "w"'); 
+    }
+
+    $this->defaultAccess = $access;
+  }  
 
   public function getDefaultAccess()
   {
@@ -225,6 +242,8 @@ class ullTableTool
     }
     
     $this->removeBlacklistColumns();
+    
+    $this->setReadOnlyColumns();
       
     $this->sortColumns();
 //    var_dump($this->columnsConfig);
@@ -256,6 +275,14 @@ class ullTableTool
     foreach ($this->columnsBlacklist as $column)
     {
       unset($this->columnsConfig[$column]);
+    }
+  }
+  
+  protected function setReadOnlyColumns()
+  {
+    foreach($this->columnsReadOnly as $column)
+    {
+      $this->columnsConfig[$column]['access'] = 'r';
     }
   }
   
