@@ -228,6 +228,10 @@ class BaseUllTableToolActions extends ullsfActions
   
   public function executeEdit($request)
   {
+
+    
+    
+  
     // TODO: put access check in a protected function to allow custom override 
     $this->checkAccess('Masteradmins');
     
@@ -253,8 +257,241 @@ class BaseUllTableToolActions extends ullsfActions
     }
     $this->breadcrumbForEdit();
     
-  }    
 
+      
+
+      
+//    var_dump($this->tableTool);
+//    die;
+    
+    
+//    
+//    $this->requestForm = new TableToolRequestForm();
+//    $this->requestForm->setDefault('id', $this->id);
+//    $this->requestForm->setDefault('table_name', $this->tableName);
+//    
+//    $this->form = new UllForm($row->getTable()->getColumns(), $row);
+       
+      
+//    var_dump($this->form->getWidgetSchema());
+//    die;
+    
+//    var_dump($this->form);
+//    die;
+    
+//    $this->ull_form = new ullFormTableTool();
+//    $this->ull_form->setAccessDefault('w');
+//    $this->ull_form->setContainerName($this->table_name);
+//    
+//    $this->ull_form->buildFieldsInfo();
+//    
+//    $this->ull_form->setValueObject($row);
+//    $this->ull_form->retrieveFieldsData();    
+    
+//    ullCoreTools::printR($this->ull_form);
+//    exit();
+    
+  }
+
+// 
+//  public function validateUpdate() {
+//    
+//
+//    
+//  }
+  
+
+//  public function handleErrorUpdate() {
+//    
+//    $this->forward('ullTableTool', 'create');
+//    
+//  }
+  
+  
+  
+
+  public function executeUpdate()
+  {
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());
+//    die;
+    
+    $this->checkAccess('Masteradmins');
+
+    $this->refererHandler = new refererHandler();  
+
+    $this->requestForm = new TableToolRequestForm();
+    $this->requestForm->bind(array(
+        'id' => $this->getRequestParameter('id'), 
+        'table' => $this->getRequestParameter('table'),
+    ));
+    
+    if (!$this->requestForm->isValid())
+    {
+      throw new InvalidArgumentException('request form invalid');
+    }    
+    $this->tableName = $this->requestForm->getValue('table');
+    $this->id        = $this->requestForm->getValue('id');
+    $row             = $this->getRowById();      
+    
+    $this->tableTool = new ullTableTool($row, 'w');
+    
+    $this->tableTool->getForm()->bind($this->getRequestParameter('fields'));
+    
+    if ($this->tableTool->getForm()->isValid())
+    {
+      die('good');
+    }
+    else
+    {
+//      $this->redirect($this->refererHandler->getRefererAndDelete('edit'));
+      $this->forward('ullTableTool', 'edit');
+    }   
+    
+    
+//    ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
+//    exit();    
+    
+//    $this->checkAccess('Masteradmins');
+//      
+//    $this->requestForm = new TableToolRequestForm();
+//    $this->requestForm->bind($this->getRequestParameter('table_tool'));
+//    
+//    if (!$this->requestForm->isValid())
+//    {
+//      die('request form invalid');
+//    }    
+//    $this->tableName = $this->requestForm->getValue('table_name');
+//    $this->id        = $this->requestForm->getValue('id');
+//    $row             = $this->getRowById();
+//    
+//    $this->form = new UllForm($row->getTable()->getColumns(), $row);
+//    $this->form->bind($this->getRequestParameter('fields'));
+//    
+//    if ($this->form->isValid())
+//    {
+//      $columnInfo = $row->getTable()->getColumns();
+//      
+//      foreach ($columnInfo as $columnName => $column)
+//      {
+//        $row->$columnName = $this->form->getValue($columnName);
+//      }
+//      
+//      $row->save();
+//
+//      // referer handling - redirect to the page where the edit action was called
+//      $refererHandler = new refererHandler;
+////      var_dump($refererHandler->getRefererAndDelete('edit'));
+////      die;
+//      return $this->redirect($refererHandler->getRefererAndDelete('edit'));        
+//    }
+//    else
+//    {
+//      $this->forward('ullTableTool','edit');
+//    }
+    
+//    
+//    // set culture to allow transparent access to i18n fields 
+//    if (method_exists($row, 'setCulture')) { 
+//      $row->setCulture(substr($this->getUser()->getCulture(), 0, 2));
+//    }    
+//    
+//    // defaults
+//    $user_id  = $this->getUser()->getAttribute('user_id');
+//    $now      = date("Y-m-d H:i:s");
+//
+//    
+//    // get field info
+//    $this->ull_form = new ullFormTableTool();
+//    $this->ull_form->setContainerName($this->table_name);
+//    $this->ull_form->buildFieldsInfo();
+//    
+//    $fields_info = $this->ull_form->getFieldsInfo();
+//
+//    
+//    // validation
+//    foreach ($fields_info as $field_name => $field) {
+//            
+//      $request_param = $this->getRequestParameter($field_name);
+//      
+////      ullCoreTools::printR($field);
+//    
+//      // mandatory
+//      if (@$field['mandatory']) {
+//        if (!$request_param) {
+//          $this->getRequest()->setError($field_name, __('This field cannot be left blank', null, 'common'));
+//        }
+//      }
+//    
+//    }
+//    
+//    // redisplay to the form in case of errors    
+//    if ($this->getRequest()->hasErrors()) {
+//      $this->forward('ullTableTool', 'edit');
+//    }
+//    
+////    ullCoreTools::printR($this->getRequest()->getErrors());
+////    exit();
+//    
+//    foreach ($fields_info as $field_name => $field) {
+////      $column_name = strtolower($column->getColumnName());
+//      
+//      $method_name = 'set' . sfInflector::camelize($field_name);
+//      
+//      // === defaults / automagical columns
+//      
+//      // for action create:
+//      if (!$id) {        
+//        if (strstr($field_name, 'creator_user_id')) {
+//          $row->$method_name($user_id);
+//        }
+//        
+//        if (strstr($field_name, 'created_at')) {
+//          $row->$method_name($now);
+//        }                
+//      }
+//      
+//      // for all actions:
+//      if (strstr($field_name, 'updator_user_id')) {
+//        $row->$method_name($user_id);
+//      }  
+//
+//      if (strstr($field_name, 'updated_at')) {
+//        $row->$method_name($now);
+//      }
+//        
+//      // only save fields, that where submitted via request parameter.
+//      //  otherwise we would set all disabled fields to null
+//      if ($this->hasRequestParameter($field_name)) {
+//        
+//        $value = $this->getRequestParameter($field_name);
+//        
+//        // special handling per field_type
+//        if ($field['field_type'] == 'password') {
+//          if ($value) {
+//            $value = md5($value);
+//          }
+//        }         
+//        
+//        $row->$method_name($value);
+////        echo "<br /> $column_name ($method_name): $value";
+//      }
+//      
+//      
+//    } 
+//
+//    $row->save();
+////    exit();
+//
+////    return $this->redirect('ullTableTool/list?table=' . $this->table_name);
+//    
+//    */
+//    // referer handling - redirect to the page where the edit action was called
+//    $refererHandler = new refererHandler();
+//      
+//    return $this->redirect($refererHandler->getRefererAndDelete('edit'));
+  }  
+
+  
   
   public function executeDelete()
   { 

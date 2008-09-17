@@ -81,6 +81,26 @@ $b
 usleep(501); 
 
 $b
+  ->diag('edit with invalid empty mandatory field')
+  ->get('ullTableTool/edit/table/TestTable/id/1')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 1)
+  ->responseContains('Foo Bar')
+  ->setField('fields[my_string]', '')
+  ->click('Save')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 1)
+  ->checkResponseElement('tr td.form_error', '/Required./', array('position' => 1))
+  
+;
+
+$b
   ->diag('edit')
   ->get('ullTableTool/edit/table/TestTable/id/1')
   ->isStatusCode(200)   
