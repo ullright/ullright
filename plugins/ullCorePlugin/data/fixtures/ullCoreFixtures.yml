@@ -61,7 +61,8 @@ TestTable:
     UllUser:      adminuser
     namespace:    test
     Creator:      adminuser
-    Updator:      adminuser    
+    Updator:      adminuser
+    #created_at:   2008-01-01 00:00:00 this doesn't work because the actas timestampable behaviour overwrites it
     
   test_2:
     my_string:    Foo Bar More
@@ -71,3 +72,4 @@ TestTable:
     namespace:    test
     Creator:      adminuser
     Updator:      testuser
+    #created_at:   2008-01-01 00:00:00

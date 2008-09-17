@@ -9,6 +9,8 @@ $b->setFixturesPath($path);
 $b->resetDatabase();
 
 $my_string_col_selector = 'td + td + td';
+$created_at_col_selector = 'td + td + td + td + td + td + td + td';
+$updated_at_col_selector = 'td + td + td + td + td + td + td + td + td + td';
 
 $b
   ->diag('login')
@@ -75,16 +77,19 @@ $b
   ->checkResponseElement('tr + tr + tr > ' . $my_string_col_selector, 'Quasimodo')
 ;
 
+// force the edited_at date beeing different from the created_at date
+usleep(501); 
+
 $b
   ->diag('edit')
-  ->get('ullTableTool/edit/table/TestTable/id/3')
+  ->get('ullTableTool/edit/table/TestTable/id/1')
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('table', 'TestTable')
-  ->isRequestParameter('id', 3)
-  ->responseContains('Quasimodo')
-  ->setField('fields[my_string]', 'Quasimodo is gone')
+  ->isRequestParameter('id', 1)
+  ->responseContains('Foo Bar')
+  ->setField('fields[my_string]', 'Foo Bar edited')  
   ->click('Save')
   ->isRedirected()
   ->isRequestParameter('module', 'ullTableTool')
@@ -99,10 +104,15 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('table', 'TestTable')
   ->responseContains('list')
-  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar edited')
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
-  ->checkResponseElement('tr + tr + tr > ' . $my_string_col_selector, 'Quasimodo is gone')
+  ->checkResponseElement('tr + tr + tr > ' . $my_string_col_selector, 'Quasimodo')
 ;
+$first_row = $b->getResponseDomCssSelector()->matchAll('tr > td')->getValues();
+$b->
+  test()->isnt($first_row[7], $first_row[9], 'The edited_at date is different than the created_at date: ' . $first_row[7] . ' vs ' . $first_row[9])
+;
+
 
 $b
   ->diag('delete')
