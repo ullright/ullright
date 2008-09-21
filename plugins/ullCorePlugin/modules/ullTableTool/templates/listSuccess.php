@@ -1,33 +1,20 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
-<?php echo form_tag('ullTableTool/list'); ?>
+<?php echo form_tag('ullTableTool/list?table=' . $table_name); ?>
 
 <!-- TODO: add ordered list for options/actions -->
 
-<div class='action_buttons'>
-    
-  <div class='action_buttons_left'>
+<ul class='action_filter'>
   
-    <?php echo ull_button_to(__('Create', null, 'common'), array('action' => 'create')); ?> &nbsp;
-   
-    <?php 
-      if (isset($table_info_search_fields)) {
-        echo input_tag('search', $sf_params->get('search'), 'size=12');
-        echo input_hidden_tag('table', $table_name);
-        echo submit_tag(__('Search', null, 'common'), 'style=margin: 0;');
-        echo ' &nbsp; ';
-      }
-    ?> 
+    <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
 
-    <?php
-       echo '&nbsp; &nbsp;';
-       echo ull_button_to(__('Edit column info', null, 'common'), 
-        array('table' => 'ull_column_info', 'search' => $table_name));
-    ?> &nbsp;
-    
-  </div>
-  <div class='clear'></div>
-</div>
+    <li><?php echo ull_button_to(__('Edit column info', null, 'common'), 
+                      'ullTableTool/create?table=' . $table_name . '&search =' . $table_name);?></li>
+
+    <?php echo $filter_form ?>   
+    <li><?php echo submit_tag('&gt;');?></li> 
+
+</ul>
  
 </form>
 
@@ -40,58 +27,63 @@
 <br />
 
 
-
-<table class='result_list'>
-
-<!-- header -->
-<thead>
-<tr>  
-  <th>&nbsp;</th>
-  <?php foreach ($table_tool->getLabels() as $label): ?>
-    <th><?php echo $label ?>:</th>
-  <?php endforeach; ?>
-</tr>
-</thead>
-
-<!-- data -->
-
-<?php $odd = false; ?>
-<?php foreach($table_tool->getForms() as $row => $form): ?>
-    <?php
-      if ($odd) {
-        $odd_style = ' class=\'odd\'';
-        $odd = false;
-      } else {
-        $odd_style = '';
-        $odd = true;
-      }
-      
-      $identifier = $table_tool->getIdentifierUrlParams($row, ESC_RAW);
-      
-    ?>
-  <tr <?php echo $odd_style ?>>
-    <td>          
-      <?php
-          echo ull_icon(
-            'ullTableTool/edit?table=' . $table_name . '&' . $identifier
-            , 'edit'
-            , __('Edit', null, 'common')
-          );
-      
-          echo ull_icon(
-            'ullTableTool/delete?table=' . $table_name . '&' . $identifier
-            , 'delete'
-            , __('Delete', null, 'common')
-            , 'confirm='.__('Are you sure?', null, 'common')
-          );
-      ?>
-    </td>
-    <?php echo $form ?>
+<?php if ($table_tool): ?>
+  <table class='result_list'>
+  
+  <!-- header -->
+  <thead>
+  <tr>  
+    <th>&nbsp;</th>
+    <?php foreach ($table_tool->getLabels() as $label): ?>
+      <th><?php echo $label ?>:</th>
+    <?php endforeach; ?>
   </tr>
-<?php endforeach; ?>
+  </thead>
+  
+  <!-- data -->
+  
+  <tbody>
+  <?php $odd = false; ?>
+  <?php foreach($table_tool->getForms() as $row => $form): ?>
+      <?php
+        if ($odd) {
+          $odd_style = ' class=\'odd\'';
+          $odd = false;
+        } else {
+          $odd_style = '';
+          $odd = true;
+        }
+        
+        $identifier = $table_tool->getIdentifierUrlParams($row, ESC_RAW);
+        
+      ?>
+    <tr <?php echo $odd_style ?>>
+      <td>          
+        <?php
+            echo ull_icon(
+              'ullTableTool/edit?table=' . $table_name . '&' . $identifier
+              , 'edit'
+              , __('Edit', null, 'common')
+            );
+        
+            echo ull_icon(
+              'ullTableTool/delete?table=' . $table_name . '&' . $identifier
+              , 'delete'
+              , __('Delete', null, 'common')
+              , 'confirm='.__('Are you sure?', null, 'common')
+            );
+        ?>
+      </td>
+      <?php echo $form ?>
+    </tr>
+  <?php endforeach; ?>
+  
+  </tbody>
+  </table>
+<?php else: ?>
+  <p class='form_error'><?php echo __('No results found', null, 'common') ?></p>
+<?php endif ?>
 
-</tbody>
-</table>
 
 <?php /*
 

@@ -155,3 +155,27 @@ $b
   ->responseContains('list')
   ->checkResponseElement('body', '!/Quasimodo is gone/')
 ;
+
+$b
+  ->diag('filter - search by id')
+  ->setField('filter[search]', 2)
+  ->click('>')
+  ->checkResponseElement('ul.action_filter input[value="2"]', true)
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')
+;
+
+$b
+  ->diag('filter - search for non-existing id')
+  ->setField('filter[search]', 666)
+  ->click('>')
+  ->responseContains('No results found');
+;
+
+$b
+  ->diag('filter - reset search')
+  ->setField('filter[search]', '')
+  ->click('>')
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar edited')
+  ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
+;
+

@@ -26,31 +26,28 @@ class BaseUllTableToolActions extends ullsfActions
   }
 
   
-  public function executeList() 
+  public function executeList($request) 
   {
     $this->checkAccess('Masteradmins');
     
     $this->getTablefromRequest();
     
-    $q = new Doctrine_Query;
-    // TODO: try to minimize queries -> doesn't work this way:
-//    $q->from($this->tableName . ' x, x.Creator, x.Updator');
-    $q->from($this->table_name . ' x');
-    $rows = $q->execute();
-    
-//    var_dump($rows->);
+//    var_dump($request->getParameterHolder()->getAll());
 //    die;
-//    
-    $this->table_tool = new ullTableTool($rows);
+
+    if ($request->isMethod('post'))
+    {
+      //TODO: req_pass redirect
+    }
+    
+    $rows = $this->getFilterFromRequest();    
+    
+    $this->table_tool = ($rows) ? new ullTableTool($rows) : null;
     
     $refererHandler = new refererHandler();
     $refererHandler->delete('edit');
     
-    $this->breadcrumb_tree = new breadcrumbTree();
-    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumb_tree->add('ullTableTool');
-    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->tableName);
-    $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
+    $this->breadcrumbForList();
     
     /*
     //i18n doctrine tests:
@@ -193,25 +190,16 @@ class BaseUllTableToolActions extends ullsfActions
 
   
   
-  public function executeShow() {
-    
-//    $this->forward( $this->getModuleName(), 
-//                    'edit?table=' 
-//                    . $this->getRequestParameter('table')
-//                    .'&id='
-//                    . $this->getRequestParameter('id')
-//                    );
-    
+  public function executeShow() 
+  {
     $this->forward('ullTableTool', 'edit');
-                            
   }
 
   
   
-  public function executeCreate() {
-    
+  public function executeCreate() 
+  {
     $this->forward('ullTableTool', 'edit');
-    
   }  
 
   
@@ -241,8 +229,7 @@ class BaseUllTableToolActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
-      //TODO: remove second argument. @see: http://trac.symfony-project.org/ticket/4435 
-      if ($this->table_tool->getForm()->bindAndSave($request->getParameter('fields'), null))
+      if ($this->table_tool->getForm()->bindAndSave($request->getParameter('fields')))
       {
         $this->redirect($this->refererHandler->getRefererAndDelete('edit'));
       }
@@ -316,6 +303,23 @@ class BaseUllTableToolActions extends ullsfActions
 //    exit();
 
   }
+  
+  protected function getFilterFromRequest()
+  {
+    $this->filter_form = new ullTableToolFilterForm;
+    $this->filter_form->bind($this->getRequestParameter('filter'));
+    
+    $q = new Doctrine_Query;
+    $q->from($this->table_name . ' x');
+    
+    if ($search = $this->filter_form->getValue('search'))
+    {
+      $q->where('x.id = ?', $search);
+    }
+    
+    $rows = $q->execute();
+    return ($rows->count()) ? $rows : null;
+  }
 
   protected function getRowFromRequest()
   {
@@ -344,6 +348,15 @@ class BaseUllTableToolActions extends ullsfActions
     }
   }  
        
+  protected function breadcrumbForList()
+  {
+    $this->breadcrumb_tree = new breadcrumbTree();
+    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
+    $this->breadcrumb_tree->add('ullTableTool');
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->tableName);
+    $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
+  }
+  
   protected function breadcrumbForEdit()
   {
     $this->breadcrumb_tree = new breadcrumbTree();
