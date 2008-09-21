@@ -241,6 +241,7 @@ class BaseUllTableToolActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
+      //TODO: remove second argument. @see: http://trac.symfony-project.org/ticket/4435 
       if ($this->table_tool->getForm()->bindAndSave($request->getParameter('fields'), null))
       {
         $this->redirect($this->refererHandler->getRefererAndDelete('edit'));
