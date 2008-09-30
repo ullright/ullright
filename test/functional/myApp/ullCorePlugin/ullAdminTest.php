@@ -3,7 +3,7 @@
 $app = 'myApp';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
-$b = new sfDoctrineTestBrowser(null, null, array('configuration' => $configuration));
+$b = new ullTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
@@ -11,19 +11,7 @@ $b->resetDatabase();
 $b
   ->diag('login')
   ->get('ullAdmin/index')
-  ->isRedirected()
-  ->followRedirect()
-  ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'noaccess')
-  ->isRedirected()
-  ->followRedirect()
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'login')  
-  ->isRequestParameter('option', 'noaccess')
-  ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
-  ->isRedirected()
-  ->followRedirect()  
+  ->loginAsAdmin()  
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullAdmin')
   ->isRequestParameter('action', 'index')

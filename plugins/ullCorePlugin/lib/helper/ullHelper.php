@@ -523,9 +523,6 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
   
 //  ullCoreTools::printR(sfContext::getInstance()->getRequest()->getParameterHolder()->getAll());
   
-  var_dump($params);
-  die;
-  
   //TODO: doesn't work with array syntax
   foreach ($params as $key => $value) {
     // remove empty params

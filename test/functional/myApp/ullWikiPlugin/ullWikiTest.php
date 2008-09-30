@@ -3,7 +3,7 @@
 $app = 'myApp';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
-$b = new sfDoctrineTestBrowser(null, null, array('configuration' => $configuration));
+$b = new ullTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
@@ -17,23 +17,14 @@ $b
 	->isRequestParameter('action', 'index')
 	->responseContains('Wiki Home')
 ;	
-
-$b
-  ->diag('security check')
-  ->click('Create')
-  ->isRedirected()
-  ->followRedirect()
-  ->isRedirected()
-  ->followRedirect()  
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'login')  
-  ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
-  ->isRedirected()
-  ->followRedirect();
   
 $b
   ->diag('create')
+  ->click('Create')
+  ->loginAsAdmin()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'create')
   ->responseContains('Create')
   ->setField('subject', 'My new test subject')
   ->setField('body', '<b>My body</b>')
