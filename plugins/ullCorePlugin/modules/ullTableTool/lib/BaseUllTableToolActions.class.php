@@ -32,6 +32,10 @@ class BaseUllTableToolActions extends ullsfActions
     
     $this->getTablefromRequest();
     
+    $this->table_config = 
+        Doctrine::getTable('UllTableConfig')->findOneByDbTableName($this->table_name);
+    $this->table_config = ($this->table_config) ? $this->table_config : new UllTableConfig;
+    
 //    var_dump($request->getParameterHolder()->getAll());
 //    die;
 
@@ -48,6 +52,8 @@ class BaseUllTableToolActions extends ullsfActions
     $refererHandler->delete('edit');
     
     $this->breadcrumbForList();
+    
+    
     
     /*
     //i18n doctrine tests:

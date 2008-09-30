@@ -30,6 +30,8 @@ $b
 	->isRequestParameter('action', 'list')
 	->isRequestParameter('table', 'TestTable')
 	->responseContains('list')
+	->responseContains('TestTableCaption')
+	->responseContains('TestTable for automated testing')
 	->checkResponseElement('body', '!/namespace|Namespace/')
 	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
 	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')

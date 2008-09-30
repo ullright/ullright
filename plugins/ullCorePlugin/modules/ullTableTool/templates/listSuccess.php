@@ -1,5 +1,7 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
+<h3><?php echo $table_config->caption ?></h3>
+<p><?php echo $table_config->description ?></p>
 <?php echo form_tag('ullTableTool/list?table=' . $table_name); ?>
 
 <!-- TODO: add ordered list for options/actions -->

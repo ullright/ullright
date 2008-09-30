@@ -33,7 +33,7 @@ UllGroup:
     Updator:            adminuser
 
 
-#UllTableConfig:
+UllTableConfig:
 #  user:
 #    db_table_name: UllUser
 #    sort_fields: last_name,first_name
@@ -45,8 +45,12 @@ UllGroup:
 #      de:
 #        caption: Alle Benutzer
 #        description: Liste aller Benutzer
-#  test:
-#    db_table_name: Test
+  test:
+    db_table_name: TestTable
+    caption: TestTableCaption
+    description: TestTable for automated testing
+#    sort_fields:
+    search_fields: my_string, my_text
 #    Translation:
 #      en:
 #        caption: All Tests
