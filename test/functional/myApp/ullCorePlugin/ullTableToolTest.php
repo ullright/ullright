@@ -3,7 +3,7 @@
 $app = 'myApp';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
-$b = new sfDoctrineTestBrowser(null, null, array('configuration' => $configuration));
+$b = new ullTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
@@ -15,19 +15,7 @@ $updated_at_col_selector = 'td + td + td + td + td + td + td + td + td + td';
 $b
   ->diag('login')
 	->get('ullAdmin/index')
-	->isRedirected()
-	->followRedirect()
-	->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'noaccess')
-  ->isRedirected()
-  ->followRedirect()
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'login')  
-  ->isRequestParameter('option', 'noaccess')
-	->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
-  ->isRedirected()
-  ->followRedirect()  
+  ->loginAsAdmin()
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullAdmin')
   ->isRequestParameter('action', 'index')
@@ -143,11 +131,6 @@ $b
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 3)
   ->followRedirect()
-;
-
-$b
-  ->diag('list')
-  ->get('ullTableTool/list/table/TestTable')
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'list')
@@ -179,3 +162,70 @@ $b
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
 
+$b
+  ->diag('testing direct link to edit -> save (testing referer handling)')
+  ->restart()
+  ->get('ullTableTool/edit/table/TestTable/id/1')
+  ->loginAsAdmin()
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 1)
+  ->responseContains('Foo Bar')  
+  ->click('Save')
+  ->isRedirected()
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->followRedirect()
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'TestTable')
+  ->responseContains('list')    
+;
+
+$b
+  ->diag('testing direct link to edit -> cancel (testing referer handling)')
+  ->restart()
+  ->get('ullTableTool/edit/table/TestTable/id/1')
+  ->loginAsAdmin()
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 1)
+  ->responseContains('Foo Bar')
+  ->click('Cancel')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'TestTable')
+  ->responseContains('list')    
+;
+
+$b
+  ->diag('testing direct link to edit -> delete (testing referer handling)')
+  ->restart()
+  ->get('ullTableTool/edit/table/TestTable/id/1')
+  ->loginAsAdmin()
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 1)
+  ->responseContains('Foo Bar')
+  ->click('Delete')
+  ->isRedirected()
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'delete')
+  ->isRequestParameter('table', 'TestTable')
+  ->isRequestParameter('id', 1)
+  ->followRedirect()  
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'TestTable')
+  ->responseContains('list')
+  ->checkResponseElement('body', '!/Foo Bar edited/')
+;  

@@ -39,9 +39,9 @@
       <li>
 <?php
       echo ull_link_to(
-        __('Cancel', null, 'common') 
-        , url_for('ullTableTool/list?table=' . $table_name)
-        , 'ull_js_observer_confirm=true'
+        __('Cancel', null, 'common'), 
+        'ullTableTool/list?table=' . $table_name,
+        'ull_js_observer_confirm=true'
       );
 ?>
       </li>

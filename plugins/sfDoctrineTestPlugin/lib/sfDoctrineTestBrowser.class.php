@@ -49,6 +49,8 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	public function resetDatabase()
 	{
 		self::$test->reset();
+		
+		return $this;
 	}
 
 	/**

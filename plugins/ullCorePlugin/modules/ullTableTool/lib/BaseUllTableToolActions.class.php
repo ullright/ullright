@@ -231,12 +231,14 @@ class BaseUllTableToolActions extends ullsfActions
     {
       if ($this->table_tool->getForm()->bindAndSave($request->getParameter('fields')))
       {
-        $this->redirect($this->refererHandler->getRefererAndDelete('edit'));
+        $referer = $this->refererHandler->getRefererAndDelete();
+        $referer = ($referer) ? $referer : $this->getRefererFallbackURI();
+        $this->redirect($referer);
       }
     }
     else
     {
-      $this->refererHandler->initialize('edit');
+      $this->refererHandler->initialize();
       
     }
     $this->breadcrumbForEdit();
@@ -255,12 +257,11 @@ class BaseUllTableToolActions extends ullsfActions
     $row->delete();
     
     $refererHandler = new refererHandler();
-    
-    if (!$referer = $refererHandler->getRefererAndDelete('edit')) {
-        $referer = $this->getUser()->getAttribute('referer');
-    }   
-    
+    $referer = $refererHandler->getRefererAndDelete('edit');    
+    $referer = ($referer) ? $referer : $this->getUser()->getAttribute('referer');
+    $referer = ($referer && !strstr($referer, 'edit')) ? $referer : $this->getRefererFallbackURI();
     $this->redirect($referer);
+    
   }  
   
   
@@ -375,6 +376,10 @@ class BaseUllTableToolActions extends ullsfActions
     }
   }
   
+  protected function getRefererFallbackURI()
+  {
+    return $this->getModuleName() . '/list?table=' . $this->table_name;
+  }
   
   
 }
