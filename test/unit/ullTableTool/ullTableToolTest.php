@@ -4,7 +4,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnsConfigReference = array(
+  protected $columnsConfigMock = array(
     'id' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -90,14 +90,14 @@ class myTestCase extends sfDoctrineTestCase
         ),        
   ); 
 
-  public function reset()
-  {
-    parent::reset();
-  }
+//  public function reset()
+//  {
+//    parent::reset();
+//  }
   
-  public function getColumnsConfigReference()
+  public function getColumnsConfigMock()
   {
-    return $this->columnsConfigReference;
+    return $this->columnsConfigMock;
   }
 }
 
@@ -164,15 +164,15 @@ $t->begin('getColumnConfig()');
   $t->is(count($columnsConfig), 9, 'columnsConfig has the correct number of columns');
   
   // don't use foreach because it ignores the ordering of the fields  
-  $references = $t->getColumnsConfigReference();
+  $mocks = $t->getColumnsConfigMock();
   while (list($key, $val) = each($columnsConfig))
   {
     $columnConfig = array($key => $val);
     
-    list($key, $val) = each($references);
-    $ref = array($key => $val);
+    list($key, $val) = each($mocks);
+    $mock = array($key => $val);
     
-    $t->is($columnConfig, $ref, 'columnConfig for column "' . key($columnConfig) . '" is correct');
+    $t->is($columnConfig, $mock, 'columnConfig for column "' . key($columnConfig) . '" is correct');
   }
       
 $t->begin('getForm()');
