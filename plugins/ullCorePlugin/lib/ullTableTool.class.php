@@ -13,6 +13,7 @@ class ullTableTool
         'namespace',
         'type',
     ),
+    // columns which should be displayed last (at the bottom of the edit template)
     $columnsOrderBottom = array(
         'creator_user_id',
         'created_at',
@@ -103,6 +104,11 @@ class ullTableTool
     return $this->forms;
   }
   
+  public function getRow()
+  {
+    return $this->rows[0];
+  }
+  
   public function getLabels()
   {
     $lables = array();
@@ -133,7 +139,7 @@ class ullTableTool
   
   protected function getIdentifierAsArray()
   {
-    $identifier = $this->tableConfig['identifier'];
+    $identifier = $this->tableConfig->getIdentifier();
     if (!is_array($identifier))
     {
       $identifier = array(0 => $identifier);
@@ -143,14 +149,23 @@ class ullTableTool
   
   protected function buildTableConfig()
   {
-    $tableConfig = array();
-    $tableConfig['label'] = $this->modelName;
-    $tableConfig['identifier'] = $this->rows[0]->getTable()->getIdentifier();
+    $tableConfig = Doctrine::getTable('UllTableConfig')->
+        findOneByDbTableName($this->modelName);
+        
+    if (!$tableConfig)
+    {
+      $tableConfig = new UllTableConfig;
+      $tableConfig->db_table_name = $this->modelName;
+      $tableConfig->save();
+    }
     
+//    // set Defaults
+//    if (!$tableConfig->label)
+//    {
+//      $tableConfig->label = $this->modelName;
+//    }
+            
     $this->tableConfig = $tableConfig;
-    
-//    var_dump($this->tableConfig);
-//    die;
   }
   
   protected function buildColumnsConfig()

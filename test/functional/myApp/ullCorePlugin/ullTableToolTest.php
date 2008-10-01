@@ -30,7 +30,7 @@ $b
 	->isRequestParameter('action', 'list')
 	->isRequestParameter('table', 'TestTable')
 	->responseContains('list')
-	->responseContains('TestTableCaption')
+	->checkResponseElement('h3', 'TestTableLabel')
 	->responseContains('TestTable for automated testing')
 	->checkResponseElement('body', '!/namespace|Namespace/')
 	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
@@ -231,3 +231,14 @@ $b
   ->responseContains('list')
   ->checkResponseElement('body', '!/Foo Bar edited/')
 ;  
+
+$b
+  ->diag('testing without having a table_config entry')
+;
+$tableConfig = Doctrine::getTable('UllTableConfig')->findOneByDbTableName('TestTable');
+$tableConfig->delete();
+$b
+  ->get('ullTableTool/list/table/TestTable')
+  ->checkResponseElement('h3', 'TestTable')
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')
+;

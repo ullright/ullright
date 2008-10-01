@@ -5,5 +5,21 @@
  */
 abstract class PluginUllTableConfig extends BaseUllTableConfig
 {
+  
+  /**
+   * Return the identifier of the current table 
+   *
+   * @return mixed
+   */
+  public function getIdentifier()
+  {
+    return Doctrine::getTable($this->db_table_name)->getIdentifier();
+  }
+  
+  public function getLabel()
+  {
+    $label = $this->rawGet('label');
+    return ($label) ? $label : $this->db_table_name;
+  }
 
 }

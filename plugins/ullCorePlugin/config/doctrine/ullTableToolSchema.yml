@@ -13,7 +13,7 @@ UllTableConfig:
     # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   
     db_table_name: 
       type: string(32)
-    caption:
+    label:
       type: string(64)
     description:
       type: clob

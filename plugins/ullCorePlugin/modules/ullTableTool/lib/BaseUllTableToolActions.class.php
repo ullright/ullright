@@ -44,9 +44,12 @@ class BaseUllTableToolActions extends ullsfActions
       //TODO: req_pass redirect
     }
     
-    $rows = $this->getFilterFromRequest();    
+    $rows = $this->getFilterFromRequest();
+//    $rows = ($rows) ? $rows : new $this->table_name;
     
-    $this->table_tool = ($rows) ? new ullTableTool($rows) : null;
+    // if no result rows -> set table_tool to null to avoid template notice
+//    $this->table_tool = ($rows) ? new ullTableTool($rows) : null;
+    $this->table_tool = new ullTableTool($rows);
     
     $refererHandler = new refererHandler();
     $refererHandler->delete('edit');
@@ -325,7 +328,7 @@ class BaseUllTableToolActions extends ullsfActions
     }
     
     $rows = $q->execute();
-    return ($rows->count()) ? $rows : null;
+    return ($rows->count()) ? $rows : new $this->table_name;
   }
 
   protected function getRowFromRequest()

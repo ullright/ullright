@@ -1,7 +1,7 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
-<h3><?php echo $table_config->caption ?></h3>
-<p><?php echo $table_config->description ?></p>
+<h3><?php echo $table_tool->getTableConfig()->label ?></h3>
+<p><?php echo $table_tool->getTableConfig()->description ?></p>
 <?php echo form_tag('ullTableTool/list?table=' . $table_name); ?>
 
 <!-- TODO: add ordered list for options/actions -->
@@ -28,8 +28,8 @@
       
 <br />
 
-
-<?php if ($table_tool): ?>
+<?php // detect empty table_tool ?>
+<?php if (!$table_tool->getRow()->isModified()): ?>
   <table class='result_list'>
   
   <!-- header -->

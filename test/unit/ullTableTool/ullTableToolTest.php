@@ -104,7 +104,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(34, new lime_output_color, $configuration);
+$t = new myTestCase(32, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -144,21 +144,19 @@ $t->begin('__construct()');
   
 $t->begin('getTableConfig()');
   $tableConfig = $tableTool->getTableConfig();
-  $t->is(is_array($tableConfig), true, 'tableConfig is an array');
-  $t->is(count($tableConfig), 2, 'tableConfig has the correct number of entries');
-  $t->is(is_string($tableConfig['identifier']), true, 'Identifier is a string');
-  $t->is($tableConfig['label'], 'TestTable', 'Label is correct');
-  $t->is($tableConfig['identifier'], 'id', 'Identifier is correct'); 
+  $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');  
+  $t->is(is_string($tableConfig->getIdentifier()), true, 'Identifier is a string');
+  $t->is($tableConfig->getIdentifier(), 'id', 'Identifier is correct');
+  $t->is($tableConfig->label, 'TestTableLabel', 'Label is correct'); 
 
 $t->begin('getTableConfig() for a table with a multi-columns primary key');  
   $entityGroups = Doctrine::getTable('UllEntityGroup')->findAll();
   $tableTool2 = new ullTableTool($entityGroups);
   $tableConfig = $tableTool2->getTableConfig();
-  $t->is(is_array($tableConfig), true, 'tableConfig is an array');
-  $t->is(count($tableConfig), 2, 'tableConfig has the correct number of entries');
-  $t->is($tableConfig['label'], 'UllEntityGroup', 'Label is correct');
-  $t->is(is_array($tableConfig['identifier']), true, 'Identifier is an array');
-  $t->is($tableConfig['identifier'], array(0 => 'entity_id', 1 => 'group_id'), 'Identifiers are correct');
+  $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');
+  $t->is(is_array($tableConfig->getIdentifier()), true, 'Identifier is an array');
+  $t->is($tableConfig->getIdentifier(), array(0 => 'entity_id', 1 => 'group_id'), 'Identifiers are correct');
+  $t->is($tableConfig->label, 'UllEntityGroup', 'Label is correct');
   
 $t->begin('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
