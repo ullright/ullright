@@ -164,6 +164,13 @@ $b
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
 
+//$b
+//  ->diag('filter - search in my_string and my_text column')
+//  ->setField('filter[search]', 'Bar my')
+//  ->click('>')
+//  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')  
+//; 
+
 $b
   ->diag('testing direct link to edit -> save (testing referer handling)')
   ->restart()
@@ -233,7 +240,7 @@ $b
 ;  
 
 $b
-  ->diag('testing without having a table_config entry')
+  ->diag('testing list without having a table_config entry')
 ;
 $tableConfig = Doctrine::getTable('UllTableConfig')->findOneByDbTableName('TestTable');
 $tableConfig->delete();

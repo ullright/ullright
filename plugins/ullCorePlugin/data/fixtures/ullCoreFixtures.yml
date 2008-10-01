@@ -50,7 +50,7 @@ UllTableConfig:
     label: TestTableLabel
     description: TestTable for automated testing
 #    sort_fields:
-    search_fields: my_string, my_text
+    search_fields: id, my_string, my_text
 #    Translation:
 #      en:
 #        caption: All Tests

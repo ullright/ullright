@@ -8,6 +8,7 @@ class ullTableTool
     $forms          = array(),
     $rows           = array(),
     $modelName,
+    $isBuilt        = false,
     $defaultAccess,
     $columnsBlacklist = array(
         'namespace',
@@ -28,31 +29,23 @@ class ullTableTool
     ) 
   ;
   
-  public function __construct($rows = null, $defaultAccess = 'r')
+  public function __construct($modelName = null, $defaultAccess = 'r')
   {
 
-    if ($rows === null)
+    if ($modelName === null)
     {
-      throw new InvalidArgumentException('One or more data rows are required');
+      throw new InvalidArgumentException('A model must be supplied');
     }
     
-    if (is_array($rows))
+    if (!class_exists($modelName))
     {
-      $this->rows = $rows;
-    }
-    elseif ($rows instanceof Doctrine_Collection)
-    {
-      $this->rows = $rows;
-    }
-    else
-    {
-      $this->rows[] = $rows;
+      throw new InvalidArgumentException('Invalid model: ' . $modelName);
     }
     
 //    var_dump($this->rows);
 //    die;
     
-    $this->modelName = get_class($this->rows[0]);
+    $this->modelName = $modelName;
     
     $this->setDefaultAccess($defaultAccess);
     
@@ -60,7 +53,7 @@ class ullTableTool
     
     $this->buildColumnsConfig();
     
-    $this->buildForm();
+//    $this->buildForm();
   }
 
   public function getModelName()
@@ -96,16 +89,31 @@ class ullTableTool
   
   public function getForm()
   {
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
+    }     
+    
     return $this->forms[0];
   }
   
   public function getForms()
   {
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
+    }     
+    
     return $this->forms;
   }
   
   public function getRow()
   {
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
+    } 
+        
     return $this->rows[0];
   }
   
@@ -124,8 +132,14 @@ class ullTableTool
   
   public function getIdentifierUrlParams($row)
   {
-    if (!is_integer($row)) {
-      throw new UnexpectedArgumentException;
+    if (!is_integer($row)) 
+    {
+      throw new UnexpectedArgumentException('$row must be an integer: ' . $row);
+    }
+    
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
     }
     
     $array = array();
@@ -159,19 +173,13 @@ class ullTableTool
       $tableConfig->save();
     }
     
-//    // set Defaults
-//    if (!$tableConfig->label)
-//    {
-//      $tableConfig->label = $this->modelName;
-//    }
-            
     $this->tableConfig = $tableConfig;
   }
   
   protected function buildColumnsConfig()
   {
     // get Doctrine relations
-    $relations = $this->rows[0]->getTable()->getRelations();
+    $relations = Doctrine::getTable($this->modelName)->getRelations();
 
     $columnRelations = array();
     
@@ -190,7 +198,7 @@ class ullTableTool
 //    die;
     
     // loop through table (Doctrine) columns
-    foreach ($this->rows[0]->getTable()->getColumns() as $columnName => $column)
+    foreach (Doctrine::getTable($this->modelName)->getColumns() as $columnName => $column)
     {
       $columnConfig = array(
         'widgetOptions'      => array(),
@@ -265,8 +273,21 @@ class ullTableTool
 //    die;    
   }
   
-  protected function buildForm()
+  public function buildForm($rows)
   {
+    if (is_array($rows))
+    {
+      $this->rows = $rows;
+    }
+    elseif ($rows instanceof Doctrine_Collection)
+    {
+      $this->rows = $rows;
+    }
+    else
+    {
+      $this->rows[] = $rows;
+    }    
+    
     foreach ($this->rows as $key => $row) 
     {
       $this->forms[$key] = new ullForm($row);
@@ -283,6 +304,8 @@ class ullTableTool
         }        
       }
     }
+    
+    $this->isBuilt = true;
   }
   
   protected function removeBlacklistColumns()

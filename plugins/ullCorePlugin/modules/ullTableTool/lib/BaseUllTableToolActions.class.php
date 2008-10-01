@@ -28,28 +28,23 @@ class BaseUllTableToolActions extends ullsfActions
   
   public function executeList($request) 
   {
+    //    var_dump($request->getParameterHolder()->getAll());
+    //    die;
+    
     $this->checkAccess('Masteradmins');
     
     $this->getTablefromRequest();
     
-    $this->table_config = 
-        Doctrine::getTable('UllTableConfig')->findOneByDbTableName($this->table_name);
-    $this->table_config = ($this->table_config) ? $this->table_config : new UllTableConfig;
-    
-//    var_dump($request->getParameterHolder()->getAll());
-//    die;
-
     if ($request->isMethod('post'))
     {
       //TODO: req_pass redirect
     }
     
-    $rows = $this->getFilterFromRequest();
-//    $rows = ($rows) ? $rows : new $this->table_name;
+    $this->table_tool = new ullTableTool($this->table_name);
     
-    // if no result rows -> set table_tool to null to avoid template notice
-//    $this->table_tool = ($rows) ? new ullTableTool($rows) : null;
-    $this->table_tool = new ullTableTool($rows);
+    $rows = $this->getFilterFromRequest();
+    
+    $this->table_tool->buildForm($rows);
     
     $refererHandler = new refererHandler();
     $refererHandler->delete('edit');
@@ -232,9 +227,11 @@ class BaseUllTableToolActions extends ullsfActions
 
     $this->getTablefromRequest();
     
+    $this->table_tool = new ullTableTool($this->table_name, 'w');
+    
     $row = $this->getRowFromRequestOrCreate();
     
-    $this->table_tool = new ullTableTool($row, 'w');
+    $this->table_tool->buildForm($row);
     
     if ($request->isMethod('post'))
     {

@@ -104,7 +104,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(32, new lime_output_color, $configuration);
+$t = new myTestCase(35, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -114,14 +114,24 @@ $t->begin('__construct()');
   try
   {
     new ullTableTool();
-    $t->fail('__construct() doesn\'t throw an exception if no rows are given');
+    $t->fail('__construct() doesn\'t throw an exception if no model is given');
   }
   catch (Exception $e)
   {
-    $t->pass('__construct() throws an exception if no rows are given');
+    $t->pass('__construct() throws an exception if no model is given');
   }
 
-  $tableTool = new ullTableTool($tests);
+  try
+  {
+    new ullTableTool($tests);
+    $t->fail('__construct() doesn\'t throw an exception if an invalid model is given');
+  }
+  catch (Exception $e)
+  {
+    $t->pass('__construct() throws an exception if an invalid model is given');
+  }
+  
+  $tableTool = new ullTableTool('TestTable');
   $t->isa_ok($tableTool, 'ullTableTool', '__construct() returns the correct object');
 
   $t->is($tableTool->getModelName(), 'TestTable', '__construct() sets the right model name');
@@ -130,7 +140,7 @@ $t->begin('__construct()');
   
   try
   {
-    new ullTableTool($tests, 'x');
+    new ullTableTool('TestTable', 'x');
     $t->fail('__construct() doesn\'t throw an exception if an invalid access type is given');
   }
   catch(Exception $e)
@@ -138,7 +148,7 @@ $t->begin('__construct()');
     $t->pass('__construct() throws an exception if an invalid access type is given');
   }
   
-  $tableTool = new ullTableTool($tests, 'w');
+  $tableTool = new ullTableTool('TestTable', 'w');
   $t->is($tableTool->getDefaultAccess(), 'w', '__construct() sets the correct access type "w"');
   
   
@@ -150,8 +160,7 @@ $t->begin('getTableConfig()');
   $t->is($tableConfig->label, 'TestTableLabel', 'Label is correct'); 
 
 $t->begin('getTableConfig() for a table with a multi-columns primary key');  
-  $entityGroups = Doctrine::getTable('UllEntityGroup')->findAll();
-  $tableTool2 = new ullTableTool($entityGroups);
+  $tableTool2 = new ullTableTool('UllEntityGroup');
   $tableConfig = $tableTool2->getTableConfig();
   $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');
   $t->is(is_array($tableConfig->getIdentifier()), true, 'Identifier is an array');
@@ -174,8 +183,40 @@ $t->begin('getColumnConfig()');
     
     $t->is($columnConfig, $mock, 'columnConfig for column "' . key($columnConfig) . '" is correct');
   }
-      
-$t->begin('getForm()');
+
+$t->begin('getIdentifierUrlParams() without calling buildForm()');
+  try
+  {
+    $tableTool->getIdentifierUrlParams(0);
+    $t->fail('__construct() doesn\'t throw an exception although buildForm() wasn\'t called yet');
+  }
+  catch (Exception $e)
+  {
+    $t->pass('__construct() throws an exception because buildForm() wasn\'t called yet');
+  }  
+  
+$t->begin('getForm() without calling buildForm()');
+  try
+  {
+    $tableTool->getForm();
+    $t->fail('__construct() doesn\'t throw an exception although buildForm() wasn\'t called yet');
+  }
+  catch (Exception $e)
+  {
+    $t->pass('__construct() throws an exception because buildForm() wasn\'t called yet');
+  }
+
+$t->begin('buildForm()');
+  $tableTool->buildForm($tests);  
+  
+  $entityGroups = Doctrine::getTable('UllEntityGroup')->findAll();
+  $tableTool2->buildForm($entityGroups);
+  
+$t->begin('getIdentifierUrlParams()');
+  $t->is($tableTool->getIdentifierUrlParams(0), 'id=1', 'Return the correct URL params');
+  $t->is($tableTool2->getIdentifierUrlParams(0), 'entity_id=1&group_id=2', 'Return the correct URL params for multi-column primary keys');  
+  
+$t->begin('getForm() with calling buildForm() prior');  
   $form = $tableTool->getForm();
   $t->isa_ok($form, 'ullForm', 'getForm() returns a UllForm object');
   
@@ -184,12 +225,9 @@ $t->begin('getForms()');
   $t->is(is_array($forms), true, 'getForms() returns an array');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');
   $t->isa_ok($forms[0], 'ullForm', 'The first entry is a UllForm object');  
-  $t->isa_ok($forms[1], 'ullForm', 'The second entry is a UllForm object');
+  $t->isa_ok($forms[1], 'ullForm', 'The second entry is a UllForm object');  
   
-$t->begin('getIdentifierUrlParams()');
-  $t->is($tableTool->getIdentifierUrlParams(0), 'id=1', 'Return the correct URL params');
-  $t->is($tableTool2->getIdentifierUrlParams(0), 'entity_id=1&group_id=2', 'Return the correct URL params for multi-column primary keys');
-  
+//TODO: build without rows?  
   
 //TODO: test access/enablement of fields
   
