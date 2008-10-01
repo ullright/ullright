@@ -203,6 +203,29 @@ class ullCoreTools
 
     return $text;
   }  
+  
+  public static function doctrineSearch($q, $search, $columns)
+  {
+    $search_parts = explode(' ', $search);
+    foreach ($search_parts as $key => $part)
+    {
+      $search_parts[$key] = '%' . $part . '%';
+    }
+    
+    foreach($columns as $col)
+    {
+      $where = array();
+      for ($i = 0; $i < count($search_parts); $i++)
+      {
+        $where[] = 'x.' . $col . ' LIKE ?'; 
+      }
+      $where = implode(' AND ', $where);
+      
+      $q->orWhere($where, $search_parts);
+    }    
+    
+    return $q;
+  }
 
 }
 

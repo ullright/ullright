@@ -22,9 +22,9 @@ UllTableConfig:
 #      size: 64
 #    description_i18n_default:
 #      type: LONGVARCHAR
-    sort_fields:
+    sort_columns:
       type: string(255)
-    search_fields:
+    search_columns:
       type: string(255)
       
 TestTable:

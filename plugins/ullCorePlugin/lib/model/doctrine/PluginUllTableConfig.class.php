@@ -21,5 +21,19 @@ abstract class PluginUllTableConfig extends BaseUllTableConfig
     $label = $this->rawGet('label');
     return ($label) ? $label : $this->db_table_name;
   }
+  
+  public function getSearchColumnsAsArray()
+  {
+    $cols = $this->search_columns;
+    $cols = explode(',', $cols);
+    
+    $columns = array();
+    foreach($cols as $col)
+    {
+      $columns[] = trim($col);
+    }
+    
+    return $columns;
+  }
 
 }

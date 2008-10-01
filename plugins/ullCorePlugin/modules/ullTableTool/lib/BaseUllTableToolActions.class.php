@@ -320,10 +320,10 @@ class BaseUllTableToolActions extends ullsfActions
     $q->from($this->table_name . ' x');
     
     if ($search = $this->filter_form->getValue('search'))
-    {
-      $q->where('x.id = ?', $search);
+    {      
+      ullCoreTools::doctrineSearch($q, $search, $this->table_tool->getTableConfig()->getSearchColumnsAsArray());
     }
-    
+
     $rows = $q->execute();
     return ($rows->count()) ? $rows : new $this->table_name;
   }

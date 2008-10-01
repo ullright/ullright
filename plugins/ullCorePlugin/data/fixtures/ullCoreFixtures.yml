@@ -49,8 +49,8 @@ UllTableConfig:
     db_table_name: TestTable
     label: TestTableLabel
     description: TestTable for automated testing
-#    sort_fields:
-    search_fields: id, my_string, my_text
+#    sort_columns:
+    search_columns: id, my_string, my_text
 #    Translation:
 #      en:
 #        caption: All Tests

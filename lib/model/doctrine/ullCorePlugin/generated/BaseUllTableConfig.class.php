@@ -12,8 +12,8 @@ abstract class BaseUllTableConfig extends UllRecord
     $this->hasColumn('db_table_name', 'string', 32, array('type' => 'string', 'length' => '32'));
     $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('description', 'clob', null, array('type' => 'clob'));
-    $this->hasColumn('sort_fields', 'string', 255, array('type' => 'string', 'length' => '255'));
-    $this->hasColumn('search_fields', 'string', 255, array('type' => 'string', 'length' => '255'));
+    $this->hasColumn('sort_columns', 'string', 255, array('type' => 'string', 'length' => '255'));
+    $this->hasColumn('search_columns', 'string', 255, array('type' => 'string', 'length' => '255'));
   }
 
 }

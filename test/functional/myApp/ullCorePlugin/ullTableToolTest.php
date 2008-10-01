@@ -164,12 +164,12 @@ $b
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
 
-//$b
-//  ->diag('filter - search in my_string and my_text column')
-//  ->setField('filter[search]', 'Bar my')
-//  ->click('>')
-//  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')  
-//; 
+$b
+  ->diag('filter - search in my_string and my_text column')
+  ->setField('filter[search]', 'ore my')
+  ->click('>')
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')  
+; 
 
 $b
   ->diag('testing direct link to edit -> save (testing referer handling)')
