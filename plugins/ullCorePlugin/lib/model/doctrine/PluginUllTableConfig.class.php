@@ -16,12 +16,41 @@ abstract class PluginUllTableConfig extends BaseUllTableConfig
     return Doctrine::getTable($this->db_table_name)->getIdentifier();
   }
   
+  /**
+   * Return the model name as default label
+   *
+   * @return string
+   */
   public function getLabel()
   {
     $label = $this->rawGet('label');
     return ($label) ? $label : $this->db_table_name;
   }
+
+  /**
+   * Return the identifiers as default search columns
+   *
+   * @return string
+   */
+  public function getSearchColumns()
+  {
+    $search_columns = $this->rawGet('search_columns');
+    if (!$search_columns)
+    {
+      $search_columns = $this->getIdentifier();
+      if (is_array($search_columns))
+      {
+        $search_columns = implode(', ', $search_columns);
+      }
+    }
+    return $search_columns;
+  }
   
+  /**
+   * Return the search columns as an array
+   *
+   * @return array
+   */
   public function getSearchColumnsAsArray()
   {
     $cols = $this->search_columns;
