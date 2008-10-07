@@ -336,7 +336,6 @@ ol#breadcrumbs li.first {
 }
 
 .ull_filter ol li {
-  
   display: inline;
   margin: 0;
   /* font-size: 76%; */
@@ -357,6 +356,45 @@ ol#ull_filter li a {
   background: none;
 }
 */
+
+/*
+ * ************************************************
+ *  result list ull_actions
+ * ************************************************
+ */
+
+
+/*
+.ull_action {
+  margin: 0;
+  margin-bottom: 1em;
+}
+*/
+
+ul.ull_action {
+  /* height: 2em; */
+  background: silver;
+  padding: .2em;
+  /* list-style: none; */
+  /* padding: 0; */
+  /* margin-bottom: 20px; */
+  /* display: inline; */
+  /* border: 1px solid green; */
+}
+
+ul.ull_action li {
+  display: inline;
+  /* margin: 0; */
+  /* font-size: 76%; */
+  /* font-size: .8em; */
+  /* text-transform: uppercase; */
+  margin-left: 1em;
+  padding: .1em .5em;
+  /* background-color: #ffe4b9; */
+  /* border: 1px solid #ffe4b9; */
+  /* background: url(../images/breadcrumb_separator.png) left center no-repeat; */
+  /* background-position: 4px; */
+}
 
 
 

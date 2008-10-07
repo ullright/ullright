@@ -6,7 +6,7 @@
 
 <!-- TODO: add ordered list for options/actions -->
 
-<ul class='action_filter'>
+<ul class='ull_action'>
   
     <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
 
