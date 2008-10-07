@@ -170,7 +170,7 @@ class ullTableTool
     {
       $tableConfig = new UllTableConfig;
       $tableConfig->db_table_name = $this->modelName;
-      $tableConfig->save();
+//      $tableConfig->save();
     }
     
     $this->tableConfig = $tableConfig;
