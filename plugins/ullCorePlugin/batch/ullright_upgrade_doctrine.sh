@@ -1,6 +1,5 @@
 #!/bin/bash
 #
-# Upgrades doctrine to the latest version of the sf1.1 trunk
 
 REPO_URL="https://ssl.ull.at/svn/ullright/trunk"
 
