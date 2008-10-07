@@ -15,7 +15,8 @@ dev:
 test:
   .settings:
     # E_ALL | E_STRICT & ~E_NOTICE = 2047
-    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
+    #error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
     cache:                  off
     web_debug:              off
     no_script_name:         off

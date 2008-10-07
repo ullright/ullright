@@ -31,6 +31,8 @@ TestTable:
   inheritance:
     extends: UllRecord
     type: concrete
+#  actAs:
+#    Taggable:
   columns:
     my_string:
       type: string(64)
