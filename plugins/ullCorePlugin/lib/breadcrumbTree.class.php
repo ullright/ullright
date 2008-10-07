@@ -102,7 +102,7 @@ class breadcrumbTree
       }      
     }
 
-    $return = "<ol id='breadcrumbs'>\n";
+    $return = "<ul id='breadcrumbs'>\n";
     $return .= "<li class='first'>";
     $return .= link_to(
                   image_tag(
@@ -118,7 +118,7 @@ class breadcrumbTree
     foreach ($breadcrumbTreeReturn as $breadcrumbItem) {
         $return .= "<li>$breadcrumbItem</li>"; 
     }
-    $return .= "</ol>";
+    $return .= "</ul>";
     return $return;
     
 //    return '<div class="breadcrumb">'.implode(' » ', $breadcrumbTreeReturn).'</div>';
