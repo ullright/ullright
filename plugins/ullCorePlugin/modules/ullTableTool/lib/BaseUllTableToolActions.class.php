@@ -339,8 +339,6 @@ class BaseUllTableToolActions extends ullsfActions
   
   protected function getRowFromRequestOrCreate()
   {
-    $this->id = null;
-
     if (($id = $this->getRequestParameter('id')) > 0) 
     {
       $this->id = $id;
@@ -351,7 +349,7 @@ class BaseUllTableToolActions extends ullsfActions
     }
       else 
     {
-//      $this->id = 0;
+      $this->id = null;
       return new $this->table_name;
     }
   }  
