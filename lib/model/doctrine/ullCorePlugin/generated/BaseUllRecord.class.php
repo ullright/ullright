@@ -21,7 +21,7 @@ abstract class BaseUllRecord extends sfDoctrineRecord
     $this->hasOne('UllUser as Updator', array('local' => 'updator_user_id',
                                               'foreign' => 'id'));
 
-    $timestampable0 = new Doctrine_Template_Timestampable(array('created' => array('name' => 'created_at', 'type' => 'timestamp'), 'updated' => array('name' => 'updated_at', 'type' => 'timestamp')));
+    $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($timestampable0);
   }
 }

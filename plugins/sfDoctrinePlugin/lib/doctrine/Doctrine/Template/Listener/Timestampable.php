@@ -84,9 +84,10 @@ class Doctrine_Template_Listener_Timestampable extends Doctrine_Record_Listener
     {
         if ( ! $this->_options['updated']['disabled']) {
             $updatedName = $event->getInvoker()->getTable()->getFieldName($this->_options['updated']['name']);
-            if ( ! $event->getInvoker()->$updatedName) {
+            // deactivated by ku on 2008-10-07 see http://trac.doctrine-project.org/ticket/1543
+//            if ( ! $event->getInvoker()->$updatedName) {
                 $event->getInvoker()->$updatedName = $this->getTimestamp('updated');
-            }
+//            }
         }
     }
 
