@@ -359,7 +359,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree = new breadcrumbTree();
     $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
     $this->breadcrumb_tree->add('ullTableTool');
-    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->tableName);
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_tool->getTableConfig()->label);
     $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
   }
   

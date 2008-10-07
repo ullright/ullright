@@ -113,12 +113,12 @@ class breadcrumbTree
                   ),  
                   '@homepage'
                 ); 
-    $return .= "</li>";                
+    $return .= "</li>\n";                
     
     foreach ($breadcrumbTreeReturn as $breadcrumbItem) {
-        $return .= "<li>$breadcrumbItem</li>"; 
+        $return .= "<li>$breadcrumbItem</li>\n"; 
     }
-    $return .= "</ul>";
+    $return .= "</ul>\n\n";
     return $return;
     
 //    return '<div class="breadcrumb">'.implode(' » ', $breadcrumbTreeReturn).'</div>';

@@ -29,7 +29,9 @@ $b
 	->isRequestParameter('module', 'ullTableTool')
 	->isRequestParameter('action', 'list')
 	->isRequestParameter('table', 'TestTable')
-	->responseContains('list')
+	->checkResponseElement('ul#breadcrumbs > li + li + li', 'ullTableTool')
+	->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Table TestTableLabel')
+	->checkResponseElement('ul#breadcrumbs > li + li + li + li + li', 'List')
 	->checkResponseElement('h3', 'TestTableLabel')
 	->responseContains('TestTable for automated testing')
 	->checkResponseElement('body', '!/namespace|Namespace/')
@@ -145,7 +147,7 @@ $b
   ->diag('filter - search by id')
   ->setField('filter[search]', 2)
   ->click('>')
-  ->checkResponseElement('ul.action_filter input[value="2"]', true)
+  ->checkResponseElement('ul.ull_action input[value="2"]', true)
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
 
