@@ -251,6 +251,10 @@ class ullTableTool
         }
       }      
       
+      // parse ullColumnConfigData table
+      $dbColumnConfig = UllColumnConfigTable::getColumnConfigArray($this->modelName, $columnName);
+      $columnConfig = array_merge($columnConfig, $dbColumnConfig);
+      
 //      var_dump($column);
       
       // TODO: more defaults (humanized default label names, ...)

@@ -17,7 +17,7 @@ class myTestCase extends sfDoctrineTestCase
         'widgetOptions'       => array(),
         'widgetAttributes'    => array('maxlength' => 64),
         'validatorOptions'    => array('required' => true, 'max_length' => 64),
-        'label'               => 'My string',
+        'label'               => 'My custom string label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
         ),   

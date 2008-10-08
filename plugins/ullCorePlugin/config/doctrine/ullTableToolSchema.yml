@@ -22,10 +22,52 @@ UllTableConfig:
 #      size: 64
 #    description_i18n_default:
 #      type: LONGVARCHAR
+    # TODO: move the following column definitions to columnConfig?
     sort_columns:
       type: string(255)
     search_columns:
       type: string(255)
+
+# Can't be called UllMetaWidget because the UllMetaWidgetBase class is named like that
+UllColumnType:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    class:
+      type: string(32)
+    label:
+      type: string(64)
+    description:
+      type: clob 
+     
+UllColumnConfig:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    # column name 'table' is not possible because it's a mysql reserved word
+    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   
+    db_table_name: 
+      type: string(32)
+    db_column_name: 
+      type: string(32)      
+    label:
+      type: string(64)
+    description:
+      type: clob
+    ull_column_type_id:
+      type: integer    
+    options:
+      type: clob      
+    enabled:
+      type: boolean
+    show_in_list:
+      type: boolean
+  relations:
+    UllColumnType:                    
       
 TestTable:
   inheritance:

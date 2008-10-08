@@ -4,6 +4,7 @@
 
 REPO_URL="http://svn.symfony-project.com/plugins/sfDoctrinePlugin/branches/1.1"
 
+svn update plugins/sfDoctrinePlugin
 svn rm plugins/sfDoctrinePlugin
 svn ci plugins/sfDoctrinePlugin -m 'updated sfDoctrinePlugin (delete)'
 svn export $REPO_URL plugins/sfDoctrinePlugin

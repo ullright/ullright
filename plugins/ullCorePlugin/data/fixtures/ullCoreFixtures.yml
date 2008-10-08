@@ -6,10 +6,10 @@ UllUser:
     email:              admin@example.com
     name:               admin
     password:           21232f297a57a5a743894a0e4a801fc3
-    creator_user_id:    1               # integer since there is no adminuser yet
-    updator_user_id:    1               # integer since there is no adminuser yet
+    creator_user_id:    1               # integer since the adminuser isn't created yet
+    updator_user_id:    1               # integer since the adminuser isn't created yet
     namespace:          ullCore
-    UllGroup:              [admingroup]    # many to many relations are given by array
+    UllGroup:           [admingroup]    # many to many relations are given by array
   testuser:
     first_name:         Thomas
     last_name:          Test
@@ -18,20 +18,33 @@ UllUser:
     password:           098f6bcd4621d373cade4e832627b4f6
     Creator:            adminuser
     Updator:            adminuser
-    UllGroup:              [helpdeskgroup]
+    UllGroup:           [helpdeskgroup]
 
-    
+   
 UllGroup:
   admingroup:
-    name:            MasterAdmins
+    name:               MasterAdmins
     Creator:            adminuser
     Updator:            adminuser
     namespace:          ullCore    
   helpdeskgroup:
-    name:            Helpdesk
+    name:               Helpdesk
     Creator:            adminuser
     Updator:            adminuser
 
+UllColumnType:
+  integer:
+    class:        ullMetaWidgetInteger
+    label:        Integer
+    namespace:    ullCore
+  string:
+    class:        ullMetaWidgetString
+    label:        String
+    namespace:    ullCore
+  datetime:
+    class:        ullMetaWidgetDateTime
+    label:        DateTime
+    namespace:    ullCore
 
 UllTableConfig:
 #  user:
@@ -45,7 +58,7 @@ UllTableConfig:
 #      de:
 #        caption: Alle Benutzer
 #        description: Liste aller Benutzer
-  test:
+  test_tc_1:
     db_table_name: TestTable
     label: TestTableLabel
     description: TestTable for automated testing
@@ -56,9 +69,15 @@ UllTableConfig:
 #        caption: All Tests
 #        description: List of all tests
 
+UllColumnConfig:
+  test_cc_1:
+    db_table_name:  TestTable
+    db_column_name: my_string
+    label:          My custom string label
+
 # for tabletool testing
 TestTable:
-  test_1:
+  tt_1:
     my_string:    Foo Bar
     my_text:      Hello, this is my text
     my_boolean:   true
@@ -68,7 +87,7 @@ TestTable:
     Updator:      adminuser
     #created_at:   2008-01-01 00:00:00 this doesn't work because the actas timestampable behaviour overwrites it
     
-  test_2:
+  tt_2:
     my_string:    Foo Bar More
     my_text:      Hello, this is more of my text
     my_boolean:   false   

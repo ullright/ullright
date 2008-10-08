@@ -29,16 +29,27 @@ $b
 	->isRequestParameter('module', 'ullTableTool')
 	->isRequestParameter('action', 'list')
 	->isRequestParameter('table', 'TestTable')
-	->checkResponseElement('ul#breadcrumbs > li + li + li', 'ullTableTool')
-	->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Table TestTableLabel')
-	->checkResponseElement('ul#breadcrumbs > li + li + li + li + li', 'List')
 	->checkResponseElement('h3', 'TestTableLabel')
 	->responseContains('TestTable for automated testing')
 	->checkResponseElement('body', '!/namespace|Namespace/')
 	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
 	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
-	
+
+$b
+  ->diag('list - test column headers')
+  ->checkResponseElement('tr > th + th + th', 'My custom string label:')
+;
+  
+$b
+  ->diag('list - test breadcrumb')  
+  ->checkResponseElement('ul#breadcrumbs > li + li + li', 'ullTableTool')
+  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Table TestTableLabel')
+  ->checkResponseElement('ul#breadcrumbs > li + li + li + li + li', 'List')
+;
+
+
+
 $b
   ->diag('create')
   ->get('ullTableTool/create/table/TestTable')
