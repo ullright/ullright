@@ -32,6 +32,7 @@ $b
 	->checkResponseElement('h3', 'TestTableLabel')
 	->responseContains('TestTable for automated testing')
 	->checkResponseElement('body', '!/namespace|Namespace/')
+	->checkResponseElement('body', '!/useless|Useless/')
 	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
 	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
@@ -133,7 +134,7 @@ $b
 ;
 $first_row = $b->getResponseDomCssSelector()->matchAll('tr > td')->getValues();
 $b->
-  test()->isnt($first_row[7], $first_row[9], 'The edited_at date is different than the created_at date: ' . $first_row[7] . ' vs ' . $first_row[9])
+  test()->isnt($first_row[8], $first_row[10], 'The edited_at date is different than the created_at date: ' . $first_row[7] . ' vs ' . $first_row[9])
 ;
 
 

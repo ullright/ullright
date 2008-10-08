@@ -27,6 +27,11 @@ class PluginUllColumnConfigTable extends UllRecordTable
       {
         $columnConfig['label'] = $value;
       }
+      
+      if (!$dbColumnConfig->enabled)
+      {
+        $columnConfig['access'] = null;
+      }
     }
     return $columnConfig;
   }

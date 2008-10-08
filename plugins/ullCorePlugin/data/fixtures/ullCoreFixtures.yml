@@ -70,10 +70,16 @@ UllTableConfig:
 #        description: List of all tests
 
 UllColumnConfig:
-  test_cc_1:
+  test_cc_my_string:
     db_table_name:  TestTable
     db_column_name: my_string
     label:          My custom string label
+    enabled:        true
+    
+  test_cc_my_useless_column:
+    db_table_name:  TestTable
+    db_column_name: my_useless_column
+    enabled:        false    
 
 # for tabletool testing
 TestTable:
@@ -81,6 +87,7 @@ TestTable:
     my_string:    Foo Bar
     my_text:      Hello, this is my text
     my_boolean:   true
+    my_useless_column: bla
     UllUser:      adminuser
     namespace:    test
     Creator:      adminuser
@@ -90,7 +97,8 @@ TestTable:
   tt_2:
     my_string:    Foo Bar More
     my_text:      Hello, this is more of my text
-    my_boolean:   false   
+    my_boolean:   false
+    my_useless_column: even more bla   
     UllUser:      testuser
     namespace:    test
     Creator:      adminuser

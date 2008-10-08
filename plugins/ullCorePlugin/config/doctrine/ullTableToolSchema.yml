@@ -83,6 +83,8 @@ TestTable:
       type: clob
     my_boolean:
       type: boolean
+    my_useless_column:
+      type: string(64)
     ull_user_id:
       type: integer
   relations:
