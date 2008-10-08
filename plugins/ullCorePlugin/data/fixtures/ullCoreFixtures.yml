@@ -75,11 +75,13 @@ UllColumnConfig:
     db_column_name: my_string
     label:          My custom string label
     enabled:        true
+    show_in_list:   true
     
   test_cc_my_useless_column:
     db_table_name:  TestTable
     db_column_name: my_useless_column
-    enabled:        false    
+    enabled:        false
+    show_in_list:   true    
 
 # for tabletool testing
 TestTable:

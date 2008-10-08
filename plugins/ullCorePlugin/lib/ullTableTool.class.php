@@ -26,6 +26,12 @@ class ullTableTool
         'created_at',
         'updator_user_id',
         'updated_at',
+    ),
+    $columnsNotShownInList = array(
+        'creator_user_id',
+        'created_at',
+        'updator_user_id',
+        'updated_at',
     ) 
   ;
   
@@ -122,7 +128,7 @@ class ullTableTool
     $lables = array();
     foreach ($this->columnsConfig as $columnName => $columnConfig)
     {
-      if (isset($columnConfig['access']))
+      if ($this->isColumnEnabled($columnConfig))
       {
         $lables[$columnName] = $columnConfig['label'];
       }
@@ -210,6 +216,7 @@ class ullTableTool
       $columnConfig['label']        = sfInflector::humanize($columnName);
       $columnConfig['metaWidget']   = 'ullMetaWidgetString';
       $columnConfig['access']       = $this->defaultAccess;
+      $columnConfig['show_in_list'] = true;
       $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
       
       switch ($column['type'])
@@ -250,6 +257,12 @@ class ullTableTool
           $columnConfig['relation'] = $columnRelations[$columnName];
         }
       }      
+      
+      // remove certain columns from the list per default
+      if (in_array($columnName, $this->columnsNotShownInList))
+      {
+        $columnConfig['show_in_list'] = false;
+      }
       
       // parse ullColumnConfigData table
       $dbColumnConfig = UllColumnConfigTable::getColumnConfigArray($this->modelName, $columnName);
@@ -297,8 +310,8 @@ class ullTableTool
       $this->forms[$key] = new ullForm($row);
       foreach ($this->columnsConfig as $columnName => $columnConfig)
       {
-        if (isset($columnConfig['access'])) {
-        
+        if ($this->isColumnEnabled($columnConfig)) 
+        {
           $ullMetaWidgetClassName = $columnConfig['metaWidget'];
           $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
           $this->forms[$key]->addUllMetaWidget($columnName, $ullMetaWidget);
@@ -340,6 +353,17 @@ class ullTableTool
     $this->columnsConfig = array_merge($this->columnsConfig, $bottom);
   }
   
+  protected function isColumnEnabled($columnConfig)
+  {
+    if ($columnConfig['access']) {
+    
+      if ($this->defaultAccess == 'w' || 
+          ($this->defaultAccess == 'r' && $columnConfig['show_in_list']))
+      {
+        return true;
+      }
+    }
+  }
   
 }
 

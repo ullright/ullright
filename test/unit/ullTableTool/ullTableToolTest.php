@@ -12,6 +12,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Id',
         'metaWidget'          => 'ullMetaWidgetInteger',
         'access'              => 'r',
+        'show_in_list'        => true,
         ),
     'my_string' => array (
         'widgetOptions'       => array(),
@@ -20,6 +21,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My custom string label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
+        'show_in_list'        => true,
         ),   
     'my_text' => array (
         'widgetOptions'       => array(),
@@ -28,6 +30,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My text',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
+        'show_in_list'        => true,
         ),                       
     'my_boolean' => array (
         'widgetOptions'       => array(),
@@ -36,6 +39,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My boolean',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
+        'show_in_list'        => true,
         ),
     'my_useless_column' => array (
         'widgetOptions'       => array(),
@@ -44,6 +48,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My useless column',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => null,
+        'show_in_list'        => true,
         ),        
     'ull_user_id' => array (
         'widgetOptions'       => array(),
@@ -52,6 +57,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Ull user',
         'metaWidget'          => 'ullMetaWidgetForeignKey',
         'access'              => 'w',
+        'show_in_list'        => true,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
         ),  
 //    'namespace' => array (
@@ -69,6 +75,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Creator user',
         'metaWidget'          => 'ullMetaWidgetForeignKey',
         'access'              => 'r',
+        'show_in_list'        => false,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
         ),
     'created_at' => array (
@@ -78,6 +85,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Created at',
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
+        'show_in_list'        => false,
         ),
     'updator_user_id' => array (
         'widgetOptions'       => array(),
@@ -86,6 +94,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Updator user',
         'metaWidget'          => 'ullMetaWidgetForeignKey',
         'access'              => 'r',
+        'show_in_list'        => false,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
         ),                  
     'updated_at' => array (
@@ -95,6 +104,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Updated at',
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
+        'show_in_list'        => false,
         ),        
   ); 
 

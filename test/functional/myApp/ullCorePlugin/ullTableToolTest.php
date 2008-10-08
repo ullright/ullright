@@ -9,8 +9,6 @@ $b->setFixturesPath($path);
 $b->resetDatabase();
 
 $my_string_col_selector = 'td + td + td';
-$created_at_col_selector = 'td + td + td + td + td + td + td + td';
-$updated_at_col_selector = 'td + td + td + td + td + td + td + td + td + td';
 
 $b
   ->diag('login')
@@ -40,6 +38,7 @@ $b
 $b
   ->diag('list - test column headers')
   ->checkResponseElement('tr > th + th + th', 'My custom string label:')
+  ->checkResponseElement('table > thead > tr > th', 6)
 ;
   
 $b
@@ -48,8 +47,6 @@ $b
   ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Table TestTableLabel')
   ->checkResponseElement('ul#breadcrumbs > li + li + li + li + li', 'List')
 ;
-
-
 
 $b
   ->diag('create')
@@ -132,9 +129,15 @@ $b
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
   ->checkResponseElement('tr + tr + tr > ' . $my_string_col_selector, 'Quasimodo')
 ;
-$first_row = $b->getResponseDomCssSelector()->matchAll('tr > td')->getValues();
+
+$b
+  ->diag('check if created_at != updated_at')
+  ->get('ullTableTool/edit/table/TestTable/id/1')
+;
+$created_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr > td + td')->getValue();
+$updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr +tr + tr > td + td')->getValue();
 $b->
-  test()->isnt($first_row[8], $first_row[10], 'The edited_at date is different than the created_at date: ' . $first_row[7] . ' vs ' . $first_row[9])
+  test()->isnt($created_at, $updated_at, 'The edited_at date is different than the created_at date: ' . $created_at . ' vs ' . $updated_at)
 ;
 
 

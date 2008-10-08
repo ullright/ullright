@@ -30,7 +30,12 @@ class PluginUllColumnConfigTable extends UllRecordTable
       
       if (!$dbColumnConfig->enabled)
       {
-        $columnConfig['access'] = null;
+        $columnConfig['access'] = false;
+      }
+      
+      if (!$dbColumnConfig->show_in_list)
+      {
+        $columnConfig['show_in_list'] = false;
       }
     }
     return $columnConfig;
