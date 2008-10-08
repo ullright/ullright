@@ -17,18 +17,13 @@ UllTableConfig:
       type: string(64)
     description:
       type: clob
-#    caption_i18n_default:
-#      type: VARCHAR
-#      size: 64
-#    description_i18n_default:
-#      type: LONGVARCHAR
     # TODO: move the following column definitions to columnConfig?
     sort_columns:
       type: string(255)
     search_columns:
       type: string(255)
 
-# Can't be called UllMetaWidget because the UllMetaWidgetBase class is named like that
+# Model cannot be called UllMetaWidget because the UllMetaWidgetBase class is named like that
 UllColumnType:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -83,6 +78,8 @@ TestTable:
       type: clob
     my_boolean:
       type: boolean
+    my_email:
+      type: string(64)      
     my_useless_column:
       type: string(64)
     ull_user_id:

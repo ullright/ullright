@@ -32,13 +32,15 @@ $b
 	->checkResponseElement('body', '!/namespace|Namespace/')
 	->checkResponseElement('body', '!/useless|Useless/')
 	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
+	->checkResponseElement('tr > td + td + td + td + td + td > a', 'foobar@example.com')
 	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
+	
 ;
 
 $b
   ->diag('list - test column headers')
   ->checkResponseElement('tr > th + th + th', 'My custom string label:')
-  ->checkResponseElement('table > thead > tr > th', 6)
+  ->checkResponseElement('table > thead > tr > th', 7) // number of columns
 ;
   
 $b
@@ -55,6 +57,7 @@ $b
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('table', 'TestTable')
+  ->checkResponseElement('table tr', 10) // number of displayed fields
   ->setField('fields[my_string]', 'Quasimodo')
   ->setField('fields[my_text]', "Hello,\nthis is a new line")
   ->setField('fields[my_boolean]', 'true')
@@ -131,11 +134,11 @@ $b
 ;
 
 $b
-  ->diag('check if created_at != updated_at')
+  ->diag('check if created_at is not equal to updated_at')
   ->get('ullTableTool/edit/table/TestTable/id/1')
 ;
-$created_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr > td + td')->getValue();
-$updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr +tr + tr > td + td')->getValue();
+$created_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr + tr > td + td')->getValue();
+$updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr +tr + tr + tr> td + td')->getValue();
 $b->
   test()->isnt($created_at, $updated_at, 'The edited_at date is different than the created_at date: ' . $created_at . ' vs ' . $updated_at)
 ;

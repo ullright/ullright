@@ -41,6 +41,15 @@ class myTestCase extends sfDoctrineTestCase
         'access'              => 'w',
         'show_in_list'        => true,
         ),
+    'my_email' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array('maxlength' => 64),
+        'validatorOptions'    => array('required' => false, 'max_length' => 64),
+        'label'               => 'My email',
+        'metaWidget'          => 'ullMetaWidgetEmail',
+        'access'              => 'w',
+        'show_in_list'        => true,
+        ),          
     'my_useless_column' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array('maxlength' => 64),
@@ -122,7 +131,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(36, new lime_output_color, $configuration);
+$t = new myTestCase(37, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -188,7 +197,7 @@ $t->begin('getTableConfig() for a table with a multi-columns primary key');
 $t->begin('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 10, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 11, 'columnsConfig has the correct number of columns');
   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();

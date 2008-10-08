@@ -42,7 +42,7 @@ class sfValidatorRegex extends sfValidatorString
    */
   protected function doClean($value)
   {
-    parent::clean($value);
+    $clean = parent::doClean($value);
     
     $clean = (string) $value;
 

@@ -16,4 +16,7 @@ echo "Getting new config files from ullright repository"
 MYPATH="config/databases.yml"
 svn export $REPO_URL/$MYPATH $MYPATH
 
+MYPATH="config/ProjectConfiguration.class.php"
+svn export $REPO_URL/$MYPATH $MYPATH
+
 echo Done!

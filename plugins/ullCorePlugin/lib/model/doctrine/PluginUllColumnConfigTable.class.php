@@ -37,6 +37,11 @@ class PluginUllColumnConfigTable extends UllRecordTable
       {
         $columnConfig['show_in_list'] = false;
       }
+      
+      if ($value = $dbColumnConfig->UllColumnType->class)
+      {
+        $columnConfig['metaWidget'] = $value;
+      }
     }
     return $columnConfig;
   }
