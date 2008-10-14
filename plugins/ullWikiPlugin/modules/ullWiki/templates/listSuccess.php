@@ -20,7 +20,7 @@
       $create_link = 
         button_to(__('Create', null, 'common'), 'ullWiki/create') . ' &nbsp ';
       echo $create_link;
-  
+
       // == search field
       //echo __('Search', null, 'common') . ': ';
       echo ull_reqpass_form_tag(array('page' => '', 'search' => ''),
@@ -66,7 +66,6 @@
     )); ?>
   <?php //++$cursor;/?>
 <?php endforeach; ?>
-
 
 <?php include_partial('ullTableTool/ullPagerBottom',
         array('pager' => $ullwiki_pager)

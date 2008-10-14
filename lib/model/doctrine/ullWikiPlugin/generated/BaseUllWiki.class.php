@@ -17,7 +17,7 @@ abstract class BaseUllWiki extends UllRecord
     $this->hasColumn('changelog_comment', 'string', 255, array('type' => 'string', 'length' => '255'));
     $this->hasColumn('read_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('edit_counter', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('duplicate_tags_for_propel_search', 'clob', null, array('type' => 'clob'));
+    $this->hasColumn('duplicate_tags_for_search', 'clob', null, array('type' => 'clob'));
     $this->hasColumn('locked_by_user_id', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('locked_at', 'timestamp', null, array('type' => 'timestamp'));
   }

@@ -22,7 +22,7 @@ UllWiki:
       type: integer
     edit_counter: 
       type: integer
-    duplicate_tags_for_propel_search:
+    duplicate_tags_for_search:
       type: clob
     locked_by_user_id: 
       type: integer

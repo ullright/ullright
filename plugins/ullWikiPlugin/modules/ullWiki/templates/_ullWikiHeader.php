@@ -2,7 +2,7 @@
 /**
  * ullwiki header partial
  *
- * expexts a ullwiki object and prints the header
+ * expects a ullwiki object and prints the header
  * @package    ull_at
  * @subpackage ullwiki
  * @author     Klemens Ullmann
@@ -11,7 +11,7 @@
 ?>
 <div class='ullwiki_header'>
 
-  <div class='ullwiki_headfoot_float_right'>
+  <div class='ullwiki_headfoot_float_left'>
     <?php include_component(
             'ullWiki',
             'ullWikiHeadFootActionIcons', 
@@ -20,7 +20,7 @@
             )
           ); ?>
   </div>
-  
+
   <div class='ullwiki_header_headline'>
     <h3>
       <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID()); ?>
@@ -39,7 +39,7 @@
               , 'edit_link'   => $edit_link
             )
           ) ?>
-  
+
   <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
   
 

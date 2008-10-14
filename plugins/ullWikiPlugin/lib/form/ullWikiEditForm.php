@@ -6,8 +6,6 @@ class ullWikiEditForm extends sfFormDoctrine
   {
     $this->setWidgets(array(
       //non-Doctrine Fields
-      'save_mode'         => new sfWidgetFormInputHidden(),
-      'return_var'        => new sfWidgetFormInputHidden(),
       'save'              => new sfWidgetFormInput(),
       'commit'            => new sfWidgetFormInput(),
       'tags'              => new sfWidgetFormInput(array(), array('size' => '80')),
@@ -21,7 +19,7 @@ class ullWikiEditForm extends sfFormDoctrine
       'creator_user_id'   => new sfWidgetFormInputHidden(),
       'created_at'        => new sfWidgetFormInputHidden(),
 
-      'cultures'          => new sfWidgetFormSelect(array('choices' => Array())),
+      #'cultures'          => new sfWidgetFormSelect(array('choices' => Array())),
       'subject'           => new sfWidgetFormInput(array(), array('size' => '50')),
       'body'              => new sfWidgetFormTextarea(array(), array (
                                  'rich' => 'fck', 'size' => '80x40', 'config' => '../ullWikiPlugin/js/FCKeditor_config.js')),

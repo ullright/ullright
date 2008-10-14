@@ -30,9 +30,7 @@ class BaseullWikiActions extends ullsfActions
     // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
 
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->addFinal(__('Wiki'));
+    $this->breadcrumbForIndex();
   }
 
 
@@ -52,14 +50,12 @@ class BaseullWikiActions extends ullsfActions
     $this->return_var = $this->getRequestParameter('return_var');
 
 
-    $this->ull_reqpass_redirect();
+    #$this->ull_reqpass_redirect(); //ToDo
 
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
-    $this->breadcrumbTree->addFinal(__('Result list', null, 'common'));
+    $this->breadcrumbForList();
 
-
+    $rows = $this->getFilterFromRequest(); //ToDo
+    
     $this->form = new ullWikiListSearchForm();
 
 
@@ -94,7 +90,7 @@ class BaseullWikiActions extends ullsfActions
         $search_word = '"%'.$search_word.'%"';
 
         $query_subject .= ($query_subject != '' ? ' AND ':'') . 'w.subject LIKE '.$search_word;
-        $query_tags    .= ($query_tags!=''?' AND ':'')    . 'w.duplicate_tags_for_propel_search LIKE '.$search_word;
+        $query_tags    .= ($query_tags!=''?' AND ':'')    . 'w.duplicate_tags_for_search LIKE '.$search_word;
 
         if ($fulltext) {
           $query_body  .= ($query_body!=''?' AND ':'')    . 'w.body LIKE '.$search_word;
@@ -115,8 +111,9 @@ class BaseullWikiActions extends ullsfActions
   public function executeShow() {
 
     // referer handling -> reset show referer
-    $refererHandler = new refererHandler();
-    $refererHandler->initialize('show');
+    $this->refererHandler = new refererHandler();
+    $this->refererHandler = new refererHandler();
+    $this->refererHandler->initialize('show');
 
     // == handle request params
 
@@ -132,27 +129,8 @@ class BaseullWikiActions extends ullsfActions
     }
 
 
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+    $this->breadcrumbForShow();
 
-
-
-
-    // display result list link only when there is a "show" or "edit" referer containing 
-    //  the list action    
-    if (
-      strstr($refererHandler->getReferer('show'), 'ullWiki/list')
-      or strstr($refererHandler->getReferer('edit'), 'ullWiki/list')
-      ) {
-    $this->breadcrumbTree->add(
-        __('Result list', null, 'common'),
-        $refererHandler->getReferer()
-      );
-    }
-
-    $this->breadcrumbTree->add(__('Show', null, 'common'));    
-    $this->breadcrumbTree->addFinal($this->ullwiki->getSubject());
 
     // variable definition
 //    $this->previous_cursor = 0;
@@ -207,27 +185,9 @@ class BaseullWikiActions extends ullsfActions
 //    $this->return_url = $this->getRequestParameter('return_url');
     $this->return_var = $this->getRequestParameter('return_var');    
 
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
 
-    // display result list link only when there is a "show" or "edit" referer 
-    //  containing the list action    
-    if (
-      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
-      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
-       ) {
-    $this->breadcrumbTree->add(
-        __('Result list', null, 'common'),
-        $this->refererHandler->getReferer()
-      );
-    }
+    $this->breadcrumbForCreate();
 
-//    $this->breadcrumbTree->add(
-//      __('Result list', null, 'common'),
-//      $this->refererHandler->getReferer('edit')
-//    );
-    $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
 
     $this->ullwiki = new UllWiki();
     $this->setTemplate('edit');
@@ -256,51 +216,7 @@ class BaseullWikiActions extends ullsfActions
 //    $this->return_url = $this->getRequestParameter('return_url');
     $this->return_var = $this->getRequestParameter('return_var');    
 
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
-
-    // display result list link only when there is a "show" or "edit" referer 
-    //  containing the list action    
-    if (
-      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
-      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
-       ) {
-      $this->breadcrumbTree->add(
-        __('Result list', null, 'common'),
-        $this->refererHandler->getReferer()
-      );
-    }
-
-    // display breadcrumb show link only when there is an "edit" referer 
-    //  containing the show action 
-    if (strstr($this->refererHandler->getReferer('edit'), 'ullWiki/show')) {
-      $this->breadcrumbTree->add(
-        __('Result list', null, 'common'),
-        $this->refererHandler->getReferer()
-      );
-    }
-
-
-
-//    if ($this->refererHandler->hasReferer('show')) {
-//      $this->breadcrumbTree->add(
-//        __('Result list'),
-//        $this->refererHandler->getReferer('show')
-//      );      
-//      $this->breadcrumbTree->add(
-//        __('Show'),
-//        $this->refererHandler->getReferer()
-//      );
-//      
-//    } else {
-//      $this->breadcrumbTree->add(
-//        $this->getContext()->getI18N()->__('Result list'),
-//        $this->refererHandler->getReferer()
-//      );       
-//    }
-    $this->breadcrumbTree->add(__('Edit', null, 'common'));
+    $this->breadcrumbForEdit();
 
 //    $this->wiki = WikiPeer::retrieveByPk($this->getRequestParameter('id'));
     $this->ullwiki = UllWikiTable::findByDocid($this->getRequestParameter('docid'));
@@ -353,11 +269,11 @@ class BaseullWikiActions extends ullsfActions
 //    $edit_counter++;
 //    $wiki->setEditCounter($edit_counter);
     $ullwiki->setEditCounter($this->getRequestParameter('edit_counter') + 1);
-    $ullwiki->setLockedByUserId($this->getRequestParameter('locked_by_user_id') ? $this->getRequestParameter('locked_by_user_id') : null);
-    if ($this->getRequestParameter('locked_at')) {
-      list($d, $m, $y) = sfI18N::getDateForCulture($this->getRequestParameter('locked_at'), $this->getUser()->getCulture());
-      $ullwiki->setLockedAt("$y-$m-$d");
-    }
+    #$ullwiki->setLockedByUserId($this->getRequestParameter('locked_by_user_id') ? $this->getRequestParameter('locked_by_user_id') : null);
+#    if ($this->getRequestParameter('locked_at')) {
+#      list($d, $m, $y) = sfI18N::getDateForCulture($this->getRequestParameter('locked_at'), $this->getUser()->getCulture());
+#      $ullwiki->setLockedAt("$y-$m-$d");
+#    }
 //    $wiki->setCreatorUserId($this->getRequestParameter('creator_user_id') ? $this->getRequestParameter('creator_user_id') : null);
     $ullwiki->setUpdatorUserId($logged_in_user_id);
 
@@ -375,7 +291,7 @@ class BaseullWikiActions extends ullsfActions
 */
 
     #$ullwiki->setCulture($culture->getIsoCode());
-    $ullwiki->setCulture('en');
+    #$ullwiki->setCulture('en');
     $ullwiki->setSubject($this->getRequestParameter('subject'));
     $ullwiki->setBody($this->getRequestParameter('body'));
     $ullwiki->setChangelogComment($this->getRequestParameter('changelog_comment'));
@@ -448,5 +364,116 @@ class BaseullWikiActions extends ullsfActions
 
     return $this->redirect('ullWiki/list');
   }
+
+
+  protected function breadcrumbForIndex() {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->addFinal(__('Wiki'));
+  }
+
+  protected function breadcrumbForList() {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+    $this->breadcrumbTree->addFinal(__('Result list', null, 'common'));
+  }  
+
+  protected function breadcrumbForShow() {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+
+    // display result list link only when there is a "show" or "edit" referer containing 
+    //  the list action    
+    if (
+      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
+      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
+      ) {
+      $this->breadcrumbTree->add(
+        __('Result list', null, 'common'),
+        $this->refererHandler->getReferer()
+      );
+    }
+
+    $this->breadcrumbTree->add(__('Show', null, 'common'));    
+    $this->breadcrumbTree->addFinal($this->ullwiki->getSubject());
+
+  }  
+
+  protected function breadcrumbForCreate() {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+
+    // display result list link only when there is a "show" or "edit" referer 
+    //  containing the list action    
+    if (
+      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
+      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
+       ) {
+      $this->breadcrumbTree->add(
+        __('Result list', null, 'common'),
+        $this->refererHandler->getReferer()
+      );
+    }
+
+//    $this->breadcrumbTree->add(
+//      __('Result list', null, 'common'),
+//      $this->refererHandler->getReferer('edit')
+//    );
+    $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
+  }
+
+  protected function breadcrumbForEdit() {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->setEditFlag(true);
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+
+    // display result list link only when there is a "show" or "edit" referer 
+    //  containing the list action    
+    if (
+      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
+      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
+       ) {
+      $this->breadcrumbTree->add(
+        __('Result list', null, 'common'),
+        $this->refererHandler->getReferer()
+      );
+    }
+
+    // display breadcrumb show link only when there is an "edit" referer 
+    //  containing the show action 
+    if (strstr($this->refererHandler->getReferer('edit'), 'ullWiki/show')) {
+      $this->breadcrumbTree->add(
+        __('Result list', null, 'common'),
+        $this->refererHandler->getReferer()
+      );
+    }
+
+
+
+//    if ($this->refererHandler->hasReferer('show')) {
+//      $this->breadcrumbTree->add(
+//        __('Result list'),
+//        $this->refererHandler->getReferer('show')
+//      );      
+//      $this->breadcrumbTree->add(
+//        __('Show'),
+//        $this->refererHandler->getReferer()
+//      );
+//      
+//    } else {
+//      $this->breadcrumbTree->add(
+//        $this->getContext()->getI18N()->__('Result list'),
+//        $this->refererHandler->getReferer()
+//      );       
+//    }
+    $this->breadcrumbTree->add(__('Edit', null, 'common'));
+  }
+
+  
+  protected function getFilterFromRequest()
+  {
+
+  }
+  
+  
 
 }
