@@ -20,15 +20,16 @@
 <?php echo $form['creator_user_id']->render() ?>
 <?php echo $form['created_at']->render() ?>
 
-<?php echo $form['save_mode']->render(); // saveonly, saveshow, ... ?>
-
-<?php #echo $form['return_url']->render(Array('value' => $return_url));?>
-<?php echo $form['return_var']->render(Array('value' => $return_var));?>
+<?php echo input_hidden_tag('save_mode', 'saveonly'); // saveonly, saveshow, ... ?>
+<?php //echo input_hidden_tag('return_url', $return_url); ?>
+<?php echo input_hidden_tag('return_var', $return_var); ?>
 
 <table class='ull_wiki_edit'>
 <tbody>
+
+<!-- 
 <tr>
-  <td><b><?php echo $form['cultures']->renderLabel() ?>:</b></td>
+  <td><b><?php //echo $form['cultures']->renderLabel() ?>:</b></td>
   <td>
     <?php 
       //weflowTools::printR($cultures); 
@@ -42,6 +43,7 @@
     ?>
   </td>
 </tr>
+ -->
 
 <tr class='odd'>
   <td><b><?php echo $form['subject']->renderLabel(); ?>:</b></td>
@@ -110,6 +112,7 @@
           'type'      => 'button'));
 	      //'onclick'   => 'setSaveMode("saveshow");'));
 	      ?>
+	      <?php echo submit_tag(__('Save and show', null, 'common')) ?>
           
         <script language="JavaScript">
           document.getElementById('save').onclick = saveshow;
@@ -119,7 +122,8 @@
       <?php
         echo $form['commit']->render(array(
           'value'     => __('Save and close', null, 'common'),
-          'type'      => 'submit')); ?> 
+          'type'      => 'submit')); ?>
+          <?php echo submit_tag(__('Save and close', null, 'common')) ?>
       </li>
 
     </ul>
@@ -135,8 +139,10 @@
           echo ull_link_to_function(
             __('Save only', null, 'common')
             , 'setSaveMode("saveonly");'
-          ); 
+          );
         ?>
+        <?php echo submit_tag(__('Test Submit Button', null, 'common'),
+                    Array('class' => 'button-as-link')) ?>
       </li>
 
       <li>
