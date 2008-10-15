@@ -55,7 +55,9 @@
   <td><b><?php echo $form['body']->renderLabel(); ?>:</b></td>
   <td><?php //echo $form['body']->render();
         echo object_textarea_tag($sf_data->getRaw('ullwiki'), 'getBody', array (
-              'rich' => 'fck', 'size' => '80x40', 'config' => '../ullWikiPlugin/js/FCKeditor_config.js'));
+              'rich'   => 'fck',
+              'size'   => '80x40',
+              'config' => '../ullWikiPlugin/js/FCKeditor_config.js'));
     ?></td>
 </tr>
 
@@ -66,9 +68,10 @@
 </tr>
 
 <tr>
-  <td><b><?php echo $form['tags']->renderLabel(); ?>:</b></td>
+  <td><b><?php #echo $form['tags']->renderLabel(); ?>:</b></td>
   <td>
     <?php
+/*
       $tags_out = sfContext::getInstance()->getRequest()->getParameter('tags');
       if (!$tags_out) {
         //$tags = $sf_data->getRaw('ullwiki')->getTags(); //TODO
@@ -79,7 +82,7 @@
 
       //ToDo: Values for tags fields
       echo $form['tags']->render(Array('value' => ''));
- 
+*/
       //$tags_pop = TagPeer::getPopulars(); //TODO
       $tags_pop = Array();
 //        ullCoreTools::printR($tags);
@@ -106,24 +109,16 @@
     <ul>
 
 		  <li>
-	    <?php
-	      echo $form['save']->render(array(
-	        'value'     => __('Save and show', null, 'common'),
-          'type'      => 'button'));
-	      //'onclick'   => 'setSaveMode("saveshow");'));
-	      ?>
-	      <?php echo submit_tag(__('Save and show', null, 'common')) ?>
-          
+	      <?php echo submit_tag(__('Save and show', null, 'common'),
+	             array('name' => 'submit_saveshow')) ?>
+
         <script language="JavaScript">
-          document.getElementById('save').onclick = saveshow;
+          //document.getElementById('save').onclick = saveshow;
         </script>
 	    </li>
       <li>
-      <?php
-        echo $form['commit']->render(array(
-          'value'     => __('Save and close', null, 'common'),
-          'type'      => 'submit')); ?>
-          <?php echo submit_tag(__('Save and close', null, 'common')) ?>
+          <?php echo submit_tag(__('Save and close', null, 'common'),
+               array('name' => 'submit_saveclose')) ?>
       </li>
 
     </ul>
@@ -142,7 +137,8 @@
           );
         ?>
         <?php echo submit_tag(__('Test Submit Button', null, 'common'),
-                    Array('class' => 'button-as-link')) ?>
+                    Array('class' => 'button-as-link',
+                          'name'  => 'submit_saveonly')) ?>
       </li>
 
       <li>

@@ -198,7 +198,7 @@ class BaseullWikiActions extends ullsfActions
     $this->cultures = UllCulturePeer::doSelect($c);
     */
     
-    $this->form = new ullWikiEditForm($this->ullwiki);
+    $this->form = new ullWikiForm($this->ullwiki);
   }
 
 
@@ -231,7 +231,7 @@ class BaseullWikiActions extends ullsfActions
 
     $this->forward404Unless($this->ullwiki);
 
-    $this->form = new ullWikiEditForm($this->ullwiki);
+    $this->form = new ullWikiForm($this->ullwiki);
   }
 
 
@@ -296,14 +296,15 @@ class BaseullWikiActions extends ullsfActions
     $ullwiki->setBody($this->getRequestParameter('body'));
     $ullwiki->setChangelogComment($this->getRequestParameter('changelog_comment'));
     //$ullwiki->setTags(strtolower($this->getRequestParameter('tags'))); TODO
-    $ullwiki->setDuplicateTagsForPropelSearch(strtolower($this->getRequestParameter('tags')));
+    $ullwiki->setDuplicateTagsForSearch(strtolower($this->getRequestParameter('tags')));
 
     $ullwiki->save();
 
 
 
     // == forward junction
-    if ($this->getRequestParameter('save_mode') == 'saveonly') {
+    #if ($this->getRequestParameter('save_mode') == 'saveonly') {
+    if ($this->getRequestParameter('submit_saveonly', false)) {
       return $this->redirect('ullWiki/edit?docid='.$docid);
 
       // plugin mode
@@ -314,8 +315,9 @@ class BaseullWikiActions extends ullsfActions
 //      exit();
       return $this->redirect($return_url);
 
-    } elseif ($this->getRequestParameter('save_mode') == 'saveshow') {
-      return $this->redirect('ullWiki/show?docid='.$docid);
+    #} elseif ($this->getRequestParameter('save_mode') == 'saveshow') {
+    } elseif ($this->getRequestParameter('submit_saveshow', false)) {
+    	return $this->redirect('ullWiki/show?docid='.$docid);
       
     } else {
       
