@@ -27,6 +27,11 @@
 <table class='ull_wiki_edit'>
 <tbody>
 
+<?php
+#echo $form;
+?>
+
+
 <!-- 
 <tr>
   <td><b><?php //echo $form['cultures']->renderLabel() ?>:</b></td>
@@ -110,7 +115,7 @@
 
 		  <li>
 	      <?php echo submit_tag(__('Save and show', null, 'common'),
-	             array('name' => 'submit_saveshow')) ?>
+	             array('name' => 'submit_save_show')) ?>
 
         <script language="JavaScript">
           //document.getElementById('save').onclick = saveshow;
@@ -118,7 +123,7 @@
 	    </li>
       <li>
           <?php echo submit_tag(__('Save and close', null, 'common'),
-               array('name' => 'submit_saveclose')) ?>
+               array('name' => 'submit_save_close')) ?>
       </li>
 
     </ul>
@@ -130,15 +135,7 @@
     <ul>
 
       <li>
-        <?php 
-          echo ull_link_to_function(
-            __('Save only', null, 'common')
-            , 'setSaveMode("saveonly");'
-          );
-        ?>
-        <?php echo submit_tag(__('Test Submit Button', null, 'common'),
-                    Array('class' => 'button-as-link',
-                          'name'  => 'submit_saveonly')) ?>
+        <?php echo ull_submit_tag(__('Save only', null, 'common'), array('name' => 'submit_save_only', 'display_as_link' => true)); ?>
       </li>
 
       <li>

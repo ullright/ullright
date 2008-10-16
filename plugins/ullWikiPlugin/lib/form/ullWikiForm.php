@@ -27,6 +27,9 @@ class ullWikiForm extends sfFormDoctrine
       'changelog_comment'         => __('Changelog comment', null, 'common'),
 #      'duplicate_tags_for_search' => __('Tags'),
     ));
+    
+    $this->getWidgetSchema()->setFormFormatterName('ullTable');
+    
   }
 
   public function getModelName()

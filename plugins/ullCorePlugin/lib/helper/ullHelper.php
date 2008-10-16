@@ -442,6 +442,44 @@ function _ull_to_function($name = 'link', $function, $options = array(), $type =
 }
 
 
+
+/**
+ * helper for display a link with javascript or submit button without js support
+ *  
+ * options:
+ *   display_as_link  (boolean) true for show a link if js in enabled, false for show submit button
+ *   name             (string)  name/id of field
+ *    
+ *
+ * @param name string         name to display
+ * @param options mixed       string or array of options
+ * @return string             html
+ */
+
+function ull_submit_tag($name, $options = array()) {
+	
+  if (!isset($options['name'])) {
+    throw new InvalidArgumentException('Option name must be supplied');
+  }
+	if (!isset($options['display_as_link'])) {
+		throw new InvalidArgumentException('Option display_as_link must be supplied');
+	}
+
+  //js not enabled or not a link
+	if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript', false) || $options['display_as_link'] == false) {
+		return submit_tag($name, array('name' => $options['name']));
+	} else {
+		return input_hidden_tag($options['name'], 0).
+		  javascript_tag('
+		    function do_submit_save_only() {
+		      document.getElementById("'.$options['name'].'").value = 1;
+		      document.form1.submit();
+		    }
+		  ').
+		  ull_link_to_function($name, 'do_submit_save_only()');
+	}
+}
+
 /**
  * Enhancement of form_tag() helper 
  * Get current request params, serialize them and pass them using a hidden field
