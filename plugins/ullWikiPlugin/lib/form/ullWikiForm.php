@@ -1,6 +1,6 @@
 <?php
 
-class ullWikiForm extends sfFormDoctrine
+class ullWikiForm extends PluginUllWikiForm
 {
   public function configure()
   {
@@ -14,8 +14,10 @@ class ullWikiForm extends sfFormDoctrine
 
       #'cultures'                  => new sfWidgetFormSelect(array('choices' => Array())),
       'subject'                   => new sfWidgetFormInput(array(), array('size' => '50')),
-      'body'                      => new sfWidgetFormTextarea(array(), array (
-                                     'rich' => 'fck', 'size' => '80x40', 'config' => '../ullWikiPlugin/js/FCKeditor_config.js')),
+/*      'body'                      => new sfWidgetFormTextarea(array(), array (
+                                     'rich' => 'fck', 'size' => '80x40',
+                                     'config' => '../ullWikiPlugin/js/FCKeditor_config.js')),*/
+      'body'                      => new sfWidgetFormTextareaTinyMCE(array(), array('class' => 'richtext')),
       'changelog_comment'         => new sfWidgetFormInput(array(), array('size' => '50')),
       #'duplicate_tags_for_search' => new sfWidgetFormInput(array(), array('size' => '80')),
     ));
@@ -29,12 +31,25 @@ class ullWikiForm extends sfFormDoctrine
     ));
     
     $this->getWidgetSchema()->setFormFormatterName('ullTable');
-    
+
+    $this->setValidators(array(
+      'subject'  => new sfValidatorPass(),
+    ));
+
   }
 
   public function getModelName()
   {
     return 'UllWiki';
   } 
+
+  public function updateObject()
+  {
+    $object = parent::updateObject();
+
+    #$object->setFile(str_replace(sfConfig::get('sf_upload_dir').'/', '', $object->getFile()));
+
+    return $object;
+  }
 
 }

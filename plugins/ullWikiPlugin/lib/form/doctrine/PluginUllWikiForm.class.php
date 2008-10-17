@@ -9,4 +9,5 @@
  */
 abstract class PluginUllWikiForm extends BaseUllWikiForm
 {
+	
 }
