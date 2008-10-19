@@ -222,17 +222,17 @@ class BaseUllTableToolActions extends ullsfActions
   {
     // TODO: put access check in a protected function to allow custom override 
     $this->checkAccess('Masteradmins');
-    
+
     $this->refererHandler = new refererHandler();
 
     $this->getTablefromRequest();
-    
+
     $this->table_tool = new ullTableTool($this->table_name, 'w');
-    
+
     $row = $this->getRowFromRequestOrCreate();
-    
+
     $this->table_tool->buildForm($row);
-    
+
     if ($request->isMethod('post'))
     {
       if ($this->table_tool->getForm()->bindAndSave($request->getParameter('fields')))
@@ -245,11 +245,11 @@ class BaseUllTableToolActions extends ullsfActions
     else
     {
       $this->refererHandler->initialize();
-      
+
     }
     $this->breadcrumbForEdit();
-    
-  }    
+
+  }
 
   
   public function executeDelete()
