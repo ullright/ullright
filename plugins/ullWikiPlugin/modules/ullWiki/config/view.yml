@@ -15,3 +15,6 @@ default:
 
   has_layout:     on
   layout:         layout
+
+editSuccess:
+  javascripts:    [ /ullWikiPlugin/js/fckeditor/fckeditor ]

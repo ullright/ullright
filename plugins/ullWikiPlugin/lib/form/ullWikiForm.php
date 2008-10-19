@@ -14,10 +14,10 @@ class ullWikiForm extends PluginUllWikiForm
 
       #'cultures'                  => new sfWidgetFormSelect(array('choices' => Array())),
       'subject'                   => new sfWidgetFormInput(array(), array('size' => '50')),
-/*      'body'                      => new sfWidgetFormTextarea(array(), array (
-                                     'rich' => 'fck', 'size' => '80x40',
-                                     'config' => '../ullWikiPlugin/js/FCKeditor_config.js')),*/
-      'body'                      => new sfWidgetFormTextareaTinyMCE(array(), array('class' => 'richtext')),
+      'body'                      => new sfWidgetFormTextareaFCKEditor(array('width'                    => '800',
+                                                                             'height'                   => '400',
+                                                                             'CustomConfigurationsPath' => '/ullWikiPlugin/js/FCKeditor_config.js',
+                                                                             'BasePath'                 => '/ullWikiPlugin/js/fckeditor/')),
       'changelog_comment'         => new sfWidgetFormInput(array(), array('size' => '50')),
       #'duplicate_tags_for_search' => new sfWidgetFormInput(array(), array('size' => '80')),
     ));

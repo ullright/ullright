@@ -168,37 +168,7 @@ class BaseullWikiActions extends ullsfActions
   }
 
   public function executeCreate() {
-
-    // "wiki create" referer handling
-    // this has to take place before the access check, to correctly set the 
-    //   referer, eg. for the 'cancel' button 
-    $this->refererHandler = new refererHandler();  
-    $this->refererHandler->initialize('edit');
-
-    // check access
-    $this->checkAccess('MasterAdmins');
-
-
-    // == handle request params
-
-    // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
-//    $this->return_url = $this->getRequestParameter('return_url');
-    $this->return_var = $this->getRequestParameter('return_var');    
-
-
-    $this->breadcrumbForCreate();
-
-
-    $this->ullwiki = new UllWiki();
-    $this->setTemplate('edit');
-
-    /*
-    $c = new Criteria;
-    $c->addAscendingOrderByColumn(UllCulturePeer::NAME);
-    $this->cultures = UllCulturePeer::doSelect($c);
-    */
-    
-    $this->form = new ullWikiForm($this->ullwiki);
+    $this->forward('ullWiki', 'edit');
   }
 
 
@@ -219,7 +189,8 @@ class BaseullWikiActions extends ullsfActions
     $this->breadcrumbForEdit();
 
 //    $this->wiki = WikiPeer::retrieveByPk($this->getRequestParameter('id'));
-    $this->ullwiki = UllWikiTable::findByDocid($this->getRequestParameter('docid'));
+
+    $this->ullwiki = $this->getWikiFromRequestOrCreate();
 //    $this->wiki->setCulture('');
 
 /*
@@ -354,11 +325,7 @@ class BaseullWikiActions extends ullsfActions
     // check access
     $this->checkAccess('MasterAdmins');
 
-    $ullwiki = UllWikiTable::findByDocid($this->getRequestParameter('docid'));
-
-    $this->forward404Unless($ullwiki);
-
-    //$wiki->delete();
+    $ullwiki = $this->getWikiFromRequest();   
     $ullwiki->setCurrent(false);
     $ullwiki->save();
 
@@ -398,28 +365,6 @@ class BaseullWikiActions extends ullsfActions
 
   }  
 
-  protected function breadcrumbForCreate() {
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
-
-    // display result list link only when there is a "show" or "edit" referer 
-    //  containing the list action    
-    if (
-      strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
-      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')
-       ) {
-      $this->breadcrumbTree->add(
-        __('Result list', null, 'common'),
-        $this->refererHandler->getReferer()
-      );
-    }
-
-//    $this->breadcrumbTree->add(
-//      __('Result list', null, 'common'),
-//      $this->refererHandler->getReferer('edit')
-//    );
-    $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
-  }
 
   protected function breadcrumbForEdit() {
     $this->breadcrumbTree = new breadcrumbTree();
@@ -468,12 +413,35 @@ class BaseullWikiActions extends ullsfActions
     $this->breadcrumbTree->add(__('Edit', null, 'common'));
   }
 
-  
+
   protected function getFilterFromRequest()
   {
 
   }
+
+
+  protected function getWikiFromRequest()
+  {
+    $this->forward404Unless($this->getRequestParameter('docid') > 0, 'DOCID is mandatory');
+    
+    return $this->getWikiFromRequestOrCreate();
+  }
   
-  
+  protected function getWikiFromRequestOrCreate()
+  {
+    if (($id = $this->getRequestParameter('docid')) > 0) 
+    {
+      $wiki = UllWikiTable::findByDocid($this->getRequestParameter('docid'));
+      
+      $this->forward404Unless($wiki);
+      
+      return $wiki;
+    }
+      else 
+    {
+      return new UllWiki();
+    }
+  }
+
 
 }

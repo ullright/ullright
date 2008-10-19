@@ -28,7 +28,7 @@
 <tbody>
 
 <?php
-#echo $form;
+echo $form;
 ?>
 
 
@@ -59,10 +59,10 @@
 <tr>
   <td><b><?php echo $form['body']->renderLabel(); ?>:</b></td>
   <td><?php //echo $form['body']->render();
-        echo object_textarea_tag($sf_data->getRaw('ullwiki'), 'getBody', array (
+/*        echo object_textarea_tag($sf_data->getRaw('ullwiki'), 'getBody', array (
               'rich'   => 'fck',
               'size'   => '80x40',
-              'config' => '../ullWikiPlugin/js/FCKeditor_config.js'));
+              'config' => '../ullWikiPlugin/js/FCKeditor_config.js'));*/
     ?></td>
 </tr>
 
