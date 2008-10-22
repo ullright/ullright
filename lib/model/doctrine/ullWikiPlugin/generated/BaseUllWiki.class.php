@@ -27,5 +27,8 @@ abstract class BaseUllWiki extends UllRecord
     parent::setUp();
     $this->hasOne('UllUser', array('local' => 'locked_by_user_id',
                                    'foreign' => 'id'));
+
+    $taggable0 = new Taggable();
+    $this->actAs($taggable0);
   }
 }

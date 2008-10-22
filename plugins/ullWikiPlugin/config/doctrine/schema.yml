@@ -32,3 +32,5 @@ UllWiki:
     UllUser:
       local: locked_by_user_id
 #      foreign: id
+  actAs:
+    Taggable:

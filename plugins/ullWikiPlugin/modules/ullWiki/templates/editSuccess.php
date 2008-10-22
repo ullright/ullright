@@ -12,13 +12,17 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 
-<form name="form1" id="ull_wiki_form" method="post" action="<?=url_for('ullWiki/update')?>">
+<?php if ($form->getErrorSchema()->getErrors()): ?>
+  <div class='form_error'>
+  <?php echo __('Please correct the following errors', null, 'common') ?>:
+  </div>  
+  <br /><br />
+<?php endif; ?>
 
-<?php echo $form['id']->render() ?>
-<?php echo $form['docid']->render() ?>
-<?php echo $form['edit_counter']->render() ?>
-<?php echo $form['creator_user_id']->render() ?>
-<?php echo $form['created_at']->render() ?>
+
+<?php echo form_tag('ullWiki/edit?docid=' . $ullwiki->getDocid(), 
+    array('id' => 'ull_wiki_form',
+          'name' => 'form1')) ?>
 
 <?php echo input_hidden_tag('save_mode', 'saveonly'); // saveonly, saveshow, ... ?>
 <?php //echo input_hidden_tag('return_url', $return_url); ?>
@@ -50,51 +54,25 @@ echo $form;
 </tr>
  -->
 
-<tr class='odd'>
-  <td><b><?php echo $form['subject']->renderLabel(); ?>:</b></td>
-  <td><?php echo $form['subject']->render(); ?></td>
-</tr>
-
-
 <tr>
-  <td><b><?php echo $form['body']->renderLabel(); ?>:</b></td>
-  <td><?php //echo $form['body']->render();
-/*        echo object_textarea_tag($sf_data->getRaw('ullwiki'), 'getBody', array (
-              'rich'   => 'fck',
-              'size'   => '80x40',
-              'config' => '../ullWikiPlugin/js/FCKeditor_config.js'));*/
-    ?></td>
-</tr>
-
-
-<tr class='odd'>
-  <td><b><?php echo $form['changelog_comment']->renderLabel(); ?>:</b></td>
-  <td><?php echo $form['changelog_comment']->render(); ?></td>
-</tr>
-
-<tr>
-  <td><b><?php #echo $form['tags']->renderLabel(); ?>:</b></td>
+  <td><b><?php echo __('Tags'); ?>:</b></td>
   <td>
     <?php
-/*
+
       $tags_out = sfContext::getInstance()->getRequest()->getParameter('tags');
       if (!$tags_out) {
-        //$tags = $sf_data->getRaw('ullwiki')->getTags(); //TODO
-        $tags = Array();
+        $tags = $sf_data->getRaw('ullwiki')->getTags();
         $tags_out = implode(', ', array_keys($tags));
       }
-//        ullCoreTools::printR($tags);
 
-      //ToDo: Values for tags fields
-      echo $form['tags']->render(Array('value' => ''));
-*/
-      //$tags_pop = TagPeer::getPopulars(); //TODO
-      $tags_pop = Array();
-//        ullCoreTools::printR($tags);
+      echo input_tag('tags', $tags_out, 'size=80');
+
+
+      $tags_pop = TagTable::getPopulars();
+
       sfLoader::loadHelpers(array('Tags'));
       echo '<br />' . __('Popular tags') . ':';
       echo tag_cloud($tags_pop, 'addTag("%s")', array('link_function' => 'link_to_function'));
-//        echo '<a href="#" onclick="addTag(\'dumm\')">add</a>';
       echo ull_js_add_tag();
     ?>
   </td>
