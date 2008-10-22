@@ -1,7 +1,7 @@
 <?php
 
 require_once(dirname(__FILE__).'/../../../config/ProjectConfiguration.class.php');
-$configuration = ProjectConfiguration::getApplicationConfiguration('myApp', 'cli', true);
+$configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'cli', true);
 sfContext::createInstance($configuration);
 
 $databaseManager = new sfDatabaseManager($configuration);

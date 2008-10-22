@@ -11,5 +11,5 @@
 $_test_dir = realpath(dirname(__FILE__).'/..');
 
 require_once(dirname(__FILE__).'/../../config/ProjectConfiguration.class.php');
-$configuration = ProjectConfiguration::getApplicationConfiguration('myApp', 'test', isset($debug) ? $debug : true);
+$configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'test', isset($debug) ? $debug : true);
 include($configuration->getSymfonyLibDir().'/vendor/lime/lime.php');

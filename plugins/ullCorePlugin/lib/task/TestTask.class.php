@@ -18,7 +18,7 @@ Call it with:
 EOF;
 	// add arguments here, like the following:
 	$this->addArgument('application', sfCommandArgument::OPTIONAL
-	, 'The application name', 'myApp');
+	, 'The application name', 'frontend');
 	$this->addArgument('env', sfCommandArgument::OPTIONAL
 	, 'The environment', 'cli');
 	// add options here, like the following:

@@ -1,6 +1,6 @@
 <?php
 
-$app = 'myApp';
+$app = 'frontend';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $b = new sfDoctrineTestBrowser(null, null, array('configuration' => $configuration));
@@ -14,7 +14,21 @@ $b
 	->isStatusCode(200)
 	->isRequestParameter('module', 'myModule')
 	->isRequestParameter('action', 'index')
-	->responseContains('Welcome, I hope you\'re ullright!')
+	->responseContains('Log in')
+  ->click('Deutsch')
+  ->isRedirected()
+  ->followRedirect()  
+	->isStatusCode(200)
+  ->isRequestParameter('module', 'myModule')
+  ->isRequestParameter('action', 'index')
+  ->responseContains('Anmelden')
+  ->click('English')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'myModule')
+  ->isRequestParameter('action', 'index')
+  ->responseContains('Log in')
 //	->responseContains('!/error/')
 //	->checkResponseElement('body', '!/error|Error|ERROR/')
 ;

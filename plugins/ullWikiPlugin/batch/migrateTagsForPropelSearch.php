@@ -1,7 +1,7 @@
 <?php
 
 define('SF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
-define('SF_APP',         'myApp');
+define('SF_APP',         'frontend');
 define('SF_ENVIRONMENT', 'dev');
 define('SF_DEBUG',       true);
 
