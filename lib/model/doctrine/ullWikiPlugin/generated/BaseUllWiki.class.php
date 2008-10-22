@@ -29,6 +29,8 @@ abstract class BaseUllWiki extends UllRecord
                                    'foreign' => 'id'));
 
     $taggable0 = new Taggable();
+    $timestampable0 = new Doctrine_Template_Timestampable();
     $this->actAs($taggable0);
+    $this->actAs($timestampable0);
   }
 }

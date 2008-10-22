@@ -34,3 +34,4 @@ UllWiki:
 #      foreign: id
   actAs:
     Taggable:
+    Timestampable:
