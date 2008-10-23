@@ -1,46 +1,31 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
-  
-
-
-
-
-
-
 
 <?php if ($app_slug): ?>
-  <h1><?php echo __('Application') . ' ' . ullCoreTools::getI18nField($app, 'caption')?></h1>
-  
+  <h1><?php echo __('Application') . ' ' . $app->label?></h1>
   <h2><?php echo __('Actions', null, 'common') ?>:</h2>
   <ul>
     <li>
       <?php 
         echo ull_link_to(__(
-          'Create %1%', array('%1%' => ullCoreTools::getI18nField($app, 'doc_caption')))
+          'Create %1%', array('%1%' => $app->doc_label))
           , 'ullFlow/create?app=' . $app_slug
         );
       ?>
     </li>
   </ul>
+  
 <?php else: ?>
   <h1><?php echo __('Workflows') . ' ' . __('Home') ?></h1>
   <h2><?php echo __('Applications') ?>:</h2>
   <ul>
   <?php foreach ($apps as $app): ?>
-  
-      <li>
-      <?php
-        $name = ullCoreTools::getI18nField($app, 'caption');
-        $slug = $app->getSlug(); 
-      
-        echo link_to($name, 'ullFlow/index?app=' . $slug);
-      ?>
-      </li>
-      
+      <li><?php echo link_to($app->label, 'ullFlow/index?app=' . $app->slug) ?></li>
   <?php endforeach; ?>
   </ul>
 <?php endif; ?>
 
+<?php /*
 <h2><?php echo __('Search', null, 'common') ?>:</h2>
 <?php echo ull_reqpass_form_tag(array('action' => 'tabular'), array('class' => 'inline')); ?>
 <ul>
@@ -94,3 +79,5 @@
 <ul>
   <li><?php echo link_to(__('Rebuild doc access rights'), 'ullFlow/rebuildDocAccess') ?></li>
 </ul>
+
+*/ ?>

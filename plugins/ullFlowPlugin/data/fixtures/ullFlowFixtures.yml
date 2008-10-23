@@ -1,1 +1,10 @@
-#foo
+UllFlowApp:
+  ull_flow_app_helpdesk:
+    Translation:
+      en:
+        label:      Trouble ticket tool
+        doc_label:  Trouble ticket
+      de:
+        label:      Trouble Ticket Tool
+        doc_label:  Trouble Ticket
+    slug: trouble_ticket

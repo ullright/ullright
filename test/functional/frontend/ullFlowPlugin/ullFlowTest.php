@@ -16,5 +16,15 @@ $b
 	->isStatusCode(200)
 	->isRequestParameter('module', 'ullFlow')
 	->isRequestParameter('action', 'index')
+	->responseContains('Workflows Home')
+	->responseContains('Applications')
 ;	
   
+$b
+  ->diag('select app')
+  ->click('Trouble ticket tool')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'index')
+  ->responseContains('Application Trouble ticket tool')
+;

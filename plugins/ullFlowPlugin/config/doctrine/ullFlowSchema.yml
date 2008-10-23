@@ -1,0 +1,22 @@
+UllFlowApp:
+  package: ullFlowPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label, doc_label] 
+  columns:
+    slug:
+      type: string(32)
+      notnull: true
+    label:
+      type: string(32)
+    doc_label:
+      type: string(32)
+    icon:
+      type: string(32)
+#    ull_access_group_id:
+#      type: INTEGER
+#    default_list_columns:
+#      type: string(255)

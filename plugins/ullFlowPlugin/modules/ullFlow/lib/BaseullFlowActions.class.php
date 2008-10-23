@@ -20,24 +20,22 @@ class BaseullFlowActions extends ullsfActions
   public function executeIndex()
   {
     
-    // check access
-    $this->checkLoggedIn();
+    $this->checkAccess('Masteradmins');
     
-    // breadcrumb
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
-//    $this->breadcrumbTree->add(__('Home'), '');
     
     $this->app_slug = $this->getRequestParameter('app');
-    if ($this->app_slug) {
-      $this->app      = UllFlowAppPeer::retrieveBySlug($this->app_slug);
-      $this->breadcrumbTree->add(ullCoreTools::getI18nField($this->app, 'caption'));
+    if ($this->app_slug) 
+    {
+      $this->app      = UllFlowAppTable::findBySlug($this->app_slug);
+      $this->breadcrumbTree->add($this->app->label);
       $this->app_param = '&app=' . $this->app_slug;
-      
-    } else {
-
+    } 
+    else 
+    {
       $c = new Criteria();
-      $this->apps = UllFlowAppPeer::doSelect($c);
+      $this->apps = Doctrine::getTable('UllFlowApp')->findAll();
       $this->app_param = '';
     }
     
