@@ -131,39 +131,6 @@ class BaseullWikiActions extends ullsfActions
 
     $this->breadcrumbForShow();
 
-
-    // variable definition
-//    $this->previous_cursor = 0;
-//    $this->next_cursor = 0;
-
-//    if ($this->getRequestParameter('cursor')) {
-//            
-////      $c = $this->getFlash('c');   
-////      WikiPeer::doSelectWithI18n($c, '');
-////      $this->setFlash('c', $c);
-//      
-//      $pager = new sfPropelPager('Wiki');
-////      $pager->setCriteria($c);      
-//      $pager->setPage($this->getRequestParameter('page', 1));
-//      $pager->init();
-////      $pager->setCursor($this->getRequestParameter('cursor'));
-////      
-////      $this->previous_wiki  = $pager->getPrevious();
-////      if ($this->previous_wiki) {
-////        $this->previous_cursor = $this->getRequestParameter('cursor') - 1;
-////      }
-////      $this->wiki           = $pager->getCurrent();
-////      $this->next_wiki      = $pager->getNext();
-////      if ($this->next_wiki) {
-////        $this->next_cursor = $this->getRequestParameter('cursor') + 1;
-////      }
-//          
-//    } elseif ($this->getRequestParameter('id')) {
-      
-//      $this->wiki = WikiPeer::retrieveByPK($this->getRequestParameter('id'));
-//    }
-
-
     $this->forward404Unless($this->ullwiki);
   }
 
@@ -180,7 +147,6 @@ class BaseullWikiActions extends ullsfActions
     // check access
     $this->checkAccess('MasterAdmins');
 
-    // == handle request params
 
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
 //    $this->return_url = $this->getRequestParameter('return_url');
@@ -191,21 +157,18 @@ class BaseullWikiActions extends ullsfActions
     //update
     if ($request->isMethod('post'))
     {
-      $logged_in_user_id = $this->getUser()->getAttribute('user_id');
-
       $this->ullwiki = new UllWiki();
 
       // check if this is a new or existing wiki article
       if ($docid = $this->getRequestParameter('docid')) {
         $this->ullwiki->setDocid($docid); // keep docid
         UllWikiTable::setOldDocsNonCurrent($docid);
-        #$ullwiki->setOldDocsNonCurrent(); // remove 'current' flag from old entries
         #$this->ullwiki->setCreatorUserId($this->getRequestParameter('creator_user_id')); // keep creator
         #$this->ullwiki->setCreatedAt($this->getRequestParameter('created_at')); // keep createdate
       } else {
         $docid = UllWikiTable::getNextFreeDocid();
         $this->ullwiki->setDocid($docid);
-        $this->ullwiki->setCreatorUserId($logged_in_user_id);
+        $this->ullwiki->setCreatorUserId($this->getUser()->getAttribute('user_id'));
       }
 
       // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
@@ -222,44 +185,39 @@ class BaseullWikiActions extends ullsfActions
 
       	$this->ullwiki = $this->form->save();
 
-
-      	$this->ullwiki->setUpdatorUserId($logged_in_user_id);
-
-
-
         $this->ullwiki->setTags(strtolower($this->getRequestParameter('tags')));
         $this->ullwiki->setDuplicateTagsForSearch(strtolower($this->getRequestParameter('tags')));
 
         $this->ullwiki->save();
 
-          // == forward junction
-          if ($this->getRequestParameter('submit_save_only', false)) {
-            return $this->redirect('ullWiki/edit?docid='.$docid);
+        // == forward junction
+        if ($this->getRequestParameter('submit_save_only', false)) {
+          return $this->redirect('ullWiki/edit?docid='.$docid);
 
-          // plugin mode
-          } elseif (isset($return_url)) {
-            return $this->redirect($return_url);
+        // plugin mode
+        } elseif (isset($return_url)) {
+          return $this->redirect($return_url);
 
-          } elseif ($this->getRequestParameter('submit_save_show', false)) {
-            return $this->redirect('ullWiki/show?docid='.$docid);
-
-          } else {
-            $refererHandler = new refererHandler();
-
-            // skip returning to the show action -> jump directly to the pervious result list
-            if ($refererHandler->hasReferer('show')) {
-              $refererHandler->delete('edit');
-              $return = $this->redirect($refererHandler->getRefererAndDelete('show'));
-            } else {
-              $return = $this->redirect($refererHandler->getRefererAndDelete('edit'));
-            }
-
-            return $return;
-          }
+        } elseif ($this->getRequestParameter('submit_save_show', false)) {
+          return $this->redirect('ullWiki/show?docid='.$docid);
 
         } else {
-          //bindAndSave not ok
+          $refererHandler = new refererHandler();
+
+          // skip returning to the show action -> jump directly to the pervious result list
+          if ($refererHandler->hasReferer('show')) {
+            $refererHandler->delete('edit');
+            $return = $this->redirect($refererHandler->getRefererAndDelete('show'));
+          } else {
+            $return = $this->redirect($refererHandler->getRefererAndDelete('edit'));
+          }
+
+          return $return;
         }
+
+      } else {
+        //bindAndSave not ok
+      }
 
     }
     else
@@ -396,6 +354,5 @@ class BaseullWikiActions extends ullsfActions
       return new UllWiki();
     }
   }
-
 
 }
