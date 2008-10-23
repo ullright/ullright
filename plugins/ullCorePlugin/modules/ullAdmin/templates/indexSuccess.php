@@ -4,9 +4,9 @@
 
 <h4><?php echo __('Links'); ?></h4>
 <ul>
-  <li><?php echo link_to(__('Manage users'), 'ullTableTool/list/?table=ullUser') ?></li>
-  <li><?php echo link_to(__('Manage groups'), 'ullTableTool/list/?table=ullGroup') ?></li>
-  <li><?php echo link_to(__('Manage group memberships'), 'ullTableTool/list/?table=ullEnityGroup') ?></li>
+  <li><?php echo link_to(__('Manage users'), 'ullTableTool/list/?table=UllUser') ?></li>
+  <li><?php echo link_to(__('Manage groups'), 'ullTableTool/list/?table=UllGroup') ?></li>
+  <li><?php echo link_to(__('Manage group memberships'), 'ullTableTool/list/?table=UllEntityGroup') ?></li>
   <!-- <li><?php echo link_to(__('Locations'), 'ullTableTool/list/?table=ull_location') ?></li> -->
 </ul>
 
