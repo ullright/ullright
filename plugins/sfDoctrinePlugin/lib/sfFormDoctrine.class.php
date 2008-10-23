@@ -205,9 +205,6 @@ abstract class sfFormDoctrine extends sfForm
     }
 
     $values = $this->getValues();
-    
-        var_dump($values);
-    die;
 
     // remove special columns that are updated automatically
     unset($values['id'], $values['updated_at'], $values['updated_on'], $values['created_at'], $values['created_on']);
