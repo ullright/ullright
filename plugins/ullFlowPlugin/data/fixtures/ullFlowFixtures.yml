@@ -8,3 +8,73 @@ UllFlowApp:
         label:      Trouble Ticket Tool
         doc_label:  Trouble Ticket
     slug: trouble_ticket
+    
+UllFlowDoc:
+  ull_flow_doc_1:
+    UllFlowApp:     ull_flow_app_helpdesk
+    title:          My first trouble ticket
+    UllEntity:      adminuser
+  ull_flow_doc_2:
+    UllFlowApp:     ull_flow_app_helpdesk
+    title:          My second trouble ticket
+    UllEntity:      testuser    
+    
+UllFlowColumnConfig:
+  ull_flow_column_config_title:
+    Translation:
+      en:
+        label:      My custom string field label
+      de:
+        label:      Meine spezielle String-Feld Bezeichnung
+    UllFlowApp:     ull_flow_app_helpdesk
+    sequence:       1000
+    UllColumnType:  string
+    mandatory:      true
+    is_title:       true
+  ull_flow_column_config_datetime:
+    Translation:
+      en:
+        label:      Date
+      de:
+        label:      Datum
+    UllFlowApp:     ull_flow_app_helpdesk
+    sequence:       2000
+    UllColumnType:  datetime
+    show_in_list:   false
+  ull_flow_column_config_email:
+    Translation:
+      en:
+        label:      Your email address
+      de:
+        label:      E-Mail
+    UllFlowApp:     ull_flow_app_helpdesk
+    sequence:       3000
+    UllColumnType:  email
+        
+UllFlowValue:  
+  ull_flow_value_doc1_title:
+    UllFlowDoc:     ull_flow_doc_1
+    UllFlowColumnConfig: ull_flow_column_config_title
+    value:          This is the title of my first ticket
+  ull_flow_value_doc1_datetime:
+    UllFlowDoc:     ull_flow_doc_1
+    UllFlowColumnConfig: ull_flow_column_config_datetime
+    value:          2011-11-11 11:11:11
+  ull_flow_value_doc1_email:
+    UllFlowDoc:     ull_flow_doc_1
+    UllFlowColumnConfig: ull_flow_column_config_email
+    value:          quasimodo@ull.at
+    
+  ull_flow_value_doc2_title:
+    UllFlowDoc:     ull_flow_doc_2
+    UllFlowColumnConfig: ull_flow_column_config_title
+    value:          This is the title of my second ticket
+  ull_flow_value_doc2_datetime:
+    UllFlowDoc:     ull_flow_doc_2
+    UllFlowColumnConfig: ull_flow_column_config_datetime
+    value:          2012-12-12 12:12:12
+  ull_flow_value_doc2_email:
+    UllFlowDoc:     ull_flow_doc_2
+    UllFlowColumnConfig: ull_flow_column_config_email
+    value:          bender@ull.at    
+            

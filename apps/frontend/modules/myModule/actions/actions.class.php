@@ -21,6 +21,12 @@ class myModuleActions extends sfActions
   
   public function executeTest()
   {
+    
+    $user = Doctrine::getTable('UllFlowApp')->find(1);
+    $user->delete();
+    
+    die();
+    
 
 //    $test = Doctrine::getTable('TestTable')->find(1);
 //    $test->addTag('foobar');

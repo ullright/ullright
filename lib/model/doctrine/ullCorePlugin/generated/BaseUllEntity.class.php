@@ -14,4 +14,10 @@ abstract class BaseUllEntity extends UllParentEntity
     $this->setSubClasses(array('UllUser' => array('type' => 'user'), 'UllGroup' => array('type' => 'group')));
   }
 
+  public function setUp()
+  {
+    parent::setUp();
+    $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
+                                                      'foreign' => 'assigned_to_ull_entitiy_id'));
+  }
 }

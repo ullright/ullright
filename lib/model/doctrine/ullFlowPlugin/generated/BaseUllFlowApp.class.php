@@ -10,14 +10,20 @@ abstract class BaseUllFlowApp extends UllRecord
     parent::setTableDefinition();
     $this->setTableName('ull_flow_app');
     $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
-    $this->hasColumn('label', 'string', 32, array('type' => 'string', 'length' => '32'));
-    $this->hasColumn('doc_label', 'string', 32, array('type' => 'string', 'length' => '32'));
+    $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
+    $this->hasColumn('doc_label', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('icon', 'string', 32, array('type' => 'string', 'length' => '32'));
   }
 
   public function setUp()
   {
     parent::setUp();
+    $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
+                                                      'foreign' => 'ull_flow_app_id'));
+
+    $this->hasMany('UllFlowColumnConfig as UllFlowColumnConfigs', array('local' => 'id',
+                                                                        'foreign' => 'ull_flow_app_id'));
+
     $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label', 1 => 'doc_label')));
     $this->actAs($i18n0);
   }

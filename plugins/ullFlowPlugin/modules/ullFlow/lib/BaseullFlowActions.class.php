@@ -22,8 +22,7 @@ class BaseullFlowActions extends ullsfActions
     
     $this->checkAccess('Masteradmins');
     
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+    $this->breadcrumbForIndex();
     
     $this->app_slug = $this->getRequestParameter('app');
     if ($this->app_slug) 
@@ -446,54 +445,21 @@ class BaseullFlowActions extends ullsfActions
   public function executeEdit()
   {
     
-    // check access
-    $this->checkLoggedIn();
-
-    // === get table request parameter
-    if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) {
-      $this->error = __('Please specify a ullFlow application or document') . '!';
-      return sfView::ERROR;
-    }
+    $user = Doctrine::getTable('UllUser')->find(3);
+    $user->delete();
     
-    // referer handling
+    die();
+    
+    $this->checkAccess('Masteradmins');
+
     $this->refererHandler = new refererHandler();  
     $this->refererHandler->initialize('edit');
-      
-    $this->doc_id   = $this->getRequestParameter('doc');
-    $this->app_slug = $this->getRequestParameter('app');
     
-    $user_id  = $this->getUser()->getAttribute('user_id');
+    $this->getDocFromRequestOrCreate();
     
-    // edit
-    if ($this->doc_id) {
-      
-      // == check if doc exists at all
-      $this->doc = UllFlowDocPeer::retrieveByPK($this->doc_id);
-      $this->forward404Unless($this->doc);
-      
-      // == in depth-access check (read / write)
-      
-      if (!$access_type = $this->checkDocAccess($this->doc)) {
-        $this->error = __('Access denied.') . '!';
-        return sfView::ERROR; 
-      }
-      
-      $this->app = $this->doc->getUllFlowApp();
-      $this->app_slug = $this->app->getSlug();
-      
-      $this->new = false;
-      
-    // create
-    } else {
-      $this->app = UllFlowAppPeer::retrieveBySlug($this->app_slug); 
-      $this->forward404Unless($this->app);
-      
-      $this->new = true;
-      $this->doc = new UllFlowDoc();
-      $access_type = 'w';
-    }
-        
-    $this->app_id = $this->app->getId();
+    
+    
+
     
 //    ullCoreTools::printR($access_type);
     
@@ -1254,6 +1220,64 @@ class BaseullFlowActions extends ullsfActions
     
   }
   
-  
+  protected function breadcrumbForIndex()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+  }
 
+  protected function getDocFromRequestOrCreate()
+  {
+    if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) {
+      throw new InvalidArgumentException('At least one of the "app" or "doc" parameters have to be given');
+    }
+
+    if ($docId = $this->getRequestParameter('doc'))
+    {
+      $this->doc = Doctrine::getTable('UllFlowDoc')->find($docId);
+      $this->forward404Unless($this->doc);
+      $this->app = $this->doc->App;
+    }
+    else
+    {
+      $this->doc = new UllFlowDoc;
+      $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+      $this->forward404Unless($this->app);
+    }
+    
+//    $user_id  = $this->getUser()->getAttribute('user_id');
+//    
+//    // edit
+//    if ($this->doc_id) {
+//      
+//      // == check if doc exists at all
+//      $this->doc = UllFlowDocPeer::retrieveByPK($this->doc_id);
+//      $this->forward404Unless($this->doc);
+//      
+//      // == in depth-access check (read / write)
+//      
+//      if (!$access_type = $this->checkDocAccess($this->doc)) {
+//        $this->error = __('Access denied.') . '!';
+//        return sfView::ERROR; 
+//      }
+//      
+//      $this->app = $this->doc->getUllFlowApp();
+//      $this->app_slug = $this->app->getSlug();
+//      
+//      $this->new = false;
+//      
+//    // create
+//    } else {
+//      $this->app = UllFlowAppPeer::retrieveBySlug($this->app_slug); 
+//      $this->forward404Unless($this->app);
+//      
+//      $this->new = true;
+//      $this->doc = new UllFlowDoc();
+//      $access_type = 'w';
+//    }
+//        
+//    $this->app_id = $this->app->getId();    
+    
+  }  
+  
 }

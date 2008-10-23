@@ -1,4 +1,25 @@
+<?php
+?>
+
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+
+
+<?php
+  if (!$new) {  
+    include_component('ullFlow', 'ullFlowHeader', array(
+      'ull_flow_doc' => $doc
+    , 'app_slug'    => $app_slug
+    )); 
+  }
+?>
+
+
+<?php if ($sf_request->hasErrors()): ?>
+  <div class='form_error'>
+  <?php echo __('Please correct the following errors', null, 'common') ?>:
+  </div>  
+  <br /><br />
+<?php endif; ?>
 
 
 <?php echo form_tag('ullFlow/update', 'id=ull_flow_form'); ?>
