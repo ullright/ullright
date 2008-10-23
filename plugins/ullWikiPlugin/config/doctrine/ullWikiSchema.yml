@@ -7,7 +7,7 @@ UllWiki:
   columns:
     docid: 
       type: integer
-      notnull: true 
+      notnull: true
     current: 
       type: boolean
     culture: 
@@ -16,6 +16,7 @@ UllWiki:
       type: clob
     subject: 
       type: string(255)
+      notnull: true
     changelog_comment: 
       type: string(255)
     read_counter: 
