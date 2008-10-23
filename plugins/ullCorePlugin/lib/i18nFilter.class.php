@@ -33,7 +33,7 @@ class i18nFilter extends sfFilter
           "no user-culture set: using HTTP Accept-Language ({$culture[0]})");
         } else {
           // use default language (en)
-          $user->setCulture('en');
+          $user->setCulture(sfConfig::get('base_default_language', 'en'));
         }
         
         

@@ -8,7 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-$my_string_col_selector = 'td + td + td';
+$my_string_col_selector = 'td + td + td + td + td + td';
 
 $b
   ->diag('login')
@@ -32,14 +32,14 @@ $b
 	->checkResponseElement('body', '!/namespace|Namespace/')
 	->checkResponseElement('body', '!/useless|Useless/')
 	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
-	->checkResponseElement('tr > td + td + td + td + td + td > a', 'foobar@example.com')
+	->checkResponseElement('tr > td + td + td + td > a', 'foobar@example.com')
 	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 	
 ;
 
 $b
   ->diag('list - test column headers')
-  ->checkResponseElement('tr > th + th + th', 'My custom string label:')
+  ->checkResponseElement('tr > th + th + th + th + th + th', 'My custom string label translation en:')
   ->checkResponseElement('table > thead > tr > th', 7) // number of columns
 ;
   
@@ -58,8 +58,8 @@ $b
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('table', 'TestTable')
   ->checkResponseElement('table tr', 10) // number of displayed fields
-  ->setField('fields[my_string]', 'Quasimodo')
-  ->setField('fields[my_text]', "Hello,\nthis is a new line")
+  ->setField('fields[my_string_translation_en]', 'Quasimodo')
+  ->setField('fields[my_text_translation_en]', "Hello,\nthis is a new line")
   ->setField('fields[my_boolean]', 'true')
   ->setField('fields[ull_user_id]', 1)
   ->click('Save')
@@ -93,15 +93,14 @@ $b
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 1)
   ->responseContains('Foo Bar')
-  ->setField('fields[my_string]', '')
+  ->setField('fields[my_string_translation_en]', '')
   ->click('Save')
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 1)
-  ->checkResponseElement('tr td.form_error', '/Required./', array('position' => 1))
-  
+  ->checkResponseElement('tr + tr + tr + tr + tr > td + td + td', '/Required./')
 ;
 
 $b
@@ -113,7 +112,7 @@ $b
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 1)
   ->responseContains('Foo Bar')
-  ->setField('fields[my_string]', 'Foo Bar edited')  
+  ->setField('fields[my_string_translation_en]', 'Foo Bar edited')  
   ->click('Save')
   ->isRedirected()
   ->isRequestParameter('module', 'ullTableTool')
@@ -138,7 +137,7 @@ $b
   ->get('ullTableTool/edit/table/TestTable/id/1')
 ;
 $created_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr + tr > td + td')->getValue();
-$updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr +tr + tr + tr> td + td')->getValue();
+$updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr + tr + tr + tr> td + td')->getValue();
 $b->
   test()->isnt($created_at, $updated_at, 'The edited_at date is different than the created_at date: ' . $created_at . ' vs ' . $updated_at)
 ;

@@ -18,6 +18,17 @@ class PluginUllColumnConfigTable extends UllRecordTable
   public static function getColumnConfigArray($table, $column)
   {
     $columnConfig = array();
+    $i18n = false;
+    
+    if (strstr($column, '_translation_'))
+    {
+      $i18n = true;
+      
+      $parts = explode('_', $column);
+      $culture = array_pop($parts);
+      array_pop($parts);
+      $column = implode('_', $parts);      
+    }
     
     $dbColumnConfig = self::findForTableAndColumn($table, $column);
     
@@ -25,7 +36,14 @@ class PluginUllColumnConfigTable extends UllRecordTable
     {
       if ($value = $dbColumnConfig->label)
       {
-        $columnConfig['label'] = $value;
+//        if ($i18n)
+//        {
+//          $columnConfig['label'] = __('%1% translation %2%', array('%1%' => $value, '%2%' => $culture), 'common');
+//        }
+//        else
+//        {
+          $columnConfig['label'] = $value;
+//        }
       }
       
       if (!$dbColumnConfig->enabled)

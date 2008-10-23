@@ -23,23 +23,23 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 		if (is_null(self::$test))
 		{
 			if(!array_key_exists('configuration', $options) ||
-					!$options['configuration'] instanceof sfApplicationConfiguration)
+			!$options['configuration'] instanceof sfApplicationConfiguration)
 			{
 				throw new InvalidArgumentException(
 						"An instance of class sfApplicationConfiguration is required when initializing the browser the first time");
 			}
-			
-    		$output = isset($options['output']) 
-    				? $options['output'] 
-    				: new lime_output_color;
-    		
-			self::$test = new sfDoctrineTestCase(null, $output, 
+				
+			$output = isset($options['output'])
+					? $options['output']
+					: new lime_output_color;
+
+			self::$test = new sfDoctrineTestCase(null, $output,
 					$options['configuration']);
-					
-    		unset($options['configuration']);
-    		unset($options['output']);
+				
+			unset($options['configuration']);
+			unset($options['output']);
 		}
-		
+
 		parent::initialize($hostname, $remote, $options);
 	}
 
@@ -49,7 +49,7 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	public function resetDatabase()
 	{
 		self::$test->reset();
-		
+
 		return $this;
 	}
 
@@ -63,7 +63,7 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	{
 		self::$test->setFixturesPath($path);
 	}
-	
+
 	/**
 	 * Specifies the directory containing the models to load.
 	 *
@@ -88,47 +88,85 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 		// close old connection
 		Doctrine_Manager::getInstance()->getCurrentConnection()->close();
 
-		return parent::call($uri, $method, $parameters, $changeStack);
+		ob_start();
+		$result = parent::call($uri, $method, $parameters, $changeStack);
+		ob_end_clean();
+		
+		echo lime_colorizer::colorize(sprintf("> %s %s\n", $method, $uri), array('fg' => 'cyan'));
+		
+		return $result;
+	}
+	
+
+	public function diag($string)
+	{
+		self::$test->diag(str_replace('ok', 'OK', $string));
+
+		return $this;
+	}
+	
+	private function colorizeTag($string)
+	{
+		return lime_colorizer::colorize($string, array('fg' => 'cyan'));
+	}
+	
+	private function colorizeAttribute($string)
+	{
+		$parts = explode('=', $string);
+		
+		return lime_colorizer::colorize($parts[0], array('fg' => 'magenta'))
+				. lime_colorizer::colorize('=', array('fg' => 'cyan'))
+				. lime_colorizer::colorize($parts[1], array('fg' => 'blue'));
+	}
+	
+	public function colorize(array $strings)
+	{
+		$pattern = '/[\w:]+="[^"]+"/';
+		
+		preg_match_all($pattern, $strings[0], $attributes);
+		$parts = preg_split($pattern, $strings[0]);
+		
+		$result = $this->colorizeTag($parts[0]);
+		
+		for ($i=1; $i<count($parts); ++$i)
+		{
+			$result .= $this->colorizeAttribute($attributes[0][$i-1]);
+			$result .= $this->colorizeTag($parts[$i]);
+		}
+		
+		return $result;
 	}
 
- public function diag($string)
-  {
-    //  there may be no "ok" in the output, because it somehow counts as an 
-    //  additional test when running test:all
-    //  (produces an error: 'Looks like you planned n tests but run 1 extra) 
-    $string = str_replace('ok', 'Ok', $string);
-    $lime_colorizer = new lime_colorizer();
-    echo $lime_colorizer->colorize("\n*** $string ***\n", array('fg' => 'blue'));
-    
-    return $this;
-  }
-	
 	public function dump()
 	{
-	  echo "--- html source ---\n";
-	  
-	  // check if program 'highlight' exists
-	  // installation under debian/ubuntu: sudo aptitude install highlight
-	  if (strstr(shell_exec('which highlight'), 'highlight'))
-	  {
-      $html = escapeshellarg($this->getResponse()->getContent()); 
-      echo shell_exec('echo ' . $html . ' | highlight -S xml -A');
-	  }
-    else
-    {
-      echo $this->getResponse()->getContent() . "\n";
-    }
-	  echo "--- /html source ---\n";
-	  
-	  return $this;
+		echo "--- html source ---\n";
+		
+		echo preg_replace_callback('/<[^>]+>/', array($this, 'colorize'), 
+				$this->getResponse()->getContent());
+				
+		return $this;
+		// check if program 'highlight' exists
+		// installation under debian/ubuntu: sudo aptitude install highlight
+		if (strstr(shell_exec('which highlight'), 'highlight'))
+		{
+			$html = escapeshellarg($this->getResponse()->getContent());
+			echo shell_exec('echo ' . $html . ' | highlight -S xml -A');
+		}
+		else
+		{
+			echo $this->getResponse()->getContent() . "\n";
+		}
+		echo "--- /html source ---\n";
+		 
+		return $this;
 	}
-	
- public function dumpdie()
-  {
-    $this->dump();
-    
-    throw new exception('Dying as requested...');    
-  }
-	
+
+	public function dumpdie()
+	{
+		$this->dump();
+
+		throw new exception('Dying as requested...');
+	}
+
 
 }

@@ -13,25 +13,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetInteger',
         'access'              => 'r',
         'show_in_list'        => true,
-        ),
-    'my_string' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array('maxlength' => 64),
-        'validatorOptions'    => array('required' => true, 'max_length' => 64),
-        'label'               => 'My custom string label',
-        'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => 'w',
-        'show_in_list'        => true,
-        ),   
-    'my_text' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My text',
-        'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => 'w',
-        'show_in_list'        => true,
-        ),                       
+        ),                   
     'my_boolean' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -76,7 +58,27 @@ class myTestCase extends sfDoctrineTestCase
 //        'label'               => 'Namespace',
 //        'metaWidget'          => 'ullMetaWidgetString',
 //        'access'              => 'r',
-//        ),     
+//        ),   
+    'my_string' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array('maxlength' => 64),
+        'validatorOptions'    => array('required' => true, 'max_length' => 64),
+        'label'               => 'My custom string label',
+        'metaWidget'          => 'ullMetaWidgetString',
+        'access'              => 'w',
+        'show_in_list'        => true,
+        'translation'         => true,
+        ),   
+    'my_text' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'My text',
+        'metaWidget'          => 'ullMetaWidgetString',
+        'access'              => 'w',
+        'show_in_list'        => true,
+        'translation'         => true,
+        ),   
     'creator_user_id' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -114,7 +116,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
         'show_in_list'        => false,
-        ),        
+        ),                   
   ); 
 
 //  public function reset()
@@ -130,14 +132,17 @@ class myTestCase extends sfDoctrineTestCase
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
+sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
+sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(37, new lime_output_color, $configuration);
+$t = new myTestCase(39, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
 $tests = Doctrine::getTable('TestTable')->findAll();
 
 $t->begin('__construct()');
+
   try
   {
     new ullTableTool();
@@ -253,6 +258,12 @@ $t->begin('getForms()');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');
   $t->isa_ok($forms[0], 'ullForm', 'The first entry is a UllForm object');  
   $t->isa_ok($forms[1], 'ullForm', 'The second entry is a UllForm object');  
+  
+$t->begin('static function getDefaultCultures()');
+  $t->is(array('en',), ullTableTool::getDefaultCultures(), 'returns the correct culture');
+  sfContext::getInstance()->getUser()->setCulture('de');
+  $t->is(array('en', 'de'), ullTableTool::getDefaultCultures(), 'returns the correct cultures');
+  
   
 //TODO: build without rows?  
   

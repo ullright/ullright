@@ -24,5 +24,8 @@ abstract class BaseUllColumnConfig extends UllRecord
     parent::setUp();
     $this->hasOne('UllColumnType', array('local' => 'ull_column_type_id',
                                          'foreign' => 'id'));
+
+    $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label', 1 => 'description')));
+    $this->actAs($i18n0);
   }
 }

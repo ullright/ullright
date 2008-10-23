@@ -75,9 +75,13 @@ UllTableConfig:
 
 UllColumnConfig:
   test_cc_my_string:
+    Translation:
+      en:
+        label:      My custom string label
+      de:
+        label:      Mein spezielles String Label
     db_table_name:  TestTable
     db_column_name: my_string
-    label:          My custom string label
     enabled:        true
     show_in_list:   true
     
@@ -97,8 +101,13 @@ UllColumnConfig:
 # for tabletool testing
 TestTable:
   tt_1:
-    my_string:    Foo Bar
-    my_text:      Hello, this is my text
+    Translation:
+      en: 
+        my_string:    Foo Bar
+        my_text:      Hello, this is my text
+      de:
+        my_string:    Foo Bar Deutsch
+        my_text:    Hallo, das ist mein Text
     my_boolean:   true
     my_email:     foobar@example.com
     my_useless_column: bla
@@ -109,8 +118,13 @@ TestTable:
     #created_at:   2008-01-01 00:00:00 this doesn't work because the actas timestampable behaviour overwrites it
     
   tt_2:
-    my_string:    Foo Bar More
-    my_text:      Hello, this is more of my text
+    Translation:
+      en:
+        my_string:    Foo Bar More
+        my_text:      Hello, this is more of my text
+      de:
+        my_string:    Foo Bar More Deutsch
+        my_text:      Hallo, das ist mehr von meinem Text        
     my_boolean:   false
     my_email:     foobar.more@example.com
     my_useless_column: even more bla   

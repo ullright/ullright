@@ -3,8 +3,6 @@
 /**
  * Test class to test classes or applications that depend on a Doctrine
  * connection.
- * 
- * @author Bernhard Schussek
  */
 class sfDoctrineTestCase extends lime_test
 {
@@ -13,7 +11,8 @@ class sfDoctrineTestCase extends lime_test
 		
 	private
 		$fixturesPath		= '',
-		$modelsPath			= '';
+		$modelsPath			= '',
+		$resets				= 0;
 		
 	/**
 	 * Sets the default fixtures and models path and initializes the database
@@ -60,17 +59,22 @@ class sfDoctrineTestCase extends lime_test
 	 */
 	public function reset()
 	{
-		if(!$this->isModelLoaded())
+		Doctrine::loadModels($this->modelsPath);
+			
+		if($this->resets==0)
 		{
 			$this->recreateDatabase();
 			$this->createTables();
 		}
 		else
 		{
-			Doctrine::loadModels($this->modelsPath);
 			$this->eraseTables();
 		}
+		
+		$this->clearTables();
 		$this->loadFixtures();
+		
+		++$this->resets;
 	}
 	
 	/**
@@ -91,8 +95,18 @@ class sfDoctrineTestCase extends lime_test
 	 */
 	private function recreateDatabase()
 	{
-		Doctrine::dropDatabases();
-		Doctrine::createDatabases();
+		$con =  Doctrine_Manager::getInstance()->getCurrentConnection();
+		
+		if($con->getDriverName() === 'Mysql')
+		{
+			Doctrine::dropDatabases();
+			Doctrine::createDatabases();
+		}
+		else
+		{
+			$con->close();
+			$con->connect();
+		}
 	}
 	
 	/**
@@ -101,6 +115,7 @@ class sfDoctrineTestCase extends lime_test
 	private function createTables()
 	{
 		$loadModels = !$this->isModelLoaded();
+		// createTablesFromModels loads also the models of templates!
 		Doctrine::createTablesFromModels($loadModels ? $this->modelsPath : null);
 	}
 	
@@ -128,6 +143,16 @@ class sfDoctrineTestCase extends lime_test
 				$dbh->exec("DELETE FROM " . Doctrine::getTable($model)->getTableName());
 			}
 			
+		}
+	}
+	
+	private function clearTables()
+	{
+		$models = Doctrine::getLoadedModels();
+		
+		foreach($models as $model)
+		{
+			$table = Doctrine::getTable($model)->clear();
 		}
 	}
 	

@@ -12,8 +12,8 @@
 
 <h4><?php echo __('Administration'); ?></h4>
 <ul>
-  <li><?php echo link_to(__('Table Config'), 'ullTableTool/list/?table=ullTableConfig') ?></li>
-  <li><?php echo link_to(__('Column Config'), 'ullTableTool/list/?table=ullColumnConfig') ?></li>
+  <li><?php echo link_to(__('Table Config'), 'ullTableTool/list/?table=UllTableConfig') ?></li>
+  <li><?php echo link_to(__('Column Config'), 'ullTableTool/list/?table=UllColumnConfig') ?></li>
 <!--   
   <li><?php echo link_to(__('Fields'), 'ullTableTool/list/?table=ull_field') ?></li>
   <li><?php echo link_to(__('Cultures'), 'ullTableTool/list/?table=ull_culture') ?></li>

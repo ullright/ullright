@@ -2,6 +2,9 @@
 all:
   theme:         ullThemeDefault
   
+  base:
+    default_language: en
+  
   mailing:
     charset:        utf-8
     mailer:         sendmailsmtp

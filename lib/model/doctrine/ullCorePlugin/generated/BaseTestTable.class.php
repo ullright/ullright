@@ -22,5 +22,8 @@ abstract class BaseTestTable extends UllRecord
     parent::setUp();
     $this->hasOne('UllUser', array('local' => 'ull_user_id',
                                    'foreign' => 'id'));
+
+    $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'my_string', 1 => 'my_text')));
+    $this->actAs($i18n0);
   }
 }

@@ -321,7 +321,19 @@ class BaseUllTableToolActions extends ullsfActions
     
     if ($search = $this->filter_form->getValue('search'))
     {      
-      ullCoreTools::doctrineSearch($q, $search, $this->table_tool->getTableConfig()->getSearchColumnsAsArray());
+      $cols = $this->table_tool->getTableConfig()->getSearchColumnsAsArray();
+      $columnsConfig = $this->table_tool->getColumnsConfig();
+      
+      foreach ($cols as $key => $col)
+      {
+        if (isset($columnsConfig[$col]['translation']))
+        {
+          $cols[$key] = 'Translation.' . $col;
+        }
+      }
+//      var_dump($cols);
+//      die;
+      ullCoreTools::doctrineSearch($q, $search, $cols);
     }
 
     $rows = $q->execute();
