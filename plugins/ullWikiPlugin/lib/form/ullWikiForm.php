@@ -13,7 +13,6 @@ class ullWikiForm extends PluginUllWikiForm
       'changelog_comment'         => new sfWidgetFormInput(array(), array('size' => '50')),
     ));
 
-    #unset($this->widgetSchema['created_at']);
     unset($this->validatorSchema['id']);
     unset($this->validatorSchema['namespace']);
     unset($this->validatorSchema['creator_user_id']);
@@ -30,7 +29,6 @@ class ullWikiForm extends PluginUllWikiForm
     unset($this->validatorSchema['updated_at']);
 
     $this->widgetSchema->setLabels(array(
-#      'cultures'                  => __('Language', null, 'common'),
       'subject'                   => __('Subject', null, 'common'),
       'body'                      => __('Text', null, 'common'),
       'changelog_comment'         => __('Changelog comment', null, 'common'),
@@ -46,8 +44,8 @@ class ullWikiForm extends PluginUllWikiForm
 
     $object->setCurrent(true);
     $object->setEditCounter($object->getEditCounter() + 1);
+    $object->setUpdatorUserId($this->getUser()->getAttribute('user_id'));
 
-    
     return $object;
   }
 
