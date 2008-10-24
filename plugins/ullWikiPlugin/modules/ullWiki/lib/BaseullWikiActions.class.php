@@ -163,9 +163,8 @@ class BaseullWikiActions extends ullsfActions
       // check if this is a new or existing wiki article
       if ($docid = $this->getRequestParameter('docid')) {
         $this->ullwiki->setDocid($docid); // keep docid
+        $this->ullwiki->setCreatorUserIdAndCreatedAt($this->getWikiFromRequest()); // keep creator and createdate
         UllWikiTable::setOldDocsDeleted($docid);
-        #$this->ullwiki->setCreatorUserId($this->getRequestParameter('creator_user_id')); // keep creator
-        #$this->ullwiki->setCreatedAt($this->getRequestParameter('created_at')); // keep createdate
       } else {
         $docid = UllWikiTable::getNextFreeDocid();
         $this->ullwiki->setDocid($docid);
@@ -239,7 +238,9 @@ class BaseullWikiActions extends ullsfActions
     $this->checkAccess('MasterAdmins');
 
     $ullwiki = $this->getWikiFromRequest();   
-    $ullwiki->delete();
+    $ullwiki->setDeleted(1);
+    $ullwiki->save();
+    #$ullwiki->delete();#??strange
 
     return $this->redirect('ullWiki/list');
   }

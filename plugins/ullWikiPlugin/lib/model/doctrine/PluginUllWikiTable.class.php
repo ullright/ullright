@@ -10,16 +10,24 @@ class PluginUllWikiTable extends UllRecordTable
     $q = new Doctrine_Query;
     $q->from('UllWiki w')
       ->where('w.docid = ?', $docid)
+      ->addWhere('w.deleted = ?', 0) #??strange
     ;
     return $q->execute()->getFirst();
   }
 
   public static function setOldDocsDeleted($docid) {
     $q = new Doctrine_Query;
+    /*
     $q->delete('UllWiki w')
       ->from('UllWiki w')
       ->where('w.docid = ?', $docid)
-      ->execute();
+      ->execute() #??strange
+    ;*/
+    $q->update('UllWiki w')
+      ->set('deleted', '1')
+      ->where('w.docid = ?', $docid)
+      ->execute()
+    ;
   }
 
   public static function getNextFreeDocid() {
