@@ -10,10 +10,9 @@ abstract class BaseUllWiki extends UllRecord
     parent::setTableDefinition();
     $this->setTableName('ull_wiki');
     $this->hasColumn('docid', 'integer', null, array('type' => 'integer', 'notnull' => true));
-    $this->hasColumn('current', 'boolean', null, array('type' => 'boolean'));
     $this->hasColumn('culture', 'string', 7, array('type' => 'string', 'length' => '7'));
     $this->hasColumn('body', 'clob', null, array('type' => 'clob'));
-    $this->hasColumn('subject', 'string', 255, array('type' => 'string', 'length' => '255'));
+    $this->hasColumn('subject', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
     $this->hasColumn('changelog_comment', 'string', 255, array('type' => 'string', 'length' => '255'));
     $this->hasColumn('read_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('edit_counter', 'integer', null, array('type' => 'integer'));
@@ -30,7 +29,9 @@ abstract class BaseUllWiki extends UllRecord
 
     $taggable0 = new Taggable();
     $timestampable0 = new Doctrine_Template_Timestampable();
+    $softdelete0 = new Doctrine_Template_SoftDelete();
     $this->actAs($taggable0);
     $this->actAs($timestampable0);
+    $this->actAs($softdelete0);
   }
 }

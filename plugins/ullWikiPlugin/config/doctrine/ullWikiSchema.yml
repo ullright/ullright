@@ -8,8 +8,6 @@ UllWiki:
     docid: 
       type: integer
       notnull: true
-    current: 
-      type: boolean
     culture: 
       type: string(7)
     body: 
@@ -36,3 +34,5 @@ UllWiki:
   actAs:
     Taggable:
     Timestampable:
+    SoftDelete:
+    

@@ -46,13 +46,17 @@ $b
 ;
 
 $b
-  ->diag('update')
+  ->diag('list')
   ->get('ullWiki/list')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->click('My new test subject')
   ->responseContains('My new test subject')
+;
+
+$b
+  ->diag('update')
   ->get('ullWiki/edit/docid/3')
   ->responseContains('My new test subject')
   ->setField('ull_wiki[subject]', 'My new test subject, updated')

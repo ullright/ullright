@@ -60,9 +60,10 @@ class BaseullWikiActions extends ullsfActions
 
 
     // build query
+    // Querying for records excludes deleted records automatically.
     $q = new Doctrine_Query();
     $q->from('UllWiki w')
-      ->where('w.current = ?', true)
+      ->where('deleted = ?', 0) #??strange
     ;
 
 
@@ -162,7 +163,7 @@ class BaseullWikiActions extends ullsfActions
       // check if this is a new or existing wiki article
       if ($docid = $this->getRequestParameter('docid')) {
         $this->ullwiki->setDocid($docid); // keep docid
-        UllWikiTable::setOldDocsNonCurrent($docid);
+        UllWikiTable::setOldDocsDeleted($docid);
         #$this->ullwiki->setCreatorUserId($this->getRequestParameter('creator_user_id')); // keep creator
         #$this->ullwiki->setCreatedAt($this->getRequestParameter('created_at')); // keep createdate
       } else {
@@ -238,8 +239,7 @@ class BaseullWikiActions extends ullsfActions
     $this->checkAccess('MasterAdmins');
 
     $ullwiki = $this->getWikiFromRequest();   
-    $ullwiki->setCurrent(false);
-    $ullwiki->save();
+    $ullwiki->delete();
 
     return $this->redirect('ullWiki/list');
   }

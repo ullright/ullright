@@ -94,13 +94,9 @@ echo $form;
 		  <li>
 	      <?php echo submit_tag(__('Save and show', null, 'common'),
 	             array('name' => 'submit_save_show')) ?>
-
-        <script language="JavaScript">
-          //document.getElementById('save').onclick = saveshow;
-        </script>
 	    </li>
       <li>
-          <?php echo submit_tag(__('Save and close', null, 'common'),
+        <?php echo submit_tag(__('Save and close', null, 'common'),
                array('name' => 'submit_save_close')) ?>
       </li>
 

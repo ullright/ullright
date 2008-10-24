@@ -1,13 +1,11 @@
 UllWiki:
   doc_1:
     docid:              1
-    current:            true
     culture:            en
     body:               <h1>Testdoc</h1>This is a test document
     subject:            Testdoc
   doc_2:
     docid:              2
-    current:            true
     culture:            en
     body:               <h1>Another Testdoc</h1>This is a yet another test document
     subject:            Another Testdoc    

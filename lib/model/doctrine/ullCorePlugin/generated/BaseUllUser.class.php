@@ -12,13 +12,13 @@ abstract class BaseUllUser extends UllEntity
                                      'local' => 'entity_id',
                                      'foreign' => 'group_id'));
 
+    $this->hasMany('UllRecord', array('local' => 'id',
+                                      'foreign' => 'creator_user_id'));
+
     $this->hasMany('TestTable', array('local' => 'id',
                                       'foreign' => 'ull_user_id'));
 
     $this->hasMany('UllWiki', array('local' => 'id',
                                     'foreign' => 'locked_by_user_id'));
-
-    $this->hasMany('UllRecord', array('local' => 'id',
-                                      'foreign' => 'creator_user_id'));
   }
 }

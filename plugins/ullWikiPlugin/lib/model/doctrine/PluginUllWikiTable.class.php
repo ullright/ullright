@@ -9,22 +9,19 @@ class PluginUllWikiTable extends UllRecordTable
   {
     $q = new Doctrine_Query;
     $q->from('UllWiki w')
-      ->where('w.current = ? AND w.docid = ?', Array(true, $docid))
+      ->where('w.docid = ?', $docid)
     ;
     return $q->execute()->getFirst();
   }
 
-  public static function setOldDocsNonCurrent($docid) {
-    //echo "###",$this->docid,'###';
-
+  public static function setOldDocsDeleted($docid) {
     $q = new Doctrine_Query;
-    $q->update('UllWiki w')
-      ->set('current', 0)
+    $q->delete('UllWiki w')
+      ->from('UllWiki w')
       ->where('w.docid = ?', $docid)
-    ;
-    $rows = $q->execute();
+      ->execute();
   }
-  
+
   public static function getNextFreeDocid() {
 
     $q = new Doctrine_Query;
@@ -33,15 +30,13 @@ class PluginUllWikiTable extends UllRecordTable
       ->limit(1)
     ;
     $ullwiki = $q->execute()->getFirst();
-    
+
 
     if (!$ullwiki) {
       $docid = 1;
     } else {
       $docid = $ullwiki->getDocid() + 1;
-//      $docid++;
     }
-//    die("### $docid ###");
     return $docid;
 
   }

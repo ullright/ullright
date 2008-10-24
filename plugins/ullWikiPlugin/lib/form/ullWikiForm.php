@@ -18,7 +18,6 @@ class ullWikiForm extends PluginUllWikiForm
     unset($this->validatorSchema['creator_user_id']);
     unset($this->validatorSchema['updator_user_id']);
     unset($this->validatorSchema['docid']);
-    unset($this->validatorSchema['current']);
     unset($this->validatorSchema['culture']);
     unset($this->validatorSchema['read_counter']);
     unset($this->validatorSchema['edit_counter']);
@@ -42,9 +41,8 @@ class ullWikiForm extends PluginUllWikiForm
   {
     $object = parent::updateObject();
 
-    $object->setCurrent(true);
     $object->setEditCounter($object->getEditCounter() + 1);
-    $object->setUpdatorUserId($this->getUser()->getAttribute('user_id'));
+    $object->setUpdatorUserId(sfContext::getInstance()->getUser()->getAttribute('user_id'));
 
     return $object;
   }
