@@ -43,8 +43,6 @@ class BaseullWikiActions extends ullsfActions
     $refererHandler->delete('edit');
 
 
-    // == handle request params
-
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
 //    $this->return_url = $this->getRequestParameter('return_url');
     $this->return_var = $this->getRequestParameter('return_var');
@@ -54,57 +52,7 @@ class BaseullWikiActions extends ullsfActions
 
     $this->breadcrumbForList();
 
-    $rows = $this->getFilterFromRequest(); //ToDo
-    
-    $this->form = new ullWikiListSearchForm();
-
-
-    // build query
-    // Querying for records excludes deleted records automatically.
-    $q = new Doctrine_Query();
-    $q->from('UllWiki w')
-      ->where('deleted = ?', 0) #??strange
-    ;
-
-
-    if ($this->getRequestParameter('sort')) {
-    	$q->orderBy('w.'.$this->getRequestParameter('sort').' ASC');
-    } else {
-      $q->orderBy('w.updated_at DESC');
-    }
-
-    if ($this->search = $this->getRequestParameter('search')) {
-
-//      ullCoreTools::printR($this->search);
-
-      $fulltext = $this->getRequestParameter('fulltext');
-
-      //print_r(Array($this->search, $fulltext));
-
-      $query_subject = '';
-      $query_tags = '';
-      $query_body = '';
-
-      $search_words_arr = explode(' ', $this->search);
-      foreach($search_words_arr as $key => $search_word) {
-        #$search_words_arr[$key] = '%'.$search_word.'%';
-        $search_word = '"%'.$search_word.'%"';
-
-        $query_subject .= ($query_subject != '' ? ' AND ':'') . 'w.subject LIKE '.$search_word;
-        $query_tags    .= ($query_tags!=''?' AND ':'')    . 'w.duplicate_tags_for_search LIKE '.$search_word;
-
-        if ($fulltext) {
-          $query_body  .= ($query_body!=''?' AND ':'')    . 'w.body LIKE '.$search_word;
-        }
-      }
-
-      $q->addWhere($query_subject . ' OR ' . $query_tags . ($query_body!=''?' OR ':'') . $query_body);
-    }
-
-    $this->ullwiki_pager = new sfDoctrinePager('ullWiki', 25);
-    $this->ullwiki_pager->setPage($this->getRequestParameter('page', 1));
-    $this->ullwiki_pager->setQuery($q);
-    $this->ullwiki_pager->init();
+    $this->ullwiki_pager = $this->getFilterFromRequest();
   }
 
 
@@ -329,7 +277,54 @@ class BaseullWikiActions extends ullsfActions
 
   protected function getFilterFromRequest()
   {
+    $this->filter_form = new ullWikiFilterForm;
+    $this->filter_form->bind($this->getRequestParameter('filter'));
 
+    
+    // build query
+    // Querying for records excludes deleted records automatically.
+    $q = new Doctrine_Query();
+    $q->from('UllWiki w')
+      ->where('deleted = ?', 0) #??strange
+    ;
+
+
+    if ($this->getRequestParameter('sort')) {
+      $q->orderBy('w.'.$this->getRequestParameter('sort').' ASC');
+    } else {
+      $q->orderBy('w.updated_at DESC');
+    }
+
+    if ($this->search = $this->getRequestParameter('search')) {
+
+      $fulltext = $this->getRequestParameter('fulltext');
+
+      $query_subject = '';
+      $query_tags = '';
+      $query_body = '';
+
+      $search_words_arr = explode(' ', $this->search);
+      foreach($search_words_arr as $key => $search_word) {
+        #$search_words_arr[$key] = '%'.$search_word.'%';
+        $search_word = '"%'.$search_word.'%"';
+
+        $query_subject .= ($query_subject != '' ? ' AND ':'') . 'w.subject LIKE '.$search_word;
+        $query_tags    .= ($query_tags!=''?' AND ':'')    . 'w.duplicate_tags_for_search LIKE '.$search_word;
+
+        if ($fulltext) {
+          $query_body  .= ($query_body!=''?' AND ':'')    . 'w.body LIKE '.$search_word;
+        }
+      }
+
+      $q->addWhere($query_subject . ' OR ' . $query_tags . ($query_body!=''?' OR ':'') . $query_body);
+    }
+
+    $ullwiki_pager = new sfDoctrinePager('ullWiki', 25);
+    $ullwiki_pager->setPage($this->getRequestParameter('page', 1));
+    $ullwiki_pager->setQuery($q);
+    $ullwiki_pager->init();
+
+    return $ullwiki_pager;
   }
 
 

@@ -29,7 +29,7 @@
     </h3>
     <!--  Tag1, Tag2, Tag3 -->
   </div> 
-  
+
   <!-- <div class='clear'></div>  -->
 
   <?php include_partial(
