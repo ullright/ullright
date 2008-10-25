@@ -3,7 +3,11 @@ UllWiki:
   inheritance:
     extends: UllRecord
     type: concrete
-  #tableName: ull_wiki  
+  #tableName: ull_wiki
+  actAs:  
+    Timestampable:
+    SoftDelete:
+    Taggable:    
   columns:
     docid: 
       type: integer
@@ -31,8 +35,5 @@ UllWiki:
     UllUser:
       local: locked_by_user_id
 #      foreign: id
-  actAs:
-    Taggable:
-    Timestampable:
-    SoftDelete:
+
     
