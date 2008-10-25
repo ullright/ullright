@@ -98,7 +98,7 @@ class refererHandler
           $this->module.'/index'
         );
       }
-    }    
+    }
   }
   
 
