@@ -3,8 +3,7 @@ UllTableConfig:
   inheritance:
     extends: UllRecord
     type: concrete
-# TODO: check problem with sfDoctrineTest
-#  actAs:
+#  TODO: actAs:
 #    I18n:
 #      fields: [label, description]
   columns:
@@ -22,7 +21,7 @@ UllTableConfig:
     search_columns:
       type: string(255)
 
-# Model cannot be called UllMetaWidget because the UllMetaWidgetBase class is named like that
+# Cannot be called UllMetaWidget because the UllMetaWidgetBase class is named like that
 UllColumnType:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:

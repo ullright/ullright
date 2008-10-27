@@ -3,13 +3,6 @@ UllRecord:
   package: ullCorePlugin.lib.model.doctrine
   actAs:
     Timestampable:
-      # TODO: remove created, or set it only @ the first save (=insert)
-#      created:
-#        name: created_at
-#        type: timestamp
-#      updated:
-#        name: updated_at
-#        type: timestamp
   columns:
     namespace:
       type: string(32)

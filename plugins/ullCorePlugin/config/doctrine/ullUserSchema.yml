@@ -27,14 +27,12 @@ UllEntity:
   inheritance: 
     extends: UllParentEntity
     type: concrete
-#  tableName: ull_entity
     
 UllUser:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllEntity
     type: column_aggregation
-#    keyField: type
     keyValue: user           
   relations:
     UllGroup:
@@ -47,7 +45,6 @@ UllGroup:
   inheritance:
     extends: UllEntity
     type: column_aggregation
-#    keyField: type
     keyValue: group
   relations:
     UllUser:
@@ -60,7 +57,6 @@ UllEntityGroup:
   inheritance:
     extends: UllRecord
     type: concrete
-#  tableName: ull_entity_group  
   columns:
     entity_id:
       type: integer
