@@ -28,3 +28,10 @@ $b
   ->isRequestParameter('action', 'index')
   ->responseContains('Application Trouble ticket tool')
 ;
+
+//$b
+//  ->get('ullFlow/edit/doc/1')
+//  ->isStatusCode(200)
+//  ->isRequestParameter('module', 'ullFlow')
+//  ->isRequestParameter('action', 'edit')
+//;

@@ -27,11 +27,11 @@ abstract class BaseUllWiki extends UllRecord
     $this->hasOne('UllUser', array('local' => 'locked_by_user_id',
                                    'foreign' => 'id'));
 
-    $taggable0 = new Taggable();
     $timestampable0 = new Doctrine_Template_Timestampable();
     $softdelete0 = new Doctrine_Template_SoftDelete();
-    $this->actAs($taggable0);
+    $taggable0 = new Taggable();
     $this->actAs($timestampable0);
     $this->actAs($softdelete0);
+    $this->actAs($taggable0);
   }
 }
