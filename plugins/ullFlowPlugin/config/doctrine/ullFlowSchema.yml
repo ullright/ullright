@@ -34,7 +34,7 @@ UllFlowDoc:
       type: string(255)
     ull_flow_action_id:
       type: integer
-    assigned_to_ull_entitiy_id:
+    assigned_to_ull_entity_id:
       type: integer
       notnull: true
     assigned_to_ull_flow_step_id:
@@ -58,7 +58,7 @@ UllFlowDoc:
       onDelete: CASCADE
     UllEntity:
       foreignAlias: UllFlowDocs
-      local: assigned_to_ull_entitiy_id
+      local: assigned_to_ull_entity_id
 #      onDelete: CASCADE # TODO: test!
       
 UllFlowColumnConfig:
@@ -72,7 +72,10 @@ UllFlowColumnConfig:
   columns:
     ull_flow_app_id:
       type: integer
-      notnull: true          
+      notnull: true
+    slug:
+      type: string(32)
+      notnull: true                  
     label:
       type: string(64)
     sequence:
@@ -103,7 +106,8 @@ UllFlowColumnConfig:
       onDelete: CASCADE  
     UllColumnType:
       foreignAlias: UllFlowColumnConfigs
-      onDelete: CASCADE    
+      onDelete: CASCADE
+  # TODO: test unique: slug combined with UllFlowApp    
       
 UllFlowValue:
   package: ullFlowPlugin.lib.model.doctrine

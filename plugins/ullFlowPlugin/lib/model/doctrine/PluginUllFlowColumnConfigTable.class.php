@@ -4,5 +4,24 @@
  */
 class PluginUllFlowColumnConfigTable extends UllRecordTable
 {
+  
+  public static function findByAppIdAndSlug($ullFlowAppId, $slug)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllFlowColumnConfig cc')
+      ->where('cc.ull_flow_app_id = ?',  $ullFlowAppId)
+      ->addWhere('cc.slug = ?', $slug)
+    ;
+    
+    $result = $q->execute()->getFirst();
+    
+    if ($result == null)
+    {
+      throw new InvalidArgumentException("One or both of the arguments ull_flow_app_id ($ullFlowAppId) and slug ($slug) are invalid");
+    }
+    
+    return $result;
+  }
 
 }

@@ -27,6 +27,7 @@ UllFlowColumnConfig:
       de:
         label:      Meine spezielle String-Feld Bezeichnung
     UllFlowApp:     ull_flow_app_helpdesk
+    slug:           my_title
     sequence:       1000
     UllColumnType:  string
     mandatory:      true
@@ -38,6 +39,7 @@ UllFlowColumnConfig:
       de:
         label:      Datum
     UllFlowApp:     ull_flow_app_helpdesk
+    slug:           my_datetime
     sequence:       2000
     UllColumnType:  datetime
     show_in_list:   false
@@ -48,6 +50,7 @@ UllFlowColumnConfig:
       de:
         label:      E-Mail
     UllFlowApp:     ull_flow_app_helpdesk
+    slug:           my_email
     sequence:       3000
     UllColumnType:  email
         

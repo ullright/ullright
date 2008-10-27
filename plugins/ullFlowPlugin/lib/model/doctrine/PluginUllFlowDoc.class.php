@@ -6,4 +6,24 @@
 abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 {
 
+  public function setUp()
+  {
+    parent::setUp();
+    
+    $this->unshiftFilter(new UllFlowDocRecordFilter());
+  }  
+
+  public function setValueByColumn($ullFlowColumnConfigSlug, $value)
+  {
+    $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
+    $ullFlowValue->value = $value;
+    return $ullFlowValue->save();
+  }  
+  
+  public function getValueByColumn($ullFlowColumnConfigSlug)
+  {
+    $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
+    return $ullFlowValue->value;
+  }
+  
 }

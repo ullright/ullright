@@ -10,6 +10,7 @@ abstract class BaseUllFlowColumnConfig extends UllRecord
     parent::setTableDefinition();
     $this->setTableName('ull_flow_column_config');
     $this->hasColumn('ull_flow_app_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
     $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('sequence', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('ull_column_type_id', 'integer', null, array('type' => 'integer'));
