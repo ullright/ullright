@@ -25,7 +25,7 @@ class BaseUllUserForm extends BaseFormDoctrine
       'type'                  => new sfWidgetFormInput(),
       'created_at'            => new sfWidgetFormDateTime(),
       'updated_at'            => new sfWidgetFormDateTime(),
-      'ull_entity_group_list' => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllGroup')),
+      'ull_group_list' => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllGroup')),
     ));
 
     $this->setValidators(array(
@@ -42,7 +42,7 @@ class BaseUllUserForm extends BaseFormDoctrine
       'type'                  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'            => new sfValidatorDateTime(array('required' => false)),
       'updated_at'            => new sfValidatorDateTime(array('required' => false)),
-      'ull_entity_group_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'UllGroup', 'required' => false)),
+      'ull_group_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'UllGroup', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_user[%s]');
@@ -61,15 +61,15 @@ class BaseUllUserForm extends BaseFormDoctrine
   {
     parent::updateDefaultsFromObject();
 
-    if (isset($this->widgetSchema['ull_entity_group_list']))
+    if (isset($this->widgetSchema['ull_group_list']))
     {
       $values = array();
       foreach ($this->object->UllGroup as $obj)
       {
         $values[] = current($obj->identifier());
       }
-
-      $this->setDefault('ull_entity_group_list', $values);
+      $this->object->clearRelated('UllGroup');
+      $this->setDefault('ull_group_list', $values);
     }
 
   }
@@ -78,17 +78,17 @@ class BaseUllUserForm extends BaseFormDoctrine
   {
     parent::doSave($con);
 
-    $this->saveUllEntityGroupList($con);
+    $this->saveUllGroupList($con);
   }
 
-  public function saveUllEntityGroupList($con = null)
+  public function saveUllGroupList($con = null)
   {
     if (!$this->isValid())
     {
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema['ull_entity_group_list']))
+    if (!isset($this->widgetSchema['ull_group_list']))
     {
       // somebody has unset this widget
       return;
@@ -105,7 +105,7 @@ class BaseUllUserForm extends BaseFormDoctrine
           ->where('r.entity_id = ?', current($this->object->identifier()))
           ->execute();
 
-    $values = $this->getValue('ull_entity_group_list');
+    $values = $this->getValue('ull_group_list');
     if (is_array($values))
     {
       foreach ($values as $value)
