@@ -1,7 +1,7 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
-<h3><?php echo $table_tool->getTableConfig()->label ?></h3>
-<p><?php echo $table_tool->getTableConfig()->description ?></p>
+<h3><?php echo $generator->getTableConfig()->label ?></h3>
+<p><?php echo $generator->getTableConfig()->description ?></p>
 <?php echo form_tag('ullTableTool/list?table=' . $table_name); ?>
 
 <!-- TODO: add ordered list for options/actions -->
@@ -29,14 +29,14 @@
 <br />
 
 <?php // detect empty table_tool ?>
-<?php if (!$table_tool->getRow()->isModified()): ?>
+<?php if (!$generator->getRow()->isModified()): ?>
   <table class='result_list'>
   
   <!-- header -->
   <thead>
   <tr>  
     <th>&nbsp;</th>
-    <?php foreach ($table_tool->getLabels() as $label): ?>
+    <?php foreach ($generator->getLabels() as $label): ?>
       <th><?php echo $label ?>:</th>
     <?php endforeach; ?>
   </tr>
@@ -46,7 +46,7 @@
   
   <tbody>
   <?php $odd = false; ?>
-  <?php foreach($table_tool->getForms() as $row => $form): ?>
+  <?php foreach($generator->getForms() as $row => $form): ?>
       <?php
         if ($odd) {
           $odd_style = ' class=\'odd\'';
@@ -56,7 +56,7 @@
           $odd = true;
         }
         
-        $identifier = $table_tool->getIdentifierUrlParams($row, ESC_RAW);
+        $identifier = $generator->getIdentifierUrlParams($row, ESC_RAW);
         
       ?>
     <tr <?php echo $odd_style ?>>

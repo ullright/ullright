@@ -1,15 +1,9 @@
 <?php
 
-class ullTableTool
+class ullGeneratorTableTool extends ullGenerator
 {
   protected
-    $tableConfig    = array(),
-    $columnsConfig  = array(),
-    $forms          = array(),
-    $rows           = array(),
-    $modelName,
-    $isBuilt        = false,
-    $defaultAccess,
+    $formClass = 'ullFormTableTool',
     $columnsBlacklist = array(
         'namespace',
         'type',
@@ -35,109 +29,12 @@ class ullTableTool
     ) 
   ;
   
-  public function __construct($modelName = null, $defaultAccess = 'r')
-  {
-
-    if ($modelName === null)
-    {
-      throw new InvalidArgumentException('A model must be supplied');
-    }
-    
-    if (!class_exists($modelName))
-    {
-      throw new InvalidArgumentException('Invalid model: ' . $modelName);
-    }
-    
-//    var_dump($this->rows);
-//    die;
-    
-    $this->modelName = $modelName;
-    
-    $this->setDefaultAccess($defaultAccess);
-    
-    $this->buildTableConfig();
-    
-    $this->buildColumnsConfig();
-    
-//    $this->buildForm();
-  }
-
-  public function getModelName()
-  {
-    return $this->modelName;
-  }
-
-//  /**
-//   * Returns true if the current form has some associated i18n objects.
-//   *
-//   * @return Boolean true if the current form has some associated i18n objects, false otherwise
-//   */
-//  public function isI18n()
-//  {
-//    return $this->rows[0]->getTable()->hasTemplate('Doctrine_Template_I18n');
-//  }  
-  
-  // makes no sense as a public function because it doesn't rebuild the columnsConfig etc
-  protected function setDefaultAccess($access = 'r')
-  {
-    if (!in_array($access, array('r', 'w')))
-    {
-      throw new UnexpectedValueException('Invalid access type "'. $access .'. Has to be either "r" or "w"'); 
-    }
-
-    $this->defaultAccess = $access;
-  }  
-
-  public function getDefaultAccess()
-  {
-    return $this->defaultAccess;
-  }  
-
-  public function getTableConfig()
-  {
-    return $this->tableConfig;
-  }
-  
-  public function getColumnsConfig()
-  {
-    return $this->columnsConfig;
-  }
-  
-  public function getForm()
-  {
-    if (!$this->isBuilt)
-    {
-      throw new RuntimeException('You have to call buildForm() first');
-    }     
-    
-    return $this->forms[0];
-  }
-  
-  public function getForms()
-  {
-    if (!$this->isBuilt)
-    {
-      throw new RuntimeException('You have to call buildForm() first');
-    }     
-    
-    return $this->forms;
-  }
-  
-  public function getRow()
-  {
-    if (!$this->isBuilt)
-    {
-      throw new RuntimeException('You have to call buildForm() first');
-    } 
-        
-    return $this->rows[0];
-  }
-  
-  public function getLabels()
-  {   
-    return $this->forms[0]->getWidgetSchema()->getLabels();
-  }
-  
+  /**
+   * returns an array of identifier url params
+   *
+   * @param Doctrine_record $row
+   * @return array
+   */
   public function getIdentifierUrlParams($row)
   {
     if (!is_integer($row)) 
@@ -159,6 +56,11 @@ class ullTableTool
     return implode('&', $array);
   }
   
+  /**
+   * returns the identifiers as array
+   *
+   * @return array
+   */
   protected function getIdentifierAsArray()
   {
     $identifier = $this->tableConfig->getIdentifier();
@@ -169,6 +71,10 @@ class ullTableTool
     return $identifier;
   }
   
+  /**
+   * builds the table config
+   *
+   */
   protected function buildTableConfig()
   {
     $tableConfig = Doctrine::getTable('UllTableConfig')->
@@ -184,6 +90,10 @@ class ullTableTool
     $this->tableConfig = $tableConfig;
   }
   
+  /**
+   * builds the column config
+   *
+   */
   protected function buildColumnsConfig()
   {
     // get Doctrine relations
@@ -310,55 +220,11 @@ class ullTableTool
 //    die;    
   }
   
-  public function buildForm($rows)
-  {
-    if (is_array($rows))
-    {
-      $this->rows = $rows;
-    }
-    elseif ($rows instanceof Doctrine_Collection)
-    {
-      $this->rows = $rows;
-    }
-    else
-    {
-      $this->rows[] = $rows;
-    }    
-    
-    $cultures = self::getDefaultCultures();
-    
-    foreach ($this->rows as $key => $row) 
-    {
-      $this->forms[$key] = new ullForm($row, $cultures);
-      foreach ($this->columnsConfig as $columnName => $columnConfig)
-      {
-        if ($this->isColumnEnabled($columnConfig)) 
-        {
-          $ullMetaWidgetClassName = $columnConfig['metaWidget'];
-          $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
-          
-          if (isset($columnConfig['translation']))
-          { 
-            foreach ($cultures as $culture)
-            {
-              $translationColumnName = $columnName . '_translation_' . $culture;
-              $this->forms[$key]->addUllMetaWidget($translationColumnName, $ullMetaWidget);
-              $label = __('%1% translation %2%', array('%1%' => $columnConfig['label'], '%2%' => $culture), 'common');
-              $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
-            }
-          }
-          else
-          {
-            $this->forms[$key]->addUllMetaWidget($columnName, $ullMetaWidget);
-            $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
-          }
-        }        
-      }
-    }
-    
-    $this->isBuilt = true;
-  }
-  
+
+  /**
+   * remove unwanted columns
+   *
+   */
   protected function removeBlacklistColumns()
   {
     foreach ($this->columnsBlacklist as $column)
@@ -367,6 +233,10 @@ class ullTableTool
     }
   }
   
+  /**
+   * set columns which are always read only
+   *
+   */
   protected function setReadOnlyColumns()
   {
     foreach($this->columnsReadOnly as $column)
@@ -375,6 +245,10 @@ class ullTableTool
     }
   }
   
+  /**
+   * do some default sorting of the column order
+   *
+   */
   protected function sortColumns()
   {
     $bottom = array();
@@ -386,41 +260,6 @@ class ullTableTool
     
     $this->columnsConfig = array_merge($this->columnsConfig, $bottom);
   }
-  
-  protected function isColumnEnabled($columnConfig)
-  {
-    if ($columnConfig['access']) {
-    
-      if ($this->defaultAccess == 'w' || 
-          ($this->defaultAccess == 'r' && $columnConfig['show_in_list']))
-      {
-        return true;
-      }
-    }
-  }
-  
-  /**
-   * get array of default cultures
-   * 
-   * this array includes the default culture (usually 'en') and the current 
-   * user's culture if different from the default culture (e.g. 'de')
-   * 
-   * @return: array
-   *
-   */
-  public static function getDefaultCultures()
-  {
-    $userCulture = substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2);
-    $defaultCulture = sfConfig::get('base_default_language', 'en');
-    
-    $cultures = array($defaultCulture);
-    if ($defaultCulture != $userCulture)
-    {
-      $cultures[] = $userCulture;
-    }
-    
-    return $cultures;
-  }  
   
 }
 

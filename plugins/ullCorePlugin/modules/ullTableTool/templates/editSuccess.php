@@ -1,6 +1,6 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
-<?php if ($table_tool->getForm()->getErrorSchema()->getErrors()): ?>
+<?php if ($generator->getForm()->getErrorSchema()->getErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
   </div>  
@@ -13,7 +13,7 @@
 <table>
 <tbody>
 
-<?php echo $table_tool->getForm() ?>
+<?php echo $generator->getForm() ?>
 
 </tbody>
 </table>

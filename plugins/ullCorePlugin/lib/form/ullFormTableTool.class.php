@@ -1,6 +1,6 @@
 <?php
 
-class ullForm extends sfFormDoctrine
+class ullFormTableTool extends sfFormDoctrine
 {
   protected 
     $modelName

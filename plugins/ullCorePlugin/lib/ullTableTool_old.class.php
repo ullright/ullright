@@ -1,6 +1,6 @@
 <?php
 
-class ullTableTool
+class ullTableTool_old
 {
   protected
     $tableConfig    = array(),

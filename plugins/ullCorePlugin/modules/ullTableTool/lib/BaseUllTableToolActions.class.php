@@ -40,11 +40,11 @@ class BaseUllTableToolActions extends ullsfActions
       //TODO: req_pass redirect
     }
     
-    $this->table_tool = new ullTableTool($this->table_name);
+    $this->generator = new ullGeneratorTableTool($this->table_name);
     
     $rows = $this->getFilterFromRequest();
     
-    $this->table_tool->buildForm($rows);
+    $this->generator->buildForm($rows);
     
     $refererHandler = new refererHandler();
     $refererHandler->delete('edit');
@@ -227,15 +227,15 @@ class BaseUllTableToolActions extends ullsfActions
 
     $this->getTablefromRequest();
 
-    $this->table_tool = new ullTableTool($this->table_name, 'w');
+    $this->generator = new ullGeneratorTableTool($this->table_name, 'w');
 
     $row = $this->getRowFromRequestOrCreate();
 
-    $this->table_tool->buildForm($row);
+    $this->generator->buildForm($row);
 
     if ($request->isMethod('post'))
     {
-      if ($this->table_tool->getForm()->bindAndSave($request->getParameter('fields')))
+      if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
         $referer = $this->refererHandler->getRefererAndDelete();
         $referer = ($referer) ? $referer : $this->getRefererFallbackURI();
@@ -321,8 +321,8 @@ class BaseUllTableToolActions extends ullsfActions
     
     if ($search = $this->filter_form->getValue('search'))
     {      
-      $cols = $this->table_tool->getTableConfig()->getSearchColumnsAsArray();
-      $columnsConfig = $this->table_tool->getColumnsConfig();
+      $cols = $this->generator->getTableConfig()->getSearchColumnsAsArray();
+      $columnsConfig = $this->generator->getColumnsConfig();
       
       foreach ($cols as $key => $col)
       {
@@ -371,7 +371,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree = new breadcrumbTree();
     $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
     $this->breadcrumb_tree->add('ullTableTool');
-    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_tool->getTableConfig()->label);
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->label);
     $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
   }
   
