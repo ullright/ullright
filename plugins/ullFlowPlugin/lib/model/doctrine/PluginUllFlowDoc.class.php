@@ -6,6 +6,10 @@
 abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 {
 
+  /**
+   * add Doctrine_Filter to handle virtual columns transparently
+   *
+   */
   public function setUp()
   {
     parent::setUp();
@@ -13,6 +17,13 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->unshiftFilter(new UllFlowDocRecordFilter());
   }  
 
+  /**
+   * Set the value of a virtual column
+   *
+   * @param string $ullFlowColumnConfigSlug
+   * @param string $value
+   * @return mixed
+   */
   public function setValueByColumn($ullFlowColumnConfigSlug, $value)
   {
     $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
@@ -20,10 +31,66 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     return $ullFlowValue->save();
   }  
   
+  /**
+   * Get the value of a virtual column
+   *
+   * @param string $ullFlowColumnConfigSlug
+   * @return mixed
+   */
   public function getValueByColumn($ullFlowColumnConfigSlug)
   {
     $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
     return $ullFlowValue->value;
   }
+  
+  /**
+   * Returns an array with the values of the virtual columns
+   * 
+   * Example: 
+   * array(
+   *   'my_title' => 'This is my title',
+   *   'my_email' => 'darth.vader@ull.at',
+   * );
+   * 
+   * @return array
+   */
+  public function getVirtualValuesAsArray()
+  {
+    $values = $this->UllFlowValues;
+    
+    $return = array();
+    
+    foreach ($values as $value)
+    {
+      $return[$value->UllFlowColumnConfig->slug] = $value->value;
+    }
+    
+    return $return;
+  }
+  
+  /**
+   * Returns an array containing the virtual columns
+   * 
+   * Example: 
+   * array(
+   *   'my_title',
+   *   'my_email', 
+   * );
+   * 
+   * @return array
+   */
+  public function getVirtualColumnsAsArray()
+  {
+    $columns = $this->UllFlowApp->UllFlowColumnConfigs;
+
+    $return = array();
+    
+    foreach ($columns as $column)
+    {
+      $return[] = $column->slug;
+    }
+    
+    return $return;
+  }  
   
 }

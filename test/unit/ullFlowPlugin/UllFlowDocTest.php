@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(4, new lime_output_color, $configuration);
+$t = new myTestCase(6, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -37,4 +37,28 @@ $t->begin('set() and get() for virtual columns');
   $doc = Doctrine::getTable('UllFlowDoc')->find(3);
   $t->is($doc->my_title, 'My title', 'get() returns the correct value');
   $t->is($doc->my_datetime, '2008-08-08 08:08:08', 'get() returns the correct value');
+  
+$t->begin('getVirtualValuesAsArray()');
+  $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
+  $columns = $doc1->getVirtualValuesAsArray();
+  
+  $reference = array(
+    'my_title'    => 'This is the title of my first ticket',
+    'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
+    'my_email'    => 'quasimodo@ull.at',
+  );
+  
+  $t->is($columns, $reference, 'returns the correct values');  
+  
+$t->begin('getVirtualColumnsAsArray()');
+  $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
+  $columns = $doc1->getVirtualColumnsAsArray();
+  
+  $reference = array(
+    'my_title',
+    'my_datetime',
+    'my_email',
+  );
+  
+$t->is($columns, $reference, 'returns the correct values');    
   
