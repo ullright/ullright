@@ -145,7 +145,7 @@ $t->begin('__construct()');
 
   try
   {
-    new ullGeneratorTableTool();
+    new ullTableToolGenerator();
     $t->fail('__construct() doesn\'t throw an exception if no model is given');
   }
   catch (Exception $e)
@@ -155,7 +155,7 @@ $t->begin('__construct()');
 
   try
   {
-    new ullGeneratorTableTool($tests);
+    new ullTableToolGenerator($tests);
     $t->fail('__construct() doesn\'t throw an exception if an invalid model is given');
   }
   catch (Exception $e)
@@ -163,8 +163,8 @@ $t->begin('__construct()');
     $t->pass('__construct() throws an exception if an invalid model is given');
   }
   
-  $tableTool = new ullGeneratorTableTool('TestTable');
-  $t->isa_ok($tableTool, 'ullGeneratorTableTool', '__construct() returns the correct object');
+  $tableTool = new ullTableToolGenerator('TestTable');
+  $t->isa_ok($tableTool, 'ullTableToolGenerator', '__construct() returns the correct object');
 
   $t->is($tableTool->getModelName(), 'TestTable', '__construct() sets the right model name');
   
@@ -172,7 +172,7 @@ $t->begin('__construct()');
   
   try
   {
-    new ullGeneratorTableTool('TestTable', 'x');
+    new ullTableToolGenerator('TestTable', 'x');
     $t->fail('__construct() doesn\'t throw an exception if an invalid access type is given');
   }
   catch(Exception $e)
@@ -180,7 +180,7 @@ $t->begin('__construct()');
     $t->pass('__construct() throws an exception if an invalid access type is given');
   }
   
-  $tableTool = new ullGeneratorTableTool('TestTable', 'w');
+  $tableTool = new ullTableToolGenerator('TestTable', 'w');
   $t->is($tableTool->getDefaultAccess(), 'w', '__construct() sets the correct access type "w"');
   
   
@@ -192,7 +192,7 @@ $t->begin('getTableConfig()');
   $t->is($tableConfig->label, 'TestTableLabel', 'Label is correct'); 
 
 $t->begin('getTableConfig() for a table with a multi-columns primary key');  
-  $tableTool2 = new ullGeneratorTableTool('UllEntityGroup');
+  $tableTool2 = new ullTableToolGenerator('UllEntityGroup');
   $tableConfig = $tableTool2->getTableConfig();
   $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');
   $t->is(is_array($tableConfig->getIdentifier()), true, 'Identifier is an array');
@@ -250,19 +250,19 @@ $t->begin('getIdentifierUrlParams()');
   
 $t->begin('getForm() with calling buildForm() prior');  
   $form = $tableTool->getForm();
-  $t->isa_ok($form, 'ullFormTableTool', 'getForm() returns a UllForm object');
+  $t->isa_ok($form, 'ullTableToolForm', 'getForm() returns a UllForm object');
   
 $t->begin('getForms()');
   $forms = $tableTool->getForms();
   $t->is(is_array($forms), true, 'getForms() returns an array');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');
-  $t->isa_ok($forms[0], 'ullFormTableTool', 'The first entry is a UllForm object');  
-  $t->isa_ok($forms[1], 'ullFormTableTool', 'The second entry is a UllForm object');  
+  $t->isa_ok($forms[0], 'ullTableToolForm', 'The first entry is a UllForm object');  
+  $t->isa_ok($forms[1], 'ullTableToolForm', 'The second entry is a UllForm object');  
   
 $t->begin('static function getDefaultCultures()');
-  $t->is(array('en',), ullGeneratorTableTool::getDefaultCultures(), 'returns the correct culture');
+  $t->is(array('en',), ullTableToolGenerator::getDefaultCultures(), 'returns the correct culture');
   sfContext::getInstance()->getUser()->setCulture('de');
-  $t->is(array('en', 'de'), ullGeneratorTableTool::getDefaultCultures(), 'returns the correct cultures');
+  $t->is(array('en', 'de'), ullTableToolGenerator::getDefaultCultures(), 'returns the correct cultures');
   
   
 //TODO: build without rows?  

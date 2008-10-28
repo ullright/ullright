@@ -1,8 +1,5 @@
 <?php
 
-phpinfo();
-die;
-
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
@@ -34,16 +31,16 @@ $t = new myTestCase(5, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
-//$form = new ullForm;
+//$form = new ullTableToolForm;
 
 $t->begin('__construct()');
   $test = Doctrine::getTable('TestTable')->find(1);
-  $form = new ullForm($test);
-  $t->isa_ok($form, 'ullForm', '__construct() returns the correct object');
+  $form = new ullTableToolForm($test);
+  $t->isa_ok($form, 'ullTableToolForm', '__construct() returns the correct object');
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullTable', 'The form uses the "ullTable" formatter by default');
   
   sfContext::getInstance()->getRequest()->setParameter('action', 'list');
-  $form = new ullForm($test);
+  $form = new ullTableToolForm($test);
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullList', 'The form uses the "ullList" formatter for list actions');
 
 // why doesn't this work?
@@ -51,14 +48,14 @@ $t->begin('__construct()');
 //  die;
   $columnConfig = $t->getColumnConfig();
 
-  $form = new ullForm($test);
+  $form = new ullTableToolForm($test);
   $widget = new ullMetaWidgetString($columnConfig);
   $form->addUllMetaWidget('test_field', $widget);
   $fields = $form->getWidgetSchema()->getFields();
   $t->isa_ok($fields['test_field'], 'ullWidget', 'added ullMetaWidgetString: read access: form now contains a ullWidget');
   
   $columnConfig['access'] = 'w';
-  $form = new ullForm($test);
+  $form = new ullTableToolForm($test);
   $widget = new ullMetaWidgetString($columnConfig);
   $form->addUllMetaWidget('test_field', $widget);
   $fields = $form->getWidgetSchema()->getFields();

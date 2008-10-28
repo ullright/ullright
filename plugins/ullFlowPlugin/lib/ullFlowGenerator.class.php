@@ -1,9 +1,9 @@
 <?php
 
-class ullTableToolGenerator extends ullGenerator
+class ullFlowGenerator extends ullGenerator
 {
   protected
-    $formClass = 'ullTableToolForm',
+    $formClass = 'ullFlowForm',
     $columnsBlacklist = array(
         'namespace',
         'type',
@@ -30,64 +30,22 @@ class ullTableToolGenerator extends ullGenerator
   ;
   
   /**
-   * returns an array of identifier url params
-   *
-   * @param Doctrine_record $row
-   * @return array
-   */
-  public function getIdentifierUrlParams($row)
-  {
-    if (!is_integer($row)) 
-    {
-      throw new UnexpectedArgumentException('$row must be an integer: ' . $row);
-    }
-    
-    if (!$this->isBuilt)
-    {
-      throw new RuntimeException('You have to call buildForm() first');
-    }
-    
-    $array = array();
-    foreach ($this->getIdentifierAsArray() as $identifier)
-    {
-      $array[] = $identifier . '=' . $this->rows[$row]->$identifier;
-    }
-    
-    return implode('&', $array);
-  }
-  
-  /**
-   * returns the identifiers as array
-   *
-   * @return array
-   */
-  protected function getIdentifierAsArray()
-  {
-    $identifier = $this->tableConfig->getIdentifier();
-    if (!is_array($identifier))
-    {
-      $identifier = array(0 => $identifier);
-    }
-    return $identifier;
-  }
-  
-  /**
    * builds the table config
    *
    */
   protected function buildTableConfig()
   {
-    $tableConfig = Doctrine::getTable('UllTableConfig')->
-        findOneByDbTableName($this->modelName);
-        
-    if (!$tableConfig)
-    {
-      $tableConfig = new UllTableConfig;
-      $tableConfig->db_table_name = $this->modelName;
-//      $tableConfig->save();
-    }
-    
-    $this->tableConfig = $tableConfig;
+//    $tableConfig = Doctrine::getTable('UllTableConfig')->
+//        findOneByDbTableName($this->modelName);
+//        
+//    if (!$tableConfig)
+//    {
+//      $tableConfig = new UllTableConfig;
+//      $tableConfig->db_table_name = $this->modelName;
+////      $tableConfig->save();
+//    }
+//    
+//    $this->tableConfig = $tableConfig;
   }
   
   /**
@@ -96,6 +54,11 @@ class ullTableToolGenerator extends ullGenerator
    */
   protected function buildColumnsConfig()
   {
+    $dbColumnConfig = Doctrine::getTable('UllFlowColumnConfig')->
+        findByUllFlowAppId($this->rows[0]->ull_flow_app_id);
+        
+    die;
+    
     // get Doctrine relations
     $relations = Doctrine::getTable($this->modelName)->getRelations();
 

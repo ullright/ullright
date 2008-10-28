@@ -40,7 +40,7 @@ class BaseUllTableToolActions extends ullsfActions
       //TODO: req_pass redirect
     }
     
-    $this->generator = new ullGeneratorTableTool($this->table_name);
+    $this->generator = new ullTableToolGenerator($this->table_name);
     
     $rows = $this->getFilterFromRequest();
     
@@ -227,7 +227,7 @@ class BaseUllTableToolActions extends ullsfActions
 
     $this->getTablefromRequest();
 
-    $this->generator = new ullGeneratorTableTool($this->table_name, 'w');
+    $this->generator = new ullTableToolGenerator($this->table_name, 'w');
 
     $row = $this->getRowFromRequestOrCreate();
 
