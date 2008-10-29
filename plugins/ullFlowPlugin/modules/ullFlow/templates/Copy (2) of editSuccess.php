@@ -1,15 +1,63 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 
-<?php echo form_tag('ullFlow/edit?app=' . $app->slug, 'id=ull_flow_form'); ?>
-  
-<?php /* echo form_tag('ullFlow/update?app=' . $app->slug . (!empty($doc->id)) ? '&doc=' . $doc->id : ''
-  , 'id=ull_flow_form'); */ ?>  
+<?php echo form_tag('ullFlow/update', 'id=ull_flow_form'); ?>
+<?php echo input_hidden_tag('app', @$app_slug); ?>
+<?php echo input_hidden_tag('doc', @$doc_id); ?>
+
   
 <table class='ull_flow_edit'>
 <tbody>
 
-<? echo $generator->getForm() ?>
+<?php 
+//  weflowTools::printR($column_info);
+//  weflowTools::printR($tt_row);
+//ullCoreTools::printR($sf_params->getAll());
+?>
+
+<?php $odd = false; ?>
+<?php foreach ($sf_data->getRaw('ull_form')->getFieldsInfo() as $field_name => $field_info): ?>
+  <?php if (isset($field_info['access'])): ?>
+
+    <?php
+      if ($odd) {
+        $odd_style = ' class=\'odd\'';
+        $odd = false;
+      } else {
+        $odd_style = '';
+        $odd = true;
+      }
+    ?>
+    <tr<?php echo $odd_style; ?>>
+      <td>
+        <label for="<?php echo $field_name; ?>">
+          <?php echo $field_info['name_humanized']; ?>:
+        </label>
+      </td>
+      <td>  
+        <?php 
+        
+          $fields_data  = $sf_data->getRaw('ull_form')->getFieldsDataOne();
+          $field_data   = $fields_data[$field_name]; 
+
+          if (isset($field_data['function'])) {
+            echo call_user_func_array($field_data['function'], $field_data['parameters']);
+
+          } else {
+            if (isset($field_data['value'])) {
+              echo $field_data['value'];
+            }
+
+          }
+
+          echo form_error($field_name);
+
+          ?>
+
+      </td>
+    </tr>
+  <?php endif; // end of enabled ?>
+<?php endforeach; ?>
 
 </tbody>
 </table>
@@ -25,7 +73,7 @@
   <div class='action_buttons_edit_left'>
     
     
-    <?php /* ?>
+    
     <?php if ($step_actions and $workflow_action_access): ?>
       
       <label for="ull_flow_action_comment">
@@ -56,8 +104,6 @@
         ?>
       </ul>
     <?php endif; ?>
-
-	<?php */?>
     
   </div>
 
@@ -65,13 +111,7 @@
   <div class='action_buttons_edit_right'>
     <ul>
       
-      <?php if ($generator->getDefaultAccess() == 'w'): ?>
-      
-        <li>
-        <?php 
-          echo submit_tag('save');
-        ?>
-        </li>      
+      <?php if ($ull_form->getAccessDefault() == 'w'): ?>
       
         <li>
         <?php 
@@ -91,7 +131,7 @@
         ?>
         </li>
         
-        <?php /*if ($doc_id): ?>
+        <?php if ($doc_id): ?>
           <li>
           <?php 
             echo link_to(
@@ -101,18 +141,18 @@
               ); 
           ?>
           </li> 
-        <?php endif; */?>
+        <?php endif; ?>
         
       <?php endif; ?>
     
       <li>
-      <?php /*
+      <?php
         echo ull_link_to(
           __('Cancel', null, 'common') 
           , $referer_edit
           , 'ull_js_observer_confirm=true'
         );
-      */?>
+      ?>
       </li>
     </ul>  
   </div>
@@ -126,14 +166,14 @@
 
 
 
-<?php /* echo input_hidden_tag('ull_flow_action') ?>
+<?php echo input_hidden_tag('ull_flow_action') ?>
 <?php echo input_hidden_tag('external') ?>
-<?php echo input_hidden_tag('external_field') */?>
+<?php echo input_hidden_tag('external_field') ?>
 
 </form>
 
 
-<?php /*
+<?php
   // == memories
   if (!$new) {
     echo '<br />';
@@ -180,5 +220,3 @@
   echo ull_js_observer("ull_flow_form");
 //  ullCoreTools::printR($ull_form);
 ?>   
-
-<?php */ ?>
