@@ -42,89 +42,25 @@ class BaseullFlowActions extends ullsfActions
   }
 
   
-  public function executeList() {
+  public function executeList($request) {
     
-    $this->forward('ullFlow', 'tabular');
+    $this->checkAccess('Masteradmins');
     
-//    // check access
-//    $this->checkAccess(1);
-//
-//    $this->ull_reqpass_redirect();
-//
-//    // referer handling
-//    $refererHandler = new refererHandler();
-//    $refererHandler->delete('edit');
-//    
-//    $this->app_slug = $this->getRequestParameter('app');
-//    if ($this->app_slug) {
-//      $this->app      = UllFlowAppPeer::retrieveBySlug($this->app_slug);
-//      $this->forward404Unless($this->app);
-//    }    
-//    
-//    
-//    // breadcrumb
-//    $this->breadcrumbTree = new breadcrumbTree();
-//    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow');
-//    if ($this->app_slug) {
-//      $this->breadcrumbTree->add(ullCoreTools::getI18nField($this->app, 'caption'));
-//    }
-////    $this->breadcrumbTree->addFinal(__('List', null, 'common'));
-//    if ($this->app_slug) {
-//      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app_slug);
-//    } else {
-//      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list');
-//    }
-//
-//    
-//    // === load entries
-//    $c = new Criteria();
-//    
-//    // select single app
-//    if ($this->app_slug) {
-//      $c->add(UllFlowDocPeer::ULL_FLOW_APP_ID, $this->app->getId());
-//    }
-//    
-//    // == filter by action
-//    $ull_flow_action_slug = $this->getRequestParameter('flow_action');
-//    
-//    // no requested action -> list default actions
-//    if (!$ull_flow_action_slug) {
-//      
-//      // get default actions for list
-//      $ca = new Criteria();
-//      $ca->add(UllFlowActionPeer::IN_RESULTLIST_BY_DEFAULT, true);
-//      $default_actions = UllFlowActionPeer::doSelect($ca);
-//      
-//      $default_action_ids = array();
-//      foreach ($default_actions as $default_action) {
-//        $default_action_ids[] = $default_action->getId();
-//      } 
-//      $c->add(UllFlowDocPeer::ULL_FLOW_ACTION_ID, $default_action_ids, Criteria::IN);
-//
-//    // list items with requested action if action <> 'all'
-//    } elseif ($ull_flow_action_slug <> 'all') {
-//      
-//      $ull_flow_action_id = UllFlowActionPeer::getActionIdBySlug($ull_flow_action_slug);
-//      if ($ull_flow_action_id) {
-//        $c->add(UllFlowDocPeer::ULL_FLOW_ACTION_ID, $ull_flow_action_id);
-//      }
-//      
-//    }
-//    
-//    
-//        
-//    $this->ull_flow_doc_pager = new sfPropelPager('UllFlowDoc', 25);
-//    $this->ull_flow_doc_pager->setCriteria($c);
-//    $this->ull_flow_doc_pager->setPage($this->getRequestParameter('page', 1));
-//    $this->ull_flow_doc_pager->init();
-//    
-//    
-//    // get list of flow_actions for the action select box
-//    $c = new Criteria();
-//    $c->addAscendingOrderByColumn(UllFlowActionI18nPeer::CAPTION_I18N);
-////    $this->flow_actions = UllFlowActionPeer::doSelect($c);
-//    $this->flow_actions = UllFlowActionPeer::doSelectWithI18n($c, substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2));
-//    
+    if ($request->isMethod('post'))
+    {
+      //TODO: req_pass redirect
+    }
+
+    $this->getAppfromRequest();
+    $this->generator = new ullFlowGenerator($this->app);
+    $docs = $this->getFilterFromRequest();
+    $this->generator->buildForm($docs);
+    
+    $refererHandler = new refererHandler();
+    $refererHandler->delete('edit');
+    
+    $this->breadcrumbForList();    
+    
   }
 
   
@@ -1202,6 +1138,20 @@ class BaseullFlowActions extends ullsfActions
     $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
   }
   
+  protected function breadcrumbForList()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+    if ($this->app) {
+      $this->breadcrumbTree->add($this->app->label);
+    }
+    if ($this->app) {
+      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
+    } else {
+      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list');
+    }
+  }  
+  
   protected function breadcrumbForEdit()
   {
     $this->breadcrumbTree = new breadcrumbTree();
@@ -1221,6 +1171,48 @@ class BaseullFlowActions extends ullsfActions
     
   }  
 
+  protected function getAppfromRequest() 
+  {
+    $this->forward404Unless(
+        $this->hasRequestParameter('app'), 
+        'Please specify a ullFlow app'
+    );
+    
+    $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+  }
+
+  protected function getFilterFromRequest()
+  {
+    $this->filter_form = new ullFlowFilterForm;
+    $this->filter_form->bind($this->getRequestParameter('filter'));
+    
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllFlowDoc' . ' x')
+      ->where('ull_flow_app_id = ?', $this->app->id)
+    ;
+    
+    if ($search = $this->filter_form->getValue('search'))
+    {      
+      $cols = $this->generator->getTableConfig()->getSearchColumnsAsArray();
+      $columnsConfig = $this->generator->getColumnsConfig();
+      
+      foreach ($cols as $key => $col)
+      {
+        if (isset($columnsConfig[$col]['translation']))
+        {
+          $cols[$key] = 'Translation.' . $col;
+        }
+      }
+//      var_dump($cols);
+//      die;
+      ullCoreTools::doctrineSearch($q, $search, $cols);
+    }
+
+    $rows = $q->execute();
+    return ($rows->count()) ? $rows : new UllFlowDoc;
+  }  
+  
   protected function getDocFromRequestOrCreate()
   {
     if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) {
@@ -1231,7 +1223,7 @@ class BaseullFlowActions extends ullsfActions
     {
       $this->doc = Doctrine::getTable('UllFlowDoc')->find($docId);
       $this->forward404Unless($this->doc);
-      $this->app = $this->doc->App;
+      $this->app = $this->doc->UllFlowApp;
     }
     else
     {
@@ -1241,5 +1233,6 @@ class BaseullFlowActions extends ullsfActions
       $this->forward404Unless($this->app);
     }    
   }  
+  
   
 }

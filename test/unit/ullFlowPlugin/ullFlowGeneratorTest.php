@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => true),
-        'label'               => 'My custom string field label',
+        'label'               => 'My custom title label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
         'show_in_list'        => true,

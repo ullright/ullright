@@ -16,7 +16,7 @@ $t->setFixturesPath($path);
 
 $t->begin('findByDocAndSlug()');
   $value = UllFlowValueTable::findByDocIdAndSlug(1,'my_title');
-  $t->is($value->value, 'This is the title of my first ticket', 'returns the correct value');
+  $t->is($value->value, 'My first trouble ticket', 'returns the correct value');
   
   try
   {

@@ -23,9 +23,9 @@ UllFlowColumnConfig:
   ull_flow_column_config_title:
     Translation:
       en:
-        label:      My custom string field label
+        label:      My custom title label
       de:
-        label:      Meine spezielle String-Feld Bezeichnung
+        label:      Meine spezielle Titel Bezeichnung
     UllFlowApp:     ull_flow_app_helpdesk
     slug:           my_title
     sequence:       1000
@@ -58,7 +58,7 @@ UllFlowValue:
   ull_flow_value_doc1_title:
     UllFlowDoc:     ull_flow_doc_1
     UllFlowColumnConfig: ull_flow_column_config_title
-    value:          This is the title of my first ticket
+    value:          My first trouble ticket
   ull_flow_value_doc1_datetime:
     UllFlowDoc:     ull_flow_doc_1
     UllFlowColumnConfig: ull_flow_column_config_datetime
@@ -71,7 +71,7 @@ UllFlowValue:
   ull_flow_value_doc2_title:
     UllFlowDoc:     ull_flow_doc_2
     UllFlowColumnConfig: ull_flow_column_config_title
-    value:          This is the title of my second ticket
+    value:          My second trouble ticket
   ull_flow_value_doc2_datetime:
     UllFlowDoc:     ull_flow_doc_2
     UllFlowColumnConfig: ull_flow_column_config_datetime

@@ -8,18 +8,18 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
- 
+
 $b
   ->diag('ullFlow Home')
-	->get('ullFlow/index')
-	->loginAsAdmin()
-	->isStatusCode(200)
-	->isRequestParameter('module', 'ullFlow')
-	->isRequestParameter('action', 'index')
-	->responseContains('Workflows Home')
-	->responseContains('Applications')
-;	
-  
+  ->get('ullFlow/index')
+  ->loginAsAdmin()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'index')
+  ->responseContains('Workflows Home')
+  ->responseContains('Applications')
+;  
+
 $b
   ->diag('select app')
   ->click('Trouble ticket tool')
@@ -28,6 +28,37 @@ $b
   ->isRequestParameter('action', 'index')
   ->responseContains('Application Trouble ticket tool')
 ;
+
+$b
+  ->diag('list')
+  ->get('ullFlow/list/app/trouble_ticket')
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('app', 'trouble_ticket')
+//  ->checkResponseElement('h3', 'Trouble ticket tool')
+//  ->responseContains('TestTable for automated testing')
+  ->checkResponseElement('tbody > tr  > td + td', 'My first trouble ticket')
+  ->checkResponseElement('tbody > tr + tr  > td + td', 'My second trouble ticket')
+  
+;
+
+$b
+  ->diag('list - test column headers')
+  ->checkResponseElement('thead > tr > th + th', 'My custom title label:')
+  ->checkResponseElement('thead > tr > th + th + th ', 'Your email address:')
+  ->checkResponseElement('table > thead > tr > th', 3) // number of columns
+//  ->dumpDIe()
+;
+//  
+//$b
+//  ->diag('list - test breadcrumb')  
+//  ->checkResponseElement('ul#breadcrumbs > li + li + li', 'ullTableTool')
+//  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Table TestTableLabel')
+//  ->checkResponseElement('ul#breadcrumbs > li + li + li + li + li', 'List')
+//;
+  
+
 
 $b
   ->diag('create with missing title and invalid email')

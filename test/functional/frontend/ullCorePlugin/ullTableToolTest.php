@@ -23,18 +23,18 @@ $b
 $b
   ->diag('list')
   ->get('ullTableTool/list/table/TestTable')
-  ->isStatusCode(200)		
-	->isRequestParameter('module', 'ullTableTool')
-	->isRequestParameter('action', 'list')
-	->isRequestParameter('table', 'TestTable')
-	->checkResponseElement('h3', 'TestTableLabel')
-	->responseContains('TestTable for automated testing')
-	->checkResponseElement('body', '!/namespace|Namespace/')
-	->checkResponseElement('body', '!/useless|Useless/')
-	->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
-	->checkResponseElement('tr > td + td + td + td > a', 'foobar@example.com')
-	->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
-	
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'TestTable')
+  ->checkResponseElement('h3', 'TestTableLabel')
+  ->responseContains('TestTable for automated testing')
+  ->checkResponseElement('body', '!/namespace|Namespace/')
+  ->checkResponseElement('body', '!/useless|Useless/')
+  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
+  ->checkResponseElement('tr > td + td + td + td > a', 'foobar@example.com')
+  ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
+  
 ;
 
 $b

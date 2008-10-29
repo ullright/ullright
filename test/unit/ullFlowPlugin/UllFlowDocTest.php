@@ -43,7 +43,7 @@ $t->begin('getVirtualValuesAsArray()');
   $columns = $doc1->getVirtualValuesAsArray();
   
   $reference = array(
-    'my_title'    => 'This is the title of my first ticket',
+    'my_title'    => 'My first trouble ticket',
     'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
     'my_email'    => 'quasimodo@ull.at',
   );

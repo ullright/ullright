@@ -66,10 +66,10 @@ class ullTableToolGenerator extends ullGenerator
   }  
   
   /**
-   * returns an array of identifier url params
+   * returns the identifier url params
    *
    * @param Doctrine_record $row
-   * @return array
+   * @return string
    */
   public function getIdentifierUrlParams($row)
   {

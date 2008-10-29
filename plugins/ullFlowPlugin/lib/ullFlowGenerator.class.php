@@ -28,6 +28,17 @@ class ullFlowGenerator extends ullGenerator
   }    
   
   /**
+   * returns the identifier url params
+   *
+   * @param integer $row numerical key / the row number
+   * @return string
+   */
+  public function getIdentifierUrlParams($row)
+  {
+    return 'doc=' . $this->rows[$row]->id;
+  }  
+  
+  /**
    * builds the table config
    *
    * @throws: InvalidArgumentException
