@@ -3,32 +3,32 @@
  * dynamic form for ullFlow
  *
  */
-class UllFlowForm extends sfFormDoctrine
+class ullFlowForm extends ullGeneratorForm
 {
-  /**
-   * Configures the form
-   *
-   */
-  public function configure()
-  {
-    $this->setWidgets(array(
-      'my_email'  => new sfWidgetFormInput,
-    ));
-    
-    $this->setValidators(array(
-        'my_email' => new sfValidatorString()
-    ));
-  }
-  
-  /**
-   * Configure the name of the model
-   *
-   * @return string
-   */
-  public function getModelName()
-  {
-    return 'UllFlowDoc';
-  }
+//  /**
+//   * Configures the form
+//   *
+//   */
+//  public function configure()
+//  {
+//    $this->setWidgets(array(
+//      'my_email'  => new sfWidgetFormInput,
+//    ));
+//    
+//    $this->setValidators(array(
+//        'my_email' => new sfValidatorString()
+//    ));
+//  }
+//  
+//  /**
+//   * Configure the name of the model
+//   *
+//   * @return string
+//   */
+//  public function getModelName()
+//  {
+//    return 'UllFlowDoc';
+//  }
 
   /**
    * Query also the virtual columns for the default values

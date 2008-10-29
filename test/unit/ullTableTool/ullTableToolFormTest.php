@@ -17,17 +17,12 @@ class myTestCase extends sfDoctrineTestCase
   {
     return $this->columnConfig;
   }
-  
-  public function reset()
-  {
-    parent::reset();
-  }
 }
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(5, new lime_output_color, $configuration);
+$t = new myTestCase(3, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -37,11 +32,6 @@ $t->begin('__construct()');
   $test = Doctrine::getTable('TestTable')->find(1);
   $form = new ullTableToolForm($test);
   $t->isa_ok($form, 'ullTableToolForm', '__construct() returns the correct object');
-  $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullTable', 'The form uses the "ullTable" formatter by default');
-  
-  sfContext::getInstance()->getRequest()->setParameter('action', 'list');
-  $form = new ullTableToolForm($test);
-  $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullList', 'The form uses the "ullList" formatter for list actions');
 
 // why doesn't this work?
 //$t->begin('addUllMetaWidget()');

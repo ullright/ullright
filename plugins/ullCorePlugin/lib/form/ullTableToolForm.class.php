@@ -1,70 +1,15 @@
 <?php
-
-class ullTableToolForm extends sfFormDoctrine
+/**
+ * sfForm for the table tool
+ *
+ */
+class ullTableToolForm extends ullGeneratorForm
 {
-  protected 
-    $modelName
-  ;
 
-  public function __construct($object = null, $cultures = null, $options = array(), $CSRFSecret = null)
-  {
-    $this->modelName = get_class($object);
-    
-    $this->setCultures($cultures);
-    
-    parent::__construct($object, $options, $CSRFSecret);
-  }  
-  
-  public function configure()
-  {
-    $this->getWidgetSchema()->setNameFormat('fields[%s]');
-    //TODO: refactor
-    if (sfContext::getInstance()->getRequest()->getParameter('action') == 'list')
-    {
-      $this->getWidgetSchema()->setFormFormatterName('ullList');
-    }
-    else
-    {
-      $this->getWidgetSchema()->setFormFormatterName('ullTable');
-    }
-    
-//    $this->embedI18n(array('en', 'de'));
-  }
-  
-  public function getModelName()
-  {
-    return $this->modelName;
-  }  
-  
-  public function addUllMetaWidget($fieldName, $ullMetaWidget)
-  {
-    $WidgetSchema     = $this->getWidgetSchema();
-    $ValidatorSchema  = $this->getValidatorSchema();
-    
-    $WidgetSchema[$fieldName] = $ullMetaWidget->getSfWidget();
-    $ValidatorSchema[$fieldName] = $ullMetaWidget->getSfValidator();
-  }
-  
   /**
-   * set Cultures
-   * 
-   * @param array $cultures
-   */
-  public function setCultures($cultures)
-  {
-    $this->cultures = $cultures;
-  }
-  
-  /**
-   * get Cultures
+   * Override getting the default values form the object
    *
-   * @return array 
    */
-  public function getCultures()
-  {
-    return $this->cultures;
-  }
-  
   protected function updateDefaultsFromObject()
   {
     parent::updateDefaultsFromObject();
@@ -94,6 +39,11 @@ class ullTableToolForm extends sfFormDoctrine
     }  
   }
   
+  /**
+   * Override the update functionality of the object
+   *
+   * @return Doctrine_Record
+   */
   public function updateObject()
   {
     $values = $this->getValues();
@@ -121,4 +71,5 @@ class ullTableToolForm extends sfFormDoctrine
 
     return $this->object;
   }
+  
 }

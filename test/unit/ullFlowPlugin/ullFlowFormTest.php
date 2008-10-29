@@ -19,8 +19,20 @@ $t->setFixturesPath($path);
 $t->begin('__construct');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
-  $form = new UllFlowForm($doc);
-  $t->isa_ok($form, 'UllFlowForm', 'returns the correct object type');
+  $form = new ullFlowForm($doc);
+  $t->isa_ok($form, 'ullFlowForm', 'returns the correct object type');
+  
+  $columnConfig = array (
+    'widgetOptions'       => array(),
+    'widgetAttributes'    => array(),
+    'validatorOptions'    => array('required' => false),
+    'label'               => 'Your email address',
+    'metaWidget'          => 'ullMetaWidgetEmail',
+    'access'              => 'w',
+    'show_in_list'        => true,
+  );         
+  $widget = new ullMetaWidgetEmail($columnConfig);
+  $form->addUllMetaWidget('my_email', $widget);
   
   $defaults = $form->getDefaults();
   $t->is($defaults['my_email'], 'quasimodo@ull.at', 'The form returns the correct defaults');

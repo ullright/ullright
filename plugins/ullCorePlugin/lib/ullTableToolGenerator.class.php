@@ -4,6 +4,7 @@ class ullTableToolGenerator extends ullGenerator
 {
   protected
     $formClass = 'ullTableToolForm',
+    $modelName,
     $columnsBlacklist = array(
         'namespace',
         'type',
@@ -28,6 +29,41 @@ class ullTableToolGenerator extends ullGenerator
         'updated_at',
     ) 
   ;
+
+  /**
+   * Constructor
+   *
+   * @param string $modelName
+   * @param string $defaultAccess can be "r" or "w" for read or write
+   */
+  public function __construct($modelName = null, $defaultAccess = 'r')
+  {
+
+    if ($modelName === null)
+    {
+      throw new InvalidArgumentException('A model must be supplied');
+    }
+    
+    if (!class_exists($modelName))
+    {
+      throw new InvalidArgumentException('Invalid model: ' . $modelName);
+    }
+    
+    $this->modelName = $modelName;
+    
+    parent::__construct($defaultAccess);
+    
+  }  
+  
+  /**
+   * Get the model name of the data object
+   *
+   * @return string
+   */
+  public function getModelName()
+  {
+    return $this->modelName;
+  }  
   
   /**
    * returns an array of identifier url params
@@ -262,5 +298,3 @@ class ullTableToolGenerator extends ullGenerator
   }
   
 }
-
-?>
