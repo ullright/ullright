@@ -55,6 +55,20 @@ class ullFlowGenerator extends ullGenerator
   protected function buildColumnsConfig()
   {
     $dbColumnConfig = $this->app->UllFlowColumnConfigs;
+    
+    if ($this->requestAction == 'list')
+    {
+      $this->columnsConfig['ull_flow_app_id'] = array(
+        'widgetOptions'      => array(),
+        'widgetAttributes'   => array(),
+        'validatorOptions'   => array(),
+        'label' => 'Application',
+        'metaWidget' => 'ullMetaWidgetForeignKey',
+        'access' => $this->defaultAccess,
+        'show_in_list' => true,
+      	'relation' => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
+      );
+    }
 
     $columns = array();
     
@@ -91,10 +105,30 @@ class ullFlowGenerator extends ullGenerator
         'widgetAttributes'   => array(),
         'validatorOptions'   => array(),
         'label' => 'Assigned to',
-        'metaWidget' => 'UllMetaWidgetString',
+        'metaWidget' => 'ullMetaWidgetForeignKey',
         'access' => $this->defaultAccess,
         'show_in_list' => true,
+      	'relation' => array('model' => 'UllEntity', 'foreign_id' => 'id')
       );
+      $this->columnsConfig['creator_user_id'] = array(
+        'widgetOptions'      => array(),
+        'widgetAttributes'   => array(),
+        'validatorOptions'   => array(),
+        'label' => 'Created by',
+        'metaWidget' => 'ullMetaWidgetForeignKey',
+        'access' => $this->defaultAccess,
+        'show_in_list' => true,
+      'relation' => array('model' => 'UllUser', 'foreign_id' => 'id')
+      );
+      $this->columnsConfig['created_at'] = array(
+        'widgetOptions'      => array(),
+        'widgetAttributes'   => array(),
+        'validatorOptions'   => array(),
+        'label' => 'Created at',
+        'metaWidget' => 'ullMetaWidgetDateTime',
+        'access' => $this->defaultAccess,
+        'show_in_list' => true,
+      );            
     }
 //    var_dump($this->columnsConfig);
 //    die; 

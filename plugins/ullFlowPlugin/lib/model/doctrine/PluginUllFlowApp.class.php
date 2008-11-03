@@ -5,5 +5,15 @@
  */
 abstract class PluginUllFlowApp extends BaseUllFlowApp
 {
+  
+  /**
+   * return the app's label
+   *
+   * @return unknown
+   */
+  public function __toString()
+  {
+    return $this->label;
+  }
 
 }

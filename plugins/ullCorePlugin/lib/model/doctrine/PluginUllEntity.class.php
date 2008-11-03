@@ -5,5 +5,18 @@
  */
 abstract class PluginUllEntity extends BaseUllEntity
 {
+  
+  public function __toString()
+  {
+    if ($this->type == 'group')
+    {
+      $group = sfContext::getInstance()->getI18N()->__('Group', null, 'common');
+      return $group . ': ' . $this->name;
+    }
+    else
+    {
+      return $this->first_name . ' ' . $this->last_name;
+    }
+  }
 
 }

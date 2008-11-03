@@ -47,28 +47,25 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement('table > thead > tr > th', 4) // number of columns
-  ->checkResponseElement('thead > tr > th + th', 'My custom title label:')
-  ->checkResponseElement('thead > tr > th + th + th ', 'Your email address:')
-  ->checkResponseElement('thead > tr > th + th + th + th ', 'Assigned to:')
-  
-//  ->dumpDIe()
+  ->checkResponseElement('table > thead > tr > th', 7) // number of columns
+  ->checkResponseElement('thead > tr > th + th', 'Application:')
+  ->checkResponseElement('thead > tr > th + th + th', 'My custom title label:')
+  ->checkResponseElement('thead > tr > th + th + th + th', 'Your email address:')
+  ->checkResponseElement('thead > tr > th + th + th + th + th', 'Assigned to:')
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th', 'Created by:')
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th', 'Created at:')  
 ;
 
 $b
   ->diag('list - content')
-//  ->checkResponseElement('h3', 'Trouble ticket tool')
-//  ->responseContains('TestTable for automated testing')
-  ->checkResponseElement('tbody > tr > td + td', 'My first trouble ticket')
-//  ->checkResponseElement('tbody > tr > td + td + td + td', 'Master Admin')
-  ->checkResponseElement('tbody > tr > td + td + td + td', '1')
-  ->checkResponseElement('tbody > tr + tr > td + td', 'My second trouble ticket')
-//  ->checkResponseElement('tbody > tr + tr > td + td + td', 'Group: Helpdesk')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', '4')
-;
-
+  ->checkResponseElement('tbody > tr > td + td', 'Trouble ticket tool')
+  ->checkResponseElement('tbody > tr > td + td + td', 'My first trouble ticket')
+  ->checkResponseElement('tbody > tr > td + td + td + td + td', 'Master Admin')
+  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Master Admin')  
   
-
+  ->checkResponseElement('tbody > tr + tr > td + td + td', 'My second trouble ticket')
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td', 'Group: Helpdesk')
+;
 
 $b
   ->diag('create with missing title and invalid email')
