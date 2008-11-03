@@ -18,11 +18,10 @@ $t->setFixturesPath($path);
 
 $t->begin('__construct()');
   $test = Doctrine::getTable('TestTable')->find(1);
-  $form = new ullGeneratorForm($test);
+  $form = new ullGeneratorForm($test, 'edit');
   $t->isa_ok($form, 'ullGeneratorForm', '__construct() returns the correct object');
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullTable', 'The form uses the "ullTable" formatter by default');
   
-  sfContext::getInstance()->getRequest()->setParameter('action', 'list');
   $form = new ullGeneratorForm($test);
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullList', 'The form uses the "ullList" formatter for list actions');
 

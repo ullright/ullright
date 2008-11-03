@@ -63,6 +63,8 @@ class ullFlowGenerator extends ullGenerator
       $columns[$config->slug] = $config;  
     }
     
+
+    
     // loop through table (Doctrine) columns
     foreach ($columns as $columnName => $column)
     {
@@ -81,8 +83,22 @@ class ullFlowGenerator extends ullGenerator
       
       $this->columnsConfig[$columnName] = $columnConfig;
     }
+    
+    if ($this->requestAction == 'list')
+    {
+      $this->columnsConfig['assigned_to_ull_entity_id'] = array(
+        'widgetOptions'      => array(),
+        'widgetAttributes'   => array(),
+        'validatorOptions'   => array(),
+        'label' => 'Assigned to',
+        'metaWidget' => 'UllMetaWidgetString',
+        'access' => $this->defaultAccess,
+        'show_in_list' => true,
+      );
+    }
 //    var_dump($this->columnsConfig);
-//    die;    
+//    die; 
+   
   }
   
 }

@@ -6,20 +6,24 @@
 class ullGeneratorForm extends sfFormDoctrine
 {
   protected 
-    $modelName
+    $modelName,
+    $requestAction
   ;
 
   /**
    * Constructor
    *
    * @param Doctrine_Record $object
+   * @param string $requestAction 		Request Action ('list' or 'edit')
    * @param array $cultures 			List of cultures for i18n forms
    * @param array $options
    * @param string $CSRFSecret
    */
-  public function __construct(Doctrine_Record $object, $cultures = array(), $options = array(), $CSRFSecret = null)
+  public function __construct(Doctrine_Record $object, $requestAction = 'list', $cultures = array(), $options = array(), $CSRFSecret = null)
   {
     $this->modelName = get_class($object);
+    
+    $this->requestAction = $requestAction;
     
     $this->setCultures($cultures);
     
@@ -34,7 +38,7 @@ class ullGeneratorForm extends sfFormDoctrine
   {
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
     //TODO: refactor
-    if (sfContext::getInstance()->getRequest()->getParameter('action') == 'list')
+    if ($this->requestAction == 'list')
     {
       $this->getWidgetSchema()->setFormFormatterName('ullList');
     }

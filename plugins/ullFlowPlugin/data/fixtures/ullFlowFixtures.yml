@@ -17,7 +17,7 @@ UllFlowDoc:
   ull_flow_doc_2:
     UllFlowApp:     ull_flow_app_helpdesk
     title:          My second trouble ticket
-    UllEntity:      testuser    
+    UllEntity:      helpdeskgroup    
     
 UllFlowColumnConfig:
   ull_flow_column_config_title:

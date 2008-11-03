@@ -13,6 +13,14 @@
         );
       ?>
     </li>
+    <li>
+      <?php 
+        echo ull_link_to(__(
+          'List', null, 'common')
+          , 'ullFlow/list?app=' . $app_slug
+        );
+      ?>
+    </li>    
   </ul>
   
 <?php else: ?>

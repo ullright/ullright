@@ -67,6 +67,8 @@ class ullFlowForm extends ullGeneratorForm
       }
     }
     
+    $this->object->assigned_to_ull_entity_id = 1;
+    
     return $this->object;
   }
   

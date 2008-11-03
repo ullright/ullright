@@ -14,8 +14,9 @@ class myGenerator extends ullGenerator
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
+sfContext::getInstance()->getRequest()->setParameter('action', 'list');
 
-$t = new myTestCase(7, new lime_output_color, $configuration);
+$t = new myTestCase(10, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -26,6 +27,7 @@ $t->begin('__construct()');
   $tableTool = new myGenerator;
   $t->isa_ok($tableTool, 'myGenerator', '__construct() returns the correct object');
   $t->is($tableTool->getDefaultAccess(), 'r', '__construct() sets the default access to "r"');
+  $t->is($tableTool->getRequestAction(), 'list', '__construct() sets the request action to "list" per default');  
   
   try
   {
@@ -37,8 +39,19 @@ $t->begin('__construct()');
     $t->pass('__construct() throws an exception if an invalid access type is given');
   }
   
-  $tableTool = new myGenerator('w');
+  try
+  {
+    new myGenerator(null, 'lord helmchen');
+    $t->fail('__construct() doesn\'t throw an exception if an invalid request action is given');
+  }
+  catch(Exception $e)
+  {
+    $t->pass('__construct() throws an exception if an invalid request action is given');
+  }  
+  
+  $tableTool = new myGenerator('w', 'edit');
   $t->is($tableTool->getDefaultAccess(), 'w', '__construct() sets the correct access type "w"');
+  $t->is($tableTool->getRequestAction(), 'edit', '__construct() sets the correct request action "edit"'); 
   
 $t->begin('getForm() without calling buildForm()');
   try

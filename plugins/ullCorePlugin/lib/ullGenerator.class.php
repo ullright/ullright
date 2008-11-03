@@ -22,23 +22,37 @@ abstract class ullGenerator
     $modelName,
     $isBuilt        = false,
     $defaultAccess,
-    $formClass
+    $formClass,
+    $requestAction
   ;
 
   /**
    * Constructor
    *
    * @param string $defaultAccess can be "r" or "w" for read or write
+   * @param string $requestAction sets the mode (list or edit)
    */
-  public function __construct($defaultAccess = 'r')
+  public function __construct($defaultAccess = 'r', $requestAction = null)
   {
-    
     $this->setDefaultAccess($defaultAccess);
+
+    if ($requestAction === null)
+    {
+      if (sfContext::getInstance()->getRequest()->getParameter('action') == 'list')
+      {
+        $requestAction = 'list';
+      }
+      else
+      {
+        $requestAction = 'edit';
+      }
+    }
+    
+    $this->setRequestAction($requestAction);
     
     $this->buildTableConfig();
     
     $this->buildColumnsConfig();
-    
   }
 
 //  /**
@@ -55,14 +69,14 @@ abstract class ullGenerator
    * set default access
    *
    * @param string $access can be "r" or "w" for read or write
-   * @throws UnexpectedValueException
+   * @throws InvalidArgumentException
    */
   // makes no sense as a public function because it doesn't rebuild the columnsConfig etc
   protected function setDefaultAccess($access = 'r')
   {
     if (!in_array($access, array('r', 'w')))
     {
-      throw new UnexpectedValueException('Invalid access type "'. $access .'. Has to be either "r" or "w"'); 
+      throw new InvalidArgumentException('Invalid access type "'. $access .'. Has to be either "r" or "w"'); 
     }
 
     $this->defaultAccess = $access;
@@ -77,6 +91,34 @@ abstract class ullGenerator
   {
     return $this->defaultAccess;
   }  
+  
+  /**
+   * set request action
+   * 
+   * allows detection of the mode used
+   *
+   * @param string $action
+   * @throws InvalidArgumentException
+   */
+  public function setRequestAction($action = 'list')
+  {
+    if (!in_array($action, array('list', 'edit')))
+    {
+      throw new InvalidArgumentException('Invalid request action "'. $action .'". Has to be either "list" or "edit"'); 
+    }
+
+    $this->requestAction = $action; 
+  }
+  
+  /**
+   * get request action
+   *
+   * @return string can be "list" or "edit"
+   */
+  public function getRequestAction()
+  {
+    return $this->requestAction;
+  } 
 
   /**
    * get the table config
@@ -192,7 +234,7 @@ abstract class ullGenerator
     
     foreach ($this->rows as $key => $row) 
     {
-      $this->forms[$key] = new $this->formClass($row, $cultures);
+      $this->forms[$key] = new $this->formClass($row, $this->requestAction, $cultures);
       foreach ($this->columnsConfig as $columnName => $columnConfig)
       {
         if ($this->isColumnEnabled($columnConfig)) 

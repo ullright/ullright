@@ -27,36 +27,46 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'index')
   ->responseContains('Application Trouble ticket tool')
+  ->click('List')
 ;
 
 $b
   ->diag('list')
-  ->get('ullFlow/list/app/trouble_ticket')
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
-//  ->checkResponseElement('h3', 'Trouble ticket tool')
-//  ->responseContains('TestTable for automated testing')
-  ->checkResponseElement('tbody > tr  > td + td', 'My first trouble ticket')
-  ->checkResponseElement('tbody > tr + tr  > td + td', 'My second trouble ticket')
-  
 ;
 
 $b
-  ->diag('list - test column headers')
+  ->diag('list - breadcrumb')  
+  ->checkResponseElement('ul#breadcrumbs > li + li', 'Workflows')
+  ->checkResponseElement('ul#breadcrumbs > li + li + li', 'Trouble ticket tool')
+  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'List')
+;  
+  
+$b
+  ->diag('list - column headers')
+  ->checkResponseElement('table > thead > tr > th', 4) // number of columns
   ->checkResponseElement('thead > tr > th + th', 'My custom title label:')
   ->checkResponseElement('thead > tr > th + th + th ', 'Your email address:')
-  ->checkResponseElement('table > thead > tr > th', 3) // number of columns
+  ->checkResponseElement('thead > tr > th + th + th + th ', 'Assigned to:')
+  
 //  ->dumpDIe()
 ;
-//  
-//$b
-//  ->diag('list - test breadcrumb')  
-//  ->checkResponseElement('ul#breadcrumbs > li + li + li', 'ullTableTool')
-//  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Table TestTableLabel')
-//  ->checkResponseElement('ul#breadcrumbs > li + li + li + li + li', 'List')
-//;
+
+$b
+  ->diag('list - content')
+//  ->checkResponseElement('h3', 'Trouble ticket tool')
+//  ->responseContains('TestTable for automated testing')
+  ->checkResponseElement('tbody > tr > td + td', 'My first trouble ticket')
+//  ->checkResponseElement('tbody > tr > td + td + td + td', 'Master Admin')
+  ->checkResponseElement('tbody > tr > td + td + td + td', '1')
+  ->checkResponseElement('tbody > tr + tr > td + td', 'My second trouble ticket')
+//  ->checkResponseElement('tbody > tr + tr > td + td + td', 'Group: Helpdesk')
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td', '4')
+;
+
   
 
 
