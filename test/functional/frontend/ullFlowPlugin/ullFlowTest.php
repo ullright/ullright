@@ -63,7 +63,7 @@ $b
   ->checkResponseElement('tbody > tr > td + td + td + td + td', 'Master Admin')
   ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Master Admin')  
   
-  ->checkResponseElement('tbody > tr + tr > td + td + td', 'My second trouble ticket')
+  ->checkResponseElement('tbody > tr + tr > td + td + td', 'AAA My second trouble ticket')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td', 'Group: Helpdesk')
 ;
 
