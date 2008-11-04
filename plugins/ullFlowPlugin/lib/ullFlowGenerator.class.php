@@ -58,6 +58,15 @@ class ullFlowGenerator extends ullGenerator
     
     if ($this->requestAction == 'list')
     {
+      $this->columnsConfig['id'] = array(
+        'widgetOptions'      => array(),
+        'widgetAttributes'   => array(),
+        'validatorOptions'   => array(),
+        'label' => 'ID',
+        'metaWidget' => 'ullMetaWidgetInteger',
+        'access' => $this->defaultAccess,
+        'show_in_list' => true,
+      );      
       $this->columnsConfig['ull_flow_app_id'] = array(
         'widgetOptions'      => array(),
         'widgetAttributes'   => array(),

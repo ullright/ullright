@@ -1188,28 +1188,78 @@ class BaseullFlowActions extends ullsfActions
     
     $q = new Doctrine_Query;
     $q
-      ->from('UllFlowDoc' . ' x')
+      ->from('UllFlowDoc x, x.UllFlowValues v')
       ->where('ull_flow_app_id = ?', $this->app->id)
     ;
     
-    if ($search = $this->filter_form->getValue('search'))
-    {      
-      $cols = $this->generator->getTableConfig()->getSearchColumnsAsArray();
-      $columnsConfig = $this->generator->getColumnsConfig();
-      
-      foreach ($cols as $key => $col)
+//    if ($search = $this->filter_form->getValue('search'))
+//    {      
+//      $cols = $this->generator->getTableConfig()->getSearchColumnsAsArray();
+//      $columnsConfig = $this->generator->getColumnsConfig();
+//      
+//      foreach ($cols as $key => $col)
+//      {
+//        if (isset($columnsConfig[$col]['translation']))
+//        {
+//          $cols[$key] = 'Translation.' . $col;
+//        }
+//      }
+////      var_dump($cols);
+////      die;
+//      ullCoreTools::doctrineSearch($q, $search, $cols);
+//    }
+    
+    // order
+    $this->order = $this->getRequestParameter('order', 'created_at');
+    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
+    
+    $order_func = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
+
+    // for native UllFlowDoc columns...
+    if (Doctrine::getTable('UllFlowDoc')->hasColumn($this->order))
+    {
+      switch ($this->order)
       {
-        if (isset($columnsConfig[$col]['translation']))
-        {
-          $cols[$key] = 'Translation.' . $col;
-        }
+//        case 'assigned_to_ull_entity_id':
+//          if ($)
+//          $q->orderBy($this->order . ' ' . $order_func);
+        default:
+          $q->orderBy($this->order . ' ' . $order_func);
       }
-//      var_dump($cols);
-//      die;
-      ullCoreTools::doctrineSearch($q, $search, $cols);
+    }
+    // for virtual columns...
+    else
+    {
+      //doesn't work...
+      //      $q->leftJoin('x.UllFlowValues v1 WITH v1.UllFlowColumnConfig.slug=?', $this->order);
+
+      // resolve virtual column slug to UllColumnConfig.id
+      $q1 = new Doctrine_Query();
+      $q1
+        ->from('UllFlowColumnConfig')
+        ->where('ull_flow_app_id = ?', $this->app->id)
+        ->addWhere('slug = ?', $this->order)
+      ;
+      $order_cc_id = $q1->execute()->getFirst()->id;
+        
+      $q->leftJoin('x.UllFlowValues v1 WITH v1.ull_flow_column_config_id=?', $order_cc_id);
+      $q->orderBy('v1.value'. ' ' . $order_func);
+    }
+    
+    // add 'created_at (desc)' as default 2nd order criteria
+    if ($this->order != 'created_at') {
+      $q->addOrderBy('x.created_at DESC');
     }
 
+//    printQuery($q->getQuery());
+//    var_dump($q->getParams());
+//    die;
+    
     $rows = $q->execute();
+    
+//    var_dump($rows->toArray());
+//    die;
+    
     return ($rows->count()) ? $rows : new UllFlowDoc;
   }  
   
