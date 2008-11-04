@@ -4,7 +4,7 @@ UllUser:
     first_name:         Master
     last_name:          Admin
     email:              admin@example.com
-    name:               admin
+    username:           admin
     password:           21232f297a57a5a743894a0e4a801fc3
     creator_user_id:    1               # integer since the adminuser isn't created yet
     updator_user_id:    1               # integer since the adminuser isn't created yet
@@ -14,7 +14,7 @@ UllUser:
     first_name:         Thomas
     last_name:          Test
     email:              test@example.com
-    name:               test
+    username:           test
     password:           098f6bcd4621d373cade4e832627b4f6
     Creator:            adminuser
     Updator:            adminuser
@@ -23,12 +23,12 @@ UllUser:
    
 UllGroup:
   admingroup:
-    name:               MasterAdmins
+    display_name:       MasterAdmins
     Creator:            adminuser
     Updator:            adminuser
     namespace:          ullCore    
   helpdeskgroup:
-    name:               Helpdesk
+    display_name:       Helpdesk
     Creator:            adminuser
     Updator:            adminuser
 

@@ -32,13 +32,11 @@ class PluginUllUserTable extends UllEntityTable
 
     if (is_integer($group[0]))
     {
-      $group = implode(',', $group);
-      $q->addWhere("g.id IN ($group)");
+      $q->whereIn('g.id', $group);
     }
     else
     {
-      $group = '"' . implode('","', $group) . '"';
-      $q->addWhere("g.name IN ($group)");
+      $q->whereIn('g.display_name', $group);
     }
 
     if ($q->count())

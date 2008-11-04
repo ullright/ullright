@@ -1220,9 +1220,15 @@ class BaseullFlowActions extends ullsfActions
     {
       switch ($this->order)
       {
-//        case 'assigned_to_ull_entity_id':
-//          if ($)
-//          $q->orderBy($this->order . ' ' . $order_func);
+        case 'assigned_to_ull_entity_id':
+          $q->orderBy('x.UllEntity.display_name ' . $order_func);
+          break;
+        case 'creator_user_id':
+          $q->orderBy('x.Creator.display_name ' . $order_func);
+          break;
+        case 'updator_user_id':
+          $q->orderBy('x.Updator.display_name ' . $order_func);
+          break;
         default:
           $q->orderBy($this->order . ' ' . $order_func);
       }

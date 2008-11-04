@@ -9,10 +9,11 @@ UllParentEntity:
       type: string(64)
     last_name: 
       type: string(64)
-    name:
+    display_name:
+      type: string(64)
+    username:
       type: string(64)
       unique: true
-      notnull: true      
     email: 
       type: string(64)      
     password: 

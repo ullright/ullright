@@ -5,6 +5,27 @@
  */
 abstract class PluginUllUser extends BaseUllUser
 {
+  
+  /**
+   * Record hook to generate the display_name
+   *
+   * @param unknown_type $event
+   */
+  public function preInsert($event)
+  {
+    $this->preUpdate($event);    
+  }
+  
+  /**
+   * Record hook to generate the display_name
+   *
+   * @param unknown_type $event
+   */
+  public function preUpdate($event)
+  {
+    $this->display_name = $this->first_name . ' ' . $this->last_name;
+  }   
+  
   /**
    * get User's Shortname
    *

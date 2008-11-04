@@ -12,7 +12,7 @@ class BaseUllUserComponents extends sfComponents
       
       if ($user !== null)
       {
-        $this->username = $user->name;
+        $this->username = $user->username;
       }
     }
   }

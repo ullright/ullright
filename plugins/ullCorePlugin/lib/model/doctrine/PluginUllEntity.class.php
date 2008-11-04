@@ -5,17 +5,22 @@
  */
 abstract class PluginUllEntity extends BaseUllEntity
 {
-  
+
+  /**
+   * __toString()
+   *
+   * @return string
+   */
   public function __toString()
   {
     if ($this->type == 'group')
     {
       $group = sfContext::getInstance()->getI18N()->__('Group', null, 'common');
-      return $group . ': ' . $this->name;
+      return $this->display_name . " ($group)";
     }
     else
     {
-      return $this->first_name . ' ' . $this->last_name;
+      return $this->display_name;
     }
   }
 

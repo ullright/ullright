@@ -49,7 +49,7 @@ class BaseUllUserActions extends ullsfActions
           $this->getUser()->setAttribute('has_javascript', true);
         }
   
-        $user = Doctrine::getTable('UllUser')->findByName($username)->getFirst();
+        $user = Doctrine::getTable('UllUser')->findByUsername($username)->getFirst();
         
         if ($user !== false) 
         {

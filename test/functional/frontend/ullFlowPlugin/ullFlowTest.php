@@ -61,12 +61,12 @@ $b
   ->diag('list - content')
   
   ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
-  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Group: Helpdesk')
+  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Helpdesk (Group)')
   
   ->checkResponseElement('tbody > tr + tr > td + td + td', 'Trouble ticket tool')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td', 'Master Admin')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td', 'Master Admin')   
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td', 'Thomas Test')   
 ;
 
 $b
