@@ -1173,12 +1173,10 @@ class BaseullFlowActions extends ullsfActions
 
   protected function getAppfromRequest() 
   {
-    $this->forward404Unless(
-        $this->hasRequestParameter('app'), 
-        'Please specify a ullFlow app'
-    );
-    
-    $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+    if ($this->hasRequestParameter('app'))
+    {    
+      $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+    }
   }
 
   protected function getFilterFromRequest()
@@ -1187,10 +1185,12 @@ class BaseullFlowActions extends ullsfActions
     $this->filter_form->bind($this->getRequestParameter('filter'));
     
     $q = new Doctrine_Query;
-    $q
-      ->from('UllFlowDoc x, x.UllFlowValues v')
-      ->where('ull_flow_app_id = ?', $this->app->id)
-    ;
+    $q->from('UllFlowDoc x, x.UllFlowValues v');
+    
+    if ($this->app)
+    {
+      $q->where('ull_flow_app_id = ?', $this->app->id);
+    }
     
 //    if ($search = $this->filter_form->getValue('search'))
 //    {      

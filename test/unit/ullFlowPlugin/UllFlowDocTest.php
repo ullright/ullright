@@ -34,7 +34,7 @@ $t->begin('set() and get() for virtual columns');
   $doc->my_datetime = '2008-08-08 08:08:08';
   $doc->save();
     
-  $doc = Doctrine::getTable('UllFlowDoc')->find(3);
+  $doc = Doctrine::getTable('UllFlowDoc')->find(5);
   $t->is($doc->my_title, 'My title', 'get() returns the correct value');
   $t->is($doc->my_datetime, '2008-08-08 08:08:08', 'get() returns the correct value');
   

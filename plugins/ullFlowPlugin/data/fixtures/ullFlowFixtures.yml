@@ -45,21 +45,40 @@ UllFlowApp:
       ull_flow_app_access_2:
         UllGroup:     helpdeskgroup
         UllPermission: write
+  ull_flow_app_todo:
+    Translation:
+      en:
+        label:      Todo list
+        doc_label:  Todo entry
+      de:
+        label:      Todo Liste
+        doc_label:  Todo Eintrag
+    slug: todo     
                     
 UllFlowDoc:
-  ull_flow_doc_1:
+  ull_flow_doc_helpdesk1:
     UllFlowApp:     ull_flow_app_helpdesk
     title:          My first trouble ticket
     UllEntity:      admin_user
     Creator:        test_user
     created_at:     '2001-01-01 01:01:01'     
-  ull_flow_doc_2:
+  ull_flow_doc_helpdesk2:
     UllFlowApp:     ull_flow_app_helpdesk
     title:          AAA My second trouble ticket
-    UllEntity:      helpdesk_group    
+    UllEntity:      helpdesk_group
+  ull_flow_doc_todo1:
+    UllFlowApp:     ull_flow_app_todo
+    title:          My first thing todo
+    UllEntity:      test_user
+    Creator:        test_user
+    created_at:     '2002-02-02 02:02:02'     
+  ull_flow_doc_todo2:
+    UllFlowApp:     ull_flow_app_todo
+    title:          AAA My second thing todo
+    UllEntity:      admin_user         
     
 UllFlowColumnConfig:
-  ull_flow_column_config_title:
+  ull_flow_column_config_helpdesk_title:
     Translation:
       en:
         label:      My custom title label
@@ -71,7 +90,7 @@ UllFlowColumnConfig:
     UllColumnType:  string
     mandatory:      true
     is_title:       true
-  ull_flow_column_config_datetime:
+  ull_flow_column_config_helpdesk_datetime:
     Translation:
       en:
         label:      Date
@@ -82,7 +101,7 @@ UllFlowColumnConfig:
     sequence:       2000
     UllColumnType:  datetime
     show_in_list:   false
-  ull_flow_column_config_email:
+  ull_flow_column_config_helpdesk_email:
     Translation:
       en:
         label:      Your email address
@@ -92,31 +111,52 @@ UllFlowColumnConfig:
     slug:           my_email
     sequence:       3000
     UllColumnType:  email
+  ull_flow_column_config_todo_title:
+    Translation:
+      en:
+        label:      My todo title label
+      de:
+        label:      Meine spezielle Todo-Titel Bezeichnung
+    UllFlowApp:     ull_flow_app_todo
+    slug:           my_title # TODO: test if slug has to be unique
+    sequence:       1000
+    UllColumnType:  string
+    mandatory:      true
+    is_title:       true    
         
 UllFlowValue:  
-  ull_flow_value_doc1_title:
-    UllFlowDoc:     ull_flow_doc_1
-    UllFlowColumnConfig: ull_flow_column_config_title
+  ull_flow_value_doc_helpdesk1_title:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_title
     value:          My first trouble ticket
-  ull_flow_value_doc1_datetime:
-    UllFlowDoc:     ull_flow_doc_1
-    UllFlowColumnConfig: ull_flow_column_config_datetime
+  ull_flow_value_doc_helpdesk1_datetime:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_datetime
     value:          2011-11-11 11:11:11
   ull_flow_value_doc1_email:
-    UllFlowDoc:     ull_flow_doc_1
-    UllFlowColumnConfig: ull_flow_column_config_email
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
     value:          quasimodo@ull.at
     
-  ull_flow_value_doc2_title:
-    UllFlowDoc:     ull_flow_doc_2
-    UllFlowColumnConfig: ull_flow_column_config_title
+  ull_flow_value_doc_helpdesk2_title:
+    UllFlowDoc:     ull_flow_doc_helpdesk2
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_title
     value:          AAA My second trouble ticket
-  ull_flow_value_doc2_datetime:
-    UllFlowDoc:     ull_flow_doc_2
-    UllFlowColumnConfig: ull_flow_column_config_datetime
+  ull_flow_value_doc_helpdesk2_datetime:
+    UllFlowDoc:     ull_flow_doc_helpdesk2
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_datetime
     value:          2012-12-12 12:12:12
-  ull_flow_value_doc2_email:
-    UllFlowDoc:     ull_flow_doc_2
-    UllFlowColumnConfig: ull_flow_column_config_email
-    value:          bender@ull.at    
-            
+  ull_flow_value_doc_helpdesk2_email:
+    UllFlowDoc:     ull_flow_doc_helpdesk2
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
+    value:          bender@ull.at   
+    
+  ull_flow_value_doc_todo1_title:
+    UllFlowDoc:     ull_flow_doc_todo1
+    UllFlowColumnConfig: ull_flow_column_config_todo_title
+    value:          AAA My first thing todo
+
+  ull_flow_value_doc_todo2_title:
+    UllFlowDoc:     ull_flow_doc_todo2
+    UllFlowColumnConfig: ull_flow_column_config_todo_title
+    value:          AAA My second thing todo            

@@ -3,8 +3,20 @@
 
 <?php if ($app_slug): ?>
   <h1><?php echo __('Application') . ' ' . $app->label?></h1>
-  <h2><?php echo __('Actions', null, 'common') ?>:</h2>
+<?php else: ?>
+  <h1><?php echo __('Workflows') . ' ' . __('Home') ?></h1>
+  <h2><?php echo __('Applications') ?>:</h2>
   <ul>
+  <?php foreach ($apps as $app): ?>
+      <li><?php echo link_to($app->label, 'ullFlow/index?app=' . $app->slug) ?></li>
+  <?php endforeach; ?>
+  </ul>  
+<?php endif ?>    
+  
+  
+<h2><?php echo __('Actions', null, 'common') ?>:</h2>
+<ul>
+  <?php if ($app_slug): ?>
     <li>
       <?php 
         echo ull_link_to(__(
@@ -13,26 +25,17 @@
         );
       ?>
     </li>
-    <li>
-      <?php 
-        echo ull_link_to(__(
-          'List', null, 'common')
-          , 'ullFlow/list?app=' . $app_slug
-        );
-      ?>
-    </li>    
-  </ul>
+  <?php endif ?>
+  <li>
+    <?php 
+      echo ull_link_to(__(
+        'List', null, 'common')
+        , 'ullFlow/list' . ($app_slug ? '?app=' . $app_slug : '')
+      );
+    ?>
+  </li>    
+</ul>
   
-<?php else: ?>
-  <h1><?php echo __('Workflows') . ' ' . __('Home') ?></h1>
-  <h2><?php echo __('Applications') ?>:</h2>
-  <ul>
-  <?php foreach ($apps as $app): ?>
-      <li><?php echo link_to($app->label, 'ullFlow/index?app=' . $app->slug) ?></li>
-  <?php endforeach; ?>
-  </ul>
-<?php endif; ?>
-
 <?php /*
 <h2><?php echo __('Search', null, 'common') ?>:</h2>
 <?php echo ull_reqpass_form_tag(array('action' => 'tabular'), array('class' => 'inline')); ?>

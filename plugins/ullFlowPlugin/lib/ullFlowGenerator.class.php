@@ -13,15 +13,18 @@ class ullFlowGenerator extends ullGenerator
    * @param UllFlowApp $app
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct(UllFlowApp $app, $defaultAccess = 'r')
+  public function __construct($app = null, $defaultAccess = 'r')
   {
 
-    if (!$app->exists())
+    if ($app)
     {
-      throw new InvalidArgumentException('Invalid UllFlowApp: it does not exist');
+      if (!$app->exists())
+      {
+        throw new InvalidArgumentException('Invalid UllFlowApp: it does not exist');
+      }
+      
+      $this->app = $app;
     }
-    
-    $this->app = $app;
     
     parent::__construct($defaultAccess);
     
@@ -45,7 +48,10 @@ class ullFlowGenerator extends ullGenerator
    */
   protected function buildTableConfig()
   {
-    $this->tableConfig = $this->app;
+    if ($this->app)
+    {
+      $this->tableConfig = $this->app;
+    }
   }
   
   /**
@@ -54,8 +60,6 @@ class ullFlowGenerator extends ullGenerator
    */
   protected function buildColumnsConfig()
   {
-    $dbColumnConfig = $this->app->UllFlowColumnConfigs;
-    
     if ($this->requestAction == 'list')
     {
       $this->columnsConfig['id'] = array(
@@ -77,34 +81,55 @@ class ullFlowGenerator extends ullGenerator
         'show_in_list' => true,
       	'relation' => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
       );
+      // the title column is taken from UllFlowDoc if no app is given
+      if (!$this->app)
+      {
+        $this->columnsConfig['title'] = array(
+          'widgetOptions'      => array(),
+          'widgetAttributes'   => array(),
+          'validatorOptions'   => array(),
+          'label' => 'Title',
+          'metaWidget' => 'ullMetaWidgetString',
+          'access' => $this->defaultAccess,
+          'show_in_list' => true,
+        );
+      }      
     }
 
-    $columns = array();
-    
-    foreach ($dbColumnConfig as $config)
+    if ($this->app)
     {
-      $columns[$config->slug] = $config;  
-    }
-    
+      $dbColumnConfig = $this->app->UllFlowColumnConfigs;
 
+      $columns = array();
     
-    // loop through table (Doctrine) columns
-    foreach ($columns as $columnName => $column)
-    {
-      $columnConfig = array(
-        'widgetOptions'      => array(),
-        'widgetAttributes'   => array(),
-        'validatorOptions'   => array(),
-      );
+      foreach ($dbColumnConfig as $config)
+      {
+        $columns[$config->slug] = $config;  
+      }
       
-      // set defaults
-      $columnConfig['label']        = $column->label;
-      $columnConfig['metaWidget']   = $column->UllColumnType->class;
-      $columnConfig['access']       = $this->defaultAccess;
-      $columnConfig['show_in_list'] = $column->show_in_list;
-      $columnConfig['validatorOptions']['required'] = $column->mandatory;
-      
-      $this->columnsConfig[$columnName] = $columnConfig;
+      // loop through table (Doctrine) columns
+      foreach ($columns as $columnName => $column)
+      {
+        // the title column is taken from UllFlowDoc if no app is given,
+        //   therefore we need to obmit it here to prevent duplicate
+        if ($this->app || (!$this->app && !$column['is_title']))            
+        {
+          $columnConfig = array(
+            'widgetOptions'      => array(),
+            'widgetAttributes'   => array(),
+            'validatorOptions'   => array(),
+          );
+          
+          // set defaults
+          $columnConfig['label']        = $column->label;
+          $columnConfig['metaWidget']   = $column->UllColumnType->class;
+          $columnConfig['access']       = $this->defaultAccess;
+          $columnConfig['show_in_list'] = $column->show_in_list;
+          $columnConfig['validatorOptions']['required'] = $column->mandatory;
+          
+          $this->columnsConfig[$columnName] = $columnConfig;
+        }
+      }
     }
     
     if ($this->requestAction == 'list')

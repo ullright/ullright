@@ -18,6 +18,9 @@ $b
   ->isRequestParameter('action', 'index')
   ->responseContains('Workflows Home')
   ->responseContains('Applications')
+  ->responseContains('Trouble ticket tool')
+  ->responseContains('Todo list')
+  ->responseContains('List');
 ;  
 
 $b

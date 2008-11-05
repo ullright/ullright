@@ -50,30 +50,23 @@ $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $app = Doctrine::getTable('UllFlowApp')->find(1);
-$docs = Doctrine::getTable('UllFlowDoc')->findAll();
+$docs = Doctrine::getTable('UllFlowDoc')->findByUllFlowAppId(1);
 
 $t->begin('__construct()');
-  
-  try
-  {
-    new ullFlowGenerator(new UllFlowApp);
-    $t->fail('__construct() doesn\'t throw an exception if a non-existent UllFlowApp is given');
-  }
-  catch (Exception $e)
-  {
-    $t->pass('__construct() throws an exception if a non-existent UllFlowApp is given');
-  }  
 
-  $tableTool = new ullFlowGenerator($app, 'w');
-  $t->isa_ok($tableTool, 'ullFlowGenerator', '__construct() returns the correct object');
+  $generator = new ullFlowGenerator();
+  $t->isa_ok($generator, 'ullFlowGenerator', '__construct() returns the correct object without params');
+  
+  $generator = new ullFlowGenerator($app, 'w');
+  $t->isa_ok($generator, 'ullFlowGenerator', '__construct() returns the correct object');
 
 $t->begin('getTableConfig()');
-  $tableConfig = $tableTool->getTableConfig();
+  $tableConfig = $generator->getTableConfig();
   $t->isa_ok($tableConfig, 'UllFlowApp', 'tableConfig is the correct object');  
   $t->is($tableConfig->label, 'Trouble ticket tool', 'Label is correct'); 
   
 $t->begin('getColumnConfig()');
-  $columnsConfig = $tableTool->getColumnsConfig();
+  $columnsConfig = $generator->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
   $t->is(count($columnsConfig), 3, 'columnsConfig has the correct number of columns');
   
@@ -90,14 +83,14 @@ $t->begin('getColumnConfig()');
   }
 
 $t->begin('buildForm()');
-  $tableTool->buildForm($docs);  
+  $generator->buildForm($docs);  
   
 $t->begin('getForm() with calling buildForm() prior');  
-  $form = $tableTool->getForm();
+  $form = $generator->getForm();
   $t->isa_ok($form, 'ullFlowForm', 'getForm() returns the correct object');
   
 $t->begin('getForms()');
-  $forms = $tableTool->getForms();
+  $forms = $generator->getForms();
   $t->is(is_array($forms), true, 'getForms() returns an array');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');
   $t->isa_ok($forms[0], 'ullFlowForm', 'The first entry is the correct object');  
