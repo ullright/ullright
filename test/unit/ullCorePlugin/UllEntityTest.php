@@ -19,5 +19,5 @@ $t->begin('__toString()');
   $entity = Doctrine::getTable('UllEntity')->find(1);
   $t->is((string)$entity, 'Master Admin', 'returns the correct string for a user');
   
-  $entity = Doctrine::getTable('UllEntity')->find(4);
-  $t->is((string)$entity, 'Helpdesk (Group)', 'returns the correct string for a group');
+  $entity = Doctrine::getTable('UllEntity')->find(2);
+  $t->is((string)$entity, 'MasterAdmins (Group)', 'returns the correct string for a group');

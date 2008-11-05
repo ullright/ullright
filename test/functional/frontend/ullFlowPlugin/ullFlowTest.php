@@ -66,7 +66,7 @@ $b
   ->checkResponseElement('tbody > tr + tr > td + td + td', 'Trouble ticket tool')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td', 'Master Admin')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td', 'Thomas Test')   
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td', 'Test User')   
 ;
 
 $b

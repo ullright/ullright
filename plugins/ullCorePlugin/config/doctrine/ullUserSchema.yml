@@ -64,4 +64,36 @@ UllEntityGroup:
       primary: true
     group_id:
       type: integer
-      primary: true      
+      primary: true
+      
+UllPermission:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label, description]     
+  columns:
+    slug:
+      type: string(32)
+    label:
+      type: string(64)
+    description:
+      type: clob
+       
+      
+#UllAccessGroup:
+#  package: ullCorePlugin.lib.model.doctrine
+#  inheritance:
+#    extends: UllRecord
+#    type: concrete
+#  columns:
+#    ull_access_id:
+#      type: integer
+#      primary: true
+#    ull_group_id:
+#      type: integer
+#      primary: true
+#  relations:
+#    UllGroup:

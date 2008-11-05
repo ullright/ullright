@@ -1,3 +1,33 @@
+UllUser:
+  helpdesk_admin_user:
+    first_name:         Helpdesk
+    last_name:          Admin User
+    email:              helpdesk.admin.user@example.com
+    username:           helpdesk_admin_user
+    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Creator:            admin_user
+    Updator:            admin_user
+    UllGroup:           [helpdesk_admin_group]
+  helpdesk_user:
+    first_name:         Helpdesk
+    last_name:          User
+    email:              helpdesk.user@example.com
+    username:           helpdesk_user
+    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Creator:            admin_user
+    Updator:            admin_user
+    UllGroup:           [helpdesk_group]
+    
+UllGroup:
+  helpdesk_admin_group:
+    display_name:       HelpdeskAdmins
+    Creator:            admin_user
+    Updator:            admin_user   
+  helpdesk_group:
+    display_name:       Helpdesk
+    Creator:            admin_user
+    Updator:            admin_user    
+
 UllFlowApp:
   ull_flow_app_helpdesk:
     Translation:
@@ -8,18 +38,25 @@ UllFlowApp:
         label:      Trouble Ticket Tool
         doc_label:  Trouble Ticket
     slug: trouble_ticket
-    
+    UllFlowAppAccess:
+      ull_flow_app_access_1:
+        UllGroup:     helpdeskgroup
+        UllPermission: read
+      ull_flow_app_access_2:
+        UllGroup:     helpdeskgroup
+        UllPermission: write
+                    
 UllFlowDoc:
   ull_flow_doc_1:
     UllFlowApp:     ull_flow_app_helpdesk
     title:          My first trouble ticket
-    UllEntity:      adminuser
-    Creator:        testuser
+    UllEntity:      admin_user
+    Creator:        test_user
     created_at:     '2001-01-01 01:01:01'     
   ull_flow_doc_2:
     UllFlowApp:     ull_flow_app_helpdesk
     title:          AAA My second trouble ticket
-    UllEntity:      helpdeskgroup    
+    UllEntity:      helpdesk_group    
     
 UllFlowColumnConfig:
   ull_flow_column_config_title:
