@@ -19,8 +19,7 @@ class BaseullFlowActions extends ullsfActions
    */
   public function executeIndex()
   {
-    
-    $this->checkAccess('Masteradmins');
+    $this->checkAccess('LoggedIn');
     
     $this->breadcrumbForIndex();
     
@@ -37,14 +36,12 @@ class BaseullFlowActions extends ullsfActions
       $this->apps = Doctrine::getTable('UllFlowApp')->findAll();
       $this->app_param = '';
     }
-    
-    
   }
 
   
   public function executeList($request) {
     
-    $this->checkAccess('Masteradmins');
+    $this->checkAccess('LoggedIn');
     
     if ($request->isMethod('post'))
     {
@@ -1185,8 +1182,18 @@ class BaseullFlowActions extends ullsfActions
     $this->filter_form->bind($this->getRequestParameter('filter'));
     
     $q = new Doctrine_Query;
+    $q->select('x.*, v.*');
     $q->from('UllFlowDoc x, x.UllFlowValues v');
     
+    // access
+    if (!UllUserTable::hasGroup('MasterAdmins'))
+    {
+      $q->leftJoin('x.UllEntity e');
+      $q->where('e.id = ?', $this->getUser()->getAttribute('user_id'));
+      $q->leftJoin('e.UllEntityGroup eg');
+      $q->orWhere('eg.entity_id = ?', $this->getUser()->getAttribute('user_id'));
+    }
+  
     if ($this->app)
     {
       $q->where('ull_flow_app_id = ?', $this->app->id);

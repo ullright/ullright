@@ -98,6 +98,8 @@ class BaseUllUserActions extends ullsfActions
     }    
 
     $this->refererHandler->initialize('access');
+    $refer = $this->refererHandler->getRefererAndDelete('access');
+    $this->refer = $referer ? $referer : '@homepage';
     return sfView::SUCCESS;
   }
   

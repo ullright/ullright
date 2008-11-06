@@ -28,6 +28,7 @@ class BaseUllsfActions extends sfActions
  * if not logged in -> redirect to login page
  * if the current user is not member of the group -> display access denied
  * 
+ * 
  * @param group mixed   group id, group name or array of group ids/names (not mixed!)
  * @return none
  */   

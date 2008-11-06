@@ -23,6 +23,27 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 
     return $this;
   }
+
+  public function loginAsTestUser()
+  {
+    $this
+      ->isRedirected()
+      ->followRedirect()
+      ->isRequestParameter('module', 'ullUser')
+      ->isRequestParameter('action', 'noaccess')
+      ->isRedirected()
+      ->followRedirect()
+      ->isStatusCode(200)
+      ->isRequestParameter('module', 'ullUser')
+      ->isRequestParameter('action', 'login')  
+      ->isRequestParameter('option', 'noaccess')
+      ->post('/ullUser/login', array('login' => array('username' => 'test_user', 'password' => 'test')))
+      ->isRedirected()
+      ->followRedirect()
+    ;
+
+    return $this;
+  }  
   
 }
 

@@ -4,4 +4,4 @@
 
 <br /><br />
 
-<?php echo link_to('Back',$refererHandler->getRefererAndDelete('access')); ?>
+<?php echo link_to('Back', $referer); ?>

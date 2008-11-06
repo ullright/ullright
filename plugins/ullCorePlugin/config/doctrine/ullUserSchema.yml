@@ -19,7 +19,7 @@ UllParentEntity:
     password: 
       type: string(40)
     user_type: 
-      type: integer    
+      type: integer         
 
 # empty entity class to be overridden by custom Entity class 
 # (in config/doctrine/schema.yml) to allow definition of additional userfields
@@ -27,7 +27,7 @@ UllEntity:
 #  package: ullCorePlugin.lib.model.doctrine
   inheritance: 
     extends: UllParentEntity
-    type: concrete
+    type: concrete     
     
 UllUser:
   package: ullCorePlugin.lib.model.doctrine
@@ -65,6 +65,9 @@ UllEntityGroup:
     group_id:
       type: integer
       primary: true
+  relations:
+    UllEntity:
+      local: group_id
       
 UllPermission:
   package: ullCorePlugin.lib.model.doctrine
