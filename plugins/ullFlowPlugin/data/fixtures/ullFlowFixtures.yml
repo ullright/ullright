@@ -75,7 +75,7 @@ UllFlowDoc:
   ull_flow_doc_todo2:
     UllFlowApp:     ull_flow_app_todo
     title:          AAA My second thing todo
-    UllEntity:      admin_user         
+    UllEntity:      test_group         
     
 UllFlowColumnConfig:
   ull_flow_column_config_helpdesk_title:

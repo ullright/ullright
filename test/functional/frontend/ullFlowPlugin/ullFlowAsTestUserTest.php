@@ -22,6 +22,8 @@ $b
 
 $b
   ->diag('list - content')
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first thing todo')
+  ->checkResponseElement('table > thead > tr > th', 7) // number of columns
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second thing todo')
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first thing todo')
 ;
 

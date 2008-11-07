@@ -18,13 +18,19 @@ UllUser:
     password:           098f6bcd4621d373cade4e832627b4f6 # = test
     Creator:            admin_user
     Updator:            admin_user
+    UllGroup:           [test_group]
    
 UllGroup:
   admin_group:
     display_name:       MasterAdmins
     Creator:            admin_user
     Updator:            admin_user
-    namespace:          ullCore    
+    namespace:          ullCore
+  test_group:
+    display_name:       TestGroup
+    Creator:            admin_user
+    Updator:            admin_user
+    namespace:          ullCore            
     
 UllPermission:
   read:
