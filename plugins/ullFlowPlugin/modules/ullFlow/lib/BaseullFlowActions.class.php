@@ -1186,12 +1186,22 @@ class BaseullFlowActions extends ullsfActions
     $q->from('UllFlowDoc x, x.UllFlowValues v');
     
     // access
-    if (!UllUserTable::hasGroup('MasterAdmins'))
+    if (UllUserTable::hasGroup('MasterAdmins'))
     {
+    }
+    else
+    {
+      // assigned to
       $q->leftJoin('x.UllEntity e');
       $q->where('e.id = ?', $this->getUser()->getAttribute('user_id'));
-      $q->leftJoin('e.UllEntityGroup eg');
-      $q->orWhere('eg.entity_id = ?', $this->getUser()->getAttribute('user_id'));
+      $q->leftJoin('e.UllEntityGroup aeg');
+      $q->orWhere('aeg.entity_id = ?', $this->getUser()->getAttribute('user_id'));
+      
+      // memory:
+      $q->leftJoin('x.UllFlowMemories m');
+      $q->orWhere('m.creator_ull_entity_id = ?', $this->getUser()->getAttribute('user_id'));
+      $q->leftJoin('m.CreatorUllEntity.UllEntityGroup meg');
+      $q->orWhere('meg.entity_id = ?', $this->getUser()->getAttribute('user_id'));
     }
   
     if ($this->app)

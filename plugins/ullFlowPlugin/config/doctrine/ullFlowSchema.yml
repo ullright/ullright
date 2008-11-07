@@ -155,3 +155,39 @@ UllFlowValue:
     UllFlowColumnConfig:
       foreignAlias: UllFlowValues
       onDelete: CASCADE         
+      
+UllFlowMemory:
+  package: ullFlowPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_flow_doc_id:
+      type: integer
+      notnull: true
+    ull_flow_step_id:
+      type: integer
+#      notnull: true                          
+    ull_flow_action_id:
+      type: integer
+#      notnull: true
+    assigned_to_ull_entity_id:
+      type: integer
+      notnull: true
+    comment:
+      type: string(255)
+    creator_ull_entity_id:
+      type: integer
+      notnull: true      
+  relations:
+    UllFlowDoc:
+      foreignAlias: UllFlowMemories
+      onDelete: CASCADE  
+    AssignedToUllEntity:
+      class: UllEntity
+      foreignAlias: UllFlowMemories
+      local: assigned_to_ull_entity_id
+    CreatorUllEntity:
+      class: UllEntity    
+      foreignAlias: UllFlowMemories
+      local: creator_ull_entity_id            

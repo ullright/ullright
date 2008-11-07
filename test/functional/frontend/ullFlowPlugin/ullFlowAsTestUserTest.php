@@ -23,7 +23,11 @@ $b
 $b
   ->diag('list - content')
   ->checkResponseElement('table > thead > tr > th', 7) // number of columns
+  // read access because user is member of TestGroup
   ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second thing todo')
+  // read access because doc is assigned to the user
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first thing todo')
+  // read access because the doc was once (=UllFlowMemory) assigned to TestGroup, which the user is member of
+  ->checkResponseElement('tbody > tr + tr + tr > td + td + td + td', 'My first trouble ticket')
 ;
 

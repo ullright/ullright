@@ -22,5 +22,8 @@ abstract class BaseUllEntity extends UllParentEntity
 
     $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
                                                       'foreign' => 'assigned_to_ull_entity_id'));
+
+    $this->hasMany('UllFlowMemory as UllFlowMemories', array('local' => 'id',
+                                                             'foreign' => 'assigned_to_ull_entity_id'));
   }
 }

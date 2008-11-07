@@ -159,4 +159,12 @@ UllFlowValue:
   ull_flow_value_doc_todo2_title:
     UllFlowDoc:     ull_flow_doc_todo2
     UllFlowColumnConfig: ull_flow_column_config_todo_title
-    value:          AAA My second thing todo            
+    value:          AAA My second thing todo          
+    
+UllFlowMemory:
+  ull_flow_memory_doc_helpdesk1_1:
+    UllFlowDoc:       ull_flow_doc_helpdesk1
+    AssignedToUllEntity: admin_user
+    comment:          My test comment
+    CreatorUllEntity: test_group
+        
