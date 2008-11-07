@@ -1202,7 +1202,7 @@ class BaseullFlowActions extends ullsfActions
     // app-specific global read access
     if ($this->app and !$global_access) 
     {
-      if (UserTable::hasPermission('UllFlow_' . $this->app->slug . '_global_read'))
+      if (UllUserTable::hasPermission('UllFlow_' . $this->app->slug . '_global_read'))
       {
       	$global_access = true;
       }

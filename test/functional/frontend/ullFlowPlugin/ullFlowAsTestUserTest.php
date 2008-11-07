@@ -22,7 +22,7 @@ $b
 
 $b
   ->diag('list - content')
-  ->checkResponseElement('table > thead > tr > th', 7) // number of columns
+  ->checkResponseElement('table > tbody > tr', 3) // number of rows
   // read access because user is member of TestGroup
   ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second thing todo')
   // read access because doc is assigned to the user
