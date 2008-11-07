@@ -5,6 +5,30 @@
 
 <?php // detect empty table_tool ?>
 <?php if (!$generator->getRow()->isModified()): ?>
+
+	<!-- Action row -->
+	<?php echo form_tag('ullFlow/list' . (isset($app) ? '?app=' . $app->slug : '')); ?>
+	
+	<ul class='ull_action'>
+	  
+	    <li>
+        <?php if (isset($app)): ?>
+          <?php echo ull_link_to(__('Create', null, 'common'), 'ullFlow/create?app=' . $app->slug); ?>
+        <? endif ?>
+      </li>
+	
+      <?php /* ?>	   
+	    <?php echo $filter_form ?>   
+	    <li><?php echo submit_tag('&gt;');?></li>
+      <?php */ ?> 
+	
+	</ul>
+	 
+	</form>	
+	
+
+
+
   <table class='result_list'>
   
   <!-- header -->
@@ -48,9 +72,7 @@
           $odd_style = '';
           $odd = true;
         }
-        
         $identifier = $generator->getIdentifierUrlParams($row);
-        
       ?>
     <tr <?php echo $odd_style ?>>
       <td>          

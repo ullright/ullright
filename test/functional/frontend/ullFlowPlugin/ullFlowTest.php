@@ -132,7 +132,7 @@ $b
 
 $b
   ->diag('create with missing title and invalid email')
-  ->get('ullFlow/create/app/trouble_ticket')
+  ->click('Create')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'create')
