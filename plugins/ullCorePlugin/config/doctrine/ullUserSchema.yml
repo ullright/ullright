@@ -38,8 +38,9 @@ UllUser:
   relations:
     UllGroup:
       refClass: UllEntityGroup
-      local: entity_id
-      foreign: group_id
+      foreignAlias: UllUsers
+      local: ull_entity_id
+      #foreign: group_id
                    
 UllGroup:
   package: ullCorePlugin.lib.model.doctrine
@@ -50,8 +51,8 @@ UllGroup:
   relations:
     UllUser:
       refClass: UllEntityGroup
-      local: group_id
-      foreign: entity_id          
+      foreignAlias: UllGroups
+      foreign: ull_entity_id
 
 UllEntityGroup:
   package: ullCorePlugin.lib.model.doctrine
@@ -59,31 +60,51 @@ UllEntityGroup:
     extends: UllRecord
     type: concrete
   columns:
-    entity_id:
+    ull_entity_id:
       type: integer
       primary: true
-    group_id:
+    ull_group_id:
       type: integer
       primary: true
   relations:
     UllEntity:
-      local: group_id
+      local: ull_group_id
       
 UllPermission:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
     type: concrete
-  actAs:
-    I18n:
-      fields: [label, description]     
+#  actAs:
+#    I18n:
+#      fields: [label, description]     
   columns:
     slug:
-      type: string(32)
-    label:
       type: string(64)
-    description:
-      type: clob
+#    label:
+#      type: string(64)
+#    description:
+#      type: clob
+  relations:
+    UllGroup:
+      refClass: UllGroupPermission
+      foreignAlias: UllPermissions
+      #local: group_id
+      #foreign: ull_group_id
+
+UllGroupPermission:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_group_id:
+      type: integer
+      primary: true
+    ull_permission_id:
+      type: integer
+      primary: true
+
        
       
 #UllAccessGroup:

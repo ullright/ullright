@@ -1184,30 +1184,53 @@ class BaseullFlowActions extends ullsfActions
     $q = new Doctrine_Query;
     $q->select('x.*, v.*');
     $q->from('UllFlowDoc x, x.UllFlowValues v');
+
+    if ($this->app)
+    {
+      $q->where('ull_flow_app_id = ?', $this->app->id);
+    }    
     
     // access
+    $global_access = false;
+    
+    // masteradmin
     if (UllUserTable::hasGroup('MasterAdmins'))
     {
+    	$global_access = true;
     }
-    else
+    
+    // app-specific global read access
+    if ($this->app and !$global_access) 
+    {
+      if (UserTable::hasPermission('UllFlow_' . $this->app->slug . '_global_read'))
+      {
+      	$global_access = true;
+      }
+    }
+
+    //normal access check
+    if (!$global_access) 
     {
       // assigned to
       $q->leftJoin('x.UllEntity e');
       $q->where('e.id = ?', $this->getUser()->getAttribute('user_id'));
       $q->leftJoin('e.UllEntityGroup aeg');
-      $q->orWhere('aeg.entity_id = ?', $this->getUser()->getAttribute('user_id'));
+      $q->orWhere('aeg.ull_entity_id = ?', $this->getUser()->getAttribute('user_id'));
       
       // memory:
       $q->leftJoin('x.UllFlowMemories m');
       $q->orWhere('m.creator_ull_entity_id = ?', $this->getUser()->getAttribute('user_id'));
       $q->leftJoin('m.CreatorUllEntity.UllEntityGroup meg');
-      $q->orWhere('meg.entity_id = ?', $this->getUser()->getAttribute('user_id'));
+      $q->orWhere('meg.ull_entity_id = ?', $this->getUser()->getAttribute('user_id'));
+      
+      // global read access:
+//      $q->leftJoin('x.UllFlowApp.UllPermission.UllGroup.UllUser gru WITH x.UllFlowApp.UllPermission.slug LIKE "%_global_read"');
+      $q->leftJoin('x.UllFlowApp.UllPermission p');
+      $q->leftJoin('p.UllGroup.UllUser gru');
+      $q->orWhere('gru.id = ? AND p.slug LIKE ?', array($this->getUser()->getAttribute('user_id'), '%_global_read'));
     }
   
-    if ($this->app)
-    {
-      $q->where('ull_flow_app_id = ?', $this->app->id);
-    }
+
     
 //    if ($search = $this->filter_form->getValue('search'))
 //    {      

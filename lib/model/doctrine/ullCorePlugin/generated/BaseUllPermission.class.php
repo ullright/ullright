@@ -9,18 +9,18 @@ abstract class BaseUllPermission extends UllRecord
   {
     parent::setTableDefinition();
     $this->setTableName('ull_permission');
-    $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'length' => '32'));
-    $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
-    $this->hasColumn('description', 'clob', null, array('type' => 'clob'));
+    $this->hasColumn('slug', 'string', 64, array('type' => 'string', 'length' => '64'));
   }
 
   public function setUp()
   {
     parent::setUp();
-    $this->hasMany('UllFlowAppAccess', array('local' => 'id',
-                                             'foreign' => 'ull_permission_id'));
+    $this->hasMany('UllGroup', array('refClass' => 'UllGroupPermission',
+                                     'local' => 'ull_permission_id',
+                                     'foreign' => 'ull_group_id'));
 
-    $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label', 1 => 'description')));
-    $this->actAs($i18n0);
+    $this->hasMany('UllFlowApp', array('refClass' => 'UllFlowAppPermission',
+                                       'local' => 'ull_permission_id',
+                                       'foreign' => 'ull_flow_app_id'));
   }
 }

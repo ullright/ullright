@@ -30,43 +30,48 @@ UllGroup:
     display_name:       TestGroup
     Creator:            admin_user
     Updator:            admin_user
-    namespace:          ullCore            
+    namespace:          ullCore
+    UllPermissions:     [testPermission]            
     
 UllPermission:
-  read:
-    Translation:
-      en:
-        label:          Read access
-      de:
-        label:          Lesezugriff  
-    slug:               read
-    namespace:          ullCore
-  write:
-    Translation:
-      en:
-        label:          Write access
-      de:
-        label:          Schreibzugriff  
-    slug:               write
-    namespace:          ullCore
-  create:
-    Translation:
-      en:
-        label:          Create
-      de:
-        label:          Erstellen
-    slug:               create
-    namespace:          ullCore
-  admin:
-    Translation:
-      en:
-        label:          Administrator
-      de:
-        label:          Administrator
-    slug:               admin
-    namespace:          ullCore       
+  testPermission:
+    slug:         testPermission    
+#UllPermission:
+#  read:
+#    Translation:
+#      en:
+#        label:          Read access
+#      de:
+#        label:          Lesezugriff  
+#    slug:               read
+#    namespace:          ullCore
+#  write:
+#    Translation:
+#      en:
+#        label:          Write access
+#      de:
+#        label:          Schreibzugriff  
+#    slug:               write
+#    namespace:          ullCore
+#  create:
+#    Translation:
+#      en:
+#        label:          Create
+#      de:
+#        label:          Erstellen
+#    slug:               create
+#    namespace:          ullCore
+#  admin:
+#    Translation:
+#      en:
+#        label:          Administrator
+#      de:
+#        label:          Administrator
+#    slug:               admin
+#    namespace:          ullCore       
     
 
+    
 UllColumnType:
   integer:
     class:        ullMetaWidgetInteger

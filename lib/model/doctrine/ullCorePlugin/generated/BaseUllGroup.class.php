@@ -9,10 +9,11 @@ abstract class BaseUllGroup extends UllEntity
   {
     parent::setUp();
     $this->hasMany('UllUser', array('refClass' => 'UllEntityGroup',
-                                    'local' => 'group_id',
-                                    'foreign' => 'entity_id'));
+                                    'local' => 'ull_group_id',
+                                    'foreign' => 'ull_entity_id'));
 
-    $this->hasMany('UllFlowAppAccess', array('local' => 'id',
-                                             'foreign' => 'ull_group_id'));
+    $this->hasMany('UllPermission as UllPermissions', array('refClass' => 'UllGroupPermission',
+                                                            'local' => 'ull_group_id',
+                                                            'foreign' => 'ull_permission_id'));
   }
 }

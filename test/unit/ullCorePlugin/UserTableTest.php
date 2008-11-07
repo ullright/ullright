@@ -5,12 +5,12 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(10, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(12, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
 
-$t->begin('hasGroup() returns correct result');
+$t->begin('hasGroup()');
   $t->is(
         UllUserTable::hasGroup('MasterAdmins', 1)
       , true
@@ -61,5 +61,16 @@ $t->begin('hasGroup() returns correct result');
         UllUserTable::hasGroup('Helpdesk')
       , false
       , 'returns false for a given group and using the sessions user_id'
-      );  
-  
+      );
+        
+$t->begin('hasPermission()');
+  $t->is(
+        UllUserTable::hasPermission('testPermission', 3)
+      , true
+      , 'returns true for a given permission and user_id'
+      );
+  $t->is(
+        UllUserTable::hasPermission('invalidPermission', 3)
+      , false
+      , 'returns false for an invalid permission'
+      );                

@@ -23,8 +23,31 @@ UllFlowApp:
 #      type: string(255)
 #      local: access_read_id
 #      foreign: ull_group_id
+  relations:
+    UllPermission:
+      refClass: UllFlowAppPermission
       
-UllFlowAppAccess:
+#UllFlowAppAccess:
+#  package: ullFlowPlugin.lib.model.doctrine
+#  inheritance:
+#    extends: UllRecord
+#    type: concrete
+#  columns:
+#    ull_flow_app_id:
+#      type: integer
+#      notnull: true
+#    ull_group_id:
+#      type: integer
+#      notnull: true
+#    ull_permission_id:
+#      type: integer
+#      notnull: true
+#  relations:
+#    UllFlowApp:
+#    UllGroup:
+#    UllPermission:
+
+UllFlowAppPermission:
   package: ullFlowPlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
@@ -33,16 +56,9 @@ UllFlowAppAccess:
     ull_flow_app_id:
       type: integer
       notnull: true
-    ull_group_id:
-      type: integer
-      notnull: true
     ull_permission_id:
       type: integer
-      notnull: true
-  relations:
-    UllFlowApp:
-    UllGroup:
-    UllPermission:
+      notnull: true  
 
 UllFlowDoc:
   package: ullFlowPlugin.lib.model.doctrine

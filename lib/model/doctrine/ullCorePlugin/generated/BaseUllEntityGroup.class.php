@@ -9,14 +9,14 @@ abstract class BaseUllEntityGroup extends UllRecord
   {
     parent::setTableDefinition();
     $this->setTableName('ull_entity_group');
-    $this->hasColumn('entity_id', 'integer', null, array('type' => 'integer', 'primary' => true));
-    $this->hasColumn('group_id', 'integer', null, array('type' => 'integer', 'primary' => true));
+    $this->hasColumn('ull_entity_id', 'integer', null, array('type' => 'integer', 'primary' => true));
+    $this->hasColumn('ull_group_id', 'integer', null, array('type' => 'integer', 'primary' => true));
   }
 
   public function setUp()
   {
     parent::setUp();
-    $this->hasOne('UllEntity', array('local' => 'group_id',
+    $this->hasOne('UllEntity', array('local' => 'ull_group_id',
                                      'foreign' => 'id'));
   }
 }

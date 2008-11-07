@@ -22,11 +22,16 @@ UllGroup:
   helpdesk_admin_group:
     display_name:       HelpdeskAdmins
     Creator:            admin_user
-    Updator:            admin_user   
+    Updator:            admin_user
   helpdesk_group:
     display_name:       Helpdesk
     Creator:            admin_user
-    Updator:            admin_user    
+    Updator:            admin_user
+    UllPermissions:     [ullFlow_trouble_ticket_global_read] 
+
+UllPermission:
+  ullFlow_trouble_ticket_global_read:
+    slug:         ullFlow_trouble_ticket_global_read
 
 UllFlowApp:
   ull_flow_app_helpdesk:
@@ -38,13 +43,14 @@ UllFlowApp:
         label:      Trouble Ticket Tool
         doc_label:  Trouble Ticket
     slug: trouble_ticket
-    UllFlowAppAccess:
-      ull_flow_app_access_1:
-        UllGroup:     helpdeskgroup
-        UllPermission: read
-      ull_flow_app_access_2:
-        UllGroup:     helpdeskgroup
-        UllPermission: write
+    UllPermission:  [ullFlow_trouble_ticket_global_read]
+#    UllFlowAppAccess:
+#      ull_flow_app_access_1:
+#        UllGroup:     helpdeskgroup
+#        UllPermission: read
+#      ull_flow_app_access_2:
+#        UllGroup:     helpdeskgroup
+#        UllPermission: write
   ull_flow_app_todo:
     Translation:
       en:

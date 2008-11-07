@@ -18,8 +18,9 @@ abstract class BaseUllFlowApp extends UllRecord
   public function setUp()
   {
     parent::setUp();
-    $this->hasMany('UllFlowAppAccess', array('local' => 'id',
-                                             'foreign' => 'ull_flow_app_id'));
+    $this->hasMany('UllPermission', array('refClass' => 'UllFlowAppPermission',
+                                          'local' => 'ull_flow_app_id',
+                                          'foreign' => 'ull_permission_id'));
 
     $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
                                                       'foreign' => 'ull_flow_app_id'));

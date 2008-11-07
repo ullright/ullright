@@ -179,7 +179,7 @@ $t->begin('getTableConfig() for a table with a multi-columns primary key');
   $tableConfig = $tableTool2->getTableConfig();
   $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');
   $t->is(is_array($tableConfig->getIdentifier()), true, 'Identifier is an array');
-  $t->is($tableConfig->getIdentifier(), array(0 => 'entity_id', 1 => 'group_id'), 'Identifiers are correct');
+  $t->is($tableConfig->getIdentifier(), array(0 => 'ull_entity_id', 1 => 'ull_group_id'), 'Identifiers are correct');
   $t->is($tableConfig->label, 'UllEntityGroup', 'Label is correct');
   
 $t->begin('getColumnConfig()');
@@ -218,7 +218,7 @@ $t->begin('buildForm()');
   
 $t->begin('getIdentifierUrlParams()');
   $t->is($tableTool->getIdentifierUrlParams(0), 'id=1', 'Return the correct URL params');
-  $t->is($tableTool2->getIdentifierUrlParams(0), 'entity_id=1&group_id=2', 'Return the correct URL params for multi-column primary keys');  
+  $t->is($tableTool2->getIdentifierUrlParams(0), 'ull_entity_id=1&ull_group_id=2', 'Return the correct URL params for multi-column primary keys');  
   
 $t->begin('getForm() with calling buildForm() prior');  
   $form = $tableTool->getForm();

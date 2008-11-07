@@ -53,4 +53,30 @@ class PluginUllUserTable extends UllEntityTable
     }
   }
 
+  /**
+   * check if a user has a certain permission
+   * 
+   * @param string $permission
+   * @param integer $user_id
+   * @return boolean
+   */
+  public static function hasPermission($permission, $user_id = null) 
+  {
+    // use session user_id as default entity
+    if ($user_id === null) {
+      $user_id = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    }
+
+    $q = new Doctrine_Query;
+    $q->from('UllUser u, u.UllGroup g, g.UllPermissions p')
+      ->where('u.id = ?', $user_id)
+      ->addWhere('p.slug = ?', $permission)
+    ;
+    
+    if ($q->count())
+    {
+      return true;
+    }
+  }  
+  
 }
