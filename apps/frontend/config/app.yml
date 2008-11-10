@@ -1,6 +1,6 @@
 # default values
 all:
-  theme:         ullThemeDefault
+  theme:         ullThemeNG
   
   base:
     default_language: en
