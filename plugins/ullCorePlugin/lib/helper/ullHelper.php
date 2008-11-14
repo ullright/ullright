@@ -538,43 +538,67 @@ function ull_parse_attributes($string)
 
 
 /** 
- * Get current request params, and allows adding or overriding of specific params
+ * Gets current request params and allows adding or overriding of specific params
  *
- * @param merge_array array   array with params to add, remove or overwrite (eg. 'page' => 2)
- * @return array       array containing processed params
+ * @param array merge_array   array with params to add, remove or overwrite (e.g. 'page' => 2)
+ * @return array              array containing processed params
  */
-
-function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
-  
-//  ullCoreTools::printR($array);
-  
+function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) 
+{
   $params = sfContext::getInstance()->getRequest()->getParameterHolder()->getAll();
   
-  // TODO: where does sf_culture come from? appeared in functional testing...
-  unset($params['sf_culture']);
-//  ullCoreTools::printR($params);
-  
   // overwrite / add params
-  foreach ($merge_array as $key => $value) {
-    $params[$key] = $value;
-  }
+  $params = array_merge($params, $merge_array);
+
+  // clean params
+  $params = _ull_reqpass_clean_array($params);
   
-//  ullCoreTools::printR(sfContext::getInstance()->getRequest()->getParameterHolder()->getAll());
+  return $params;
+}
+
+
+/**
+ * deeply cleans an array of empty values
+ *
+ * @param array $array            multi dimensional array to be cleaned
+ * @param boolean $rawurlencode   rawurlencode the value (true per default)
+ * @return array
+ */
+function _ull_reqpass_clean_array($array, $rawurlencode = true)
+{
+  $blacklist = array(
+    'ull_req_pass', // remove the array with the original request params
+    'sf_culture',   // TODO: where does sf_culture come from? appeared in functional testing...
+    'commit',       // we don't want the submit buttons...
+  );
   
-  //TODO: doesn't work with array syntax
-  foreach ($params as $key => $value) {
-    // remove empty params
-    if (!$value) {
-      unset($params[$key]);
-    } else {
-      if (isset($rawurlencode)) {
-        $params[$key] = rawurlencode($value);
+  foreach ($array as $key => $value) 
+  {
+    // recurse
+    if (is_array($value))
+    {
+      $value = _ull_reqpass_clean_array($value); 
+    }    
+    
+    // remove empty or blacklisted elements
+    if (empty($value) or in_array($key, $blacklist))
+    {
+      unset($array[$key]);
+    }
+    else
+    {
+      // TODO: what's the usecase for rawurlencode?
+      if ($rawurlencode and !is_array($value)) 
+      {
+        $array[$key] = ull_sf_url_encode($value);        
+      }
+      else
+      {      
+      $array[$key] = $value;
       }
     }
   }
-  
-  return $params;
-  
+  return $array; 
 }
 
 
@@ -596,9 +620,17 @@ function _ull_reqpass_build_url($params) {
   unset($params['action']);
 
   // check if any params left...
-  if ($params) { 
+  if ($params) 
+  { 
     $addition = '?';
-    foreach($params as $key => $value) {
+    foreach($params as $key => $value) 
+    {
+      // move array (first layer at the moment) to "[]" syntax 
+      if (is_array($value))
+      {
+        $key .= '[' . key($value) . ']';
+        $value = array_shift($value);
+      }
       $url .= $addition . $key . '=' . $value;
       $addition = '&';
     }

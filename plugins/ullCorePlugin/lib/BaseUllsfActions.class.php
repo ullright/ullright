@@ -60,44 +60,33 @@ class BaseUllsfActions extends sfActions
   
   
 /**
- * counterpart for ullHelper ull_reqpass_form_tag
+ * counterpart for ullHelper's ull_reqpass_form_tag()
  * 
  * in case of a POST request it handles the request params, 
  * deserializes the request params passed from the previous page,
- * and redirects to build a valid GET url
+ * and redirects to build a valid GET url ('address bar as command line')
  * @param none
  * @return none
  */   
   public function ull_reqpass_redirect() 
   {
-  
     if ($this->getRequest()->getMethod() == sfRequest::POST) 
     {
-      $ull_reqpass = $this->getRequestParameter('ull_reqpass');
-      if ($ull_reqpass) 
+      $params = $this->getRequest()->getParameterHolder()->getAll();
+      
+      if ($ull_reqpass = $this->getRequestParameter('ull_reqpass')) 
       {
         $ull_reqpass = unserialize($ull_reqpass);
+        $params = array_merge($params, $ull_reqpass);
       }
       
-      // remove the reqpass hidden field
-      $ull_reqpass['ull_reqpass'] = '';
-    
-      $params = _ull_reqpass_initialize($ull_reqpass, true);
-      
-      foreach ($params as $key => $value) 
-      {
-        // encode '.' in url params
-        $params[$key] = ull_sf_url_encode($value);
-      }
-
-//      ullCoreTools::printR($params);
-//      exit();
-
+      $params = _ull_reqpass_initialize($params);
       $url = _ull_reqpass_build_url($params);
 
       return $this->redirect($url);
+    }
 
-    } 
+    // TODO: usecase for this section?
     else 
     {
       // decode params encoded by ull_sf_url_encode()
