@@ -20,7 +20,8 @@ $b
   ->responseContains('Applications')
   ->responseContains('Trouble ticket tool')
   ->responseContains('Todo list')
-  ->responseContains('List');
+  ->responseContains('Quick search')
+  ->responseContains('List')
 ;  
 
 $b
@@ -30,6 +31,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'index')
   ->responseContains('Application Trouble ticket tool')
+  ->responseContains('Quick search')  
   ->click('List')
 ;
 
@@ -162,4 +164,19 @@ $b
 //
 //  ->setField('fields[my_title]', 'This is my shiny little title')
 //  ->setField('fields[my_date]', "2001-01-01 01:01:01")  
+;
+
+$b
+  ->diag('quick search')
+  ->get('ullFlow/index')
+  ->setField('filter[search]', 'first t')
+  ->click('Search')
+  ->followRedirect()
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('filter[search]', 'first t')  
+  ->checkResponseElement('ul.ull_action input[name="filter[search]"][value="first t"]', true)
+  ->checkResponseElement('table > tbody > tr', 2) // number of rows
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first thing todo')
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
 ;

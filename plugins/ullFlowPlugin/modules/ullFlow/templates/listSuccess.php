@@ -1,7 +1,7 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-
+<?php echo link_to('foo', array('module' => 'ullFlow', 'action' => 'list', 'filter' => array('search' => 'foobar'))) ?>
 
 <?php // detect empty table_tool ?>
 <?php if (!$generator->getRow()->isModified()): ?>
@@ -17,10 +17,10 @@
         <? endif ?>
       </li>
 	
-      <?php /* ?>	   
+      <?php ?>	   
 	    <?php echo $filter_form ?>   
 	    <li><?php echo submit_tag('&gt;');?></li>
-      <?php */ ?> 
+      <?php ?> 
 	
 	</ul>
 	 

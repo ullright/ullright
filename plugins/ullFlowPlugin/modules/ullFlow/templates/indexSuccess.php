@@ -11,7 +11,19 @@
       <li><?php echo link_to($app->label, 'ullFlow/index?app=' . $app->slug) ?></li>
   <?php endforeach; ?>
   </ul>  
-<?php endif ?>    
+<?php endif ?>
+
+<h2><?php echo __('Search', null, 'common') ?>:</h2>
+<?php echo form_tag('ullFlow/list' . ($app_slug ? '?app=' . $app->slug : ''), array('class' => 'inline')); ?>
+<ul>
+  <li>
+    <?php
+      echo __('Quick search', null, 'common') . ': ';
+      echo input_tag('filter[search]', null, array('size' => '30', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common')));
+      echo ' ' . submit_tag(__('Search', null, 'common'), 'title = ' . __('Searches for ID, subject and tags', null, 'common'));
+    ?>
+  </li>
+</ul>
   
   
 <h2><?php echo __('Actions', null, 'common') ?>:</h2>
@@ -37,17 +49,7 @@
 </ul>
   
 <?php /*
-<h2><?php echo __('Search', null, 'common') ?>:</h2>
-<?php echo ull_reqpass_form_tag(array('action' => 'tabular'), array('class' => 'inline')); ?>
-<ul>
-  <li>
-    <?php
-      echo __('Quick search', null, 'common') . ': ';
-      echo input_tag('flow_search', null, array('size' => '30', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common')));
-      echo ($app_slug) ? input_hidden_tag('app', $app_slug) : '';
-      echo ' ' . submit_tag(__('Search', null, 'common'), 'title = ' . __('Searches for ID, subject and tags', null, 'common'));
-    ?>
-  </li>
+
   <li>
     <?php
       $c = new Criteria();

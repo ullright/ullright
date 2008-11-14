@@ -45,7 +45,7 @@ class BaseullFlowActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
-      //TODO: req_pass redirect
+      $this->ull_reqpass_redirect();
     }
 
     $this->getAppfromRequest();
@@ -1194,23 +1194,12 @@ class BaseullFlowActions extends ullsfActions
     $q = UllFlowDocTable::queryAccess($q, $this->app);
   
 
-    
-//    if ($search = $this->filter_form->getValue('search'))
-//    {      
-//      $cols = $this->generator->getTableConfig()->getSearchColumnsAsArray();
-//      $columnsConfig = $this->generator->getColumnsConfig();
-//      
-//      foreach ($cols as $key => $col)
-//      {
-//        if (isset($columnsConfig[$col]['translation']))
-//        {
-//          $cols[$key] = 'Translation.' . $col;
-//        }
-//      }
-////      var_dump($cols);
-////      die;
-//      ullCoreTools::doctrineSearch($q, $search, $cols);
-//    }
+    // search 
+    if ($search = $this->filter_form->getValue('search'))
+    { 
+      $cols = array('id', 'title');     
+      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
+    }
     
     // order
     $this->order = $this->getRequestParameter('order', 'created_at');
