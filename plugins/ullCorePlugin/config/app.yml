@@ -1,5 +1,7 @@
 # default values
+
 all:
   # This is the default language of the App. Don't change it
   # If you want to define the default Browser language ... TODO
-  base_default_language:   en
+  base_default_language:   en  
+

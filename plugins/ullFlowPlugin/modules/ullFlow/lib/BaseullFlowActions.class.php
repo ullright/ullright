@@ -50,6 +50,7 @@ class BaseullFlowActions extends ullsfActions
 
     $this->getAppfromRequest();
     $this->generator = new ullFlowGenerator($this->app);
+    
     $docs = $this->getFilterFromRequest();
     $this->generator->buildForm($docs);
     
@@ -1252,6 +1253,13 @@ class BaseullFlowActions extends ullsfActions
 //    printQuery($q->getQuery());
 //    var_dump($q->getParams());
 //    die;
+
+    $this->pager = new Doctrine_Pager(
+      $q, 
+      $this->getRequestParameter('page', 1),
+      sfConfig::get('app_pager_max_per_page')
+    );
+    $docs = $this->pager->execute();    
     
     $rows = $q->execute();
     

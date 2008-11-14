@@ -1,6 +1,6 @@
 # default values
 all:
-  theme:         ullThemeNG
+  theme:            ullThemeNG
   
   base:
     default_language: en
@@ -18,4 +18,7 @@ all:
     function: default      
 
   tags:
-    limit:   16
+    limit:          16
+    
+  pager:
+    max_per_page:   50

@@ -1,7 +1,4 @@
-
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
-
-<?php echo link_to('foo', array('module' => 'ullFlow', 'action' => 'list', 'filter' => array('search' => 'foobar'))) ?>
 
 <?php // detect empty table_tool ?>
 <?php if (!$generator->getRow()->isModified()): ?>
@@ -27,6 +24,11 @@
 	</form>	
 	
 
+<!-- pager: num of results -->
+
+<?php include_partial('ullTableTool/ullPagerTop',
+        array('pager' => $pager)
+      ); ?> 
 
 
   <table class='result_list'>
