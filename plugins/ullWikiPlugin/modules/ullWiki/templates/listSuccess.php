@@ -31,7 +31,7 @@
 <br />
 
 <?php include_partial('ullTableTool/ullPagerTop',
-        array('pager' => $ullwiki_pager)
+        array('pager' => $pager)
       ); ?>  
 
 
@@ -49,16 +49,16 @@
 <br />
  
 
-<?php foreach ($ullwiki_pager->getResults() as $ullwiki): ?>
+<?php foreach ($docs as $doc): ?>
     <?php include_component('ullWiki', 'ullWikiHeader', array(
-      'ullwiki' => $ullwiki
+      'ullwiki' => $doc
 //      ,'cursor' => $cursor
     )); ?>
   <?php //++$cursor;/?>
 <?php endforeach; ?>
 
 <?php include_partial('ullTableTool/ullPagerBottom',
-        array('pager' => $ullwiki_pager)
+        array('pager' => $pager)
       ); ?> 
 
 <!-- Action row -->

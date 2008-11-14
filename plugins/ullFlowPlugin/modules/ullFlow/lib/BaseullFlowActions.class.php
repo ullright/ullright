@@ -1261,12 +1261,10 @@ class BaseullFlowActions extends ullsfActions
     );
     $docs = $this->pager->execute();    
     
-    $rows = $q->execute();
-    
 //    var_dump($rows->toArray());
 //    die;
     
-    return ($rows->count()) ? $rows : new UllFlowDoc;
+    return ($docs->count()) ? $docs : new UllFlowDoc;
   }  
   
   protected function getDocFromRequestOrCreate()

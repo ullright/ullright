@@ -52,7 +52,8 @@ class BaseullWikiActions extends ullsfActions
 
     $this->breadcrumbForList();
 
-    $this->ullwiki_pager = $this->getFilterFromRequest();
+//    $this->ullwiki_pager = $this->getFilterFromRequest();
+    $this->docs = $this->getFilterFromRequest();
   }
 
 
@@ -319,12 +320,18 @@ class BaseullWikiActions extends ullsfActions
       $q->addWhere($query_subject . ' OR ' . $query_tags . ($query_body!=''?' OR ':'') . $query_body);
     }
 
-    $ullwiki_pager = new sfDoctrinePager('ullWiki', 25);
-    $ullwiki_pager->setPage($this->getRequestParameter('page', 1));
-    $ullwiki_pager->setQuery($q);
-    $ullwiki_pager->init();
+    $this->pager = new Doctrine_Pager(
+      $q, 
+      $this->getRequestParameter('page', 1),
+      sfConfig::get('app_pager_max_per_page')
+    );
+    $docs = $this->pager->execute();
+    
+    return ($docs->count()) ? $docs : new UllFlowDoc;
+    
+//    $ullwiki_pager->init();
 
-    return $ullwiki_pager;
+//    return $ullwiki_pager;
   }
 
 
