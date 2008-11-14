@@ -17,7 +17,7 @@ $b
 
 $b
   ->diag('multi app list')
-  ->click('List')
+  ->click('All entries')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')

@@ -9,7 +9,7 @@
 <h4><?php echo __('Search', null, 'common'); ?></h4>
 <ul>
   <li>
-    <?php echo ull_reqpass_form_tag(array('action' => 'list')); ?>
+    <?php echo ull_form_tag(array('action' => 'list')); ?>
 
       <?php echo $form['search']->render() ?>
       &nbsp;

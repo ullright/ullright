@@ -14,7 +14,7 @@
 <?php endif ?>
 
 <h2><?php echo __('Search', null, 'common') ?>:</h2>
-<?php echo form_tag('ullFlow/list' . ($app_slug ? '?app=' . $app->slug : ''), array('class' => 'inline')); ?>
+<?php echo ull_form_tag(array('action' => 'list'), array('class' => 'inline')); ?>
 <ul>
   <li>
     <?php
@@ -26,27 +26,36 @@
 </ul>
   
   
-<h2><?php echo __('Actions', null, 'common') ?>:</h2>
-<ul>
-  <?php if ($app_slug): ?>
+<?php if ($app_slug): ?>  
+  <h2><?php echo __('Actions', null, 'common') ?>:</h2>
+  <ul>
     <li>
       <?php 
         echo ull_link_to(__(
-          'Create %1%', array('%1%' => $app->doc_label))
-          , 'ullFlow/create?app=' . $app_slug
+          'Create %1%', array('%1%' => $app->doc_label)),
+          array('action' => 'create')
         );
       ?>
-    </li>
-  <?php endif ?>
-  <li>
-    <?php 
-      echo ull_link_to(__(
-        'List', null, 'common')
-        , 'ullFlow/list' . ($app_slug ? '?app=' . $app_slug : '')
-      );
-    ?>
-  </li>    
+    </li>   
+  </ul>
+<?php endif ?>  
+
+
+<h2><?php echo __('Queries', null, 'common') ?>:</h2>
+
+<ul>
+  <li><?php echo ull_link_to(__('All entries'), array('action' => 'list')) ?></li>
+  <li><?php echo ull_link_to(__('Entries created by me'), array('action' => 'list', 'query' => 'by_me')) ?></li>
+  <li><?php echo ull_link_to(__('Entries assigned to me'), array('action' => 'list', 'query' => 'to_me')) ?></li>
 </ul>
+
+<?php
+  if (class_exists('UllFlowCustomQueries')) {
+    $u = new UllFlowCustomQueries();
+    echo $u->listQueries();
+  }
+?>
+
   
 <?php /*
 
@@ -72,21 +81,7 @@
 </form>
 
 
-<h2><?php echo __('Queries', null, 'common') ?>:</h2>
 
-<ul>
-  <li><?php echo link_to(__('All entries'), 'ullFlow/list?foo=bar' . $app_param) ?></li>
-  <li><?php echo link_to(__('Last changed entries'), 'ullFlow/list?order=updated_at&order_dir=desc' . $app_param) ?></li>
-  <li><?php echo link_to(__('Entries created by me'), 'ullFlow/list?query=by_me' . $app_param) ?></li>
-  <li><?php echo link_to(__('Entries assigned to me'), 'ullFlow/list?query=to_me' . $app_param) ?></li>
-</ul>
-
-<?php
-  if (class_exists('UllFlowCustomQueries')) {
-    $u = new UllFlowCustomQueries();
-    echo $u->listQueries();
-  }
-?>
 
 <h2><?php echo __('Admin', null, 'common') ?>:</h2>
 <ul>

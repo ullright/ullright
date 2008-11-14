@@ -21,7 +21,7 @@ $b
   ->responseContains('Trouble ticket tool')
   ->responseContains('Todo list')
   ->responseContains('Quick search')
-  ->responseContains('List')
+  ->responseContains('All entries')
 ;  
 
 $b
@@ -32,7 +32,7 @@ $b
   ->isRequestParameter('action', 'index')
   ->responseContains('Application Trouble ticket tool')
   ->responseContains('Quick search')  
-  ->click('List')
+  ->click('All entries')
 ;
 
 $b
@@ -166,6 +166,9 @@ $b
 //  ->setField('fields[my_date]', "2001-01-01 01:01:01")  
 ;
 
+
+
+
 $b
   ->diag('quick search')
   ->get('ullFlow/index')
@@ -179,4 +182,25 @@ $b
   ->checkResponseElement('table > tbody > tr', 2) // number of rows
   ->checkResponseElement('tbody > tr > td + td + td + td', 'My first thing todo')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
+;
+
+$b
+  ->diag('list: named queries: to me')
+  ->get('ullFlow/index')
+  ->click('Entries created by me')
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('query', 'by_me')
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second thing todo')
+;
+
+$b
+  ->diag('list: named queries: by me')
+  ->get('ullFlow/index')
+  ->click('Entries assigned to me')
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('query', 'to_me')
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first trouble ticket')
 ;

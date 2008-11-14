@@ -23,18 +23,14 @@ class BaseullFlowActions extends ullsfActions
     
     $this->breadcrumbForIndex();
     
-    $this->app_slug = $this->getRequestParameter('app');
-    if ($this->app_slug) 
+    if ($this->app_slug = $this->getRequestParameter('app'))  
     {
-      $this->app      = UllFlowAppTable::findBySlug($this->app_slug);
+      $this->app = UllFlowAppTable::findBySlug($this->app_slug);
       $this->breadcrumbTree->add($this->app->label);
-      $this->app_param = '&app=' . $this->app_slug;
     } 
     else 
     {
-      $c = new Criteria();
       $this->apps = Doctrine::getTable('UllFlowApp')->findAll();
-      $this->app_param = '';
     }
   }
 
@@ -1182,25 +1178,71 @@ class BaseullFlowActions extends ullsfActions
     $this->filter_form = new ullFlowFilterForm;
     $this->filter_form->bind($this->getRequestParameter('filter'));
     
+    $this->ull_filter = new ullFilter();
+    
+    $userId  = $this->getUser()->getAttribute('user_id');
+    
     $q = new Doctrine_Query;
     $q->select('x.*, v.*');
     $q->from('UllFlowDoc x, x.UllFlowValues v');
 
-    if ($this->app)
-    {
-      $q->where('ull_flow_app_id = ?', $this->app->id);
-    }    
-    
-
-    $q = UllFlowDocTable::queryAccess($q, $this->app);
-  
-
-    // search 
+    // search has to be the first "where" part, because it uses "or" 
     if ($search = $this->filter_form->getValue('search'))
-    { 
+    {
       $cols = array('id', 'title');     
       $q = ullCoreTools::doctrineSearch($q, $search, $cols);
     }
+
+    // app
+    if ($this->app)
+    {
+      $q->addWhere('ull_flow_app_id = ?', $this->app->id);
+      
+      $this->ull_filter->add(
+        'app',
+        __('Application') . ': ' . $this->app->label
+      );      
+    }    
+    
+    // access
+    $q = UllFlowDocTable::queryAccess($q, $this->app);
+  
+
+    // 'named' queries
+    if ($query = $this->getRequestParameter('query')) 
+    {
+      switch($query) 
+      {
+        case('by_me'):
+          $q->addWhere('x.creator_user_id = ?', $userId);
+          $this->ull_filter->add(
+            'query',
+            __('Query', null, 'common') . ': ' . __('Entries created by me')
+          );
+          break;
+        case('to_me'):
+          $q->addWhere('x.assigned_to_ull_entity_id = ?', $userId);
+          $this->ull_filter->add(
+            'query',
+            __('Query', null, 'common') . ': ' . __('Entries assigned to me')
+          );
+          break;          
+////          $c->setDistinct(true) ;
+////          $c->addJoin(UllFlowDocPeer::ASSIGNED_TO_ULL_GROUP_ID, UllUserGroupPeer::ULL_GROUP_ID, Criteria::LEFT_JOIN);
+////          $cton_user = $c->getNewCriterion
+////          $cton_group = $c->getNewCriterion(UllUserGroupPeer::ULL_USER_ID, $user_id);
+////          $cton_user->addOr($cton_group);
+////          $c->add($cton_user);
+//          $c->add(UllFlowDocPeer::ASSIGNED_TO_ULL_USER_ID, $user_id);
+//          $this->ull_filter->add(
+//            'query'
+//            , __('Query', null, 'common') . ': ' . __('Entries assigned to me')
+//          );
+//          break;
+      }
+    }       
+    
+
     
     // order
     $this->order = $this->getRequestParameter('order', 'created_at');
@@ -1254,6 +1296,7 @@ class BaseullFlowActions extends ullsfActions
 //    var_dump($q->getParams());
 //    die;
 
+    
     $this->pager = new Doctrine_Pager(
       $q, 
       $this->getRequestParameter('page', 1),

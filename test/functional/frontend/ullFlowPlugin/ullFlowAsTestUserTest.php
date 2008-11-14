@@ -17,7 +17,7 @@ $b
 
 $b
   ->diag('list access rights as test user')
-  ->click('List')
+  ->click('All entries')
 ;
 
 $b

@@ -17,7 +17,7 @@ $b
 
 $b
   ->diag('combinend list access rights as helpdesk user')
-  ->click('List')
+  ->click('All entries')
   ->diag('list - content')
   ->checkResponseElement('table > tbody > tr', 2) // number of rows
   // read access because user is member of "Trouble ticket tool - global read access" group 
@@ -30,7 +30,7 @@ $b
   ->diag('app specific list access rights as helpdesk user')
   ->click('Workflows')
   ->click('Trouble ticket tool')
-  ->click('List')
+  ->click('All entries')
   ->diag('list - content')
   ->checkResponseElement('table > tbody > tr', 2) // number of rows
   // read access because user is member of "Trouble ticket tool - global read access" group 

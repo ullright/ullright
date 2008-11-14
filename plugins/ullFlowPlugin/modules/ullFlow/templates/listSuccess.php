@@ -1,10 +1,12 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumbTree->getHtml(ESC_RAW) ?>
+
+<?php echo $ull_filter->getHtml(ESC_RAW) ?>
 
 <?php // detect empty table_tool ?>
 <?php if (!$generator->getRow()->isModified()): ?>
 
 	<!-- Action row -->
-	<?php echo form_tag('ullFlow/list' . (isset($app) ? '?app=' . $app->slug : '')); ?>
+	<?php echo ull_form_tag(); ?>
 	
 	<ul class='ull_action'>
 	  
@@ -29,7 +31,7 @@
 <?php include_partial('ullTableTool/ullPagerTop',
         array('pager' => $pager)
       ); ?> 
-
+<br />
 
   <table class='result_list'>
   

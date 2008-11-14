@@ -19,9 +19,9 @@ class ullFilter
  * @param none
  * @return none
  */ 
-  public function __construct() {    
-  }  
-  
+//  public function __construct() 
+//  {    
+//  }  
 
 /**
  * Add a filter setting
@@ -30,16 +30,19 @@ class ullFilter
  * @param internal_uri  optional, internal symfony url
  * @return none
  */ 
-  public function add($request_param, $name) {
+  public function add($request_param, $name) 
+  {
     $this->filters[$request_param] = $name;
   }
   
 
 /**
- * Return the array
+ * Return the array of filters
  * @return array
  */ 
-  public function getFilters() {
+  public function getFilters() 
+  {
+    
     return $this->filters;
   }
   
@@ -47,14 +50,14 @@ class ullFilter
  * Return html filter status row
  * @return string
  */
-  public function getHtml() {
-    
+  public function getHtml() 
+  {
     if ($this->filters) {
       $return = '<div class="ull_filter">';
       
       $return .= __('Filter settings') . ': ';
       
-      $return .= "<ol>\n";
+      $return .= "<ul>\n";
       
 //      ullCoreTools::printR($this->filters);
       
@@ -65,7 +68,7 @@ class ullFilter
           $return .= ull_reqpass_icon(array($request_param => ''), 'delete');
           $return .= '</li>'; 
       }
-      $return .= '</ol>';
+      $return .= '</ul>';
       $return .= '</div>';
       
       return $return;
@@ -73,5 +76,3 @@ class ullFilter
   }   
   
 }
-
-?>

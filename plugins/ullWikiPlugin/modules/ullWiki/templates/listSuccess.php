@@ -11,7 +11,7 @@
 <?php //weflowTools::printR($sf_request); ?>
 
 <?php
-     echo ull_reqpass_form_tag(array('page' => '', 'search' => ''),
+     echo ull_form_tag(array('page' => '', 'search' => ''),
                                array('class' => 'inline',
                                      'name' => 'ull_wiki_search_form'));
 ?>

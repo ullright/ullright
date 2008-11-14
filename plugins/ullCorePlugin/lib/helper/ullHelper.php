@@ -482,27 +482,22 @@ function ull_submit_tag($name, $options = array()) {
 
 /**
  * Enhancement of form_tag() helper 
- * Get current request params, serialize them and pass them using a hidden field
+ * supports giving a merge_array instead of a symfony url 
  *
- * @param merge_array array     array with params to add, remove or overwrite (eg. 'page' => 2)
- * @param form_options array    array containing html options for the <form> tag
+ * @param mixed url             symfony url or array with params to add, remove or overwrite (eg. 'page' => 2)
+ * @param array form_options    array containing html options for the <form> tag
  * @return string               html form tag and hidden field
  */
 
-function ull_reqpass_form_tag($merge_array = array(), $form_options = array()) {
+function ull_form_tag($url = array(), $form_options = array()) 
+{
+  if (is_array($url)) 
+  {
+    $params = _ull_reqpass_initialize($url);  
+    $url = _ull_reqpass_build_url($params);
+  }
   
-  $params = _ull_reqpass_initialize($merge_array);
-  
-//  ullCoreTools::printR($params);
-  
-  $base_link = _ull_reqpass_build_base_url($params);
-
-  echo '
-
-<form action="'.url_for($base_link).'" method="post" '.ull_tag_options(ull_parse_attributes($form_options)).'>
-<input type="hidden" name="ull_reqpass" id="ull_reqpass" value="'.htmlentities(serialize($params)).'" />
-
-';
+  return form_tag($url, $form_options);
 }
 
 
@@ -610,7 +605,7 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
  */
 
 function _ull_reqpass_build_url($params) {
-
+  
   // module
   $url = $params['module'];
   unset($params['module']);
