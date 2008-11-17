@@ -55,15 +55,15 @@ abstract class ullGenerator
     $this->buildColumnsConfig();
   }
 
-//  /**
-//   * Returns true if the current form has some associated i18n objects.
-//   *
-//   * @return Boolean true if the current form has some associated i18n objects, false otherwise
-//   */
-//  public function isI18n()
-//  {
-//    return $this->rows[0]->getTable()->hasTemplate('Doctrine_Template_I18n');
-//  }  
+  /**
+   * Returns true if the current form has some associated i18n objects.
+   *
+   * @return Boolean true if the current form has some associated i18n objects, false otherwise
+   */
+  public function isI18n()
+  {
+    return $this->rows[0]->getTable()->hasTemplate('Doctrine_Template_I18n');
+  }  
   
   /**
    * set default access
@@ -230,7 +230,14 @@ abstract class ullGenerator
       $this->rows[] = $rows;
     }    
     
-    $cultures = self::getDefaultCultures();
+    if ($this->isI18n())
+    {
+      $cultures = self::getDefaultCultures();
+    }
+    else
+    {
+      $cultures = array();
+    }
     
     foreach ($this->rows as $key => $row) 
     {
@@ -242,6 +249,7 @@ abstract class ullGenerator
           $ullMetaWidgetClassName = $columnConfig['metaWidget'];
           $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
           
+          // label
           if (isset($columnConfig['translation']))
           { 
             foreach ($cultures as $culture)

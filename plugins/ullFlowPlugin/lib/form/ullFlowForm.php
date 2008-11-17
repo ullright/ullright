@@ -66,8 +66,13 @@ class ullFlowForm extends ullGeneratorForm
         $this->object->$column = $values[$column];
       }
     }
-    
-    $this->object->assigned_to_ull_entity_id = 1;
+
+    // TODO: this belongs into the model!
+    if (!$this->object->assigned_to_ull_entity_id)
+    {
+      $this->object->assigned_to_ull_entity_id = 
+        sfContext::getInstance()->getUser()->getAttribute('user_id');
+    }
     
     return $this->object;
   }

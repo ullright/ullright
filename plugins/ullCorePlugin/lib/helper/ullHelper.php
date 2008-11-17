@@ -6,7 +6,7 @@
 
 //use_helper('Form');
 
-sfLoader::loadHelpers(array('Date', 'Form', 'Tag', 'Url'));
+sfLoader::loadHelpers(array('Date', 'Form', 'Javascript', 'Tag', 'Url'));
 
 
 /**
@@ -444,39 +444,54 @@ function _ull_to_function($name = 'link', $function, $options = array(), $type =
 
 
 /**
- * helper for display a link with javascript or submit button without js support
+ * enhancement of submit_tag() helper 
+ * @see submit_tag()
+ * 
+ * adds an option to display a link instead of a button (with javascript)
+ * supports graceful degradation without javascript (displays a submit button)
  *  
  * options:
- *   display_as_link  (boolean) true for show a link if js in enabled, false for show submit button
- *   name             (string)  name/id of field
+ *   boolean display_as_link  displays a link instead of a button if javascript is available
+ *   string name              the tag's name attribute
  *    
  *
- * @param name string         name to display
- * @param options mixed       string or array of options
- * @return string             html
+ * @param string $value       field value (title of submit button)
+ * @param array $options      array of options
+ * 
+ * @return string XHTML compliant <input> tag with type="submit"
  */
 
-function ull_submit_tag($name, $options = array()) {
+function ull_submit_tag($value = 'Save changes', $options = array()) {
 	
-  if (!isset($options['name'])) {
-    throw new InvalidArgumentException('Option name must be supplied');
-  }
-	if (!isset($options['display_as_link'])) {
-		throw new InvalidArgumentException('Option display_as_link must be supplied');
+	if (isset($options['display_as_link']) && !isset($options['name'])) 
+	{
+		throw new InvalidArgumentException('option "display_as_link" requires option "name"');
 	}
 
   //js not enabled or not a link
-	if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript', false) || $options['display_as_link'] == false) {
-		return submit_tag($name, array('name' => $options['name']));
-	} else {
-		return input_hidden_tag($options['name'], 0).
-		  javascript_tag('
-		    function do_submit_save_only() {
-		      document.getElementById("'.$options['name'].'").value = 1;
-		      document.form1.submit();
-		    }
-		  ').
-		  ull_link_to_function($name, 'do_submit_save_only()');
+	if (isset($options['display_as_link']) &&
+	   sfContext::getInstance()->getUser()->getAttribute('has_javascript'))
+	{
+	  $js_function_name = 'submit_' . $options['name'] . '()'; 
+	  
+    $return = input_hidden_tag('submit_' . $options['name']) . "\n";
+    $return .= javascript_tag('function ' . $js_function_name . ' 
+{
+  document.getElementById("submit_' . $options['name'] . '").value = 1;
+  document.form1.submit();
+}') . "\n"; 
+    
+    unset($options['name']);
+    unset($options['display_as_link']);
+    $return .= ull_link_to_function($value, $js_function_name, $options) . "\n";
+
+    return $return;
+	}
+	else
+	{
+	  unset($options['display_as_link']);
+	  
+		return submit_tag($value, $options);
 	}
 }
 

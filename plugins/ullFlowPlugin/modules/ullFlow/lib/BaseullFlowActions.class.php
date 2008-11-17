@@ -374,7 +374,6 @@ class BaseullFlowActions extends ullsfActions
   
   public function executeEdit($request)
   {
-    
     $this->checkAccess('Masteradmins');
 
     $this->refererHandler = new refererHandler();  
@@ -1310,6 +1309,10 @@ class BaseullFlowActions extends ullsfActions
     return ($docs->count()) ? $docs : new UllFlowDoc;
   }  
   
+  /**
+   * Gets or creates a UllFlowDocObject according to the given request param
+   *
+   */
   protected function getDocFromRequestOrCreate()
   {
     if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) {
