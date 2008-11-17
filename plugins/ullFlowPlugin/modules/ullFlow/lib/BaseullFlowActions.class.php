@@ -387,6 +387,14 @@ class BaseullFlowActions extends ullsfActions
     {
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
+//        var_dump($request->getParameterHolder()->getAll());
+//        die;
+        
+        if ($request->getParameter('submit_save_only')) 
+        {
+          return $this->redirect('ullFlow/edit?doc=' . $this->doc->id);
+        }
+        
         $referer = $this->refererHandler->getRefererAndDelete();
         $referer = ($referer) ? $referer : $this->getRefererFallbackURI();
         $this->redirect($referer);

@@ -132,42 +132,6 @@ $b
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td', '2001-01-01 01:01:01')
 ;
 
-$b
-  ->diag('create with missing title and invalid email')
-  ->click('Create')
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullFlow')
-  ->isRequestParameter('action', 'create')
-  ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('table tr', 3) // number of displayed fields
-  ->setField('fields[my_email]', 'foobar')
-  ->click('save')
-;
-
-$b
-  ->diag('check validation errors and create with correct values')
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullFlow')
-  ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('tr > td + td + td > ul > li', 'Required.')
-  ->checkResponseElement('tr + tr + tr > td + td + td > ul > li', 'Invalid.')
-  ->setField('fields[my_title]', 'This is my shiny little title')
-  ->setField('fields[my_date]', "2001-01-01 01:01:01")    
-  ->setField('fields[my_email]', 'bender@ull.at')  
-//  ->click('save')
-//  
-////  ->isRedirected()
-////  ->isRequestParameter('module', 'ullTableTool')
-////  ->isRequestParameter('action', 'edit')
-////  ->followRedirect()
-//
-//  ->setField('fields[my_title]', 'This is my shiny little title')
-//  ->setField('fields[my_date]', "2001-01-01 01:01:01")  
-;
-
-
-
 
 $b
   ->diag('quick search')
@@ -204,3 +168,47 @@ $b
   ->isRequestParameter('query', 'to_me')
   ->checkResponseElement('tbody > tr > td + td + td + td', 'My first trouble ticket')
 ;
+
+
+$b
+  ->diag('create with missing title and invalid email')
+  ->get('ullFlow/index')
+  ->click('Trouble ticket tool')
+  ->click('All entries')
+  ->click('Create')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->checkResponseElement('table tr', 3) // number of displayed fields
+  ->setField('fields[my_email]', 'foobar')
+  ->click('Save only')
+;
+
+$b
+  ->diag('check validation errors, correct them and click "save_only"')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->checkResponseElement('tr > td + td + td > ul > li', 'Required.')
+  ->checkResponseElement('tr + tr + tr > td + td + td > ul > li', 'Invalid.')
+  ->setField('fields[my_title]', 'This is my shiny little title')
+  ->setField('fields[my_date]', "2001-01-01 01:01:01")    
+  ->setField('fields[my_email]', 'bender@ull.at')  
+  ->click('Save only')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('app', 'trouble_ticket')  
+  ->checkResponseElement('tr > td + td > input[value="This is my shiny little title"]', true)
+  ->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
+  ->click('Save and close')
+  ->isRedirected()
+  ->followRedirect()  
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('app', 'trouble_ticket')  
+;
+

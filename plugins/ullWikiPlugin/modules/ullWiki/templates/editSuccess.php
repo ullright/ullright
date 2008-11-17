@@ -22,7 +22,7 @@
 
 <?php echo form_tag('ullWiki/edit?docid=' . $ullwiki->getDocid(), 
     array('id' => 'ull_wiki_form',
-          'name' => 'form1')) ?>
+          'name' => 'edit_form')) ?>
 
 <?php echo input_hidden_tag('save_mode', 'saveonly'); // saveonly, saveshow, ... ?>
 <?php //echo input_hidden_tag('return_url', $return_url); ?>
@@ -109,16 +109,16 @@ echo $form;
     <ul>
 
       <li>
-        <?php echo ull_submit_tag(__('Save only', null, 'common'), array('name' => 'submit_save_only', 'display_as_link' => true)); ?>
+        <?php echo ull_submit_tag(__('Save only', null, 'common'), array('name' => 'save_only', 'form_id' => 'edit_form', 'display_as_link' => true)); ?>
       </li>
 
       <li>
-		    <?php
-          echo ull_link_to(
+		    <?php // TODO: check why there's an exception thrown when creating an entry (KU)
+          /* echo ull_link_to(
             __('Cancel', null, 'common') 
             , $refererHandler->getReferer('edit')
             , 'ull_js_observer_confirm=true'
-          );
+          ); */
 		    ?>
       </li>
       <li>

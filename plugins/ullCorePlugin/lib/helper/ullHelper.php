@@ -452,7 +452,8 @@ function _ull_to_function($name = 'link', $function, $options = array(), $type =
  *  
  * options:
  *   boolean display_as_link  displays a link instead of a button if javascript is available
- *   string name              the tag's name attribute
+ *   string name              the tag's name attribute (required for option "display_as_link)
+ *   string form_id           the id of the form to submit (required for option "display_as_link)
  *    
  *
  * @param string $value       field value (title of submit button)
@@ -463,9 +464,9 @@ function _ull_to_function($name = 'link', $function, $options = array(), $type =
 
 function ull_submit_tag($value = 'Save changes', $options = array()) {
 	
-	if (isset($options['display_as_link']) && !isset($options['name'])) 
+	if (isset($options['display_as_link']) && (!isset($options['name']) || !isset($options['form_id']))) 
 	{
-		throw new InvalidArgumentException('option "display_as_link" requires option "name"');
+		throw new InvalidArgumentException('option "display_as_link" requires options "name" and "form_id"');
 	}
 
   //js not enabled or not a link
@@ -478,10 +479,11 @@ function ull_submit_tag($value = 'Save changes', $options = array()) {
     $return .= javascript_tag('function ' . $js_function_name . ' 
 {
   document.getElementById("submit_' . $options['name'] . '").value = 1;
-  document.form1.submit();
+  document.getElementById("' . $options['form_id'] . '").submit();
 }') . "\n"; 
     
     unset($options['name']);
+    unset($options['form_id']);
     unset($options['display_as_link']);
     $return .= ull_link_to_function($value, $js_function_name, $options) . "\n";
 
@@ -489,6 +491,7 @@ function ull_submit_tag($value = 'Save changes', $options = array()) {
 	}
 	else
 	{
+	  unset($options['form_id']);
 	  unset($options['display_as_link']);
 	  
 		return submit_tag($value, $options);

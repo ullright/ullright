@@ -1,7 +1,7 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 
-<?php echo form_tag('ullFlow/edit?app=' . $app->slug, 'id=ull_flow_form'); ?>
+<?php echo form_tag('ullFlow/edit?app=' . $app->slug, 'id=edit_form'); ?>
   
 <?php /* echo form_tag('ullFlow/update?app=' . $app->slug . (!empty($doc->id)) ? '&doc=' . $doc->id : ''
   , 'id=ull_flow_form'); */ ?>  
@@ -66,28 +66,22 @@
     <ul>
       
       <?php if ($generator->getDefaultAccess() == 'w'): ?>
-      
+
         <li>
         <?php 
-          echo submit_tag('save');
-        ?>
-        </li>      
-      
-        <li>
-        <?php 
-          echo link_to_function(
-            __('Save only', null, 'common')
-            , 'document.getElementById("ull_flow_action").value = "save_only"; document.getElementById("ull_flow_form").submit();'
+          echo ull_submit_tag(
+            __('Save only', null, 'common'),
+            array('name' => 'save_only', 'form_id' => 'edit_form', 'display_as_link' => true)
           ); 
         ?>
         </li>
         
         <li>  
         <?php 
-          echo link_to_function(
-            __('Save and close', null, 'common')
-            , 'document.getElementById("ull_flow_action").value = "save_close"; document.getElementById("ull_flow_form").submit();'
-          ) 
+          echo ull_submit_tag(
+            __('Save and close', null, 'common'),
+            array('name' => 'save_close', 'form_id' => 'edit_form', 'display_as_link' => true)
+          ); 
         ?>
         </li>
         
