@@ -28,6 +28,9 @@ abstract class BaseUllFlowApp extends UllRecord
     $this->hasMany('UllFlowColumnConfig as UllFlowColumnConfigs', array('local' => 'id',
                                                                         'foreign' => 'ull_flow_app_id'));
 
+    $this->hasMany('UllFlowStep as UllFlowSteps', array('local' => 'id',
+                                                        'foreign' => 'ull_flow_app_id'));
+
     $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label', 1 => 'doc_label')));
     $this->actAs($i18n0);
   }

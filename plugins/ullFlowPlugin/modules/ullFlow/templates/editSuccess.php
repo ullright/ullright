@@ -127,52 +127,50 @@
 </form>
 
 
-<?php /*
-  // == memories
-  if (!$new) {
-    echo '<br />';
-    echo '<h3>' . __('Progress') . ':</h3>';
-    echo '<ul>';
-    foreach ($memories as $memory) {
-      if ($user = UllUserPeer::retrieveByPK($memory->getCreatorUserId())) {
-          $name = $user->getShortName();
-        } else {
-          $name = __('Unknown user'); 
-        }
-      echo '<li>';
-      $ull_flow_action = UllFlowActionPeer::retrieveByPK($memory->getUllFlowActionId()); 
-      echo $ull_flow_action->__toString();
-      
-      // show assigned to
-      if ($ull_flow_action->getShowAssignedTo()) {
-        if ($group_id = $memory->getAssignedToUllGroupId()) {
-          echo ' ' . __('to') . ' ' . __('group') . ' ';
-          echo UllGroupPeer::retrieveByPK($group_id)->__toString();
-        } elseif ($user_id = $memory->getAssignedToUllUserId()) {
-  //        echo ' ' . __('to') . ' ';
-          echo ' ';
-          echo UllUserPeer::retrieveByPK($user_id)->getShortName();
-          echo ' ';
-        }
-      } 
-      echo ' ' . __('by') . ' ';
-      echo $name;
-      echo ' ' . __('at') . ' ';
-      echo ull_format_datetime($memory->getCreatedAt());
-      
-      if ($comment = $memory->getComment()) {
-        echo '<ul class="ull_flow_memory_comment"><li>' . __('Comment') . ': ' . $comment . '</li></ul>';
-      }
-      echo '</li>'; 
-    }
-    echo '</ul>';
-  }  
-?>
+<?php if ($doc->exists()): ?>
+  <br />
+  <h3><?php echo __('Progress')?></h3>
+  <ul class='ull_flow_memories'>
+    <?php foreach ($doc->UllFlowMemories as $memory): ?>
+      <li>
+        <?php /* $ull_flow_action = UllFlowActionPeer::retrieveByPK($memory->getUllFlowActionId()); 
+        echo $ull_flow_action->__toString(); */ ?>
+        
+        <?php /*// show assigned to
+        if ($ull_flow_action->getShowAssignedTo()) {
+          if ($group_id = $memory->getAssignedToUllGroupId()) {
+            echo ' ' . __('to') . ' ' . __('group') . ' ';
+            echo UllGroupPeer::retrieveByPK($group_id)->__toString();
+          } elseif ($user_id = $memory->getAssignedToUllUserId()) {
+    //        echo ' ' . __('to') . ' ';
+            echo ' ';
+            echo UllUserPeer::retrieveByPK($user_id)->getShortName();
+            echo ' ';
+          }
+        } 
+        */ ?>
+        <?php echo $memory->AssignedToUllEntity ?>
+        <?php echo __('by'); ?>
+        <?php echo $memory->Creator ?>
+        <?php echo __('at'); ?>
+        <?php echo ull_format_datetime($memory->created_at); ?>
+        
+        <?php if ($comment = $memory->comment): ?>
+          <ul class="ull_flow_memory_comment">
+            <li>
+              <?php echo __('Comment') . ': ' . $comment ?>
+            </li>
+          </ul>
+        <?php endif ?>
+      </li>
+    <?php endforeach ?>
+  </ul>
+<?php endif ?>
 
 
 <?php
-  echo ull_js_observer("ull_flow_form");
+//  echo ull_js_observer("ull_flow_form");
 //  ullCoreTools::printR($ull_form);
 ?>   
 
-<?php */ ?>
+<?php  ?>

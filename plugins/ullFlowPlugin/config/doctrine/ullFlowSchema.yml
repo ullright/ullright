@@ -78,6 +78,7 @@ UllFlowDoc:
       notnull: true
     assigned_to_ull_flow_step_id:
       type: integer
+      notnull: true
 #    priority:
 #      type: INTEGER
 #    deadline:
@@ -95,9 +96,14 @@ UllFlowDoc:
     UllFlowApp:
       foreignAlias: UllFlowDocs
       onDelete: CASCADE
+    UllFlowAction:
+      foreignAlias: UllFlowDocs      
     UllEntity:
       foreignAlias: UllFlowDocs
       local: assigned_to_ull_entity_id
+    UllFlowStep:
+      foreignAlias: UllFlowDocs
+      local: assigned_to_ull_flow_step_id      
 #      onDelete: CASCADE # TODO: test!
       
 UllFlowColumnConfig:
@@ -207,3 +213,76 @@ UllFlowMemory:
       class: UllEntity    
       foreignAlias: UllFlowMemories
       local: creator_ull_entity_id            
+
+UllFlowAction:
+  package: ullFlowPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label] 
+  columns:
+    # a slug is a distinguised name, which is 1:1 connected to the id.
+    slug:
+      type: varchar(32)
+      notnull: true
+    label:
+      type: varchar(32)
+      notnull: true    
+    status_only:
+      type: boolean
+    disable_validation:
+      type: boolean      
+    notify_creator:
+      type: boolean
+    notify_next:
+      type: boolean    
+    in_resultlist_by_default:
+      type: boolean
+    show_assigned_to:
+      type: boolean
+    comment_is_mandatory:
+      type: boolean
+      
+UllFlowStep:
+  package: ullFlowPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label]
+  columns: 
+    ull_flow_app_id:
+      type: integer
+      notnull: true
+    slug:
+      type: varchar(32)
+      notnull: true
+    label:
+      type: varchar(32)
+      notnull: true    
+    is_start:
+      type: boolean
+  relations:
+    UllFlowApp:
+      foreignAlias: UllFlowSteps
+    UllFlowAction:
+      refClass: UllFlowStepAction    
+    
+UllFlowStepAction:
+  package: ullFlowPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:    
+    ull_flow_step_id:
+      type: integer
+    ull_flow_action_id:
+      type: integer
+    options:
+      type: string(255)
+    sequence:
+      type: integer
+      

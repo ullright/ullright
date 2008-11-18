@@ -185,6 +185,7 @@ $b
   ->click('Save only')
 ;
 
+die;
 $b
   ->diag('check validation errors, correct them and click "save_only"')
   ->isStatusCode(200)
@@ -203,6 +204,7 @@ $b
   ->isRequestParameter('app', 'trouble_ticket')  
   ->checkResponseElement('tr > td + td > input[value="This is my shiny little title"]', true)
   ->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
+  ->checkResponseElement('ul.ull_flow_memories', true)
   ->click('Save and close')
   ->isRedirected()
   ->followRedirect()  

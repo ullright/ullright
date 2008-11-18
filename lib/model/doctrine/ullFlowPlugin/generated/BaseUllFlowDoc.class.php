@@ -13,7 +13,7 @@ abstract class BaseUllFlowDoc extends UllRecord
     $this->hasColumn('title', 'string', 255, array('type' => 'string', 'length' => '255'));
     $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('assigned_to_ull_entity_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-    $this->hasColumn('assigned_to_ull_flow_step_id', 'integer', null, array('type' => 'integer'));
+    $this->hasColumn('assigned_to_ull_flow_step_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
   }
 
   public function setUp()
@@ -23,8 +23,14 @@ abstract class BaseUllFlowDoc extends UllRecord
                                       'foreign' => 'id',
                                       'onDelete' => 'CASCADE'));
 
+    $this->hasOne('UllFlowAction', array('local' => 'ull_flow_action_id',
+                                         'foreign' => 'id'));
+
     $this->hasOne('UllEntity', array('local' => 'assigned_to_ull_entity_id',
                                      'foreign' => 'id'));
+
+    $this->hasOne('UllFlowStep', array('local' => 'assigned_to_ull_flow_step_id',
+                                       'foreign' => 'id'));
 
     $this->hasMany('UllFlowValue as UllFlowValues', array('local' => 'id',
                                                           'foreign' => 'ull_flow_doc_id'));

@@ -28,8 +28,10 @@ $t->begin('setValueByColumn() and getValueByColumn()');
 
 $t->begin('set() and get() for virtual columns');
   $doc->ull_flow_app_id = 1;
-  $doc->assigned_to_ull_entity_id = 1;
   $doc->title = 'My title';
+  $doc->ull_flow_action_id = 1;
+  $doc->assigned_to_ull_entity_id = 1;
+  $doc->assigned_to_ull_flow_step_id = 1;
   $doc->my_title = $doc->title;
   $doc->my_datetime = '2008-08-08 08:08:08';
   $doc->save();

@@ -241,16 +241,17 @@ function ull_link_to($name = 'link', $url = array(), $options = array()) {
  *   ull_js_observer_confirm  (boolean) 'true' for default msg or (string) a custom message
  *    
  *
- * @param name string         link name to display
- * @param url mixed           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
- * @param options mixed       string or array of options 
- * @return string             html link
+ * @param string name         link name to display
+ * @param mixed url           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
+ * @param array options       array of options 
+ * 
+ * @return string html
  */
 
-function ull_button_to($name = 'link', $url = array(), $options = array()) {
+function ull_button_to($name = 'link', $url = array(), $options = array()) 
+{
   
   return _ull_to($name, $url, $options, 'button');
-  
 }
 
 
@@ -266,16 +267,18 @@ function ull_button_to($name = 'link', $url = array(), $options = array()) {
  *   ull_js_observer_confirm  (boolean) 'true' for default msg or (string) a custom message
  *    
  *
- * @param name string         link name to display
- * @param url mixed           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
- * @param options mixed       string or array of options
- * @param type string         'link' or 'button' 
- * @return string             html link
+ * @param string name         link name to display
+ * @param mixed url           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
+ * @param mixed options       array or string of options
+ * @param string type         'link' or 'button'
+ *  
+ * @return string             html
  */
 
-function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'link') {
-  
-  if (is_array($url)) {
+function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'link') 
+{
+  if (is_array($url)) 
+  {
     $params = _ull_reqpass_initialize($url);  
     $url = _ull_reqpass_build_url($params);
   }
@@ -283,34 +286,38 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
   $options = _convert_options($options);
 
   // diable ull_js_observer if user has no javascript
-  if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript', false)) {
+  if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript')) 
+  {
   	unset($options['ull_js_observer_confirm']);
   }
 
   $action = sfContext::getInstance()->getActionName();
   // disable ull_js_observer if action is not edit or create
-  if (!$action != 'create' && $action != 'edit') {
+  // this is an ugly workaround to at least do graceful degradation for all other actions
+  if (!in_array($action, array('create', 'edit'))) 
+  {
     unset($options['ull_js_observer_confirm']);
   }
 
   // disable ull_js_observer for target='_blank' (makes no sense)
-  if (isset($options['target']) && $options['target'] == '_blank') {
+  if (isset($options['target']) && $options['target'] == '_blank') 
+  {
     unset($options['ull_js_observer_confirm']);    
   }
  
-  if (isset($options['ull_js_observer_confirm'])) {
-    
-//    ullCoreTools::printR($html_options['ull_js_observer_confirm']);
-//    sfContext::getInstance()->getLogger()->info('xxx: '.gettype($options['ull_js_observer_confirm']));
-
+  if (isset($options['ull_js_observer_confirm'])) 
+  {
     // use default msg if no custom msg
-    if (is_bool($options['ull_js_observer_confirm'])) {
+    if (is_bool($options['ull_js_observer_confirm'])) 
+    {
       $msg = __('You will loose unsaved changes! Are you sure?', null, 'common');
-    } else {
+    } 
+    else 
+    {
       $msg = $options['ull_js_observer_confirm'];
     }
 
-    $action = 'return document.location.href="' . url_for($url) . '";';
+    $call = 'return document.location.href="' . url_for($url) . '";';
 
     // check for the existence of the ull_js_observer hidden input tag and 
     //   do the check only if the tag exists (= check if we have a page with a form)
@@ -318,12 +325,12 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
         'if (document.getElementById("ull_js_observer_initial_state") != null'
       . '   && ull_js_observer_detect_change()) { '
       . '   if (confirm("' . $msg . '")) { '
-      . '     ' . $action . 'return false;'
+      . '     ' . $call . 'return false;'
       . '   } else {'
       . '     return false;'
       . '   }'
       . '} else {'
-      . '   ' . $action . 'return false;'
+      . '   ' . $call . 'return false;'
       . '}'
     ;
 
@@ -331,7 +338,16 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
     
     return call_user_func($type . '_to_function', $name, $js_function, $options);
 
-  } else {
+  } 
+  else 
+  {
+    // graceful degradation for button_to in case of no javascript availabel
+    if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript') &&
+        $type == 'button')
+    {
+      return link_to($name, $url, $options);
+    }
+    
     return call_user_func($type . '_to', $name, $url, $options);
   }
   

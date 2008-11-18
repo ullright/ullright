@@ -63,25 +63,33 @@ UllFlowApp:
                     
 UllFlowDoc:
   ull_flow_doc_helpdesk1:
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_helpdesk    
     title:          My first trouble ticket
+    UllFlowAction:  ull_flow_action_create
     UllEntity:      admin_user
+    UllFlowStep:    ull_flow_step_doc_helpdesk1_creator
     Creator:        test_user
     created_at:     '2001-01-01 01:01:01'     
   ull_flow_doc_helpdesk2:
     UllFlowApp:     ull_flow_app_helpdesk
     title:          AAA My second trouble ticket
+    UllFlowAction:  ull_flow_action_create
     UllEntity:      helpdesk_group
+    UllFlowStep:    ull_flow_step_doc_helpdesk1_creator
   ull_flow_doc_todo1:
     UllFlowApp:     ull_flow_app_todo
     title:          My first thing todo
+    UllFlowAction:  ull_flow_action_create
     UllEntity:      test_user
+    UllFlowStep:    ull_flow_step_doc_todo1_creator
     Creator:        test_user
     created_at:     '2002-02-02 02:02:02'     
   ull_flow_doc_todo2:
     UllFlowApp:     ull_flow_app_todo
     title:          AAA My second thing todo
-    UllEntity:      test_group         
+    UllFlowAction:  ull_flow_action_create
+    UllEntity:      test_group
+    UllFlowStep:    ull_flow_step_doc_todo1_creator         
     
 UllFlowColumnConfig:
   ull_flow_column_config_helpdesk_title:
@@ -167,10 +175,166 @@ UllFlowValue:
     UllFlowColumnConfig: ull_flow_column_config_todo_title
     value:          AAA My second thing todo          
     
+
 UllFlowMemory:
   ull_flow_memory_doc_helpdesk1_1:
     UllFlowDoc:       ull_flow_doc_helpdesk1
     AssignedToUllEntity: admin_user
     comment:          My test comment
     CreatorUllEntity: test_group
+
+UllFlowStep:
+  ull_flow_step_doc_helpdesk1_creator:
+    Translation:
+      en:
+        label:        Creator
+      de:
+        label:        Ersteller
+    slug:             creator
+    UllFlowApp:       ull_flow_app_helpdesk
+    UllFlowAction:    [ull_flow_action_assign_to_user]
+    is_start:         true
+  ull_flow_step_doc_todo1_creator:
+    Translation:
+      en:
+        label:        Creator
+      de:
+        label:        Ersteller
+    slug:             creator
+    UllFlowApp:       ull_flow_app_todo
+    UllFlowAction:    [ull_flow_action_save]
+    is_start:         true    
         
+UllFlowAction:
+  ull_flow_action_create:
+    Translation:
+      en:
+        label:        Created
+      de:
+        label:        Erstellt
+    namespace:        ullFlow
+    slug:             create
+    status_only:      true
+    in_resultlist_by_default: true
+#  ull_flow_action_edit:
+#    Translation:
+#      en:
+#        label:       Edited
+#      de:
+#        label:       Bearbeitet
+#    namespace:       ullFlow
+#    slug:            edited
+#    status_only:     true
+#    in_resultlist_by_default: true
+  ull_flow_action_save_only:
+    Translation:
+      en:
+        label:        Edited
+      de:
+        label:        Bearbeitet
+    namespace:        ullFlow
+    slug:             save_only
+    status_only:      true
+    disable_validation: true    
+    in_resultlist_by_default: true
+  ull_flow_action_save_close:
+    Translation:
+      en:
+        label:        Edited
+      de:
+        label:        Bearbeitet
+    namespace:        ullFlow
+    slug:             save_close
+    status_only:      true
+    disable_validation: true
+    in_resultlist_by_default: true    
+  ull_flow_action_save:
+    Translation:
+      en:
+        label:       Saved
+      de:
+        label:       Gespeichert
+    namespace:       ullFlow
+    slug:            save
+    in_resultlist_by_default: true    
+  ull_flow_action_assign_to_user:
+    Translation:
+      en:
+        label:        Assigned to user
+      de:
+        label:        Zugewiesen an Benutzer
+    namespace:        ullFlow
+    slug:             assign_to_user
+    notify_next:      true
+    in_resultlist_by_default: true
+    show_assigned_to: true
+  ull_flow_action_assign_to_group:
+    Translation:
+      en:
+        label:        Assigned to group
+      de:
+        label:        Zugewiesen an Gruppe
+    namespace:        ullFlow
+    slug:             assign_to_group
+    notify_next:      true
+    in_resultlist_by_default: true
+    show_assigned_to: true    
+  ull_flow_action_close:
+    Translation:
+      en:
+        label:        Closed
+      de:
+        label:        Abgeschlossen
+    namespace:        ullFlow
+    slug:             close
+    notify_creator:   true
+  ull_flow_action_send:
+    Translation:
+      en:
+        label:        Sent
+      de:
+        label:        Gesendet
+    namespace:        ullFlow
+    slug:             send
+    notify_next:      true
+    in_resultlist_by_default: true
+  ull_flow_action_reopen:
+    Translation:
+      en:
+        label:        Reopened
+      de:
+        label:        Wiedereröffnet
+    namespace:        ullFlow
+    slug:             reopen
+    in_resultlist_by_default: true
+  ull_flow_action_approve:
+    Translation:
+      en:
+        label:        Approved
+      de:
+        label:        Genehmigt
+    namespace:        ullFlow
+    slug:             approve
+    notify_next:      true
+    in_resultlist_by_default: true
+  ull_flow_action_reject:
+    Translation:
+      en:
+        label:        Rejected
+      de:
+        label:        Abgelehnt
+    namespace:        ullFlow
+    slug:             reject
+    in_resultlist_by_default: true
+    comment_is_mandatory: true
+  ull_flow_action_return:
+    Translation:
+      en:
+        label:        Returned
+      de:
+        label:        Zurückgesendet
+    namespace:        ullFlow
+    slug:             return
+    notify_next:      true
+    in_resultlist_by_default: true
+                        
