@@ -15,6 +15,29 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     parent::setUp();
     
     $this->unshiftFilter(new UllFlowDocRecordFilter());
+  }
+
+  public function preInsert($event)
+  {
+    if (!$this->ull_flow_action_id)
+    {
+      $this->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findBySlug('save_only')->getFirst()->id;
+    }
+    
+    if (!$this->assigned_to_ull_entity_id)
+    {
+      $this->assigned_to_ull_entity_id = $this->getUser(); 
+    }
+
+    if (!$this->assigned_to_ull_flow_step_id)
+    {
+      $this->assigned_to_ull_flow_step_id = $this->UllFlowApp->getStartStep();
+    }
+  }
+  
+  public function preUpdate($event)
+  {
+    $this->preInsert($event);    
   }  
 
   /**
@@ -92,5 +115,16 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     
     return $return;
   }  
+  
+  /**
+   * get the ull_user_id of the currently logged in user, or '1' for the Master Admin user otherwhise
+   *
+   * @return int ull_user_id
+   */
+  protected function getUser()
+  {
+    
+    return sfContext::getInstance()->getUser()->getAttribute('user_id', 1);
+  }
   
 }

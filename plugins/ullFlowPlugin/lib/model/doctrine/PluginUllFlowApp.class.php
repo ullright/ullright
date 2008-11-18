@@ -15,5 +15,20 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
   {
     return $this->label;
   }
+  
+  /**
+   * Get the first UllFlowStep
+   *
+   * @return UllFlowStep
+   */
+  public function getStartStep()
+  {
+    $q = new Doctrine_Query;
+    $q->from('UllFlowStep s')
+      ->where('s.ull_flow_app_id = ?', $this->id)
+      ->addWhere('s.is_start = ?', true)
+    ;
+    return $q->execute()->getFirst();
+  }
 
 }

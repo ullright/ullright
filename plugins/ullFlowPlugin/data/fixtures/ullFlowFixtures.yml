@@ -67,7 +67,7 @@ UllFlowDoc:
     title:          My first trouble ticket
     UllFlowAction:  ull_flow_action_create
     UllEntity:      admin_user
-    UllFlowStep:    ull_flow_step_doc_helpdesk1_creator
+    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
     Creator:        test_user
     created_at:     '2001-01-01 01:01:01'     
   ull_flow_doc_helpdesk2:
@@ -75,13 +75,13 @@ UllFlowDoc:
     title:          AAA My second trouble ticket
     UllFlowAction:  ull_flow_action_create
     UllEntity:      helpdesk_group
-    UllFlowStep:    ull_flow_step_doc_helpdesk1_creator
+    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
   ull_flow_doc_todo1:
     UllFlowApp:     ull_flow_app_todo
     title:          My first thing todo
     UllFlowAction:  ull_flow_action_create
     UllEntity:      test_user
-    UllFlowStep:    ull_flow_step_doc_todo1_creator
+    UllFlowStep:    ull_flow_step_doc_todo_creator
     Creator:        test_user
     created_at:     '2002-02-02 02:02:02'     
   ull_flow_doc_todo2:
@@ -89,7 +89,7 @@ UllFlowDoc:
     title:          AAA My second thing todo
     UllFlowAction:  ull_flow_action_create
     UllEntity:      test_group
-    UllFlowStep:    ull_flow_step_doc_todo1_creator         
+    UllFlowStep:    ull_flow_step_doc_todo_creator         
     
 UllFlowColumnConfig:
   ull_flow_column_config_helpdesk_title:
@@ -184,7 +184,7 @@ UllFlowMemory:
     CreatorUllEntity: test_group
 
 UllFlowStep:
-  ull_flow_step_doc_helpdesk1_creator:
+  ull_flow_step_doc_helpdesk_creator:
     Translation:
       en:
         label:        Creator
@@ -194,7 +194,16 @@ UllFlowStep:
     UllFlowApp:       ull_flow_app_helpdesk
     UllFlowAction:    [ull_flow_action_assign_to_user]
     is_start:         true
-  ull_flow_step_doc_todo1_creator:
+  ull_flow_step_doc_helpdesk_xxx:
+    Translation:
+      en:
+        label:        XXX
+      de:
+        label:        XXX
+    slug:             xxx
+    UllFlowApp:       ull_flow_app_helpdesk
+    UllFlowAction:    [ull_flow_action_assign_to_user]
+  ull_flow_step_doc_todo_creator:
     Translation:
       en:
         label:        Creator
