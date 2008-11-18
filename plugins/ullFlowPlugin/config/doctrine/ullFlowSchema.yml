@@ -189,10 +189,10 @@ UllFlowMemory:
       notnull: true
     ull_flow_step_id:
       type: integer
-#      notnull: true                          
+      notnull: true                          
     ull_flow_action_id:
       type: integer
-#      notnull: true
+      notnull: true
     assigned_to_ull_entity_id:
       type: integer
       notnull: true
@@ -205,6 +205,10 @@ UllFlowMemory:
     UllFlowDoc:
       foreignAlias: UllFlowMemories
       onDelete: CASCADE  
+    UllFlowStep:
+      foreignAlias: UllFlowMemories
+    UllFlowAction:
+      foreignAlias: UllFlowMemories
     AssignedToUllEntity:
       class: UllEntity
       foreignAlias: UllFlowMemories

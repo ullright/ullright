@@ -6,6 +6,10 @@
 abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 {
 
+  protected
+    $memoryComment = ''
+  ;
+  
   /**
    * add Doctrine_Filter to handle virtual columns transparently
    *
@@ -17,29 +21,60 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->unshiftFilter(new UllFlowDocRecordFilter());
   }
 
+  /**
+   * pre insert record hook
+   * 
+   * set defaults
+   *
+   * @param unknown_type $event
+   */
   public function preInsert($event)
   {
-    if (!$this->ull_flow_action_id)
-    {
-      $this->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findBySlug('save_only')->getFirst()->id;
-    }
-    
-    if (!$this->assigned_to_ull_entity_id)
-    {
-      $this->assigned_to_ull_entity_id = $this->getUser(); 
-    }
-
-    if (!$this->assigned_to_ull_flow_step_id)
-    {
-      $this->assigned_to_ull_flow_step_id = $this->UllFlowApp->getStartStep();
-    }
+    $this->setDefaults();
   }
   
+  /**
+   * pre update record hook
+   *
+   * @param unknown_type $event
+   */  
   public function preUpdate($event)
   {
-    $this->preInsert($event);    
-  }  
+    $this->setDefaults();    
+  }    
+  
+  /**
+   * post insert record hook
+   * 
+   * automatically create a UllFlowMemory
+   *
+   * @param unknown_type $event
+   */
+  public function postInsert($event)
+  {
+    $this->createMemory(); 
+  }
+  
+  /**
+   * post update record hook
+   *
+   * @param unknown_type $event
+   */  
+  public function postUpdate($event)
+  {
+    $this->createMemory();    
+  }    
 
+  /**
+   * transparently set the UllFlowMemory comment
+   *
+   * @param string $value
+   */
+  public function setMemoryComment($value)
+  {
+    $this->memoryComment = $value;
+  }
+  
   /**
    * Set the value of a virtual column
    *
@@ -123,8 +158,63 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   protected function getUser()
   {
+    // check for symfony context (none for example for doctrine:data-load)
+    if (sfContext::hasInstance())
+    {
+      return sfContext::getInstance()->getUser()->getAttribute('user_id', 1);
+    }
+    else
+    {
+      return 1;
+    }
+  }
+  
+  /**
+   * Set Defaults
+   *
+   */
+  protected function setDefaults()
+  {
+    if (!$this->ull_flow_action_id)
+    {
+      $this->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findBySlug('save_only')->getFirst()->id;
+    }
     
-    return sfContext::getInstance()->getUser()->getAttribute('user_id', 1);
+    if (!$this->assigned_to_ull_entity_id)
+    {
+      $this->assigned_to_ull_entity_id = $this->getUser(); 
+    }
+
+    if (!$this->assigned_to_ull_flow_step_id)
+    {
+      $this->assigned_to_ull_flow_step_id = $this->UllFlowApp->getStartStep();
+    }
+
+    // create memory
+//    $this->UllFlowMemories[0]->ull_flow_step_id = $this->assigned_to_ull_flow_step_id;
+//    $this->UllFlowMemories[0]->ull_flow_action_id = $this->ull_flow_action_id;
+//    $this->UllFlowMemories[0]->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
+//    //TODO: has to be the previous assigned_to_ull_entity_id
+//    $this->UllFlowMemories[0]->creator_ull_entity_id = $this->getUser();
+//    $this->UllFlowMemories[0]->comment = $this->memoryComment;    
+    
+  }
+  
+  /**
+   * create UllFlowMemory entry
+   *
+   */
+  protected function createMemory()
+  {
+    $memory = new UllFlowMemory;
+    $memory->ull_flow_doc_id = $this->id;
+    $memory->ull_flow_step_id = $this->assigned_to_ull_flow_step_id;
+    $memory->ull_flow_action_id = $this->ull_flow_action_id;
+    $memory->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
+    //TODO: has to be the previous assigned_to_ull_entity_id
+    $memory->creator_ull_entity_id = $this->getUser();
+    $memory->comment = $this->memoryComment;
+    $memory->save();
   }
   
 }

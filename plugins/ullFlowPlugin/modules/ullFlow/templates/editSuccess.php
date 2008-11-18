@@ -133,23 +133,11 @@
   <ul class='ull_flow_memories'>
     <?php foreach ($doc->UllFlowMemories as $memory): ?>
       <li>
-        <?php /* $ull_flow_action = UllFlowActionPeer::retrieveByPK($memory->getUllFlowActionId()); 
-        echo $ull_flow_action->__toString(); */ ?>
-        
-        <?php /*// show assigned to
-        if ($ull_flow_action->getShowAssignedTo()) {
-          if ($group_id = $memory->getAssignedToUllGroupId()) {
-            echo ' ' . __('to') . ' ' . __('group') . ' ';
-            echo UllGroupPeer::retrieveByPK($group_id)->__toString();
-          } elseif ($user_id = $memory->getAssignedToUllUserId()) {
-    //        echo ' ' . __('to') . ' ';
-            echo ' ';
-            echo UllUserPeer::retrieveByPK($user_id)->getShortName();
-            echo ' ';
-          }
-        } 
-        */ ?>
-        <?php echo $memory->AssignedToUllEntity ?>
+        <?php echo $memory->UllFlowAction->label ?>
+        <?php if ($memory->UllFlowAction->show_assigned_to): ?>
+          <?php echo __('to') ?>
+          <?php echo $memory->AssignedToUllEntity ?>
+        <?php endif ?>
         <?php echo __('by'); ?>
         <?php echo $memory->Creator ?>
         <?php echo __('at'); ?>

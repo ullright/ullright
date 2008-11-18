@@ -26,6 +26,9 @@ abstract class BaseUllFlowAction extends UllRecord
     $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
                                                       'foreign' => 'ull_flow_action_id'));
 
+    $this->hasMany('UllFlowMemory as UllFlowMemories', array('local' => 'id',
+                                                             'foreign' => 'ull_flow_action_id'));
+
     $this->hasMany('UllFlowStep', array('refClass' => 'UllFlowStepAction',
                                         'local' => 'ull_flow_action_id',
                                         'foreign' => 'ull_flow_step_id'));

@@ -10,8 +10,8 @@ abstract class BaseUllFlowMemory extends UllRecord
     parent::setTableDefinition();
     $this->setTableName('ull_flow_memory');
     $this->hasColumn('ull_flow_doc_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-    $this->hasColumn('ull_flow_step_id', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer'));
+    $this->hasColumn('ull_flow_step_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('assigned_to_ull_entity_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('comment', 'string', 255, array('type' => 'string', 'length' => '255'));
     $this->hasColumn('creator_ull_entity_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
@@ -23,6 +23,12 @@ abstract class BaseUllFlowMemory extends UllRecord
     $this->hasOne('UllFlowDoc', array('local' => 'ull_flow_doc_id',
                                       'foreign' => 'id',
                                       'onDelete' => 'CASCADE'));
+
+    $this->hasOne('UllFlowStep', array('local' => 'ull_flow_step_id',
+                                       'foreign' => 'id'));
+
+    $this->hasOne('UllFlowAction', array('local' => 'ull_flow_action_id',
+                                         'foreign' => 'id'));
 
     $this->hasOne('UllEntity as AssignedToUllEntity', array('local' => 'assigned_to_ull_entity_id',
                                                             'foreign' => 'id'));

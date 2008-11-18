@@ -89,7 +89,8 @@ UllFlowDoc:
     title:          AAA My second thing todo
     UllFlowAction:  ull_flow_action_create
     UllEntity:      test_group
-    UllFlowStep:    ull_flow_step_doc_todo_creator         
+    UllFlowStep:    ull_flow_step_doc_todo_creator
+    memory_comment: Comment for my second thing todo         
     
 UllFlowColumnConfig:
   ull_flow_column_config_helpdesk_title:
@@ -179,6 +180,8 @@ UllFlowValue:
 UllFlowMemory:
   ull_flow_memory_doc_helpdesk1_1:
     UllFlowDoc:       ull_flow_doc_helpdesk1
+    UllFlowStep:      ull_flow_step_doc_helpdesk_creator
+    UllFlowAction:    ull_flow_action_save_only
     AssignedToUllEntity: admin_user
     comment:          My test comment
     CreatorUllEntity: test_group
