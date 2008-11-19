@@ -13,7 +13,7 @@ abstract class BaseUllColumnConfig extends UllRecord
     $this->hasColumn('db_column_name', 'string', 32, array('type' => 'string', 'length' => '32'));
     $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('description', 'clob', null, array('type' => 'clob'));
-    $this->hasColumn('ull_column_type_id', 'integer', null, array('type' => 'integer'));
+    $this->hasColumn('ull_column_type_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('options', 'clob', null, array('type' => 'clob'));
     $this->hasColumn('enabled', 'boolean', null, array('type' => 'boolean'));
     $this->hasColumn('show_in_list', 'boolean', null, array('type' => 'boolean'));
