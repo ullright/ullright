@@ -55,7 +55,8 @@ UllColumnConfig:
     description:
       type: clob
     ull_column_type_id:
-      type: integer    
+      type: integer
+      notnull: true    
     options:
       type: clob      
     enabled:
