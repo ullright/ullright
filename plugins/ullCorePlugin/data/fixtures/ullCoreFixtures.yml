@@ -124,12 +124,14 @@ UllColumnConfig:
     db_column_name: my_string
     enabled:        true
     show_in_list:   true
+    UllColumnType:  string
     
   test_cc_my_useless_column:
     db_table_name:  TestTable
     db_column_name: my_useless_column
     enabled:        false
-    show_in_list:   true    
+    show_in_list:   true
+    UllColumnType:  string
     
   test_cc_my_email:
     db_table_name:  TestTable

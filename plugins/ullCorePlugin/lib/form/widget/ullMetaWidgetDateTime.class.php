@@ -6,8 +6,10 @@ class ullMetaWidgetDateTime extends ullMetaWidget
   {
     if ($columnConfig['access'] == 'w')
     {
-      $columnConfig['widgetOptions']['culture'] = sfContext::getInstance()->getUser()->getCulture();
-      $this->sfWidget = new sfWidgetFormI18nDateTime($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
+//      $columnConfig['widgetOptions']['culture'] = sfContext::getInstance()->getUser()->getCulture();
+      $this->sfWidget = new sfWidgetFormInput($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);      
+//      $this->sfWidget = new sfWidgetFormI18nDateTime($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
+//      $this->sfWidget = new sfWidgetFormJQueryDate($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
       $this->sfValidator = new sfValidatorDateTime($columnConfig['validatorOptions']);
     }
     else

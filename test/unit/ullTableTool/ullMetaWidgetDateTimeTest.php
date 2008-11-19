@@ -47,5 +47,6 @@ $t->begin('for write access:');
   $columnConfig['access'] = 'w';
   $widget = new ullMetaWidgetDateTime($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetDateTime', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormI18nDateTime', 'returns the correct widget for read access');
+//  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormI18nDateTime', 'returns the correct widget for read access');
+  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormInput', 'returns the correct widget for read access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorDateTime', 'returns the correct validator for read access');    
