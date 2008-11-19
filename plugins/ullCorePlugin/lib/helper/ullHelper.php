@@ -489,12 +489,12 @@ function ull_submit_tag($value = 'Save changes', $options = array()) {
 	if (isset($options['display_as_link']) &&
 	   sfContext::getInstance()->getUser()->getAttribute('has_javascript'))
 	{
-	  $js_function_name = 'submit_' . $options['name'] . '()'; 
+	  $js_function_name = $options['name'] . '()'; 
 	  
-    $return = input_hidden_tag('submit_' . $options['name']) . "\n";
+    $return = input_hidden_tag($options['name']) . "\n";
     $return .= javascript_tag('function ' . $js_function_name . ' 
 {
-  document.getElementById("submit_' . $options['name'] . '").value = 1;
+  document.getElementById("' . $options['name'] . '").value = 1;
   document.getElementById("' . $options['form_id'] . '").submit();
 }') . "\n"; 
     
@@ -507,8 +507,8 @@ function ull_submit_tag($value = 'Save changes', $options = array()) {
 	}
 	else
 	{
-	  unset($options['form_id']);
-	  unset($options['display_as_link']);
+    unset($options['form_id']);
+    unset($options['display_as_link']);	  
 	  
 		return submit_tag($value, $options);
 	}

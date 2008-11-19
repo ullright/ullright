@@ -102,8 +102,8 @@ $t->diag('ull_submit_tag');
     $t->pass('ull_submit_tag throws an exception if the option "display as link" is given without required option "name"');
   }  
   
-  $t->is(ull_submit_tag('my_value', array('name' => 'my_name', 'form_id' => 'my_form_id', 'display_as_link' => true)), 
-      '<input type="submit" name="my_name" value="my_value" />',
+  $t->is(ull_submit_tag('my_value', array('name' => 'submit_my_name', 'form_id' => 'my_form_id', 'display_as_link' => true)), 
+      '<input type="submit" name="submit_my_name" value="my_value" />',
       'returns the correct result when enabling "display_as_link" option without javascript');
 
   sfContext::getInstance()->getUser()->setAttribute('has_javascript', true);
@@ -119,7 +119,7 @@ function submit_my_name()
 </script>
 <a href="#" onclick="submit_my_name(); return false;">my_value</a>
 ';  
-  $t->is(ull_submit_tag('my_value', array('name' => 'my_name', 'form_id' => 'my_form_id', 'display_as_link' => true)), 
+  $t->is(ull_submit_tag('my_value', array('name' => 'submit_my_name', 'form_id' => 'my_form_id', 'display_as_link' => true)), 
       $reference,
       'returns the correct result when enabling "display_as_link" with javascript');
   sfContext::getInstance()->getUser()->setAttribute('has_javascript', false);      
