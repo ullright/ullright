@@ -200,7 +200,9 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('app', 'trouble_ticket')  
+  ->isRequestParameter('app', 'trouble_ticket')
+  // why not?
+//  ->isRequestParameter('doc', 5)  
   ->checkResponseElement('tr > td + td > input[value="This is my shiny little title"]', true)
   ->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
 //  ->checkResponseElement('ul.ull_flow_memories', true)
@@ -210,6 +212,28 @@ $b
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('app', 'trouble_ticket')  
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->checkResponseElement('table > tbody > tr', 3) // number of rows
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little title')  
 ;
+
+$b
+  ->diag('edit')
+  // doesn't work (yet -> sf1.2)
+//  ->click('edit')
+  ->get('ullFlow/edit/doc/5')
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', 5)
+  ->setField('fields[my_title]', 'This is my shiny little edited title')
+  ->click('Save and close')
+  ->followRedirect()
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->checkResponseElement('table > tbody > tr', 3) // number of rows
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second trouble ticket')
+;   
 
