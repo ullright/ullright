@@ -92,6 +92,9 @@ UllFlowDoc:
 #      type: LONGVARCHAR
 #    write_ull_group_id:
 #      type: INTEGER
+    #this is used to always set the record dirty, even when only virtual columns are changed.
+    dirty:
+      type: integer
   relations:
     UllFlowApp:
       foreignAlias: UllFlowDocs

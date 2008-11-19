@@ -14,6 +14,7 @@ abstract class BaseUllFlowDoc extends UllRecord
     $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('assigned_to_ull_entity_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('assigned_to_ull_flow_step_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    $this->hasColumn('dirty', 'integer', null, array('type' => 'integer'));
   }
 
   public function setUp()

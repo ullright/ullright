@@ -21,7 +21,7 @@ test:
     web_debug:              off
     no_script_name:         off
     etag:                   off
-    logging_enabled:        off
+    #logging_enabled:        off
 
 all:
   .actions:

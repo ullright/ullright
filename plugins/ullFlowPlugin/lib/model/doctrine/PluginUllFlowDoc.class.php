@@ -22,6 +22,20 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   }
 
   /**
+   * pre save hook
+   * 
+   * always makes the UllFlowDoc record dirty (=modified)
+   * this is necessary, because often only the virtual columns change, but not
+   * the own columns change.
+   *
+   * @param unknown_type $event
+   */
+  public function preSave($event)
+  {
+    $this->dirty = $this->dirty == 1 ? 2 : 1;
+  }
+  
+  /**
    * pre insert record hook
    * 
    * set defaults
@@ -52,7 +66,9 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   public function postInsert($event)
   {
+//    sfContext::getInstance()->getLogger()->err('postinsert: ' . $this->title);
     $this->createMemory(); 
+    
   }
   
   /**
@@ -62,6 +78,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */  
   public function postUpdate($event)
   {
+//    sfContext::getInstance()->getLogger()->err('postupdate: ' . $this->title);
     $this->createMemory();    
   }    
 
