@@ -2,7 +2,7 @@
 
 
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
-  , 'id=ull_flow_form'); ?>  
+  , 'id=edit_form'); ?>  
   
 <table class='ull_flow_edit'>
 <tbody>
