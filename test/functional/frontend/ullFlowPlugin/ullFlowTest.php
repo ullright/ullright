@@ -137,7 +137,7 @@ $b
   ->diag('quick search')
   ->get('ullFlow/index')
   ->setField('filter[search]', 'first t')
-  ->click('Search')
+  ->click('Search >')
   ->followRedirect()
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
@@ -230,8 +230,6 @@ $b
   ->checkResponseElement('ul.ull_flow_memories > li + li', '/Edited[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
   ->setField('fields[my_title]', 'This is my shiny little edited title');
   
-  die;
-//  ->dumpDie()
 $b->click('Save and close')
   ->followRedirect()
   ->isStatusCode(200)    

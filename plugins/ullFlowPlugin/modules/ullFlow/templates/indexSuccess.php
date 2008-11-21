@@ -20,7 +20,7 @@
     <?php
       echo __('Quick search', null, 'common') . ': ';
       echo input_tag('filter[search]', null, array('size' => '30', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common')));
-      echo ' ' . submit_tag(__('Search', null, 'common'), 'title = ' . __('Searches for ID, subject and tags', null, 'common'));
+      echo ' ' . submit_tag(__('Search', null, 'common') . ' &gt;', 'title = ' . __('Searches for ID, subject and tags', null, 'common'));
     ?>
   </li>
 </ul>
