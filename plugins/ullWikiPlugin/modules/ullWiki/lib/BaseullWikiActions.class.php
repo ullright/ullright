@@ -52,7 +52,6 @@ class BaseullWikiActions extends ullsfActions
 
     $this->breadcrumbForList();
 
-//    $this->ullwiki_pager = $this->getFilterFromRequest();
     $this->docs = $this->getFilterFromRequest();
   }
 
@@ -107,14 +106,15 @@ class BaseullWikiActions extends ullsfActions
     //update
     if ($request->isMethod('post'))
     {
-      $this->ullwiki = new UllWiki();
+      
 
       // check if this is a new or existing wiki article
       if ($docid = $this->getRequestParameter('docid')) {
-        $this->ullwiki->setDocid($docid); // keep docid
+        $this->ullwiki = UllWikiTable::findByDocid($docid);
         $this->ullwiki->setCreatorUserIdAndCreatedAt($this->getWikiFromRequest()); // keep creator and createdate
-        UllWikiTable::setOldDocsDeleted($docid);
+        //UllWikiTable::setOldDocsDeleted($docid);
       } else {
+        $this->ullwiki = new UllWiki();
         $docid = UllWikiTable::getNextFreeDocid();
         $this->ullwiki->setDocid($docid);
         $this->ullwiki->setCreatorUserId($this->getUser()->getAttribute('user_id'));
@@ -132,9 +132,13 @@ class BaseullWikiActions extends ullsfActions
 
       if ($this->form->isValid()) {
 
-      	$this->ullwiki = $this->form->save();
+        $this->ullwiki = $this->form->save();
 
-        $this->ullwiki->setTags(strtolower($this->getRequestParameter('tags')));
+        $tags = explode(',', strtolower($this->getRequestParameter('tags')));
+        foreach ($tags as $tag) {
+          $this->ullwiki->addTag(trim($tag));
+        }
+        #$this->ullwiki->setTags(str_replace(',', ' ', strtolower($this->getRequestParameter('tags'))));
         $this->ullwiki->setDuplicateTagsForSearch(strtolower($this->getRequestParameter('tags')));
 
         $this->ullwiki->save();
@@ -186,10 +190,8 @@ class BaseullWikiActions extends ullsfActions
     // check access
     $this->checkAccess('MasterAdmins');
 
-    $ullwiki = $this->getWikiFromRequest();   
-    $ullwiki->setDeleted(1);
-    $ullwiki->save();
-    #$ullwiki->delete();#??strange
+    $ullwiki = $this->getWikiFromRequest();
+    $ullwiki->delete();
 
     return $this->redirect('ullWiki/list');
   }
@@ -281,12 +283,11 @@ class BaseullWikiActions extends ullsfActions
     $this->filter_form = new ullWikiFilterForm;
     $this->filter_form->bind($this->getRequestParameter('filter'));
 
-    
     // build query
-    // Querying for records excludes deleted records automatically.
+    // Querying for records excludes deleted records.
     $q = new Doctrine_Query();
     $q->from('UllWiki w')
-      ->where('deleted = ?', 0) #??strange
+      ->where('deleted = ?', 0)
     ;
 
 
@@ -296,17 +297,16 @@ class BaseullWikiActions extends ullsfActions
       $q->orderBy('w.updated_at DESC');
     }
 
-    if ($this->search = $this->getRequestParameter('search')) {
+    if ($search = $this->filter_form->getValue('search')) {
 
-      $fulltext = $this->getRequestParameter('fulltext');
+      $fulltext = $this->filter_form->getValue('fulltext');
 
       $query_subject = '';
       $query_tags = '';
       $query_body = '';
 
-      $search_words_arr = explode(' ', $this->search);
+      $search_words_arr = explode(' ', $search);
       foreach($search_words_arr as $key => $search_word) {
-        #$search_words_arr[$key] = '%'.$search_word.'%';
         $search_word = '"%'.$search_word.'%"';
 
         $query_subject .= ($query_subject != '' ? ' AND ':'') . 'w.subject LIKE '.$search_word;
@@ -326,12 +326,9 @@ class BaseullWikiActions extends ullsfActions
       sfConfig::get('app_pager_max_per_page')
     );
     $docs = $this->pager->execute();
-    
-    return ($docs->count()) ? $docs : new UllFlowDoc;
-    
-//    $ullwiki_pager->init();
 
-//    return $ullwiki_pager;
+    return ($docs->count()) ? $docs : new UllFlowDoc;
+
   }
 
 
