@@ -515,6 +515,39 @@ function ull_submit_tag($value = 'Save changes', $options = array()) {
 }
 
 /**
+ * Counterpart to ull_submit_tag
+ * 
+ * returns the submit 'name' attribute as string if it was prefixed with 'submit_'
+ * 
+ * Example: <input type="submit" name="submit_save_only" value="Save only" />
+ * => returns "save_only"
+ * 
+ * uses the default symfony request params if no array with params is given
+ *
+ * @param array $params
+ * @return string the submit mode
+ */
+function ull_submit_tag_parse($params = null)
+{
+  if ($params === null)
+  {
+    $params = sfContext::getInstance()->getRequest()->getParameterHolder()->getAll();
+  }
+  
+  $return = '';
+  
+  foreach ($params as $key => $value)
+  {
+    if (strstr($key, 'submit_') and $value)
+    {
+      $return = substr($key, 7);
+    }
+  }
+  
+  return $return;
+}
+
+/**
  * Enhancement of form_tag() helper 
  * supports giving a merge_array instead of a symfony url 
  *

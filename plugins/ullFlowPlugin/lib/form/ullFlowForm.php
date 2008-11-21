@@ -5,20 +5,27 @@
  */
 class ullFlowForm extends ullGeneratorForm
 {
-//  /**
-//   * Configures the form
-//   *
-//   */
-//  public function configure()
-//  {
+  /**
+   * Configures the form
+   *
+   */
+  public function configure()
+  {
+    parent::configure();
+    
+    $this->getWidgetSchema()->offsetSet('ull_flow_action_id', new sfWidgetFormInputHidden);
+    $this->getValidatorSchema()->offsetSet('ull_flow_action_id', new sfValidatorInteger(array('required' => false)));
+//    $this->getValidatorSchema()->offsetSet('ull_flow_action_id', new sfValidatorPass(array('required' => false)));
+    
 //    $this->setWidgets(array(
-//      'my_email'  => new sfWidgetFormInput,
+//      'ull_flow_action_id'  => new sfWidgetFormInputHidden,
 //    ));
 //    
 //    $this->setValidators(array(
-//        'my_email' => new sfValidatorString()
+//        'ull_flow_action_id' => new sfValidatorInteger()
 //    ));
-//  }
+  }
+  
 //  
 //  /**
 //   * Configure the name of the model
@@ -66,7 +73,6 @@ class ullFlowForm extends ullGeneratorForm
         $this->object->$column = $values[$column];
       }
     }
-
     return $this->object;
   }
   

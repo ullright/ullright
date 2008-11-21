@@ -7,7 +7,7 @@ sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 
-$t = new lime_test(11, new lime_output_color);
+$t = new lime_test(12, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -66,7 +66,7 @@ $t->diag('_ull_reqpass_build_url');
 //  
 //  $t->is(ull_form_tag(array('action' => 'list')), '<form method="post" action="symfony/symfony/ullWiki/list/foo/bar">', 'returns the correct tag for a reqpass array');
 
-$t->diag('ull_submit_tag');
+$t->diag('ull_submit_tag()');
 
   $t->is(ull_submit_tag('my_value', array('name' => 'my_name')), 
       '<input type="submit" name="my_name" value="my_value" />',
@@ -123,8 +123,19 @@ function submit_my_name()
       $reference,
       'returns the correct result when enabling "display_as_link" with javascript');
   sfContext::getInstance()->getUser()->setAttribute('has_javascript', false);      
-      
-$t->diag('ull_link_to');
+
+$t->diag('ull_submit_tag_parse()');
+
+  $test = array(
+    'module'            => 'ullWiki',
+    'action'            => 'edit',
+    'fields'            => array('my_field' => 'my_value'),
+    'submit_save_only'  => 'Save only',
+    'submit_reject'     => '',
+  );
+  $t->is(ull_submit_tag_parse($test), 'save_only', 'returns the correct value');
+  
+$t->diag('ull_link_to()');
 
   $t->is(ull_link_to('my_label', 'http://www.ull.at', array('title' => 'my_title')), 
       '<a title="my_title" href="http://www.ull.at">my_label</a>',
@@ -132,7 +143,7 @@ $t->diag('ull_link_to');
 
   //TODO: more tests  
   
-$t->diag('ull_button_to');  
+$t->diag('ull_button_to()');  
   $t->is(ull_button_to('my_label', 'http://www.ull.at', array('title' => 'my_title')), 
       '<a title="my_title" href="http://www.ull.at">my_label</a>',
       'returns the correct result for default button_to() params');

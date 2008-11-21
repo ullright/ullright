@@ -88,11 +88,8 @@ class ullGeneratorForm extends sfFormDoctrine
    */
   public function addUllMetaWidget($fieldName, ullMetaWidget $ullMetaWidget)
   {
-    $WidgetSchema     = $this->getWidgetSchema();
-    $ValidatorSchema  = $this->getValidatorSchema();
-    
-    $WidgetSchema[$fieldName] = $ullMetaWidget->getSfWidget();
-    $ValidatorSchema[$fieldName] = $ullMetaWidget->getSfValidator();
+    $this->getWidgetSchema()->offsetSet($fieldName, $ullMetaWidget->getSfWidget());
+    $this->getValidatorSchema()->offsetSet($fieldName, $ullMetaWidget->getSfValidator());
   }
   
 }

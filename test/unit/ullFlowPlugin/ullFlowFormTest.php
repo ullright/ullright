@@ -38,7 +38,8 @@ $t->begin('__construct');
   $t->is($defaults['my_email'], 'quasimodo@ull.at', 'The form returns the correct defaults');
   
   $request = array(
-    'my_email'  => 'luke.skywalker@ull.at'
+    'my_email'  => 'luke.skywalker@ull.at',
+    'ull_flow_action_id'  => 1,
   );
   
   $form->bindAndSave($request);

@@ -61,7 +61,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
 
         try {
             $conn->beginInternalTransaction();
-            $saveLater = $this->saveRelated($record);
+            
 
             $record->state($state);
 
@@ -102,6 +102,8 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
 
             $record->state($record->exists() ? Doctrine_Record::STATE_LOCKED : Doctrine_Record::STATE_TLOCKED);
 
+            $saveLater = $this->saveRelated($record);
+            
             foreach ($saveLater as $fk) {
                 $alias = $fk->getAlias();
 

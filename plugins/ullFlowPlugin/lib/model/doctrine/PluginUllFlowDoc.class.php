@@ -44,7 +44,10 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   public function preInsert($event)
   {
+//    sfContext::getInstance()->getLogger()->crit('insert: '.$this->title);
     $this->setDefaults();
+    $this->createFirstMemory();
+    $this->createMemory();
   }
   
   /**
@@ -54,34 +57,10 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */  
   public function preUpdate($event)
   {
-    $this->setDefaults();    
+//    sfContext::getInstance()->getLogger()->crit('update: '.$this->title);
+    $this->createMemory();   
   }    
   
-  /**
-   * post insert record hook
-   * 
-   * automatically create a UllFlowMemory
-   *
-   * @param unknown_type $event
-   */
-  public function postInsert($event)
-  {
-//    sfContext::getInstance()->getLogger()->err('postinsert: ' . $this->title);
-    $this->createMemory(); 
-    
-  }
-  
-  /**
-   * post update record hook
-   *
-   * @param unknown_type $event
-   */  
-  public function postUpdate($event)
-  {
-//    sfContext::getInstance()->getLogger()->err('postupdate: ' . $this->title);
-    $this->createMemory();    
-  }    
-
   /**
    * transparently set the UllFlowMemory comment
    *
@@ -173,7 +152,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    *
    * @return int ull_user_id
    */
-  protected function getUser()
+  protected function getUserId()
   {
     // check for symfony context (none for example for doctrine:data-load)
     if (sfContext::hasInstance())
@@ -194,44 +173,52 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   {
     if (!$this->ull_flow_action_id)
     {
-      $this->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findBySlug('save_only')->getFirst()->id;
+      $this->UllFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close');
     }
     
     if (!$this->assigned_to_ull_entity_id)
     {
-      $this->assigned_to_ull_entity_id = $this->getUser(); 
+      $this->assigned_to_ull_entity_id = $this->getUserId(); 
     }
 
     if (!$this->assigned_to_ull_flow_step_id)
     {
-      $this->assigned_to_ull_flow_step_id = $this->UllFlowApp->getStartStep();
+      $this->UllFlowStep = $this->UllFlowApp->getStartStep();
     }
-
-    // create memory
-//    $this->UllFlowMemories[0]->ull_flow_step_id = $this->assigned_to_ull_flow_step_id;
-//    $this->UllFlowMemories[0]->ull_flow_action_id = $this->ull_flow_action_id;
-//    $this->UllFlowMemories[0]->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
-//    //TODO: has to be the previous assigned_to_ull_entity_id
-//    $this->UllFlowMemories[0]->creator_ull_entity_id = $this->getUser();
-//    $this->UllFlowMemories[0]->comment = $this->memoryComment;    
-    
   }
   
   /**
    * create UllFlowMemory entry
    *
+   * @return integer index of new UllFlowMemory
    */
   protected function createMemory()
   {
-    $memory = new UllFlowMemory;
-    $memory->ull_flow_doc_id = $this->id;
-    $memory->ull_flow_step_id = $this->assigned_to_ull_flow_step_id;
-    $memory->ull_flow_action_id = $this->ull_flow_action_id;
-    $memory->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
+    $i = count($this->UllFlowMemories);
+    $this->UllFlowMemories[$i]->ull_flow_step_id = $this->assigned_to_ull_flow_step_id;
+    $this->UllFlowMemories[$i]->ull_flow_action_id = $this->ull_flow_action_id;
+    $this->UllFlowMemories[$i]->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
     //TODO: has to be the previous assigned_to_ull_entity_id
-    $memory->creator_ull_entity_id = $this->getUser();
-    $memory->comment = $this->memoryComment;
-    $memory->save();
+    $this->UllFlowMemories[$i]->creator_ull_entity_id = $this->getUserId();
+    $this->UllFlowMemories[$i]->comment = $this->memoryComment;        
+    
+//    sfContext::getInstance()->getLogger()->crit('num of mems: '.count($this->UllFlowMemories));
+    
+    return $i;
   }
+
+  /**
+   * create first UllFlowMemory entry
+   * 
+   * sets the action to create
+   * removes the comment to avoid duplication
+   *
+   */
+  protected function createFirstMemory()
+  {
+    $i = $this->createMemory();
+    $this->UllFlowMemories[$i]->UllFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug('create');
+    $this->UllFlowMemories[$i]->comment = '';        
+  }  
   
 }

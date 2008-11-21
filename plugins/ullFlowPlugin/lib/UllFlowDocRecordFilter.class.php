@@ -23,6 +23,10 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
    */
   public function filterSet(Doctrine_Record $record, $name, $value)
   {
+//    var_dump($record->toArray());
+//    var_dump($name);
+//    var_dump($value);
+    
     $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($record->ull_flow_app_id, $name);
     
     if ($record->exists())
@@ -35,8 +39,7 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
       // we have to do it this way because we want to set 2 attributes: value & ull_flow_column_config_id
       $i = count($record->UllFlowValues);
       $record->UllFlowValues[$i]->value = $value;
-      $id = $cc->id;
-      $record->UllFlowValues[$i]->ull_flow_column_config_id = $id; 
+      $record->UllFlowValues[$i]->ull_flow_column_config_id = $cc->id;
     }
 
     // also set the title column of UllFlowDoc
@@ -44,6 +47,8 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
     {
       $record->title = $value;
     }
+    
+    return true;
   }
 
   /**
