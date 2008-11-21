@@ -99,24 +99,24 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->responseContains('3 results found.')
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 0))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 1))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 2))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 0))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 1))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 2))
 
   ->click('DocId')
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 0))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 2))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 0))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 2))
   
   ->click('Subject')
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 0))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 1))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 2))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 0))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 1))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 2))
   
   ->click('Date ascending')
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 0))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
-#  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 2))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 0))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated', array('position' => 2))
 ;
 
 $b
