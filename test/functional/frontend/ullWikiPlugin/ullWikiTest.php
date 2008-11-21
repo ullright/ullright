@@ -19,6 +19,15 @@ $b
 	->isRequestParameter('module', 'ullWiki')
 	->isRequestParameter('action', 'index')
 	->responseContains('Wiki Home')
+;
+
+$b
+  ->diag('test wiki home searchbox')
+	->setField('search', 'Another')
+	->click('Search')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
 ;	
   
 $b
