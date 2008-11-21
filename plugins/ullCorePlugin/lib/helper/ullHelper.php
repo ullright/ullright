@@ -6,7 +6,7 @@
 
 //use_helper('Form');
 
-sfLoader::loadHelpers(array('Date', 'Form', 'Javascript', 'Tag', 'Url'));
+sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url'));
 
 
 /**
@@ -95,6 +95,21 @@ function ull_format_datetime($datetime, $culture = null) {
     }
   }
 }
+
+function ull_image_tag($type, $link_option = array(), $width = null, $height = null, $plugin = null)
+{
+  $width = ($width === null) ? 16 : $width;
+	$height = ($height === null) ? 16 : $height;
+
+	$plugin = ($plugin === null) ? sfContext::getInstance()->getRequest()->getParameter('module') : $plugin;
+	$path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/images";
+	$image = $type . '_' . $width . 'x' . $height;
+	
+	return image_tag($path . '/action_icons/' . $image, 
+    array('alt' => ucfirst($type), 'title' => ucfirst($type)));
+	
+}
+
 
 /**
  * Wrapper for link_to(image_tag(...) for standard icons in 
