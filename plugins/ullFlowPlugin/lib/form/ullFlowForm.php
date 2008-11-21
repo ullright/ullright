@@ -13,17 +13,15 @@ class ullFlowForm extends ullGeneratorForm
   {
     parent::configure();
     
-    $this->getWidgetSchema()->offsetSet('ull_flow_action_id', new sfWidgetFormInputHidden);
-    $this->getValidatorSchema()->offsetSet('ull_flow_action_id', new sfValidatorInteger(array('required' => false)));
-//    $this->getValidatorSchema()->offsetSet('ull_flow_action_id', new sfValidatorPass(array('required' => false)));
-    
-//    $this->setWidgets(array(
-//      'ull_flow_action_id'  => new sfWidgetFormInputHidden,
-//    ));
-//    
-//    $this->setValidators(array(
-//        'ull_flow_action_id' => new sfValidatorInteger()
-//    ));
+    // add meta data fields only for edit action
+    if ($this->requestAction == 'edit')
+    {
+      $this->getWidgetSchema()->offsetSet('ull_flow_action_id', new sfWidgetFormInputHidden);
+      $this->getWidgetSchema()->offsetSet('memory_comment', new sfWidgetFormInput(array(), array('size' => 50)));
+      
+      $this->getValidatorSchema()->offsetSet('ull_flow_action_id', new sfValidatorInteger(array('required' => false)));
+      $this->getValidatorSchema()->offsetSet('memory_comment', new sfValidatorString(array('required' => false)));
+    }    
   }
   
 //  
@@ -64,7 +62,15 @@ class ullFlowForm extends ullGeneratorForm
     parent::updateObject();
     
     $values = $this->getValues();
+//    var_dump($values);die;
     
+    // move memory_comment to object (fromArray() only works for original model fields)
+    if (isset($values['memory_comment'])) 
+    {
+      $this->object->memory_comment = $values['memory_comment'];
+    }
+    
+    // move virtual columns to object
     $virtualColumns = $this->object->getVirtualColumnsAsArray();
     
     foreach ($virtualColumns as $column)
@@ -73,6 +79,9 @@ class ullFlowForm extends ullGeneratorForm
         $this->object->$column = $values[$column];
       }
     }
+    
+//    var_dump($this->object);die
+    
     return $this->object;
   }
   

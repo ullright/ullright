@@ -37,7 +37,7 @@ class ullGeneratorForm extends sfFormDoctrine
   public function configure()
   {
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
-    //TODO: refactor
+    
     if ($this->requestAction == 'list')
     {
       $this->getWidgetSchema()->setFormFormatterName('ullList');

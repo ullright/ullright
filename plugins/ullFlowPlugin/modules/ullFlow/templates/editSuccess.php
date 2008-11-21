@@ -1,6 +1,6 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-<?php var_dump($generator->getRow()->toArray()) ?>
+<?php //var_dump($generator->getRow()->toArray()) ?>
 
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
   , 'id=edit_form'); ?>  
@@ -8,7 +8,9 @@
 <table class='ull_flow_edit'>
 <tbody>
 
-<? echo $generator->getForm() ?>
+<?php foreach ($generator->getActiveColumns() as $column_name => $columns_config): ?>
+  <?php echo $generator->getForm()->offsetGet($column_name)->renderRow() ?>
+<?php endforeach ?>
 
 </tbody>
 </table>
@@ -24,16 +26,16 @@
   <div class='action_buttons_edit_left'>
     
     
-    <?php /* ?>
-    <?php if ($step_actions and $workflow_action_access): ?>
+    
+    <?php //if ($step_actions and $workflow_action_access): ?>
       
-      <label for="ull_flow_action_comment">
+      <label for="fields_memory_comment">
         <?php echo __('Comment for this action') . ':'; ?>
       </label><br />
-      <?php
-        echo input_tag('ull_flow_action_comment', $sf_request->getParameter('ull_flow_action_comment'), 'size=80');
-        echo form_error('ull_flow_action_comment');
-      ?>
+      <?php echo $generator->getForm()->offsetGet('memory_comment')->render() ?>
+      <?php echo $generator->getForm()->offsetGet('memory_comment')->renderError() ?>
+      
+<?php /* ?>      
       
       <ul>
         <?php 

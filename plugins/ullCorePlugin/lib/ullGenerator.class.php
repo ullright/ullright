@@ -311,6 +311,26 @@ abstract class ullGenerator
     }
     
     return $cultures;
-  }  
+  }
+
+  /**
+   * get array containing the active columns
+   *
+   * @return array active columns
+   */
+  public function getActiveColumns()
+  {
+    $activeColumns = array();
+    
+    foreach ($this->columnsConfig as $columnName => $columnConfig)
+    {
+      if ($this->isColumnEnabled($columnConfig)) 
+      {
+        $activeColumns[$columnName] = $columnConfig;
+      }
+    }
+    
+    return $activeColumns;
+  }
   
 }
