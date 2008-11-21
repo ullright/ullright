@@ -1,4 +1,5 @@
 <?php
+//php symfony test:all
 //php symfony test:functional frontend ullWiki
 
 
