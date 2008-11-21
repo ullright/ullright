@@ -29,9 +29,11 @@ abstract class BaseUllWiki extends UllRecord
 
     $timestampable0 = new Doctrine_Template_Timestampable();
     $softdelete0 = new Doctrine_Template_SoftDelete();
+    $versionable0 = new Doctrine_Template_Versionable();
     $taggable0 = new Taggable();
     $this->actAs($timestampable0);
     $this->actAs($softdelete0);
+    $this->actAs($versionable0);
     $this->actAs($taggable0);
   }
 }
