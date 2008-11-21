@@ -109,7 +109,7 @@ echo $form;
     <ul>
 
       <li>
-        <?php echo ull_submit_tag(__('Save only', null, 'common'), array('name' => 'save_only', 'form_id' => 'edit_form', 'display_as_link' => true)); ?>
+        <?php echo ull_submit_tag(__('Save only', null, 'common'), array('name' => 'submit_save_only', 'form_id' => 'ull_wiki_form', 'display_as_link' => true)); ?>
       </li>
 
       <li>
