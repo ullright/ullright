@@ -34,9 +34,11 @@ $b
 $b
   ->diag('test wiki home searchbox')
 	->setField('search', 'Another')
-	->click('Search')
+	->click('Search >')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+//  ->dumpDie()
   ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
 ;	
   

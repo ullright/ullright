@@ -13,7 +13,7 @@
 
       <?php echo $form['search']->render() ?>
       &nbsp;
-      <input type="submit" name="commit" value="<?php echo __('Search', null, 'common') ?>"
+      <input type="submit" name="commit" value="<?php echo __('Search', null, 'common') . ' &gt;' ?>"
         title="<?php echo __('Searches for ID, subject and tags', null, 'common') ?>" />
       <br />
       <?php echo $form['fulltext']->render() ?>
