@@ -7,9 +7,10 @@ class UllWiki extends PluginUllWiki
 {
   public function setCreatorUserIdAndCreatedAt($old_ullwiki)
   {
-  	if ($old_ullwiki) {
+    if ($old_ullwiki) {
       $this->setCreatorUserId($old_ullwiki->getCreatorUserId());
       $this->setCreatedAt($old_ullwiki->getCreatedAt());
-  	}
+    }
   }
+
 }
