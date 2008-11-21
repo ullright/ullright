@@ -10,7 +10,7 @@ class PluginUllWikiTable extends UllRecordTable
     $q = new Doctrine_Query;
     $q->from('UllWiki w')
       ->where('w.docid = ?', $docid)
-      ->addWhere('w.deleted = ?', 0) #??strange
+      ->addWhere('w.deleted = ?', 0)
     ;
     return $q->execute()->getFirst();
   }
