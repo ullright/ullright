@@ -109,17 +109,27 @@ $b
 ;
 
 
-#Wiki -> list -> edit -> change something -> "save and close" 
-
 $b
   ->diag('search')
   ->get('ullWiki/list')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
-  ->post('ullWiki/list', Array('search' => 'updated'))
+  ->post('ullWiki/list', Array('filter[search]' => 'updated'))
   ->isStatusCode(200)
   ->responseContains('My new test subject, updated')
+  ->responseContains('1 result found.')
+;
+
+$b
+  ->diag('search (for invalid keyword)')
+  ->get('ullWiki/list')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->post('ullWiki/list', Array('filter[search]' => 'invalid'))
+  ->isStatusCode(200)
+  ->responseContains('No results found.')
 ;
 
 $b
