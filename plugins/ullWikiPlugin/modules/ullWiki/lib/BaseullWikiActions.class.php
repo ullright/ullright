@@ -327,7 +327,7 @@ class BaseullWikiActions extends ullsfActions
     );
     $docs = $this->pager->execute();
 
-    return ($docs->count()) ? $docs : new UllFlowDoc;
+    return ($docs->count()) ? $docs : false;
 
   }
 

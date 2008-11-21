@@ -11,7 +11,8 @@
 <?php //weflowTools::printR($sf_request); ?>
 
 <?php
-     echo ull_form_tag(array('page' => '', 'search' => ''),
+#     echo ull_form_tag(array('page' => '', 'search' => ''), #todo ull_reqpass...
+     echo ull_form_tag('ullWiki/list',
                                array('class' => 'inline',
                                      'name' => 'ull_wiki_search_form'));
 ?>
@@ -32,7 +33,7 @@
 
 <?php include_partial('ullTableTool/ullPagerTop',
         array('pager' => $pager)
-      ); ?>  
+      ); ?>
 
 
 <br />
@@ -47,15 +48,18 @@
 
 <br />
 <br />
- 
 
-<?php foreach ($docs as $doc): ?>
+<?php
+
+if ($docs): ?>
+  <?php foreach ($docs as $doc): ?>
     <?php include_component('ullWiki', 'ullWikiHeader', array(
       'ullwiki' => $doc
 //      ,'cursor' => $cursor
     )); ?>
-  <?php //++$cursor;/?>
-<?php endforeach; ?>
+    <?php //++$cursor;/?>
+  <?php endforeach; ?>
+<?php endif; ?>
 
 <?php include_partial('ullTableTool/ullPagerBottom',
         array('pager' => $pager)
