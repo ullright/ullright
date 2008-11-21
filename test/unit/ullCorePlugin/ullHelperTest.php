@@ -7,7 +7,7 @@ sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 
-$t = new lime_test(12, new lime_output_color);
+$t = new lime_test(14, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -54,7 +54,6 @@ $t->diag('_ull_reqpass_build_url');
   $result = 'ullFlow/list?foo=bar&filter[search]=bla&baz=schmatz';
   
   $t->is(_ull_reqpass_build_url($test), $result, 'returns the correct array');
-  
   
 // TODO: check where the 'symfony/symfony' comes from
 // TODO: the test passes when run serparatly, but not with test:all ?!?   
@@ -152,4 +151,17 @@ $t->diag('ull_button_to()');
   $t->is(ull_button_to('my_label', 'http://www.ull.at', array('title' => 'my_title')), 
       '<input title="my_title" value="my_label" type="button" onclick="document.location.href=\'http://www.ull.at\';" />',
       'returns the correct result for default button_to() params');
-  sfContext::getInstance()->getUser()->setAttribute('has_javascript', false);    
+  sfContext::getInstance()->getUser()->setAttribute('has_javascript', false); 
+  
+$t->diag('ull_image_tag()');
+  $t->is(ull_image_tag('search', null, null, null, 'ullWiki'),
+    '<img alt="Search" title="Search" src="symfony/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
+    'returns the correct result for default ull_image_tag() params');
+  
+  sfContext::getInstance()->getRequest()->setParameter('module', 'ullWiki');
+  
+  $t->is(ull_image_tag('search'),
+    '<img alt="Search" title="Search" src="symfony/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
+    'returns the correct result for default ull_image_tag() params');
+  
+  
