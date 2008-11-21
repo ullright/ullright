@@ -53,6 +53,7 @@ $b
 #  ->responseContains('Create')
   ->setField('ull_wiki[subject]', 'My new test subject')
   ->setField('ull_wiki[body]', '<b>My body</b>')
+  ->setField('tags', 'testtag')
   ->click('Save and show')
   ->isRedirected()
   ->followRedirect()
@@ -109,6 +110,8 @@ $b
 ;
 
 
+
+
 $b
   ->diag('search')
   ->get('ullWiki/list')
@@ -131,6 +134,19 @@ $b
   ->isStatusCode(200)
   ->responseContains('No results found.')
 ;
+
+$b
+  ->diag('search (for tag)')
+  ->get('ullWiki/list')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->post('ullWiki/list', Array('filter[search]' => 'testtag'))
+  ->isStatusCode(200)
+  ->responseContains('My new test subject, updated')
+  ->responseContains('1 result found.')
+;
+
 
 $b
   ->diag('sorting')
