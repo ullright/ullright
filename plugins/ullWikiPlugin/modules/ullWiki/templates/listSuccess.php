@@ -21,7 +21,7 @@
 
     <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullWiki/create'); ?></li>
 
-    <?php echo $filter_form ?>   
+    <?php echo $filter_form ?>
     <li><?php echo submit_tag('&gt;');?></li> 
 
 </ul>
