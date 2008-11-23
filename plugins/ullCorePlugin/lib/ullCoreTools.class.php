@@ -196,10 +196,16 @@ class ullCoreTools
         $text);
     */
 
-    $text = preg_replace(
-        "#(<a[^>]+>[^<]+</a>)|(<[^>]+http[s]?://[^>]+>)|http[s]?://[^<> ]+#ie",
-        '"$0"=="$1" || "$0"=="$2" ? "$0" : "<a href=\"$0\" class=\"link_new_window\" target=\"_blank\" title=\"'.__('Link opens in a new window', null, 'common').'\">$0</a>"',
-        $text);
+    //old own helper
+    #$text = preg_replace(
+    #    "#(<a[^>]+>[^<]+</a>)|(<[^>]+http[s]?://[^>]+>)|http[s]?://[^<> ]+#ie",
+    #    '"$0"=="$1" || "$0"=="$2" ? "$0" : "<a href=\"$0\" class=\"link_new_window\" target=\"_blank\" title=\"'.__('Link opens in a new window', null, 'common').'\">$0</a>"',
+    #    $text);
+
+    //use symfony helper
+    $text = auto_link_text($text, $link = 'all', array('class'  => 'link_new_window',
+                                                       'target' => '_blank',
+                                                       'title'  => __('Link opens in a new window', null, 'common')));
 
     return $text;
   }  
