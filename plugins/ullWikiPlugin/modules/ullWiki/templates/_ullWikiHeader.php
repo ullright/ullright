@@ -16,7 +16,7 @@
             'ullWiki',
             'ullWikiHeadFootActionIcons', 
             array(
-              'ullwiki'     => $ullwiki
+              'ullwiki' => $ullwiki
             )
           ); ?>
   </div>
@@ -41,6 +41,6 @@
           ) ?>
 
   <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
-  
+
 
 </div> <!-- end of ullwiki_header-->
