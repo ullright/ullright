@@ -118,11 +118,7 @@ if (!function_exists('u_func')) {
   $body = ullCoreTools::makelinks($body);
 
   echo $body;
-  
-  
 
-  
-  
 //  ullCoreTools::printR($body);
 
 //foreach($matches[1] as $match) {
@@ -130,7 +126,7 @@ if (!function_exists('u_func')) {
 //}
 //   $highlighter = new dkGeshi(, 'php');
 //   echo $highlighter->parse_code();
-  
+
 //  echo $ullwiki->getBody(); 
   ?>
 </div>
