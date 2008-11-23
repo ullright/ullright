@@ -22,7 +22,7 @@
               'ullwiki'     => $ullwiki
             )
           ); ?>
-  </div>  
+  </div>
 
   <div class='ullwiki_header_headline'>
     <h3>
@@ -31,11 +31,11 @@
       <?php echo link_to($ullwiki->getSubject(), $sf_data->getRaw('subject_link')); ?>
     </h3>
     <!--  Tag1, Tag2, Tag3 -->
-  </div>  
+  </div>
 
   
   <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
-  
+
 
 </div> <!-- end of ullwiki_header-->
 
