@@ -383,6 +383,9 @@ class BaseullFlowActions extends ullsfActions
     $this->generator = new ullFlowGenerator($this->app, 'w');
     $this->generator->buildForm($this->doc);
     
+//    var_dump($this->doc->UllFlowStep->UllFlowStepActions->UllFlowAction->toArray());
+//    die;
+    
     if ($request->isMethod('post'))
     {
       // set the ull_flow_aciton id from the the submit mode
@@ -1345,8 +1348,11 @@ class BaseullFlowActions extends ullsfActions
     {
       $this->doc = new UllFlowDoc;
       $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
-      $this->doc->UllFlowApp = $this->app;
       $this->forward404Unless($this->app);
+      $this->doc->UllFlowApp = $this->app;
+      //TODO: this must be handled in the model
+      $this->doc->setDefaults();
+      
     }    
   }  
   

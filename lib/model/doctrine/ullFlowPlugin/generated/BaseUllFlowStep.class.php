@@ -21,15 +21,14 @@ abstract class BaseUllFlowStep extends UllRecord
     $this->hasOne('UllFlowApp', array('local' => 'ull_flow_app_id',
                                       'foreign' => 'id'));
 
-    $this->hasMany('UllFlowAction', array('refClass' => 'UllFlowStepAction',
-                                          'local' => 'ull_flow_step_id',
-                                          'foreign' => 'ull_flow_action_id'));
-
     $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
                                                       'foreign' => 'assigned_to_ull_flow_step_id'));
 
     $this->hasMany('UllFlowMemory as UllFlowMemories', array('local' => 'id',
                                                              'foreign' => 'ull_flow_step_id'));
+
+    $this->hasMany('UllFlowStepAction as UllFlowStepActions', array('local' => 'id',
+                                                                    'foreign' => 'ull_flow_step_id'));
 
     $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
     $this->actAs($i18n0);

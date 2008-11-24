@@ -251,6 +251,12 @@ UllFlowAction:
       type: boolean
     comment_is_mandatory:
       type: boolean
+  relations:
+#    UllFlowStepActions:
+#      class: UllFlowStepAction
+#      local: id
+#      foreign: ull_flow_action_id
+      #foreignAlias: UllFlowAction      
       
 UllFlowStep:
   package: ullFlowPlugin.lib.model.doctrine
@@ -275,8 +281,12 @@ UllFlowStep:
   relations:
     UllFlowApp:
       foreignAlias: UllFlowSteps
-    UllFlowAction:
-      refClass: UllFlowStepAction    
+    #UllFlowAction:
+    #  refClass: UllFlowStepAction
+    #UllFlowStepActions:
+    #  class: UllFlowStepAction
+    #  local: id
+    #  foreign: ull_flow_step_id
     
 UllFlowStepAction:
   package: ullFlowPlugin.lib.model.doctrine
@@ -292,4 +302,9 @@ UllFlowStepAction:
       type: string(255)
     sequence:
       type: integer
+  relations:
+    UllFlowStep:
+      foreignAlias: UllFlowStepActions
+    UllFlowAction:
+      foreignAlias: UllFlowStepActions
       

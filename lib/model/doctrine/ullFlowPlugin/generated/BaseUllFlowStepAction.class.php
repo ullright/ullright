@@ -15,4 +15,13 @@ abstract class BaseUllFlowStepAction extends UllRecord
     $this->hasColumn('sequence', 'integer', null, array('type' => 'integer'));
   }
 
+  public function setUp()
+  {
+    parent::setUp();
+    $this->hasOne('UllFlowStep', array('local' => 'ull_flow_step_id',
+                                       'foreign' => 'id'));
+
+    $this->hasOne('UllFlowAction', array('local' => 'ull_flow_action_id',
+                                         'foreign' => 'id'));
+  }
 }

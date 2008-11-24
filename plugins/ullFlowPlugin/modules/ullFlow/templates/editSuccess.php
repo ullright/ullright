@@ -35,31 +35,28 @@
       <?php echo $generator->getForm()->offsetGet('memory_comment')->render() ?>
       <?php echo $generator->getForm()->offsetGet('memory_comment')->renderError() ?>
       
-<?php /* ?>      
       
       <ul>
-        <?php 
-          foreach ($step_actions as $step_action) {
+        <?php
+//        $x =  $sf_data->getRaw('doc');
+//        var_dump($x->UllFlowStep->UllFlowStepActions->toArray());
+        
+        foreach ($doc->UllFlowStep->UllFlowStepActions as $stepAction): ?> 
+          <li>
+          <?php
+//            var_dump($stepAction->UllFlowAction);
+            $slug = $stepAction->UllFlowAction->slug;
             
-            echo '<li>';
-            $ull_flow_action = $step_action->getUllFlowAction();
-            
-            $action_slug = $ull_flow_action->getSlug();
-            $action_handler_name = 'ullFlowActionHandler' . sfInflector::camelize($action_slug);
-            
+            $action_handler_name = 'ullFlowActionHandler' . sfInflector::camelize($slug);
             $ull_flow_action_handler = new $action_handler_name();
-            $ull_flow_action_handler->setOptions($step_action->getOptions());
+            $ull_flow_action_handler->setOptions($stepAction->options);
             echo $ull_flow_action_handler->getEditWidget();
-            
-            echo '</li>';
-              
-          }
-        ?>
+          ?>
+          </li>
+        <?php endforeach ?>
       </ul>
-    <?php endif; ?>
+    <?php //endif; ?>
 
-	<?php */?>
-    
   </div>
 
     

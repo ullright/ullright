@@ -169,7 +169,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    * Set Defaults
    *
    */
-  protected function setDefaults()
+  public function setDefaults()
   {
     if (!$this->ull_flow_action_id)
     {
