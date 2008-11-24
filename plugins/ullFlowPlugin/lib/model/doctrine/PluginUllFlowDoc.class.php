@@ -61,6 +61,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->createMemory();   
   }    
   
+  
+  
   /**
    * transparently set the UllFlowMemory comment
    *
@@ -183,7 +185,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 
     if (!$this->assigned_to_ull_flow_step_id)
     {
-      $this->UllFlowStep = $this->UllFlowApp->getStartStep();
+      $this->UllFlowStep = $this->UllFlowApp->findStartStep();
     }
   }
   

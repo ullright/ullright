@@ -30,10 +30,10 @@ $t->diag('create');
   $t->is($doc->title, 'My fancy title', 'sets the title correctly');
   $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the action correctly (default)');
   $t->is($doc->assigned_to_ull_entity_id, 1, 'sets the default assigned_to_ull_entity_id correctly');
-  $t->is($doc->assigned_to_ull_flow_step_id, $doc->UllFlowApp->getStartStep()->id, 'sets the correct start step');  
+  $t->is($doc->assigned_to_ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct start step');  
   $t->is($doc->my_title, 'My fancy title', 'sets the correct virtual columns value');
   $t->is($doc->my_datetime, '2008-08-08 08:08:08', 'sets the correct virtual columns value');  
-  $t->is($doc->UllFlowMemories[0]->ull_flow_step_id, $doc->UllFlowApp->getStartStep()->id, 'sets the correct memory step');
+  $t->is($doc->UllFlowMemories[0]->ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct memory step');
   $t->is($doc->UllFlowMemories[0]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('create')->id, 'sets the first memories action correctly (create)');
   $t->is($doc->UllFlowMemories[0]->assigned_to_ull_entity_id, 1, 'sets the correct memory assigned_to_ull_entity_id');  
   $t->is($doc->UllFlowMemories[0]->comment, '', 'sets the first memories comment correctly');
@@ -82,32 +82,4 @@ $t->begin('getVirtualColumnsAsArray()');
     'my_email',
   );
   $t->is($columns, $reference, 'returns the correct values');    
-
-//$t->begin('update works correctly');
-//  $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
-//  $doc1->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findOneBySlug('reject');
-//  $doc1->assigned_to_ull_entity_id = Doctrine::getTable('UllUser')->findOneByUsername('helpdesk_user');
-//  $doc1->assigned_to_ull_flow_step_id = 2;
-//  $doc1->memory_comment = 'xyz';
-//  $doc1->save();
-//
-//  $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
-//  $t->is($doc1->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('reject')->id, 'sets the action correctly');
-//  $t->is($doc1->assigned_to_ull_entity_id, Doctrine::getTable('UllUser')->findOneByUsername('helpdesk_user')->id, 'sets assigned_to_ull_entity_id correctly');
-//  $t->is($doc1->assigned_to_ull_flow_step_id, 2, 'sets the correct step');
-//  $t->is($doc1->UllFlowMemories[2]->comment, 'xyz', 'sets the correct memory comment');
-//  
-//  //test one more update
-//  $doc1->title = 'foobar';
-//  $doc1->memory_comment = 'xyz123';
-//  $doc1->save();
-//
-//  
-//  // TODO: why don't we see the third memory although it is in the database?
-////  unset($doc1);
-////  $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
-////  var_dump($doc1->UllFlowMemories->toArray());
-////  $t->is($doc1->UllFlowMemories[3]->comment, 'xyz123', 'sets the correct memory comment again');
-
   
-

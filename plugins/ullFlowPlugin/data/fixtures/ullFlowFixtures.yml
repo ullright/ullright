@@ -226,10 +226,10 @@ UllFlowStepAction:
   stepaction_1:
     UllFlowStep:    ull_flow_step_doc_helpdesk_creator
     UllFlowAction:  ull_flow_action_send
-    options:        foobar bla
-  stepaction_2:
-    UllFlowStep:    ull_flow_step_doc_helpdesk_creator  
-    UllFlowAction:  ull_flow_action_reject    
+#    options:        foobar bla
+#  stepaction_2:
+#    UllFlowStep:    ull_flow_step_doc_helpdesk_creator  
+#    UllFlowAction:  ull_flow_action_reject    
         
 UllFlowAction:
   ull_flow_action_create:
