@@ -64,7 +64,8 @@ class ullFlowForm extends ullGeneratorForm
   public function updateObject()
   {
     parent::updateObject();
-    
+
+//    $values = $this->getValues();
 //    var_dump($values);die;
     
     $this->setVirtualValues();
