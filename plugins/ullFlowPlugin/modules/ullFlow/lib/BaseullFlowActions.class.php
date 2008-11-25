@@ -388,11 +388,14 @@ class BaseullFlowActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
-      // set the ull_flow_aciton id from the the submit mode
+      // parse the submit mode and inject it into the request for the sfForm
       $submit_mode = ull_submit_tag_parse();
       $action_id = Doctrine::getTable('UllFlowAction')->findOneBySlug($submit_mode)->id;
       $fields = array_merge($request->getParameter('fields'), array('ull_flow_action_id' => $action_id));
       $request->setParameter('fields', $fields);
+      
+      
+      
       
 //      var_dump($request->getParameterHolder()->getAll());die;
       

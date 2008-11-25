@@ -5,14 +5,14 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 class myTestCase extends sfDoctrineTestCase {}
 
 /**
- * Test implementation of abstract ullFlowRule class
+ * Test implementation of abstract class ullFlowRule
  *
  */
 class ullFlowRuleTest extends ullFlowRule
 {
   public function getNext()
   {
-    $next['step']    = $this->findStep('xxx');
+    $next['step']    = $this->findStep('helpdesk_dispatcher');
     $next['entity']  = $this->findGroup('Helpdesk');
 
     return $next;

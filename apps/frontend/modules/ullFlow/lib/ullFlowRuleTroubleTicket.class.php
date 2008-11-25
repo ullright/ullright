@@ -5,7 +5,7 @@ class ullFlowRuleHelpdeskTool extends ullFlowRule {
   public function getParams() 
   {
     
-    if ($this->isSlug('creator')) 
+    if ($this->isStep('creator')) 
     {
 //      if ($this->action_slug == 'send_to_helpdesk') {
 //        
@@ -27,7 +27,7 @@ class ullFlowRuleHelpdeskTool extends ullFlowRule {
 //        $this->params['next_step'] = $this->getStepIdBySlug('closed') ;
 //        
 //      }
-      $next['step']    = $this->findStep('xxx');
+      $next['step']    = $this->findStep('helpdesk_dispatcher');
       $next['entity']  = $this->findGroup('Helpdesk');
       
       return $next;

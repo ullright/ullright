@@ -202,13 +202,13 @@ UllFlowStep:
 #      stepaction_2:
 #        UllFlowAction:  ull_flow_action_reject
     is_start:         true
-  ull_flow_step_doc_helpdesk_xxx:
+  ull_flow_step_doc_helpdesk_dispatcher:
     Translation:
       en:
-        label:        XXX
+        label:        Helpdesk dispatcher
       de:
-        label:        XXX
-    slug:             xxx
+        label:        Helpdesk Dispatcher
+    slug:             helpdesk_dispatcher
     UllFlowApp:       ull_flow_app_helpdesk
     #UllFlowAction:    [ull_flow_action_assign_to_user]
   ull_flow_step_doc_todo_creator:
