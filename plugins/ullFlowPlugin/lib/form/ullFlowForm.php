@@ -72,6 +72,7 @@ class ullFlowForm extends ullGeneratorForm
     $this->setAction();
     $this->setNext();
     $this->setMemoryComment();
+    $this->sendMails();
     
 //    var_dump($this->object->toArray());die;
     
@@ -157,5 +158,14 @@ class ullFlowForm extends ullGeneratorForm
       $this->object->memory_comment = $values['memory_comment'];
     }
   }  
+  
+  protected function sendMails()
+  {
+    if ($this->object->UllFlowAction->notify_next) 
+    {
+      $mail = new ullFlowMailNotifyNext($this->object);
+      $mail->send();
+    }    
+  }
   
 }

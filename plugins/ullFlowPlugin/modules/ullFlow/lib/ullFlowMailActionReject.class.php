@@ -72,7 +72,7 @@ class ullFlowMailActionReject extends ullFlowMail
         . __('Kind regards') . ",\n"
         . $this->user_name . "\n"
         . "\n"
-        . $this->buildEditLink()
+        . $this->getEditLink)
       );
     
  

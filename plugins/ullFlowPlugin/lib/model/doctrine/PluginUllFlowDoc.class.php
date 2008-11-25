@@ -74,6 +74,16 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   }
   
   /**
+   * transparently get the current UllFlowMemory comment
+   *
+   * @param string $value
+   */
+  public function getMemoryComment()
+  {
+    return $this->memoryComment;
+  }  
+  
+  /**
    * Set the value of a virtual column
    *
    * @param string $ullFlowColumnConfigSlug

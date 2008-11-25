@@ -9,7 +9,9 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
+sfLoader::loadHelpers('I18N');
 sfLoader::loadHelpers('ull');
+
 
 $t = new myTestCase(11, new lime_output_color, $configuration);
 $path = dirname(__FILE__);

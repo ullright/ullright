@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(21, new lime_output_color, $configuration);
+$t = new myTestCase(22, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -32,7 +32,8 @@ $t->diag('create');
   $t->is($doc->assigned_to_ull_entity_id, 1, 'sets the default assigned_to_ull_entity_id correctly');
   $t->is($doc->assigned_to_ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct start step');  
   $t->is($doc->my_title, 'My fancy title', 'sets the correct virtual columns value');
-  $t->is($doc->my_datetime, '2008-08-08 08:08:08', 'sets the correct virtual columns value');  
+  $t->is($doc->my_datetime, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
+  $t->is($doc->memory_comment, 'My fancy memory comment', 'the current memory comment is accessable via $doc->memory_comment');  
   $t->is($doc->UllFlowMemories[0]->ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct memory step');
   $t->is($doc->UllFlowMemories[0]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('create')->id, 'sets the first memories action correctly (create)');
   $t->is($doc->UllFlowMemories[0]->assigned_to_ull_entity_id, 1, 'sets the correct memory assigned_to_ull_entity_id');  
