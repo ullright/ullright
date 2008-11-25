@@ -70,7 +70,7 @@ $b
 ;
 
 $b
-  ->diag('edit')
+  ->diag('edit -> save only')
   // doesn't work (yet -> sf1.2)
 //  ->click('edit')
   ->get('ullFlow/edit/doc/5')
@@ -79,9 +79,10 @@ $b
   ->isRequestParameter('doc', 5)
   ->checkResponseElement('ul.ull_flow_memories > li', '/Created[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
   ->checkResponseElement('ul.ull_flow_memories > li + li', '/Edited[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
-  ->setField('fields[my_title]', 'This is my shiny little edited title');
-  
-$b->click('Save and close')
+  ->setField('fields[my_title]', 'This is my shiny little edited title')
+
+  ->click('Save and close')
+  ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullFlow')
@@ -91,6 +92,22 @@ $b->click('Save and close')
   ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second trouble ticket')
 ;   
+
+$b
+  ->diag('edit -> send')
+  ->get('ullFlow/edit/doc/5')
+  ->click('Send')
+
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->checkResponseElement('table > tbody > tr', 3) // number of rows
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
+  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Helpdesk (Group)')
+;  
 
 //TODO: test mandatory comment
 

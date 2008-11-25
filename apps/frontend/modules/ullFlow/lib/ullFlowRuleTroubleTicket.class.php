@@ -1,8 +1,8 @@
 <?php
 
-class ullFlowRuleHelpdeskTool extends ullFlowRule {
+class ullFlowRuleTroubleTicket extends ullFlowRule {
    
-  public function getParams() 
+  public function getNext() 
   {
     
     if ($this->isStep('creator')) 

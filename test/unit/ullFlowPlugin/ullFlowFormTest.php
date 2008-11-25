@@ -9,6 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
+sfLoader::loadHelpers('ull');
 
 $t = new myTestCase(3, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
@@ -38,7 +39,9 @@ $t->begin('__construct');
   $t->is($defaults['my_email'], 'quasimodo@ull.at', 'The form returns the correct defaults');
   
   $request = array(
-    'my_email'  => 'luke.skywalker@ull.at',
+    'my_email'        => 'luke.skywalker@ull.at',
+    //TODO: why does this throw an error?
+//    'memory_comment'  => 'may the force be with you',
 //    'ull_flow_action_id'  => 1,
   );
   
@@ -46,5 +49,6 @@ $t->begin('__construct');
   
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
   $t->is($doc->my_email, 'luke.skywalker@ull.at', 'The form saves the virtual column values correctly');
+//  $t->is($doc->memory_comment, 'my the force be with you', 'The form saves the memory comment correctly');
   
  
