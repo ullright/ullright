@@ -1,12 +1,17 @@
 prod:
   mailing:
-    # send a copy of each mail to the debugger's email address
+    # send a copy of each mail to the developers' email address
     send_debug_cc: true
 
 test:
   mailing:
     # completely disable mail sending
     enable:        false
+
+dev:
+  mailing:
+    # reroute emails to the developers' email address 
+    reroute:       true
 
 # default values
 all:
@@ -23,6 +28,7 @@ all:
     smtp_hostname:  localhost  
     #smtp_username:  
     #smtp_passwort:  
+    reroute:        false
     debug_address:  klemens.ullmann@ull.at
     # send a copy of each mail to the debugger's email address
     send_debug_cc: false

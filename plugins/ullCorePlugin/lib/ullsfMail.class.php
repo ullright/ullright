@@ -41,8 +41,8 @@ class ullsfMail extends sfMail
     $this->setUsername(sfConfig::get('app_mailing_smtp_username'));
     $this->setPassword(sfConfig::get('app_mailing_smtp_password'));
     
-    // reroute mails except in the productive environment
-    if (sfConfig::get('sf_environment') == 'prod') 
+    // reroute mails except in the production environment
+    if (!sfConfig::get('app_mailing_reroute', true)) 
     {      
       $this->reroute_flag = false;
     }
@@ -266,5 +266,3 @@ class ullsfMail extends sfMail
   }  
   
 }
-
-?>
