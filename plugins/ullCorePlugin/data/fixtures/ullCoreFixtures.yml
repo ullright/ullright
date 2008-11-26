@@ -28,6 +28,7 @@ UllGroup:
     namespace:          ullCore
   test_group:
     display_name:       TestGroup
+    email:              test.group@example.com
     Creator:            admin_user
     Updator:            admin_user
     namespace:          ullCore

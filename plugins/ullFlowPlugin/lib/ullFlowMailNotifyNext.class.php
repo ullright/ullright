@@ -11,56 +11,7 @@ class ullFlowMailNotifyNext extends ullFlowMail
   {
     $this->setFrom($this->user->email, $this->user->display_name);
     
-    $nextEntity = $this->doc->UllEntity;
-    
-    if ($nextEntity->type == 'group') 
-    {
-      // check for a group email address
-      if ($email = $nextEntity->email) 
-      {
-        $this->addAddress($email, $nextEntity->__toString());
-      } 
-      else 
-      {
-        // if no group email -> get list of users and send to their email addresses
-        $userGroups = Doctrine::getTable('UllEntityGroup')->findByUllGroupId($nextEntity->id);
-        
-        
-        
-        foreach ($userGroups as $userGroup) 
-        {
-          $user = Doctrine::getTable('UllUser')->findOneById($userGroup->ull_entity_id);
-          $name = $user->__toString();
-          $email= $user->email;
-          
-//          var_dump($name);var_dump($email);die;
-          
-          if ($email) 
-          {
-            $this->addAddress($email, $name);
-          }
-        }
-      }
-      
-//      $greeting = __('Group', null, 'common') . ' ' . $next_group->__toString();
-
-    
-    } 
-    else 
-    {
-      // user
-      $name = $nextEntity->__toString();
-      $email = $nextEntity->email;
-      
-      if ($email) 
-      {
-        $this->addAddress($email, $name);
-      }
-      
-//      $greeting = $user_name;
-    }
-
-//    var_dump($this->doc->UllFlowApp->toArray)=;die;
+    $this->addAddress($this->doc->UllEntity);
     
     $subject =
         $this->doc->UllFlowApp->doc_label . 
@@ -84,7 +35,7 @@ class ullFlowMailNotifyNext extends ullFlowMail
         $this->doc->memory_comment . "\n\n" : ''; 
     
     $this->setBody(
-      __('Hello') . ' ' . $nextEntity . ",\n" .
+      __('Hello') . ' ' . $this->doc->UllEntity . ",\n" .
       "\n" .
       $request . ".\n" .
       "\n" .

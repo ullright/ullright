@@ -54,28 +54,40 @@ class ullsfMail extends sfMail
    * 
    * adds dev-env rerouting
    *
-   * @param string $address
+   * @param mixed $address  UllEntity or string
    * @param string $name
    */
   public function addAddress($address, $name = null)
   {
-    if ($name == null) 
+    if ($address instanceof UllEntity)
     {
-      list($address, $name) = $this->splitAddress($address);
+      $entityAddresses = $this->getUllEntityEmail($address);
+      
+      foreach ($entityAddresses as $entityAddress)
+      {
+        $this->addAddress($entityAddress['email'], $entityAddress['name']);
+      }
     }
-    
-    $this->to[$address] = $name;
-    
-    //handle non-prod rerouting
-    if ($this->reroute_flag) 
-    {
-//      var_dump(sfConfig::get('app_mailing_debug_address', 'me@example.com'));die;
-      $this->mailer->AddAddress(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
-      $this->reroute_to[] = $address; 
-    } 
     else 
     {
-      $this->mailer->AddAddress($address, $name);
+      if ($name == null) 
+      {
+        list($address, $name) = $this->splitAddress($address);
+      }
+      
+      $this->to[$address] = $name;
+      
+      //handle non-prod rerouting
+      if ($this->reroute_flag) 
+      {
+  //      var_dump(sfConfig::get('app_mailing_debug_address', 'me@example.com'));die;
+        $this->mailer->AddAddress(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
+        $this->reroute_to[] = $address; 
+      } 
+      else 
+      {
+        $this->mailer->AddAddress($address, $name);
+      }
     }
   }
 
@@ -89,22 +101,34 @@ class ullsfMail extends sfMail
    */
   public function addCc($address, $name = null)
   {
-    if ($name == null) 
+    if ($address instanceof UllEntity)
     {
-      list($address, $name) = $this->splitAddress($address);
+      $entityAddresses = $this->getUllEntityEmail($address);
+      
+      foreach ($entityAddresses as $entityAddress)
+      {
+        $this->addCc($entityAddress['email'], $entityAddress['name']);
+      }
     }
-    
-    $this->cc[$address] = $name;
-    
-    //handle non-prod rerouting    
-    if ($this->reroute_flag) 
-    {
-//      $this->mailer->AddCc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
-      $this->reroute_to[] = $address; 
-    } 
     else 
-    {
-      $this->mailer->AddCc($address, $name);
+    {    
+      if ($name == null) 
+      {
+        list($address, $name) = $this->splitAddress($address);
+      }
+      
+      $this->cc[$address] = $name;
+      
+      //handle non-prod rerouting    
+      if ($this->reroute_flag) 
+      {
+  //      $this->mailer->AddCc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
+        $this->reroute_to[] = $address; 
+      } 
+      else 
+      {
+        $this->mailer->AddCc($address, $name);
+      }
     }
   }
 
@@ -118,22 +142,34 @@ class ullsfMail extends sfMail
    */  
   public function addBcc($address, $name = null)
   {
-    if ($name == null) 
+    if ($address instanceof UllEntity)
     {
-      list($address, $name) = $this->splitAddress($address);
+      $entityAddresses = $this->getUllEntityEmail($address);
+      
+      foreach ($entityAddresses as $entityAddress)
+      {
+        $this->addBcc($entityAddress['email'], $entityAddress['name']);
+      }
     }
-    
-    $this->bcc[$address] = $name;
-    
-    //handle non-prod rerouting    
-    if ($this->reroute_flag) 
-    {
-      $this->mailer->AddBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
-      $this->reroute_to[] = $address; 
-    } 
     else 
-    {
-      $this->mailer->AddBcc($address, $name);
+    {    
+      if ($name == null) 
+      {
+        list($address, $name) = $this->splitAddress($address);
+      }
+      
+      $this->bcc[$address] = $name;
+      
+      //handle non-prod rerouting    
+      if ($this->reroute_flag) 
+      {
+        $this->mailer->AddBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
+        $this->reroute_to[] = $address; 
+      } 
+      else 
+      {
+        $this->mailer->AddBcc($address, $name);
+      }
     }
   }
   
@@ -253,7 +289,7 @@ class ullsfMail extends sfMail
    * @param string $address
    * @return array
    */
-  private function splitAddress($address)
+  protected function splitAddress($address)
   {
     if (preg_match('/^(.+)\s<(.+?)>$/', $address, $matches))
     {
@@ -264,5 +300,36 @@ class ullsfMail extends sfMail
       return array($address, '');
     }
   }  
+  
+
+  protected function getUllEntityEmail(UllEntity $entity)
+  {
+    $return = array();
+    
+    if ($entity->type == 'group' && !$entity->email) 
+    {
+      // if no group email -> get list of users and send to their email addresses
+      $userGroups = Doctrine::getTable('UllEntityGroup')->findByUllGroupId($entity->id);
+      
+      foreach ($userGroups as $userGroup) 
+      {
+        $user = Doctrine::getTable('UllUser')->findOneById($userGroup->ull_entity_id);
+        
+        if ($email = $user->email) 
+        {
+          $return[] = array('email' => $email, 'name' => (string) $user);
+        }
+      }
+    } 
+    else 
+    {
+      if ($email = $entity->email) 
+      {
+        $return[] = array('email' => $email, 'name' => (string) $entity);
+      }       
+    }
+
+    return $return;
+  }
   
 }
