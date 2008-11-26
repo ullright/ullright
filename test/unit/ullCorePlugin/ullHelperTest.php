@@ -2,12 +2,11 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
-
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 
-$t = new lime_test(13, new lime_output_color);
+$t = new lime_test(16, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -55,15 +54,13 @@ $t->diag('_ull_reqpass_build_url');
   
   $t->is(_ull_reqpass_build_url($test), $result, 'returns the correct array');
   
-// TODO: check where the 'symfony/symfony' comes from
-// TODO: the test passes when run serparatly, but not with test:all ?!?   
-//$t->diag('ull_form_tag');
-//
-//  $request->setParameter('module', 'ullWiki');
-//  $request->setParameter('action', 'index');
-//  $request->setParameter('foo', 'bar');
-//  
-//  $t->is(ull_form_tag(array('action' => 'list')), '<form method="post" action="symfony/symfony/ullWiki/list/foo/bar">', 'returns the correct tag for a reqpass array');
+$t->diag('ull_form_tag');
+
+  $request->setParameter('module', 'ullWiki');
+  $request->setParameter('action', 'index');
+  $request->setParameter('foo', 'bar');
+  
+  $t->is(ull_form_tag(array('action' => 'list')), '<form method="post" action="/ullWiki/list/foo/bar">', 'returns the correct tag for a reqpass array');
 
 $t->diag('ull_submit_tag()');
 
@@ -161,14 +158,14 @@ $t->diag('ull_image_path()');
   
 //TODO: re-enable  
 $t->diag('ull_image_tag()');
-//  $t->is(ull_image_tag('search', null, null, null, 'ullWiki'),
-//    '<img alt="Search" title="Search" src="symfony/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
-//    'returns the correct result for default ull_image_tag() params');
-//  
-//  sfContext::getInstance()->getRequest()->setParameter('module', 'ullWiki');
-//  
-//  $t->is(ull_image_tag('search'),
-//    '<img alt="Search" title="Search" src="symfony/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
-//    'returns the correct result for default ull_image_tag() params');
-//  
+  $t->is(ull_image_tag('search', array(), null, null, 'ullWiki'),
+    '<img alt="Search" title="Search" src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
+    'returns the correct result for default ull_image_tag() params');
+  
+  sfContext::getInstance()->getRequest()->setParameter('module', 'ullWiki');
+  
+  $t->is(ull_image_tag('search'),
+    '<img alt="Search" title="Search" src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
+    'returns the correct result for default ull_image_tag() params');
+  
   

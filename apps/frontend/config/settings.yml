@@ -19,9 +19,10 @@ test:
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
     cache:                  off
     web_debug:              off
-    no_script_name:         off
+    no_script_name:         off    
     etag:                   off
     #logging_enabled:        off
+    
 
 all:
   .actions:

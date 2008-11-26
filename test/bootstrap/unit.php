@@ -13,3 +13,7 @@ $_test_dir = realpath(dirname(__FILE__).'/..');
 require_once(dirname(__FILE__).'/../../config/ProjectConfiguration.class.php');
 $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'test', isset($debug) ? $debug : true);
 include($configuration->getSymfonyLibDir().'/vendor/lime/lime.php');
+
+//following two params are necessary for unit tests which use sfWebController::genUrl()
+sfConfig::set('sf_relative_url_root', '');
+sfConfig::set('sf_no_script_name', true);
