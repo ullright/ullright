@@ -7,7 +7,7 @@ sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 
-$t = new lime_test(12, new lime_output_color);
+$t = new lime_test(13, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -152,6 +152,12 @@ $t->diag('ull_button_to()');
       '<input title="my_title" value="my_label" type="button" onclick="document.location.href=\'http://www.ull.at\';" />',
       'returns the correct result for default button_to() params');
   sfContext::getInstance()->getUser()->setAttribute('has_javascript', false); 
+
+  
+$t->diag('ull_image_path()');
+  $t->is(ull_image_path('search', null, null, 'ullWiki'),
+    '/ullWikiThemeNGPlugin/images/action_icons/search_16x16',
+    'returns the correct result for default ull_image_tag() params');
   
 //TODO: re-enable  
 $t->diag('ull_image_tag()');
