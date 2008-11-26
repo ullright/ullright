@@ -4,5 +4,43 @@
  */
 class PluginUllEntityTable extends UllParentEntityTable
 {
+  
+  /**
+   * checks if a given UllUser is the given UllEntity or member of the given UllEntity
+   * 
+   * $user is optional, by default the logged in user is used.
+   * 
+   * @param UllEntity $entity
+   * @param mixed $user         optional, = logged in user per default
+   * @return string 'user' or 'group' if successful
+   */
+  public static function has(UllEntity $entity, $user = null)
+  {   
+    if ($user === null)
+    {
+      $user = Doctrine::getTable('UllUser')->findOneById(
+          sfContext::getInstance()->getUser()->getAttribute('user_id'));
+    }
+    
+    if (!$user instanceof UllUser)
+    {
+      throw new InvalidArgumentException('user must be a UllUser object');
+    }
+    
+    if ($entity->type == 'user')
+    {
+      if ($entity->id == $user->id)
+      {
+        return 'user';
+      }
+    }
+    elseif ($entity->type == 'group')
+    {
+      if (UllUserTable::hasGroup($entity->id, $user->id))
+      {
+        return 'group';
+      }
+    }
+  }
 
 }

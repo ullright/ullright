@@ -34,7 +34,7 @@ $b
 $b
   ->diag('test wiki home searchbox')
 	->setField('search', 'Another')
-	->click('search_16x16')
+	->click('Search_16x16')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')

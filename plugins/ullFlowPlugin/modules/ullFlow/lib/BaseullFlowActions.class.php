@@ -11,7 +11,8 @@
 
 class BaseullFlowActions extends ullsfActions
 {
-public function preExecute()
+
+  public function preExecute()
   { 
     $path =  '/ullFlowTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
     $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
@@ -378,11 +379,13 @@ public function preExecute()
   
   public function executeEdit($request)
   {
-    $this->checkAccess('Masteradmins');
+    $this->checkAccess('LoggedIn');
 
     $this->refererHandler = new refererHandler();  
     
     $this->getDocFromRequestOrCreate();
+    
+    $this->workflowActionAccessCheck();
     
     $this->generator = new ullFlowGenerator($this->app, 'w');
     $this->generator->buildForm($this->doc);
@@ -1374,5 +1377,29 @@ public function preExecute()
       $mail->send();
     }        
   }
+  
+  /**
+   * Check access for the workflow actions
+   * 
+   * for existing docs, only the entities whom the doc is assigned to 
+   * are allowed to do make workflow actions (like send, assign, reject, ...)
+   * 
+   */
+  protected function workflowActionAccessCheck()
+  {
+    if ($this->doc->exists()) 
+    {
+      $this->workflow_action_access = false;
+      
+      if (UllEntityTable::has($this->doc->UllEntity)) 
+      {
+        $this->workflow_action_access = true;
+      }
+    }
+    else 
+    {
+      $this->workflow_action_access = true;
+    }
+  }    
 
 }

@@ -37,7 +37,7 @@ class PluginUllUserTable extends UllEntityTable
         $group = array($group);
       }
   
-      if (is_integer($group[0]))
+      if (is_numeric($group[0]))
       {
         $q->whereIn('g.id', $group);
       }

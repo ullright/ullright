@@ -12,9 +12,9 @@ $t->setFixturesPath($path);
 
 $t->begin('hasGroup()');
   $t->is(
-        UllUserTable::hasGroup('MasterAdmins', 1)
+        UllUserTable::hasGroup('MasterAdmins', '1')
       , true
-      , 'returns true for a given group and user_id'
+      , 'returns true for a given group and user_id (as string ;-))'
       );      
   $t->is(
         UllUserTable::hasGroup('MasterAdmins', 3)

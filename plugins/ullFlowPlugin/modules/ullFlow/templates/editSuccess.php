@@ -27,7 +27,7 @@
     
     
     
-    <?php //if ($step_actions and $workflow_action_access): ?>
+    <?php if ($workflow_action_access): // $step_actions and ?>
       
       <label for="fields_memory_comment">
         <?php echo __('Comment for this action') . ':'; ?>
@@ -55,7 +55,7 @@
           </li>
         <?php endforeach ?>
       </ul>
-    <?php //endif; ?>
+    <?php endif; ?>
 
   </div>
 
