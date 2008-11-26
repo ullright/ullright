@@ -12,16 +12,8 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 
 <?php
-  // add the Theme's main css at last position to allow overriding plugins' settings   
-	//  sfContext::getInstance()->getResponse()->addStyleSheet(
-	//    '/' . $layout . '/css/main.css'
-	//    , 'last'
-	//    , array('media' => 'all')
-	//  );
-  
   $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
   sfContext::getInstance()->getResponse()->addStylesheet($path, 'first', array('media' => 'all'));
-
 ?>
 </head>
 <body>
@@ -31,7 +23,7 @@
 	<div id="sidebar">
 		<div id="nav_logo">
 		  <?php echo ull_link_to(
-		              image_tag('/' . $layout . '/images/logo_120', 'alt="logo"')
+		              image_tag('/ullCoreThemeNGPlugin/images/logo_120', 'alt="logo"')
 		            , '@homepage'
 		            , 'ull_js_observer_confirm=true'
 		            ); ?> 
@@ -59,14 +51,14 @@
             <li id='nav_link_tickets'>
             <?php
               echo image_tag("/ullFlowThemeNGPlugin/images/ull_flow_app_icons/bug_tracking_32x32", 'alt="Tickets"') . "<br />";
-              echo ull_link_to(__('Active tickets', null, 'common'), 'ullFlow/tabular?app=helpdesk_tool&order=priority&order_dir=asc','ull_js_observer_confirm=true');
+              echo ull_link_to(__('Active tickets', null, 'common'), 'ullFlow/list?app=trouble_ticket','ull_js_observer_confirm=true');
             ?>
             </li>
             
             <li id='nav_link_todo'>
             <?php
-              echo image_tag("/ullFlowThemeNGPlugin/images/ull_flow_app_icons/todo_32x32", 'alt="Todo"') . "<br />";
-              echo ull_link_to(__('My todo list', null, 'common'),'ullFlow/tabular?query=to_me&order=priority&order_dir=asc', 'ull_js_observer_confirm=true');
+              echo image_tag("/ullFlowThemeNGPlugin/images/ull_flow_app_icons/todo_32x32", 'alt="My tasks"') . "<br />";
+              echo ull_link_to(__('My tasks', null, 'common'),'ullFlow/list?query=to_me', 'ull_js_observer_confirm=true');
             ?>
             </li>
             
