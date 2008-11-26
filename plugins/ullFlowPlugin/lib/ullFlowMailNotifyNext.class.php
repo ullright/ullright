@@ -19,6 +19,7 @@ class ullFlowMailNotifyNext extends ullFlowMail
         $this->doc->title .
         '"'
     ;
+    $this->setSubject($subject);
     
     $request =
         __('Please take care of') .
@@ -28,8 +29,6 @@ class ullFlowMailNotifyNext extends ullFlowMail
         $this->doc->title .
         '"'
     ;
-    
-    $this->setSubject($subject);
     
     $comment = ($this->doc->memory_comment) ? __('Comment') . ': ' . 
         $this->doc->memory_comment . "\n\n" : ''; 

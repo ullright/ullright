@@ -394,6 +394,8 @@ class BaseullFlowActions extends ullsfActions
       {
 //        var_dump($request->getParameterHolder()->getAll());
 //        die;
+
+        $this->sendMails();
         
         if ($request->getParameter('submit_save_only')) 
         {
@@ -1349,7 +1351,24 @@ class BaseullFlowActions extends ullsfActions
       
     }    
   }  
-  
 
+  /**
+   * send notify emails
+   *
+   */
+  protected function sendMails()
+  {
+    if ($this->doc->UllFlowAction->notify_next) 
+    {
+      $mail = new ullFlowMailNotifyNext($this->doc);
+      $mail->send();
+    }
+
+    if ($this->doc->UllFlowAction->notify_creator) 
+    {
+      $mail = new ullFlowMailNotifyCreator($this->doc);
+      $mail->send();
+    }        
+  }
 
 }

@@ -8,6 +8,8 @@
  * 
  * adds functionality to send a bcc copy of every email to the developers email
  * adress
+ * 
+ * allows giving a UllEntity as address
  *
  */
 class ullsfMail extends sfMail
@@ -80,7 +82,6 @@ class ullsfMail extends sfMail
       //handle non-prod rerouting
       if ($this->reroute_flag) 
       {
-  //      var_dump(sfConfig::get('app_mailing_debug_address', 'me@example.com'));die;
         $this->mailer->AddAddress(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
         $this->reroute_to[] = $address; 
       } 
@@ -96,7 +97,7 @@ class ullsfMail extends sfMail
    * 
    * adds dev-env rerouting
    *
-   * @param string $address
+   * @param mixed $address  UllEntity or string
    * @param string $name
    */
   public function addCc($address, $name = null)
@@ -137,7 +138,7 @@ class ullsfMail extends sfMail
    * 
    * adds dev-env rerouting
    *
-   * @param string $address
+   * @param mixed $address  UllEntity or string
    * @param string $name
    */  
   public function addBcc($address, $name = null)
@@ -219,13 +220,10 @@ class ullsfMail extends sfMail
   /**
    * prepares for sending
    * 
-   * used for testing
+   * normally empty -> used for testing
    *
    */
-  public function prepare()
-  {
-    
-  }
+  public function prepare() {}
   
   /**
    * send email
@@ -284,7 +282,7 @@ class ullsfMail extends sfMail
   /**
    * @see sfMail
    *
-   * has to be redeclared here, since it is private in sfMail
+   * has to be redeclared here, since it is private in sfMail (@#!"?*+)
    * 
    * @param string $address
    * @return array
@@ -302,6 +300,14 @@ class ullsfMail extends sfMail
   }  
   
 
+  /**
+   * get array of email addresses and names for the addXxx methods
+   * 
+   * supports UllGroups without group email address -> returns all addresses of its members
+   *
+   * @param UllEntity $entity
+   * @return array array(array('email' => 'me@example.com', 'name' => 'me'), ...)
+   */
   protected function getUllEntityEmail(UllEntity $entity)
   {
     $return = array();
