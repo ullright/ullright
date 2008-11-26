@@ -199,6 +199,12 @@ class ullsfMail extends sfMail
   {
     $this->prepare();
     
+    // generally disable mailing for certain environments
+    if (!sfConfig::get('app_mailing_enable', false))
+    {
+      return true;
+    }
+    
     if ($this->reroute_flag) 
     {
       $reroute_info = 'Original to: ';
@@ -222,7 +228,7 @@ class ullsfMail extends sfMail
     else 
     {
       // send copy to debugger's email if configured
-      if (sfConfig::get('app_mailing_send_copy_flag')) 
+      if (sfConfig::get('app_mailing_send_debug_cc', false)) 
       {
         $this->mailer->AddBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
       }

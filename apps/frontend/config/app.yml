@@ -1,3 +1,13 @@
+prod:
+  mailing:
+    # send a copy of each mail to the debugger's email address
+    send_debug_cc: true
+
+test:
+  mailing:
+    # completely disable mail sending
+    enable:        false
+
 # default values
 all:
   theme:            ullThemeNG          #TBR
@@ -7,13 +17,15 @@ all:
     default_language: en
   
   mailing:
+    enable:         true
     charset:        utf-8
     mailer:         sendmail
     smtp_hostname:  localhost  
     #smtp_username:  
     #smtp_passwort:  
     debug_address:  klemens.ullmann@ull.at
-    send_copy_flag: true     # in prod environment: send a copy of every mail to the debug_address
+    # send a copy of each mail to the debugger's email address
+    send_debug_cc: false
     
   auth:
     function: default      
