@@ -96,18 +96,22 @@ function ull_format_datetime($datetime, $culture = null) {
   }
 }
 
-function ull_image_tag($type, $link_option = array(), $width = null, $height = null, $plugin = null)
+function ull_image_path($type, $width = null, $height = null, $plugin = null)
 {
   $width = ($width === null) ? 16 : $width;
-	$height = ($height === null) ? 16 : $height;
+  $height = ($height === null) ? 16 : $height;
 
-	$plugin = ($plugin === null) ? sfContext::getInstance()->getRequest()->getParameter('module') : $plugin;
-	$path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/images";
-	$image = $type . '_' . $width . 'x' . $height;
-	
-	return image_tag($path . '/action_icons/' . $image, 
-    array('alt' => ucfirst($type), 'title' => ucfirst($type)));
-	
+  $plugin = ($plugin === null) ? sfContext::getInstance()->getRequest()->getParameter('module') : $plugin;
+  $path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/images";
+  $image = $type . '_' . $width . 'x' . $height;
+  
+  return $path . '/action_icons/' . $image;
+}
+
+function ull_image_tag($type, $link_option = array(), $width = null, $height = null, $plugin = null)
+{
+	return image_tag(ull_image_path($type, $width, $height, $plugin), 
+    array_merge($link_option, array('alt' => ucfirst($type), 'title' => ucfirst($type))));
 }
 
 

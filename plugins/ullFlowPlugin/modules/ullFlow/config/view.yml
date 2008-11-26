@@ -12,7 +12,7 @@ default:
 #    keywords:     symfony, project
 #    language:     en
 
-  stylesheets:    [ /ullFlowPlugin/css/main.css: { media: all } ]
+#  stylesheets:    [ /ullFlowPlugin/css/main.css: { media: all } ]
 
   javascripts:    []
 

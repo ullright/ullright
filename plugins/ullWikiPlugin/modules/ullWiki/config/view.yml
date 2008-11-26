@@ -9,7 +9,7 @@ default:
 #    keywords:     symfony, project
 #    language:     en
 
-  stylesheets:    [ /ullWikiPlugin/css/main.css: { media: all } ]
+#  stylesheets:    [ /ullWikiPlugin/css/main.css: { media: all } ]
 
   javascripts:    []
 

@@ -1,5 +1,37 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<div id="tc_wrapper">
+  <div id="tc_header">
+    <!-- add header here -->
+  </div>
+  <div id="tc_container">
+    <div id="tc_tasks">
+      <ul class="tc_tasks tc_tasks_format">
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage users')), 'ullTableTool/list/?table=UllUser') . link_to(__('Manage users'), 'ullTableTool/list/?table=UllUser') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage groups')), 'ullTableTool/list/?table=UllGroup') . link_to( __('Manage groups'), 'ullTableTool/list/?table=UllGroup') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group memberships')), 'ullTableTool/list/?table=UllEntityGroup') . link_to(__('Manage group memberships'), 'ullTableTool/list/?table=UllEntityGroup') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Table Config')), 'ullTableTool/list/?table=UllTableConfig') . link_to( __('Table Config'), 'ullTableTool/list/?table=UllTableConfig') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Column Config')), 'ullTableTool/list/?table=UllColumnConfig') . link_to(__('Column Config'), 'ullTableTool/list/?table=UllColumnConfig') ?></li>
+      </ul>
+    </div>
+    
+    <div id="tc_search">
+      <div class="tc_search_quick_box color_light_bg"><br />tba<br /></div>
+      <div class="tc_search_tag_box color_light_bg"><br /><br /><br /><br />tba<br /></div>
+    </div>
+    
+    <div id="tc_queries">
+      <div class="tc_query_box color_light_bg"><br /><br /><br /><br /><br /><br />tba<br /></div>
+      <div class="tc_query_box color_light_bg"><br />tba<br /></div> 
+    </div>
+  </div>
+  <div id="tc_footer">
+     <!-- add footer here -->
+  </div>
+</div>
+
+<!-- 
+
 <h1><?php echo __('ullAdmin Startpage'); ?></h1>
 
 <h4><?php echo __('Links'); ?></h4>
@@ -7,22 +39,21 @@
   <li><?php echo link_to(__('Manage users'), 'ullTableTool/list/?table=UllUser') ?></li>
   <li><?php echo link_to(__('Manage groups'), 'ullTableTool/list/?table=UllGroup') ?></li>
   <li><?php echo link_to(__('Manage group memberships'), 'ullTableTool/list/?table=UllEntityGroup') ?></li>
-  <!-- <li><?php echo link_to(__('Locations'), 'ullTableTool/list/?table=ull_location') ?></li> -->
+  <li><?php echo link_to(__('Locations'), 'ullTableTool/list/?table=ull_location') ?></li>
 </ul>
 
 <h4><?php echo __('Administration'); ?></h4>
 <ul>
   <li><?php echo link_to(__('Table Config'), 'ullTableTool/list/?table=UllTableConfig') ?></li>
   <li><?php echo link_to(__('Column Config'), 'ullTableTool/list/?table=UllColumnConfig') ?></li>
-<!--   
+ 
   <li><?php echo link_to(__('Fields'), 'ullTableTool/list/?table=ull_field') ?></li>
   <li><?php echo link_to(__('Cultures'), 'ullTableTool/list/?table=ull_culture') ?></li>
   <li><?php echo link_to(__('Select Boxes'), 'ullTableTool/list/?table=ull_select') ?></li>
   <li><?php echo link_to(__('Select Box Children'), 'ullTableTool/list/?table=ull_select_child') ?></li>
-//-->  
+ 
 </ul>
 
-<!--
 <h4><?php echo __('ullFlow Administration'); ?></h4>
 <ul>
   <li><?php echo link_to(__('ullFlowActions'), 'ullTableTool/list/?table=ull_flow_action') ?></li>

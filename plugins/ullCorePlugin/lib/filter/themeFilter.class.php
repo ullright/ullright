@@ -7,8 +7,10 @@ class themeFilter extends sfFilter {
     $sf_root_dir = sfConfig::get('sf_root_dir');
     
     // load theme
-    $this->theme = sfConfig::get('app_theme', 'ullThemeDefault');
-    $theme = $sf_root_dir.'/plugins/'.$this->theme.'/templates/layout';
+    
+    $theme = $sf_root_dir.'/plugins/ullCoreTheme' .
+      sfConfig::get('app_theme_package', 'NG') .
+      'Plugin/templates/layout';
 
     $this->getContext()->getController()->getActionStack()->getLastEntry()->getActionInstance()->setLayout($theme);
               

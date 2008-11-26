@@ -15,7 +15,12 @@
 
 class BaseullWikiActions extends ullsfActions
 {
-
+  public function preExecute()
+  { 
+    $path =  '/ullWikiTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
+  	$this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+  }
+	
   public function executeIndex() 
   {
     $this->form = new ullWikiIndexSearchForm();

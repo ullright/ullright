@@ -11,7 +11,11 @@
 
 class BaseullFlowActions extends ullsfActions
 {
-  
+public function preExecute()
+  { 
+    $path =  '/ullFlowTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
+    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+  }
   
   /**
    * Executes index action
