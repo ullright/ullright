@@ -55,7 +55,7 @@
          <?php echo __('Individual queries', null, 'common') ?>
         </h3>
         <ul>
-          <li><?php echo tba ?></li>
+          <li><?php echo 'tba' ?></li>
         </ul>
       </div>
       --> 
