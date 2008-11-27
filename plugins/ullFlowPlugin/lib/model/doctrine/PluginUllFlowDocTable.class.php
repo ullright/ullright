@@ -9,7 +9,7 @@ class PluginUllFlowDocTable extends UllRecordTable
    * 
    * @param Doctrine_Query $q
    * @param $app empty or a UllFlowApp
-   * @return Doctrin_Query
+   * @return Doctrine_Query
    * @throws InvalidArgumentException
    */
 	public static function queryAccess(Doctrine_Query $q, $app)
@@ -45,21 +45,36 @@ class PluginUllFlowDocTable extends UllRecordTable
     	$userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     	
       // assigned to
+//      $q->addWhere('(');
       $q->leftJoin('x.UllEntity e');
-      $q->where('e.id = ?', $userId);
+//      $q->addQueryPart('where','foobar = 666');
+      
       $q->leftJoin('e.UllEntityGroup aeg');
-      $q->orWhere('aeg.ull_entity_id = ?', $userId);
+//      $q->orWhere('aeg.ull_entity_id = ?', $userId);
       
       // memory:
       $q->leftJoin('x.UllFlowMemories m');
-      $q->orWhere('m.creator_ull_entity_id = ?', $userId);
+//      $q->orWhere('m.creator_ull_entity_id = ?', $userId);
       $q->leftJoin('m.CreatorUllEntity.UllEntityGroup meg');
-      $q->orWhere('meg.ull_entity_id = ?', $userId);
+//      $q->orWhere('meg.ull_entity_id = ?', $userId);
       
       // global read access:
       $q->leftJoin('x.UllFlowApp.UllPermission p');
       $q->leftJoin('p.UllGroup.UllUser gru');
-      $q->orWhere('gru.id = ? AND p.slug LIKE ?', array($userId, '%_global_read'));
+//      $q->orWhere('gru.id = ? AND p.slug LIKE ?', array($userId, '%_global_read'));
+      
+      // moved all where clauses into one statement to properly set the braces
+      $q->addWhere('
+        e.id = ? 
+        OR aeg.ull_entity_id = ? 
+        OR m.creator_ull_entity_id = ? 
+        OR meg.ull_entity_id = ?
+        OR gru.id = ? AND p.slug LIKE ?',
+        array($userId, $userId, $userId, $userId, $userId, '%_global_read')
+      );
+      
+      
+//      var_dump($q1->getDqlPart('where'));die;
     }
 
     return $q;

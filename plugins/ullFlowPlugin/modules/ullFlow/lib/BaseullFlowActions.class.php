@@ -12,7 +12,7 @@
 class BaseullFlowActions extends ullsfActions
 {
 
-  public function preExecute()
+  public function ullpreExecute()
   { 
     $path =  '/ullFlowTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
     $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
@@ -1217,18 +1217,21 @@ class BaseullFlowActions extends ullsfActions
     // app
     if ($this->app)
     {
-      $q->addWhere('ull_flow_app_id = ?', $this->app->id);
+      $q->addWhere('x.ull_flow_app_id = ?', $this->app->id);
       
       $this->ull_filter->add(
         'app',
         __('Application') . ': ' . $this->app->label
       );      
-    }    
+    }
+
+    
     
     // access
     $q = UllFlowDocTable::queryAccess($q, $this->app);
   
-
+//    printQuery($q->getQuery());die;
+    
     // 'named' queries
     if ($query = $this->getRequestParameter('query')) 
     {

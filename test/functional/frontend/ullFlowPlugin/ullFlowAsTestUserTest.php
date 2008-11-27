@@ -31,3 +31,9 @@ $b
   ->checkResponseElement('tbody > tr + tr + tr > td + td + td + td', 'My first trouble ticket')
 ;
 
+$b
+  ->diag('list - selecting one application')
+  ->get('ullFlow/list/app/trouble_ticket')
+  ->checkResponseElement('table > tbody > tr', 1) // number of rows
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first trouble ticket')  
+;
