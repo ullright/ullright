@@ -6,23 +6,41 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
-      <ul class="tc_tasks tc_tasks_format">
+      <ul class="tc_tasks">
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage users')), 'ullTableTool/list/?table=UllUser') . link_to(__('Manage users'), 'ullTableTool/list/?table=UllUser') ?></li>
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage groups')), 'ullTableTool/list/?table=UllGroup') . link_to( __('Manage groups'), 'ullTableTool/list/?table=UllGroup') ?></li>
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group memberships')), 'ullTableTool/list/?table=UllEntityGroup') . link_to(__('Manage group memberships'), 'ullTableTool/list/?table=UllEntityGroup') ?></li>
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Table Config')), 'ullTableTool/list/?table=UllTableConfig') . link_to( __('Table Config'), 'ullTableTool/list/?table=UllTableConfig') ?></li>
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Column Config')), 'ullTableTool/list/?table=UllColumnConfig') . link_to(__('Column Config'), 'ullTableTool/list/?table=UllColumnConfig') ?></li>
-      </ul>
+   </ul>
     </div>
     
     <div id="tc_search">
-      <div class="tc_search_quick_box color_light_bg"><br />tba<br /></div>
-      <div class="tc_search_tag_box color_light_bg"><br /><br /><br /><br />tba<br /></div>
+      <div class="tc_search_quick_top color_medium_bg"><br />tba<br /></div>
+      <!-- 
+      <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
+      <div class="tc_search_tag_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
+      -->
     </div>
     
     <div id="tc_queries">
-      <div class="tc_query_box color_light_bg"><br /><br /><br /><br /><br /><br />tba<br /></div>
-      <div class="tc_query_box color_light_bg"><br />tba<br /></div> 
+      <div class="tc_query_box color_light_bg">
+        <h3>
+         <?php echo __('Queries', null, 'common') ?>
+        </h3>
+        <ul>
+        </ul>
+      </div>
+      <!-- 
+      <div class="tc_query_box color_light_bg">
+        <h3>
+         <?php echo __('Individual queries', null, 'common') ?>
+        </h3>
+        <ul>
+          <li><?php echo 'tba' ?></li>
+        </ul>
+      </div>
+      --> 
     </div>
   </div>
   <div id="tc_footer">
