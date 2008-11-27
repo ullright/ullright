@@ -16,22 +16,23 @@
     </div>
     
     <div id="tc_search">
-      <div class="tc_search_quick_box color_light_bg">
+      <div class="tc_search_quick_top color_semi_bg">
         <?php echo ull_form_tag(array('action' => 'list')); ?>
-		      <div class="tc_search_quick_box_label">
-		        <?php echo $form['search']->renderLabel() ?>     
-		        <?php echo $form['fulltext']->renderLabel() ?>
-		      </div>
-		      <div class="tc_search_quick_box_element">
-		        <?php echo $form['search']->render() ?>
-		        <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullWiki'), array('class' => 'tc_search_quick_box_img')) ?>
-		      </div>
-		      <br />
-          <div class="tc_search_quick_box_element">
-		        <?php echo $form['fulltext']->render() ?>
-		      </div>
+		      <table>
+		        <tr>
+            <td><?php echo $form['search']->renderLabel() ?></td>    
+		        <td><?php echo $form['search']->render() ?></td>
+		        <td><?php echo submit_image_tag(ull_image_path('search', null, null, 'ullWiki'),
+		          array('class' => 'tc_search_quick_top_img')) ?></td>
+		      </tr>
+          <tr>
+            <td><?php echo $form['fulltext']->renderLabel() ?></td>
+		        <td><?php echo $form['fulltext']->render() ?></td>
+		      </tr>
+		      </table>
 		      </form>
 		    </div>
+		  <div class="tc_search_quick_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
       <div class="tc_search_tag_box color_light_bg"><br /><br /><br /><br />tba<br /></div>
     </div>
     

@@ -1,3 +1,18 @@
+
+/* Modules should override the following
+   format definitions. */
+
+.color_light_bg {
+  background: #dad9d9;
+}
+
+.color_semi_bg {
+  background: #d1d0d0;
+}
+
+/* End of module format css */
+
+
 #tc_wrapper {
   text-align: left;
   margin: 0px; /* add auto to switch left->center */
@@ -57,27 +72,20 @@ ul.tc_tasks li a {
   width: 33%;
 }
 
-.tc_search_quick_box {
+.tc_search_quick_top {
+  border: 0px;
+  padding: 0px;
+}
+
+.tc_search_quick_top_img {
+  border: 0px;
+  padding-left: 7px;
+}
+
+.tc_search_quick_bottom {
   border: 0px;
   margin-bottom: 10px;
-  padding: 7px;
-}
-
-.tc_search_quick_box_img {
-  border: 0px;
-  padding-left: 4px;
-}
-
-.tc_search_quick_box_label {
-  float: left;
-  width: 4em;
-  margin-top: -5px;
-  line-height: 2.65em;
-  padding-right: 5px;
-}
-
-.color_light_bg {
-  background: #dad9d9;
+  padding: 0px;
 }
 	
 .tc_search_tag_box {
