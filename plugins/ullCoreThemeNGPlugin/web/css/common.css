@@ -104,9 +104,9 @@ li ul {
 
 a {
   /* text-decoration: none; */
-  color: #0072a3;
+  /* color: #0072a3; lightblue */
   text-decoration: none;
-   
+  color: #777475;
 }
 
 a:hover {
@@ -114,7 +114,7 @@ a:hover {
 }
 
 a:visited {
-  color: #527686;
+  color: #454343;
 }
 
 

@@ -4,19 +4,34 @@
  * ************************************************
  */
  
- /* Overridden css:
-    ullCore / taskcenter.css - formats */
+ /* Overridden css: ullCore / main.css - formats */
 
 .color_light_bg {
   background: #e6f4b5;
 }
 
-.color_semi_bg {
+.color_medium_bg {
   background: #d3f460;
 }
+
+  /* Overridden css: ullCore / taskcenter.css - formats */
  
- /* End of overridden css */
+#tc_wrapper a:visited {
+  color: #51961f;
+}
+
+ /* Overridden css: ullCore / common.css - formats */
  
+a {
+  color: #51961f;
+}
+
+a:visited {
+  color: #346014;
+}
+
+/* End of overridden css */
+
 .ullwiki_header {
 	margin-bottom: 10px;
 	padding: 2px 7px;

@@ -8,7 +8,7 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
-      <ul class="tc_tasks tc_tasks_format">
+      <ul class="tc_tasks">
         <li><?php echo link_to(image_tag("/ullWikiThemeNGPlugin/images/ull_wiki_32x32",
         'alt=' . __('Create', null, 'common')), 'ullWiki/create') . 
         link_to(__('Create', null, 'common'), 'ullWiki/create')?></li>
@@ -16,7 +16,7 @@
     </div>
     
     <div id="tc_search">
-      <div class="tc_search_quick_top color_semi_bg">
+      <div class="tc_search_quick_top color_medium_bg">
         <?php echo ull_form_tag(array('action' => 'list')); ?>
 		      <table>
 		        <tr>
@@ -32,18 +32,33 @@
 		      </table>
 		      </form>
 		    </div>
+		  <!-- 
 		  <div class="tc_search_quick_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
-      <div class="tc_search_tag_box color_light_bg"><br /><br /><br /><br />tba<br /></div>
+      -->
+      <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
+      <div class="tc_search_tag_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
     </div>
     
     <div id="tc_queries">
       <div class="tc_query_box color_light_bg">
+	      <h3>
+	       <?php echo __('Queries', null, 'common') ?>
+	      </h3>
 	      <ul>
 	        <li><?php echo ull_link_to(__('New entries', null, 'common'), array('action' => 'list')) ?></li>
 	        <li><?php echo ull_link_to(__('Ordered by subject', null, 'common'), array('action' => 'list', 'sort' => 'subject')) ?></li>
 	      </ul>
 	    </div>
-      <div class="tc_query_box color_light_bg"><br />tba<br /></div> 
+	    <!-- 
+      <div class="tc_query_box color_light_bg">
+        <h3>
+         <?php echo __('Individual queries', null, 'common') ?>
+        </h3>
+        <ul>
+          <li><?php echo tba ?></li>
+        </ul>
+      </div>
+      --> 
     </div>
   </div>
   <div id="tc_footer">
