@@ -31,7 +31,7 @@ class PluginUllFlowDocTable extends UllRecordTable
     }
     
     // app-specific global read access
-    if ($app and !$global_access) 
+    if ($app and !$global_access)
     {
       if (UllUserTable::hasPermission('UllFlow_' . $app->slug . '_global_read'))
       {
@@ -72,9 +72,6 @@ class PluginUllFlowDocTable extends UllRecordTable
         OR gru.id = ? AND p.slug LIKE ?',
         array($userId, $userId, $userId, $userId, $userId, '%_global_read')
       );
-      
-      
-//      var_dump($q1->getDqlPart('where'));die;
     }
 
     return $q;

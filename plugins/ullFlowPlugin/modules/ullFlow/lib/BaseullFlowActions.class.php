@@ -385,9 +385,11 @@ class BaseullFlowActions extends ullsfActions
     
     $this->getDocFromRequestOrCreate();
     
+    $accessType = $this->doc->checkAccess();
+    $this->redirectUnless($accessType, 'ullUser/noaccess');
     $this->workflowActionAccessCheck();
     
-    $this->generator = new ullFlowGenerator($this->app, 'w');
+    $this->generator = new ullFlowGenerator($this->app, $accessType);
     $this->generator->buildForm($this->doc);
     
 //    var_dump($this->doc->UllFlowStep->UllFlowStepActions->UllFlowAction->toArray());
@@ -1224,13 +1226,9 @@ class BaseullFlowActions extends ullsfActions
         __('Application') . ': ' . $this->app->label
       );      
     }
-
-    
     
     // access
     $q = UllFlowDocTable::queryAccess($q, $this->app);
-  
-//    printQuery($q->getQuery());die;
     
     // 'named' queries
     if ($query = $this->getRequestParameter('query')) 

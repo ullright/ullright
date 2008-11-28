@@ -37,3 +37,15 @@ $b
   ->checkResponseElement('table > tbody > tr', 1) // number of rows
   ->checkResponseElement('tbody > tr > td + td + td + td', 'My first trouble ticket')  
 ;
+
+$b
+  ->diag('edit - test access for a document with only read access')
+  ->click('Edit')
+  ->checkResponseElement('tbody > tr > td + td', 'My first trouble ticket')
+  // check workflow access
+  // test that there is nothing but whitespace inside the tag (\w = any word character; ! = not)
+  // useless at the moment because there is no access to the actions at all
+//  ->checkResponseElement('div.action_buttons_edit_left', '!/\w/')
+  ->checkResponseElement('body', '!/Actions/');
+;
+

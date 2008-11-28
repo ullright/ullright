@@ -19,102 +19,103 @@
 
 <br />
 
-<div class='action_buttons_edit'>
-<fieldset>
-  <legend><?php echo __('Actions', null, 'common') ?></legend>
-
-  <div class='action_buttons_edit_left'>
-    
-    
-    
-    <?php if ($workflow_action_access): // $step_actions and ?>
-      
-      <label for="fields_memory_comment">
-        <?php echo __('Comment for this action') . ':'; ?>
-      </label><br />
-      <?php echo $generator->getForm()->offsetGet('memory_comment')->render() ?>
-      <?php echo $generator->getForm()->offsetGet('memory_comment')->renderError() ?>
+<?php if ($generator->getDefaultAccess() == 'w'): ?>
+  <div class='action_buttons_edit'>
+  <fieldset>
+    <legend><?php echo __('Actions', null, 'common') ?></legend>
+  
+    <div class='action_buttons_edit_left'>
       
       
-      <ul>
-        <?php
-//        $x =  $sf_data->getRaw('doc');
-//        var_dump($x->UllFlowStep->UllFlowStepActions->toArray());
+      
+      <?php if ($workflow_action_access): // $step_actions and ?>
         
-        foreach ($doc->UllFlowStep->UllFlowStepActions as $stepAction): ?> 
-          <li>
+        <label for="fields_memory_comment">
+          <?php echo __('Comment for this action') . ':'; ?>
+        </label><br />
+        <?php echo $generator->getForm()->offsetGet('memory_comment')->render() ?>
+        <?php echo $generator->getForm()->offsetGet('memory_comment')->renderError() ?>
+        
+        
+        <ul>
           <?php
-//            var_dump($stepAction->UllFlowAction);
-            $slug = $stepAction->UllFlowAction->slug;
-            
-            $action_handler_name = 'ullFlowActionHandler' . sfInflector::camelize($slug);
-            $ull_flow_action_handler = new $action_handler_name();
-            $ull_flow_action_handler->setOptions($stepAction->options);
-            echo $ull_flow_action_handler->getEditWidget();
-          ?>
-          </li>
-        <?php endforeach ?>
-      </ul>
-    <?php endif; ?>
-
-  </div>
-
-    
-  <div class='action_buttons_edit_right'>
-    <ul>
+  //        $x =  $sf_data->getRaw('doc');
+  //        var_dump($x->UllFlowStep->UllFlowStepActions->toArray());
+          
+          foreach ($doc->UllFlowStep->UllFlowStepActions as $stepAction): ?> 
+            <li>
+            <?php
+  //            var_dump($stepAction->UllFlowAction);
+              $slug = $stepAction->UllFlowAction->slug;
+              
+              $action_handler_name = 'ullFlowActionHandler' . sfInflector::camelize($slug);
+              $ull_flow_action_handler = new $action_handler_name();
+              $ull_flow_action_handler->setOptions($stepAction->options);
+              echo $ull_flow_action_handler->getEditWidget();
+            ?>
+            </li>
+          <?php endforeach ?>
+        </ul>
+      <?php endif; ?>
+  
+    </div>
+  
       
-      <?php if ($generator->getDefaultAccess() == 'w'): ?>
-
-        <li>
-        <?php 
-          echo ull_submit_tag(
-            __('Save only', null, 'common'),
-            array('name' => 'submit_save_only', 'form_id' => 'edit_form', 'display_as_link' => true)
-          ); 
-        ?>
-        </li>
+    <div class='action_buttons_edit_right'>
+      <ul>
         
-        <li>  
-        <?php 
-          echo ull_submit_tag(
-            __('Save and close', null, 'common'),
-            array('name' => 'submit_save_close', 'form_id' => 'edit_form', 'display_as_link' => true)
-          ); 
-        ?>
-        </li>
-        
-        <?php /*if ($doc_id): ?>
+        <?php if ($generator->getDefaultAccess() == 'w'): ?>
+  
           <li>
           <?php 
-            echo link_to(
-              __('Delete', null, 'common'), 
-              'ullFlow/delete?doc='.$doc_id, 
-              'confirm='.__('Are you sure?', null, 'common')
-              ); 
+            echo ull_submit_tag(
+              __('Save only', null, 'common'),
+              array('name' => 'submit_save_only', 'form_id' => 'edit_form', 'display_as_link' => true)
+            ); 
           ?>
-          </li> 
-        <?php endif; */?>
-        
-      <?php endif; ?>
-    
-      <li>
-      <?php /*
-        echo ull_link_to(
-          __('Cancel', null, 'common') 
-          , $referer_edit
-          , 'ull_js_observer_confirm=true'
-        );
-      */?>
-      </li>
-    </ul>  
-  </div>
-
-  <div class="clear"></div>  
+          </li>
+          
+          <li>  
+          <?php 
+            echo ull_submit_tag(
+              __('Save and close', null, 'common'),
+              array('name' => 'submit_save_close', 'form_id' => 'edit_form', 'display_as_link' => true)
+            ); 
+          ?>
+          </li>
+          
+          <?php /*if ($doc_id): ?>
+            <li>
+            <?php 
+              echo link_to(
+                __('Delete', null, 'common'), 
+                'ullFlow/delete?doc='.$doc_id, 
+                'confirm='.__('Are you sure?', null, 'common')
+                ); 
+            ?>
+            </li> 
+          <?php endif; */?>
+          
+        <?php endif; ?>
+      
+        <li>
+        <?php /*
+          echo ull_link_to(
+            __('Cancel', null, 'common') 
+            , $referer_edit
+            , 'ull_js_observer_confirm=true'
+          );
+        */?>
+        </li>
+      </ul>  
+    </div>
   
-</fieldset>
-
-</div>
-
+    <div class="clear"></div>  
+    
+  </fieldset>
+  
+  </div>
+<?php endif; ?>
 
 
 

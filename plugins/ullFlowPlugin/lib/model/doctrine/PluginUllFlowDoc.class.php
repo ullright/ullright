@@ -198,6 +198,46 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
       $this->UllFlowStep = $this->UllFlowApp->findStartStep();
     }
   }
+
+  /**
+   * Check access for the current UllFlowDoc
+   * 
+   * returns 'w' for write access, 'r' for read access or false for no access
+   *
+   * @return mixed 'w', 'r' or false
+   */
+  public function checkAccess()
+  {
+    
+    if (UllUserTable::hasGroup('MasterAdmins'))
+    {
+      return 'w';
+    }
+    
+    // app-specific global write access
+    if (UllUserTable::hasPermission('UllFlow_' . $this->UllFlowApp->slug . '_global_write'))
+    {
+      return 'w';
+    }    
+    
+    // a user has write access to docs which are assigned to him
+    if (UllEntityTable::has($this->UllEntity))
+    {
+      return 'w';
+    }
+    
+    // read-only access check uses the same query as the list action
+    $q = new Doctrine_Query;
+    $q->select('x.id');
+    $q->from('UllFlowDoc x');
+    $q->addWhere('x.id = ?', $this->id);       
+    $q = UllFlowDocTable::queryAccess($q, $this->UllFlowApp);
+    
+    if ($q->count())
+    {
+      return 'r';
+    }
+  }  
   
   /**
    * create UllFlowMemory entry
@@ -231,6 +271,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $i = $this->createMemory();
     $this->UllFlowMemories[$i]->UllFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug('create');
     $this->UllFlowMemories[$i]->comment = '';        
-  }  
+  }
+
+
   
 }

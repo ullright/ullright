@@ -67,6 +67,8 @@ class PluginUllUserTable extends UllEntityTable
       $user_id = sfContext::getInstance()->getUser()->getAttribute('user_id');
     }
 
+//    var_dump($user_id);die;
+    
     $q = new Doctrine_Query;
     $q->from('UllUser u, u.UllGroup g, g.UllPermissions p')
       ->where('u.id = ?', $user_id)

@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(22, new lime_output_color, $configuration);
+$t = new myTestCase(28, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -84,3 +84,30 @@ $t->begin('getVirtualColumnsAsArray()');
   );
   $t->is($columns, $reference, 'returns the correct values');    
   
+$t->begin('checkAccess() - write');
+
+  $doc = Doctrine::getTable('UllFlowDoc')->find(2);
+  $t->loginAs('admin');
+  $t->is($doc->checkAccess(), 'w', 'returns write access for MasterAdmins');
+  
+  $t->loginAs('helpdesk_admin_user');
+  $t->is($doc->checkAccess(), 'w', 'returns write access for master read group');
+
+  $doc = Doctrine::getTable('UllFlowDoc')->find(3);
+  $t->loginAs('test_user');
+  $t->is($doc->checkAccess(), 'w', 'returns write because the doc is assigned to the user');
+  
+$t->begin('checkAccess() - read');
+
+  $doc = Doctrine::getTable('UllFlowDoc')->find(1);
+  $t->loginAs('helpdesk_user');
+  $t->is($doc->checkAccess(), 'r', 'returns read access for master read group');
+  
+  $t->loginAs('test_user');
+  $t->is($doc->checkAccess(), 'r', 'returns read access because the user created the doc');
+
+$t->begin('checkAccess() - none');  
+  
+  $doc = Doctrine::getTable('UllFlowDoc')->find(2);
+  $t->loginAs('test_user');
+  $t->is($doc->checkAccess(), null, 'returns no access for test_user');
