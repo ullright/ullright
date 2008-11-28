@@ -59,6 +59,10 @@ class sfDoctrineTestCase extends lime_test
 	 */
 	public function reset()
 	{
+	  // reset user_id, otherwise some records  will set creator,... to the current user_id
+	  $oldUserId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+	  sfContext::getInstance()->getUser()->setAttribute('user_id', null);
+	  
 		Doctrine::loadModels($this->modelsPath);
 			
 		if($this->resets==0)
@@ -75,6 +79,8 @@ class sfDoctrineTestCase extends lime_test
 		$this->loadFixtures();
 		
 		++$this->resets;
+		
+		sfContext::getInstance()->getUser()->setAttribute('user_id', $oldUserId);
 	}
 	
 	/**
@@ -88,6 +94,17 @@ class sfDoctrineTestCase extends lime_test
 	{
 		$this->diag($message);
 		$this->reset();
+	}
+	
+	/**
+	 * "Login by username"
+	 *
+	 * @param string $username
+	 */
+	public function loginAs($username)
+	{
+    $userId = Doctrine::getTable('UllUser')->findOneByUsername($username)->id;
+    sfContext::getInstance()->getUser()->setAttribute('user_id', $userId);	
 	}
 	
 	/**
@@ -175,4 +192,6 @@ class sfDoctrineTestCase extends lime_test
 	{
 		return count(Doctrine::getLoadedModels()) != 0;
 	}
+	
+	
 }
