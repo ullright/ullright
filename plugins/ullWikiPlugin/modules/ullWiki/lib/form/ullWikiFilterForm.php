@@ -12,7 +12,7 @@ class ullWikiFilterForm extends sfForm
       'fulltext' => new sfWidgetFormInputHidden(array(), array('id' => 'wiki_header_search_fulltext'))
     ));
 
-    $this->setDefault('fulltext', '1');
+    $this->setDefault('fulltext', '0');
 
     $this->widgetSchema->setLabels(array(
       'search'  => __('Search', null, 'common')
