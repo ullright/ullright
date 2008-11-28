@@ -8,13 +8,17 @@
 
 <ul class='ull_action'>
   
-    <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
-
-    <li><?php echo ull_button_to(__('Edit column info', null, 'common'), 
-                      'ullTableTool/create?table=' . $table_name . '&search =' . $table_name);?></li>
-
-    <?php echo $filter_form ?>   
-    <li><?php echo submit_tag('&gt;');?></li> 
+  <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
+  
+  <li><?php echo ull_button_to(__('Configure table'), 
+      'ullTableTool/list?table=UllTableConfig&filter[search] =' . $table_name);?></li>
+  
+  <li><?php echo ull_button_to(__('Configure columns'), 
+      'ullTableTool/list?table=UllColumnConfig&filter[search] =' . $table_name);?></li>                      
+  
+  <?php echo $filter_form ?>   
+  <li><?php echo submit_image_tag(ull_image_path('search', 16, 16, 'ullCore'),
+              array('alt' => 'search_list')) ?></li> 
 
 </ul>
  

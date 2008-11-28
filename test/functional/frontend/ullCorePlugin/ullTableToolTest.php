@@ -162,8 +162,11 @@ $b
 
 $b
   ->diag('filter - search by id')
+//  ->dumpDie()
   ->setField('filter[search]', 2)
-  ->click('>')
+  ->click('search_list')
+  ->isRedirected()
+  ->followRedirect()
   ->checkResponseElement('ul.ull_action input[value="2"]', true)
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
@@ -171,14 +174,18 @@ $b
 $b
   ->diag('filter - search for non-existing id')
   ->setField('filter[search]', 666)
-  ->click('>')
+  ->click('search_list')
+  ->isRedirected()
+  ->followRedirect()  
   ->responseContains('No results found');
 ;
 
 $b
   ->diag('filter - reset search')
   ->setField('filter[search]', '')
-  ->click('>')
+  ->click('search_list')
+  ->isRedirected()
+  ->followRedirect()  
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar edited')
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
@@ -186,7 +193,9 @@ $b
 $b
   ->diag('filter - search in my_string and my_text column')
   ->setField('filter[search]', 'ore my')
-  ->click('>')
+  ->click('search_list')
+  ->isRedirected()
+  ->followRedirect()  
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')  
 ; 
 

@@ -36,11 +36,11 @@ abstract class ullGenerator
       'enabled'             => 'Enabled',
       'show_in_list'        => 'Show in list',
       'mandatory'           => 'Mandatory',
-//      'caption_i18n_default' => 'Caption',
-//      'description_i18n_default' => 'Description',
-//      'caption_i18n'        => 'Caption i18n',
-//      'description_i18n'    => 'Description i18n',
+      'label'               => 'Label',
+      'description'         => 'Description',
+      'slug'                => 'Unique identifier',
       'options'             => 'Options',
+      'ull_column_type_id'  => 'Type',
     )    
   ;
 

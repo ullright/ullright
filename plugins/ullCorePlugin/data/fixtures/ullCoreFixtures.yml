@@ -72,16 +72,34 @@ UllTableConfig:
 #      de:
 #        caption: Alle Benutzer
 #        description: Liste aller Benutzer
-  test_tc_1:
+  ull_column_config_tc:
+    Translation:
+      en:
+        label: Column configuration
+      de:
+        label: Spaltenkonfiguration
+    db_table_name: UllColumnConfig
+    sort_columns: db_table_name
+    search_columns: db_table_name, db_column_name     
+  ull_table_config_tc:
+    Translation:
+      en:
+        label: Table configuration
+      de:
+        label: Tabellenkonfiguration  
+    db_table_name: UllTableConfig
+    sort_columns: db_table_name
+    search_columns: db_table_name    
+  test_tc:
+    Translation:
+      en:
+        label: TestTableLabel
+        description: TestTable for automated testing
+      de:
+        label: TestTabellenBeschriftung
+        description: TestTabelle für automatisierte tests
     db_table_name: TestTable
-    label: TestTableLabel
-    description: TestTable for automated testing
-#    sort_columns:
     search_columns: id, my_string, my_text
-#    Translation:
-#      en:
-#        caption: All Tests
-#        description: List of all tests
 
 UllColumnConfig:
   # UllUser
@@ -219,7 +237,31 @@ UllColumnConfig:
     enabled:        true
     show_in_list:   true
     UllColumnType:  foreign_key
-  
+    
+  #UllTableConfig
+  ull_table_config_cc_sort_columns:
+    Translation:
+      en:
+        label:      Order by columns
+      de:
+        label:      Sortiere nach Spalten
+    db_table_name:  UllTableConfig
+    db_column_name: sort_columns
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string
+  ull_table_config_cc_search_columns:
+    Translation:
+      en:
+        label:      Search in columns
+      de:
+        label:      Suche in Spalten
+    db_table_name:  UllTableConfig
+    db_column_name: search_columns
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string
+      
   #TestTable
   test_cc_my_string:
     Translation:

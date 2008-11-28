@@ -37,7 +37,7 @@ class BaseUllTableToolActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
-      //TODO: req_pass redirect
+      $this->ull_reqpass_redirect();
     }
     
     $this->generator = new ullTableToolGenerator($this->table_name);
