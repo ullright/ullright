@@ -17,9 +17,7 @@ UllParentEntity:
     email: 
       type: string(64)      
     password: 
-      type: string(40)
-    user_type: 
-      type: integer         
+      type: string(40)       
 
 # empty entity class to be overridden by custom Entity class 
 # (in config/doctrine/schema.yml) to allow definition of additional userfields

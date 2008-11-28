@@ -37,41 +37,6 @@ UllGroup:
 UllPermission:
   testPermission:
     slug:         testPermission    
-#UllPermission:
-#  read:
-#    Translation:
-#      en:
-#        label:          Read access
-#      de:
-#        label:          Lesezugriff  
-#    slug:               read
-#    namespace:          ullCore
-#  write:
-#    Translation:
-#      en:
-#        label:          Write access
-#      de:
-#        label:          Schreibzugriff  
-#    slug:               write
-#    namespace:          ullCore
-#  create:
-#    Translation:
-#      en:
-#        label:          Create
-#      de:
-#        label:          Erstellen
-#    slug:               create
-#    namespace:          ullCore
-#  admin:
-#    Translation:
-#      en:
-#        label:          Administrator
-#      de:
-#        label:          Administrator
-#    slug:               admin
-#    namespace:          ullCore       
-    
-
     
 UllColumnType:
   integer:
@@ -89,6 +54,10 @@ UllColumnType:
   email:
     class:        ullMetaWidgetEmail
     label:        Email
+    namespace:    ullCore
+  foreign_key:
+    class:        ullMetaWidgetForeignKey
+    label:        Foreign key
     namespace:    ullCore    
 
 UllTableConfig:
@@ -115,6 +84,143 @@ UllTableConfig:
 #        description: List of all tests
 
 UllColumnConfig:
+  # UllUser
+  ull_user_cc_first_name:
+    Translation:
+      en:
+        label:      First name
+      de:
+        label:      Vorname
+    db_table_name:  UllUser
+    db_column_name: first_name
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string
+  ull_user_cc_last_name:
+    Translation:
+      en:
+        label:      Last name
+      de:
+        label:      Nachname
+    db_table_name:  UllUser
+    db_column_name: last_name
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string
+  ull_user_cc_display_name:
+    Translation:
+      en:
+        label:      Display name
+      de:
+        label:      Anzeigename
+    db_table_name:  UllUser
+    db_column_name: display_name
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string
+  ull_user_cc_username:
+    Translation:
+      en:
+        label:      Username
+      de:
+        label:      Benutzername
+    db_table_name:  UllUser
+    db_column_name: username
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string
+  ull_user_cc_email:
+    Translation:
+      en:
+        label:      Email
+      de:
+        label:      E-Mail
+    db_table_name:  UllUser
+    db_column_name: email
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  email
+  ull_user_cc_password:
+    Translation:
+      en:
+        label:      Password
+      de:
+        label:      Passwort
+    db_table_name:  UllUser
+    db_column_name: password
+    enabled:        true
+    show_in_list:   false
+    UllColumnType:  string                   
+
+  #UllGroup
+  ull_group_cc_first_name:
+    db_table_name:  UllGroup
+    db_column_name: first_name
+    enabled:        false
+    UllColumnType:  string
+  ull_group_cc_last_name:
+    db_table_name:  UllGroup
+    db_column_name: last_name
+    enabled:        false
+    UllColumnType:  string
+  ull_group_cc_display_name:
+    Translation:
+      en:
+        label:      Display name
+      de:
+        label:      Anzeigename
+    db_table_name:  UllGroup
+    db_column_name: display_name
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string    
+  ull_group_cc_username:
+    db_table_name:  UllGroup
+    db_column_name: username
+    enabled:        false
+    UllColumnType:  string
+  ull_group_cc_email:
+    Translation:
+      en:
+        label:      Email
+      de:
+        label:      E-Mail
+    db_table_name:  UllGroup
+    db_column_name: email
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  email    
+  ull_group_cc_password:
+    db_table_name:  UllGroup
+    db_column_name: password
+    enabled:        false
+    UllColumnType:  string            
+    
+  #UllEntityGroup
+  ull_entity_group_cc_ull_entity_id:
+    Translation:
+      en:
+        label:      User
+      de:
+        label:      Benutzer
+    db_table_name:  UllEntityGroup
+    db_column_name: ull_entity_id
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  string #TODO: has to be foreign_key
+  ull_entity_group_cc_ull_group_id:
+    Translation:
+      en:
+        label:      Group
+      de:
+        label:      Gruppe
+    db_table_name:  UllEntityGroup
+    db_column_name: ull_group_id
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  foreign_key
+  
+  #TestTable
   test_cc_my_string:
     Translation:
       en:

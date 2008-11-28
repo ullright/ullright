@@ -23,7 +23,25 @@ abstract class ullGenerator
     $isBuilt        = false,
     $defaultAccess,
     $formClass,
-    $requestAction
+    $requestAction,
+    $system_column_names_humanized = array (
+      'id'                  => 'ID',
+      'creator_user_id'     => 'Created by', 
+      'created_at'          => 'Created at',
+      'updator_user_id'     => 'Updated by',
+      'updated_at'          => 'Updated at',
+      'db_table_name'       => 'Table name',
+      'db_column_name'      => 'Column name',
+      'field_type'          => 'Field Type',
+      'enabled'             => 'Enabled',
+      'show_in_list'        => 'Show in list',
+      'mandatory'           => 'Mandatory',
+//      'caption_i18n_default' => 'Caption',
+//      'description_i18n_default' => 'Description',
+//      'caption_i18n'        => 'Caption i18n',
+//      'description_i18n'    => 'Description i18n',
+      'options'             => 'Options',
+    )    
   ;
 
   /**

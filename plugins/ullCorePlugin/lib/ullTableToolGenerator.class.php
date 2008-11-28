@@ -179,6 +179,11 @@ class ullTableToolGenerator extends ullGenerator
       $columnConfig['show_in_list'] = true;
       $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
       
+      if (isset($this->system_column_names_humanized[$columnName])) 
+      {
+        $columnConfig['label'] = __($this->system_column_names_humanized[$columnName], null, 'common');
+      }
+      
       switch ($column['type'])
       {
         case 'string':
