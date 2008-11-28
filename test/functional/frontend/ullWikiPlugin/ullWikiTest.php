@@ -18,10 +18,15 @@ $b
   ->isRequestParameter('module', 'myModule')
   ->isRequestParameter('action', 'index')
   ->checkResponseElement('#filter_search', true)
-  ->checkResponseElement('img[src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png"]', true)
-   //TODO: finish the test (write to input field and click on search)
+  #->checkResponseElement('img[src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png"]', true)
+  ->setField('search', 'Another')
+  ->click('Search')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
 ;
- 
+
 $b
   ->diag('Wiki Home')
 	->get('ullWiki/index')
@@ -33,15 +38,15 @@ $b
 
 $b
   ->diag('test wiki home searchbox')
-	->setField('search', 'Another')
-	->click('Search_16x16')
+  ->setField('search', 'Another')
+  ->click('Search_16x16')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
 //  ->dumpDie()
   ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
 ;	
-  
+
 $b
   ->diag('create')
   ->click('Create')
