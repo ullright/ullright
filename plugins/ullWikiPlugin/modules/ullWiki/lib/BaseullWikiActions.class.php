@@ -111,7 +111,6 @@ class BaseullWikiActions extends ullsfActions
     //update
     if ($request->isMethod('post'))
     {
-      
 
       // check if this is a new or existing wiki article
       if ($docid = $this->getRequestParameter('docid')) {
@@ -143,7 +142,6 @@ class BaseullWikiActions extends ullsfActions
         foreach ($tags as $tag) {
           $this->ullwiki->addTag(trim($tag));
         }
-        #$this->ullwiki->setTags(str_replace(',', ' ', strtolower($this->getRequestParameter('tags'))));
         $this->ullwiki->setDuplicateTagsForSearch(strtolower($this->getRequestParameter('tags')));
 
         $this->ullwiki->save();
@@ -285,6 +283,7 @@ class BaseullWikiActions extends ullsfActions
 
   protected function getFilterFromRequest()
   {
+
     $this->filter_form = new ullWikiFilterForm;
     $this->filter_form->bind($this->getRequestParameter('filter'));
 
@@ -294,7 +293,6 @@ class BaseullWikiActions extends ullsfActions
     $q->from('UllWiki w')
       ->where('deleted = ?', 0)
     ;
-
 
     if ($this->getRequestParameter('sort')) {
       $q->orderBy('w.'.$this->getRequestParameter('sort').' ASC');

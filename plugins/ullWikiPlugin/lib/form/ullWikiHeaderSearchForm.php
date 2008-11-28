@@ -13,6 +13,8 @@ class ullWikiHeaderSearchForm extends sfForm
 
     $this->setDefault('fulltext', '1');
 
+    $this->getWidgetSchema()->setNameFormat('filter[%s]');
+
     $this->widgetSchema->setLabels(array(
       'search'    => ' '
     ));
