@@ -17,7 +17,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'myModule')
   ->isRequestParameter('action', 'index')
-  ->checkResponseElement('#search', true)
+  ->checkResponseElement('#filter_search', true)
   ->checkResponseElement('img[src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png"]', true)
    //TODO: finish the test (write to input field and click on search)
 ;
