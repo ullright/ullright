@@ -106,7 +106,25 @@ UllTableConfig:
         label: Tabellenkonfiguration  
     db_table_name: UllTableConfig
     sort_columns: db_table_name
-    search_columns: db_table_name, label  
+    search_columns: db_table_name, label
+  ull_select_tc:
+    Translation:
+      en:
+        label: Select boxes
+      de:
+        label: Auswahlfelder  
+    db_table_name: UllSelect
+    #sort_columns: label
+    #search_columns: label
+  ull_select_child_tc:
+    Translation:
+      en:
+        label: Select box entries
+      de:
+        label: Auswahlfeld-Einträge  
+    db_table_name: UllSelectChild
+    sort_columns: ull_select_id, sequence
+    search_columns: ull_select_id          
   test_tc:
     Translation:
       en:
@@ -292,7 +310,19 @@ UllColumnConfig:
     enabled:        true
     show_in_list:   false
     UllColumnType:  string
-      
+
+  #UllSelectChild
+  ull_select_child_cc_ull_select_id:
+    Translation:
+      en:
+        label:      Select box
+      de:
+        label:      Auswahlfeld  
+    db_table_name:  UllSelectChild
+    db_column_name: ull_select_id
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  foreign_key      
   #TestTable
   test_cc_my_string:
     Translation:
@@ -320,6 +350,30 @@ UllColumnConfig:
     show_in_list:   true
     UllColumnType:  email     
 
+UllSelect:
+  ull_select_test:
+    Translation:
+      en:
+        label:    My test select box
+      de:
+        label:    Meine Test Selectbox
+    slug: test
+    UllSelectChildren:
+      ull_select_child_test_1:
+        Translation:
+          en:
+            label:    My second option
+          de:
+            label:    Meine zweite Option
+        sequence: 2000        
+      ull_select_child_test_2:        
+        Translation:
+          en:
+            label:    My first option
+          de:
+            label:    Meine erste Option
+        sequence: 1000
+        
 # for tabletool testing
 TestTable:
   tt_1:
@@ -361,4 +415,5 @@ TestTable:
 #  echo "  x_$i:\n";
 #  echo "    my_string: blabla$i\n";
 #}
-#?>
+#?>        
+             

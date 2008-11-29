@@ -6,13 +6,17 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
+      <h3>User and Groups</h3>
       <ul class="tc_tasks">
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage users')), 'ullTableTool/list/?table=UllUser') . link_to(__('Manage users'), 'ullTableTool/list/?table=UllUser') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage groups')), 'ullTableTool/list/?table=UllGroup') . link_to( __('Manage groups'), 'ullTableTool/list/?table=UllGroup') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group memberships')), 'ullTableTool/list/?table=UllEntityGroup') . link_to(__('Manage group memberships'), 'ullTableTool/list/?table=UllEntityGroup') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Table Config')), 'ullTableTool/list/?table=UllTableConfig') . link_to( __('Table Config'), 'ullTableTool/list/?table=UllTableConfig') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Column Config')), 'ullTableTool/list/?table=UllColumnConfig') . link_to(__('Column Config'), 'ullTableTool/list/?table=UllColumnConfig') ?></li>
-   </ul>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage users')), 'ullTableTool/list?table=UllUser') . link_to(__('Manage users'), 'ullTableTool/list?table=UllUser') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage groups')), 'ullTableTool/list?table=UllGroup') . link_to( __('Manage groups'), 'ullTableTool/list?table=UllGroup') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group memberships')), 'ullTableTool/list?table=UllEntityGroup') . link_to(__('Manage group memberships'), 'ullTableTool/list?table=UllEntityGroup') ?></li>
+      </ul>
+      <h3>Select boxes</h3>
+      <ul class="tc_tasks">
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage select boxes')), 'ullTableTool/list?table=UllSelect') . link_to(__('Manage select boxes'), 'ullTableTool/list?table=UllSelect') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage select box entires')), 'ullTableTool/list?table=UllSelectChild') . link_to( __('Manage select box entries'), 'ullTableTool/list?table=UllSelectChild') ?></li>
+      </ul>      
     </div>
     
     <div id="tc_search">
@@ -51,14 +55,6 @@
 <!-- 
 
 <h1><?php echo __('ullAdmin Startpage'); ?></h1>
-
-<h4><?php echo __('Links'); ?></h4>
-<ul>
-  <li><?php echo link_to(__('Manage users'), 'ullTableTool/list/?table=UllUser') ?></li>
-  <li><?php echo link_to(__('Manage groups'), 'ullTableTool/list/?table=UllGroup') ?></li>
-  <li><?php echo link_to(__('Manage group memberships'), 'ullTableTool/list/?table=UllEntityGroup') ?></li>
-  <li><?php echo link_to(__('Locations'), 'ullTableTool/list/?table=ull_location') ?></li>
-</ul>
 
 <h4><?php echo __('Administration'); ?></h4>
 <ul>

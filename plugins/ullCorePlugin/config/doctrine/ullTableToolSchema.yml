@@ -64,7 +64,40 @@ UllColumnConfig:
     show_in_list:
       type: boolean
   relations:
-    UllColumnType:                    
+    UllColumnType:
+    
+UllSelect:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label]    
+  columns:
+    slug:
+      type: string(32)
+    label:
+      type: string(64)
+
+UllSelectChild:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label]    
+  columns:
+    ull_select_id:
+      type: integer
+    label:
+      type: string(64)
+    sequence:
+      type: integer
+  relations:
+    UllSelect:
+      foreignAlias: UllSelectChildren      
       
 TestTable:
   inheritance:

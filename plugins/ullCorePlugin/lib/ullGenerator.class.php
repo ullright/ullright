@@ -41,6 +41,7 @@ abstract class ullGenerator
       'slug'                => 'Unique identifier',
       'options'             => 'Options',
       'ull_column_type_id'  => 'Type',
+      'sequence'            => 'Sequence',
     )    
   ;
 

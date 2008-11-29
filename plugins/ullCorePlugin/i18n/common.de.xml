@@ -84,6 +84,10 @@
 <target>%1% Übersetzung %2%</target>
 </trans-unit>
 
+<trans-unit id="105">
+<source>Sequence</source>
+<target>Reihenfolge</target>
+</trans-unit>
 
 
 <!-- Questions -->
