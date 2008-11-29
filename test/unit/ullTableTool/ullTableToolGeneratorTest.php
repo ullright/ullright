@@ -180,7 +180,7 @@ $t->begin('getTableConfig() for a table with a multi-columns primary key');
   $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');
   $t->is(is_array($tableConfig->getIdentifier()), true, 'Identifier is an array');
   $t->is($tableConfig->getIdentifier(), array(0 => 'ull_entity_id', 1 => 'ull_group_id'), 'Identifiers are correct');
-  $t->is($tableConfig->label, 'UllEntityGroup', 'Label is correct');
+  $t->is($tableConfig->label, 'Group memberships', 'Label is correct');
   
 $t->begin('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();

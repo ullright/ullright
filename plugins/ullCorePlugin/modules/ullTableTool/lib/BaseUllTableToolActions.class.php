@@ -3,9 +3,9 @@
 /**
  * ullTableTool actions.
  *
- * @package    ull_at
- * @subpackage ullTabletool
- * @author     Your name here
+ * @package    ullright
+ * @subpackage ullTableTool
+ * @author     Klemens Ullmann <klemens.ullmann@ull.at>
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 class BaseUllTableToolActions extends ullsfActions
@@ -14,7 +14,8 @@ class BaseUllTableToolActions extends ullsfActions
   private
     $class_name   = '',
     $field_types  = array(),
-    $columns      = null;
+    $columns      = null
+  ;
   
   /**
    * Executes index action
@@ -25,12 +26,14 @@ class BaseUllTableToolActions extends ullsfActions
     $this->forward($this->getModuleName(), 'list');
   }
 
-  
+
+  /**
+   * Executes list action
+   *
+   * @param sfWebRequest $request
+   */
   public function executeList($request) 
   {
-    //    var_dump($request->getParameterHolder()->getAll());
-    //    die;
-    
     $this->checkAccess('Masteradmins');
     
     $this->getTablefromRequest();
@@ -50,157 +53,24 @@ class BaseUllTableToolActions extends ullsfActions
     $refererHandler->delete('edit');
     
     $this->breadcrumbForList();
-    
-    
-    
-    /*
-    //i18n doctrine tests:
-    $info = Doctrine::getTable('TableInfo')->findByDbTableName('UllUser')->getFirst();
-    
-//    $info->setLanguage('en');
-    
-    var_dump($info->Translation['en']->toArray());
-    die;
-    
-    
-    
-    
-    // check request paramater and get propel table info
-    if (!$this->handleTable()) {
-      return sfView::ERROR;
-    }
-    
-    $refererHandler = new refererHandler();
-    $refererHandler->delete('edit');
-    
-    $this->breadcrumb_tree = new breadcrumbTree();
-    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumb_tree->add('ullTableTool');
-    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_name);
-    $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
-    
-    
-//    redirect search to build get url
-    if (  $this->getRequest()->getMethod() == sfRequest::POST
-          and $this->hasRequestParameter('search')) 
-    {
-      
-      $return = $this->getRequest()->getUri().'/table/'.$this->table_name;
-      $return .= '/search/'.$this->getRequestParameter('search');
-      return $this->redirect($return);
-    }
-    
-    
-    $this->ull_form = new ullFormTableTool();
-    
-    // since this is the list action, we only want 'read' formating
-    $this->ull_form->setAccessDefault('r');
-    
-    $this->ull_form->setContainerName($this->table_name);
-    
-    $this->ull_form->buildFieldsInfo();
-
-    
-    $c = new Criteria();
-    
-    // add search parameter
-    if ($this->search = $this->getRequestParameter('search')) {
-      
-      $c->add(
-        constant($this->table_class . 'Peer::' . strtoupper($this->table_info_search_fields))
-        , $this->search
-      );
-      
-//      $search_words_arr = explode(' ', $search);
-//      foreach($search_words_arr as $key => $search) {
-//        $search_words_arr[$key] = '%'.$search.'%';
-//      }
-//      
-//      $search_word_first = array_shift($search_words_arr);
-//      
-//      // use propel criterions to build a vaild "OR" query
-//      // the first word uses getNewCriterion
-//      $cton_subject = $c->getNewCriterion(UllWikiPeer::SUBJECT, $search_word_first, Criteria::LIKE);
-//      if ($fulltext) {
-//        $cton_body = $c->getNewCriterion(UllWikiPeer::BODY, $search_word_first, Criteria::LIKE);
-//      }
-//      
-//      //all subsequent words have to use addAnd
-//      foreach($search_words_arr as $key => $search) {
-//        $cton_subject->addAnd($c->getNewCriterion(UllWikiPeer::SUBJECT, $search, Criteria::LIKE));
-//        if ($fulltext) {
-//          $cton_body->addAnd($c->getNewCriterion(UllWikiPeer::BODY, $search, Criteria::LIKE));
-//        }
-//      }
-//
-//      if ($fulltext) {
-//        $cton_subject->addOr($cton_body);
-//      }
-//      $c->add($cton_subject);
-
-    } 
-
-    
-    // order ...
-    if ($this->table_info_sort_fields) {
-      $sort_fields = explode(',', $this->table_info_sort_fields);
-      foreach ($sort_fields as $sort_field) {
-        $c->addAscendingOrderByColumn(constant(
-          $this->table_class . 'Peer::' . strtoupper($sort_field))
-        ); 
-      }
-    }
-    
-    
-    $this->ull_table_pager = new sfPropelPager($this->table_class, 25);
-    $this->ull_table_pager->setCriteria($c);
-    $this->ull_table_pager->setPage($this->getRequestParameter('page', 1));
-    $this->ull_table_pager->init();    
-    
-    
-//    $rows = call_user_func($this->table_class . 'Peer::doSelect', $c);
-    
-
-    // check for column info definitions for the current table
-    $c = new Criteria();
-    $c->add(UllColumnInfoPeer::DB_TABLE_NAME, $this->table_name);
-    if (UllColumnInfoPeer::doCount($c)) {
-      $this->column_info_available = true;
-    }
-    
-    
-    
-    // loop through rows
-       
-//    foreach ($rows as $row) {
-    foreach ($this->ull_table_pager->getResults() as $row) {
-      
-      $this->ull_form->setValueObject($row);
-      $this->ull_form->retrieveFieldsData();        
-  
-      
-    } // end of rows loop
-    
-//    ullCoreTools::printR($this->ull_form);
-//    exit();
-
-    // handle request params
-    
-//    ullCoreTools::printR($this->request_params);
-
-    */
 
   }
 
   
-  
+  /**
+   * Executes show action
+   *
+   */
   public function executeShow() 
   {
     $this->forward('ullTableTool', 'edit');
   }
 
   
-  
+  /**
+   * Executes create action
+   *
+   */
   public function executeCreate() 
   {
     $this->forward('ullTableTool', 'edit');
@@ -218,9 +88,13 @@ class BaseUllTableToolActions extends ullsfActions
 //      . `--' ;\__________________..--------. `--' ;--------'
 //       `-..-'                               `-..-'
   
+  /**
+   * Executes edit action
+   *
+   * @param sfWebRequest $request
+   */
   public function executeEdit($request)
   {
-    // TODO: put access check in a protected function to allow custom override 
     $this->checkAccess('Masteradmins');
 
     $this->refererHandler = new refererHandler();
@@ -245,13 +119,15 @@ class BaseUllTableToolActions extends ullsfActions
     else
     {
       $this->refererHandler->initialize();
-
     }
     $this->breadcrumbForEdit();
-
   }
 
-  
+
+  /**
+   * Execute delete action
+   *
+   */
   public function executeDelete()
   { 
     // check access
@@ -267,12 +143,13 @@ class BaseUllTableToolActions extends ullsfActions
     $referer = ($referer) ? $referer : $this->getUser()->getAttribute('referer');
     $referer = ($referer && !strstr($referer, 'edit')) ? $referer : $this->getRefererFallbackURI();
     $this->redirect($referer);
-    
   }  
   
-  
-  
-  
+  /**
+   * Gets a table object according to request param
+   *
+   * @return Doctrine_Record
+   */
   protected function getTablefromRequest() 
   {
     $this->forward404Unless(
@@ -288,29 +165,14 @@ class BaseUllTableToolActions extends ullsfActions
     );
 
     return true;
-    
-    // TODO: handle....
-    /*
-    // load table_info
-    $c = new Criteria();
-
-    $c->add(UllTableInfoPeer::DB_TABLE_NAME, $this->table_name);
-    $this->table_info = UllTableInfoPeer::doSelectOne($c);
-
-    if ($this->table_info) {
-      $this->table_info_search_fields = $this->table_info->getSearchFields();
-      $this->table_info_sort_fields   = $this->table_info->getSortFields();
-    }
-    */
-    
-//    ullCoreTools::printR($this->table_info);
-   
-
-//    ullCoreTools::printR($this->map_builder);
-//    exit();
-
   }
   
+  /**
+   * Parses filter request params
+   * and returns records accordingly
+   *
+   * @return Doctrine_Collection
+   */
   protected function getFilterFromRequest()
   {
     $this->filter_form = new ullTableToolFilterForm;
@@ -331,8 +193,6 @@ class BaseUllTableToolActions extends ullsfActions
           $cols[$key] = 'Translation.' . $col;
         }
       }
-//      var_dump($cols);
-//      die;
       ullCoreTools::doctrineSearch($q, $search, $cols);
     }
 
@@ -340,15 +200,23 @@ class BaseUllTableToolActions extends ullsfActions
     return ($rows->count()) ? $rows : new $this->table_name;
   }
 
+  /**
+   * Gets record according to request param
+   *
+   * @return unknown
+   */
   protected function getRowFromRequest()
   {
-
     $this->forward404Unless($this->getRequestParameter('id') > 0, 'ID is mandatory');
     
     return $this->getRowFromRequestOrCreate();
-    
   }
   
+  /**
+   * Gets record according to request params or creates a new
+   *
+   * @return Doctrine_Record
+   */
   protected function getRowFromRequestOrCreate()
   {
     if (($id = $this->getRequestParameter('id')) > 0) 
@@ -366,15 +234,23 @@ class BaseUllTableToolActions extends ullsfActions
     }
   }  
        
+  /**
+   * Handles breadcrumb for list action
+   *
+   */
   protected function breadcrumbForList()
   {
     $this->breadcrumb_tree = new breadcrumbTree();
     $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
     $this->breadcrumb_tree->add('ullTableTool');
     $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->label);
-    $this->breadcrumb_tree->addFinal(__('List', null, 'common'));
+    $this->breadcrumb_tree->add(__('List', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
   }
   
+  /**
+   * Handles breadcrumb for edit action
+   *
+   */
   protected function breadcrumbForEdit()
   {
     $this->breadcrumb_tree = new breadcrumbTree();
@@ -382,21 +258,28 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
     $this->breadcrumb_tree->add('ullTableTool');
     $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_name);
-    if ($this->id) {
-        $this->breadcrumb_tree->add(
-          __('List', null, 'common')
-          , $this->refererHandler->getReferer()
-        );
+    if ($this->id) 
+    {
+      $this->breadcrumb_tree->add(
+        __('List', null, 'common')
+        , $this->refererHandler->getReferer()
+      );
       $this->breadcrumb_tree->addFinal(__('Edit', null, 'common'));
-    } else {
+    }
+    else
+    {
       $this->breadcrumb_tree->addFinal(__('Create', null, 'common'));
     }
   }
   
+  /**
+   * Returns fallback URL if there is no valid referer
+   *
+   * @return string fallback URL
+   */
   protected function getRefererFallbackURI()
   {
     return $this->getModuleName() . '/list?table=' . $this->table_name;
   }
-  
   
 }

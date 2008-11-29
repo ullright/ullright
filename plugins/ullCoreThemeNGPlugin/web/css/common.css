@@ -114,7 +114,8 @@ a:hover {
 }
 
 a:visited {
-  color: #454343;
+  /* color: #454343; too dark */
+  color: #585858;
 }
 
 

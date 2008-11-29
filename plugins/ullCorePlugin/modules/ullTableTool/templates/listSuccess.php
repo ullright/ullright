@@ -16,9 +16,12 @@
   <li><?php echo ull_button_to(__('Configure columns'), 
       'ullTableTool/list?table=UllColumnConfig&filter[search] =' . $table_name);?></li>                      
   
-  <?php echo $filter_form ?>   
-  <li><?php echo submit_image_tag(ull_image_path('search', 16, 16, 'ullCore'),
-              array('alt' => 'search_list')) ?></li> 
+  <li>
+    <?php echo $filter_form['search']->renderLabel() ?>: 
+    <?php echo $filter_form['search']->render() ?>
+    <?php echo submit_image_tag(ull_image_path('search', 16, 16, 'ullCore'),
+              array('alt' => 'search_list')) ?>
+  </li> 
 
 </ul>
  

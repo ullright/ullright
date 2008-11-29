@@ -61,17 +61,34 @@ UllColumnType:
     namespace:    ullCore    
 
 UllTableConfig:
-#  user:
-#    db_table_name: UllUser
-#    sort_fields: last_name,first_name
-#    search_fields: last_name,first_name,name
-#    Translation:
-#      en:
-#        caption: All Users
-#        description: List of all users
-#      de:
-#        caption: Alle Benutzer
-#        description: Liste aller Benutzer
+  ull_user_tc:
+    Translation:
+      en:
+        label: Users
+      de:
+        label: Benutzer
+    db_table_name: UllUser
+    sort_columns: last_name, first_name
+    search_columns: display_name, username, email
+  ull_group_tc:
+    Translation:
+      en:
+        label: Groups
+      de:
+        label: Gruppen
+    db_table_name: UllGroup
+    sort_columns: display_name
+    search_columns: display_name, email
+  ull_entity_group_tc:
+    Translation:
+      en:
+        label: Group memberships
+      de:
+        label: Gruppen-Mitgliedschaften
+    db_table_name: UllEntityGroup
+    #TODO: fix foreign key ordering
+    #sort_columns: ull_group_id
+    #search_columns: ull_entity_id, ull_group_id                   
   ull_column_config_tc:
     Translation:
       en:
@@ -89,7 +106,7 @@ UllTableConfig:
         label: Tabellenkonfiguration  
     db_table_name: UllTableConfig
     sort_columns: db_table_name
-    search_columns: db_table_name    
+    search_columns: db_table_name, label  
   test_tc:
     Translation:
       en:
@@ -260,6 +277,20 @@ UllColumnConfig:
     db_column_name: search_columns
     enabled:        true
     show_in_list:   true
+    UllColumnType:  string
+  ull_table_config_cc_description:
+    db_table_name:  UllTableConfig
+    db_column_name: description
+    enabled:        true
+    show_in_list:   false
+    UllColumnType:  string    
+
+  #UllColumnConfig
+  ull_column_config_cc_description:
+    db_table_name:  UllColumnConfig
+    db_column_name: description
+    enabled:        true
+    show_in_list:   false
     UllColumnType:  string
       
   #TestTable

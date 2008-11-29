@@ -105,12 +105,7 @@ class breadcrumbTree
     $return = "<ul id='breadcrumbs'>\n";
     $return .= "<li class='first'>";
     $return .= link_to(
-                  image_tag(
-                    '/' .
-                    sfConfig::get('app_theme', 'ullThemeDefault') .
-                      '/images/breadcrumb_home.png',
-                    'alt=' . __('Home', null, 'common') . ' title=' . __('Home', null, 'common')
-                  ),  
+                  ull_image_tag('home', array(), 10, 10, 'ullCore'),
                   '@homepage'
                 ); 
     $return .= "</li>\n";                
