@@ -59,6 +59,10 @@ UllColumnType:
     class:        ullMetaWidgetForeignKey
     label:        Foreign key
     namespace:    ullCore    
+  ull_select:
+    class:        ullMetaWidgetUllSelect
+    label:        UllSelect
+    namespace:    ullCore
 
 UllTableConfig:
   ull_user_tc:
@@ -348,7 +352,15 @@ UllColumnConfig:
     db_column_name: my_email
     enabled:        true
     show_in_list:   true
-    UllColumnType:  email     
+    UllColumnType:  email
+    
+  test_cc_my_select_box:
+    db_table_name:  TestTable
+    db_column_name: my_select_box
+    options:        ull_select=ull_select_test add_empty=true
+    enabled:        true
+    show_in_list:   true
+    UllColumnType:  ull_select         
 
 UllSelect:
   ull_select_test:
@@ -357,7 +369,7 @@ UllSelect:
         label:    My test select box
       de:
         label:    Meine Test Selectbox
-    slug: test
+    slug: ull_select_test
     UllSelectChildren:
       ull_select_child_test_1:
         Translation:
@@ -373,6 +385,21 @@ UllSelect:
           de:
             label:    Meine erste Option
         sequence: 1000
+  ull_select_test_2:
+    Translation:
+      en:
+        label:    My test select box 2
+      de:
+        label:    Meine Test Selectbox 2
+    slug: test
+    UllSelectChildren:
+      ull_select_child_test2_1:
+        Translation:
+          en:
+            label:    My first option 2
+          de:
+            label:    Meine first Option 2
+        sequence: 1000        
         
 # for tabletool testing
 TestTable:
@@ -386,6 +413,7 @@ TestTable:
         my_text:    Hallo, das ist mein Text
     my_boolean:   true
     my_email:     foobar@example.com
+    my_select_box: 2
     my_useless_column: bla
     UllUser:      admin_user
     namespace:    test

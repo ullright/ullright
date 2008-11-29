@@ -5,6 +5,13 @@
 class PluginUllColumnConfigTable extends UllRecordTable
 {
 
+  /**
+   * returns UllColumnConfig record
+   *
+   * @param unknown_type $table
+   * @param unknown_type $column
+   * @return unknown
+   */
   public static function findForTableAndColumn($table, $column)
   {
     $q = new Doctrine_Query;
@@ -15,9 +22,16 @@ class PluginUllColumnConfigTable extends UllRecordTable
     return  $q->execute()->getFirst();        
   }
   
-  public static function getColumnConfigArray($table, $column)
+  /**
+   * adds UllColumnConfig settings to generators columnConfig
+   *
+   * @param array $columnConfig
+   * @param string $table
+   * @param string $column
+   * @return array
+   */
+  public static function addColumnConfigArray($columnConfig, $table, $column)
   {
-    $columnConfig = array();
     $i18n = false;
     
     if (strstr($column, '_translation_'))
@@ -36,14 +50,13 @@ class PluginUllColumnConfigTable extends UllRecordTable
     {
       if ($value = $dbColumnConfig->label)
       {
-//        if ($i18n)
-//        {
-//          $columnConfig['label'] = __('%1% translation %2%', array('%1%' => $value, '%2%' => $culture), 'common');
-//        }
-//        else
-//        {
-          $columnConfig['label'] = $value;
-//        }
+        $columnConfig['label'] = $value;
+      }
+      
+      if ($value = $dbColumnConfig->options)
+      {
+        $columnConfig['widgetOptions'] = 
+            array_merge($columnConfig['widgetOptions'], sfToolkit::stringToArray($value));
       }
       
       if (!$dbColumnConfig->enabled)

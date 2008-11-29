@@ -6,4 +6,14 @@
 abstract class PluginUllSelectChild extends BaseUllSelectChild
 {
 
+  /**
+   * To string
+   *
+   * @return unknown
+   */
+  public function __toString()
+  {
+    return $this->label;
+  }  
+  
 }

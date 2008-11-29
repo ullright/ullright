@@ -8,7 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-$my_string_col_selector = 'td + td + td + td + td + td';
+$my_string_col_selector = 'td + td + td + td + td + td + td';
 
 $b
   ->diag('login')
@@ -33,14 +33,15 @@ $b
   ->checkResponseElement('body', '!/useless|Useless/')
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
   ->checkResponseElement('tr > td + td + td + td > a', 'foobar@example.com')
+  ->checkResponseElement('tr > td + td + td + td + td', 'My first option')
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
   
 ;
 
 $b
   ->diag('list - test column headers')
-  ->checkResponseElement('tr > th + th + th + th + th + th', 'My custom string label translation en:')
-  ->checkResponseElement('table > thead > tr > th', 7) // number of columns
+  ->checkResponseElement('tr > th + th + th + th + th + th + th', 'My custom string label translation en:')
+  ->checkResponseElement('table > thead > tr > th', 8) // number of columns
 ;
   
 $b
@@ -57,10 +58,15 @@ $b
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('table', 'TestTable')
-  ->checkResponseElement('table tr', 10) // number of displayed fields
+  ->checkResponseElement('table tr', 11) // number of displayed fields
+  ->checkResponseElement('select#fields_my_select_box > option', 3) // number of options for the my_select_box field
+  ->checkResponseElement('select#fields_my_select_box > option', true)
+  ->checkResponseElement('select#fields_my_select_box > option + option', 'My first option')
+  ->checkResponseElement('select#fields_my_select_box > option + option + option', 'My second option')
   ->setField('fields[my_string_translation_en]', 'Quasimodo')
   ->setField('fields[my_text_translation_en]', "Hello,\nthis is a new line")
   ->setField('fields[my_boolean]', 'true')
+  ->setField('fields[my_select_box]', 2)
   ->setField('fields[ull_user_id]', 1)
   ->click('Save')
   ->isRedirected()
@@ -100,7 +106,7 @@ $b
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 1)
-  ->checkResponseElement('tr + tr + tr + tr + tr > td + td + td', '/Required./')
+  ->checkResponseElement('tr + tr + tr + tr + tr + tr > td + td + td', '/Required./')
 ;
 
 $b
@@ -136,8 +142,8 @@ $b
   ->diag('check if created_at is not equal to updated_at')
   ->get('ullTableTool/edit/table/TestTable/id/1')
 ;
-$created_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr + tr > td + td')->getValue();
-$updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr + tr + tr + tr> td + td')->getValue();
+$created_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr + tr + tr> td + td')->getValue();
+$updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + tr + tr + tr + tr + tr + tr + tr> td + td')->getValue();
 $b->
   test()->isnt($created_at, $updated_at, 'The edited_at date is different than the created_at date: ' . $created_at . ' vs ' . $updated_at)
 ;

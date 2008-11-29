@@ -31,7 +31,16 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'w',
         'show_in_list'        => true,
-        ),          
+        ),
+    'my_select_box' => array (
+        'widgetOptions'       => array('ull_select' => 'ull_select_test', 'add_empty' => true),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'My select box',
+        'metaWidget'          => 'ullMetaWidgetUllSelect',
+        'access'              => 'w',
+        'show_in_list'        => true,
+        ),                    
     'my_useless_column' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array('maxlength' => 64),
@@ -135,7 +144,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(33, new lime_output_color, $configuration);
+$t = new myTestCase(34, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -185,7 +194,7 @@ $t->begin('getTableConfig() for a table with a multi-columns primary key');
 $t->begin('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 11, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 12, 'columnsConfig has the correct number of columns');
   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();

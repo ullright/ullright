@@ -236,8 +236,8 @@ class ullTableToolGenerator extends ullGenerator
       }
       
       // parse UllColumnConfigData table
-      $dbColumnConfig = UllColumnConfigTable::getColumnConfigArray($this->modelName, $columnName);
-      $columnConfig = array_merge($columnConfig, $dbColumnConfig);
+      $columnConfig = UllColumnConfigTable::addColumnConfigArray($columnConfig, $this->modelName, $columnName);
+      
       
 //      var_dump($column);
       
