@@ -9,7 +9,7 @@ UllTableConfig:
   columns:
     # column name 'table' is not possible because it's a mysql reserved word
     # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   
-    db_table_name: 
+    db_table_name:
       type: string(32)
     label:
       type: string(64)
@@ -33,8 +33,8 @@ UllColumnType:
     label:
       type: string(64)
     description:
-      type: clob 
-     
+      type: clob
+
 UllColumnConfig:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -42,14 +42,14 @@ UllColumnConfig:
     type: concrete
   actAs:
     I18n:
-      fields: [label, description]     
+      fields: [label, description]
   columns:
     # column name 'table' is not possible because it's a mysql reserved word
-    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   
+    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony
     db_table_name: 
       type: string(32)
-    db_column_name: 
-      type: string(32)      
+    db_column_name:
+      type: string(32)
     label:
       type: string(64)
     description:
@@ -58,7 +58,7 @@ UllColumnConfig:
       type: integer
       #notnull: true    
     options:
-      type: clob      
+      type: clob
     is_enabled:
       type: boolean
       default: true
@@ -67,7 +67,7 @@ UllColumnConfig:
       default: true
   relations:
     UllColumnType:
-    
+
 UllSelect:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -75,7 +75,7 @@ UllSelect:
     type: concrete
   actAs:
     I18n:
-      fields: [label]    
+      fields: [label]
   columns:
     slug:
       type: string(32)
@@ -89,7 +89,7 @@ UllSelectChild:
     type: concrete
   actAs:
     I18n:
-      fields: [label]    
+      fields: [label]
   columns:
     ull_select_id:
       type: integer
@@ -99,15 +99,15 @@ UllSelectChild:
       type: integer
   relations:
     UllSelect:
-      foreignAlias: UllSelectChildren      
-      
+      foreignAlias: UllSelectChildren
+
 TestTable:
   inheritance:
     extends: UllRecord
     type: concrete
   actAs:
     I18n:
-      fields: [my_string, my_text] 
+      fields: [my_string, my_text]
 #    Taggable:
   columns:
     my_string:
@@ -126,4 +126,4 @@ TestTable:
     ull_user_id:
       type: integer
   relations:
-    UllUser:      
+    UllUser:
