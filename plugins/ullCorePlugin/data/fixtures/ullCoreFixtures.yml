@@ -19,7 +19,7 @@ UllUser:
     Creator:            admin_user
     Updator:            admin_user
     UllGroup:           [test_group]
-   
+
 UllGroup:
   admin_group:
     display_name:       MasterAdmins
@@ -32,12 +32,12 @@ UllGroup:
     Creator:            admin_user
     Updator:            admin_user
     namespace:          ullCore
-    UllPermissions:     [testPermission]            
-    
+    UllPermissions:     [testPermission]
+
 UllPermission:
   testPermission:
-    slug:         testPermission    
-    
+    slug:         testPermission
+
 UllColumnType:
   integer:
     class:        ullMetaWidgetInteger
@@ -62,6 +62,10 @@ UllColumnType:
   ull_select:
     class:        ullMetaWidgetUllSelect
     label:        UllSelect
+    namespace:    ullCore
+  checkbox:
+    class:        ullMetaWidgetCheckbox
+    label:        Checkbox
     namespace:    ullCore
 
 UllTableConfig:
@@ -92,7 +96,7 @@ UllTableConfig:
     db_table_name: UllEntityGroup
     #TODO: fix foreign key ordering
     #sort_columns: ull_group_id
-    #search_columns: ull_entity_id, ull_group_id                   
+    #search_columns: ull_entity_id, ull_group_id
   ull_column_config_tc:
     Translation:
       en:
@@ -101,13 +105,13 @@ UllTableConfig:
         label: Spaltenkonfiguration
     db_table_name: UllColumnConfig
     sort_columns: db_table_name
-    search_columns: db_table_name, db_column_name     
+    search_columns: db_table_name, db_column_name
   ull_table_config_tc:
     Translation:
       en:
         label: Table configuration
       de:
-        label: Tabellenkonfiguration  
+        label: Tabellenkonfiguration
     db_table_name: UllTableConfig
     sort_columns: db_table_name
     search_columns: db_table_name, label
@@ -116,7 +120,7 @@ UllTableConfig:
       en:
         label: Select boxes
       de:
-        label: Auswahlfelder  
+        label: Auswahlfelder
     db_table_name: UllSelect
     #sort_columns: label
     #search_columns: label
@@ -125,10 +129,10 @@ UllTableConfig:
       en:
         label: Select box entries
       de:
-        label: Auswahlfeld-Einträge  
+        label: Auswahlfeld-Einträge
     db_table_name: UllSelectChild
     sort_columns: ull_select_id, sequence
-    search_columns: ull_select_id          
+    search_columns: ull_select_id
   test_tc:
     Translation:
       en:
@@ -222,12 +226,12 @@ UllColumnConfig:
         label:      E-Mail
     db_table_name:  UllGroup
     db_column_name: email
-    UllColumnType:  email    
+    UllColumnType:  email
   ull_group_cc_password:
     db_table_name:  UllGroup
     db_column_name: password
     is_enabled:     false
-    
+ 
   #UllEntityGroup
   ull_entity_group_cc_ull_entity_id:
     Translation:
@@ -280,7 +284,7 @@ UllColumnConfig:
       en:
         label:      Select box
       de:
-        label:      Auswahlfeld  
+        label:      Auswahlfeld
     db_table_name:  UllSelectChild
     db_column_name: ull_select_id
     
@@ -308,7 +312,7 @@ UllColumnConfig:
     db_table_name:  TestTable
     db_column_name: my_select_box
     options:        ull_select=ull_select_test add_empty=true
-    UllColumnType:  ull_select         
+    UllColumnType:  ull_select
 
 UllSelect:
   ull_select_test:
@@ -325,8 +329,8 @@ UllSelect:
             label:    My second option
           de:
             label:    Meine zweite Option
-        sequence: 2000        
-      ull_select_child_test_2:        
+        sequence: 2000
+      ull_select_child_test_2:
         Translation:
           en:
             label:    My first option
@@ -347,7 +351,7 @@ UllSelect:
             label:    My first option 2
           de:
             label:    Meine first Option 2
-        sequence: 1000        
+        sequence: 1000
         
 # for tabletool testing
 TestTable:
@@ -376,20 +380,19 @@ TestTable:
         my_text:      Hello, this is more of my text
       de:
         my_string:    Foo Bar More Deutsch
-        my_text:      Hallo, das ist mehr von meinem Text        
+        my_text:      Hallo, das ist mehr von meinem Text
     my_boolean:   false
     my_email:     foobar.more@example.com
-    my_useless_column: even more bla   
+    my_useless_column: even more bla
     UllUser:      test_user
     namespace:    test
     Creator:      admin_user
     Updator:      test_user
     #created_at:   2008-01-01 00:00:00
 #<?php
-#for ($i = 1; $i <= 100; $i++) 
+#for ($i = 1; $i <= 100; $i++)
 #{
 #  echo "  x_$i:\n";
 #  echo "    my_string: blabla$i\n";
 #}
-#?>        
-             
+#?>
