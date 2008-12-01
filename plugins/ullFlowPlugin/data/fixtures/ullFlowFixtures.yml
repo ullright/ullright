@@ -439,19 +439,59 @@ UllColumnConfig:
     db_table_name:  UllFlowStep
     db_column_name: is_start
     
-  ull_flow_action_status_only:
+  ull_flow_action_is_status_only:
     Translation:
       en:
-        label:      Is status-only action?
+        label:      Status-only action?
       de:
-        label:      Ist nur eine Statusaktion?
+        label:      Nur eine Statusaktion?
     db_table_name:  UllFlowAction
-    db_column_name: status_only
-  ull_flow_action_disable_validation:
+    db_column_name: is_status_only
+  ull_flow_action_is_enable_validation:
     Translation:
       en:
-        label:      Disable validation?
+        label:      Validation?
       de:
-        label:      Keine Validierung?
+        label:      Validierung?
     db_table_name:  UllFlowAction
-    db_column_name: disable_validation
+    db_column_name: is_enable_validation
+  ull_flow_action_is_notify_creator:
+    Translation:
+      en:
+        label:      Notify creator?
+      de:
+        label:      Verständige Ersteller?
+    db_table_name:  UllFlowAction
+    db_column_name: is_notify_creator
+  ull_flow_action_is_notify_next:
+    Translation:
+      en:
+        label:      Notify next?
+      de:
+        label:      Verständige die Nächsten?
+    db_table_name:  UllFlowAction
+    db_column_name: is_notify_next
+  ull_flow_action_is_in_resultlist:
+    Translation:
+      en:
+        label:      In list per default?
+      de:
+        label:      Standardmäßig in der Listenansicht?
+    db_table_name:  UllFlowAction
+    db_column_name: is_in_resultlist
+  ull_flow_action_is_show_assigned_to:
+    Translation:
+      en:
+        label:      Show assigned to?
+      de:
+        label:      Zeige zugewiesen an?
+    db_table_name:  UllFlowAction
+    db_column_name: is_show_assigned_to
+  ull_flow_action_is_comment_mandatory:
+    Translation:
+      en:
+        label:      Is comment mandatory?
+      de:
+        label:      Kommentar muß ausgefüllt werden?
+    db_table_name:  UllFlowAction
+    db_column_name: is_comment_mandatory            
