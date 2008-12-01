@@ -16,7 +16,13 @@
       <ul class="tc_tasks">
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage select boxes')), 'ullTableTool/list?table=UllSelect') . link_to(__('Manage select boxes'), 'ullTableTool/list?table=UllSelect') ?></li>
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage select box entires')), 'ullTableTool/list?table=UllSelectChild') . link_to( __('Manage select box entries'), 'ullTableTool/list?table=UllSelectChild') ?></li>
-      </ul>      
+      </ul>
+      <h3>Table Tool</h3>
+      <ul class="tc_tasks">
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage table configurations')), 'ullTableTool/list?table=UllTableConfig') . link_to(__('Manage table configurations'), 'ullTableTool/list?table=UllTableConfig') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage column configurations')), 'ullTableTool/list?table=UllColumnConfig') . link_to( __('Manage column configurations'), 'ullTableTool/list?table=UllColumnConfig') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage field types (ullMetaWidgets)')), 'ullTableTool/list?table=UllColumnType') . link_to( __('Manage field types (ullMetaWidgets)'), 'ullTableTool/list?table=UllColumnType') ?></li>
+      </ul>              
     </div>
     
     <div id="tc_search">
