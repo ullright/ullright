@@ -67,6 +67,10 @@ UllColumnType:
     class:        ullMetaWidgetCheckbox
     label:        Checkbox
     namespace:    ullCore
+  password:
+    class:        ullMetaWidgetPassword
+    label:        Password
+    namespace:    ullCore
 
 UllTableConfig:
   ull_user_tc:
@@ -196,6 +200,18 @@ UllColumnConfig:
     db_table_name:  UllUser
     db_column_name: password
     is_in_list:     false
+    UllColumnType:  password
+###TESTING### ich entferne es später wieder, Denny
+#  ull_user_cc_dingens:
+#    Translation:
+#      en:
+#        label:      Dingens
+#      de:
+#        label:      Dingens
+#    db_table_name:  UllUser
+#    db_column_name: dingens
+#    is_in_list:     true
+#    UllColumnType:  checkbox
 
   #UllGroup
   ull_group_cc_first_name:
