@@ -81,11 +81,15 @@
 </form>
 
 
-
+*/ ?>
 
 <h2><?php echo __('Admin', null, 'common') ?>:</h2>
 <ul>
-  <li><?php echo link_to(__('Rebuild doc access rights'), 'ullFlow/rebuildDocAccess') ?></li>
+  <li><?php echo link_to(__('Manage applications'), 'ullTableTool/list?table=UllFlowApp') ?></li>
+  <li><?php echo link_to(__('Manage application access rights'), 'ullTableTool/list?table=UllFlowAppPermission') ?></li>
+  <li><?php echo link_to(__('Manage columns'), 'ullTableTool/list?table=UllFlowColumnConfig') ?></li>
+  <li><?php echo link_to(__('Manage steps'), 'ullTableTool/list?table=UllFlowStep') ?></li>
+  <li><?php echo link_to(__('Manage actions for steps'), 'ullTableTool/list?table=UllFlowStepAction') ?></li>
+  <li><?php echo link_to(__('Manage actions'), 'ullTableTool/list?table=UllFlowAction') ?></li>
 </ul>
 
-*/ ?>

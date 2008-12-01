@@ -89,6 +89,11 @@
 <target>Reihenfolge</target>
 </trans-unit>
 
+<trans-unit id="106">
+<source>Default value</source>
+<target>Vorgabewert</target>
+</trans-unit>
+
 
 <!-- Questions -->
 

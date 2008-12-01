@@ -56,13 +56,15 @@ UllColumnConfig:
       type: clob
     ull_column_type_id:
       type: integer
-      notnull: true    
+      #notnull: true    
     options:
       type: clob      
-    enabled:
+    is_enabled:
       type: boolean
-    show_in_list:
+      default: true
+    is_in_list:
       type: boolean
+      default: true
   relations:
     UllColumnType:
     

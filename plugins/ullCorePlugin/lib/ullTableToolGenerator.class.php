@@ -176,7 +176,7 @@ class ullTableToolGenerator extends ullGenerator
       $columnConfig['label']        = sfInflector::humanize($columnName);
       $columnConfig['metaWidget']   = 'ullMetaWidgetString';
       $columnConfig['access']       = $this->defaultAccess;
-      $columnConfig['show_in_list'] = true;
+      $columnConfig['is_in_list']   = true;
       $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
       
       if (isset($this->system_column_names_humanized[$columnName])) 
@@ -232,7 +232,7 @@ class ullTableToolGenerator extends ullGenerator
       // remove certain columns from the list per default
       if (in_array($columnName, $this->columnsNotShownInList))
       {
-        $columnConfig['show_in_list'] = false;
+        $columnConfig['is_in_list'] = false;
       }
       
       // parse UllColumnConfigData table

@@ -59,12 +59,12 @@ class PluginUllColumnConfigTable extends UllRecordTable
             array_merge($columnConfig['widgetOptions'], sfToolkit::stringToArray($value));
       }
       
-      if (!$dbColumnConfig->enabled)
+      if (!$dbColumnConfig->is_enabled)
       {
         $columnConfig['access'] = false;
       }
       
-      if (!$dbColumnConfig->show_in_list)
+      if (!$dbColumnConfig->is_in_list)
       {
         $columnConfig['show_in_list'] = false;
       }

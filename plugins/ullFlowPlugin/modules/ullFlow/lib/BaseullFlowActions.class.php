@@ -698,7 +698,7 @@ class BaseullFlowActions extends ullsfActions
         
         $value_object->save();
         
-        if (isset($field['is_title'])) {
+        if (isset($field['is_subject'])) {
           if (!$value) {
             $value = ' ';
           }
@@ -1366,13 +1366,13 @@ class BaseullFlowActions extends ullsfActions
    */
   protected function sendMails()
   {
-    if ($this->doc->UllFlowAction->notify_next) 
+    if ($this->doc->UllFlowAction->is_notify_next) 
     {
       $mail = new ullFlowMailNotifyNext($this->doc);
       $mail->send();
     }
 
-    if ($this->doc->UllFlowAction->notify_creator) 
+    if ($this->doc->UllFlowAction->is_notify_creator) 
     {
       $mail = new ullFlowMailNotifyCreator($this->doc);
       $mail->send();

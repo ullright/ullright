@@ -33,15 +33,16 @@ abstract class ullGenerator
       'db_table_name'       => 'Table name',
       'db_column_name'      => 'Column name',
       'field_type'          => 'Field Type',
-      'enabled'             => 'Enabled',
-      'show_in_list'        => 'Show in list',
-      'mandatory'           => 'Mandatory',
+      'is_enabled'          => 'Enabled',
+      'is_in_list'          => 'Show in list',
+      'is_mandatory'        => 'Mandatory',
       'label'               => 'Label',
       'description'         => 'Description',
       'slug'                => 'Unique identifier',
       'options'             => 'Options',
       'ull_column_type_id'  => 'Type',
       'sequence'            => 'Sequence',
+      'default_value'       => 'Default value',
     )    
   ;
 
@@ -291,24 +292,7 @@ abstract class ullGenerator
     $this->isBuilt = true;
   }
   
-  /**
-   * tests if a column is enabled
-   *
-   * @param array $columnConfig
-   * @return boolean
-   */
-  protected function isColumnEnabled($columnConfig)
-  {
-    if ($columnConfig['access']) {
-    
-      if ($this->defaultAccess == 'w' || 
-          ($this->defaultAccess == 'r' && $columnConfig['show_in_list']))
-      {
-        return true;
-      }
-    }
-  }
-  
+ 
   /**
    * get array of default cultures
    * 
@@ -351,5 +335,23 @@ abstract class ullGenerator
     
     return $activeColumns;
   }
+
+  /**
+   * tests if a column is enabled
+   *
+   * @param array $columnConfig
+   * @return boolean
+   */
+  protected function isColumnEnabled($columnConfig)
+  {
+    if ($columnConfig['access']) {
+    
+      if ($this->defaultAccess == 'w' || 
+          ($this->defaultAccess == 'r' && $columnConfig['is_in_list']))
+      {
+        return true;
+      }
+    }
+  }  
   
 }

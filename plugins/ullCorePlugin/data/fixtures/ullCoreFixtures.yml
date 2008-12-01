@@ -150,9 +150,6 @@ UllColumnConfig:
         label:      Vorname
     db_table_name:  UllUser
     db_column_name: first_name
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string
   ull_user_cc_last_name:
     Translation:
       en:
@@ -161,9 +158,6 @@ UllColumnConfig:
         label:      Nachname
     db_table_name:  UllUser
     db_column_name: last_name
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string
   ull_user_cc_display_name:
     Translation:
       en:
@@ -172,9 +166,6 @@ UllColumnConfig:
         label:      Anzeigename
     db_table_name:  UllUser
     db_column_name: display_name
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string
   ull_user_cc_username:
     Translation:
       en:
@@ -183,9 +174,6 @@ UllColumnConfig:
         label:      Benutzername
     db_table_name:  UllUser
     db_column_name: username
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string
   ull_user_cc_email:
     Translation:
       en:
@@ -194,8 +182,6 @@ UllColumnConfig:
         label:      E-Mail
     db_table_name:  UllUser
     db_column_name: email
-    enabled:        true
-    show_in_list:   true
     UllColumnType:  email
   ull_user_cc_password:
     Translation:
@@ -205,21 +191,17 @@ UllColumnConfig:
         label:      Passwort
     db_table_name:  UllUser
     db_column_name: password
-    enabled:        true
-    show_in_list:   false
-    UllColumnType:  string                   
+    is_in_list:     false
 
   #UllGroup
   ull_group_cc_first_name:
     db_table_name:  UllGroup
     db_column_name: first_name
-    enabled:        false
-    UllColumnType:  string
+    is_enabled:     false
   ull_group_cc_last_name:
     db_table_name:  UllGroup
     db_column_name: last_name
-    enabled:        false
-    UllColumnType:  string
+    is_enabled:     false
   ull_group_cc_display_name:
     Translation:
       en:
@@ -228,14 +210,10 @@ UllColumnConfig:
         label:      Anzeigename
     db_table_name:  UllGroup
     db_column_name: display_name
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string    
   ull_group_cc_username:
     db_table_name:  UllGroup
     db_column_name: username
-    enabled:        false
-    UllColumnType:  string
+    is_enabled:     false
   ull_group_cc_email:
     Translation:
       en:
@@ -244,14 +222,11 @@ UllColumnConfig:
         label:      E-Mail
     db_table_name:  UllGroup
     db_column_name: email
-    enabled:        true
-    show_in_list:   true
     UllColumnType:  email    
   ull_group_cc_password:
     db_table_name:  UllGroup
     db_column_name: password
-    enabled:        false
-    UllColumnType:  string            
+    is_enabled:     false
     
   #UllEntityGroup
   ull_entity_group_cc_ull_entity_id:
@@ -262,9 +237,6 @@ UllColumnConfig:
         label:      Benutzer
     db_table_name:  UllEntityGroup
     db_column_name: ull_entity_id
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string #TODO: has to be foreign_key
   ull_entity_group_cc_ull_group_id:
     Translation:
       en:
@@ -273,9 +245,6 @@ UllColumnConfig:
         label:      Gruppe
     db_table_name:  UllEntityGroup
     db_column_name: ull_group_id
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  foreign_key
     
   #UllTableConfig
   ull_table_config_cc_sort_columns:
@@ -286,9 +255,6 @@ UllColumnConfig:
         label:      Sortiere nach Spalten
     db_table_name:  UllTableConfig
     db_column_name: sort_columns
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string
   ull_table_config_cc_search_columns:
     Translation:
       en:
@@ -297,23 +263,16 @@ UllColumnConfig:
         label:      Suche in Spalten
     db_table_name:  UllTableConfig
     db_column_name: search_columns
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string
   ull_table_config_cc_description:
     db_table_name:  UllTableConfig
     db_column_name: description
-    enabled:        true
-    show_in_list:   false
-    UllColumnType:  string    
+    is_in_list:     false
 
   #UllColumnConfig
   ull_column_config_cc_description:
     db_table_name:  UllColumnConfig
     db_column_name: description
-    enabled:        true
-    show_in_list:   false
-    UllColumnType:  string
+    is_in_list:     false
 
   #UllSelectChild
   ull_select_child_cc_ull_select_id:
@@ -324,9 +283,7 @@ UllColumnConfig:
         label:      Auswahlfeld  
     db_table_name:  UllSelectChild
     db_column_name: ull_select_id
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  foreign_key      
+    
   #TestTable
   test_cc_my_string:
     Translation:
@@ -336,30 +293,21 @@ UllColumnConfig:
         label:      Mein spezielles String Label
     db_table_name:  TestTable
     db_column_name: my_string
-    enabled:        true
-    show_in_list:   true
-    UllColumnType:  string
     
   test_cc_my_useless_column:
     db_table_name:  TestTable
     db_column_name: my_useless_column
-    enabled:        false
-    show_in_list:   true
-    UllColumnType:  string
+    is_enabled:     false
     
   test_cc_my_email:
     db_table_name:  TestTable
     db_column_name: my_email
-    enabled:        true
-    show_in_list:   true
     UllColumnType:  email
     
   test_cc_my_select_box:
     db_table_name:  TestTable
     db_column_name: my_select_box
     options:        ull_select=ull_select_test add_empty=true
-    enabled:        true
-    show_in_list:   true
     UllColumnType:  ull_select         
 
 UllSelect:

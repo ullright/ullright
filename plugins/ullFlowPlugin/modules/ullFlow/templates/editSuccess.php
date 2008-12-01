@@ -133,7 +133,7 @@
     <?php foreach ($doc->UllFlowMemories as $memory): ?>
       <li>
         <?php echo $memory->UllFlowAction->label ?>
-        <?php if ($memory->UllFlowAction->show_assigned_to): ?>
+        <?php if ($memory->UllFlowAction->is_show_assigned_to): ?>
           <?php echo __('to') ?>
           <?php echo $memory->AssignedToUllEntity ?>
         <?php endif ?>

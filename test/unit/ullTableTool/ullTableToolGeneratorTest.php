@@ -12,7 +12,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'ID',
         'metaWidget'          => 'ullMetaWidgetInteger',
         'access'              => 'r',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         ),                   
     'my_boolean' => array (
         'widgetOptions'       => array(),
@@ -21,7 +21,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My boolean',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         ),
     'my_email' => array (
         'widgetOptions'       => array(),
@@ -30,7 +30,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My email',
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         ),
     'my_select_box' => array (
         'widgetOptions'       => array('ull_select' => 'ull_select_test', 'add_empty' => true),
@@ -39,7 +39,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My select box',
         'metaWidget'          => 'ullMetaWidgetUllSelect',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         ),                    
     'my_useless_column' => array (
         'widgetOptions'       => array(),
@@ -48,7 +48,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My useless column',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => null,
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         ),        
     'ull_user_id' => array (
         'widgetOptions'       => array(),
@@ -57,7 +57,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Ull user',
         'metaWidget'          => 'ullMetaWidgetForeignKey',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
         ),  
 //    'namespace' => array (
@@ -75,7 +75,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My custom string label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         'translation'         => true,
         ),   
     'my_text' => array (
@@ -85,7 +85,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My text',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         'translation'         => true,
         ),   
     'creator_user_id' => array (
@@ -95,7 +95,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Created by',
         'metaWidget'          => 'ullMetaWidgetForeignKey',
         'access'              => 'r',
-        'show_in_list'        => false,
+        'is_in_list'        => false,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
         ),
     'created_at' => array (
@@ -105,7 +105,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Created at',
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
-        'show_in_list'        => false,
+        'is_in_list'        => false,
         ),
     'updator_user_id' => array (
         'widgetOptions'       => array(),
@@ -114,7 +114,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Updated by',
         'metaWidget'          => 'ullMetaWidgetForeignKey',
         'access'              => 'r',
-        'show_in_list'        => false,
+        'is_in_list'        => false,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
         ),                  
     'updated_at' => array (
@@ -124,7 +124,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Updated at',
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
-        'show_in_list'        => false,
+        'is_in_list'        => false,
         ),                   
   ); 
 

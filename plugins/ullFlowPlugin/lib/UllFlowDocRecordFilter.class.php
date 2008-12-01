@@ -43,7 +43,7 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
     }
 
     // also set the title column of UllFlowDoc
-    if ($cc->is_title)
+    if ($cc->is_subject)
     {
       $record->title = $value;
     }

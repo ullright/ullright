@@ -12,7 +12,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My custom title label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         ),         
     'my_datetime' => array (
         'widgetOptions'       => array(),
@@ -21,7 +21,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Date',
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'w',
-        'show_in_list'        => false,
+        'is_in_list'        => false,
         ),                  
     'my_email' => array (
         'widgetOptions'       => array(),
@@ -30,7 +30,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Your email address',
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'w',
-        'show_in_list'        => true,
+        'is_in_list'        => true,
         ),          
   );
 

@@ -126,7 +126,7 @@ class ullFlowForm extends ullGeneratorForm
    */
   protected function setNext()
   {
-    if (!$this->object->UllFlowAction->status_only)
+    if (!$this->object->UllFlowAction->is_status_only)
     {
       $className = 'ullFlowRule' . sfInflector::camelize($this->object->UllFlowApp->slug);
       $rule = new $className($this->object);

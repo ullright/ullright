@@ -63,35 +63,35 @@ class ullFlowGenerator extends ullGenerator
     if ($this->requestAction == 'list')
     {
       $this->columnsConfig['id'] = array(
-        'widgetOptions'      => array(),
-        'widgetAttributes'   => array(),
-        'validatorOptions'   => array(),
-        'label' => 'ID',
-        'metaWidget' => 'ullMetaWidgetInteger',
-        'access' => $this->defaultAccess,
-        'show_in_list' => true,
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array(),
+        'label'               => 'ID',
+        'metaWidget'          => 'ullMetaWidgetInteger',
+        'access'              => $this->defaultAccess,
+        'is_in_list'          => true,
       );      
       $this->columnsConfig['ull_flow_app_id'] = array(
-        'widgetOptions'      => array(),
-        'widgetAttributes'   => array(),
-        'validatorOptions'   => array(),
-        'label' => 'Application',
-        'metaWidget' => 'ullMetaWidgetForeignKey',
-        'access' => $this->defaultAccess,
-        'show_in_list' => true,
-      	'relation' => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array(),
+        'label'               => 'Application',
+        'metaWidget'          => 'ullMetaWidgetForeignKey',
+        'access'              => $this->defaultAccess,
+        'is_in_list'          => true,
+    	  'relation'            => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
       );
       // the title column is taken from UllFlowDoc if no app is given
       if (!$this->app)
       {
         $this->columnsConfig['title'] = array(
-          'widgetOptions'      => array(),
-          'widgetAttributes'   => array(),
-          'validatorOptions'   => array(),
-          'label' => 'Title',
-          'metaWidget' => 'ullMetaWidgetString',
-          'access' => $this->defaultAccess,
-          'show_in_list' => true,
+          'widgetOptions'     => array(),
+          'widgetAttributes'  => array(),
+          'validatorOptions'  => array(),
+          'label'             => 'Title',
+          'metaWidget'        => 'ullMetaWidgetString',
+          'access'            => $this->defaultAccess,
+          'is_in_list'        => true,
         );
       }      
     }
@@ -112,7 +112,7 @@ class ullFlowGenerator extends ullGenerator
       {
         // the title column is taken from UllFlowDoc if no app is given,
         //   therefore we need to obmit it here to prevent duplicate
-        if ($this->app || (!$this->app && !$column['is_title']))            
+        if ($this->app || (!$this->app && !$column['is_subject']))            
         {
           $columnConfig = array(
             'widgetOptions'      => array(),
@@ -124,8 +124,8 @@ class ullFlowGenerator extends ullGenerator
           $columnConfig['label']        = $column->label;
           $columnConfig['metaWidget']   = $column->UllColumnType->class;
           $columnConfig['access']       = $this->defaultAccess;
-          $columnConfig['show_in_list'] = $column->show_in_list;
-          $columnConfig['validatorOptions']['required'] = $column->mandatory;
+          $columnConfig['is_in_list']   = $column->is_in_list;
+          $columnConfig['validatorOptions']['required'] = $column->is_mandatory;
           
           $this->columnsConfig[$columnName] = $columnConfig;
         }
@@ -135,33 +135,33 @@ class ullFlowGenerator extends ullGenerator
     if ($this->requestAction == 'list')
     {
       $this->columnsConfig['assigned_to_ull_entity_id'] = array(
-        'widgetOptions'      => array(),
-        'widgetAttributes'   => array(),
-        'validatorOptions'   => array(),
-        'label' => 'Assigned to',
-        'metaWidget' => 'ullMetaWidgetForeignKey',
-        'access' => $this->defaultAccess,
-        'show_in_list' => true,
-      	'relation' => array('model' => 'UllEntity', 'foreign_id' => 'id')
+        'widgetOptions'     => array(),
+        'widgetAttributes'  => array(),
+        'validatorOptions'  => array(),
+        'label'             => 'Assigned to',
+        'metaWidget'        => 'ullMetaWidgetForeignKey',
+        'access'            => $this->defaultAccess,
+        'is_in_list'        => true,
+      	'relation'          => array('model' => 'UllEntity', 'foreign_id' => 'id')
       );
       $this->columnsConfig['creator_user_id'] = array(
-        'widgetOptions'      => array(),
-        'widgetAttributes'   => array(),
-        'validatorOptions'   => array(),
-        'label' => 'Created by',
-        'metaWidget' => 'ullMetaWidgetForeignKey',
-        'access' => $this->defaultAccess,
-        'show_in_list' => true,
-      'relation' => array('model' => 'UllUser', 'foreign_id' => 'id')
+        'widgetOptions'     => array(),
+        'widgetAttributes'  => array(),
+        'validatorOptions'  => array(),
+        'label'             => 'Created by',
+        'metaWidget'        => 'ullMetaWidgetForeignKey',
+        'access'            => $this->defaultAccess,
+        'is_in_list'        => true,
+      'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id')
       );
       $this->columnsConfig['created_at'] = array(
-        'widgetOptions'      => array(),
-        'widgetAttributes'   => array(),
-        'validatorOptions'   => array(),
-        'label' => 'Created at',
-        'metaWidget' => 'ullMetaWidgetDateTime',
-        'access' => $this->defaultAccess,
-        'show_in_list' => true,
+        'widgetOptions'     => array(),
+        'widgetAttributes'  => array(),
+        'validatorOptions'  => array(),
+        'label'             => 'Created at',
+        'metaWidget'        => 'ullMetaWidgetDateTime',
+        'access'            => $this->defaultAccess,
+        'is_in_list'        => true,
       );            
     }
 //    var_dump($this->columnsConfig);

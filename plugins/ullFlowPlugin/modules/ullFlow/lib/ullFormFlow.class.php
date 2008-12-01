@@ -26,7 +26,7 @@ class ullFormFlow extends ullForm
         $field->getDefaultValue();
 
       if ($field->getIsTitle()) {
-        $this->fields_info[$field_name]['is_title']        = true;
+        $this->fields_info[$field_name]['is_subject']        = true;
       }
       
       if ($field->getIsPriority()) {
