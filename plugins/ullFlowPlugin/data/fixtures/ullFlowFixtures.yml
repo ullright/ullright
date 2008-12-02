@@ -368,6 +368,14 @@ UllTableConfig:
     db_table_name: UllFlowApp
     sort_columns: slug
     search_columns: slug
+  ull_flow_app_permission_tc:
+    Translation:
+      en:
+        label: Application access rights
+      de:
+        label: Anwendungs-Zugriffsrechte
+    db_table_name: UllFlowAppPermission
+    sort_columns: ull_flow_app_id
   ull_flow_column_config_tc:
     Translation:
       en:
@@ -413,6 +421,23 @@ UllColumnConfig:
         label:      Bezeichnung eines Dokuments
     db_table_name:  UllFlowApp
     db_column_name: doc_label
+    
+  ull_flow_app_permission_ull_flow_app_id:
+    Translation:
+      en:
+        label:      Application
+      de:
+        label:      Anwendung
+    db_table_name:  UllFlowAppPermission
+    db_column_name: ull_flow_app_id
+  ull_flow_app_permission_ull_permission_id:
+    Translation:
+      en:
+        label:      Permission
+      de:
+        label:      Zugriffsrecht
+    db_table_name:  UllFlowAppPermission
+    db_column_name: ull_permission_id    
     
   ull_flow_column_config_ull_flow_app_id:
     Translation:

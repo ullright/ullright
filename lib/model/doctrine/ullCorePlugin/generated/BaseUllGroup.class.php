@@ -18,5 +18,8 @@ abstract class BaseUllGroup extends UllEntity
     $this->hasMany('UllPermission as UllPermissions', array('refClass' => 'UllGroupPermission',
                                                             'local' => 'ull_group_id',
                                                             'foreign' => 'ull_permission_id'));
+
+    $this->hasMany('UllGroupPermission', array('local' => 'id',
+                                               'foreign' => 'ull_group_id'));
   }
 }

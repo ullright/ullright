@@ -91,6 +91,15 @@ UllTableConfig:
     db_table_name: UllGroup
     sort_columns: display_name
     search_columns: display_name, email
+  ull_permission_tc:
+    Translation:
+      en:
+        label: Permissions
+      de:
+        label: Zugriffsrechte
+    db_table_name: UllPermission
+    sort_columns: slug
+    search_columns: slug    
   ull_entity_group_tc:
     Translation:
       en:
@@ -99,8 +108,17 @@ UllTableConfig:
         label: Gruppen-Mitgliedschaften
     db_table_name: UllEntityGroup
     #TODO: fix foreign key ordering
-    #sort_columns: ull_group_id
-    #search_columns: ull_entity_id, ull_group_id
+    sort_columns: ull_group_id
+    search_columns: ull_entity_id, ull_group_id
+  ull_group_permission_tc:
+    Translation:
+      en:
+        label: Group permissions
+      de:
+        label: Gruppen-Zugriffsrechte
+    db_table_name: UllGroupPermission
+    sort_columns: ull_group_id
+    search_columns: ull_group_id, ull_permission_id
   ull_column_config_tc:
     Translation:
       en:
@@ -265,7 +283,25 @@ UllColumnConfig:
         label:      Gruppe
     db_table_name:  UllEntityGroup
     db_column_name: ull_group_id
-    
+
+  #UllGroupPermission
+  ull_group_permission_cc_ull_group_id:
+    Translation:
+      en:
+        label:      Group
+      de:
+        label:      Gruppe
+    db_table_name:  UllGroupPermission
+    db_column_name: ull_group_id
+  ull_group_permission_cc_ull_permission_id:
+    Translation:
+      en:
+        label:      Permission
+      de:
+        label:      Zugriffsrecht
+    db_table_name:  UllGroupPermission
+    db_column_name: ull_permission_id
+
   #UllTableConfig
   ull_table_config_cc_sort_columns:
     Translation:

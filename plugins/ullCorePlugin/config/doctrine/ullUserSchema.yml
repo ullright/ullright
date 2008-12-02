@@ -114,9 +114,10 @@ UllGroupPermission:
     ull_permission_id:
       type: integer
       primary: true
+  relations:
+    UllGroup:
+    UllPermission:
 
-       
-      
 #UllAccessGroup:
 #  package: ullCorePlugin.lib.model.doctrine
 #  inheritance:
