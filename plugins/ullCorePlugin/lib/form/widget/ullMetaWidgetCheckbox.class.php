@@ -11,12 +11,12 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
     if ($columnConfig['access'] == 'w')
     {
       $this->sfWidget = new sfWidgetFormInputCheckbox($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorString($columnConfig['validatorOptions']);
+      $this->sfValidator = new sfValidatorBoolean($columnConfig['validatorOptions']);
     }
     else
     {
       $this->sfWidget = new ullWidgetCheckbox($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorBoolean();
+      $this->sfValidator = new sfValidatorPass();
     }
 
   }
