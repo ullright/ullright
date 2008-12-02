@@ -9,7 +9,7 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
   /**
    * return the app's label
    *
-   * @return unknown
+   * @return string
    */
   public function __toString()
   {

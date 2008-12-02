@@ -49,13 +49,13 @@ class PluginUllFlowDocTable extends UllRecordTable
       $q->leftJoin('x.UllEntity e');
 //      $q->addQueryPart('where','foobar = 666');
       
-      $q->leftJoin('e.UllEntityGroup aeg');
+      $q->leftJoin('e.UllEntityGroupsAsGroup aeg');
 //      $q->orWhere('aeg.ull_entity_id = ?', $userId);
       
       // memory:
       $q->leftJoin('x.UllFlowMemories m');
 //      $q->orWhere('m.creator_ull_entity_id = ?', $userId);
-      $q->leftJoin('m.CreatorUllEntity.UllEntityGroup meg');
+      $q->leftJoin('m.CreatorUllEntity.UllEntityGroupsAsGroup meg');
 //      $q->orWhere('meg.ull_entity_id = ?', $userId);
       
       // global read access:
@@ -72,8 +72,13 @@ class PluginUllFlowDocTable extends UllRecordTable
         OR gru.id = ? AND p.slug LIKE ?',
         array($userId, $userId, $userId, $userId, $userId, '%_global_read')
       );
+      
+//    var_dump($q->getQuery());
+//    var_dump($q->getParams());
+//    die;
     }
 
+    
     return $q;
 	}
 	

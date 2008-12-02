@@ -16,9 +16,6 @@ UllFlowApp:
       type: string(64)
     icon:
       type: string(32)
-#    access_read_id:
-#      type: integer
-#      type: INTEGER
 #    default_list_columns:
 #      type: string(255)
 #      local: access_read_id
@@ -26,26 +23,6 @@ UllFlowApp:
   relations:
     UllPermission:
       refClass: UllFlowAppPermission
-      
-#UllFlowAppAccess:
-#  package: ullFlowPlugin.lib.model.doctrine
-#  inheritance:
-#    extends: UllRecord
-#    type: concrete
-#  columns:
-#    ull_flow_app_id:
-#      type: integer
-#      notnull: true
-#    ull_group_id:
-#      type: integer
-#      notnull: true
-#    ull_permission_id:
-#      type: integer
-#      notnull: true
-#  relations:
-#    UllFlowApp:
-#    UllGroup:
-#    UllPermission:
 
 UllFlowAppPermission:
   package: ullFlowPlugin.lib.model.doctrine
@@ -58,7 +35,10 @@ UllFlowAppPermission:
       notnull: true
     ull_permission_id:
       type: integer
-      notnull: true  
+      notnull: true
+  relations:
+    UllFlowApp:
+    UllPermission:        
 
 UllFlowDoc:
   package: ullFlowPlugin.lib.model.doctrine

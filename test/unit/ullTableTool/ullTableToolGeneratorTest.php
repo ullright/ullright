@@ -19,7 +19,7 @@ class myTestCase extends sfDoctrineTestCase
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => false),
         'label'               => 'My boolean',
-        'metaWidget'          => 'ullMetaWidgetString',
+        'metaWidget'          => 'ullMetaWidgetCheckbox',
         'access'              => 'w',
         'is_in_list'        => true,
         ),

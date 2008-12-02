@@ -17,7 +17,12 @@ UllParentEntity:
     email: 
       type: string(64)      
     password: 
-      type: string(40)       
+      type: string(40)
+#  relations:
+#    UllEntityGroupAsGroup:
+#      class: UllEntityGroup
+#      local: id
+#      foreign: ull_group_id       
 
 # empty entity class to be overridden by custom Entity class 
 # (in config/doctrine/schema.yml) to allow definition of additional userfields
@@ -66,7 +71,14 @@ UllEntityGroup:
       primary: true
   relations:
     UllEntity:
+    UllGroup:
+    UllEntityAsGroup:
+      class: UllEntity
       local: ull_group_id
+      foreign: id
+      foreignAlias: UllEntityGroupsAsGroup
+      
+    
       
 UllPermission:
   package: ullCorePlugin.lib.model.doctrine

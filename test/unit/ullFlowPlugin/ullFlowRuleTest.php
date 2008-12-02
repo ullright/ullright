@@ -39,11 +39,11 @@ $t->diag('findGroup()');
 
 $t->diag('findStep()');
 
-  $t->is($rule->findStep('Creator')->id, 1, 'returns the correct slug');
+  $t->is($rule->findStep('creator')->id, 1, 'returns the correct slug');
 
 $t->diag('isStep()');
 
-  $t->ok($rule->isStep('Creator'), 'true for the current step');    
+  $t->ok($rule->isStep('creator'), 'true for the current step');    
   $t->is($rule->isStep('Foobar'), false, 'false for any other step');
   
 $t->diag('getNext()');

@@ -200,7 +200,7 @@ class ullTableToolGenerator extends ullGenerator
           $columnConfig['metaWidget'] = 'ullMetaWidgetDateTime';
           break;
           
-        case 'checkbox':
+        case 'boolean':
           $columnConfig['metaWidget'] = 'ullMetaWidgetCheckbox';
           break;
       }

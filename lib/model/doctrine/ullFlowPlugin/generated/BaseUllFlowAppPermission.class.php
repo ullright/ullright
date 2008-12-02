@@ -13,4 +13,13 @@ abstract class BaseUllFlowAppPermission extends UllRecord
     $this->hasColumn('ull_permission_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
   }
 
+  public function setUp()
+  {
+    parent::setUp();
+    $this->hasOne('UllFlowApp', array('local' => 'ull_flow_app_id',
+                                      'foreign' => 'id'));
+
+    $this->hasOne('UllPermission', array('local' => 'ull_permission_id',
+                                         'foreign' => 'id'));
+  }
 }

@@ -73,7 +73,7 @@ UllFlowDoc:
     UllEntity:      admin_user
     UllFlowStep:    ull_flow_step_doc_helpdesk_creator
     Creator:        test_user
-    created_at:     '2001-01-01 01:01:01'     
+    created_at:     '2001-01-01 01:01:01'
   ull_flow_doc_helpdesk2:
     UllFlowApp:     ull_flow_app_helpdesk
     title:          AAA My second trouble ticket
@@ -189,6 +189,7 @@ UllFlowMemory:
     AssignedToUllEntity: admin_user
     comment:          My test comment
     CreatorUllEntity: test_group
+    Creator:          test_user
 
 UllFlowStep:
   ull_flow_step_doc_helpdesk_creator:
@@ -385,6 +386,14 @@ UllTableConfig:
     db_table_name: UllFlowStep
     sort_columns: ull_flow_app_id
     search_columns: slug
+  ull_flow_step_action_tc:
+    Translation:
+      en:
+        label: Actions for Steps
+      de:
+        label: Aktionen für Schritte
+    db_table_name: UllFlowStepAction
+    sort_columns: ull_flow_step_id, sequence
   ull_flow_actions_tc:
     Translation:
       en:
@@ -438,6 +447,23 @@ UllColumnConfig:
         label:      Ist Startschritt?
     db_table_name:  UllFlowStep
     db_column_name: is_start
+
+  ull_flow_step_action_ull_flow_step_id:
+    Translation:
+      en:
+        label:      Step
+      de:
+        label:      Schritt
+    db_table_name:  UllFlowStepAction
+    db_column_name: ull_flow_step_id
+  ull_flow_step_action_ull_flow_action_id:
+    Translation:
+      en:
+        label:      Action
+      de:
+        label:      Aktion
+    db_table_name:  UllFlowStepAction
+    db_column_name: ull_flow_action_id
     
   ull_flow_action_is_status_only:
     Translation:

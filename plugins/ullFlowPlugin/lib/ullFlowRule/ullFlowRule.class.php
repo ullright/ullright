@@ -50,7 +50,8 @@ abstract class ullFlowRule
    */
   public function findStep($slug) 
   {
-    return $this->doc->UllFlowApp->findStepBySlug($slug);
+    $step = $this->doc->UllFlowApp->findStepBySlug($slug);
+    return $step;
   }
   
   
@@ -62,7 +63,7 @@ abstract class ullFlowRule
    */
   public function isStep($slug)
   {
-    if ($this->doc->UllFlowStep->id == $this->findStep($slug))
+    if ($this->doc->assigned_to_ull_flow_step_id == $this->findStep($slug)->id)
     {
       return true;
     }

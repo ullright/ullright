@@ -10,7 +10,9 @@
       <ul class="tc_tasks">
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage users')), 'ullTableTool/list?table=UllUser') . link_to(__('Manage users'), 'ullTableTool/list?table=UllUser') ?></li>
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage groups')), 'ullTableTool/list?table=UllGroup') . link_to( __('Manage groups'), 'ullTableTool/list?table=UllGroup') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage permission')), 'ullTableTool/list?table=UllPermission') . link_to(__('Manage permissions'), 'ullTableTool/list?table=UllPermission') ?></li>
         <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group memberships')), 'ullTableTool/list?table=UllEntityGroup') . link_to(__('Manage group memberships'), 'ullTableTool/list?table=UllEntityGroup') ?></li>
+        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group permission')), 'ullTableTool/list?table=UllGroupPermission') . link_to(__('Manage group permissions'), 'ullTableTool/list?table=UllGroupPermission') ?></li>
       </ul>
       <h3>Select boxes</h3>
       <ul class="tc_tasks">
