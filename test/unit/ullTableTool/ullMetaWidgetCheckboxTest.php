@@ -6,10 +6,10 @@ class myTestCase extends sfDoctrineTestCase
 {
   protected $columnConfig = array(
         'widgetOptions'       => array(),
-        'widgetAttributes'    => array('maxlength' => 64),
-        'validatorOptions'    => array('required' => false, 'max_length' => 64),
-        'label'               => 'My string',
-        'metaWidget'          => 'ullMetaWidgetString',
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'My checkbox',
+        'metaWidget'          => 'ullMetaWidgetCheckbox',
         'access'              => 'r',
   ); 
   
