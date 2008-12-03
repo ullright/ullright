@@ -9,9 +9,7 @@
   <div id="tc_container">
     <div id="tc_tasks">
       <ul class="tc_tasks">
-        <li><?php echo link_to(image_tag("/ullWikiThemeNGPlugin/images/ull_wiki_32x32",
-        'alt=' . __('Create', null, 'common')), 'ullWiki/create') . 
-        link_to(__('Create', null, 'common'), 'ullWiki/create')?></li>
+        <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_32x32', 'ullWiki/create', __('Create', null, 'common')) ?></li>
       </ul>
     </div>
     

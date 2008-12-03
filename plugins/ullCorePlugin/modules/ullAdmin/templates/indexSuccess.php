@@ -8,22 +8,22 @@
     <div id="tc_tasks">
       <h3><?php echo __('User and Groups', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllUser', 'Manage users') ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroup', 'Manage groups') ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllPermission', 'Manage permissions') ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllEntityGroup', 'Manage group memberships') ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroupPermission', 'Manage group permissions') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllUser', __('Manage users')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroup', __('Manage groups')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllPermission', __('Manage permissions')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllEntityGroup', __('Manage group memberships')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroupPermission', __('Manage group permissions')) ?></li>
       </ul>
       <h3><?php echo __('Select boxes', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelect', 'Manage select boxes') ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelectChild', 'Manage select box entires') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelect', __('Manage select boxes')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelectChild', __('Manage select box entires')) ?></li>
       </ul>
       <h3><?php echo __('Table Tool', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllTableConfig', 'Manage table configurations') ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnConfig', 'Manage column configurations') ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnType', 'Manage field types (ullMetaWidgets)') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllTableConfig', __('Manage table configurations')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnConfig', __('Manage column configurations')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnType', __('Manage field types (ullMetaWidgets)')) ?></li>
       </ul>              
     </div>
     

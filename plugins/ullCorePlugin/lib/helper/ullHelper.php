@@ -246,15 +246,14 @@ function ull_link_to($name = 'link', $url = array(), $options = array()) {
 
 }
 
-function ull_tc_task_link($img_source, $link_source, $link_text, $img_alt = null)
+function ull_tc_task_link($img_source, $internal_uri, $link_text, $options = array())
 {
-	if (!$img_alt)
-	{
-		$img_alt = $link_text;   
-	}
+	$options = _convert_options($options);
+	
+	$img_alt = isset($options['alt']) ? $options['alt'] : $link_text;
 
-	$link = link_to(image_tag($img_source, 'alt=' . __($img_alt, null, 'common')), $link_source) .
-	   link_to(__($link_text, null, 'common'), $link_source);
+	$link = ull_link_to(image_tag($img_source, 'alt=' . $img_alt), $internal_uri) .
+	         ull_link_to($link_text, $internal_uri);
 	
 	return $link;
 }

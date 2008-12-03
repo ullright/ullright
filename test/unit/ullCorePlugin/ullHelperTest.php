@@ -178,7 +178,7 @@ $t->diag('ull_tc_task_link()');
     'returns the correct result');
   
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
-                          'ullTableTool/list?table=UllUser', 'Manage users', 'User admin'),
+                          'ullTableTool/list?table=UllUser', 'Manage users', array('alt' => 'User admin')),
       '<a href="/ullTableTool/list/table/UllUser">' .
       '<img alt="User admin" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" /></a>' .
       '<a href="/ullTableTool/list/table/UllUser">Manage users</a>',
