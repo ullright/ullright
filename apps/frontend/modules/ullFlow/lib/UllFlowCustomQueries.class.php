@@ -1,17 +1,13 @@
 <?php
 class UllFlowCustomQueries {
 
-  public function listQueries() {
-    echo '<h2>';
-    echo __('Custom queries');
-    echo ':</h2>';
-  
-    echo '<ul>';
+  public function getAllQueries() {
+    $custqueries = array('Tickets assigned to group IT-Helpdesk' =>
+      'ullFlow/list?app=trouble_ticket&group=2');
     
-    echo '<li>' . link_to(__('Tickets assigned to group IT-Helpdesk'), 'ullFlow/list?app=helpdesk_tool&group=2') . '</li>';
+    //$custqueries['custquery2'] = 'custvalue2';
       
-    echo '</ul>';
-  
+    return $custqueries;
   }
 }
 ?>

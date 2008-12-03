@@ -26,6 +26,8 @@ class BaseullFlowActions extends ullsfActions
   {
     $this->checkAccess('LoggedIn');
     
+    $this->form = new ullFlowFilterForm;
+    
     $this->breadcrumbForIndex();
     
     if ($this->app_slug = $this->getRequestParameter('app'))  
