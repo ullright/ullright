@@ -246,6 +246,18 @@ function ull_link_to($name = 'link', $url = array(), $options = array()) {
 
 }
 
+function ull_tc_task_link($img_source, $link_source, $link_text, $img_alt = null)
+{
+	if (!$img_alt)
+	{
+		$img_alt = $link_text;   
+	}
+
+	$link = link_to(image_tag($img_source, 'alt=' . __($img_alt, null, 'common')), $link_source) .
+	   link_to(__($link_text, null, 'common'), $link_source);
+	
+	return $link;
+}
 
 
 /**
