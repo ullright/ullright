@@ -182,6 +182,6 @@ $t->diag('ull_tc_task_link()');
       '<a href="/ullTableTool/list/table/UllUser">' .
       '<img alt="User admin" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" /></a>' .
       '<a href="/ullTableTool/list/table/UllUser">Manage users</a>',
-    'returns the correct result when specificing an alt-tag');
+    'returns the correct result when specifying an alt-tag');
    
   

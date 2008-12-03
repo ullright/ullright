@@ -6,24 +6,24 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
-      <h3>User and Groups</h3>
+      <h3><?php echo __('User and Groups', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage users')), 'ullTableTool/list?table=UllUser') . link_to(__('Manage users'), 'ullTableTool/list?table=UllUser') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage groups')), 'ullTableTool/list?table=UllGroup') . link_to( __('Manage groups'), 'ullTableTool/list?table=UllGroup') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage permission')), 'ullTableTool/list?table=UllPermission') . link_to(__('Manage permissions'), 'ullTableTool/list?table=UllPermission') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group memberships')), 'ullTableTool/list?table=UllEntityGroup') . link_to(__('Manage group memberships'), 'ullTableTool/list?table=UllEntityGroup') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage group permission')), 'ullTableTool/list?table=UllGroupPermission') . link_to(__('Manage group permissions'), 'ullTableTool/list?table=UllGroupPermission') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllUser', 'Manage users') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroup', 'Manage groups') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllPermission', 'Manage permissions') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllEntityGroup', 'Manage group memberships') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroupPermission', 'Manage group permissions') ?></li>
       </ul>
-      <h3>Select boxes</h3>
+      <h3><?php echo __('Select boxes', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage select boxes')), 'ullTableTool/list?table=UllSelect') . link_to(__('Manage select boxes'), 'ullTableTool/list?table=UllSelect') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage select box entires')), 'ullTableTool/list?table=UllSelectChild') . link_to( __('Manage select box entries'), 'ullTableTool/list?table=UllSelectChild') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelect', 'Manage select boxes') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelectChild', 'Manage select box entires') ?></li>
       </ul>
-      <h3>Table Tool</h3>
+      <h3><?php echo __('Table Tool', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage table configurations')), 'ullTableTool/list?table=UllTableConfig') . link_to(__('Manage table configurations'), 'ullTableTool/list?table=UllTableConfig') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage column configurations')), 'ullTableTool/list?table=UllColumnConfig') . link_to( __('Manage column configurations'), 'ullTableTool/list?table=UllColumnConfig') ?></li>
-        <li><?php echo link_to(image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt=' . __('Manage field types (ullMetaWidgets)')), 'ullTableTool/list?table=UllColumnType') . link_to( __('Manage field types (ullMetaWidgets)'), 'ullTableTool/list?table=UllColumnType') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllTableConfig', 'Manage table configurations') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnConfig', 'Manage column configurations') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnType', 'Manage field types (ullMetaWidgets)') ?></li>
       </ul>              
     </div>
     
