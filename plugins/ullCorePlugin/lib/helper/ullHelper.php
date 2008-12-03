@@ -111,7 +111,7 @@ function ull_image_path($type, $width = null, $height = null, $plugin = null)
 function ull_image_tag($type, $link_option = array(), $width = null, $height = null, $plugin = null)
 {
 	return image_tag(ull_image_path($type, $width, $height, $plugin), 
-    array_merge($link_option, array('alt' => ucfirst($type), 'title' => ucfirst($type))));
+    array_merge(array('alt' => ucfirst($type), 'title' => ucfirst($type)), $link_option));
 }
 
 

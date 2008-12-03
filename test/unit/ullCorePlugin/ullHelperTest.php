@@ -7,7 +7,7 @@ $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(18, new lime_output_color);
+$t = new lime_test(19, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -163,6 +163,7 @@ $t->diag('ull_image_tag()');
     '<img alt="Search" title="Search" src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
     'returns the correct result for default ull_image_tag() params');
   
+  clean_request_parameters();
   sfContext::getInstance()->getRequest()->setParameter('module', 'ullWiki');
   
   $t->is(ull_image_tag('search'),
@@ -171,17 +172,35 @@ $t->diag('ull_image_tag()');
   
 $t->diag('ull_tc_task_link()');
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
-                          'ullTableTool/list?table=UllUser', 'Manage users'),
+                          'ullTableTool/list?table=UllUser', __('Manage users')),
       '<a href="/ullTableTool/list/table/UllUser">' .
       '<img alt="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" /></a>' .
       '<a href="/ullTableTool/list/table/UllUser">Manage users</a>',
     'returns the correct result');
   
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
-                          'ullTableTool/list?table=UllUser', 'Manage users', array('alt' => 'User admin')),
+                          'ullTableTool/list?table=UllUser', __('Manage users'), array('alt' => 'User admin')),
       '<a href="/ullTableTool/list/table/UllUser">' .
       '<img alt="User admin" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" /></a>' .
       '<a href="/ullTableTool/list/table/UllUser">Manage users</a>',
     'returns the correct result when specifying an alt-tag');
-   
+
+  clean_request_parameters();
+  sfContext::getInstance()->getRequest()->setParameter('module', 'ullFlow');
+  sfContext::getInstance()->getRequest()->setParameter('app', 'trouble_ticket');
+  sfContext::getInstance()->getRequest()->setParameter('action', 'index');
   
+  $t->is(ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
+            array('action' => 'create'), __('Create')),
+      '<a href="/ullFlow/create/app/trouble_ticket">' .
+      '<img alt="Create" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" /></a>' .
+      '<a href="/ullFlow/create/app/trouble_ticket">Create</a>',
+    'returns the correct result when using reqpas');
+   
+function clean_request_parameters()
+{
+	foreach (sfContext::getInstance()->getRequest()->getParameterHolder()->getAll() as $key => $value)
+  {
+  	sfContext::getInstance()->getRequest()->getParameterHolder()->remove($key);
+  }
+}

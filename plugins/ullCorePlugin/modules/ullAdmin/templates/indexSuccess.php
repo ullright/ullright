@@ -24,7 +24,16 @@
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllTableConfig', __('Manage table configurations')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnConfig', __('Manage column configurations')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnType', __('Manage field types (ullMetaWidgets)')) ?></li>
-      </ul>              
+      </ul> 
+      <h3><?php echo __('Workflow', null, 'common') ?></h3>
+      <ul class="tc_tasks">
+	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowApp', __('Manage applications')) ?></li>
+	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowAppPermission', __('Manage application access rights')) ?></li>
+	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowColumnConfig', __('Manage columns')) ?></li>
+	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowStep', __('Manage steps')) ?></li>
+	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowStepAction', __('Manage actions for steps')) ?></li>
+	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowAction', __('Manage actions')) ?></li>  
+	    </ul>             
     </div>
     
     <div id="tc_search">

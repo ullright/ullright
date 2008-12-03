@@ -1,6 +1,6 @@
 <?php
 
-class ullWikiIndexSearchForm extends sfForm
+class ullWikiFilterForm extends sfForm
 {
   public function configure()
   {
@@ -11,7 +11,14 @@ class ullWikiIndexSearchForm extends sfForm
                                                         'title' => __('Searches for ID, subject and tags', null, 'common'))),
       'fulltext' => new sfWidgetFormInputCheckbox(array(), array('value' => '1'))
     ));
+    
+    $this->setValidators(array(
+      'search'   => new sfValidatorString(array('required' => false)),
+      'fulltext' => new sfValidatorBoolean()
+    ));
 
+    $this->getWidgetSchema()->setNameFormat('filter[%s]');
+    
     $this->widgetSchema->setLabels(array(
       'search'    => __('Search', null, 'common') . ':',
       'fulltext'  => __('Full text', null, 'common') . ':'

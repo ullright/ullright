@@ -15,7 +15,7 @@
 
 class BaseullWikiActions extends ullsfActions
 {
-  public function preExecute()
+  public function ullpreExecute()
   { 
     $path =  '/ullWikiTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
   	$this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
@@ -23,7 +23,7 @@ class BaseullWikiActions extends ullsfActions
 	
   public function executeIndex() 
   {
-    $this->form = new ullWikiIndexSearchForm();
+    $this->form = new ullWikiFilterForm;
 
     // referer handling -> reset all wiki referers 
     $refererHandler = new refererHandler();
@@ -53,7 +53,7 @@ class BaseullWikiActions extends ullsfActions
     $this->return_var = $this->getRequestParameter('return_var');
 
 
-    #$this->ull_reqpass_redirect(); //ToDo
+    //$this->ull_reqpass_redirect(); //ToDo
 
     $this->breadcrumbForList();
 
@@ -294,14 +294,17 @@ class BaseullWikiActions extends ullsfActions
       ->where('deleted = ?', 0)
     ;
 
-    if ($this->getRequestParameter('sort')) {
+    if ($this->getRequestParameter('sort')) 
+    {
       $q->orderBy('w.'.$this->getRequestParameter('sort').' ASC');
-    } else {
+    } 
+    else 
+    {
       $q->orderBy('w.updated_at DESC');
     }
 
-    if ($search = $this->filter_form->getValue('search')) {
-
+    if ($search = $this->filter_form->getValue('search')) 
+    {
       $fulltext = $this->filter_form->getValue('fulltext');
 
       $query_subject = '';
