@@ -73,6 +73,8 @@ UllFlowDoc:
 #    write_ull_group_id:
 #      type: INTEGER
     #this is used to always set the record dirty, even when only virtual columns are changed.
+    duplicate_tags_for_search:
+      type: clob    
     dirty:
       type: integer
   relations:

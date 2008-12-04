@@ -46,8 +46,21 @@
       <!-- 
       <div class="tc_search_quick_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
       -->
-      <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
-      <div class="tc_search_tag_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
+      <div class="tc_search_tag_top color_medium_bg"><h3><?php echo __('By popular tags', null, 'common') ?></h3></div>
+      <div class="tc_search_tag_bottom color_light_bg">
+        <?php
+          $q = new Doctrine_Query;
+          if ($app_slug) 
+          {
+            $q->where('tg.UllFlowDoc.ull_flow_app_id = ?', $app->id);
+          }
+        
+          $tags_pop = TagTable::getPopulars($q, array('model' => 'UllFlowDoc'));
+          sfLoader::loadHelpers(array('Tags'));
+          echo tag_cloud($tags_pop, 'ullFlow/list?filter[search]=%s' . ($app_slug ? '&app=' . $app_slug : ''));
+          
+        ?>
+      </div>
     </div>
     
     <div id="tc_queries">

@@ -1214,7 +1214,7 @@ class BaseullFlowActions extends ullsfActions
     // search has to be the first "where" part, because it uses "or" 
     if ($search = $this->filter_form->getValue('search'))
     {
-      $cols = array('id', 'title');     
+      $cols = array('id', 'title', 'duplicate_tags_for_search');     
       $q = ullCoreTools::doctrineSearch($q, $search, $cols);
     }
 
