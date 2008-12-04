@@ -9,29 +9,22 @@ abstract class BaseUllWiki extends UllRecord
   {
     parent::setTableDefinition();
     $this->setTableName('ull_wiki');
-    $this->hasColumn('docid', 'integer', null, array('type' => 'integer', 'notnull' => true));
-    $this->hasColumn('culture', 'string', 7, array('type' => 'string', 'length' => '7'));
-    $this->hasColumn('body', 'clob', null, array('type' => 'clob'));
     $this->hasColumn('subject', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
-    $this->hasColumn('changelog_comment', 'string', 255, array('type' => 'string', 'length' => '255'));
+    $this->hasColumn('body', 'clob', null, array('type' => 'clob'));
     $this->hasColumn('read_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('edit_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('duplicate_tags_for_search', 'clob', null, array('type' => 'clob'));
-    $this->hasColumn('locked_by_user_id', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('locked_at', 'timestamp', null, array('type' => 'timestamp'));
   }
 
   public function setUp()
   {
     parent::setUp();
-    $this->hasOne('UllUser', array('local' => 'locked_by_user_id',
-                                   'foreign' => 'id'));
+    $this->hasMany('Tagging', array('local' => 'id',
+                                    'foreign' => 'taggable_id'));
 
-    $timestampable0 = new Doctrine_Template_Timestampable();
     $softdelete0 = new Doctrine_Template_SoftDelete();
     $versionable0 = new Doctrine_Template_Versionable();
     $taggable0 = new Taggable();
-    $this->actAs($timestampable0);
     $this->actAs($softdelete0);
     $this->actAs($versionable0);
     $this->actAs($taggable0);

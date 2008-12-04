@@ -17,7 +17,7 @@
             'ullWiki',
             'ullWikiHeadFootActionIcons', 
             array(
-              'ullwiki'     => $ullwiki
+              'doc'     => $doc
             )
           ); ?>
   </div>  
@@ -25,7 +25,7 @@
   <?php include_partial(
           'ullWikiHeadFootDocInfo',
           array(
-              'ullwiki'     => $ullwiki
+              'doc'     => $doc
             )
           ) ?>
   

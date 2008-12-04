@@ -11,15 +11,15 @@
 ?>
 <div class='ullwiki_header_show'>
 
-  <?php //$ullwiki->setCulture(''); ?>
-  <?php //$ullwiki->setCulture(substr($sf_user->getCulture(), 0, 2)); ?>
+  <?php //$doc->setCulture(''); ?>
+  <?php //$doc->setCulture(substr($sf_user->getCulture(), 0, 2)); ?>
 
   <div class='ullwiki_headfoot_float_right'>
     <?php include_component(
             'ullWiki',
             'ullWikiHeadFootActionIcons', 
             array(
-              'ullwiki'     => $ullwiki
+              'doc'     => $doc
             )
           ); ?>
   </div>
@@ -28,7 +28,7 @@
     <h3>
       <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID()); ?>
       <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID().'&cursor='.$cursor); ?>
-      <?php echo link_to($ullwiki->getSubject(), $sf_data->getRaw('subject_link')); ?>
+      <?php echo link_to($doc->getSubject(), $sf_data->getRaw('subject_link')); ?>
     </h3>
     <!--  Tag1, Tag2, Tag3 -->
   </div>

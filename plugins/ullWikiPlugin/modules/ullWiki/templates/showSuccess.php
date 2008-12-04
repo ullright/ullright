@@ -25,10 +25,10 @@
 <?php include_component(
         'ullWiki', 
         'ullWikiHeaderShow', 
-        array('ullwiki' => $ullwiki, 'cursor' => 0)
+        array('doc' => $doc, 'cursor' => 0)
       ); ?>
 
-<?php //$ullwiki->setCulture(''); ?>
+<?php //$doc->setCulture(''); ?>
 
 <?php
   if (isset($return_url)) {
@@ -41,7 +41,7 @@
 <div class='ullwiki_body'>
   <?php
   
-  $body = $sf_data->getRaw('ullwiki')->getBody();
+  $body = $sf_data->getRaw('doc')->body;
   
   /*
   // 's' extend the meaning of '.' beyond newlines
@@ -133,5 +133,5 @@ if (!function_exists('u_func')) {
 
 <?php include_partial(
         'ullWikiFooterShow', 
-        array('ullwiki' => $ullwiki)
+        array('doc' => $doc)
       ); ?>

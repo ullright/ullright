@@ -33,6 +33,9 @@ abstract class BaseUllFlowDoc extends UllRecord
     $this->hasOne('UllFlowStep', array('local' => 'assigned_to_ull_flow_step_id',
                                        'foreign' => 'id'));
 
+    $this->hasMany('Tagging', array('local' => 'id',
+                                    'foreign' => 'taggable_id'));
+
     $this->hasMany('UllFlowValue as UllFlowValues', array('local' => 'id',
                                                           'foreign' => 'ull_flow_doc_id'));
 

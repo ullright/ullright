@@ -16,16 +16,16 @@
             'ullWiki',
             'ullWikiHeadFootActionIcons', 
             array(
-              'ullwiki' => $ullwiki
+              'doc' => $doc
             )
           ); ?>
   </div>
 
   <div class='ullwiki_header_headline'>
     <h3>
-      <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID()); ?>
-      <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID().'&cursor='.$cursor); ?>
-      <?php echo ull_link_to($ullwiki->getSubject(), $sf_data->getRaw('subject_link')); ?>
+      <?php //echo link_to($doc->getSubject(), 'ullWiki/show?id='.$doc->getID()); ?>
+      <?php //echo link_to($doc->getSubject(), 'ullWiki/show?id='.$doc->getID().'&cursor='.$cursor); ?>
+      <?php echo ull_link_to($doc->subject, $sf_data->getRaw('subject_link')); ?>
     </h3>
     <!--  Tag1, Tag2, Tag3 -->
   </div> 
@@ -35,7 +35,7 @@
   <?php include_partial(
           'ullWikiHeadFootDocInfo',
           array(
-              'ullwiki'     => $ullwiki
+              'doc'     => $doc
               , 'edit_link'   => $edit_link
             )
           ) ?>

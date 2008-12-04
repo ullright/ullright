@@ -22,11 +22,11 @@ class BaseTagForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'               => new sfValidatorDoctrineChoice(array('model' => 'Tag', 'column' => 'id', 'required' => false)),
-      'name'             => new sfValidatorPass(array('required' => false)),
+      'name'             => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'is_triple'        => new sfValidatorBoolean(array('required' => false)),
-      'triple_namespace' => new sfValidatorPass(array('required' => false)),
-      'triple_key'       => new sfValidatorPass(array('required' => false)),
-      'triple_value'     => new sfValidatorPass(array('required' => false)),
+      'triple_namespace' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'triple_key'       => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+      'triple_value'     => new sfValidatorString(array('max_length' => 100, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('tag[%s]');

@@ -41,7 +41,7 @@
 <?php echo __('Sort by', null, 'common'); ?>: 
 <?php echo link_to(__('Subject', null, 'common'), 'ullWiki/list?sort=subject') ?>
  -
-<?php echo link_to(__('DocId'), 'ullWiki/list?sort=docid') ?>
+<?php echo link_to(__('DocId'), 'ullWiki/list?sort=id') ?>
  -  
 <?php echo link_to(__('Date ascending', null, 'common'), 'ullWiki/list?sort=updated_at') ?>
  -  
@@ -55,7 +55,7 @@
 if ($docs): ?>
   <?php foreach ($docs as $doc): ?>
     <?php include_component('ullWiki', 'ullWikiHeader', array(
-      'ullwiki' => $doc
+      'doc' => $doc
 //      ,'cursor' => $cursor
     )); ?>
     <?php //++$cursor;/?>

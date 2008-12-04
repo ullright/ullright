@@ -1,16 +1,4 @@
-<script language="JavaScript">
-    function setSaveMode(mode) {
-      document.form1.save_mode.value = mode;
-      document.form1.submit();
-    }
-
-    function saveshow() {
-      setSaveMode('saveshow');
-    }
-</script>
-
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
-
 
 <?php if ($form->getErrorSchema()->getErrors()): ?>
   <div class='form_error'>
@@ -20,12 +8,11 @@
 <?php endif; ?>
 
 
-<?php echo form_tag('ullWiki/edit?docid=' . $ullwiki->getDocid(), 
-    array('id' => 'ull_wiki_form',
-          'name' => 'edit_form')) ?>
+<?php 
+  echo form_tag('ullWiki/edit?docid=' . $doc->id, 
+    array('id' => 'ull_wiki_form', 'name' => 'edit_form')) 
+?>
 
-<?php echo input_hidden_tag('save_mode', 'saveonly'); // saveonly, saveshow, ... ?>
-<?php //echo input_hidden_tag('return_url', $return_url); ?>
 <?php echo input_hidden_tag('return_var', $return_var); ?>
 
 <table class='ull_wiki_edit'>
@@ -36,24 +23,6 @@ echo $form;
 ?>
 
 
-<!-- 
-<tr>
-  <td><b><?php //echo $form['cultures']->renderLabel() ?>:</b></td>
-  <td>
-    <?php 
-      //weflowTools::printR($cultures); 
-/*
-      deprecated! do not use object_select_tag anymore
-      echo object_select_tag($sf_data->getRaw('cultures'), 'getUllCultureId');
-      //                                                       \________/
-      //                                                           v 
-      //                                                 =Model peer class name
-*/
-    ?>
-  </td>
-</tr>
- -->
-
 <tr>
   <td><b><?php echo __('Tags'); ?>:</b></td>
   <td>
@@ -61,7 +30,7 @@ echo $form;
 
       $tags_out = sfContext::getInstance()->getRequest()->getParameter('tags');
       if (!$tags_out) {
-        $tags = $sf_data->getRaw('ullwiki')->getTags();
+        $tags = $sf_data->getRaw('doc')->getTags();
         $tags_out = implode(', ', array_keys($tags));
       }
 
@@ -122,11 +91,11 @@ echo $form;
 		    ?>
       </li>
       <li>
-		    <?php if ($ullwiki->getId()): ?>    
+		    <?php if ($doc->id): ?>    
 		      <?php 
 		        echo link_to(
 		          __('Delete', null, 'common'), 
-		          'ullWiki/delete?docid='.$ullwiki->getDocid(), 
+		          'ullWiki/delete?docid='.$doc->id, 
 		          'confirm='.__('Are you sure?', null, 'common')
 		          ); 
 		      ?>

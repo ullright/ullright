@@ -136,7 +136,7 @@ $b
   ->diag('quick search')
   ->get('ullFlow/index')
   ->setField('filter[search]', 'first t')
-  ->click('Search >')
+  ->click('Search_16x16')
   ->followRedirect()
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')

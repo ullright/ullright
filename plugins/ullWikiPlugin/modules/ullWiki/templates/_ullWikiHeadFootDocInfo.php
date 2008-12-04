@@ -14,17 +14,17 @@
 <div class='ullwiki_headfoot_float_left'>
   <ul class='ullwiki_headfoot_ul'>
     <li><?php echo __('Created by', null, 'common').': '
-      .Doctrine::getTable('UllUser')->find($ullwiki->getCreatorUserId())->getShortName().
-      ' ('.ull_format_datetime($ullwiki->getCreatedAt()).')'; ?></li>
+      .Doctrine::getTable('UllUser')->find($doc->creator_user_id)->getShortName().
+      ' ('.ull_format_datetime($doc->created_at).')'; ?></li>
     <li><?php echo __('Updated by', null, 'common').': '
-      .Doctrine::getTable('UllUser')->find($ullwiki->getUpdatorUserId())->getShortName().
-      ' ('.ull_format_datetime($ullwiki->getUpdatedAt()).')'; ?></li>
+      .Doctrine::getTable('UllUser')->find($doc->updator_user_id)->getShortName().
+      ' ('.ull_format_datetime($doc->created_at).')'; ?></li>
   </ul>
 </div>
 
 <div class='ullwiki_headfoot_float_left'>
   <ul class='ullwiki_headfoot_ul'>
-    <li><?php echo __('DocId').': '.$ullwiki->getDocid(); ?></li>
-    <li><?php echo __('Version').': '.$ullwiki->getEditCounter(); ?></li>
+    <li><?php echo __('DocId').': '.$doc->id; ?></li>
+    <li><?php echo __('Version').': '.$doc->version; ?></li>
   </ul>
 </div>

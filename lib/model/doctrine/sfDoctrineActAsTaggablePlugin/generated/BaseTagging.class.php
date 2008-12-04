@@ -8,19 +8,26 @@ abstract class BaseTagging extends sfDoctrineRecord
   public function setTableDefinition()
   {
     $this->setTableName('tagging');
-    $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'primary' => true, 'autoincrement' => true, 'length' => '4'));
-    $this->hasColumn('tag_id', 'integer', 4, array('type' => 'integer', 'notnull' => true, 'length' => '4'));
-    $this->hasColumn('taggable_model', 'varchar', 30, array('type' => 'varchar', 'length' => '30'));
+    $this->hasColumn('tag_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    $this->hasColumn('taggable_model', 'string', 30, array('type' => 'string', 'length' => '30'));
     $this->hasColumn('taggable_id', 'integer', null, array('type' => 'integer'));
 
 
     $this->index('tag', array('fields' => 'tag_id'));
     $this->index('taggable', array('fields' => 'taggable_model, taggable_id'));
+
+    $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);
   }
 
   public function setUp()
   {
     $this->hasOne('Tag', array('local' => 'tag_id',
                                'foreign' => 'id'));
+
+    $this->hasOne('UllWiki', array('local' => 'taggable_id',
+                                   'foreign' => 'id'));
+
+    $this->hasOne('UllFlowDoc', array('local' => 'taggable_id',
+                                      'foreign' => 'id'));
   }
 }
