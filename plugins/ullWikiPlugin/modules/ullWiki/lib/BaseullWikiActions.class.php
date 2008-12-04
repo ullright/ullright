@@ -266,42 +266,32 @@ class BaseullWikiActions extends ullsfActions
     // build query
     // Querying for records excludes deleted records.
     $q = new Doctrine_Query();
-    $q->from('UllWiki w')
-      ->where('deleted = ?', 0)
-    ;
+    $q->from('UllWiki x');
 
+    // search has to be the first "where" part, because it uses "or" 
+    if ($search = $this->filter_form->getValue('search'))
+    {
+      
+      $cols = array('id', 'subject', 'duplicate_tags_for_search');
+      if ($this->filter_form->getValue('fulltext'))
+      {
+        $cols[] = 'body';
+      }
+      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
+    }
+    
+    // is this necessary?
+    $q->addWhere('x.deleted = ?', 0);
+    
     if ($this->getRequestParameter('sort')) 
     {
-      $q->orderBy('w.'.$this->getRequestParameter('sort').' ASC');
+      $q->orderBy('x.'.$this->getRequestParameter('sort').' ASC');
     } 
     else 
     {
-      $q->orderBy('w.updated_at DESC');
+      $q->orderBy('x.updated_at DESC');
     }
-
-    if ($search = $this->filter_form->getValue('search')) 
-    {
-      $fulltext = $this->filter_form->getValue('fulltext');
-
-      $query_subject = '';
-      $query_tags = '';
-      $query_body = '';
-
-      $search_words_arr = explode(' ', $search);
-      foreach($search_words_arr as $key => $search_word) {
-        $search_word = '"%'.$search_word.'%"';
-
-        $query_subject .= ($query_subject != '' ? ' AND ':'') . 'w.subject LIKE '.$search_word;
-        $query_tags    .= ($query_tags!=''?' AND ':'')    . 'w.duplicate_tags_for_search LIKE '.$search_word;
-
-        if ($fulltext) {
-          $query_body  .= ($query_body!=''?' AND ':'')    . 'w.body LIKE '.$search_word;
-        }
-      }
-
-      $q->addWhere($query_subject . ' OR ' . $query_tags . ($query_body!=''?' OR ':'') . $query_body);
-    }
-
+    
     $this->pager = new Doctrine_Pager(
       $q, 
       $this->getRequestParameter('page', 1),
