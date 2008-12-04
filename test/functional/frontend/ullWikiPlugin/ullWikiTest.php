@@ -48,7 +48,19 @@ $b
 //  ->dumpDie()
   ->checkResponseElement('div.ullwiki.header', 1)
   ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc')
-;	
+;
+
+$b
+  ->diag('index: click on tag')
+  ->get('ullWiki/index')
+  ->click('ull_wiki_tag2')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('filter[search]', 'ull_wiki_tag2')
+  ->checkResponseElement('div.ullwiki.header', 1)
+  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc')
+;
 
 $b
   ->diag('create')

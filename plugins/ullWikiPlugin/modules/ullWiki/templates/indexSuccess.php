@@ -33,8 +33,14 @@
 		  <!-- 
 		  <div class="tc_search_quick_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
       -->
-      <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
-      <div class="tc_search_tag_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
+      <div class="tc_search_tag_top color_medium_bg"><h3><?php echo __('By popular tags', null, 'common') ?></h3></div>
+      <div class="tc_search_tag_bottom color_light_bg">
+        <?php
+          $tags_pop = TagTable::getPopulars(null, array('model' => 'UllWiki'));
+          sfLoader::loadHelpers(array('Tags'));
+          echo tag_cloud($tags_pop, 'ullWiki/list?filter[search]=%s');
+        ?>      
+      </div>
     </div>
     
     <div id="tc_queries">
