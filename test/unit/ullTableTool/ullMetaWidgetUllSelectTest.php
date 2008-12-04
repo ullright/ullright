@@ -17,11 +17,6 @@ class myTestCase extends sfDoctrineTestCase
   {
     return $this->columnConfig;
   }
-  
-  public function reset()
-  {
-    parent::reset();
-  }
 }
 
 // create context since it is required by ->getUser() etc.
@@ -41,7 +36,7 @@ $t->begin('for read access:');
   $t->isa_ok($widget->getSfWidget(), 'ullWidgetUllSelect', 'returns the correct widget for read access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorPass', 'returns the correct validator for read access');
   
-$t->begin('for write access:');
+$t->diag('for write access:');
   $columnConfig['access'] = 'w';
   $widget = new ullMetaWidgetUllSelect($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetUllSelect', '__construct() returns the correct object');
