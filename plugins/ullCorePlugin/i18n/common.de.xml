@@ -242,6 +242,11 @@
 <target>Allgemeine Aktionen</target>
 </trans-unit>
 
+<trans-unit id="4003">
+<source>Popular tags</source>
+<target>Häufige Tags</target>
+</trans-unit>
+
 
 <!-- common validation phrases -->
 

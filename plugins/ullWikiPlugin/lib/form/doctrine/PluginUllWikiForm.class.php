@@ -36,10 +36,14 @@ abstract class PluginUllWikiForm extends BaseUllWikiForm
         'CustomConfigurationsPath' => '/ullWikiPlugin/js/FCKeditor_config.js',
         'BasePath'                 => '/ullWikiPlugin/js/fckeditor/',
     ));
+    $this->widgetSchema['duplicate_tags_for_search']     = new ullWidgetTaggable(array(), array('size' => '80'));
 
+    $this->validatorSchema['duplicate_tags_for_search']  = new sfValidatorString(array('required' => false));
+    
     $this->widgetSchema->setLabels(array(
         'subject'                   => __('Subject', null, 'common'),
         'body'                      => __('Text', null, 'common'),
+        'duplicate_tags_for_search' => __('Tags', null, 'common'),
     ));
     
     $this->getWidgetSchema()->setFormFormatterName('ullTable');
@@ -51,16 +55,14 @@ abstract class PluginUllWikiForm extends BaseUllWikiForm
 
     $object->setEditCounter($object->getEditCounter() + 1);
     
-    $tags = sfContext::getInstance()->getRequest()->getParameter('tags');
+    $tags = $this->getValue('duplicate_tags_for_search');
     
-    $tagsArray = explode(',', strtolower($tags));
-    foreach ($tagsArray as $tag) 
-    {
-      $object->addTag(trim($tag));
-      
-    }
-    $this->object->duplicate_tags_for_search = strtolower($tags);
-
+    $tagsArray = array_map('trim', explode(',', strtolower($tags)));
+    natsort($tagsArray);
+    
+    $object->setTags($tagsArray);
+    $object->duplicate_tags_for_search = implode(', ', $tagsArray);
+    
     return $object;
   }  
   

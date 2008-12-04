@@ -61,7 +61,7 @@ $b
 #  ->responseContains('Create')
   ->setField('ull_wiki[subject]', 'My new test subject')
   ->setField('ull_wiki[body]', '<b>My body</b>')
-  ->setField('tags', 'testtag')
+  ->setField('ull_wiki[duplicate_tags_for_search', 'testtag')
   ->click('Save and show')
   ->isRedirected()
   ->followRedirect()

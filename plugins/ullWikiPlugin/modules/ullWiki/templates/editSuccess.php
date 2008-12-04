@@ -22,31 +22,6 @@
 echo $form;
 ?>
 
-
-<tr>
-  <td><b><?php echo __('Tags'); ?>:</b></td>
-  <td>
-    <?php
-
-      $tags_out = sfContext::getInstance()->getRequest()->getParameter('tags');
-      if (!$tags_out) {
-        $tags = $sf_data->getRaw('doc')->getTags();
-        $tags_out = implode(', ', array_keys($tags));
-      }
-
-      echo input_tag('tags', $tags_out, 'size=80');
-
-
-      $tags_pop = TagTable::getPopulars();
-
-      sfLoader::loadHelpers(array('Tags'));
-      echo '<br />' . __('Popular tags') . ':';
-      echo tag_cloud($tags_pop, 'addTag("%s")', array('link_function' => 'link_to_function'));
-      echo ull_js_add_tag();
-    ?>
-  </td>
-</tr>  
-
 </tbody>
 </table>
 <br />
