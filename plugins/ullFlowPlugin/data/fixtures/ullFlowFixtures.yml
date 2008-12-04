@@ -548,21 +548,21 @@ UllColumnConfig:
     db_column_name: is_comment_mandatory
     
 Tag:
-  tag1:
-    name:           tag1
-  tag2:
-    name:           tag2
+  ull_flow_tag1:
+    name:           ull_flow_tag1
+  ull_flow_tag2:
+    name:           ull_flow_tag2
 
-#Tagging:
-#  helpdesk_1_1:
-#    Tag:            tag1
-#    taggable_model: UllFlowDoc
-#    UllFlowDoc:     ull_flow_doc_helpdesk1
-#  helpdesk_1_2:
-#    Tag:            tag2
-#    taggable_model: UllFlowDoc
-#    UllFlowDoc:     ull_flow_doc_helpdesk1
-#  helpdesk_2_1:
-#    Tag:            tag1
-#    taggable_model: UllFlowDoc
-#    UllFlowDoc:     ull_flow_doc_helpdesk2
+Tagging:
+  helpdesk_1_1:
+    Tag:            ull_flow_tag1
+    taggable_model: UllFlowDoc
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+  helpdesk_1_2:
+    Tag:            ull_flow_tag2
+    taggable_model: UllFlowDoc
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+  helpdesk_2_1:
+    Tag:            ull_flow_tag1
+    taggable_model: UllFlowDoc
+    UllFlowDoc:     ull_flow_doc_helpdesk2

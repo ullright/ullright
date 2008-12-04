@@ -850,10 +850,7 @@ function ull_js_add_tag() {
   
   return javascript_tag('
     function addTag(tag, field_id) {
-      if (!field_id) {
-        var field_id = "tags";
-      }
-    
+
       var tags = document.getElementById(field_id).value;
       
       if (tags == "") {

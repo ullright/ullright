@@ -1,8 +1,29 @@
 UllWiki:
-  doc_1:
+  ull_wiki_1:
     subject:            Testdoc
     body:               <h1>Testdoc</h1>This is a test document
-
-  doc_2:
+    duplicate_tags_for_search: ull_wiki_tag1, ull_wiki_tag2
+  ull_wiki_2:
     subject:            Another Testdoc
-    body:               <h1>Another Testdoc</h1>This is a yet another test document    
+    body:               <h1>Another Testdoc</h1>This is a yet another test document
+    duplicate_tags_for_search: ull_wiki_tag1
+    
+Tag:
+  ull_wiki_tag1:
+    name:           ull_wiki_tag1
+  ull_wiki_tag2:
+    name:           ull_wiki_tag2
+
+Tagging:
+  ullwiki_1_1:
+    Tag:            ull_wiki_tag1
+    taggable_model: UllWiki
+    UllWiki:     ull_wiki_1
+  ullwiki_1_2:
+    Tag:            ull_wiki_tag2
+    taggable_model: UllWiki
+    UllWiki:     ull_wiki_1
+  ullwiki_2_1:
+    Tag:            ull_wiki_tag1
+    taggable_model: UllWiki
+    UllWiki:     ull_wiki_2

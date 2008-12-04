@@ -38,7 +38,7 @@ abstract class PluginUllWikiForm extends BaseUllWikiForm
     ));
     $this->widgetSchema['duplicate_tags_for_search']     = new ullWidgetTaggable(array(), array('size' => '80'));
 
-    $this->validatorSchema['duplicate_tags_for_search']  = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['duplicate_tags_for_search']  = new ullValidatorTaggable(array('required' => false));
     
     $this->widgetSchema->setLabels(array(
         'subject'                   => __('Subject', null, 'common'),
@@ -55,13 +55,7 @@ abstract class PluginUllWikiForm extends BaseUllWikiForm
 
     $object->setEditCounter($object->getEditCounter() + 1);
     
-    $tags = $this->getValue('duplicate_tags_for_search');
-    
-    $tagsArray = array_map('trim', explode(',', strtolower($tags)));
-    natsort($tagsArray);
-    
-    $object->setTags($tagsArray);
-    $object->duplicate_tags_for_search = implode(', ', $tagsArray);
+    $object->setTags($this->getValue('duplicate_tags_for_search'));
     
     return $object;
   }  
