@@ -3,21 +3,7 @@ UllRecord:
   package: ullCorePlugin.lib.model.doctrine
   actAs:
     Timestampable:
+    Personable:
   columns:
     namespace:
       type: string(32)
-    creator_user_id: 
-      type: integer
-      default: 1        #masteradmin
-    updator_user_id: 
-      type: integer
-      default: 1        #masteradmin
-  relations:
-    Creator:
-      class: UllUser
-      local: creator_user_id
-      foreign: id
-    Updator:
-      class: UllUser
-      local: updator_user_id
-      foreign: id

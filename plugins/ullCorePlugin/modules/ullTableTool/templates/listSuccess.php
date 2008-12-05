@@ -36,7 +36,7 @@
 <br />
 
 <?php // detect empty table_tool ?>
-<?php if (!$generator->getRow()->isModified()): ?>
+<?php if ($generator->getRow()->exists()): ?>
   <table class='result_list'>
   
   <!-- header -->

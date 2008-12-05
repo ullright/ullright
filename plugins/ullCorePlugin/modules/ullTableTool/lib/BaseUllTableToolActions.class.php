@@ -197,6 +197,7 @@ class BaseUllTableToolActions extends ullsfActions
     }
 
     $rows = $q->execute();
+    
     return ($rows->count()) ? $rows : new $this->table_name;
   }
 
