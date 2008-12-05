@@ -1,50 +1,50 @@
 # Parent entity
 UllParentEntity:
   package: ullCorePlugin.lib.model.doctrine
-  inheritance: 
+  inheritance:
     extends: UllRecord
     type: concrete
   columns:
-    first_name: 
+    first_name:
       type: string(64)
-    last_name: 
+    last_name:
       type: string(64)
     display_name:
       type: string(64)
     username:
       type: string(64)
       unique: true
-    email: 
-      type: string(64)      
-    password: 
+    email:
+      type: string(64)
+    password:
       type: string(40)
 #  relations:
 #    UllEntityGroupAsGroup:
 #      class: UllEntityGroup
 #      local: id
-#      foreign: ull_group_id       
+#      foreign: ull_group_id
 
-# empty entity class to be overridden by custom Entity class 
+# empty entity class to be overridden by custom Entity class
 # (in config/doctrine/schema.yml) to allow definition of additional userfields
 UllEntity:
 #  package: ullCorePlugin.lib.model.doctrine
-  inheritance: 
+  inheritance:
     extends: UllParentEntity
-    type: concrete     
-    
+    type: concrete
+
 UllUser:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllEntity
     type: column_aggregation
-    keyValue: user           
+    keyValue: user
   relations:
     UllGroup:
       refClass: UllEntityGroup
       foreignAlias: UllUsers
       local: ull_entity_id
       #foreign: group_id
-                   
+
 UllGroup:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -77,9 +77,9 @@ UllEntityGroup:
       local: ull_group_id
       foreign: id
       foreignAlias: UllEntityGroupsAsGroup
-      
-    
-      
+
+
+
 UllPermission:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -87,7 +87,7 @@ UllPermission:
     type: concrete
 #  actAs:
 #    I18n:
-#      fields: [label, description]     
+#      fields: [label, description]
   columns:
     slug:
       type: string(64)
