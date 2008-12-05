@@ -15,7 +15,7 @@ $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $t->begin('findByDocAndSlug()');
-  $value = UllFlowValueTable::findByDocIdAndSlug(1,'my_title');
+  $value = UllFlowValueTable::findByDocIdAndSlug(1,'my_subject');
   $t->is($value->value, 'My first trouble ticket', 'returns the correct value');
   
   try

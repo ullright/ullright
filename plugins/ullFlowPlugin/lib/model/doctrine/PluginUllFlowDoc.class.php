@@ -44,7 +44,6 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   public function preInsert($event)
   {
-//    sfContext::getInstance()->getLogger()->crit('insert: '.$this->title);
     $this->setDefaults();
     $this->createFirstMemory();
     $this->createMemory();
@@ -57,7 +56,6 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */  
   public function preUpdate($event)
   {
-//    sfContext::getInstance()->getLogger()->crit('update: '.$this->title);
     $this->createMemory();   
   }    
   
@@ -114,7 +112,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    * 
    * Example: 
    * array(
-   *   'my_title' => 'This is my title',
+   *   'my_subject' => 'This is my subject',
    *   'my_email' => 'darth.vader@ull.at',
    * );
    * 
@@ -139,7 +137,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    * 
    * Example: 
    * array(
-   *   'my_title',
+   *   'my_subject',
    *   'my_email', 
    * );
    * 

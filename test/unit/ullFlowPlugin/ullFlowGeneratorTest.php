@@ -5,11 +5,11 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 class myTestCase extends sfDoctrineTestCase
 {
   protected $columnsConfigMock = array(
-    'my_title' => array (
+    'my_subject' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => true),
-        'label'               => 'My custom title label',
+        'label'               => 'My custom subject label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
         'is_in_list'        => true,

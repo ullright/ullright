@@ -17,7 +17,7 @@ class ullFlowMailNotifyCreatorOld extends ullFlowMail
       $subject = 
         $this->app_doc_caption 
         . ' "'
-        . $this->doc_title
+        . $this->doc_subject
         . '" '
         . __('has been %1%', array('%1%' => $this->ull_flow_action_caption_lower))
       ;

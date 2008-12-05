@@ -42,10 +42,10 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
       $record->UllFlowValues[$i]->ull_flow_column_config_id = $cc->id;
     }
 
-    // also set the title column of UllFlowDoc
+    // also set the subject column of UllFlowDoc
     if ($cc->is_subject)
     {
-      $record->title = $value;
+      $record->subject = $value;
     }
     
     return true;

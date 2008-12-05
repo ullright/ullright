@@ -10,7 +10,7 @@ abstract class BaseUllFlowDoc extends UllRecord
     parent::setTableDefinition();
     $this->setTableName('ull_flow_doc');
     $this->hasColumn('ull_flow_app_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-    $this->hasColumn('title', 'string', 255, array('type' => 'string', 'length' => '255'));
+    $this->hasColumn('subject', 'string', 255, array('type' => 'string', 'length' => '255'));
     $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('assigned_to_ull_entity_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('assigned_to_ull_flow_step_id', 'integer', null, array('type' => 'integer', 'notnull' => true));

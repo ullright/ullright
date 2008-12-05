@@ -35,7 +35,7 @@ $b
   ->checkResponseElement('table > thead > tr > th', 7) // number of columns
   ->checkResponseElement('thead > tr > th + th > a[href*="/ullFlow/list/order/id/order_dir/asc"]', 'ID')  
   ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'Application')
-  ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/order/title/order_dir/asc"]', 'Title')
+  ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/order/subject/order_dir/asc"]', 'Subject')
   ->checkResponseElement('thead > tr > th + th + th + th + th > a', 'Assigned to')
   ->checkResponseElement('thead > tr > th + th + th + th + th + th > a', 'Created by')
   ->checkResponseElement('thead > tr > th + th + th + th + th + th + th > a', 'Created at ↑')  

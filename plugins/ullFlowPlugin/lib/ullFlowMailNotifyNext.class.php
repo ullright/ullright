@@ -16,7 +16,7 @@ class ullFlowMailNotifyNext extends ullFlowMail
     $subject =
         $this->doc->UllFlowApp->doc_label . 
         ': "' .
-        $this->doc->title .
+        $this->doc->subject .
         '"'
     ;
     $this->setSubject($subject);
@@ -26,7 +26,7 @@ class ullFlowMailNotifyNext extends ullFlowMail
         ' ' .
         $this->doc->UllFlowApp->slug . 
         ' "' .
-        $this->doc->title .
+        $this->doc->subject .
         '"'
     ;
     

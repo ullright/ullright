@@ -20,7 +20,7 @@ $b
 
 
 $b
-  ->diag('create with missing title and invalid email')
+  ->diag('create with missing subject and invalid email')
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->click('Create')
@@ -46,7 +46,7 @@ $b
   ->isRequestParameter('app', 'trouble_ticket')
   ->checkResponseElement('tr > td + td + td > ul > li', 'Required.')
   ->checkResponseElement('tr + tr + tr > td + td + td > ul > li', 'Invalid.')
-  ->setField('fields[my_title]', 'This is my original shiny little title')
+  ->setField('fields[my_subject]', 'This is my original shiny little subject')
   ->setField('fields[my_datetime]', "2001-01-01 01:01:01")    
   ->setField('fields[my_email]', 'bender@ull.at')  
   ->click('Save only')
@@ -55,13 +55,13 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
-  ->checkResponseElement('tr > td + td > input[value="This is my original shiny little title"]', true)
+  ->checkResponseElement('tr > td + td > input[value="This is my original shiny little subject"]', true)
   ->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
   ->checkResponseElement('tr + tr + tr + tr > td + td > input[value="my_test_tag"]', true)
   ->checkResponseElement('h3', 'Progress')
   ->checkResponseElement('ul.ull_flow_memories > li', '/Created[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
   ->checkResponseElement('ul.ull_flow_memories > li > ul > li', '/Comment: My memory comment/')
-  ->setField('fields[my_title]', 'This is my shiny little title')  
+  ->setField('fields[my_subject]', 'This is my shiny little subject')  
   ->click('Save and close')
   ->isRedirected()
   ->followRedirect()  
@@ -69,7 +69,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->checkResponseElement('table > tbody > tr', 3) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little title')  
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little subject')  
 ;
 
 $b
@@ -82,7 +82,7 @@ $b
   ->isRequestParameter('doc', 5)
   ->checkResponseElement('ul.ull_flow_memories > li', '/Created[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
   ->checkResponseElement('ul.ull_flow_memories > li + li', '/Edited[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
-  ->setField('fields[my_title]', 'This is my shiny little edited title')
+  ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 
   ->click('Save and close')
   ->isRedirected()
@@ -92,7 +92,7 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
   ->checkResponseElement('table > tbody > tr', 3) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second trouble ticket')
 ;   
 
@@ -108,7 +108,7 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
   ->checkResponseElement('table > tbody > tr', 3) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
   ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Helpdesk (Group)')
 ;  
 
@@ -120,7 +120,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->checkResponseElement('table > tbody > tr', 1) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
 ;
 
 //TODO: test mandatory comment

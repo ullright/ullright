@@ -23,7 +23,7 @@ class ullFlowMailNotifyCreator extends ullFlowMail
     $subject = 
       $this->doc->UllFlowApp->doc_label 
       . ' "'
-      . $this->doc->title
+      . $this->doc->subject
       . '" '
       . __('has been %1%', array('%1%' => strtolower($this->doc->UllFlowAction->label)))
     ;

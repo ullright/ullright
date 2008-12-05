@@ -30,7 +30,7 @@ $t->setFixturesPath($path);
 
 $t->begin('__construct()');
 
-  $doc = Doctrine::getTable('UllFlowDoc')->findOneByTitle('My first trouble ticket');
+  $doc = Doctrine::getTable('UllFlowDoc')->findOneBySubject('My first trouble ticket');
   $rule = new ullFlowRuleTest($doc);
 
 $t->diag('findGroup()');

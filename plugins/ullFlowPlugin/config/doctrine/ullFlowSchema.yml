@@ -51,7 +51,7 @@ UllFlowDoc:
     ull_flow_app_id:
       type: integer
       notnull: true
-    title:
+    subject:
       type: string(255)
     ull_flow_action_id:
       type: integer

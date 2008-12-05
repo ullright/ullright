@@ -20,18 +20,18 @@ $t->begin('__construct');
   
 $t->diag('create');
   $doc->ull_flow_app_id = 1;
-  $doc->my_title = 'My fancy title';
+  $doc->my_subject = 'My fancy subject';
   $doc->my_datetime = '2008-08-08 08:08:08';
   $doc->memory_comment = 'My fancy memory comment';
   $doc->save();
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(5);
 
-  $t->is($doc->title, 'My fancy title', 'sets the title correctly');
+  $t->is($doc->subject, 'My fancy subject', 'sets the subject correctly');
   $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the action correctly (default)');
   $t->is($doc->assigned_to_ull_entity_id, 1, 'sets the default assigned_to_ull_entity_id correctly');
   $t->is($doc->assigned_to_ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct start step');  
-  $t->is($doc->my_title, 'My fancy title', 'sets the correct virtual columns value');
+  $t->is($doc->my_subject, 'My fancy subject', 'sets the correct virtual columns value');
   $t->is($doc->my_datetime, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
   $t->is($doc->memory_comment, 'My fancy memory comment', 'the current memory comment is accessable via $doc->memory_comment');  
   $t->is($doc->UllFlowMemories[0]->ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct memory step');
@@ -43,13 +43,13 @@ $t->diag('create');
   $t->is($doc->UllFlowMemories[1]->comment, 'My fancy memory comment', 'sets the second memories comment correctly');  
 
 $t->diag('edit');
-  $doc->my_title = 'My fancy edited title';
+  $doc->my_subject = 'My fancy edited subject';
   $doc->memory_comment = 'My fancy edited memory comment';
   $doc->save();
   
   $doc = Doctrine::getTable('UllFlowDoc')->find(5);
 
-  $t->is($doc->title, 'My fancy edited title', 'sets the title correctly');
+  $t->is($doc->subject, 'My fancy edited subject', 'sets the subject correctly');
   $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the action correctly (default)');
   $t->is($doc->UllFlowMemories[2]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the third memories action correctly (save_close)');  
   $t->is($doc->UllFlowMemories[2]->comment, 'My fancy edited memory comment', 'sets the second memories comment correctly');
@@ -67,7 +67,7 @@ $t->begin('getVirtualValuesAsArray()');
   $columns = $doc1->getVirtualValuesAsArray();
   
   $reference = array(
-    'my_title'    => 'My first trouble ticket',
+    'my_subject'    => 'My first trouble ticket',
     'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
     'my_email'    => 'quasimodo@ull.at',
   );
@@ -78,7 +78,7 @@ $t->begin('getVirtualColumnsAsArray()');
   $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
   $columns = $doc1->getVirtualColumnsAsArray();
   $reference = array(
-    'my_title',
+    'my_subject',
     'my_datetime',
     'my_email',
     'column_tags'

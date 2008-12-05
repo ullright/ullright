@@ -11,7 +11,7 @@ class UllFlowDoc extends BaseUllFlowDoc
 {
   
   public function __toString() {
-    return $this->getTitle();
+    return $this->getSubject();
   }
   
   public function getAssignedTo() {

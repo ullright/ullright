@@ -81,14 +81,14 @@ class ullFlowGenerator extends ullGenerator
         'is_in_list'          => true,
     	  'relation'            => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
       );
-      // the title column is taken from UllFlowDoc if no app is given
+      // the subject column is taken from UllFlowDoc if no app is given
       if (!$this->app)
       {
-        $this->columnsConfig['title'] = array(
+        $this->columnsConfig['subject'] = array(
           'widgetOptions'     => array(),
           'widgetAttributes'  => array(),
           'validatorOptions'  => array(),
-          'label'             => 'Title',
+          'label'             => 'Subject',
           'metaWidget'        => 'ullMetaWidgetString',
           'access'            => $this->defaultAccess,
           'is_in_list'        => true,
@@ -110,7 +110,7 @@ class ullFlowGenerator extends ullGenerator
       // loop through table (Doctrine) columns
       foreach ($columns as $columnName => $column)
       {
-        // the title column is taken from UllFlowDoc if no app is given,
+        // the subject column is taken from UllFlowDoc if no app is given,
         //   therefore we need to obmit it here to prevent duplicate
         if ($this->app || (!$this->app && !$column['is_subject']))            
         {
