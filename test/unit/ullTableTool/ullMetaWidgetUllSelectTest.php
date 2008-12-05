@@ -11,8 +11,8 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My select box',
         'metaWidget'          => 'ullMetaWidgetUllSelect',
         'access'              => 'r',
-  ); 
-  
+  );
+
   public function getColumnConfig()
   {
     return $this->columnConfig;
@@ -29,16 +29,16 @@ $t->setFixturesPath($path);
 //$form = new ullForm;
 
 $columnConfig = $t->getColumnConfig();
-  
+
 $t->begin('for read access:');
   $widget = new ullMetaWidgetUllSelect($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetUllSelect', '__construct() returns the correct object');
   $t->isa_ok($widget->getSfWidget(), 'ullWidgetUllSelect', 'returns the correct widget for read access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorPass', 'returns the correct validator for read access');
-  
+
 $t->diag('for write access:');
   $columnConfig['access'] = 'w';
   $widget = new ullMetaWidgetUllSelect($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetUllSelect', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormDoctrineSelect', 'returns the correct widget for read access');
-  $t->isa_ok($widget->getSfValidator(), 'sfValidatorDoctrineChoice', 'returns the correct validator for read access');    
+  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormDoctrineSelect', 'returns the correct widget for write access');
+  $t->isa_ok($widget->getSfValidator(), 'sfValidatorDoctrineChoice', 'returns the correct validator for write access');

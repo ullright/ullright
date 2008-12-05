@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
-class myTestCase extends lime_test 
+class myTestCase extends lime_test
 {
   protected $columnConfig = array(
         'widgetOptions'       => array(),
@@ -11,8 +11,8 @@ class myTestCase extends lime_test
         'label'               => 'My Email',
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'r',
-  ); 
-  
+  );
+
   public function getColumnConfig()
   {
     return $this->columnConfig;
@@ -22,18 +22,18 @@ class myTestCase extends lime_test
 $t = new myTestCase(6, new lime_output_color, $configuration);
 
 $columnConfig = $t->getColumnConfig();
-  
+
 $t->diag('for read access:');
   $widget = new ullMetaWidgetEmail($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetEmail', '__construct() returns the correct object');
   $t->isa_ok($widget->getSfWidget(), 'ullWidgetEmail', 'returns the correct widget for read access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorPass', 'returns the correct validator for read access');
-  
+
 $t->diag('for write access:');
   $columnConfig['access'] = 'w';
   $widget = new ullMetaWidgetEmail($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetEmail', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormInput', 'returns the correct widget for read access');
-  $t->isa_ok($widget->getSfValidator(), 'sfValidatorEmail', 'returns the correct validator for read access');
+  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormInput', 'returns the correct widget for write access');
+  $t->isa_ok($widget->getSfValidator(), 'sfValidatorEmail', 'returns the correct validator for write access');
 
   //TODO: test available options?
