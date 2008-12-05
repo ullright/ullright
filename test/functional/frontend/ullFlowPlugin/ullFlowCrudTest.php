@@ -28,11 +28,13 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('table tr', 3) // number of displayed fields
+  ->checkResponseElement('table tr', 4) // number of displayed fields
+  ->checkResponseElement('ul.tag-cloud a ', 'ull_flow_tag1')
   ->checkResponseElement('body', '!/Progress/')
   ->checkResponseElement('input#fields_memory_comment', true)
   ->setField('fields[my_email]', 'foobar')
   ->setField('fields[memory_comment]', 'My memory comment')
+  ->setField('fields[column_tags]', 'my_test_tag')
   ->click('Save only')
 ;
 
@@ -55,6 +57,7 @@ $b
   ->isRequestParameter('action', 'edit')
   ->checkResponseElement('tr > td + td > input[value="This is my original shiny little title"]', true)
   ->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
+  ->checkResponseElement('tr + tr + tr + tr > td + td > input[value="my_test_tag"]', true)
   ->checkResponseElement('h3', 'Progress')
   ->checkResponseElement('ul.ull_flow_memories > li', '/Created[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
   ->checkResponseElement('ul.ull_flow_memories > li > ul > li', '/Comment: My memory comment/')
@@ -108,6 +111,17 @@ $b
   ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
   ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Helpdesk (Group)')
 ;  
+
+$b
+  ->diag('index: click on created tag')
+  ->get('ullFlow/index')
+  ->click('my_test_tag')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement('table > tbody > tr', 1) // number of rows
+  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited title')
+;
 
 //TODO: test mandatory comment
 

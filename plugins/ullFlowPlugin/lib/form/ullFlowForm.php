@@ -65,7 +65,7 @@ class ullFlowForm extends ullGeneratorForm
   {
     parent::updateObject();
 
-//    $values = $this->getValues();
+    $values = $this->getValues();
 //    var_dump($values);die;
     
     $this->setVirtualValues();
@@ -73,7 +73,8 @@ class ullFlowForm extends ullGeneratorForm
     $this->setNext();
     $this->setMemoryComment();
     
-//    var_dump($this->object->toArray());die;
+    $this->object->setTags($this->getValue('column_tags'));
+    $this->object->duplicate_tags_for_search = $this->getValue('column_tags');
     
     return $this->object;
   }

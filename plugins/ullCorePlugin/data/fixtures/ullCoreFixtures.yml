@@ -71,6 +71,10 @@ UllColumnType:
     class:        ullMetaWidgetPassword
     label:        Password
     namespace:    ullCore
+  taggable:
+    class:        ullMetaWidgetTaggable
+    label:        Taggable
+    namespace:    ullCore
 
 UllTableConfig:
   ull_user_tc:

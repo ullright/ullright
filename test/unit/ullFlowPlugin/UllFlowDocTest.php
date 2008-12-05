@@ -81,6 +81,7 @@ $t->begin('getVirtualColumnsAsArray()');
     'my_title',
     'my_datetime',
     'my_email',
+    'column_tags'
   );
   $t->is($columns, $reference, 'returns the correct values');    
   

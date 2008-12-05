@@ -45,6 +45,8 @@ UllFlowDoc:
   inheritance:
     extends: UllRecord
     type: concrete
+  actAs:  
+    Taggable:    
   columns:
     ull_flow_app_id:
       type: integer

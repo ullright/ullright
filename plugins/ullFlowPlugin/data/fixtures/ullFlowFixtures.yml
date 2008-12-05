@@ -132,6 +132,18 @@ UllFlowColumnConfig:
     slug:           my_email
     sequence:       3000
     UllColumnType:  email
+  ull_flow_column_config_helpdesk_taggable:
+    Translation:
+      en:
+        label:      Tags
+      de:
+        label:      Tags
+    UllFlowApp:     ull_flow_app_helpdesk
+    # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
+    slug:           column_tags 
+    sequence:       4000
+    UllColumnType:  taggable
+    is_in_list:     false    
   ull_flow_column_config_todo_title:
     Translation:
       en:

@@ -31,7 +31,16 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'w',
         'is_in_list'        => true,
-        ),          
+        ),
+    'column_tags' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Tags',
+        'metaWidget'          => 'ullMetaWidgetTaggable',
+        'access'              => 'w',
+        'is_in_list'        => false,
+        ),                  
   );
 
   public function getColumnsConfigMock()
@@ -45,7 +54,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(14, new lime_output_color, $configuration);
+$t = new myTestCase(15, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -68,7 +77,7 @@ $t->begin('getTableConfig()');
 $t->begin('getColumnConfig()');
   $columnsConfig = $generator->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 3, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 4, 'columnsConfig has the correct number of columns');
   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();

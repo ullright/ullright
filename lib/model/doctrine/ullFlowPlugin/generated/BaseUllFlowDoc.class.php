@@ -42,5 +42,8 @@ abstract class BaseUllFlowDoc extends UllRecord
 
     $this->hasMany('UllFlowMemory as UllFlowMemories', array('local' => 'id',
                                                              'foreign' => 'ull_flow_doc_id'));
+
+    $taggable0 = new Taggable();
+    $this->actAs($taggable0);
   }
 }
