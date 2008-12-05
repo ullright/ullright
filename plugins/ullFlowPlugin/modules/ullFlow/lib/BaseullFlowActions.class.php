@@ -1356,9 +1356,6 @@ class BaseullFlowActions extends ullsfActions
       $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
       $this->forward404Unless($this->app);
       $this->doc->UllFlowApp = $this->app;
-      //TODO: this must be handled in the model
-      $this->doc->setDefaults();
-      
     }    
   }  
 
