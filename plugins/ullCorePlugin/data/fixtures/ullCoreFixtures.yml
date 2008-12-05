@@ -58,7 +58,7 @@ UllColumnType:
   foreign_key:
     class:        ullMetaWidgetForeignKey
     label:        Foreign key
-    namespace:    ullCore    
+    namespace:    ullCore
   ull_select:
     class:        ullMetaWidgetUllSelect
     label:        UllSelect
@@ -74,6 +74,10 @@ UllColumnType:
   taggable:
     class:        ullMetaWidgetTaggable
     label:        Taggable
+    namespace:    ullCore
+  textarea:
+    class:        ullMetaWidgetTextarea
+    label:        Textarea
     namespace:    ullCore
 
 UllTableConfig:
@@ -103,7 +107,7 @@ UllTableConfig:
         label: Zugriffsrechte
     db_table_name: UllPermission
     sort_columns: slug
-    search_columns: slug    
+    search_columns: slug
   ull_entity_group_tc:
     Translation:
       en:
@@ -233,7 +237,7 @@ UllColumnConfig:
 #    db_table_name:  UllUser
 #    db_column_name: dingens
 #    is_in_list:     true
-#    UllColumnType:  checkbox
+#    UllColumnType:  textarea
 
   #UllGroup
   ull_group_cc_first_name:
@@ -269,7 +273,7 @@ UllColumnConfig:
     db_table_name:  UllGroup
     db_column_name: password
     is_enabled:     false
- 
+
   #UllEntityGroup
   ull_entity_group_cc_ull_entity_id:
     Translation:
@@ -343,7 +347,7 @@ UllColumnConfig:
         label:      Auswahlfeld
     db_table_name:  UllSelectChild
     db_column_name: ull_select_id
-    
+
   #TestTable
   test_cc_my_string:
     Translation:
@@ -353,17 +357,17 @@ UllColumnConfig:
         label:      Mein spezielles String Label
     db_table_name:  TestTable
     db_column_name: my_string
-    
+
   test_cc_my_useless_column:
     db_table_name:  TestTable
     db_column_name: my_useless_column
     is_enabled:     false
-    
+
   test_cc_my_email:
     db_table_name:  TestTable
     db_column_name: my_email
     UllColumnType:  email
-    
+
   test_cc_my_select_box:
     db_table_name:  TestTable
     db_column_name: my_select_box
@@ -408,12 +412,12 @@ UllSelect:
           de:
             label:    Meine first Option 2
         sequence: 1000
-        
+
 # for tabletool testing
 TestTable:
   tt_1:
     Translation:
-      en: 
+      en:
         my_string:    Foo Bar
         my_text:      Hello, this is my text
       de:
@@ -428,7 +432,7 @@ TestTable:
     Creator:      admin_user
     Updator:      admin_user
     #created_at:   2008-01-01 00:00:00
-    
+
   tt_2:
     Translation:
       en:
