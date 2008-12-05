@@ -29,7 +29,7 @@
 		            ); ?> 
 		        </div>
 		<div id="sidebar_content">
-		Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam convallis dapibus risus. Donec ligula nisi, eleifend vitae, sollicitudin eget, cursus a, turpis. Aliquam interdum massa. Duis nec ligula eu arcu rutrum molestie. In arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra...
+		
 		</div>
 	</div>
 	
