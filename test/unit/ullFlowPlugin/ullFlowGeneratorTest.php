@@ -12,7 +12,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'My custom subject label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
-        'is_in_list'        => true,
+        'is_in_list'          => true,
         ),         
     'my_datetime' => array (
         'widgetOptions'       => array(),
@@ -21,7 +21,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Date',
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'w',
-        'is_in_list'        => false,
+        'is_in_list'          => false,
         ),                  
     'my_email' => array (
         'widgetOptions'       => array(),
@@ -30,8 +30,18 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Your email address',
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'w',
-        'is_in_list'        => true,
+        'is_in_list'          => true,
         ),
+    'column_priority' => array (
+        'widgetOptions'       => array('ull_select' => 'priority'),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Priority',
+        'metaWidget'          => 'ullMetaWidgetUllSelect',
+        'access'              => 'w',
+        'is_in_list'          => false,
+        'default_value'       => '6',
+        ),        
     'column_tags' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -39,7 +49,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Tags',
         'metaWidget'          => 'ullMetaWidgetTaggable',
         'access'              => 'w',
-        'is_in_list'        => false,
+        'is_in_list'          => false,
         ),                  
   );
 
@@ -54,7 +64,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(15, new lime_output_color, $configuration);
+$t = new myTestCase(16, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -77,7 +87,7 @@ $t->begin('getTableConfig()');
 $t->begin('getColumnConfig()');
   $columnsConfig = $generator->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 4, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 5, 'columnsConfig has the correct number of columns');
   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();

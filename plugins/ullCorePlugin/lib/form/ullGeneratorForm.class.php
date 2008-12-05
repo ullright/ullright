@@ -19,7 +19,7 @@ class ullGeneratorForm extends sfFormDoctrine
    * @param array $options
    * @param string $CSRFSecret
    */
-  public function __construct(Doctrine_Record $object, $requestAction = 'list', $cultures = array(), $options = array(), $CSRFSecret = null)
+  public function __construct(Doctrine_Record $object, $requestAction = 'list', $defaults = array(), $cultures = array(), $options = array(), $CSRFSecret = null)
   {
     $this->modelName = get_class($object);
     
@@ -28,6 +28,11 @@ class ullGeneratorForm extends sfFormDoctrine
     $this->setCultures($cultures);
     
     parent::__construct($object, $options, $CSRFSecret);
+    
+    // called after parent:__construct, because sfFormDoctrine overwrites defaults with emtpy array *#!?$
+    $this->setDefaults($defaults);
+    $this->updateDefaultsFromObject();
+//    var_dump($this->getDefaults());die;
   }  
   
   /**

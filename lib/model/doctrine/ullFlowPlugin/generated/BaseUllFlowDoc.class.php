@@ -14,6 +14,7 @@ abstract class BaseUllFlowDoc extends UllRecord
     $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('assigned_to_ull_entity_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('assigned_to_ull_flow_step_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    $this->hasColumn('priority', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('duplicate_tags_for_search', 'clob', null, array('type' => 'clob'));
     $this->hasColumn('dirty', 'integer', null, array('type' => 'integer'));
   }
@@ -33,6 +34,9 @@ abstract class BaseUllFlowDoc extends UllRecord
 
     $this->hasOne('UllFlowStep', array('local' => 'assigned_to_ull_flow_step_id',
                                        'foreign' => 'id'));
+
+    $this->hasOne('UllSelectChild', array('local' => 'priority',
+                                          'foreign' => 'id'));
 
     $this->hasMany('Tagging', array('local' => 'id',
                                     'foreign' => 'taggable_id'));

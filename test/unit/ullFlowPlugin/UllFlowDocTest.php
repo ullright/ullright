@@ -70,6 +70,7 @@ $t->begin('getVirtualValuesAsArray()');
     'my_subject'    => 'My first trouble ticket',
     'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
     'my_email'    => 'quasimodo@ull.at',
+    'column_tags' => 'ull_flow_tag1',
   );
   
   $t->is($columns, $reference, 'returns the correct values');  
@@ -81,7 +82,8 @@ $t->begin('getVirtualColumnsAsArray()');
     'my_subject',
     'my_datetime',
     'my_email',
-    'column_tags'
+    'column_priority',
+    'column_tags',
   );
   $t->is($columns, $reference, 'returns the correct values');    
   

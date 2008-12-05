@@ -80,7 +80,7 @@ UllFlowDoc:
     subject:          AAA My second trouble ticket
     UllFlowAction:  ull_flow_action_create
     UllEntity:      helpdesk_group
-    UllFlowStep:    ull_flow_step_doc_helpdesk_creator    
+    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
   ull_flow_doc_todo1:
     UllFlowApp:     ull_flow_app_todo
     subject:          My first thing todo
@@ -88,7 +88,7 @@ UllFlowDoc:
     UllEntity:      test_user
     UllFlowStep:    ull_flow_step_doc_todo_creator
     Creator:        test_user
-    created_at:     '2002-02-02 02:02:02'     
+    created_at:     '2002-02-02 02:02:02'
   ull_flow_doc_todo2:
     UllFlowApp:     ull_flow_app_todo
     subject:          AAA My second thing todo
@@ -96,7 +96,7 @@ UllFlowDoc:
     UllEntity:      test_group
     UllFlowStep:    ull_flow_step_doc_todo_creator
     memory_comment: Comment for my second thing todo 
-    duplicate_tags_for_search: ull_flow_tag1        
+    duplicate_tags_for_search: ull_flow_tag1
     
 UllFlowColumnConfig:
   ull_flow_column_config_helpdesk_subject:
@@ -132,7 +132,21 @@ UllFlowColumnConfig:
     slug:           my_email
     sequence:       3000
     UllColumnType:  email
-  ull_flow_column_config_helpdesk_taggable:
+  ull_flow_column_config_helpdesk_column_priority:
+    Translation:
+      en:
+        label:      Priority
+      de:
+        label:      Wichtigkeit
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           column_priority
+    sequence:       4000
+    UllColumnType:  ull_select
+    options:        ull_select=priority
+    default_value:  6
+    #don't include in the list, because the native UllFlowDoc->priority column is used for that
+    is_in_list:     false    
+  ull_flow_column_config_helpdesk_column_tags:
     Translation:
       en:
         label:      Tags
@@ -141,9 +155,10 @@ UllFlowColumnConfig:
     UllFlowApp:     ull_flow_app_helpdesk
     # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
     slug:           column_tags 
-    sequence:       4000
+    sequence:       5000
     UllColumnType:  taggable
     is_in_list:     false    
+    
   ull_flow_column_config_todo_subject:
     Translation:
       en:
@@ -155,7 +170,33 @@ UllFlowColumnConfig:
     sequence:       1000
     UllColumnType:  string
     is_mandatory:   true
-    is_subject:     true    
+    is_subject:     true
+  ull_flow_column_config_todo_column_priority:
+    Translation:
+      en:
+        label:      Priority
+      de:
+        label:      Wichtigkeit
+    UllFlowApp:     ull_flow_app_todo
+    slug:           column_priority
+    sequence:       2000
+    UllColumnType:  ull_select
+    options:        ull_select=priority
+    default_value:  6
+    #don't include in the list, because the native UllFlowDoc->priority column is used for that
+    is_in_list:     false    
+  ull_flow_column_config_todo_column_tags:
+    Translation:
+      en:
+        label:      Tags
+      de:
+        label:      Tags
+    UllFlowApp:     ull_flow_app_todo
+    # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
+    slug:           column_tags 
+    sequence:       3000
+    UllColumnType:  taggable
+    is_in_list:     false              
         
 UllFlowValue:  
   ull_flow_value_doc_helpdesk1_subject:
@@ -166,10 +207,14 @@ UllFlowValue:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_datetime
     value:          2011-11-11 11:11:11
-  ull_flow_value_doc1_email:
+  ull_flow_value_doc_helpdesk1_email:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
     value:          quasimodo@ull.at
+  ull_flow_value_doc_helpdesk1_column_tags:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_column_tags
+    value:          ull_flow_tag1, ull_flow_tag2          
     
   ull_flow_value_doc_helpdesk2_subject:
     UllFlowDoc:     ull_flow_doc_helpdesk2
@@ -182,7 +227,7 @@ UllFlowValue:
   ull_flow_value_doc_helpdesk2_email:
     UllFlowDoc:     ull_flow_doc_helpdesk2
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
-    value:          bender@ull.at   
+    value:          bender@ull.at
     
   ull_flow_value_doc_todo1_subject:
     UllFlowDoc:     ull_flow_doc_todo1
@@ -192,8 +237,11 @@ UllFlowValue:
   ull_flow_value_doc_todo2_subject:
     UllFlowDoc:     ull_flow_doc_todo2
     UllFlowColumnConfig: ull_flow_column_config_todo_subject
-    value:          AAA My second thing todo          
-    
+    value:          AAA My second thing todo
+  ull_flow_value_doc_todo2_column_tags:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_todo_column_tags
+    value:          ull_flow_tag1    
 
 UllFlowMemory:
   ull_flow_memory_doc_helpdesk1_1:
@@ -580,3 +628,61 @@ Tagging:
     Tag:            ull_flow_tag1
     taggable_model: UllFlowDoc
     UllFlowDoc:     ull_flow_doc_todo2
+    
+UllSelect:
+  ull_select_workflow_priority:
+    Translation:
+      en:
+        label:      Priority
+      de:
+        label:      Wichtigkeit
+    slug:           priority
+    namespace:      ullFlow
+    
+UllSelectChild:
+  ull_select_child_priority_1:
+    Translation:
+      en:
+        label:      Very high
+      de:
+        label:      Sehr hoch
+    UllSelect:      ull_select_workflow_priority
+    sequence:       1000
+    namespace:      ullFlow
+  ull_select_child_priority_2:
+    Translation:
+      en:
+        label:      High
+      de:
+        label:      Hoch
+    UllSelect:      ull_select_workflow_priority
+    sequence:       2000
+    namespace:      ullFlow
+  ull_select_child_priority_3:
+    Translation:
+      en:
+        label:      Normal
+      de:
+        label:      Normal
+    UllSelect:      ull_select_workflow_priority
+    sequence:       3000
+    namespace:      ullFlow
+  ull_select_child_priority_4:
+    Translation:
+      en:
+        label:      Low
+      de:
+        label:      Niedrig
+    UllSelect:      ull_select_workflow_priority
+    sequence:       4000
+    namespace:      ullFlow
+  ull_select_child_priority_5:
+    Translation:
+      en:
+        label:      Very low
+      de:
+        label:      Sehr niedrig
+    UllSelect:      ull_select_workflow_priority
+    sequence:       5000
+    namespace:      ullFlow                
+        

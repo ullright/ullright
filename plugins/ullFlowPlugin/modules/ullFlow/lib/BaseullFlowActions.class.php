@@ -418,10 +418,8 @@ class BaseullFlowActions extends ullsfActions
         $this->redirect($referer);
       }
     }
-    else
-    {
-      $this->refererHandler->initialize();
-    }
+    
+    $this->refererHandler->initialize();
     $this->breadcrumbForEdit();    
 
 //    // get step

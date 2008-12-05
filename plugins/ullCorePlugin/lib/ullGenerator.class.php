@@ -261,7 +261,8 @@ abstract class ullGenerator
     
     foreach ($this->rows as $key => $row) 
     {
-      $this->forms[$key] = new $this->formClass($row, $this->requestAction, $cultures);
+      $this->forms[$key] = new $this->formClass($row, $this->requestAction, $this->getDefaults(), $cultures);
+      
       foreach ($this->columnsConfig as $columnName => $columnConfig)
       {
         if ($this->isColumnEnabled($columnConfig)) 
@@ -314,6 +315,26 @@ abstract class ullGenerator
     }
     
     return $cultures;
+  }
+  
+  /**
+   * Get default values 
+   * 
+   * @return array
+   */
+  public function getDefaults()
+  {
+    $defaults = array();
+    
+    foreach ($this->columnsConfig as $columnName => $columnConfig)
+    {
+      if (isset($columnConfig['default_value'])) 
+      {
+        $defaults[$columnName] = $columnConfig['default_value'];
+      }
+    }
+    
+    return $defaults;
   }
 
   /**

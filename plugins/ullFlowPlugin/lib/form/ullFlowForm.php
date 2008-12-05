@@ -16,14 +16,8 @@ class ullFlowForm extends ullGeneratorForm
     // add meta data fields only for edit action
     if ($this->requestAction == 'edit')
     {
-//      $this->getWidgetSchema()->offsetSet('ull_flow_action_id', new sfWidgetFormInputHidden);
-//      $this->getWidgetSchema()->offsetSet('assigned_to_ull_entity_id', new sfWidgetFormInputHidden);
-//      $this->getWidgetSchema()->offsetSet('assigned_to_ull_flow_step_id', new sfWidgetFormInputHidden);
       $this->getWidgetSchema()->offsetSet('memory_comment', new sfWidgetFormInput(array(), array('size' => 50)));
       
-//      $this->getValidatorSchema()->offsetSet('ull_flow_action_id', new sfValidatorInteger(array('required' => false)));
-//      $this->getValidatorSchema()->offsetSet('assigned_to_ull_entity_id', new sfValidatorInteger(array('required' => false)));
-//      $this->getValidatorSchema()->offsetSet('assigned_to_ull_flow_step_id', new sfValidatorInteger(array('required' => false)));
       $this->getValidatorSchema()->offsetSet('memory_comment', new sfValidatorString(array('required' => false)));
     }    
   }
@@ -48,11 +42,8 @@ class ullFlowForm extends ullGeneratorForm
   {
     parent::updateDefaultsFromObject();
     
-    $defaults = $this->getDefaults();
-    
-    $virtualColumns = $this->object->getVirtualValuesAsArray();
-    
-    $this->setDefaults($defaults + $virtualColumns);
+    $this->setDefaults(array_merge($this->getDefaults(), 
+        $this->object->getVirtualValuesAsArray()));
   }
   
   /**
@@ -66,7 +57,6 @@ class ullFlowForm extends ullGeneratorForm
     parent::updateObject();
 
     $values = $this->getValues();
-//    var_dump($values);die;
     
     $this->setVirtualValues();
     $this->setAction();
@@ -75,6 +65,10 @@ class ullFlowForm extends ullGeneratorForm
     
     $this->object->setTags($this->getValue('column_tags'));
     $this->object->duplicate_tags_for_search = $this->getValue('column_tags');
+    
+    $this->object->priority = $this->getValue('column_priority');
+    
+//    var_dump($this->object->toArray());die;
     
     return $this->object;
   }
@@ -91,7 +85,8 @@ class ullFlowForm extends ullGeneratorForm
     
     foreach ($virtualColumns as $column)
     {
-      if (isset($values[$column])) {
+      if (isset($values[$column])) 
+      {
         $this->object->$column = $values[$column];
       }
     }

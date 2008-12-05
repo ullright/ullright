@@ -107,7 +107,7 @@ class ullFlowGenerator extends ullGenerator
         $columns[$config->slug] = $config;  
       }
       
-      // loop through table (Doctrine) columns
+      // loop through columns
       foreach ($columns as $columnName => $column)
       {
         // the subject column is taken from UllFlowDoc if no app is given,
@@ -125,7 +125,12 @@ class ullFlowGenerator extends ullGenerator
           $columnConfig['metaWidget']   = $column->UllColumnType->class;
           $columnConfig['access']       = $this->defaultAccess;
           $columnConfig['is_in_list']   = $column->is_in_list;
+          $columnConfig['widgetOptions']= sfToolkit::stringToArray($column->options);
           $columnConfig['validatorOptions']['required'] = $column->is_mandatory;
+          if ($column->default_value)
+          {
+            $columnConfig['default_value']= $column->default_value;
+          }
           
           $this->columnsConfig[$columnName] = $columnConfig;
         }
@@ -134,6 +139,15 @@ class ullFlowGenerator extends ullGenerator
     
     if ($this->requestAction == 'list')
     {
+      $this->columnsConfig['priority'] = array(
+        'widgetOptions'     => array('ull_select' => 'priority'),
+        'widgetAttributes'  => array(),
+        'validatorOptions'  => array(),
+        'label'             => 'Priority',
+        'metaWidget'        => 'ullMetaWidgetUllSelect',
+        'access'            => $this->defaultAccess,
+        'is_in_list'        => true,
+      );      
       $this->columnsConfig['assigned_to_ull_entity_id'] = array(
         'widgetOptions'     => array(),
         'widgetAttributes'  => array(),

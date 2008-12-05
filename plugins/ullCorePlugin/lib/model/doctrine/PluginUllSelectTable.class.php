@@ -5,4 +5,29 @@
 class PluginUllSelectTable extends UllRecordTable
 {
 
+  /**
+   * Finds a select box's entry value per select_box slug and entry label
+   * 
+   * @param string $slug
+   * @param string $label
+   * @return integer
+   */
+  public static function findValue($slug, $label)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('c.id')
+      ->from('UllSelectChild c, c.UllSelect s, c.Translation t')
+      ->where('s.slug = ?', $slug)
+      ->addWhere('t.label = ?', $label)
+    ;
+    
+//    var_dump($q->getQuery());
+//    var_dump($q->getParams());
+    
+    $rs = $q->execute(array(), DOCTRINE::HYDRATE_ARRAY);
+    
+    return (int) $rs[0]['id'];
+  }
+  
 }

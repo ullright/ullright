@@ -61,22 +61,11 @@ UllFlowDoc:
     assigned_to_ull_flow_step_id:
       type: integer
       notnull: true
-#    priority:
-#      type: INTEGER
-#    deadline:
-#      type: TIMESTAMP
-#    custom_field1:
-#      type: VARCHAR
-#      size: 256
-#    read_ull_group_id:
-#      type: INTEGER
-#    duplicate_tags_for_propel_search:
-#      type: LONGVARCHAR
-#    write_ull_group_id:
-#      type: INTEGER
-    #this is used to always set the record dirty, even when only virtual columns are changed.
+    priority:
+      type: integer
     duplicate_tags_for_search:
-      type: clob    
+      type: clob
+    #this is used to always set the record dirty, even when only virtual columns are changed.    
     dirty:
       type: integer
   relations:
@@ -92,6 +81,8 @@ UllFlowDoc:
       foreignAlias: UllFlowDocs
       local: assigned_to_ull_flow_step_id      
 #      onDelete: CASCADE # TODO: test!
+    UllSelectChild:
+      local: priority
     Tagging:
       local: id
       foreign: taggable_id

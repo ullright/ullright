@@ -20,6 +20,9 @@ abstract class BaseUllSelectChild extends UllRecord
     $this->hasOne('UllSelect', array('local' => 'ull_select_id',
                                      'foreign' => 'id'));
 
+    $this->hasMany('UllFlowDoc', array('local' => 'id',
+                                       'foreign' => 'priority'));
+
     $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
     $this->actAs($i18n0);
   }
