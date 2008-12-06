@@ -16,7 +16,6 @@
 </table>
 
 
-
 <br />
 
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
@@ -70,7 +69,7 @@
           <?php 
             echo ull_submit_tag(
               __('Save only', null, 'common'),
-              array('name' => 'submit_save_only', 'form_id' => 'edit_form', 'display_as_link' => true)
+              array('name' => 'submit|action_slug=save_only', 'form_id' => 'edit_form', 'display_as_link' => true)
             ); 
           ?>
           </li>
@@ -79,7 +78,7 @@
           <?php 
             echo ull_submit_tag(
               __('Save and close', null, 'common'),
-              array('name' => 'submit_save_close', 'form_id' => 'edit_form', 'display_as_link' => true)
+              array('name' => 'submit|action_slug=save_close', 'form_id' => 'edit_form', 'display_as_link' => true)
             ); 
           ?>
           </li>

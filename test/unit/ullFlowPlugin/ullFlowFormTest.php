@@ -58,7 +58,7 @@ $t->diag('save() with the default action ("save_close")');
   
 $t->diag('save() with action "send"');
 
-  sfContext::getInstance()->getRequest()->setParameter('submit_send', true);
+  sfContext::getInstance()->getRequest()->setParameter('action_slug', 'send');
   
   $request = array();
   

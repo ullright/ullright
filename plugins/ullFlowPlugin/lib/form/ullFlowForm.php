@@ -100,15 +100,11 @@ class ullFlowForm extends ullGeneratorForm
    */
   protected function setAction()
   { 
-    $request = sfContext::getInstance()->getRequest();
-    $submitMode = ull_submit_tag_parse();
+    $actionSlug = sfContext::getInstance()->getRequest()->getParameter('action_slug', 'save_close');    
     
-    // set default action
-    $submitMode = $submitMode ? $submitMode : 'save_close';
-    
-    if (!$action = Doctrine::getTable('UllFlowAction')->findOneBySlug($submitMode))
+    if (!$action = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug))
     {
-      throw new InvalidArgumentException('Invalid UllFlowAction given: ' . $submitMode); 
+      throw new InvalidArgumentException('Invalid UllFlowAction given: ' . $actionSlug); 
     }
     
     $this->object->UllFlowAction = $action;

@@ -21,6 +21,6 @@ $t->begin('__construct');
   
 $t->diag('getEditWidget()');
   
-  $reference = '<input type="submit" name="submit_send" value="Send" />';
+  $reference = '<input type="submit" name="submit|action_slug=send" value="Send" />';
   $t->is($handler->getEditWidget(), $reference, 'returns the correct html code');  
   

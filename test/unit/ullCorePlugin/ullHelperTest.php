@@ -7,7 +7,7 @@ $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(19, new lime_output_color);
+$t = new lime_test(20, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -132,6 +132,33 @@ $t->diag('ull_submit_tag_parse()');
   );
   $t->is(ull_submit_tag_parse($test), 'save_only', 'returns the correct value');
   
+$t->diag('ull_parse_submit_name()');
+
+  $test = array(
+    'module'            => 'ullWiki',
+    'action'            => 'edit',
+    'fields'            => array('my_field' => 'my_value'),
+    'filter[search]'    => 'blabla',
+    'submit|save_mode=save_only|external=upload|external_field=10'  => 'Save only',
+    'submit|save_mode=reject' => '',
+  );
+
+  clean_request_parameters();
+  request_parameters_from_array($test);
+  ull_parse_submit_name($test);
+  
+  $reference = array(
+    'module'            => 'ullWiki',
+    'action'            => 'edit',
+    'fields'            => array('my_field' => 'my_value'),
+    'filter[search]'    => 'blabla',
+    'save_mode'         => 'save_only',
+    'external'          => 'upload',
+    'external_field'    => 10,
+  ); 
+  
+  $t->is(sfContext::getInstance()->getRequest()->getParameterHolder()->getAll(), $reference, 'returns the correct value');  
+  
 $t->diag('ull_link_to()');
 
   $t->is(ull_link_to('my_label', 'http://www.ull.at', array('title' => 'my_title')), 
@@ -199,8 +226,14 @@ $t->diag('ull_tc_task_link()');
    
 function clean_request_parameters()
 {
-	foreach (sfContext::getInstance()->getRequest()->getParameterHolder()->getAll() as $key => $value)
+  sfContext::getInstance()->getRequest()->getParameterHolder()->clear();
+}
+
+function request_parameters_from_array($array)
+{
+  $holder = sfContext::getInstance()->getRequest()->getParameterHolder();
+  foreach ($array as $key => $value)
   {
-  	sfContext::getInstance()->getRequest()->getParameterHolder()->remove($key);
+    $holder->set($key, $value);
   }
 }

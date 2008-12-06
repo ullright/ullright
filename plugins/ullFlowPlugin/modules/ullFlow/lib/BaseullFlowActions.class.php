@@ -399,6 +399,7 @@ class BaseullFlowActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
+      ull_parse_submit_name();
 //      var_dump($request->getParameterHolder()->getAll());die;
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
@@ -408,7 +409,7 @@ class BaseullFlowActions extends ullsfActions
 
         $this->sendMails();
         
-        if ($request->getParameter('submit_save_only')) 
+        if ($request->getParameter('action_slug') == 'save_only') 
         {
           return $this->redirect('ullFlow/edit?doc=' . $this->doc->id);
         }

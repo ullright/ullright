@@ -519,7 +519,8 @@ function ull_submit_tag($value = 'Save changes', $options = array()) {
 	if (isset($options['display_as_link']) &&
 	   sfContext::getInstance()->getUser()->getAttribute('has_javascript'))
 	{
-	  $js_function_name = $options['name'] . '()'; 
+    $js_function_name = str_replace(array('|', '='), array('_', '_'),
+      $options['name']) . '()'; 
 	  
     $return = input_hidden_tag($options['name']) . "\n";
     $return .= javascript_tag('function ' . $js_function_name . ' 
@@ -575,6 +576,54 @@ function ull_submit_tag_parse($params = null)
   }
   
   return $return;
+}
+
+/**
+ * Parses payload in the name attribute of the clicked submit tag
+ * and sets the request params accordingly
+ * 
+ * The payload must be declared by a leading "submit|" string,
+ * followed by key=value pairs separated by "|"
+ * 
+ * The allowed chars for key and value are 0-9, a-z, A-Z and '_'
+ * 
+ * Example:
+ * 
+ * $request = array(
+ *   'submit|save_mode=save_only|external=upload|external_field=10' => 'Save'
+ * );
+ * 
+ * is transformed to 
+ * 
+ * $request = array(
+ *   'save_mode'         => 'save_only',
+ *   'external'          => 'upload',
+ *   'external_field'    => 10,
+ * ); 
+ *
+ */
+function ull_parse_submit_name()
+{
+  $holder = sfContext::getInstance()->getRequest()->getParameterHolder();
+  
+//  var_dump($holder->getAll());die;
+  
+  foreach ($holder->getAll() as $key => $value)
+  {
+    if (substr($key,0,7) == 'submit|')
+    {
+      $holder->remove($key);
+      if ($value)
+      {
+        $payload = str_replace('|', ' ', substr($key, 7));
+        $payloadParams = sfToolkit::stringToArray($payload);
+        foreach ($payloadParams as $pKey => $pValue)
+        {
+          $holder->set($pKey, $pValue);
+        }
+      }
+    }
+  }
 }
 
 /**
