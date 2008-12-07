@@ -15,7 +15,7 @@ class ullMetaWidgetTextarea extends ullMetaWidget
     }
     else
     {
-      $this->sfWidget = new ullWidget($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
+      $this->sfWidget = new ullWidgetTextarea($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
       $this->sfValidator = new sfValidatorPass();
     }
 
