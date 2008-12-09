@@ -3,27 +3,9 @@
 class ullWidgetTaggable extends ullWidget
 {
   
-//  protected function configure($options = array(), $attributes = array())
-//  {
-////    $this->addRequiredOption('object');
-//
-//    parent::configure($options, $attributes);
-//  }
-  
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    
     $html = '';
-    
-    
-    
-//    $tags_out = sfContext::getInstance()->getRequest()->getParameter('tags');
-//      if (!$tags_out) {
-//        $tags = $sf_data->getRaw('doc')->getTags();
-//        $tags_out = implode(', ', array_keys($tags));
-//      }
-
-    
     $html .= $this->renderTag('input', array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
 
     $tags_pop = TagTable::getPopulars();

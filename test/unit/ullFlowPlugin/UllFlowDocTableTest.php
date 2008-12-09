@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(2, new lime_output_color, $configuration);
+$t = new myTestCase(6, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -27,3 +27,12 @@ $t->diag('queryAccess()');
   {
     $t->pass('throws an exception if any other object than UllFlowApp is given');
   }
+  
+$t->diag('hasId()');
+  $t->ok(UllFlowDocTable::hasId(1), 'returns true for an existing id');
+  $t->ok(!UllFlowDocTable::hasId(666), 'returns false for a non existing id');
+  
+$t->diag('hasVirtualColumn()');
+  $t->ok(UllFlowDocTable::hasVirtualColumn(1, 'my_email'), 'returns true for an existing slug');
+  $t->ok(!UllFlowDocTable::hasVirtualColumn(1, 'foobar'), 'returns false for a non existing slug');  
+

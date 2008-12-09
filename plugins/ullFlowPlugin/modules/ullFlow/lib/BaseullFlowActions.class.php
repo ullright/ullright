@@ -399,7 +399,6 @@ class BaseullFlowActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
-      ull_parse_submit_name();
 //      var_dump($request->getParameterHolder()->getAll());die;
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
@@ -408,6 +407,18 @@ class BaseullFlowActions extends ullsfActions
 //        die;
 
         $this->sendMails();
+        
+          // manage full page widgets
+          if ($fullPageWidgetName = $request->getParameter('full_page_widget')) 
+          {
+            $fullPageWidgetClass = 'ullFlowFullPageWidget' . sfInflector::classify($fullPageWidgetName);
+            
+            if (class_exists($fullPageWidgetClass)) 
+            {
+              $fullPageWidget = new $fullPageWidgetClass($this->doc, $request->getParameter('full_page_widget_column'));
+              return $this->redirect($fullPageWidget->getInternalUri());
+            }
+          }        
         
         if ($request->getParameter('action_slug') == 'save_only') 
         {
@@ -1004,68 +1015,99 @@ class BaseullFlowActions extends ullsfActions
   
 
   
-  public function executeUpload() {
-    
-//    ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
-//    ullCoreTools::printR($_FILES);
+  public function executeUpload($request) 
+  {
+   
 //      ullCoreTools::printR(sfConfig::get('sf_upload_dir'));
 //      ullCoreTools::printR(sfConfig::get('sf_web_dir')); 
 //    exit();
 
-    // == defaults
-    $user_id  = $this->getUser()->getAttribute('user_id');
-    $now      = date('Y-m-d H:i:s');
+    $this->getDocFromRequestOrCreate();
+    
+    $column = $request->getParameter('column');
+
+    $this->form = new ullFlowUploadForm;
     
     
-  
-    $this->external_field = $this->getRequestParameter('external_field');
-    $this->value          = $this->getRequestParameter($this->external_field);
-    $this->app            = $this->getRequestParameter('app');
-    $this->doc            = $this->getRequestParameter('doc');
-    $this->ull_flow_action= $this->getRequestParameter('ull_flow_action');
-    
-    
-    
-    if ($filename = $this->getRequest()->getFileName('file')) {
+    if ($request->isMethod('post'))
+    {
+      var_dump($this->getRequest()->getParameterHolder()->getAll());
       
-      // store file
-      $path = sfConfig::get('sf_upload_dir') 
-        . '/ullFlow/'
-        . $this->app
-        . '/'
-        . $this->doc
-        . '/'
-        . date('Y-m-d-H-i-s_')
-        . $filename
-      ;
- 
-      $this->getRequest()->moveFile('file', $path);
-      
-      $mimetype = $this->getRequest()->getFileType('file');
-      
-      // remove system path
-      $path = str_replace(sfConfig::get('sf_web_dir'), '', $path);
-      
-      // create upload csv row
-      $row = 
-        $filename . ';'
-        . $path . ';'
-        . $mimetype . ';'
-        . $user_id . ';'
-        . $now
-      ;
-      
-      // add row to csv
-      $arr = array();
-      if ($this->value) {
-        $arr = explode("\n", $this->value);
+      $this->form->bind($request->getParameter('fields'), $this->getRequest()->getFiles('fields'));
+      if ($this->form->isValid())
+      {
+        $file = $this->form->getValue('file');
+        var_dump($file);
+        
+        $path = 
+            sfConfig::get('sf_upload_dir') . 
+            '/ullFlow/' .
+            $this->doc->ullFlowApp->slug .
+            '/' .
+            $this->doc->id .
+            '/' .
+            date('Y-m-d-H-i-s_') .
+            $file->getOriginalName()
+        ;
+        
+        $file->save($path);
+        
+        $relativePath = str_replace(sfConfig::get('sf_web_dir'), '', $path);
+        
+        // create upload csv row
+        $row = 
+            $file->getOriginalName(). ';' .
+            $relativePath . ';' .
+            $file->getType() . ';' .
+            $this->getUser()->getAttribute('user_id') . ';' .
+            date('Y-m-d H:i:s')
+        ;
+        
+        // add row to csv
+        $array = array();
+        
+        if ($this->value) 
+        {
+          $arr = explode("\n", $this->value);
+        }
+        $arr[] = $row;
+        
+        $this->value = implode("\n", $arr);
+        
+
+//      $user_id  = $this->getUser()->getAttribute('user_id');
+//      $now      = date('Y-m-d H:i:s');
+//    
+//    
+//  
+//        $this->external_field = $this->getRequestParameter('external_field');
+//        $this->value          = $this->getRequestParameter($this->external_field);
+//        $this->app            = $this->getRequestParameter('app');
+//        $this->doc            = $this->getRequestParameter('doc');
+//        $this->ull_flow_action= $this->getRequestParameter('ull_flow_action');
+//        
+//        
+//        
+//        if ($filename = $this->getRequest()->getFileName('file')) {
+//          
+
+//     
+//          $this->getRequest()->moveFile('file', $path);
+//          
+//          $mimetype = $this->getRequest()->getFileType('file');
+//          
+//          // remove system path
+//          
+//          
+
+
       }
-      $arr[] = $row;
-      $this->value = implode("\n", $arr);
-      
     }
- 
-     
+    else
+    {
+      $this->value = $this->doc->$column;
+    }
+      
   }  
   
   

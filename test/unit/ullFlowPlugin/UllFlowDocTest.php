@@ -70,6 +70,9 @@ $t->begin('getVirtualValuesAsArray()');
     'my_subject'    => 'My first trouble ticket',
     'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
     'my_email'    => 'quasimodo@ull.at',
+    'upload'      => 'Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41
+theme_layout.png;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-59_theme_layout.png;image/png;1;2008-11-13 09:37:59
+',
     'column_tags' => 'ull_flow_tag1',
   );
   
@@ -83,6 +86,7 @@ $t->begin('getVirtualColumnsAsArray()');
     'my_datetime',
     'my_email',
     'column_priority',
+    'upload',
     'column_tags',
   );
   $t->is($columns, $reference, 'returns the correct values');    

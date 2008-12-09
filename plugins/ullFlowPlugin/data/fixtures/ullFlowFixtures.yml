@@ -145,7 +145,18 @@ UllFlowColumnConfig:
     options:        ull_select=priority
     default_value:  6
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
-    is_in_list:     false    
+    is_in_list:     false
+  ull_flow_column_config_helpdesk_upload:
+    Translation:
+      en:
+        label:      Attachments
+      de:
+        label:      Anhänge
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           upload
+    sequence:       5000
+    UllColumnType:  upload
+    is_in_list:     false          
   ull_flow_column_config_helpdesk_column_tags:
     Translation:
       en:
@@ -155,7 +166,7 @@ UllFlowColumnConfig:
     UllFlowApp:     ull_flow_app_helpdesk
     # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
     slug:           column_tags 
-    sequence:       5000
+    sequence:       6000
     UllColumnType:  taggable
     is_in_list:     false    
     
@@ -211,6 +222,12 @@ UllFlowValue:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
     value:          quasimodo@ull.at
+  ull_flow_value_doc_helpdesk1_upload:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_upload
+    value:          |
+      Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41
+      theme_layout.png;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-59_theme_layout.png;image/png;1;2008-11-13 09:37:59
   ull_flow_value_doc_helpdesk1_column_tags:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_column_tags
@@ -686,3 +703,8 @@ UllSelectChild:
     sequence:       5000
     namespace:      ullFlow                
         
+UllColumnType:
+  upload:
+    class:        ullMetaWidgetUpload
+    label:        Upload
+    namespace:    ullFlow   

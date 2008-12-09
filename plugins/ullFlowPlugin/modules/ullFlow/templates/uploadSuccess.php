@@ -2,16 +2,17 @@
 
   echo '<h1>' . __('Manage files', null, 'common') . '</h1><br />';
 
-  echo ull_reqpass_form_tag(array('action' => 'upload'), 'multipart=true id=ull_flow_upload_form');
+  echo ull_form_tag(array(), 'multipart=true id=ull_flow_upload_form');
   
-  echo input_hidden_tag('external_field', $external_field);
-  echo input_hidden_tag($external_field, $value);
-  echo input_hidden_tag('app', $app);
-  echo input_hidden_tag('doc', $doc);
-  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
+//  echo input_hidden_tag('external_field', $external_field);
+//  echo input_hidden_tag($external_field, $value);
+//  echo input_hidden_tag('app', $app);
+//  echo input_hidden_tag('doc', $doc);
+//  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
 
-  if ($value) {
-    echo ullFieldHandlerUpload::ull_upload_list($value);
+  if ($value) 
+  {
+    echo ullWidgetUploadRead::renderUploadList($value);
   } 
 ?>
 
@@ -22,7 +23,7 @@
   <li>
     <?php
       echo __('Step 1: Select file', null, 'common') . ': ';
-      echo input_file_tag('file');
+      echo $form['file']->render();
     ?>
   </li> 
   
@@ -38,7 +39,8 @@
   <div class='action_buttons'>
     
     <div class='action_buttons_left'>
-      <?php echo button_to_function(__('Save and close', null, 'common'), 'return_to()'); ?>
+      <?php //echo button_to_function(__('Save and close', null, 'common'), 'return_to()'); ?>
+      <?php echo submit_tag(__('Save and close', null, 'common')); ?>
     </div>
     
     <div class="clear"></div>

@@ -27,11 +27,26 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
 //    var_dump($name);
 //    var_dump($value);
     
+//    $q = new Doctrine_Query;
+//    $q
+//      ->from('UllFlowValue v, v.UllFlowColumnConfig c')
+//      ->where('v.ull_flow_doc_id = ?', $record->id)
+//      ->addWhere('c.slug = ?', $name)
+//    ;
+
     $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($record->ull_flow_app_id, $name);
+    
+    $ullFlowValue = null;
     
     if ($record->exists())
     {
-      $record->setValueByColumn($name, $value);
+      $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($record->id, $name);
+    }
+    
+    if ($ullFlowValue)
+    {
+      $ullFlowValue->value = $value;
+      $ullFlowValue->save(); 
     }
     else
     {
@@ -41,7 +56,7 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
       $record->UllFlowValues[$i]->value = $value;
       $record->UllFlowValues[$i]->ull_flow_column_config_id = $cc->id;
     }
-
+    
     // also set the subject column of UllFlowDoc
     if ($cc->is_subject)
     {

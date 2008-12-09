@@ -82,4 +82,37 @@ class PluginUllFlowDocTable extends UllRecordTable
     return $q;
 	}
 	
+	/**
+	 * Check if a given UllFlowDoc id exists
+	 * 
+	 * @param integer $id    UllFlowDoc->id
+	 * @return boolean
+	 */
+	public static function hasId($id)
+	{
+	  $q = new Doctrine_Query;
+	  $q->from('UllFlowDoc d');
+	  $q->where('d.id = ?', $id);
+	  
+	  return (bool) $q->count();
+	}
+	
+	/**
+	 * Check if a given virtual column exists
+	 * 
+	 * @param integer $id    UllFlowDoc->id
+	 * @param string $slug   UlLFlowColumnConfig->slug
+	 * @return boolean
+	 */
+	public static function hasVirtualColumn($id, $slug)
+	{
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllFlowDoc d, d.UllFlowApp a, a.UllFlowColumnConfigs c')
+      ->where('d.id = ?', $id)
+      ->addWhere('c.slug = ?', $slug)
+    ;
+    
+    return (bool) $q->count();
+	}
 }

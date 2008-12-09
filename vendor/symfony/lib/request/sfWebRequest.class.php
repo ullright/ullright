@@ -1094,7 +1094,7 @@ class sfWebRequest extends sfRequest
     // POST parameters
     $this->postParameters = get_magic_quotes_gpc() ? sfToolkit::stripslashesDeep($_POST) : $_POST;
     $this->parameterHolder->add($this->postParameters);
-
+    
     // move symfony parameters to attributes (parameters prefixed with _sf_)
     foreach ($this->parameterHolder->getAll() as $key => $value)
     {
