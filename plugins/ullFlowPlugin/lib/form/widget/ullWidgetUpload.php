@@ -17,7 +17,7 @@ class ullWidgetUpload extends sfWidgetForm
     
     if ($value) 
     {
-      $html .= $this->renderUploadList($value);
+      $html .= self::renderUploadList($value);
     }
 
     // extract the column name between the square brackets (fields['foobar'] => foobar)

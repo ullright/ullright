@@ -225,9 +225,7 @@ UllFlowValue:
   ull_flow_value_doc_helpdesk1_upload:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_upload
-    value:          |
-      Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41
-      theme_layout.png;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-59_theme_layout.png;image/png;1;2008-11-13 09:37:59
+    value:          Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41
   ull_flow_value_doc_helpdesk1_column_tags:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_column_tags

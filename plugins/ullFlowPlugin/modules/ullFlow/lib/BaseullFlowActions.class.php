@@ -1024,25 +1024,28 @@ class BaseullFlowActions extends ullsfActions
 
     $this->getDocFromRequestOrCreate();
     
-    $column = $request->getParameter('column');
+    $this->column = $request->getParameter('column');
 
     $this->form = new ullFlowUploadForm;
     
-    
     if ($request->isMethod('post'))
     {
-      var_dump($this->getRequest()->getParameterHolder()->getAll());
+//      var_dump($this->getRequest()->getParameterHolder()->getAll());
       
       $this->form->bind($request->getParameter('fields'), $this->getRequest()->getFiles('fields'));
+      
       if ($this->form->isValid())
       {
         $file = $this->form->getValue('file');
-        var_dump($file);
+        $value = $this->form->getValue('value');
+        
+        // reset form
+        $this->form = new ullFlowUploadForm;
         
         $path = 
             sfConfig::get('sf_upload_dir') . 
             '/ullFlow/' .
-            $this->doc->ullFlowApp->slug .
+            $this->doc->UllFlowApp->slug .
             '/' .
             $this->doc->id .
             '/' .
@@ -1066,46 +1069,20 @@ class BaseullFlowActions extends ullsfActions
         // add row to csv
         $array = array();
         
-        if ($this->value) 
+        if ($value) 
         {
-          $arr = explode("\n", $this->value);
+          $arr = explode("\n", $value);
         }
         $arr[] = $row;
         
-        $this->value = implode("\n", $arr);
-        
-
-//      $user_id  = $this->getUser()->getAttribute('user_id');
-//      $now      = date('Y-m-d H:i:s');
-//    
-//    
-//  
-//        $this->external_field = $this->getRequestParameter('external_field');
-//        $this->value          = $this->getRequestParameter($this->external_field);
-//        $this->app            = $this->getRequestParameter('app');
-//        $this->doc            = $this->getRequestParameter('doc');
-//        $this->ull_flow_action= $this->getRequestParameter('ull_flow_action');
-//        
-//        
-//        
-//        if ($filename = $this->getRequest()->getFileName('file')) {
-//          
-
-//     
-//          $this->getRequest()->moveFile('file', $path);
-//          
-//          $mimetype = $this->getRequest()->getFileType('file');
-//          
-//          // remove system path
-//          
-//          
-
-
+        $value = implode("\n", $arr);
+        $this->form->setDefault('value', $value);
       }
     }
     else
     {
-      $this->value = $this->doc->$column;
+      $column = $this->column;
+      $this->form->setDefault('value', $this->doc->$column);
     }
       
   }  
