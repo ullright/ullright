@@ -5,9 +5,12 @@ class ullWidgetTextarea extends ullWidget
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if ($value) {
+    if ($value)
+    {
       $value = nl2br($value);
-    } else {
+    }
+    else
+    {
       $value = '';
     }
     return $value;

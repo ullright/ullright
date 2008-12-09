@@ -26,7 +26,7 @@ $columnConfig = $t->getColumnConfig();
 $t->diag('for read access:');
   $widget = new ullMetaWidgetTextarea($columnConfig);
   $t->isa_ok($widget, 'ullMetaWidgetTextarea', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'ullWidget', 'returns the correct widget for read access');
+  $t->isa_ok($widget->getSfWidget(), 'ullWidgetTextarea', 'returns the correct widget for read access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
