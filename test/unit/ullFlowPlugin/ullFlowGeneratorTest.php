@@ -50,7 +50,16 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetUpload',
         'access'              => 'w',
         'is_in_list'          => false,
-        ),     
+        ),
+    'wiki_link' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'Wiki links',
+        'metaWidget'          => 'ullMetaWidgetWikiLink',
+        'access'              => 'w',
+        'is_in_list'          => false,
+        ),                 
     'column_tags' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -73,7 +82,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(17, new lime_output_color, $configuration);
+$t = new myTestCase(18, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -96,7 +105,7 @@ $t->begin('getTableConfig()');
 $t->begin('getColumnConfig()');
   $columnsConfig = $generator->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 6, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 7, 'columnsConfig has the correct number of columns');
   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();

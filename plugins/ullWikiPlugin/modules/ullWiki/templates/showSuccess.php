@@ -31,8 +31,9 @@
 <?php //$doc->setCulture(''); ?>
 
 <?php
-  if (isset($return_url)) {
-    echo button_to(__('Link to this document', null, 'common'), $return_url);
+  if (isset($return_url)) 
+  {
+    echo ull_button_to(__('Link to this document', null, 'common'), $sf_data->getRaw('return_url'));
     echo '<br /><br />';    
   }
 
@@ -114,8 +115,12 @@ if (!function_exists('u_func')) {
             , 'u_func'
             , $body);
 
-  //auto "link" links
-  $body = ullCoreTools::makelinks($body);
+  $body = auto_link_text($body, $link = 'all', array(
+      'class'  => 'link_new_window',
+      'target' => '_blank',
+      'title'  => __('Link opens in a new window', null, 'common')
+  ));
+  
 
   echo $body;
 

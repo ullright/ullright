@@ -1,6 +1,5 @@
 <?php
 
-
 class ullWebRequest extends sfWebRequest
 {
   
@@ -100,4 +99,5 @@ class ullWebRequest extends sfWebRequest
       }  
     }
   }
+  
 }

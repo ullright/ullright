@@ -156,7 +156,18 @@ UllFlowColumnConfig:
     slug:           upload
     sequence:       5000
     UllColumnType:  upload
-    is_in_list:     false          
+    is_in_list:     false  
+  ull_flow_column_config_helpdesk_wiki_link:
+    Translation:
+      en:
+        label:      Wiki links
+      de:
+        label:      Wiki Links
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           wiki_link
+    sequence:       6000
+    UllColumnType:  wiki_link
+    is_in_list:     false              
   ull_flow_column_config_helpdesk_column_tags:
     Translation:
       en:
@@ -166,7 +177,7 @@ UllFlowColumnConfig:
     UllFlowApp:     ull_flow_app_helpdesk
     # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
     slug:           column_tags 
-    sequence:       6000
+    sequence:       7000
     UllColumnType:  taggable
     is_in_list:     false    
     
@@ -226,6 +237,10 @@ UllFlowValue:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_upload
     value:          Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41
+  ull_flow_value_doc_helpdesk1_wiki_link:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_wiki_link
+    value:          1    
   ull_flow_value_doc_helpdesk1_column_tags:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_column_tags
@@ -705,4 +720,8 @@ UllColumnType:
   upload:
     class:        ullMetaWidgetUpload
     label:        Upload
-    namespace:    ullFlow   
+    namespace:    ullFlow
+  wiki_link:
+    class:        ullMetaWidgetWikiLink
+    label:        Wiki link
+    namespace:    ullFlow     

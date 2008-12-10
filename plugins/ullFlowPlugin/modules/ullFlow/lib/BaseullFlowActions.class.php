@@ -1024,6 +1024,9 @@ class BaseullFlowActions extends ullsfActions
 
     $this->getDocFromRequestOrCreate();
     
+    $accessType = $this->doc->checkAccess();
+    $this->redirectUnless($accessType, 'ullUser/noaccess');
+    
     $column = $request->getParameter('column');
     $this->column = $column;
 
@@ -1091,8 +1094,44 @@ class BaseullFlowActions extends ullsfActions
   }  
   
   
-  public function executeWikiLink() {
+  public function executeWikiLink($request) 
+  {
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());
     
+    $this->getDocFromRequestOrCreate();
+    
+    $accessType = $this->doc->checkAccess();
+    $this->redirectUnless($accessType, 'ullUser/noaccess');    
+        
+    $column = $request->getParameter('column');
+    $this->column = $column;
+    
+    $this->value = $this->doc->$column;
+
+    $wikiReturnUrl = 'ullFlow/wikiLink?doc=' . $this->doc->id . '&column=' . $column;
+    
+    // we'll save the wiki_return_url in the user session, because it's troublesome to pass it as a request param
+    $this->getUser()->setAttribute('wiki_return_url', $wikiReturnUrl);
+  
+    // add new link
+    if ($ullWikiDocId = $this->getRequestParameter('ull_wiki_doc_id')) 
+    {
+      $arr = array();
+      if ($this->value) 
+      {
+        $arr = explode("\n", $this->value);
+      }
+      $arr[] = $ullWikiDocId;
+      $this->value = implode("\n", $arr);
+      
+      $this->doc->$column = $this->value;
+      $this->doc->save();
+    }
+    
+    
+    
+    
+ /*   
 //    ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
 //    exit();
   
@@ -1135,21 +1174,9 @@ class BaseullFlowActions extends ullsfActions
       
     }
  
-    $wiki_return_url = 'ullFlow/wikiLink?external_field=' . $this->external_field;
-    if ($this->value) {
-      $wiki_return_url .= '&' . $this->external_field . '=' . rawurlencode($this->value);
-    }
-    $wiki_return_url .=
-      '&app=' . $this->app
-      . '&doc=' . $this->doc
-      . '&ull_flow_action=' . $this->ull_flow_action
-    ;
-    
-    // we'll save the wiki_return_url in the user session, because it's troublesome to pass it as a request param
-    $this->getUser()->setAttribute('wiki_return_url', $wiki_return_url);
-//    $this->wiki_return_url = rawurlencode($wiki_return_url);
+);
       
-      
+*/      
      
   }
 

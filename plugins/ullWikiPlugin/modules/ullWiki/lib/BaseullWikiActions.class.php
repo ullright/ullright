@@ -80,7 +80,7 @@ class BaseullWikiActions extends ullsfActions
     if ($this->return_var = $this->getRequestParameter('return_var')) 
     {
        $this->return_url = $this->getUser()->getAttribute('wiki_return_url') 
-        . '&' . $this->return_var . '=' . $this->ullwiki->getDocId(); ;
+        . '&' . $this->return_var . '=' . $this->doc->id;
     }
 
     $this->breadcrumbForShow();
@@ -114,6 +114,8 @@ class BaseullWikiActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
+//      var_dump($this->getRequest()->getParameterHolder()->getAll());die;
+      
       if ($this->form->bindAndSave($request->getParameter('ull_wiki')))
       {
         // == forward junction
@@ -123,16 +125,13 @@ class BaseullWikiActions extends ullsfActions
 
         // plugin mode
         } 
-        elseif (isset($return_url)) 
+        elseif ($this->return_var) 
         {
-            // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
-          if ($return_var = $this->getRequestParameter('return_var')) 
-          {
-             $return_url = $this->getUser()->getAttribute('wiki_return_url') 
-              . '&' . $return_var . '=' . $this->doc->id;
-          }          
+          // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
+          $returnUrl = $this->getUser()->getAttribute('wiki_return_url') 
+              . '&' . $this->return_var . '=' . $this->doc->id;
           
-          return $this->redirect($return_url);
+          return $this->redirect($returnUrl);
         } 
         elseif ($this->getRequestParameter('submit_save_show', false)) 
         {

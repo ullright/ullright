@@ -71,6 +71,7 @@ $t->begin('getVirtualValuesAsArray()');
     'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
     'my_email'    => 'quasimodo@ull.at',
     'upload'      => 'Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41',
+    'wiki_link'   => '1',
     'column_tags' => 'ull_flow_tag1',
   );
   
@@ -85,6 +86,7 @@ $t->begin('getVirtualColumnsAsArray()');
     'my_email',
     'column_priority',
     'upload',
+    'wiki_link',
     'column_tags',
   );
   $t->is($columns, $reference, 'returns the correct values');    

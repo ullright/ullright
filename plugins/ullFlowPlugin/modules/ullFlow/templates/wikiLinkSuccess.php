@@ -2,17 +2,18 @@
 
   echo '<h1>' . __('Manage Wiki Links', null, 'common') . '</h1><br />';
 
-  echo ull_reqpass_form_tag(array('action' => 'wikiLink'), 'id=ull_flow_wiki_link_form');
-  
-  echo input_hidden_tag('external_field', $external_field);
-  echo input_hidden_tag($external_field, $value);
-  echo input_hidden_tag('app', $app);
-  echo input_hidden_tag('doc', $doc);
-  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
-  echo input_hidden_tag('delete');
+//  echo ull_reqpass_form_tag(array('action' => 'wikiLink'), 'id=ull_flow_wiki_link_form');
+//  
+//  echo input_hidden_tag('external_field', $external_field);
+//  echo input_hidden_tag($external_field, $value);
+//  echo input_hidden_tag('app', $app);
+//  echo input_hidden_tag('doc', $doc);
+//  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
+//  echo input_hidden_tag('delete');
 
-  if ($value) {
-    echo ullFieldHandlerWikiLink::ull_wiki_list($value, true);
+  if ($value) 
+  {
+    echo ullWidgetWikiLink::renderWikiLinkList($value, true);
   } 
 ?>
 
@@ -22,14 +23,14 @@
 <ul>
   <li>
     <?php
-      echo button_to(__('Link to new wiki document', null, 'common'), 
+      echo ull_button_to(__('Link to new wiki document', null, 'common'), 
         'ullWiki/create?return_var=ull_wiki_doc_id');
     ?>
   </li> 
   
   <li>
     <?php 
-      echo  button_to(__('Link to existing wiki document', null, 'common'),
+      echo  ull_button_to(__('Link to existing wiki document', null, 'common'),
         'ullWiki/index?return_var=ull_wiki_doc_id');
     ?>
   </li>
@@ -40,7 +41,8 @@
   <div class='action_buttons'>
     
     <div class='action_buttons_left'>
-      <?php echo button_to_function(__('Save and close', null, 'common'), 'return_to()'); ?>
+      <?php echo ull_button_to(__('Save and close'), 'ullFlow/edit?doc=' . $doc->id) ?>
+      <?php //echo button_to_function(__('Save and close', null, 'common'), 'return_to()'); ?>
     </div>
     
     <div class="clear"></div>
@@ -49,12 +51,11 @@
   </form>
   
 <?php
-  
+  /*
   echo javascript_tag('
     function return_to() {
       document.getElementById("ull_flow_wiki_link_form").action = "' . url_for('ullFlow/update') . '"
       document.getElementById("external_field").value = "";
-      /* document.getElementById("' . $external_field . '") .value.replace(/\r/g, ""); // remove carriage returns */       
       document.getElementById("ull_flow_wiki_link_form").submit();
     }
   ');
@@ -67,5 +68,5 @@
       }
     }
   ')
-      
+    */  
 ?>

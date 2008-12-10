@@ -8,8 +8,8 @@ class myTestCase extends lime_test
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => false),
-        'label'               => 'My upload',
-        'metaWidget'          => 'ullMetaWidgetUpload',
+        'label'               => 'My wiki link',
+        'metaWidget'          => 'ullMetaWidgetWikiLink',
         'access'              => 'r',
   );
 
@@ -25,15 +25,15 @@ $t = new myTestCase(6, new lime_output_color, $configuration);
 $columnConfig = $t->getColumnConfig();
 
 $t->diag('for read access:');
-  $widget = new ullMetaWidgetUpload($columnConfig);
-  $t->isa_ok($widget, 'ullMetaWidgetUpload', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'ullWidgetUploadRead', 'returns the correct widget for read access');
+  $widget = new ullMetaWidgetWikiLink($columnConfig);
+  $t->isa_ok($widget, 'ullMetaWidgetWikiLink', '__construct() returns the correct object');
+  $t->isa_ok($widget->getSfWidget(), 'ullWidgetWikiLinkRead', 'returns the correct widget for read access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
   $columnConfig['access'] = 'w';
-  $widget = new ullMetaWidgetUpload($columnConfig);
-  $t->isa_ok($widget, 'ullMetaWidgetUpload', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'ullWidgetUpload', 'returns the correct widget for write access');
+  $widget = new ullMetaWidgetWikiLink($columnConfig);
+  $t->isa_ok($widget, 'ullMetaWidgetWikiLink', '__construct() returns the correct object');
+  $t->isa_ok($widget->getSfWidget(), 'ullWidgetWikiLink', 'returns the correct widget for write access');
   $t->isa_ok($widget->getSfValidator(), 'sfValidatorString', 'returns the correct validator for write access');
 

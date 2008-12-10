@@ -28,7 +28,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('table tr', 6) // number of displayed fields
+  ->checkResponseElement('table tr', 7) // number of displayed fields
   ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'Normal')
   ->checkResponseElement('ul.tag-cloud a ', 'ull_flow_tag1')
   ->checkResponseElement('body', '!/Progress/')

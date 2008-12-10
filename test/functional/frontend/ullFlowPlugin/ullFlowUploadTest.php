@@ -17,8 +17,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', '1')
-  ->checkResponseElement('table.ull_flow_upload > tbody > tr', 1)
-  ->checkResponseElement('table.ull_flow_upload > tbody > tr > td > a', 'Icons.zip')
+  ->responseContains('Icons.zip')
 ;  
 
 $b
@@ -37,6 +36,5 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', '1')
-  ->checkResponseElement('table.ull_flow_upload > tbody > tr', 1)
-  ->checkResponseElement('table.ull_flow_upload > tbody > tr > td > a', 'Icons.zip')  
+  ->responseContains('Icons.zip')
 ;
