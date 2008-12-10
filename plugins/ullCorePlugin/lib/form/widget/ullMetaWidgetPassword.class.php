@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * ullMetaWidgetPassword
+ *
+ * Used for passwords
+ */
 class ullMetaWidgetPassword extends ullMetaWidget
 {
   public function __construct($columnConfig = array())
