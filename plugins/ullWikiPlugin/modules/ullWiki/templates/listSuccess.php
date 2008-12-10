@@ -10,43 +10,38 @@
 <?php //weflowTools::printR($ullwiki_pager); ?>
 <?php //weflowTools::printR($sf_request); ?>
 
-<!-- Action row -->
+<?php
+#     echo ull_form_tag(array('page' => '', 'search' => ''), #todo ull_reqpass...
+     echo ull_form_tag('ullWiki/list',
+                               array('class' => 'inline',
+                                     'name' => 'ull_wiki_search_form'));
+?>
 
-<div class='action_buttons'>
-  <div class='action_buttons_left'>  
-  
-    <?php
-      // == Create link
-      $create_link = 
-        button_to(__('Create', null, 'common'), 'ullWiki/create') . ' &nbsp ';
-      echo $create_link;
-  
-      // == search field
-      //echo __('Search', null, 'common') . ': ';
-      echo ull_reqpass_form_tag(array('page' => '', 'search' => ''), array('class' => 'inline', 'name' => 'ull_wiki_search_form'));
+<ul class='ull_action'>
 
-      echo input_tag('search', $search , array('size' => '15', 'onchange' => 'submit()', 'title' => __('Searches for ID, subject and tags', null, 'common')));
-      echo ull_button_to_function(__('Search', null, 'common'), 'document.ull_wiki_search_form.submit();');
-      
-      echo '</form>';
-      echo ' &nbsp ';
-  
-    ?>
-  </div>
-  <div class='clear'></div>
-</div>
+    <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullWiki/create'); ?></li>
+
+     <?php echo $filter_form['search']->renderLabel() ?>    
+     <?php echo $filter_form['search']->render() ?>
+    <li><?php echo submit_tag('&gt;');?></li> 
+
+</ul>
+
+</form>
+
+
 <br />
 
 <?php include_partial('ullTableTool/ullPagerTop',
-        array('pager' => $ullwiki_pager)
-      ); ?>  
+        array('pager' => $pager)
+      ); ?>
 
 
 <br />
 <?php echo __('Sort by', null, 'common'); ?>: 
 <?php echo link_to(__('Subject', null, 'common'), 'ullWiki/list?sort=subject') ?>
  -
-<?php echo link_to(__('DocId'), 'ullWiki/list?sort=docid') ?>
+<?php echo link_to(__('DocId'), 'ullWiki/list?sort=id') ?>
  -  
 <?php echo link_to(__('Date ascending', null, 'common'), 'ullWiki/list?sort=updated_at') ?>
  -  
@@ -54,19 +49,21 @@
 
 <br />
 <br />
- 
 
-<?php foreach ($ullwiki_pager->getResults() as $ullwiki): ?>
+<?php
+
+if ($docs): ?>
+  <?php foreach ($docs as $doc): ?>
     <?php include_component('ullWiki', 'ullWikiHeader', array(
-      'ullwiki' => $ullwiki
+      'doc' => $doc
 //      ,'cursor' => $cursor
     )); ?>
-  <?php //++$cursor;/?>
-<?php endforeach; ?>
-
+    <?php //++$cursor;/?>
+  <?php endforeach; ?>
+<?php endif; ?>
 
 <?php include_partial('ullTableTool/ullPagerBottom',
-        array('pager' => $ullwiki_pager)
+        array('pager' => $pager)
       ); ?> 
 
 <!-- Action row -->

@@ -1,0 +1,458 @@
+UllUser:
+  admin_user:
+    id:                 1               # force id for admin
+    first_name:         Master
+    last_name:          Admin
+    email:              admin@example.com
+    username:           admin
+    password:           21232f297a57a5a743894a0e4a801fc3 # = admin
+    creator_user_id:    1               # integer since the adminuser isn't created yet
+    updator_user_id:    1               # integer since the adminuser isn't created yet
+    namespace:          ullCore
+    UllGroup:           [admin_group]    # many to many relations are given by array
+  test_user:
+    first_name:         Test
+    last_name:          User
+    email:              test.user@example.com
+    username:           test_user
+    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Creator:            admin_user
+    Updator:            admin_user
+    UllGroup:           [test_group]
+
+UllGroup:
+  admin_group:
+    display_name:       MasterAdmins
+    Creator:            admin_user
+    Updator:            admin_user
+    namespace:          ullCore
+  test_group:
+    display_name:       TestGroup
+    email:              test.group@example.com
+    Creator:            admin_user
+    Updator:            admin_user
+    namespace:          ullCore
+    UllPermissions:     [testPermission]
+
+UllPermission:
+  testPermission:
+    slug:         testPermission
+
+UllColumnType:
+  integer:
+    class:        ullMetaWidgetInteger
+    label:        Integer
+    namespace:    ullCore
+  string:
+    class:        ullMetaWidgetString
+    label:        String
+    namespace:    ullCore
+  datetime:
+    class:        ullMetaWidgetDateTime
+    label:        DateTime
+    namespace:    ullCore
+  email:
+    class:        ullMetaWidgetEmail
+    label:        Email
+    namespace:    ullCore
+  foreign_key:
+    class:        ullMetaWidgetForeignKey
+    label:        Foreign key
+    namespace:    ullCore
+  ull_select:
+    class:        ullMetaWidgetUllSelect
+    label:        UllSelect
+    namespace:    ullCore
+  checkbox:
+    class:        ullMetaWidgetCheckbox
+    label:        Checkbox
+    namespace:    ullCore
+  password:
+    class:        ullMetaWidgetPassword
+    label:        Password
+    namespace:    ullCore
+  taggable:
+    class:        ullMetaWidgetTaggable
+    label:        Taggable
+    namespace:    ullCore
+  textarea:
+    class:        ullMetaWidgetTextarea
+    label:        Textarea
+    namespace:    ullCore
+
+UllTableConfig:
+  ull_user_tc:
+    Translation:
+      en:
+        label: Users
+      de:
+        label: Benutzer
+    db_table_name: UllUser
+    sort_columns: last_name, first_name
+    search_columns: display_name, username, email
+  ull_group_tc:
+    Translation:
+      en:
+        label: Groups
+      de:
+        label: Gruppen
+    db_table_name: UllGroup
+    sort_columns: display_name
+    search_columns: display_name, email
+  ull_permission_tc:
+    Translation:
+      en:
+        label: Permissions
+      de:
+        label: Zugriffsrechte
+    db_table_name: UllPermission
+    sort_columns: slug
+    search_columns: slug
+  ull_entity_group_tc:
+    Translation:
+      en:
+        label: Group memberships
+      de:
+        label: Gruppen-Mitgliedschaften
+    db_table_name: UllEntityGroup
+    #TODO: fix foreign key ordering
+    sort_columns: ull_group_id
+    search_columns: ull_entity_id, ull_group_id
+  ull_group_permission_tc:
+    Translation:
+      en:
+        label: Group permissions
+      de:
+        label: Gruppen-Zugriffsrechte
+    db_table_name: UllGroupPermission
+    sort_columns: ull_group_id
+    search_columns: ull_group_id, ull_permission_id
+  ull_column_config_tc:
+    Translation:
+      en:
+        label: Column configuration
+      de:
+        label: Spaltenkonfiguration
+    db_table_name: UllColumnConfig
+    sort_columns: db_table_name
+    search_columns: db_table_name, db_column_name
+  ull_table_config_tc:
+    Translation:
+      en:
+        label: Table configuration
+      de:
+        label: Tabellenkonfiguration
+    db_table_name: UllTableConfig
+    sort_columns: db_table_name
+    search_columns: db_table_name, label
+  ull_select_tc:
+    Translation:
+      en:
+        label: Select boxes
+      de:
+        label: Auswahlfelder
+    db_table_name: UllSelect
+    #sort_columns: label
+    #search_columns: label
+  ull_select_child_tc:
+    Translation:
+      en:
+        label: Select box entries
+      de:
+        label: Auswahlfeld-Einträge
+    db_table_name: UllSelectChild
+    sort_columns: ull_select_id, sequence
+    search_columns: ull_select_id
+  test_tc:
+    Translation:
+      en:
+        label: TestTableLabel
+        description: TestTable for automated testing
+      de:
+        label: TestTabellenBeschriftung
+        description: TestTabelle für automatisierte tests
+    db_table_name: TestTable
+    search_columns: id, my_string, my_text
+
+UllColumnConfig:
+  # UllUser
+  ull_user_cc_first_name:
+    Translation:
+      en:
+        label:      First name
+      de:
+        label:      Vorname
+    db_table_name:  UllUser
+    db_column_name: first_name
+  ull_user_cc_last_name:
+    Translation:
+      en:
+        label:      Last name
+      de:
+        label:      Nachname
+    db_table_name:  UllUser
+    db_column_name: last_name
+  ull_user_cc_display_name:
+    Translation:
+      en:
+        label:      Display name
+      de:
+        label:      Anzeigename
+    db_table_name:  UllUser
+    db_column_name: display_name
+  ull_user_cc_username:
+    Translation:
+      en:
+        label:      Username
+      de:
+        label:      Benutzername
+    db_table_name:  UllUser
+    db_column_name: username
+  ull_user_cc_email:
+    Translation:
+      en:
+        label:      Email
+      de:
+        label:      E-Mail
+    db_table_name:  UllUser
+    db_column_name: email
+    UllColumnType:  email
+  ull_user_cc_password:
+    Translation:
+      en:
+        label:      Password
+      de:
+        label:      Passwort
+    db_table_name:  UllUser
+    db_column_name: password
+    is_in_list:     false
+    UllColumnType:  password
+###TESTING### ich entferne es später wieder, Denny
+#  ull_user_cc_dingens:
+#    Translation:
+#      en:
+#        label:      Dingens
+#      de:
+#        label:      Dingens
+#    db_table_name:  UllUser
+#    db_column_name: dingens
+#    is_in_list:     true
+#    UllColumnType:  textarea
+
+  #UllGroup
+  ull_group_cc_first_name:
+    db_table_name:  UllGroup
+    db_column_name: first_name
+    is_enabled:     false
+  ull_group_cc_last_name:
+    db_table_name:  UllGroup
+    db_column_name: last_name
+    is_enabled:     false
+  ull_group_cc_display_name:
+    Translation:
+      en:
+        label:      Display name
+      de:
+        label:      Anzeigename
+    db_table_name:  UllGroup
+    db_column_name: display_name
+  ull_group_cc_username:
+    db_table_name:  UllGroup
+    db_column_name: username
+    is_enabled:     false
+  ull_group_cc_email:
+    Translation:
+      en:
+        label:      Email
+      de:
+        label:      E-Mail
+    db_table_name:  UllGroup
+    db_column_name: email
+    UllColumnType:  email
+  ull_group_cc_password:
+    db_table_name:  UllGroup
+    db_column_name: password
+    is_enabled:     false
+
+  #UllEntityGroup
+  ull_entity_group_cc_ull_entity_id:
+    Translation:
+      en:
+        label:      User
+      de:
+        label:      Benutzer
+    db_table_name:  UllEntityGroup
+    db_column_name: ull_entity_id
+  ull_entity_group_cc_ull_group_id:
+    Translation:
+      en:
+        label:      Group
+      de:
+        label:      Gruppe
+    db_table_name:  UllEntityGroup
+    db_column_name: ull_group_id
+
+  #UllGroupPermission
+  ull_group_permission_cc_ull_group_id:
+    Translation:
+      en:
+        label:      Group
+      de:
+        label:      Gruppe
+    db_table_name:  UllGroupPermission
+    db_column_name: ull_group_id
+  ull_group_permission_cc_ull_permission_id:
+    Translation:
+      en:
+        label:      Permission
+      de:
+        label:      Zugriffsrecht
+    db_table_name:  UllGroupPermission
+    db_column_name: ull_permission_id
+
+  #UllTableConfig
+  ull_table_config_cc_sort_columns:
+    Translation:
+      en:
+        label:      Order by columns
+      de:
+        label:      Sortiere nach Spalten
+    db_table_name:  UllTableConfig
+    db_column_name: sort_columns
+  ull_table_config_cc_search_columns:
+    Translation:
+      en:
+        label:      Search in columns
+      de:
+        label:      Suche in Spalten
+    db_table_name:  UllTableConfig
+    db_column_name: search_columns
+  ull_table_config_cc_description:
+    db_table_name:  UllTableConfig
+    db_column_name: description
+    is_in_list:     false
+
+  #UllColumnConfig
+  ull_column_config_cc_description:
+    db_table_name:  UllColumnConfig
+    db_column_name: description
+    is_in_list:     false
+
+  #UllSelectChild
+  ull_select_child_cc_ull_select_id:
+    Translation:
+      en:
+        label:      Select box
+      de:
+        label:      Auswahlfeld
+    db_table_name:  UllSelectChild
+    db_column_name: ull_select_id
+
+  #TestTable
+  test_cc_my_string:
+    Translation:
+      en:
+        label:      My custom string label
+      de:
+        label:      Mein spezielles String Label
+    db_table_name:  TestTable
+    db_column_name: my_string
+
+  test_cc_my_useless_column:
+    db_table_name:  TestTable
+    db_column_name: my_useless_column
+    is_enabled:     false
+
+  test_cc_my_email:
+    db_table_name:  TestTable
+    db_column_name: my_email
+    UllColumnType:  email
+
+  test_cc_my_select_box:
+    db_table_name:  TestTable
+    db_column_name: my_select_box
+    options:        ull_select=ull_select_test add_empty=true
+    UllColumnType:  ull_select
+
+UllSelect:
+  ull_select_test:
+    Translation:
+      en:
+        label:    My test select box
+      de:
+        label:    Meine Test Selectbox
+    slug: ull_select_test
+    UllSelectChildren:
+      ull_select_child_test_1:
+        Translation:
+          en:
+            label:    My second option
+          de:
+            label:    Meine zweite Option
+        sequence: 2000
+      ull_select_child_test_2:
+        Translation:
+          en:
+            label:    My first option
+          de:
+            label:    Meine erste Option
+        sequence: 1000
+  ull_select_test_2:
+    Translation:
+      en:
+        label:    My test select box 2
+      de:
+        label:    Meine Test Selectbox 2
+    slug: test
+    UllSelectChildren:
+      ull_select_child_test2_1:
+        Translation:
+          en:
+            label:    My first option 2
+          de:
+            label:    Meine first Option 2
+        sequence: 1000
+
+# for tabletool testing
+TestTable:
+  tt_1:
+    Translation:
+      en:
+        my_string:    Foo Bar
+        my_text:      Hello, this is my text
+      de:
+        my_string:    Foo Bar Deutsch
+        my_text:    Hallo, das ist mein Text
+    my_boolean:   true
+    my_email:     foobar@example.com
+    my_select_box: 2
+    my_useless_column: bla
+    UllUser:      admin_user
+    namespace:    test
+    Creator:      admin_user
+    Updator:      admin_user
+    #created_at:   2008-01-01 00:00:00
+
+  tt_2:
+    Translation:
+      en:
+        my_string:    Foo Bar More
+        my_text:      Hello, this is more of my text
+      de:
+        my_string:    Foo Bar More Deutsch
+        my_text:      Hallo, das ist mehr von meinem Text
+    my_boolean:   false
+    my_email:     foobar.more@example.com
+    my_useless_column: even more bla
+    UllUser:      test_user
+    namespace:    test
+    Creator:      admin_user
+    Updator:      test_user
+    #created_at:   2008-01-01 00:00:00
+#<?php
+#for ($i = 1; $i <= 100; $i++)
+#{
+#  echo "  x_$i:\n";
+#  echo "    my_string: blabla$i\n";
+#}
+#?>

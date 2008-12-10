@@ -11,7 +11,12 @@
 
 class BaseullFlowActions extends ullsfActions
 {
-  
+
+  public function ullpreExecute()
+  { 
+    $path =  '/ullFlowTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
+    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+  }
   
   /**
    * Executes index action
@@ -19,115 +24,44 @@ class BaseullFlowActions extends ullsfActions
    */
   public function executeIndex()
   {
+    $this->checkAccess('LoggedIn');
     
-    // check access
-    $this->checkLoggedIn();
+    $this->form = new ullFlowFilterForm;
     
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
-//    $this->breadcrumbTree->add(__('Home'), '');
+    $this->breadcrumbForIndex();
     
-    $this->app_slug = $this->getRequestParameter('app');
-    if ($this->app_slug) {
-      $this->app      = UllFlowAppPeer::retrieveBySlug($this->app_slug);
-      $this->breadcrumbTree->add(ullCoreTools::getI18nField($this->app, 'caption'));
-      $this->app_param = '&app=' . $this->app_slug;
-      
-    } else {
-
-      $c = new Criteria();
-      $this->apps = UllFlowAppPeer::doSelect($c);
-      $this->app_param = '';
+    if ($this->app_slug = $this->getRequestParameter('app'))  
+    {
+      $this->app = UllFlowAppTable::findBySlug($this->app_slug);
+      $this->breadcrumbTree->add($this->app->label);
+    } 
+    else 
+    {
+      $this->apps = Doctrine::getTable('UllFlowApp')->findAll();
     }
-    
-    
   }
 
   
-  public function executeList() {
+  public function executeList($request) {
     
-    $this->forward('ullFlow', 'tabular');
+    $this->checkAccess('LoggedIn');
     
-//    // check access
-//    $this->checkAccess(1);
-//
-//    $this->ull_reqpass_redirect();
-//
-//    // referer handling
-//    $refererHandler = new refererHandler();
-//    $refererHandler->delete('edit');
-//    
-//    $this->app_slug = $this->getRequestParameter('app');
-//    if ($this->app_slug) {
-//      $this->app      = UllFlowAppPeer::retrieveBySlug($this->app_slug);
-//      $this->forward404Unless($this->app);
-//    }    
-//    
-//    
-//    // breadcrumb
-//    $this->breadcrumbTree = new breadcrumbTree();
-//    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow');
-//    if ($this->app_slug) {
-//      $this->breadcrumbTree->add(ullCoreTools::getI18nField($this->app, 'caption'));
-//    }
-////    $this->breadcrumbTree->addFinal(__('List', null, 'common'));
-//    if ($this->app_slug) {
-//      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app_slug);
-//    } else {
-//      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list');
-//    }
-//
-//    
-//    // === load entries
-//    $c = new Criteria();
-//    
-//    // select single app
-//    if ($this->app_slug) {
-//      $c->add(UllFlowDocPeer::ULL_FLOW_APP_ID, $this->app->getId());
-//    }
-//    
-//    // == filter by action
-//    $ull_flow_action_slug = $this->getRequestParameter('flow_action');
-//    
-//    // no requested action -> list default actions
-//    if (!$ull_flow_action_slug) {
-//      
-//      // get default actions for list
-//      $ca = new Criteria();
-//      $ca->add(UllFlowActionPeer::IN_RESULTLIST_BY_DEFAULT, true);
-//      $default_actions = UllFlowActionPeer::doSelect($ca);
-//      
-//      $default_action_ids = array();
-//      foreach ($default_actions as $default_action) {
-//        $default_action_ids[] = $default_action->getId();
-//      } 
-//      $c->add(UllFlowDocPeer::ULL_FLOW_ACTION_ID, $default_action_ids, Criteria::IN);
-//
-//    // list items with requested action if action <> 'all'
-//    } elseif ($ull_flow_action_slug <> 'all') {
-//      
-//      $ull_flow_action_id = UllFlowActionPeer::getActionIdBySlug($ull_flow_action_slug);
-//      if ($ull_flow_action_id) {
-//        $c->add(UllFlowDocPeer::ULL_FLOW_ACTION_ID, $ull_flow_action_id);
-//      }
-//      
-//    }
-//    
-//    
-//        
-//    $this->ull_flow_doc_pager = new sfPropelPager('UllFlowDoc', 25);
-//    $this->ull_flow_doc_pager->setCriteria($c);
-//    $this->ull_flow_doc_pager->setPage($this->getRequestParameter('page', 1));
-//    $this->ull_flow_doc_pager->init();
-//    
-//    
-//    // get list of flow_actions for the action select box
-//    $c = new Criteria();
-//    $c->addAscendingOrderByColumn(UllFlowActionI18nPeer::CAPTION_I18N);
-////    $this->flow_actions = UllFlowActionPeer::doSelect($c);
-//    $this->flow_actions = UllFlowActionPeer::doSelectWithI18n($c, substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2));
-//    
+    if ($request->isMethod('post'))
+    {
+      $this->ull_reqpass_redirect();
+    }
+
+    $this->getAppfromRequest();
+    $this->generator = new ullFlowGenerator($this->app);
+    
+    $docs = $this->getFilterFromRequest();
+    $this->generator->buildForm($docs);
+    
+    $refererHandler = new refererHandler();
+    $refererHandler->delete('edit');
+    
+    $this->breadcrumbForList();    
+    
   }
 
   
@@ -364,7 +298,6 @@ class BaseullFlowActions extends ullsfActions
     $this->ull_flow_doc_pager->setPage($this->getRequestParameter('page', 1));
     $this->ull_flow_doc_pager->init();
     
-    
     // create form
     $this->ull_form = new ullFormFlowDoc();
     $this->ull_form->setAccessDefault('r');  
@@ -446,160 +379,131 @@ class BaseullFlowActions extends ullsfActions
 //                        |_____|        |_____|         ~ - . _ _ _ _ _>
   
   
-  public function executeEdit()
+  public function executeEdit($request)
   {
-    
-    // check access
-    $this->checkLoggedIn();
+    $this->checkAccess('LoggedIn');
 
-    // === get table request parameter
-    if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) {
-      $this->error = __('Please specify a ullFlow application or document') . '!';
-      return sfView::ERROR;
-    }
-    
-    // referer handling
     $this->refererHandler = new refererHandler();  
-    $this->refererHandler->initialize('edit');
+    
+    $this->getDocFromRequestOrCreate();
+    
+    $accessType = $this->doc->checkAccess();
+    $this->redirectUnless($accessType, 'ullUser/noaccess');
+    $this->workflowActionAccessCheck();
+    
+    $this->generator = new ullFlowGenerator($this->app, $accessType);
+    $this->generator->buildForm($this->doc);
+    
+//    var_dump($this->doc->UllFlowStep->UllFlowStepActions->UllFlowAction->toArray());
+//    die;
+    
+    if ($request->isMethod('post'))
+    {
+//      var_dump($request->getParameterHolder()->getAll());die;
       
-    $this->doc_id   = $this->getRequestParameter('doc');
-    $this->app_slug = $this->getRequestParameter('app');
-    
-    $user_id  = $this->getUser()->getAttribute('user_id');
-    
-    // edit
-    if ($this->doc_id) {
-      
-      // == check if doc exists at all
-      $this->doc = UllFlowDocPeer::retrieveByPK($this->doc_id);
-      $this->forward404Unless($this->doc);
-      
-      // == in depth-access check (read / write)
-      
-      if (!$access_type = $this->checkDocAccess($this->doc)) {
-        $this->error = __('Access denied.') . '!';
-        return sfView::ERROR; 
-      }
-      
-      $this->app = $this->doc->getUllFlowApp();
-      $this->app_slug = $this->app->getSlug();
-      
-      $this->new = false;
-      
-    // create
-    } else {
-      $this->app = UllFlowAppPeer::retrieveBySlug($this->app_slug); 
-      $this->forward404Unless($this->app);
-      
-      $this->new = true;
-      $this->doc = new UllFlowDoc();
-      $access_type = 'w';
-    }
-        
-    $this->app_id = $this->app->getId();
-    
-//    ullCoreTools::printR($access_type);
-    
-    
-    // breadcrumb
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
-    $this->breadcrumbTree->add(ullCoreTools::getI18nField($this->app, 'caption'));
-    if (!$this->referer_edit = $this->refererHandler->getReferer()) {
-      $this->referer_edit = 'ullFlow/list?app=' . $this->app->getSlug();
-    }    
-    $this->breadcrumbTree->add(__('List', null, 'common'), $this->referer_edit);
-    if ($this->new) {
-      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));      
-    } else {
-      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
-    }
-    
-    
-    // create form
-    $this->ull_form = new ullFormFlow();
-    $this->ull_form->setAccessDefault($access_type);
-    $this->ull_form->setContainerName($this->app_id);    
-    
-    $this->ull_form->buildFieldsInfo();
-    
-    if (!$this->new) {
-      $this->ull_form->setDoc($this->doc_id);
-    }
-    $this->ull_form->retrieveFieldsData();
-    
-    
-    // get step
-    if ($this->new) {
-      $c = new Criteria();
-      $c->add(UllFlowStepPeer::ULL_FLOW_APP_ID, $this->app_id);
-      $c->add(UllFlowStepPeer::IS_START, true);
-      $step_id = UllFlowStepPeer::doSelectOne($c)->getId();       
-    } else {
-      $step_id = $this->doc->getAssignedToUllFlowStepId();
-    }
+      if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
+      {
+//        var_dump($request->getParameterHolder()->getAll());
+//        die;
 
-//    ullCoreTools::printR($step_id);
-    
-    // get all available actions
-//    $this->actions = UllFlowActionPeer::doSelect(new Criteria());
+        $this->sendMails();
         
-    // get actions for current step
-    $c = new Criteria();
-    $c->add(UllFlowStepActionPeer::ULL_FLOW_STEP_ID, $step_id);
-    $c->addAscendingOrderByColumn(UllFlowStepActionPeer::SEQUENCE);
-    $this->step_actions = UllFlowStepActionPeer::doSelect($c);
+          // manage full page widgets
+          if ($fullPageWidgetName = $request->getParameter('full_page_widget')) 
+          {
+            $fullPageWidgetClass = 'ullFlowFullPageWidget' . sfInflector::classify($fullPageWidgetName);
+            
+            if (class_exists($fullPageWidgetClass)) 
+            {
+              $fullPageWidget = new $fullPageWidgetClass($this->doc, $request->getParameter('full_page_widget_column'));
+              return $this->redirect($fullPageWidget->getInternalUri());
+            }
+          }        
+        
+        if ($request->getParameter('action_slug') == 'save_only') 
+        {
+          return $this->redirect('ullFlow/edit?doc=' . $this->doc->id);
+        }
+        
+        $referer = $this->refererHandler->getRefererAndDelete();
+        $referer = ($referer) ? $referer : $this->getRefererFallbackURI();
+        $this->redirect($referer);
+      }
+    }
     
-//    $this->step_actions = array();
+    $this->refererHandler->initialize();
+    $this->breadcrumbForEdit();    
+
+//    // get step
+//    if ($this->new) {
+//      $c = new Criteria();
+//      $c->add(UllFlowStepPeer::ULL_FLOW_APP_ID, $this->app_id);
+//      $c->add(UllFlowStepPeer::IS_START, true);
+//      $step_id = UllFlowStepPeer::doSelectOne($c)->getId();       
+//    } else {
+//      $step_id = $this->doc->getAssignedToUllFlowStepId();
+//    }
+//
+////    ullCoreTools::printR($step_id);
 //    
-////    foreach ($step_actions as $i => $step_action) {
+//    // get all available actions
+////    $this->actions = UllFlowActionPeer::doSelect(new Criteria());
+//        
+//    // get actions for current step
+//    $c = new Criteria();
+//    $c->add(UllFlowStepActionPeer::ULL_FLOW_STEP_ID, $step_id);
+//    $c->addAscendingOrderByColumn(UllFlowStepActionPeer::SEQUENCE);
+//    $this->step_actions = UllFlowStepActionPeer::doSelect($c);
+//    
+////    $this->step_actions = array();
+////    
+//////    foreach ($step_actions as $i => $step_action) {
+////////      $step_action_id = $step_action->getId();
+//////      $this->step_actions[$i]['step_action'] = $step_action;
+//////      $this->step_actions[$i]['ull_flow_action'] = $step_action->getUllFlowAction(); 
+//////    }
+////    
+////      foreach ($step_actions as $i => $step_action) {
 //////      $step_action_id = $step_action->getId();
 ////      $this->step_actions[$i]['step_action'] = $step_action;
 ////      $this->step_actions[$i]['ull_flow_action'] = $step_action->getUllFlowAction(); 
 ////    }
 //    
-//      foreach ($step_actions as $i => $step_action) {
-////      $step_action_id = $step_action->getId();
-//      $this->step_actions[$i]['step_action'] = $step_action;
-//      $this->step_actions[$i]['ull_flow_action'] = $step_action->getUllFlowAction(); 
+////    ullCoreTools::printR($this->step_actions);
+////    exit();
+//
+//    
+//    // == get memories
+//    $c = new Criteria();
+//    $c->add(UllFlowMemoryPeer::ULL_FLOW_DOC_ID, $this->doc_id);
+//    $c->addAscendingOrderByColumn(UllFlowMemoryPeer::CREATED_AT);
+//    $c->addAscendingOrderByColumn(UllFlowMemoryPeer::ID); // date is sometimes not exact enough
+//    $this->memories = UllFlowMemoryPeer::doSelect($c);
+//    
+//    
+//    // == workflow action access check
+//
+//    if ($this->new) {
+//      $this->workflow_action_access = true;
+//          
+//    } else {
+//      $this->workflow_action_access = false;
+//      
+//      // workflow action access is only allowed for the nextuser and nextgroup
+//      if ($this->doc->getAssignedToUllUserId() == $user_id) {
+//        $this->workflow_action_access = true;   
+//      }
+//      
+//      $group_id     = $this->doc->getAssignedToUllGroupId();
+//      $c_user_ids   = UllUserGroupPeer::retrieveUserIdsByGroupId($group_id);
+//      foreach($c_user_ids as $c_user_id) {
+//        if ($c_user_id == $user_id) {
+//          $this->workflow_action_access = true;
+//          break;  
+//        }
+//      }
+//      
 //    }
-    
-//    ullCoreTools::printR($this->step_actions);
-//    exit();
-
-    
-    // == get memories
-    $c = new Criteria();
-    $c->add(UllFlowMemoryPeer::ULL_FLOW_DOC_ID, $this->doc_id);
-    $c->addAscendingOrderByColumn(UllFlowMemoryPeer::CREATED_AT);
-    $c->addAscendingOrderByColumn(UllFlowMemoryPeer::ID); // date is sometimes not exact enough
-    $this->memories = UllFlowMemoryPeer::doSelect($c);
-    
-    
-    // == workflow action access check
-
-    if ($this->new) {
-      $this->workflow_action_access = true;
-          
-    } else {
-      $this->workflow_action_access = false;
-      
-      // workflow action access is only allowed for the nextuser and nextgroup
-      if ($this->doc->getAssignedToUllUserId() == $user_id) {
-        $this->workflow_action_access = true;   
-      }
-      
-      $group_id     = $this->doc->getAssignedToUllGroupId();
-      $c_user_ids   = UllUserGroupPeer::retrieveUserIdsByGroupId($group_id);
-      foreach($c_user_ids as $c_user_id) {
-        if ($c_user_id == $user_id) {
-          $this->workflow_action_access = true;
-          break;  
-        }
-      }
-      
-    }
     
 //    ullCoreTools::printR($this->step_action_ids);
     
@@ -806,7 +710,7 @@ class BaseullFlowActions extends ullsfActions
         
         $value_object->save();
         
-        if (isset($field['is_title'])) {
+        if (isset($field['is_subject'])) {
           if (!$value) {
             $value = ' ';
           }
@@ -1111,73 +1015,123 @@ class BaseullFlowActions extends ullsfActions
   
 
   
-  public function executeUpload() {
-    
-//    ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
-//    ullCoreTools::printR($_FILES);
+  public function executeUpload($request) 
+  {
+   
 //      ullCoreTools::printR(sfConfig::get('sf_upload_dir'));
 //      ullCoreTools::printR(sfConfig::get('sf_web_dir')); 
 //    exit();
 
-    // == defaults
-    $user_id  = $this->getUser()->getAttribute('user_id');
-    $now      = date('Y-m-d H:i:s');
+    $this->getDocFromRequestOrCreate();
     
+    $accessType = $this->doc->checkAccess();
+    $this->redirectUnless($accessType, 'ullUser/noaccess');
     
-  
-    $this->external_field = $this->getRequestParameter('external_field');
-    $this->value          = $this->getRequestParameter($this->external_field);
-    $this->app            = $this->getRequestParameter('app');
-    $this->doc            = $this->getRequestParameter('doc');
-    $this->ull_flow_action= $this->getRequestParameter('ull_flow_action');
+    $column = $request->getParameter('column');
+    $this->column = $column;
+
+    $this->form = new ullFlowUploadForm;
     
-    
-    
-    if ($filename = $this->getRequest()->getFileName('file')) {
+    if ($request->isMethod('post'))
+    {
+//      var_dump($this->getRequest()->getParameterHolder()->getAll());
       
-      // store file
-      $path = sfConfig::get('sf_upload_dir') 
-        . '/ullFlow/'
-        . $this->app
-        . '/'
-        . $this->doc
-        . '/'
-        . date('Y-m-d-H-i-s_')
-        . $filename
-      ;
- 
-      $this->getRequest()->moveFile('file', $path);
+      $this->form->bind($request->getParameter('fields'), $this->getRequest()->getFiles('fields'));
       
-      $mimetype = $this->getRequest()->getFileType('file');
-      
-      // remove system path
-      $path = str_replace(sfConfig::get('sf_web_dir'), '', $path);
-      
-      // create upload csv row
-      $row = 
-        $filename . ';'
-        . $path . ';'
-        . $mimetype . ';'
-        . $user_id . ';'
-        . $now
-      ;
-      
-      // add row to csv
-      $arr = array();
-      if ($this->value) {
-        $arr = explode("\n", $this->value);
+      if ($this->form->isValid())
+      {
+        $file = $this->form->getValue('file');
+        $value = $this->form->getValue('value');
+        
+        $path = 
+            sfConfig::get('sf_upload_dir') . 
+            '/ullFlow/' .
+            $this->doc->UllFlowApp->slug .
+            '/' .
+            $this->doc->id .
+            '/' .
+            date('Y-m-d-H-i-s_') .
+            $file->getOriginalName()
+        ;
+        
+        $file->save($path);
+        
+        $relativePath = str_replace(sfConfig::get('sf_web_dir'), '', $path);
+        
+        // create upload csv row
+        $row = 
+            $file->getOriginalName(). ';' .
+            $relativePath . ';' .
+            $file->getType() . ';' .
+            $this->getUser()->getAttribute('user_id') . ';' .
+            date('Y-m-d H:i:s')
+        ;
+        
+        // add row to csv
+        $array = array();
+        
+        if ($value) 
+        {
+          $arr = explode("\n", $value);
+        }
+        $arr[] = $row;
+        
+        $value = implode("\n", $arr);
+        
+        $this->doc->$column = $value;
+        $this->doc->save();
+        
+        // reset form to allow re-setting of defaults
+        $this->form = new ullFlowUploadForm;        
+        $this->form->setDefault('value', $value);
       }
-      $arr[] = $row;
-      $this->value = implode("\n", $arr);
-      
     }
- 
-     
+    else
+    {
+      $this->form->setDefault('value', $this->doc->$column);
+    }
+      
   }  
   
   
-  public function executeWikiLink() {
+  public function executeWikiLink($request) 
+  {
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());
     
+    $this->getDocFromRequestOrCreate();
+    
+    $accessType = $this->doc->checkAccess();
+    $this->redirectUnless($accessType, 'ullUser/noaccess');    
+        
+    $column = $request->getParameter('column');
+    $this->column = $column;
+    
+    $this->value = $this->doc->$column;
+
+    $wikiReturnUrl = 'ullFlow/wikiLink?doc=' . $this->doc->id . '&column=' . $column;
+    
+    // we'll save the wiki_return_url in the user session, because it's troublesome to pass it as a request param
+    $this->getUser()->setAttribute('wiki_return_url', $wikiReturnUrl);
+  
+    // add new link
+    if ($ullWikiDocId = $this->getRequestParameter('ull_wiki_doc_id')) 
+    {
+      $arr = array();
+      if ($this->value) 
+      {
+        $arr = explode("\n", $this->value);
+      }
+      $arr[] = $ullWikiDocId;
+      $this->value = implode("\n", $arr);
+      
+      $this->doc->$column = $this->value;
+      $this->doc->save();
+    }
+    
+    
+    
+    
+ /*   
 //    ullCoreTools::printR($this->getRequest()->getParameterHolder()->getAll());
 //    exit();
   
@@ -1220,21 +1174,9 @@ class BaseullFlowActions extends ullsfActions
       
     }
  
-    $wiki_return_url = 'ullFlow/wikiLink?external_field=' . $this->external_field;
-    if ($this->value) {
-      $wiki_return_url .= '&' . $this->external_field . '=' . rawurlencode($this->value);
-    }
-    $wiki_return_url .=
-      '&app=' . $this->app
-      . '&doc=' . $this->doc
-      . '&ull_flow_action=' . $this->ull_flow_action
-    ;
-    
-    // we'll save the wiki_return_url in the user session, because it's troublesome to pass it as a request param
-    $this->getUser()->setAttribute('wiki_return_url', $wiki_return_url);
-//    $this->wiki_return_url = rawurlencode($wiki_return_url);
+);
       
-      
+*/      
      
   }
 
@@ -1257,6 +1199,255 @@ class BaseullFlowActions extends ullsfActions
     
   }
   
+  protected function breadcrumbForIndex()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+  }
   
+  protected function breadcrumbForList()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+    if ($this->app) {
+      $this->breadcrumbTree->add($this->app->label);
+    }
+    if ($this->app) {
+      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
+    } else {
+      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list');
+    }
+  }  
+  
+  protected function breadcrumbForEdit()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->setEditFlag(true);
+    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+    $this->breadcrumbTree->add($this->app->label);
+//    if (!$this->referer_edit = $this->refererHandler->getReferer()) {
+//      $this->referer_edit = 'ullFlow/list?app=' . $this->app->getSlug();
+//    }    
+//    $this->breadcrumbTree->add(__('List', null, 'common'), $this->referer_edit);
+    $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
+    if ($this->doc->exists()) {
+      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
+    } else {
+      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
+    }    
+    
+  }  
+
+  protected function getAppfromRequest() 
+  {
+    if ($this->hasRequestParameter('app'))
+    {    
+      $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+    }
+  }
+
+  protected function getFilterFromRequest()
+  {
+    $this->filter_form = new ullFlowFilterForm;
+    $this->filter_form->bind($this->getRequestParameter('filter'));
+    
+    $this->ull_filter = new ullFilter();
+    
+    $userId  = $this->getUser()->getAttribute('user_id');
+    
+    $q = new Doctrine_Query;
+    $q->select('x.*, v.*');
+    $q->from('UllFlowDoc x, x.UllFlowValues v');
+
+    // search has to be the first "where" part, because it uses "or" 
+    if ($search = $this->filter_form->getValue('search'))
+    {
+      $cols = array('id', 'subject', 'duplicate_tags_for_search');     
+      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
+    }
+
+    // app
+    if ($this->app)
+    {
+      $q->addWhere('x.ull_flow_app_id = ?', $this->app->id);
+      
+      $this->ull_filter->add(
+        'app',
+        __('Application') . ': ' . $this->app->label
+      );      
+    }
+    
+    // access
+    $q = UllFlowDocTable::queryAccess($q, $this->app);
+    
+    // 'named' queries
+    if ($query = $this->getRequestParameter('query')) 
+    {
+      switch($query) 
+      {
+        case('by_me'):
+          $q->addWhere('x.creator_user_id = ?', $userId);
+          $this->ull_filter->add(
+            'query',
+            __('Query', null, 'common') . ': ' . __('Entries created by me')
+          );
+          break;
+        case('to_me'):
+          $q->addWhere('x.assigned_to_ull_entity_id = ?', $userId);
+          $this->ull_filter->add(
+            'query',
+            __('Query', null, 'common') . ': ' . __('Entries assigned to me')
+          );
+          break;          
+////          $c->setDistinct(true) ;
+////          $c->addJoin(UllFlowDocPeer::ASSIGNED_TO_ULL_GROUP_ID, UllUserGroupPeer::ULL_GROUP_ID, Criteria::LEFT_JOIN);
+////          $cton_user = $c->getNewCriterion
+////          $cton_group = $c->getNewCriterion(UllUserGroupPeer::ULL_USER_ID, $user_id);
+////          $cton_user->addOr($cton_group);
+////          $c->add($cton_user);
+//          $c->add(UllFlowDocPeer::ASSIGNED_TO_ULL_USER_ID, $user_id);
+//          $this->ull_filter->add(
+//            'query'
+//            , __('Query', null, 'common') . ': ' . __('Entries assigned to me')
+//          );
+//          break;
+      }
+    }       
+    
+
+    
+    // order
+    $this->order = $this->getRequestParameter('order', 'created_at');
+    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
+    
+    $order_func = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
+
+    // for native UllFlowDoc columns...
+    if (Doctrine::getTable('UllFlowDoc')->hasColumn($this->order))
+    {
+      switch ($this->order)
+      {
+        case 'assigned_to_ull_entity_id':
+          $q->orderBy('x.UllEntity.display_name ' . $order_func);
+          break;
+        case 'creator_user_id':
+          $q->orderBy('x.Creator.display_name ' . $order_func);
+          break;
+        case 'updator_user_id':
+          $q->orderBy('x.Updator.display_name ' . $order_func);
+          break;
+        default:
+          $q->orderBy($this->order . ' ' . $order_func);
+      }
+    }
+    // for virtual columns...
+    else
+    {
+      //doesn't work...
+      //      $q->leftJoin('x.UllFlowValues v1 WITH v1.UllFlowColumnConfig.slug=?', $this->order);
+
+      // resolve virtual column slug to UllColumnConfig.id
+      $q1 = new Doctrine_Query();
+      $q1
+        ->from('UllFlowColumnConfig')
+        ->where('ull_flow_app_id = ?', $this->app->id)
+        ->addWhere('slug = ?', $this->order)
+      ;
+      $order_cc_id = $q1->execute()->getFirst()->id;
+        
+      $q->leftJoin('x.UllFlowValues v1 WITH v1.ull_flow_column_config_id=?', $order_cc_id);
+      $q->orderBy('v1.value'. ' ' . $order_func);
+    }
+    
+    // add 'created_at (desc)' as default 2nd order criteria
+    if ($this->order != 'created_at') {
+      $q->addOrderBy('x.created_at DESC');
+    }
+
+//    printQuery($q->getQuery());
+//    var_dump($q->getParams());
+//    die;
+
+    
+    $this->pager = new Doctrine_Pager(
+      $q, 
+      $this->getRequestParameter('page', 1),
+      sfConfig::get('app_pager_max_per_page')
+    );
+    $docs = $this->pager->execute();    
+    
+//    var_dump($rows->toArray());
+//    die;
+    
+    return ($docs->count()) ? $docs : new UllFlowDoc;
+  }  
+  
+  /**
+   * Gets or creates a UllFlowDocObject according to the given request param
+   *
+   */
+  protected function getDocFromRequestOrCreate()
+  {
+    if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) {
+      throw new InvalidArgumentException('At least one of the "app" or "doc" parameters have to be given');
+    }
+
+    if ($docId = $this->getRequestParameter('doc'))
+    {
+      $this->doc = Doctrine::getTable('UllFlowDoc')->find($docId);
+      $this->forward404Unless($this->doc);
+      $this->app = $this->doc->UllFlowApp;
+    }
+    else
+    {
+      $this->doc = new UllFlowDoc;
+      $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+      $this->forward404Unless($this->app);
+      $this->doc->UllFlowApp = $this->app;
+    }    
+  }  
+
+  /**
+   * send notify emails
+   *
+   */
+  protected function sendMails()
+  {
+    if ($this->doc->UllFlowAction->is_notify_next) 
+    {
+      $mail = new ullFlowMailNotifyNext($this->doc);
+      $mail->send();
+    }
+
+    if ($this->doc->UllFlowAction->is_notify_creator) 
+    {
+      $mail = new ullFlowMailNotifyCreator($this->doc);
+      $mail->send();
+    }        
+  }
+  
+  /**
+   * Check access for the workflow actions
+   * 
+   * for existing docs, only the entities whom the doc is assigned to 
+   * are allowed to do make workflow actions (like send, assign, reject, ...)
+   * 
+   */
+  protected function workflowActionAccessCheck()
+  {
+    if ($this->doc->exists()) 
+    {
+      $this->workflow_action_access = false;
+      
+      if (UllEntityTable::has($this->doc->UllEntity)) 
+      {
+        $this->workflow_action_access = true;
+      }
+    }
+    else 
+    {
+      $this->workflow_action_access = true;
+    }
+  }    
 
 }

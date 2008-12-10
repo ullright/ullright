@@ -1,0 +1,489 @@
+@import "common.css";
+@import "taskcenter.css";
+
+/* Modules should override the following
+   format definitions. */
+
+.color_light_bg {
+  background: #dad9d9;
+}
+
+.color_medium_bg {
+  background: #d1d0d0;
+}
+
+/* End of module format css */
+
+
+body {
+  margin:       15px;
+  margin-top:   5px;
+  padding:      0;
+  background-color: white;
+}
+
+#container {
+  margin-top: -15px;
+  text-align: left;
+  min-width: 1000px;
+}
+
+#sidebar {
+  width: 150px;
+  /* max-width: 200px; */
+  float: left;
+}
+
+#sidebar_content {
+  color: #777475;
+  text-align: left;
+  padding-top: 2px;
+}
+
+#nav_logo {
+  padding-top: 25px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+#content {
+  padding: 20px 0px 20px 20px;
+  width: 83%;
+  float: left;
+}
+
+#nav_top {
+  text-align: left;
+  background-color: white;
+  border: 1px solid white; /* workaround for firefox (displaying top margin otherwise) */
+  border-bottom: 3px solid #777475;
+}
+
+#nav_top a {
+  color: #777475;
+}
+
+#nav_syslinks_container { 
+  float: right;
+  margin-top: -5px; 
+}
+
+#nav_langlinks {
+  margin-top: .55em;
+  color: #777777;
+  text-align: right;
+}
+
+#nav_searchbox {
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+#nav_loginbox {
+  color: #777475;
+  text-align: right;
+}
+
+ul.nav_top_links {
+  clear: both;
+  float: left;
+  margin: 0;
+  margin-top: .2em;
+  padding: .25em 0;
+  /* width: 100%; */
+  list-style: none;
+  border: none;
+}
+
+ul.nav_top_links li {
+  float: left;
+  margin: 0 0.5em;
+  padding: 0;
+  background: none;
+}
+
+.nav_top_links a{
+  font-weight: bold;
+  font-size: 1.05em;
+  color: #777475;
+  padding: .2em 1em;
+}
+
+.nav_top_links a:hover {
+  border-bottom: 5px solid #99d420;
+  text-decoration: none;
+  padding-bottom: 7px;
+}
+
+#nav_link_workflow {
+  text-align: center;
+}
+
+#nav_link_workflow a:hover {
+  color: #009ddb;
+  border-bottom: 5px solid #009ddb; 
+  text-decoration: none;  
+  padding-bottom: 7px;
+}
+
+#nav_link_tickets {
+  text-align: center;
+}
+
+#nav_link_tickets a:hover {
+	color: #da531f;
+	border-bottom: 5px solid #da531f;
+	padding-bottom: 7px;
+}
+
+#nav_link_todo  {
+  text-align: center;
+}
+
+#nav_link_todo a:hover {
+	color: #ac108e;
+	border-bottom: 5px solid #ac108e;
+	padding-bottom: 7px; 
+}
+
+#nav_link_wiki {
+  text-align: center;
+}
+
+#nav_link_wiki a:hover {
+  color: #99d420;
+  border-bottom: 5px solid #99d420;
+  padding-bottom: 7px;
+}
+
+#nav_link_admin {
+  text-align: center;
+}
+
+#nav_link_admin a:hover {
+  color: #777475;
+  border-bottom: 5px solid #777475;
+  padding-bottom: 7px;
+}
+
+/*
+ * ************************************************
+ *  content
+ * ************************************************
+ */
+ 
+#content_main {
+  min-height: 32em;
+}
+
+
+/*
+ * ************************************************
+ *  footer
+ * ************************************************
+ */
+
+#footer {
+  margin: 2.5em 0;
+  padding: .4em 2em;
+  font-size: 0.9em;
+  border-top: 2px solid #777475;
+  color: #777475;
+}
+
+#footer a {
+  color: #3e7119;
+}
+
+#footer_copyright {
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 250px;
+  text-align: left;
+  color: #777475;
+}
+
+#footer_links {
+  padding: 0;
+  margin: 0;
+  float: right;
+}
+
+/*
+ * ************************************************
+ *  breadcrumbs
+ * ************************************************
+ */
+
+
+.breadcrumb {
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+
+ul#breadcrumbs {
+  padding: 0;
+}
+ul#breadcrumbs li {
+  display: inline;
+  margin: 0;
+
+  padding-left: 19px;
+  background: url(../images/breadcrumb_separator.png) left center no-repeat;
+  background-position: 4px;
+}
+
+
+ul#breadcrumbs li.first {
+  padding-left: 0;
+  background: none;
+}
+
+
+
+/*
+ * ************************************************
+ *  result list ull_filter
+ * ************************************************
+ */
+
+
+.ull_filter {
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+
+.ull_filter ul {
+  padding: 0;
+  display: inline;
+}
+
+.ull_filter ul li {
+  display: inline;
+  margin: 0;
+  margin-left: 1em;
+  padding: .1em .5em;
+  background-color: #ffe4b9;
+  border: 1px solid #ffe4b9;
+/
+}
+
+/*
+ * ************************************************
+ *  result list ull_actions
+ * ************************************************
+ */
+
+
+ul.ull_action {
+  background: silver;
+  padding: .2em;
+}
+
+ul.ull_action li {
+  display: inline;
+  margin-left: 1em;
+  padding: .1em .5em;
+
+}
+
+
+/*
+ * ************************************************
+ *  generic styles
+ * ************************************************
+ */
+ 
+/* Ajax indicator */
+div#indicator {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  left: 10px;
+  top: 10px;
+  z-index: 900;
+  background: url(/ullThemeDefault/images/indicator.gif) no-repeat 0 0;
+} 
+ 
+.center {
+  text-align: center;
+}
+
+.clear {
+  margin: 0;
+  padding: 0;
+  clear: both;
+}
+
+.inline {
+  display: inline;
+}
+
+
+/*
+ * ************************************************
+ *  result list styles
+ * ************************************************
+ */
+ 
+table.result_list {
+  border-collapse:  collapse;
+  border:           1px solid #888888;
+ }
+
+.result_list th {
+  color:            white;
+  background:       #0081b8;
+  border:           1px solid #AAAAAA;
+  padding: .5em;
+}
+
+.result_list th a {
+  color:            white;
+}
+
+.result_list td {
+  border:           1px dashed #AAAAAA;
+  padding:          .5em;
+}
+
+.result_list tr {
+  background:       white;
+}
+
+.result_list .odd {
+  background:       #e3f5fd;
+}
+
+.result_list tbody tr:hover {
+  background:       #ffe4b9;  
+}
+
+/*
+ * ************************************************
+ *  error styles
+ * ************************************************
+ */
+
+.form_error {
+  margin-left: 0.5em;
+  font-style: normal;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #D41400;
+}
+
+.form_error_background {
+  border: 2px solid #D41400;
+  padding: 2px;
+  /* background-color: #FFD5D3; */
+}
+
+/* form errors of sf1.1 forms framework */
+.error_list {
+  list-style: none;
+}
+
+
+/*
+ * ************************************************
+ *  tag could
+ * ************************************************
+ */
+  
+ul.tag-cloud {
+  display: inline;
+  margin: 0;
+}  
+  
+ul.tag-cloud li {
+  display: inline;
+  margin: 0;  
+  font-size: 1.1em;
+}
+
+/*
+ * ************************************************
+ *  action buttons
+ * ************************************************
+ */
+ 
+/* list */
+ 
+.action_buttons {
+  clear: both;  
+  /* border: 1px solid grey; */
+  background:       #e3f5fd;
+  padding: .5em;
+}
+
+.action_buttons_left {
+  float: left;
+  position: relative; /* workaround for IE 6 */
+}
+
+.action_buttons_right {
+  float: right;
+  position: relative; /* workaround for IE 6 */
+}
+
+ 
+/* edit */ 
+ 
+.action_buttons_edit {
+  clear: both;  
+  /* border: 1px solid grey; */
+  /* background:       #e3f5fd; */
+  background-color: #ffe4b9;
+  padding: .5em .7em .8em .7em; 
+}
+
+.action_buttons_edit fieldset {
+  padding: .4em .7em;
+}
+
+.action_buttons_edit_left {
+  float: left;
+  position: relative; /* workaround for IE 6 */
+}
+
+.action_buttons_edit_right {
+  float: right;
+  position: relative; /* workaround for IE 6 */
+}
+
+.action_buttons_edit ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.action_buttons_edit ul li {
+  margin: .5em 0;
+  padding: 0;
+}
+
+/*
+ * ************************************************
+ *  pager
+ * ************************************************
+ */
+ 
+.pager {
+  clear: both;    
+}
+
+.pager_left {
+  float: left;
+  position: relative; /* workaround for IE 6 */
+}
+
+.pager_right {
+  float: right;
+  position: relative; /* workaround for IE 6 */
+}
+

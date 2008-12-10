@@ -1,0 +1,9 @@
+test:
+  logger:
+    param:
+      level: err
+ 
+
+all:
+  request:
+    class: ullWebRequest

@@ -79,6 +79,20 @@
 <target>Sprache</target>
 </trans-unit>
 
+<trans-unit id="104">
+<source>%1% translation %2%</source>
+<target>%1% Übersetzung %2%</target>
+</trans-unit>
+
+<trans-unit id="105">
+<source>Sequence</source>
+<target>Reihenfolge</target>
+</trans-unit>
+
+<trans-unit id="106">
+<source>Default value</source>
+<target>Vorgabewert</target>
+</trans-unit>
 
 
 <!-- Questions -->
@@ -228,6 +242,11 @@
 <target>Allgemeine Aktionen</target>
 </trans-unit>
 
+<trans-unit id="4003">
+<source>Popular tags</source>
+<target>Häufige Tags</target>
+</trans-unit>
+
 
 <!-- common validation phrases -->
 
@@ -344,7 +363,7 @@
 </trans-unit>
 
 <trans-unit id="11011">
-<source>Caption</source>
+<source>Label</source>
 <target>Beschriftung</target>
 </trans-unit>
 
@@ -354,13 +373,13 @@
 </trans-unit>
 
 <trans-unit id="11013">
-<source>Caption i18n</source>
-<target>Beschriftung i18n</target>
+<source>Unique identifier</source>
+<target>Eindeutige Bezeichnung</target>
 </trans-unit>
 
 <trans-unit id="11014">
-<source>Description i18n</source>
-<target>Beschreibung i18n</target>
+<source>Type</source>
+<target>Typ</target>
 </trans-unit>
 
 <trans-unit id="11015">

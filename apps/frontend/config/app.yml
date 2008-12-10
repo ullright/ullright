@@ -1,0 +1,43 @@
+prod:
+  mailing:
+    # send a copy of each mail to the developers' email address
+    send_debug_cc: true
+
+test:
+  mailing:
+    # completely disable mail sending
+    enable:        false
+
+dev:
+  mailing:
+    # reroute emails to the developers' email address 
+    reroute:       true
+
+# default values
+all:
+  theme:            ullThemeNG          #TBR
+  theme_package:    NG
+  
+  base:
+    default_language: en
+  
+  mailing:
+    enable:         true
+    charset:        utf-8
+    mailer:         sendmail
+    smtp_hostname:  localhost  
+    #smtp_username:  
+    #smtp_passwort:  
+    reroute:        false
+    debug_address:  klemens.ullmann@ull.at
+    # send a copy of each mail to the debugger's email address
+    send_debug_cc: false
+    
+  auth:
+    function: default      
+
+  tags:
+    limit:          16
+    
+  pager:
+    max_per_page:   50

@@ -1,0 +1,134 @@
+# Parent entity
+UllParentEntity:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    first_name:
+      type: string(64)
+    last_name:
+      type: string(64)
+    display_name:
+      type: string(64)
+    username:
+      type: string(64)
+      unique: true
+    email:
+      type: string(64)
+    password:
+      type: string(40)
+#  relations:
+#    UllEntityGroupAsGroup:
+#      class: UllEntityGroup
+#      local: id
+#      foreign: ull_group_id
+
+# empty entity class to be overridden by custom Entity class
+# (in config/doctrine/schema.yml) to allow definition of additional userfields
+UllEntity:
+#  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllParentEntity
+    type: concrete
+
+UllUser:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllEntity
+    type: column_aggregation
+    keyValue: user
+  relations:
+    UllGroup:
+      refClass: UllEntityGroup
+      foreignAlias: UllUsers
+      local: ull_entity_id
+      #foreign: group_id
+
+UllGroup:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllEntity
+    type: column_aggregation
+    keyValue: group
+  relations:
+    UllUser:
+      refClass: UllEntityGroup
+      foreignAlias: UllGroups
+      foreign: ull_entity_id
+
+UllEntityGroup:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_entity_id:
+      type: integer
+      primary: true
+    ull_group_id:
+      type: integer
+      primary: true
+  relations:
+    UllEntity:
+    UllGroup:
+    UllEntityAsGroup:
+      class: UllEntity
+      local: ull_group_id
+      foreign: id
+      foreignAlias: UllEntityGroupsAsGroup
+
+
+
+UllPermission:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+#  actAs:
+#    I18n:
+#      fields: [label, description]
+  columns:
+    slug:
+      type: string(64)
+#    label:
+#      type: string(64)
+#    description:
+#      type: clob
+  relations:
+    UllGroup:
+      refClass: UllGroupPermission
+      foreignAlias: UllPermissions
+      #local: group_id
+      #foreign: ull_group_id
+
+UllGroupPermission:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_group_id:
+      type: integer
+      primary: true
+    ull_permission_id:
+      type: integer
+      primary: true
+  relations:
+    UllGroup:
+    UllPermission:
+
+#UllAccessGroup:
+#  package: ullCorePlugin.lib.model.doctrine
+#  inheritance:
+#    extends: UllRecord
+#    type: concrete
+#  columns:
+#    ull_access_id:
+#      type: integer
+#      primary: true
+#    ull_group_id:
+#      type: integer
+#      primary: true
+#  relations:
+#    UllGroup:

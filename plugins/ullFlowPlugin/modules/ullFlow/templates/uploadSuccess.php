@@ -2,16 +2,17 @@
 
   echo '<h1>' . __('Manage files', null, 'common') . '</h1><br />';
 
-  echo ull_reqpass_form_tag(array('action' => 'upload'), 'multipart=true id=ull_flow_upload_form');
+  echo ull_form_tag(array('fields' => ''), 'multipart=true id=ull_flow_upload_form');
   
-  echo input_hidden_tag('external_field', $external_field);
-  echo input_hidden_tag($external_field, $value);
-  echo input_hidden_tag('app', $app);
-  echo input_hidden_tag('doc', $doc);
-  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
+//  echo input_hidden_tag('external_field', $external_field);
+//  echo input_hidden_tag($external_field, $value);
+//  echo input_hidden_tag('app', $app);
+//  echo input_hidden_tag('doc', $doc);
+//  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
 
-  if ($value) {
-    echo ullFieldHandlerUpload::ull_upload_list($value);
+  if ($value = $form->getDefault('value')) 
+  {
+    echo ullWidgetUpload::renderUploadList($value);
   } 
 ?>
 
@@ -22,7 +23,7 @@
   <li>
     <?php
       echo __('Step 1: Select file', null, 'common') . ': ';
-      echo input_file_tag('file');
+      echo $form['file']->render();
     ?>
   </li> 
   
@@ -32,28 +33,26 @@
     ?>
   </li>
 </ul>
+
+  
+<?php echo $form['value']->render() // TODO: replace by sf1.2 sfForm::renderHiddenFields() ?>
+  
+</form>
   
   <br /><br />
   
   <div class='action_buttons'>
     
     <div class='action_buttons_left'>
-      <?php echo button_to_function(__('Save and close', null, 'common'), 'return_to()'); ?>
+      <?php echo ull_button_to(__('Save and close'), 'ullFlow/edit?doc=' . $doc->id) ?>
+      <?php //echo form_tag('ullFlow/edit?doc=' . $doc->id) ?>
+      <?php //echo input_hidden_tag('fields[' . $column . ']', $value) ?>
+      <?php //echo submit_tag(__('Save and close', null, 'common')); ?>
+      </form>
     </div>
     
     <div class="clear"></div>
   </div>
   
-  </form>
   
-<?php
   
-  echo javascript_tag('
-    function return_to() {
-      document.getElementById("ull_flow_upload_form").action = "' . url_for('ullFlow/update') . '"
-      document.getElementById("external_field").value = "";      
-      document.getElementById("ull_flow_upload_form").submit();
-    }
-  ');
-      
-?>

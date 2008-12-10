@@ -1,0 +1,231 @@
+/*
+ * ************************************************
+ *  ull_flow styles
+ * ************************************************
+ */
+ 
+ /* Overridden css: ullCore / main.css - formats */
+
+.color_light_bg {
+  background: #e5f7fd;
+}
+
+.color_medium_bg {
+  background: #bae4f6;
+}
+
+  /* Overridden css: ullCore / taskcenter.css - formats */
+ 
+#tc_wrapper a:visited {
+  color: #055b7c;
+}
+
+ /* Overridden css: ullCore / common.css - formats */
+ 
+a {
+  color: #055b7c;
+}
+
+a:visited {
+  color: #0685b5;
+}
+
+/* End of overridden css */
+ 
+ 
+.ull_flow_header {
+	margin-bottom: 10px;
+	padding: 2px 7px;
+	border: 1px solid #999999;
+	background-color: #E8E8E8;
+	clear: both;	
+}
+
+.ull_flow_header_headline {
+	float: left;
+	position: relative; /* workaround for IE 6 */
+  margin: 0;
+  padding: 0;
+  width: 320px;
+  /* border: 1px red solid; */ 
+}
+
+.ull_flow_header_subject {
+  font-size: 1.2em; 
+  display: inline;
+  margin: 0;
+}
+
+.ull_flow_header_subtitle {
+  color: #777777;
+}
+
+.ull_flow_body {
+  margin-bottom: 10px;
+  /* padding: 7px;
+  border: 1px solid #CCCCCC;
+  background-color: #FFFFFF; */
+  min-height: 200px;
+}
+
+.ull_flow_header_show {
+  margin-bottom: 10px;
+  padding: 0;
+  border: 0;
+  clear: both;  
+}
+
+.ull_flow_footer_show {
+	margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+  padding-top: 5px;
+  border-top: 1px solid #777777;  
+  clear: both;
+    
+}
+
+
+
+
+/* styles for headfoot action icons partial */
+
+.ull_flow_headfoot_float_right {
+  float: right;
+  position: relative; /* workaround for IE 6 */
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  color: #777777;
+  font-size: 1em;
+  /* border: 1px solid blue; */
+}
+
+.ull_flow_headfoot_action_icons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ull_flow_headfoot_action_icons li{
+  float: left;
+  position: relative; /* workaround for IE 6 */
+  background: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 5px; 
+}
+
+
+/* styles for headfoot doc info partial */
+
+.ull_flow_headfoot_float_left {
+  float: left;
+  position: relative; /* workaround for IE 6 */
+  margin: 0;
+  margin-right: 25px;
+  padding: 0;
+  color: #777777;
+  font-size: 1em;
+}
+
+.ull_flow_headfoot_ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.1em;
+  list-style-image: none;
+}
+
+.ull_flow_headfoot_ul li {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+
+
+/* styles for the edit table */
+
+table.ull_flow_edit {
+  border-collapse:  collapse;
+  border:           1px solid #888888;
+ }
+
+.ull_flow_edit th {
+  color:            white;
+  background:       #0081b8;
+  border:           1px solid #AAAAAA;
+  padding: .5em;
+}
+
+.ull_flow_edit th a {
+  color:            white;
+}
+
+.ull_flow_edit td {
+  /* border:           1px dashed #AAAAAA; */
+  padding:          .5em;
+}
+
+.ull_flow_edit tr {
+  background:       white;
+}
+
+.ull_flow_edit .odd {
+  background:       #e3f5fd;
+}
+
+
+
+/* styles for the upload dialog */
+
+table.ull_flow_upload {
+  border-collapse:  collapse;
+  border:           1px solid #888888;
+  margin-bottom:    .5em;
+ }
+ 
+.ull_flow_upload th {
+  color:            black;
+  background:       #DDDDDD;
+  border:           1px solid #AAAAAA;
+  padding:          .2em .5em;
+} 
+
+.ull_flow_upload td {
+  border:           1px dashed #AAAAAA;
+  padding:          .2em .5em;
+}
+
+.ull_flow_upload tr {
+  background:       white;
+}
+
+.ull_flow_upload tbody tr:hover {
+  background:       #ffe4b9;  
+} 
+
+
+
+/* styles for the information update fieldtype */
+.ull_flow_fieldtype_information_update {
+  max-height: 250px;
+  width:      51.35em; 
+  overflow:   auto; 
+  border:     1px solid silver; 
+  padding:    .1em; 
+  margin-bottom: 1em;
+  background-color: #eeeeee;
+}
+
+/* styles for the memories */
+.ull_flow_memory_comment {
+	/* margin: 0; */
+	margin-top: .5em;
+  padding: 0;
+  list-style: none;
+  line-height: 1.1em;
+  list-style-image: none;
+  
+}

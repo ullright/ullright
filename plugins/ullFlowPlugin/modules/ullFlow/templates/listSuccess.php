@@ -1,5 +1,112 @@
+<?php echo $breadcrumbTree->getHtml(ESC_RAW) ?>
 
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $ull_filter->getHtml(ESC_RAW) ?>
+
+<?php // detect empty table_tool ?>
+<?php if (!$generator->getRow()->isModified()): ?>
+
+	<!-- Action row -->
+	<?php echo ull_form_tag(); ?>
+	
+	<ul class='ull_action'>
+	  
+	    <li>
+        <?php if (isset($app)): ?>
+          
+          <?php echo ull_button_to(__('Create', null, 'common'), 'ullFlow/create?app=' . $app->slug); ?>
+        <? endif ?>
+      </li>
+	
+      <?php ?>	   
+	    <?php echo $filter_form ?>   
+	    <li><?php echo submit_tag('&gt;');?></li>
+      <?php ?> 
+	
+	</ul>
+	 
+	</form>	
+	
+
+<!-- pager: num of results -->
+
+<?php include_partial('ullTableTool/ullPagerTop',
+        array('pager' => $pager)
+      ); ?> 
+<br />
+
+  <table class='result_list'>
+  
+  <!-- header -->
+  <thead>
+  <tr>  
+    <th>&nbsp;</th>
+    <?php foreach ($generator->getLabels() as $field_name => $label): ?>
+      <th>
+        <?php 
+        if ($order == $field_name) {
+          $arrow  = ($order_dir == 'desc') ? ' ↑' : ' ↓';
+          $dir    = ($order_dir == 'desc') ? 'asc' : 'desc';
+        } else {
+          $arrow = '';
+          $dir = 'asc'; // always default to 'asc' order for a new column
+        }
+        
+        echo ull_link_to(
+          $label . $arrow
+          , array(
+              'order' => $field_name,
+              'order_dir' => $dir,
+            )
+        );
+      ?>      
+      </th>
+    <?php endforeach; ?>
+  </tr>
+  </thead>
+  
+  <!-- data -->
+  
+  <tbody>
+  <?php $odd = false; ?>
+  <?php foreach($generator->getForms() as $row => $form): ?>
+      <?php
+        if ($odd) {
+          $odd_style = ' class=\'odd\'';
+          $odd = false;
+        } else {
+          $odd_style = '';
+          $odd = true;
+        }
+        $identifier = $generator->getIdentifierUrlParams($row);
+      ?>
+    <tr <?php echo $odd_style ?>>
+      <td>          
+        <?php
+            echo ull_icon(
+              'ullFlow/edit?' . $identifier
+              , 'edit'
+              , __('Edit', null, 'common')
+            );
+        
+            echo ull_icon(
+              'ullFlow/delete?table=' . $identifier
+              , 'delete'
+              , __('Delete', null, 'common')
+              , 'confirm='.__('Are you sure?', null, 'common')
+            );
+        ?>
+      </td>
+      <?php echo $form ?>
+    </tr>
+  <?php endforeach; ?>
+  
+  </tbody>
+  </table>
+<?php else: ?>
+  <p class='form_error'><?php echo __('No results found', null, 'common') ?></p>
+<?php endif ?>
+
+<?php /*
 
 
   
@@ -15,9 +122,7 @@
   
   echo __('Status') . ': ';
   echo ull_reqpass_form_tag(array('page' => '', 'flow_action' => ''), array('class' => 'inline'));
-  /*
-  echo form_tag('ullFlow/list', 'class=inline');
-  */
+
   // flow_action select
   $select_children = objects_for_select(
       $flow_actions
@@ -112,4 +217,6 @@
 <br /><br />
 
 <?php if ($app_slug): echo $create_link; endif;?>
+
+<?php */ ?>
 

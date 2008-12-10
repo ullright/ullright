@@ -1,0 +1,4 @@
+<?php
+
+// define a custom symfony lib path here:
+$sf_symfony_lib_dir = '/usr/share/php/symfony1.1/lib';

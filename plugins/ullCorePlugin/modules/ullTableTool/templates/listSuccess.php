@@ -1,38 +1,102 @@
-<?php //ullCoreTools::printR($ull_form); exit(); ?>
+<?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
-
-<?php echo form_tag('ullTableTool/list'); ?>
+<h3><?php echo $generator->getTableConfig()->label ?></h3>
+<p><?php echo $generator->getTableConfig()->description ?></p>
+<?php echo form_tag('ullTableTool/list?table=' . $table_name); ?>
 
 <!-- TODO: add ordered list for options/actions -->
 
-<div class='action_buttons'>
-    
-  <div class='action_buttons_left'>
+<ul class='ull_action'>
   
-    <?php echo button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?> &nbsp;
+  <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
+  
+  <li><?php echo ull_button_to(__('Configure table'), 
+      'ullTableTool/list?table=UllTableConfig&filter[search] =' . $table_name);?></li>
+  
+  <li><?php echo ull_button_to(__('Configure columns'), 
+      'ullTableTool/list?table=UllColumnConfig&filter[search] =' . $table_name);?></li>                      
+  
+  <li>
+    <?php echo $filter_form['search']->renderLabel() ?>: 
+    <?php echo $filter_form['search']->render() ?>
+    <?php echo submit_image_tag(ull_image_path('search', 16, 16, 'ullCore'),
+              array('alt' => 'search_list')) ?>
+  </li> 
 
-   
-    <?php 
-      if (@$table_info_search_fields) {
-        echo input_tag('search', $sf_params->get('search'), 'size=12');
-        echo input_hidden_tag('table', $table_name);
-        echo submit_tag(__('Search', null, 'common'), 'style=margin: 0;');
-        echo ' &nbsp; ';
-      }
-    ?> 
-
-    <?php
-       echo '&nbsp; &nbsp;';
-       echo button_to(__('Edit column info', null, 'common'), 
-        'ullTableTool/list?table=ull_column_info&search=' . $table_name);
-    ?> &nbsp;
-    
-  </div>
-  <div class='clear'></div>
-</div>
+</ul>
  
 </form>
+
+<br />
+
+<?php /*include_partial('ullTableTool/ullPagerTop',
+        array('pager' => $pager)
+      ); */?>  
+      
+<br />
+
+<?php // detect empty table_tool ?>
+<?php if ($generator->getRow()->exists()): ?>
+  <table class='result_list'>
+  
+  <!-- header -->
+  <thead>
+  <tr>  
+    <th>&nbsp;</th>
+    <?php foreach ($generator->getLabels() as $label): ?>
+      <th><?php echo $label ?>:</th>
+    <?php endforeach; ?>
+  </tr>
+  </thead>
+  
+  <!-- data -->
+  
+  <tbody>
+  <?php $odd = false; ?>
+  <?php foreach($generator->getForms() as $row => $form): ?>
+      <?php
+        if ($odd) {
+          $odd_style = ' class=\'odd\'';
+          $odd = false;
+        } else {
+          $odd_style = '';
+          $odd = true;
+        }
+        
+        $identifier = $generator->getIdentifierUrlParams($row, ESC_RAW);
+        
+      ?>
+    <tr <?php echo $odd_style ?>>
+      <td>          
+        <?php
+            echo ull_icon(
+              'ullTableTool/edit?table=' . $table_name . '&' . $identifier
+              , 'edit'
+              , __('Edit', null, 'common')
+            );
+        
+            echo ull_icon(
+              'ullTableTool/delete?table=' . $table_name . '&' . $identifier
+              , 'delete'
+              , __('Delete', null, 'common')
+              , 'confirm='.__('Are you sure?', null, 'common')
+            );
+        ?>
+      </td>
+      <?php echo $form ?>
+    </tr>
+  <?php endforeach; ?>
+  
+  </tbody>
+  </table>
+<?php else: ?>
+  <p class='form_error'><?php echo __('No results found', null, 'common') ?></p>
+<?php endif ?>
+
+
+<?php /*
+
+
 <br />
 
 <?php include_partial('ullTableTool/ullPagerTop',
@@ -151,4 +215,4 @@
   <div class='clear'></div>
 </div>
 
-
+*/ ?>

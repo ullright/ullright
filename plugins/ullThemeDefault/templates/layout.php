@@ -41,7 +41,7 @@
         <div id="nav_syslinks_container">
 
           <div id="nav_syslinks">
-            <?php include_partial('ullUser/header_login'); ?>
+            <?php include_component('ullUser', 'headerLogin'); ?>
             
              &nbsp; | &nbsp;
             <?php
@@ -61,7 +61,7 @@
           </div>
 
           <div id="nav_searchbox">                   
-            <?php include_partial('ullWiki/header_search'); ?>
+            <?php include_component('ullWiki', 'headerSearch'); ?>
           </div>
 
          </div>
@@ -76,7 +76,7 @@
             <li><?php echo ull_link_to(__('My todo list', null, 'common'),   'ullFlow/tabular?query=to_me&order=priority&order_dir=asc',      'ull_js_observer_confirm=true'); ?></li>
             <li><?php echo ull_link_to(__('Wiki', null, 'common'),           'ullWiki/list',                                                  'ull_js_observer_confirm=true'); ?></li>
             <?php 
-              if (UllUserPeer::userHasGroup(1)) {
+              if (UllUserTable::hasGroup('MasterAdmins')) {
                 echo '<li>' . ull_link_to(__('Admin'), 'ullAdmin/index', 'ull_js_observer_confirm=true') . '</li>';
               } 
             ?>
@@ -111,6 +111,6 @@
     </div>  
     
   </div> <!-- end of container -->
-   
+  
 </body>
 </html>

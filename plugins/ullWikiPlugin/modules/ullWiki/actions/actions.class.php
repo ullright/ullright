@@ -11,7 +11,7 @@
 
 /*
  * empty ullWiki actions class to allow overriding/customizing in
- * /apps/myapp/modules/ullWikiPlugin/actions/actions.class.php
+ * /apps/frontend/modules/ullWikiPlugin/actions/actions.class.php
  * 
  * With this architecture, you can add or override only the methods
  * you need.

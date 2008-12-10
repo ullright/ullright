@@ -2,7 +2,7 @@
 /**
  * ullwiki header partial
  *
- * expexts a ullwiki object and prints the header
+ * expects a ullwiki object and prints the header
  * @package    ull_at
  * @subpackage ullwiki
  * @author     Klemens Ullmann
@@ -11,36 +11,36 @@
 ?>
 <div class='ullwiki_header'>
 
-  <div class='ullwiki_headfoot_float_right'>
+  <div class='ullwiki_headfoot_float_left'>
     <?php include_component(
             'ullWiki',
             'ullWikiHeadFootActionIcons', 
             array(
-              'ullwiki'     => $ullwiki
+              'doc' => $doc
             )
           ); ?>
-  </div>  
-  
+  </div>
+
   <div class='ullwiki_header_headline'>
     <h3>
-      <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID()); ?>
-      <?php //echo link_to($ullwiki->getSubject(), 'ullWiki/show?id='.$ullwiki->getID().'&cursor='.$cursor); ?>
-      <?php echo ull_link_to($ullwiki->getSubject(), $sf_data->getRaw('subject_link')); ?>
+      <?php //echo link_to($doc->getSubject(), 'ullWiki/show?id='.$doc->getID()); ?>
+      <?php //echo link_to($doc->getSubject(), 'ullWiki/show?id='.$doc->getID().'&cursor='.$cursor); ?>
+      <?php echo ull_link_to($doc->subject, $sf_data->getRaw('subject_link')); ?>
     </h3>
     <!--  Tag1, Tag2, Tag3 -->
   </div> 
-  
+
   <!-- <div class='clear'></div>  -->
 
   <?php include_partial(
           'ullWikiHeadFootDocInfo',
           array(
-              'ullwiki'     => $ullwiki
+              'doc'     => $doc
               , 'edit_link'   => $edit_link
             )
           ) ?>
-  
+
   <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
-  
+
 
 </div> <!-- end of ullwiki_header-->

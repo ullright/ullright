@@ -1,16 +1,13 @@
 <div class='pager'>
-  <div class='pager_left'>
-    <?php 
+  <div class='pager_left'><?php 
       echo format_number_choice(
         '[0]No results found|[1]1 result found|(1,+Inf]%1% results found',
-        array('%1%' => $pager->getNbResults()),
-        $pager->getNbResults()
+        array('%1%' => $pager->getNumResults()),
+        $pager->getNumResults()
         , 'common'
       ); 
-    ?>.
-     
-    <?php
-    if ($pager->getNbResults()) {
+    ?>. <?php
+    if ($pager->getNumResults()) {
       //  $cursor = $pager->getFirstIndice();
         echo __(
           'Displaying results %1% to %2%'
@@ -21,8 +18,7 @@
           , 'common'
         ) . '.';
     }
-    ?>
-  </div>
+  ?></div>
   
   <div class='pager_right'>
     <?php include_partial('ullTableTool/ullPager',

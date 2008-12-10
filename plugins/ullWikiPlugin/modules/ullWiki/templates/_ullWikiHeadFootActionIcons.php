@@ -12,12 +12,12 @@
 ?>
 
 <?php if ($access): ?>
- 
+
 <ul class='ullwiki_headfoot_action_icons'>
-   
+
   <li>
     <?php echo ull_reqpass_icon(
-            array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $ullwiki->getDocid())
+            array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $doc->id)
             , 'edit'
             , __('Edit', null, 'common')
           ); ?>
@@ -25,7 +25,7 @@
 
   <li>
     <?php echo ull_reqpass_icon(
-            array('module' => 'ullWiki', 'action' => 'delete', 'docid' => $ullwiki->getDocid())
+            array('module' => 'ullWiki', 'action' => 'delete', 'docid' => $doc->id)
             , 'delete'
             ,  __('Delete', null, 'common')
             , 'confirm='.__('Are you sure?', null, 'common')

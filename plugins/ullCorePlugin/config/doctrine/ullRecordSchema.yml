@@ -1,0 +1,9 @@
+# base table definition which is inherited by all tables
+UllRecord:
+  package: ullCorePlugin.lib.model.doctrine
+  actAs:
+    Timestampable:
+    Personable:
+  columns:
+    namespace:
+      type: string(32)

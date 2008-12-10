@@ -1,0 +1,11 @@
+# add additional entity (=users) columns here
+#UllEntity:
+#  package: ullCorePlugin.lib.model.doctrine
+#  inheritance: 
+#    extends: UllParentEntity
+#    type: concrete
+#  tableName: ull_entity
+#  columns:
+#    my_custom_col1:
+#      type: integer
+                         

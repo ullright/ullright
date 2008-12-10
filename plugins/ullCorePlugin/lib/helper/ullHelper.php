@@ -6,7 +6,7 @@
 
 //use_helper('Form');
 
-sfLoader::loadHelpers(array('Date', 'Form', 'Tag', 'Url'));
+sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url'));
 
 
 /**
@@ -95,6 +95,25 @@ function ull_format_datetime($datetime, $culture = null) {
     }
   }
 }
+
+function ull_image_path($type, $width = null, $height = null, $plugin = null)
+{
+  $width = ($width === null) ? 16 : $width;
+  $height = ($height === null) ? 16 : $height;
+
+  $plugin = ($plugin === null) ? sfContext::getInstance()->getRequest()->getParameter('module') : $plugin;
+  $path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/images";
+  $image = $type . '_' . $width . 'x' . $height;
+  
+  return $path . '/action_icons/' . $image;
+}
+
+function ull_image_tag($type, $link_option = array(), $width = null, $height = null, $plugin = null)
+{
+	return image_tag(ull_image_path($type, $width, $height, $plugin), 
+    array_merge(array('alt' => ucfirst($type), 'title' => ucfirst($type)), $link_option));
+}
+
 
 /**
  * Wrapper for link_to(image_tag(...) for standard icons in 
@@ -227,6 +246,17 @@ function ull_link_to($name = 'link', $url = array(), $options = array()) {
 
 }
 
+function ull_tc_task_link($img_source, $internal_uri, $link_text, $options = array())
+{
+	$options = _convert_options($options);
+	
+	$img_alt = isset($options['alt']) ? $options['alt'] : $link_text;
+
+	$link = ull_link_to(image_tag($img_source, 'alt=' . $img_alt), $internal_uri) .
+	         ull_link_to($link_text, $internal_uri);
+	
+	return $link;
+}
 
 
 /**
@@ -241,16 +271,17 @@ function ull_link_to($name = 'link', $url = array(), $options = array()) {
  *   ull_js_observer_confirm  (boolean) 'true' for default msg or (string) a custom message
  *    
  *
- * @param name string         link name to display
- * @param url mixed           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
- * @param options mixed       string or array of options 
- * @return string             html link
+ * @param string name         link name to display
+ * @param mixed url           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
+ * @param array options       array of options 
+ * 
+ * @return string html
  */
 
-function ull_button_to($name = 'link', $url = array(), $options = array()) {
+function ull_button_to($name = 'link', $url = array(), $options = array()) 
+{
   
   return _ull_to($name, $url, $options, 'button');
-  
 }
 
 
@@ -266,16 +297,18 @@ function ull_button_to($name = 'link', $url = array(), $options = array()) {
  *   ull_js_observer_confirm  (boolean) 'true' for default msg or (string) a custom message
  *    
  *
- * @param name string         link name to display
- * @param url mixed           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
- * @param options mixed       string or array of options
- * @param type string         'link' or 'button' 
- * @return string             html link
+ * @param string name         link name to display
+ * @param mixed url           can be a internal symfony url, or an array with params to add, remove or overwrite (eg. 'action' => 'list')
+ * @param mixed options       array or string of options
+ * @param string type         'link' or 'button'
+ *  
+ * @return string             html
  */
 
-function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'link') {
-  
-  if (is_array($url)) {
+function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'link') 
+{
+  if (is_array($url)) 
+  {
     $params = _ull_reqpass_initialize($url);  
     $url = _ull_reqpass_build_url($params);
   }
@@ -283,34 +316,38 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
   $options = _convert_options($options);
 
   // diable ull_js_observer if user has no javascript
-  if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript', false)) {
+  if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript')) 
+  {
   	unset($options['ull_js_observer_confirm']);
   }
 
   $action = sfContext::getInstance()->getActionName();
   // disable ull_js_observer if action is not edit or create
-  if (!$action != 'create' && $action != 'edit') {
+  // this is an ugly workaround to at least do graceful degradation for all other actions
+  if (!in_array($action, array('create', 'edit'))) 
+  {
     unset($options['ull_js_observer_confirm']);
   }
 
   // disable ull_js_observer for target='_blank' (makes no sense)
-  if (isset($options['target']) && $options['target'] == '_blank') {
+  if (isset($options['target']) && $options['target'] == '_blank') 
+  {
     unset($options['ull_js_observer_confirm']);    
   }
  
-  if (isset($options['ull_js_observer_confirm'])) {
-    
-//    ullCoreTools::printR($html_options['ull_js_observer_confirm']);
-//    sfContext::getInstance()->getLogger()->info('xxx: '.gettype($options['ull_js_observer_confirm']));
-
+  if (isset($options['ull_js_observer_confirm'])) 
+  {
     // use default msg if no custom msg
-    if (is_bool($options['ull_js_observer_confirm'])) {
+    if (is_bool($options['ull_js_observer_confirm'])) 
+    {
       $msg = __('You will loose unsaved changes! Are you sure?', null, 'common');
-    } else {
+    } 
+    else 
+    {
       $msg = $options['ull_js_observer_confirm'];
     }
 
-    $action = 'return document.location.href="' . url_for($url) . '";';
+    $call = 'return document.location.href="' . url_for($url) . '";';
 
     // check for the existence of the ull_js_observer hidden input tag and 
     //   do the check only if the tag exists (= check if we have a page with a form)
@@ -318,12 +355,12 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
         'if (document.getElementById("ull_js_observer_initial_state") != null'
       . '   && ull_js_observer_detect_change()) { '
       . '   if (confirm("' . $msg . '")) { '
-      . '     ' . $action . 'return false;'
+      . '     ' . $call . 'return false;'
       . '   } else {'
       . '     return false;'
       . '   }'
       . '} else {'
-      . '   ' . $action . 'return false;'
+      . '   ' . $call . 'return false;'
       . '}'
     ;
 
@@ -331,7 +368,16 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
     
     return call_user_func($type . '_to_function', $name, $js_function, $options);
 
-  } else {
+  } 
+  else 
+  {
+    // graceful degradation for button_to in case of no javascript availabel
+    if (!sfContext::getInstance()->getUser()->getAttribute('has_javascript') &&
+        $type == 'button')
+    {
+      return link_to($name, $url, $options);
+    }
+    
     return call_user_func($type . '_to', $name, $url, $options);
   }
   
@@ -442,70 +488,211 @@ function _ull_to_function($name = 'link', $function, $options = array(), $type =
 }
 
 
+
+/**
+ * enhancement of submit_tag() helper 
+ * @see submit_tag()
+ * 
+ * adds an option to display a link instead of a button (with javascript)
+ * supports graceful degradation without javascript (displays a submit button)
+ *  
+ * options:
+ *   boolean display_as_link  displays a link instead of a button if javascript is available
+ *   string name              the tag's name attribute (required for option "display_as_link)
+ *   string form_id           the id of the form to submit (required for option "display_as_link)
+ *    
+ *
+ * @param string $value       field value (title of submit button)
+ * @param array $options      array of options
+ * 
+ * @return string XHTML compliant <input> tag with type="submit"
+ */
+
+function ull_submit_tag($value = 'Save changes', $options = array()) 
+  {
+	
+	if (isset($options['display_as_link']) && (!isset($options['name']) || !isset($options['form_id']))) 
+	{
+		throw new InvalidArgumentException('option "display_as_link" requires options "name" and "form_id"');
+	}
+
+  //js not enabled or not a link
+	if (isset($options['display_as_link']) &&
+	   sfContext::getInstance()->getUser()->getAttribute('has_javascript'))
+	{
+    $js_function_name = str_replace(array('|', '='), array('_', '_'),
+      $options['name']) . '()'; 
+	  
+    $return = input_hidden_tag($options['name']) . "\n";
+    $return .= javascript_tag('function ' . $js_function_name . ' 
+{
+  document.getElementById("' . $options['name'] . '").value = 1;
+  document.getElementById("' . $options['form_id'] . '").submit();
+}') . "\n"; 
+    
+    unset($options['name']);
+    unset($options['form_id']);
+    unset($options['display_as_link']);
+    $return .= ull_link_to_function($value, $js_function_name, $options) . "\n";
+
+    return $return;
+	}
+	else
+	{
+    unset($options['form_id']);
+    unset($options['display_as_link']);	  
+	  
+		return submit_tag($value, $options);
+	}
+}
+
+/**
+ * Counterpart to ull_submit_tag
+ * 
+ * returns the submit 'name' attribute as string if it was prefixed with 'submit_'
+ * 
+ * Example: <input type="submit" name="submit_save_only" value="Save only" />
+ * => returns "save_only"
+ * 
+ * uses the default symfony request params if no array with params is given
+ *
+ * @param array $params
+ * @return string the submit mode
+ */
+function ull_submit_tag_parse($params = null)
+{
+  if ($params === null)
+  {
+    $params = sfContext::getInstance()->getRequest()->getParameterHolder()->getAll();
+  }
+  
+  $return = '';
+  
+  foreach ($params as $key => $value)
+  {
+    if (strstr($key, 'submit_') and $value)
+    {
+      $return = substr($key, 7);
+    }
+  }
+  
+  return $return;
+}
+
 /**
  * Enhancement of form_tag() helper 
- * Get current request params, serialize them and pass them using a hidden field
+ * supports giving a merge_array instead of a symfony url 
  *
- * @param merge_array array     array with params to add, remove or overwrite (eg. 'page' => 2)
- * @param form_options array    array containing html options for the <form> tag
+ * @param mixed url             symfony url or array with params to add, remove or overwrite (eg. 'page' => 2)
+ * @param array form_options    array containing html options for the <form> tag
  * @return string               html form tag and hidden field
  */
 
-function ull_reqpass_form_tag($merge_array = array(), $form_options = array()) {
+function ull_form_tag($url = array(), $form_options = array()) 
+{
+  if (is_array($url)) 
+  {
+    $params = _ull_reqpass_initialize($url);  
+    $url = _ull_reqpass_build_url($params);
+  }
   
-  $params = _ull_reqpass_initialize($merge_array);
-  
-//  ullCoreTools::printR($params);
-  
-  $base_link = _ull_reqpass_build_base_url($params);
-  
-  echo form_tag($base_link, $form_options);
-  
-  echo input_hidden_tag('ull_reqpass', serialize($params));
-  
+  return form_tag($url, $form_options);
+}
+
+
+/**
+ * some tag helper 
+ * Taken from symfony/lib/helper/TagHelper.php, now deprecated in symfony 1.1
+ */
+function ull_tag_options($options = array())
+{
+  $options = _parse_attributes($options);
+
+  $html = '';
+  foreach ($options as $key => $value)
+  {
+    $html .= ' '.$key.'="'.escape_once($value).'"';
+  }
+
+  return $html;
+}
+
+
+/**
+ * some tag helper 
+* Taken from symfony/lib/helper/TagHelper.php, now deprecated in symfony 1.1
+ */
+function ull_parse_attributes($string)
+{
+  return is_array($string) ? $string : sfToolkit::stringToArray($string);
 }
 
 
 
 
 
-
 /** 
- * Get current request params, and allows adding or overriding of specific params
+ * Gets current request params and allows adding or overriding of specific params
  *
- * @param merge_array array   array with params to add, remove or overwrite (eg. 'page' => 2)
- * @return array       array containing processed params
+ * @param array merge_array   array with params to add, remove or overwrite (e.g. 'page' => 2)
+ * @return array              array containing processed params
  */
-
-function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
-  
-//  ullCoreTools::printR($array);
-  
+function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) 
+{
   $params = sfContext::getInstance()->getRequest()->getParameterHolder()->getAll();
   
-//  ullCoreTools::printR($params);
-  
-  
   // overwrite / add params
-  foreach ($merge_array as $key => $value) {
-    $params[$key] = $value;
-  }
+  $params = array_merge($params, $merge_array);
+
+  // clean params
+  $params = _ull_reqpass_clean_array($params);
   
-//  ullCoreTools::printR(sfContext::getInstance()->getRequest()->getParameterHolder()->getAll());
+  return $params;
+}
+
+
+/**
+ * deeply cleans an array of empty values
+ *
+ * @param array $array            multi dimensional array to be cleaned
+ * @param boolean $rawurlencode   rawurlencode the value (true per default)
+ * @return array
+ */
+function _ull_reqpass_clean_array($array, $rawurlencode = true)
+{
+  $blacklist = array(
+    'ull_req_pass', // remove the array with the original request params
+    'sf_culture',   // TODO: where does sf_culture come from? appeared in functional testing...
+    'commit',       // we don't want the submit buttons...
+  );
   
-  foreach ($params as $key => $value) {
-    // remove empty params
-    if (!$value) {
-      unset($params[$key]);
-    } else {
-      if (isset($rawurlencode)) {
-        $params[$key] = rawurlencode($value);
+  foreach ($array as $key => $value) 
+  {
+    // recurse
+    if (is_array($value))
+    {
+      $value = _ull_reqpass_clean_array($value); 
+    }    
+    
+    // remove empty or blacklisted elements
+    if (empty($value) or in_array($key, $blacklist))
+    {
+      unset($array[$key]);
+    }
+    else
+    {
+      // TODO: what's the usecase for rawurlencode?
+      if ($rawurlencode and !is_array($value)) 
+      {
+        $array[$key] = ull_sf_url_encode($value);        
+      }
+      else
+      {      
+      $array[$key] = $value;
       }
     }
   }
-  
-  return $params;
-  
+  return $array; 
 }
 
 
@@ -517,7 +704,7 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true) {
  */
 
 function _ull_reqpass_build_url($params) {
-
+  
   // module
   $url = $params['module'];
   unset($params['module']);
@@ -527,9 +714,17 @@ function _ull_reqpass_build_url($params) {
   unset($params['action']);
 
   // check if any params left...
-  if ($params) { 
+  if ($params) 
+  { 
     $addition = '?';
-    foreach($params as $key => $value) {
+    foreach($params as $key => $value) 
+    {
+      // move array (first layer at the moment) to "[]" syntax 
+      if (is_array($value))
+      {
+        $key .= '[' . key($value) . ']';
+        $value = array_shift($value);
+      }
       $url .= $addition . $key . '=' . $value;
       $addition = '&';
     }
@@ -657,10 +852,7 @@ function ull_js_add_tag() {
   
   return javascript_tag('
     function addTag(tag, field_id) {
-      if (!field_id) {
-        var field_id = "tags";
-      }
-    
+
       var tags = document.getElementById(field_id).value;
       
       if (tags == "") {
@@ -887,6 +1079,27 @@ function _convert_array_to_string($arr) {
 		$str .= ' '.$key.'="'.$value.'" ';
 	}
 	return $str;
+}
+
+function printQuery($query) {
+    // formats a query
+    $out = "$query";
+    $out = str_ireplace("select ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:red; font-weight:bold;'>select</span> ", $out);
+    $out = str_ireplace(" from ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:blue; font-weight:bold;'>from</span> ", $out);
+    $out = str_ireplace(" where ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:green; font-weight:bold;'>where</span> ", $out);
+    $out = str_ireplace(" order ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:purple; font-weight:bold;'>order</span> ", $out);
+    $out = str_ireplace(",", ",<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ", $out);
+    //$out = str_ireplace(" and ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; and ", $out);
+    //$out = str_ireplace(" or ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; or ", $out);
+    $out = str_ireplace(" and ", " <span style='color:orange; font-weight:bold;'>and</span> ", $out);
+    $out = str_ireplace(" or ", " <span style='color:orange; font-weight:bold;'>or</span> ", $out);
+    $out = str_ireplace(") ", ")<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ", $out);
+    $out = str_ireplace(" left join ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style='color:navy; font-weight:bold;'>left join</span> ", $out);
+    $out = str_ireplace(" right join ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style='color:navy; font-weight:bold;'>right join</span> ", $out);
+    $out = str_ireplace(" join ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style='color:navy; font-weight:bold;'>join</span> ", $out);
+    $out = str_ireplace(" on ", " <span style='color:navy; font-weight:bold;'>on</span> ", $out);
+    $out = str_ireplace("<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ","<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ",$out);
+    echo "$out<br /><br />";
 }
 
 ?>

@@ -25,14 +25,15 @@
 <?php include_component(
         'ullWiki', 
         'ullWikiHeaderShow', 
-        array('ullwiki' => $ullwiki, 'cursor' => 0)
+        array('doc' => $doc, 'cursor' => 0)
       ); ?>
 
-<?php //$ullwiki->setCulture(''); ?>
+<?php //$doc->setCulture(''); ?>
 
 <?php
-  if (isset($return_url)) {
-    echo button_to(__('Link to this document', null, 'common'), $return_url);
+  if (isset($return_url)) 
+  {
+    echo ull_button_to(__('Link to this document', null, 'common'), $sf_data->getRaw('return_url'));
     echo '<br /><br />';    
   }
 
@@ -41,7 +42,7 @@
 <div class='ullwiki_body'>
   <?php
   
-  $body = $sf_data->getRaw('ullwiki')->getBody();
+  $body = $sf_data->getRaw('doc')->body;
   
   /*
   // 's' extend the meaning of '.' beyond newlines
@@ -70,17 +71,10 @@
     
   }
 */
-  
-  $body = preg_replace_callback(
-            '#<pre>.*?</pre>#is'
-            , 'u_func'
-            , $body);
 
-  //auto "link" links
-  $body = ullCoreTools::makelinks($body);
-
-  echo $body;
   
+  
+if (!function_exists('u_func')) {
   
   function u_func($matches) {
     
@@ -113,8 +107,23 @@
     
   }
 
+}
+
   
+  $body = preg_replace_callback(
+            '#<pre>.*?</pre>#is'
+            , 'u_func'
+            , $body);
+
+  $body = auto_link_text($body, $link = 'all', array(
+      'class'  => 'link_new_window',
+      'target' => '_blank',
+      'title'  => __('Link opens in a new window', null, 'common')
+  ));
   
+
+  echo $body;
+
 //  ullCoreTools::printR($body);
 
 //foreach($matches[1] as $match) {
@@ -122,12 +131,12 @@
 //}
 //   $highlighter = new dkGeshi(, 'php');
 //   echo $highlighter->parse_code();
-  
+
 //  echo $ullwiki->getBody(); 
   ?>
 </div>
 
 <?php include_partial(
         'ullWikiFooterShow', 
-        array('ullwiki' => $ullwiki)
+        array('doc' => $doc)
       ); ?>

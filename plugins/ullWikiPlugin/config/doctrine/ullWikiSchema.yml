@@ -1,0 +1,27 @@
+UllWiki:
+  package: ullWikiPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:  
+    SoftDelete:
+    Versionable:
+    Taggable:
+  columns:
+    subject: 
+      type: string(255)
+      notnull: true  
+    body: 
+      type: clob
+    read_counter: 
+      type: integer
+    edit_counter: 
+      type: integer
+    duplicate_tags_for_search:
+      type: clob
+  relations:
+   Tagging:
+      local: id
+      foreign: taggable_id
+      foreignType: one
+      type: many   

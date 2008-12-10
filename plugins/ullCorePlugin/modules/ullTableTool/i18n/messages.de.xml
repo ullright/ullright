@@ -14,12 +14,20 @@
 <target>Bitte geben Sie einen Tabellennamen an</target>
 </trans-unit>
 
-<trans-unit id="2">
+<trans-unit id="3">
 <source>Database table not found</source>
 <target>Datenbank-Tabelle nicht gefunden</target>
 </trans-unit>
 
+<trans-unit id="4">
+<source>Configure table</source>
+<target>Tabellenkonfiguration</target>
+</trans-unit>
 
+<trans-unit id="5">
+<source>Configure columns</source>
+<target>Spaltenkonfiguration</target>
+</trans-unit>
 
 
 

@@ -102,23 +102,18 @@ class breadcrumbTree
       }      
     }
 
-    $return = "<ol id='breadcrumbs'>\n";
+    $return = "<ul id='breadcrumbs'>\n";
     $return .= "<li class='first'>";
     $return .= link_to(
-                  image_tag(
-                    '/' .
-                    sfConfig::get('app_theme', 'ullThemeDefault') .
-                      '/images/breadcrumb_home.png',
-                    'alt=' . __('Home', null, 'common') . ' title=' . __('Home', null, 'common')
-                  ),  
+                  ull_image_tag('home', array(), 10, 10, 'ullCore'),
                   '@homepage'
                 ); 
-    $return .= "</li>";                
+    $return .= "</li>\n";                
     
     foreach ($breadcrumbTreeReturn as $breadcrumbItem) {
-        $return .= "<li>$breadcrumbItem</li>"; 
+        $return .= "<li>$breadcrumbItem</li>\n"; 
     }
-    $return .= "</ol>";
+    $return .= "</ul>\n\n";
     return $return;
     
 //    return '<div class="breadcrumb">'.implode(' » ', $breadcrumbTreeReturn).'</div>';

@@ -1,0 +1,129 @@
+UllTableConfig:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label, description]
+  columns:
+    # column name 'table' is not possible because it's a mysql reserved word
+    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   
+    db_table_name:
+      type: string(32)
+    label:
+      type: string(64)
+    description:
+      type: clob
+    # TODO: move the following column definitions to columnConfig?
+    sort_columns:
+      type: string(255)
+    search_columns:
+      type: string(255)
+
+# Cannot be called UllMetaWidget because the UllMetaWidgetBase class is named like that
+UllColumnType:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    class:
+      type: string(32)
+    label:
+      type: string(64)
+    description:
+      type: clob
+
+UllColumnConfig:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label, description]
+  columns:
+    # column name 'table' is not possible because it's a mysql reserved word
+    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony
+    db_table_name: 
+      type: string(32)
+    db_column_name:
+      type: string(32)
+    label:
+      type: string(64)
+    description:
+      type: clob
+    ull_column_type_id:
+      type: integer
+      #notnull: true    
+    options:
+      type: clob
+    is_enabled:
+      type: boolean
+      default: true
+    is_in_list:
+      type: boolean
+      default: true
+  relations:
+    UllColumnType:
+
+UllSelect:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label]
+  columns:
+    slug:
+      type: string(32)
+    label:
+      type: string(64)
+
+UllSelectChild:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [label]
+  columns:
+    ull_select_id:
+      type: integer
+    label:
+      type: string(64)
+    sequence:
+      type: integer
+  relations:
+    UllSelect:
+      foreignAlias: UllSelectChildren
+
+TestTable:
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [my_string, my_text]
+#    Taggable:
+  columns:
+    my_string:
+      type: string(64)
+      notnull: true
+    my_text:
+      type: clob
+    my_boolean:
+      type: boolean
+    my_email:
+      type: string(64)
+    my_select_box:
+      type: integer
+    my_useless_column:
+      type: string(64)
+    ull_user_id:
+      type: integer
+  relations:
+    UllUser:

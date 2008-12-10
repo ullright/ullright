@@ -1,0 +1,14 @@
+<?php
+
+class ullWidgetEmail extends ullWidget
+{
+  
+  public function render($name, $value = null, $attributes = array(), $errors = array())
+  {
+    //return $this->renderTag('input', array_merge(array('type' => $this->getOption('type'), 'name' => $name, 'value' => $value), $attributes));
+    return $this->renderContentTag('a', $value, array('href' => 'mailto:' . $value));
+  }
+  
+}
+
+?>

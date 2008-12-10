@@ -1,0 +1,727 @@
+UllUser:
+  helpdesk_admin_user:
+    first_name:         Helpdesk
+    last_name:          Admin User
+    email:              helpdesk.admin.user@example.com
+    username:           helpdesk_admin_user
+    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Creator:            admin_user
+    Updator:            admin_user
+    UllGroup:           [helpdesk_admin_group]
+  helpdesk_user:
+    first_name:         Helpdesk
+    last_name:          User
+    email:              helpdesk.user@example.com
+    username:           helpdesk_user
+    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Creator:            admin_user
+    Updator:            admin_user
+    UllGroup:           [helpdesk_group]
+    
+UllGroup:
+  helpdesk_admin_group:
+    display_name:       HelpdeskAdmins
+    Creator:            admin_user
+    Updator:            admin_user
+    UllPermissions:     [ullFlow_trouble_ticket_global_write]
+  helpdesk_group:
+    display_name:       Helpdesk
+    Creator:            admin_user
+    Updator:            admin_user
+    UllPermissions:     [ullFlow_trouble_ticket_global_read] 
+
+UllPermission:
+  ullFlow_trouble_ticket_global_write:
+    slug:         ullFlow_trouble_ticket_global_write
+  ullFlow_trouble_ticket_global_read:
+    slug:         ullFlow_trouble_ticket_global_read
+      
+
+UllFlowApp:
+  ull_flow_app_helpdesk:
+    Translation:
+      en:
+        label:      Trouble ticket tool
+        doc_label:  Trouble ticket
+      de:
+        label:      Trouble Ticket Tool
+        doc_label:  Trouble Ticket
+    slug: trouble_ticket
+    UllPermission:  [ullFlow_trouble_ticket_global_read]
+#    UllFlowAppAccess:
+#      ull_flow_app_access_1:
+#        UllGroup:     helpdeskgroup
+#        UllPermission: read
+#      ull_flow_app_access_2:
+#        UllGroup:     helpdeskgroup
+#        UllPermission: write
+  ull_flow_app_todo:
+    Translation:
+      en:
+        label:      Todo list
+        doc_label:  Todo entry
+      de:
+        label:      Todo Liste
+        doc_label:  Todo Eintrag
+    slug: todo     
+                    
+UllFlowDoc:
+  ull_flow_doc_helpdesk1:
+    UllFlowApp:     ull_flow_app_helpdesk    
+    subject:          My first trouble ticket
+    UllFlowAction:  ull_flow_action_create
+    UllEntity:      admin_user
+    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
+    Creator:        test_user
+    created_at:     '2001-01-01 01:01:01'
+    duplicate_tags_for_search: ull_flow_tag1, ull_flow_tag2
+  ull_flow_doc_helpdesk2:
+    UllFlowApp:     ull_flow_app_helpdesk
+    subject:          AAA My second trouble ticket
+    UllFlowAction:  ull_flow_action_create
+    UllEntity:      helpdesk_group
+    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
+  ull_flow_doc_todo1:
+    UllFlowApp:     ull_flow_app_todo
+    subject:          My first thing todo
+    UllFlowAction:  ull_flow_action_create
+    UllEntity:      test_user
+    UllFlowStep:    ull_flow_step_doc_todo_creator
+    Creator:        test_user
+    created_at:     '2002-02-02 02:02:02'
+  ull_flow_doc_todo2:
+    UllFlowApp:     ull_flow_app_todo
+    subject:          AAA My second thing todo
+    UllFlowAction:  ull_flow_action_create
+    UllEntity:      test_group
+    UllFlowStep:    ull_flow_step_doc_todo_creator
+    memory_comment: Comment for my second thing todo 
+    duplicate_tags_for_search: ull_flow_tag1
+    
+UllFlowColumnConfig:
+  ull_flow_column_config_helpdesk_subject:
+    Translation:
+      en:
+        label:      My custom subject label
+      de:
+        label:      Meine spezielle Titel Bezeichnung
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           my_subject
+    sequence:       1000
+    UllColumnType:  string
+    is_mandatory:   true
+    is_subject:     true
+  ull_flow_column_config_helpdesk_datetime:
+    Translation:
+      en:
+        label:      Date
+      de:
+        label:      Datum
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           my_datetime
+    sequence:       2000
+    UllColumnType:  datetime
+    is_in_list:     false
+  ull_flow_column_config_helpdesk_email:
+    Translation:
+      en:
+        label:      Your email address
+      de:
+        label:      E-Mail
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           my_email
+    sequence:       3000
+    UllColumnType:  email
+  ull_flow_column_config_helpdesk_column_priority:
+    Translation:
+      en:
+        label:      Priority
+      de:
+        label:      Wichtigkeit
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           column_priority
+    sequence:       4000
+    UllColumnType:  ull_select
+    options:        ull_select=priority
+    default_value:  6
+    #don't include in the list, because the native UllFlowDoc->priority column is used for that
+    is_in_list:     false
+  ull_flow_column_config_helpdesk_upload:
+    Translation:
+      en:
+        label:      Attachments
+      de:
+        label:      Anhänge
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           upload
+    sequence:       5000
+    UllColumnType:  upload
+    is_in_list:     false  
+  ull_flow_column_config_helpdesk_wiki_link:
+    Translation:
+      en:
+        label:      Wiki links
+      de:
+        label:      Wiki Links
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           wiki_link
+    sequence:       6000
+    UllColumnType:  wiki_link
+    is_in_list:     false              
+  ull_flow_column_config_helpdesk_column_tags:
+    Translation:
+      en:
+        label:      Tags
+      de:
+        label:      Tags
+    UllFlowApp:     ull_flow_app_helpdesk
+    # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
+    slug:           column_tags 
+    sequence:       7000
+    UllColumnType:  taggable
+    is_in_list:     false    
+    
+  ull_flow_column_config_todo_subject:
+    Translation:
+      en:
+        label:      My todo subject label
+      de:
+        label:      Meine spezielle Todo-Titel Bezeichnung
+    UllFlowApp:     ull_flow_app_todo
+    slug:           my_subject # TODO: test if slug has to be unique
+    sequence:       1000
+    UllColumnType:  string
+    is_mandatory:   true
+    is_subject:     true
+  ull_flow_column_config_todo_column_priority:
+    Translation:
+      en:
+        label:      Priority
+      de:
+        label:      Wichtigkeit
+    UllFlowApp:     ull_flow_app_todo
+    slug:           column_priority
+    sequence:       2000
+    UllColumnType:  ull_select
+    options:        ull_select=priority
+    default_value:  6
+    #don't include in the list, because the native UllFlowDoc->priority column is used for that
+    is_in_list:     false    
+  ull_flow_column_config_todo_column_tags:
+    Translation:
+      en:
+        label:      Tags
+      de:
+        label:      Tags
+    UllFlowApp:     ull_flow_app_todo
+    # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
+    slug:           column_tags 
+    sequence:       3000
+    UllColumnType:  taggable
+    is_in_list:     false              
+        
+UllFlowValue:  
+  ull_flow_value_doc_helpdesk1_subject:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_subject
+    value:          My first trouble ticket
+  ull_flow_value_doc_helpdesk1_datetime:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_datetime
+    value:          2011-11-11 11:11:11
+  ull_flow_value_doc_helpdesk1_email:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
+    value:          quasimodo@ull.at
+  ull_flow_value_doc_helpdesk1_upload:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_upload
+    value:          Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41
+  ull_flow_value_doc_helpdesk1_wiki_link:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_wiki_link
+    value:          1    
+  ull_flow_value_doc_helpdesk1_column_tags:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_column_tags
+    value:          ull_flow_tag1, ull_flow_tag2          
+    
+  ull_flow_value_doc_helpdesk2_subject:
+    UllFlowDoc:     ull_flow_doc_helpdesk2
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_subject
+    value:          AAA My second trouble ticket
+  ull_flow_value_doc_helpdesk2_datetime:
+    UllFlowDoc:     ull_flow_doc_helpdesk2
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_datetime
+    value:          2012-12-12 12:12:12
+  ull_flow_value_doc_helpdesk2_email:
+    UllFlowDoc:     ull_flow_doc_helpdesk2
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
+    value:          bender@ull.at
+    
+  ull_flow_value_doc_todo1_subject:
+    UllFlowDoc:     ull_flow_doc_todo1
+    UllFlowColumnConfig: ull_flow_column_config_todo_subject
+    value:          AAA My first thing todo
+
+  ull_flow_value_doc_todo2_subject:
+    UllFlowDoc:     ull_flow_doc_todo2
+    UllFlowColumnConfig: ull_flow_column_config_todo_subject
+    value:          AAA My second thing todo
+  ull_flow_value_doc_todo2_column_tags:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_todo_column_tags
+    value:          ull_flow_tag1    
+
+UllFlowMemory:
+  ull_flow_memory_doc_helpdesk1_1:
+    UllFlowDoc:       ull_flow_doc_helpdesk1
+    UllFlowStep:      ull_flow_step_doc_helpdesk_creator
+    UllFlowAction:    ull_flow_action_save_only
+    AssignedToUllEntity: admin_user
+    comment:          My test comment
+    CreatorUllEntity: test_group
+    Creator:          test_user
+
+UllFlowStep:
+  ull_flow_step_doc_helpdesk_creator:
+    Translation:
+      en:
+        label:        Creator
+      de:
+        label:        Ersteller
+    slug:             creator
+    UllFlowApp:       ull_flow_app_helpdesk
+#    UllFlowStepActions:    
+#      stepaction_1:
+#        UllFlowAction:  ull_flow_action_assign_to_user
+#        options:        foobar bla
+#      stepaction_2:
+#        UllFlowAction:  ull_flow_action_reject
+    is_start:         true
+  ull_flow_step_doc_helpdesk_dispatcher:
+    Translation:
+      en:
+        label:        Helpdesk dispatcher
+      de:
+        label:        Helpdesk Dispatcher
+    slug:             helpdesk_dispatcher
+    UllFlowApp:       ull_flow_app_helpdesk
+    #UllFlowAction:    [ull_flow_action_assign_to_user]
+  ull_flow_step_doc_todo_creator:
+    Translation:
+      en:
+        label:        Creator
+      de:
+        label:        Ersteller
+    slug:             creator
+    UllFlowApp:       ull_flow_app_todo
+    #UllFlowAction:    [ull_flow_action_save]
+    is_start:         true
+    
+UllFlowStepAction:
+  stepaction_1:
+    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
+    UllFlowAction:  ull_flow_action_send
+#    options:        foobar bla
+#  stepaction_2:
+#    UllFlowStep:    ull_flow_step_doc_helpdesk_creator  
+#    UllFlowAction:  ull_flow_action_reject    
+        
+UllFlowAction:
+  ull_flow_action_create:
+    Translation:
+      en:
+        label:        Created
+      de:
+        label:        Erstellt
+    namespace:        ullFlow
+    slug:             create
+    is_status_only:   false
+#  ull_flow_action_edit:
+#    Translation:
+#      en:
+#        label:       Edited
+#      de:
+#        label:       Bearbeitet
+#    namespace:       ullFlow
+#    slug:            edited
+#    status_only:     true
+  ull_flow_action_save_only:
+    Translation:
+      en:
+        label:        Edited
+      de:
+        label:        Bearbeitet
+    namespace:        ullFlow
+    slug:             save_only
+    is_status_only:   true
+    is_enable_validation: false    
+  ull_flow_action_save_close:
+    Translation:
+      en:
+        label:        Edited
+      de:
+        label:        Bearbeitet
+    namespace:        ullFlow
+    slug:             save_close
+    is_status_only:   true
+    is_enable_validation: false
+  ull_flow_action_save:
+    Translation:
+      en:
+        label:       Saved
+      de:
+        label:       Gespeichert
+    namespace:       ullFlow
+    slug:            save
+  ull_flow_action_assign_to_user:
+    Translation:
+      en:
+        label:        Assigned to user
+      de:
+        label:        Zugewiesen an Benutzer
+    namespace:        ullFlow
+    slug:             assign_to_user
+    is_notify_next:   true
+    is_show_assigned_to: true
+  ull_flow_action_assign_to_group:
+    Translation:
+      en:
+        label:        Assigned to group
+      de:
+        label:        Zugewiesen an Gruppe
+    namespace:        ullFlow
+    slug:             assign_to_group
+    is_notify_next:   true
+    is_show_assigned_to: true    
+  ull_flow_action_close:
+    Translation:
+      en:
+        label:        Closed
+      de:
+        label:        Abgeschlossen
+    namespace:        ullFlow
+    slug:             close
+    is_notify_creator: true
+    is_in_resultlist:  false
+  ull_flow_action_send:
+    Translation:
+      en:
+        label:        Sent
+      de:
+        label:        Gesendet
+    namespace:        ullFlow
+    slug:             send
+    is_notify_next:   true
+  ull_flow_action_reopen:
+    Translation:
+      en:
+        label:        Reopened
+      de:
+        label:        Wiedereröffnet
+    namespace:        ullFlow
+    slug:             reopen
+  ull_flow_action_approve:
+    Translation:
+      en:
+        label:        Approved
+      de:
+        label:        Genehmigt
+    namespace:        ullFlow
+    slug:             approve
+    is_notify_next:   true
+  ull_flow_action_reject:
+    Translation:
+      en:
+        label:        Rejected
+      de:
+        label:        Abgelehnt
+    namespace:        ullFlow
+    slug:             reject
+    is_comment_mandatory: true
+  ull_flow_action_return:
+    Translation:
+      en:
+        label:        Returned
+      de:
+        label:        Zurückgesendet
+    namespace:        ullFlow
+    slug:             return
+    is_notify_next:      true
+              
+UllTableConfig:
+  ull_flow_app_tc:
+    Translation:
+      en:
+        label: Applications
+      de:
+        label: Anwendungen
+    db_table_name: UllFlowApp
+    sort_columns: slug
+    search_columns: slug
+  ull_flow_app_permission_tc:
+    Translation:
+      en:
+        label: Application access rights
+      de:
+        label: Anwendungs-Zugriffsrechte
+    db_table_name: UllFlowAppPermission
+    sort_columns: ull_flow_app_id
+  ull_flow_column_config_tc:
+    Translation:
+      en:
+        label: Columns
+      de:
+        label: Spalten
+    db_table_name: UllFlowColumnConfig
+    sort_columns: ull_flow_app_id, sequence
+    search_columns: slug
+  ull_flow_step_tc:
+    Translation:
+      en:
+        label: Steps
+      de:
+        label: Schritte
+    db_table_name: UllFlowStep
+    sort_columns: ull_flow_app_id
+    search_columns: slug
+  ull_flow_step_action_tc:
+    Translation:
+      en:
+        label: Actions for Steps
+      de:
+        label: Aktionen für Schritte
+    db_table_name: UllFlowStepAction
+    sort_columns: ull_flow_step_id, sequence
+  ull_flow_actions_tc:
+    Translation:
+      en:
+        label: Actions
+      de:
+        label: Aktionen
+    db_table_name: UllFlowAction
+    sort_columns: slug
+    search_columns: slug    
+    
+UllColumnConfig:
+  ull_flow_app_doc_label:
+    Translation:
+      en:
+        label:      Label of a document
+      de:
+        label:      Bezeichnung eines Dokuments
+    db_table_name:  UllFlowApp
+    db_column_name: doc_label
+    
+  ull_flow_app_permission_ull_flow_app_id:
+    Translation:
+      en:
+        label:      Application
+      de:
+        label:      Anwendung
+    db_table_name:  UllFlowAppPermission
+    db_column_name: ull_flow_app_id
+  ull_flow_app_permission_ull_permission_id:
+    Translation:
+      en:
+        label:      Permission
+      de:
+        label:      Zugriffsrecht
+    db_table_name:  UllFlowAppPermission
+    db_column_name: ull_permission_id    
+    
+  ull_flow_column_config_ull_flow_app_id:
+    Translation:
+      en:
+        label:      Application
+      de:
+        label:      Anwendung
+    db_table_name:  UllFlowColumnConfig
+    db_column_name: ull_flow_app_id
+  ull_flow_column_config_is_subject:
+    Translation:
+      en:
+        label:      Is subject?
+      de:
+        label:      Ist Betreff?
+    db_table_name:  UllFlowColumnConfig
+    db_column_name: is_subject
+    
+  ull_flow_step_ull_flow_app_id:
+    Translation:
+      en:
+        label:      Application
+      de:
+        label:      Anwendung
+    db_table_name:  UllFlowStep
+    db_column_name: ull_flow_app_id
+  ull_flow_step_is_start:
+    Translation:
+      en:
+        label:      Is start-step?
+      de:
+        label:      Ist Startschritt?
+    db_table_name:  UllFlowStep
+    db_column_name: is_start
+
+  ull_flow_step_action_ull_flow_step_id:
+    Translation:
+      en:
+        label:      Step
+      de:
+        label:      Schritt
+    db_table_name:  UllFlowStepAction
+    db_column_name: ull_flow_step_id
+  ull_flow_step_action_ull_flow_action_id:
+    Translation:
+      en:
+        label:      Action
+      de:
+        label:      Aktion
+    db_table_name:  UllFlowStepAction
+    db_column_name: ull_flow_action_id
+    
+  ull_flow_action_is_status_only:
+    Translation:
+      en:
+        label:      Status-only action?
+      de:
+        label:      Nur eine Statusaktion?
+    db_table_name:  UllFlowAction
+    db_column_name: is_status_only
+  ull_flow_action_is_enable_validation:
+    Translation:
+      en:
+        label:      Validation?
+      de:
+        label:      Validierung?
+    db_table_name:  UllFlowAction
+    db_column_name: is_enable_validation
+  ull_flow_action_is_notify_creator:
+    Translation:
+      en:
+        label:      Notify creator?
+      de:
+        label:      Verständige Ersteller?
+    db_table_name:  UllFlowAction
+    db_column_name: is_notify_creator
+  ull_flow_action_is_notify_next:
+    Translation:
+      en:
+        label:      Notify next?
+      de:
+        label:      Verständige die Nächsten?
+    db_table_name:  UllFlowAction
+    db_column_name: is_notify_next
+  ull_flow_action_is_in_resultlist:
+    Translation:
+      en:
+        label:      In list per default?
+      de:
+        label:      Standardmäßig in der Listenansicht?
+    db_table_name:  UllFlowAction
+    db_column_name: is_in_resultlist
+  ull_flow_action_is_show_assigned_to:
+    Translation:
+      en:
+        label:      Show assigned to?
+      de:
+        label:      Zeige zugewiesen an?
+    db_table_name:  UllFlowAction
+    db_column_name: is_show_assigned_to
+  ull_flow_action_is_comment_mandatory:
+    Translation:
+      en:
+        label:      Is comment mandatory?
+      de:
+        label:      Kommentar muß ausgefüllt werden?
+    db_table_name:  UllFlowAction
+    db_column_name: is_comment_mandatory
+    
+Tag:
+  ull_flow_tag1:
+    name:           ull_flow_tag1
+  ull_flow_tag2:
+    name:           ull_flow_tag2
+
+Tagging:
+  helpdesk_1_1:
+    Tag:            ull_flow_tag1
+    taggable_model: UllFlowDoc
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+  helpdesk_1_2:
+    Tag:            ull_flow_tag2
+    taggable_model: UllFlowDoc
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+  todo_2_1:
+    Tag:            ull_flow_tag1
+    taggable_model: UllFlowDoc
+    UllFlowDoc:     ull_flow_doc_todo2
+    
+UllSelect:
+  ull_select_workflow_priority:
+    Translation:
+      en:
+        label:      Priority
+      de:
+        label:      Wichtigkeit
+    slug:           priority
+    namespace:      ullFlow
+    
+UllSelectChild:
+  ull_select_child_priority_1:
+    Translation:
+      en:
+        label:      Very high
+      de:
+        label:      Sehr hoch
+    UllSelect:      ull_select_workflow_priority
+    sequence:       1000
+    namespace:      ullFlow
+  ull_select_child_priority_2:
+    Translation:
+      en:
+        label:      High
+      de:
+        label:      Hoch
+    UllSelect:      ull_select_workflow_priority
+    sequence:       2000
+    namespace:      ullFlow
+  ull_select_child_priority_3:
+    Translation:
+      en:
+        label:      Normal
+      de:
+        label:      Normal
+    UllSelect:      ull_select_workflow_priority
+    sequence:       3000
+    namespace:      ullFlow
+  ull_select_child_priority_4:
+    Translation:
+      en:
+        label:      Low
+      de:
+        label:      Niedrig
+    UllSelect:      ull_select_workflow_priority
+    sequence:       4000
+    namespace:      ullFlow
+  ull_select_child_priority_5:
+    Translation:
+      en:
+        label:      Very low
+      de:
+        label:      Sehr niedrig
+    UllSelect:      ull_select_workflow_priority
+    sequence:       5000
+    namespace:      ullFlow                
+        
+UllColumnType:
+  upload:
+    class:        ullMetaWidgetUpload
+    label:        Upload
+    namespace:    ullFlow
+  wiki_link:
+    class:        ullMetaWidgetWikiLink
+    label:        Wiki link
+    namespace:    ullFlow     

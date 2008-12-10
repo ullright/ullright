@@ -1,11 +1,36 @@
-all:
-  propel:
-    class:          sfPropelDatabase
+### prod Environment
+prod:
+  doctrine:
+    class:          sfDoctrineDatabase
     param:
-      phptype:      mysql
-      hostspec:     localhost
-      database:     ullright
-      username:     ullright
-      password:     right&wrong!
-      port:         3306
-      persistant:   true
+      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+
+### dev Environment
+dev:
+  doctrine:
+    class:          sfDoctrineDatabase
+    param:
+      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+      
+### cli Environment
+cli:
+  doctrine:
+    class:          sfDoctrineDatabase
+    param:
+      dsn:          mysql://ullright:right&wrong!@localhost/ullright      
+
+### Test Environment
+test:
+  test: # should this be the database name?
+    class:          sfDoctrineDatabase
+    param:
+#      dsn:          "sqlite::memory:"
+      dsn:          mysql://ullright_test:test@localhost/ullright_test
+
+### Other
+#all:   all does not work since DoctrineTestbrowser is deleting all the tables...
+#  doctrine:
+#    class:          sfDoctrineDatabase
+#    param:
+#      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+
