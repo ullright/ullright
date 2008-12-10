@@ -5,7 +5,7 @@
  */
 class ullGeneratorForm extends sfFormDoctrine
 {
-  protected 
+  protected
     $modelName,
     $requestAction
   ;
@@ -22,19 +22,19 @@ class ullGeneratorForm extends sfFormDoctrine
   public function __construct(Doctrine_Record $object, $requestAction = 'list', $defaults = array(), $cultures = array(), $options = array(), $CSRFSecret = null)
   {
     $this->modelName = get_class($object);
-    
+
     $this->requestAction = $requestAction;
-    
+
     $this->setCultures($cultures);
-    
+
     parent::__construct($object, $options, $CSRFSecret);
-    
+
     // called after parent:__construct, because sfFormDoctrine overwrites defaults with emtpy array *#!?$
     $this->setDefaults($defaults);
     $this->updateDefaultsFromObject();
 //    var_dump($this->getDefaults());die;
-  }  
-  
+  }
+
   /**
    * Form configuration
    *
@@ -42,7 +42,7 @@ class ullGeneratorForm extends sfFormDoctrine
   public function configure()
   {
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
-    
+
     if ($this->requestAction == 'list')
     {
       $this->getWidgetSchema()->setFormFormatterName('ullList');
@@ -51,10 +51,10 @@ class ullGeneratorForm extends sfFormDoctrine
     {
       $this->getWidgetSchema()->setFormFormatterName('ullTable');
     }
-    
+
 //    $this->embedI18n(array('en', 'de'));
   }
-  
+
   /**
    * get the name of the model
    *
@@ -63,28 +63,28 @@ class ullGeneratorForm extends sfFormDoctrine
   public function getModelName()
   {
     return $this->modelName;
-  }  
+  }
 
   /**
    * set Cultures
-   * 
+   *
    * @param array $cultures
    */
   public function setCultures($cultures)
   {
     $this->cultures = $cultures;
   }
-  
+
   /**
    * get Cultures
    *
-   * @return array 
+   * @return array
    */
   public function getCultures()
   {
     return $this->cultures;
-  }  
-  
+  }
+
   /**
    * Dynamically builds the form by adding ullMetaWidgets
    *
@@ -95,6 +95,15 @@ class ullGeneratorForm extends sfFormDoctrine
   {
     $this->getWidgetSchema()->offsetSet($fieldName, $ullMetaWidget->getSfWidget());
     $this->getValidatorSchema()->offsetSet($fieldName, $ullMetaWidget->getSfValidator());
+
+    if (get_class($ullMetaWidget) == 'ullMetaWidgetPassword')
+    {
+      $this->widgetSchema[$fieldName.'_confirmation']    = $ullMetaWidget->getSfWidget();
+      $this->validatorSchema[$fieldName.'_confirmation'] = clone $this->validatorSchema[$fieldName];
+      $this->widgetSchema->moveField($fieldName.'_confirmation', 'after', $fieldName);
+      $this->mergePostValidator(new sfValidatorSchemaCompare($fieldName, sfValidatorSchemaCompare::EQUAL, $fieldName.'_confirmation', array(), array('invalid' => __('The two passwords must be the same.'))));
+    }
+
   }
-  
+
 }
