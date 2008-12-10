@@ -1024,7 +1024,8 @@ class BaseullFlowActions extends ullsfActions
 
     $this->getDocFromRequestOrCreate();
     
-    $this->column = $request->getParameter('column');
+    $column = $request->getParameter('column');
+    $this->column = $column;
 
     $this->form = new ullFlowUploadForm;
     
@@ -1038,9 +1039,6 @@ class BaseullFlowActions extends ullsfActions
       {
         $file = $this->form->getValue('file');
         $value = $this->form->getValue('value');
-        
-        // reset form
-        $this->form = new ullFlowUploadForm;
         
         $path = 
             sfConfig::get('sf_upload_dir') . 
@@ -1076,12 +1074,17 @@ class BaseullFlowActions extends ullsfActions
         $arr[] = $row;
         
         $value = implode("\n", $arr);
+        
+        $this->doc->$column = $value;
+        $this->doc->save();
+        
+        // reset form to allow re-setting of defaults
+        $this->form = new ullFlowUploadForm;        
         $this->form->setDefault('value', $value);
       }
     }
     else
     {
-      $column = $this->column;
       $this->form->setDefault('value', $this->doc->$column);
     }
       

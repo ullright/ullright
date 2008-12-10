@@ -35,11 +35,14 @@ class ullWidgetUpload extends sfWidgetForm
     {
       $html = '';
       $html .= '<table class="ull_flow_upload">';
+      $html .= '<thead>';
       $html .= '<tr>';
       $html .= '<th>' . __('Filename', null, 'common') . '</th>';
       $html .= '<th>' . __('Uploaded by', null, 'common') . '</th>';
       $html .= '<th>' . __('Uploaded at', null, 'common') . '</th>';
       $html .= '</tr>';
+      $html .= '</thead>';
+      $html .= '<tbody>';
       
       $rows = explode("\n", $value);
         
@@ -62,6 +65,7 @@ class ullWidgetUpload extends sfWidgetForm
           $html .= '</tr>';
         }            
       }
+      $html .= '</tbody>';
       $html .= '</table>';
   
       return $html;
