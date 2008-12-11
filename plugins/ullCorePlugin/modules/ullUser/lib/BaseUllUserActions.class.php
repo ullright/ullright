@@ -3,18 +3,31 @@
 /**
  * user actions.
  *
- * @package    ull_at
- * @subpackage user
+ * @package    ullright
+ * @subpackage ullCore
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 class BaseUllUserActions extends ullsfActions
 {
-  
-  /*
-   * Other actions (Login,...)
+  /**
+   * Execute change culture
+   *
    */
+  public function executeChangeCulture() 
+  {
+    $culture = $this->getRequestParameter('culture');
+    $this->getUser()->setCulture($culture);
+    // the following flag is used by the i18n filter to detect manuall setting of culture
+    $this->getUser()->setAttribute('is_culture_set_by_user', true);
+    $this->redirect($this->getUser()->getAttribute('referer'));
+  }  
   
+  /**
+   * Execute login
+   *
+   * @param unknown_type $request
+   */
   public function executeLogin($request) 
   {
     $this->form = new LoginForm();
@@ -75,18 +88,31 @@ class BaseUllUserActions extends ullsfActions
     }
   }
   
+  /**
+   * Execute logout
+   *
+   */
   public function executeLogout() 
   {
     $this->getUser()->setAttribute('user_id', 0);
     $this->getUser()->setAttribute('has_javascript', false);
     $this->redirect('@homepage');
   }
-  
+
+  /**
+   * ??
+   *
+   * @return unknown
+   */
   public function handleErrorLogin() 
   {
     return sfView::SUCCESS;
   }
   
+  /**
+   * Execute no access action
+   *
+   */
   public function executeNoaccess() 
   {
     $this->refererHandler = new refererHandler();

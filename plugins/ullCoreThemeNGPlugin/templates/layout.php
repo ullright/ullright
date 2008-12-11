@@ -83,15 +83,18 @@
             <?php
               $culture = $sf_user->getCulture();
               $language = substr($culture,0,2);
-              // fallback
-              if (!$language) {
-                $language = 'en';
+//              // fallback
+//              if (!$language) 
+//              {
+//                $language = 'en';
+//              }
+              if ($language <> 'en') 
+              {
+                echo ull_link_to('English', 'ullUser/changeCulture?culture=en', 'ull_js_observer_confirm=true');
               }
-              if ($language <> 'en') {
-                echo ull_link_to('English', 'ullText/change_culture?culture=en', 'ull_js_observer_confirm=true');
-              }
-              if ($language <> 'de') {
-                echo ull_link_to('Deutsch', 'ullText/change_culture?culture=de', 'ull_js_observer_confirm=true');
+              if ($language <> 'de') 
+              {
+                echo ull_link_to('Deutsch', 'ullUser/changeCulture?culture=de', 'ull_js_observer_confirm=true');
               }
             ?>
           </div>

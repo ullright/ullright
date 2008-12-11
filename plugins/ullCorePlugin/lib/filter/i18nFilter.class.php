@@ -2,46 +2,41 @@
 /**
  * i18n filter.
  *
- * @package    ull_at
+ * @package    ullright
  * @author     Klemens Ullmann
  */
 class i18nFilter extends sfFilter
 {
   
-/**
- * Filter to handle default setting of the culture
- * @param none
- * @return none
- */   
-  public function execute($filterChain) {
-    
+  /**
+   * Filter to handle default setting of the culture
+   * @param none
+   * @return none
+   */   
+  public function execute($filterChain) 
+  {
     // Execute this filter only once (on the first call):
-    if ($this->isFirstCall()) {
-      
+    if ($this->isFirstCall()) 
+    {
       // get context objects:
       $request  = $this->getContext()->getRequest();      
       $user     = $this->getContext()->getUser();
-      $culture  = $user->getCulture();
-      $this->getContext()->getLogger()->info('current user-culture: '.$culture);
       
-      // if no culture yet-> set HTTP Accept-Language as default: 
-      if (!$culture or $culture == 'xx_XX') {
-        $culture = $request->getLanguages();
-        if ($culture) {
-          $user->setCulture($culture[0]);
-          $this->getContext()->getLogger()->info(
-          "no user-culture set: using HTTP Accept-Language ({$culture[0]})");
-        } else {
-          // use default language (en)
-          $user->setCulture(sfConfig::get('base_default_language', 'en'));
+      // use browser culture if the user didn't manually select a language
+      if (!$user->getAttribute('is_culture_set_by_user'))
+      {
+        $browserCulture = $request->getLanguages();
+        if (isset($browserCulture[0])) 
+        {
+          $browserLanguage = substr($browserCulture[0] ,0 ,2);
+          $supportedLanguages = explode(',', sfConfig::get('app_supported_languages'));
+          if (in_array($browserLanguage, $supportedLanguages))
+          {
+            $user->setCulture($browserLanguage);
+          }
         }
-        
-        
       }
-      
-      $this->getContext()->getLogger()->info(
-          'final user-culture: ('. $user->getCulture() . ')'
-        );
+//      var_dump($user->getCulture());die;
       
       // load I18N helper to allow usage of __('') in any action
       sfLoader::loadHelpers('I18N');

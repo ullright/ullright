@@ -306,7 +306,7 @@ abstract class ullGenerator
   public static function getDefaultCultures()
   {
     $userCulture = substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2);
-    $defaultCulture = sfConfig::get('base_default_language', 'en');
+    $defaultCulture = sfConfig::get('sf_default_culture', 'en');
     
     $cultures = array($defaultCulture);
     if ($defaultCulture != $userCulture)

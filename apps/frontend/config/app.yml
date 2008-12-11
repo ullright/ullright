@@ -18,8 +18,7 @@ all:
   theme:            ullThemeNG          #TBR
   theme_package:    NG
   
-  base:
-    default_language: en
+  supported_languages: en,de
   
   mailing:
     enable:         true
