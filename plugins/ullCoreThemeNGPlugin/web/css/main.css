@@ -76,9 +76,10 @@ body {
 }
 
 #nav_langlinks {
-  margin-top: .55em;
+  /* margin-top: .55em; */
   color: #777777;
   text-align: right;
+  margin-top: -2px;
 }
 
 #nav_searchbox {
@@ -110,7 +111,7 @@ ul.nav_top_links li {
   padding: 0px;
   background: none;
   text-align: center;
-  padding-bottom: 10px;
+  padding-bottom: 4px;
   border-bottom: 5px solid #fff;
 }
 

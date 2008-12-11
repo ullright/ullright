@@ -252,9 +252,6 @@ function ull_navigation_link($img_source, $internal_uri, $link_text, $options = 
 	$options = _convert_options($options);
   $options['alt'] = isset($options['alt']) ? $options['alt'] : $link_text;
   
-  //$link = '<a href="' . $internal_uri . '">' .
-   // '<img src="' . $img_source . '.png" alt="' . $img_alt . '" />' . '<br />' .
-    //$link_text . '</a>';
 	$link = ull_link_to(image_tag($img_source, $options), $internal_uri) .
 	        '<br />' . ull_link_to($link_text, $internal_uri);
   
@@ -264,9 +261,9 @@ function ull_navigation_link($img_source, $internal_uri, $link_text, $options = 
 function ull_tc_task_link($img_source, $internal_uri, $link_text, $options = array())
 {
 	$options = _convert_options($options);
-	$img_alt = isset($options['alt']) ? $options['alt'] : $link_text;
-
-	$link = ull_link_to(image_tag($img_source, 'alt=' . $img_alt), $internal_uri) .
+  $options['alt'] = isset($options['alt']) ? $options['alt'] : $link_text;
+ 
+	$link = ull_link_to(image_tag($img_source, $options), $internal_uri) .
           ull_link_to($link_text, $internal_uri);
 	
 	return $link;
