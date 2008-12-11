@@ -6,17 +6,17 @@
  */
 class ullMetaWidgetWikiLink extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $this->sfWidget = new ullWidgetWikiLink($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorString($columnConfig['validatorOptions']);
+      $this->addWidget(new ullWidgetWikiLink($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
     }
     else
     {
-      $this->sfWidget = new ullWidgetWikiLinkRead($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      $this->addWidget(new ullWidgetWikiLinkRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
 
   }

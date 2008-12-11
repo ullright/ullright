@@ -34,8 +34,8 @@ $t->begin('__construct');
     'access'              => 'w',
     'show_in_list'        => true,
   );         
-  $widget = new ullMetaWidgetEmail($columnConfig);
-  $form->addUllMetaWidget('my_email', $widget);
+  $widget = new ullMetaWidgetEmail($columnConfig, $form);
+  $widget->addToFormAs('my_email');
   
   $defaults = $form->getDefaults();
   $t->is($defaults['my_email'], 'quasimodo@ull.at', 'The form returns the correct defaults');

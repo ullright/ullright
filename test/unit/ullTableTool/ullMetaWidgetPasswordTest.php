@@ -19,21 +19,26 @@ class myTestCase extends lime_test
   }
 }
 
-$t = new myTestCase(6, new lime_output_color, $configuration);
+$t = new myTestCase(8, new lime_output_color, $configuration);
 
 $columnConfig = $t->getColumnConfig();
 
+$form = new sfForm();
+
 $t->diag('for read access:');
-  $widget = new ullMetaWidgetPassword($columnConfig);
+  $widget = new ullMetaWidgetPassword($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetPassword', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'ullWidgetPassword', 'returns the correct widget for read access');
-  $t->isa_ok($widget->getSfValidator(), 'sfValidatorPass', 'returns the correct validator for read access');
+  $widget->addToFormAs('my_field');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetPassword', 'returns the correct widget for read access');
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
   $columnConfig['access'] = 'w';
-  $widget = new ullMetaWidgetPassword($columnConfig);
+  $widget = new ullMetaWidgetPassword($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetPassword', '__construct() returns the correct object');
-  $t->isa_ok($widget->getSfWidget(), 'sfWidgetFormInputPassword', 'returns the correct widget for write access');
-  $t->isa_ok($widget->getSfValidator(), 'sfValidatorString', 'returns the correct validator for write access');
-
-  //TODO: test available options?
+  $widget->addToFormAs('my_field');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormInputPassword', 'returns the correct widget for write access');
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorString', 'returns the correct validator for write access');
+  
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field_confirmation'), 'sfWidgetFormInputPassword', 'returns the correct widget for write access');
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field_confirmation'), 'sfValidatorString', 'returns the correct validator for write access');  

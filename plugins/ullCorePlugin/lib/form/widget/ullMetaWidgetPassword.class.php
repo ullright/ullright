@@ -6,18 +6,35 @@
  */
 class ullMetaWidgetPassword extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $this->sfWidget = new sfWidgetFormInputPassword($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorString($columnConfig['validatorOptions']);
+//      $this->columnConfig['widgetOptions']['always_render_empty'] = false;
+      
+      $widget = new sfWidgetFormInputPassword($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']);
+      $validator = new sfValidatorString($this->columnConfig['validatorOptions']);
+      
+      $this->addWidget($widget);
+      $this->addValidator($validator);
+      
+      $confirmationColumnName = $this->columnName . '_confirmation';
+      $this->addWidget($widget, $confirmationColumnName);
+      $this->addValidator(clone $validator, $confirmationColumnName);
+      $this->form->getWidgetSchema()->moveField($confirmationColumnName, 'after', $this->columnName); 
+      $this->form->mergePostValidator(new sfValidatorSchemaCompare(
+          $this->columnName, 
+          sfValidatorSchemaCompare::EQUAL, 
+          $confirmationColumnName, 
+          array(), 
+          array('invalid' => 'Please enter the same password twice')
+      )); 
     }
     else
     {
-      unset($columnConfig['widgetAttributes']['maxlength']);
-      $this->sfWidget = new ullWidgetPassword($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      unset($this->columnConfig['widgetAttributes']['maxlength']);
+      $this->addWidget(new ullWidgetPassword($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
 
   }

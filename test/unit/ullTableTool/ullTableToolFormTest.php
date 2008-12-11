@@ -40,15 +40,15 @@ $t->begin('__construct()');
   $columnConfig = $t->getColumnConfig();
 
   $form = new ullTableToolForm($test);
-  $widget = new ullMetaWidgetString($columnConfig);
-  $form->addUllMetaWidget('test_field', $widget);
+  $widget = new ullMetaWidgetString($columnConfig, $form);
+  $widget->addToFormAs('test_field');
   $fields = $form->getWidgetSchema()->getFields();
   $t->isa_ok($fields['test_field'], 'ullWidget', 'added ullMetaWidgetString: read access: form now contains a ullWidget');
   
   $columnConfig['access'] = 'w';
   $form = new ullTableToolForm($test);
-  $widget = new ullMetaWidgetString($columnConfig);
-  $form->addUllMetaWidget('test_field', $widget);
+  $widget = new ullMetaWidgetString($columnConfig, $form);
+  $widget->addToFormAs('test_field');
   $fields = $form->getWidgetSchema()->getFields();
   $t->isa_ok($fields['test_field'], 'sfWidgetFormInput', 'added ullMetaWidgetString: write access: form now contains a sfWidgetFormInput');
   

@@ -2,18 +2,18 @@
 
 class ullMetaWidgetEmail extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $this->sfWidget = new sfWidgetFormInput($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorEmail($columnConfig['validatorOptions']);
+      $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorEmail($this->columnConfig['validatorOptions']));
     }
     else
     {
-      unset($columnConfig['widgetAttributes']['maxlength']);
-      $this->sfWidget = new ullWidgetEmail($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      unset($this->columnConfig['widgetAttributes']['maxlength']);
+      $this->addWidget(new ullWidgetEmail($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
     
   }  

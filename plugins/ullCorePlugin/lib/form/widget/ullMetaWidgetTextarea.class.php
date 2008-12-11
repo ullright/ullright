@@ -6,17 +6,17 @@
  */
 class ullMetaWidgetTextarea extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $this->sfWidget = new sfWidgetFormTextarea($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorString($columnConfig['validatorOptions']);
+      $this->addWidget(new sfWidgetFormTextarea($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
     }
     else
     {
-      $this->sfWidget = new ullWidgetTextarea($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      $this->addWidget(new ullWidgetTextarea($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
 
   }

@@ -6,17 +6,17 @@
  */
 class ullMetaWidgetTaggable extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $this->sfWidget = new ullWidgetTaggable($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new ullValidatorTaggable($columnConfig['validatorOptions']);
+      $this->addWidget(new ullWidgetTaggable($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new ullValidatorTaggable($this->columnConfig['validatorOptions']));
     }
     else
     {
-      $this->sfWidget = new ullWidget($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      $this->addWidget(new ullWidget($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
     
   }  

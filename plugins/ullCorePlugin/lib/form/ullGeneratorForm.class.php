@@ -85,25 +85,4 @@ class ullGeneratorForm extends sfFormDoctrine
     return $this->cultures;
   }
 
-  /**
-   * Dynamically builds the form by adding ullMetaWidgets
-   *
-   * @param string $fieldName
-   * @param ullMetaWidget $ullMetaWidget
-   */
-  public function addUllMetaWidget($fieldName, ullMetaWidget $ullMetaWidget)
-  {
-    $this->getWidgetSchema()->offsetSet($fieldName, $ullMetaWidget->getSfWidget());
-    $this->getValidatorSchema()->offsetSet($fieldName, $ullMetaWidget->getSfValidator());
-
-    if (get_class($ullMetaWidget) == 'ullMetaWidgetPassword')
-    {
-      $this->widgetSchema[$fieldName.'_confirmation']    = $ullMetaWidget->getSfWidget();
-      $this->validatorSchema[$fieldName.'_confirmation'] = clone $this->validatorSchema[$fieldName];
-      $this->widgetSchema->moveField($fieldName.'_confirmation', 'after', $fieldName);
-      $this->mergePostValidator(new sfValidatorSchemaCompare($fieldName, sfValidatorSchemaCompare::EQUAL, $fieldName.'_confirmation', array(), array('invalid' => __('The two passwords must be the same.'))));
-    }
-
-  }
-
 }

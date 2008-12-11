@@ -6,36 +6,89 @@
 abstract class ullMetaWidget
 {
   protected
-    $sfWidget,
-    $sfValidator
+    $columnConfig,
+    $columnName,
+    $form
   ;
   
   /**
    * constructor
    *
    * @param array $columnConfig
+   * @param sfForm $form
    */
-  abstract public function __construct($columnConfig = array());
+  public function __construct($columnConfig, sfForm $form)
+  {
+    $this->columnConfig = $columnConfig;
+    $this->form = $form;
+  }
   
   /**
-   * get widget
+   * Returns the form
    *
-   * @return object a widget
+   * @return unknown
    */
-  public function getSfWidget()
+  public function getForm()
   {
-    return $this->sfWidget;
+    return $this->form;
   }
 
   /**
-   * get validator
+   * Configures the form
    *
-   * @return object a validator
+   * @param: string $columnName
+   * 
    */
-  public function getSfValidator()
+  public function addToFormAs($columnName)
   {
-    return $this->sfValidator;
+    $this->columnName = $columnName;
+    $this->addToForm();
   }
+  
+  /**
+   * Internal method to configure the form
+   *
+   */
+  abstract protected function addToForm();
+  
+  /**
+   * Add a widget to the form
+   *
+   * @param sfWidget $widget
+   * @param string $columnName
+   */
+  protected function addWidget(sfWidget $widget, $columnName = null)
+  {
+    if ($columnName === null)
+    {
+      $columnName = $this->columnName;
+    }
+    $this->form->getWidgetSchema()->offsetSet($columnName, $widget);
+  }
+  
+  /**
+   * Add a validator to the form
+   *
+   * @param sfValidatorBase $validator
+   * @param string $columnName
+   */
+  protected function addValidator(sfValidatorBase $validator, $columnName = null)
+  {
+    if ($columnName === null)
+    {
+      $columnName = $this->columnName;
+    }
+    $this->form->getValidatorSchema()->offsetSet($columnName, $validator);
+  }
+  
+  protected function isWriteMode()
+  {
+    if ($this->columnConfig['access'] == 'w')
+    {
+      return true;
+    }
+  }
+
 }
 
 ?>

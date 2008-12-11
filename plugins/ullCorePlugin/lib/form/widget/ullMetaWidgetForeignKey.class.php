@@ -2,21 +2,21 @@
 
 class ullMetaWidgetForeignKey extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    $columnConfig['widgetOptions']['model'] = $columnConfig['relation']['model'];
+    $this->columnConfig['widgetOptions']['model'] = $this->columnConfig['relation']['model'];
     
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $columnConfig['validatorOptions']['model'] = $columnConfig['relation']['model'];
+      $this->columnConfig['validatorOptions']['model'] = $this->columnConfig['relation']['model'];
       
-      $this->sfWidget = new sfWidgetFormDoctrineSelect($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorDoctrineChoice($columnConfig['validatorOptions']);
+      $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig['validatorOptions']));
     }
     else
     {
-      $this->sfWidget = new ullWidgetForeignKey($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      $this->addWidget(new ullWidgetForeignKey($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
   }  
 }

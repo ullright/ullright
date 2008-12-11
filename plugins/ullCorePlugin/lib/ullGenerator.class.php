@@ -268,7 +268,7 @@ abstract class ullGenerator
         if ($this->isColumnEnabled($columnConfig)) 
         {
           $ullMetaWidgetClassName = $columnConfig['metaWidget'];
-          $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig);
+          $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->forms[$key]);
           
           // label
           if (isset($columnConfig['translation']))
@@ -276,14 +276,14 @@ abstract class ullGenerator
             foreach ($cultures as $culture)
             {
               $translationColumnName = $columnName . '_translation_' . $culture;
-              $this->forms[$key]->addUllMetaWidget($translationColumnName, $ullMetaWidget);
+              $ullMetaWidget->addToFormAs($translationColumnName);
               $label = __('%1% translation %2%', array('%1%' => $columnConfig['label'], '%2%' => $culture), 'common');
               $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
             }
           }
           else
           {
-            $this->forms[$key]->addUllMetaWidget($columnName, $ullMetaWidget);
+            $ullMetaWidget->addToFormAs($columnName);
             $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
           }
         }        

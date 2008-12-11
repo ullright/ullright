@@ -18,7 +18,7 @@ class ullTableToolForm extends ullGeneratorForm
     {
       $defaults = $this->getDefaults();
 
-      if (isset($defaults[$this->cultures[0]])) 
+      if (isset($defaults[@$this->cultures[0]])) 
       {
 
         $i18nFields = $defaults[$this->cultures[0]];
@@ -47,6 +47,8 @@ class ullTableToolForm extends ullGeneratorForm
   public function updateObject()
   {
     $values = $this->getValues();
+    
+//    var_dump($values);die;
 
     // remove special columns that are updated automatically
     unset($values['id'], $values['updated_at'], $values['updated_on'], $values['created_at'], $values['created_on']);

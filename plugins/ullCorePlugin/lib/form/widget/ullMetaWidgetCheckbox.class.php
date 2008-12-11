@@ -6,20 +6,18 @@
  */
 class ullMetaWidgetCheckbox extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $this->sfWidget = new sfWidgetFormInputCheckbox($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorBoolean($columnConfig['validatorOptions']);
+      $this->addWidget(new sfWidgetFormInputCheckbox($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorBoolean($this->columnConfig['validatorOptions']));
     }
     else
     {
-      $this->sfWidget = new ullWidgetCheckbox($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      $this->addWidget(new ullWidgetCheckbox($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
 
   }
 }
-
-?>

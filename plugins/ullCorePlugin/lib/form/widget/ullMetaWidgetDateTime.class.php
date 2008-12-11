@@ -2,20 +2,17 @@
 
 class ullMetaWidgetDateTime extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-//      $columnConfig['widgetOptions']['culture'] = sfContext::getInstance()->getUser()->getCulture();
-      $this->sfWidget = new sfWidgetFormInput($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);      
-//      $this->sfWidget = new sfWidgetFormI18nDateTime($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-//      $this->sfWidget = new sfWidgetFormJQueryDate($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorDateTime($columnConfig['validatorOptions']);
+      $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));      
+      $this->addValidator(new sfValidatorDateTime($this->columnConfig['validatorOptions']));
     }
     else
     {
-      $this->sfWidget = new ullWidget($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      $this->addWidget(new ullWidget($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
     
   }  

@@ -6,17 +6,17 @@
  */
 class ullMetaWidgetUpload extends ullMetaWidget
 {
-  public function __construct($columnConfig = array())
+  protected function addToForm()
   {
-    if ($columnConfig['access'] == 'w')
+    if ($this->isWriteMode())
     {
-      $this->sfWidget = new ullWidgetUpload($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorString($columnConfig['validatorOptions']);
+      $this->addWidget(new ullWidgetUpload($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
     }
     else
     {
-      $this->sfWidget = new ullWidgetUploadRead($columnConfig['widgetOptions'], $columnConfig['widgetAttributes']);
-      $this->sfValidator = new sfValidatorPass();
+      $this->addWidget(new ullWidgetUploadRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addValidator(new sfValidatorPass());
     }
 
   }
