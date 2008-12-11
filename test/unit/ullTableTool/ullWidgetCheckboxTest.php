@@ -3,6 +3,7 @@
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
 sfLoader::loadHelpers(array('ull'));
+sfLoader::loadHelpers('I18N');
 
 $t = new lime_test(2, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);

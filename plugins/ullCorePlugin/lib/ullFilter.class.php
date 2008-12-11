@@ -65,7 +65,7 @@ class ullFilter
           $return .= '<li>';
           $return .= $filter;
           $return .= ' ';
-          $return .= ull_link_to(ull_image_tag('delete', null, 12, 12), array($request_param => ''));
+          $return .= ull_link_to(ull_image_tag('delete', array(), 12, 12), array($request_param => ''));
           $return .= '</li>'; 
       }
       $return .= '</ul>';
