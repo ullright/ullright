@@ -124,7 +124,6 @@ ul.nav_top_links li:hover {
 .nav_top_links a {
   font-weight: bold;
   font-size: 1.05em;
-  color: #777475;
   padding: .2em 1em;
 }
 
@@ -133,7 +132,7 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_workflow a:hover {
-  color: #009ddb;
+  /* color: #009ddb; */
 }
 
 #nav_link_workflow:hover {
@@ -141,7 +140,7 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_tickets a:hover {
-	color: #da531f;
+	/* color: #da531f; */
 }
 
 #nav_link_tickets:hover {
@@ -149,7 +148,7 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_todo a:hover {
-	color: #ac108e;
+	/* color: #ac108e; */
 }
 
 #nav_link_todo:hover {
@@ -157,7 +156,7 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_wiki a:hover {
-  color: #99d420;
+  /* color: #99d420; */
 }
 
 #nav_link_wiki:hover {
@@ -165,7 +164,7 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_admin a:hover {
-  color: #777475;
+  /* color: #777475; */
 }
 
 #nav_link_admin:hover {
@@ -271,10 +270,10 @@ ul#breadcrumbs li.first {
   display: inline;
   margin: 0;
   margin-left: 1em;
-  padding: .1em .5em;
+  /* padding: .1em .5em; */
+  padding: 0.2em;
   background-color: #ffe4b9;
-  border: 1px solid #ffe4b9;
-/
+  /* border: 1px solid #ffe4b9 */;
 }
 
 /*
@@ -285,14 +284,16 @@ ul#breadcrumbs li.first {
 
 
 ul.ull_action {
-  background: silver;
+  /* background: silver; */
   padding: .2em;
 }
 
 ul.ull_action li {
   display: inline;
   margin-left: 1em;
-  padding: .1em .5em;
+  /* padding: .1em .3em; */
+  padding-left: 0px;
+  margin-left: 10x;
 
 }
 
@@ -337,14 +338,13 @@ div#indicator {
  
 table.result_list {
   border-collapse:  collapse;
-  border:           1px solid #888888;
  }
 
 .result_list th {
+  background:       #d1d0d0;
   color:            white;
-  background:       #0081b8;
-  border:           1px solid #AAAAAA;
   padding: .5em;
+  /* font-size: medium; */
 }
 
 .result_list th a {
@@ -352,7 +352,6 @@ table.result_list {
 }
 
 .result_list td {
-  border:           1px dashed #AAAAAA;
   padding:          .5em;
 }
 
@@ -361,7 +360,7 @@ table.result_list {
 }
 
 .result_list .odd {
-  background:       #e3f5fd;
+  background:       #e9e9e9;
 }
 
 .result_list tbody tr:hover {

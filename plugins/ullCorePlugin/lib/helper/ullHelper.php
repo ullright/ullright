@@ -100,18 +100,25 @@ function ull_image_path($type, $width = null, $height = null, $plugin = null)
 {
   $width = ($width === null) ? 16 : $width;
   $height = ($height === null) ? 16 : $height;
-
   $plugin = ($plugin === null) ? sfContext::getInstance()->getRequest()->getParameter('module') : $plugin;
-  $path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/images";
-  $image = $type . '_' . $width . 'x' . $height;
   
-  return $path . '/action_icons/' . $image;
+  $path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') .
+           'Plugin/images/action_icons/' . $type . '_' . $width . 'x' . $height;
+    
+  $actual_file_path = sfConfig::get('sf_root_dir') . '/web' . $path . '.png';
+    
+  if (file_exists($actual_file_path))
+    return $path;
+  else
+    return '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
+           'Plugin/images/action_icons/' . $type . '_' . $width . 'x' . $height;
 }
 
 function ull_image_tag($type, $link_option = array(), $width = null, $height = null, $plugin = null)
 {
 	return image_tag(ull_image_path($type, $width, $height, $plugin), 
-    array_merge(array('alt' => ucfirst($type), 'title' => ucfirst($type)), $link_option));
+    array_merge(array('alt' => __(ucfirst($type), null, 'common'),
+                      'title' => __(ucfirst($type), null, 'common')), $link_option));
 }
 
 
@@ -251,6 +258,11 @@ function ull_navigation_link($img_source, $internal_uri, $link_text, $options = 
 {
 	$options = _convert_options($options);
   $options['alt'] = isset($options['alt']) ? $options['alt'] : $link_text;
+  
+//  $link = '<a href="' . $internal_uri . '">' .
+//    '<img src="' . $img_source . '.png" alt="' . $img_alt . '" />' . '<br />' .
+//    $link_text . '</a>';
+//  
   
 	$link = ull_link_to(image_tag($img_source, $options), $internal_uri) .
 	        '<br />' . ull_link_to($link_text, $internal_uri);
