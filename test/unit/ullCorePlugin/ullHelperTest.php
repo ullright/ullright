@@ -7,7 +7,7 @@ $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(19, new lime_output_color);
+$t = new lime_test(21, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -196,7 +196,18 @@ $t->diag('ull_tc_task_link()');
       '<img alt="Create" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" /></a>' .
       '<a href="/ullFlow/create/app/trouble_ticket">Create</a>',
     'returns the correct result when using reqpas');
-   
+
+$t->diag('ull_navigation_link()');
+  $t->is(ull_navigation_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
+    'ullFlow/index', __('Workflows', null, 'common')),
+    '<a href="/ullFlow"><img alt="Workflows" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" /></a>' .
+    '<br /><a href="/ullFlow">Workflows</a>', 'returns the correct result');
+  
+   $t->is(ull_navigation_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
+    'ullFlow/index', __('Workflows', null, 'common'), array('alt' => 'Workflow application')),
+    '<a href="/ullFlow"><img alt="Workflow application" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" /></a>' .
+    '<br /><a href="/ullFlow">Workflows</a>', 'returns the correct result when specifying an alt-tag');
+            
 function clean_request_parameters()
 {
   sfContext::getInstance()->getRequest()->getParameterHolder()->clear();

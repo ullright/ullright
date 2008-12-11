@@ -52,11 +52,18 @@ body {
   float: left;
 }
 
+#separator {
+  position: relative;
+  border-top: 3px solid #777475;
+  margin-top: -0.6em;
+}
+
 #nav_top {
   text-align: left;
   background-color: white;
   border: 1px solid white; /* workaround for firefox (displaying top margin otherwise) */
-  border-bottom: 3px solid #777475;
+  /* border-bottom: 3px solid #777475; */
+  /* padding: 3px*/;
 }
 
 #nav_top a {
@@ -94,16 +101,26 @@ ul.nav_top_links {
   /* width: 100%; */
   list-style: none;
   border: none;
+  /* padding-bottom: 15px; */
 }
 
 ul.nav_top_links li {
   float: left;
   margin: 0 0.5em;
-  padding: 0;
+  padding: 0px;
   background: none;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 5px solid #fff;
 }
 
-.nav_top_links a{
+ul.nav_top_links li:hover {
+  border-bottom: 5px solid #99d420;
+  position: relative;
+  z-index: 5;
+}
+
+.nav_top_links a {
   font-weight: bold;
   font-size: 1.05em;
   color: #777475;
@@ -111,60 +128,47 @@ ul.nav_top_links li {
 }
 
 .nav_top_links a:hover {
-  border-bottom: 5px solid #99d420;
   text-decoration: none;
-  padding-bottom: 7px;
-}
-
-#nav_link_workflow {
-  text-align: center;
 }
 
 #nav_link_workflow a:hover {
   color: #009ddb;
-  border-bottom: 5px solid #009ddb; 
-  text-decoration: none;  
-  padding-bottom: 7px;
 }
 
-#nav_link_tickets {
-  text-align: center;
+#nav_link_workflow:hover {
+  border-color: #009ddb;
 }
 
 #nav_link_tickets a:hover {
 	color: #da531f;
-	border-bottom: 5px solid #da531f;
-	padding-bottom: 7px;
 }
 
-#nav_link_todo  {
-  text-align: center;
+#nav_link_tickets:hover {
+  border-color: #da531f;
 }
 
 #nav_link_todo a:hover {
 	color: #ac108e;
-	border-bottom: 5px solid #ac108e;
-	padding-bottom: 7px; 
 }
 
-#nav_link_wiki {
-  text-align: center;
+#nav_link_todo:hover {
+  border-color: #ac108e;
 }
 
 #nav_link_wiki a:hover {
   color: #99d420;
-  border-bottom: 5px solid #99d420;
-  padding-bottom: 7px;
 }
 
-#nav_link_admin {
-  text-align: center;
+#nav_link_wiki:hover {
+  border-color: #99d420;
 }
 
 #nav_link_admin a:hover {
   color: #777475;
-  border-bottom: 5px solid #777475;
-  padding-bottom: 7px;
+}
+
+#nav_link_admin:hover {
+  border-color: #777475;
 }
 
 /*

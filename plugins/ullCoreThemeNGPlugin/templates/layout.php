@@ -43,29 +43,32 @@
             
             <li id='nav_link_workflow'>
             <?php
-                echo image_tag("/ullFlowThemeNGPlugin/images/ull_flow_32x32", 'alt="Workflow"') . "<br />";  
-                echo ull_link_to(__('Workflows', null, 'common'), 'ullFlow/index', 'ull_js_observer_confirm=true');
-              ?>
+              echo ull_navigation_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
+                'ullFlow/index', __('Workflows', null, 'common'));
+            ?>
             </li>
             
             <li id='nav_link_tickets'>
             <?php
-              echo image_tag("/ullFlowThemeNGPlugin/images/ull_flow_app_icons/bug_tracking_32x32", 'alt="Tickets"') . "<br />";
-              echo ull_link_to(__('Active tickets', null, 'common'), 'ullFlow/list?app=trouble_ticket','ull_js_observer_confirm=true');
+              echo ull_navigation_link('/ullFlowThemeNGPlugin/images/ull_flow_app_icons/bug_tracking_32x32',
+                'ullFlow/list?app=trouble_ticket', __('Active tickets', null, 'common'),
+                array('ull_js_observer_confirm' => 'true'));
             ?>
             </li>
             
             <li id='nav_link_todo'>
             <?php
-              echo image_tag("/ullFlowThemeNGPlugin/images/ull_flow_app_icons/todo_32x32", 'alt="My tasks"') . "<br />";
-              echo ull_link_to(__('My tasks', null, 'common'),'ullFlow/list?query=to_me', 'ull_js_observer_confirm=true');
+              echo ull_navigation_link('/ullFlowThemeNGPlugin/images/ull_flow_app_icons/todo_32x32',
+                'ullFlow/list?query=to_me', __('My tasks', null, 'common'),
+                array('ull_js_observer_confirm' => 'true'));
             ?>
             </li>
             
             <li id='nav_link_wiki'>
             <?php
-              echo image_tag("/ullWikiThemeNGPlugin/images/ull_wiki_32x32", 'alt="Wiki"') . "<br />"; 
-              echo ull_link_to(__('Wiki', null, 'common'), 'ullWiki/list', 'ull_js_observer_confirm=true');
+            echo ull_navigation_link('/ullWikiThemeNGPlugin/images/ull_wiki_32x32',
+                'ullWiki/list', __('Wiki', null, 'common'),
+                array('ull_js_observer_confirm' => 'true'));
             ?>
             </li>
             <?php 
@@ -113,6 +116,7 @@
       <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
      </div>
      
+     <div id='separator' />     
      <div id='content_main'>
         <?php echo $sf_data->getRaw('sf_content') ?>
       </div> <!-- end of content_main -->
