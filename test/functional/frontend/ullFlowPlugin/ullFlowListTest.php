@@ -95,7 +95,7 @@ $b
   ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
   ->checkResponseElement('tbody > tr > td + td + td + td + td + td + td', 'Helpdesk (Group)')
   
-  ->checkResponseElement('tbody > tr + tr > td + td + td', 'Trouble ticket tool')
+  ->checkResponseElement('tbody > tr + tr > td + td + td', '/Trouble ticket tool/')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td', 'Master Admin')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td', 'Test User')   
@@ -153,9 +153,9 @@ $b
 
   ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/desc"]', 'Application ↓')
 
-  ->checkResponseElement('tbody > tr > td + td + td', 'Trouble ticket tool')
+  ->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
   
-  ->checkResponseElement('tbody > tr > td + td + td', 'Trouble ticket tool')
+  ->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td + td', '2001-01-01 01:01:01')
 ;
 

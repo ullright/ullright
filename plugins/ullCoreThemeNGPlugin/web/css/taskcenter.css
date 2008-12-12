@@ -33,18 +33,24 @@
   margin-right: 25px;
 }
 
+#tc_tasks > h3 {
+	margin-top: .6em;
+	margin-bottom: 1em;
+}
+
 ul.tc_tasks {
   list-style-type: none;
   margin: 0px;
   margin-top: -8px;
-  margin-bottom: 20px;
+  margin-bottom: 3em;
   padding: 0px;
 }
 
 ul.tc_tasks li {
   margin: 0px;
-	padding-top: 8px;
-  padding-bottom: 8px;
+	padding-top: .3em;
+  padding-bottom: .3em;  
+  8px;
   padding-left: 10px;
   border-bottom: 1px solid #777475;
 }
@@ -55,7 +61,7 @@ ul.tc_tasks li img {
 }
 
 ul.tc_tasks li a {
-	font-size: 1.2em;
+	/* font-size: 1.2em; */
   /*color: #777475;*/
 }
 
@@ -92,6 +98,7 @@ ul.tc_tasks li a {
 
 .tc_search_tag_bottom {
   border: 0px;
+  padding-bottom: .5em;
 }
 
 /* Queries */
@@ -105,18 +112,19 @@ ul.tc_tasks li a {
 .tc_query_box {
   border: 0px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: .5em;
 }
 
 .tc_query_box ul {
 	/* margin-left: -20px; */
   list-style-type: none;
-  text-align: center;
+  /*text-align: center; */
 }
 
 .tc_query_box ul li {
   margin: 0;
   margin-bottom: 0.5em;
+  padding: 0;
 }
 
 #tc_footer {

@@ -110,8 +110,14 @@ class breadcrumbTree
                 ); 
     $return .= "</li>\n";                
     
-    foreach ($breadcrumbTreeReturn as $breadcrumbItem) {
-        $return .= "<li>$breadcrumbItem</li>\n"; 
+//    $first = ' class="first"';
+
+    $first = '';
+    
+    foreach ($breadcrumbTreeReturn as $breadcrumbItem) 
+    {
+        $return .= "<li$first>$breadcrumbItem</li>\n";
+//        $first = ''; 
     }
     $return .= "</ul>\n\n";
     return $return;

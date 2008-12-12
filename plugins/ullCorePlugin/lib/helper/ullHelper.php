@@ -273,6 +273,7 @@ function ull_navigation_link($img_source, $internal_uri, $link_text, $options = 
 function ull_tc_task_link($img_source, $internal_uri, $link_text, $options = array())
 {
 	$options = _convert_options($options);
+	$options['size'] = '24x24';
   $options['alt'] = isset($options['alt']) ? $options['alt'] : $link_text;
  
 	$link = ull_link_to(image_tag($img_source, $options), $internal_uri) .

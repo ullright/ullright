@@ -14,8 +14,6 @@ UllFlowApp:
       type: string(64)
     doc_label:
       type: string(64)
-    icon:
-      type: string(32)
 #    default_list_columns:
 #      type: string(255)
 #      local: access_read_id

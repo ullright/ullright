@@ -76,7 +76,7 @@ class ullFlowGenerator extends ullGenerator
         'widgetAttributes'    => array(),
         'validatorOptions'    => array(),
         'label'               => 'Application',
-        'metaWidget'          => 'ullMetaWidgetForeignKey',
+        'metaWidget'          => 'ullMetaWidgetUllFlowApp',
         'access'              => $this->defaultAccess,
         'is_in_list'          => true,
     	  'relation'            => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
