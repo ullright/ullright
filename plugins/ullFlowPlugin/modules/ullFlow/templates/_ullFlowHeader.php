@@ -1,54 +1,39 @@
 <?php
 /**
  * ull_flow header partial
- *
- * expexts an ull_flow_instance object and prints the header
- * @package    ull_at
- * @subpackage ull_flow
+ * 
+ * @package    ullright
+ * @subpackage ullFlow
  * @author     Klemens Ullmann
  * @version    SVN: $Id: actions.class.php 3335 2007-01-23 16:19:56Z fabien $
  */
 ?>
-<div class='ull_flow_header'>
 
-  <div class='ull_flow_headfoot_float_right'>
-    <?php 
-          include_component(
-            'ullFlow',
-            'ullFlowHeadFootActionIcons', 
-            array(
-              'ull_flow_doc'     => $ull_flow_doc
-            )
-          ); 
-    ?>
-  </div>  
-  
-  <div class='ull_flow_header_headline'>
-    <h3 class='ull_flow_header_subject'>
-      <?php echo link_to($ull_flow_doc->getTitle(), 'ullFlow/edit?doc=' . $ull_flow_doc->getId()); ?>
-    </h3> &nbsp; <span class='ull_flow_header_subtitle'>(DocID: <?php echo $ull_flow_doc->getId(); ?>)</span>
-    
-    <?php
-      if (!$app_slug) { 
-        echo link_to(
-          ullCoreTools::getI18nField($ull_flow_doc->getUllFlowApp(), 'caption')
-          , 'ullFlow/list?app=' . $ull_flow_doc->getUllFlowApp()->getSlug()
-        );
-      } 
-    ?>
-    <!--  Tag1, Tag2, Tag3 -->
-  </div> 
-  
-  <!-- <div class='clear'></div> -->
+<h3><?php echo $doc->UllFlowApp->doc_label ?> "<?php echo $doc ?>"</h3>
 
-  <?php include_partial(
-          'ullFlowHeadFootInfo',
-          array(
-              'ull_flow_doc'     => $ull_flow_doc
-            )
-          ) ?>
-  
-  <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
-  
-
-</div> <!-- end of ull_flow_header-->
+<ul>
+  <li>
+    <?php echo __('Created by', null, 'common') ?>
+    <?php echo $doc->Creator ?>
+    (<?php echo ull_format_datetime($doc->created_at) ?>)
+  </li>
+  <li>
+    <?php echo __('Last action')?>:
+    <?php if ($doc->UllFlowAction->is_show_assigned_to): ?>
+      <?php echo __('to') ?>
+      <?php echo $doc->UllEntity ?>
+    <?php endif ?>
+    <?php echo $doc->UllFlowAction ?>
+    <?php echo __('by') ?>
+    <?php echo $doc->Updator ?>
+    (<?php echo ull_format_datetime($doc->updated_at) ?>)
+  </li>
+  <li>
+    <?php if ($doc->UllFlowAction->is_in_resultlist): //excludes action "closed" ?>
+      <?php echo __('Next one') ?>:
+      <?php echo $doc->UllEntity ?>
+      (<?php echo __('Step') ?>
+      <?php echo $doc->UllFlowStep ?>)
+    <?php endif ?>
+  </li>
+</ul>

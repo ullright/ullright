@@ -1,6 +1,8 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-<?php //var_dump($generator->getRow()->toArray()) ?>
+<?php if ($generator->getRow()->exists()): ?>
+  <?php include_partial('ullFlowHeader', array('doc' => $doc)) ?>
+<?php endif ?>
 
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
   , 'id=edit_form'); ?>  
