@@ -33,9 +33,9 @@ $b
   ->responseContains('Testasius')
 ;
 
-//$b
-//  ->diag('login as testuser to check unchanged password')
-//  ->click('Log out')
-//  ->get('ullFlow/index')
-//  ->loginAsTestUser()
-//;
+$b
+  ->diag('login as testuser to check unchanged password')
+  ->click('Log out')
+  ->get('ullFlow/index')
+  ->loginAsTestUser()
+;

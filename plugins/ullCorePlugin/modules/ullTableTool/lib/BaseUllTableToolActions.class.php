@@ -100,7 +100,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->refererHandler = new refererHandler();
 
     $this->getTablefromRequest();
-
+    
     $this->generator = new ullTableToolGenerator($this->table_name, 'w');
 
     $row = $this->getRowFromRequestOrCreate();
@@ -109,6 +109,8 @@ class BaseUllTableToolActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
+//      var_dump($request->getParameterHolder()->getAll());
+      
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
         $referer = $this->refererHandler->getRefererAndDelete();

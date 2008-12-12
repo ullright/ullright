@@ -48,8 +48,12 @@ class ullTableToolForm extends ullGeneratorForm
   {
     $values = $this->getValues();
     
-//    var_dump($values);die;
-
+//    var_dump(sfContext::getInstance()->getEventDispatcher()->getListeners('form.update_object'));die;
+    
+    $values = sfContext::getInstance()->getEventDispatcher()->filter(
+        new sfEvent($this, 'form.update_object'), $values
+    )->getReturnValue();
+    
     // remove special columns that are updated automatically
     unset($values['id'], $values['updated_at'], $values['updated_on'], $values['created_at'], $values['created_on']);
 

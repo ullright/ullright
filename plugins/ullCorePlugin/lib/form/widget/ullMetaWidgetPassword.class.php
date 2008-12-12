@@ -6,6 +6,29 @@
  */
 class ullMetaWidgetPassword extends ullMetaWidget
 {
+  protected
+    $dispatcher
+  ;
+  
+  public function __construct($columnConfig, sfForm $form)
+  {
+    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
+    
+    $this->dispatcher->connect('form.update_object', array('ullMetaWidgetPassword', 'listenToUpdateObjectEvent'));
+    
+    parent::__construct($columnConfig, $form);
+  }
+  
+  public static function listenToUpdateObjectEvent(sfEvent $event, $values)
+  {
+    if ($values['password'] == '')
+    {
+      unset($values['password']);
+    }
+    
+    return $values;
+  }
+  
   protected function addToForm()
   {
     if ($this->isWriteMode())
