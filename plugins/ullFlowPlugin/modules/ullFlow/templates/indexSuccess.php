@@ -17,13 +17,13 @@
       <ul class="tc_tasks">
 			<?php if ($app_slug): ?>
 			
-			<li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
+			<li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/action_icons/create_24x24',
             array('action' => 'create'), __('Create %1%', array('%1%' => $app->doc_label)))
            ?></li>
 
 			 <?php else:
 			   foreach ($apps as $app): ?>
-          <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
+          <li><?php echo ull_tc_task_link($app->getIconPath(24, 24),
             'ullFlow/index?app=' . $app->slug, $app->label) ?></li>
         <?php endforeach; ?>
      <?php endif ?>

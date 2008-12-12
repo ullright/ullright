@@ -8,8 +8,9 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
+      <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_32x32', 'ullWiki/create', __('Create', null, 'common')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/action_icons/create_24x24', 'ullWiki/create', __('Create', null, 'common')) ?></li>
       </ul>
     </div>
     

@@ -20,8 +20,8 @@ class ullWikiFilterForm extends sfForm
     $this->getWidgetSchema()->setNameFormat('filter[%s]');
     
     $this->widgetSchema->setLabels(array(
-      'search'    => __('Search', null, 'common') . ':',
-      'fulltext'  => __('Full text', null, 'common') . ':'
+      'search'    => __('Search', null, 'common'),
+      'fulltext'  => __('Full text', null, 'common'),
     ));
   }
 }

@@ -7,12 +7,8 @@ class ullWidgetUllFlowApp extends ullWidget
   {
     $app = Doctrine::getTable('UllFlowApp')->find($value);
     
-    $path = '/ullFlowTheme' .
-        sfConfig::get('app_theme_package', 'NG') .
-        'Plugin/images/ull_flow_app_icons/' .
-        $app->slug .
-        '_16x16.png'
-    ;
+    $path = $app->getIconPath();
+    
     return $this->renderTag('img', array(
         'src'     => $path,
         'alt'     => $app->label,

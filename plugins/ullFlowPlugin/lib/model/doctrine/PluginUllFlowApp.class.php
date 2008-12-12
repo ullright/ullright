@@ -46,5 +46,22 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
     ;
     return $q->execute()->getFirst();
   }
+  
+  /**
+   * Calculates app icon path
+   *
+   * @param integer $width
+   * @param integer $height
+   * @return string
+   */
+  public function getIconPath($width = 16, $height = 16)
+  {
+    return '/ullFlowTheme' .
+      sfConfig::get('app_theme_package', 'NG') .
+      'Plugin/images/ull_flow_app_icons/' .
+      $this->slug .
+      '_' . $width . 'x' . $height . '.png'
+    ;
+  }
 
 }
