@@ -159,16 +159,17 @@ a:visited {
 
 /* styles for the edit table */
 
+#ull_flow_edit_main {
+  background: #e9e9e9;
+}
+
 table.ull_flow_edit {
-  border-collapse:  collapse;
-  border:           1px solid #888888;
- }
+  background: #e9e9e9;
+}
 
 .ull_flow_edit th {
   color:            white;
   background:       #0081b8;
-  border:           1px solid #AAAAAA;
-  padding: .5em;
 }
 
 .ull_flow_edit th a {
@@ -176,8 +177,9 @@ table.ull_flow_edit {
 }
 
 .ull_flow_edit td {
-  /* border:           1px dashed #AAAAAA; */
   padding:          .5em;
+  background: #e9e9e9;
+  vertical-align: top;
 }
 
 .ull_flow_edit tr {
@@ -233,11 +235,34 @@ table.ull_flow_upload {
 
 /* styles for the memories */
 .ull_flow_memory_comment {
-	/* margin: 0; */
-	margin-top: .5em;
-  padding: 0;
   list-style: none;
-  line-height: 1.1em;
-  list-style-image: none;
-  
+  margin: 0.3em;
+  padding-left: 1.1em;
+}
+
+#ull_flow_memories {
+  background-image: url(http://ullright_martin/ullFlowThemeNGPlugin/images/gradient.png);
+  background-repeat: repeat-x; 
+  padding-left: 0.8em;
+  padding-top: 0.5em;
+}
+
+.ull_flow_memories_date {
+  font-weight: bold;
+  list-style: none;
+  padding-top: 10px;
+}
+
+.ull_flow_memories_day {
+  padding-left: 30px;
+  list-style: none;
+}
+
+.ull_flow_memories_light {
+  color: #676767;
+}
+
+.ull_flow_memories_lightsmall {
+  color: #676767;
+  font-size: smaller;
 }

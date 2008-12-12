@@ -440,9 +440,7 @@ ul.tag-cloud li {
  
 .action_buttons_edit {
   clear: both;  
-  /* border: 1px solid grey; */
-  /* background:       #e3f5fd; */
-  background-color: #ffe4b9;
+  background-color: #dad9d9;
   padding: .5em .7em .8em .7em; 
 }
 
@@ -491,3 +489,14 @@ ul.tag-cloud li {
   position: relative; /* workaround for IE 6 */
 }
 
+
+/*
+ *
+ * upload
+ *
+*/
+
+.ull_upload {
+  background: #e9e9e9;
+  padding: 1em;
+}

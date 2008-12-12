@@ -66,10 +66,12 @@ $b->diag('check values and click "save_close"')
   ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')  
   ->checkResponseElement('tr + tr + tr + tr + tr > td + td > input[value="my_test_tag"]', true)
   ->responseContains('Progress')
-  ->checkResponseElement('ul.ull_flow_memories > li', '/Created[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
-  ->checkResponseElement('ul.ull_flow_memories > li > ul > li', '/Comment: My memory comment/')
+  ->checkResponseElement('div#ull_flow_memories > ul > ul > li', '/Created[\s]+by[\s]+Master[\s]+Admin/')
+  ->checkResponseElement('div#ull_flow_memories > ul > ul > li + li > ul', '/My memory comment/')
   ->setField('fields[my_subject]', 'This is my shiny little subject')
 ;
+
+die;
 
 $b->diag('check list')
   ->click('Save and close')

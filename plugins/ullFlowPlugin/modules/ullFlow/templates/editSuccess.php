@@ -7,7 +7,9 @@
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
   , 'id=edit_form'); ?>  
   
-<table class='ull_flow_edit'>
+  <div id="ull_flow_edit_main">
+  
+<table class="ull_flow_edit">
 <tbody>
 
 <?php foreach ($generator->getActiveColumns() as $column_name => $columns_config): ?>
@@ -17,15 +19,14 @@
 </tbody>
 </table>
 
-
+</div>
 <br />
 
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
-  <div class='action_buttons_edit'>
-  <fieldset>
-    <legend><?php echo __('Actions', null, 'common') ?></legend>
-  
-    <div class='action_buttons_edit_left'>
+  <div class='action_buttons_edit color_light_bg'>
+      <h3><?php echo __('Actions', null, 'common')?></h3>
+      
+      <div class='action_buttons_edit_left'>
       
       
       
@@ -112,8 +113,6 @@
     </div>
   
     <div class="clear"></div>  
-    
-  </fieldset>
   
   </div>
 <?php endif; ?>
@@ -129,30 +128,46 @@
 
 <?php if ($doc->exists()): ?>
   <br />
+  <div id="ull_flow_memories">
   <h3><?php echo __('Progress')?></h3>
-  <ul class='ull_flow_memories'>
-    <?php foreach ($doc->UllFlowMemories as $memory): ?>
+  <ul>
+    <?php 
+      $tempdate = -1;
+      foreach ($doc->UllFlowMemories as $memory): ?>
+      <?php
+        if ($tempdate != substr($memory->created_at, 0, 10)) {
+          if ($tempdate != -1) 
+            echo '</ul>';
+            
+          echo '<li class="ull_flow_memories_date">' .
+            format_date(strtotime($memory->created_at)) .
+            '</li><ul class="ull_flow_memories_day">';
+        } ?>
       <li>
+        <span class="ull_flow_memories_light">
+        <?php echo substr($memory->created_at, 11, 5) ?>
+        </span>&ndash;
         <?php echo $memory->UllFlowAction->label ?>
         <?php if ($memory->UllFlowAction->is_show_assigned_to): ?>
           <?php echo __('to') ?>
           <?php echo $memory->AssignedToUllEntity ?>
         <?php endif ?>
         <?php echo __('by'); ?>
-        <?php echo $memory->Creator ?>
-        <?php echo __('at'); ?>
-        <?php echo /*ull_format_datetime(*/$memory->created_at/*)*/; ?>
+        <?php echo '<span class="ull_flow_memories_light">' . $memory->Creator . '</span>'?>
         
         <?php if ($comment = $memory->comment): ?>
           <ul class="ull_flow_memory_comment">
-            <li>
-              <?php echo __('Comment') . ': ' . $comment ?>
-            </li>
+            <li class="ull_flow_memories_lightsmall"> <?php echo $comment ?>
+             </li>
           </ul>
         <?php endif ?>
       </li>
-    <?php endforeach ?>
+    <?php
+      $tempdate = substr($memory->created_at, 0, 10);
+    endforeach ?>
   </ul>
+  <br />
+  </div>
 <?php endif ?>
 
 
