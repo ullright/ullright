@@ -241,7 +241,7 @@ table.ull_flow_upload {
 }
 
 #ull_flow_memories {
-  background-image: url(http://ullright_martin/ullFlowThemeNGPlugin/images/gradient.png);
+  background-image: url(../images/gradient.png);
   background-repeat: repeat-x; 
   padding-left: 0.8em;
   padding-top: 0.5em;
