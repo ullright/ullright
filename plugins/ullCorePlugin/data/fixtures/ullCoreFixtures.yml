@@ -79,6 +79,11 @@ UllColumnType:
     class:        ullMetaWidgetTextarea
     label:        Textarea
     namespace:    ullCore
+  ull_user:
+    class:        ullMetaWidgetUllUser
+    label:        UllUser
+    namespace:    ullCore
+
 
 UllTableConfig:
   ull_user_tc:
@@ -227,6 +232,8 @@ UllColumnConfig:
     db_column_name: password
     is_in_list:     false
     UllColumnType:  password
+
+
 ###TESTING### ich entferne es später wieder, Denny
 #  ull_user_cc_dingens:
 #    Translation:
