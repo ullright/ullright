@@ -6,26 +6,26 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
-      <h3><?php echo __('User and Groups', null, 'common') ?></h3>
+      <h3><?php echo __('User and Groups') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllUser', __('Manage users')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroup', __('Manage groups')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllPermission', __('Manage permissions')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllEntityGroup', __('Manage group memberships')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllGroupPermission', __('Manage group permissions')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_user_24x24', 'ullTableTool/list?table=UllUser', __('Manage users')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_24x24', 'ullTableTool/list?table=UllGroup', __('Manage groups')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_permission_24x24', 'ullTableTool/list?table=UllPermission', __('Manage permissions')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_24x24', 'ullTableTool/list?table=UllEntityGroup', __('Manage group memberships')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_permission_24x24', 'ullTableTool/list?table=UllGroupPermission', __('Manage group permissions')) ?></li>
       </ul>
-      <h3><?php echo __('Select boxes', null, 'common') ?></h3>
+      <h3><?php echo __('Select Boxes') ?></h3>
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelect', __('Manage select boxes')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllSelectChild', __('Manage select box entires')) ?></li>
       </ul>
-      <h3><?php echo __('Table Tool', null, 'common') ?></h3>
+      <h3><?php echo __('Table Administration') ?></h3>
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllTableConfig', __('Manage table configurations')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnConfig', __('Manage column configurations')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32', 'ullTableTool/list?table=UllColumnType', __('Manage field types (ullMetaWidgets)')) ?></li>
       </ul> 
-      <h3><?php echo __('Workflow', null, 'common') ?></h3>
+      <h3><?php echo __('Workflow') ?></h3>
       <ul class="tc_tasks">
 	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowApp', __('Manage applications')) ?></li>
 	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32', 'ullTableTool/list?table=UllFlowAppPermission', __('Manage application access rights')) ?></li>
@@ -37,7 +37,14 @@
     </div>
     
     <div id="tc_search">
-      <div class="tc_search_quick_top color_medium_bg"><br />tba<br /></div>
+      <div class="tc_search_quick_top color_medium_bg">
+        <?php echo form_tag('ullTableTool/list?table=UllUser'); ?>
+        <h3><?php echo __('Search for Users') ?></h3>
+        <?php echo $form['search']->render() ?>
+        <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullCore'),
+            array('class' => 'tc_search_quick_top_img')) ?>
+        </form>      
+      </div>
       <!-- 
       <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
       <div class="tc_search_tag_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
@@ -68,38 +75,3 @@
      <!-- add footer here -->
   </div>
 </div>
-
-<!-- 
-
-<h1><?php echo __('ullAdmin Startpage'); ?></h1>
-
-<h4><?php echo __('Administration'); ?></h4>
-<ul>
-  <li><?php echo link_to(__('Table Config'), 'ullTableTool/list/?table=UllTableConfig') ?></li>
-  <li><?php echo link_to(__('Column Config'), 'ullTableTool/list/?table=UllColumnConfig') ?></li>
- 
-  <li><?php echo link_to(__('Fields'), 'ullTableTool/list/?table=ull_field') ?></li>
-  <li><?php echo link_to(__('Cultures'), 'ullTableTool/list/?table=ull_culture') ?></li>
-  <li><?php echo link_to(__('Select Boxes'), 'ullTableTool/list/?table=ull_select') ?></li>
-  <li><?php echo link_to(__('Select Box Children'), 'ullTableTool/list/?table=ull_select_child') ?></li>
- 
-</ul>
-
-<h4><?php echo __('ullFlow Administration'); ?></h4>
-<ul>
-  <li><?php echo link_to(__('ullFlowActions'), 'ullTableTool/list/?table=ull_flow_action') ?></li>
-  <li><?php echo link_to(__('ullFlowActionsForSteps'), 'ullTableTool/list/?table=ull_flow_step_action') ?></li>
-  <li><?php echo link_to(__('ullFlowApps'), 'ullTableTool/list/?table=ull_flow_app') ?></li>
-  <li><?php echo link_to(__('ullFlowDocs'), 'ullTableTool/list/?table=ull_flow_doc') ?></li>
-  <li><?php echo link_to(__('ullFlowFields'), 'ullTableTool/list/?table=ull_flow_field') ?></li>
-  <li><?php echo link_to(__('ullFlowMemories'), 'ullTableTool/list/?table=ull_flow_memory') ?></li>
-  <li><?php echo link_to(__('ullFlowSteps'), 'ullTableTool/list/?table=ull_flow_step') ?></li>  
-  <li><?php echo link_to(__('ullFlowValues'), 'ullTableTool/list/?table=ull_flow_value') ?></li>
-</ul>
-
-<h4><?php echo __('System'); ?></h4>
-<ul>
-  <li><?php echo link_to(__('ull_access_group'), 'ullTableTool/list/?table=ull_access_group') ?></li>
-  <li><?php echo link_to(__('ull_access_group_group'), 'ullTableTool/list/?table=ull_access_group_group') ?></li>
-</ul>
-//-->

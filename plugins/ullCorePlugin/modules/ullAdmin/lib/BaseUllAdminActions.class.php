@@ -13,10 +13,12 @@ class BaseUllAdminActions extends ullsfActions
 
   public function executeIndex() 
   {
+    $this->checkAccess('Masteradmins');
+    
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add('ullAdmin', 'ullAdmin/index');    
     
-    $this->checkAccess('Masteradmins');
+    $this->form = new ullTableToolFilterForm;
   }
   
 }

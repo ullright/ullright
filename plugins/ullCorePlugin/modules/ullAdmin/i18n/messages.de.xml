@@ -53,6 +53,31 @@
 <target>Verwalte Feldtypen (ullMetaWidgets)</target>
 </trans-unit>
 
+<trans-unit id="1010">
+<source>User and Groups</source>
+<target>Benutzer und Gruppen</target>
+</trans-unit>
+
+<trans-unit id="1011">
+<source>Select Boxes</source>
+<target>Auswahlfelder</target>
+</trans-unit>
+
+<trans-unit id="1010">
+<source>Table Administration</source>
+<target>Tabellenverwaltung</target>
+</trans-unit>
+
+<trans-unit id="1011">
+<source>Workflow</source>
+<target>Workflow</target>
+</trans-unit>
+
+<trans-unit id="1012">
+<source>Search for Users</source>
+<target>Benutzersuche</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
