@@ -184,16 +184,16 @@ $t->diag('ull_image_tag()');
 $t->diag('ull_tc_task_link()');
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
                           'ullTableTool/list?table=UllUser', __('Manage users')),
-      '<a href="/ullTableTool/list/table/UllUser">' .
+      '<div class="float_left"><a href="/ullTableTool/list/table/UllUser">' .
       '<img alt="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a>' .
-      '<a href="/ullTableTool/list/table/UllUser">Manage users</a>',
+      '</div><div><a href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />',
     'returns the correct result');
   
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
                           'ullTableTool/list?table=UllUser', __('Manage users'), array('alt' => 'User admin')),
-      '<a href="/ullTableTool/list/table/UllUser">' .
+      '<div class="float_left"><a href="/ullTableTool/list/table/UllUser">' .
       '<img alt="User admin" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a>' .
-      '<a href="/ullTableTool/list/table/UllUser">Manage users</a>',
+      '</div><div><a href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />',
     'returns the correct result when specifying an alt-tag');
 
   clean_request_parameters();
@@ -203,9 +203,9 @@ $t->diag('ull_tc_task_link()');
   
   $t->is(ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
             array('action' => 'create'), __('Create')),
-      '<a href="/ullFlow/create/app/trouble_ticket">' .
+      '<div class="float_left"><a href="/ullFlow/create/app/trouble_ticket">' .
       '<img alt="Create" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" height="24" width="24" /></a>' .
-      '<a href="/ullFlow/create/app/trouble_ticket">Create</a>',
+      '</div><div><a href="/ullFlow/create/app/trouble_ticket">Create</a></div><div class="clear_left" />',
     'returns the correct result when using reqpas');
 
 $t->diag('ull_navigation_link()');

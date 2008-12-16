@@ -275,9 +275,13 @@ function ull_tc_task_link($img_source, $internal_uri, $link_text, $options = arr
 	$options = _convert_options($options);
 	$options['size'] = '24x24';
   $options['alt'] = isset($options['alt']) ? $options['alt'] : $link_text;
- 
-	$link = ull_link_to(image_tag($img_source, $options), $internal_uri) .
-          ull_link_to($link_text, $internal_uri);
+    
+	$link = '<div class="float_left">' .
+	        ull_link_to(image_tag($img_source, $options), $internal_uri) .
+	        '</div>' .
+	        '<div>' . 
+          ull_link_to($link_text, $internal_uri) . '</div>' .
+          '<div class="clear_left" />';
 	
 	return $link;
 }

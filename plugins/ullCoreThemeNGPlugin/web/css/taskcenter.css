@@ -130,3 +130,11 @@ ul.tc_tasks li a {
 #tc_footer {
   clear: both;
 }
+
+.float_left {
+  float: left;
+}
+
+.clear_left {
+  clear: left;
+}
