@@ -47,7 +47,7 @@ $b
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second thing todo')
   ->checkResponseElement('tbody > tr + tr + tr > td + td + td + td', 'My first thing todo')
   ->checkResponseElement('tbody > tr + tr + tr + tr > td + td + td + td', 'My first trouble ticket')
-  ->checkResponseElement('ul.ull_action', '!/Create/')
+  ->checkResponseElement('ul.ull_action input input[type="button"]', false)
 ;
 
 $b

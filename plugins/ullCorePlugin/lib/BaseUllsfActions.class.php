@@ -81,6 +81,7 @@ class BaseUllsfActions extends sfActions
       }
       
       $params = _ull_reqpass_initialize($params);
+      
       $url = _ull_reqpass_build_url($params);
 
       return $this->redirect($url);

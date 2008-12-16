@@ -48,6 +48,7 @@ class BaseUllFlowActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
+//      var_dump($request->getParameterHolder()->getAll());die;
       $this->ull_reqpass_redirect();
     }
 
@@ -1181,8 +1182,8 @@ class BaseUllFlowActions extends ullsfActions
   }
 
   
-  protected function checkDocAccess(ullFlowDoc $doc) {
-
+  protected function checkDocAccess(ullFlowDoc $doc) 
+  {
     $return = false;
   
     $read_group = $doc->getReadUllGroupId();
@@ -1196,7 +1197,6 @@ class BaseUllFlowActions extends ullsfActions
     }      
     
     return $return;
-    
   }
   
   protected function breadcrumbForIndex()
@@ -1286,6 +1286,16 @@ class BaseUllFlowActions extends ullsfActions
     
     // access
     $q = UllFlowDocTable::queryAccess($q, $this->app);
+    
+    // ullFlow action
+    if (!$ullFlowActionName = $this->filter_form->getValue('flow_action')) 
+    {
+      $q->addWhere('x.UllFlowAction.is_in_resultlist = ?', true);
+    } 
+    elseif ($ullFlowActionName <> 'all') 
+    {
+      $q->addWhere('x.UllFlowAction.slug = ?', $ullFlowActionName);
+    }    
     
     // 'named' queries
     if ($query = $this->getRequestParameter('query')) 

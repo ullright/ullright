@@ -11,13 +11,13 @@ abstract class BaseUllFlowAction extends UllRecord
     $this->setTableName('ull_flow_action');
     $this->hasColumn('slug', 'varchar', 32, array('type' => 'varchar', 'notnull' => true, 'length' => '32'));
     $this->hasColumn('label', 'varchar', 32, array('type' => 'varchar', 'notnull' => true, 'length' => '32'));
-    $this->hasColumn('is_status_only', 'boolean', null, array('type' => 'boolean'));
+    $this->hasColumn('is_status_only', 'boolean', null, array('type' => 'boolean', 'default' => false));
     $this->hasColumn('is_enable_validation', 'boolean', null, array('type' => 'boolean', 'default' => true));
-    $this->hasColumn('is_notify_creator', 'boolean', null, array('type' => 'boolean'));
-    $this->hasColumn('is_notify_next', 'boolean', null, array('type' => 'boolean'));
+    $this->hasColumn('is_notify_creator', 'boolean', null, array('type' => 'boolean', 'default' => false));
+    $this->hasColumn('is_notify_next', 'boolean', null, array('type' => 'boolean', 'default' => false));
     $this->hasColumn('is_in_resultlist', 'boolean', null, array('type' => 'boolean', 'default' => true));
-    $this->hasColumn('is_show_assigned_to', 'boolean', null, array('type' => 'boolean'));
-    $this->hasColumn('is_comment_mandatory', 'boolean', null, array('type' => 'boolean'));
+    $this->hasColumn('is_show_assigned_to', 'boolean', null, array('type' => 'boolean', 'default' => false));
+    $this->hasColumn('is_comment_mandatory', 'boolean', null, array('type' => 'boolean', 'default' => false));
   }
 
   public function setUp()

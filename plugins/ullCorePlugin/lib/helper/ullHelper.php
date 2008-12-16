@@ -17,10 +17,8 @@ sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url')
  * @return string date        formated date like "4.12.2007" for "de"
  */
 
-function ull_format_date($date, $culture = null) {
-  
-//  sfLoader::loadHelpers(array('Date'));
-
+function ull_format_date($date, $culture = null) 
+{
   if ($date) {
     if (!$culture) {
       $culture = sfContext::getInstance()->getUser()->getCulture();
@@ -166,8 +164,8 @@ function ull_icon($link, $icon, $alt = null, $link_option = null) {
  * @return string             html
  */
 
-function ull_icon_to_function($function, $icon, $alt = null, $link_option = null) {
-  
+function ull_icon_to_function($function, $icon, $alt = null, $link_option = null) 
+{
   if (!$alt) {
     $alt = $icon;
   }
@@ -670,8 +668,8 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true)
   $params = sfContext::getInstance()->getRequest()->getParameterHolder()->getAll();
   
   // overwrite / add params
-  $params = array_merge($params, $merge_array);
-
+  $params = sfToolkit::arrayDeepMerge($params, $merge_array);
+  
   // clean params
   $params = _ull_reqpass_clean_array($params);
   
@@ -692,6 +690,8 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
     'ull_req_pass', // remove the array with the original request params
     'sf_culture',   // TODO: where does sf_culture come from? appeared in functional testing...
     'commit',       // we don't want the submit buttons...
+    'x',            // image submit buttons coordinates
+    'y',            // image submit buttons coordinates
   );
   
   foreach ($array as $key => $value) 

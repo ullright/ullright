@@ -3,24 +3,51 @@
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
 
 	<!-- Action row -->
-	<?php echo ull_form_tag(); ?>
+	<?php echo ull_form_tag(array('page' => '', 'filter' => array('flow_action' => ''))) ?>
 	
 	<ul class='ull_action color_light_bg'>
 	  
 	    <li>
         <?php if (isset($app)): ?>
           
-          <?php echo ull_button_to(__('Create', null, 'common'), 'ullFlow/create?app=' . $app->slug); ?>
+          <?php echo ull_button_to(__('Create', null, 'common'), 'ullFlow/create?app=' . $app->slug) ?>
         <? endif ?>
       </li>
 	
-      <?php ?>	   
 	    <?php echo $filter_form ?>   
-	    <?php echo submit_image_tag(ull_image_path('search'),
-              array('class' => 'image_align_middle_no_border'));
-              //echo submit_tag('&gt;');
-          ?>
-      <?php ?> 
+	    
+      
+      <?php        
+      // == Status select
+//      echo __('Status') . ': ';
+////      echo ull_reqpass_form_tag(array('page' => '', 'status' => ''), array('class' => 'inline'));
+//
+//      // == flow_action select
+//      $select_children_db = objects_for_select(
+//          $flow_actions
+//          , 'getSlug'
+//          , '__toString'
+//          , $flow_action
+//          , null
+//        );
+//    
+//      $select_children = '<option value=""';
+//      $select_children .=  ($flow_action == '') ? ' selected="selected"' : '';
+//      $select_children .= '>' . __('All active') . '</option>';
+//      
+//      $select_children .= '<option value="all"';
+//      $select_children .= ($flow_action == 'all') ? ' selected="selected"' : '';
+//      $select_children .= '>' . __('All') . '</option>';
+//      
+//      $select_children .= $select_children_db;
+//    
+//      echo select_tag('flow_action', $select_children, array('onchange' => 'submit()'));
+//      echo '</form>';
+//      echo ' &nbsp ';
+      ?>
+      
+      <?php echo submit_image_tag(ull_image_path('search'),
+              array('class' => 'image_align_middle_no_border', 'name' => '')) ?>                    
 	
 	</ul>
 	 

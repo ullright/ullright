@@ -217,20 +217,25 @@ UllFlowAction:
       notnull: true    
     is_status_only:
       type: boolean
+      default: false
     is_enable_validation:
       type: boolean
       default: true      
     is_notify_creator:
       type: boolean
+      default: false
     is_notify_next:
-      type: boolean    
+      type: boolean 
+      default: false   
     is_in_resultlist:
       type: boolean
       default: true
     is_show_assigned_to:
       type: boolean
+      default: false
     is_comment_mandatory:
       type: boolean
+      default: false
   relations:
 #    UllFlowStepActions:
 #      class: UllFlowStepAction
