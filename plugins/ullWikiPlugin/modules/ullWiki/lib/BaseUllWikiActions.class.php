@@ -8,7 +8,7 @@
  * @version    SVN: $Id: actions.class.php 3335 2007-01-23 16:19:56Z fabien $
  */
 
-class BaseullWikiActions extends ullsfActions
+class BaseUllWikiActions extends ullsfActions
 {
   /**
    * Add ullWiki stylsheet for all actions
@@ -58,8 +58,13 @@ class BaseullWikiActions extends ullsfActions
     //$this->ull_reqpass_redirect(); //ToDo
 
     $this->breadcrumbForList();
+    
+    $this->generator = new ullWikiGenerator();
 
     $this->docs = $this->getFilterFromRequest();
+    
+    $this->generator->buildForm($this->docs);
+    
   }
 
 
@@ -99,24 +104,27 @@ class BaseullWikiActions extends ullsfActions
    * Execute edit action
    * 
    */
-  public function executeEdit($request) {
-
+  public function executeEdit($request) 
+  {
     $this->checkAccess('MasterAdmins');
     
     $this->refererHandler = new refererHandler();
     $this->refererHandler->initialize();
     
+    $this->breadcrumbForEdit();
+    
+    $this->generator = new ullWikiGenerator('w');
     $this->getDocFromRequestOrCreate();
-    $this->form = new UllWikiForm($this->doc);
-
-    // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
+    $this->generator->buildForm($this->doc);
+    
+    // allows ullWiki to be used as a plugin (e.g. ullFlow to ullWiki interface)
     $this->return_var = $this->getRequestParameter('return_var');    
 
     if ($request->isMethod('post'))
     {
 //      var_dump($this->getRequest()->getParameterHolder()->getAll());die;
       
-      if ($this->form->bindAndSave($request->getParameter('ull_wiki')))
+      if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
         // == forward junction
         if ($this->getRequestParameter('submit_save_only', false)) 
@@ -157,11 +165,6 @@ class BaseullWikiActions extends ullsfActions
       }
 
     }
-    else
-    {
-      $this->breadcrumbForEdit();
-    }
-
   }
 
   /**
@@ -173,7 +176,9 @@ class BaseullWikiActions extends ullsfActions
     $this->checkAccess('MasterAdmins');
 
     $this->getDocFromRequest();
+    
     $this->doc->delete();
+    
     
     return $this->redirect('ullWiki/list');
   }
@@ -270,7 +275,6 @@ class BaseullWikiActions extends ullsfActions
     // search has to be the first "where" part, because it uses "or" 
     if ($search = $this->filter_form->getValue('search'))
     {
-      
       $cols = array('id', 'subject', 'duplicate_tags_for_search');
       if ($this->filter_form->getValue('fulltext'))
       {
@@ -279,16 +283,28 @@ class BaseullWikiActions extends ullsfActions
       $q = ullCoreTools::doctrineSearch($q, $search, $cols);
     }
     
-    // is this necessary?
-    $q->addWhere('x.deleted = ?', 0);
+    // TODO: (Klemens 2008-12-16) this should not be necessary,
+    //   because the soft delete behaviour handles this. But the
+    //   softdelete functionality needs the doctrine attribute
+    //   "use_dql_callbacks" enabled, which is not at the moment
+    //   because it has sideeffects and needs further testing
+    $q->addWhere('x.deleted = ?', false);
     
-    if ($this->getRequestParameter('sort')) 
+    $this->order = $this->getRequestParameter('order', 'created_at');
+    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
+    
+    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
+
+    switch ($this->order)
     {
-      $q->orderBy('x.'.$this->getRequestParameter('sort').' ASC');
-    } 
-    else 
-    {
-      $q->orderBy('x.updated_at DESC');
+      case 'creator_user_id':
+        $q->orderBy('x.Creator.display_name ' . $orderDir);
+        break;
+      case 'updator_user_id':
+        $q->orderBy('x.Updator.display_name ' . $orderDir);
+        break;
+      default:
+        $q->orderBy($this->order . ' ' . $orderDir);
     }
     
     $this->pager = new Doctrine_Pager(
@@ -298,8 +314,7 @@ class BaseullWikiActions extends ullsfActions
     );
     $docs = $this->pager->execute();
 
-    return ($docs->count()) ? $docs : false;
-
+    return ($docs->count()) ? $docs : new UllWiki;
   }
 
   /**

@@ -1,6 +1,6 @@
 <?php
 
-class BaseullFlowComponents extends sfComponents
+class BaseUllFlowComponents extends sfComponents
 {
   public function executeUllFlowHeader() {
     

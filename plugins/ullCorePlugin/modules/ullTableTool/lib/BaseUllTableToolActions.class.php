@@ -198,6 +198,29 @@ class BaseUllTableToolActions extends ullsfActions
       ullCoreTools::doctrineSearch($q, $search, $cols);
     }
 
+    if (!$defaultOrder = $this->generator->getTableConfig()->sort_columns)
+    {
+      $defaultOrder = 'id';
+    }
+//    var_dump($defaultOrder);die;
+    
+    $this->order = $this->getRequestParameter('order', $defaultOrder);
+    $this->order_dir = $this->getRequestParameter('order_dir', 'asc');
+    
+    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
+
+    switch ($this->order)
+    {
+      case 'creator_user_id':
+        $q->orderBy('x.Creator.display_name ' . $orderDir);
+        break;
+      case 'updator_user_id':
+        $q->orderBy('x.Updator.display_name ' . $orderDir);
+        break;
+      default:
+        $q->orderBy($this->order . ' ' . $orderDir);
+    }    
+    
     $rows = $q->execute();
     
     return ($rows->count()) ? $rows : new $this->table_name;

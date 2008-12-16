@@ -39,15 +39,11 @@
 <?php if ($generator->getRow()->exists()): ?>
   <table class='result_list'>
   
-  <!-- header -->
-  <thead>
-  <tr>  
-    <th>&nbsp;</th>
-    <?php foreach ($generator->getLabels() as $label): ?>
-      <th><?php echo $label ?>:</th>
-    <?php endforeach; ?>
-  </tr>
-  </thead>
+  <?php include_partial('ullTableTool/ullResultListHeader', array(
+      'generator' => $generator,
+      'order'     => $order,
+      'order_dir' => $order_dir,
+  )); ?>
   
   <!-- data -->
   

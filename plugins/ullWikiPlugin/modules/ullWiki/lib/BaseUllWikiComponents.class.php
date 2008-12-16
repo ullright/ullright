@@ -1,6 +1,6 @@
 <?php
 
-class BaseullWikiComponents extends sfComponents
+class BaseUllWikiComponents extends sfComponents
 {
   public function executeUllWikiHeader() 
   {

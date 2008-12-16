@@ -1,9 +1,10 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-<?php if ($form->getErrorSchema()->getErrors()): ?>
+<?php if ($generator->getForm()->getErrorSchema()->getErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
   </div>  
+  <?php echo $generator->getForm()->renderGlobalErrors(); ?>
   <br /><br />
 <?php endif; ?>
 
@@ -18,9 +19,7 @@
 <table class='ull_wiki_edit'>
 <tbody>
 
-<?php
-echo $form;
-?>
+<?php echo $generator->getForm() ?>
 
 </tbody>
 </table>

@@ -17,4 +17,4 @@ default:
   layout:         layout
 
 editSuccess:
-  javascripts:    [ /ullWikiPlugin/js/fckeditor/fckeditor ]
+  javascripts:    [ /ullCorePlugin/js/fckeditor/fckeditor ]

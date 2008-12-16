@@ -40,7 +40,7 @@ $b
 
 $b
   ->diag('list - test column headers')
-  ->checkResponseElement('tr > th + th + th + th + th + th + th', 'My custom string label translation en:')
+  ->checkResponseElement('tr > th + th + th + th + th + th + th > a', 'My custom string label translation en')
   ->checkResponseElement('table > thead > tr > th', 8) // number of columns
 ;
   

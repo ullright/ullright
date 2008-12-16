@@ -41,7 +41,7 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('return_var', 'ull_wiki_doc_id')
-  ->setField('ull_wiki[subject]', 'The uplift mofo party plan')
+  ->setField('fields[subject]', 'The uplift mofo party plan')
 ;
   
 $b
@@ -80,6 +80,7 @@ $b
   ->isRequestParameter('return_var', 'ull_wiki_doc_id')
   ->isRequestParameter('docid', '2')
   ->responseContains('Another Testdoc')
+//  ->dumpDie()
 ;
 
 $b

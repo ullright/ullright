@@ -24,8 +24,8 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
-  ->checkResponseElement('div.ullwiki.header', 1)
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc')
+  ->checkResponseElement('table > tbody > tr', 1)
+  ->checkResponseElement('tr > td + td + td', 'Another Testdoc')
   ;
 
 $b
@@ -45,9 +45,8 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
-//  ->dumpDie()
-  ->checkResponseElement('div.ullwiki.header', 1)
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc')
+  ->checkResponseElement('table > tbody > tr', 1)
+  ->checkResponseElement('tr > td + td + td', 'Another Testdoc')
 ;
 
 $b
@@ -58,8 +57,8 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'ull_wiki_tag2')
-  ->checkResponseElement('div.ullwiki.header', 1)
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc')
+  ->checkResponseElement('table > tbody > tr', 1)
+  ->checkResponseElement('tr > td + td + td', 'Testdoc')  
 ;
 
 $b
@@ -70,9 +69,9 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('docid', null)
-  ->setField('ull_wiki[subject]', 'My new test subject')
-  ->setField('ull_wiki[body]', '<b>My body</b>')
-  ->setField('ull_wiki[duplicate_tags_for_search', 'testtag')
+  ->setField('fields[subject]', 'My new test subject')
+  ->setField('fields[body]', '<b>My body</b>')
+  ->setField('fields[duplicate_tags_for_search', 'testtag')
   ->diag('save only')
   ->click('Save only')
   ->isRedirected()
@@ -82,7 +81,7 @@ $b
   ->isRequestParameter('docid', 3)
   //why doesn't this work?
 //  ->checkResponseElement('input#ull_wiki_subject[value="My new test subject"]', true)
-  ->checkResponseElement('input#ull_wiki_subject', true)
+  ->checkResponseElement('input#fields_subject', true)
 //  ->dumpDie()
   ->diag('save and show')
   ->click('Save and show')
@@ -113,8 +112,8 @@ $b
   ->diag('update (save and show')
   ->get('ullWiki/edit/docid/3')
   ->responseContains('My new test subject')
-  ->setField('ull_wiki[subject]', 'My new test subject, updated')
-  ->setField('ull_wiki[body]', '<b>My body, updated</b>')
+  ->setField('fields[subject]', 'My new test subject, updated')
+  ->setField('fields[body]', '<b>My body, updated</b>')
   ->click('Save and show')
   ->isRedirected()
   ->followRedirect()
@@ -129,8 +128,8 @@ $b
   ->diag('update (save and close)')
   ->get('ullWiki/edit/docid/3')
   ->responseContains('My new test subject')
-  ->setField('ull_wiki[subject]', 'My new test subject, updated again')
-  ->setField('ull_wiki[body]', '<b>My body, updated again</b>')
+  ->setField('fields[subject]', 'My new test subject, updated again')
+  ->setField('fields[body]', '<b>My body, updated again</b>')
   ->click('Save and close')
   ->isRedirected()
   ->followRedirect()
@@ -140,9 +139,6 @@ $b
   ->responseContains('My new test subject, updated again')
 ;
 
-
-
-
 $b
   ->diag('search')
   ->get('ullWiki/list')
@@ -151,8 +147,8 @@ $b
   ->isRequestParameter('action', 'list')
   ->post('ullWiki/list', Array('filter[search]' => 'updated'))
   ->isStatusCode(200)
+  ->checkResponseElement('table > tbody > tr', 1)
   ->responseContains('My new test subject, updated')
-  ->responseContains('1 result found.')
 ;
 
 $b
@@ -163,6 +159,7 @@ $b
   ->isRequestParameter('action', 'list')
   ->post('ullWiki/list', Array('filter[search]' => 'invalid'))
   ->isStatusCode(200)
+  ->checkResponseElement('table', false)
   ->responseContains('No results found.')
 ;
 
@@ -175,9 +172,8 @@ $b
   ->post('ullWiki/list', Array('filter[search]' => 'testtag'))
   ->isStatusCode(200)
   ->responseContains('My new test subject, updated')
-  ->responseContains('1 result found.')
+  ->checkResponseElement('table > tbody > tr', 1)
 ;
-
 
 $b
   ->diag('sorting')
@@ -185,25 +181,25 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
-  ->responseContains('3 results found.')
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated again', array('position' => 0))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 1))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 2))
+  ->checkResponseElement('table > tbody > tr', 3)
+  ->checkResponseElement('tr > td + td + td', 'My new test subject, updated again')
+  ->checkResponseElement('tr + tr > td + td + td', 'Testdoc')
+  ->checkResponseElement('tr + tr + tr > td + td + td', 'Another Testdoc')
 
-  ->click('DocId')
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 0))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated again', array('position' => 2))
+  ->click('ID')
+  ->checkResponseElement('tr > td + td + td', 'Testdoc')
+  ->checkResponseElement('tr + tr > td + td + td', 'Another Testdoc')
+  ->checkResponseElement('tr + tr + tr > td + td + td', 'My new test subject, updated again')
   
   ->click('Subject')
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 0))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated again', array('position' => 1))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 2))
+  ->checkResponseElement('tr > td + td + td', 'Another Testdoc')
+  ->checkResponseElement('tr + tr > td + td + td', 'My new test subject, updated again')
+  ->checkResponseElement('tr + tr + tr > td + td + td', 'Testdoc')
   
-  ->click('Date ascending')
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Testdoc', array('position' => 0))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'Another Testdoc', array('position' => 1))
-  ->checkResponseElement('div.ullwiki_header > div > h3 > a', 'My new test subject, updated again', array('position' => 2))
+  ->click('Updated at')
+  ->checkResponseElement('tr > td + td + td', 'Testdoc')
+  ->checkResponseElement('tr + tr > td + td + td', 'Another Testdoc')
+  ->checkResponseElement('tr + tr + tr > td + td + td', 'My new test subject, updated again')
 ;
 
 $b
@@ -218,6 +214,6 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
-  ->responseContains('2 results found.')
+  ->checkResponseElement('table > tbody > tr', 2)
   ->checkResponseElement('body', '!/My new test subject/')
 ;

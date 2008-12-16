@@ -755,7 +755,23 @@ function _ull_reqpass_build_url($params) {
   }
 
   return $url;
-  
+}
+
+/**
+ * Enhances url_for with ull_reqpass functionality
+ *
+ * @param mixed $url
+ * @return string
+ */
+function ull_url_for($url = array())
+{
+  if (is_array($url)) 
+  {
+    $params = _ull_reqpass_initialize($url);  
+    $url = _ull_reqpass_build_url($params);
+  }
+
+  return url_for($url);
 }
 
 

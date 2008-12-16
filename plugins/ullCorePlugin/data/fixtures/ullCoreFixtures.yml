@@ -177,6 +177,7 @@ UllTableConfig:
         label: TestTabellenBeschriftung
         description: TestTabelle für automatisierte tests
     db_table_name: TestTable
+    sort_columns: id
     search_columns: id, my_string, my_text
 
 UllColumnConfig:

@@ -7,7 +7,7 @@ $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(21, new lime_output_color);
+$t = new lime_test(23, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -62,6 +62,17 @@ $t->diag('ull_form_tag');
   $request->setParameter('foo', 'bar');
   
   $t->is(ull_form_tag(array('action' => 'list')), '<form method="post" action="/ullWiki/list/foo/bar">', 'returns the correct tag for a reqpass array');
+  
+$t->diag('ull_url_for');
+
+  $t->is(ull_url_for('ullMaki/eat?foo=bar'), '/ullMaki/eat/foo/bar', 'returns the correct url for a string');
+
+  clean_request_parameters();
+  $request->setParameter('module', 'ullWiki');
+  $request->setParameter('action', 'index');
+  $request->setParameter('foo', 'bar');
+  
+  $t->is(ull_url_for(array('action' => 'list')), '/ullWiki/list/foo/bar', 'returns the correct url for a reqpass array');  
 
 $t->diag('ull_submit_tag()');
 

@@ -9,7 +9,7 @@
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 
-class BaseullFlowActions extends ullsfActions
+class BaseUllFlowActions extends ullsfActions
 {
 
   public function ullpreExecute()
@@ -1320,7 +1320,7 @@ class BaseullFlowActions extends ullsfActions
     $this->order = $this->getRequestParameter('order', 'created_at');
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
     
-    $order_func = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
+    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
 
     // for native UllFlowDoc columns...
     if (Doctrine::getTable('UllFlowDoc')->hasColumn($this->order))
@@ -1328,16 +1328,16 @@ class BaseullFlowActions extends ullsfActions
       switch ($this->order)
       {
         case 'assigned_to_ull_entity_id':
-          $q->orderBy('x.UllEntity.display_name ' . $order_func);
+          $q->orderBy('x.UllEntity.display_name ' . $orderDir);
           break;
         case 'creator_user_id':
-          $q->orderBy('x.Creator.display_name ' . $order_func);
+          $q->orderBy('x.Creator.display_name ' . $orderDir);
           break;
         case 'updator_user_id':
-          $q->orderBy('x.Updator.display_name ' . $order_func);
+          $q->orderBy('x.Updator.display_name ' . $orderDir);
           break;
         default:
-          $q->orderBy($this->order . ' ' . $order_func);
+          $q->orderBy($this->order . ' ' . $orderDir);
       }
     }
     // for virtual columns...
@@ -1356,7 +1356,7 @@ class BaseullFlowActions extends ullsfActions
       $order_cc_id = $q1->execute()->getFirst()->id;
         
       $q->leftJoin('x.UllFlowValues v1 WITH v1.ull_flow_column_config_id=?', $order_cc_id);
-      $q->orderBy('v1.value'. ' ' . $order_func);
+      $q->orderBy('v1.value'. ' ' . $orderDir);
     }
     
     // add 'created_at (desc)' as default 2nd order criteria
