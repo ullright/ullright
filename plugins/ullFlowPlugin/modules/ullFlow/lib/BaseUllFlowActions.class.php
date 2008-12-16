@@ -33,7 +33,7 @@ class BaseUllFlowActions extends ullsfActions
     if ($this->app_slug = $this->getRequestParameter('app'))  
     {
       $this->app = UllFlowAppTable::findBySlug($this->app_slug);
-      $this->breadcrumbTree->add($this->app->label);
+      $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
     } 
     else 
     {
@@ -1209,12 +1209,16 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
-    if ($this->app) {
-      $this->breadcrumbTree->add($this->app->label);
+    if ($this->app) 
+    {
+      $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
     }
-    if ($this->app) {
+    if ($this->app) 
+    {
       $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
-    } else {
+    } 
+    else 
+    {
       $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list');
     }
   }  
@@ -1224,15 +1228,18 @@ class BaseUllFlowActions extends ullsfActions
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
     $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
-    $this->breadcrumbTree->add($this->app->label);
+    $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
 //    if (!$this->referer_edit = $this->refererHandler->getReferer()) {
 //      $this->referer_edit = 'ullFlow/list?app=' . $this->app->getSlug();
 //    }    
 //    $this->breadcrumbTree->add(__('List', null, 'common'), $this->referer_edit);
     $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
-    if ($this->doc->exists()) {
+    if ($this->doc->exists()) 
+    {
       $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
-    } else {
+    } 
+    else 
+    {
       $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
     }    
     
