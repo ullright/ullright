@@ -17,13 +17,22 @@
 .result_list th {
   background: #A5AE5B; /* dark */
 }
-
+svn update
 .result_list tbody tr:hover {
   background: #E8E5A8;  
 }
 
 .ull_filter ul li {
   background-color: #E8E5A8;
+}
+
+#action_buttons_edit_main {
+  max-width: 950px;
+}
+
+.edit_main {
+  background: #e9e9e9;
+  max-width: 950px;
 }
 
   /* Overridden css: ullCore / taskcenter.css - formats */
@@ -150,15 +159,12 @@ a:visited {
 /* styles for the edit table */
 
 table.ull_wiki_edit {
-  border-collapse:  collapse;
-  border:           1px solid #888888;
- }
+  background: #e9e9e9;
+}
 
 .ull_wiki_edit th {
   color:            white;
   background:       #0081b8;
-  border:           1px solid #AAAAAA;
-  padding: .5em;
 }
 
 .ull_wiki_edit th a {
@@ -166,8 +172,13 @@ table.ull_wiki_edit {
 }
 
 .ull_wiki_edit td {
-  /* border:           1px dashed #AAAAAA; */
   padding:          .5em;
+  background: #e9e9e9;
+  vertical-align: top;
+}
+
+.ull_wiki_edit td.label_column {
+  max-width: 130px;
 }
 
 .ull_wiki_edit tr {

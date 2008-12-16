@@ -7,7 +7,8 @@
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
   , 'id=edit_form'); ?>  
   
-  <div id="ull_flow_edit_main">
+
+<div class="edit_main">
   
 <table class="ull_flow_edit">
 <tbody>
@@ -28,8 +29,6 @@
       <h3><?php echo __('Actions', null, 'common')?></h3>
       
       <div class='action_buttons_edit_left'>
-      
-      
       
       <?php if ($workflow_action_access): // $step_actions and ?>
         

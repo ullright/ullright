@@ -16,6 +16,8 @@
 
 <?php echo input_hidden_tag('return_var', $return_var); ?>
 
+<div class="edit_main">
+
 <table class='ull_wiki_edit'>
 <tbody>
 
@@ -23,28 +25,27 @@
 
 </tbody>
 </table>
+</div>
+
 <br />
 
+<div id="action_buttons_edit_main">
+  <div class='action_buttons_edit color_light_bg'>
+    <h3><?php echo __('Actions', null, 'common')?></h3>
+      <div class='action_buttons_edit_left'>
 
-<div class='action_buttons_edit'>
-<fieldset>
-  <legend><?php echo __('Actions', null, 'common') ?></legend>
+        <ul>
 
-  <div class='action_buttons_edit_left'>
-
-    <ul>
-
-		  <li>
-	      <?php echo submit_tag(__('Save and show', null, 'common'),
+		      <li>
+	         <?php echo submit_tag(__('Save and show', null, 'common'),
 	             array('name' => 'submit_save_show')) ?>
-	    </li>
-      <li>
-        <?php echo submit_tag(__('Save and close', null, 'common'),
+	        </li>
+          <li>
+          <?php echo submit_tag(__('Save and close', null, 'common'),
                array('name' => 'submit_save_close')) ?>
-      </li>
+          </li>
 
-    </ul>
-
+        </ul> 
   </div>    
 
   <div class='action_buttons_edit_right'>
@@ -76,14 +77,12 @@
 		    <?php endif; ?>
       </li>
 
-    </ul>
-
+	    </ul>
+	
+	  </div>
+	
+	  <div class="clear"></div>  
   </div>
-
-  <div class="clear"></div>  
-
-</fieldset>
-
 </div>
 
 
