@@ -6,7 +6,7 @@
 
 <!-- TODO: add ordered list for options/actions -->
 
-<ul class='ull_action'>
+<ul class='ull_action color_light_bg'>
   
   <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
   
@@ -20,7 +20,7 @@
     <?php echo $filter_form['search']->renderLabel() ?>: 
     <?php echo $filter_form['search']->render() ?>
     <?php echo submit_image_tag(ull_image_path('search', 16, 16, 'ullCore'),
-              array('alt' => 'search_list')) ?>
+              array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) ?>
   </li> 
 
 </ul>
@@ -65,6 +65,11 @@
     <tr <?php echo $odd_style ?>>
       <td>          
         <?php
+            echo ull_link_to(ull_image_tag('edit'), 'ullTableTool/edit?table=' . $table_name . '&' . $identifier);
+            echo ull_link_to(ull_image_tag('delete'), 'ullTableTool/delete?table=' . $table_name . '&' . $identifier,
+                'confirm='.__('Are you sure?', null, 'common')); 
+            
+            /*
             echo ull_icon(
               'ullTableTool/edit?table=' . $table_name . '&' . $identifier
               , 'edit'
@@ -76,7 +81,7 @@
               , 'delete'
               , __('Delete', null, 'common')
               , 'confirm='.__('Are you sure?', null, 'common')
-            );
+            );*/
         ?>
       </td>
       <?php echo $form ?>

@@ -11,14 +11,14 @@
   );
 ?>
 
-<ul class='ull_action'>
+<ul class='ull_action color_light_bg'>
     <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullWiki/create'); ?></li>
 
     <li>
      <?php echo $filter_form['search']->renderLabel() ?>    
      <?php echo $filter_form['search']->render() ?>
      <?php echo submit_image_tag(ull_image_path('search'),
-              array('alt' => 'search_list')) ?>
+              array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) ?>
     </li> 
 </ul>
 
@@ -61,6 +61,11 @@
     <tr <?php echo $odd_style ?>>
       <td>          
         <?php
+            echo ull_link_to(ull_image_tag('edit'), 'ullWiki/edit?' . $identifier);
+            echo ull_link_to(ull_image_tag('delete'), 'ullWiki/delete?' . $identifier,
+                'confirm='.__('Are you sure?', null, 'common')); 
+            
+            /*
             echo ull_icon(
               'ullWiki/edit?' . $identifier
               , 'edit'
@@ -73,6 +78,7 @@
               , __('Delete', null, 'common')
               , 'confirm='.__('Are you sure?', null, 'common')
             );
+            */
         ?>
       </td>
       <?php echo $form ?>

@@ -4,12 +4,13 @@
 /* Modules should override the following
    format definitions. */
 
+
 .color_light_bg {
-  background: #dad9d9;
+	background: #E1E2E2;
 }
 
 .color_medium_bg {
-  background: #d1d0d0;
+  background: #adafb0;
 }
 
 /* End of module format css */
@@ -340,14 +341,14 @@ table.result_list {
  }
 
 .result_list th {
-  background:       #d1d0d0;
+  background:       #adafb0;
   color:            white;
   padding: .5em;
   /* font-size: medium; */
 }
 
 .result_list th a {
-  color:            white;
+  color:            #fff;
 }
 
 .result_list td {
@@ -363,7 +364,7 @@ table.result_list {
 }
 
 .result_list tbody tr:hover {
-  background:       #ffe4b9;  
+  background:       #E8E5A8;  
 }
 
 /*

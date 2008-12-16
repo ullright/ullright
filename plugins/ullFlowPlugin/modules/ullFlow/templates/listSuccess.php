@@ -17,7 +17,7 @@
       <?php ?>	   
 	    <?php echo $filter_form ?>   
 	    <?php echo submit_image_tag(ull_image_path('search'),
-              array('class' => 'tc_search_quick_top_img'));
+              array('class' => 'image_align_middle_no_border'));
               //echo submit_tag('&gt;');
           ?>
       <?php ?> 

@@ -7,11 +7,23 @@
  /* Overridden css: ullCore / main.css - formats */
 
 .color_light_bg {
-  background: #e6f4b5;
+  background: #E8E5A8;
 }
 
 .color_medium_bg {
-  background: #d3f460;
+  background: #C6C98D;
+}
+
+.result_list th {
+  background: #A5AE5B; /* dark */
+}
+
+.result_list tbody tr:hover {
+  background: #E8E5A8;  
+}
+
+.ull_filter ul li {
+  background-color: #E8E5A8;
 }
 
   /* Overridden css: ullCore / taskcenter.css - formats */
