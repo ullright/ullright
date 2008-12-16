@@ -97,21 +97,20 @@ ul.nav_top_links {
   clear: both;
   float: left;
   margin: 0;
-  margin-top: .2em;
   padding: .25em 0;
-  /* width: 100%; */
-  list-style: none;
+  line-height: 1.3em;
+  list-style-type: none;
   border: none;
-  /* padding-bottom: 15px; */
 }
 
 ul.nav_top_links li {
   float: left;
-  margin: 0 0.5em;
+  margin: 0;
   padding: 0px;
   background: none;
   text-align: center;
   padding-bottom: 4px;
+  padding-right: 3em;
   border-bottom: 5px solid #fff;
 }
 
@@ -124,7 +123,7 @@ ul.nav_top_links li:hover {
 .nav_top_links a {
   font-weight: bold;
   font-size: 1.05em;
-  padding: .2em 1em;
+  padding: .2em 0em;
 }
 
 .nav_top_links a:hover {
@@ -190,7 +189,7 @@ ul.nav_top_links li:hover {
 
 #footer {
   margin: 2.5em 0;
-  padding: .4em 2em;
+  padding: .4em 0;
   font-size: 0.9em;
   border-top: 2px solid #777475;
   color: #777475;
@@ -438,6 +437,10 @@ ul.tag-cloud li {
  
 /* edit */ 
  
+#action_buttons_edit_main {
+  max-width: 780px;
+}
+ 
 .action_buttons_edit {
   clear: both;  
   background-color: #dad9d9;
@@ -501,6 +504,13 @@ ul.tag-cloud li {
   padding: 1em;
 }
 
-.image_align_middle {
+/*
+ *
+ * image align
+ *
+*/
+
+.image_align_middle_no_border {
   vertical-align: middle;
+  border: 0;
 }

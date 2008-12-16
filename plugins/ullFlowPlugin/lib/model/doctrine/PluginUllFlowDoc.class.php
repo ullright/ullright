@@ -157,6 +157,18 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     return $return;
   }  
   
+  public function getUllFlowMemoriesOrderedByDate()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllFlowMemory x')
+      ->addWhere('x.ull_flow_doc_id = ?', $this->id)
+      ->orderBy('x.created_at DESC')
+    ;      
+     
+    return $q->execute();
+  }
+  
   /**
    * get the ull_user_id of the currently logged in user, or '1' for the Master Admin user otherwhise
    *
@@ -270,7 +282,4 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->UllFlowMemories[$i]->UllFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug('create');
     $this->UllFlowMemories[$i]->comment = '';        
   }
-
-
-  
 }

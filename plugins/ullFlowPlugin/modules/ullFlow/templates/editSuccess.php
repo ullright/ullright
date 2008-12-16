@@ -23,6 +23,7 @@
 <br />
 
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
+<div id="action_buttons_edit_main">
   <div class='action_buttons_edit color_light_bg'>
       <h3><?php echo __('Actions', null, 'common')?></h3>
       
@@ -115,6 +116,7 @@
     <div class="clear"></div>  
   
   </div>
+ </div>
 <?php endif; ?>
 
 
@@ -133,7 +135,8 @@
   <ul>
     <?php 
       $tempdate = -1;
-      foreach ($doc->UllFlowMemories as $memory): ?>
+      
+      foreach ($doc->getUllFlowMemoriesOrderedByDate() as $memory): ?>
       <?php
         if ($tempdate != substr($memory->created_at, 0, 10)) {
           if ($tempdate != -1) 
