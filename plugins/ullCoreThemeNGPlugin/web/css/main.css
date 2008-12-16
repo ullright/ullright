@@ -110,7 +110,7 @@ ul.nav_top_links li {
   background: none;
   text-align: center;
   padding-bottom: 4px;
-  padding-right: 3em;
+  margin-right: 3em;
   border-bottom: 5px solid #fff;
 }
 
