@@ -66,7 +66,7 @@ class ullFlowGenerator extends ullGenerator
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array(),
-        'label'               => 'ID',
+        'label'               => __('ID', null, 'common'),
         'metaWidget'          => 'ullMetaWidgetInteger',
         'access'              => $this->defaultAccess,
         'is_in_list'          => true,
@@ -75,7 +75,7 @@ class ullFlowGenerator extends ullGenerator
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array(),
-        'label'               => 'Application',
+        'label'               => __('Application'),
         'metaWidget'          => 'ullMetaWidgetUllFlowApp',
         'access'              => $this->defaultAccess,
         'is_in_list'          => true,
@@ -88,7 +88,7 @@ class ullFlowGenerator extends ullGenerator
           'widgetOptions'     => array(),
           'widgetAttributes'  => array(),
           'validatorOptions'  => array(),
-          'label'             => 'Subject',
+          'label'             => __('Subject', null, 'common'),
           'metaWidget'        => 'ullMetaWidgetString',
           'access'            => $this->defaultAccess,
           'is_in_list'        => true,
@@ -143,7 +143,7 @@ class ullFlowGenerator extends ullGenerator
         'widgetOptions'     => array('ull_select' => 'priority'),
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
-        'label'             => 'Priority',
+        'label'             => __('Priority'),
         'metaWidget'        => 'ullMetaWidgetUllSelect',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
@@ -152,17 +152,27 @@ class ullFlowGenerator extends ullGenerator
         'widgetOptions'     => array(),
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
-        'label'             => 'Assigned to',
+        'label'             => __('Assigned to'),
         'metaWidget'        => 'ullMetaWidgetForeignKey',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
       	'relation'          => array('model' => 'UllEntity', 'foreign_id' => 'id')
       );
+      $this->columnsConfig['ull_flow_action_id'] = array(
+        'widgetOptions'     => array(),
+        'widgetAttributes'  => array(),
+        'validatorOptions'  => array(),
+        'label'             => __('Status'),
+        'metaWidget'        => 'ullMetaWidgetUllFlowAction',
+        'access'            => $this->defaultAccess,
+        'is_in_list'        => true,
+        'relation'          => array('model' => 'UllFlowAction', 'foreign_id' => 'id')
+      );      
       $this->columnsConfig['creator_user_id'] = array(
         'widgetOptions'     => array(),
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
-        'label'             => 'Created by',
+        'label'             => __('Created by', null, 'common'),
         'metaWidget'        => 'ullMetaWidgetForeignKey',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
@@ -172,12 +182,13 @@ class ullFlowGenerator extends ullGenerator
         'widgetOptions'     => array(),
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
-        'label'             => 'Created at',
+        'label'             => __('Created at', null, 'common'),
         'metaWidget'        => 'ullMetaWidgetDateTime',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
       );            
     }
+    
 //    var_dump($this->columnsConfig);
 //    die; 
    

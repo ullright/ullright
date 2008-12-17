@@ -79,15 +79,16 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement('table > thead > tr > th', 9) // number of columns
+  ->checkResponseElement('table > thead > tr > th', 10) // number of columns
   ->checkResponseElement('thead > tr > th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
   ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/asc"]', 'Application')
   ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/asc"]', 'My custom subject label')
   ->checkResponseElement('thead > tr > th + th + th + th + th > a', 'Your email address')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th> a', 'Priority')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th> a', 'Assigned to')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th> a', 'Created by')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th> a', 'Created at ↑')  
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th > a', 'Priority')
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th > a', 'Assigned to')
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th > a', 'Status')
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th > a', 'Created by')
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th + th > a', 'Created at ↑')  
 ;
 
 $b
@@ -98,7 +99,7 @@ $b
   ->checkResponseElement('tbody > tr + tr > td + td + td', '/Trouble ticket tool/')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td', 'Master Admin')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td', 'Test User')   
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td + td', 'Test User')   
 ;
 
 $b
@@ -112,7 +113,7 @@ $b
   ->isRequestParameter('order_dir', 'asc')
 
   ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/desc"]', 'My custom subject label ↓')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th> a', 'Created at')
+  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th + th > a', 'Created at')
 
   ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')  
@@ -156,7 +157,7 @@ $b
   ->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
   
   ->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td + td', '2001-01-01 01:01:01')
+  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td + td + td', '2001-01-01 01:01:01')
 ;
 
 $b

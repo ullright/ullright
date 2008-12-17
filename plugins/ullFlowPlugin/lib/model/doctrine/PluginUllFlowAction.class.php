@@ -16,4 +16,21 @@ abstract class PluginUllFlowAction extends BaseUllFlowAction
     return $this->label;
   }
   
+  /**
+   * Calculates app icon path
+   *
+   * @param integer $width
+   * @param integer $height
+   * @return string
+   */
+  public function getIconPath($width = 16, $height = 16)
+  {
+    return '/ullFlowTheme' .
+      sfConfig::get('app_theme_package', 'NG') .
+      'Plugin/images/ull_flow_action_icons/' .
+      $this->slug .
+      '_' . $width . 'x' . $height . '.png'
+    ;
+  }  
+  
 }

@@ -90,8 +90,6 @@
   
   </tbody>
   </table>
-<?php else: ?>
-  <p class='form_error'><?php echo __('No results found', null, 'common') ?></p>
 <?php endif ?>
 
 

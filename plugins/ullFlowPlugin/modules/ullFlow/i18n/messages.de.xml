@@ -172,13 +172,18 @@
 </trans-unit>
 
 <trans-unit id="2009">
-<source>Assigned to group</source>
-<target>Zugewiesen an Gruppe</target>
+<source>Assigned to</source>
+<target>Zugewiesen an</target>
 </trans-unit>
 
 <trans-unit id="2010">
 <source>Application</source>
 <target>Anwendung</target>
+</trans-unit>
+
+<trans-unit id="2011">
+<source>Priority</source>
+<target>Wichtigkeit</target>
 </trans-unit>
 
 <!-- action 'edit' -->
