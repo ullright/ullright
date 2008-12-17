@@ -29,10 +29,10 @@
 
 <br />
 
-<?php /*include_partial('ullTableTool/ullPagerTop',
+<?php include_partial('ullTableTool/ullPagerTop',
         array('pager' => $pager)
-      ); */?>  
-      
+      ); ?>
+
 <br />
 
 <?php // detect empty table_tool ?>

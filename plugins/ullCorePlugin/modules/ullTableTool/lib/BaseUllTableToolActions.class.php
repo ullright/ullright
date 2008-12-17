@@ -221,7 +221,12 @@ class BaseUllTableToolActions extends ullsfActions
         $q->orderBy($this->order . ' ' . $orderDir);
     }    
     
-    $rows = $q->execute();
+    $this->pager = new Doctrine_Pager(
+      $q, 
+      $this->getRequestParameter('page', 1),
+      sfConfig::get('app_pager_max_per_page')
+    );
+    $rows = $this->pager->execute();    
     
     return ($rows->count()) ? $rows : new $this->table_name;
   }
