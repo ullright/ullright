@@ -223,7 +223,7 @@ class BaseUllWikiActions extends ullsfActions
     }
 
     $this->breadcrumbTree->add(__('Show', null, 'common'));    
-    $this->breadcrumbTree->add($this->doc->subject, 'ullWiki/index');
+    $this->breadcrumbTree->add($this->doc->subject);
   }  
 
   /**

@@ -16,20 +16,30 @@
 <ul class='ullwiki_headfoot_action_icons'>
 
   <li>
-    <?php echo ull_reqpass_icon(
+  
+  <?php
+    echo ull_link_to(ull_image_tag('edit'),
+          array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $doc->id));
+  ?>
+  <?php /*echo ull_reqpass_icon(
             array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $doc->id)
             , 'edit'
             , __('Edit', null, 'common')
-          ); ?>
+          );*/ ?>
   </li>
 
   <li>
-    <?php echo ull_reqpass_icon(
+    <?php
+      echo ull_link_to(ull_image_tag('delete'), array('module' => 'ullWiki', 'action' => 'delete', 'docid' => $doc->id),
+          'confirm='.__('Are you sure?', null, 'common')); 
+   
+    /* echo ull_reqpass_icon(
             array('module' => 'ullWiki', 'action' => 'delete', 'docid' => $doc->id)
             , 'delete'
             ,  __('Delete', null, 'common')
             , 'confirm='.__('Are you sure?', null, 'common')
-          ); ?>
+          );*/
+      ?>
   </li>
 </ul>
 

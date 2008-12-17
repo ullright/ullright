@@ -21,12 +21,13 @@
 //}
 ?>
 
-
+<div id="ull_wiki_header">
 <?php include_component(
         'ullWiki', 
         'ullWikiHeaderShow', 
         array('doc' => $doc, 'cursor' => 0)
       ); ?>
+</div>
 
 <?php //$doc->setCulture(''); ?>
 
@@ -39,7 +40,7 @@
 
 ?>
 
-<div class='ullwiki_body'>
+<div class='ull_wiki_main'>
   <?php
   
   $body = $sf_data->getRaw('doc')->body;
@@ -136,7 +137,9 @@ if (!function_exists('u_func')) {
   ?>
 </div>
 
+<div id="ull_wiki_footer">
 <?php include_partial(
         'ullWikiFooterShow', 
         array('doc' => $doc)
       ); ?>
+</div>
