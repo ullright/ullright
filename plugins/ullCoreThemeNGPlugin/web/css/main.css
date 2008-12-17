@@ -498,6 +498,19 @@ ul.tag-cloud li {
   position: relative; /* workaround for IE 6 */
 }
 
+.ull_pager_element {
+  border: 1px solid #adafb0;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  padding-top: 0.09em;
+  padding-bottom: 0.09em;
+}
+
+.ull_pager_element_inactive {
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+}
+
 
 /*
  *

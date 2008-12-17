@@ -10,12 +10,23 @@
 ?>    
 
 <?php if ($pager->haveToPaginate()): ?>
-  <?php echo ull_link_to('&laquo;', array('page' => $pager->getFirstPage())) ?>
-  <?php echo ull_link_to('&lt;', array('page' => $pager->getPreviousPage())) ?>
+  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&laquo;', array('page' => $pager->getFirstPage())) . '</span>' ?>
+  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&lt;', array('page' => $pager->getPreviousPage())) . '</span>' ?>
   
   <?php foreach ($pages as $page): ?>
-    <?php echo ($page == $pager->getPage()) ? $page : ull_link_to($page, array('page' => $page)) ?>
+    <?php
+    if ($page == $pager->getPage())
+    {
+      echo '<span class="ull_pager_element">' . $page . '</span>';
+    }
+    else
+    {
+      echo '<span class="ull_pager_element_inactive">' .
+      ull_link_to($page, array('page' => $page)) . '</span>';
+    }
+    ?>
+    
   <?php endforeach ?>
-  <?php echo ull_link_to('&gt;', array('page' => $pager->getNextPage())) ?>
-  <?php echo ull_link_to('&raquo;', array('page' => $pager->getLastPage())) ?>
+  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&gt;', array('page' => $pager->getNextPage())) . '</span>' ?>
+  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&raquo', array('page' => $pager->getLastPage())) . '</span>' ?>
 <?php endif ?>
