@@ -86,11 +86,6 @@
             <?php
               $culture = $sf_user->getCulture();
               $language = substr($culture,0,2);
-//              // fallback
-//              if (!$language) 
-//              {
-//                $language = 'en';
-//              }
               if ($language <> 'en') 
               {
                 echo ull_link_to('English', 'ullUser/changeCulture?culture=en', 'ull_js_observer_confirm=true');
