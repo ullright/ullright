@@ -1,6 +1,9 @@
+<br />
+
+<div class="ull_wikilink">
 <?php
 
-  echo '<h1>' . __('Manage Wiki Links', null, 'common') . '</h1><br />';
+  echo '<h3>' . __('Manage Wiki Links', null, 'common') . '</h3><br />';
 
 //  echo ull_reqpass_form_tag(array('action' => 'wikiLink'), 'id=ull_flow_wiki_link_form');
 //  
@@ -16,8 +19,12 @@
     echo ullWidgetWikiLink::renderWikiLinkList($value, true);
   } 
 ?>
+</div>
 
 <br />
+
+<div class="ull_wikilink color_light_bg">
+
 <h3><?php echo __('Create Link', null, 'common'); ?>:</h3>
   
 <ul>
@@ -38,8 +45,6 @@
   
   <br /><br />
   
-  <div class='action_buttons'>
-    
     <div class='action_buttons_left'>
       <?php echo ull_button_to(__('Save and close'), 'ullFlow/edit?doc=' . $doc->id) ?>
       <?php //echo button_to_function(__('Save and close', null, 'common'), 'return_to()'); ?>
