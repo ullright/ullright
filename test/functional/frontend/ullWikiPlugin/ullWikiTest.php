@@ -120,7 +120,6 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'show')
-  ->click('My new test subject, updated')
   ->responseContains('<b>My body, updated</b>')
 ;
 
