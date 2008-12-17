@@ -88,7 +88,7 @@
       <td>          
         <?php
             echo ull_link_to(ull_image_tag('edit'), 'ullFlow/edit?' . $identifier);
-            echo ull_link_to(ull_image_tag('delete'), 'ullFlow/delete?table=' . $identifier,
+            echo ull_link_to(ull_image_tag('delete'), 'ullFlow/delete?' . $identifier,
                 'confirm='.__('Are you sure?', null, 'common')); 
             
 //            echo ull_icon(

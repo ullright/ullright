@@ -192,60 +192,19 @@ class BaseUllFlowActions extends ullsfActions
    */  
   public function executeDelete()
   { 
-    // check access
-    $this->checkAccess(1);
+    $this->checkAccess('LoggedIn');
+
+    $this->refererHandler = new refererHandler();  
     
-    if (!$this->hasRequestParameter('doc')) {
-      $this->error = __('Please specify a ullFlow document') . '!';
-      return sfView::ERROR;
-    }
+    $this->getDocFromRequest();
     
-    $doc_id = $this->getRequestParameter('doc');
-    
-    $doc = UllFlowDocPeer::retrieveByPK($doc_id);
-     
-    $this->forward404Unless($doc);
-    
-    // get access groups
-    $access_groups[] = $doc->getReadUllGroupId();
-    $access_groups[] = $doc->getWriteUllGroupId();
+    $this->redirectUnless($this->doc->checkDeleteAccess(), 'ullUser/noaccess');
     
     // remove tags
-    $doc->removeAllTags();
-    $doc->save();
+    $this->doc->removeAllTags();
+    $this->doc->save();
     
-    $doc->delete();
-    
-    // delete values;
-    $c = new Criteria();
-    $c->add(UllFlowValuePeer::ULL_FLOW_DOC_ID, $doc_id);
-    $values = UllFlowValuePeer::doSelect($c);
-    
-    foreach ($values as $value) {
-      $value->delete(); 
-    }
-
-    // delete memories;
-    $c = new Criteria();
-    $c->add(UllFlowMemoryPeer::ULL_FLOW_DOC_ID, $doc_id);
-    $memories = UllFlowMemoryPeer::doSelect($c);
-    
-    foreach ($memories as $memory) {
-      $memory->delete(); 
-    }    
-    
-    // delete access groups
-    foreach ($access_groups as $access_group) {
-      $c = new Criteria();
-      $c->add(UllUserGroupPeer::ULL_GROUP_ID, $access_group);
-      UllUserGroupPeer::doDelete($c);
-
-      $c = new Criteria();
-      $c->add(UllGroupPeer::ID, $access_group);
-      UllGroupPeer::doDelete($c);
-    }
-
-//    return $this->redirect('ullFlow/index');
+    $this->doc->delete();
 
     $refererHandler = new refererHandler();
     
@@ -595,13 +554,31 @@ class BaseUllFlowActions extends ullsfActions
     return ($docs->count()) ? $docs : new UllFlowDoc;
   }  
   
+  
+  /**
+   * Gets a UllFlowDocObject according to the given request param
+   *
+   */
+  protected function getDocFromRequest()
+  {
+    if (!$docId = $this->getRequestParameter('doc')) 
+    {
+      throw new InvalidArgumentException('The "doc" parameter is empty');
+    }
+
+    $this->doc = Doctrine::getTable('UllFlowDoc')->find($docId);
+    $this->forward404Unless($this->doc);
+  }   
+  
+  
   /**
    * Gets or creates a UllFlowDocObject according to the given request param
    *
    */
   protected function getDocFromRequestOrCreate()
   {
-    if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) {
+    if (!$this->hasRequestParameter('app') and !$this->hasRequestParameter('doc')) 
+    {
       throw new InvalidArgumentException('At least one of the "app" or "doc" parameters have to be given');
     }
 

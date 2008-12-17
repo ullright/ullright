@@ -238,9 +238,11 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     
     // read-only access check uses the same query as the list action
     $q = new Doctrine_Query;
-    $q->select('x.id');
-    $q->from('UllFlowDoc x');
-    $q->addWhere('x.id = ?', $this->id);       
+    $q
+      ->select('x.id')
+      ->from('UllFlowDoc x')
+      ->addWhere('x.id = ?', $this->id)
+    ;       
     $q = UllFlowDocTable::queryAccess($q, $this->UllFlowApp);
     
     if ($q->count())
@@ -248,6 +250,41 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
       return 'r';
     }
   }  
+  
+  /**
+   * Checks access for delete action
+   *
+   * @return boolean
+   */
+  public function checkDeleteAccess()
+  {
+    
+//    if (UllUserTable::hasGroup('MasterAdmins'))
+//    {
+//      return true;
+//    }
+    
+//    // app-specific global write access
+//    if (UllUserTable::hasPermission('UllFlow_' . $this->UllFlowApp->slug . '_global_write'))
+//    {
+//      return true;
+//    }    
+
+    // Allow access if the logged in user is the creator
+    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllFlowDoc d')
+      ->where('d.id = ?', $this->id)
+      ->addWhere('d.creator_user_id = ?', $userId)
+    ;       
+    
+    if ($q->count())
+    {
+      return true;
+    }
+  }    
+  
   
   /**
    * create UllFlowMemory entry
