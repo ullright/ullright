@@ -572,6 +572,11 @@ table.ull_edit {
 	white-space: nowrap;
 }
 
+.order_arrow {
+	font-family: sans-serif; 
+	font-size: 1.2em;
+}
+
 /*
  *
  * upload and wikilink

@@ -6,7 +6,7 @@
       <th>
         <?php 
         if ($order == $field_name) {
-          $arrow  = ($order_dir == 'desc') ? ' ↑' : ' ↓';
+          $arrow  = ($order_dir == 'desc') ? ' <span class="order_arrow">↑</span>' : ' <span class="order_arrow">↓</span>';
           $dir    = ($order_dir == 'desc') ? 'asc' : 'desc';
         } else {
           $arrow = '';
