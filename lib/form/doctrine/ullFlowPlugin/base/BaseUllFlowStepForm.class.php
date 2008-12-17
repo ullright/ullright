@@ -14,25 +14,25 @@ class BaseUllFlowStepForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
       'namespace'       => new sfWidgetFormInput(),
-      'creator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'ull_flow_app_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowApp', 'add_empty' => false)),
       'slug'            => new sfWidgetFormInput(),
       'is_start'        => new sfWidgetFormInputCheckbox(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
+      'creator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'              => new sfValidatorDoctrineChoice(array('model' => 'UllFlowStep', 'column' => 'id', 'required' => false)),
       'namespace'       => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'creator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'ull_flow_app_id' => new sfValidatorDoctrineChoice(array('model' => 'UllFlowApp')),
       'slug'            => new sfValidatorPass(),
       'is_start'        => new sfValidatorBoolean(array('required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_flow_step[%s]');

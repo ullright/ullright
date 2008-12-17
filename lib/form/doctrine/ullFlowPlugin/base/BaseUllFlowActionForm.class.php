@@ -14,8 +14,6 @@ class BaseUllFlowActionForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                   => new sfWidgetFormInputHidden(),
       'namespace'            => new sfWidgetFormInput(),
-      'creator_user_id'      => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'      => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'slug'                 => new sfWidgetFormInput(),
       'is_status_only'       => new sfWidgetFormInputCheckbox(),
       'is_enable_validation' => new sfWidgetFormInputCheckbox(),
@@ -26,13 +24,13 @@ class BaseUllFlowActionForm extends BaseFormDoctrine
       'is_comment_mandatory' => new sfWidgetFormInputCheckbox(),
       'created_at'           => new sfWidgetFormDateTime(),
       'updated_at'           => new sfWidgetFormDateTime(),
+      'creator_user_id'      => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'      => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'                   => new sfValidatorDoctrineChoice(array('model' => 'UllFlowAction', 'column' => 'id', 'required' => false)),
       'namespace'            => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'creator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'slug'                 => new sfValidatorPass(),
       'is_status_only'       => new sfValidatorBoolean(array('required' => false)),
       'is_enable_validation' => new sfValidatorBoolean(array('required' => false)),
@@ -43,6 +41,8 @@ class BaseUllFlowActionForm extends BaseFormDoctrine
       'is_comment_mandatory' => new sfValidatorBoolean(array('required' => false)),
       'created_at'           => new sfValidatorDateTime(array('required' => false)),
       'updated_at'           => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_flow_action[%s]');

@@ -14,33 +14,35 @@ class BaseUllFlowDocForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                           => new sfWidgetFormInputHidden(),
       'namespace'                    => new sfWidgetFormInput(),
-      'creator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'ull_flow_app_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowApp', 'add_empty' => false)),
       'subject'                      => new sfWidgetFormInput(),
       'ull_flow_action_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowAction', 'add_empty' => true)),
       'assigned_to_ull_entity_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllEntity', 'add_empty' => false)),
       'assigned_to_ull_flow_step_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowStep', 'add_empty' => false)),
+      'priority'                     => new sfWidgetFormDoctrineSelect(array('model' => 'UllSelectChild', 'add_empty' => true)),
       'duplicate_tags_for_search'    => new sfWidgetFormTextarea(),
       'dirty'                        => new sfWidgetFormInput(),
       'created_at'                   => new sfWidgetFormDateTime(),
       'updated_at'                   => new sfWidgetFormDateTime(),
+      'creator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'                           => new sfValidatorDoctrineChoice(array('model' => 'UllFlowDoc', 'column' => 'id', 'required' => false)),
       'namespace'                    => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'creator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'ull_flow_app_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllFlowApp')),
       'subject'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'ull_flow_action_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllFlowAction', 'required' => false)),
       'assigned_to_ull_entity_id'    => new sfValidatorDoctrineChoice(array('model' => 'UllEntity')),
       'assigned_to_ull_flow_step_id' => new sfValidatorDoctrineChoice(array('model' => 'UllFlowStep')),
+      'priority'                     => new sfValidatorDoctrineChoice(array('model' => 'UllSelectChild', 'required' => false)),
       'duplicate_tags_for_search'    => new sfValidatorString(array('required' => false)),
       'dirty'                        => new sfValidatorInteger(array('required' => false)),
       'created_at'                   => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                   => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_flow_doc[%s]');

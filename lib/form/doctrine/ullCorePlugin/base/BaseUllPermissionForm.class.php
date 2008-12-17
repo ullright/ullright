@@ -14,11 +14,11 @@ class BaseUllPermissionForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                           => new sfWidgetFormInputHidden(),
       'namespace'                    => new sfWidgetFormInput(),
-      'creator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'slug'                         => new sfWidgetFormInput(),
       'created_at'                   => new sfWidgetFormDateTime(),
       'updated_at'                   => new sfWidgetFormDateTime(),
+      'creator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'ull_group_list'    => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllGroup')),
       'ull_flow_app_list' => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllFlowApp')),
     ));
@@ -26,11 +26,11 @@ class BaseUllPermissionForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                           => new sfValidatorDoctrineChoice(array('model' => 'UllPermission', 'column' => 'id', 'required' => false)),
       'namespace'                    => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'creator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'slug'                         => new sfValidatorString(array('max_length' => 64, 'required' => false)),
       'created_at'                   => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                   => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'ull_group_list'    => new sfValidatorDoctrineChoiceMany(array('model' => 'UllGroup', 'required' => false)),
       'ull_flow_app_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'UllFlowApp', 'required' => false)),
     ));

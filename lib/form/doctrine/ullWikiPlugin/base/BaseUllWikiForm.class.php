@@ -14,8 +14,6 @@ class BaseUllWikiForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                        => new sfWidgetFormInputHidden(),
       'namespace'                 => new sfWidgetFormInput(),
-      'creator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'subject'                   => new sfWidgetFormInput(),
       'body'                      => new sfWidgetFormTextarea(),
       'read_counter'              => new sfWidgetFormInput(),
@@ -23,6 +21,8 @@ class BaseUllWikiForm extends BaseFormDoctrine
       'duplicate_tags_for_search' => new sfWidgetFormTextarea(),
       'created_at'                => new sfWidgetFormDateTime(),
       'updated_at'                => new sfWidgetFormDateTime(),
+      'creator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'deleted'                   => new sfWidgetFormInputCheckbox(),
       'version'                   => new sfWidgetFormInput(),
     ));
@@ -30,8 +30,6 @@ class BaseUllWikiForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                        => new sfValidatorDoctrineChoice(array('model' => 'UllWiki', 'column' => 'id', 'required' => false)),
       'namespace'                 => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'creator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'subject'                   => new sfValidatorString(array('max_length' => 255)),
       'body'                      => new sfValidatorString(array('required' => false)),
       'read_counter'              => new sfValidatorInteger(array('required' => false)),
@@ -39,6 +37,8 @@ class BaseUllWikiForm extends BaseFormDoctrine
       'duplicate_tags_for_search' => new sfValidatorString(array('required' => false)),
       'created_at'                => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'deleted'                   => new sfValidatorBoolean(),
       'version'                   => new sfValidatorInteger(array('required' => false)),
     ));

@@ -14,8 +14,6 @@ class BaseUllFlowMemoryForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                        => new sfWidgetFormInputHidden(),
       'namespace'                 => new sfWidgetFormInput(),
-      'creator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'ull_flow_doc_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowDoc', 'add_empty' => false)),
       'ull_flow_step_id'          => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowStep', 'add_empty' => false)),
       'ull_flow_action_id'        => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowAction', 'add_empty' => false)),
@@ -24,13 +22,13 @@ class BaseUllFlowMemoryForm extends BaseFormDoctrine
       'creator_ull_entity_id'     => new sfWidgetFormDoctrineSelect(array('model' => 'UllEntity', 'add_empty' => false)),
       'created_at'                => new sfWidgetFormDateTime(),
       'updated_at'                => new sfWidgetFormDateTime(),
+      'creator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'                        => new sfValidatorDoctrineChoice(array('model' => 'UllFlowMemory', 'column' => 'id', 'required' => false)),
       'namespace'                 => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'creator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'ull_flow_doc_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllFlowDoc')),
       'ull_flow_step_id'          => new sfValidatorDoctrineChoice(array('model' => 'UllFlowStep')),
       'ull_flow_action_id'        => new sfValidatorDoctrineChoice(array('model' => 'UllFlowAction')),
@@ -39,6 +37,8 @@ class BaseUllFlowMemoryForm extends BaseFormDoctrine
       'creator_ull_entity_id'     => new sfValidatorDoctrineChoice(array('model' => 'UllEntity')),
       'created_at'                => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_flow_memory[%s]');
