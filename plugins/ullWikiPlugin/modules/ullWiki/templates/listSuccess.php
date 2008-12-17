@@ -64,21 +64,6 @@
             echo ull_link_to(ull_image_tag('edit'), 'ullWiki/edit?' . $identifier);
             echo ull_link_to(ull_image_tag('delete'), 'ullWiki/delete?' . $identifier,
                 'confirm='.__('Are you sure?', null, 'common')); 
-            
-            /*
-            echo ull_icon(
-              'ullWiki/edit?' . $identifier
-              , 'edit'
-              , __('Edit', null, 'common')
-            );
-        
-            echo ull_icon(
-              'ullWiki/delete?' . $identifier
-              , 'delete'
-              , __('Delete', null, 'common')
-              , 'confirm='.__('Are you sure?', null, 'common')
-            );
-            */
         ?>
       </td>
       <?php echo $form ?>
