@@ -9,14 +9,14 @@ class ullWidgetUllFlowActionRead extends ullWidget
     
     $path = $action->getIconPath();
     
-    return $this->renderTag('img', array(
+    return '<span class="no_wrap">' . $this->renderTag('img', array(
         'src'     => $path,
         'alt'     => $action->label,
         'title'   => $action->label,
         'width'   => 16,
         'height'  => 16,
         'class'   => 'image_align_middle'
-    )) . ' ' . $action->label; 
+    )) . ' ' . $action->label . '</span>'; 
   }
 
 }

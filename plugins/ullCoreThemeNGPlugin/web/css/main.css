@@ -568,6 +568,10 @@ table.ull_edit {
   line-height: 1.3em;
 }
 
+.no_wrap {
+	white-space: nowrap;
+}
+
 /*
  *
  * upload and wikilink

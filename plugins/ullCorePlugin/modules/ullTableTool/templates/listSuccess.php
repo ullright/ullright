@@ -63,25 +63,11 @@
         
       ?>
     <tr <?php echo $odd_style ?>>
-      <td>          
+      <td class='no_wrap'>          
         <?php
             echo ull_link_to(ull_image_tag('edit'), 'ullTableTool/edit?table=' . $table_name . '&' . $identifier);
             echo ull_link_to(ull_image_tag('delete'), 'ullTableTool/delete?table=' . $table_name . '&' . $identifier,
                 'confirm='.__('Are you sure?', null, 'common')); 
-            
-            /*
-            echo ull_icon(
-              'ullTableTool/edit?table=' . $table_name . '&' . $identifier
-              , 'edit'
-              , __('Edit', null, 'common')
-            );
-        
-            echo ull_icon(
-              'ullTableTool/delete?table=' . $table_name . '&' . $identifier
-              , 'delete'
-              , __('Delete', null, 'common')
-              , 'confirm='.__('Are you sure?', null, 'common')
-            );*/
         ?>
       </td>
       <?php echo $form ?>

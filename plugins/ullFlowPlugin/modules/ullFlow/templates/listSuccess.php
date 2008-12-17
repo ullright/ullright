@@ -85,7 +85,7 @@
         $identifier = $generator->getIdentifierUrlParams($row);
       ?>
     <tr <?php echo $odd_style ?>>
-      <td>          
+      <td class='no_wrap'>          
         <?php
             echo ull_link_to(ull_image_tag('edit'), 'ullFlow/edit?' . $identifier);
             echo ull_link_to(ull_image_tag('delete'), 'ullFlow/delete?' . $identifier,
