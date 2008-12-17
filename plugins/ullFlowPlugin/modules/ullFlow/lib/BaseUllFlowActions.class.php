@@ -306,7 +306,7 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeWikiLink($request) 
   {
-    var_dump($this->getRequest()->getParameterHolder()->getAll());
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());
     
     $this->getDocFromRequestOrCreate();
     
