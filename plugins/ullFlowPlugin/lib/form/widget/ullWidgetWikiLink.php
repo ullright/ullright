@@ -49,7 +49,7 @@ class ullWidgetWikiLink extends sfWidgetForm
       
       $rows = explode("\n", $value);
         
-      foreach ($rows as $row) 
+      foreach ($rows as $rowNum => $row) 
       {
         $cols = explode(";", $row);
         
@@ -68,11 +68,13 @@ class ullWidgetWikiLink extends sfWidgetForm
           $html .= '<tr>';
 //          $html .= '<td>' . link_to($ullWikiId, 'ullWiki/show?docid=' . $ullWikiId) . '</td>';
           $html .= '<td>' . link_to($subject, 'ullWiki/show?docid=' . $ullWikiId) . '</td>';
-//          if ($allowDelete) 
-//          {
-//            $html .= '<td>' . ull_icon_to_function('delete_line(' . $line_num . ')', 'delete', 'confirm='.__('Are you sure?', null, 'common')) . '</td>';
-//          }
-//          $html .= '</tr>';        
+          if ($allowDelete) 
+          {
+            $html .= '<td>' . 
+              ull_link_to(ull_image_tag('delete', array(), 12, 12), array('delete' => $rowNum + 1, 'ull_wiki_doc_id' => '')) . 
+              '</td>';
+          }
+          $html .= '</tr>';        
         }            
       }
       $html .= '</tbody>';

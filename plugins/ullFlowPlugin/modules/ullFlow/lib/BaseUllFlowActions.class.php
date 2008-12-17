@@ -306,7 +306,7 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeWikiLink($request) 
   {
-//    var_dump($this->getRequest()->getParameterHolder()->getAll());
+    var_dump($this->getRequest()->getParameterHolder()->getAll());
     
     $this->getDocFromRequestOrCreate();
     
@@ -339,15 +339,20 @@ class BaseUllFlowActions extends ullsfActions
     }
 
     
-//    // handle delete
-//    if (!is_null($this->delete)) {
-//      $arr = array();
-//      if ($this->value) {
-//        $arr = explode("\n", $this->value);
-//        unset($arr[$this->delete]);
-//        $this->value = implode("\n", $arr);
-//      }
-//    }
+    // handle delete
+    if ($delete = $this->getRequestParameter('delete')) 
+    {
+      $arr = array();
+      if ($this->value) 
+      {
+        $arr = explode("\n", $this->value);
+        unset($arr[$delete - 1]);
+        $this->value = implode("\n", $arr);
+      }
+      
+      $this->doc->$column = $this->value;
+      $this->doc->save();
+    }
 
   }
 
