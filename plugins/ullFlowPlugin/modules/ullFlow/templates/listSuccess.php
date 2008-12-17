@@ -3,7 +3,7 @@
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
 
 	<!-- Action row -->
-	<?php echo ull_form_tag(array('page' => '', 'filter' => array('flow_action' => ''))) ?>
+	<?php echo ull_form_tag(array('page' => '', 'filter' => array('status' => ''))) ?>
 	
 	<ul class='ull_action color_light_bg'>
 	  

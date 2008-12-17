@@ -1288,7 +1288,7 @@ class BaseUllFlowActions extends ullsfActions
     $q = UllFlowDocTable::queryAccess($q, $this->app);
     
     // ullFlow action
-    if (!$ullFlowActionName = $this->filter_form->getValue('flow_action')) 
+    if (!$ullFlowActionName = $this->filter_form->getValue('status')) 
     {
       $q->addWhere('x.UllFlowAction.is_in_resultlist = ?', true);
     } 

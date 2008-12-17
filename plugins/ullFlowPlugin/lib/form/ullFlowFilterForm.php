@@ -11,18 +11,19 @@ class ullFlowFilterForm extends sfForm
         'title'     => __('Search', null, 'common')
         )
       ),
-      'flow_action' => new ullWidgetUllFlowAction(array(
+      'status' => new ullWidgetUllFlowAction(array(
         ), array('onchange'  => 'submit()')
       )
     ));
 
     $this->widgetSchema->setLabels(array(
-      'search'  => __('Search', null, 'common')
+      'search'  => __('Search', null, 'common'),
+      'status'  => __('Status')
     ));
     
     $this->setValidators(array(
       'search'  => new sfValidatorPass(),
-      'flow_action'  => new sfValidatorPass(),
+      'status'  => new sfValidatorPass(),
     ));
     
     $this->getWidgetSchema()->setNameFormat('filter[%s]');
