@@ -480,8 +480,8 @@
 </trans-unit>
 
 <trans-unit id="15001">
-<source>My todo list</source>
-<target>Meine Todo-Liste</target>
+<source>My tasks</source>
+<target>Meine Aufgaben</target>
 </trans-unit>
 
 </body>

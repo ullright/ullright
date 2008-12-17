@@ -149,7 +149,7 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_tickets:hover {
-  border-color: #da531f;
+  border-color: #009ddb;
 }
 
 #nav_link_todo a:hover {
@@ -157,7 +157,7 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_todo:hover {
-  border-color: #ac108e;
+  border-color: #009ddb;
 }
 
 #nav_link_wiki a:hover {
