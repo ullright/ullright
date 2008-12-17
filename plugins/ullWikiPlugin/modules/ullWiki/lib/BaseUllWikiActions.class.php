@@ -190,7 +190,7 @@ class BaseUllWikiActions extends ullsfActions
   protected function breadcrumbForIndex() 
   {
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->addFinal(__('Wiki'));
+    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
   }
 
   /**
@@ -200,7 +200,7 @@ class BaseUllWikiActions extends ullsfActions
   protected function breadcrumbForList() {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
-    $this->breadcrumbTree->addFinal(__('Result list', null, 'common'));
+    $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
   }  
 
   /**
@@ -223,7 +223,7 @@ class BaseUllWikiActions extends ullsfActions
     }
 
     $this->breadcrumbTree->add(__('Show', null, 'common'));    
-    $this->breadcrumbTree->addFinal($this->doc->subject);
+    $this->breadcrumbTree->add($this->doc->subject, 'ullWiki/index');
   }  
 
   /**
