@@ -65,10 +65,10 @@ UllEntityGroup:
   columns:
     ull_entity_id:
       type: integer
-      primary: true
+      notnull: true
     ull_group_id:
       type: integer
-      primary: true
+      notnull: true
   relations:
     UllEntity:
     UllGroup:
@@ -110,10 +110,10 @@ UllGroupPermission:
   columns:
     ull_group_id:
       type: integer
-      primary: true
+      notnull: true
     ull_permission_id:
       type: integer
-      primary: true
+      notnull: true
   relations:
     UllGroup:
     UllPermission:

@@ -1,5 +1,7 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
+<?php $generator = $sf_data->getRaw('generator') ?>
+
 <?php if ($generator->getForm()->getErrorSchema()->getErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
@@ -7,7 +9,7 @@
   <br /><br />
 <?php endif; ?>
 
-<?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&id=' . $id, 
+<?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0), 
     array('id' => 'ull_tabletool_form')) ?>
 
 <div class="edit_main">
@@ -46,11 +48,11 @@
 ?>
       </li>
       <li>
-		    <?php if ($id): ?>    
+		    <?php if ($generator->getRow()->exists()): ?>    
 		      <?php 
 		        echo link_to(
 		          __('Delete', null, 'common')
-		          , 'ullTableTool/delete?table=' . $table_name . '&id=' . $id
+		          , 'ullTableTool/delete?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0)
 		          , 'confirm='.__('Are you sure?', null, 'common')
 		          ); 
 		      ?> &nbsp; 

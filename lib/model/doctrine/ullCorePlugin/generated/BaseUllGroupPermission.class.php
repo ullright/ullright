@@ -9,8 +9,8 @@ abstract class BaseUllGroupPermission extends UllRecord
   {
     parent::setTableDefinition();
     $this->setTableName('ull_group_permission');
-    $this->hasColumn('ull_group_id', 'integer', null, array('type' => 'integer', 'primary' => true));
-    $this->hasColumn('ull_permission_id', 'integer', null, array('type' => 'integer', 'primary' => true));
+    $this->hasColumn('ull_group_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    $this->hasColumn('ull_permission_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
   }
 
   public function setUp()

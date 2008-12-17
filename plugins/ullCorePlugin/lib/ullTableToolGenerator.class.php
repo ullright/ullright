@@ -97,7 +97,7 @@ class ullTableToolGenerator extends ullGenerator
    *
    * @return array
    */
-  protected function getIdentifierAsArray()
+  public function getIdentifierAsArray()
   {
     $identifier = $this->tableConfig->getIdentifier();
     if (!is_array($identifier))

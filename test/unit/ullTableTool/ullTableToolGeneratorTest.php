@@ -144,7 +144,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(34, new lime_output_color, $configuration);
+$t = new myTestCase(29, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -183,13 +183,14 @@ $t->begin('getTableConfig()');
   $t->is($tableConfig->getIdentifier(), 'id', 'Identifier is correct');
   $t->is($tableConfig->label, 'TestTableLabel', 'Label is correct'); 
 
-$t->begin('getTableConfig() for a table with a multi-columns primary key');  
-  $tableTool2 = new ullTableToolGenerator('UllEntityGroup');
-  $tableConfig = $tableTool2->getTableConfig();
-  $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');
-  $t->is(is_array($tableConfig->getIdentifier()), true, 'Identifier is an array');
-  $t->is($tableConfig->getIdentifier(), array(0 => 'ull_entity_id', 1 => 'ull_group_id'), 'Identifiers are correct');
-  $t->is($tableConfig->label, 'Group memberships', 'Label is correct');
+// we don't habe any composite primaray keys at the moment  
+//$t->begin('getTableConfig() for a table with a multi-columns primary key');  
+//  $tableTool2 = new ullTableToolGenerator('UllEntityGroup');
+//  $tableConfig = $tableTool2->getTableConfig();
+//  $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');
+//  $t->is(is_array($tableConfig->getIdentifier()), true, 'Identifier is an array');
+//  $t->is($tableConfig->getIdentifier(), array(0 => 'ull_entity_id', 1 => 'ull_group_id'), 'Identifiers are correct');
+//  $t->is($tableConfig->label, 'Group memberships', 'Label is correct');
   
 $t->begin('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
@@ -223,11 +224,13 @@ $t->begin('buildForm()');
   $tableTool->buildForm($tests);  
   
   $entityGroups = Doctrine::getTable('UllEntityGroup')->findAll();
-  $tableTool2->buildForm($entityGroups);
+  
   
 $t->begin('getIdentifierUrlParams()');
   $t->is($tableTool->getIdentifierUrlParams(0), 'id=1', 'Return the correct URL params');
-  $t->is($tableTool2->getIdentifierUrlParams(0), 'ull_entity_id=1&ull_group_id=2', 'Return the correct URL params for multi-column primary keys');  
+// we don't habe any composite primaray keys at the moment
+//  $tableTool2->buildForm($entityGroups);  
+//  $t->is($tableTool2->getIdentifierUrlParams(0), 'ull_entity_id=1&ull_group_id=2', 'Return the correct URL params for multi-column primary keys');  
   
 $t->begin('getForm() with calling buildForm() prior');  
   $form = $tableTool->getForm();

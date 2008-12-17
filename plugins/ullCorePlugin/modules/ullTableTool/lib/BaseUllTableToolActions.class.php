@@ -137,6 +137,8 @@ class BaseUllTableToolActions extends ullsfActions
     
     $this->getTablefromRequest();
     
+    $this->generator = new ullTableToolGenerator($this->table_name);
+    
     $row = $this->getRowFromRequest();   
     $row->delete();
     
@@ -250,17 +252,32 @@ class BaseUllTableToolActions extends ullsfActions
    */
   protected function getRowFromRequestOrCreate()
   {
-    if (($id = $this->getRequestParameter('id')) > 0) 
+    $identifiers = $this->generator->getIdentifierAsArray();
+    
+    $q = new Doctrine_Query;
+    $q->from($this->table_name . ' x');
+
+    $hasIdentifier = false;
+    
+    foreach ($identifiers as $identifier)
     {
-      $this->id = $id;
-      $row = Doctrine::getTable($this->table_name)->find($this->id);
+      $value = $this->getRequestParameter($identifier);
+      if ($value)
+      {
+        $hasIdentifier = true;      
+      }
+      $q->addWhere('x.' . $identifier . ' = ?', $value); 
+    }
+
+    if ($hasIdentifier)
+    {
+      $row = $q->execute()->getFirst();
       $this->forward404Unless($row);
       
       return $row;
     }
-      else 
+    else 
     {
-      $this->id = null;
       return new $this->table_name;
     }
   }  
