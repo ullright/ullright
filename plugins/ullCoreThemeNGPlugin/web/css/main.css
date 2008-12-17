@@ -61,7 +61,7 @@ body {
 #separator {
   position: relative;
   border-top: 3px solid #777475;
-  margin-top: -0.6em;
+  margin-top: -0.65em;
 }
 
 #nav_top {
@@ -512,11 +512,20 @@ ul.tag-cloud li {
 
 /*
  *
- * image align
+ * aligns
  *
 */
 
 .image_align_middle_no_border {
   vertical-align: middle;
   border: 0;
+}
+
+.text_vertical_align_middle {
+  padding-top: 0.3em;
+  padding-bottom: 0.2em;
+}
+
+.text_vertical_align_middle a {
+  line-height: 1.3em;
 }
