@@ -17,18 +17,7 @@ class ullWidgetUllUser extends sfWidgetForm
       return '';
     }
 
-    $q = new Doctrine_Query;
-    $q
-      ->from('UllEntity a')
-      ->where('a.id = ?', $value)
-    ;
-
-//    var_dump($q->getQuery());die;
-
-    $result = $q->execute()->getFirst();
-
-    #return $result->last_name.' '.$result->first_name;
-    return $result;
+    return (string) Doctrine::getTable('UllUser')->findOneById($value);
   }
 
 }
