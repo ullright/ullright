@@ -193,7 +193,7 @@ class BaseUllFlowActions extends ullsfActions
   public function executeDelete()
   { 
     $this->checkAccess('LoggedIn');
-
+    
     $this->refererHandler = new refererHandler();  
     
     $this->getDocFromRequest();

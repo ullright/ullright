@@ -18,7 +18,6 @@ $b
   ->isRequestParameter('action', 'index')
 ;  
 
-
 $b
   ->diag('create with missing subject and invalid email')
   ->click('Trouble ticket tool')
@@ -71,8 +70,6 @@ $b->diag('check values and click "save_close"')
   ->setField('fields[my_subject]', 'This is my shiny little subject')
 ;
 
-die;
-
 $b->diag('check list')
   ->click('Save and close')
   ->isRedirected()
@@ -93,8 +90,8 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', 5)
-  ->checkResponseElement('ul.ull_flow_memories > li', '/Created[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
-  ->checkResponseElement('ul.ull_flow_memories > li + li', '/Edited[\s]+by[\s]+Master[\s]+Admin[\s]+at/')
+  ->checkResponseElement('div#ull_flow_memories > ul > ul > li', '/Edited[\s]+by[\s]+Master[\s]+Admin/')
+  ->checkResponseElement('div#ull_flow_memories > ul > ul > li + li', '/Created[\s]+by[\s]+Master[\s]+Admin/')
   ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 
   ->click('Save and close')
@@ -136,5 +133,21 @@ $b
   ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
 ;
 
-//TODO: test mandatory comment
 
+$b->resetDatabase();
+$b
+  ->diag('delete')
+  ->get('ullFlow/list')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement('table > tbody > tr', 4) // number of rows
+  
+  ->click('Delete')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement('table > tbody > tr', 3) // number of rows
+;
