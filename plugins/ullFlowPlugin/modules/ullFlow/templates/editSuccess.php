@@ -7,10 +7,10 @@
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
   , 'id=edit_form'); ?>  
   
-
+<br />
 <div class="edit_main">
   
-<table class="ull_flow_edit">
+<table class="ull_edit">
 <tbody>
 
 <?php foreach ($generator->getActiveColumns() as $column_name => $columns_config): ?>

@@ -18,7 +18,7 @@
 
 <div class="edit_main">
 
-<table class='ull_wiki_edit'>
+<table class='ull_edit'>
 <tbody>
 
 <?php echo $generator->getForm() ?>

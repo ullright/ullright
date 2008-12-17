@@ -10,21 +10,21 @@
 <?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&id=' . $id, 
     array('id' => 'ull_tabletool_form')) ?>
 
-<table>
+<div class="edit_main">
+<table class="ull_edit">
 <tbody>
 
 <?php echo $generator->getForm() ?>
 
 </tbody>
 </table>
-
+</div>
 
 <br />
 
-
-<div class='action_buttons_edit'>
-<fieldset>
-  <legend><?php echo __('Actions', null, 'common') ?></legend>
+<div id="action_buttons_edit_main">
+<div class='action_buttons_edit color_light_bg'>
+  <h3><?php echo __('Actions', null, 'common')?></h3>
   
   <div class='action_buttons_edit_left'>
     <ul>
@@ -61,10 +61,8 @@
 
   <div class="clear"></div>  
   
-</fieldset>
-
 </div>
-
+</div>
 </form>   
 
 <?php 

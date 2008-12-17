@@ -511,6 +511,43 @@ ul.tag-cloud li {
 }
 
 /*
+* edit table styles
+*/
+
+/* styles for the edit table */
+
+table.ull_edit {
+  background: #e9e9e9;
+}
+
+.ull_edit th {
+  color:            white;
+  background:       #0081b8;
+}
+
+.ull_edit th a {
+  color:            white;
+}
+
+.ull_edit td {
+  padding:          .5em;
+  background: #e9e9e9;
+  vertical-align: top;
+}
+
+.ull_edit td.label_column {
+  max-width: 130px;
+}
+
+.ull_edit tr {
+  background:       white;
+}
+
+.ull_edit .odd {
+  background:       #e3f5fd;
+}
+
+/*
  *
  * aligns
  *
