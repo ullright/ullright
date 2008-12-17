@@ -40,7 +40,7 @@ $t->diag('for write access:');
   $t->isa_ok($widget, 'ullMetaWidgetPassword', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
   $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormInputPassword', 'returns the correct widget for write access');
-  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorString', 'returns the correct validator for write access');
-  
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'ullValidatorPassword', 'returns the correct validator for write access');
+
   $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field_confirmation'), 'sfWidgetFormInputPassword', 'returns the correct widget for write access');
-  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field_confirmation'), 'sfValidatorString', 'returns the correct validator for write access');  
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field_confirmation'), 'ullValidatorPassword', 'returns the correct validator for write access');
