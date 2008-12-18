@@ -18,15 +18,15 @@ $t->setFixturesPath($path);
 $t->begin('__construct');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);  
-  // "log in" as Testuser (id 3)
   $user = Doctrine::getTable('UllUser')->findOneByUserName('helpdesk_user');
   $mail = new ullFlowMail($doc, $user);
   $t->isa_ok($mail, 'ullFlowMail', 'returns the correct object');
-  $t->is($mail->getUser()->id, 7, 'sets the correct given user');
+  $t->is($mail->getUser()->id, $user->id, 'sets the correct given user');
   
-  sfContext::getInstance()->getUser()->setAttribute('user_id', 3);
+  $testUser = Doctrine::getTable('UllUser')->findOneByUserName('test_user');
+  sfContext::getInstance()->getUser()->setAttribute('user_id', $testUser->id);
   $mail = new ullFlowMail($doc);
-  $t->is($mail->getUser()->id, 3, 'sets the correct user if logged in');
+  $t->is($mail->getUser()->id, $testUser->id, 'sets the correct user if logged in');
   
   sfContext::getInstance()->getUser()->getAttributeHolder()->remove('user_id');
   $mail = new ullFlowMail($doc);

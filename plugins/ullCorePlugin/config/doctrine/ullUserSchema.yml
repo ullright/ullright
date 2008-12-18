@@ -77,7 +77,11 @@ UllEntityGroup:
       local: ull_group_id
       foreign: id
       foreignAlias: UllEntityGroupsAsGroup
-
+    UllUser:
+      #class: UllUser
+      local: ull_entity_id
+      #foreign: id
+      #foreignAlias: UllEntityGroupsAsGroup
 
 
 UllPermission:

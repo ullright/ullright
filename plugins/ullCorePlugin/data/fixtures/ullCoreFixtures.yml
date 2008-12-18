@@ -9,7 +9,6 @@ UllUser:
     creator_user_id:    1               # integer since the adminuser isn't created yet
     updator_user_id:    1               # integer since the adminuser isn't created yet
     namespace:          ullCore
-    UllGroup:           [admin_group]    # many to many relations are given by array
   test_user:
     first_name:         Test
     last_name:          User
@@ -18,7 +17,8 @@ UllUser:
     password:           098f6bcd4621d373cade4e832627b4f6 # = test
     Creator:            admin_user
     Updator:            admin_user
-    UllGroup:           [test_group]
+    namespace:          test
+    
 
 UllGroup:
   admin_group:
@@ -31,12 +31,28 @@ UllGroup:
     email:              test.group@example.com
     Creator:            admin_user
     Updator:            admin_user
-    namespace:          ullCore
-    UllPermissions:     [testPermission]
+    namespace:          test
 
 UllPermission:
-  testPermission:
-    slug:         testPermission
+  test_permission:
+    slug:               testPermission
+    namespace:          test
+    
+UllEntityGroup:
+  ull_entity_group_1:
+    UllUser:            admin_user
+    UllGroup:           admin_group
+    namespace:          ullCore
+  ull_entity_group_2:
+    UllUser:            test_user
+    UllGroup:           test_group
+    namespace:          test
+    
+UllGroupPermission:
+  ull_group_permission_1:
+    UllGroup:           test_group
+    UllPermission:      test_permission
+    namespace:          test
 
 UllColumnType:
   integer:
@@ -95,6 +111,7 @@ UllTableConfig:
     db_table_name: UllUser
     sort_columns: last_name, first_name
     search_columns: display_name, username, email
+    namespace:    ullCore
   ull_group_tc:
     Translation:
       en:
@@ -104,6 +121,7 @@ UllTableConfig:
     db_table_name: UllGroup
     sort_columns: display_name
     search_columns: display_name, email
+    namespace:    ullCore
   ull_permission_tc:
     Translation:
       en:
@@ -113,6 +131,7 @@ UllTableConfig:
     db_table_name: UllPermission
     sort_columns: slug
     search_columns: slug
+    namespace:    ullCore
   ull_entity_group_tc:
     Translation:
       en:
@@ -123,6 +142,7 @@ UllTableConfig:
     #TODO: fix foreign key ordering
     sort_columns: ull_group_id
     search_columns: ull_entity_id, ull_group_id
+    namespace:    ullCore
   ull_group_permission_tc:
     Translation:
       en:
@@ -132,6 +152,7 @@ UllTableConfig:
     db_table_name: UllGroupPermission
     sort_columns: ull_group_id
     search_columns: ull_group_id, ull_permission_id
+    namespace:    ullCore
   ull_column_config_tc:
     Translation:
       en:
@@ -141,6 +162,7 @@ UllTableConfig:
     db_table_name: UllColumnConfig
     sort_columns: db_table_name
     search_columns: db_table_name, db_column_name
+    namespace:    ullCore
   ull_table_config_tc:
     Translation:
       en:
@@ -150,6 +172,7 @@ UllTableConfig:
     db_table_name: UllTableConfig
     sort_columns: db_table_name
     search_columns: db_table_name, label
+    namespace:    ullCore
   ull_select_tc:
     Translation:
       en:
@@ -159,6 +182,7 @@ UllTableConfig:
     db_table_name: UllSelect
     #sort_columns: label
     #search_columns: label
+    namespace:    ullCore
   ull_select_child_tc:
     Translation:
       en:
@@ -168,6 +192,7 @@ UllTableConfig:
     db_table_name: UllSelectChild
     sort_columns: ull_select_id, sequence
     search_columns: ull_select_id
+    namespace:    ullCore
   test_tc:
     Translation:
       en:
@@ -179,6 +204,7 @@ UllTableConfig:
     db_table_name: TestTable
     sort_columns: id
     search_columns: id, my_string, my_text
+    namespace:    test
 
 UllColumnConfig:
   # UllUser
@@ -190,6 +216,7 @@ UllColumnConfig:
         label:      Vorname
     db_table_name:  UllUser
     db_column_name: first_name
+    namespace:    ullCore
   ull_user_cc_last_name:
     Translation:
       en:
@@ -198,6 +225,7 @@ UllColumnConfig:
         label:      Nachname
     db_table_name:  UllUser
     db_column_name: last_name
+    namespace:    ullCore
   ull_user_cc_display_name:
     Translation:
       en:
@@ -206,6 +234,7 @@ UllColumnConfig:
         label:      Anzeigename
     db_table_name:  UllUser
     db_column_name: display_name
+    namespace:    ullCore
   ull_user_cc_username:
     Translation:
       en:
@@ -214,6 +243,7 @@ UllColumnConfig:
         label:      Benutzername
     db_table_name:  UllUser
     db_column_name: username
+    namespace:    ullCore
   ull_user_cc_email:
     Translation:
       en:
@@ -223,6 +253,7 @@ UllColumnConfig:
     db_table_name:  UllUser
     db_column_name: email
     UllColumnType:  email
+    namespace:    ullCore
   ull_user_cc_password:
     Translation:
       en:
@@ -233,6 +264,7 @@ UllColumnConfig:
     db_column_name: password
     is_in_list:     false
     UllColumnType:  password
+    namespace:    ullCore
 
 
 ###TESTING### ich entferne es später wieder, Denny
@@ -252,10 +284,12 @@ UllColumnConfig:
     db_table_name:  UllGroup
     db_column_name: first_name
     is_enabled:     false
+    namespace:    ullCore
   ull_group_cc_last_name:
     db_table_name:  UllGroup
     db_column_name: last_name
     is_enabled:     false
+    namespace:    ullCore
   ull_group_cc_display_name:
     Translation:
       en:
@@ -264,10 +298,12 @@ UllColumnConfig:
         label:      Anzeigename
     db_table_name:  UllGroup
     db_column_name: display_name
+    namespace:    ullCore
   ull_group_cc_username:
     db_table_name:  UllGroup
     db_column_name: username
     is_enabled:     false
+    namespace:    ullCore
   ull_group_cc_email:
     Translation:
       en:
@@ -277,10 +313,12 @@ UllColumnConfig:
     db_table_name:  UllGroup
     db_column_name: email
     UllColumnType:  email
+    namespace:    ullCore
   ull_group_cc_password:
     db_table_name:  UllGroup
     db_column_name: password
     is_enabled:     false
+    namespace:    ullCore
 
   #UllEntityGroup
   ull_entity_group_cc_ull_entity_id:
@@ -291,6 +329,7 @@ UllColumnConfig:
         label:      Benutzer
     db_table_name:  UllEntityGroup
     db_column_name: ull_entity_id
+    namespace:    ullCore
   ull_entity_group_cc_ull_group_id:
     Translation:
       en:
@@ -299,6 +338,7 @@ UllColumnConfig:
         label:      Gruppe
     db_table_name:  UllEntityGroup
     db_column_name: ull_group_id
+    namespace:    ullCore
 
   #UllGroupPermission
   ull_group_permission_cc_ull_group_id:
@@ -309,6 +349,7 @@ UllColumnConfig:
         label:      Gruppe
     db_table_name:  UllGroupPermission
     db_column_name: ull_group_id
+    namespace:    ullCore
   ull_group_permission_cc_ull_permission_id:
     Translation:
       en:
@@ -317,6 +358,7 @@ UllColumnConfig:
         label:      Zugriffsrecht
     db_table_name:  UllGroupPermission
     db_column_name: ull_permission_id
+    namespace:    ullCore
 
   #UllTableConfig
   ull_table_config_cc_sort_columns:
@@ -327,6 +369,7 @@ UllColumnConfig:
         label:      Sortiere nach Spalten
     db_table_name:  UllTableConfig
     db_column_name: sort_columns
+    namespace:    ullCore
   ull_table_config_cc_search_columns:
     Translation:
       en:
@@ -335,16 +378,19 @@ UllColumnConfig:
         label:      Suche in Spalten
     db_table_name:  UllTableConfig
     db_column_name: search_columns
+    namespace:    ullCore
   ull_table_config_cc_description:
     db_table_name:  UllTableConfig
     db_column_name: description
     is_in_list:     false
+    namespace:    ullCore
 
   #UllColumnConfig
   ull_column_config_cc_description:
     db_table_name:  UllColumnConfig
     db_column_name: description
     is_in_list:     false
+    namespace:    ullCore
 
   #UllSelectChild
   ull_select_child_cc_ull_select_id:
@@ -355,6 +401,7 @@ UllColumnConfig:
         label:      Auswahlfeld
     db_table_name:  UllSelectChild
     db_column_name: ull_select_id
+    namespace:    ullCore
 
   #TestTable
   test_cc_my_string:
@@ -365,22 +412,26 @@ UllColumnConfig:
         label:      Mein spezielles String Label
     db_table_name:  TestTable
     db_column_name: my_string
+    namespace:    test
 
   test_cc_my_useless_column:
     db_table_name:  TestTable
     db_column_name: my_useless_column
     is_enabled:     false
+    namespace:    test
 
   test_cc_my_email:
     db_table_name:  TestTable
     db_column_name: my_email
     UllColumnType:  email
+    namespace:    test
 
   test_cc_my_select_box:
     db_table_name:  TestTable
     db_column_name: my_select_box
     options:        ull_select=ull_select_test add_empty=true
     UllColumnType:  ull_select
+    namespace:    test
 
 UllSelect:
   ull_select_test:
@@ -390,6 +441,7 @@ UllSelect:
       de:
         label:    Meine Test Selectbox
     slug: ull_select_test
+    namespace:    test
     UllSelectChildren:
       ull_select_child_test_1:
         Translation:
@@ -398,6 +450,7 @@ UllSelect:
           de:
             label:    Meine zweite Option
         sequence: 2000
+        namespace:    test
       ull_select_child_test_2:
         Translation:
           en:
@@ -405,6 +458,7 @@ UllSelect:
           de:
             label:    Meine erste Option
         sequence: 1000
+        namespace:    test
   ull_select_test_2:
     Translation:
       en:
@@ -412,6 +466,7 @@ UllSelect:
       de:
         label:    Meine Test Selectbox 2
     slug: test
+    namespace:    test
     UllSelectChildren:
       ull_select_child_test2_1:
         Translation:
@@ -420,6 +475,7 @@ UllSelect:
           de:
             label:    Meine first Option 2
         sequence: 1000
+        namespace:    test
 
 # for tabletool testing
 TestTable:
@@ -440,6 +496,7 @@ TestTable:
     Creator:      admin_user
     Updator:      admin_user
     #created_at:   2008-01-01 00:00:00
+    namespace:    test
 
   tt_2:
     Translation:
@@ -456,6 +513,7 @@ TestTable:
     namespace:    test
     Creator:      admin_user
     Updator:      test_user
+    namespace:    test
     #created_at:   2008-01-01 00:00:00
 #<?php
 #for ($i = 1; $i <= 100; $i++)

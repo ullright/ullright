@@ -3,10 +3,12 @@ UllWiki:
     subject:            Testdoc
     body:               <h1>Testdoc</h1>This is a test document
     duplicate_tags_for_search: ull_wiki_tag1, ull_wiki_tag2
+    namespace:    test
   ull_wiki_2:
     subject:            Another Testdoc
     body:               <h1>Another Testdoc</h1>This is a yet another test document
     duplicate_tags_for_search: ull_wiki_tag1
+    namespace:    test
     
 Tag:
   ull_wiki_tag1:

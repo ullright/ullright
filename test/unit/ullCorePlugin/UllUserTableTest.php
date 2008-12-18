@@ -22,7 +22,7 @@ $t->begin('hasGroup()');
       , 'returns false for a given group and user_id'
       );
   $t->is(
-        UllUserTable::hasGroup(2, 1)
+        UllUserTable::hasGroup(3, 1)
       , true
       , 'returns true for a given group_id and user_id'
       );
@@ -32,7 +32,7 @@ $t->begin('hasGroup()');
       , 'returns false for a given group_id and user_id'
       );
   $t->is(
-        UllUserTable::hasGroup(array(2,4), 1)
+        UllUserTable::hasGroup(array(3,4), 1)
       , true
       , 'returns true for a given array of group_ids and user_id'
       );
@@ -65,12 +65,12 @@ $t->begin('hasGroup()');
         
 $t->begin('hasPermission()');
   $t->is(
-        UllUserTable::hasPermission('testPermission', 3)
+        UllUserTable::hasPermission('testPermission', 2)
       , true
       , 'returns true for a given permission and user_id'
       );
   $t->is(
-        UllUserTable::hasPermission('invalidPermission', 3)
+        UllUserTable::hasPermission('invalidPermission', 2)
       , false
       , 'returns false for an invalid permission'
       );                

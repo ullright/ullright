@@ -14,5 +14,8 @@ abstract class BaseUllUser extends UllEntity
 
     $this->hasMany('TestTable', array('local' => 'id',
                                       'foreign' => 'ull_user_id'));
+
+    $this->hasMany('UllEntityGroup', array('local' => 'id',
+                                           'foreign' => 'ull_entity_id'));
   }
 }

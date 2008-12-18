@@ -24,5 +24,8 @@ abstract class BaseUllEntityGroup extends UllRecord
 
     $this->hasOne('UllEntity as UllEntityAsGroup', array('local' => 'ull_group_id',
                                                          'foreign' => 'id'));
+
+    $this->hasOne('UllUser', array('local' => 'ull_entity_id',
+                                   'foreign' => 'id'));
   }
 }

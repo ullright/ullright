@@ -8,15 +8,17 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$testUserId = Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id;
+
 $b
   ->diag('login as admin')
-	->get('ullTableTool/edit/table/UllUser/id/3')
+	->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
   ->loginAsAdmin()
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('table', 'UllUser')
-  ->isRequestParameter('id', '3')
+  ->isRequestParameter('id', $testUserId)
   ->responseContains('ullAdmin')
 ;
 

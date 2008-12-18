@@ -16,7 +16,7 @@ $t->begin('has()');
   $group = Doctrine::getTable('UllGroup')->findOneByDisplayName('TestGroup');
 
   // "login as test_user"
-  sfContext::getInstance()->getUser()->setAttribute('user_id', 3);
+  sfContext::getInstance()->getUser()->setAttribute('user_id', $user->id);
   
   try
   {
