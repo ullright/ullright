@@ -6,7 +6,7 @@ class myTestCase extends lime_test
 {
 }
 
-$t = new myTestCase(2, new lime_output_color, $configuration);
+$t = new myTestCase(1, new lime_output_color, $configuration);
 
 $v = new ullValidatorPassword();
 
