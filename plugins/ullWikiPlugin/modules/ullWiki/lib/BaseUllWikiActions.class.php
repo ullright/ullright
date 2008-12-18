@@ -111,11 +111,11 @@ class BaseUllWikiActions extends ullsfActions
     $this->refererHandler = new refererHandler();
     $this->refererHandler->initialize();
     
-    $this->breadcrumbForEdit();
-    
     $this->generator = new ullWikiGenerator('w');
     $this->getDocFromRequestOrCreate();
     $this->generator->buildForm($this->doc);
+    
+    $this->breadcrumbForEdit();
     
     // allows ullWiki to be used as a plugin (e.g. ullFlow to ullWiki interface)
     $this->return_var = $this->getRequestParameter('return_var');    
@@ -230,7 +230,8 @@ class BaseUllWikiActions extends ullsfActions
    * Create breadcrumbs for edit action
    * 
    */
-  protected function breadcrumbForEdit() {
+  protected function breadcrumbForEdit() 
+  {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
     $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
@@ -254,7 +255,14 @@ class BaseUllWikiActions extends ullsfActions
         $this->refererHandler->getReferer());
     }
 
-    $this->breadcrumbTree->add(__('Edit', null, 'common'));
+    if ($this->doc->exists()) 
+    {
+      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
+    } 
+    else 
+    {
+      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
+    } 
   }
 
   /**
