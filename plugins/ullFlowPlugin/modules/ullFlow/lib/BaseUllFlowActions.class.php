@@ -363,7 +363,7 @@ class BaseUllFlowActions extends ullsfActions
   protected function breadcrumbForIndex()
   {
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+    $this->breadcrumbTree->add(__('Workflow') . ' ' . __('Home', null, 'common'), 'ullFlow/index');
   }
 
   /**
@@ -373,18 +373,18 @@ class BaseUllFlowActions extends ullsfActions
   protected function breadcrumbForList()
   {
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+    $this->breadcrumbTree->add(__('Workflow') . ' ' . __('Home', null, 'common'), 'ullFlow/index');
     if ($this->app) 
     {
       $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
     }
     if ($this->app) 
     {
-      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
+      $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
     } 
     else 
     {
-      $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list');
+      $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullFlow/list');
     }
   }  
   
@@ -396,9 +396,9 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add(__('Workflows'), 'ullFlow/index');
+    $this->breadcrumbTree->add(__('Workflow')  . ' ' . __('Home', null, 'common'), 'ullFlow/index');
     $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
-    $this->breadcrumbTree->add(__('List', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
+    $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
     if ($this->doc->exists()) 
     {
       $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));

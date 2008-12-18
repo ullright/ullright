@@ -289,10 +289,10 @@ class BaseUllTableToolActions extends ullsfActions
   protected function breadcrumbForList()
   {
     $this->breadcrumb_tree = new breadcrumbTree();
-    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumb_tree->add('ullTableTool');
+    $this->breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $this->breadcrumb_tree->add(__('Tabletool'));
     $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->label);
-    $this->breadcrumb_tree->add(__('List', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
+    $this->breadcrumb_tree->add(__('Result list', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
   }
   
   /**
@@ -303,13 +303,13 @@ class BaseUllTableToolActions extends ullsfActions
   {
     $this->breadcrumb_tree = new breadcrumbTree();
     $this->breadcrumb_tree->setEditFlag(true);
-    $this->breadcrumb_tree->add('ullAdmin', 'ullAdmin/index');
-    $this->breadcrumb_tree->add('ullTableTool');
+    $this->breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $this->breadcrumb_tree->add(__('Tabletool'));
     $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_name);
     if ($this->id) 
     {
       $this->breadcrumb_tree->add(
-        __('List', null, 'common')
+        __('Result list', null, 'common')
         , $this->refererHandler->getReferer()
       );
       $this->breadcrumb_tree->addFinal(__('Edit', null, 'common'));

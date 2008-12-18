@@ -190,7 +190,7 @@ class BaseUllWikiActions extends ullsfActions
   protected function breadcrumbForIndex() 
   {
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
   }
 
   /**
@@ -199,7 +199,7 @@ class BaseUllWikiActions extends ullsfActions
    */  
   protected function breadcrumbForList() {
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
     $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
   }  
 
@@ -209,7 +209,7 @@ class BaseUllWikiActions extends ullsfActions
    */  
   protected function breadcrumbForShow() {
     $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
 
     // display result list link only when there is a "show" or "edit" referer containing 
     //  the list action    
@@ -233,7 +233,7 @@ class BaseUllWikiActions extends ullsfActions
   protected function breadcrumbForEdit() {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add(__('Wiki'), 'ullWiki/index');
+    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
 
     // display result list link only when there is a "show" or "edit" referer 
     //  containing the list action    

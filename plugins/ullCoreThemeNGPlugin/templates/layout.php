@@ -67,7 +67,7 @@
             <li id='nav_link_wiki'>
             <?php
             echo ull_navigation_link('/ullWikiThemeNGPlugin/images/ull_wiki_32x32',
-                'ullWiki/index', __('Wiki', null, 'common'),
+                'ullWiki/list', __('Wiki', null, 'common'),
                 array('ull_js_observer_confirm' => 'true'));
             ?>
             </li>

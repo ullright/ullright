@@ -34,6 +34,10 @@
 <target>Bitte geben Sie zwei Mal das gleiche Passwort ein</target>
 </trans-unit>
 
+<trans-unit id="">
+<source>Tabletool</source>
+<target>Tabellenverwaltung</target>
+</trans-unit>
 
 </body>
   </file>
