@@ -2,7 +2,7 @@
 
   <br /><br /><br />
   
-  <?php if (@$msg): ?>
+  <?php if (isset($msg)): ?>
     <em><?php echo $msg; ?></em><br /><br />
   <?php endif; ?>
 
@@ -21,7 +21,8 @@
 <?php
 // highlight error fields
 /*@var $form LoginForm*/
-foreach ($form->getErrorSchema()->getErrors() as $error_field => $error) {
+foreach ($form->getErrorSchema()->getErrors() as $error_field => $error) 
+{
   echo javascript_tag("
     document.getElementById(\"login_$error_field\").className = \"form_error_background\";
   ");

@@ -41,7 +41,7 @@ class BaseUllUserActions extends ullsfActions
         
       if ($request->getParameter('option') == 'noaccess') 
       {
-        $this->msg = 'Please login to verify access';
+        $this->msg = __('Please login to verify access');
       }
       return sfView::SUCCESS;
     } 
@@ -83,7 +83,7 @@ class BaseUllUserActions extends ullsfActions
         }
       }
       
-      $this->msg = $this->getContext()->getI18N()->__('Login failed. Please try again:'); 
+      $this->msg = __('Login failed. Please try again:'); 
 //      return sfView::SUCCESS;
     }
   }

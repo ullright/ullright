@@ -43,6 +43,11 @@
 <target>Kein Zugriff. Bitte kontaktieren Sie Ihren Administrator, wenn Sie Zugriff auf diese Seite ben&#xF6;tigen</target>
 </trans-unit>
 
+<trans-unit id="51">
+<source>Log in</source>
+<target>Anmelden</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
