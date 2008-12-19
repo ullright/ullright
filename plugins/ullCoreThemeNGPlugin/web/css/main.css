@@ -116,8 +116,9 @@ ul.nav_top_links li {
   background: none;
   text-align: center;
   padding-bottom: 4px;
-  margin-right: 3em;
+  margin-right: 2em;
   border-bottom: 5px solid #fff;
+  min-width: 6em;
 }
 
 ul.nav_top_links li:hover {
@@ -165,7 +166,8 @@ ul.nav_top_links li:hover {
 }
 
 #nav_link_wiki:hover {
-  border-color: #99d420;
+  /* border-color: #99d420; */
+  border-color: #b3ce00;
 }
 
 #nav_link_admin a:hover {
@@ -504,6 +506,7 @@ ul.tag-cloud li {
   padding-right: 0.4em;
   padding-top: 0.09em;
   padding-bottom: 0.09em;
+  font-family: sans-serif;
 }
 
 .ull_pager_element_inactive {
@@ -511,6 +514,10 @@ ul.tag-cloud li {
   padding-right: 0.4em;
 }
 
+.ull_pager_aquo {
+  font-size: 1.4em; 
+  font-family: sans-serif;
+}
 /*
 * edit table styles
 */
@@ -592,3 +599,4 @@ table.ull_edit {
   background: #e9e9e9;
   padding: 1em;
 }
+

@@ -10,7 +10,7 @@
 ?>    
 
 <?php if ($pager->haveToPaginate()): ?>
-  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&laquo;', array('page' => $pager->getFirstPage())) . '</span>' ?>
+  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('<span class="ull_pager_aquo">&laquo;</span>', array('page' => $pager->getFirstPage())) . '</span>' ?>
   <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&lt;', array('page' => $pager->getPreviousPage())) . '</span>' ?>
   
   <?php foreach ($pages as $page): ?>
@@ -28,5 +28,5 @@
     
   <?php endforeach ?>
   <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&gt;', array('page' => $pager->getNextPage())) . '</span>' ?>
-  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('&raquo', array('page' => $pager->getLastPage())) . '</span>' ?>
+  <?php echo '<span class="ull_pager_element color_light_bg">' . ull_link_to('<span class="ull_pager_aquo">&raquo;</span>', array('page' => $pager->getLastPage())) . '</span>' ?>
 <?php endif ?>
