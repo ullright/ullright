@@ -3,9 +3,9 @@
 # Upgrades symfony to the latest version
 
 BASE_PATH="vendor/symfony"
-REPO_URL="http://svn.symfony-project.com/tags/RELEASE_1_1_4/lib"
+REPO_URL="http://svn.symfony-project.com/branches/1.1/lib"
 LOCAL_PATH="vendor/symfony/lib"
-REPO_URL1="http://svn.symfony-project.com/tags/RELEASE_1_1_4/data"
+REPO_URL1="http://svn.symfony-project.com/branches/1.1/data"
 LOCAL_PATH1="vendor/symfony/data"
 
 svn update $LOCAL_PATH
