@@ -72,9 +72,9 @@ $b
 
 $b
   ->diag('list - breadcrumb')  
-  ->checkResponseElement('ul#breadcrumbs > li + li', 'Workflows')
+  ->checkResponseElement('ul#breadcrumbs > li + li', 'Workflow Home')
   ->checkResponseElement('ul#breadcrumbs > li + li + li', 'Trouble ticket tool')
-  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'List')
+  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Result list')
 ;  
   
 $b
