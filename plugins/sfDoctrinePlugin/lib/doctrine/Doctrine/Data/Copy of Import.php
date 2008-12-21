@@ -196,12 +196,26 @@ class Doctrine_Data_Import extends Doctrine_Data
         $obj = $this->_importedObjects[$rowKey];
 
         foreach ((array) $row as $key => $value) {
+            var_dump('-----------------');
+            var_dump('class: ' . get_class($obj));
+            var_dump('field: ' . $key);
+            var_dump('value: ' . $value);
+            var_dump('method: ' . 'set' . Doctrine_Inflector::classify($key));
+            
+//            var_dump(method_exists($obj, 'set' . Doctrine_Inflector::classify($key)));
+//            var_dump(is_callable(array($obj, 'set' . Doctrine_Inflector::classify($key))));
+//            var_dump(is_callable(array($obj, 'set' . Doctrine_Inflector::classify($key)), true));
+          
             if (method_exists($obj, 'set' . Doctrine_Inflector::classify($key))) {
+//            if (is_callable(array($obj, 'set' . Doctrine_Inflector::classify($key)))) {
                 $func = 'set' . Doctrine_Inflector::classify($key);
                 $obj->$func($value);
+                var_dump('method_exists');
             } else if ($obj->getTable()->hasField($key)) {
                 $obj->set($key, $value);
+                var_dump('hasField');
             } else if ($obj->getTable()->hasRelation($key)) {
+                var_dump('has_relation');
                 if (is_array($value)) {
                     if (isset($value[0]) && ! is_array($value[0])) {
                         foreach ($value as $link) {
@@ -219,10 +233,10 @@ class Doctrine_Data_Import extends Doctrine_Data
                 } else {
                     $obj->set($key, $this->_getImportedObject($value, $obj, $key, $rowKey));
                 }
-            // used for Doctrine plugin methods (Doctrine_Template)
             } else if (is_callable(array($obj, 'set' . Doctrine_Inflector::classify($key)))) {
                 $func = 'set' . Doctrine_Inflector::classify($key);
                 $obj->$func($value);
+                var_dump('is_callable');                                
             } else {
                 throw new Doctrine_Data_Exception('Invalid fixture element "'. $key . '" under "' . $rowKey . '"');
             }
