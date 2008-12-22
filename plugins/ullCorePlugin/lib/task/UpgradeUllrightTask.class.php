@@ -209,16 +209,23 @@ EOF;
     );
     foreach ($fixtures[$model] as $descriptor => $record)
     {
-      $id = str_replace('UllFlowField_', '', $descriptor);
+      $ullFieldId = str_replace('UllField_', '', $record['ull_field_id']);
+      
       // skip missing field types
-      if (!isset($ullColumnTypeMap[$id]))
+      if (!isset($ullColumnTypeMap[$ullFieldId]))
       {
         unset($fixtures[$model][$descriptor]);
         continue;
       }
       
       $fixtures[$model][$descriptor]['UllFlowApp'] = $record['ull_flow_app_id'];
-      $fixtures[$model][$descriptor]['UllColumnType'] = $ullColumnTypeMap[$id];
+      $fixtures[$model][$descriptor]['UllColumnType'] = $ullColumnTypeMap[$ullFieldId];
+//      $options = sfToolkit::stringToArray($record['options']);
+//      if ($options)
+//      {
+//        
+//      }
+//      $fixtures[$model][$descriptor]['options']
       
       //i18n
       $fixtures[$model][$descriptor]['Translation']['en']['label'] = $record['caption_i18n_default'];
@@ -226,6 +233,12 @@ EOF;
       $fixtures[$model][$descriptor]['is_enabled'] = (bool) $record['enabled'];
       $fixtures[$model][$descriptor]['is_mandatory'] = (bool) $record['mandatory'];
       $fixtures[$model][$descriptor]['is_subject'] = (bool) $record['is_title'];
+      $fixtures[$model][$descriptor]['slug'] = ullCoreTools::sluggify($record['caption_i18n_default']);
+      // special handling for columns which are also in UllFlowDoc
+      if ($ullFieldId == 19 || $fixtures[$model][$descriptor]['slug'] == 'priority')
+      {
+        $fixtures[$model][$descriptor]['slug'] = 'column_' .  $fixtures[$model][$descriptor]['slug'];
+      }
       
       unset(
         $fixtures[$model][$descriptor]['ull_flow_app_id'],
@@ -240,13 +253,13 @@ EOF;
         $fixtures[$model][$descriptor]['ull_access_group_id']
       );
     }     
-    // "convert" to UllColumnConfig
-    $fixtures['UllColumnConfig'] = $fixtures[$model];
+    // "convert" to UllFlowColumnConfig
+    $fixtures['UllFlowColumnConfig'] = $fixtures[$model];
     unset($fixtures[$model]);
 
     
     $model = 'UllFlowFieldI18n';
-    $parentModel = 'UllColumnConfig';
+    $parentModel = 'UllFlowColumnConfig';
     foreach ($fixtures[$model] as $descriptor => $record)
     {
       // only parse german translations
@@ -260,6 +273,81 @@ EOF;
       $fixtures[$parentModel][$parentDescriptor]['Translation']['de']['label'] = $record['caption_i18n'];
     }       
     unset($fixtures[$model]);    
+    
+    
+    
+    $model = 'UllFlowStep';
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      $fixtures[$model][$descriptor]['UllFlowApp'] = $record['ull_flow_app_id'];
+      
+      //i18n
+      $fixtures[$model][$descriptor]['Translation']['en']['label'] = $record['caption_i18n_default'];
+      
+      $fixtures[$model][$descriptor]['is_start'] = (bool) $record['is_start'];
+      
+      unset(
+        $fixtures[$model][$descriptor]['ull_flow_app_id'],
+        $fixtures[$model][$descriptor]['caption_i18n_default']  
+      );
+    }    
+
+    
+    $model = 'UllFlowStepI18n';
+    $parentModel = substr($model, 0, -4);
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      // only parse german translations
+      if (substr($descriptor, -2, 2) != 'de')
+      {
+        continue;
+      }
+      
+      $parentDescriptor = $record['id'];
+      
+      $fixtures[$parentModel][$parentDescriptor]['Translation']['de']['label'] = $record['caption_i18n'];
+    }       
+    unset($fixtures[$model]);    
+    
+    
+
+    
+    
+    $model = 'UllFlowStepAction';
+    $ullFlowActionMap = array(
+      1 => 'ull_flow_action_create',
+      2 => null,                      // edit -> invalid
+      3 => 'ull_flow_action_assign_to_user',
+      4 => 'ull_flow_action_assign_to_group',
+      5 => 'ull_flow_action_close',
+      6 => 'ull_flow_action_save_close',
+      7 => 'ull_flow_action_send',
+      8 => 'ull_flow_action_reopen',
+      9 => 'ull_flow_action_save_only',
+      10 => 'ull_flow_action_send',
+      11 => 'ull_flow_action_reject',
+      12 => 'ull_flow_action_return',
+      13 => 'ull_flow_action_save',        
+    );
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      $ullFlowActionId = str_replace('UllFlowAction_', '', $record['ull_flow_action_id']);
+      
+      // skip invalid actions
+      if (!isset($ullFlowActionMap[$ullFlowActionId]))
+      {
+        unset($fixtures[$model][$descriptor]);
+        continue;
+      }      
+      
+      $fixtures[$model][$descriptor]['UllFlowStep'] = $record['ull_flow_step_id'];
+      $fixtures[$model][$descriptor]['UllColumnType'] = $ullFlowActionMap[$ullFlowActionId];
+      
+      unset(
+        $fixtures[$model][$descriptor]['ull_flow_step_id'],
+        $fixtures[$model][$descriptor]['ull_flow_action_id']
+      );
+    }      
     
     
     $model = 'UllWiki';
