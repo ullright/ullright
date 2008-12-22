@@ -166,6 +166,100 @@ EOF;
         $fixtures[$model][$descriptor]['default_list_columns']
       );
     }    
+
+    
+    $model = 'UllFlowAppI18n';
+    $parentModel = substr($model, 0, -4);
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      // only parse german translations
+      if (substr($descriptor, -2, 2) != 'de')
+      {
+        continue;
+      }
+      
+      $parentDescriptor = $record['id'];
+      
+      $fixtures[$parentModel][$parentDescriptor]['Translation']['de']['label'] = $record['caption_i18n'];
+      $fixtures[$parentModel][$parentDescriptor]['Translation']['de']['doc_label'] = $record['doc_caption_i18n'];
+    }       
+    unset($fixtures[$model]);
+    
+    
+    $model = 'UllFlowField';
+    $ullColumnTypeMap = array(    
+      1 => 'string',  
+      2 => 'textarea',
+      3 => 'checkbox',
+      5 => 'foreign_key',
+//      6 => null,          // date TODO: missing!
+      7 => 'datetime',
+      8 => 'integer',
+      9 => 'ull_user',
+      10 => 'ull_select',
+      11 => 'password',
+      12 => 'upload',
+      13 => 'ull_select',
+      14 => 'password',
+      15 => 'wiki_link',
+      16 => 'ull_select',
+      17 => 'password',
+//      18 => null,       // information_update TODO: missing!
+      19 => 'taggable',
+    );
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      $id = str_replace('UllFlowField_', '', $descriptor);
+      // skip missing field types
+      if (!isset($ullColumnTypeMap[$id]))
+      {
+        unset($fixtures[$model][$descriptor]);
+        continue;
+      }
+      
+      $fixtures[$model][$descriptor]['UllFlowApp'] = $record['ull_flow_app_id'];
+      $fixtures[$model][$descriptor]['UllColumnType'] = $ullColumnTypeMap[$id];
+      
+      //i18n
+      $fixtures[$model][$descriptor]['Translation']['en']['label'] = $record['caption_i18n_default'];
+      
+      $fixtures[$model][$descriptor]['is_enabled'] = (bool) $record['enabled'];
+      $fixtures[$model][$descriptor]['is_mandatory'] = (bool) $record['mandatory'];
+      $fixtures[$model][$descriptor]['is_subject'] = (bool) $record['is_title'];
+      
+      unset(
+        $fixtures[$model][$descriptor]['ull_flow_app_id'],
+        $fixtures[$model][$descriptor]['ull_field_id'],
+        $fixtures[$model][$descriptor]['caption_i18n_default'],  
+        $fixtures[$model][$descriptor]['enabled'],
+        $fixtures[$model][$descriptor]['mandatory'],
+        $fixtures[$model][$descriptor]['is_title'],
+        $fixtures[$model][$descriptor]['is_priority'],
+        $fixtures[$model][$descriptor]['is_deadline'],
+        $fixtures[$model][$descriptor]['is_custom_field1'],
+        $fixtures[$model][$descriptor]['ull_access_group_id']
+      );
+    }     
+    // "convert" to UllColumnConfig
+    $fixtures['UllColumnConfig'] = $fixtures[$model];
+    unset($fixtures[$model]);
+
+    
+    $model = 'UllFlowFieldI18n';
+    $parentModel = 'UllColumnConfig';
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      // only parse german translations
+      if (substr($descriptor, -2, 2) != 'de')
+      {
+        continue;
+      }
+      
+      $parentDescriptor = $record['id'];
+      
+      $fixtures[$parentModel][$parentDescriptor]['Translation']['de']['label'] = $record['caption_i18n'];
+    }       
+    unset($fixtures[$model]);    
     
     
     $model = 'UllWiki';
