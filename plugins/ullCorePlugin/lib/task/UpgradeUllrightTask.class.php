@@ -410,6 +410,41 @@ EOF;
       );
     }        
     
+
+    $model = 'UllFlowMemory';
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      $fixtures[$model][$descriptor]['UllFlowDoc'] = $record['ull_flow_doc_id'];
+      $fixtures[$model][$descriptor]['UllFlowStep'] = $record['ull_flow_step_id'];
+      $ullFlowActionId = str_replace('UllFlowAction_', '', $record['ull_flow_action_id']);
+      $fixtures[$model][$descriptor]['UllFlowAction'] = $ullFlowActionMap[$ullFlowActionId];
+      if ($record['assigned_to_ull_group_id'])
+      {
+        $fixtures[$model][$descriptor]['AssignedToUllEntity'] = $record['assigned_to_ull_group_id'];
+      }
+      else
+      {
+        $fixtures[$model][$descriptor]['AssignedToUllEntity'] = $record['Creator'];
+      }
+      if ($record['creator_group_id'])
+      {
+        $fixtures[$model][$descriptor]['CreatorUllEntity'] = $record['creator_group_id'];
+      }
+      else
+      {
+        $fixtures[$model][$descriptor]['CreatorUllEntity'] = $record['Creator'];
+      }
+      $fixtures[$model][$descriptor]['Updator'] = $record['Creator'];
+      $fixtures[$model][$descriptor]['updated_at'] = $record['created_at'];
+      
+      unset(
+        $fixtures[$model][$descriptor]['ull_flow_doc_id'],
+        $fixtures[$model][$descriptor]['ull_flow_step_id'],
+        $fixtures[$model][$descriptor]['ull_flow_action_id'],
+        $fixtures[$model][$descriptor]['assigned_to_ull_group_id'],
+        $fixtures[$model][$descriptor]['creator_group_id']
+      );
+    }     
     
     
     $model = 'UllWiki';
@@ -427,6 +462,16 @@ EOF;
       );
     }
   
+    $model = 'Tagging';
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      $fixtures[$model][$descriptor]['Tag'] = $record['tag_id'];
+      
+      unset(
+        $fixtures[$model][$descriptor]['tag_id']  
+      );
+    }    
+    
 //    var_dump($fixtures);
     
     $yml = sfYaml::dump($fixtures, 5);
