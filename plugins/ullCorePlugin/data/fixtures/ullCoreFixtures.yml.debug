@@ -1,0 +1,11 @@
+UllUser:
+  admin_user:
+    email:              admin@example.com
+    
+UllGroup:
+  admin_group:
+    display_name:       MasterAdmins
+
+UllPermission:
+  test_permission:
+    slug:               testPermission
