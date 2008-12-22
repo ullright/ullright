@@ -341,7 +341,7 @@ EOF;
       }      
       
       $fixtures[$model][$descriptor]['UllFlowStep'] = $record['ull_flow_step_id'];
-      $fixtures[$model][$descriptor]['UllColumnType'] = $ullFlowActionMap[$ullFlowActionId];
+      $fixtures[$model][$descriptor]['UllFlowAction'] = $ullFlowActionMap[$ullFlowActionId];
       
       unset(
         $fixtures[$model][$descriptor]['ull_flow_step_id'],
@@ -349,6 +349,49 @@ EOF;
       );
     }      
     
+    
+    
+    $model = 'UllFlowDoc';
+    foreach ($fixtures[$model] as $descriptor => $record)
+    {
+      $fixtures[$model][$descriptor]['id'] = str_replace($model . '_', '', $descriptor);
+      $fixtures[$model][$descriptor]['UllFlowApp'] = $record['ull_flow_app_id'];
+      $fixtures[$model][$descriptor]['subject'] = $record['title'];
+      $ullFlowActionId = str_replace('UllFlowAction_', '', $record['ull_flow_action_id']);
+      $fixtures[$model][$descriptor]['UllFlowAction'] = $ullFlowActionMap[$ullFlowActionId];      
+      // handle user/group -> entity transformation
+      // assign to creator if not assigned
+      if ($record['assigned_to_ull_user_id'] == 'UllUser_0' &&
+        $record['assigned_to_ull_group_id'] == 'UllGroup_0')
+      {
+        $fixtures[$model][$descriptor]['UllEntity'] = $record['Creator'];
+      }
+      elseif ($record['assigned_to_ull_group_id'] != 'UllGroup_0')
+      {
+        $fixtures[$model][$descriptor]['UllEntity'] = $record['assigned_to_ull_group_id'];
+      }
+      else
+      {
+        $fixtures[$model][$descriptor]['UllEntity'] = $record['assigned_to_ull_user_id'];
+      }
+
+      $fixtures[$model][$descriptor]['UllFlowStep'] = $record['assigned_to_ull_flow_step_id'];
+      
+      $fixtures[$model][$descriptor]['duplicate_tags_for_search'] = $record['duplicate_tags_for_propel_search'];
+      
+      unset(
+        $fixtures[$model][$descriptor]['ull_flow_app_id'],
+        $fixtures[$model][$descriptor]['title'],
+        $fixtures[$model][$descriptor]['assigned_to_ull_group_id'],
+        $fixtures[$model][$descriptor]['assigned_to_ull_user_id'],
+        $fixtures[$model][$descriptor]['assigned_to_ull_flow_step_id'],
+        $fixtures[$model][$descriptor]['duplicate_tags_for_propel_search'],
+        $fixtures[$model][$descriptor]['ull_flow_action_id'],
+        $fixtures[$model][$descriptor]['read_ull_group_id'],
+        $fixtures[$model][$descriptor]['write_ull_group_id'],
+        $fixtures[$model][$descriptor]['custom_field1']
+      );
+    }    
     
     $model = 'UllWiki';
     foreach ($fixtures[$model] as $descriptor => $record)
