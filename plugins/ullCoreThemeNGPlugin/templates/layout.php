@@ -21,13 +21,15 @@
 <div id="container">
 
 	<div id="sidebar">
-		<div id="nav_logo">
-		  <?php echo ull_link_to(
-		              image_tag('/ullCoreThemeNGPlugin/images/logo_120', 'alt="logo"')
-		            , '@homepage'
-		            , 'ull_js_observer_confirm=true'
-		            ); ?> 
-		        </div>
+
+    <div id="nav_logo">
+      <?php echo ull_link_to(
+                  image_tag('/ullCoreThemeNGPlugin/images/logo_120', 'alt="logo"')
+                , '@homepage'
+                , 'ull_js_observer_confirm=true'
+                ); ?> 
+    </div>   
+        
 		<div id="sidebar_content">
 		
 		</div>
