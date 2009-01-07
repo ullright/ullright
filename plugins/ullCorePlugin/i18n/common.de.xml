@@ -151,6 +151,10 @@
 <target>Suche nach ID, Betreff und Tags</target>
 </trans-unit>
 
+<trans-unit id="1010">
+<source>Individual queries</source>
+<target>Individuelle Abfragen</target>
+</trans-unit>
 
 
 
