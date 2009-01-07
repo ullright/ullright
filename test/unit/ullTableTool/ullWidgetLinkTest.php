@@ -25,4 +25,4 @@ $t->diag('__construct()');
   $t->isa_ok($w, 'ullWidgetLink', 'returns the correct object');
   
 $t->diag('->render()');  
-  $t->is($w->render('foo', 'bar', array('href' => '/ullWiki/show/id/4')), '<a href="/ullWiki/show/id/4">bar</a>', 'renders the widget as HTML');
+  $t->is($w->render('foo', 'bar', array('href' => '/ullWiki/show/id/4')), '<b><a href="/ullWiki/show/id/4">bar</a></b>', 'renders the widget as HTML');
