@@ -75,9 +75,15 @@
             </li>
             <?php 
               if (UllUserTable::hasGroup('MasterAdmins')) {
-                echo "<li id=\"nav_link_admin\">" .
-                 image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt="Admin"') . "<br />" .
-                 ull_link_to(__('Admin'), 'ullAdmin/index', 'ull_js_observer_confirm=true') . '</li>';
+                 echo "<li id=\"nav_link_admin\">" .
+                    ull_navigation_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
+                    'ullAdmin/index', __('Admin'),
+                    array('ull_js_observer_confirm' => 'true')) .
+                    '</li>';
+              	
+              	 //echo "<li id=\"nav_link_admin\">" .
+                 //image_tag("/ullCoreThemeNGPlugin/images/ull_admin_32x32", 'alt="Admin"') . "<br />" .
+                 //ull_link_to(__('Admin'), 'ullAdmin/index', 'ull_js_observer_confirm=true') . '</li>';
               }
             ?>
           </ul>
