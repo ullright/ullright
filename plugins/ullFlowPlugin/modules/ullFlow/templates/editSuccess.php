@@ -8,9 +8,9 @@
   , 'id=edit_form'); ?>  
   
 <br />
-<div class="edit_main">
-  
-<table class="ull_edit">
+
+<div class="edit_container">
+<table class="edit_table">
 <tbody>
 
 <?php foreach ($generator->getActiveColumns() as $column_name => $columns_config): ?>
@@ -20,15 +20,13 @@
 </tbody>
 </table>
 
-</div>
 <br />
 
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
-<div id="action_buttons_edit_main">
-  <div class='action_buttons_edit color_light_bg'>
+  <div class='edit_action_buttons color_light_bg'>
       <h3><?php echo __('Actions', null, 'common')?></h3>
       
-      <div class='action_buttons_edit_left'>
+      <div class='edit_action_buttons_left'>
       
       <?php if ($workflow_action_access): // $step_actions and ?>
         
@@ -63,7 +61,7 @@
     </div>
   
       
-    <div class='action_buttons_edit_right'>
+    <div class='edit_action_buttons_right'>
       <ul>
         
         <?php if ($generator->getDefaultAccess() == 'w'): ?>
@@ -113,8 +111,6 @@
     </div>
   
     <div class="clear"></div>  
-  
-  </div>
  </div>
 <?php endif; ?>
 
@@ -125,7 +121,6 @@
 <?php echo input_hidden_tag('external_field') */?>
 
 </form>
-
 
 <?php if ($doc->exists()): ?>
   <br />
@@ -172,10 +167,9 @@
   </div>
 <?php endif ?>
 
+</div>
 
 <?php
 //  echo ull_js_observer("ull_flow_form");
 //  ullCoreTools::printR($ull_form);
 ?>   
-
-<?php  ?>

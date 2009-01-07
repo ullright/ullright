@@ -16,23 +16,22 @@
 
 <?php echo input_hidden_tag('return_var', $return_var); ?>
 
-<div class="edit_main">
+<div class="edit_container">
 
-<table class='ull_edit'>
+<table class='edit_table'>
 <tbody>
 
 <?php echo $generator->getForm() ?>
 
 </tbody>
 </table>
-</div>
+
 
 <br />
 
-<div id="action_buttons_edit_main">
-  <div class='action_buttons_edit color_light_bg'>
+  <div class='edit_action_buttons color_light_bg'>
     <h3><?php echo __('Actions', null, 'common')?></h3>
-      <div class='action_buttons_edit_left'>
+      <div class='edit_action_buttons_left'>
 
         <ul>
 
@@ -48,7 +47,7 @@
         </ul> 
   </div>    
 
-  <div class='action_buttons_edit_right'>
+  <div class='edit_action_buttons_right'>
 
     <ul>
 

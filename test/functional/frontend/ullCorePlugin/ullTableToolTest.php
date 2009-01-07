@@ -173,7 +173,7 @@ $b
   ->click('search_list')
   ->isRedirected()
   ->followRedirect()
-  ->checkResponseElement('ul.ull_action input[value="2"]', true)
+  ->checkResponseElement('ul.list_action_buttons input[value="2"]', true)
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
 

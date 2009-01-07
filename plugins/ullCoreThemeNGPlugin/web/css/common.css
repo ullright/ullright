@@ -1,35 +1,33 @@
 /*
  * Common non-layout styles (mostly fonts)
  */
-
-a img,:link img,:visited img { 
+a img,:link img,:visited img {
 	border: none;
 }
 
 body {
-  font-size:    80%;
-  font-family:  Verdana, Arial, Helvetica, sans-serif;
-  /* line-height:  1.4em; */
-  color:        black; 
+	font-size: 80%;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: black;
 }
 
 em {
-  font-style: normal;
-  font-size: 1em;
-  font-weight: bold;
-  color: black;
+	font-style: normal;
+	font-size: 1em;
+	font-weight: bold;
+	color: black;
 }
 
 strong {
-  font-style: normal;
-  font-size: 1.1em;
-  font-weight: bold;
-  background-color: yellow;
-  padding: .2em .5em;
+	font-style: normal;
+	font-size: 1.1em;
+	font-weight: bold;
+	background-color: yellow;
+	padding: .2em .5em;
 }
 
 td,th {
-  font-size: 1em;
+	font-size: 1em;
 }
 
 pre,kbd {
@@ -37,88 +35,78 @@ pre,kbd {
 }
 
 pre {
-  border: 1px silver solid;
-  background-color: #eeeeee;
-  padding: .5em;
-  overflow: auto;
+	border: 1px silver solid;
+	background-color: #eeeeee;
+	padding: .5em;
+	overflow: auto;
 }
 
 kbd {
-  border: 1px silver solid;
-  background-color: black;
-  color: white;
-  font-weight: bold;
-  padding: .3em 1em;
-  padding-left: 2.3em;
-  background-image: url(/ullThemeDefault/images/cmd_dollar.png);
-  background-repeat: no-repeat;
-  background-position: 1em center;
+	border: 1px silver solid;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	padding: .3em 1em;
+	padding-left: 2.3em;
+	background-image: url(/ullThemeDefault/images/cmd_dollar.png);
+	background-repeat: no-repeat;
+	background-position: 1em center;
 }
 
-form,p { 
-    margin: 0;
-    font-size: 1em;
+kbd a,kbd a:visited {
+	color: white;
+}
+
+form,p {
+	margin: 0;
+	font-size: 1em;
 }
 
 input,select {
-    margin: 1px;
-	  /* padding: 3px; */
-    /* font-size: 1.1em; */
-    vertical-align: middle;
-    /* background-color: #D6F0F6; */
-    /* border: 1px solid black; */
+	margin: 1px;
+	vertical-align: middle;
 }
 
 input,textarea,select {
-    border: 1px solid #AAAAAA;  
+	border: 1px solid #AAAAAA;
 }
 
-input:focus, textarea:focus, select:focus {
-    border: 1px solid #0072a3;  
+input:focus,textarea:focus,select:focus {
+	border: 1px solid #0072a3;
 }
 
 label {
 	font-weight: bold;
 }
 
-ul { 
-    /* line-height: 1.5em; */
-    margin-top: 0 1em 0 1em; 
-    padding: 0;
-    /* list-style-image: none;
-    list-style-type: none; */
-    /* list-style-image: url(../images/list-bullet.png); */
+ul {
+	margin-top: 0 1em 0 1em;
+	padding: 0;
 }
 
-li {   
-    margin-bottom: .6em; 
-    margin-left: 2.5em;
-    padding-left: .5em;
-    /* background: url(../images/list-bullet.png) no-repeat 0 5px; */
+li {
+	margin-bottom: .6em;
+	margin-left: 2.5em;
+	padding-left: .5em;
 }
 
 /* correct margin for nested lists */
 li ul {
-	   margin-top: 1em;
+	margin-top: 1em;
 }
 
 a {
-  /* text-decoration: none; */
-  /* color: #0072a3; lightblue */
-  text-decoration: none;
-  color: #777475;
+	text-decoration: none;
+	color: #777475;
 }
 
 a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 a:visited {
-  /* color: #454343; too dark */
-  color: #585858;
+	color: #585858;
 }
-
-
 
 h1,h2,h3,h4 {
 	margin-top: 0;
@@ -129,47 +117,38 @@ h1,h2,h3,h4 {
 }
 
 h1 {
-    font-size: 1.5em;
+	font-size: 1.5em;
 }
+
 h2 {
-    font-size: 1.4em;
+	font-size: 1.4em;
 }
+
 h3 {
-    font-size: 1.3em;
+	font-size: 1.3em;
 }
+
 h4 {
-    font-size: 1.2em;
+	font-size: 1.2em;
 }
 
 small {
-    font-size: 0.8em;
-    color: #777777;
+	font-size: 0.8em;
+	color: #777777;
 }
 
-ul.ul_big_list {
-	 list-style-image: none;
-	 margin-top: 1.8em;
-	 margin-bottom: 1.8em;
+a.link_external {
+	background-image: url(/ullThemeDefault/images/external.png);
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: right center;
+	padding-right: 13px;
 }
 
-li.li_big_list {
-   margin-bottom: .6em;
-}
-
-a.link_external
-{
-  background-image: url(/ullThemeDefault/images/external.png);
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: right center;
-  padding-right: 13px;
-}
-
-a.link_new_window
-{
-  background-image: url(/ullThemeDefault/images/new_window.png);
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: right center;
-  padding-right: 17px;
+a.link_new_window {
+	background-image: url(/ullThemeDefault/images/new_window.png);
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: right center;
+	padding-right: 17px;
 }

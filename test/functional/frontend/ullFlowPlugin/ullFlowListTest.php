@@ -169,7 +169,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'first t')  
-  ->checkResponseElement('ul.ull_action input[name="filter[search]"][value="first t"]', true)
+  ->checkResponseElement('ul.list_action_buttons input[name="filter[search]"][value="first t"]', true)
   ->checkResponseElement('table > tbody > tr', 2) // number of rows
   ->checkResponseElement('tbody > tr > td + td + td + td', 'My first thing todo')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')

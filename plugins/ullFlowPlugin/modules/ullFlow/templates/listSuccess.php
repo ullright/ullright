@@ -5,7 +5,7 @@
 	<!-- Action row -->
 	<?php echo ull_form_tag(array('page' => '', 'filter' => array('status' => ''))) ?>
 	
-	<ul class='ull_action color_light_bg'>
+	<ul class='list_action_buttons color_light_bg'>
 	  
 	    <li>
         <?php if (isset($app)): ?>
@@ -31,7 +31,7 @@
 
 <br />
 <?php if ($generator->getRow()->exists()): ?>
-  <table class='result_list'>
+  <table class='list_table'>
 
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator' => $generator,

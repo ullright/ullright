@@ -1,6 +1,6 @@
 /*
  * ************************************************
- *  ull_flow styles
+ *  ullFlow styles
  * ************************************************
  */
  
@@ -14,25 +14,21 @@
   background: #98C0D3;
 }
 
-.result_list th {
-  background: #4494B2; /* dark */
+.color_dark_bg {
+  background: #4494B2;
 }
 
-.result_list tbody tr:hover {
+.list_table tbody tr:hover {
   background: #E1EAEF;  
 }
 
-.ull_filter ul li {
-  background-color: #E1EAEF;
-}
-
-  /* Overridden css: ullCore / taskcenter.css - formats */
+/* Overridden css: ullCore / taskcenter.css - formats */
  
 #tc_wrapper a:visited {
   color: #055b7c;
 }
 
- /* Overridden css: ullCore / common.css - formats */
+/* Overridden css: ullCore / common.css - formats */
  
 a {
   color: #055b7c;
@@ -69,113 +65,6 @@ a:visited {
   padding-bottom: 0.1em;
  }
  
-.ull_flow_header {
-	margin-bottom: 10px;
-	padding: 2px 7px;
-	border: 1px solid #999999;
-	background-color: #E8E8E8;
-	clear: both;	
-}
-
-.ull_flow_header_headline {
-	float: left;
-	position: relative; /* workaround for IE 6 */
-  margin: 0;
-  padding: 0;
-  width: 320px;
-  /* border: 1px red solid; */ 
-}
-
-.ull_flow_header_subject {
-  font-size: 1.2em; 
-  display: inline;
-  margin: 0;
-}
-
-.ull_flow_header_subtitle {
-  color: #777777;
-}
-
-.ull_flow_body {
-  margin-bottom: 10px;
-  /* padding: 7px;
-  border: 1px solid #CCCCCC;
-  background-color: #FFFFFF; */
-  min-height: 200px;
-}
-
-.ull_flow_header_show {
-  margin-bottom: 10px;
-  padding: 0;
-  border: 0;
-  clear: both;  
-}
-
-.ull_flow_footer_show {
-	margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 0;
-  padding-top: 5px;
-  border-top: 1px solid #777777;  
-  clear: both;
-    
-}
-
-/* styles for headfoot action icons partial */
-
-.ull_flow_headfoot_float_right {
-  float: right;
-  position: relative; /* workaround for IE 6 */
-  margin: 0;
-  margin-left: 10px;
-  padding: 0;
-  color: #777777;
-  font-size: 1em;
-  /* border: 1px solid blue; */
-}
-
-.ull_flow_headfoot_action_icons {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.ull_flow_headfoot_action_icons li{
-  float: left;
-  position: relative; /* workaround for IE 6 */
-  background: none;
-  margin: 0;
-  padding: 0;
-  padding-left: 5px; 
-}
-
-
-/* styles for headfoot doc info partial */
-
-.ull_flow_headfoot_float_left {
-  float: left;
-  position: relative; /* workaround for IE 6 */
-  margin: 0;
-  margin-right: 25px;
-  padding: 0;
-  color: #777777;
-  font-size: 1em;
-}
-
-.ull_flow_headfoot_ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  line-height: 1.1em;
-  list-style-image: none;
-}
-
-.ull_flow_headfoot_ul li {
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
 /* styles for the upload dialog */
 
 table.ull_flow_upload {
@@ -205,7 +94,6 @@ table.ull_flow_upload {
 } 
 
 
-
 /* styles for the information update fieldtype */
 .ull_flow_fieldtype_information_update {
   max-height: 250px;
@@ -230,7 +118,6 @@ table.ull_flow_upload {
   background-position: bottom;
   padding-left: 0.8em;
   padding-top: 0.5em;
-  max-width: 771px;
 }
 
 .ull_flow_memories_date {

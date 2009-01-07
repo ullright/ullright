@@ -1,6 +1,6 @@
 /*
  * ************************************************
- *  ullwiki styles
+ *  ullWiki styles
  * ************************************************
  */
  
@@ -14,34 +14,27 @@
   background: #C6C98D;
 }
 
-.result_list th {
-  background: #A5AE5B; /* dark */
+.color_dark_bg {
+  background: #A5AE5B;
 }
-svn update
-.result_list tbody tr:hover {
+
+/*
+.list_table tbody tr:hover {
   background: #E8E5A8;  
 }
+*/
 
-.ull_filter ul li {
-  background-color: #E8E5A8;
-}
-
-#action_buttons_edit_main {
+.edit_container {
   max-width: 950px;
 }
 
-.edit_main {
-  background: #e9e9e9;
-  max-width: 950px;
-}
-
-  /* Overridden css: ullCore / taskcenter.css - formats */
+/* Overridden css: ullCore / taskcenter.css - formats */
  
 #tc_wrapper a:visited {
   color: #51961f;
 }
 
- /* Overridden css: ullCore / common.css - formats */
+/* Overridden css: ullCore / common.css - formats */
  
 a {
   color: #51961f;
@@ -89,7 +82,6 @@ a:visited {
   padding: 0;
   color: #777777;
   font-size: 1em;
-  /* border: 1px solid blue; */
   padding-top: 0.3em;
 }
 

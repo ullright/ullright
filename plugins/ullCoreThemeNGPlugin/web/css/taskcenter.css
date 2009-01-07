@@ -1,140 +1,123 @@
-
-
+/*
+  The task center is the three column wide main element
+  of a typical module's index action.
+*/
 #tc_wrapper {
-  text-align: left;
-  margin: 0px; /* add auto to switch left->center */
-  margin-top: 10px;
-  margin-bottom: 20px;
-  padding: 0px;
-  padding-top: 1px;
-  border:0;
-  width: 748px;
+	text-align: left;
+	margin: 0px; /* add auto to switch left->center */
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 0px;
+	padding-top: 1px;
+	border: 0;
+	width: 748px;
 }
 
 #tc_wrapper a:visited {
-  color: #777475;
+	color: #777475;
 }
 
 #tc_wrapper h3 {
-  font-weight: bold;
-  font-size: 1em;
-  margin: 0;
+	font-weight: bold;
+	font-size: 1em;
+	margin: 0;
 }
 
 #tc_header {
-  margin: 0 0 15px 0;
+	margin: 0 0 15px 0;
 }
 
-/* Tasks */
-
+/*  Tasks
+    Left column containing links like
+    create, applications, etc.
+*/
 #tc_tasks {
-  float: left;
-  width: 225px;
-  margin-right: 25px;
+	float: left;
+	width: 225px;
+	margin-right: 25px;
 }
 
-#tc_tasks > h3 {
+#tc_tasks>h3 {
 	margin-top: .6em;
 	margin-bottom: 1em;
 }
 
 ul.tc_tasks {
-  list-style-type: none;
-  margin: 0px;
-  margin-top: -8px;
-  margin-bottom: 3em;
-  padding: 0px;
+	list-style-type: none;
+	margin: 0px;
+	margin-top: -8px;
+	margin-bottom: 3em;
+	padding: 0px;
 }
 
 ul.tc_tasks li {
-  margin: 0px;
+	margin: 0px;
 	padding-top: .3em;
-  padding-bottom: .3em;  
-  8px;
-  padding-left: 10px;
-  border-bottom: 1px solid #777475;
+	padding-bottom: .3em; 8 px;
+	padding-left: 10px;
+	border-bottom: 1px solid #777475;
 }
 
 ul.tc_tasks li img {
-  padding-right: 10px;
-  vertical-align: middle;
+	padding-right: 10px;
+	vertical-align: middle;
 }
 
-ul.tc_tasks li a {
-	/* font-size: 1.2em; */
-  /*color: #777475;*/
-}
-
-/* Search/Tag */
-
-#tc_search { 
-  float: left;
-  width: 33%;
+/*  Search/Tag
+    Middle column containing a search box
+    and a tag cloud.
+ */
+#tc_search {
+	float: left;
+	width: 33%;
 }
 
 .tc_search_quick_top {
-  border: 0px;
-  padding: 1px;
+	border: 0px;
+	padding: 1px;
 }
 
 .tc_search_quick_top_img {
-  border: 0px;
-  padding-left: 7px;
+	border: 0px;
+	padding-left: 7px;
 }
 
-/*
-.tc_search_quick_bottom {
-  border: 0px;
-  margin-bottom: 10px;
-  padding: 0px;
-}
-*/
-	
 .tc_search_tag_top {
-  border: 0px;
-  padding: 5px;
-  margin-top: 15px;
+	border: 0px;
+	padding: 5px;
+	margin-top: 15px;
 }
 
 .tc_search_tag_bottom {
-  border: 0px;
-  padding-bottom: .5em;
+	border: 0px;
+	padding-bottom: .5em;
 }
 
-/* Queries */
-
+/*  Queries
+    The right column containing queries.
+ */
 #tc_queries {
-  float: right;
-  width: 225px;
-  margin-left: 25px;
+	float: right;
+	width: 225px;
+	margin-left: 25px;
 }
 
 .tc_query_box {
-  border: 0px;
-  margin-bottom: 10px;
-  padding: .5em;
+	border: 0px;
+	margin-bottom: 10px;
+	padding: .5em;
 }
 
 .tc_query_box ul {
-	/* margin-left: -20px; */
-  list-style-type: none;
-  /*text-align: center; */
+	list-style-type: none;
 }
 
 .tc_query_box ul li {
-  margin: 0;
-  margin-bottom: 0.5em;
-  padding: 0;
+	margin: 0;
+	margin-bottom: 0.5em;
+	padding: 0;
 }
 
 #tc_footer {
-  clear: both;
-}
-
-.float_left {
-  float: left;
-}
-
-.clear_left {
-  clear: left;
+	clear: both;
 }

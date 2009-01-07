@@ -12,23 +12,22 @@
 <?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0), 
     array('id' => 'ull_tabletool_form')) ?>
 
-<div class="edit_main">
-<table class="ull_edit">
+<div class="edit_container">
+<table class="edit_table">
 <tbody>
 
 <?php echo $generator->getForm() ?>
 
 </tbody>
 </table>
-</div>
+
 
 <br />
 
-<div id="action_buttons_edit_main">
-<div class='action_buttons_edit color_light_bg'>
+<div class='edit_action_buttons color_light_bg'>
   <h3><?php echo __('Actions', null, 'common')?></h3>
   
-  <div class='action_buttons_edit_left'>
+  <div class='edit_action_buttons_left'>
     <ul>
       <li>
         <?php echo submit_tag(__('Save', null, 'common')) ?>
@@ -36,7 +35,7 @@
     </ul>
   </div>
 
-  <div class='action_buttons_edit_right'>
+  <div class='edit_action_buttons_right'>
     <ul>
       <li>
 <?php

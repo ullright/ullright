@@ -22,7 +22,7 @@
 
 	<div id="sidebar">
 
-    <div id="nav_logo">
+    <div id="sidebar_logo">
       <?php echo ull_link_to(
                   image_tag('/ullCoreThemeNGPlugin/images/logo_120', 'alt="logo"')
                 , '@homepage'
@@ -35,7 +35,8 @@
 		</div>
 	</div>
 	
-	<div id="content">
+	<!-- Contains main navigation and content -->
+	<div id="canvas">
 	<div id="nav_top">
 
        <div id='nav_links'>             
@@ -117,14 +118,15 @@
          </div>
        </div>
       <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
+     <div id="nav_top_separator_line"></div>     
      </div>
      
-     <div id='separator' />     
-     <div id='content_main'>
+     
+     <div id="content">
         <?php echo $sf_data->getRaw('sf_content') ?>
       </div> <!-- end of content_main -->
       <div id="footer">
-      <div id="footer_copyright">© 2007-2008 by Klemens Ullmann</div>
+      <div id="footer_copyright">© 2007-2009 by Klemens Ullmann</div>
       <div id="footer_links">powered by <?php echo ull_link_to('ull.at', 'http://www.ull.at', 'ull_js_observer_confirm=true'); ?></div>
       <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
     </div>  

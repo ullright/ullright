@@ -11,7 +11,7 @@
   );
 ?>
 
-<ul class='ull_action color_light_bg'>
+<ul class='list_action_buttons color_light_bg'>
     <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullWiki/create'); ?></li>
 
     <li>
@@ -33,7 +33,7 @@
 <br />
 
 <?php if ($generator->getRow()->exists()): ?>
-  <table class='result_list'>
+  <table class='list_table'>
   
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator' => $generator,

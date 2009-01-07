@@ -62,7 +62,7 @@ class ullFilter
 //      ullCoreTools::printR($this->filters);
       
       foreach ($this->filters as $request_param => $filter) {
-          $return .= '<li>';
+          $return .= '<li class="color_light_bg">';
           $return .= $filter;
           $return .= ' ';
           $return .= ull_link_to(ull_image_tag('delete', array(), 12, 12), array($request_param => ''));

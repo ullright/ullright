@@ -6,7 +6,7 @@
 
 <!-- TODO: add ordered list for options/actions -->
 
-<ul class='ull_action color_light_bg'>
+<ul class='list_action_buttons color_light_bg'>
   
   <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
   
@@ -37,7 +37,7 @@
 
 <?php // detect empty table_tool ?>
 <?php if ($generator->getRow()->exists()): ?>
-  <table class='result_list'>
+  <table class='list_table'>
   
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator' => $generator,

@@ -1,9 +1,9 @@
   <!-- header -->
   <thead>
   <tr>  
-    <th>&nbsp;</th>
+    <th class="color_dark_bg">&nbsp;</th>
     <?php foreach ($generator->getLabels() as $field_name => $label): ?>
-      <th>
+      <th class="color_dark_bg">
         <?php 
         if ($order == $field_name) {
           $arrow  = ($order_dir == 'desc') ? ' <span class="order_arrow">↑</span>' : ' <span class="order_arrow">↓</span>';
