@@ -7,12 +7,11 @@ class ullFlowFilterForm extends sfForm
     $this->setWidgets(array(
       'search'  => new sfWidgetFormInput(array(), array(
         'size'      => '15',
-        'onchange'  => 'submit()',
+        //'onchange'  => 'submit()',
         'title'     => __('Search', null, 'common')
         )
       ),
-      'status' => new ullWidgetUllFlowAction(array(
-        ), array('onchange'  => 'submit()')
+      'status' => new ullWidgetUllFlowAction(array(), array('onchange'  => 'submit()')
       )
     ));
 
