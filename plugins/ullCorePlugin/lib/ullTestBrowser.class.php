@@ -14,7 +14,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
       ->followRedirect()
       ->isStatusCode(200)
       ->isRequestParameter('module', 'ullUser')
-      ->isRequestParameter('action', 'login')  
+      ->isRequestParameter('action', 'login')
       ->isRequestParameter('option', 'noaccess')
       ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
       ->isRedirected()
@@ -24,13 +24,8 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $this;
   }
 
-  public function loginAsTestUser($testOtherPassword = false)
+  public function loginAsTestUser($password = 'test')
   {
-    $password = 'test';
-    if ($testOtherPassword) {
-      $password = $testOtherPassword;
-    }
-
     $this
       ->isRedirected()
       ->followRedirect()
@@ -40,7 +35,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
       ->followRedirect()
       ->isStatusCode(200)
       ->isRequestParameter('module', 'ullUser')
-      ->isRequestParameter('action', 'login')  
+      ->isRequestParameter('action', 'login')
       ->isRequestParameter('option', 'noaccess')
       ->post('/ullUser/login', array('login' => array('username' => 'test_user', 'password' => $password)))
       ->isRedirected()
@@ -48,7 +43,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     ;
 
     return $this;
-  }  
-  
+  }
+
 }
 
