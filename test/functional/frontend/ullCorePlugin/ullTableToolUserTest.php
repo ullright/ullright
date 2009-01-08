@@ -56,6 +56,18 @@ $b
 ;
 
 $b
+  ->diag('set new password for testuser (error in confirmation)')
+  ->setField('fields[password]', 'newpass')
+  ->setField('fields[password_confirmation]', 'ssapwen')
+  ->click('Save')
+  ->isStatusCode(200)
+  ->responseContains('Please enter the same password twice')
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('table', 'UllUser')
+;
+
+$b
   ->diag('set new password for testuser')
   ->setField('fields[password]', 'newpass')
   ->setField('fields[password_confirmation]', 'newpass')
@@ -72,6 +84,5 @@ $b
   ->diag('login as testuser to check changed password')
   ->click('Log out')
   ->get('ullFlow/index')
-  ->loginAsTestUser('newpass');
+  ->loginAsTestUser('newpass')
 ;
-
