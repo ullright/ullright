@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Timestamp.php 3884 2008-02-22 18:26:35Z jwage $
+ *  $Id: Exception.php 4252 2008-04-19 07:37:53Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,45 +20,15 @@
  */
 
 /**
- * Doctrine_Validator_Timestamp
+ * Doctrine_Record_UnknownPropertyException
  *
  * @package     Doctrine
- * @subpackage  Validator
+ * @subpackage  Record
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 3884 $
- * @author      Mark Pearson <mark.pearson0@googlemail.com>
+ * @version     $Revision: 4252 $
+ * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-class Doctrine_Validator_Timestamp
-{
-    /**
-     * checks if given value is a valid timestamp (YYYY-MM-DD HH:MM:SS)
-     *
-     * @param mixed $value
-     * @return boolean
-     */
-    public function validate($value)
-    {
-        if ($value === null) {
-            return true;
-        }
-
-        $e = explode(' ', trim($value));
-        $date = isset($e[0]) ? $e[0]:null;
-        $time = isset($e[1]) ? $e[1]:null;
-
-        $dateValidator = Doctrine_Validator::getValidator('date');
-        $timeValidator = Doctrine_Validator::getValidator('time');
-
-        if ( ! $dateValidator->validate($date)) {
-            return false;
-        }
-
-        if ( ! $timeValidator->validate($time)) {
-            return false;
-        } 
-
-        return true;
-    }
-}
+class Doctrine_Record_UnknownPropertyException extends Doctrine_Record_Exception
+{ }
