@@ -105,12 +105,11 @@
               }
             ?>
           </div>
-          <br />
-          <div id="nav_searchbox">
-            <?php include_component('ullWiki', 'headerSearch'); ?>
-          </div>
-
-          <br />
+          
+          <!-- <div id="nav_searchbox">
+            <?php //include_component('ullWiki', 'headerSearch'); ?>
+          </div> -->
+          
            <div id="nav_loginbox">
             <?php include_component('ullUser', 'headerLogin'); ?>
             </div>
