@@ -11,22 +11,24 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-$b
-  ->diag('Wiki search box test')
-  ->get('/')
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'myModule')
-  ->isRequestParameter('action', 'index')
-  ->checkResponseElement('#filter_search', true)
-  #->checkResponseElement('img[src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png"]', true)
-  ->setField('filter[search]', 'Another')
-  ->click('search_header')
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullWiki')
-  ->isRequestParameter('action', 'list')
-  ->checkResponseElement('table > tbody > tr', 1)
-  ->checkResponseElement('tr > td + td + td', 'Another Testdoc')
-  ;
+//deactivated because we temp. removed the global search box
+
+//$b
+//  ->diag('Wiki search box test')
+//  ->get('/')
+//  ->isStatusCode(200)
+//  ->isRequestParameter('module', 'myModule')
+//  ->isRequestParameter('action', 'index')
+//  ->checkResponseElement('#filter_search', true)
+//  #->checkResponseElement('img[src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png"]', true)
+//  ->setField('filter[search]', 'Another')
+//  ->click('search_header')
+//  ->isStatusCode(200)
+//  ->isRequestParameter('module', 'ullWiki')
+//  ->isRequestParameter('action', 'list')
+//  ->checkResponseElement('table > tbody > tr', 1)
+//  ->checkResponseElement('tr > td + td + td', 'Another Testdoc')
+//  ;
 
 $b
   ->diag('Wiki Home')
