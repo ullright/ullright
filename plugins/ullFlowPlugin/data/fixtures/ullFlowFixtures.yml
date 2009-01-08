@@ -172,9 +172,8 @@ UllFlowColumnConfig:
     UllFlowApp:     ull_flow_app_helpdesk
     slug:           column_priority
     sequence:       4000
-    UllColumnType:  ull_select
-    options:        ull_select=priority
-    default_value:  6
+    UllColumnType:  priority
+    default_value:  3
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
     is_in_list:     false
     namespace:      test
@@ -238,9 +237,8 @@ UllFlowColumnConfig:
     UllFlowApp:     ull_flow_app_todo
     slug:           column_priority
     sequence:       2000
-    UllColumnType:  ull_select
-    options:        ull_select=priority
-    default_value:  6
+    UllColumnType:  priority
+    default_value:  3
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
     is_in_list:     false
     namespace:      test    
@@ -760,63 +758,7 @@ Tagging:
     taggable_model: UllFlowDoc
     UllFlowDoc:     ull_flow_doc_todo2
     
-UllSelect:
-  ull_select_workflow_priority:
-    Translation:
-      en:
-        label:      Priority
-      de:
-        label:      Wichtigkeit
-    slug:           priority
-    namespace:      ullFlow
-    
-UllSelectChild:
-  ull_select_child_priority_1:
-    Translation:
-      en:
-        label:      Very high
-      de:
-        label:      Sehr hoch
-    UllSelect:      ull_select_workflow_priority
-    sequence:       1000
-    namespace:      ullFlow
-  ull_select_child_priority_2:
-    Translation:
-      en:
-        label:      High
-      de:
-        label:      Hoch
-    UllSelect:      ull_select_workflow_priority
-    sequence:       2000
-    namespace:      ullFlow
-  ull_select_child_priority_3:
-    Translation:
-      en:
-        label:      Normal
-      de:
-        label:      Normal
-    UllSelect:      ull_select_workflow_priority
-    sequence:       3000
-    namespace:      ullFlow
-  ull_select_child_priority_4:
-    Translation:
-      en:
-        label:      Low
-      de:
-        label:      Niedrig
-    UllSelect:      ull_select_workflow_priority
-    sequence:       4000
-    namespace:      ullFlow
-  ull_select_child_priority_5:
-    Translation:
-      en:
-        label:      Very low
-      de:
-        label:      Sehr niedrig
-    UllSelect:      ull_select_workflow_priority
-    sequence:       5000
-    namespace:      ullFlow                
-        
+
 UllColumnType:
   upload:
     class:        ullMetaWidgetUpload

@@ -140,11 +140,11 @@ class ullFlowGenerator extends ullGenerator
     if ($this->requestAction == 'list')
     {
       $this->columnsConfig['priority'] = array(
-        'widgetOptions'     => array('ull_select' => 'priority'),
+        'widgetOptions'     => array(),
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
         'label'             => __('Priority'),
-        'metaWidget'        => 'ullMetaWidgetUllSelect',
+        'metaWidget'        => 'ullMetaWidgetPriority',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
       );      

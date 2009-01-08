@@ -99,6 +99,10 @@ UllColumnType:
     class:        ullMetaWidgetUllUser
     label:        UllUser
     namespace:    ullCore
+  priority:
+    class:        ullMetaWidgetPriority
+    label:        Priority
+    namespace:    ullCore
 
 
 UllTableConfig:
