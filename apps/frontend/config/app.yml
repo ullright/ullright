@@ -15,7 +15,6 @@ dev:
 
 # default values
 all:
-  theme:            ullThemeNG          #TBR
   theme_package:    NG
   
   supported_languages: en,de
