@@ -61,7 +61,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
 
         try {
             $conn->beginInternalTransaction();
-            $saveLater = $this->saveRelated($record);
+            
 
             $record->state($state);
 
@@ -102,6 +102,8 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
 
             $record->state($record->exists() ? Doctrine_Record::STATE_LOCKED : Doctrine_Record::STATE_TLOCKED);
 
+            $saveLater = $this->saveRelated($record);
+            
             foreach ($saveLater as $fk) {
                 $alias = $fk->getAlias();
 
@@ -631,43 +633,35 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
             $classesToOrder[] = $table->getComponentName();
         }
         $classesToOrder = array_unique($classesToOrder);
-
+        
         if (count($classesToOrder) < 2) {
             return $classesToOrder;
         }
 
-        // build the correct order
-        $flushList = array();
+        // saves dependencies between components in the form
+        //  component1 => depends on (component2, component3, ...)
+        $dependencies = array();
+        // initial fill dependencies with all given classes
+        foreach($classesToOrder as $class)
+        {
+          $dependencies[$class] = null;
+        }
+
         foreach ($classesToOrder as $class) {
             $table = $this->conn->getTable($class, false);
             $currentClass = $table->getComponentName();
-
-            $index = array_search($currentClass, $flushList);
-
-            if ($index === false) {
-                //echo "adding $currentClass to flushlist";
-                $flushList[] = $currentClass;
-                $index = max(array_keys($flushList));
-            }
-
+            
             $rels = $table->getRelations();
 
-            // move all foreignkey relations to the beginning
-            foreach ($rels as $key => $rel) {
-                if ($rel instanceof Doctrine_Relation_ForeignKey) {
-                    unset($rels[$key]);
-                    array_unshift($rels, $rel);
-                }
-            }
-
             foreach ($rels as $rel) {
+              
                 $relatedClassName = $rel->getTable()->getComponentName();
-
+                
+                // skip objects not used
                 if ( ! in_array($relatedClassName, $classesToOrder)) {
                     continue;
                 }
 
-                $relatedCompIndex = array_search($relatedClassName, $flushList);
                 $type = $rel->getType();
 
                 // skip self-referenced relations
@@ -678,75 +672,64 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
                 if ($rel instanceof Doctrine_Relation_ForeignKey) {
                     // the related component needs to come after this component in
                     // the list (since it holds the fk)
-
-                    if ($relatedCompIndex !== false) {
-                        // the component is already in the list
-                        if ($relatedCompIndex >= $index) {
-                            // it's already in the right place
-                            continue;
-                        }
-
-                        unset($flushList[$index]);
-                        // the related comp has the fk. so put "this" comp immediately
-                        // before it in the list
-                        array_splice($flushList, $relatedCompIndex, 0, $currentClass);
-                        $index = $relatedCompIndex;
-                    } else {
-                        $flushList[] = $relatedClassName;
-                    }
-
+                    
+                    $dependencies[$relatedClassName][$currentClass] = $currentClass; 
+                    
                 } else if ($rel instanceof Doctrine_Relation_LocalKey) {
                     // the related component needs to come before the current component
                     // in the list (since this component holds the fk).
-
-                    if ($relatedCompIndex !== false) {
-                        // already in flush list
-                        if ($relatedCompIndex <= $index) {
-                            // it's in the right place
-                            continue;
-                        }
-
-                        unset($flushList[$relatedCompIndex]);
-                        // "this" comp has the fk. so put the related comp before it
-                        // in the list
-                        array_splice($flushList, $index, 0, $relatedClassName);
-                    } else {
-                        array_unshift($flushList, $relatedClassName);
-                        $index++;
-                    }
+                    
+                    $dependencies[$currentClass][$relatedClassName] = $relatedClassName;
+                    
                 } else if ($rel instanceof Doctrine_Relation_Association) {
                     // the association class needs to come after both classes
                     // that are connected through it in the list (since it holds
                     // both fks)
-
+                  
                     $assocTable = $rel->getAssociationFactory();
                     $assocClassName = $assocTable->getComponentName();
-
-                    if ($relatedCompIndex !== false) {
-                        unset($flushList[$relatedCompIndex]);
-                    }
-
-                    array_splice($flushList, $index, 0, $relatedClassName);
-                    $index++;
-
-                    $index3 = array_search($assocClassName, $flushList);
-
-                    if ($index3 !== false) {
-                        if ($index3 >= $index) {
-                            continue;
-                        }
-
-                        unset($flushList[$index]);
-                        array_splice($flushList, $index3, 0, $assocClassName);
-                        $index = $relatedCompIndex;
-                    } else {
-                        $flushList[] = $assocClassName;
-                    }
+                    
+                    $dependencies[$assocClassName][$currentClass] = $currentClass;
+                    $dependencies[$assocClassName][$relatedClassName] = $relatedClassName;
                 }
             }
         }
-
-        return array_values($flushList);
+        
+        $flushList = array();
+        
+        // get components without dependencies
+        foreach($dependencies as $class => $dependencyClasses) {
+            if ($dependencyClasses === null) {
+                $flushList[] = $class;
+                unset($dependencies[$class]);
+            }
+        }
+        
+        // try to add remaining classes if all their dependencies have been met
+        $i = 0;
+        while ($dependencies) {
+            foreach ($dependencies as $class => $depClasses) {
+                $ok = true;
+                
+                foreach ($depClasses as $depClass) {
+                    if (!in_array($depClass, $flushList)) {
+                        $ok = false;
+                        break;
+                    }
+                }
+                
+                if ($ok) {
+                    $flushList[] = $class;
+                    unset($dependencies[$class]);
+                }
+            }
+            $i++;
+            if ($i > 100) {
+                throw new RuntimeException('Too many loops, aborting');        
+            }
+        }
+        
+        return $flushList;
     }
 
 
