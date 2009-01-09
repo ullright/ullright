@@ -7,9 +7,9 @@ class ullWebRequest extends sfWebRequest
    * Loads GET, PATH_INFO and POST data into the parameter list.
    *
    */
-  protected function loadParameters()
+  protected function fixParameters()
   {
-    parent::loadParameters();
+    parent::fixParameters();
     
 //    var_dump($this->getParameterHolder()->getAll());die;
     
