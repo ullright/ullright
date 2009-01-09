@@ -61,10 +61,10 @@ $b
   ->setField('fields[password_confirmation]', 'ssapwen')
   ->click('Save')
   ->isStatusCode(200)
-  ->responseContains('Please enter the same password twice')
   ->isRequestParameter('module', 'ullTableTool')
-  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('action', 'edit')
   ->isRequestParameter('table', 'UllUser')
+  ->responseContains('Please enter the same password twice')
 ;
 
 $b
