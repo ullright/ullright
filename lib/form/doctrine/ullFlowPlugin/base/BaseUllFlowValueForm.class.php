@@ -30,7 +30,7 @@ class BaseUllFlowValueForm extends BaseFormDoctrine
       'ull_flow_doc_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllFlowDoc')),
       'ull_flow_column_config_id' => new sfValidatorDoctrineChoice(array('model' => 'UllFlowColumnConfig')),
       'ull_flow_memory_id'        => new sfValidatorInteger(array('required' => false)),
-      'value'                     => new sfValidatorString(array('required' => false)),
+      'value'                     => new sfValidatorString(array('max_length' => 2048, 'required' => false)),
       'created_at'                => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),

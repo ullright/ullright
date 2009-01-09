@@ -15,7 +15,6 @@ class ullFlowGenerator extends ullGenerator
    */
   public function __construct($app = null, $defaultAccess = 'r')
   {
-
     if ($app)
     {
       if (!$app->exists())
@@ -27,7 +26,6 @@ class ullFlowGenerator extends ullGenerator
     }
     
     parent::__construct($defaultAccess);
-    
   }    
   
   /**
@@ -50,6 +48,7 @@ class ullFlowGenerator extends ullGenerator
   {
     if ($this->app)
     {
+//      var_dump($this->app->toArray());
       $this->tableConfig = $this->app;
     }
   }

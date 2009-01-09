@@ -15,13 +15,15 @@ class ullTableToolForm extends ullGeneratorForm
     parent::updateDefaultsFromObject();
     
     if ($this->isI18n()) 
-    {
+    { 
       $defaults = $this->getDefaults();
-
-      if (isset($defaults[@$this->cultures[0]])) 
+      
+      $translations = $this->object->Translation->toArray();
+      
+      if (isset($translations[@$this->cultures[0]])) 
       {
 
-        $i18nFields = $defaults[$this->cultures[0]];
+        $i18nFields = $translations[$this->cultures[0]];
         unset($i18nFields['id']);
         unset($i18nFields['lang']);
 
@@ -30,7 +32,7 @@ class ullTableToolForm extends ullGeneratorForm
           foreach ($this->cultures as $culture)
           {
             $newFieldName = $fieldName . '_translation_' . $culture; 
-            $defaults[$newFieldName] = $defaults[$culture][$fieldName];
+            $defaults[$newFieldName] = $translations[$culture][$fieldName];
           }
         }
       }
@@ -44,7 +46,7 @@ class ullTableToolForm extends ullGeneratorForm
    *
    * @return Doctrine_Record
    */
-  public function updateObject()
+  public function updateObject($values = null)
   {
     $values = $this->getValues();
     

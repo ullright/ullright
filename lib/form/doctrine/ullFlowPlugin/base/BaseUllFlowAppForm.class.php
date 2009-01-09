@@ -12,24 +12,28 @@ class BaseUllFlowAppForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                           => new sfWidgetFormInputHidden(),
-      'namespace'                    => new sfWidgetFormInput(),
-      'slug'                         => new sfWidgetFormInput(),
-      'created_at'                   => new sfWidgetFormDateTime(),
-      'updated_at'                   => new sfWidgetFormDateTime(),
-      'creator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'id'                  => new sfWidgetFormInputHidden(),
+      'namespace'           => new sfWidgetFormInput(),
+      'slug'                => new sfWidgetFormInput(),
+      'label'               => new sfWidgetFormInput(),
+      'doc_label'           => new sfWidgetFormInput(),
+      'created_at'          => new sfWidgetFormDateTime(),
+      'updated_at'          => new sfWidgetFormDateTime(),
+      'creator_user_id'     => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'     => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'ull_permission_list' => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllPermission')),
     ));
 
     $this->setValidators(array(
-      'id'                           => new sfValidatorDoctrineChoice(array('model' => 'UllFlowApp', 'column' => 'id', 'required' => false)),
-      'namespace'                    => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'slug'                         => new sfValidatorString(array('max_length' => 32)),
-      'created_at'                   => new sfValidatorDateTime(array('required' => false)),
-      'updated_at'                   => new sfValidatorDateTime(array('required' => false)),
-      'creator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id'              => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'id'                  => new sfValidatorDoctrineChoice(array('model' => 'UllFlowApp', 'column' => 'id', 'required' => false)),
+      'namespace'           => new sfValidatorString(array('max_length' => 32, 'required' => false)),
+      'slug'                => new sfValidatorString(array('max_length' => 32)),
+      'label'               => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'doc_label'           => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'created_at'          => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'          => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id'     => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id'     => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'ull_permission_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'UllPermission', 'required' => false)),
     ));
 
@@ -51,13 +55,7 @@ class BaseUllFlowAppForm extends BaseFormDoctrine
 
     if (isset($this->widgetSchema['ull_permission_list']))
     {
-      $values = array();
-      foreach ($this->object->UllPermission as $obj)
-      {
-        $values[] = current($obj->identifier());
-      }
-      $this->object->clearRelated('UllPermission');
-      $this->setDefault('ull_permission_list', $values);
+      $this->setDefault('ull_permission_list', $this->object->UllPermission->getPrimaryKeys());
     }
 
   }
@@ -87,22 +85,12 @@ class BaseUllFlowAppForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $q = Doctrine_Query::create()
-          ->delete()
-          ->from('UllFlowAppPermission r')
-          ->where('r.ull_flow_app_id = ?', current($this->object->identifier()))
-          ->execute();
+    $this->object->unlink('UllPermission', array());
 
     $values = $this->getValue('ull_permission_list');
     if (is_array($values))
     {
-      foreach ($values as $value)
-      {
-        $obj = new UllFlowAppPermission();
-        $obj->ull_flow_app_id = current($this->object->identifier());
-        $obj->ull_permission_id = $value;
-        $obj->save();
-      }
+      $this->object->link('UllPermission', $values);
     }
   }
 

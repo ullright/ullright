@@ -52,7 +52,7 @@ class ullFlowForm extends ullGeneratorForm
    * @see sfDoctrineForm
    * @return Doctrine_Record
    */
-  public function updateObject()
+  public function updateObject($values = null)
   {
     parent::updateObject();
 

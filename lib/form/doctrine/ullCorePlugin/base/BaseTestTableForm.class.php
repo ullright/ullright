@@ -14,6 +14,8 @@ class BaseTestTableForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
       'namespace'         => new sfWidgetFormInput(),
+      'my_string'         => new sfWidgetFormInput(),
+      'my_text'           => new sfWidgetFormTextarea(),
       'my_boolean'        => new sfWidgetFormInputCheckbox(),
       'my_email'          => new sfWidgetFormInput(),
       'my_select_box'     => new sfWidgetFormInput(),
@@ -28,6 +30,8 @@ class BaseTestTableForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                => new sfValidatorDoctrineChoice(array('model' => 'TestTable', 'column' => 'id', 'required' => false)),
       'namespace'         => new sfValidatorString(array('max_length' => 32, 'required' => false)),
+      'my_string'         => new sfValidatorString(array('max_length' => 64)),
+      'my_text'           => new sfValidatorString(array('required' => false)),
       'my_boolean'        => new sfValidatorBoolean(array('required' => false)),
       'my_email'          => new sfValidatorString(array('max_length' => 64, 'required' => false)),
       'my_select_box'     => new sfValidatorInteger(array('required' => false)),

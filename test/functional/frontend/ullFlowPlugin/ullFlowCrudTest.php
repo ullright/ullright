@@ -34,7 +34,7 @@ $b
   ->checkResponseElement('input#fields_memory_comment', true)
   ->setField('fields[my_email]', 'foobar')
   ->setField('fields[memory_comment]', 'My memory comment')
-  ->setField('fields[column_priority]', UllSelectTable::findValue('priority', 'High'))
+  ->setField('fields[column_priority]', 2)
   ->setField('fields[column_tags]', 'my_test_tag')
 ;
 

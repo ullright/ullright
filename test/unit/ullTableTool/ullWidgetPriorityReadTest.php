@@ -14,7 +14,7 @@ $w = new ullWidgetPriorityRead();
 $t->diag('->render()');
 $t->is($w->render('foo',    1),   'Very high', '->render() renders very high correctly.');
 $t->is($w->render('foo',    2),   'High', '->render() renders high correctly.');
-$t->is($w->render('foo',    3),   'Medium', '->render() renders medium correctly.');
+$t->is($w->render('foo',    3),   'Normal', '->render() renders medium correctly.');
 $t->is($w->render('foo',    4),   'Low', '->render() renders low correctly.');
 $t->is($w->render('foo',    5),   'Very low', '->render() renders very low correctly.');
 try

@@ -488,6 +488,34 @@
 <target>Meine Aufgaben</target>
 </trans-unit>
 
+<!-- priority levels -->
+
+<trans-unit id="16000">
+<source>Very high</source>
+<target>Sehr hoch</target>
+</trans-unit>
+
+<trans-unit id="16001">
+<source>High</source>
+<target>Hoch</target>
+</trans-unit>
+
+<trans-unit id="16002">
+<source>Normal</source>
+<target>Normal</target>
+</trans-unit>
+
+<trans-unit id="16003">
+<source>Low</source>
+<target>Gering</target>
+</trans-unit>
+
+<trans-unit id="16004">
+<source>Very low</source>
+<target>Sehr gering</target>
+</trans-unit>
+
+
 </body>
   </file>
 </xliff>

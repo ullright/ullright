@@ -12,38 +12,38 @@ class BaseUllGroupForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'                        => new sfWidgetFormInputHidden(),
-      'namespace'                 => new sfWidgetFormInput(),
-      'first_name'                => new sfWidgetFormInput(),
-      'last_name'                 => new sfWidgetFormInput(),
-      'display_name'              => new sfWidgetFormInput(),
-      'username'                  => new sfWidgetFormInput(),
-      'email'                     => new sfWidgetFormInput(),
-      'password'                  => new sfWidgetFormInput(),
-      'type'                      => new sfWidgetFormInput(),
-      'created_at'                => new sfWidgetFormDateTime(),
-      'updated_at'                => new sfWidgetFormDateTime(),
-      'creator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'ull_user_list'     => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllUser')),
+      'id'                   => new sfWidgetFormInputHidden(),
+      'namespace'            => new sfWidgetFormInput(),
+      'first_name'           => new sfWidgetFormInput(),
+      'last_name'            => new sfWidgetFormInput(),
+      'display_name'         => new sfWidgetFormInput(),
+      'username'             => new sfWidgetFormInput(),
+      'email'                => new sfWidgetFormInput(),
+      'password'             => new sfWidgetFormInput(),
+      'type'                 => new sfWidgetFormInput(),
+      'created_at'           => new sfWidgetFormDateTime(),
+      'updated_at'           => new sfWidgetFormDateTime(),
+      'creator_user_id'      => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'      => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'ull_user_list'        => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllUser')),
       'ull_permissions_list' => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllPermission')),
     ));
 
     $this->setValidators(array(
-      'id'                        => new sfValidatorDoctrineChoice(array('model' => 'UllGroup', 'column' => 'id', 'required' => false)),
-      'namespace'                 => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'first_name'                => new sfValidatorString(array('max_length' => 64, 'required' => false)),
-      'last_name'                 => new sfValidatorString(array('max_length' => 64, 'required' => false)),
-      'display_name'              => new sfValidatorString(array('max_length' => 64, 'required' => false)),
-      'username'                  => new sfValidatorString(array('max_length' => 64, 'required' => false)),
-      'email'                     => new sfValidatorString(array('max_length' => 64, 'required' => false)),
-      'password'                  => new sfValidatorString(array('max_length' => 40, 'required' => false)),
-      'type'                      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'created_at'                => new sfValidatorDateTime(array('required' => false)),
-      'updated_at'                => new sfValidatorDateTime(array('required' => false)),
-      'creator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'updator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
-      'ull_user_list'     => new sfValidatorDoctrineChoiceMany(array('model' => 'UllUser', 'required' => false)),
+      'id'                   => new sfValidatorDoctrineChoice(array('model' => 'UllGroup', 'column' => 'id', 'required' => false)),
+      'namespace'            => new sfValidatorString(array('max_length' => 32, 'required' => false)),
+      'first_name'           => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'last_name'            => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'display_name'         => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'username'             => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'email'                => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'password'             => new sfValidatorString(array('max_length' => 40, 'required' => false)),
+      'type'                 => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'created_at'           => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'           => new sfValidatorDateTime(array('required' => false)),
+      'creator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'updator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'ull_user_list'        => new sfValidatorDoctrineChoiceMany(array('model' => 'UllUser', 'required' => false)),
       'ull_permissions_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'UllPermission', 'required' => false)),
     ));
 
@@ -65,24 +65,12 @@ class BaseUllGroupForm extends BaseFormDoctrine
 
     if (isset($this->widgetSchema['ull_user_list']))
     {
-      $values = array();
-      foreach ($this->object->UllUser as $obj)
-      {
-        $values[] = current($obj->identifier());
-      }
-      $this->object->clearRelated('UllUser');
-      $this->setDefault('ull_user_list', $values);
+      $this->setDefault('ull_user_list', $this->object->UllUser->getPrimaryKeys());
     }
 
     if (isset($this->widgetSchema['ull_permissions_list']))
     {
-      $values = array();
-      foreach ($this->object->UllPermissions as $obj)
-      {
-        $values[] = current($obj->identifier());
-      }
-      $this->object->clearRelated('UllPermissions');
-      $this->setDefault('ull_permissions_list', $values);
+      $this->setDefault('ull_permissions_list', $this->object->UllPermissions->getPrimaryKeys());
     }
 
   }
@@ -113,22 +101,12 @@ class BaseUllGroupForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $q = Doctrine_Query::create()
-          ->delete()
-          ->from('UllEntityGroup r')
-          ->where('r.ull_group_id = ?', current($this->object->identifier()))
-          ->execute();
+    $this->object->unlink('UllUser', array());
 
     $values = $this->getValue('ull_user_list');
     if (is_array($values))
     {
-      foreach ($values as $value)
-      {
-        $obj = new UllEntityGroup();
-        $obj->ull_group_id = current($this->object->identifier());
-        $obj->ull_entity_id = $value;
-        $obj->save();
-      }
+      $this->object->link('UllUser', $values);
     }
   }
 
@@ -150,22 +128,12 @@ class BaseUllGroupForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $q = Doctrine_Query::create()
-          ->delete()
-          ->from('UllGroupPermission r')
-          ->where('r.ull_group_id = ?', current($this->object->identifier()))
-          ->execute();
+    $this->object->unlink('UllPermissions', array());
 
     $values = $this->getValue('ull_permissions_list');
     if (is_array($values))
     {
-      foreach ($values as $value)
-      {
-        $obj = new UllGroupPermission();
-        $obj->ull_group_id = current($this->object->identifier());
-        $obj->ull_permission_id = $value;
-        $obj->save();
-      }
+      $this->object->link('UllPermissions', $values);
     }
   }
 

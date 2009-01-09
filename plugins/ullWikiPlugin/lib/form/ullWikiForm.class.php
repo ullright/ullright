@@ -6,7 +6,7 @@
 class ullWikiForm extends ullGeneratorForm
 {
 
-  public function updateObject()
+  public function updateObject($values = null)
   {
     $object = parent::updateObject();
 

@@ -150,7 +150,7 @@ UllFlowValue:
     ull_flow_memory_id:
       type: integer
     value:
-      type: clob
+      type: string(2048)
   relations:
     UllFlowDoc:
       foreignAlias: UllFlowValues
@@ -210,10 +210,10 @@ UllFlowAction:
   columns:
     # a slug is a distinguised name, which is 1:1 connected to the id.
     slug:
-      type: varchar(32)
+      type: string(32)
       notnull: true
     label:
-      type: varchar(32)
+      type: string(32)
       notnull: true    
     is_status_only:
       type: boolean
@@ -256,10 +256,10 @@ UllFlowStep:
       type: integer
       notnull: true
     slug:
-      type: varchar(32)
+      type: string(32)
       notnull: true
     label:
-      type: varchar(32)
+      type: string(32)
       notnull: true    
     is_start:
       type: boolean

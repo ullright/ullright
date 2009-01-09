@@ -33,14 +33,14 @@ class myTestCase extends sfDoctrineTestCase
         'is_in_list'          => true,
         ),
     'column_priority' => array (
-        'widgetOptions'       => array('ull_select' => 'priority'),
+        'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => false),
         'label'               => 'Priority',
-        'metaWidget'          => 'ullMetaWidgetUllSelect',
+        'metaWidget'          => 'ullMetaWidgetPriority',
         'access'              => 'w',
         'is_in_list'          => false,
-        'default_value'       => '6',
+        'default_value'       => '3',
         ),        
     'upload' => array (
         'widgetOptions'       => array(),
@@ -91,18 +91,18 @@ $docs = Doctrine::getTable('UllFlowDoc')->findByUllFlowAppId(1);
 
 $t->begin('__construct()');
 
-  $generator = new ullFlowGenerator();
+  $generator = new ullFlowGenerator;
   $t->isa_ok($generator, 'ullFlowGenerator', '__construct() returns the correct object without params');
   
   $generator = new ullFlowGenerator($app, 'w');
   $t->isa_ok($generator, 'ullFlowGenerator', '__construct() returns the correct object');
 
-$t->begin('getTableConfig()');
+$t->diag('getTableConfig()');
   $tableConfig = $generator->getTableConfig();
   $t->isa_ok($tableConfig, 'UllFlowApp', 'tableConfig is the correct object');  
   $t->is($tableConfig->label, 'Trouble ticket tool', 'Label is correct'); 
   
-$t->begin('getColumnConfig()');
+$t->diag('getColumnConfig()');
   $columnsConfig = $generator->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
   $t->is(count($columnsConfig), 7, 'columnsConfig has the correct number of columns');
@@ -119,14 +119,14 @@ $t->begin('getColumnConfig()');
     $t->is($columnConfig, $mock, 'columnConfig for column "' . key($columnConfig) . '" is correct');
   }
 
-$t->begin('buildForm()');
+$t->diag('buildForm()');
   $generator->buildForm($docs);  
   
-$t->begin('getForm() with calling buildForm() prior');  
+$t->diag('getForm() with calling buildForm() prior');  
   $form = $generator->getForm();
   $t->isa_ok($form, 'ullFlowForm', 'getForm() returns the correct object');
   
-$t->begin('getForms()');
+$t->diag('getForms()');
   $forms = $generator->getForms();
   $t->is(is_array($forms), true, 'getForms() returns an array');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');

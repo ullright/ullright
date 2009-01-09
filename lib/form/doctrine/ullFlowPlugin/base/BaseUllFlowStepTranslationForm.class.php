@@ -19,7 +19,7 @@ class BaseUllFlowStepTranslationForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'    => new sfValidatorDoctrineChoice(array('model' => 'UllFlowStepTranslation', 'column' => 'id', 'required' => false)),
-      'label' => new sfValidatorPass(),
+      'label' => new sfValidatorString(array('max_length' => 32)),
       'lang'  => new sfValidatorDoctrineChoice(array('model' => 'UllFlowStepTranslation', 'column' => 'lang', 'required' => false)),
     ));
 

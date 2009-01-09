@@ -6,8 +6,13 @@ class ullMetaWidgetPriority extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      $this->addWidget(new sfWidgetFormSelect(array('choices' =>
-                  array(1 => 'Very high', 2 => 'High', 3 => 'Medium', 4 => 'Low', 5 => 'Very low'))));
+      $this->addWidget(new sfWidgetFormSelect(array('choices' => array(
+        1 => __('Very high', null, 'common'),
+        2 => __('High', null, 'common'), 
+        3 => __('Normal', null, 'common'), 
+        4 => __('Low', null, 'common'), 
+        5 => __('Very low', null, 'common')
+      ))));
       
       $this->addValidator(new sfValidatorChoice(array('choices' => array(1, 2, 3, 4, 5))));
     }
