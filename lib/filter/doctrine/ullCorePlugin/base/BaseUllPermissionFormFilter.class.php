@@ -42,7 +42,7 @@ class BaseUllPermissionFormFilter extends BaseFormFilterDoctrine
     parent::setup();
   }
 
-  public function addull_groupListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addUllGroupListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {
@@ -58,7 +58,7 @@ class BaseUllPermissionFormFilter extends BaseFormFilterDoctrine
           ->andWhereIn('UllGroupPermission.ull_group_id', $values);
   }
 
-  public function addull_flow_appListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addUllFlowAppListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {

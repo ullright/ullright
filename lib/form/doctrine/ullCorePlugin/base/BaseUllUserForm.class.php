@@ -25,7 +25,7 @@ class BaseUllUserForm extends BaseFormDoctrine
       'updated_at'      => new sfWidgetFormDateTime(),
       'creator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'ull_group_list'  => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllGroup')),
+      'ull_group_list'  => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllGroup')),
     ));
 
     $this->setValidators(array(
@@ -44,6 +44,10 @@ class BaseUllUserForm extends BaseFormDoctrine
       'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'ull_group_list'  => new sfValidatorDoctrineChoiceMany(array('model' => 'UllGroup', 'required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'UllUser', 'column' => array('username')))
+    );
 
     $this->widgetSchema->setNameFormat('ull_user[%s]');
 

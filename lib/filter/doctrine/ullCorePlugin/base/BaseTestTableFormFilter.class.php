@@ -34,7 +34,7 @@ class BaseTestTableFormFilter extends BaseFormFilterDoctrine
       'my_text'           => new sfValidatorPass(array('required' => false)),
       'my_boolean'        => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'my_email'          => new sfValidatorPass(array('required' => false)),
-      'my_select_box'     => new sfValidatorInteger(array('required' => false)),
+      'my_select_box'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'my_useless_column' => new sfValidatorPass(array('required' => false)),
       'ull_user_id'       => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
       'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),

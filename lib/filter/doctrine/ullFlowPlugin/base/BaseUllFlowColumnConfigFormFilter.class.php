@@ -37,7 +37,7 @@ class BaseUllFlowColumnConfigFormFilter extends BaseFormFilterDoctrine
       'ull_flow_app_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllFlowApp', 'column' => 'id')),
       'slug'               => new sfValidatorPass(array('required' => false)),
       'label'              => new sfValidatorPass(array('required' => false)),
-      'sequence'           => new sfValidatorInteger(array('required' => false)),
+      'sequence'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'ull_column_type_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllColumnType', 'column' => 'id')),
       'options'            => new sfValidatorPass(array('required' => false)),
       'is_enabled'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),

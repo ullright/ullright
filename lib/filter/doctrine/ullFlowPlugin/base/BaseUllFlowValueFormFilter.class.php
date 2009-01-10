@@ -29,7 +29,7 @@ class BaseUllFlowValueFormFilter extends BaseFormFilterDoctrine
       'namespace'                 => new sfValidatorPass(array('required' => false)),
       'ull_flow_doc_id'           => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllFlowDoc', 'column' => 'id')),
       'ull_flow_column_config_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllFlowColumnConfig', 'column' => 'id')),
-      'ull_flow_memory_id'        => new sfValidatorInteger(array('required' => false)),
+      'ull_flow_memory_id'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'value'                     => new sfValidatorPass(array('required' => false)),
       'created_at'                => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'                => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),

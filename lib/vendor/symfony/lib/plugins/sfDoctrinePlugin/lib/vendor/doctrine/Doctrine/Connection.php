@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Connection.php 5340 2009-01-05 23:31:03Z jwage $
+ *  $Id: Connection.php 5324 2008-12-30 16:00:44Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -49,7 +49,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5340 $
+ * @version     $Revision: 5324 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (MDB2 library)
  */
@@ -163,9 +163,9 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     protected $options    = array();
 
     /**
-     * @var array $supportedDrivers         an array containing all supported drivers
+     * @var array $availableDrivers         an array containing all available drivers
      */
-    private static $supportedDrivers    = array(
+    private static $availableDrivers    = array(
                                         'Mysql',
                                         'Pgsql',
                                         'Oracle',
@@ -297,16 +297,6 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
     public static function getAvailableDrivers()
     {
         return PDO::getAvailableDrivers();
-    }
-
-    /**
-     * Returns an array of supported drivers by Doctrine
-     *
-     * @return array $supportedDrivers
-     */
-    public static function getSupportedDrivers()
-    {
-        return self::$supportedDrivers;
     }
 
     /**
@@ -461,7 +451,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
         $found = false;
         
         if (extension_loaded('pdo')) {
-            if (in_array($e[0], self::getAvailableDrivers())) {
+            if (in_array($e[0], PDO::getAvailableDrivers())) {
             	try {
                     $this->dbh = new PDO($this->options['dsn'], $this->options['username'], 
                                      (!$this->options['password'] ? '':$this->options['password']), $this->options['other']);

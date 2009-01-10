@@ -41,6 +41,10 @@ class BaseUllParentEntityForm extends BaseFormDoctrine
       'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'UllParentEntity', 'column' => array('username')))
+    );
+
     $this->widgetSchema->setNameFormat('ull_parent_entity[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

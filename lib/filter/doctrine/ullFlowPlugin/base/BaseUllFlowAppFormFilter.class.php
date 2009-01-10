@@ -44,7 +44,7 @@ class BaseUllFlowAppFormFilter extends BaseFormFilterDoctrine
     parent::setup();
   }
 
-  public function addull_permissionListColumnQuery(Doctrine_Query $query, $field, $values)
+  public function addUllPermissionListColumnQuery(Doctrine_Query $query, $field, $values)
   {
     if (!is_array($values))
     {

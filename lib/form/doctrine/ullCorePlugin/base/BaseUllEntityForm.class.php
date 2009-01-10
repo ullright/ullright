@@ -43,6 +43,10 @@ class BaseUllEntityForm extends BaseFormDoctrine
       'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
 
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'UllEntity', 'column' => array('username')))
+    );
+
     $this->widgetSchema->setNameFormat('ull_entity[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

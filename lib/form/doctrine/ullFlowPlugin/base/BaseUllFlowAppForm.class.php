@@ -21,7 +21,7 @@ class BaseUllFlowAppForm extends BaseFormDoctrine
       'updated_at'          => new sfWidgetFormDateTime(),
       'creator_user_id'     => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'     => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'ull_permission_list' => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllPermission')),
+      'ull_permission_list' => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllPermission')),
     ));
 
     $this->setValidators(array(

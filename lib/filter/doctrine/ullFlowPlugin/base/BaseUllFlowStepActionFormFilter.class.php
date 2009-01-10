@@ -30,7 +30,7 @@ class BaseUllFlowStepActionFormFilter extends BaseFormFilterDoctrine
       'ull_flow_step_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllFlowStep', 'column' => 'id')),
       'ull_flow_action_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllFlowAction', 'column' => 'id')),
       'options'            => new sfValidatorPass(array('required' => false)),
-      'sequence'           => new sfValidatorInteger(array('required' => false)),
+      'sequence'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'created_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'creator_user_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
