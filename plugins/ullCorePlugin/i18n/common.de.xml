@@ -94,6 +94,10 @@
 <target>Vorgabewert</target>
 </trans-unit>
 
+<trans-unit id="107">
+<source>Applications</source>
+<target>Anwendungen</target>
+</trans-unit>
 
 <!-- Questions -->
 
