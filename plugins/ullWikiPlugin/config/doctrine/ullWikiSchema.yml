@@ -12,7 +12,7 @@ UllWiki:
       type: string(255)
       notnull: true  
     body: 
-      type: clob
+      type: string(65536)
     read_counter: 
       type: integer
     edit_counter: 

@@ -150,7 +150,7 @@ UllFlowValue:
     ull_flow_memory_id:
       type: integer
     value:
-      type: string(2048)
+      type: string(65536)
   relations:
     UllFlowDoc:
       foreignAlias: UllFlowValues
