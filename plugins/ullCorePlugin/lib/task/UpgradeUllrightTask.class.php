@@ -482,7 +482,15 @@ EOF;
     $model = 'UllWiki';
     foreach ($fixtures[$model] as $descriptor => $record)
     {
-      $fixtures[$model][$descriptor]['id'] = str_replace($model . '_', '', $descriptor);
+      // skip non-current entries
+      if (!$record['current'])
+      {
+        unset($fixtures[$model][$descriptor]);          
+        continue;
+      }
+      
+//      $fixtures[$model][$descriptor]['id'] = str_replace($model . '_', '', $descriptor);
+      $fixtures[$model][$descriptor]['id'] = $record['docid'];
       $fixtures[$model][$descriptor]['duplicate_tags_for_search'] = $record['duplicate_tags_for_propel_search'];
       
       unset(
@@ -507,7 +515,7 @@ EOF;
 //    var_dump($fixtures);
     
     $yml = sfYaml::dump($fixtures, 5);
-    var_dump($yml);
+//    var_dump($yml);
     
     file_put_contents(sfConfig::get('sf_root_dir') . '/data/fixtures/test.yml', $yml);
   }
