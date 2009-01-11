@@ -92,7 +92,8 @@ EOF;
 
       unset(
         $fixtures[$model][$descriptor]['location_id'],  
-        $fixtures[$model][$descriptor]['birthday']
+        $fixtures[$model][$descriptor]['birthday'],
+        $fixtures[$model][$descriptor]['user_type']
 //        $fixtures[$model][$descriptor]['Creator'],
 //        $fixtures[$model][$descriptor]['Updator']
       );
@@ -104,7 +105,7 @@ EOF;
     foreach ($fixtures[$model] as $descriptor => $record)
     {
       // delete old master admin group
-      if ($record['caption'] == 'Master-Administrator' || isset($record['system']))
+      if ($record['caption'] == 'Master-Administrator' || $record['system'])
       {
         unset($fixtures[$model][$descriptor]);
         $invalidGroups[] = str_replace($model . '_', '', $descriptor);
@@ -114,7 +115,8 @@ EOF;
       $fixtures[$model][$descriptor]['display_name'] = $record['caption'];
       
       unset(
-        $fixtures[$model][$descriptor]['caption']  
+        $fixtures[$model][$descriptor]['caption'],
+        $fixtures[$model][$descriptor]['system']
       );
     }    
 
@@ -192,7 +194,7 @@ EOF;
       2 => 'textarea',
       3 => 'checkbox',
       5 => 'foreign_key',
-//      6 => null,          // date TODO: missing!
+      6 => 'datetime',          // date TODO: missing!
       7 => 'datetime',
       8 => 'integer',
       9 => 'ull_user',
@@ -204,7 +206,7 @@ EOF;
       15 => 'wiki_link',
       16 => 'ull_select',
       17 => 'password',
-//      18 => null,       // information_update TODO: missing!
+      18 => 'textarea',       // information_update TODO: missing!
       19 => 'taggable',
     );
     foreach ($fixtures[$model] as $descriptor => $record)
@@ -269,6 +271,12 @@ EOF;
       }
       
       $parentDescriptor = $record['id'];
+      
+      // skip invalid fields
+      if (!$fixtures[$parentModel][$parentDescriptor])
+      {
+        continue;
+      }      
       
       $fixtures[$parentModel][$parentDescriptor]['Translation']['de']['label'] = $record['caption_i18n'];
     }       
@@ -375,9 +383,21 @@ EOF;
       {
         $fixtures[$model][$descriptor]['UllEntity'] = $record['assigned_to_ull_user_id'];
       }
+      
+      //fix still missing UllEntity
+      if (!$fixtures[$model][$descriptor]['UllEntity'])
+      {
+        $fixtures[$model][$descriptor]['UllEntity'] = $record['Creator'];
+      }
 
       $fixtures[$model][$descriptor]['UllFlowStep'] = $record['assigned_to_ull_flow_step_id'];
       $fixtures[$model][$descriptor]['duplicate_tags_for_search'] = $record['duplicate_tags_for_propel_search'];
+      
+      // fix priority
+      if (!in_array($fixtures[$model][$descriptor]['priority'], array(1,2,3,4,5)))
+      {
+        $fixtures[$model][$descriptor]['priority'] = 3;
+      }
       
       unset(
         $fixtures[$model][$descriptor]['ull_flow_app_id'],
@@ -441,10 +461,22 @@ EOF;
         $fixtures[$model][$descriptor]['ull_flow_doc_id'],
         $fixtures[$model][$descriptor]['ull_flow_step_id'],
         $fixtures[$model][$descriptor]['ull_flow_action_id'],
+        $fixtures[$model][$descriptor]['assigned_to_ull_user_id'],
         $fixtures[$model][$descriptor]['assigned_to_ull_group_id'],
         $fixtures[$model][$descriptor]['creator_group_id']
       );
     }     
+    
+    
+    
+    $model = 'UllField';
+    unset($fixtures[$model]);
+    
+    
+    
+    $model = 'UllFlowAction';
+    unset($fixtures[$model]);
+    
     
     
     $model = 'UllWiki';
