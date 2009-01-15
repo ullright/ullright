@@ -351,16 +351,10 @@ UllFlowStep:
         label:        Creator
       de:
         label:        Ersteller
-    slug:             creator
+    slug:             helpdesk_creator
     UllFlowApp:       ull_flow_app_helpdesk
-#    UllFlowStepActions:    
-#      stepaction_1:
-#        UllFlowAction:  ull_flow_action_assign_to_user
-#        options:        foobar bla
-#      stepaction_2:
-#        UllFlowAction:  ull_flow_action_reject
     is_start:         true
-    namespace:      test
+    namespace:        test
   ull_flow_step_doc_helpdesk_dispatcher:
     Translation:
       en:
@@ -369,8 +363,25 @@ UllFlowStep:
         label:        Helpdesk Dispatcher
     slug:             helpdesk_dispatcher
     UllFlowApp:       ull_flow_app_helpdesk
-    #UllFlowAction:    [ull_flow_action_assign_to_user]
-    namespace:      test
+    namespace:        test
+  ull_flow_step_doc_helpdesk_troubleshooter:
+    Translation:
+      en:
+        label:        Troubleshooter
+      de:
+        label:        Problemlöser
+    slug:             helpdesk_troubleshooter
+    UllFlowApp:       ull_flow_app_helpdesk
+    namespace:        test
+  ull_flow_step_doc_helpdesk_closed:
+    Translation:
+      en:
+        label:        Closed
+      de:
+        label:        Abgeschlossen
+    slug:             helpdesk_clodes
+    UllFlowApp:       ull_flow_app_helpdesk
+    namespace:      test        
   ull_flow_step_doc_todo_creator:
     Translation:
       en:
@@ -389,10 +400,24 @@ UllFlowStepAction:
     UllFlowAction:  ull_flow_action_send
     namespace:      test
 #    options:        foobar bla
-#  stepaction_2:
-#    UllFlowStep:    ull_flow_step_doc_helpdesk_creator  
-#    UllFlowAction:  ull_flow_action_reject    
-        
+  stepaction_2:
+    UllFlowStep:    ull_flow_step_doc_helpdesk_dispatcher  
+    UllFlowAction:  ull_flow_action_assign_to_user
+    namespace:      test    
+  stepaction_3:
+    UllFlowStep:    ull_flow_step_doc_helpdesk_dispatcher  
+    UllFlowAction:  ull_flow_action_close
+    namespace:      test
+  stepaction_4:
+    UllFlowStep:    ull_flow_step_doc_helpdesk_troubleshooter  
+    UllFlowAction:  ull_flow_action_return
+    namespace:      test   
+  stepaction_5:
+    UllFlowStep:    ull_flow_step_doc_helpdesk_closed  
+    UllFlowAction:  ull_flow_action_reopen
+    namespace:      test
+    
+             
 UllFlowAction:
   ull_flow_action_create:
     Translation:
