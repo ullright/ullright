@@ -12,14 +12,14 @@ $b->resetDatabase();
 $b
   ->diag('ullFlow Home')
   ->get('ullFlow/index')
-  ->loginAsAdmin()
+  ->loginAsTestUser()
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'index')
 ;  
 
 $b
-  ->diag('create and assign to noone')
+  ->diag('create and send as test_user')
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->click('Create')
@@ -28,120 +28,108 @@ $b
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
   ->setField('fields[my_subject]', 'Urgently use ullright')
-//  ->click('Assign')
-//  ->dumpDie()
+  ->click('Send')
+  ->isRedirected()
+  ->followRedirect()
+  ->click('Log out')
 ;
 
-//$b
-//  ->diag('check validation errors, correct them and click "save_only"')
-//  ->click('Save only')
-//  ->isStatusCode(200)
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'edit')
-//  ->isRequestParameter('app', 'trouble_ticket')
-//  ->checkResponseElement('tr > td + td + td > ul > li', 'Required.')
-//  ->checkResponseElement('tr + tr + tr > td + td + td > ul > li', 'Invalid.')
-//  ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')
-//  ->setField('fields[my_subject]', 'This is my original shiny little subject')
-//  ->setField('fields[my_datetime]', "2001-01-01 01:01:01")    
-//  ->setField('fields[my_email]', 'bender@ull.at')
-//;
-//  
-//$b->diag('check values and click "save_close"')  
-//  ->click('Save only')
-//  ->isRedirected()
-//  ->followRedirect()
-//  ->isStatusCode(200)
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'edit')
-//  ->checkResponseElement('tr > td + td > input[value="This is my original shiny little subject"]', true)
-//  ->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
-//  ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')  
-//  ->checkResponseElement('tr + tr + tr + tr + tr > td + td > input[value="my_test_tag"]', true)
-//  ->responseContains('Progress')
-//  ->checkResponseElement('div#ull_flow_memories > ul > ul > li', '/Created[\s]+by[\s]+Master[\s]+Admin/')
-//  ->checkResponseElement('div#ull_flow_memories > ul > ul > li + li > ul', '/My memory comment/')
-//  ->setField('fields[my_subject]', 'This is my shiny little subject')
-//;
-//
-//$b->diag('check list')
-//  ->click('Save and close')
-//  ->isRedirected()
-//  ->followRedirect()  
-//  ->isStatusCode(200)    
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'list')
-//  ->checkResponseElement('table > tbody > tr', 3) // number of rows
-//  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little subject')  
-//  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'High')
-//;
-//
-//$b
-//  ->diag('edit -> save only')
-//  // doesn't work (yet -> sf1.2)
-////  ->click('edit')
-//  ->get('ullFlow/edit/doc/5')
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'edit')
-//  ->isRequestParameter('doc', 5)
-//  ->checkResponseElement('div#ull_flow_memories > ul > ul > li', '/Edited[\s]+by[\s]+Master[\s]+Admin/')
-//  ->checkResponseElement('div#ull_flow_memories > ul > ul > li + li', '/Created[\s]+by[\s]+Master[\s]+Admin/')
-//  ->setField('fields[my_subject]', 'This is my shiny little edited subject')
-//
-//  ->click('Save and close')
-//  ->isRedirected()
-//  ->followRedirect()
-//  ->isStatusCode(200)    
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'list')
-//  ->isRequestParameter('app', 'trouble_ticket')
-//  ->checkResponseElement('table > tbody > tr', 3) // number of rows
-//  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
-//  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second trouble ticket')
-//;   
-//
-//$b
-//  ->diag('edit -> send')
-//  ->get('ullFlow/edit/doc/5')
-//  ->click('Send')
-//
-//  ->isRedirected()
-//  ->followRedirect()
-//  ->isStatusCode(200)    
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'list')
-//  ->isRequestParameter('app', 'trouble_ticket')
-//  ->checkResponseElement('table > tbody > tr', 3) // number of rows
-//  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
-//  ->checkResponseElement('tbody > tr > td + td + td + td + td + td + td', 'Helpdesk (Group)')
-//;  
-//
-//$b
-//  ->diag('index: click on created tag')
-//  ->get('ullFlow/index')
-//  ->click('my_test_tag')
-//  ->isStatusCode(200)
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'list')
-//  ->checkResponseElement('table > tbody > tr', 1) // number of rows
-//  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
-//;
-//
-//
-//$b->resetDatabase();
-//$b
-//  ->diag('delete')
-//  ->get('ullFlow/list')
-//  ->isStatusCode(200)
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'list')
-//  ->checkResponseElement('table > tbody > tr', 4) // number of rows
-//  
-//  ->click('Delete')
-//  ->isRedirected()
-//  ->followRedirect()
-//  ->isStatusCode(200)
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'list')
-//  ->checkResponseElement('table > tbody > tr', 3) // number of rows
-//;
+$b
+  ->diag('login as helpdesk_admin: check that entry has been created properly')
+  ->get('ullFlow/index')
+  ->loginAs('helpdesk_user')
+  ->click('Trouble ticket tool')
+  ->click('All entries')
+  ->click('Edit')  
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li', '/Created by[\s]+Test User/')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li + li', '/Last action:[\s]+Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li + li + li', '/Next one:[\s]+Helpdesk \(Group\)[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', 2) // number of memory entries
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li + li', '/Created[\s]+by[\s]+Test User/')
+;
+
+$b
+  ->diag('don\'t set the assigened to user and click assign')
+  ->click('Assign')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('.edit_action_buttons_left ul ul.error_list > li', 'Required.')
+;
+
+$b
+  ->diag('set assigned to "Helpdesk Admin User" and click assign')  
+  ->setField('fields[ull_flow_action_assign_to_user_ull_entity]', Doctrine::getTable('UllUser')->findOneByDisplayName('Helpdesk Admin User')->id)
+  ->click('Assign')
+  ->isRedirected()
+  ->followRedirect()
+  ->click('Log out')  
+;
+
+$b
+  ->diag('login as helpdesk_admin_user: check that entry has been updated properly')
+  ->get('ullFlow/index')
+  ->loginAs('helpdesk_admin_user')
+  ->click('Trouble ticket tool')
+  ->click('All entries')
+  ->click('Edit')  
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li', '/Created by[\s]+Test User/')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li + li', '/Last action:[\s]+Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li + li + li', '/Next one:[\s]+Helpdesk Admin User[\s]+\(Step[\s]+Troubleshooter \(Trouble ticket tool\)\)/') 
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', 3) // number of memory entries
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li + li', '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li + li + li', '/Created[\s]+by[\s]+Test User/')
+;
+
+$b
+  ->diag('click return')
+  ->click('Return')
+  ->isRedirected()
+  ->followRedirect()
+  ->click('Log out')  
+;
+
+$b
+  ->diag('login as helpdesk_admin: check that entry has been updated properly')
+  ->get('ullFlow/index')
+  ->loginAs('helpdesk_user')
+  ->click('Trouble ticket tool')
+  ->click('All entries')
+  ->click('Edit')  
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li', '/Created by[\s]+Test User/')
+  ->checkResponseElement('ul.ull_flow_edit_header_list > li + li', '/Last action:[\s]+Returned[\s]+by[\s]+Helpdesk Admin User/')
+  //TODO: getNextFromPreviousStep doesn't work!
+//  ->checkResponseElement('ul.ull_flow_edit_header_list > li + li + li', '/Next one:[\s]+Helpdesk \(Group\)[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', 4) // number of memory entries
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li + li', '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li + li + li', '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li + li + li + li', '/Created[\s]+by[\s]+Test User/')
+;
+
+$b
+  ->diag('click return')
+  ->click('Close')
+  ->isRedirected()
+  ->followRedirect()
+  ->click('Log out')  
+;  
+
