@@ -78,7 +78,7 @@ $t->begin('getVirtualValuesAsArray()');
   
   $t->is($columns, $reference, 'returns the correct values');  
   
-$t->begin('getVirtualColumnsAsArray()');
+$t->diag('getVirtualColumnsAsArray()');
   $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
   $columns = $doc1->getVirtualColumnsAsArray();
   $reference = array(
@@ -93,7 +93,7 @@ $t->begin('getVirtualColumnsAsArray()');
   );
   $t->is($columns, $reference, 'returns the correct values');    
   
-$t->begin('checkAccess() - write');
+$t->diag('checkAccess() - write');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(2);
   $t->loginAs('admin');
@@ -106,7 +106,7 @@ $t->begin('checkAccess() - write');
   $t->loginAs('test_user');
   $t->is($doc->checkAccess(), 'w', 'returns write because the doc is assigned to the user');
   
-$t->begin('checkAccess() - read');
+$t->diag('checkAccess() - read');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
   $t->loginAs('helpdesk_user');
@@ -115,13 +115,13 @@ $t->begin('checkAccess() - read');
   $t->loginAs('test_user');
   $t->is($doc->checkAccess(), 'r', 'returns read access because the user created the doc');
 
-$t->begin('checkAccess() - none');  
+$t->diag('checkAccess() - none');  
   
   $doc = Doctrine::getTable('UllFlowDoc')->find(2);
   $t->loginAs('test_user');
   $t->is($doc->checkAccess(), null, 'returns no access for test_user');
   
-$t->begin('checkDeleteAccess()');
+$t->diag('checkDeleteAccess()');
 
   $t->loginAs('test_user');
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);

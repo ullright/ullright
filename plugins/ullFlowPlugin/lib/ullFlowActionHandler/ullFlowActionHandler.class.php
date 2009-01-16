@@ -1,62 +1,110 @@
 <?php
 
-
+/**
+ * ullFlowActionHandler
+ * 
+ * Base class for all ullFlow actions
+ *
+ */
 
 abstract class ullFlowActionHandler
 {
   
   protected
-    $options = array()
-    , $doc
-    , $doc_id
-    , $params = array (
-        'next_step'     => 0
-        , 'next_user'   => 0
-        , 'next_group'  => 0
-      )
+    $options = array(),
+    $form,
+    // used to store the form fields for one handler to allow setting the
+    //  validators to required for all widgets of one handler
+    $formFields = array()    
+//    $doc,
+//    $doc_id,
+//    $params = array (
+//      'next_step'   => 0,
+//      'next_user'   => 0,
+//      'next_group'  => 0,
+//    )
   ;
   
-  abstract function getEditWidget();
+  public function __construct(sfForm $form, $options = array())
+  {
+    $this->setForm($form);
+    $this->setOptions($options);
+    $this->configure();
+  }
   
-  public function setOptions($options) {
-    if (!is_array($options)) {
+  public function configure()
+  {
+  }
+  
+  public function setOptions($options) 
+  {
+    if (!is_array($options)) 
+    {
       $options = sfToolkit::stringToArray($options);
     }
     
     $this->options = $options;
   }
+
+  public function setForm($form) 
+  {
+    $this->form = $form;
+  }
   
-  public function setDoc($doc) {
+  public function getForm()
+  {
+    return $this->form;
+  }
+  
+  public function getFormFields()
+  {
+    return $this->formFields;
+  }
+  
+
+  public function addMetaWidget($class, $name, $widgetOptions = array(), 
+    $widgetAttributes = array(), $validatorOptions = array ())
+  {
+    $columnConfig = array(
+        'access'              => 'w',
+        'widgetOptions'       => $widgetOptions,
+        'widgetAttributes'    => $widgetAttributes,
+        'validatorOptions'    => $validatorOptions
+    );
+    $ullMetaWidget = new $class($columnConfig, $this->form);
+    $ullMetaWidget->addToFormAs($name);
     
-    $this->doc = $doc;
-    $this->doc_id = $doc->getId();
-    
+    $this->formFields[] = $name;
+  }
+  
+  abstract public function render();
+  
+  public function getNext()
+  {
   }
   
   // set the assigned to params one step back.
   //  used for example by actions reject and return
-  protected function setParamsOneStepBackwards() {
+  public function getHistoryOneStepBack() 
+  {
+    $q = new Doctrine_Query;
     
-    // get latest action
-    $c = new Criteria();
-    $c->add(UllFlowMemoryPeer::ULL_FLOW_DOC_ID, $this->doc_id);
-    $c->addJoin(UllFlowMemoryPeer::ULL_FLOW_ACTION_ID, UllFlowActionPeer::ID, Criteria::LEFT_JOIN);
-    $c->add(UllFlowActionPeer::STATUS_ONLY, 1, Criteria::NOT_EQUAL);
-    $c->addDescendingOrderByColumn(UllFlowMemoryPeer::CREATED_AT);
-    $memory = UllFlowMemoryPeer::doSelectOne($c);
+    $q
+//      ->select('m.ull_flow_step_id, m.creator_ull_entity_id')
+      ->from('UllFlowMemory m, m.UllFlowAction a')
+      ->where('m.ull_flow_doc_id = ?', $this->form->getObject()->id)
+      ->addWhere('a.is_status_only = ?', false)
+      ->orderBy('m.created_at DESC')
+    ;
     
-//    ullCoreTools::printR($memory);
-//    exit();
-    
-    $this->params['next_step'] = $memory->getUllFlowStepId();
-    if ($memory->getCreatorGroupId()) {
-      $this->params['next_group'] = $memory->getCreatorGroupId();
-    } else {
-      $this->params['next_user'] = $memory->getCreatorUserId();
-    }
-    
+    $memory = $q->execute()->getFirst();
+//    var_dump($memory->toArray());die;
+   
+    return array(
+      'entity' => $memory->CreatorUllEntity, 
+      'step' => $memory->UllFlowStep
+    );
   }
   
 }
 
-?>

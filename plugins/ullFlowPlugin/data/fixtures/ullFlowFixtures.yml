@@ -105,7 +105,7 @@ UllFlowDoc:
     subject:          AAA My second trouble ticket
     UllFlowAction:  ull_flow_action_create
     UllEntity:      helpdesk_group
-    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
+    UllFlowStep:    ull_flow_step_doc_helpdesk_dispatcher
     namespace:      test
   ull_flow_doc_todo1:
     UllFlowApp:     ull_flow_app_todo

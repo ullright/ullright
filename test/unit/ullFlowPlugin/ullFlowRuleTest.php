@@ -24,7 +24,7 @@ sfContext::createInstance($configuration);
 //sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 //sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(8, new lime_output_color, $configuration);
+$t = new myTestCase(10, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -39,12 +39,17 @@ $t->diag('findGroup()');
 
 $t->diag('findStep()');
 
-  $t->is($rule->findStep('creator')->id, 1, 'returns the correct slug');
+  $t->is($rule->findStep('helpdesk_creator')->id, 1, 'returns the correct slug');
 
 $t->diag('isStep()');
 
-  $t->ok($rule->isStep('creator'), 'true for the current step');    
+  $t->ok($rule->isStep('helpdesk_creator'), 'true for the current step');    
   $t->is($rule->isStep('Foobar'), false, 'false for any other step');
+  
+$t->diag('isAction()');
+
+  $t->ok($rule->isAction('create'), 'true for the current action');    
+  $t->is($rule->isStep('close'), false, 'false for any other action');  
   
 $t->diag('getNext()');
 

@@ -2,26 +2,15 @@
 
 class ullFlowActionHandlerClose extends ullFlowActionHandler
 {
-  
-  function getEditWidget() {
-
-//    $return = tag('input', array_merge(array('type' => 'button', 'name' => 'action', 'value' => 'assign_to_user'), _convert_options_to_javascript(_convert_options($options))));
-        $return = tag(
-      'input' 
-      , array(
-        'type' => 'button'
-        , 'value' => __('Close')
-        , 'onclick' => 'document.getElementById("ull_flow_action").value = "close";this.form.submit()'
-      )
-    );
-
+  /**
+   * Renders the html output of the action handler for the ullFlow edit action
+   *
+   * @return string 
+   */
+  function render() 
+  {
+    $return = ull_submit_tag(__('Close'), array('name' => 'submit|action_slug=close'));
     return $return;
-    
-     
-    
   }
   
-  
 }
-
-?>

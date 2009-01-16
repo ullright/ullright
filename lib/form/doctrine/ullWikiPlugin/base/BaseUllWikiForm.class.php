@@ -31,7 +31,7 @@ class BaseUllWikiForm extends BaseFormDoctrine
       'id'                        => new sfValidatorDoctrineChoice(array('model' => 'UllWiki', 'column' => 'id', 'required' => false)),
       'namespace'                 => new sfValidatorString(array('max_length' => 32, 'required' => false)),
       'subject'                   => new sfValidatorString(array('max_length' => 255)),
-      'body'                      => new sfValidatorString(array('required' => false)),
+      'body'                      => new sfValidatorString(array('max_length' => 65536, 'required' => false)),
       'read_counter'              => new sfValidatorInteger(array('required' => false)),
       'edit_counter'              => new sfValidatorInteger(array('required' => false)),
       'duplicate_tags_for_search' => new sfValidatorString(array('required' => false)),

@@ -56,17 +56,35 @@ abstract class ullFlowRule
   
   
   /**
-   * returns true for the current step
+   * returns true if the document is assigned to the given step
    *
    * @param string $slug    UllFlowStep slug
    * @return boolean
    */
   public function isStep($slug)
   {
-    if ($this->doc->assigned_to_ull_flow_step_id == $this->findStep($slug)->id)
+    $ullFlowStepId = $this->doc->UllFlowApp->findStepIdBySlug($slug);
+    
+    if ($this->doc->assigned_to_ull_flow_step_id == $ullFlowStepId)
     {
       return true;
     }
-  }  
+  }
+
+  /**
+   * returns true if performed ullFlowAction is the the given action
+   *
+   * @param string $slug    UllFlowStep slug
+   * @return boolean
+   */
+  public function isAction($slug)
+  {
+    $ullFlowActionId = UllFlowActionTable::findIdBySlug($slug);
+    
+    if ($this->doc->ull_flow_action_id == $ullFlowActionId)
+    {
+      return true;
+    }
+  }   
   
 }

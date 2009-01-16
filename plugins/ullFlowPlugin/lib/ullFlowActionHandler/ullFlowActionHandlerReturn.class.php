@@ -3,33 +3,21 @@
 class ullFlowActionHandlerReturn extends ullFlowActionHandler
 {
   
-  public function getEditWidget() {
-
-//    $return = tag('input', array_merge(array('type' => 'button', 'name' => 'action', 'value' => 'assign_to_user'), _convert_options_to_javascript(_convert_options($options))));
-        $return = tag(
-      'input' 
-      , array(
-        'type' => 'button'
-        , 'value' => __('Return')
-        , 'onclick' => 'document.getElementById("ull_flow_action").value = "return";this.form.submit()'
-      )
-    );
-
+  /**
+   * Renders the html output of the action handler for the ullFlow edit action
+   *
+   * @return string 
+   */
+  function render() 
+  {
+    $return = ull_submit_tag(__('Return'), array('name' => 'submit|action_slug=return'));
     return $return;
-    
-     
-    
   }
   
-  
-  public function updateHandler() {
-    
-    $this->setParamsOneStepBackwards();
-
-    return $this->params;
-    
+  public function getNext()
+  {
+//    var_dump($this->getHistoryOneStepBack());
+    return $this->getHistoryOneStepBack();
   }  
   
 }
-
-?>

@@ -5,6 +5,10 @@
  */
 class ullFlowForm extends ullGeneratorForm
 {
+  protected
+    $oldObject
+  ;
+  
   /**
    * Configures the form
    *
@@ -17,7 +21,6 @@ class ullFlowForm extends ullGeneratorForm
     if ($this->requestAction == 'edit')
     {
       $this->getWidgetSchema()->offsetSet('memory_comment', new sfWidgetFormInput(array(), array('size' => 50)));
-      
       $this->getValidatorSchema()->offsetSet('memory_comment', new sfValidatorString(array('required' => false)));
     }    
   }
@@ -54,16 +57,18 @@ class ullFlowForm extends ullGeneratorForm
    */
   public function updateObject($values = null)
   {
-  	parent::updateObject($values);
+    // store "old" version of object
+    $this->oldObject = clone $this->object;
+    
+    parent::updateObject();
 
     $this->setVirtualValues();
     $this->setAction();
     $this->setNext();
-    $this->setMemoryComment();
+    $this->setMemory();
     
     $this->object->setTags($this->getValue('column_tags'));
     $this->object->duplicate_tags_for_search = $this->getValue('column_tags');
-    
     $this->object->priority = $this->getValue('column_priority');
     
 //    var_dump($this->object->toArray());die;
@@ -118,6 +123,24 @@ class ullFlowForm extends ullGeneratorForm
   {
     if (!$this->object->UllFlowAction->is_status_only)
     {
+      // Step One: get information about "next" from ullFlowActionHandler
+      $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
+      $handler = new $className($this);
+      $next = $handler->getNext();
+      
+//      var_dump($next); die;
+      
+      if (isset($next['entity'])) 
+      {
+        $this->object->UllEntity = $next['entity'];
+      }
+      
+      if (isset($next['step']))
+      {
+        $this->object->UllFlowStep = $next['step'];
+      }
+      
+      // Step Two: get information about "next" from rule script
       $className = 'ullFlowRule' . sfInflector::camelize($this->object->UllFlowApp->slug);
       $rule = new $className($this->object);
       $next = $rule->getNext();
@@ -135,10 +158,10 @@ class ullFlowForm extends ullGeneratorForm
   }
 
   /**
-   * adds the memory comment to the object
+   * adds the memory data to the object
    *
    */
-  protected function setMemoryComment()
+  protected function setMemory()
   {
     $values = $this->getValues();
     
@@ -146,6 +169,9 @@ class ullFlowForm extends ullGeneratorForm
     {
       $this->object->memory_comment = $values['memory_comment'];
     }
+    
+    // store in memory to which entity the document was assigned
+    $this->object->memoryAssignedToUllEntityId = $this->oldObject->assigned_to_ull_entity_id;
   }  
   
 }

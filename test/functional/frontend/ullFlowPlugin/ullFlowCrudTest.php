@@ -122,7 +122,7 @@ $b
   ->isRequestParameter('app', 'trouble_ticket')
   ->checkResponseElement('table > tbody > tr', 3) // number of rows
   ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
-  ->checkResponseElement('tbody > tr > td + td + td + td + td + td + td', 'Helpdesk (Group)')
+  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Helpdesk (Group)')
 ;  
 
 $b

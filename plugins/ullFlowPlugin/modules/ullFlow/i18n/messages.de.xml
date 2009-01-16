@@ -218,6 +218,10 @@
 <target>Bitte geben Sie eine Begründung für diese Aktion an</target>
 </trans-unit>
 
+<trans-unit id="3006">
+<source>You cannot perfom any workflow actions at the moment, because the document is not assigned to you.</source>
+<target>Sie können zur Zeit keine Workflow-Aktionen durchführen, da Ihnen das Dokument nicht zugewiesen ist.</target>
+</trans-unit>
 
 <!-- action 'mailing' -->
 

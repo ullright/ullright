@@ -143,8 +143,11 @@ class BaseUllFlowActions extends ullsfActions
     
     $this->generator = new ullFlowGenerator($this->app, $accessType);
     $this->generator->buildForm($this->doc);
+    $this->generator->buildUllFlowActionHandlers($request->getParameter('action_slug'));
     
-//    var_dump($this->doc->UllFlowStep->UllFlowStepActions->UllFlowAction->toArray());
+//    var_dump($this->doc->UllFlowStep->UllFlowStepActions->toArray(true));die;
+    
+//    var_dump($this->doc->toArray());
 //    die;
     
     if ($request->isMethod('post'))
@@ -158,18 +161,19 @@ class BaseUllFlowActions extends ullsfActions
 
         $this->sendMails();
         
-          // manage full page widgets
-          if ($fullPageWidgetName = $request->getParameter('full_page_widget')) 
+        // manage full page widgets
+        if ($fullPageWidgetName = $request->getParameter('full_page_widget')) 
+        {
+          $fullPageWidgetClass = 'ullFlowFullPageWidget' . sfInflector::classify($fullPageWidgetName);
+          
+          if (class_exists($fullPageWidgetClass)) 
           {
-            $fullPageWidgetClass = 'ullFlowFullPageWidget' . sfInflector::classify($fullPageWidgetName);
-            
-            if (class_exists($fullPageWidgetClass)) 
-            {
-              $fullPageWidget = new $fullPageWidgetClass($this->doc, $request->getParameter('full_page_widget_column'));
-              return $this->redirect($fullPageWidget->getInternalUri());
-            }
-          }        
+            $fullPageWidget = new $fullPageWidgetClass($this->doc, $request->getParameter('full_page_widget_column'));
+            return $this->redirect($fullPageWidget->getInternalUri());
+          }
+        }        
         
+        // referer handling
         if ($request->getParameter('action_slug') == 'save_only') 
         {
           return $this->redirect('ullFlow/edit?doc=' . $this->doc->id);
@@ -599,6 +603,7 @@ class BaseUllFlowActions extends ullsfActions
       $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
       $this->forward404Unless($this->app);
       $this->doc->UllFlowApp = $this->app;
+      $this->doc->setDefaults();
     }    
   }  
 

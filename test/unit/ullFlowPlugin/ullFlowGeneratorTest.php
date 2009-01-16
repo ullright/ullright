@@ -91,7 +91,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(19, new lime_output_color, $configuration);
+$t = new myTestCase(21, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -142,3 +142,14 @@ $t->diag('getForms()');
   $t->isa_ok($forms[0], 'ullFlowForm', 'The first entry is the correct object');  
   $t->isa_ok($forms[1], 'ullFlowForm', 'The second entry is the correct object');  
   
+$t->diag('buildUllFlowActionHandlers()');
+
+  $doc = Doctrine::getTable('UllFlowDoc')->find(2);
+  $generator = new ullFlowGenerator($app, 'w');
+  $generator->buildForm($doc);
+  
+  $generator->buildUllFlowActionHandlers();
+  $form = $generator->getForm();
+  $t->is(count($form->getWidgetSchema()->getFields()), 10, 'The form now contains one more field from the action handler');
+  
+  $t->is(count($generator->getUllFlowActionHandlers()), 2, 'One UllFlowActionHandler was set');

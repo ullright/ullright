@@ -5,4 +5,20 @@
 class PluginUllFlowActionTable extends UllRecordTable
 {
 
+  /**
+   * Returns the action_id for a given slug
+   * 
+   * @param string $slug
+   * @return integer
+   *
+   */
+  public static function findIdBySlug($slug)
+  {
+    $ullFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug($slug);
+    if ($ullFlowAction)
+    {
+      return $ullFlowAction->id;
+    }
+  }
+  
 }

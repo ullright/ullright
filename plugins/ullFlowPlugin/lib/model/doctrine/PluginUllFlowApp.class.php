@@ -32,7 +32,7 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
   }
   
   /**
-   * returns UlLFlowStep for a given slug and for the current UllFlowApp
+   * returns UllFlowStep for a given slug and for the current UllFlowApp
    *
    * @param string $slug  a UllFlowStep slug
    * @return UllFlowStep
@@ -46,6 +46,22 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
     ;
     return $q->execute()->getFirst();
   }
+  
+  /**
+   * returns the ull_flow_step_id for a given slug and for the current UllFlowApp
+   *
+   * @param string $slug  a UllFlowStep slug
+   * @return integer
+   */
+  public function findStepIdBySlug($slug)
+  {
+    $step = $this->findStepBySlug($slug);
+    
+    if ($step)
+    {
+      return $step->id;
+    }
+  }  
   
   /**
    * Calculates app icon path

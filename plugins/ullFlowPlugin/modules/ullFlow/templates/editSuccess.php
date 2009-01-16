@@ -39,23 +39,17 @@
         
         <ul>
           <?php
-  //        $x =  $sf_data->getRaw('doc');
-  //        var_dump($x->UllFlowStep->UllFlowStepActions->toArray());
-          
-          foreach ($doc->UllFlowStep->UllFlowStepActions as $stepAction): ?> 
+          foreach ($generator->getUllFlowActionHandlers() as $action_handler): ?>
             <li>
-            <?php
-  //            var_dump($stepAction->UllFlowAction);
-              $slug = $stepAction->UllFlowAction->slug;
-              
-              $action_handler_name = 'ullFlowActionHandler' . sfInflector::camelize($slug);
-              $ull_flow_action_handler = new $action_handler_name();
-              $ull_flow_action_handler->setOptions($stepAction->options);
-              echo $ull_flow_action_handler->getEditWidget();
-            ?>
+            <?php echo $action_handler->render(ESC_RAW); ?>
             </li>
           <?php endforeach ?>
         </ul>
+        
+      <?php else: ?>
+        <p class='no_access_info'>
+          <?php echo __('You cannot perfom any workflow actions at the moment, because the document is not assigned to you.') ?>
+        </p>         
       <?php endif; ?>
   
     </div>

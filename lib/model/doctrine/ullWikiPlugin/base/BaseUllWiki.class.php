@@ -10,7 +10,7 @@ abstract class BaseUllWiki extends UllRecord
     parent::setTableDefinition();
     $this->setTableName('ull_wiki');
     $this->hasColumn('subject', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
-    $this->hasColumn('body', 'clob', null, array('type' => 'clob'));
+    $this->hasColumn('body', 'string', 65536, array('type' => 'string', 'length' => '65536'));
     $this->hasColumn('read_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('edit_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('duplicate_tags_for_search', 'clob', null, array('type' => 'clob'));

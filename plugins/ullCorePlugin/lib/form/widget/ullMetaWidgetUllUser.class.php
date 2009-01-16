@@ -53,6 +53,7 @@ class ullMetaWidgetUllUser extends ullMetaWidget
       
       $this->columnConfig['validatorOptions']['model'] = 'UllEntity';
       $this->columnConfig['validatorOptions']['query'] = $q;      
+      $this->columnConfig['validatorOptions']['alias'] = 'u';
       
       $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig['validatorOptions']));
     }

@@ -14,14 +14,14 @@ $t = new myTestCase(2, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$t->begin('__construct');
+$t->begin('__construct()');
 
   $form = new ullFlowForm(Doctrine::getTable('UllFlowDoc')->find(1));
-  $handler = new ullFlowActionHandlerSend($form);
+  $handler = new ullFlowActionHandlerClose($form);
   
-  $t->isa_ok($handler, 'ullFlowActionHandlerSend', 'returns the correct object');
+  $t->isa_ok($handler, 'ullFlowActionHandlerClose', 'returns the correct object');
   
 $t->diag('render()');
     
-  $reference = '<input type="submit" name="submit|action_slug=send" value="Send" />';
+  $reference = '<input type="submit" name="submit|action_slug=close" value="Close" />';
   $t->is($handler->render(), $reference, 'returns the correct html code');

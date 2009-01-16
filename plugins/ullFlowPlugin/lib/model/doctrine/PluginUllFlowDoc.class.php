@@ -6,8 +6,9 @@
 abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 {
 
-  protected
-    $memoryComment = ''
+  public
+    $memoryComment = '',
+    $memoryAssignedToUllEntityId = 0
   ;
   
   /**
@@ -19,6 +20,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     parent::setUp();
     
     $this->unshiftFilter(new UllFlowDocRecordFilter());
+    
+//    $this->setDefaults();
   }
 
   /**
@@ -298,7 +301,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->UllFlowMemories[$i]->ull_flow_action_id = $this->ull_flow_action_id;
     $this->UllFlowMemories[$i]->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
     //TODO: has to be the previous assigned_to_ull_entity_id
-    $this->UllFlowMemories[$i]->creator_ull_entity_id = $this->getUserId();
+    $this->UllFlowMemories[$i]->creator_ull_entity_id = 
+      ($this->memoryAssignedToUllEntityId) ? $this->memoryAssignedToUllEntityId : $this->getUserId();
     $this->UllFlowMemories[$i]->comment = $this->memoryComment;        
     
 //    sfContext::getInstance()->getLogger()->crit('num of mems: '.count($this->UllFlowMemories));

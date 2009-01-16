@@ -138,11 +138,14 @@ class ullTableToolGenerator extends ullGenerator
     $columnRelations = array();
     
     foreach ($relations as $relation) {
-      $columnRelations[$relation->getLocal()] = array(
-//          'alias' => $relation->getAlias(),
+      // take the first relation for each column and don't overwrite them lateron
+      if (!isset($columnRelations[$relation->getLocal()]))
+      {
+        $columnRelations[$relation->getLocal()] = array(
           'model' => $relation->getClass(), 
           'foreign_id' => $relation->getForeign()
-      );
+        );
+      }
     }
 //    var_dump($relations);
 //    var_dump($columnRelations);

@@ -12,7 +12,7 @@ abstract class BaseUllFlowValue extends UllRecord
     $this->hasColumn('ull_flow_doc_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('ull_flow_column_config_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     $this->hasColumn('ull_flow_memory_id', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('value', 'string', 2048, array('type' => 'string', 'length' => '2048'));
+    $this->hasColumn('value', 'string', 65536, array('type' => 'string', 'length' => '65536'));
   }
 
   public function setUp()

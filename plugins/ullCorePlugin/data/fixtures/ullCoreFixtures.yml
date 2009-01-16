@@ -337,6 +337,7 @@ UllColumnConfig:
         label:      Benutzer
     db_table_name:  UllEntityGroup
     db_column_name: ull_entity_id
+    UllColumnType:  ull_user
     namespace:    ullCore
   ull_entity_group_cc_ull_group_id:
     Translation:

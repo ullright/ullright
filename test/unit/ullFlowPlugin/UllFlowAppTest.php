@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(3, new lime_output_color, $configuration);
+$t = new myTestCase(5, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -26,4 +26,9 @@ $t->diag('findStartStep()');
   
 $t->diag('findStepBySlug()');
 
-  $t->is($app->findStepBySlug('creator')->id, 1, 'returns the correct step');
+  $t->is($app->findStepBySlug('helpdesk_creator')->id, 1, 'returns the correct step');
+  
+$t->diag('findStepIdBySlug()');
+
+  $t->is($app->findStepIdBySlug('helpdesk_creator'), 1, 'returns the correct stepId');
+  $t->is($app->findStepIdBySlug('foobar'), null, 'returns null for a non-existing step');  

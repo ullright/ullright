@@ -412,7 +412,16 @@ ul.list_action_buttons li {
 /* form errors of sf1.1 forms framework */
 .error_list {
 	list-style: none;
+	float: left;	
 }
+
+.error_list > li {
+	float: left;
+	font-style: normal;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #D41400;
+}	
 
 /*
  * ************************************************
@@ -548,4 +557,8 @@ div#indicator {
 
 .clear_left {
 	clear: left;
+}
+
+.no_access_info {
+  color: #AAAAAA;
 }

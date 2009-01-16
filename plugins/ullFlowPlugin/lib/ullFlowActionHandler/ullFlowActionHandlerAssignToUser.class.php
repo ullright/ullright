@@ -3,38 +3,35 @@
 class ullFlowActionHandlerAssignToUser extends ullFlowActionHandler
 {
   
-  function getEditWidget() {
-
-    $return = tag(
-      'input' 
-      , array(
-        'type' => 'button'
-        , 'value' => __('Assign')
-        , 'onclick' => 'document.getElementById("ull_flow_action").value = "assign_to_user";this.form.submit()'
-      )
+  public function configure()
+  {
+    $this->addMetaWidget(
+      'ullMetaWidgetUllUser', 
+      'ull_flow_action_assign_to_user_ull_entity', 
+      array('add_empty' => true),
+      array(),
+      array('required' => false)
     );
+  } 
+  
+  public function render()
+  {
+    $return = ull_submit_tag(__('Assign'), array('name' => 'submit|action_slug=assign_to_user'));
     
-    $return .= ' ' . __('to user') . ' ';
+    $return .= ' ' . __('to user') . " \n";
     
-    $field_name = 'ull_flow_action_handler_assign_to_user';
-    $field_handler = new ullFieldHandlerUser();
-    $field_handler->setPropelObject(new UllUser);
-    $field_handler->setOptions($this->options);
-    $field_data = $field_handler->getEditWidget('id', $field_name);
-    $field_data['parameters']['options']['name'] = $field_name;
-    $field_data['parameters']['options']['id'] = $field_name;
-    $return .= call_user_func_array($field_data['function'], $field_data['parameters']);
+    $return .= $this->getForm()->offsetGet('ull_flow_action_assign_to_user_ull_entity')->render();
+    $return .= $this->getForm()->offsetGet('ull_flow_action_assign_to_user_ull_entity')->renderError();
     
-//    ullCoreTools::printR($return);
-//    exit();
-
     return $return;
-    
-     
-    
+  }
+  
+  public function getNext()
+  {
+    $ullEntityId = $this->getForm()->getValue('ull_flow_action_assign_to_user_ull_entity');
+    $ullEntity = Doctrine::getTable('UllEntity')->find($ullEntityId);
+    return array('entity' => $ullEntity);    
   }
   
   
 }
-
-?>
