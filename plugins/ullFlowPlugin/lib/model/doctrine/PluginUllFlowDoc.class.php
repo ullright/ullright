@@ -166,7 +166,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $q
       ->from('UllFlowMemory x')
       ->addWhere('x.ull_flow_doc_id = ?', $this->id)
-      ->orderBy('x.created_at DESC')
+      //additional ordering by id is a hack to properly order in case of exaxtly the same date 
+      ->orderBy('x.created_at DESC, x.id DESC')  
     ;      
      
     return $q->execute();

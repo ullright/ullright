@@ -140,11 +140,10 @@
         </span>&ndash;
         <?php echo $memory->UllFlowAction->label ?>
         <?php if ($memory->UllFlowAction->is_show_assigned_to): ?>
-          <?php echo __('to') ?>
-          <?php echo $memory->AssignedToUllEntity ?>
+          <?php echo '<span class="ull_flow_memories_light">' . $memory->AssignedToUllEntity . '</span>' ?>
         <?php endif ?>
         <?php echo __('by'); ?>
-        <?php echo '<span class="ull_flow_memories_light">' . $memory->Creator . '</span>'?>
+        <?php echo '<span class="ull_flow_memories_light">' . $memory->Creator . '</span>' ?>
         
         <?php if ($comment = $memory->comment): ?>
           <ul class="ull_flow_memory_comment">
