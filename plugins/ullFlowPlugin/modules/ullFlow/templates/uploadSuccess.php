@@ -43,7 +43,7 @@
 </form>
 
 <div class='action_buttons_left'>
-      <?php echo ull_button_to(__('Save and close'), 'ullFlow/edit?doc=' . $doc->id) ?>
+      <?php echo ull_button_to(__('Save and close', null, 'common'), 'ullFlow/edit?doc=' . $doc->id) ?>
       <?php //echo form_tag('ullFlow/edit?doc=' . $doc->id) ?>
       <?php //echo input_hidden_tag('fields[' . $column . ']', $value) ?>
       <?php //echo submit_tag(__('Save and close', null, 'common')); ?>
