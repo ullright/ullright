@@ -277,7 +277,7 @@ abstract class ullGenerator
             {
               $translationColumnName = $columnName . '_translation_' . $culture;
               $ullMetaWidget->addToFormAs($translationColumnName);
-              $label = __('%1% translation %2%', array('%1%' => $columnConfig['label'], '%2%' => $culture), 'common');
+              $label = __('%1% %2%', array('%1%' => $columnConfig['label'], '%2%' => strtoupper($culture)), 'common');
               $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
             }
           }
