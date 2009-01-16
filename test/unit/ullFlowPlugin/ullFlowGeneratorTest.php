@@ -13,7 +13,16 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
         'is_in_list'          => true,
-        ),         
+        ),
+     'my_information_update' => array (
+        'widgetOptions'       => array(),
+        'widgetAttributes'    => array(),
+        'validatorOptions'    => array('required' => false),
+        'label'               => 'My information update',
+        'metaWidget'          => 'ullMetaWidgetInformationUpdate',
+        'access'              => 'w',
+        'is_in_list'          => false,
+        ),             
     'my_datetime' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
@@ -30,7 +39,7 @@ class myTestCase extends sfDoctrineTestCase
         'label'               => 'Your email address',
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'w',
-        'is_in_list'          => true,
+        'is_in_list'          => false,
         ),
     'column_priority' => array (
         'widgetOptions'       => array(),
@@ -82,7 +91,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(18, new lime_output_color, $configuration);
+$t = new myTestCase(19, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -105,7 +114,7 @@ $t->diag('getTableConfig()');
 $t->diag('getColumnConfig()');
   $columnsConfig = $generator->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 7, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 8, 'columnsConfig has the correct number of columns');
   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();

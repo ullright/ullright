@@ -10,6 +10,10 @@ class ullWidget extends sfWidgetForm
     return $value;
   }
   
+  public function updateObject(Doctrine_Record $object, $values, $fieldName)
+  {
+    return $values;
+  }
 }
 
 ?>

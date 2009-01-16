@@ -140,6 +140,21 @@ UllFlowColumnConfig:
     is_mandatory:   true
     is_subject:     true
     namespace:      test
+  
+  ull_flow_column_config_helpdesk_information_update:
+    Translation:
+      en:
+        label:      My information update
+      de:
+        label:      Mein Informationsupdate
+    UllFlowApp:     ull_flow_app_helpdesk
+    slug:           my_information_update
+    sequence:       1500
+    UllColumnType:  information_update
+    is_mandatory:   false
+    namespace:      test
+    is_in_list:     false
+    
   ull_flow_column_config_helpdesk_datetime:
     Translation:
       en:
@@ -163,6 +178,8 @@ UllFlowColumnConfig:
     sequence:       3000
     UllColumnType:  email
     namespace:      test
+    is_in_list:     false
+    
   ull_flow_column_config_helpdesk_column_priority:
     Translation:
       en:
@@ -261,6 +278,11 @@ UllFlowValue:
     UllFlowDoc:     ull_flow_doc_helpdesk1
     UllFlowColumnConfig: ull_flow_column_config_helpdesk_subject
     value:          My first trouble ticket
+    namespace:      test
+  ull_flow_value_doc_helpdesk1_information_update:
+    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowColumnConfig: ull_flow_column_config_helpdesk_information_update
+    value:          blub macht da fisch :)
     namespace:      test
   ull_flow_value_doc_helpdesk1_datetime:
     UllFlowDoc:     ull_flow_doc_helpdesk1

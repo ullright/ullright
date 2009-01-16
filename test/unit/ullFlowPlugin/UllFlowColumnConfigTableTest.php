@@ -17,7 +17,7 @@ $t->setFixturesPath($path);
 $t->begin('findByAppIdAndSlug()');
   $cc = UllFlowColumnConfigTable::findByAppIdAndSlug(1, 'my_email');
   $t->isa_ok($cc, 'UllFlowColumnConfig', 'returns the correct object');
-  $t->is($cc->id, 3, 'returns the correct id');
+  $t->is($cc->id, 4, 'returns the correct id');
   
   try
   {

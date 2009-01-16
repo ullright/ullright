@@ -68,6 +68,7 @@ $t->begin('getVirtualValuesAsArray()');
   
   $reference = array(
     'my_subject'    => 'My first trouble ticket',
+    'my_information_update' =>  'blub macht da fisch :)',
     'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
     'my_email'    => 'quasimodo@ull.at',
     'upload'      => 'Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41',
@@ -82,6 +83,7 @@ $t->begin('getVirtualColumnsAsArray()');
   $columns = $doc1->getVirtualColumnsAsArray();
   $reference = array(
     'my_subject',
+    'my_information_update',
     'my_datetime',
     'my_email',
     'column_priority',

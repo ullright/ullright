@@ -27,7 +27,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('table tr', 7) // number of displayed fields
+  ->checkResponseElement('table tr', 8) // number of displayed fields
   ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'Normal')
   ->checkResponseElement('ul.tag-cloud a ', 'ull_flow_tag1')
   ->checkResponseElement('body', '!/Progress/')
@@ -36,6 +36,7 @@ $b
   ->setField('fields[memory_comment]', 'My memory comment')
   ->setField('fields[column_priority]', 2)
   ->setField('fields[column_tags]', 'my_test_tag')
+  ->setField('fields[information_update]', 'mew, die katze')
 ;
 
 $b
@@ -61,8 +62,10 @@ $b->diag('check values and click "save_close"')
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->checkResponseElement('tr > td + td > input[value="This is my original shiny little subject"]', true)
-  ->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
-  ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')  
+  ->checkResponseElement('tr + tr > td + td > input[value="bender@ull.at"]', true)
+  //->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
+  ->checkResponseElement('tr + tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')
+  //->dumpDie()  
   ->checkResponseElement('tr + tr + tr + tr + tr > td + td > input[value="my_test_tag"]', true)
   ->responseContains('Progress')
   ->checkResponseElement('div#ull_flow_memories > ul > ul > li', '/Created[\s]+by[\s]+Master[\s]+Admin/')
@@ -79,7 +82,7 @@ $b->diag('check list')
   ->isRequestParameter('action', 'list')
   ->checkResponseElement('table > tbody > tr', 3) // number of rows
   ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little subject')  
-  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'High')
+  ->checkResponseElement('tbody > tr > td + td + td + td + td', 'High')
 ;
 
 $b

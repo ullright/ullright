@@ -56,6 +56,27 @@ class ullGeneratorForm extends sfFormDoctrine
   }
 
   /**
+   * Call updateObject of every ullWidget
+   *
+   * @param unknown_type $values
+   */
+  public function updateObject($values = null)
+  {
+  	//local $values not used
+  	
+  	$widgets = $this->getWidgetSchema()->getFields();
+    foreach ($widgets as $fieldName => $widget)
+    {
+      if ($widget instanceof ullWidget)
+      {
+        $this->values = $widget->updateObject($this->getObject(), $this->getValues(), $fieldName);
+      }
+    }
+    
+    return parent::updateObject($this->getValues());
+  }
+  
+  /**
    * get the name of the model
    *
    * @return string

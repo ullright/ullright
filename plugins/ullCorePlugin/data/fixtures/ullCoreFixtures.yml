@@ -103,6 +103,10 @@ UllColumnType:
     class:        ullMetaWidgetPriority
     label:        Priority
     namespace:    ullCore
+  information_update:
+    class:        ullMetaWidgetInformationUpdate
+    label:        Information update
+    namespace:    ullCore
 
 
 UllTableConfig:
