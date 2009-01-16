@@ -142,7 +142,7 @@ function ull_icon($link, $icon, $alt = null, $link_option = null) {
   return link_to(
     image_tag(
       '/' 
-        . sfConfig::get('app_theme', 'ullThemeDefault')
+        . sfConfig::get('app_theme', 'ullThemeNG')
         . '/images/action_icons/' . $icon . '.png',
       'alt=' . $alt . ' title=' . $alt . ' style=vertical-align:bottom;'
     ),  
