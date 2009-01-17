@@ -16,8 +16,7 @@ class ullFlowActionHandlerReturn extends ullFlowActionHandler
   
   public function getNext()
   {
-//    var_dump($this->getHistoryOneStepBack());
-    return $this->getHistoryOneStepBack();
+    return $this->getNextFromPreviousStep();
   }  
   
 }

@@ -63,13 +63,11 @@ $b->diag('check values and click "save_close"')
   ->isRequestParameter('action', 'edit')
   ->checkResponseElement('tr > td + td > input[value="This is my original shiny little subject"]', true)
   ->checkResponseElement('tr + tr > td + td > input[value="bender@ull.at"]', true)
-  //->checkResponseElement('tr + tr + tr > td + td > input[value="bender@ull.at"]', true)
   ->checkResponseElement('tr + tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')
-  //->dumpDie()  
   ->checkResponseElement('tr + tr + tr + tr + tr > td + td > input[value="my_test_tag"]', true)
   ->responseContains('Progress')
-  ->checkResponseElement('div#ull_flow_memories > ul > ul > li', '/Created[\s]+by[\s]+Master[\s]+Admin/')
-  ->checkResponseElement('div#ull_flow_memories > ul > ul > li + li > ul', '/My memory comment/')
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', '/Edited[\s]+by[\s]+Master[\s]+Admin/')  
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li > ul.ull_flow_memory_comment > li', '/My memory comment/')
   ->setField('fields[my_subject]', 'This is my shiny little subject')
 ;
 
@@ -93,8 +91,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', 5)
-  ->checkResponseElement('div#ull_flow_memories > ul > ul > li', '/Edited[\s]+by[\s]+Master[\s]+Admin/')
-  ->checkResponseElement('div#ull_flow_memories > ul > ul > li + li', '/Created[\s]+by[\s]+Master[\s]+Admin/')
+  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', 3) // number of memory entries
   ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 
   ->click('Save and close')

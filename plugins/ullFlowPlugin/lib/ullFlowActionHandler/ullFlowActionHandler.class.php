@@ -82,26 +82,20 @@ abstract class ullFlowActionHandler
   public function getNext()
   {
   }
-  
-  // set the assigned to params one step back.
-  //  used for example by actions reject and return
-  public function getHistoryOneStepBack() 
+
+  /**
+   * Returns "next" array with entity and step for the previous workflow step
+   *
+   * @return array
+   */
+  public function getNextFromPreviousStep() 
   {
-    $q = new Doctrine_Query;
+    $memory = $this->form->getObject()->findPreviousNonStatusOnlyMemory();
     
-    $q
-//      ->select('m.ull_flow_step_id, m.creator_ull_entity_id')
-      ->from('UllFlowMemory m, m.UllFlowAction a')
-      ->where('m.ull_flow_doc_id = ?', $this->form->getObject()->id)
-      ->addWhere('a.is_status_only = ?', false)
-      ->orderBy('m.created_at DESC')
-    ;
+//    var_dump($memory->toArray());
     
-    $memory = $q->execute()->getFirst();
-//    var_dump($memory->toArray());die;
-   
     return array(
-      'entity' => $memory->CreatorUllEntity, 
+      'entity' => $memory->AssignedToUllEntity, 
       'step' => $memory->UllFlowStep
     );
   }

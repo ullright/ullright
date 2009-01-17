@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(30, new lime_output_color, $configuration);
+$t = new myTestCase(47, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -40,7 +40,11 @@ $t->diag('create');
   $t->is($doc->UllFlowMemories[0]->comment, '', 'sets the first memories comment correctly');
   $t->is($doc->UllFlowMemories[0]->creator_ull_entity_id, 1, 'sets the correct memory creator_ull_entity_id');
   $t->is($doc->UllFlowMemories[1]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the second memories action correctly (save_close)');
-  $t->is($doc->UllFlowMemories[1]->comment, 'My fancy memory comment', 'sets the second memories comment correctly');  
+  $t->is($doc->UllFlowMemories[1]->comment, 'My fancy memory comment', 'sets the second memories comment correctly');
+
+$t->diag('findLatestNonStatusOnlyMemory()');
+
+  $t->is($doc->findLatestNonStatusOnlyMemory()->id, $doc->UllFlowMemories[0]->id, 'finds the correct latest non status-only memory');
 
 $t->diag('edit');
   $doc->my_subject = 'My fancy edited subject';
@@ -53,6 +57,46 @@ $t->diag('edit');
   $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the action correctly (default)');
   $t->is($doc->UllFlowMemories[2]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the third memories action correctly (save_close)');  
   $t->is($doc->UllFlowMemories[2]->comment, 'My fancy edited memory comment', 'sets the second memories comment correctly');
+  
+$t->diag('do workflow action (send)');
+
+  $doc->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findOneBySlug('send');
+  $doc->assigned_to_ull_entity_id = Doctrine::getTable('UllGroup')->findOneByDisplayName('Helpdesk')->id;
+  $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_dispatcher')->id;
+  $doc->save();  
+  
+  $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('send')->id, 'sets correct action');
+  $t->is($doc->assigned_to_ull_entity_id, Doctrine::getTable('UllGroup')->findOneByDisplayName('Helpdesk')->id, 'assigns to the correct UllEntity');
+  $t->is($doc->assigned_to_ull_flow_step_id, Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_dispatcher')->id, 'assigns to the correct UllFlowStep');
+
+  $t->is($doc->UllFlowMemories[3]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('send')->id, 'memory: sets the correct action');
+  $t->is($doc->UllFlowMemories[3]->assigned_to_ull_entity_id, Doctrine::getTable('UllGroup')->findOneByDisplayName('Helpdesk')->id, 'memory: assigns to the correct UllEntity');
+  $t->is($doc->UllFlowMemories[3]->ull_flow_step_id, Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_dispatcher')->id, 'memory: assigns to the correct UllFlowStep');    
+  $t->is($doc->UllFlowMemories[3]->creator_ull_entity_id, 1, 'memory: sets the correct Creator UllEntity');
+  
+$t->diag('do workflow action (assign)');
+
+  $doc->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findOneBySlug('assign_to_user');
+  $doc->assigned_to_ull_entity_id = Doctrine::getTable('UllUser')->findOneByDisplayName('Helpdesk Admin User')->id;
+  $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_troubleshooter')->id;
+  $doc->save();  
+  
+  $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('assign_to_user')->id, 'sets correct action');
+  $t->is($doc->assigned_to_ull_entity_id, Doctrine::getTable('UllUser')->findOneByDisplayName('Helpdesk Admin User')->id, 'assigns to the correct UllEntity');
+  $t->is($doc->assigned_to_ull_flow_step_id, Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_troubleshooter')->id, 'assigns to the correct UllFlowStep');
+
+  $t->is($doc->UllFlowMemories[4]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('assign_to_user')->id, 'memory: sets the correct action');
+  $t->is($doc->UllFlowMemories[4]->assigned_to_ull_entity_id, Doctrine::getTable('UllUser')->findOneByDisplayName('Helpdesk Admin User')->id, 'memory: assigns to the correct UllEntity');
+  $t->is($doc->UllFlowMemories[4]->ull_flow_step_id, Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_troubleshooter')->id, 'memory: assigns to the correct UllFlowStep');    
+  $t->is($doc->UllFlowMemories[4]->creator_ull_entity_id, Doctrine::getTable('UllGroup')->findOneByDisplayName('Helpdesk')->id, 'memory: sets the correct Creator UllEntity');
+    
+$t->diag('findLatestNonStatusOnlyMemory()');
+
+  $t->is($doc->findLatestNonStatusOnlyMemory()->id, $doc->UllFlowMemories[4]->id, 'finds the correct latest non status-only memory');  
+ 
+$t->diag('findPreviousNonStatusOnlyMemory()');
+
+  $t->is($doc->findPreviousNonStatusOnlyMemory()->id, $doc->UllFlowMemories[3]->id, 'finds the correct latest non status-only memory');  
   
 $t->begin('setValueByColumn() and getValueByColumn()');
   $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);

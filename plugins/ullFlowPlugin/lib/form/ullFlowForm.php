@@ -57,9 +57,6 @@ class ullFlowForm extends ullGeneratorForm
    */
   public function updateObject($values = null)
   {
-    // store "old" version of object
-    $this->oldObject = clone $this->object;
-    
     parent::updateObject();
 
     $this->setVirtualValues();
@@ -169,9 +166,6 @@ class ullFlowForm extends ullGeneratorForm
     {
       $this->object->memory_comment = $values['memory_comment'];
     }
-    
-    // store in memory to which entity the document was assigned
-    $this->object->memoryAssignedToUllEntityId = $this->oldObject->assigned_to_ull_entity_id;
-  }  
+  }    
   
 }

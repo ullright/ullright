@@ -6,9 +6,8 @@
 abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 {
 
-  public
-    $memoryComment = '',
-    $memoryAssignedToUllEntityId = 0
+  protected
+    $memoryComment = ''
   ;
   
   /**
@@ -29,7 +28,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    * 
    * always makes the UllFlowDoc record dirty (=modified)
    * this is necessary, because often only the virtual columns change, but not
-   * the own columns change.
+   * the navtive columns.
    *
    * @param unknown_type $event
    */
@@ -214,6 +213,58 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   }
 
   /**
+   * Get the latest saved non status-only memory
+   * for the current doc
+   *
+   * @return UllFlowMemory
+   */
+  public function findLatestNonStatusOnlyMemory() 
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllFlowMemory m, m.UllFlowAction a')
+      ->where('m.ull_flow_doc_id = ?', $this->id)
+      ->addWhere('a.is_status_only = ?', false)
+      ->orderBy('m.created_at DESC')
+      // add order by id to order correctly memories created at exactly the same time
+      ->addOrderBy('m.id DESC')
+    ;
+    
+    $memory = $q->execute()->getFirst();
+//    var_dump($memory->toArray());die;
+
+    return $memory;
+  }
+  
+  /**
+   * Get the previous (latest minus 1) saved non status-only memory
+   * for the current doc
+   *
+   * @return UllFlowMemory
+   */
+  public function findPreviousNonStatusOnlyMemory() 
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllFlowMemory m, m.UllFlowAction a')
+      ->where('m.ull_flow_doc_id = ?', $this->id)
+      ->addWhere('a.is_status_only = ?', false)
+      ->orderBy('m.created_at DESC')
+      // add order by id to order correctly memories created at exactly the same time
+      ->addOrderBy('m.id DESC')
+      ->limit(2)
+    ;
+    
+    $rs = $q->execute();
+    if (isset($rs[1]))
+    {
+      return $rs[1];
+    }
+  }  
+  
+  /**
    * Check access for the current UllFlowDoc
    * 
    * returns 'w' for write access, 'r' for read access or false for no access
@@ -301,9 +352,18 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->UllFlowMemories[$i]->ull_flow_step_id = $this->assigned_to_ull_flow_step_id;
     $this->UllFlowMemories[$i]->ull_flow_action_id = $this->ull_flow_action_id;
     $this->UllFlowMemories[$i]->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
-    //TODO: has to be the previous assigned_to_ull_entity_id
-    $this->UllFlowMemories[$i]->creator_ull_entity_id = 
-      ($this->memoryAssignedToUllEntityId) ? $this->memoryAssignedToUllEntityId : $this->getUserId();
+
+    // get creator_ull_entity from previous non status-only memory
+    $prevMemory = $this->findLatestNonStatusOnlyMemory();
+    if ($prevMemory)
+    {
+      $this->UllFlowMemories[$i]->creator_ull_entity_id = $prevMemory->assigned_to_ull_entity_id;
+    }
+    else
+    { 
+      $this->UllFlowMemories[$i]->creator_ull_entity_id = $this->getUserId();
+    }
+  
     $this->UllFlowMemories[$i]->comment = $this->memoryComment;        
     
 //    sfContext::getInstance()->getLogger()->crit('num of mems: '.count($this->UllFlowMemories));
@@ -324,4 +384,6 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->UllFlowMemories[$i]->UllFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug('create');
     $this->UllFlowMemories[$i]->comment = '';        
   }
+  
+  
 }

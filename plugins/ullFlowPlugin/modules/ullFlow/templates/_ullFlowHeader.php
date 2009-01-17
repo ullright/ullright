@@ -30,14 +30,14 @@
 		    (<?php echo ull_format_datetime($doc->updated_at) . ', ' .
 		                    time_ago_in_words(strtotime($doc->updated_at)); ?>)
 		  </li>
-		  <li>
-		    <?php if ($doc->UllFlowAction->is_in_resultlist): //excludes action "closed" ?>
+		  <?php if ($doc->UllFlowAction->is_in_resultlist): //excludes action "closed" ?>
+		    <li>
 		      <?php echo __('Next one') ?>:
 		      <?php echo $doc->UllEntity ?>
 		      (<?php echo __('Step') ?>
 		      <?php echo $doc->UllFlowStep ?>)
-		    <?php endif ?>
-		  </li>
+	      </li>
+	    <?php endif ?>
 		</ul>
 	</div>
 </div>
