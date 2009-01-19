@@ -621,7 +621,7 @@ UllTableConfig:
       de:
         label: Aktionen für Schritte
     db_table_name: UllFlowStepAction
-    sort_columns: ull_flow_step_id, sequence
+    sort_columns: sequence
     namespace:        ullFlow
   ull_flow_actions_tc:
     Translation:
