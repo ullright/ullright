@@ -36,6 +36,7 @@ UllFlowAppPermission:
       notnull: true
   relations:
     UllFlowApp:
+      onDelete: CASCADE
     UllPermission:        
 
 UllFlowDoc:
@@ -266,6 +267,7 @@ UllFlowStep:
   relations:
     UllFlowApp:
       foreignAlias: UllFlowSteps
+      onDelete: CASCADE
     #UllFlowAction:
     #  refClass: UllFlowStepAction
     #UllFlowStepActions:
@@ -290,6 +292,7 @@ UllFlowStepAction:
   relations:
     UllFlowStep:
       foreignAlias: UllFlowStepActions
+      onDelete: CASCADE
     UllFlowAction:
       foreignAlias: UllFlowStepActions
       
