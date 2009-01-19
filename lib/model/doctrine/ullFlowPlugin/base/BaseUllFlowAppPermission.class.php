@@ -17,7 +17,8 @@ abstract class BaseUllFlowAppPermission extends UllRecord
   {
     parent::setUp();
     $this->hasOne('UllFlowApp', array('local' => 'ull_flow_app_id',
-                                      'foreign' => 'id'));
+                                      'foreign' => 'id',
+                                      'onDelete' => 'CASCADE'));
 
     $this->hasOne('UllPermission', array('local' => 'ull_permission_id',
                                          'foreign' => 'id'));

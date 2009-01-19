@@ -52,10 +52,10 @@ ALTER TABLE ull_flow_action ADD FOREIGN KEY (updator_user_id) REFERENCES ull_ent
 ALTER TABLE ull_flow_action ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_flow_step_translation ADD FOREIGN KEY (id) REFERENCES ull_flow_step(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE ull_flow_step ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
-ALTER TABLE ull_flow_step ADD FOREIGN KEY (ull_flow_app_id) REFERENCES ull_flow_app(id);
+ALTER TABLE ull_flow_step ADD FOREIGN KEY (ull_flow_app_id) REFERENCES ull_flow_app(id) ON DELETE CASCADE;
 ALTER TABLE ull_flow_step ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_flow_step_action ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
-ALTER TABLE ull_flow_step_action ADD FOREIGN KEY (ull_flow_step_id) REFERENCES ull_flow_step(id);
+ALTER TABLE ull_flow_step_action ADD FOREIGN KEY (ull_flow_step_id) REFERENCES ull_flow_step(id) ON DELETE CASCADE;
 ALTER TABLE ull_flow_step_action ADD FOREIGN KEY (ull_flow_action_id) REFERENCES ull_flow_action(id);
 ALTER TABLE ull_flow_step_action ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_flow_memory ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
@@ -75,7 +75,7 @@ ALTER TABLE ull_flow_column_config ADD FOREIGN KEY (ull_column_type_id) REFERENC
 ALTER TABLE ull_flow_column_config ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_flow_app_permission ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_flow_app_permission ADD FOREIGN KEY (ull_permission_id) REFERENCES ull_permission(id);
-ALTER TABLE ull_flow_app_permission ADD FOREIGN KEY (ull_flow_app_id) REFERENCES ull_flow_app(id);
+ALTER TABLE ull_flow_app_permission ADD FOREIGN KEY (ull_flow_app_id) REFERENCES ull_flow_app(id) ON DELETE CASCADE;
 ALTER TABLE ull_flow_app_permission ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE test_table_translation ADD FOREIGN KEY (id) REFERENCES test_table(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE test_table ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);

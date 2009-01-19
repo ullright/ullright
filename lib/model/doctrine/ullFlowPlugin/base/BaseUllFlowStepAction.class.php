@@ -19,7 +19,8 @@ abstract class BaseUllFlowStepAction extends UllRecord
   {
     parent::setUp();
     $this->hasOne('UllFlowStep', array('local' => 'ull_flow_step_id',
-                                       'foreign' => 'id'));
+                                       'foreign' => 'id',
+                                       'onDelete' => 'CASCADE'));
 
     $this->hasOne('UllFlowAction', array('local' => 'ull_flow_action_id',
                                          'foreign' => 'id'));
