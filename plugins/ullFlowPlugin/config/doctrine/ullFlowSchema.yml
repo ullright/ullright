@@ -80,7 +80,8 @@ UllFlowDoc:
       local: assigned_to_ull_entity_id
     UllFlowStep:
       foreignAlias: UllFlowDocs
-      local: assigned_to_ull_flow_step_id      
+      local: assigned_to_ull_flow_step_id
+      onDelete: CASCADE      
 #      onDelete: CASCADE # TODO: test!
     Tagging:
       local: id
