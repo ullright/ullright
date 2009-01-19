@@ -649,5 +649,15 @@ class BaseUllFlowActions extends ullsfActions
       $this->workflow_action_access = true;
     }
   }    
+  
+  /**
+   * Returns fallback URL if there is no valid referer
+   *
+   * @return string fallback URL
+   */
+  protected function getRefererFallbackURI()
+  {
+    return $this->getModuleName() . '/list';
+  }  
 
 }
