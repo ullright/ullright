@@ -21,4 +21,22 @@ class PluginUllFlowActionTable extends UllRecordTable
     }
   }
   
+  /**
+   * Find by Id
+   *
+   * @param integer $id
+   * @return Doctrine_Record
+   */  
+  public static function findById($id)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllFlowAction')
+      ->where('id = ?', $id)
+      ->useResultCache(true)
+    ;
+    
+    return $q->execute()->getFirst();
+  }
+  
 }

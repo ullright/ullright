@@ -72,7 +72,7 @@ class PluginUllUserTable extends UllEntityTable
     $q = new Doctrine_Query;
     $q->from('UllUser u, u.UllGroup g, g.UllPermissions p')
       ->where('u.id = ?', $user_id)
-      ->addWhere('p.slug = ?', $permission)
+      ->addWhere('p.slug = ?', $permission)      
     ;
     
     if ($q->count())

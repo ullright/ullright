@@ -5,7 +5,7 @@ class ullWidgetUllFlowApp extends ullWidget
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $app = Doctrine::getTable('UllFlowApp')->find($value);
+    $app = UllFlowAppTable::findById($value);
     
     $path = $app->getIconPath();
     

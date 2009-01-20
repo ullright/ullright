@@ -68,6 +68,8 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->checkAccess('LoggedIn');
     
+    
+    
     if ($request->isMethod('post'))
     {
 //      var_dump($request->getParameterHolder()->getAll());die;
@@ -75,10 +77,14 @@ class BaseUllFlowActions extends ullsfActions
     }
 
     $this->getAppfromRequest();
+    
     $this->generator = new ullFlowGenerator($this->app);
     
     $docs = $this->getFilterFromRequest();
+    
     $this->generator->buildForm($docs);
+//    die;
+    
     
     $refererHandler = new refererHandler();
     $refererHandler->delete('edit');
@@ -440,8 +446,8 @@ class BaseUllFlowActions extends ullsfActions
     $userId  = $this->getUser()->getAttribute('user_id');
     
     $q = new Doctrine_Query;
-    $q->select('x.*, v.*');
-    $q->from('UllFlowDoc x, x.UllFlowValues v');
+    $q->select('x.*, v.*, cc.slug, a.*');
+    $q->from('UllFlowDoc x, x.UllFlowValues v, v.UllFlowColumnConfig cc, x.UllFlowApp a');
 
     // search has to be the first "where" part, because it uses "or" 
     if ($search = $this->filter_form->getValue('search'))

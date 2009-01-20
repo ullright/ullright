@@ -22,6 +22,25 @@ class PluginUllFlowAppTable extends Doctrine_Table
       ->from('UllFlowApp')
       ->where('slug = ?', $slug)
     ;
+    
+    return $q->execute()->getFirst();
+  }
+  
+  /**
+   * Find by Id
+   *
+   * @param integer $id
+   * @return Doctrine_Record
+   */  
+  public static function findById($id)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllFlowApp')
+      ->where('id = ?', $id)
+      ->useResultCache(true)
+    ;
+    
     return $q->execute()->getFirst();
   }
 

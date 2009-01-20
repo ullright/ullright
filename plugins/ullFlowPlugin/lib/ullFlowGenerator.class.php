@@ -147,16 +147,6 @@ class ullFlowGenerator extends ullGenerator
         'metaWidget'        => 'ullMetaWidgetPriority',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
-      );      
-      $this->columnsConfig['assigned_to_ull_entity_id'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Assigned to'),
-        'metaWidget'        => 'ullMetaWidgetForeignKey',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-      	'relation'          => array('model' => 'UllEntity', 'foreign_id' => 'id')
       );
       $this->columnsConfig['ull_flow_action_id'] = array(
         'widgetOptions'     => array(),
@@ -167,13 +157,23 @@ class ullFlowGenerator extends ullGenerator
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
         'relation'          => array('model' => 'UllFlowAction', 'foreign_id' => 'id')
-      );      
+      );             
+      $this->columnsConfig['assigned_to_ull_entity_id'] = array(
+        'widgetOptions'     => array(),
+        'widgetAttributes'  => array(),
+        'validatorOptions'  => array(),
+        'label'             => __('Assigned to'),
+        'metaWidget'        => 'ullMetaWidgetUllUser',
+        'access'            => $this->defaultAccess,
+        'is_in_list'        => true,
+      	'relation'          => array('model' => 'UllEntity', 'foreign_id' => 'id')
+      );     
       $this->columnsConfig['creator_user_id'] = array(
         'widgetOptions'     => array(),
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
         'label'             => __('Created by', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetForeignKey',
+        'metaWidget'        => 'ullMetaWidgetUllUser',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
       'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id')

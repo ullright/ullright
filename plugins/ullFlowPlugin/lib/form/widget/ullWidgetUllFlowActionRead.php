@@ -5,7 +5,7 @@ class ullWidgetUllFlowActionRead extends ullWidget
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $action = Doctrine::getTable('UllFlowAction')->find($value);
+    $action = UllFlowActionTable::findById($value);
     
     $path = $action->getIconPath();
     

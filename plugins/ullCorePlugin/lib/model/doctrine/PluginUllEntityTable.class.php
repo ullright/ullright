@@ -42,5 +42,23 @@ class PluginUllEntityTable extends UllParentEntityTable
       }
     }
   }
+  
+  /**
+   * Find by Id
+   *
+   * @param integer $id
+   * @return Doctrine_Record
+   */
+  public static function findById($id)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllEntity')
+      ->where('id = ?', $id)
+      ->useResultCache(true)
+    ;
+    
+    return $q->execute()->getFirst();
+  }  
 
 }

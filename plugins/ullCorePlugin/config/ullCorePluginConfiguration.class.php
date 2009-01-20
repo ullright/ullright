@@ -15,13 +15,13 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
+    //enable Doctrine cache
+    $manager = Doctrine_Manager::getInstance();
+    $cacheDriver = new Doctrine_Cache_Apc();
+//    $manager->setAttribute(Doctrine::ATTR_QUERY_CACHE, $cacheDriver);
+    $manager->setAttribute(Doctrine::ATTR_RESULT_CACHE, $cacheDriver);
     
+//    $manager->setAttribute('use_dql_callbacks', true);
   }
 
-  // doesn't work yet with symfony 1.1
-  public function configureDoctrine(Doctrine_Manager $manager)
-  {
-    $manager->setAttribute('use_dql_callbacks', true);
-  }
-  
 }

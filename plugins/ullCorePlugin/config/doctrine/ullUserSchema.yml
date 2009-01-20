@@ -18,6 +18,10 @@ UllParentEntity:
       type: string(64)
     password:
       type: string(40)
+#  indexes:
+#    ull_parent_entity_display_name:
+#      fields: [display_name]
+            
 #  relations:
 #    UllEntityGroupAsGroup:
 #      class: UllEntityGroup

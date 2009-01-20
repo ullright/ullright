@@ -17,7 +17,7 @@ class ullWidgetUllUser extends sfWidgetForm
       return '';
     }
 
-    return (string) Doctrine::getTable('UllUser')->findOneById($value);
+    return (string) UllUserTable::findById($value);
   }
 
 }
