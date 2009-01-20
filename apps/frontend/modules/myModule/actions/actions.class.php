@@ -16,38 +16,6 @@ class myModuleActions extends sfActions
    */
   public function executeIndex()
   {
-    //$this->forward('default', 'module');
   }
   
-  public function executeTest()
-  {
-    
-    $user = Doctrine::getTable('UllFlowApp')->find(1);
-    $user->delete();
-    
-    die();
-    
-
-//    $test = Doctrine::getTable('TestTable')->find(1);
-//    $test->addTag('foobar');
-//    $test->addTag('mama, papa');
-//    $test->save();
-//    
-//    
-//    $t1 = Doctrine::getTable('TestTable')->find(2);
-//    $t1->addTag('mama,oma');
-//    $t1->save();
-    
-//    $q = new Doctrine_Query;
-//    $q
-//      ->from('TestTable')
-//      ->where('my_text LIKE ?', '%ore%');
-//    ;
-//    
-    $q = PluginTagTable::getObjectTaggedWithQuery('TestTable', 'mama, papa');
-    
-    
-    
-    $this->o = $q->execute();
-  }
 }
