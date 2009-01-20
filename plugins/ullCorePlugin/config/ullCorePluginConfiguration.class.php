@@ -17,7 +17,8 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
   {
     //enable Doctrine cache
     $manager = Doctrine_Manager::getInstance();
-    $cacheDriver = new Doctrine_Cache_Apc();
+//    $cacheDriver = new Doctrine_Cache_Apc();
+    $cacheDriver = new Doctrine_Cache_Array();
 //    $manager->setAttribute(Doctrine::ATTR_QUERY_CACHE, $cacheDriver);
     $manager->setAttribute(Doctrine::ATTR_RESULT_CACHE, $cacheDriver);
     
