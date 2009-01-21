@@ -8,6 +8,10 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$dgsEditTT = $b->getDgsUllFlowEditTroubleTicket();
+$dgsList = $b->getDgsUllFlowListGeneric();
+$dgsListTT = $b->getDgsUllFlowListTroubleTicket();
+
 
 $b
   ->diag('ullFlow Home')
@@ -27,8 +31,8 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('table tr', 8) // number of displayed fields
-  ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'Normal')
+  ->checkResponseElement($dgsEditTT->getFullRowSelector(), 8) // number of displayed fields
+  ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' > select > option[selected="selected"]', 'Normal')
   ->checkResponseElement('ul.tag-cloud a ', 'ull_flow_tag1')
   ->checkResponseElement('body', '!/Progress/')
   ->checkResponseElement('input#fields_memory_comment', true)
@@ -78,9 +82,9 @@ $b->diag('check list')
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->checkResponseElement('table > tbody > tr', 3) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little subject')  
-  ->checkResponseElement('tbody > tr > td + td + td + td + td', 'High')
+  ->checkResponseElement($dgsList->getFullRowSelector(), 3) // number of rows
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'This is my shiny little subject')  
+  ->checkResponseElement($dgsList->get(1, 'priority'), 'High')
 ;
 
 $b
@@ -101,9 +105,9 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('table > tbody > tr', 3) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 3) // number of rows
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'This is my shiny little edited subject')
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'AAA My second trouble ticket')
 ;   
 
 $b
@@ -117,9 +121,9 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('table > tbody > tr', 3) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
-  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Helpdesk (Group)')
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 3) // number of rows
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'This is my shiny little edited subject')
+  ->checkResponseElement($dgsListTT->get(1, 'assigned_to'), 'Helpdesk (Group)')
 ;  
 
 $b
@@ -129,8 +133,8 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->checkResponseElement('table > tbody > tr', 1) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'This is my shiny little edited subject')
+  ->checkResponseElement($dgsList->getFullRowSelector(), 1) // number of rows
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'This is my shiny little edited subject')
 ;
 
 
@@ -141,7 +145,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->checkResponseElement('table > tbody > tr', 4) // number of rows
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 4) // number of rows
   
   ->click('Delete')
   ->isRedirected()
@@ -149,5 +153,5 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->checkResponseElement('table > tbody > tr', 3) // number of rows
+  ->checkResponseElement($dgsList->getFullRowSelector(), 3) // number of rows
 ;
