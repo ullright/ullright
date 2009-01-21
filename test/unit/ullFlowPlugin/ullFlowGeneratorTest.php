@@ -10,9 +10,9 @@ class myTestCase extends sfDoctrineTestCase
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => true),
         'label'               => 'My custom subject label',
-        'metaWidget'          => 'ullMetaWidgetString',
+        'metaWidget'          => 'ullMetaWidgetLink',
         'access'              => 'w',
-        'is_in_list'          => true,
+        'is_in_list'          => false,
         ),
      'my_information_update' => array (
         'widgetOptions'       => array(),
