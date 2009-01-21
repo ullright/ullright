@@ -10,6 +10,7 @@ $b->resetDatabase();
 
 $dgsList = $b->getDgsUllFlowListGeneric();
 $dgsListTT = $b->getDgsUllFlowListTroubleTicket();
+$dgsListTO = $b->getDgsUllFlowListTroubleTodo();
 
 
 $b
@@ -49,8 +50,8 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'ull_flow_tag1')
   ->isRequestParameter('app', 'todo')
-  ->checkResponseElement($dgsList->getFullRowSelector(), 1) // number of rows
-  ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second thing todo')
+  ->checkResponseElement($dgsListTO->getFullRowSelector(), 1) // number of rows
+  ->checkResponseElement($dgsListTO->get(1, 'subject'), 'AAA My second thing todo')
 ;
 
 $b
@@ -82,15 +83,14 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement($dgsList->getFullHeaderColumnSelector(), 9) // number of columns
-  ->checkResponseElement($dgsList->getHeader('id') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
-  ->checkResponseElement($dgsList->getHeader('app') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/asc"]', 'App')
-  ->checkResponseElement($dgsList->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/subject/order_dir/asc"]', 'Subject')
-  ->checkResponseElement($dgsList->getHeader('priority') . ' > a', 'Priority')
-  ->checkResponseElement($dgsList->getHeader('assigned_to') . ' > a', 'Assigned to')
-  ->checkResponseElement($dgsList->getHeader('status') . ' > a', 'Status')
-  ->checkResponseElement($dgsList->getHeader('created_by') . ' > a', 'Created by')
-  ->checkResponseElement($dgsList->getHeader('created_at') . ' > a', 'Created at ↑')  
+  ->checkResponseElement($dgsListTT->getFullHeaderColumnSelector(), 8) // number of columns
+  ->checkResponseElement($dgsListTT->getHeader('id') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
+  ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/subject/order_dir/asc"]', 'Subject')
+  ->checkResponseElement($dgsListTT->getHeader('priority') . ' > a', 'Priority')
+  ->checkResponseElement($dgsListTT->getHeader('assigned_to') . ' > a', 'Assigned to')
+  ->checkResponseElement($dgsListTT->getHeader('status') . ' > a', 'Status')
+  ->checkResponseElement($dgsListTT->getHeader('created_by') . ' > a', 'Created by')
+  ->checkResponseElement($dgsListTT->getHeader('created_at') . ' > a', 'Created at ↑')  
 ;
 
 $b
@@ -145,20 +145,6 @@ $b
 
   ->checkResponseElement('tbody > tr > td + td', '1')
   ->checkResponseElement('tbody > tr + tr > td + td', '2')  
-;
-
-$b
-  ->diag('list - test order by application (which is the same for both entries, so the result should be ordered by created_at DESC')
-  ->click('App')
-  ->isStatusCode(200)    
-  ->isRequestParameter('order', 'ull_flow_app_id')
-  ->isRequestParameter('order_dir', 'asc')
-
-  ->checkResponseElement($dgsListTT->getHeader('app') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/desc"]', 'App ↓')
-
-  //->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
-  //->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
-  ->checkResponseElement($dgsListTT->get(2, 'created_at'), '2001-01-01 01:01:01')
 ;
 
 $b

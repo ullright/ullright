@@ -83,13 +83,32 @@ class ullTestBrowser extends sfDoctrineTestBrowser
       array(
         'actions'     => 1,
         'id'          => 2,
-        'app'         => 3,
-        'subject'     => 4,
-        'priority'    => 5,
-        'assigned_to' => 6,
-        'status'      => 7,
-        'created_by'  => 8,
-        'created_at'  => 9,
+        'subject'     => 3,
+        'priority'    => 4,
+        'assigned_to' => 5,
+        'status'      => 6,
+        'created_by'  => 7,
+        'created_at'  => 8,
+      ),
+      'table > thead > tr', 'th'
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllFlowListTroubleTodo()
+  {
+  	$s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
+      array(),      
+      array(
+        'actions'     => 1,
+        'id'          => 2,
+        'subject'     => 3,
+        'priority'    => 4,
+        'assigned_to' => 5,
+        'status'      => 6,
+        'created_by'  => 7,
+        'created_at'  => 8,
       ),
       'table > thead > tr', 'th'
     );

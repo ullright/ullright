@@ -75,17 +75,21 @@ class ullFlowGenerator extends ullGenerator
         'metaWidget'          => 'ullMetaWidgetInteger',
         'access'              => $this->defaultAccess,
         'is_in_list'          => true,
-      );      
-      $this->columnsConfig['ull_flow_app_id'] = array(
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array(),
-        'label'               => __('App', null, 'common'),
-        'metaWidget'          => 'ullMetaWidgetUllFlowApp',
-        'access'              => $this->defaultAccess,
-        'is_in_list'          => true,
-    	  'relation'            => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
       );
+
+      if (!$this->app) 
+      {      
+	      $this->columnsConfig['ull_flow_app_id'] = array(
+	        'widgetOptions'       => array(),
+	        'widgetAttributes'    => array(),
+	        'validatorOptions'    => array(),
+	        'label'               => __('App', null, 'common'),
+	        'metaWidget'          => 'ullMetaWidgetUllFlowApp',
+	        'access'              => $this->defaultAccess,
+	        'is_in_list'          => true,
+	    	  'relation'            => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
+	      );
+      }
       
       $this->columnsConfig['subject'] = array(
         'widgetOptions'     => array(),

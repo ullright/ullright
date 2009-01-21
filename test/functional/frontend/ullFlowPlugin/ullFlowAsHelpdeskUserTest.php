@@ -8,6 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$dgsList = $b->getDgsUllFlowListGeneric();
 $dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 
 $b
@@ -20,11 +21,11 @@ $b
   ->diag('combinend list access rights as helpdesk user')
   ->click('All entries')
   ->diag('list - content')
-  ->checkResponseElement($dgsListTT->getFullRowSelector(), 2) //number of rows
+  ->checkResponseElement($dgsList->getFullRowSelector(), 2) //number of rows
   // read access because user is member of "Trouble ticket tool - global read access" group 
-  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second trouble ticket')
   // read access because user is member of HelpdeskGroup to which the doc is assigned
-  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')
+  ->checkResponseElement($dgsList->get(2, 'subject'), 'My first trouble ticket')
 ;
 
 $b

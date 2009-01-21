@@ -9,6 +9,7 @@ $b->setFixturesPath($path);
 $b->resetDatabase();
 
 $dgsList = $b->getDgsUllFlowListGeneric();
+$dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 $dgsEditTT = $b->getDgsUllFlowEditTroubleTicket();
 
 $b
@@ -36,8 +37,8 @@ $b
 $b
   ->diag('list - selecting one application')
   ->get('ullFlow/list/app/trouble_ticket')
-  ->checkResponseElement($dgsList->getFullRowSelector(), 1) //number of rows
-  ->checkResponseElement($dgsList->get(1, 'subject'), 'My first trouble ticket')  
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 1) //number of rows
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'My first trouble ticket')  
 ;
 
 $b

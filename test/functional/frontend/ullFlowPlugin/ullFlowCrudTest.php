@@ -83,9 +83,9 @@ $b->diag('check list')
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->checkResponseElement($dgsList->getFullRowSelector(), 3) // number of rows
-  ->checkResponseElement($dgsList->get(1, 'subject'), 'This is my shiny little subject')  
-  ->checkResponseElement($dgsList->get(1, 'priority'), 'High')
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 3) // number of rows
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'This is my shiny little subject')  
+  ->checkResponseElement($dgsListTT->get(1, 'priority'), 'High')
 ;
 
 $b
