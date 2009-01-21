@@ -6,7 +6,12 @@ class ullMetaWidgetEmail extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      if (!isset($this->columnConfig['widgetAttributes']['size']))
+      {
+        $this->columnConfig['widgetAttributes']['size'] = '30';
+      }
+    	
+    	$this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
       $this->addValidator(new sfValidatorEmail($this->columnConfig['validatorOptions']));
     }
     else

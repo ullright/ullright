@@ -11,6 +11,6 @@ sfLoader::loadHelpers('I18N');
 $w = new ullWidgetInformationUpdateWrite();
 // ->render()
 $t->diag('->render()');
-$t->is($w->render('foo', 'foobar'), 'foobar<br /><br /><textarea rows="4" cols="50" name="foo" id="foo"></textarea>',
+$t->is($w->render('foo', 'foobar'), 'foobar<textarea rows="4" cols="58" name="foo" id="foo"></textarea>',
             '->render() works correctly.');
 

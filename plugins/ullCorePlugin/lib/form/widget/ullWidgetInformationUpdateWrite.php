@@ -10,7 +10,7 @@ class ullWidgetInformationUpdateWrite extends ullWidget
   protected function configure($options = array(), $attributes = array())
   {
     $this->setAttribute('rows', 4);
-    $this->setAttribute('cols', 50);
+    $this->setAttribute('cols', 58);
   }
 	
 	public function render($name, $value = null, $attributes = array(), $errors = array())
@@ -23,7 +23,7 @@ class ullWidgetInformationUpdateWrite extends ullWidget
     {
       $value = '';
     }
-    return $value . '<br /><br />' . $this->renderContentTag('textarea', '', array_merge(array('name' => $name), $attributes));
+    return $value . $this->renderContentTag('textarea', '', array_merge(array('name' => $name), $attributes));
   }
   
   public function updateObject(Doctrine_Record $object, $values, $fieldName)
