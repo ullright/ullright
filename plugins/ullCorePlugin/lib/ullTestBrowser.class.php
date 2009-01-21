@@ -94,7 +94,30 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     );
     
     return $s;
-  }  
+  }
+
+  public function getDgsUllFlowEditTroubleTicket()
+  {
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
+      array(
+        'subject'     => 1,
+        'information_update' => 2,
+        'date'        => 3,
+        'email'       => 4,
+        'priority'    => 5,
+        'attachments' => 6,
+        'wiki_links'  => 7,
+        'tags'        => 8
+      ),      
+      array(
+        'label'       => 1,
+        'value'       => 2,
+        'error'       => 3
+      )
+    );
+    
+    return $s;
+  }   
 
 }
 
