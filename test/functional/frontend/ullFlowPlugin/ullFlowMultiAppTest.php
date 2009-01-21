@@ -8,6 +8,8 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$dgsList = $b->getDgsUllFlowListGeneric();
+//$dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 
 $b
   ->diag('ullFlow Home')
@@ -32,29 +34,29 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement('table > thead > tr > th', 9) // number of columns
-  ->checkResponseElement('thead > tr > th + th > a[href*="/ullFlow/list/order/id/order_dir/asc"]', 'ID')  
-  ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'App')
-  ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/order/subject/order_dir/asc"]', 'Subject')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th > a', 'Assigned to')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th > a', 'Created by')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th > a', 'Created at ↑')  
+  ->checkResponseElement($dgsList->getFullHeaderColumnSelector(), 9) // number of columns
+  ->checkResponseElement($dgsList->getHeader('id') . ' > a[href*="/ullFlow/list/order/id/order_dir/asc"]', 'ID')  
+  ->checkResponseElement($dgsList->getHeader('app') . ' > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'App')
+  ->checkResponseElement($dgsList->getHeader('subject') . ' > a[href*="/ullFlow/list/order/subject/order_dir/asc"]', 'Subject')
+  ->checkResponseElement($dgsList->getHeader('assigned_to') . ' > a', 'Assigned to')
+  ->checkResponseElement($dgsList->getHeader('created_by') . ' > a', 'Created by')
+  ->checkResponseElement($dgsList->getHeader('created_at') . ' > a', 'Created at ↑')  
 ;
 
 $b
   ->diag('list - content')
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second thing todo')
-  ->checkResponseElement('tbody > tr + tr + tr > td + td + td + td', 'My first thing todo')
-  ->checkResponseElement('tbody > tr + tr + tr + tr > td + td + td + td', 'My first trouble ticket')
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsList->get(2, 'subject'), 'AAA My second thing todo')
+  ->checkResponseElement($dgsList->get(3, 'subject'), 'My first thing todo')
+  ->checkResponseElement($dgsList->get(4, 'subject'), 'My first trouble ticket')
   ->checkResponseElement('ul.list_action_buttons input input[type="button"]', false)
 ;
 
 $b
   ->diag('list - order by application - the result should be ordered by app ASC, created_at DESC')
   ->click('App')
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')  
-  ->checkResponseElement('tbody > tr + tr + tr > td + td + td + td', 'AAA My second thing todo')
-  ->checkResponseElement('tbody > tr + tr + tr + tr > td + td + td + td', 'My first thing todo')
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsList->get(2, 'subject'), 'My first trouble ticket')  
+  ->checkResponseElement($dgsList->get(3, 'subject'), 'AAA My second thing todo')
+  ->checkResponseElement($dgsList->get(4, 'subject'), 'My first thing todo')
 ;
