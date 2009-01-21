@@ -8,6 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 
 $b
   ->diag('ullFlow Home')
@@ -19,11 +20,11 @@ $b
   ->diag('combinend list access rights as helpdesk user')
   ->click('All entries')
   ->diag('list - content')
-  ->checkResponseElement('table > tbody > tr', 2) // number of rows
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 2) //number of rows
   // read access because user is member of "Trouble ticket tool - global read access" group 
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
   // read access because user is member of HelpdeskGroup to which the doc is assigned
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')
 ;
 
 $b
@@ -32,9 +33,9 @@ $b
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->diag('list - content')
-  ->checkResponseElement('table > tbody > tr', 2) // number of rows
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 2) //number of rows
   // read access because user is member of "Trouble ticket tool - global read access" group 
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
   // read access because user is member of HelpdeskGroup to which the doc is assigned
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')
 ;
