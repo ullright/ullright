@@ -23,7 +23,7 @@ class ullWidgetInformationUpdateWrite extends ullWidget
     {
       $value = '';
     }
-    return $value . $this->renderContentTag('textarea', '', array_merge(array('name' => $name), $attributes));
+    return $value . '<br />' . $this->renderContentTag('textarea', '', array_merge(array('name' => $name), $attributes));
   }
   
   public function updateObject(Doctrine_Record $object, $values, $fieldName)

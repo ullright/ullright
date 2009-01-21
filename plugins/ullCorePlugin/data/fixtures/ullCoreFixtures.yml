@@ -63,6 +63,10 @@ UllColumnType:
     class:        ullMetaWidgetString
     label:        String
     namespace:    ullCore
+  string:
+    class:        ullMetaWidgetLink
+    label:        Link
+    namespace:    ullCore
   datetime:
     class:        ullMetaWidgetDateTime
     label:        DateTime

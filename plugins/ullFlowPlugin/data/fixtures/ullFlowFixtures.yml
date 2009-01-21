@@ -140,6 +140,7 @@ UllFlowColumnConfig:
     is_mandatory:   true
     is_subject:     true
     namespace:      test
+    is_in_list:     false
   
   ull_flow_column_config_helpdesk_information_update:
     Translation:
@@ -245,6 +246,8 @@ UllFlowColumnConfig:
     is_mandatory:   true
     is_subject:     true
     namespace:      test
+    is_in_list:     false
+    
   ull_flow_column_config_todo_column_priority:
     Translation:
       en:

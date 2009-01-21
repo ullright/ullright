@@ -10,7 +10,12 @@ class ullMetaWidgetLink extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      if (!isset($this->columnConfig['widgetAttributes']['size']))
+      {
+        $this->columnConfig['widgetAttributes']['size'] = '50';
+      }
+    	
+    	$this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
       $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
     }
     else

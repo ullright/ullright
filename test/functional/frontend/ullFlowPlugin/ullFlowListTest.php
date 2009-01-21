@@ -85,8 +85,7 @@ $b
   ->checkResponseElement($dgsList->getFullHeaderColumnSelector(), 9) // number of columns
   ->checkResponseElement($dgsList->getHeader('id') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
   ->checkResponseElement($dgsList->getHeader('app') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/asc"]', 'App')
-  ->checkResponseElement($dgsList->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/asc"]', 'My custom subject label')
-  //->checkResponseElement('thead > tr > th + th + th + th + th > a', 'Your email address')
+  ->checkResponseElement($dgsList->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/subject/order_dir/asc"]', 'Subject')
   ->checkResponseElement($dgsList->getHeader('priority') . ' > a', 'Priority')
   ->checkResponseElement($dgsList->getHeader('assigned_to') . ' > a', 'Assigned to')
   ->checkResponseElement($dgsList->getHeader('status') . ' > a', 'Status')
@@ -107,15 +106,15 @@ $b
 
 $b
   ->diag('list - test order by subject (a virtual field)')
-  ->click('My custom subject label')
+  ->click('Subject')
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->isRequestParameter('order', 'my_subject')
+  ->isRequestParameter('order', 'subject')
   ->isRequestParameter('order_dir', 'asc')
 
-  ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/desc"]', 'My custom subject label ↓')
+  ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/subject/order_dir/desc"]', 'Subject ↓')
   ->checkResponseElement($dgsListTT->getHeader('created_at') . ' > a', 'Created at')
 
   ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
@@ -124,12 +123,12 @@ $b
 
 $b
   ->diag('list - test order "desc" by subject (a virtual field)')
-  ->click('My custom subject label ↓')
+  ->click('Subject ↓')
   ->isStatusCode(200)    
-  ->isRequestParameter('order', 'my_subject')
+  ->isRequestParameter('order', 'subject')
   ->isRequestParameter('order_dir', 'desc')
 
-  ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/asc"]', 'My custom subject label ↑')
+  ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/subject/order_dir/asc"]', 'Subject ↑')
 
   ->checkResponseElement($dgsListTT->get(1, 'subject'), 'My first trouble ticket')
   ->checkResponseElement($dgsListTT->get(2, 'subject'), 'AAA My second trouble ticket')  

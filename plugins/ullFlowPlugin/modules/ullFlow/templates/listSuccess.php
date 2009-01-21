@@ -45,8 +45,11 @@
   <tbody>
   <?php $odd = false; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-    <?php $form['subject']->getWidget()->setAttribute('href', 
-      ull_url_for(array_merge($generator->getIdentifierUrlParamsAsArray($row), array('action' => 'edit')))); ?>
+    <?php
+        //if (isset($form['subject'])) {
+    	     $form['subject']->getWidget()->setAttribute('href', 
+            ull_url_for(array_merge($generator->getIdentifierUrlParamsAsArray($row), array('action' => 'edit'))));
+        //} ?>
       <?php
         if ($odd) {
           $odd_style = ' class=\'odd\'';

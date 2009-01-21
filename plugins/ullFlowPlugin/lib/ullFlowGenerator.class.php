@@ -86,19 +86,16 @@ class ullFlowGenerator extends ullGenerator
         'is_in_list'          => true,
     	  'relation'            => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
       );
-      // the subject column is taken from UllFlowDoc if no app is given
-      if (!$this->app)
-      {
-        $this->columnsConfig['subject'] = array(
-          'widgetOptions'     => array(),
-          'widgetAttributes'  => array(),
-          'validatorOptions'  => array(),
-          'label'             => __('Subject', null, 'common'),
-          'metaWidget'        => 'ullMetaWidgetLink',
-          'access'            => $this->defaultAccess,
-          'is_in_list'        => true,
-        );
-      }      
+      
+      $this->columnsConfig['subject'] = array(
+        'widgetOptions'     => array(),
+        'widgetAttributes'  => array(),
+        'validatorOptions'  => array(),
+        'label'             => __('Subject', null, 'common'),
+        'metaWidget'        => 'ullMetaWidgetLink',
+        'access'            => $this->defaultAccess,
+        'is_in_list'        => true,
+      );    
     }
 
     if ($this->app)
@@ -194,8 +191,8 @@ class ullFlowGenerator extends ullGenerator
       );            
     }
     
-//    var_dump($this->columnsConfig);
-//    die; 
+    //var_dump($this->columnsConfig);
+    //die; 
    
   }
   
