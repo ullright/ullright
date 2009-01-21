@@ -38,6 +38,11 @@ class ullFlowGenerator extends ullGenerator
   public function getIdentifierUrlParams($row)
   {
     return 'doc=' . $this->rows[$row]->id;
+  }
+  
+  public function getIdentifierUrlParamsAsArray($row)
+  { 
+  	return array('doc' => $this->rows[$row]->id);
   }  
   
   /**
@@ -89,7 +94,7 @@ class ullFlowGenerator extends ullGenerator
           'widgetAttributes'  => array(),
           'validatorOptions'  => array(),
           'label'             => __('Subject', null, 'common'),
-          'metaWidget'        => 'ullMetaWidgetString',
+          'metaWidget'        => 'ullMetaWidgetLink',
           'access'            => $this->defaultAccess,
           'is_in_list'        => true,
         );

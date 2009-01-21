@@ -99,6 +99,11 @@
 <target>Anwendungen</target>
 </trans-unit>
 
+<trans-unit id="108">
+<source>App</source>
+<target>An.</target>
+</trans-unit>
+
 <!-- Questions -->
 
 <trans-unit id="201">

@@ -1,4 +1,5 @@
 <?php echo $breadcrumbTree->getHtml(ESC_RAW) ?>
+<?php $generator = $sf_data->getRaw('generator') ?>
 
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
 
@@ -44,6 +45,8 @@
   <tbody>
   <?php $odd = false; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
+    <?php $form['subject']->getWidget()->setAttribute('href', 
+      ull_url_for(array_merge($generator->getIdentifierUrlParamsAsArray($row), array('action' => 'edit')))); ?>
       <?php
         if ($odd) {
           $odd_style = ' class=\'odd\'';
