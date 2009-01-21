@@ -33,7 +33,8 @@ abstract class BaseUllFlowDoc extends UllRecord
                                      'foreign' => 'id'));
 
     $this->hasOne('UllFlowStep', array('local' => 'assigned_to_ull_flow_step_id',
-                                       'foreign' => 'id'));
+                                       'foreign' => 'id',
+                                       'onDelete' => 'CASCADE'));
 
     $this->hasMany('Tagging', array('local' => 'id',
                                     'foreign' => 'taggable_id'));

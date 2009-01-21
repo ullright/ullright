@@ -45,7 +45,7 @@ ALTER TABLE ull_flow_doc ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity
 ALTER TABLE ull_flow_doc ADD FOREIGN KEY (ull_flow_app_id) REFERENCES ull_flow_app(id) ON DELETE CASCADE;
 ALTER TABLE ull_flow_doc ADD FOREIGN KEY (ull_flow_action_id) REFERENCES ull_flow_action(id);
 ALTER TABLE ull_flow_doc ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
-ALTER TABLE ull_flow_doc ADD FOREIGN KEY (assigned_to_ull_flow_step_id) REFERENCES ull_flow_step(id);
+ALTER TABLE ull_flow_doc ADD FOREIGN KEY (assigned_to_ull_flow_step_id) REFERENCES ull_flow_step(id) ON DELETE CASCADE;
 ALTER TABLE ull_flow_doc ADD FOREIGN KEY (assigned_to_ull_entity_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_flow_action_translation ADD FOREIGN KEY (id) REFERENCES ull_flow_action(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE ull_flow_action ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);

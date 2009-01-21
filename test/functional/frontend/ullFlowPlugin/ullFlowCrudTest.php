@@ -9,6 +9,7 @@ $b->setFixturesPath($path);
 $b->resetDatabase();
 
 $dgsEditTT = $b->getDgsUllFlowEditTroubleTicket();
+$dgsEditMem = $b->getDgsUllFlowMemory();
 $dgsList = $b->getDgsUllFlowListGeneric();
 $dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 
@@ -50,9 +51,9 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement('tr > td + td + td > ul > li', 'Required.')
-  ->checkResponseElement('tr + tr + tr > td + td + td > ul > li', 'Invalid.')
-  ->checkResponseElement('tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')
+  ->checkResponseElement($dgsEditTT->get('subject', 'error') . ' > ul > li', 'Required.')
+  ->checkResponseElement($dgsEditTT->get('email', 'error') . ' > ul > li', 'Invalid.')
+  ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' select > option[selected="selected"]', 'High')
   ->setField('fields[my_subject]', 'This is my original shiny little subject')
   ->setField('fields[my_datetime]', "2001-01-01 01:01:01")    
   ->setField('fields[my_email]', 'bender@ull.at')
@@ -65,13 +66,13 @@ $b->diag('check values and click "save_close"')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
-  ->checkResponseElement('tr > td + td > input[value="This is my original shiny little subject"]', true)
-  ->checkResponseElement('tr + tr > td + td > input[value="bender@ull.at"]', true)
-  ->checkResponseElement('tr + tr + tr + tr + tr > td + td > select > option[selected="selected"]', 'High')
-  ->checkResponseElement('tr + tr + tr + tr + tr > td + td > input[value="my_test_tag"]', true)
+  ->checkResponseElement($dgsEditTT->get('subject', 'value') . ' > input[value="This is my original shiny little subject"]', true)
+  ->checkResponseElement($dgsEditTT->get('email', 'value') . ' > input[value="bender@ull.at"]', true)
+  ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' > select > option[selected="selected"]', 'High')
+  ->checkResponseElement($dgsEditTT->get('tags', 'value') . ' > input[value="my_test_tag"]', true)
   ->responseContains('Progress')
-  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', '/Edited[\s]+by[\s]+Master[\s]+Admin/')  
-  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li > ul.ull_flow_memory_comment > li', '/My memory comment/')
+  ->checkResponseElement($dgsEditMem->get(1), '/Edited[\s]+by[\s]+Master[\s]+Admin/')  
+  ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_flow_memory_comment > li', '/My memory comment/')
   ->setField('fields[my_subject]', 'This is my shiny little subject')
 ;
 
@@ -95,7 +96,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', 5)
-  ->checkResponseElement('#ull_flow_memories ul > ul.ull_flow_memories_day > li', 3) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 3) // number of memory entries
   ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 
   ->click('Save and close')

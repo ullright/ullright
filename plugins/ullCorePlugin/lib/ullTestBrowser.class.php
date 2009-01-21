@@ -78,7 +78,8 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   
   public function getDgsUllFlowListTroubleTicket()
   {
-    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
+      array(),      
       array(
         'actions'     => 1,
         'id'          => 2,
@@ -119,5 +120,12 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $s;
   }   
 
+  public function getDgsUllFlowMemory()
+  {
+    $s = new ullDomGridSelector('#ull_flow_memories ul > ul', 'li');
+    
+    return $s;
+  }   
+  
 }
 
