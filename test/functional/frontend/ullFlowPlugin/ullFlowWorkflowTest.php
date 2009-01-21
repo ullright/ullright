@@ -52,9 +52,9 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Sent[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk \(Group\)[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
-  ->checkResponseElement($dgsEditMemory->getFullRowSelector(), 2) // number of memory entries
-  ->checkResponseElement($dgsEditMemory->get(1), '/Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditMemory->get(2), '/Created[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 2) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Created[\s]+by[\s]+Test User/')
 ;
 
 $b
@@ -91,10 +91,10 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk Admin User[\s]+\(Step[\s]+Troubleshooter \(Trouble ticket tool\)\)/') 
-  ->checkResponseElement($dgsEditMemory->getFullRowSelector(), 3) // number of memory entries
-  ->checkResponseElement($dgsEditMemory->get(1), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
-  ->checkResponseElement($dgsEditMemory->get(2), '/Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditMemory->get(3), '/Created[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 3) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(2), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(3), '/Created[\s]+by[\s]+Test User/')
 ;
 
 $b
@@ -120,11 +120,11 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Returned[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk \(Group\)[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
-  ->checkResponseElement($dgsEditMemory->getFullRowSelector(), 4) // number of memory entries
-  ->checkResponseElement($dgsEditMemory->get(1), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
-  ->checkResponseElement($dgsEditMemory->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
-  ->checkResponseElement($dgsEditMemory->get(3), '/Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditMemory->get(4), '/Created[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 4) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement($dgsEditMem->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(3), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(4), '/Created[\s]+by[\s]+Test User/')
 ;
 
 $b
@@ -137,8 +137,8 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
   ->checkResponseElement($dgsListTT->getFullRowSelector(), 2) // number of rows
-  ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second trouble ticket')
-  ->checkResponseElement($dgsList->get(2, 'subject'), 'My first trouble ticket')
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')
 ;  
 
 $b
@@ -153,7 +153,7 @@ $b
   ->isRequestParameter('app', 'trouble_ticket')
   ->isRequestParameter('filter[status]', 'close')
   ->checkResponseElement($dgsListTT->getFullRowSelector(), 1) // number of rows
-  ->checkResponseElement($dgsList->get(1, 'subject'), 'Urgently use ullright')  
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'Urgently use ullright')  
 ;
 
 $b
@@ -167,11 +167,11 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Closed[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditHead->get('next'), false) 
-  ->checkResponseElement($dgsEditMemory->getFullRowSelector(), 5) // number of memory entries
-  ->checkResponseElement($dgsEditMemory->get(1), '/Closed[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditMemory->get(2), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
-  ->checkResponseElement($dgsEditMemory->get(3), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
-  ->checkResponseElement($dgsEditMemory->get(4), '/Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditMemory->get(5), '/Created[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 5) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Closed[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement($dgsEditMem->get(3), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(4), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(5), '/Created[\s]+by[\s]+Test User/')
 ;  
 
