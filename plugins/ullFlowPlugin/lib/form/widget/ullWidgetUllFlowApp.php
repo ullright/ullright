@@ -16,7 +16,7 @@ class ullWidgetUllFlowApp extends ullWidget
         'width'   => 16,
         'height'  => 16,
         'class'   => 'image_align_middle'
-    )) . ' ' . $app->label . '</span>'; 
+    )) . '</span>'; 
   }
 
 }
