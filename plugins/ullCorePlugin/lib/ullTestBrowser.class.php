@@ -120,6 +120,19 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $s;
   }   
 
+  public function getDgsUllFlowHeader()
+  {
+    $s = new ullDomGridSelector('ul.ull_flow_edit_header_list', 'li', null, 
+      array(
+        'created'     => 1,
+        'status'      => 2,
+        'next'        => 3
+      )    
+    );
+    
+    return $s;
+  }
+
   public function getDgsUllFlowMemory()
   {
     $s = new ullDomGridSelector('#ull_flow_memories ul > ul', 'li');
