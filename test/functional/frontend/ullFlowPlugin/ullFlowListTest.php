@@ -8,6 +8,9 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$dgsList = $b->getDgsUllFlowListGeneric();
+$dgsListTT = $b->getDgsUllFlowListTroubleTicket();
+
 
 $b
   ->diag('ullFlow Home')
@@ -32,8 +35,8 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'ull_flow_tag2')
   ->isRequestParameter('app', '')
-  ->checkResponseElement('table > tbody > tr', 1) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first trouble ticket')
+  ->checkResponseElement($dgsList->getFullRowSelector(), 1) // number of rows
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'My first trouble ticket')
 ;
 
 $b
@@ -46,8 +49,8 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'ull_flow_tag1')
   ->isRequestParameter('app', 'todo')
-  ->checkResponseElement('table > tbody > tr', 1) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second thing todo')
+  ->checkResponseElement($dgsList->getFullRowSelector(), 1) // number of rows
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second thing todo')
 ;
 
 $b
@@ -79,27 +82,27 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement('table > thead > tr > th', 9) // number of columns
-  ->checkResponseElement('thead > tr > th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
-  ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/asc"]', 'App')
-  ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/asc"]', 'My custom subject label')
+  ->checkResponseElement($dgsList->getFullHeaderColumnSelector(), 9) // number of columns
+  ->checkResponseElement($dgsList->getHeader('id') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
+  ->checkResponseElement($dgsList->getHeader('app') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/asc"]', 'App')
+  ->checkResponseElement($dgsList->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/asc"]', 'My custom subject label')
   //->checkResponseElement('thead > tr > th + th + th + th + th > a', 'Your email address')
-  ->checkResponseElement('thead > tr > th + th + th + th + th > a', 'Priority')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th > a', 'Assigned to')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th > a', 'Status')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th > a', 'Created by')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th > a', 'Created at ↑')  
+  ->checkResponseElement($dgsList->getHeader('priority') . ' > a', 'Priority')
+  ->checkResponseElement($dgsList->getHeader('assigned_to') . ' > a', 'Assigned to')
+  ->checkResponseElement($dgsList->getHeader('status') . ' > a', 'Status')
+  ->checkResponseElement($dgsList->getHeader('created_by') . ' > a', 'Created by')
+  ->checkResponseElement($dgsList->getHeader('created_at') . ' > a', 'Created at ↑')  
 ;
 
 $b
   ->diag('list - content')
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
-  ->checkResponseElement('tbody > tr > td + td + td + td + td + td', 'Helpdesk (Group)')
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->get(1, 'assigned_to'), 'Helpdesk (Group)')
   //app name is not there anymore
   //->checkResponseElement('tbody > tr + tr > td + td + td', '/Trouble ticket tool/')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td', 'Master Admin')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td', 'Test User')   
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')
+  ->checkResponseElement($dgsListTT->get(2, 'assigned_to'), 'Master Admin')
+  ->checkResponseElement($dgsListTT->get(2, 'created_by'), 'Test User')   
 ;
 
 $b
@@ -112,11 +115,11 @@ $b
   ->isRequestParameter('order', 'my_subject')
   ->isRequestParameter('order_dir', 'asc')
 
-  ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/desc"]', 'My custom subject label ↓')
-  ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th + th > a', 'Created at')
+  ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/desc"]', 'My custom subject label ↓')
+  ->checkResponseElement($dgsListTT->getHeader('created_at') . ' > a', 'Created at')
 
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')  
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')  
 ;
 
 $b
@@ -126,10 +129,10 @@ $b
   ->isRequestParameter('order', 'my_subject')
   ->isRequestParameter('order_dir', 'desc')
 
-  ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/asc"]', 'My custom subject label ↑')
+  ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/my_subject/order_dir/asc"]', 'My custom subject label ↑')
 
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first trouble ticket')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second trouble ticket')  
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'My first trouble ticket')
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'AAA My second trouble ticket')  
 ;
 
 $b
@@ -152,11 +155,11 @@ $b
   ->isRequestParameter('order', 'ull_flow_app_id')
   ->isRequestParameter('order_dir', 'asc')
 
-  ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/desc"]', 'App ↓')
+  ->checkResponseElement($dgsListTT->getHeader('app') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/ull_flow_app_id/order_dir/desc"]', 'App ↓')
 
   //->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
   //->checkResponseElement('tbody > tr > td + td + td', '/Trouble ticket tool/')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td + td + td + td + td + td', '2001-01-01 01:01:01')
+  ->checkResponseElement($dgsListTT->get(2, 'created_at'), '2001-01-01 01:01:01')
 ;
 
 $b
@@ -169,9 +172,9 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'first t')  
   ->checkResponseElement('ul.list_action_buttons input[name="filter[search]"][value="first t"]', true)
-  ->checkResponseElement('table > tbody > tr', 2) // number of rows
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first thing todo')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')
+  ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'My first thing todo')
+  ->checkResponseElement($dgsList->get(2, 'subject'), 'My first trouble ticket')
 ;
 
 $b
@@ -181,8 +184,8 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('query', 'by_me')
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
-  ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'AAA My second thing todo')
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsList->get(2, 'subject'), 'AAA My second thing todo')
 ;
 
 $b
@@ -192,5 +195,5 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('query', 'to_me')
-  ->checkResponseElement('tbody > tr > td + td + td + td', 'My first trouble ticket')
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'My first trouble ticket')
 ;

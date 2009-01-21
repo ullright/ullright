@@ -7,7 +7,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 //sfLoader::loadHelpers('ull');
 //sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(21, new lime_output_color);
+$t = new lime_test(33, new lime_output_color);
 
 $t->diag('__construct()');
 
@@ -21,7 +21,8 @@ $t->diag('__construct()');
       'label'     => 1,
       'value'     => 2,
       'error'     => 3,
-    )
+    ),
+    'table > thead > tr', 'th'
   );
   $t->isa_ok($s1, 'ullDomGridSelector', 'returns the correct object');
   
@@ -45,7 +46,24 @@ $t->diag('getRowSelector()');
 $t->diag('getColumnSelector()');
   $t->is($s1->getColumnSelector(), 'td', 'returns the correct result');
   $t->is($s2->getColumnSelector(), null, 'returns the correct result');
+  
+$t->diag('getHeaderBaseSelector()');
+  $t->is($s1->getHeaderBaseSelector(), 'table > thead > tr', 'returns the correct result');
+  $t->is($s2->getHeaderBaseSelector(), null, 'returns the correct result');  
+  
+$t->diag('getHeaderColumnSelector()');
+  $t->is($s1->getHeaderColumnSelector(), 'th', 'returns the correct result');
+  $t->is($s2->getHeaderColumnSelector(), null, 'returns the correct result');
+  
+$t->diag('getFullRowSelector()');
+  $t->is($s1->getFullRowSelector(), 'table > tbody > tr', 'returns the correct result');
+  $t->is($s2->getFullRowSelector(), 'ul#memory > li', 'returns the correct result');    
 
+$t->diag('getFullHeaderColumnSelector()');
+  $t->is($s1->getFullHeaderColumnSelector(), 'table > thead > tr > th', 'returns the correct result');
+  $t->is($s2->getFullHeaderColumnSelector(), null, 'returns the correct result');    
+  
+  
 $t->diag('get()');
 
   $t->is($s1->get(1, 1), 'table > tbody > tr > td', 'returns the correct result for 1,1');
@@ -86,3 +104,10 @@ $t->diag('get()');
   $t->is($s2->get(2), 'ul#memory > li + li', 'returns the correct result for row 2');
   $t->is($s2->get('created'), 'ul#memory > li', 'returns the correct result for a given row (alias)');
   $t->is($s2->get('status'), 'ul#memory > li + li', 'returns the correct result for a given row (alias)');
+
+  
+$t->diag('getHeader()');
+  $t->is($s1->getHeader(1),'table > thead > tr > th', 'returns the correct result for 1');   
+  $t->is($s1->getHeader(2),'table > thead > tr > th + th', 'returns the correct result for 2');
+  $t->is($s1->getHeader('label'),'table > thead > tr > th', 'returns the correct result for "label"');
+  $t->is($s1->getHeader('value'),'table > thead > tr > th + th', 'returns the correct result for "value"');

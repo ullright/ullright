@@ -7,7 +7,9 @@ class ullDomGridSelector
     $rowSelector,
     $columnSelector,
     $rowAliases,
-    $columnAliases
+    $columnAliases,
+    $headerBaseSelector,
+    $headerColumnSelector
   ;
   
   public function __construct(
@@ -15,7 +17,10 @@ class ullDomGridSelector
     $rowSelector,
     $columnSelector = null,
     $rowAliases = array(),
-    $columnAliases = array()
+    $columnAliases = array(),
+    $headerBaseSelector = null, 
+    $headerColumnSelector = null   
+   
   ) 
   {
     $this->baseSelector = $baseSelector;
@@ -23,6 +28,8 @@ class ullDomGridSelector
     $this->columnSelector = $columnSelector;
     $this->rowAliases = $rowAliases;
     $this->columnAliases = $columnAliases;
+    $this->headerBaseSelector = $headerBaseSelector;
+    $this->headerColumnSelector = $headerColumnSelector;
   }
   
   public function getBaseSelector()
@@ -40,13 +47,35 @@ class ullDomGridSelector
     return $this->columnSelector;
   }
   
+  public function getHeaderBaseSelector()
+  {
+    return $this->headerBaseSelector;
+  }  
+  
+  public function getHeaderColumnSelector()
+  {
+    return $this->headerColumnSelector;
+  }
+
+  public function getFullRowSelector()
+  {
+    return $this->baseSelector . ' > ' . $this->rowSelector;
+  }
+
+  public function getFullHeaderColumnSelector()
+  {
+    if ($this->getHeaderBaseSelector())
+    {
+      return $this->headerBaseSelector . ' > ' . $this->headerColumnSelector;
+    }
+  }    
+  
   public function get($row, $column = null)
   {
     if (!is_numeric($row))
     {
       $row = $this->getRowAlias($row);
     }
-    
     
     if ($column and !$this->getColumnSelector())
     {
@@ -78,6 +107,25 @@ class ullDomGridSelector
       
     return $return;
   }
+  
+  public function getHeader($column)
+  {
+    if (!is_numeric($column))
+    {
+      $column = $this->getColumnAlias($column);
+    }    
+    
+    $return = $this->headerBaseSelector;
+    
+    $array = array();
+    for($i = 1; $i <= $column; $i++)
+    {
+      $array[] = $this->headerColumnSelector;
+    }
+    $return .= ' > ' . implode(' + ', $array);
+      
+    return $return;
+  }  
     
   protected function getRowAlias($alias)
   {
