@@ -34,7 +34,7 @@ $b
   ->diag('list - column headers')
   ->checkResponseElement('table > thead > tr > th', 9) // number of columns
   ->checkResponseElement('thead > tr > th + th > a[href*="/ullFlow/list/order/id/order_dir/asc"]', 'ID')  
-  ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'Application')
+  ->checkResponseElement('thead > tr > th + th + th > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'App')
   ->checkResponseElement('thead > tr > th + th + th + th > a[href*="/ullFlow/list/order/subject/order_dir/asc"]', 'Subject')
   ->checkResponseElement('thead > tr > th + th + th + th + th + th > a', 'Assigned to')
   ->checkResponseElement('thead > tr > th + th + th + th + th + th + th + th > a', 'Created by')
@@ -52,7 +52,7 @@ $b
 
 $b
   ->diag('list - order by application - the result should be ordered by app ASC, created_at DESC')
-  ->click('Application')
+  ->click('App')
   ->checkResponseElement('tbody > tr > td + td + td + td', 'AAA My second trouble ticket')
   ->checkResponseElement('tbody > tr + tr > td + td + td + td', 'My first trouble ticket')  
   ->checkResponseElement('tbody > tr + tr + tr > td + td + td + td', 'AAA My second thing todo')
