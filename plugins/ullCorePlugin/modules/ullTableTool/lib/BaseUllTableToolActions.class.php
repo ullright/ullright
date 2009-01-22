@@ -220,7 +220,15 @@ class BaseUllTableToolActions extends ullsfActions
         $q->orderBy('x.Updator.display_name ' . $orderDir);
         break;
       default:
-        $q->orderBy($this->order . ' ' . $orderDir);
+        if (strpos($this->order, '_translation_'))
+        {
+          $a = explode('_', $this->order);
+          $q->orderBy('x.Translation.' . $a[0] . ' ' . $orderDir);
+        } 
+        else
+        {
+          $q->orderBy($this->order . ' ' . $orderDir);  
+        }
     }    
     
     $this->pager = new Doctrine_Pager(
