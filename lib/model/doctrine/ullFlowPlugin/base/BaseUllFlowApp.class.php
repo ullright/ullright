@@ -12,6 +12,7 @@ abstract class BaseUllFlowApp extends UllRecord
     $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
     $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('doc_label', 'string', 64, array('type' => 'string', 'length' => '64'));
+    $this->hasColumn('list_columns', 'string', 255, array('type' => 'string', 'length' => '255'));
   }
 
   public function setUp()

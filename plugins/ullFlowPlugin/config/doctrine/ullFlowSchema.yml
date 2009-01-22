@@ -14,10 +14,8 @@ UllFlowApp:
       type: string(64)
     doc_label:
       type: string(64)
-#    default_list_columns:
-#      type: string(255)
-#      local: access_read_id
-#      foreign: ull_group_id
+    list_columns:
+      type: string(255)
   relations:
     UllPermission:
       refClass: UllFlowAppPermission

@@ -61,14 +61,10 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
         'actions'     => 1,
-        'id'          => 2,
-        'app'         => 3,
-        'subject'     => 4,
-        'priority'    => 5,
-        'assigned_to' => 6,
-        'status'      => 7,
-        'created_by'  => 8,
-        'created_at'  => 9,
+        'app'         => 2,
+        'subject'     => 3,
+        'created_by'  => 4,
+        'created_at'  => 5,
       ),
       'table > thead > tr', 'th'
     );
@@ -86,9 +82,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'subject'     => 3,
         'priority'    => 4,
         'assigned_to' => 5,
-        'status'      => 6,
-        'created_by'  => 7,
-        'created_at'  => 8,
+        'created_at'  => 6,
       ),
       'table > thead > tr', 'th'
     );
@@ -96,19 +90,15 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $s;
   }
   
-  public function getDgsUllFlowListTroubleTodo()
+  public function getDgsUllFlowListTodo()
   {
   	$s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
       array(),      
       array(
         'actions'     => 1,
-        'id'          => 2,
-        'subject'     => 3,
-        'priority'    => 4,
-        'assigned_to' => 5,
-        'status'      => 6,
-        'created_by'  => 7,
-        'created_at'  => 8,
+        'subject'     => 2,
+        'created_by'  => 3,
+        'created_at'  => 4,
       ),
       'table > thead > tr', 'th'
     );

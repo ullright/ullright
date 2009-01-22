@@ -10,7 +10,7 @@ $b->resetDatabase();
 
 $dgsList = $b->getDgsUllFlowListGeneric();
 $dgsListTT = $b->getDgsUllFlowListTroubleTicket();
-$dgsListTO = $b->getDgsUllFlowListTroubleTodo();
+$dgsListTD = $b->getDgsUllFlowListTodo();
 
 
 $b
@@ -50,8 +50,8 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'ull_flow_tag1')
   ->isRequestParameter('app', 'todo')
-  ->checkResponseElement($dgsListTO->getFullRowSelector(), 1) // number of rows
-  ->checkResponseElement($dgsListTO->get(1, 'subject'), 'AAA My second thing todo')
+  ->checkResponseElement($dgsListTD->getFullRowSelector(), 1) // number of rows
+  ->checkResponseElement($dgsListTD->get(1, 'subject'), 'AAA My second thing todo')
 ;
 
 $b
@@ -83,13 +83,11 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement($dgsListTT->getFullHeaderColumnSelector(), 8) // number of columns
+  ->checkResponseElement($dgsListTT->getFullHeaderColumnSelector(), 6) // number of columns
   ->checkResponseElement($dgsListTT->getHeader('id') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
   ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/subject/order_dir/asc"]', 'Subject')
   ->checkResponseElement($dgsListTT->getHeader('priority') . ' > a', 'Priority')
   ->checkResponseElement($dgsListTT->getHeader('assigned_to') . ' > a', 'Assigned to')
-  ->checkResponseElement($dgsListTT->getHeader('status') . ' > a', 'Status')
-  ->checkResponseElement($dgsListTT->getHeader('created_by') . ' > a', 'Created by')
   ->checkResponseElement($dgsListTT->getHeader('created_at') . ' > a', 'Created at ↑')  
 ;
 
@@ -101,7 +99,6 @@ $b
   //->checkResponseElement('tbody > tr + tr > td + td + td', '/Trouble ticket tool/')
   ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')
   ->checkResponseElement($dgsListTT->get(2, 'assigned_to'), 'Master Admin')
-  ->checkResponseElement($dgsListTT->get(2, 'created_by'), 'Test User')   
 ;
 
 $b

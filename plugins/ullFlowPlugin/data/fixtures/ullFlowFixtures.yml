@@ -72,6 +72,7 @@ UllFlowApp:
         doc_label:  Trouble Ticket
     slug: trouble_ticket
     namespace:      test
+    list_columns:   id,subject,priority,assigned_to_ull_entity_id,created_at
   ull_flow_app_todo:
     Translation:
       en:
