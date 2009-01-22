@@ -64,6 +64,7 @@
           {
             $q->where('tg.UllFlowDoc.ull_flow_app_id = ?', $app->id);
           }
+          $q->limit(sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100));
         
           $tags_pop = TagTable::getPopulars($q, array('model' => 'UllFlowDoc'));
           sfLoader::loadHelpers(array('Tags'));

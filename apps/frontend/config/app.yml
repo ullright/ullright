@@ -33,9 +33,9 @@ all:
     
   auth:
     function: default      
-
-  tags:
-    limit:          16
     
   pager:
-    max_per_page:   50
+    max_per_page:   30
+    
+  sfDoctrineActAsTaggablePlugin:
+    limit:          16    
