@@ -32,7 +32,7 @@ class ullWidgetInformationUpdateWrite extends ullWidget
     
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     $user = Doctrine::getTable('UllUser')->find($userId);
-    $now = ull_format_datetime(date('Y-m-d H:i:s'));
+    $now = ull_format_datetime();
     
     if ($values[$fieldName]) {
 	     $returnValue = "--------------------------------\n$user ($now):\n{$values[$fieldName]}\n";

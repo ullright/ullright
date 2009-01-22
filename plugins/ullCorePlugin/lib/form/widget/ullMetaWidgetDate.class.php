@@ -1,6 +1,6 @@
 <?php
 
-class ullMetaWidgetDateTime extends ullMetaWidget
+class ullMetaWidgetDate extends ullMetaWidget
 {
   protected function addToForm()
   {
@@ -16,7 +16,7 @@ class ullMetaWidgetDateTime extends ullMetaWidget
     }
     else
     {
-      $this->addWidget(new ullWidgetDateTimeRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetDateRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
     	$this->addValidator(new sfValidatorPass());
     }
     

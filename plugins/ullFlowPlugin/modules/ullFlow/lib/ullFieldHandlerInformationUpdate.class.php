@@ -80,7 +80,7 @@ class ullFieldHandlerInformationUpdate extends ullFieldHandler
     $user_id      = sfContext::getInstance()->getUser()->getAttribute('user_id');
     $user         = UllUserPeer::retrieveByPK($user_id);
     $user_name    = $user->__toString();
-    $now          = ull_format_datetime(date('Y-m-d H:i:s'));
+    $now          = ull_format_datetime();
 
     $return_value = $value;
     

@@ -196,7 +196,7 @@ class ullFlowGenerator extends ullGenerator
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
         'label'             => __('Created at', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetDateTime',
+        'metaWidget'        => 'ullMetaWidgetDate',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
       );
@@ -215,7 +215,7 @@ class ullFlowGenerator extends ullGenerator
         'widgetAttributes'  => array(),
         'validatorOptions'  => array(),
         'label'             => __('Updated at', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetDateTime',
+        'metaWidget'        => 'ullMetaWidgetDate',
         'access'            => $this->defaultAccess,
         'is_in_list'        => true,
       );                

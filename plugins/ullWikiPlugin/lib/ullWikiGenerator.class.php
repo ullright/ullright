@@ -83,6 +83,8 @@ class ullWikiGenerator extends ullTableToolGenerator
       $this->columnsConfig['created_at']      
     );
     
+    $this->columnsConfig['updated_at']['metaWidget']  = 'ullMetaWidgetDate';
+    
     if ($this->requestAction == 'edit')
     {
       unset(
@@ -103,5 +105,6 @@ class ullWikiGenerator extends ullTableToolGenerator
     // configure tags
     $this->columnsConfig['duplicate_tags_for_search']['label']       = 'Tags';
     $this->columnsConfig['duplicate_tags_for_search']['metaWidget']  = 'ullMetaWidgetTaggable';
+    
   }
 }

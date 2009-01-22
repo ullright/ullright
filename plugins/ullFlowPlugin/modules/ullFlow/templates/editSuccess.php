@@ -131,7 +131,7 @@
             echo '</ul>';
             
           echo '<li class="ull_flow_memories_date">' .
-            format_date(strtotime($memory->created_at)) .
+            ull_format_date($memory->created_at) .
             '</li><ul class="ull_flow_memories_day">';
         } ?>
       <li>

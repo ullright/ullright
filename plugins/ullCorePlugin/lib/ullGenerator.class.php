@@ -382,5 +382,5 @@ abstract class ullGenerator
         return true;
       }
      }
-  }  
+  }
 }

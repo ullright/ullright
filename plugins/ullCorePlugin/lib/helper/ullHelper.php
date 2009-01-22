@@ -17,38 +17,26 @@ sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url')
  * @return string date        formated date like "4.12.2007" for "de"
  */
 
-function ull_format_date($date, $culture = null) 
+function ull_format_date($date = null) 
 {
-  if ($date) {
-    if (!$culture) {
-      $culture = sfContext::getInstance()->getUser()->getCulture();
-    }
+  if ($date == null)
+    $date = time();
+  
+  $culture = sfContext::getInstance()->getUser()->getCulture();
+  $culture_parts = explode('_', $culture);
+  $language = $culture_parts[0];
+  
+  switch ($language)
+  {
+    case 'de':
+      $dt = format_datetime($date, "d.M.yyyy");
+      break;
     
-    $culture_parts = explode('_', $culture);
-    $language = $culture_parts[0];
-  
-    switch ($language) {
-      case 'de':
-        $year = substr($date,0,4);
-        $month = substr($date,5,2);
-        $day = substr($date,8,2);
-  
-        if (substr($month,0,1) == 0) {
-          $month = substr($month,1,1);
-        }
-    
-        if (substr($day,0,1) == 0) {
-          $day = substr($day,1,1);
-        }
-  
-        $output =  $day.'.'.$month.'.'.$year;
-        return $output;      
-        break;
-        
-      default:
-        return format_date($date, 'd', $culture); 
-    }
+    default:
+      $dt = format_datetime($date, "MM-dd-yyyy");
   }
+   
+  return $dt;
 }
 
 
@@ -59,39 +47,27 @@ function ull_format_date($date, $culture = null)
  * @param string date         iso date like "2007-12-04 13:45:10"
  * @return string date        formated date like "4.12.2007 13:45h" for "de"
  */
-
-function ull_format_datetime($datetime, $culture = null) {
   
-  if ($datetime) {
+function ull_format_datetime($date = null) 
+{
+  if ($date == null)
+    $date = time();
   
-    sfLoader::loadHelpers(array('Date'));
+  $culture = sfContext::getInstance()->getUser()->getCulture();
+  $culture_parts = explode('_', $culture);
+  $language = $culture_parts[0];
   
-    if (!$culture) {
-      $culture = sfContext::getInstance()->getUser()->getCulture();
-    }
+  switch ($language)
+  {
+    case 'de':
+      $dt = format_datetime($date, "d.M.yyyy HH:mm:ss");
+      break;
     
-    $culture_parts = explode('_', $culture);
-    $language = $culture_parts[0];
-  
-    switch ($language) {
-      case 'de':
-        
-        $date = ull_format_date($datetime);
-  
-        $hour = substr($datetime,11,2);
-        $minute = substr($datetime,14,2);
-  
-        if (substr($hour,0,1) == 0) {
-          $hour = substr($hour,1,1);
-        }
-        
-        return $date.' '.$hour.':'.$minute.'h';
-        break;
-        
-      default:
-        return format_datetime($datetime, 'd', $culture); 
-    }
+    default:
+      $dt = format_datetime($date, "MM-dd-yyyy HH:mm:ss");
   }
+   
+  return $dt;
 }
 
 function ull_image_path($type, $width = null, $height = null, $plugin = null)

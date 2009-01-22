@@ -16,8 +16,7 @@
 		  <li>
 		    <?php echo __('Created by', null, 'common') ?>
 		    <?php echo $doc->Creator ?>
-		    (<?php echo ull_format_datetime($doc->created_at) . ', ' .
-		                    time_ago_in_words(strtotime($doc->created_at)); ?>)
+		    (<?php echo ull_format_datetime($doc->created_at); ?>)
 		  </li>
 		  <li>
 		    <?php echo __('Last action')?>:
@@ -27,8 +26,7 @@
 		    <?php endif ?>
 		    <?php echo __('by') ?>
 		    <?php echo $doc->Updator ?>
-		    (<?php echo ull_format_datetime($doc->updated_at) . ', ' .
-		                    time_ago_in_words(strtotime($doc->updated_at)); ?>)
+		    (<?php echo ull_format_datetime($doc->updated_at); ?>)
 		  </li>
 		  <?php if ($doc->UllFlowAction->is_in_resultlist): //excludes action "closed" ?>
 		    <li>
