@@ -190,10 +190,21 @@ class ullTableToolGenerator extends ullGenerator
       switch ($column['type'])
       {
         case 'string':
-          $columnConfig['metaWidget'] = 'ullMetaWidgetString'; 
-          $columnConfig['widgetAttributes']['maxlength'] = $column['length'];
-          $columnConfig['validatorOptions']['max_length'] = $column['length'];
+          if ($column['length'] > 255)
+          { 
+            $columnConfig['metaWidget'] = 'ullMetaWidgetTextarea';
+          }
+          else
+          {
+            $columnConfig['metaWidget'] = 'ullMetaWidgetString'; 
+            $columnConfig['widgetAttributes']['maxlength'] = $column['length'];
+            $columnConfig['validatorOptions']['max_length'] = $column['length'];
+          }
           break;
+
+        case 'clob':
+          $columnConfig['metaWidget'] = 'ullMetaWidgetTextarea';
+          break;          
           
         case 'integer':
           $columnConfig['metaWidget'] = 'ullMetaWidgetInteger';

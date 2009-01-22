@@ -83,7 +83,7 @@ class myTestCase extends sfDoctrineTestCase
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => false),
         'label'               => 'My text',
-        'metaWidget'          => 'ullMetaWidgetString',
+        'metaWidget'          => 'ullMetaWidgetTextarea',
         'access'              => 'w',
         'is_in_list'        => true,
         'translation'         => true,

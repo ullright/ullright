@@ -11,7 +11,7 @@ abstract class BaseUllFlowStepAction extends UllRecord
     $this->setTableName('ull_flow_step_action');
     $this->hasColumn('ull_flow_step_id', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('options', 'string', 255, array('type' => 'string', 'length' => '255'));
+    $this->hasColumn('options', 'string', 4096, array('type' => 'string', 'length' => '4096'));
     $this->hasColumn('sequence', 'integer', null, array('type' => 'integer'));
   }
 

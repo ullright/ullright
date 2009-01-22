@@ -287,7 +287,7 @@ UllFlowStepAction:
     ull_flow_action_id:
       type: integer
     options:
-      type: string(255)
+      type: string(4096)
     sequence:
       type: integer
   relations:
