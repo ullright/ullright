@@ -516,12 +516,12 @@
 
 <trans-unit id="16003">
 <source>Low</source>
-<target>Gering</target>
+<target>Niedrig</target>
 </trans-unit>
 
 <trans-unit id="16004">
 <source>Very low</source>
-<target>Sehr gering</target>
+<target>Sehr niedrig</target>
 </trans-unit>
 
 
