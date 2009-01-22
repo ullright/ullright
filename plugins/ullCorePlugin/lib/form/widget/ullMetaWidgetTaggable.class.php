@@ -12,7 +12,7 @@ class ullMetaWidgetTaggable extends ullMetaWidget
     {
       if (!isset($this->columnConfig['widgetAttributes']['size']))
       {
-        $this->columnConfig['widgetAttributes']['size'] = '30';
+        $this->columnConfig['widgetAttributes']['size'] = '50';
       }
     	
     	$this->addWidget(new ullWidgetTaggable($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
