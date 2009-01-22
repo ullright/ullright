@@ -534,7 +534,7 @@ div#indicator {
 	left: 10px;
 	top: 10px;
 	z-index: 900;
-	background: url(/ullThemeDefault/images/indicator.gif) no-repeat 0 0;
+	background: url(/ullCoreThemeNGPlugin/images/indicator.gif) no-repeat 0 0;
 }
 
 .center {

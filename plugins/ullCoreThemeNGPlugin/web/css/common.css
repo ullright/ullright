@@ -48,7 +48,7 @@ kbd {
 	font-weight: bold;
 	padding: .3em 1em;
 	padding-left: 2.3em;
-	background-image: url(/ullThemeDefault/images/cmd_dollar.png);
+	background-image: url(/ullCoreThemeNGPlugin/images/cmd_dollar.png);
 	background-repeat: no-repeat;
 	background-position: 1em center;
 }
@@ -138,7 +138,7 @@ small {
 }
 
 a.link_external {
-	background-image: url(/ullThemeDefault/images/external.png);
+	background-image: url(/ullCoreThemeNGPlugin/images/external.png);
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	background-position: right center;
@@ -146,7 +146,7 @@ a.link_external {
 }
 
 a.link_new_window {
-	background-image: url(/ullThemeDefault/images/new_window.png);
+	background-image: url(/ullCoreThemeNGPlugin/images/new_window.png);
 	background-repeat: no-repeat;
 	background-attachment: scroll;
 	background-position: right center;
