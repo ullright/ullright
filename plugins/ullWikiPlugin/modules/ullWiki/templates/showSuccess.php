@@ -96,13 +96,13 @@ if (!function_exists('u_func')) {
 //    echo "<textarea cols=80 rows=10>$replace</textarea>";
     
     $replace = str_replace('<br />', '', $replace);
-    //$replace = str_replace("<pre>", '', $replace);
-    //$replace = str_replace('</pre>', '', $replace);
+    $replace = str_replace("<pre>", '', $replace);
+    $replace = str_replace('</pre>', '', $replace);
 
     
 //    ullCoreTools::printR($replace);
     $highlighter = new dkGeshi($replace, 'php');
-    //$replace = $highlighter->parse_code();
+    $replace = $highlighter->parse_code();
     
     return $replace;
     
