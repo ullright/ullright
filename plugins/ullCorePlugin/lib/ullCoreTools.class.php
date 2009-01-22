@@ -21,23 +21,30 @@ class ullCoreTools
    */
   public static function doctrineSearch($q, $search, $columns)
   {
-    $search_parts = explode(' ', $search);
-    foreach ($search_parts as $key => $part)
+    $searchParts = explode(' ', $search);
+    foreach ($searchParts as $key => $part)
     {
-      $search_parts[$key] = '%' . $part . '%';
+      $searchParams[] = '%' . $part . '%';
     }
+    
+    $whereTopLevel = array();
+    $params = array();
     
     foreach($columns as $col)
     {
       $where = array();
-      for ($i = 0; $i < count($search_parts); $i++)
+      for ($i = 0; $i < count($searchParts); $i++)
       {
         $where[] = 'x.' . $col . ' LIKE ?'; 
       }
-      $where = implode(' AND ', $where);
-      
-      $q->orWhere($where, $search_parts);
+      $whereTopLevel[] = implode(' AND ', $where);
+
+      $params = array_merge($params, $searchParams);
     }    
+
+    $where = '(' . implode(' OR ', $whereTopLevel) . ')';
+    
+    $q->addWhere($where, $params);
     
     return $q;
   }

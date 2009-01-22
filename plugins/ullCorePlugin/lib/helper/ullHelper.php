@@ -745,16 +745,23 @@ function _ull_reqpass_build_url($params) {
   if ($params) 
   { 
     $addition = '?';
-    foreach($params as $key => $value) 
+    foreach($params as $paramName => $paramValue) 
     {
       // move array (first layer at the moment) to "[]" syntax 
-      if (is_array($value))
+      if (is_array($paramValue))
       {
-        $key .= '[' . key($value) . ']';
-        $value = array_shift($value);
+        foreach ($paramValue as $key => $value)
+        {
+          $key = $paramName . '[' . $key . ']';
+          $url .= $addition . $key . '=' . $value;
+          $addition = '&';
+        }
       }
-      $url .= $addition . $key . '=' . $value;
-      $addition = '&';
+      else 
+      {
+        $url .= $addition . $paramName . '=' . $paramValue;
+        $addition = '&';
+      }
     }
   }
 

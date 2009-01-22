@@ -163,6 +163,32 @@ $b
 ;
 
 $b
+  ->diag('list: test filter search + status')
+  ->setField('filter[status]', 'all')
+  ->click('Search_16x16')
+  ->followRedirect()  
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('filter[search]', 'first t')
+  ->isRequestParameter('filter[status]', 'all')
+  ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
+  ->checkResponseElement($dgsList->get(1, 'subject'), 'My first thing todo')
+  ->checkResponseElement($dgsList->get(2, 'subject'), 'My first trouble ticket')  
+;
+
+$b
+  ->diag('list: now select another status')
+  ->setField('filter[status]', 'reject')
+  ->click('Search_16x16')
+  ->followRedirect()  
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('filter[search]', 'first t')
+  ->isRequestParameter('filter[status]', 'reject')
+  ->checkResponseElement($dgsList->getFullRowSelector(), false) // number of rows
+;  
+
+$b
   ->diag('list: named queries: to me')
   ->get('ullFlow/index')
   ->click('Entries created by me')
@@ -182,3 +208,5 @@ $b
   ->isRequestParameter('query', 'to_me')
   ->checkResponseElement($dgsList->get(1, 'subject'), 'My first trouble ticket')
 ;
+
+

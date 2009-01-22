@@ -47,11 +47,12 @@ $t->diag('_ull_reqpass_build_url');
     'foo'     => 'bar',
     'filter'  => array(
       'search'  => 'bla',
+      'status'  => 'rejected'
     ),
     'baz'       => 'schmatz',
   );
   
-  $result = 'ullFlow/list?foo=bar&filter[search]=bla&baz=schmatz';
+  $result = 'ullFlow/list?foo=bar&filter[search]=bla&filter[status]=rejected&baz=schmatz';
   
   $t->is(_ull_reqpass_build_url($test), $result, 'returns the correct array');
   
