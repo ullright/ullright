@@ -204,16 +204,6 @@
 <target>Datum absteigend</target>
 </trans-unit>
 
-<trans-unit id="2008">
-<source>Created by</source>
-<target>Erstellt von</target>
-</trans-unit>
-
-<trans-unit id="2009">
-<source>Updated by</source>
-<target>Ge&#xE4;ndert von</target>
-</trans-unit>
-
 <trans-unit id="2010">
 <source>List view</source>
 <target>Listenansicht</target>

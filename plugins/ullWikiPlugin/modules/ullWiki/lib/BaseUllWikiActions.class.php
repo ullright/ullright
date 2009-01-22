@@ -298,7 +298,7 @@ class BaseUllWikiActions extends ullsfActions
     //   because it has sideeffects and needs further testing
     $q->addWhere('x.deleted = ?', false);
     
-    $this->order = $this->getRequestParameter('order', 'created_at');
+    $this->order = $this->getRequestParameter('order', 'updated_at');
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
     
     $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';

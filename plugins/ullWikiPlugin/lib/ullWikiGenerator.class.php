@@ -78,15 +78,15 @@ class ullWikiGenerator extends ullTableToolGenerator
       $this->columnsConfig['read_counter'],
       $this->columnsConfig['edit_counter'],
       $this->columnsConfig['deleted'],
-      $this->columnsConfig['version']
+      $this->columnsConfig['version'],
+      $this->columnsConfig['creator_user_id'],
+      $this->columnsConfig['created_at']      
     );
     
     if ($this->requestAction == 'edit')
     {
       unset(
-        $this->columnsConfig['id'],
-        $this->columnsConfig['creator_user_id'],
-        $this->columnsConfig['created_at'],
+        $this->columnsConfig['id'],        
         $this->columnsConfig['updator_user_id'],
         $this->columnsConfig['updated_at']
       );
