@@ -218,3 +218,20 @@ $b
   ->checkResponseElement('table > tbody > tr', 2)
   ->checkResponseElement('body', '!/My new test subject/')
 ;
+
+$b
+  ->diag('create values with tags in it (check output escaping)')
+  ->get('ullWiki/list')
+  ->click('Create')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'create')
+  ->setField('fields[subject]', 'tag: <i>italy</i>')
+  ->click('Save and close')
+  ->isRedirected()
+  ->followRedirect()  
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement('tr > td + td + td > b > a > i', false)
+;

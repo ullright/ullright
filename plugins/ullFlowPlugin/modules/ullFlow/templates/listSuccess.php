@@ -1,5 +1,5 @@
 <?php echo $breadcrumbTree->getHtml(ESC_RAW) ?>
-<?php $generator = $sf_data->getRaw('generator') ?>
+<?php //$generator = $sf_data->getRaw('generator') ?>
 
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
 
@@ -46,15 +46,18 @@
   <?php $odd = false; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
     <?php
-        //if (isset($form['subject'])) {
-    	     $form['subject']->getWidget()->setAttribute('href', 
-            ull_url_for(array_merge($generator->getIdentifierUrlParamsAsArray($row), array('action' => 'edit'))));
-        //} ?>
+      $identifiers = (array) $generator->getIdentifierUrlParamsAsArray($row);
+      $form['subject']->getWidget()->setAttribute('href', 
+        ull_url_for(array_merge($identifiers, array('action' => 'edit'))));
+    ?>
       <?php
-        if ($odd) {
-          $odd_style = ' class=\'odd\'';
+        if ($odd) 
+        {
+          $odd_style = ' class="odd"';
           $odd = false;
-        } else {
+        } 
+        else 
+        {
           $odd_style = '';
           $odd = true;
         }

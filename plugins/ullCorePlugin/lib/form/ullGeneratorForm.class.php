@@ -32,7 +32,24 @@ class ullGeneratorForm extends sfFormDoctrine
     // called after parent:__construct, because sfFormDoctrine overwrites defaults with emtpy array *#!?$
     $this->setDefaults($defaults);
     $this->updateDefaultsFromObject();
-//    var_dump($this->getDefaults());die;
+    
+    if ($this->requestAction == 'list')
+    { 
+      $defaultsESC = array();
+      foreach ($this->getDefaults() as $key => $value)
+      {
+        if (is_string($value))
+        {
+          $defaultsESC[$key] = htmlentities($value);
+        }
+        else
+        {
+          $defaultsESC[$key] = $value;
+        }
+      }
+      $this->setDefaults($defaultsESC);
+    }
+//    var_dump($this->getDefaults());
   }
 
   /**

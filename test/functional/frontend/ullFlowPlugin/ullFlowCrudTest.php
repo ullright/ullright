@@ -138,6 +138,24 @@ $b
   ->checkResponseElement($dgsList->get(1, 'subject'), 'This is my shiny little edited subject')
 ;
 
+$b
+  ->diag('create values with tags in it (check output escaping)')
+  ->get('ullFlow/list/app/trouble_ticket')
+  ->click('Create')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->setField('fields[my_subject]', 'tag: <i>italy</i>')
+  ->click('Save and close')
+  ->isRedirected()
+  ->followRedirect()  
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement($dgsListTT->get(1, 'subject') . ' > b > a > i', false)
+;
+
 
 $b->resetDatabase();
 $b
