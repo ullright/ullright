@@ -93,10 +93,8 @@ $b
 
 $b
   ->diag('list - content')
-  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->get(1, 'subject') . ' > b > a[href*="/ullFlow/edit/app/trouble_ticket/doc/2"]', 'AAA My second trouble ticket')
   ->checkResponseElement($dgsListTT->get(1, 'assigned_to'), 'Helpdesk')
-  //app name is not there anymore
-  //->checkResponseElement('tbody > tr + tr > td + td + td', '/Trouble ticket tool/')
   ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')
   ->checkResponseElement($dgsListTT->get(2, 'assigned_to'), 'Master Admin')
 ;

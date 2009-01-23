@@ -1,5 +1,5 @@
 <?php echo $breadcrumbTree->getHtml(ESC_RAW) ?>
-<?php //$generator = $sf_data->getRaw('generator') ?>
+<?php $generator = $sf_data->getRaw('generator') ?>
 
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
 
