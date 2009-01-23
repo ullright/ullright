@@ -36,7 +36,7 @@ $t->diag('addAddress()');
   $mail = new ullsfMail();
   $entity = Doctrine::getTable('UllGroup')->findOneByDisplayName('TestGroup');
   $mail->addAddress($entity);
-  $reference = array('test.group@example.com' => 'TestGroup (Group)');
+  $reference = array('test.group@example.com' => 'TestGroup');
   $t->is($mail->getAddresses(), $reference, 'sets the correct to: address for a UllGroup with a group email address');  
 
   

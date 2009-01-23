@@ -124,7 +124,7 @@ $b
   ->isRequestParameter('app', 'trouble_ticket')
   ->checkResponseElement($dgsListTT->getFullRowSelector(), 3) // number of rows
   ->checkResponseElement($dgsListTT->get(1, 'subject'), 'This is my shiny little edited subject')
-  ->checkResponseElement($dgsListTT->get(1, 'assigned_to'), 'Helpdesk (Group)')
+  ->checkResponseElement($dgsListTT->get(1, 'assigned_to'), 'Helpdesk')
 ;  
 
 $b

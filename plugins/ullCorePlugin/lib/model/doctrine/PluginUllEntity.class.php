@@ -16,7 +16,9 @@ abstract class PluginUllEntity extends BaseUllEntity
     if ($this->type == 'group')
     {
       $group = sfContext::getInstance()->getI18N()->__('Group', null, 'common');
-      return $this->display_name . " ($group)";
+      //return $this->display_name . " ($group)";
+      //let's see how this looks...
+      return $this->display_name;
     }
     else
     {
