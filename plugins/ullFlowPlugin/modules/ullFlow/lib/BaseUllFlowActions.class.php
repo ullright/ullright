@@ -341,6 +341,14 @@ class BaseUllFlowActions extends ullsfActions
       {
         $arr = explode("\n", $this->value);
       }
+      foreach ($arr as $value)
+      {
+        if ($value == $ullWikiDocId)
+        {
+          //this wiki doc id is already in the link list
+        	return ;
+        }
+      }
       $arr[] = $ullWikiDocId;
       $this->value = implode("\n", $arr);
       

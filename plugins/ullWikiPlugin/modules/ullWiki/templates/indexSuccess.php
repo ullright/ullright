@@ -39,7 +39,9 @@
         <?php
           $tags_pop = TagTable::getPopulars(null, array('model' => 'UllWiki'));
           sfLoader::loadHelpers(array('Tags'));
-          echo tag_cloud($tags_pop, 'ullWiki/list?filter[search]=%s');
+          //prev: ullWiki/list?filter[search]=%s
+          $tagurl = str_replace('%25', '%', ull_url_for(array('action' => 'list', 'filter[search]' => '%s')));
+          echo tag_cloud($tags_pop, $tagurl);
         ?>      
       </div>
     </div>

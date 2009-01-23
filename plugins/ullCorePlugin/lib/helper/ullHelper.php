@@ -757,8 +757,16 @@ function ull_url_for($url = array())
     $params = _ull_reqpass_initialize($url);  
     $url = _ull_reqpass_build_url($params);
   }
+  
+  $url = url_for($url);
+  
+  // "un-escape" "reqpass" array syntax with square braces
+  // example: "filter[search]"
+  // TODO: this should be patched in url_for...
+  $url = str_replace('%5B', '[', $url);
+  $url = str_replace('%5D', ']', $url);
 
-  return url_for($url);
+  return $url;
 }
 
 
