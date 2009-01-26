@@ -31,7 +31,17 @@ EOF;
 	  $arguments['application'], $arguments['env'], true);
 
 	  $fixtures = file_get_contents(sfConfig::get('sf_root_dir') . '/data/fixtures/test');
+	  
+//	  var_dump($fixtures);
+    // remove trailing whitespaces before literal newlines
+	  $fixtures = preg_replace('#\s+\\\\n#', '\\\\n', $fixtures);
+//	  var_dump($fixtures);
+//	  die;
+	 
+	  
     $fixtures = sfYaml::load($fixtures);
+    
+    $this->logSection($this->name, 'Processing fixtures');
     
     //generic stuff
     foreach ($fixtures as $model => $records)
@@ -399,6 +409,12 @@ EOF;
         $fixtures[$model][$descriptor]['priority'] = 3;
       }
       
+      // fix action
+      if (!$fixtures[$model][$descriptor]['UllFlowAction'])
+      {
+        $fixtures[$model][$descriptor]['UllFlowAction'] = 'ull_flow_action_close';
+      }
+      
       unset(
         $fixtures[$model][$descriptor]['ull_flow_app_id'],
         $fixtures[$model][$descriptor]['title'],
@@ -417,6 +433,12 @@ EOF;
     $model = 'UllFlowValue';
     foreach ($fixtures[$model] as $descriptor => $record)
     {
+      //skip non-existing UllFlowDocs
+      if (!isset($fixtures['UllFlowDoc'][$record['ull_flow_doc_id']]))
+      {
+        unset($fixtures[$model][$descriptor]);
+        continue;
+      }
       $fixtures[$model][$descriptor]['UllFlowDoc'] = $record['ull_flow_doc_id'];
       $fixtures[$model][$descriptor]['UllFlowColumnConfig'] = $record['ull_flow_field_id'];
       $fixtures[$model][$descriptor]['Creator'] = $record['updator_user_id'];
@@ -434,6 +456,13 @@ EOF;
     $model = 'UllFlowMemory';
     foreach ($fixtures[$model] as $descriptor => $record)
     {
+      //skip non-existing UllFlowDocs
+      if (!isset($fixtures['UllFlowDoc'][$record['ull_flow_doc_id']]))
+      {
+        unset($fixtures[$model][$descriptor]);
+        continue;
+      }      
+      
       $fixtures[$model][$descriptor]['UllFlowDoc'] = $record['ull_flow_doc_id'];
       $fixtures[$model][$descriptor]['UllFlowStep'] = $record['ull_flow_step_id'];
       $ullFlowActionId = str_replace('UllFlowAction_', '', $record['ull_flow_action_id']);
@@ -456,6 +485,12 @@ EOF;
       }
       $fixtures[$model][$descriptor]['Updator'] = $record['Creator'];
       $fixtures[$model][$descriptor]['updated_at'] = $record['created_at'];
+      
+      // fix action
+      if (!$fixtures[$model][$descriptor]['UllFlowAction'])
+      {
+        $fixtures[$model][$descriptor]['UllFlowAction'] = 'ull_flow_action_close';
+      }      
       
       unset(
         $fixtures[$model][$descriptor]['ull_flow_doc_id'],
@@ -514,7 +549,10 @@ EOF;
     
 //    var_dump($fixtures);
     
+    $this->logSection($this->name, 'Dumping fixtures');
+    
     $yml = sfYaml::dump($fixtures, 5);
+    
 //    var_dump($yml);
     
     file_put_contents(sfConfig::get('sf_root_dir') . '/data/fixtures/test.yml', $yml);
