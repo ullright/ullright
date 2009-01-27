@@ -91,7 +91,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(21, new lime_output_color, $configuration);
+$t = new myTestCase(24, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -129,27 +129,49 @@ $t->diag('getColumnConfig()');
   }
 
 $t->diag('buildForm()');
+
   $generator->buildForm($docs);  
   
 $t->diag('getForm() with calling buildForm() prior');  
+
   $form = $generator->getForm();
   $t->isa_ok($form, 'ullFlowForm', 'getForm() returns the correct object');
   
 $t->diag('getForms()');
+
   $forms = $generator->getForms();
   $t->is(is_array($forms), true, 'getForms() returns an array');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');
   $t->isa_ok($forms[0], 'ullFlowForm', 'The first entry is the correct object');  
   $t->isa_ok($forms[1], 'ullFlowForm', 'The second entry is the correct object');  
   
-$t->diag('buildUllFlowActionHandlers()');
+$t->diag('buildListOfUllFlowActionHandlers()');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(2);
   $generator = new ullFlowGenerator($app, 'w');
   $generator->buildForm($doc);
   
-  $generator->buildUllFlowActionHandlers();
+  $generator->buildListOfUllFlowActionHandlers();
   $form = $generator->getForm();
   $t->is(count($form->getWidgetSchema()->getFields()), 10, 'The form now contains one more field from the action handler');
+
+$t->diag('getListOfUllFlowActionHandlers()');
+
+  $handlers = $generator->getListOfUllFlowActionHandlers();
+  $t->is(count($handlers), 2, 'Two UllFlowActionHandler were set');
+  $t->isa_ok($handlers['assign_to_user'], 'ullFlowActionHandlerAssignToUser', 'The first field handler returns the correct object');
+  $t->isa_ok($handlers['close'], 'ullFlowActionHandlerClose', 'The second field handler returns the correct object');
   
-  $t->is(count($generator->getUllFlowActionHandlers()), 2, 'One UllFlowActionHandler was set');
+$t->diag('setUllFlowActionHandler()');
+
+  $doc = Doctrine::getTable('UllFlowDoc')->find(2);
+  $generator = new ullFlowGenerator($app, 'w');
+  $generator->buildForm($doc);
+  
+  $generator->setUllFlowActionHandler('assign_to_user');
+  $form = $generator->getForm();  
+  
+$t->diag('getUllFlowActionHandler()');
+
+  $t->isa_ok($generator->getUllFlowActionHandler(), 'ullFlowActionHandlerAssignToUser', 'Returns the correct object');  
+  

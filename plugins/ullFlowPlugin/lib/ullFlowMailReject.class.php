@@ -1,6 +1,6 @@
 <?php
 
-class ullFlowMailNotifyNext extends ullFlowMail
+class ullFlowMailReject extends ullFlowMail
 {
 
   /**
@@ -17,18 +17,10 @@ class ullFlowMailNotifyNext extends ullFlowMail
         $this->doc->UllFlowApp->doc_label . 
         ': "' .
         $this->doc->subject .
-        '"'
+        '" ' .
+        __('has been %1%', array('%1%' => strtolower($this->doc->UllFlowAction)))
     ;
     $this->setSubject($subject);
-    
-    $request =
-        __('Please take care of') .
-        ' ' .
-        $this->doc->UllFlowApp->doc_label . 
-        ' "' .
-        $this->doc->subject .
-        '"'
-    ;
     
     $comment = ($this->doc->memory_comment) ? __('Comment') . ': ' . 
         $this->doc->memory_comment . "\n\n" : ''; 
@@ -36,7 +28,7 @@ class ullFlowMailNotifyNext extends ullFlowMail
     $this->setBody(
       __('Hello') . ' ' . $this->doc->UllEntity . ",\n" .
       "\n" .
-      $request . ".\n" .
+      $subject . ".\n" .
       "\n" .
       $comment .
       $this->getEditLink() . "\n" .

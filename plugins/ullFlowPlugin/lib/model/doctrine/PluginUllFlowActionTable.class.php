@@ -39,4 +39,23 @@ class PluginUllFlowActionTable extends UllRecordTable
     return $q->execute()->getFirst();
   }
   
+  /**
+   * Check if the given action slug is not a status-only action
+   *
+   * @param unknown_type $slug
+   * @return unknown
+   */
+  public static function isNonStatusOnly($slug)
+  {
+    if ($slug)
+    {
+      $action = Doctrine::getTable('UllFlowAction')->findOneBySlug($slug);
+      
+      if ($action)
+      {
+        return $action->is_status_only ? false : true;
+      }
+    }
+  }
+  
 }

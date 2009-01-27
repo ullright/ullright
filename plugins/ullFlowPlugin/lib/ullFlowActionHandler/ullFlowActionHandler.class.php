@@ -16,13 +16,6 @@ abstract class ullFlowActionHandler
     // used to store the form fields for one handler to allow setting the
     //  validators to required for all widgets of one handler
     $formFields = array()    
-//    $doc,
-//    $doc_id,
-//    $params = array (
-//      'next_step'   => 0,
-//      'next_user'   => 0,
-//      'next_group'  => 0,
-//    )
   ;
   
   public function __construct(sfForm $form, $options = array())
@@ -98,6 +91,16 @@ abstract class ullFlowActionHandler
       'entity' => $memory->AssignedToUllEntity, 
       'step' => $memory->UllFlowStep
     );
+  }
+  
+  /**
+   * Empty method called on post-save of the UllFlowDoc object
+   * 
+   * Custom Mails can be sent here
+   *
+   */
+  public function sendMail()
+  {
   }
   
 }

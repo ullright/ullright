@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-REPO_URL="https://ssl.ull.at/svn/ullright/trunk"
+REPO_URL="http://bigfish.ull.at/svn/ullright/tags/before_doctrine_port"
 
 echo "Removing old config files..."
 rm config/i18n.yml

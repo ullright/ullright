@@ -39,7 +39,7 @@
         
         <ul>
           <?php
-          foreach ($generator->getUllFlowActionHandlers() as $action_handler): ?>
+          foreach ($generator->getListOfUllFlowActionHandlers() as $action_handler): ?>
             <li>
             <?php echo $action_handler->render(ESC_RAW); ?>
             </li>

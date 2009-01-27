@@ -6,6 +6,7 @@ class ullFlowGenerator extends ullGenerator
     $formClass = 'ullFlowForm',
     $app,
     $ullFlowActionHandlers = array(),
+    $ullFlowActionHandler,
     $defaultListColumns = array(
       'ull_flow_app_id',      
       'subject',
@@ -268,47 +269,75 @@ class ullFlowGenerator extends ullGenerator
   }
   
   /**
-   * Handle ullFlowActions
+   * Build list of ullFlowActions
    * 
-   * This function has 2 modes:
+   * Loads all needed ullFlowActions and configures the ullFlowForm with the 
+   * needed widgets and validators
    * 
-   * 1) Used in the edit action it loads all needed ullFlowActions
-   *    and configures the ullFlowForm with the needed widgets
-   *    and validators
-   * 
-   * 2) Used in the "update" part of the edit action ("post request"):
-   *    Additinally for the selected action, the validators are set to "required"
-   *
-   * @param string $actionSlug
    */
-  public function buildUllFlowActionHandlers($actionSlug = '')
+  public function buildListOfUllFlowActionHandlers()
   {
     foreach ($this->getRow()->UllFlowStep->UllFlowStepActions as $stepAction) 
     {
       $ullFlowActionSlug = $stepAction->UllFlowAction->slug;
-      
       $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowActionSlug);
       $this->ullFlowActionHandlers[$ullFlowActionSlug] = new $ullFlowActionHandlerName($this->getForm(), $stepAction->options);     
     }
-    
-    // for the "update" part of the edit action set the validators to required
-    if ($actionSlug && isset($this->ullFlowActionHandlers[$actionSlug]))
-    {
-      foreach ($this->ullFlowActionHandlers[$actionSlug]->getFormFields() as $formField)
-      {
-        $this->getForm()->getValidatorSchema()->offsetGet($formField)->setOption('required', true);
-      }
-    }    
-  }
+  }    
+  
   
   /**
-   * Get ullFlowActionHandlers
+   * Get list of ullFlowActionHandlers
    *
    * @return array
    */
-  public function getUllFlowActionHandlers()
+  public function getListOfUllFlowActionHandlers()
   {
     return $this->ullFlowActionHandlers;
-  }
+  }  
   
+  /**
+   * set ullFlowActions
+   * 
+   * Used in the "update" part of the edit action ("post request"):
+   * For the selected action, the validators are set to "required"
+   *
+   * @param string $actionSlug
+   */
+  public function setUllFlowActionHandler($actionSlug)
+  {
+    if (UllFlowActionTable::isNonStatusOnly($actionSlug))
+    {
+      $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($actionSlug);
+      $this->ullFlowActionHandler = new $ullFlowActionHandlerName($this->getForm());
+
+
+      
+      foreach ($this->ullFlowActionHandler->getFormFields() as $formField)
+      {
+//        var_dump($formField);
+        $this->getForm()->getValidatorSchema()->offsetGet($formField)->setOption('required', true);
+      }
+      
+          if ($ullFlowActionHandlerName <> 'ullFlowActionHandlerSend')
+      {
+//      var_dump($ullFlowActionHandlerName);
+//      var_dump($this->ullFlowActionHandler->getFormFields());
+//      var_dump(sfContext::getInstance()->getRequest()->getParameterHolder()->getAll());
+//      
+//      die();
+      }      
+    }
+  }  
+  
+  /**
+   * Get ullFlowActionHandler
+   *
+   * @return array
+   */
+  public function getUllFlowActionHandler()
+  {
+    return $this->ullFlowActionHandler;
+  }
+
 }

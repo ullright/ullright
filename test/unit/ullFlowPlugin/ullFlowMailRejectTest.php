@@ -18,9 +18,13 @@ $t->setFixturesPath($path);
 $t->begin('__construct');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
+  $doc->UllFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug('reject');
+  $doc->memoryComment = 'Mmmmhh, bacon!';
+//  $doc->save();
+//  var_dump($doc->toArray());die;
   $user = Doctrine::getTable('UllUser')->findOneByUserName('helpdesk_user');
-  $mail = new ullFlowMailNotifyNext($doc, $user);
-  $t->isa_ok($mail, 'ullFlowMailNotifyNext', 'returns the correct object');
+  $mail = new ullFlowMailReject($doc, $user);
+  $t->isa_ok($mail, 'ullFlowMailReject', 'returns the correct object');
   
 $t->diag('prepare()');
   
@@ -29,11 +33,13 @@ $t->diag('prepare()');
   $reference = array('admin@example.com' => 'Master Admin');
   $t->is($mail->getAddresses(), $reference, 'sets the correct to: addresses');
   
-  $t->is($mail->getSubject(), 'Trouble ticket: "My first trouble ticket"', 'creates the correct subject');
+  $t->is($mail->getSubject(), 'Trouble ticket: "My first trouble ticket" has been rejected', 'creates the correct subject');
   
   $reference = 'Hello Master Admin,
 
-Please take care of Trouble ticket "My first trouble ticket".
+Trouble ticket: "My first trouble ticket" has been rejected.
+
+Comment: Mmmmhh, bacon!
 
 Link: http:///ullFlow/edit/doc/1
 

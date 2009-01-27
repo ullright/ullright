@@ -149,7 +149,7 @@ class BaseUllFlowActions extends ullsfActions
     
     $this->generator = new ullFlowGenerator($this->app, $accessType);
     $this->generator->buildForm($this->doc);
-    $this->generator->buildUllFlowActionHandlers($request->getParameter('action_slug'));
+    $this->generator->buildListOfUllFlowActionHandlers();    
     
 //    var_dump($this->doc->UllFlowStep->UllFlowStepActions->toArray(true));die;
     
@@ -157,15 +157,24 @@ class BaseUllFlowActions extends ullsfActions
 //    die;
     
     if ($request->isMethod('post'))
-    {
-//      var_dump($request->getParameterHolder()->getAll());die;
+    {      
+      
+      $this->generator->setUllFlowActionHandler($request->getParameter('action_slug'));
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
 //        var_dump($request->getParameterHolder()->getAll());
 //        die;
 
-        $this->sendMails();
+        // notify post_save event
+        $this->dispatcher->notify(new sfEvent($this, 'ull_flow.post_save', array(
+          'doc'        => $this->doc
+        )));
+
+        if (!$this->doc->UllFlowAction->is_status_only)
+        {
+          $this->sendMails();
+        }
         
         // manage full page widgets
         if ($fullPageWidgetName = $request->getParameter('full_page_widget')) 
@@ -218,8 +227,8 @@ class BaseUllFlowActions extends ullsfActions
 
     $refererHandler = new refererHandler();
     
-    if (!$referer_edit = $refererHandler->getRefererAndDelete('edit')) {
-//      $referer_edit = 'ullFlow/index';
+    if (!$referer_edit = $refererHandler->getRefererAndDelete('edit')) 
+    {
       $referer_edit = $this->getUser()->getAttribute('referer');
     }   
     
@@ -637,7 +646,13 @@ class BaseUllFlowActions extends ullsfActions
     {
       $mail = new ullFlowMailNotifyCreator($this->doc);
       $mail->send();
-    }        
+    }
+
+    // call ullFlowActionHandler specific mailing
+//    var_dump(get_class($this->generator->getUllFlowActionHandler()));
+//    var_dump($this->getRequestParameter('action_slug'));
+    $this->generator->getUllFlowActionHandler()->sendMail();
+    
   }
   
   /**

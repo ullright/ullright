@@ -5,9 +5,6 @@
  */
 class ullFlowForm extends ullGeneratorForm
 {
-  protected
-    $oldObject
-  ;
   
   /**
    * Configures the form
