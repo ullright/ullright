@@ -55,8 +55,8 @@ class sfWidgetFormTextareaFCKEditor extends sfWidgetFormTextarea
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $textarea = parent::render($name, $value, $attributes, $errors);
-
+    $textarea = parent::renderContentTag('textarea', $value, array_merge(array('name' => $name), $attributes));
+  	
     $js = sprintf(<<<EOF
 <script type="text/javascript">
 window.onload = function()
