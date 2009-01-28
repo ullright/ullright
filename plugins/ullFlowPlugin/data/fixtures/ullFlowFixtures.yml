@@ -457,6 +457,10 @@ UllFlowStepAction:
     UllFlowAction:  ull_flow_action_return
     namespace:      test   
   stepaction_5:
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_troubleshooter  
+    UllFlowAction:  ull_flow_action_reject
+    namespace:      test       
+  stepaction_6:
     UllFlowStep:    ull_flow_step_doc_trouble_ticket_closed  
     UllFlowAction:  ull_flow_action_reopen
     namespace:      test

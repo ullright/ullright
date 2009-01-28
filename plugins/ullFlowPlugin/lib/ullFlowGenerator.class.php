@@ -310,23 +310,21 @@ class ullFlowGenerator extends ullGenerator
     {
       $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($actionSlug);
       $this->ullFlowActionHandler = new $ullFlowActionHandlerName($this->getForm());
-
-
       
-      foreach ($this->ullFlowActionHandler->getFormFields() as $formField)
+      // check if comment is mandatory
+      $action = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug);
+      if ($action->is_comment_mandatory)
       {
-//        var_dump($formField);
-        $this->getForm()->getValidatorSchema()->offsetGet($formField)->setOption('required', true);
+        $this->getForm()->getValidatorSchema()->offsetGet('memory_comment')->setOption('required', true);
       }
       
-          if ($ullFlowActionHandlerName <> 'ullFlowActionHandlerSend')
+      
+      // set required for additional ActionHandler fields
+      // Example: assign_to_user select box      
+      foreach ($this->ullFlowActionHandler->getFormFields() as $formField)
       {
-//      var_dump($ullFlowActionHandlerName);
-//      var_dump($this->ullFlowActionHandler->getFormFields());
-//      var_dump(sfContext::getInstance()->getRequest()->getParameterHolder()->getAll());
-//      
-//      die();
-      }      
+        $this->getForm()->getValidatorSchema()->offsetGet($formField)->setOption('required', true);
+      }
     }
   }  
   

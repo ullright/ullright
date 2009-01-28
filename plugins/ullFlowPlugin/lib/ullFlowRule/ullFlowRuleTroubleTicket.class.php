@@ -27,7 +27,7 @@ class ullFlowRuleTroubleTicket extends ullFlowRule
       
     elseif ($this->isStep('trouble_ticket_troubleshooter')) 
     {
-      // no action because it is handled automatically by ullFlowAction "return"       
+      // no action because it is handled automatically by ullFlowAction "return" / "reject"      
     }  
       
     elseif ($this->isStep('trouble_ticket_closed')) 

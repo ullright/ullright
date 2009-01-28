@@ -38,7 +38,7 @@ $b
 ;
 
 $b
-  ->diag('login as helpdesk_admin: check that entry has been created properly')
+  ->diag('login as helpdesk_user: check that entry has been created properly')
   ->get('ullFlow/index')
   ->loginAs('helpdesk_user')
   ->click('Trouble ticket tool')
@@ -95,6 +95,7 @@ $b
   ->checkResponseElement($dgsEditMem->get(1), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
   ->checkResponseElement($dgsEditMem->get(2), '/Sent[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditMem->get(3), '/Created[\s]+by[\s]+Test User/')
+  ->responseContains('Reject')
 ;
 
 $b
@@ -106,7 +107,7 @@ $b
 ;
 
 $b
-  ->diag('login as helpdesk_admin: check that entry has been updated properly')
+  ->diag('login as helpdesk_user: check that entry has been created properly')
   ->get('ullFlow/index')
   ->loginAs('helpdesk_user')
   ->click('Trouble ticket tool')
@@ -121,10 +122,87 @@ $b
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Returned[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 4) // number of memory entries
-  ->checkResponseElement($dgsEditMem->get(1), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
-  ->checkResponseElement($dgsEditMem->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(1), '/Returned[\s]+by[\s]+Helpdesk Admin User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(3), '/Sent[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditMem->get(4), '/Created[\s]+by[\s]+Test User/')
+;
+
+$b
+  ->diag('again assign to Helpdesk Admin User')
+  ->setField('fields[ull_flow_action_assign_to_user_ull_entity]', Doctrine::getTable('UllUser')->findOneByDisplayName('Helpdesk Admin User')->id)
+  ->click('Assign')
+  ->isRedirected()
+  ->followRedirect()
+  ->click('Log out')   
+;
+
+$b
+  ->diag('again login as helpdesk_admin_user: check that entry has been updated properly')
+  ->get('ullFlow/index')
+  ->loginAs('helpdesk_admin_user')
+  ->click('Trouble ticket tool')
+  ->click('All entries')
+  ->click('Edit')  
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
+  ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
+  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk Admin User[\s]+\(Step[\s]+Troubleshooter \(Trouble ticket tool\)\)/') 
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 5) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Returned[\s]+by[\s]+Helpdesk Admin User/')
+  ->checkResponseElement($dgsEditMem->get(3), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(4), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(5), '/Created[\s]+by[\s]+Test User/')
+;
+
+$b
+  ->diag('click reject without entering a comment')
+  ->click('Reject')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('.edit_action_buttons_left > ul.error_list > li', 'Required.')
+;  
+  
+$b
+->diag('enter reject comment and reject')
+  ->setField('fields[memory_comment]', 'Sooo sorry, but I worry!')
+  ->click('Reject')  
+  ->isRedirected()
+  ->followRedirect()
+  ->click('Log out')  
+;
+
+
+$b
+  ->diag('login as helpdesk_user: check that entry has been updated properly')
+  ->get('ullFlow/index')
+  ->loginAs('helpdesk_user')
+  ->click('Trouble ticket tool')
+  ->click('All entries')
+  ->click('Edit')  
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
+  ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
+  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Rejected[\s]+by[\s]+Helpdesk Admin User/')
+  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 6) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
+  ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_flow_memory_comment > li', '/Sooo sorry, but I worry!/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(3), '/Returned[\s]+by[\s]+Helpdesk Admin User/')
+  ->checkResponseElement($dgsEditMem->get(4), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(5), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(6), '/Created[\s]+by[\s]+Test User/')  
 ;
 
 $b
@@ -167,12 +245,14 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Closed[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditHead->get('next'), false) 
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 5) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 7) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Closed[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditMem->get(2), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement($dgsEditMem->get(2), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditMem->get(3), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
-  ->checkResponseElement($dgsEditMem->get(4), '/Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditMem->get(5), '/Created[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(4), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement($dgsEditMem->get(5), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(6), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(7), '/Created[\s]+by[\s]+Test User/')
 ;  
 
 $b
@@ -214,11 +294,13 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Reopened[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 6) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 8) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Reopened[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Closed[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditMem->get(3), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
-  ->checkResponseElement($dgsEditMem->get(4), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
-  ->checkResponseElement($dgsEditMem->get(5), '/Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditMem->get(6), '/Created[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(3), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
+  ->checkResponseElement($dgsEditMem->get(4), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(5), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement($dgsEditMem->get(6), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(7), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(8), '/Created[\s]+by[\s]+Test User/')
 ; 
