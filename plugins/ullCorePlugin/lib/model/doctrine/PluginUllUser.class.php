@@ -50,4 +50,16 @@ abstract class PluginUllUser extends BaseUllUser
 
     return $return;
   }
+  
+  /**
+   * Get Full Name but the Lastname first
+   * 
+   * Example: Lennon John
+   *
+   * @return string
+   */
+  public function getLastNameFirst()
+  {
+    return $this->last_name . ' ' . $this->first_name;
+  }   
 }

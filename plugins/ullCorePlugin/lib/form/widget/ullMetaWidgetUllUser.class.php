@@ -45,8 +45,9 @@ class ullMetaWidgetUllUser extends ullMetaWidget
       
       $this->columnConfig['widgetOptions']['model'] = 'UllEntity';
       $this->columnConfig['widgetOptions']['query'] = $q;
+      $this->columnConfig['widgetOptions']['method'] = 'getLastNameFirst';
       
-      $this->addWidget(new sfWidgetFormDoctrineSelect(
+      $this->addWidget(new ullWidgetUllUser(
         $this->columnConfig['widgetOptions'],
         $this->columnConfig['widgetAttributes']
       ));
@@ -62,7 +63,7 @@ class ullMetaWidgetUllUser extends ullMetaWidget
       unset($this->columnConfig['widgetOptions']['add_empty']);
       unset($this->columnConfig['widgetOptions']['group']);
 
-      $this->addWidget(new ullWidgetUllUser($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetUllUserRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
       $this->addValidator(new sfValidatorPass());
     }
 

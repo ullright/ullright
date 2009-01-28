@@ -32,7 +32,7 @@ $t->begin('for read access:');
   $widget = new ullMetaWidgetUllUser($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetUllUser', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
-  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetUllUser', 'returns the correct widget for read access');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetUllUserRead', 'returns the correct widget for read access');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('write access');
@@ -41,7 +41,7 @@ $t->diag('write access');
   $widget = new ullMetaWidgetUllUser($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetUllUser', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
-  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormDoctrineSelect', 'returns the correct widget for write access');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetUllUser', 'returns the correct widget for write access');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorDoctrineChoice', 'returns the correct validator for write access');
   $t->is(
       $form->getWidgetSchema()->offsetGet('my_field')->getChoices(),

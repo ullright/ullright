@@ -1,25 +1,46 @@
 <?php
 
-class ullWidgetUllUser extends sfWidgetForm
+class ullWidgetUllUser extends sfWidgetFormDoctrineSelect
 {
-
-  protected function configure($options = array(), $attributes = array())
-  {
-    $this->addOption('method', '__toString');
-
-    parent::configure($options, $attributes);
-  }
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if (empty($value))
+    
+    if (!$this->getAttribute('name'))
     {
-      return '';
+      $this->setAttribute('name', $name);
     }
+    
+    $this->setAttributes($this->fixFormId($this->getAttributes()));
+    $id = $this->getAttribute('id');
+    
+    $return = javascript_tag("
+function filtery_" . $id . "(pattern, list){
+    pattern = new RegExp('^'+pattern,\"i\");
+    i = 0;
+    sel = 0;
+    while(i < list.options.length) {
+      if (pattern.test(list.options[i].text)) {
+            sel = i;
+            break
+        }
+        i++;
+    }
+    list.options.selectedIndex = sel;
+}
+");
 
-    return (string) UllUserTable::findById($value);
+    $return .= input_tag($id . '_filter', null, array(
+      'size' => '1',
+      'id' => $id . '_filter',
+      'onkeyup' => 'filtery_' .  $id . '(this.value, document.getElementById("' . $id . '"))'
+    ));
+    
+    $return .= ' ';    
+    
+    $return .= parent::render($name, $value, $attributes, $errors);
+    
+    return $return;
   }
 
 }
-
-?>
