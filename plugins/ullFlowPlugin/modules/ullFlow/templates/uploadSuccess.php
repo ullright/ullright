@@ -1,9 +1,10 @@
 <br />
 
+<?php echo ull_form_tag(array('fields' => ''), 'multipart=true id=ull_flow_upload_form'); ?>
+
 <div class="ull_upload">
-<?php
-  echo '<h3>' . __('Manage files', null, 'common') . '</h3><br />';
-  echo ull_form_tag(array('fields' => ''), 'multipart=true id=ull_flow_upload_form');
+  <?php
+    echo '<h3>' . __('Manage files', null, 'common') . '</h3><br />';
   
 //  echo input_hidden_tag('external_field', $external_field);
 //  echo input_hidden_tag($external_field, $value);
@@ -11,10 +12,11 @@
 //  echo input_hidden_tag('doc', $doc);
 //  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
 
-  if ($value = $form->getDefault('value')) 
-  {
-    echo ullWidgetUpload::renderUploadList($value);
-  } ?>
+    if ($value = $form->getDefault('value')) 
+    {
+      echo ullWidgetUpload::renderUploadList($value);
+    } 
+  ?>
 </div>
 
 <br />
@@ -37,20 +39,18 @@
 	  </li>
 	</ul>
 
-<?php echo $form['value']->render() // TODO: replace by sf1.2 sfForm::renderHiddenFields() ?>
+  <?php echo $form->renderHiddenFields()?>
   <br /><br />
-  
-</form>
 
-<div class='action_buttons_left'>
+
+  <div class='action_buttons_left'>
       <?php echo ull_button_to(__('Save and close', null, 'common'), 'ullFlow/edit?doc=' . $doc->id) ?>
-      <?php //echo form_tag('ullFlow/edit?doc=' . $doc->id) ?>
-      <?php //echo input_hidden_tag('fields[' . $column . ']', $value) ?>
-      <?php //echo submit_tag(__('Save and close', null, 'common')); ?>
-      </form>
-    </div>
-    <div class="clear"></div>
+      <div class="clear"></div>
+  </div>
+
 </div>
+
+</form>
 
 <br />
 

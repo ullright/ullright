@@ -34,24 +34,24 @@ $b
 
 ;
 
-//$b
-//  ->diag('upload file')
-//  ->setField('fields[file]', sfConfig::get('sf_upload_dir').'/assets/image/test_image.png')
-////  ->dumpDie()
-//  ->click('Upload file')
-//
-//;
-//
-//$b
-//  ->diag('check uploaded file')
-//  ->isRequestParameter('module', 'ullFlow')
-//  ->isRequestParameter('action', 'upload')
-//  ->isRequestParameter('doc', '1')  
-//  ->isRequestParameter('column', 'upload')
-//  ->checkResponseElement('table.ull_flow_upload > tbody > tr', 2)
-//  ->checkResponseElement('table.ull_flow_upload > tbody > tr > td > a', 'Icons.zip')
-//  ->checkResponseElement('table.ull_flow_upload > tbody > tr + tr > td > a', 'test_image.png')
-//;  
+$b
+  ->diag('upload file')
+  ->setField('fields[file]', sfConfig::get('sf_upload_dir').'/assets/image/test_image.png')
+//  ->dumpDie()
+  ->click('Upload file')
+
+;
+
+$b
+  ->diag('check uploaded file')
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'upload')
+  ->isRequestParameter('doc', '1')  
+  ->isRequestParameter('column', 'upload')
+  ->checkResponseElement('table.ull_flow_upload > tbody > tr', 2)
+  ->checkResponseElement('table.ull_flow_upload > tbody > tr > td > a', 'Icons.zip')
+  ->checkResponseElement('table.ull_flow_upload > tbody > tr + tr > td > a', 'test_image.png')
+;  
 
 $b
   ->diag('save and close')
