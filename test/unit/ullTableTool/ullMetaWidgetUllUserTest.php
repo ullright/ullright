@@ -45,7 +45,7 @@ $t->diag('write access');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorDoctrineChoice', 'returns the correct validator for write access');
   $t->is(
       $form->getWidgetSchema()->offsetGet('my_field')->getChoices(),
-      array(1 => 'Master Admin', 2 => 'Test User'),
+      array(1 => 'Admin Master', 2 => 'User Test'),
       'returns the correct choices'
   );  
   
@@ -58,7 +58,7 @@ $t->diag('write access with given UllGroup display_name');
   $widget->addToFormAs('my_field');
   $t->is(
       $form->getWidgetSchema()->offsetGet('my_field')->getChoices(),
-      array(2 => 'Test User'),
+      array(2 => 'User Test'),
       'returns the correct choices'
   );
 
