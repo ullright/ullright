@@ -11,7 +11,8 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 sfLoader::loadHelpers('ull');
-
+// manually require rule file, since it isn't found by the unit test
+require(sfConfig::get('sf_apps_dir') . '/frontend/modules/ullFlow/lib/ullFlowRuleTroubleTicket.class.php');
 
 $t = new myTestCase(11, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
