@@ -62,7 +62,7 @@ UllGroupPermission:
     namespace:          test
 
 UllFlowApp:
-  ull_flow_app_helpdesk:
+  ull_flow_app_trouble_ticket:
     Translation:
       en:
         label:      Trouble ticket tool
@@ -86,27 +86,27 @@ UllFlowApp:
       
 UllFlowAppPermission:
   ull_flow_app_permission_1:
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     UllPermission:  ullFlow_trouble_ticket_global_read
     namespace:      test
                     
 UllFlowDoc:
-  ull_flow_doc_helpdesk1:
-    UllFlowApp:     ull_flow_app_helpdesk    
+  ull_flow_doc_trouble_ticket1:
+    UllFlowApp:     ull_flow_app_trouble_ticket    
     subject:        My first trouble ticket
     UllFlowAction:  ull_flow_action_create
     UllEntity:      admin_user
-    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_creator
     Creator:        test_user
     created_at:     '2001-01-01 01:01:01'
     duplicate_tags_for_search: ull_flow_tag1, ull_flow_tag2
     namespace:      test
-  ull_flow_doc_helpdesk2:
-    UllFlowApp:     ull_flow_app_helpdesk
+  ull_flow_doc_trouble_ticket2:
+    UllFlowApp:     ull_flow_app_trouble_ticket
     subject:        AAA My second trouble ticket
     UllFlowAction:  ull_flow_action_create
     UllEntity:      helpdesk_group
-    UllFlowStep:    ull_flow_step_doc_helpdesk_dispatcher
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_dispatcher
     namespace:      test
   ull_flow_doc_todo1:
     UllFlowApp:     ull_flow_app_todo
@@ -128,13 +128,13 @@ UllFlowDoc:
     namespace:      test
     
 UllFlowColumnConfig:
-  ull_flow_column_config_helpdesk_subject:
+  ull_flow_column_config_trouble_ticket_subject:
     Translation:
       en:
         label:      My custom subject label
       de:
         label:      Meine spezielle Titel Bezeichnung
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           my_subject
     sequence:       1000
     UllColumnType:  string
@@ -143,13 +143,13 @@ UllFlowColumnConfig:
     namespace:      test
     is_in_list:     false
   
-  ull_flow_column_config_helpdesk_information_update:
+  ull_flow_column_config_trouble_ticket_information_update:
     Translation:
       en:
         label:      My information update
       de:
         label:      Mein Informationsupdate
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           my_information_update
     sequence:       1500
     UllColumnType:  information_update
@@ -157,38 +157,38 @@ UllFlowColumnConfig:
     namespace:      test
     is_in_list:     false
     
-  ull_flow_column_config_helpdesk_datetime:
+  ull_flow_column_config_trouble_ticket_datetime:
     Translation:
       en:
         label:      Date
       de:
         label:      Datum
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           my_datetime
     sequence:       2000
     UllColumnType:  datetime
     is_in_list:     false
     namespace:      test
-  ull_flow_column_config_helpdesk_email:
+  ull_flow_column_config_trouble_ticket_email:
     Translation:
       en:
         label:      Your email address
       de:
         label:      E-Mail
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           my_email
     sequence:       3000
     UllColumnType:  email
     namespace:      test
     is_in_list:     false
     
-  ull_flow_column_config_helpdesk_column_priority:
+  ull_flow_column_config_trouble_ticket_column_priority:
     Translation:
       en:
         label:      Priority
       de:
         label:      Wichtigkeit
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           column_priority
     sequence:       4000
     UllColumnType:  priority
@@ -196,37 +196,37 @@ UllFlowColumnConfig:
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
     is_in_list:     false
     namespace:      test
-  ull_flow_column_config_helpdesk_upload:
+  ull_flow_column_config_trouble_ticket_upload:
     Translation:
       en:
         label:      Attachments
       de:
         label:      Anhänge
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           upload
     sequence:       5000
     UllColumnType:  upload
     is_in_list:     false  
     namespace:      test
-  ull_flow_column_config_helpdesk_wiki_link:
+  ull_flow_column_config_trouble_ticket_wiki_link:
     Translation:
       en:
         label:      Wiki links
       de:
         label:      Wiki Links
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           wiki_link
     sequence:       6000
     UllColumnType:  wiki_link
     is_in_list:     false
     namespace:      test              
-  ull_flow_column_config_helpdesk_column_tags:
+  ull_flow_column_config_trouble_ticket_column_tags:
     Translation:
       en:
         label:      Tags
       de:
         label:      Tags
-    UllFlowApp:     ull_flow_app_helpdesk
+    UllFlowApp:     ull_flow_app_trouble_ticket
     # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
     slug:           column_tags 
     sequence:       7000
@@ -278,55 +278,55 @@ UllFlowColumnConfig:
     namespace:      test              
         
 UllFlowValue:  
-  ull_flow_value_doc_helpdesk1_subject:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_subject
+  ull_flow_value_doc_trouble_ticket1_subject:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_subject
     value:          My first trouble ticket
     namespace:      test
-  ull_flow_value_doc_helpdesk1_information_update:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_information_update
+  ull_flow_value_doc_trouble_ticket1_information_update:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_information_update
     value:          blub macht da fisch :)
     namespace:      test
-  ull_flow_value_doc_helpdesk1_datetime:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_datetime
+  ull_flow_value_doc_trouble_ticket1_datetime:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_datetime
     value:          2011-11-11 11:11:11
     namespace:      test
-  ull_flow_value_doc_helpdesk1_email:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
+  ull_flow_value_doc_trouble_ticket1_email:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_email
     value:          quasimodo@ull.at
     namespace:      test
-  ull_flow_value_doc_helpdesk1_upload:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_upload
+  ull_flow_value_doc_trouble_ticket1_upload:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_upload
     value:          Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41
     namespace:      test
-  ull_flow_value_doc_helpdesk1_wiki_link:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_wiki_link
+  ull_flow_value_doc_trouble_ticket1_wiki_link:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_wiki_link
     value:          1   
     namespace:      test 
-  ull_flow_value_doc_helpdesk1_column_tags:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_column_tags
+  ull_flow_value_doc_trouble_ticket1_column_tags:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_column_tags
     value:          ull_flow_tag1, ull_flow_tag2          
     namespace:      test
     
-  ull_flow_value_doc_helpdesk2_subject:
-    UllFlowDoc:     ull_flow_doc_helpdesk2
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_subject
+  ull_flow_value_doc_trouble_ticket2_subject:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket2
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_subject
     value:          AAA My second trouble ticket
     namespace:      test
-  ull_flow_value_doc_helpdesk2_datetime:
-    UllFlowDoc:     ull_flow_doc_helpdesk2
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_datetime
+  ull_flow_value_doc_trouble_ticket2_datetime:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket2
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_datetime
     value:          2012-12-12 12:12:12
     namespace:      test
-  ull_flow_value_doc_helpdesk2_email:
-    UllFlowDoc:     ull_flow_doc_helpdesk2
-    UllFlowColumnConfig: ull_flow_column_config_helpdesk_email
+  ull_flow_value_doc_trouble_ticket2_email:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket2
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_email
     value:          bender@ull.at
     namespace:      test
     
@@ -342,15 +342,15 @@ UllFlowValue:
     value:          AAA My second thing todo
     namespace:      test
   ull_flow_value_doc_todo2_column_tags:
-    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
     UllFlowColumnConfig: ull_flow_column_config_todo_column_tags
     value:          ull_flow_tag1
     namespace:      test    
 
 UllFlowMemory:
-  ull_flow_memory_doc_helpdesk1_1:
-    UllFlowDoc:       ull_flow_doc_helpdesk1
-    UllFlowStep:      ull_flow_step_doc_helpdesk_creator
+  ull_flow_memory_doc_trouble_ticket1_1:
+    UllFlowDoc:       ull_flow_doc_trouble_ticket1
+    UllFlowStep:      ull_flow_step_doc_trouble_ticket_creator
     UllFlowAction:    ull_flow_action_save_only
     AssignedToUllEntity: admin_user
     comment:          My test comment
@@ -359,9 +359,9 @@ UllFlowMemory:
     created_at:       '2001-01-01 01:01:01'
     namespace:        test
   
-  ull_flow_memory_doc_helpdesk1_2:
-    UllFlowDoc:       ull_flow_doc_helpdesk1
-    UllFlowStep:      ull_flow_step_doc_helpdesk_creator
+  ull_flow_memory_doc_trouble_ticket1_2:
+    UllFlowDoc:       ull_flow_doc_trouble_ticket1
+    UllFlowStep:      ull_flow_step_doc_trouble_ticket_creator
     UllFlowAction:    ull_flow_action_save_only
     AssignedToUllEntity: admin_user
     comment:          My test comment 2
@@ -371,78 +371,108 @@ UllFlowMemory:
     namespace:        test
 
 UllFlowStep:
-  ull_flow_step_doc_helpdesk_creator:
+  ull_flow_step_doc_trouble_ticket_creator:
     Translation:
       en:
         label:        Creator
       de:
         label:        Ersteller
-    slug:             helpdesk_creator
-    UllFlowApp:       ull_flow_app_helpdesk
+    slug:             trouble_ticket_creator
+    UllFlowApp:       ull_flow_app_trouble_ticket
     is_start:         true
     namespace:        test
-  ull_flow_step_doc_helpdesk_dispatcher:
+  ull_flow_step_doc_trouble_ticket_dispatcher:
     Translation:
       en:
         label:        Helpdesk dispatcher
       de:
         label:        Helpdesk Dispatcher
-    slug:             helpdesk_dispatcher
-    UllFlowApp:       ull_flow_app_helpdesk
+    slug:             trouble_ticket_dispatcher
+    UllFlowApp:       ull_flow_app_trouble_ticket
     namespace:        test
-  ull_flow_step_doc_helpdesk_troubleshooter:
+  ull_flow_step_doc_trouble_ticket_troubleshooter:
     Translation:
       en:
         label:        Troubleshooter
       de:
         label:        Problemlöser
-    slug:             helpdesk_troubleshooter
-    UllFlowApp:       ull_flow_app_helpdesk
+    slug:             trouble_ticket_troubleshooter
+    UllFlowApp:       ull_flow_app_trouble_ticket
     namespace:        test
-  ull_flow_step_doc_helpdesk_closed:
+  ull_flow_step_doc_trouble_ticket_closed:
     Translation:
       en:
         label:        Closed
       de:
         label:        Abgeschlossen
-    slug:             helpdesk_clodes
-    UllFlowApp:       ull_flow_app_helpdesk
-    namespace:      test        
+    slug:             trouble_ticket_closed
+    UllFlowApp:       ull_flow_app_trouble_ticket
+    namespace:        test
+            
   ull_flow_step_doc_todo_creator:
     Translation:
       en:
         label:        Creator
       de:
         label:        Ersteller
-    slug:             creator
+    slug:             todo_creator
     UllFlowApp:       ull_flow_app_todo
-    #UllFlowAction:    [ull_flow_action_save]
     is_start:         true
     namespace:      test
+  ull_flow_step_doc_todo_open:
+    Translation:
+      en:
+        label:        Open
+      de:
+        label:        Offen
+    slug:             todo_open
+    UllFlowApp:       ull_flow_app_todo
+    namespace:      test
+  ull_flow_step_doc_todo_closed:
+    Translation:
+      en:
+        label:        Closed
+      de:
+        label:        Abgeschlossen
+    slug:             todo_closed
+    UllFlowApp:       ull_flow_app_todo
+    namespace:      test        
     
 UllFlowStepAction:
   stepaction_1:
-    UllFlowStep:    ull_flow_step_doc_helpdesk_creator
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_creator
     UllFlowAction:  ull_flow_action_send
     namespace:      test
 #    options:        foobar bla
   stepaction_2:
-    UllFlowStep:    ull_flow_step_doc_helpdesk_dispatcher  
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_dispatcher  
     UllFlowAction:  ull_flow_action_assign_to_user
     namespace:      test    
   stepaction_3:
-    UllFlowStep:    ull_flow_step_doc_helpdesk_dispatcher  
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_dispatcher  
     UllFlowAction:  ull_flow_action_close
     namespace:      test
   stepaction_4:
-    UllFlowStep:    ull_flow_step_doc_helpdesk_troubleshooter  
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_troubleshooter  
     UllFlowAction:  ull_flow_action_return
     namespace:      test   
   stepaction_5:
-    UllFlowStep:    ull_flow_step_doc_helpdesk_closed  
+    UllFlowStep:    ull_flow_step_doc_trouble_ticket_closed  
     UllFlowAction:  ull_flow_action_reopen
     namespace:      test
     
+  stepaction_10:
+    UllFlowStep:    ull_flow_step_doc_todo_creator
+    UllFlowAction:  ull_flow_action_save
+    namespace:      test
+  stepaction_11:
+    UllFlowStep:    ull_flow_step_doc_todo_open  
+    UllFlowAction:  ull_flow_action_close
+    namespace:      test    
+  stepaction_12:
+    UllFlowStep:    ull_flow_step_doc_todo_closed  
+    UllFlowAction:  ull_flow_action_reopen
+    namespace:      test    
              
 UllFlowAction:
   ull_flow_action_create:
@@ -796,14 +826,14 @@ Tag:
     name:           ull_flow_tag2
 
 Tagging:
-  helpdesk_1_1:
+  trouble_ticket_1_1:
     Tag:            ull_flow_tag1
     taggable_model: UllFlowDoc
-    UllFlowDoc:     ull_flow_doc_helpdesk1
-  helpdesk_1_2:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+  trouble_ticket_1_2:
     Tag:            ull_flow_tag2
     taggable_model: UllFlowDoc
-    UllFlowDoc:     ull_flow_doc_helpdesk1
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
   todo_2_1:
     Tag:            ull_flow_tag1
     taggable_model: UllFlowDoc

@@ -35,14 +35,14 @@ $t->diag('getNextFromPreviousStep()');
   $doc->my_subject = 'My fancy subject';
   $doc->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findOneBySlug('send');
   $doc->assigned_to_ull_entity_id = Doctrine::getTable('UllGroup')->findOneByDisplayName('Helpdesk')->id;
-  $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_dispatcher')->id;
+  $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('trouble_ticket_dispatcher')->id;
   $doc->save();
   
   // assign to helpdesk admin user
   $t->loginAs('helpdesk_user');
   $doc->ull_flow_action_id = Doctrine::getTable('UllFlowAction')->findOneBySlug('assign_to_user');
   $doc->assigned_to_ull_entity_id = Doctrine::getTable('UllUser')->findOneByDisplayName('Helpdesk Admin User')->id;
-  $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_troubleshooter')->id;
+  $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('trouble_ticket_troubleshooter')->id;
   $doc->save();
   
   $form = new ullFlowForm($doc);
@@ -50,6 +50,6 @@ $t->diag('getNextFromPreviousStep()');
   $next = $handler->getNextFromPreviousStep();
   
   $t->is($next['entity']->id, Doctrine::getTable('UllGroup')->findOneByDisplayName('Helpdesk')->id, 'return the correct UllEntity');
-  $t->is($next['step']->id, Doctrine::getTable('UllFlowStep')->findOneBySlug('helpdesk_dispatcher')->id, 'return the correct step');
+  $t->is($next['step']->id, Doctrine::getTable('UllFlowStep')->findOneBySlug('trouble_ticket_dispatcher')->id, 'return the correct step');
   
   

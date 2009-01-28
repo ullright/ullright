@@ -12,7 +12,7 @@ class ullFlowRuleTest extends ullFlowRule
 {
   public function getNext()
   {
-    $next['step']    = $this->findStep('helpdesk_dispatcher');
+    $next['step']    = $this->findStep('trouble_ticket_dispatcher');
     $next['entity']  = $this->findGroup('Helpdesk');
 
     return $next;
@@ -39,11 +39,11 @@ $t->diag('findGroup()');
 
 $t->diag('findStep()');
 
-  $t->is($rule->findStep('helpdesk_creator')->id, 1, 'returns the correct slug');
+  $t->is($rule->findStep('trouble_ticket_creator')->id, 1, 'returns the correct slug');
 
 $t->diag('isStep()');
 
-  $t->ok($rule->isStep('helpdesk_creator'), 'true for the current step');    
+  $t->ok($rule->isStep('trouble_ticket_creator'), 'true for the current step');    
   $t->is($rule->isStep('Foobar'), false, 'false for any other step');
   
 $t->diag('isAction()');

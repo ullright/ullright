@@ -1,24 +1,28 @@
 <?php
 
-class ullFlowRuleTodo extends ullFlowRule {
+class ullFlowRuleTodo extends ullFlowRule 
+{
    
-  public function getParams() {
+  public function getNext() 
+  {
+    $next = array();
     
-      if ($this->action_slug == 'save') {
-        
-        $this->params['next_step'] = $this->getStepIdBySlug('open') ;
-        
-      } elseif ($this->action_slug == 'close') {
-        
-        $this->params['next_step'] = $this->getStepIdBySlug('closed') ;
-        
-      }
-      
-//  ullCoreTools::printR($this->params);
+    if ($this->isStep('todo_creator')) 
+    {
+      $next['step']    = $this->findStep('todo_open');
+    }
+
+    elseif ($this->isStep('todo_open')) 
+    {
+      $next['step']    = $this->findStep('todo_closed');
+    }    
     
-  return $this->params;
-    
+    elseif ($this->isStep('todo_closed')) 
+    {
+      $next['step']    = $this->findStep('todo_open');
+    }    
+
+    return $next;
   }
-  
+
 }
-?>

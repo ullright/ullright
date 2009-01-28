@@ -37,9 +37,7 @@ $b
 $b
   ->diag('upload file')
   ->setField('fields[file]', sfConfig::get('sf_upload_dir').'/assets/image/test_image.png')
-//  ->dumpDie()
   ->click('Upload file')
-
 ;
 
 $b

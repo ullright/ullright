@@ -3,22 +3,15 @@
 class ullFlowActionHandlerReopen extends ullFlowActionHandler
 {
   
-  function getEditWidget() {
-
-    $return = tag(
-      'input' 
-      , array(
-        'type' => 'button'
-        , 'value' => __('Reopen')
-        , 'onclick' => 'document.getElementById("ull_flow_action").value = "reopen";this.form.submit()'
-      )
-    );
-
+  /**
+   * Renders the html output of the action handler for the ullFlow edit action
+   *
+   * @return string 
+   */
+  function render() 
+  {
+    $return = ull_submit_tag(__('Reopen'), array('name' => 'submit|action_slug=reopen'));
     return $return;
-    
-     
-    
   }
+  
 }
-
-?>

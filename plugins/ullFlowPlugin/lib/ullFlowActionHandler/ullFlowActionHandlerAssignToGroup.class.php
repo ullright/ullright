@@ -3,6 +3,8 @@
 class ullFlowActionHandlerAssignToGroup extends ullFlowActionHandler
 {
   
+  //TODO: migrate!
+  
   function getEditWidget() {
 
 //    $return = tag('input', array_merge(array('type' => 'button', 'name' => 'action', 'value' => 'assign_to_user'), _convert_options_to_javascript(_convert_options($options))));

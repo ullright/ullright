@@ -33,5 +33,4 @@ class ullFlowActionHandlerAssignToUser extends ullFlowActionHandler
     return array('entity' => $ullEntity);    
   }
   
-  
 }
