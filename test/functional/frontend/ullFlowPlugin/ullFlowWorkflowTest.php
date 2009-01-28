@@ -175,3 +175,50 @@ $b
   ->checkResponseElement($dgsEditMem->get(5), '/Created[\s]+by[\s]+Test User/')
 ;  
 
+$b
+  ->diag('reopen and check result list')
+  ->click('Reopen')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), false) // number of rows  
+;  
+
+$b
+  ->diag('select active docs')
+  ->setField('filter[status]', '')
+  ->click('Search_16x16')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 3) // number of rows
+  ->checkResponseElement($dgsListTT->get(1, 'subject'), 'Urgently use ullright')
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'AAA My second trouble ticket')
+  ->checkResponseElement($dgsListTT->get(3, 'subject'), 'My first trouble ticket')  
+;
+
+$b
+  ->diag('edit reopend doc and check')
+  ->click('Edit')  
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('doc', '5')
+  ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
+  ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
+  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Reopened[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 6) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Reopened[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Closed[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(3), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement($dgsEditMem->get(4), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(5), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(6), '/Created[\s]+by[\s]+Test User/')
+; 
