@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers(array('ull', 'I18N'));
 
-$t = new myTestCase(5, new lime_output_color, $configuration);
+$t = new myTestCase(6, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -39,10 +39,17 @@ $t->diag('render()');
 </select>';
   $t->is($handler->render(), $reference, 'returns the correct html code');
   
-//  $t->is($form->getWidgetSchema()->getFields()->offsetGet(ull_flow_action_assign_to_user_ull_entity))
+$t->diag('setting options');
+
+  $form = new ullFlowForm(Doctrine::getTable('UllFlowDoc')->find(1));
+  $handler = new ullFlowActionHandlerAssignToUser($form, array('group' => 'Helpdesk'));
   
-//$t->diag('getEditWidget()');
-//  
-//  $reference = '<input type="submit" name="submit|action_slug=send" value="Send" />';
-//  $t->is($handler->getEditWidget(), $reference, 'returns the correct html code');  
-//  
+  $reference = '<input type="submit" name="submit|action_slug=assign_to_user" value="Assign" /> to user 
+<select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
+<option value="" selected="selected"></option>
+<option value="4">Helpdesk User</option>
+</select>';
+  $t->is($handler->render(), $reference, 'returns the correct html code');  
+  
+  
+

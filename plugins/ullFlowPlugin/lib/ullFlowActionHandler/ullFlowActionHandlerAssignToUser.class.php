@@ -8,7 +8,7 @@ class ullFlowActionHandlerAssignToUser extends ullFlowActionHandler
     $this->addMetaWidget(
       'ullMetaWidgetUllUser', 
       'ull_flow_action_assign_to_user_ull_entity', 
-      array('add_empty' => true),
+      array_merge($this->options, array('add_empty' => true)),
       array(),
       array('required' => false)
     );
