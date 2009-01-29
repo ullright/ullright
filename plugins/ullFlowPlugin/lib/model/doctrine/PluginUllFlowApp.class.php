@@ -79,5 +79,15 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
       '_' . $width . 'x' . $height . '.png'
     ;
   }
+  
+  public function findOrderedColumns()
+  {
+    $q = new Doctrine_Query;
+    $q->from('UllFlowColumnConfig cc')
+      ->where('cc.ull_flow_app_id = ?', $this->id)
+      ->orderBy('cc.sequence, cc.id')
+    ;
+    return $q->execute();
+  }
 
 }

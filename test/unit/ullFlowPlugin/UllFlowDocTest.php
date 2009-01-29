@@ -126,8 +126,8 @@ $t->diag('getVirtualColumnsAsArray()');
   $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
   $columns = $doc1->getVirtualColumnsAsArray();
   $reference = array(
-    'my_subject',
     'my_information_update',
+    'my_subject',    
     'my_datetime',
     'my_email',
     'column_priority',

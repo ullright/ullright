@@ -128,20 +128,6 @@ UllFlowDoc:
     namespace:      test
     
 UllFlowColumnConfig:
-  ull_flow_column_config_trouble_ticket_subject:
-    Translation:
-      en:
-        label:      My custom subject label
-      de:
-        label:      Meine spezielle Titel Bezeichnung
-    UllFlowApp:     ull_flow_app_trouble_ticket
-    slug:           my_subject
-    sequence:       1000
-    UllColumnType:  string
-    is_mandatory:   true
-    is_subject:     true
-    namespace:      test
-    is_in_list:     false
   
   ull_flow_column_config_trouble_ticket_information_update:
     Translation:
@@ -154,6 +140,22 @@ UllFlowColumnConfig:
     sequence:       1500
     UllColumnType:  information_update
     is_mandatory:   false
+    namespace:      test
+    is_in_list:     false
+
+  # mix order id vs. sequence identionally to test order of columns 
+  ull_flow_column_config_trouble_ticket_subject:
+    Translation:
+      en:
+        label:      My custom subject label
+      de:
+        label:      Meine spezielle Titel Bezeichnung
+    UllFlowApp:     ull_flow_app_trouble_ticket
+    slug:           my_subject
+    sequence:       1000
+    UllColumnType:  string
+    is_mandatory:   true
+    is_subject:     true
     namespace:      test
     is_in_list:     false
     

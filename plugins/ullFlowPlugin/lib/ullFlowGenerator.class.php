@@ -68,6 +68,7 @@ class ullFlowGenerator extends ullGenerator
     {
       $this->activeColumns = array();
     
+      // get selections and order of columns from UllFlowApp
       if (isset($this->app) && $columnList = $this->app->list_columns)
       {
         $columnList = explode(',', $columnList);
@@ -224,7 +225,7 @@ class ullFlowGenerator extends ullGenerator
 
     if ($this->app)
     {
-      $dbColumnConfig = $this->app->UllFlowColumnConfigs;
+      $dbColumnConfig = $this->app->findOrderedColumns();
 
       $columns = array();
     
