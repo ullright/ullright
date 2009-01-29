@@ -9,21 +9,22 @@ class ullWidgetInformationUpdateWrite extends ullWidget
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->setAttribute('rows', 4);
+    $this->setAttribute('rows', 5);
     $this->setAttribute('cols', 58);
   }
 	
 	public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if ($value)
+    $return = '';
+    
+    if ($value) 
     {
-      $value = nl2br($value);
-    }
-    else
-    {
-      $value = '';
-    }
-    return $value . '<br />' . $this->renderContentTag('textarea', '', array_merge(array('name' => $name), $attributes));
+      $return .= '<div class="ull_flow_fieldtype_information_update">' . nl2br($value) . '</div>';
+    }    
+
+    $return .= $this->renderContentTag('textarea', '', array_merge(array('name' => $name), $attributes));
+    
+    return $return; 
   }
   
   public function updateObject(Doctrine_Record $object, $values, $fieldName)
