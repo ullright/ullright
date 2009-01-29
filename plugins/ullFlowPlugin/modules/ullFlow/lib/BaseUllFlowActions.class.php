@@ -495,7 +495,18 @@ class BaseUllFlowActions extends ullsfActions
     elseif ($ullFlowActionName <> 'all') 
     {
       $q->addWhere('x.UllFlowAction.slug = ?', $ullFlowActionName);
-    }    
+    }
+
+    // assigned to
+    if ($displayName = $this->getRequestParameter('assigned_to'))
+    {
+      $entityId = UllEntityTable::findIdByDisplayName($displayName);
+      $q->addWhere('x.assigned_to_ull_entity_id = ?', $entityId);
+      $this->ull_filter->add(
+        'assigned_to',
+        __('Assigned to') . ': ' . $displayName
+      );      
+    }
     
     // 'named' queries
     if ($query = $this->getRequestParameter('query')) 

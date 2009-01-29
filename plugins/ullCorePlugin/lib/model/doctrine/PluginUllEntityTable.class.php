@@ -59,6 +59,39 @@ class PluginUllEntityTable extends UllParentEntityTable
     ;
     
     return $q->execute()->getFirst();
-  }  
+  }
+
+  /**
+   * Find UllEntity by display_name
+   *
+   * @param string $displayName
+   * @return UllEntity
+   */
+  public static function findByDisplayName($displayName)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllEntity')
+      ->where('display_name = ?', $displayName)
+      ->useResultCache(true)
+    ;
+    
+    return $q->execute()->getFirst();    
+  }
+  
+  /**
+   * Find UllEntity->id by display_name
+   *
+   * @param string $displayName
+   * @return integer
+   */
+  public static function findIdByDisplayName($displayName)
+  {
+    $entity = self::findByDisplayName($displayName);
+    if ($entity)
+    {
+      return $entity->id;
+    }
+  }
 
 }

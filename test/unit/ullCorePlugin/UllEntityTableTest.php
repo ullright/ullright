@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(4, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(6, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -32,3 +32,11 @@ $t->begin('has()');
   $t->ok(UllEntityTable::has($group), 'returns true for a given UllGroup when the logged in user is member of this group');
   
   $t->ok(UllEntityTable::has($group, $user), 'returns true for a given UllGroup and a given UllUser who is member of this group');
+  
+$t->diag('findByDisplayName()');
+
+  $t->is(UllEntityTable::findByDisplayName('Master Admin')->id, 1, 'returns the correct ID');  
+  
+$t->diag('findIdByDisplayName()');
+
+  $t->is(UllEntityTable::findIdByDisplayName('Master Admin'), 1, 'returns the correct ID');
