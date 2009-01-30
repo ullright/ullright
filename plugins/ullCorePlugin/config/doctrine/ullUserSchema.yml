@@ -27,6 +27,10 @@ UllParentEntity:
 #      class: UllEntityGroup
 #      local: id
 #      foreign: ull_group_id
+  attributes:
+    # don't export constraints. This is necessary because mysql 5 cannot delete
+    # rows with self-references
+    export: [ all, constraints ]
 
 # empty entity class to be overridden by custom Entity class
 # (in config/doctrine/schema.yml) to allow definition of additional userfields
