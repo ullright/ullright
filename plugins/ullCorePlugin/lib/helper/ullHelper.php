@@ -525,7 +525,7 @@ function ull_submit_tag($value = 'Save changes', $options = array())
     $js_function_name = str_replace(array('|', '='), array('_', '_'),
       $options['name']) . '()'; 
 	  
-    $return = input_hidden_tag($options['name']) . "\n";
+    $return = input_hidden_tag($options['name'], null, array('id' => str_replace(array('|', '='), '_', $options['name']))) . "\n";
     $return .= javascript_tag('function ' . $js_function_name . ' 
 {
   document.getElementById("' . $options['name'] . '").value = 1;
