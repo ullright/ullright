@@ -53,8 +53,6 @@
     <div class="clear"></div>
   </div>
   
-  </form>
-  
 <?php
   /*
   echo javascript_tag('

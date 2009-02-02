@@ -144,7 +144,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 
   public function getDgsUllFlowMemory()
   {
-    $s = new ullDomGridSelector('#ull_flow_memories ul > ul', 'li');
+    $s = new ullDomGridSelector('#ull_flow_memories ul > li > ul', 'li');
     
     return $s;
   }   

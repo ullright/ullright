@@ -8,16 +8,6 @@
 <target>Anmeldung fehlgeschlagen. Bitte versuchen Sie es noch einmal:</target>
 </trans-unit>
 
-<trans-unit id="40">
-<source>Username</source>
-<target>Benutzername</target>
-</trans-unit>
-
-<trans-unit id="41">
-<source>Password</source>
-<target>Passwort</target>
-</trans-unit>
-
 <trans-unit id="42">
 <source>Your username is required!</source>
 <target>Bitte geben Sie ihren Benutzernamen ein!</target>

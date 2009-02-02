@@ -195,7 +195,7 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Rejected[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 6) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 7) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_flow_memory_comment > li', '/Sooo sorry, but I worry!/')
   ->checkResponseElement($dgsEditMem->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
@@ -245,7 +245,7 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Closed[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditHead->get('next'), false) 
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 7) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 8) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Closed[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditMem->get(3), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
@@ -294,7 +294,7 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Reopened[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 8) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 9) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Reopened[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Closed[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(3), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')

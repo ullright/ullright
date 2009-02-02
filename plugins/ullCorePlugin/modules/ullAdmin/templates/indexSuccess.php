@@ -56,8 +56,10 @@
         <h3>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
+        <!-- empty ul is not xhtml compliant 
         <ul>
         </ul>
+        -->
       </div>
       <!-- 
       <div class="tc_query_box color_light_bg">

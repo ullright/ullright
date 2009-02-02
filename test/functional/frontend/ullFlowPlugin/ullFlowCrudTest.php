@@ -96,7 +96,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', 5)
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 3) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 4) // number of memory entries
   ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 
   ->click('Save and close')

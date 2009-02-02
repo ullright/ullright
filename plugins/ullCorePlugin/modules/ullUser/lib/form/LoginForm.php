@@ -14,8 +14,8 @@ class LoginForm extends sfForm
     $this->widgetSchema->setFormFormatterName('ullTable');
   
     $this->widgetSchema->setLabels(array(
-      'username'    => __('Username'),
-      'password'    => __('Password'),
+      'username'    => __('Username', null, 'common'),
+      'password'    => __('Password', null, 'common'),
     ));
     
     $this->setValidators(array(

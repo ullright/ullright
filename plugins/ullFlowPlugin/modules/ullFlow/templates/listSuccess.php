@@ -14,11 +14,17 @@
           <?php echo ull_button_to(__('Create', null, 'common'), 'ullFlow/create?app=' . $app->slug) ?>
         <? endif ?>
       </li>
-	
-	    <?php echo $filter_form ?>   
+	    
+	    <li>
+	    <?php //echo $filter_form ?>   
+	    <?php echo $filter_form['search']->renderLabel() ?>    
+      <?php echo $filter_form['search']->render() ?>
+	    <?php echo $filter_form['status']->renderLabel() ?>    
+      <?php echo $filter_form['status']->render() ?>
 	    
       <?php echo submit_image_tag(ull_image_path('search'),
-              array('class' => 'image_align_middle_no_border', 'name' => '')) ?>                    
+              array('class' => 'image_align_middle_no_border', 'name' => '')) ?>
+       </li>                    
 	
 	</ul>
 	 

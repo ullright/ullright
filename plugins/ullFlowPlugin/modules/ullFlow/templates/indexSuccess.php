@@ -94,7 +94,6 @@
           <?php echo __('Individual queries', null, 'common') ?>
         </h3>
         <ul>
-         <li>
          <?php 
             $u = new UllFlowCustomQueries;
             foreach ($u->getAllQueries() as $cqkey => $cqvalue)
@@ -103,7 +102,6 @@
             }
             endif
          ?>
-          </li>
         </ul>
       </div>
     </div>

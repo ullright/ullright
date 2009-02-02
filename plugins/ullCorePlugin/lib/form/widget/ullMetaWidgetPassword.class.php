@@ -43,6 +43,9 @@ class ullMetaWidgetPassword extends ullMetaWidget
 
       $confirmationColumnName = $this->columnName . '_confirmation';
       $this->addWidget($widget, $confirmationColumnName);
+      $this->form->getWidgetSchema()->setLabels(array(
+        'password_confirmation'  => __('Password confirmation', null, 'common')
+      ));
       $this->addValidator(clone $validator, $confirmationColumnName);
       $this->form->getWidgetSchema()->moveField($confirmationColumnName, 'after', $this->columnName);
       $this->form->mergePostValidator(new sfValidatorSchemaCompare(

@@ -114,6 +114,8 @@
 <?php echo input_hidden_tag('external') ?>
 <?php echo input_hidden_tag('external_field') */?>
 
+</div>
+
 </form>
 
 <?php if ($doc->exists()): ?>
@@ -128,11 +130,10 @@
       <?php
         if ($tempdate != substr($memory->created_at, 0, 10)) {
           if ($tempdate != -1) 
-            echo '</ul>';
+            echo '</ul></li>';
             
-          echo '<li class="ull_flow_memories_date">' .
-            ull_format_date($memory->created_at) .
-            '</li><ul class="ull_flow_memories_day">';
+          echo '<li class="ull_flow_memories_date">' . ull_format_date($memory->created_at) . '</li>' .
+                  '<li class="ull_flow_memories_day"><ul class="ull_flow_memories_day">';
         } ?>
       <li>
         <span class="ull_flow_memories_light">
@@ -155,12 +156,11 @@
     <?php
       $tempdate = substr($memory->created_at, 0, 10);
     endforeach ?>
+  </ul></li>
   </ul>
   <br />
   </div>
 <?php endif ?>
-
-</div>
 
 <?php
 //  echo ull_js_observer("ull_flow_form");
