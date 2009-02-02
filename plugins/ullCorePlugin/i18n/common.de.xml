@@ -514,6 +514,22 @@
 <target>Sehr niedrig</target>
 </trans-unit>
 
+<!-- user, password -->
+
+<trans-unit id="17000">
+<source>Username</source>
+<target>Benutzername</target>
+</trans-unit>
+
+<trans-unit id="17001">
+<source>Password</source>
+<target>Passwort</target>
+</trans-unit>
+
+<trans-unit id="17002">
+<source>Password confirmation</source>
+<target>Passwort bestätigen</target>
+</trans-unit>
 
 </body>
   </file>
