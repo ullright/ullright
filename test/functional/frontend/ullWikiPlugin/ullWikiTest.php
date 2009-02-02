@@ -111,7 +111,24 @@ $b
 ;
 
 $b
-  ->diag('update (save and show')
+  ->diag('update (save and show, with malicious javascript)')
+  ->get('ullWiki/edit/docid/3')
+  ->responseContains('My new test subject')
+  ->setField('fields[subject]', 'My new test subject, updated')
+  ->setField('fields[body]', '<b>body</b><script language="javascript" type="text/javascript">'.
+                              'alert(\'Meeeeew!\');</script><pre><b>bold</b></pre>')
+  ->click('Save and show')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'show')
+  ->responseContains('<b>body</b><pre><b>bold</b></pre>')
+;
+
+
+$b
+  ->diag('update (save and show)')
   ->get('ullWiki/edit/docid/3')
   ->responseContains('My new test subject')
   ->setField('fields[subject]', 'My new test subject, updated')
