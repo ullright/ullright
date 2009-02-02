@@ -78,6 +78,38 @@
 <target>Benutzersuche</target>
 </trans-unit>
 
+<!-- ullFlow admin actions -->
+
+<trans-unit id="1501">
+<source>Manage applications</source>
+<target>Verwalte Applikationen</target>
+</trans-unit>
+
+<trans-unit id="1502">
+<source>Manage application access rights</source>
+<target>Verwalte Applikations-Zugriffsrechte</target>
+</trans-unit>
+
+<trans-unit id="1503">
+<source>Manage columns</source>
+<target>Verwalte Spalten</target>
+</trans-unit>
+
+<trans-unit id="1504">
+<source>Manage steps</source>
+<target>Verwalte Schritte</target>
+</trans-unit>
+
+<trans-unit id="1505">
+<source>Manage actions for steps</source>
+<target>Verwalte Aktionen für Schritte</target>
+</trans-unit>
+
+<trans-unit id="1506">
+<source>Manage actions</source>
+<target>Verwalte Aktionen</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

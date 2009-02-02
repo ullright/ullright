@@ -99,36 +99,6 @@
 <target>Zuletzt geänderte Einträge</target>
 </trans-unit>
 
-<trans-unit id="1506">
-<source>Manage applications</source>
-<target>Verwalte Applikationen</target>
-</trans-unit>
-
-<trans-unit id="1507">
-<source>Manage application access rights</source>
-<target>Verwalte Applikations-Zugriffsrechte</target>
-</trans-unit>
-
-<trans-unit id="1508">
-<source>Manage columns</source>
-<target>Verwalte Spalten</target>
-</trans-unit>
-
-<trans-unit id="1509">
-<source>Manage steps</source>
-<target>Verwalte Schritte</target>
-</trans-unit>
-
-<trans-unit id="1510">
-<source>Manage actions for steps</source>
-<target>Verwalte Aktionen für Schritte</target>
-</trans-unit>
-
-<trans-unit id="1511">
-<source>Manage actions</source>
-<target>Verwalte Aktionen</target>
-</trans-unit>
-
 <!-- action 'list' -->
 
 <trans-unit id="2001">

@@ -17,7 +17,7 @@
       <h3><?php echo __('Select Boxes') ?></h3>
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllSelect', __('Manage select boxes')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllSelectChild', __('Manage select box entires')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllSelectChild', __('Manage select box entries')) ?></li>
       </ul>
       <h3><?php echo __('Table Administration') ?></h3>
       <ul class="tc_tasks">
