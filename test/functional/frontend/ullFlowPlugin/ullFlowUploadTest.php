@@ -59,3 +59,6 @@ $b
   ->isRequestParameter('doc', '1')
   ->responseContains('Icons.zip')
 ;
+
+// cleanup upload files
+sfToolkit::clearDirectory(sfConfig::get('sf_upload_dir') . '/ullFlow');
