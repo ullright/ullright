@@ -15,6 +15,9 @@ abstract class BaseUllParentEntity extends UllRecord
     $this->hasColumn('username', 'string', 64, array('type' => 'string', 'unique' => true, 'length' => '64'));
     $this->hasColumn('email', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('password', 'string', 40, array('type' => 'string', 'length' => '40'));
+
+
+    $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);
   }
 
 }
