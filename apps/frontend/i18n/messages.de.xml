@@ -17,9 +17,19 @@
 <target>Sende an IT-Helpdesk</target>
 </trans-unit>
 
-<trans-unit id="2">
+<trans-unit id="3">
 <source>Send to caller</source>
 <target>Sende an Anrufer</target>
+</trans-unit>
+
+<trans-unit id="4">
+<source>Required.</source>
+<target>Pflichtfeld</target>
+</trans-unit>
+
+<trans-unit id="5">
+<source>Invalid.</source>
+<target>Ungültig</target>
 </trans-unit>
 
     </body>
