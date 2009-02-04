@@ -7,25 +7,8 @@
  */
 class sfDoctrineTestBrowser extends sfTestBrowser
 {
-
 	private
 		$path			= '';
-		
-
-  /**
-   * Initializes the browser tester instance.
-   *
-   * @param string $hostname  Hostname to browse
-   * @param string $remote    Remote address to spook
-   * @param array  $options   Options for sfBrowser
-   */
-  public function __construct($hostname = null, $remote = null, $options = array())
-  {
-    $this->initialize($hostname, $remote, $options);
-    
-    parent::__construct($hostname, $remote, $options);
-  }		
-		
 
 	/**
 	 * Creates a composited test case
@@ -34,11 +17,12 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	 * @param  string $remote
 	 * @param  array $options
 	 */
-	public function initialize($hostname = null, $remote = null, $options = array())
+	public function __construct($hostname = null, $remote = null, $options = array())
 	{
-	  
 		if (is_null(self::$test))
 		{
+      		$browser = new sfBrowser($hostname, $remote, $options);
+      
 			if(!array_key_exists('configuration', $options) ||
 			!$options['configuration'] instanceof sfApplicationConfiguration)
 			{
@@ -57,7 +41,7 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 			unset($options['output']);
 		}
 
-//		parent::initialize($hostname, $remote, $options);
+		parent::__construct($browser, self::$test);
 	}
 
 	/**

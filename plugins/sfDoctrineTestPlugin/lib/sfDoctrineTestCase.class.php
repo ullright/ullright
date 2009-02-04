@@ -77,6 +77,7 @@ class sfDoctrineTestCase extends lime_test
 		
 		$this->clearTables();
 		$this->loadFixtures();
+//		$this->clearTables();
 		
 		++$this->resets;
 		
@@ -192,6 +193,4 @@ class sfDoctrineTestCase extends lime_test
 	{
 		return count(Doctrine::getLoadedModels()) != 0;
 	}
-	
-	
 }
