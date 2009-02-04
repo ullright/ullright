@@ -11,7 +11,7 @@ class ullMetaWidgetDate extends ullMetaWidget
         $this->columnConfig['widgetAttributes']['size'] = '30';
       }
     	
-    	$this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));      
+    	$this->addWidget(new ullWidgetDateWrite($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));      
       $this->addValidator(new sfValidatorDateTime($this->columnConfig['validatorOptions']));
     }
     else

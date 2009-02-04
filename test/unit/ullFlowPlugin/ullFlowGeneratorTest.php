@@ -23,12 +23,12 @@ class myTestCase extends sfDoctrineTestCase
         'access'              => 'w',
         'is_in_list'          => false,
         ),             
-    'my_datetime' => array (
+    'my_date' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => false),
         'label'               => 'Date',
-        'metaWidget'          => 'ullMetaWidgetDateTime',
+        'metaWidget'          => 'ullMetaWidgetDate',
         'access'              => 'w',
         'is_in_list'          => false,
         ),                  

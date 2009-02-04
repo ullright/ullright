@@ -21,7 +21,7 @@ $t->begin('__construct');
 $t->diag('create');
   $doc->ull_flow_app_id = 1;
   $doc->my_subject = 'My fancy subject';
-  $doc->my_datetime = '2008-08-08 08:08:08';
+  $doc->my_date = '2008-08-08 08:08:08';
   $doc->memory_comment = 'My fancy memory comment';
   $doc->save();
 
@@ -32,7 +32,7 @@ $t->diag('create');
   $t->is($doc->assigned_to_ull_entity_id, 1, 'sets the default assigned_to_ull_entity_id correctly');
   $t->is($doc->assigned_to_ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct start step');  
   $t->is($doc->my_subject, 'My fancy subject', 'sets the correct virtual columns value');
-  $t->is($doc->my_datetime, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
+  $t->is($doc->my_date, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
   $t->is($doc->memory_comment, 'My fancy memory comment', 'the current memory comment is accessable via $doc->memory_comment');  
   $t->is($doc->UllFlowMemories[0]->ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct memory step');
   $t->is($doc->UllFlowMemories[0]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('create')->id, 'sets the first memories action correctly (create)');
@@ -113,7 +113,7 @@ $t->begin('getVirtualValuesAsArray()');
   $reference = array(
     'my_subject'    => 'My first trouble ticket',
     'my_information_update' =>  'blub macht da fisch :)',
-    'my_datetime' => '1321006271', // TODO: should be 2011-11-11 11:11:11
+    'my_date' => '2011-11-11 11:11:11',
     'my_email'    => 'quasimodo@ull.at',
     'upload'      => 'Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41',
     'wiki_link'   => '1',
@@ -128,7 +128,7 @@ $t->diag('getVirtualColumnsAsArray()');
   $reference = array(
     'my_information_update',
     'my_subject',    
-    'my_datetime',
+    'my_date',
     'my_email',
     'column_priority',
     'upload',

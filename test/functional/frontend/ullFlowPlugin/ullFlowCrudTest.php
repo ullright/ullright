@@ -55,7 +55,7 @@ $b
   ->checkResponseElement($dgsEditTT->get('email', 'error') . ' > ul > li', 'Invalid.')
   ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' select > option[selected="selected"]', 'High')
   ->setField('fields[my_subject]', 'This is my original shiny little subject')
-  ->setField('fields[my_datetime]', "2001-01-01 12:12:12")    
+  ->setField('fields[my_date]', "2001-01-01 12:12:12")    
   ->setField('fields[my_email]', 'bender@ull.at')
 ;
   

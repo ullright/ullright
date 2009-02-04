@@ -1,5 +1,5 @@
-#editSuccess:
-#  javascripts:    [jq/jquery.js, jq/jquery-ui.js]
+editSuccess:
+  javascripts:    [../ullCorePlugin/js/jq/jquery-min.js, ../ullCorePlugin/js/jq/jquery-ui-min.js]
 
 default:
   http_metas:
@@ -14,7 +14,7 @@ default:
 
 #  stylesheets:    [ /ullFlowPlugin/css/main.css: { media: all } ]
 
-  javascripts:    []
+#  javascripts:    []
 
   has_layout:     on
   layout:         layout

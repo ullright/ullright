@@ -14,6 +14,8 @@
 <?php
   $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
   sfContext::getInstance()->getResponse()->addStylesheet($path, 'first', array('media' => 'all'));
+  $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/jqui/ui.all.css";
+  sfContext::getInstance()->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
 ?>
 </head>
 <body>
