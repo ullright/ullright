@@ -1,4 +1,5 @@
 # Parent entity
+# Includes all fields required by ullCore
 UllParentEntity:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -22,11 +23,7 @@ UllParentEntity:
 #    ull_parent_entity_display_name:
 #      fields: [display_name]
             
-#  relations:
-#    UllEntityGroupAsGroup:
-#      class: UllEntityGroup
-#      local: id
-#      foreign: ull_group_id
+
   attributes:
     # don't export constraints. This is necessary because mysql 5 cannot delete
     # rows with self-references
@@ -34,11 +31,11 @@ UllParentEntity:
 
 # empty entity class to be overridden by custom Entity class
 # (in config/doctrine/schema.yml) to allow definition of additional userfields
-UllEntity:
+#UllEntity:
 #  package: ullCorePlugin.lib.model.doctrine
-  inheritance:
-    extends: UllParentEntity
-    type: concrete
+#  inheritance:
+#    extends: UllParentEntity
+#    type: concrete
 
 UllUser:
   package: ullCorePlugin.lib.model.doctrine

@@ -6,4 +6,24 @@
 abstract class PluginUllParentEntity extends BaseUllParentEntity
 {
 
+  /**
+   * __toString()
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    if ($this->type == 'group')
+    {
+      $group = sfContext::getInstance()->getI18N()->__('Group', null, 'common');
+      //return $this->display_name . " ($group)";
+      //let's see how this looks...
+      return $this->display_name;
+    }
+    else
+    {
+      return $this->display_name;
+    }
+  }
+  
 }
