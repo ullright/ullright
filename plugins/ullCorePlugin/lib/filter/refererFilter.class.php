@@ -3,7 +3,7 @@
 /**
  * referer filter.
  *
- * @package    ull_at
+ * @package    ullright
  * @author     Klemens Ullmann
  */
 class refererFilter extends sfFilter
@@ -14,38 +14,31 @@ class refererFilter extends sfFilter
  * @param none
  * @return none
  */ 
-  public function execute($filterChain) {
-    
+  public function execute($filterChain) 
+  {
     // Execute this filter only once (on the first call):
-    if ($this->isFirstCall()) {
-      
+    if ($this->isFirstCall()) 
+    {
       $context  = $this->getContext();
       $request  = $context->getRequest();
       $user     = $context->getUser();
       
-      
       // === generic referer (simulates $_REQUEST('HTTP_REFERER');
       
       // don't overwrite the referer on page reload
-      if ($user->getAttribute('referer_transfer') <> $request->getUri()) {
-        
+      if ($user->getAttribute('referer_transfer') <> $request->getUri()) 
+      {
         
         // the url of the previous page was saved into referer_transfer. 
         //  now we save this url to the actual referer attribute
-        if ($user->getAttribute('referer_transfer')) {
+        if ($user->getAttribute('referer_transfer')) 
+        {
           $user->setAttribute('referer', $user->getAttribute('referer_transfer'));
-  //        $this->getContext()->getLogger()->info(
-  //          'referer: '.$user->getAttribute('referer'));
         }
-//        $this->getContext()->getLogger()->notice(
-//            'request_uri: '.$request->getUri());
 
         // referer_transfer is overwritten with the url of the current page
         //  to remember it for the next page
         $user->setAttribute('referer_transfer', $request->getUri());
-  
-//        $this->getContext()->getLogger()->notice(
-//            "HTTP_REFERER:".$request->getReferer());
       }
       
 //      if ($request->getReferer()) {

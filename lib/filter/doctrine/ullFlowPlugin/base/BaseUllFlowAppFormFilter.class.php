@@ -23,7 +23,7 @@ class BaseUllFlowAppFormFilter extends BaseFormFilterDoctrine
       'updated_at'          => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'creator_user_id'     => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'     => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
-      'ull_permission_list' => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllPermission')),
+      'ull_permission_list' => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllPermission')),
     ));
 
     $this->setValidators(array(

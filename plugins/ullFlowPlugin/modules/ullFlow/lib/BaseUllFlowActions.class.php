@@ -227,7 +227,7 @@ class BaseUllFlowActions extends ullsfActions
 
     $refererHandler = new refererHandler();
     
-    if (!$referer_edit = $refererHandler->getRefererAndDelete('edit')) 
+    if (!$referer_edit = $refererHandler->getRefererAndDelete('list')) 
     {
       $referer_edit = $this->getUser()->getAttribute('referer');
     }   

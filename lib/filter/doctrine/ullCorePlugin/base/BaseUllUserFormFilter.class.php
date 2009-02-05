@@ -26,7 +26,7 @@ class BaseUllUserFormFilter extends BaseFormFilterDoctrine
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
-      'ull_group_list'  => new sfWidgetFormDoctrineSelectMany(array('model' => 'UllGroup')),
+      'ull_group_list'  => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllGroup')),
     ));
 
     $this->setValidators(array(
