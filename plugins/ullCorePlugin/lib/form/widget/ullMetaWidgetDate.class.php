@@ -22,5 +22,3 @@ class ullMetaWidgetDate extends ullMetaWidget
     
   }  
 }
-
-?>

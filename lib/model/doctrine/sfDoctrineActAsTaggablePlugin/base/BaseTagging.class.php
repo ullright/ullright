@@ -13,8 +13,8 @@ abstract class BaseTagging extends sfDoctrineRecord
     $this->hasColumn('taggable_id', 'integer', null, array('type' => 'integer'));
 
 
-    $this->index('tag', array('fields' => 'tag_id'));
-    $this->index('taggable', array('fields' => 'taggable_model, taggable_id'));
+    $this->index('tag', array('fields' => array(0 => 'tag_id')));
+    $this->index('taggable', array('fields' => array(0 => 'taggable_model', 1 => 'taggable_id')));
 
     $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);
   }
