@@ -163,6 +163,10 @@ class refererHandler
     }
     
     $referer = $this->getReferer($this->action, $this->module);
+    if (!$referer)
+    {
+      $referer = '@homepage';
+    }
     $this->delete($this->action, $this->module);
     return $referer;
   }
