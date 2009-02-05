@@ -66,7 +66,7 @@ class PluginUllColumnConfigTable extends UllRecordTable
       
       if (!$dbColumnConfig->is_in_list)
       {
-        $columnConfig['show_in_list'] = false;
+        $columnConfig['is_in_list'] = false;
       }
       
       if ($value = $dbColumnConfig->UllColumnType->class)

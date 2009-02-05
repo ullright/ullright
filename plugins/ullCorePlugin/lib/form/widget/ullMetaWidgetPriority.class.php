@@ -14,7 +14,8 @@ class ullMetaWidgetPriority extends ullMetaWidget
         5 => __('Very low', null, 'common')
       ))));
       
-      $this->addValidator(new sfValidatorChoice(array('choices' => array(1, 2, 3, 4, 5))));
+      $this->addValidator(new sfValidatorChoice(
+              array_merge($this->columnConfig['validatorOptions'], array('choices' => array(1, 2, 3, 4, 5)))));
     }
     else
     {

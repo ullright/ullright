@@ -6,6 +6,7 @@ UllUser:
     email:              admin@example.com
     username:           admin
     password:           21232f297a57a5a743894a0e4a801fc3 # = admin
+    sex:                m
     creator_user_id:    1               # integer since the adminuser isn't created yet
     updator_user_id:    1               # integer since the adminuser isn't created yet
     namespace:          ullCore
@@ -114,6 +115,10 @@ UllColumnType:
   information_update:
     class:        ullMetaWidgetInformationUpdate
     label:        Information update
+    namespace:    ullCore
+  sex:
+    class:        ullMetaWidgetSex
+    label:        Sex
     namespace:    ullCore
 
 
@@ -281,7 +286,17 @@ UllColumnConfig:
     is_in_list:     false
     UllColumnType:  password
     namespace:    ullCore
-
+  ull_user_cc_sex:
+    Translation:
+      en:
+        label:      Sex
+      de:
+        label:      Geschlecht
+    db_table_name:  UllUser
+    db_column_name: sex
+    is_in_list:     false
+    UllColumnType:  sex
+    namespace:      ullCore
 
 ###TESTING### ich entferne es später wieder, Denny
 #  ull_user_cc_dingens:

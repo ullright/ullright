@@ -531,6 +531,16 @@
 <target>Passwort bestätigen</target>
 </trans-unit>
 
+<trans-unit id="17004">
+<source>Male</source>
+<target>Männlich</target>
+</trans-unit>
+
+<trans-unit id="17005">
+<source>Female</source>
+<target>Weiblich</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

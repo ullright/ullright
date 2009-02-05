@@ -19,6 +19,10 @@ UllParentEntity:
       type: string(64)
     password:
       type: string(40)
+    sex:
+      type: enum
+      values: [null, m, f]
+
 #  indexes:
 #    ull_parent_entity_display_name:
 #      fields: [display_name]

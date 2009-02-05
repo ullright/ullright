@@ -24,5 +24,5 @@ try
   }
   catch (InvalidArgumentException $e)
   {
-    $t->pass('__ren der() throws an exception if an invalid priority number is given');
+    $t->pass('__render() throws an exception if an invalid priority number is given');
   }
