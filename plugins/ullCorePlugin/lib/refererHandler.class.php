@@ -35,7 +35,8 @@ class refererHandler
  * @param none
  * @return none
  */ 
-  public function __construct() {    
+  public function __construct() 
+  {    
     $this->context            = sfContext::getInstance();
     $this->user               = $this->context->getUser();
     $this->action             = $this->context->getActionName();
@@ -47,10 +48,9 @@ class refererHandler
 /**
  * build the referer name
  */ 
-  public function buildRefererName() {
-       
+  public function buildRefererName() 
+  {
     $this->referer_name = $this->referer_base_name.'_'.$this->module.'_'.$this->action;
-    
   }  
   
 /**
@@ -163,10 +163,10 @@ class refererHandler
     }
     
     $referer = $this->getReferer($this->action, $this->module);
-    if (!$referer)
-    {
-      $referer = '@homepage';
-    }
+//    if (!$referer)
+//    {
+//      $referer = '@homepage';
+//    }
     $this->delete($this->action, $this->module);
     return $referer;
   }
