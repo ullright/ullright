@@ -1,0 +1,3 @@
+editSuccess:
+  javascripts:    [../ullCorePlugin/js/jq/jquery-min.js, ../ullCorePlugin/js/jq/jquery-ui-min.js]
+  

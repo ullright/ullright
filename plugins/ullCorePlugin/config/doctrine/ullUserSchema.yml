@@ -22,6 +22,36 @@ UllParentEntity:
     sex:
       type: enum
       values: [null, m, f]
+    entry_date:
+      type: date
+    deactivation_date:
+      type: date
+    separation_date:
+      type: date
+    ull_employment_type_id:
+      type: integer
+    ull_job_title_id:
+      type: integer
+    ull_company_id:
+      type: integer
+    ull_department_id:
+      type: integer
+    ull_location_id:
+      type: integer
+    superior_ull_user_id:
+      type: integer
+    phone_extension:
+      type: integer(20)
+    is_show_extension_in_phonebook:
+      type: boolean
+    fax_extension:
+      type: integer(20)
+    is_show_fax_extension_in_phonebook:
+      type: boolean
+    comment:
+      type: string(4000)
+
+
 
 #  indexes:
 #    ull_parent_entity_display_name:
@@ -52,6 +82,25 @@ UllUser:
       refClass: UllEntityGroup
       foreignAlias: UllUsers
       local: ull_entity_id
+    Superior:
+      class: UllUser
+      local: superior_ull_user_id
+      foreign: id 
+    UllJobTitle:
+      local: ull_job_title_id
+      foreign: id
+    UllCompany:
+      local: ull_company_id
+      foreign: id
+    UllEmploymentType:
+      local: ull_employment_type_id
+      foreign: id
+    UllDepartment:
+      local: ull_department_id
+      foreign: id
+    UllLocation:
+      local: ull_location_id
+      foreign: id  
       #foreign: group_id
 
 UllGroup:
@@ -145,3 +194,80 @@ UllGroupPermission:
 #      primary: true
 #  relations:
 #    UllGroup:
+
+UllJobTitle:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name:
+      type: string(100)
+      notnull: true
+
+UllEmploymentType:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+  columns:
+    name:
+      type: string(100)
+      notnull: true
+
+UllCompany:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name:
+      type: string(100)
+      notnull: true
+    short_name:
+      type: string(15)
+
+UllDepartment:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name:
+      type: string(100)
+      notnull: true
+    short_name:
+      type: string(15)
+
+
+UllLocation:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name:
+      type: string(100)
+      notnull: true
+    short_name:
+      type: string(15)
+    street:
+      type: string(200)
+    city:
+      type: string(100)
+    country:
+      type: string(10) #iso-code?
+    post_code:
+      type: string(10) #make this integer?
+    phone_base_no:
+      type: string(20)
+    phone_default_extension:
+      type: integer
+    fax_base_no:
+      type: string(20)
+    fax_default_extension:
+      type: integer
+    

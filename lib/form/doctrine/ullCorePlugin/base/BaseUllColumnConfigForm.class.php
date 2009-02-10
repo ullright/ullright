@@ -32,7 +32,7 @@ class BaseUllColumnConfigForm extends BaseFormDoctrine
       'id'                 => new sfValidatorDoctrineChoice(array('model' => 'UllColumnConfig', 'column' => 'id', 'required' => false)),
       'namespace'          => new sfValidatorString(array('max_length' => 32, 'required' => false)),
       'db_table_name'      => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'db_column_name'     => new sfValidatorString(array('max_length' => 32, 'required' => false)),
+      'db_column_name'     => new sfValidatorString(array('max_length' => 64, 'required' => false)),
       'label'              => new sfValidatorString(array('max_length' => 64, 'required' => false)),
       'description'        => new sfValidatorString(array('required' => false)),
       'ull_column_type_id' => new sfValidatorDoctrineChoice(array('model' => 'UllColumnType', 'required' => false)),

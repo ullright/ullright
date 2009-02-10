@@ -10,7 +10,7 @@ abstract class BaseUllColumnConfig extends UllRecord
     parent::setTableDefinition();
     $this->setTableName('ull_column_config');
     $this->hasColumn('db_table_name', 'string', 32, array('type' => 'string', 'length' => '32'));
-    $this->hasColumn('db_column_name', 'string', 32, array('type' => 'string', 'length' => '32'));
+    $this->hasColumn('db_column_name', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
     $this->hasColumn('description', 'clob', null, array('type' => 'clob'));
     $this->hasColumn('ull_column_type_id', 'integer', null, array('type' => 'integer'));

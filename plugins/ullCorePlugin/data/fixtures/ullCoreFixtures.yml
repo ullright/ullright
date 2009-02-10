@@ -7,6 +7,20 @@ UllUser:
     username:           admin
     password:           21232f297a57a5a743894a0e4a801fc3 # = admin
     sex:                m
+    entry_date:         "2009-01-01"
+    deactivation_date:  "2999-09-09"
+    separation_date:    "2888-08-08"
+    phone_extension:    123
+    is_show_extension_in_phonebook: true
+    fax_extension:      321
+    is_show_fax_extension_in_phonebook: false
+    comment:            "Fear the admin"
+    ull_job_title_id:       1     # TODO: TEMP because UllJobTitle: programmer_jt won't work
+    ull_company_id:         1
+    ull_department_id:      1
+    ull_location_id:        1
+    ull_employment_type_id: 1
+    superior_ull_user_id:   1
     creator_user_id:    1               # integer since the adminuser isn't created yet
     updator_user_id:    1               # integer since the adminuser isn't created yet
     namespace:          ullCore
@@ -19,7 +33,6 @@ UllUser:
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
-    
 
 UllGroup:
   admin_group:
@@ -297,6 +310,149 @@ UllColumnConfig:
     is_in_list:     false
     UllColumnType:  sex
     namespace:      ullCore
+  ull_user_cc_entrydate:
+    Translation:
+      en:
+        label:      Entry date
+      de:
+        label:      Eintrittsdatum
+    db_table_name:  UllUser
+    db_column_name: entry_date
+    is_in_list:     false
+    UllColumnType:  date
+    namespace:      ullCore
+  ull_user_cc_deactivationdate:
+    Translation:
+      en:
+        label:      Deactivation date
+      de:
+        label:      Deaktivierungsdatum
+    db_table_name:  UllUser
+    db_column_name: deactivation_date
+    is_in_list:     false
+    UllColumnType:  date
+    namespace:      ullCore
+  ull_user_cc_separationdate:
+    Translation:
+      en:
+        label:      Separation date
+      de:
+        label:      Austrittsdatum
+    db_table_name:  UllUser
+    db_column_name: separation_date
+    is_in_list:     false
+    UllColumnType:  date
+    namespace:      ullCore
+  ull_user_cc_et:
+    Translation:
+      en:
+        label:      Employment type
+      de:
+        label:      Beschäftigungsverhältnis
+    db_table_name:  UllUser
+    db_column_name: ull_employment_type_id
+    is_in_list:     false
+    namespace:      ullCore
+  ull_user_cc_jt:
+    Translation:
+      en:
+        label:      Job title
+      de:
+        label:      Funktion
+    db_table_name:  UllUser
+    db_column_name: ull_job_title_id
+    is_in_list:     false
+    namespace:      ullCore 
+  ull_user_cc_company:
+    Translation:
+      en:
+        label:      Company
+      de:
+        label:      Unternehmen
+    db_table_name:  UllUser
+    db_column_name: ull_company_id
+    is_in_list:     false
+    namespace:      ullCore 
+  ull_user_cc_department:
+    Translation:
+      en:
+        label:      Department
+      de:
+        label:      Abteilung
+    db_table_name:  UllUser
+    db_column_name: ull_department_id
+    is_in_list:     false
+    namespace:      ullCore 
+  ull_user_cc_location:
+    Translation:
+      en:
+        label:      Location
+      de:
+        label:      Standort
+    db_table_name:  UllUser
+    db_column_name: ull_location_id
+    is_in_list:     false
+    namespace:      ullCore 
+  ull_user_cc_superior:
+    Translation:
+      en:
+        label:      Superior
+      de:
+        label:      Vorgesetzter
+    db_table_name:  UllUser
+    db_column_name: superior_ull_user_id
+    is_in_list:     false
+    namespace:      ullCore
+  ull_user_cc_pext:
+    Translation:
+      en:
+        label:      Phone extension
+      de:
+        label:      Durchwahl
+    db_table_name:  UllUser
+    db_column_name: phone_extension
+    is_in_list:     false
+    namespace:      ullCore
+  ull_user_cc_pextinpb:
+    Translation:
+      en:
+        label:      Show phone ext. in phone book
+      de:
+        label:      Durchwahl in Telefonb. anzeigen
+    db_table_name:  UllUser
+    db_column_name: is_show_extension_in_phonebook
+    is_in_list:     false
+    namespace:      ullCore
+  ull_user_cc_fext:
+    Translation:
+      en:
+        label:      Fax extension
+      de:
+        label:      Fax-Durchwahl
+    db_table_name:  UllUser
+    db_column_name: fax_extension
+    is_in_list:     false
+    namespace:      ullCore
+  ull_user_cc_fextinpb:
+    Translation:
+      en:
+        label:      Show fax ext. in phone book
+      de:
+        label:      Fax-Durchwahl in Telefonb. anzeigen
+    db_table_name:  UllUser
+    db_column_name: is_show_fax_extension_in_phonebook
+    is_in_list:     false
+    namespace:      ullCore
+  ull_user_cc_comment:
+    Translation:
+      en:
+        label:      Comment
+      de:
+        label:      Kommentar
+    db_table_name:  UllUser
+    db_column_name: comment
+    is_in_list:     false
+    namespace:      ullCore
 
 ###TESTING### ich entferne es später wieder, Denny
 #  ull_user_cc_dingens:
@@ -554,3 +710,45 @@ TestTable:
 #  echo "    my_string: blabla$i\n";
 #}
 #?>
+
+UllJobTitle:
+  programmer_jt:
+    name:  Programmer
+    namespace:    test
+
+
+UllCompany:
+  ull_company:
+    name:       ull.at Business Websolutions
+    short_name: ull.at
+    namespace:  test
+
+UllDepartment:
+  design_department:
+    name:       Information Technology
+    short_name: IT
+    namespace: test
+
+UllLocation:
+  ull_location:
+    name:                     Wien Mollardgasse
+    short_name:               WMO
+    street:                   Mollardgasse 85a
+    city:                     Wien
+    country:                  AT
+    post_code:                1060
+    phone_base_no:            "+43 1 234567"
+    phone_default_extension:  4321
+    fax_base_no:              "+43 1 2345678"
+    fax_default_extension:    5432
+    namespace:                test
+
+UllEmploymentType:
+  ceo_et:
+    Translation:
+      en:
+        name:   CEO
+      de:
+        name:   Geschäftsführer
+    namespace: test
+    

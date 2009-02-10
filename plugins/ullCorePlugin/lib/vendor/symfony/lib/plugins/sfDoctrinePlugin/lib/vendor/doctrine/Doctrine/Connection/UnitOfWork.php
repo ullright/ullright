@@ -631,7 +631,7 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
      * @param array $tables     an array of Doctrine_Table objects or component names
      * @return array            an array of component names in flushing order
      */
-    public function buildFlushTree(array $tables)
+    public function buildFlushTreeKlemens(array $tables)
     {
         // determine classes to order. only necessary because the $tables param
         // can contain strings or table objects...
@@ -707,6 +707,8 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
         
         $flushList = array();
         
+//        var_dump($dependencies);die;
+        
         // get components without dependencies
         foreach($dependencies as $class => $dependencyClasses) {
             if ($dependencyClasses === null) {
@@ -742,6 +744,146 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
         return $flushList;
     }
 
+    /**
+     * buildFlushTree
+     * builds a flush tree that is used in transactions
+     *
+     * The returned array has all the initialized components in
+     * 'correct' order. Basically this means that the records of those
+     * components can be saved safely in the order specified by the returned array.
+     *
+     * @param array $tables     an array of Doctrine_Table objects or component names
+     * @return array            an array of component names in flushing order
+     */
+    public function buildFlushTree(array $tables)
+    {
+        // determine classes to order. only necessary because the $tables param
+        // can contain strings or table objects...
+        $classesToOrder = array();
+        foreach ($tables as $table) {
+            if ( ! ($table instanceof Doctrine_Table)) {
+                $table = $this->conn->getTable($table, false);
+            }
+            $classesToOrder[] = $table->getComponentName();
+        }
+        $classesToOrder = array_unique($classesToOrder);
+
+        if (count($classesToOrder) < 2) {
+            return $classesToOrder;
+        }
+
+        // build the correct order
+        $flushList = array();
+        foreach ($classesToOrder as $class) {
+            $table = $this->conn->getTable($class, false);
+            $currentClass = $table->getComponentName();
+
+            $index = array_search($currentClass, $flushList);
+
+            if ($index === false) {
+                //echo "adding $currentClass to flushlist";
+                $flushList[] = $currentClass;
+                $index = max(array_keys($flushList));
+            }
+
+            $rels = $table->getRelations();
+
+            // move all foreignkey relations to the beginning
+            foreach ($rels as $key => $rel) {
+                if ($rel instanceof Doctrine_Relation_ForeignKey) {
+                    unset($rels[$key]);
+                    array_unshift($rels, $rel);
+                }
+            }
+
+            foreach ($rels as $rel) {
+                $relatedClassName = $rel->getTable()->getComponentName();
+
+                if ( ! in_array($relatedClassName, $classesToOrder)) {
+                    continue;
+                }
+
+                $relatedCompIndex = array_search($relatedClassName, $flushList);
+                $type = $rel->getType();
+
+                // skip self-referenced relations
+                if ($relatedClassName === $currentClass) {
+                    continue;
+                }
+
+                if ($rel instanceof Doctrine_Relation_ForeignKey) {
+                    // the related component needs to come after this component in
+                    // the list (since it holds the fk)
+
+                    if ($relatedCompIndex !== false) {
+                        // the component is already in the list
+                        if ($relatedCompIndex >= $index) {
+                            // it's already in the right place
+                            continue;
+                        }
+
+                        unset($flushList[$index]);
+                        // the related comp has the fk. so put "this" comp immediately
+                        // before it in the list
+                        array_splice($flushList, $relatedCompIndex, 0, $currentClass);
+                        $index = $relatedCompIndex;
+                    } else {
+                        $flushList[] = $relatedClassName;
+                    }
+
+                } else if ($rel instanceof Doctrine_Relation_LocalKey) {
+                    // the related component needs to come before the current component
+                    // in the list (since this component holds the fk).
+
+                    if ($relatedCompIndex !== false) {
+                        // already in flush list
+                        if ($relatedCompIndex <= $index) {
+                            // it's in the right place
+                            continue;
+                        }
+
+                        unset($flushList[$relatedCompIndex]);
+                        // "this" comp has the fk. so put the related comp before it
+                        // in the list
+                        array_splice($flushList, $index, 0, $relatedClassName);
+                    } else {
+                        array_unshift($flushList, $relatedClassName);
+                        $index++;
+                    }
+                } else if ($rel instanceof Doctrine_Relation_Association) {
+                    // the association class needs to come after both classes
+                    // that are connected through it in the list (since it holds
+                    // both fks)
+
+                    $assocTable = $rel->getAssociationFactory();
+                    $assocClassName = $assocTable->getComponentName();
+
+                    if ($relatedCompIndex !== false) {
+                        unset($flushList[$relatedCompIndex]);
+                    }
+
+                    array_splice($flushList, $index, 0, $relatedClassName);
+                    $index++;
+
+                    $index3 = array_search($assocClassName, $flushList);
+
+                    if ($index3 !== false) {
+                        if ($index3 >= $index) {
+                            continue;
+                        }
+
+                        unset($flushList[$index]);
+                        array_splice($flushList, $index3, 0, $assocClassName);
+                        $index = $relatedCompIndex;
+                    } else {
+                        $flushList[] = $assocClassName;
+                    }
+                }
+            }
+        }
+
+        return array_values($flushList);
+    }    
 
     /* The following is all the Class Table Inheritance specific code. Support dropped
        for 0.10/1.0. */

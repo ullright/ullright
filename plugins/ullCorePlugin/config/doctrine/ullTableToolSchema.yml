@@ -49,7 +49,7 @@ UllColumnConfig:
     db_table_name: 
       type: string(32)
     db_column_name:
-      type: string(32)
+      type: string(64)
     label:
       type: string(64)
     description:
