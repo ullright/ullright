@@ -401,6 +401,7 @@ UllColumnConfig:
         label:      Vorgesetzter
     db_table_name:  UllUser
     db_column_name: superior_ull_user_id
+    UllColumnType:  ull_user
     is_in_list:     false
     namespace:      ullCore
   ull_user_cc_pext:
@@ -453,18 +454,6 @@ UllColumnConfig:
     db_column_name: comment
     is_in_list:     false
     namespace:      ullCore
-
-###TESTING### ich entferne es später wieder, Denny
-#  ull_user_cc_dingens:
-#    Translation:
-#      en:
-#        label:      Dingens
-#      de:
-#        label:      Dingens
-#    db_table_name:  UllUser
-#    db_column_name: dingens
-#    is_in_list:     true
-#    UllColumnType:  textarea
 
   #UllGroup
   ull_group_cc_first_name:

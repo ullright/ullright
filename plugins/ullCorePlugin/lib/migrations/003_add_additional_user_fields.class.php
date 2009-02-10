@@ -219,6 +219,7 @@ class AddAdditionalUserFields extends Doctrine_Migration
     $cc->db_column_name = 'superior_ull_user_id';
     $cc->is_in_list = false;
     $cc->namespace = 'ullCore';
+    $cc->UllColumnType = Doctrine::getTable('UllColumnType')->findOneByLabel('UllUser');
     $cc->Translation[0]->lang = 'en';
     $cc->Translation[0]->label = 'Superior';
     $cc->Translation[1]->lang = 'de';
