@@ -18,6 +18,7 @@ $t = new myTestCase(11, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
+$helpdeskGroupId = UllGroupTable::findIdByDisplayName('Helpdesk');
 
 
 $t->begin('__construct');
@@ -68,6 +69,6 @@ $t->diag('save() with action "send"');
   
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
   $t->is($doc->ull_flow_action_id, 8, 'sets the action correctly');
-  $t->is($doc->assigned_to_ull_entity_id, 8, 'sets the entity correctly');
+  $t->is($doc->assigned_to_ull_entity_id, $helpdeskGroupId, 'sets the entity correctly');
   $t->is($doc->assigned_to_ull_flow_step_id, 2, 'sets the step correctly');
  

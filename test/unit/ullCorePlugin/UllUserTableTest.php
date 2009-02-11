@@ -5,34 +5,39 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(12, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(13, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
 
 $t->begin('hasGroup()');
+
+  $groupMasterAdminsId = UllGroupTable::findIdByDisplayName('MasterAdmins'); 
+  $groupTestId = UllGroupTable::findIdByDisplayName('TestGroup');
+
+
   $t->is(
         UllUserTable::hasGroup('MasterAdmins', '1')
       , true
       , 'returns true for a given group and user_id (as string ;-))'
       );      
   $t->is(
-        UllUserTable::hasGroup('MasterAdmins', 3)
+        UllUserTable::hasGroup('MasterAdmins', $groupMasterAdminsId)
       , false
       , 'returns false for a given group and user_id'
       );
   $t->is(
-        UllUserTable::hasGroup(3, 1)
+        UllUserTable::hasGroup($groupMasterAdminsId, 1)
       , true
       , 'returns true for a given group_id and user_id'
       );
   $t->is(
-        UllUserTable::hasGroup(2, 3)
+        UllUserTable::hasGroup(2, $groupMasterAdminsId)
       , false
       , 'returns false for a given group_id and user_id'
       );
   $t->is(
-        UllUserTable::hasGroup(array(3,4), 1)
+        UllUserTable::hasGroup(array($groupMasterAdminsId, $groupTestId), 1)
       , true
       , 'returns true for a given array of group_ids and user_id'
       );
@@ -73,4 +78,9 @@ $t->begin('hasPermission()');
         UllUserTable::hasPermission('invalidPermission', 2)
       , false
       , 'returns false for an invalid permission'
-      );                
+      );
+  $t->is(
+        UllUserTable::hasPermission('invalidPermission', 1)
+      , true
+      , 'returns true for any permission for MasterAdmin'
+      );   

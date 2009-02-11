@@ -28,6 +28,8 @@ $t = new myTestCase(10, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
+$helpdeskGroupId = UllGroupTable::findIdByDisplayName('Helpdesk');
+
 $t->begin('__construct()');
 
   $doc = Doctrine::getTable('UllFlowDoc')->findOneBySubject('My first trouble ticket');
@@ -35,7 +37,7 @@ $t->begin('__construct()');
 
 $t->diag('findGroup()');
 
-  $t->is($rule->findGroup('Helpdesk')->id, 8, 'returns the correct group');
+  $t->is($rule->findGroup('Helpdesk')->id, $helpdeskGroupId, 'returns the correct group');
 
 $t->diag('findStep()');
 
@@ -57,4 +59,4 @@ $t->diag('getNext()');
   $t->isa_ok($next['step'], 'UllFlowStep', 'returns the correct object for next step');
   $t->is($next['step']->id, 2, 'return the correct step id');
   $t->isa_ok($next['entity'], 'UllGroup', 'returns the correct object for next entity');
-  $t->is($next['entity']->id, 8, 'return the correct entity id');
+  $t->is($next['entity']->id, $helpdeskGroupId, 'return the correct entity id');

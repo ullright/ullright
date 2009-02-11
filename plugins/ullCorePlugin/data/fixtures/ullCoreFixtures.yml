@@ -34,15 +34,7 @@ UllUser:
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
-<?php for($i = 1; $i <= 6; $i++): ?>
-  user_<?php echo $i ?>:
-    first_name:           John
-    last_name:            <?php echo 'Doe ' . $i . "\n" ?>
-    superior_ull_user_id: <?php echo (($i < 4) ? '1' : '2') . "\n" ?>
-    username:             <?php echo 'jdoe' . $i . "\n" ?>
-    email:                <?php echo 'jdoe' . $i . "@jdoe.org\n" ?>
-    namespace:            test
-<?php endfor; ?>
+
 UllGroup:
   admin_group:
     display_name:       MasterAdmins
