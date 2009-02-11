@@ -28,6 +28,17 @@ class AddUserStatusField extends Doctrine_Migration
     $this->createForeignKey('ull_user_status_translation', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_user_status', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_user_status_translation_id'));
     
     $this->addColumn('ull_entity', 'ull_user_status_id', 'integer', array('length' => 2147483647));
+    
+    $cc = new UllColumnConfig();
+    $cc->db_table_name = 'UllUser';
+    $cc->db_column_name = 'ull_user_status_id';
+    $cc->is_in_list = false;
+    $cc->namespace = 'ullCore';
+    $cc->Translation[0]->lang = 'en';
+    $cc->Translation[0]->label = 'Status';
+    $cc->Translation[1]->lang = 'de';
+    $cc->Translation[1]->label = 'Status';
+    $cc->save();
   }
 
   public function down()
