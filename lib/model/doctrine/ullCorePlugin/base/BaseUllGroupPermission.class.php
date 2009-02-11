@@ -17,9 +17,11 @@ abstract class BaseUllGroupPermission extends UllRecord
   {
     parent::setUp();
     $this->hasOne('UllGroup', array('local' => 'ull_group_id',
-                                    'foreign' => 'id'));
+                                    'foreign' => 'id',
+                                    'onDelete' => 'CASCADE'));
 
     $this->hasOne('UllPermission', array('local' => 'ull_permission_id',
-                                         'foreign' => 'id'));
+                                         'foreign' => 'id',
+                                         'onDelete' => 'CASCADE'));
   }
 }

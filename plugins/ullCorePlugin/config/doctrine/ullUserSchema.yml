@@ -132,7 +132,9 @@ UllEntityGroup:
       notnull: true
   relations:
     UllEntity:
+      onDelete: CASCADE
     UllGroup:
+      onDelete: CASCADE
     UllEntityAsGroup:
       class: UllEntity
       local: ull_group_id
@@ -143,6 +145,7 @@ UllEntityGroup:
       local: ull_entity_id
       #foreign: id
       #foreignAlias: UllEntityGroupsAsGroup
+      onDelete: CASCADE
 
 
 UllPermission:
@@ -181,8 +184,10 @@ UllGroupPermission:
       notnull: true
   relations:
     UllGroup:
+      onDelete: CASCADE
     UllPermission:
-
+      onDelete: CASCADE
+      
 #UllAccessGroup:
 #  package: ullCorePlugin.lib.model.doctrine
 #  inheritance:

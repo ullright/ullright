@@ -17,15 +17,18 @@ abstract class BaseUllEntityGroup extends UllRecord
   {
     parent::setUp();
     $this->hasOne('UllEntity', array('local' => 'ull_entity_id',
-                                     'foreign' => 'id'));
+                                     'foreign' => 'id',
+                                     'onDelete' => 'CASCADE'));
 
     $this->hasOne('UllGroup', array('local' => 'ull_group_id',
-                                    'foreign' => 'id'));
+                                    'foreign' => 'id',
+                                    'onDelete' => 'CASCADE'));
 
     $this->hasOne('UllEntity as UllEntityAsGroup', array('local' => 'ull_group_id',
                                                          'foreign' => 'id'));
 
     $this->hasOne('UllUser', array('local' => 'ull_entity_id',
-                                   'foreign' => 'id'));
+                                   'foreign' => 'id',
+                                   'onDelete' => 'CASCADE'));
   }
 }

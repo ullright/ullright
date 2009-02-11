@@ -106,7 +106,7 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeEdit($request) 
   {
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission('ull_wiki_edit');
     
     $this->refererHandler = new refererHandler();
     $this->refererHandler->initialize();
@@ -173,7 +173,7 @@ class BaseUllWikiActions extends ullsfActions
   public function executeDelete() 
   {
     // check access
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission('ull_wiki_delete');
 
     $this->getDocFromRequest();
     

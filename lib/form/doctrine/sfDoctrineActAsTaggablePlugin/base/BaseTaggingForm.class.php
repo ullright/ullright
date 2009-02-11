@@ -15,14 +15,14 @@ class BaseTaggingForm extends BaseFormDoctrine
       'id'             => new sfWidgetFormInputHidden(),
       'tag_id'         => new sfWidgetFormDoctrineSelect(array('model' => 'Tag', 'add_empty' => false)),
       'taggable_model' => new sfWidgetFormInput(),
-      'taggable_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowDoc', 'add_empty' => true)),
+      'taggable_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllWiki', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'             => new sfValidatorDoctrineChoice(array('model' => 'Tagging', 'column' => 'id', 'required' => false)),
       'tag_id'         => new sfValidatorDoctrineChoice(array('model' => 'Tag')),
       'taggable_model' => new sfValidatorString(array('max_length' => 30, 'required' => false)),
-      'taggable_id'    => new sfValidatorDoctrineChoice(array('model' => 'UllFlowDoc', 'required' => false)),
+      'taggable_id'    => new sfValidatorDoctrineChoice(array('model' => 'UllWiki', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('tagging[%s]');

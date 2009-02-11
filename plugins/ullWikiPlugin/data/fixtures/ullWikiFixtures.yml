@@ -10,6 +10,37 @@ UllWiki:
     duplicate_tags_for_search: ull_wiki_tag1
     namespace:    test
     
+UllGroup:
+  wiki_admin_group:
+    display_name:       WikiAdmins
+    Creator:            admin_user
+    Updator:            admin_user
+    namespace:          ullWiki
+
+UllPermission:
+  ull_wiki_edit:
+    slug:               ull_wiki_edit
+    namespace:          ullWiki
+  ull_wiki_delete:
+    slug:               ull_wiki_delete
+    namespace:          ullWiki
+    
+UllEntityGroup:
+  ull_entity_group_ull_wiki_1:
+    UllUser:            test_user
+    UllGroup:           wiki_admin_group
+    namespace:          test
+    
+UllGroupPermission:
+  ull_group_permission_ull_wiki_1:
+    UllGroup:           wiki_admin_group
+    UllPermission:      ull_wiki_edit
+    namespace:          ullWiki
+  ull_group_permission_ull_wiki_2:
+    UllGroup:           wiki_admin_group
+    UllPermission:      ull_wiki_delete
+    namespace:          ullWiki
+    
 Tag:
   ull_wiki_tag1:
     name:           ull_wiki_tag1

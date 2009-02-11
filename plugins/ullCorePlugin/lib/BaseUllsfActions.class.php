@@ -23,7 +23,7 @@ class BaseUllsfActions extends sfActions
   }
   
 /**
- * access check
+ * access check (group based)
  * checks if the currently logged in user is member of the given group
  * if not logged in -> redirect to login page
  * if the current user is not member of the group -> display access denied
@@ -41,6 +41,26 @@ class BaseUllsfActions extends sfActions
     
     $this->redirectUnless(UllUserTable::hasGroup($group), 'ullUser/noaccess');
   }
+  
+/**
+ * access check (permission based)
+ * checks if the currently logged in user has the given permission
+ * if not logged in -> redirect to login page
+ * if the current user doesn't have the given permission -> display access denied
+ * 
+ * 
+ * @param string $permission    a permission slug. example: ull_wiki_edit 
+ * @return none
+ */   
+  public function checkPermission($permission) 
+  {
+
+    // check access
+    $access_refererHandler = new refererHandler();
+    $access_refererHandler->initialize('access','ullUser');
+    
+    $this->redirectUnless(UllUserTable::hasPermission($permission), 'ullUser/noaccess');
+  }  
   
   
 /**
