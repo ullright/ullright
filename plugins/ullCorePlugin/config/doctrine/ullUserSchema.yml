@@ -50,7 +50,8 @@ UllParentEntity:
       type: boolean
     comment:
       type: string(4000)
-
+    ull_user_status_id:
+      type: integer
 
 
 #  indexes:
@@ -101,7 +102,9 @@ UllUser:
     UllLocation:
       local: ull_location_id
       foreign: id  
-      #foreign: group_id
+    UllUserStatus:
+      local: ull_user_status_id
+      foreign: id
 
 UllGroup:
   package: ullCorePlugin.lib.model.doctrine
@@ -270,4 +273,20 @@ UllLocation:
       type: string(20)
     fax_default_extension:
       type: integer
-    
+
+UllUserStatus:    
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+  columns:
+    name:
+      type: string(50)
+      notnull: true
+    is_active:
+      type: boolean
+
+      

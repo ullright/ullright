@@ -21,6 +21,7 @@ UllUser:
     ull_location_id:        1
     ull_employment_type_id: 1
     superior_ull_user_id:   1
+    ull_user_status_id:     1
     creator_user_id:    1               # integer since the adminuser isn't created yet
     updator_user_id:    1               # integer since the adminuser isn't created yet
     namespace:          ullCore
@@ -33,7 +34,15 @@ UllUser:
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
-
+<?php for($i = 1; $i <= 6; $i++): ?>
+  user_<?php echo $i ?>:
+    first_name:           John
+    last_name:            <?php echo 'Doe ' . $i . "\n" ?>
+    superior_ull_user_id: <?php echo (($i < 4) ? '1' : '2') . "\n" ?>
+    username:             <?php echo 'jdoe' . $i . "\n" ?>
+    email:                <?php echo 'jdoe' . $i . "@jdoe.org\n" ?>
+    namespace:            test
+<?php endfor; ?>
 UllGroup:
   admin_group:
     display_name:       MasterAdmins
@@ -454,6 +463,16 @@ UllColumnConfig:
     db_column_name: comment
     is_in_list:     false
     namespace:      ullCore
+  ull_user_cc_status:
+    Translation:
+      en:
+        label:      Status
+      de:
+        label:      Status
+    db_table_name:  UllUser
+    db_column_name: ull_user_status_id
+    is_in_list:     false
+    namespace:      ullCore
 
   #UllGroup
   ull_group_cc_first_name:
@@ -740,4 +759,59 @@ UllEmploymentType:
       de:
         name:   Geschäftsführer
     namespace: test
-    
+  intern_et:
+    Translation:
+      en:
+        name:   Intern
+      de:
+        name:   Praktikant
+    namespace: test
+  trainee_et:
+    Translation:
+      en:
+        name:   Trainee
+      de:
+        name:   Lehrling
+    namespace: test
+
+UllUserStatus:
+  active_status:
+    Translation:
+      en:
+        name:   Active
+      de:
+        name:   Aktiv
+    is_active:  true
+    namespace:  test
+  separated_status:
+    Translation:
+      en:
+        name:   Separated
+      de:
+        name:   Ausgetreten
+    is_active:  false
+    namespace:  test
+  maternity_status:
+    Translation:
+      en:
+        name:   Maternity leave
+      de:
+        name:   Karenz
+    is_active:  true
+    namespace:  test
+  military_status:
+    Translation:
+      en:
+        name:   Military service
+      de:
+        name:   Präsenzdienst
+    is_active:  false
+    namespace:  test
+  civil_service:
+    Translation:
+      en:
+        name:   Civilian service
+      de:
+        name:   Zivildienst
+    is_active:  false
+    namespace:  test      
