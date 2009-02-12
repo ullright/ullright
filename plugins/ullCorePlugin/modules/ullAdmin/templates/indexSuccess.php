@@ -13,7 +13,7 @@
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_permission_24x24', 'ullTableTool/list?table=UllPermission', __('Manage permissions')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_24x24', 'ullTableTool/list?table=UllEntityGroup', __('Manage group memberships')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_permission_24x24', 'ullTableTool/list?table=UllGroupPermission', __('Manage group permissions')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullUser/massChangeSuperior', __('Superior mass change')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_24x24', 'ullUser/massChangeSuperior', __('Superior mass change')) ?></li>
       </ul>
       <h3><?php echo __('Organizational') ?></h3>
       <ul class="tc_tasks">
