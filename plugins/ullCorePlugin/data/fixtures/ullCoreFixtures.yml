@@ -821,4 +821,15 @@ UllUserStatus:
       de:
         name:   Zivildienst
     is_active:  false
-    namespace:  test      
+    namespace:  test
+    
+UllPermission:
+  ull_user_mcs:
+    slug:           ull_user_mass_change_superior
+    namespace:      ullCore
+    
+UllGroupPermission:
+  ull_group_permission_mcs:
+    UllGroup:       test_group
+    UllPermission:  ull_user_mcs
+    namespace:      ullCore

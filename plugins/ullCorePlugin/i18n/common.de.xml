@@ -545,6 +545,10 @@
 <target>Zur Adminseite zurückkehren</target>
 </trans-unit>
 
+<trans-unit id="17007">
+<source>Return to previous page</source>
+<target>Zur vorherigen Seite zurückkehren</target>
+</trans-unit>
 
 </body>
   </file>

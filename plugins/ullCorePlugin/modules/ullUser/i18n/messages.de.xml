@@ -64,8 +64,13 @@
 </trans-unit>
 
 <trans-unit id="65">
-<source>The superior was successfully replaced.</source>
-<target>Der Vorgesetzte wurde erfolgreich ersetzt.</target>
+<source>There are no subordinated users for the given superior.</source>
+<target>Zu dem angegeben Vorgesetzen konnten keine Anwender gefunden werden.</target>
+</trans-unit>
+
+<trans-unit id="66">
+<source>[1]The superior was successfully replaced for one user.|(1,+Inf]The superior was successfully replaced for %1% users.</source>
+<target>[1]Der Vorgesetzte wurde für einen Benutzer erfolgreich ersetzt.|(1,+Inf]Der Vorgesetzte wurde für %1% Benutzer erfolgreich ersetzt.</target>
 </trans-unit>
 
 </body>
