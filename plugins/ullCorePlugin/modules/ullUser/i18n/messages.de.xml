@@ -65,7 +65,7 @@
 
 <trans-unit id="65">
 <source>There are no subordinated users for the given superior.</source>
-<target>Zu dem angegeben Vorgesetzen konnten keine Anwender gefunden werden.</target>
+<target>Zu dem angegeben Vorgesetzen konnten keine Benutzer gefunden werden.</target>
 </trans-unit>
 
 <trans-unit id="66">

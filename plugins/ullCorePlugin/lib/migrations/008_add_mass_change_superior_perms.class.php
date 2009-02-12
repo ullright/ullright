@@ -6,14 +6,26 @@ class AddMassChangeSuperiorPerms extends Doctrine_Migration
 {
   public function up()
   {
+    $group = new UllGroup();
+    $group->display_name = 'UserAdmins';
+    $group->namespace = 'ullCore';
+    $group->save();
+    
     $permissionMCS = new UllPermission();
     $permissionMCS->slug = 'ull_user_mass_change_superior';
     $permissionMCS->namespace = 'ullCore';
     $permissionMCS->save();
+    
+    $groupPermission = new UllGroupPermission();
+    $groupPermission->UllGroup = $group;
+    $groupPermission->UllPermission = $permissionMCS;
+    $groupPermission->namespace = 'ullCore';
+    $groupPermission->save();
   }
 
   public function down()
   {
+    Doctrine::getTable('UllGroup')->findOneByDisplayName('UserAdmins')->delete();
     Doctrine::getTable('UllPermission')->findOneBySlug('ull_user_mass_change_superior')->delete();
   }
 }

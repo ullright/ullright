@@ -166,8 +166,12 @@ class Doctrine_Data_Import extends Doctrine_Data
      */
     protected function _getImportedObject($rowKey, Doctrine_Record $record, $relationName, $referringRowKey)
     {
+//        var_dump($rowKey);
+//        var_dump($relationName);
+//        var_dump($referringRowKey);
+        
         if ( ! isset($this->_importedObjects[$rowKey])) {
-            throw new Doctrine_Data_Exception('Invalid row key specified: ' . $rowKey);
+          throw new Doctrine_Data_Exception('Invalid row key specified: ' . $rowKey);
         }
 
         $relatedRowKeyObject = $this->_importedObjects[$rowKey];
@@ -194,7 +198,7 @@ class Doctrine_Data_Import extends Doctrine_Data
     protected function _processRow($rowKey, $row)
     {
         $obj = $this->_importedObjects[$rowKey];
-
+        
         foreach ((array) $row as $key => $value) {
             if (method_exists($obj, 'set' . Doctrine_Inflector::classify($key))) {
                 $func = 'set' . Doctrine_Inflector::classify($key);
@@ -251,12 +255,15 @@ class Doctrine_Data_Import extends Doctrine_Data
      */
     protected function _loadData(array $array)
     {
-        $nestedSets = array();
+      //var_dump($array); die();  
+      
+      $nestedSets = array();
 
         $specifiedModels = $this->getModels();
         $rows = array();
 
         foreach ($array as $className => $data) {
+            //var_dump($className);
             if ( ! empty($specifiedModels) && !in_array($className, $specifiedModels)) {
                 continue;
             }
@@ -273,6 +280,7 @@ class Doctrine_Data_Import extends Doctrine_Data
 
         $buildRows = array();
         foreach ($this->_rows as $className => $classRows) {
+            //var_dump($className);
             foreach ($classRows as $rowKey => $row) {
                 $buildRows[$rowKey] = $row;
                 $this->_importedObjects[$rowKey] = new $className();
@@ -281,11 +289,14 @@ class Doctrine_Data_Import extends Doctrine_Data
         }
 
         foreach($buildRows as $rowKey => $row) {
+            //var_dump($rowKey);
+            //var_dump($row);
             $this->_processRow($rowKey, $row);
         }
 
         // save natural nested set fixture data and unset from _importedObjects
         foreach ($nestedSets as $className => $sets) {
+            var_dump($className);  
             foreach ($sets as $data) {
                 $this->_loadNestedSetData($className, $data);
             }

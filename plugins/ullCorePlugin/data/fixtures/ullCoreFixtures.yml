@@ -47,10 +47,18 @@ UllGroup:
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
+  ull_user_admin_group:
+    display_name:       UserAdmins
+    namespace:          ullCore
+    Creator:            admin_user
+    Updator:            admin_user
 
 UllPermission:
   test_permission:
     slug:               testPermission
+    namespace:          test
+  ull_user_mass_change_superior:
+    slug:               ull_user_mass_change_superior
     namespace:          test
     
 UllEntityGroup:
@@ -62,12 +70,20 @@ UllEntityGroup:
     UllUser:            test_user
     UllGroup:           test_group
     namespace:          test
+  test_user_in_useradmin:
+    UllUser:            test_user
+    UllGroup:           ull_user_admin_group
+    namespace:          test
     
 UllGroupPermission:
   ull_group_permission_1:
     UllGroup:           test_group
     UllPermission:      test_permission
     namespace:          test
+  ull_user_admin_mass_change_superior:
+    UllGroup:       ull_user_admin_group
+    UllPermission:  ull_user_mass_change_superior
+    namespace:      ullCore
 
 UllColumnType:
   integer:
@@ -822,14 +838,3 @@ UllUserStatus:
         name:   Zivildienst
     is_active:  false
     namespace:  test
-    
-UllPermission:
-  ull_user_mcs:
-    slug:           ull_user_mass_change_superior
-    namespace:      ullCore
-    
-UllGroupPermission:
-  ull_group_permission_mcs:
-    UllGroup:       test_group
-    UllPermission:  ull_user_mcs
-    namespace:      ullCore
