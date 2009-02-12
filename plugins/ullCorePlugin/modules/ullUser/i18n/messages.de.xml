@@ -38,6 +38,36 @@
 <target>Anmelden</target>
 </trans-unit>
 
+<trans-unit id="60">
+<source>Superior mass change</source>
+<target>Massenänderung Vorgesetzer</target>
+</trans-unit>
+
+<trans-unit id="61">
+<source>Save superior change</source>
+<target>Vorgesetzenwechsel speichern</target>
+</trans-unit>
+
+<trans-unit id="62">
+<source>Current superior:</source>
+<target>Bisheriger Vorgesetzter:</target>
+</trans-unit>
+
+<trans-unit id="63">
+<source>Replacing superior:</source>
+<target>Zukünftiger Vorgesetzter:</target>
+</trans-unit>
+
+<trans-unit id="64">
+<source>The replacing superior must be different from the old superior.</source>
+<target>Der zukünftige Vorgesetze muss sich vom bisherigen unterscheiden.</target>
+</trans-unit>
+
+<trans-unit id="65">
+<source>The superior was successfully replaced.</source>
+<target>Der Vorgesetzte wurde erfolgreich ersetzt.</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

@@ -78,6 +78,11 @@
 <target>Benutzersuche</target>
 </trans-unit>
 
+<trans-unit id="1013">
+<source>Superior mass change</source>
+<target>Massenänderung Vorgesetzter</target>
+</trans-unit>
+
 <!-- ullFlow admin actions -->
 
 <trans-unit id="1501">
@@ -108,6 +113,31 @@
 <trans-unit id="1506">
 <source>Manage actions</source>
 <target>Verwalte Aktionen</target>
+</trans-unit>
+
+<trans-unit id="1507">
+<source>Manage companies</source>
+<target>Verwalte Unternehmen</target>
+</trans-unit>
+
+<trans-unit id="1508">
+<source>Manage departments</source>
+<target>Verwalte Abteilungen</target>
+</trans-unit>
+
+<trans-unit id="1509">
+<source>Manage locations</source>
+<target>Verwalte Standorte</target>
+</trans-unit>
+
+<trans-unit id="1510">
+<source>Manage employment types</source>
+<target>Verwalte Beschäftungsverhältnisse</target>
+</trans-unit>
+
+<trans-unit id="1511">
+<source>Manage job titles</source>
+<target>Verwalte Funktionen</target>
 </trans-unit>
 
 </body>

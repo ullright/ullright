@@ -390,7 +390,6 @@
 <target>Optionen</target>
 </trans-unit>
 
-
 <!-- upload -->
 
 <trans-unit id="12000">
@@ -540,6 +539,12 @@
 <source>Female</source>
 <target>Weiblich</target>
 </trans-unit>
+
+<trans-unit id="17006">
+<source>Return to admin page</source>
+<target>Zur Adminseite zurückkehren</target>
+</trans-unit>
+
 
 </body>
   </file>

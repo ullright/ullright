@@ -134,7 +134,10 @@ UllColumnType:
     class:        ullMetaWidgetSex
     label:        Sex
     namespace:    ullCore
-
+  country:
+    class:        ullMetaWidgetCountry
+    label:        Country
+    namespace:    ullCore
 
 UllTableConfig:
   ull_user_tc:
@@ -589,6 +592,18 @@ UllColumnConfig:
         label:      Auswahlfeld
     db_table_name:  UllSelectChild
     db_column_name: ull_select_id
+    namespace:    ullCore
+
+  #UllLocation
+  ull_location_country_cc:
+    Translation:
+      en:
+        label:      Country
+      de:
+        label:      Land
+    db_table_name:  UllLocation
+    db_column_name: country
+    UllColumnType:  country
     namespace:    ullCore
 
   #TestTable
