@@ -16,13 +16,13 @@ class BaseTaggingFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'tag_id'         => new sfWidgetFormDoctrineChoice(array('model' => 'Tag', 'add_empty' => true)),
       'taggable_model' => new sfWidgetFormFilterInput(),
-      'taggable_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllWiki', 'add_empty' => true)),
+      'taggable_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowDoc', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'tag_id'         => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'Tag', 'column' => 'id')),
       'taggable_model' => new sfValidatorPass(array('required' => false)),
-      'taggable_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllWiki', 'column' => 'id')),
+      'taggable_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllFlowDoc', 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('tagging_filters[%s]');

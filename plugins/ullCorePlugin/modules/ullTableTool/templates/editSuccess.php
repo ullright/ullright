@@ -38,13 +38,13 @@
   <div class='edit_action_buttons_right'>
     <ul>
       <li>
-<?php
+      <?php
       echo ull_link_to(
-        __('Cancel', null, 'common'), 
-        'ullTableTool/list?table=' . $table_name,
-        'ull_js_observer_confirm=true'
+        __('Cancel', null, 'common') 
+        , $refererHandler->getReferer('edit')
+        , 'ull_js_observer_confirm=true'
       );
-?>
+      ?>
       </li>
       <li>
 		    <?php if ($generator->getRow()->exists()): ?>    

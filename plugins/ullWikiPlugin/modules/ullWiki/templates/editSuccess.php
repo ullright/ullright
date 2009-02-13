@@ -50,27 +50,18 @@
   <div class='edit_action_buttons_right'>
 
     <ul>
-      <li>
-      <?php
-        echo ull_link_to(
-          __('Cancel', null, 'common'), 
-          'ullWiki/list',
-          'ull_js_observer_confirm=true'
-        );
-      ?>
-      </li>
+      
       <li>
         <?php echo ull_submit_tag(__('Save only', null, 'common'), array('name' => 'submit_save_only', 'form_id' => 'ull_wiki_form', 'display_as_link' => true)); ?>
       </li>
-
       <li>
-		    <?php // TODO: check why there's an exception thrown when creating an entry (KU)
-          /* echo ull_link_to(
+        <?php
+           echo ull_link_to(
             __('Cancel', null, 'common') 
             , $refererHandler->getReferer('edit')
             , 'ull_js_observer_confirm=true'
-          ); */
-		    ?>
+          );
+        ?>
       </li>
       <li>
 		    <?php if ($doc->id): ?>    

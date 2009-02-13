@@ -69,7 +69,7 @@ class BaseUllGroupForm extends BaseFormDoctrine
       'fax_extension'                      => new sfValidatorInteger(array('required' => false)),
       'is_show_fax_extension_in_phonebook' => new sfValidatorBoolean(array('required' => false)),
       'comment'                            => new sfValidatorString(array('max_length' => 4000, 'required' => false)),
-      'ull_user_status_id'                 => new sfValidatorInteger(array('required' => false)),
+      'ull_user_status_id'                 => new sfValidatorInteger(),
       'type'                               => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'                         => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                         => new sfValidatorDateTime(array('required' => false)),

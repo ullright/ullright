@@ -43,7 +43,7 @@ class BaseUllWikiActions extends ullsfActions
    * Execute list action
    * 
    */
-  public function executeList() 
+  public function executeList(sfRequest $request) 
   {
 
     // referer handling -> reset all wiki referers
@@ -55,7 +55,10 @@ class BaseUllWikiActions extends ullsfActions
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
 
-    //$this->ull_reqpass_redirect(); //ToDo
+    if ($request->isMethod('post'))
+    {
+      $this->ull_reqpass_redirect();
+    }
 
     $this->breadcrumbForList();
     
@@ -64,7 +67,6 @@ class BaseUllWikiActions extends ullsfActions
     $this->docs = $this->getFilterFromRequest();
     
     $this->generator->buildForm($this->docs);
-    
   }
 
 

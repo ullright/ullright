@@ -30,7 +30,7 @@ abstract class BaseUllParentEntity extends UllRecord
     $this->hasColumn('fax_extension', 'integer', 20, array('type' => 'integer', 'length' => '20'));
     $this->hasColumn('is_show_fax_extension_in_phonebook', 'boolean', null, array('type' => 'boolean'));
     $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
-    $this->hasColumn('ull_user_status_id', 'integer', null, array('type' => 'integer'));
+    $this->hasColumn('ull_user_status_id', 'integer', null, array('type' => 'integer', 'notnull' => true, 'default' => '1'));
 
 
     $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);

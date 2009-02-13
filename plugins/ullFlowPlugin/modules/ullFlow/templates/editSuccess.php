@@ -61,16 +61,6 @@
         <?php if ($generator->getDefaultAccess() == 'w'): ?>
   
           <li>
-          <?php
-            echo ull_link_to(
-              __('Cancel', null, 'common'), 
-              'ullFlow/list',
-              'ull_js_observer_confirm=true'
-            );
-          ?>
-          </li>
-  
-          <li>
           <?php 
             echo ull_submit_tag(
               __('Save only', null, 'common'),
@@ -88,7 +78,15 @@
           ?>
           </li>
           
-
+          <li>
+          <?php
+            echo ull_link_to(
+              __('Cancel', null, 'common') 
+              , $refererHandler->getReferer('edit')
+              , 'ull_js_observer_confirm=true'
+            );
+          ?>
+          </li>
           
           <?php /*if ($doc_id): ?>
             <li>

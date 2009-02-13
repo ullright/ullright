@@ -24,10 +24,10 @@ abstract class BaseTagging extends sfDoctrineRecord
     $this->hasOne('Tag', array('local' => 'tag_id',
                                'foreign' => 'id'));
 
-    $this->hasOne('UllWiki', array('local' => 'taggable_id',
-                                   'foreign' => 'id'));
-
     $this->hasOne('UllFlowDoc', array('local' => 'taggable_id',
                                       'foreign' => 'id'));
+
+    $this->hasOne('UllWiki', array('local' => 'taggable_id',
+                                   'foreign' => 'id'));
   }
 }
