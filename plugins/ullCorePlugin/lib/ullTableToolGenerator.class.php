@@ -71,6 +71,34 @@ class ullTableToolGenerator extends ullGenerator
    * @param Doctrine_record $row
    * @return string
    */
+  public function getIdentifierUrlParamsAsArray($row)
+  {
+    if (!is_integer($row)) 
+    {
+      throw new UnexpectedArgumentException('$row must be an integer: ' . $row);
+    }
+    
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
+    }
+    
+    $array = array();
+    foreach ($this->getIdentifierAsArray() as $identifier)
+    {
+      $array[$identifier] = $this->rows[$row]->$identifier;
+    }
+    
+    return $array;
+  }
+
+
+  /**
+   * returns the identifier url params
+   *
+   * @param Doctrine_record $row
+   * @return string
+   */
   public function getIdentifierUrlParams($row)
   {
     if (!is_integer($row)) 
@@ -90,7 +118,8 @@ class ullTableToolGenerator extends ullGenerator
     }
     
     return implode('&', $array);
-  }
+  }  
+  
   
   /**
    * returns the identifiers as array
