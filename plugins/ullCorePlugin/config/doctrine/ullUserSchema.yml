@@ -52,6 +52,9 @@ UllParentEntity:
       type: string(4000)
     ull_user_status_id:
       type: integer
+      notnull: true
+      default: 1        #active status
+
 
 
 #  indexes:
@@ -288,10 +291,11 @@ UllUserStatus:
     I18n:
       fields: [name]
   columns:
+    slug:
+      type: string(64)
     name:
       type: string(50)
       notnull: true
     is_active:
       type: boolean
-
       

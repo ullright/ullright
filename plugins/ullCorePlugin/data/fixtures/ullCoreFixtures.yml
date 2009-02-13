@@ -373,6 +373,7 @@ UllColumnConfig:
     db_column_name: ull_employment_type_id
     is_in_list:     false
     namespace:      ullCore
+    options:        add_empty=true
   ull_user_cc_jt:
     Translation:
       en:
@@ -382,7 +383,8 @@ UllColumnConfig:
     db_table_name:  UllUser
     db_column_name: ull_job_title_id
     is_in_list:     false
-    namespace:      ullCore 
+    namespace:      ullCore
+    options:        add_empty=true
   ull_user_cc_company:
     Translation:
       en:
@@ -392,7 +394,8 @@ UllColumnConfig:
     db_table_name:  UllUser
     db_column_name: ull_company_id
     is_in_list:     false
-    namespace:      ullCore 
+    namespace:      ullCore
+    options:        add_empty=true
   ull_user_cc_department:
     Translation:
       en:
@@ -402,7 +405,8 @@ UllColumnConfig:
     db_table_name:  UllUser
     db_column_name: ull_department_id
     is_in_list:     false
-    namespace:      ullCore 
+    namespace:      ullCore
+    options:        add_empty=true
   ull_user_cc_location:
     Translation:
       en:
@@ -413,6 +417,7 @@ UllColumnConfig:
     db_column_name: ull_location_id
     is_in_list:     false
     namespace:      ullCore 
+    options:        add_empty=true
   ull_user_cc_superior:
     Translation:
       en:
@@ -799,6 +804,8 @@ UllEmploymentType:
 
 UllUserStatus:
   active_status:
+    id:         1
+    slug:       active
     Translation:
       en:
         name:   Active
@@ -807,6 +814,7 @@ UllUserStatus:
     is_active:  true
     namespace:  test
   separated_status:
+    slug:       separated
     Translation:
       en:
         name:   Separated
@@ -815,6 +823,7 @@ UllUserStatus:
     is_active:  false
     namespace:  test
   maternity_status:
+    slug:       maternity_leave
     Translation:
       en:
         name:   Maternity leave
@@ -823,6 +832,7 @@ UllUserStatus:
     is_active:  true
     namespace:  test
   military_status:
+    slug:       military_service
     Translation:
       en:
         name:   Military service
@@ -831,6 +841,7 @@ UllUserStatus:
     is_active:  false
     namespace:  test
   civil_service:
+    slug:       civilian_service
     Translation:
       en:
         name:   Civilian service
