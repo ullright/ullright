@@ -14,9 +14,10 @@
 <?php
   $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
   sfContext::getInstance()->getResponse()->addStylesheet($path, 'first', array('media' => 'all'));
-  $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/jqui/ui.all.css";
-  sfContext::getInstance()->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
 ?>
+<!-- html head slot -->
+<?php include_slot('html_head') ?>
+<!-- end of html head slot -->
 </head>
 <body>
 <div id="indicator" style="display: none"></div> <!-- Ajax indicatior -->

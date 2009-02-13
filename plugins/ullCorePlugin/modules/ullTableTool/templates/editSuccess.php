@@ -1,3 +1,5 @@
+<?php include_partial('ullTableTool/jQueryRequirements')?>
+
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 
 <?php $generator = $sf_data->getRaw('generator') ?>
@@ -9,7 +11,7 @@
   <br /><br />
 <?php endif; ?>
 
-<?php echo form_tag('ullTableTool/edit?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0), 
+<?php echo form_tag($sf_context->getModuleName() . '/edit?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0), 
     array('id' => 'ull_tabletool_form')) ?>
 
 <div class="edit_container">

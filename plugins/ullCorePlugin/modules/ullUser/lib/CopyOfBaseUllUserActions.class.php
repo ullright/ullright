@@ -2,50 +2,14 @@
 
 /**
  * user actions.
- * 
- * This action extends ullTableTool to add some specific functionality
- * for UllUser without polluting ullTableTool
  *
  * @package    ullright
  * @subpackage ullCore
  * @author     Your name here
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
-
-require_once(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions.class.php');
-
-class BaseUllUserActions extends BaseUllTableToolActions
+class BaseUllUserActions extends ullsfActions
 {
-
-  /**
-   * Test for extending ullTableTool
-   * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeList()
-   */
-  public function executeList($request)
-  {
-    $request->setParameter('table', 'UllUser');
-    
-    parent::executeList($request);
-    
-    $this->setTableToolTemplate('list'); 
-  }
-  
-  /**
-   * Test for extending ullTableTool
-   * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeEdit()
-   */
-  public function executeEdit($request)
-  {
-    $request->setParameter('table', 'UllUser');
-    
-    parent::executeEdit($request);
-    
-    $this->setTableToolTemplate('edit'); 
-  }  
-   
-  
-  
-  
   /**
    * Execute change culture
    *
@@ -203,15 +167,6 @@ class BaseUllUserActions extends BaseUllTableToolActions
     $referer = $this->refererHandler->getRefererAndDelete('access');
     $this->referer = $referer ? $referer : '@homepage';
     return sfView::SUCCESS;
-  }
-  
-  /**
-   * Shortcut method to set a template of ullTableTool
-   * @param string $name      name of the template. Examples: "list", "edit", ...
-   */
-  protected function setTableToolTemplate($name)
-  {
-    $this->setTemplate(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/templates/' . $name);    
   }
 
 }
