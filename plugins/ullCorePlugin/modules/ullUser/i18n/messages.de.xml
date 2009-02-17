@@ -8,6 +8,11 @@
 <target>Anmeldung fehlgeschlagen. Bitte versuchen Sie es noch einmal:</target>
 </trans-unit>
 
+<trans-unit id="40">
+<source>This user account is marked as inactive, please use different credentials:</source>
+<target>Dieser Benutzer ist als inaktiv gekennzeichnet, bitte verwenden Sie andere Anmeldedaten:</target>
+</trans-unit>
+
 <trans-unit id="42">
 <source>Your username is required!</source>
 <target>Bitte geben Sie ihren Benutzernamen ein!</target>

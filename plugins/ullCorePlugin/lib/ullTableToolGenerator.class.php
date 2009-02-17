@@ -213,7 +213,7 @@ class ullTableToolGenerator extends ullGenerator
       
       if (isset($this->system_column_names_humanized[$columnName])) 
       {
-        $columnConfig['label'] = __($this->system_column_names_humanized[$columnName], null, 'common');
+        $columnConfig['label'] = $this->system_column_names_humanized[$columnName];
       }
       
       switch ($column['type'])

@@ -150,11 +150,19 @@ class BaseUllUserActions extends BaseUllTableToolActions
 
           if (call_user_func($auth_class . '::authenticate', $user, $password))
           {
-            $this->getUser()->setAttribute('user_id', $user->getId());
-
-            // redirect to last page
-            $refererHandler = new refererHandler();
-            return $this->redirect($refererHandler->getRefererAndDelete('login'));
+            if (!($user->UllUserStatus->getIsActive()))
+            {
+              $this->msg = __('This user account is marked as inactive, please use different credentials:');
+              return;
+            }
+            else
+            {
+              $this->getUser()->setAttribute('user_id', $user->getId());
+  
+              // redirect to last page
+              $refererHandler = new refererHandler();
+              return $this->redirect($refererHandler->getRefererAndDelete('login'));
+            }
           }
         }
       }
