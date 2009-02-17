@@ -22,7 +22,7 @@ $b
 
 $b
   ->diag('list')
-  ->get('ullTableTool/list/table/TestTable')
+  ->get('/ullTableTool/list/table/TestTable')
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'list')
@@ -53,7 +53,7 @@ $b
 
 $b
   ->diag('create')
-  ->get('ullTableTool/create/table/TestTable')
+  ->click('Create')
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'create')
@@ -70,8 +70,6 @@ $b
   ->setField('fields[ull_user_id]', 1)
   ->click('Save')
   ->isRedirected()
-  ->isRequestParameter('module', 'ullTableTool')
-  ->isRequestParameter('action', 'edit')
   ->followRedirect()
 ;
   
@@ -221,25 +219,6 @@ $b
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'edit')
   ->followRedirect()
-  ->isStatusCode(200)   
-  ->isRequestParameter('module', 'ullTableTool')
-  ->isRequestParameter('action', 'list')
-  ->isRequestParameter('table', 'TestTable')
-  ->responseContains('list')    
-;
-
-$b
-  ->diag('testing direct link to edit -> cancel (testing referer handling)')
-  ->restart()
-  ->get('ullTableTool/edit/table/TestTable/id/1')
-  ->loginAsAdmin()
-  ->isStatusCode(200)   
-  ->isRequestParameter('module', 'ullTableTool')
-  ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'TestTable')
-  ->isRequestParameter('id', 1)
-  ->responseContains('Foo Bar')
-  ->click('Cancel')
   ->isStatusCode(200)   
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'list')

@@ -79,7 +79,11 @@
      
      
      <div id="content">
+        <?php var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll()) ?>
+     
         <?php echo $sf_data->getRaw('sf_content') ?>
+        
+        <?php //phpinfo() ?>
       </div> <!-- end of content_main -->
       <div id="footer">
       <div id="footer_copyright">© 2007-2009 by Klemens Ullmann</div>

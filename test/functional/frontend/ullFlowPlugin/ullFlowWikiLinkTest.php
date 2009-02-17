@@ -52,7 +52,7 @@ $b
 ;
 
 $b
-  ->diag('Check for new created link')
+  ->diag('Check for newely created link')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'wikiLink')
@@ -73,6 +73,8 @@ $b
   ->isRequestParameter('return_var', 'ull_wiki_doc_id')
   ->setField('filter[search]', 'Another')
   ->click('Search_16x16')
+  ->isRedirected()
+  ->followRedirect()
   ->click('Another Testdoc')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
@@ -80,7 +82,6 @@ $b
   ->isRequestParameter('return_var', 'ull_wiki_doc_id')
   ->isRequestParameter('docid', '2')
   ->responseContains('Another Testdoc')
-//  ->dumpDie()
 ;
 
 $b

@@ -44,6 +44,8 @@ $b
   ->setField('filter[search]', 'yet')
   ->setField('filter[fulltext]', true)
   ->click('Search_16x16')
+  ->isRedirected()
+  ->followRedirect()
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
@@ -65,6 +67,7 @@ $b
 
 $b
   ->diag('create')
+  ->get('ullWiki/list')
   ->click('Create')
   ->loginAsAdmin()
   ->isStatusCode(200)
@@ -74,6 +77,9 @@ $b
   ->setField('fields[subject]', 'My new test subject')
   ->setField('fields[body]', '<b>My body</b>')
   ->setField('fields[duplicate_tags_for_search', 'testtag')
+;
+
+$b  
   ->diag('save only')
   ->click('Save only')
   ->isRedirected()
@@ -85,6 +91,9 @@ $b
 //  ->checkResponseElement('input#ull_wiki_subject[value="My new test subject"]', true)
   ->checkResponseElement('input#fields_subject', true)
 //  ->dumpDie()
+;
+  
+$b  
   ->diag('save and show')
   ->click('Save and show')
   ->isRedirected()
@@ -93,16 +102,12 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'show')
   ->responseContains('My new test subject')
-  ->get('ullWiki/list')
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullWiki')
-  ->isRequestParameter('action', 'list')
-  ->responseContains('My new test subject')
 ;
 
 $b
   ->diag('list')
-  ->get('ullWiki/list')
+  ->click('Result list')
+//  ->get('ullWiki/list')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
@@ -112,7 +117,7 @@ $b
 
 $b
   ->diag('update (save and show, with malicious javascript)')
-  ->get('ullWiki/edit/docid/3')
+  ->click('Edit') 
   ->responseContains('My new test subject')
   ->setField('fields[subject]', 'My new test subject, updated')
   ->setField('fields[body]', '<b>body</b><script language="javascript" type="text/javascript">'.
@@ -129,7 +134,7 @@ $b
 
 $b
   ->diag('update (save and show)')
-  ->get('ullWiki/edit/docid/3')
+  ->click('Edit')
   ->responseContains('My new test subject')
   ->setField('fields[subject]', 'My new test subject, updated')
   ->setField('fields[body]', '<b>My body, updated</b>')
@@ -144,7 +149,7 @@ $b
 
 $b
   ->diag('update (save and close)')
-  ->get('ullWiki/edit/docid/3')
+  ->click('Edit')
   ->responseContains('My new test subject')
   ->setField('fields[subject]', 'My new test subject, updated again')
   ->setField('fields[body]', '<b>My body, updated again</b>')
@@ -164,6 +169,8 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->post('ullWiki/list', Array('filter[search]' => 'updated'))
+  ->isRedirected()
+  ->followRedirect()
   ->isStatusCode(200)
   ->checkResponseElement('table > tbody > tr', 1)
   ->responseContains('My new test subject, updated')
@@ -176,6 +183,8 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->post('ullWiki/list', Array('filter[search]' => 'invalid'))
+  ->isRedirected()
+  ->followRedirect()
   ->isStatusCode(200)
   ->checkResponseElement('table', false)
   ->responseContains('No results found.')
@@ -188,6 +197,8 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->post('ullWiki/list', Array('filter[search]' => 'testtag'))
+  ->isRedirected()
+  ->followRedirect()
   ->isStatusCode(200)
   ->responseContains('My new test subject, updated')
   ->checkResponseElement('table > tbody > tr', 1)
@@ -238,7 +249,8 @@ $b
 
 $b
   ->diag('create values with tags in it (check output escaping)')
-  ->get('ullWiki/list')
+  ->get('ullWiki/index')
+  ->click('New entries')
   ->click('Create')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
@@ -247,6 +259,7 @@ $b
   ->click('Save and close')
   ->isRedirected()
   ->followRedirect()  
+
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')

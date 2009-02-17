@@ -11,16 +11,24 @@
 
 class BaseUllFlowActions extends ullsfActions
 {
-
+ 
   /**
-   * Execute prior to each ullFlow action
-   *
+   * Execute before each action
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#ullpreExecute()
    */
   public function ullpreExecute()
-  { 
+  {
+    $defaultUri = $this->getModuleName() . '/list';
+    if ($app = $this->getRequestParameter('app'))
+    {
+      $defaultUri .= '&app=' . $app;
+    }
+    $this->getUriMemory()->setDefault($defaultUri);
+
     $path =  '/ullFlowTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
-  }
+    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));    
+  }  
   
   /**
    * Executes index action
@@ -68,8 +76,6 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->checkAccess('LoggedIn');
     
-    
-    
     if ($request->isMethod('post'))
     {
 //      var_dump($request->getParameterHolder()->getAll());die;
@@ -83,11 +89,8 @@ class BaseUllFlowActions extends ullsfActions
     $docs = $this->getFilterFromRequest();
     
     $this->generator->buildForm($docs);
-//    die;
     
-    
-    $refererHandler = new refererHandler();
-    $refererHandler->delete('edit');
+    $this->getUriMemory()->setUri();
     
     $this->breadcrumbForList();    
     
@@ -139,8 +142,6 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->checkAccess('LoggedIn');
 
-    $this->refererHandler = new refererHandler();  
-    
     $this->getDocFromRequestOrCreate();
     
     $accessType = $this->doc->checkAccess();
@@ -184,23 +185,20 @@ class BaseUllFlowActions extends ullsfActions
           if (class_exists($fullPageWidgetClass)) 
           {
             $fullPageWidget = new $fullPageWidgetClass($this->doc, $request->getParameter('full_page_widget_column'));
-            return $this->redirect($fullPageWidget->getInternalUri());
+            $this->redirect($fullPageWidget->getInternalUri());
           }
         }        
         
         // referer handling
         if ($request->getParameter('action_slug') == 'save_only') 
         {
-          return $this->redirect('ullFlow/edit?doc=' . $this->doc->id);
+          $this->redirect('ullFlow/edit?doc=' . $this->doc->id);
         }
         
-        $referer = $this->refererHandler->getRefererAndDelete();
-        $referer = ($referer) ? $referer : $this->getRefererFallbackURI();
-        $this->redirect($referer);
+        $this->redirect($this->getUriMemory()->getAndDelete('list'));
       }
     }
     
-    $this->refererHandler->initialize();
     $this->breadcrumbForEdit();    
   }
 
@@ -213,8 +211,6 @@ class BaseUllFlowActions extends ullsfActions
   { 
     $this->checkAccess('LoggedIn');
     
-    $this->refererHandler = new refererHandler();  
-    
     $this->getDocFromRequest();
     
     $this->redirectUnless($this->doc->checkDeleteAccess(), 'ullUser/noaccess');
@@ -225,14 +221,7 @@ class BaseUllFlowActions extends ullsfActions
     
     $this->doc->delete();
 
-    $refererHandler = new refererHandler();
-    
-    if (!$referer_edit = $refererHandler->getRefererAndDelete('list')) 
-    {
-      $referer_edit = $this->getUser()->getAttribute('referer');
-    }   
-    
-    return $this->redirect($referer_edit);
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }  
 
   /**
@@ -425,7 +414,7 @@ class BaseUllFlowActions extends ullsfActions
     $this->breadcrumbTree->setEditFlag(true);
     $this->breadcrumbTree->add(__('Workflow')  . ' ' . __('Home', null, 'common'), 'ullFlow/index');
     $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
-    $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullFlow/list?app=' . $this->app->slug);
+    $this->breadcrumbTree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));
     if ($this->doc->exists()) 
     {
       $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));

@@ -36,12 +36,20 @@
         <ul>
 
 		      <li>
-	         <?php echo submit_tag(__('Save and show', null, 'common'),
-	             array('name' => 'submit_save_show')) ?>
+            <?php             
+              echo ull_submit_tag(
+                __('Save and show', null, 'common'),
+                array('name' => 'submit|action_slug=save_show')
+              );  
+            ?>
 	        </li>
           <li>
-          <?php echo submit_tag(__('Save and close', null, 'common'),
-               array('name' => 'submit_save_close')) ?>
+            <?php             
+              echo ull_submit_tag(
+                __('Save and close', null, 'common'),
+                array('name' => 'submit|action_slug=save_close')
+              );  
+            ?>
           </li>
 
         </ul> 
@@ -52,15 +60,11 @@
     <ul>
       
       <li>
-        <?php echo ull_submit_tag(__('Save only', null, 'common'), array('name' => 'submit_save_only', 'form_id' => 'ull_wiki_form', 'display_as_link' => true)); ?>
-      </li>
-      <li>
-        <?php
-           echo ull_link_to(
-            __('Cancel', null, 'common') 
-            , $refererHandler->getReferer('edit')
-            , 'ull_js_observer_confirm=true'
-          );
+        <?php 
+          echo ull_submit_tag(
+            __('Save only', null, 'common'), 
+            array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_wiki_form', 'display_as_link' => true)
+          ); 
         ?>
       </li>
       <li>

@@ -284,7 +284,7 @@ class sfWebRequest extends sfRequest
    *
    * @return string
    */
-  public function getReferer()
+  public function get()
   {
     $pathArray = $this->getPathInfoArray();
 

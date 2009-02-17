@@ -50,15 +50,24 @@ class BaseUllUserActions extends BaseUllTableToolActions
    * Execute change culture
    *
    */
-  public function executeChangeCulture()
+  public function executeChangeCulture($request)
   {
-    $culture = $this->getRequestParameter('culture');
-    $this->getUser()->setCulture($culture);
-    // the following flag is used by the i18n filter to detect manuall setting of culture
+    $this->getUriMemory()->setReferer();
+        
+    $this->getUser()->setCulture($request->getParameter('culture'));
+    
+    // the following flag is used by the i18n filter to detect manual setting of culture
     $this->getUser()->setAttribute('is_culture_set_by_user', true);
-    $this->redirect($this->getUser()->getAttribute('referer'));
+    
+    $this->redirect($this->getUriMemory()->getAndDelete());
   }
 
+  /**
+   * Execute mass change superior action
+   * 
+   * @param $request
+   * @return unknown_type
+   */
   public function executeMassChangeSuperior(sfRequest $request)
   {
     $this->checkPermission('ull_user_mass_change_superior');
@@ -107,14 +116,12 @@ class BaseUllUserActions extends BaseUllTableToolActions
   public function executeLogin($request)
   {
     $this->form = new LoginForm();
-
+    
     //check context
     if ($request->isMethod('get'))
     {
-      // login form
-      $refererHandler = new refererHandler();
-      $refererHandler->initialize();
-
+      $this->getUriMemory()->setReferer(null, null, false);
+      
       if ($request->getParameter('option') == 'noaccess')
       {
         $this->msg = __('Please login to verify access');
@@ -123,6 +130,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     }
     else
     {
+//      var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll());die;
       $this->form->bind($request->getParameter('login'));
 
       if ($this->form->isValid())
@@ -130,15 +138,16 @@ class BaseUllUserActions extends BaseUllTableToolActions
         // handle the form submission
         $username = $this->form->getValue('username');
         $password = $this->form->getValue('password');
-        $js_check = $this->form->getValue('js_check');
+        $jsCheck = $this->form->getValue('js_check');
 
         //user has javascript enabled?
         $this->getUser()->setAttribute('has_javascript', false);
-        if ($js_check == 1) {
+        if ($jsCheck == 1) 
+        {
           $this->getUser()->setAttribute('has_javascript', true);
         }
 
-        $user = Doctrine::getTable('UllUser')->findByUsername($username)->getFirst();
+        $user = Doctrine::getTable('UllUser')->findOneByUsername($username);
 
         if ($user !== false)
         {
@@ -146,7 +155,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
 
           // authenticate
           $auth_class = 'ullAuth'
-          . sfInflector::classify(sfConfig::get('app_auth_function', 'default'));
+            . sfInflector::classify(sfConfig::get('app_auth_function', 'default'));
 
           if (call_user_func($auth_class . '::authenticate', $user, $password))
           {
@@ -157,18 +166,15 @@ class BaseUllUserActions extends BaseUllTableToolActions
             }
             else
             {
-              $this->getUser()->setAttribute('user_id', $user->getId());
-  
-              // redirect to last page
-              $refererHandler = new refererHandler();
-              return $this->redirect($refererHandler->getRefererAndDelete('login'));
-            }
+              $this->getUser()->setAttribute('user_id', $user->getId());              
+
+	            $this->redirect($this->getUriMemory()->getAndDelete());
+	          }
           }
         }
       }
 
       $this->msg = __('Login failed. Please try again:');
-      //      return sfView::SUCCESS;
     }
   }
 
@@ -178,39 +184,24 @@ class BaseUllUserActions extends BaseUllTableToolActions
    */
   public function executeLogout()
   {
-    $this->getUser()->setAttribute('user_id', 0);
-    $this->getUser()->setAttribute('has_javascript', false);
+    foreach ($this->getUser()->getAttributeHolder()->getAll() as $key => $value)
+    {
+      $this->getUser()->getAttributeHolder()->remove($key);
+    }
     $this->redirect('@homepage');
-  }
-
-  /**
-   * ??
-   *
-   * @return unknown
-   */
-  public function handleErrorLogin()
-  {
-    return sfView::SUCCESS;
   }
 
   /**
    * Execute no access action
    *
    */
-  public function executeNoaccess()
+  public function executeNoaccess($request)
   {
-    $this->refererHandler = new refererHandler();
-
-    if (!$this->getUser()->getAttribute('user_id'))
+    if (!$this->getUser()->hasAttribute('user_id'))
     {
-      $this->refererHandler->initialize('login');
-      return $this->redirect('ullUser/login?option=noaccess');
+      $request->setParameter('option', 'noaccess');
+      $this->forward('ullUser', 'login');
     }
-
-    $this->refererHandler->initialize('access');
-    $referer = $this->refererHandler->getRefererAndDelete('access');
-    $this->referer = $referer ? $referer : '@homepage';
-    return sfView::SUCCESS;
   }
   
   /**

@@ -10,15 +10,21 @@
 
 class BaseUllWikiActions extends ullsfActions
 {
+  
   /**
-   * Add ullWiki stylsheet for all actions
+   * Execute  before each action
    * 
+   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#ullpreExecute()
    */
   public function ullpreExecute()
-  { 
+  {
+    $defaultUri = $this->getModuleName() . '/list';
+    $this->getUriMemory()->setDefault($defaultUri);  
+    
+    //Add ullWiki stylsheet for all actions
     $path =  '/ullWikiTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-  	$this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
-  }
+    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+  }  
 	
   /**
    * Execute index action
@@ -27,11 +33,6 @@ class BaseUllWikiActions extends ullsfActions
   public function executeIndex() 
   {
     $this->form = new ullWikiFilterForm;
-
-    // referer handling -> reset all wiki referers 
-    $refererHandler = new refererHandler();
-    $refererHandler->delete('show');
-    $refererHandler->delete('edit');
 
     // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
@@ -45,12 +46,7 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeList(sfRequest $request) 
   {
-
-    // referer handling -> reset all wiki referers
-    $refererHandler = new refererHandler();
-    $refererHandler->delete('show');
-    $refererHandler->delete('edit');
-
+    $this->getUriMemory()->setUri();
 
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
@@ -76,11 +72,6 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeShow() 
   {
-    // referer handling -> reset show referer
-    $this->refererHandler = new refererHandler();
-    $this->refererHandler = new refererHandler();
-    $this->refererHandler->initialize('show');
-    
     $this->getDocFromRequest();
 
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
@@ -110,9 +101,6 @@ class BaseUllWikiActions extends ullsfActions
   {
     $this->checkPermission('ull_wiki_edit');
     
-    $this->refererHandler = new refererHandler();
-    $this->refererHandler->initialize();
-    
     $this->generator = new ullWikiGenerator('w');
     $this->getDocFromRequestOrCreate();
     $this->generator->buildForm($this->doc);
@@ -129,43 +117,34 @@ class BaseUllWikiActions extends ullsfActions
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
         // == forward junction
-        if ($this->getRequestParameter('submit_save_only', false)) 
+        
+        // save only
+        if ($request->getParameter('action_slug') == 'save_only') 
         {
-          return $this->redirect('ullWiki/edit?docid='.$this->doc->id);
-
+          $this->redirect('ullWiki/edit?docid=' . $this->doc->id);
+        }
+        
         // plugin mode
-        } 
+        //   allows ullWiki to be used as a plugin (e.g. ullFlow to ullForms interface)         
         elseif ($this->return_var) 
         {
-          // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
-          $returnUrl = $this->getUser()->getAttribute('wiki_return_url') 
-              . '&' . $this->return_var . '=' . $this->doc->id;
           
-          return $this->redirect($returnUrl);
-        } 
-        elseif ($this->getRequestParameter('submit_save_show', false)) 
-        {
-          return $this->redirect('ullWiki/show?docid='.$this->doc->id);
-        } 
-        else 
-        {
-          $refererHandler = new refererHandler();
+          $this->redirect($this->getUser()->getAttribute('wiki_return_url') 
+            . '&' . $this->return_var . '=' . $this->doc->id);
+        }
 
-          // skip returning to the show action -> jump directly to the pervious result list
-          if ($refererHandler->hasReferer('show')) 
-          {
-            $refererHandler->delete('edit');
-            $return = $this->redirect($refererHandler->getRefererAndDelete('show'));
-          } 
-          else 
-          {
-            $return = $this->redirect($refererHandler->getRefererAndDelete('edit'));
-          }
-
-          return $return;
+        // save and show
+        elseif ($request->getParameter('action_slug') == 'save_show') 
+        {
+          $this->redirect('ullWiki/show?docid=' . $this->doc->id);
+        } 
+        
+        // use the default referer
+        else
+        {
+          $this->redirect($this->getUriMemory()->getAndDelete('list'));
         }
       }
-
     }
   }
 
@@ -174,15 +153,12 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeDelete() 
   {
-    // check access
     $this->checkPermission('ull_wiki_delete');
-
-    $this->getDocFromRequest();
     
+    $this->getDocFromRequest();
     $this->doc->delete();
     
-    
-    return $this->redirect('ullWiki/list');
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }
 
   /**
@@ -199,7 +175,8 @@ class BaseUllWikiActions extends ullsfActions
    * Create breadcrumbs for list action
    * 
    */  
-  protected function breadcrumbForList() {
+  protected function breadcrumbForList() 
+  {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
     $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
@@ -209,19 +186,20 @@ class BaseUllWikiActions extends ullsfActions
    * Create breadcrumbs for show action
    * 
    */  
-  protected function breadcrumbForShow() {
+  protected function breadcrumbForShow() 
+  {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
-
-    // display result list link only when there is a "show" or "edit" referer containing 
-    //  the list action    
-    if ( strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
-      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')) 
+    
+    // display result list link only when there is a referer containing 
+    //  the list action 
+    if ($referer = $this->getUriMemory()->get('list'))
     {
-      $this->breadcrumbTree->add(
-        __('Result list', null, 'common'),
-        $this->refererHandler->getReferer()
-      );
+      $this->breadcrumbTree->add(__('Result list', null, 'common'), $referer);
+    }
+    else
+    {
+      $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
     }
 
     $this->breadcrumbTree->add(__('Show', null, 'common'));    
@@ -238,24 +216,9 @@ class BaseUllWikiActions extends ullsfActions
     $this->breadcrumbTree->setEditFlag(true);
     $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
 
-    // display result list link only when there is a "show" or "edit" referer 
-    //  containing the list action    
-    if (strstr($this->refererHandler->getReferer('show'), 'ullWiki/list')
-      or strstr($this->refererHandler->getReferer('edit'), 'ullWiki/list')) 
-    {
-      $this->breadcrumbTree->add(
-        __('Result list', null, 'common'),
-        $this->refererHandler->getReferer()
-      );
-    }
-
-    // display breadcrumb show link only when there is an "edit" referer 
-    //  containing the show action 
-    if (strstr($this->refererHandler->getReferer('edit'), 'ullWiki/show')) 
-    {
-      $this->breadcrumbTree->add(__('Result list', null, 'common'),
-        $this->refererHandler->getReferer());
-    }
+    // display result list link only when there is a referer containing 
+    //  the list action 
+    $this->breadcrumbTree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));
 
     if ($this->doc->exists()) 
     {
@@ -297,7 +260,7 @@ class BaseUllWikiActions extends ullsfActions
     //   because the soft delete behaviour handles this. But the
     //   softdelete functionality needs the doctrine attribute
     //   "use_dql_callbacks" enabled, which is not at the moment
-    //   because it has sideeffects and needs further testing
+    //   because it has side effects and needs further testing
     $q->addWhere('x.deleted = ?', false);
     
     $this->order = $this->getRequestParameter('order', 'updated_at');

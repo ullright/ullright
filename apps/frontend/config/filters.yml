@@ -8,8 +8,8 @@ inactive_users:
 
 i18n:
   class: i18nFilter
-referer:
-  class: refererFilter
+#referer:
+#  class: refererFilter
 theme:
   class: themeFilter
 

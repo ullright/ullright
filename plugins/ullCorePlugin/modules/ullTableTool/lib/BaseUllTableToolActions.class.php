@@ -17,13 +17,26 @@ class BaseUllTableToolActions extends ullsfActions
     $columns      = null
   ;
   
+
+  /**
+   * Execute  before each action
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#ullpreExecute()
+   */
+  public function ullpreExecute()
+  {
+    $defaultUri = $this->getModuleName() . '/list?table=' . $this->getRequestParameter('table');
+    $this->getUriMemory()->setDefault($defaultUri);  
+  }
+  
+  
   /**
    * Executes index action
    *
    */
   public function executeIndex()
   {    
-    $this->forward($this->getModuleName(), 'list');
+    $this->redirect('ullAdmin/index');
   }
 
 
@@ -49,8 +62,7 @@ class BaseUllTableToolActions extends ullsfActions
     
     $this->generator->buildForm($rows);
     
-    $refererHandler = new refererHandler();
-    $refererHandler->delete('edit');
+    $this->getUriMemory()->setUri();
     
     $this->breadcrumbForList();
 
@@ -97,8 +109,6 @@ class BaseUllTableToolActions extends ullsfActions
   {
     $this->checkAccess('Masteradmins');
 
-    $this->refererHandler = new refererHandler();
-
     $this->getTablefromRequest();
     
     $this->generator = new ullTableToolGenerator($this->table_name, 'w');
@@ -106,6 +116,8 @@ class BaseUllTableToolActions extends ullsfActions
     $row = $this->getRowFromRequestOrCreate();
 
     $this->generator->buildForm($row);
+    
+    $this->breadcrumbForEdit();
 
     if ($request->isMethod('post'))
     {
@@ -113,16 +125,9 @@ class BaseUllTableToolActions extends ullsfActions
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
-        $referer = $this->refererHandler->getRefererAndDelete();
-        $referer = ($referer) ? $referer : $this->getRefererFallbackURI();
-        $this->redirect($referer);
+        $this->redirect($this->getUriMemory()->getAndDelete('list'));
       }
     }
-    else
-    {
-      $this->refererHandler->initialize();
-    }
-    $this->breadcrumbForEdit();
   }
 
 
@@ -142,11 +147,7 @@ class BaseUllTableToolActions extends ullsfActions
     $row = $this->getRowFromRequest();   
     $row->delete();
     
-    $refererHandler = new refererHandler();
-    $referer = $refererHandler->getRefererAndDelete('edit');    
-    $referer = ($referer) ? $referer : $this->getUser()->getAttribute('referer');
-    $referer = ($referer && !strstr($referer, 'edit')) ? $referer : $this->getRefererFallbackURI();
-    $this->redirect($referer);
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }  
   
   /**
@@ -314,28 +315,15 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $this->breadcrumb_tree->add(__('Tabletool'));
     $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_name);
+    $this->breadcrumb_tree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));    
     if ($this->id) 
     {
-      $this->breadcrumb_tree->add(
-        __('Result list', null, 'common')
-        , $this->refererHandler->getReferer()
-      );
       $this->breadcrumb_tree->addFinal(__('Edit', null, 'common'));
     }
     else
     {
       $this->breadcrumb_tree->addFinal(__('Create', null, 'common'));
     }
-  }
-  
-  /**
-   * Returns fallback URL if there is no valid referer
-   *
-   * @return string fallback URL
-   */
-  protected function getRefererFallbackURI()
-  {
-    return $this->getModuleName() . '/list?table=' . $this->table_name;
   }
   
 }

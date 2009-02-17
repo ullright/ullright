@@ -10,55 +10,64 @@
 
 class BaseUllsfActions extends sfActions
 {
+  protected 
+    $uriMemory
+  ;
 
-  // default preExecute, can be overwritten by modules actions class
+  /**
+   * Default preExecute method
+   * 
+   * @return none
+   */ 
   public function preExecute() 
   {
     sfLoader::loadHelpers('ull');
+    
+    $this->uriMemory = new UriMemory();
+    
     $this->ullpreExecute();
   }
   
+  /**
+   * Child actions should overwrite ullpreExecute()
+   * 
+   * @return none
+   */
   public function ullpreExecute() 
   {   
   }
   
-/**
- * access check (group based)
- * checks if the currently logged in user is member of the given group
- * if not logged in -> redirect to login page
- * if the current user is not member of the group -> display access denied
- * 
- * 
- * @param group mixed   group id, group name or array of group ids/names (not mixed!)
- * @return none
- */   
+  /**
+   * access check (group based)
+   * checks if the currently logged in user is member of the given group
+   * if not logged in -> redirect to login page
+   * if the current user is not member of the group -> display access denied
+   * 
+   * 
+   * @param group mixed   group id, group name or array of group ids/names (not mixed!)
+   * @return none
+   */   
   public function checkAccess($group) 
   {
-
-    // check access
-    $access_refererHandler = new refererHandler();
-    $access_refererHandler->initialize('access','ullUser');
+    $this->getUriMemory()->setUri('login', 'ullUser');
     
     $this->redirectUnless(UllUserTable::hasGroup($group), 'ullUser/noaccess');
   }
   
-/**
- * access check (permission based)
- * checks if the currently logged in user has the given permission
- * if not logged in -> redirect to login page
- * if the current user doesn't have the given permission -> display access denied
- * 
- * 
- * @param string $permission    a permission slug. example: ull_wiki_edit 
- * @return none
- */   
+  /**
+   * access check (permission based)
+   * checks if the currently logged in user has the given permission
+   * if not logged in -> redirect to login page
+   * if the current user doesn't have the given permission -> display access denied
+   * 
+   * 
+   * @param string $permission    a permission slug. example: ull_wiki_edit 
+   * @return none
+   */   
   public function checkPermission($permission) 
   {
-
-    // check access
-    $access_refererHandler = new refererHandler();
-    $access_refererHandler->initialize('access','ullUser');
-    
+    $this->getUriMemory()->setUri('login', 'ullUser');
+     
     $this->redirectUnless(UllUserTable::hasPermission($permission), 'ullUser/noaccess');
   }  
   
@@ -72,22 +81,21 @@ class BaseUllsfActions extends sfActions
  */   
   public function checkLoggedIn() 
   {
-    $access_refererHandler = new refererHandler();
-    $access_refererHandler->initialize('access','ullUser');
+    $this->getUriMemory()->setUri('login', 'ullUser');
     
     $this->redirectUnless($this->getUser()->getAttribute('user_id'), 'ullUser/noaccess');
   }  
   
   
-/**
- * counterpart for ullHelper's ull_reqpass_form_tag()
- * 
- * in case of a POST request it handles the request params, 
- * deserializes the request params passed from the previous page,
- * and redirects to build a valid GET url ('address bar as command line')
- * @param none
- * @return none
- */   
+  /**
+   * counterpart for ullHelper's ull_reqpass_form_tag()
+   * 
+   * in case of a POST request it handles the request params, 
+   * deserializes the request params passed from the previous page,
+   * and redirects to build a valid GET url ('address bar as command line')
+   * @param none
+   * @return none
+   */   
   public function ull_reqpass_redirect() 
   {
     if ($this->getRequest()->getMethod() == sfRequest::POST) 
@@ -123,5 +131,15 @@ class BaseUllsfActions extends sfActions
 //      ullCoreTools::printR($params);
     }
   } 
+  
+  /**
+   * Returns the UriMemory class
+   * 
+   *  @return UriMemory
+   */
+  public function getUriMemory()
+  {
+    return $this->uriMemory;
+  }
   
 }

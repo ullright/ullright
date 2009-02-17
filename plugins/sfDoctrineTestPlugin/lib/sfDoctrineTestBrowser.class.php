@@ -143,6 +143,9 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	  echo "--- parameters ---\n";
 	  var_dump($this->getRequest()->getParameterHolder()->getAll());
 	  
+	  echo "--- session data ---\n";
+    var_dump($this->getUser()->getAttributeHolder()->getAll());
+	  
 		echo "--- html source ---\n";
 		
 		echo preg_replace_callback('/<[^>]+>/', array($this, 'colorize'), 
