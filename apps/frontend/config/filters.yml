@@ -2,6 +2,10 @@ rendering: ~
 security:  ~
 
 # generally, you will want to insert your own filters here
+
+inactive_users:
+  class:  inactiveUserFilter
+
 i18n:
   class: i18nFilter
 referer:
