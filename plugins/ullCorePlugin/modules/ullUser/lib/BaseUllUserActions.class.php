@@ -152,7 +152,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
           {
             if (!($user->UllUserStatus->getIsActive()))
             {
-              $this->msg = __('This user account is marked as inactive, please use different credentials:');
+              $this->msg = __('This user account is marked as inactive, please contact your administrator.');
               return;
             }
             else

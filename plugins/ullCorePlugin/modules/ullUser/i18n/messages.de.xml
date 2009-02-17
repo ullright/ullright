@@ -9,8 +9,8 @@
 </trans-unit>
 
 <trans-unit id="40">
-<source>This user account is marked as inactive, please use different credentials:</source>
-<target>Dieser Benutzer ist als inaktiv gekennzeichnet, bitte verwenden Sie andere Anmeldedaten:</target>
+<source>This user account is marked as inactive, please contact your administrator.</source>
+<target>Dieser Benutzer ist als inaktiv gekennzeichnet, bitte kontaktieren Sie Ihren Administrator.</target>
 </trans-unit>
 
 <trans-unit id="42">
@@ -35,7 +35,7 @@
 
 <trans-unit id="50">
 <source>No Access. Please contact your administrator if you need access to this page.</source>
-<target>Kein Zugriff. Bitte kontaktieren Sie Ihren Administrator, wenn Sie Zugriff auf diese Seite ben&#xF6;tigen</target>
+<target>Kein Zugriff. Bitte kontaktieren Sie Ihren Administrator, wenn Sie Zugriff auf diese Seite ben&#xF6;tigen.</target>
 </trans-unit>
 
 <trans-unit id="51">
