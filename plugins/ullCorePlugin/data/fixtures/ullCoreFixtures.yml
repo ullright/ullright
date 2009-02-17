@@ -490,6 +490,88 @@ UllColumnConfig:
     is_in_list:     false
     namespace:      ullCore
 
+  ull_group_cc_sex:
+    db_table_name:  UllGroup
+    db_column_name: sex
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_entrydate:
+    db_table_name:  UllGroup
+    db_column_name: entry_date
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_deactivationdate:
+    db_table_name:  UllGroup
+    db_column_name: deactivation_date
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_separationdate:
+    db_table_name:  UllGroup
+    db_column_name: separation_date
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_et:
+    db_table_name:  UllGroup
+    db_column_name: ull_employment_type_id
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_jt:
+    db_table_name:  UllGroup
+    db_column_name: ull_job_title_id
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_company:
+    db_table_name:  UllGroup
+    db_column_name: ull_company_id
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_department:
+    db_table_name:  UllGroup
+    db_column_name: ull_department_id
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_location:
+    db_table_name:  UllGroup
+    db_column_name: ull_location_id
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_superior:
+    db_table_name:  UllGroup
+    db_column_name: superior_ull_user_id
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_pext:
+    db_table_name:  UllGroup
+    db_column_name: phone_extension
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_pextinpb:
+    db_table_name:  UllGroup
+    db_column_name: is_show_extension_in_phonebook
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_fext:
+    db_table_name:  UllGroup
+    db_column_name: fax_extension
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_fextinpb:
+    db_table_name:  UllGroup
+    db_column_name: is_show_fax_extension_in_phonebook
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_comment:
+    db_table_name:  UllGroup
+    db_column_name: comment
+    is_enabled:     false
+    namespace:      ullCore
+  ull_group_cc_status:
+    db_table_name:  UllGroup
+    db_column_name: ull_user_status_id
+    is_enabled:     false
+    namespace:      ullCore
+
+
   #UllGroup
   ull_group_cc_first_name:
     db_table_name:  UllGroup

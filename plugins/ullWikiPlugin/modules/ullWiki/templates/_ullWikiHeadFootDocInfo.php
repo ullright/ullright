@@ -14,10 +14,10 @@
 <div class='ullwiki_headfoot_float_left'>
   <ul class='ullwiki_headfoot_ul'>
     <li><?php echo __('Created by', null, 'common').' '
-      .Doctrine::getTable('UllUser')->find($doc->creator_user_id)->getShortName().
+      .Doctrine::getTable('UllUser')->find($doc->creator_user_id) .
       ', '.ull_format_datetime($doc->created_at); ?></li>
     <li><?php echo __('Updated by', null, 'common').' '
-      .Doctrine::getTable('UllUser')->find($doc->updator_user_id)->getShortName().
+      .Doctrine::getTable('UllUser')->find($doc->updator_user_id) .
       ', '.ull_format_datetime($doc->updated_at); ?></li>
   </ul>
 </div>

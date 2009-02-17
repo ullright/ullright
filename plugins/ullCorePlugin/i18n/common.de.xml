@@ -550,6 +550,44 @@
 <target>Zur vorherigen Seite zurückkehren</target>
 </trans-unit>
 
+<!-- labels -->
+
+<trans-unit id="18000">
+<source>Short name</source>
+<target>Kurzname</target>
+</trans-unit>
+
+<trans-unit id="18001">
+<source>Street</source>
+<target>Straße</target>
+</trans-unit>
+
+<trans-unit id="18002">
+<source>Post code</source>
+<target>Postleitzahl</target>
+</trans-unit>
+
+<trans-unit id="18003">
+<source>Phone base no</source>
+<target>Telefonnummer</target>
+</trans-unit>
+
+<trans-unit id="18004">
+<source>Phone default extension</source>
+<target>Standard-Durchwahl</target>
+</trans-unit>
+
+<trans-unit id="18005">
+<source>Fax base no</source>
+<target>Faxnummer</target>
+</trans-unit>
+
+<trans-unit id="18006">
+<source>Fax default extension</source>
+<target>Fax-Standard-Durchwahl</target>
+</trans-unit>
+
+
 </body>
   </file>
 </xliff>

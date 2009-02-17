@@ -283,7 +283,9 @@ abstract class ullGenerator
         else
         {
           $ullMetaWidget->addToFormAs($columnName);
-          $this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
+          //var_dump($columnName);
+          //$this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
+          $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig['label'], null, 'common'));
         }
       }
     }
