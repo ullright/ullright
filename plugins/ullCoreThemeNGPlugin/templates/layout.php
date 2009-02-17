@@ -79,7 +79,7 @@
      
      
      <div id="content">
-        <?php var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll()) ?>
+        <?php //var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll()) ?>
      
         <?php echo $sf_data->getRaw('sf_content') ?>
         
