@@ -57,7 +57,13 @@ class ullTableToolForm extends ullGeneratorForm
     )->getReturnValue();
     
     // remove special columns that are updated automatically
-    unset($values['id'], $values['updated_at'], $values['updated_on'], $values['created_at'], $values['created_on']);
+    unset(
+      $values['id'], 
+      $values['updated_at'], 
+      $values['updator_user_id'], 
+      $values['created_at'], 
+      $values['creator_user_id']
+    );
 
     foreach ($values as $fieldName => $value)
     {
