@@ -2,16 +2,18 @@
 
 <?php echo ull_form_tag(array('fields' => ''), 'multipart=true id=ull_flow_upload_form'); ?>
 
+<?php if ($form->hasErrors()): ?>
+  <div class='form_error'>
+  <?php echo __('Please correct the following errors', null, 'common') ?>:
+  <?php echo $form->renderGlobalErrors() ?>
+  </div>  
+  <br /><br />
+<?php endif; ?>
+
 <div class="ull_upload">
   <?php
     echo '<h3>' . __('Manage files', null, 'common') . '</h3><br />';
   
-//  echo input_hidden_tag('external_field', $external_field);
-//  echo input_hidden_tag($external_field, $value);
-//  echo input_hidden_tag('app', $app);
-//  echo input_hidden_tag('doc', $doc);
-//  echo input_hidden_tag('ull_flow_action', $ull_flow_action);
-
     if ($value = $form->getDefault('value')) 
     {
       echo ullWidgetUpload::renderUploadList($value);

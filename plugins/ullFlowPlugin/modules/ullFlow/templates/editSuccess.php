@@ -2,6 +2,14 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<?php if ($generator->getForm()->hasErrors()): ?>
+  <div class='form_error'>
+  <?php echo __('Please correct the following errors', null, 'common') ?>:
+  <?php echo $generator->getForm()->renderGlobalErrors() ?>
+  </div>  
+  <br /><br />
+<?php endif; ?>
+
 <?php if ($generator->getRow()->exists()): ?>
   <?php include_partial('ullFlowHeader', array('doc' => $doc)) ?>
 <?php endif ?>

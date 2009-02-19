@@ -121,7 +121,7 @@ class BaseUllTableToolActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
-//      var_dump($request->getParameterHolder()->getAll());
+//      var_dump($request->getParameterHolder()->getAll());die();
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {

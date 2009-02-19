@@ -13,7 +13,7 @@ class ullFlowUploadForm extends sfForm
   
     $this->setValidators(array(
         'file'  => new sfValidatorFile(),
-        'value' => new sfValidatorString(),
+        'value' => new sfValidatorString(array('required' => false)),
     ));
   }
 }

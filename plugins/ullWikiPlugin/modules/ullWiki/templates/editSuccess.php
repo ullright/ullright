@@ -1,10 +1,10 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
-<?php if ($generator->getForm()->getErrorSchema()->getErrors()): ?>
+<?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
+  <?php echo $generator->getForm()->renderGlobalErrors() ?>
   </div>  
-  <?php echo $generator->getForm()->renderGlobalErrors(); ?>
   <br /><br />
 <?php endif; ?>
 

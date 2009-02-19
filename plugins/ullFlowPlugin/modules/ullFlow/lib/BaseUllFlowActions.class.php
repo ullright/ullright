@@ -231,11 +231,6 @@ class BaseUllFlowActions extends ullsfActions
    */  
   public function executeUpload($request) 
   {
-   
-//      ullCoreTools::printR(sfConfig::get('sf_upload_dir'));
-//      ullCoreTools::printR(sfConfig::get('sf_web_dir')); 
-//    exit();
-
     $this->getDocFromRequestOrCreate();
     
     $accessType = $this->doc->checkAccess();
@@ -249,6 +244,8 @@ class BaseUllFlowActions extends ullsfActions
     if ($request->isMethod('post'))
     {
 //      var_dump($this->getRequest()->getParameterHolder()->getAll());
+//      var_dump($this->getRequest()->getFiles());
+//      die;
       
       $this->form->bind($request->getParameter('fields'), $this->getRequest()->getFiles('fields'));
       
@@ -269,6 +266,8 @@ class BaseUllFlowActions extends ullsfActions
         ;
         
         $file->save($path);
+        
+//        var_dump($path);die;
         
         $relativePath = str_replace(sfConfig::get('sf_web_dir'), '', $path);
         
