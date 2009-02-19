@@ -61,10 +61,10 @@ $t->diag('getNext()');
   $t->isa_ok($next['entity'], 'UllGroup', 'returns the correct object for next entity');
   $t->is($next['entity']->id, $helpdeskGroupId, 'return the correct entity id');
   
-$t->diag('getSuperior()');
+$t->diag('findSuperior()');
 
   $doc->UllEntity = UllUserTable::findByDisplayName('Test User');
   $doc->save();
   $rule = new ullFlowRuleTest($doc);
 
-  $t->is($rule->getSuperior()->id, UllUserTable::findByDisplayName('Master Admin')->id, 'returns the correct superior');
+  $t->is($rule->findSuperior()->id, UllUserTable::findByDisplayName('Master Admin')->id, 'returns the correct superior');

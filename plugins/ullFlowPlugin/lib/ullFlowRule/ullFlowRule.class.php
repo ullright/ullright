@@ -38,7 +38,7 @@ abstract class ullFlowRule
    * @return UllUser
    *
    */
-  public function getSuperior()
+  public function findSuperior()
   {
     if ($this->doc->UllEntity instanceof UllUser)
     {
