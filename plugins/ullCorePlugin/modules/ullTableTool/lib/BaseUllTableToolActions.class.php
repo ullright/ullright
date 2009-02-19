@@ -110,12 +110,16 @@ class BaseUllTableToolActions extends ullsfActions
     $this->checkAccess('Masteradmins');
 
     $this->getTablefromRequest();
-    
+
     $this->generator = new ullTableToolGenerator($this->table_name, 'w');
-
     $row = $this->getRowFromRequestOrCreate();
-
     $this->generator->buildForm($row);
+    
+    //TODO: Add permission check
+    if ($this->generator->isVersionable())
+    {
+      $this->generator->buildHistoryGenerators();
+    }
     
     $this->breadcrumbForEdit();
 

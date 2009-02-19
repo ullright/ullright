@@ -14,8 +14,7 @@ class ullWidgetDateWrite extends ullWidget
     $id = $this->getAttribute('id');
     
     $curdate = strtotime($value);
-    if ($curdate == 0)
-      $curdate = time();
+    $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . '));';
     
     $return = '
     <script type="text/javascript">
@@ -24,8 +23,9 @@ class ullWidgetDateWrite extends ullWidget
         changeYear: true,
         changeMonth: true,
         firstDay: 1,
-     });
-     $("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . ')); });
+     });' . 
+     $dateline .
+    '});
     </script>';
 
     $culture = sfContext::getInstance()->getUser()->getCulture();

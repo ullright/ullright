@@ -21,7 +21,7 @@ class ullMetaWidgetPassword extends ullMetaWidget
 
   public static function listenToUpdateObjectEvent(sfEvent $event, $values)
   {
-    if ($values['password'] == '')
+    if (isset($values['password']) && $values['password'] == '')
     {
       unset($values['password']);
     }

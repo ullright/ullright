@@ -328,7 +328,7 @@ ul.list_action_buttons li {
 }
 
 .edit_table td.label_column {
-  max-width: 130px;
+  width: 150px;
 }
 
 .edit_table tr {

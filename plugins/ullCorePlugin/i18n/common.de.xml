@@ -592,6 +592,16 @@
 <target>Ort</target>
 </trans-unit>
 
+<trans-unit id="18008">
+<source>Version history</source>
+<target>Änderungsprotokoll</target>
+</trans-unit>
+
+<trans-unit id="18009">
+<source>by</source>
+<target>von</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

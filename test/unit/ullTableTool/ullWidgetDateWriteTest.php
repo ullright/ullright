@@ -22,8 +22,7 @@ $t->diag('__construct()');
         changeYear: true,
         changeMonth: true,
         firstDay: 1,
-     });
-     $("#foo").datepicker("setDate", new Date('. ($now * 1000) . ')); });
+     });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
     </script>';
   $expected .= '<input name="foo" id="foo" type="text" value="' . date('c', $now) . '" />';
 	
@@ -39,8 +38,7 @@ $t->diag('__construct()');
         changeYear: true,
         changeMonth: true,
         firstDay: 1,
-     });
-     $("#foo").datepicker("setDate", new Date('. ($now * 1000) . ')); });
+     });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
     </script><script type="text/javascript">$.datepicker.regional[\'de\'] = {clearText: \'löschen\', clearStatus: \'aktuelles Datum löschen\',
             closeText: \'schließen\', closeStatus: \'ohne Änderungen schließen\',
             prevText: \'&#x3c;zurück\', prevStatus: \'letzten Monat zeigen\',

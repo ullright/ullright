@@ -15,6 +15,8 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
     }
     else
     {
+      //ullWidgetForeignKey doesn't support option 'add_empty'
+      unset($this->columnConfig['widgetOptions']['add_empty']);
       $this->addWidget(new ullWidgetForeignKey($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
       $this->addValidator(new sfValidatorPass());
     }

@@ -19,7 +19,7 @@
 <table class="edit_table">
 <tbody>
 
-<?php echo $generator->getForm() ?>
+<?php echo $generator->getForm(); ?>
 
 </tbody>
 </table>
@@ -64,4 +64,28 @@
   echo ull_js_observer("ull_tabletool_form");
 ?>  
 
+<br />
+<br />
 
+<?php
+  if ($generator->hasGeneratedVersions())
+  {
+    echo '<br /><h2>'. __('Version history', null, 'common') . '</h2>';
+    
+    $hg = $generator->getHistoryGenerators();
+    
+    $cnt = count($hg);
+    for ($i = $cnt; $i > 0; $i--)
+    { 
+      echo '<div class="edit_container">';
+      echo '<br /><h4>' . ull_format_datetime($hg[$i - 1]->getUpdatedAt()) . '</h4>' .
+            __('Version ', null, 'common') . $i . ' - ' .
+            __('by', null, 'common') . ' ' . $hg[$i - 1]->getUpdator() .
+            '<br /><br />';
+      echo '<table class="edit_table"><tbody>';
+      echo $hg[$i - 1]->getForm();
+      echo '</tbody></table>';
+      echo '</div><br />';
+    }
+  }
+?>

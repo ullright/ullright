@@ -60,5 +60,5 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'massChangeSuperiorSave')
-  ->responseContains('The superior was successfully replaced for one user.')
+  ->responseContains('The superior was successfully replaced for 2 users.')
 ;

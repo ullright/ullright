@@ -29,7 +29,12 @@ class ullTableToolGenerator extends ullGenerator
         'updated_at',
     ) 
   ;
-
+  
+  protected $historyGenerators = array();
+  protected $isVersionable = false;
+  protected $hasVersions = false;
+  protected $isHistoryBuilt = false;
+  
   /**
    * Constructor
    *
@@ -51,8 +56,9 @@ class ullTableToolGenerator extends ullGenerator
     
     $this->modelName = $modelName;
     
-    parent::__construct($defaultAccess);
+    $this->isVersionable = Doctrine::getTable($this->modelName)->hasTemplate('Doctrine_Template_Versionable');
     
+    parent::__construct($defaultAccess);
   }  
   
   /**
@@ -349,4 +355,79 @@ class ullTableToolGenerator extends ullGenerator
     $this->columnsConfig = array_merge($this->columnsConfig, $bottom);
   }
   
+  public function isVersionable()
+  {
+    return $this->isVersionable;
+  }
+  
+  public function hasGeneratedVersions()
+  {
+    return $this->isHistoryBuilt;
+  }
+  
+  private function checkHistoryRequirements()
+  {
+    if (!$this->isVersionable)
+    {
+      throw new RuntimeException('This model is not auditing versions.');
+    }
+
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first.');
+    }
+  }
+
+  public function getHistoryGenerators()
+  {
+    $this->checkHistoryRequirements();
+
+    if (!$this->isHistoryBuilt)
+    {
+      throw new RuntimeException('You have to call buildHistoryGenerators() first.');
+    }
+
+    return $this->historyGenerators;
+  }
+
+  public function buildHistoryGenerators()
+  {
+    $this->checkHistoryRequirements();
+
+    if (count($this->rows) != 1)
+    {
+      throw new RuntimeException('Not implemented.');
+    }
+
+    $row = $this->rows[0];
+    if (!$row->exists())
+    {
+      //don't throw an exception, but set isHistoryBuilt to false
+      //better solution would be an isCreateMode() function
+      //throw new RuntimeException('Do not call buildHistoryGenerators() in create mode.');
+      $this->isHistoryBuilt = false;
+      return;
+    }
+
+    $maxVersion = $row->getAuditLog()->getMaxVersion($row);
+
+    $rowCur = clone $row;
+    $rowRev = clone $row;
+
+    $this->historyGenerators = array();
+    for($i = $maxVersion; $i >= 1; $i--)
+    {
+      if ($i > 1)
+        $rowRev->revert($i - 1);
+      else
+        $rowRev = new $this->modelName;
+        
+      $this->historyGenerators[$i - 1] = new ullTableToolHistoryGenerator($this->modelName, 'r');
+      $this->historyGenerators[$i - 1]->buildHistoryForm($rowCur, $rowRev);
+
+      $rowCur = clone $rowRev;
+    }
+
+    $this->isHistoryBuilt = true;
+  }
 }

@@ -5,6 +5,11 @@ UllParentEntity:
   inheritance:
     extends: UllRecord
     type: concrete
+  actAs:
+    Versionable: #all three parameters are defaults
+      versionColumn:  version
+      className:      %CLASS%Version
+      auditLog:       true
   columns:
     first_name:
       type: string(64)
@@ -156,6 +161,8 @@ UllPermission:
   inheritance:
     extends: UllRecord
     type: concrete
+  actAs:
+    Versionable:
 #  actAs:
 #    I18n:
 #      fields: [label, description]
@@ -178,6 +185,8 @@ UllGroupPermission:
   inheritance:
     extends: UllRecord
     type: concrete
+  actAs:
+    Versionable:
   columns:
     ull_group_id:
       type: integer

@@ -290,6 +290,7 @@ UllColumnConfig:
     db_table_name:  UllUser
     db_column_name: display_name
     namespace:    ullCore
+    is_enabled:   false
   ull_user_cc_username:
     Translation:
       en:
@@ -490,7 +491,13 @@ UllColumnConfig:
     db_column_name: ull_user_status_id
     is_in_list:     false
     namespace:      ullCore
+  ull_user_cc_version:
+    db_table_name:  UllUser
+    db_column_name: version
+    is_enabled:     false
+    namespace:      ullCore
 
+  #UllGroup
   ull_group_cc_sex:
     db_table_name:  UllGroup
     db_column_name: sex
@@ -571,9 +578,11 @@ UllColumnConfig:
     db_column_name: ull_user_status_id
     is_enabled:     false
     namespace:      ullCore
-
-
-  #UllGroup
+  ull_group_cc_version:
+    db_table_name:  UllGroup
+    db_column_name: version
+    is_enabled:     false
+    namespace:      ullCore
   ull_group_cc_first_name:
     db_table_name:  UllGroup
     db_column_name: first_name
@@ -634,6 +643,13 @@ UllColumnConfig:
     db_table_name:  UllEntityGroup
     db_column_name: ull_group_id
     namespace:    ullCore
+  
+  #UllPermission
+  ull_permission_cc_version:
+    db_table_name:  UllPermission
+    db_column_name: version
+    is_enabled:     false
+    namespace:    ullCore
 
   #UllGroupPermission
   ull_group_permission_cc_ull_group_id:
@@ -653,6 +669,11 @@ UllColumnConfig:
         label:      Zugriffsrecht
     db_table_name:  UllGroupPermission
     db_column_name: ull_permission_id
+    namespace:    ullCore
+  ull_group_permission_cc_version:
+    db_table_name:  UllGroupPermission
+    db_column_name: version
+    is_enabled:     false
     namespace:    ullCore
 
   #UllTableConfig
