@@ -17,23 +17,26 @@ sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url')
  * @return string date        formated date like "4.12.2007" for "de"
  */
 
-function ull_format_date($date = null) 
+function ull_format_date($date = null, $zeroPadding = true) 
 {
   if ($date == null)
     $date = time();
-  
+    
   $culture = sfContext::getInstance()->getUser()->getCulture();
   $culture_parts = explode('_', $culture);
   $language = $culture_parts[0];
   
+  $dayPattern = $zeroPadding ? 'dd' : 'd';
+  $monthPattern = $zeroPadding ? 'MM' : 'M';
+  
   switch ($language)
   {
     case 'de':
-      $dt = format_datetime($date, "d.M.yyyy");
+      $dt = format_datetime($date, $dayPattern . '.' . $monthPattern . '.yyyy');
       break;
     
     default:
-      $dt = format_datetime($date, "MM-dd-yyyy");
+      $dt = format_datetime($date, $monthPattern . '-' . $dayPattern . '-yyyy');
   }
    
   return $dt;
@@ -48,7 +51,7 @@ function ull_format_date($date = null)
  * @return string date        formated date like "4.12.2007 13:45h" for "de"
  */
   
-function ull_format_datetime($date = null) 
+function ull_format_datetime($date = null, $zeroPadding = true) 
 {
   if ($date == null)
     $date = time();
@@ -57,14 +60,17 @@ function ull_format_datetime($date = null)
   $culture_parts = explode('_', $culture);
   $language = $culture_parts[0];
   
+  $dayPattern = $zeroPadding ? 'dd' : 'd';
+  $monthPattern = $zeroPadding ? 'MM' : 'M';
+  
   switch ($language)
   {
     case 'de':
-      $dt = format_datetime($date, "d.M.yyyy HH:mm:ss");
+      $dt = format_datetime($date, $dayPattern . '.' . $monthPattern . '.yyyy HH:mm:ss');
       break;
     
     default:
-      $dt = format_datetime($date, "MM-dd-yyyy HH:mm:ss");
+      $dt = format_datetime($date, $monthPattern . '-' . $dayPattern . '-yyyy HH:mm:ss');
   }
    
   return $dt;

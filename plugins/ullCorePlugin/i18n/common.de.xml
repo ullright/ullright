@@ -587,6 +587,10 @@
 <target>Fax-Standard-Durchwahl</target>
 </trans-unit>
 
+<trans-unit id="18007">
+<source>City</source>
+<target>Ort</target>
+</trans-unit>
 
 </body>
   </file>

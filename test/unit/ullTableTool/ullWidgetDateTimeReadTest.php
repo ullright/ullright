@@ -18,4 +18,4 @@ $t->diag('->render()');
   
   $instance->getUser()->setCulture("de");
   
-  $t->is($w->render('foo', $now), date("j.n.Y H:i:s"));
+  $t->is($w->render('foo', $now), date("d.m.Y H:i:s"));
