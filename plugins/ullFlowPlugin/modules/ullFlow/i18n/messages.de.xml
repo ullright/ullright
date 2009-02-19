@@ -72,6 +72,11 @@
 <target>Retournieren</target>
 </trans-unit>
 
+<trans-unit id="1008">
+<source>Approve</source>
+<target>Genehmigen</target>
+</trans-unit>
+
 <!-- action 'index' -->
 
 <trans-unit id="1501">
