@@ -24,7 +24,7 @@ sfContext::createInstance($configuration);
 //sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 //sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(10, new lime_output_color, $configuration);
+$t = new myTestCase(11, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -60,3 +60,11 @@ $t->diag('getNext()');
   $t->is($next['step']->id, 2, 'return the correct step id');
   $t->isa_ok($next['entity'], 'UllGroup', 'returns the correct object for next entity');
   $t->is($next['entity']->id, $helpdeskGroupId, 'return the correct entity id');
+  
+$t->diag('getSuperior()');
+
+  $doc->UllEntity = UllUserTable::findByDisplayName('Test User');
+  $doc->save();
+  $rule = new ullFlowRuleTest($doc);
+
+  $t->is($rule->getSuperior()->id, UllUserTable::findByDisplayName('Master Admin')->id, 'returns the correct superior');

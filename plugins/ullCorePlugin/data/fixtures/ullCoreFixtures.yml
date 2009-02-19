@@ -31,6 +31,7 @@ UllUser:
     email:              test.user@example.com
     username:           test_user
     password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Superior:           admin_user
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test

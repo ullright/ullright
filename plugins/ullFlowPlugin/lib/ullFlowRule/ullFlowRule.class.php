@@ -29,7 +29,25 @@ abstract class ullFlowRule
    * @return array  array('step' => UllFlowStep, 'entity' => UllEntity)
    *
    */
-  abstract function getNext();
+  abstract public function getNext();
+  
+  /**
+   * gets the superior of the UllEntity to which the document is assigned
+   *   to if it is a UllUser
+   * 
+   * @return UllUser
+   *
+   */
+  public function getSuperior()
+  {
+    if ($this->doc->UllEntity instanceof UllUser)
+    {
+      if ($superior = $this->doc->UllEntity->Superior)
+      {
+        return $superior;
+      }
+    }
+  }  
   
   /**
    * returns a UllGroup for a given group display_name
