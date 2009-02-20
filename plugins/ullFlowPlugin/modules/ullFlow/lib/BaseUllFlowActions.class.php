@@ -22,7 +22,7 @@ class BaseUllFlowActions extends ullsfActions
     $defaultUri = $this->getModuleName() . '/list';
     if ($app = $this->getRequestParameter('app'))
     {
-      $defaultUri .= '&app=' . $app;
+      $defaultUri .= '?app=' . $app;
     }
     $this->getUriMemory()->setDefault($defaultUri);
 
@@ -678,14 +678,4 @@ class BaseUllFlowActions extends ullsfActions
     }
   }    
   
-  /**
-   * Returns fallback URL if there is no valid referer
-   *
-   * @return string fallback URL
-   */
-  protected function getRefererFallbackURI()
-  {
-    return $this->getModuleName() . '/list';
-  }  
-
 }
