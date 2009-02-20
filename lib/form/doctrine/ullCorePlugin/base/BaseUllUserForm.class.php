@@ -41,6 +41,7 @@ class BaseUllUserForm extends BaseFormDoctrine
       'updated_at'                         => new sfWidgetFormDateTime(),
       'creator_user_id'                    => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'                    => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'version'                            => new sfWidgetFormInput(),
       'ull_group_list'                     => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllGroup')),
     ));
 
@@ -74,6 +75,7 @@ class BaseUllUserForm extends BaseFormDoctrine
       'updated_at'                         => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id'                    => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id'                    => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'version'                            => new sfValidatorInteger(array('required' => false)),
       'ull_group_list'                     => new sfValidatorDoctrineChoiceMany(array('model' => 'UllGroup', 'required' => false)),
     ));
 

@@ -72,14 +72,56 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
    */
   public function getIconPath($width = 16, $height = 16)
   {
-    return '/ullFlowTheme' .
+    $commonPath = '/images/ull_flow_app_icons';
+    
+    $pluginPath = '/ullFlowTheme' .
       sfConfig::get('app_theme_package', 'NG') .
-      'Plugin/images/ull_flow_app_icons/' .
-      $this->slug .
-      '_' . $width . 'x' . $height . '.png'
-    ;
+      'Plugin';
+      
+    $webDirPath = sfConfig::get('sf_web_dir');
+
+    //generic icons
+    $webPath = $pluginPath . $commonPath . '/' . $this->getIconFilename($width, $height);
+    if (file_exists($webDirPath . $webPath))
+    {
+      return $webPath;
+    }
+    
+    // custom icons
+    $webPath = $commonPath . '/' . $this->getIconFilename($width, $height);
+    if (file_exists($webDirPath . $webPath))
+    {
+      return $webPath;
+    }    
+    
+    //default icon
+    return $pluginPath . $commonPath . '/' . $this->getIconFilename($width, $height, 'default');    
+    
   }
   
+  /**
+   * Builds app icon filename
+   * 
+   * @param $width
+   * @param $height
+   * @param $filename
+   * @return string
+   */
+  protected function getIconFilename($width = 16, $height = 16, $filename = null)
+  {
+    if (!$filename)
+    {
+      $filename = $this->slug;
+    }
+    
+    return $filename . '_' . $width . 'x' . $height . '.png';
+  }
+  
+  /**
+   * Get the columns of an app  ordered by sequence
+   * 
+   * @return Doctrine_Collection
+   */
   public function findOrderedColumns()
   {
     $q = new Doctrine_Query;

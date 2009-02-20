@@ -41,6 +41,7 @@ class BaseUllParentEntityFormFilter extends BaseFormFilterDoctrine
       'updated_at'                         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'creator_user_id'                    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'                    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'version'                            => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -71,6 +72,7 @@ class BaseUllParentEntityFormFilter extends BaseFormFilterDoctrine
       'updated_at'                         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'creator_user_id'                    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
       'updator_user_id'                    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
+      'version'                            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('ull_parent_entity_filters[%s]');
@@ -116,6 +118,7 @@ class BaseUllParentEntityFormFilter extends BaseFormFilterDoctrine
       'updated_at'                         => 'Date',
       'creator_user_id'                    => 'ForeignKey',
       'updator_user_id'                    => 'ForeignKey',
+      'version'                            => 'Number',
     );
   }
 }

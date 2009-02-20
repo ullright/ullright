@@ -3,13 +3,13 @@
 require_once(sfConfig::get('sf_lib_dir').'/filter/doctrine/BaseFormFilterDoctrine.class.php');
 
 /**
- * UllGroup filter form base class.
+ * UllParentEntityVersion filter form base class.
  *
  * @package    filters
- * @subpackage UllGroup *
+ * @subpackage UllParentEntityVersion *
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 11675 2008-09-19 15:21:38Z fabien $
  */
-class BaseUllGroupFormFilter extends BaseFormFilterDoctrine
+class BaseUllParentEntityVersionFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
@@ -37,14 +37,10 @@ class BaseUllGroupFormFilter extends BaseFormFilterDoctrine
       'is_show_fax_extension_in_phonebook' => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'comment'                            => new sfWidgetFormFilterInput(),
       'ull_user_status_id'                 => new sfWidgetFormFilterInput(),
-      'type'                               => new sfWidgetFormFilterInput(),
       'created_at'                         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'                         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
-      'creator_user_id'                    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'                    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
-      'version'                            => new sfWidgetFormFilterInput(),
-      'ull_user_list'                      => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllUser')),
-      'ull_permissions_list'               => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllPermission')),
+      'creator_user_id'                    => new sfWidgetFormFilterInput(),
+      'updator_user_id'                    => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -71,58 +67,22 @@ class BaseUllGroupFormFilter extends BaseFormFilterDoctrine
       'is_show_fax_extension_in_phonebook' => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'comment'                            => new sfValidatorPass(array('required' => false)),
       'ull_user_status_id'                 => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'type'                               => new sfValidatorPass(array('required' => false)),
       'created_at'                         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'                         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'creator_user_id'                    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
-      'updator_user_id'                    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
-      'version'                            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'ull_user_list'                      => new sfValidatorDoctrineChoiceMany(array('model' => 'UllUser', 'required' => false)),
-      'ull_permissions_list'               => new sfValidatorDoctrineChoiceMany(array('model' => 'UllPermission', 'required' => false)),
+      'creator_user_id'                    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'updator_user_id'                    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
-    $this->widgetSchema->setNameFormat('ull_group_filters[%s]');
+    $this->widgetSchema->setNameFormat('ull_parent_entity_version_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
     parent::setup();
   }
 
-  public function addUllUserListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query->leftJoin('r.UllEntityGroup UllEntityGroup')
-          ->andWhereIn('UllEntityGroup.ull_entity_id', $values);
-  }
-
-  public function addUllPermissionsListColumnQuery(Doctrine_Query $query, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $query->leftJoin('r.UllGroupPermission UllGroupPermission')
-          ->andWhereIn('UllGroupPermission.ull_permission_id', $values);
-  }
-
   public function getModelName()
   {
-    return 'UllGroup';
+    return 'UllParentEntityVersion';
   }
 
   public function getFields()
@@ -152,14 +112,11 @@ class BaseUllGroupFormFilter extends BaseFormFilterDoctrine
       'is_show_fax_extension_in_phonebook' => 'Boolean',
       'comment'                            => 'Text',
       'ull_user_status_id'                 => 'Number',
-      'type'                               => 'Text',
       'created_at'                         => 'Date',
       'updated_at'                         => 'Date',
-      'creator_user_id'                    => 'ForeignKey',
-      'updator_user_id'                    => 'ForeignKey',
+      'creator_user_id'                    => 'Number',
+      'updator_user_id'                    => 'Number',
       'version'                            => 'Number',
-      'ull_user_list'                      => 'ManyKey',
-      'ull_permissions_list'               => 'ManyKey',
     );
   }
 }

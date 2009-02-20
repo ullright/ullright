@@ -36,4 +36,10 @@ abstract class BaseUllParentEntity extends UllRecord
     $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);
   }
 
+  public function setUp()
+  {
+    parent::setUp();
+    $versionable0 = new Doctrine_Template_Versionable(array('versionColumn' => 'version', 'className' => '%CLASS%Version', 'auditLog' => true));
+    $this->actAs($versionable0);
+  }
 }

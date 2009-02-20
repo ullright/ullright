@@ -3,39 +3,37 @@
 require_once(sfConfig::get('sf_lib_dir').'/filter/doctrine/BaseFormFilterDoctrine.class.php');
 
 /**
- * UllGroupPermission filter form base class.
+ * UllGroupPermissionVersion filter form base class.
  *
  * @package    filters
- * @subpackage UllGroupPermission *
+ * @subpackage UllGroupPermissionVersion *
  * @version    SVN: $Id: sfDoctrineFormFilterGeneratedTemplate.php 11675 2008-09-19 15:21:38Z fabien $
  */
-class BaseUllGroupPermissionFormFilter extends BaseFormFilterDoctrine
+class BaseUllGroupPermissionVersionFormFilter extends BaseFormFilterDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
       'namespace'         => new sfWidgetFormFilterInput(),
-      'ull_group_id'      => new sfWidgetFormDoctrineChoice(array('model' => 'UllGroup', 'add_empty' => true)),
-      'ull_permission_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllPermission', 'add_empty' => true)),
+      'ull_group_id'      => new sfWidgetFormFilterInput(),
+      'ull_permission_id' => new sfWidgetFormFilterInput(),
       'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
-      'creator_user_id'   => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'   => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
-      'version'           => new sfWidgetFormFilterInput(),
+      'creator_user_id'   => new sfWidgetFormFilterInput(),
+      'updator_user_id'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
       'namespace'         => new sfValidatorPass(array('required' => false)),
-      'ull_group_id'      => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllGroup', 'column' => 'id')),
-      'ull_permission_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllPermission', 'column' => 'id')),
+      'ull_group_id'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'ull_permission_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-      'creator_user_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
-      'updator_user_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
-      'version'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'creator_user_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'updator_user_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
-    $this->widgetSchema->setNameFormat('ull_group_permission_filters[%s]');
+    $this->widgetSchema->setNameFormat('ull_group_permission_version_filters[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -44,7 +42,7 @@ class BaseUllGroupPermissionFormFilter extends BaseFormFilterDoctrine
 
   public function getModelName()
   {
-    return 'UllGroupPermission';
+    return 'UllGroupPermissionVersion';
   }
 
   public function getFields()
@@ -52,12 +50,12 @@ class BaseUllGroupPermissionFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                => 'Number',
       'namespace'         => 'Text',
-      'ull_group_id'      => 'ForeignKey',
-      'ull_permission_id' => 'ForeignKey',
+      'ull_group_id'      => 'Number',
+      'ull_permission_id' => 'Number',
       'created_at'        => 'Date',
       'updated_at'        => 'Date',
-      'creator_user_id'   => 'ForeignKey',
-      'updator_user_id'   => 'ForeignKey',
+      'creator_user_id'   => 'Number',
+      'updator_user_id'   => 'Number',
       'version'           => 'Number',
     );
   }

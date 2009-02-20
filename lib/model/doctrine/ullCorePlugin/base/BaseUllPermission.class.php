@@ -28,5 +28,8 @@ abstract class BaseUllPermission extends UllRecord
 
     $this->hasMany('UllFlowAppPermission', array('local' => 'id',
                                                  'foreign' => 'ull_permission_id'));
+
+    $versionable0 = new Doctrine_Template_Versionable();
+    $this->actAs($versionable0);
   }
 }

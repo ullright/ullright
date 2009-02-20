@@ -42,6 +42,7 @@ class BaseUllUserFormFilter extends BaseFormFilterDoctrine
       'updated_at'                         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'creator_user_id'                    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'                    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'version'                            => new sfWidgetFormFilterInput(),
       'ull_group_list'                     => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllGroup')),
     ));
 
@@ -74,6 +75,7 @@ class BaseUllUserFormFilter extends BaseFormFilterDoctrine
       'updated_at'                         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'creator_user_id'                    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
       'updator_user_id'                    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
+      'version'                            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'ull_group_list'                     => new sfValidatorDoctrineChoiceMany(array('model' => 'UllGroup', 'required' => false)),
     ));
 
@@ -137,6 +139,7 @@ class BaseUllUserFormFilter extends BaseFormFilterDoctrine
       'updated_at'                         => 'Date',
       'creator_user_id'                    => 'ForeignKey',
       'updator_user_id'                    => 'ForeignKey',
+      'version'                            => 'Number',
       'ull_group_list'                     => 'ManyKey',
     );
   }

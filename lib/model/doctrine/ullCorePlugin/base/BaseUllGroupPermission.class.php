@@ -23,5 +23,8 @@ abstract class BaseUllGroupPermission extends UllRecord
     $this->hasOne('UllPermission', array('local' => 'ull_permission_id',
                                          'foreign' => 'id',
                                          'onDelete' => 'CASCADE'));
+
+    $versionable0 = new Doctrine_Template_Versionable();
+    $this->actAs($versionable0);
   }
 }
