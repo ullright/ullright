@@ -7,22 +7,6 @@
   ?>
   </li>
   
-  <li id='nav_link_tickets'>
-  <?php
-    echo ull_navigation_link('/ullFlowThemeNGPlugin/images/ull_flow_app_icons/trouble_ticket_32x32',
-      'ullFlow/list?app=trouble_ticket', __('Active tickets', null, 'common'),
-      array());
-  ?>
-  </li>
-  
-  <li id='nav_link_todo'>
-  <?php
-    echo ull_navigation_link('/ullFlowThemeNGPlugin/images/ull_flow_app_icons/todo_32x32',
-      'ullFlow/list?query=to_me', __('My tasks', null, 'common'),
-      array());
-  ?>
-  </li>
-  
   <li id='nav_link_wiki'>
   <?php
   echo ull_navigation_link('/ullWikiThemeNGPlugin/images/ull_wiki_32x32',
