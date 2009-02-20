@@ -430,6 +430,7 @@ UllColumnConfig:
     db_column_name: superior_ull_user_id
     UllColumnType:  ull_user
     is_in_list:     false
+    options:        add_empty=true
     namespace:      ullCore
   ull_user_cc_pext:
     Translation:
