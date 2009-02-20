@@ -37,9 +37,9 @@ body {
 }
 
 #sidebar_content {
-	color: #777475;
+	color: #000;
 	text-align: left;
-	padding-top: 2px;
+	padding-left: 6px;
 }
 
 #sidebar_logo {

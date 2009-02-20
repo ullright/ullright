@@ -34,7 +34,21 @@
     </div>   
         
 		<div id="sidebar_content">
-		
+		<?php //the sidebar content can be overridden
+        if (has_slot('sidebar'))
+        { 
+          include_slot('sidebar');
+        }
+        else
+		    {
+		      include_component('default', 'sidebar');
+		      $partialPath = sfConfig::get('sf_app_dir') . '/modules/myModule/templates/_custom_sidebar.php';
+          if (file_exists($partialPath))
+          {
+		        include_partial('myModule/custom_sidebar');
+          }
+        }
+     ?>
 		</div>
 	</div>
 	

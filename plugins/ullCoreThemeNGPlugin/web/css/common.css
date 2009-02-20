@@ -108,6 +108,18 @@ a:visited {
 	color: #585858;
 }
 
+#sidebar_content a {
+  color: gray;
+}
+
+#sidebar_content a:hover {
+  color: gray;
+}
+
+#sidebar_content a:visited {
+  color: gray;
+}
+
 h1,h2,h3,h4 {
 	margin-top: 0;
 	margin-left: 0;
