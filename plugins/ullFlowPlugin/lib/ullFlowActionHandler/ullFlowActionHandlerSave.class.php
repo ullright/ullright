@@ -10,7 +10,7 @@ class ullFlowActionHandlerSave extends ullFlowActionHandler
    */  
   function render() 
   {
-    $return = ull_submit_tag(__('Save'), array('name' => 'submit|action_slug=save'));
+    $return = ull_submit_tag(__('Save', null, 'common'), array('name' => 'submit|action_slug=save'));
     return $return;
   }
   
