@@ -203,8 +203,12 @@ abstract class sfFormDoctrine extends sfForm
     {
       $values = $this->values;
     }
+    
+    var_dump($values);die;
 
     $values = $this->processValues($values);
+    
+    
 
     $this->object->fromArray($values);
 
@@ -404,12 +408,6 @@ abstract class sfFormDoctrine extends sfForm
    */
   protected function updateDefaultsFromObject()
   {
-    
-    $x = new TestTable;
-//    var_dump($x->hasRelation('Translation'));
-//    
-//    var_dump($this->object->toArray());
-    
     // update defaults for the main object
     if ($this->isNew())
     {
