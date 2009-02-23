@@ -62,7 +62,12 @@ class ullGeneratorForm extends sfFormDoctrine
    */
   public function updateObject($values = null)
   {
-  	//local $values not used
+    if (is_null($values))
+    {
+      $values = $this->values;
+    }
+    
+    $this->removeUnusedFields(); 
   	
   	$widgets = $this->getWidgetSchema()->getFields();
     foreach ($widgets as $fieldName => $widget)
@@ -73,7 +78,7 @@ class ullGeneratorForm extends sfFormDoctrine
       }
     }
     
-    return parent::updateObject($this->getValues());
+    return parent::updateObject();    
   }
   
   /**
@@ -104,6 +109,28 @@ class ullGeneratorForm extends sfFormDoctrine
   public function getCultures()
   {
     return $this->cultures;
+  }
+  
+  
+  /**
+   * Removes values that were not set via POST request
+   * 
+   * @return none
+   */
+  protected function removeUnusedFields()
+  {
+    foreach ($this->getValues() as $key => $value)
+    {
+      if ($key == 'Translation')
+      {
+        continue;
+      }
+      
+      if (!array_key_exists($key, $this->getTaintedValues()))
+      {
+        unset($this->values[$key]);
+      }
+    }  
   }
 
 }

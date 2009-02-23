@@ -65,5 +65,3 @@ class ullMetaWidgetPassword extends ullMetaWidget
 
   }
 }
-
-?>

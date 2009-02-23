@@ -137,6 +137,7 @@ abstract class sfFormDoctrine extends sfForm
   public function bindAndSave($taintedValues, $taintedFiles = null, $con = null)
   {
     $this->bind($taintedValues, $taintedFiles);
+    
     if ($this->isValid())
     {
       $this->save($con);
@@ -204,13 +205,15 @@ abstract class sfFormDoctrine extends sfForm
       $values = $this->values;
     }
     
-    var_dump($values);die;
-
     $values = $this->processValues($values);
     
-    
-
     $this->object->fromArray($values);
+    
+//    var_dump($this->taintedValues);
+//    var_dump($values);
+//    var_dump($this->object->toArray(false));
+//    var_dump($this->object->getModified());
+//    die;    
 
     // embedded forms
     $this->updateObjectEmbeddedForms($values);

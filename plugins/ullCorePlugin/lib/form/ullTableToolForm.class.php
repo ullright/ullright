@@ -48,7 +48,12 @@ class ullTableToolForm extends ullGeneratorForm
    */
   public function updateObject($values = null)
   {
-    $values = $this->getValues();
+    if (is_null($values))
+    {
+      $values = $this->values;
+    }
+
+//      var_dump($values);die;
     
 //    var_dump(sfContext::getInstance()->getEventDispatcher()->getListeners('form.update_object'));die;
     
@@ -56,15 +61,7 @@ class ullTableToolForm extends ullGeneratorForm
         new sfEvent($this, 'form.update_object'), $values
     )->getReturnValue();
     
-    // remove special columns that are updated automatically
-    unset(
-      $values['id'], 
-      $values['updated_at'],
-      $values['updator_user_id'], 
-      $values['created_at'], 
-      $values['creator_user_id']
-    );
-
+    
     foreach ($values as $fieldName => $value)
     {
       if (strstr($fieldName, '_translation_'))
@@ -80,10 +77,17 @@ class ullTableToolForm extends ullGeneratorForm
         $values['Translation'][$culture][$realFieldName] = $value;
       }
     }
-
-    $this->object->fromArray($values);
-
-    return $this->object;
+    
+    $this->values = $values;
+    
+    return parent::updateObject();
+    
+//    $this->object->fromArray($values);
+//    
+//    var_dump($values);
+//    var_dump($this->object->toArray(false));die;
+//    
+//    return $this->object;
   }
 
 }

@@ -8,6 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+
 $testUserId = Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id;
 
 $b
