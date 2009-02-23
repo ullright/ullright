@@ -59,6 +59,7 @@ class ullTableToolForm extends ullGeneratorForm
     // remove special columns that are updated automatically
     unset(
       $values['id'], 
+      $values['updated_at'],
       $values['updator_user_id'], 
       $values['created_at'], 
       $values['creator_user_id']
