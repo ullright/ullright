@@ -34,7 +34,7 @@
 
 <trans-unit id="6">
 <source>"%value%" is not an integer.</source>
-<target>"%value%" ist keine Zahl.</target>
+<target>"%value%" ist keine Ganzzahl.</target>
 </trans-unit>
 
     </body>
