@@ -32,6 +32,11 @@
 <target>Ungültig</target>
 </trans-unit>
 
+<trans-unit id="6">
+<source>"%value%" is not an integer.</source>
+<target>"%value%" ist keine Zahl.</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
