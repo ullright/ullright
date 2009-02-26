@@ -39,8 +39,9 @@ $b
 $b
   ->diag('login as testuser to check unchanged password')
   ->click('Log out')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAsTestUser()
+  ->followRedirect()
 ;
 
 $b
@@ -84,6 +85,6 @@ $b
 $b
   ->diag('login as testuser to check changed password')
   ->click('Log out')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAsTestUser('newpass')
 ;

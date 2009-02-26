@@ -73,6 +73,7 @@ UllFlowApp:
     slug: trouble_ticket
     namespace:      test
     list_columns:   id,subject,priority,assigned_to_ull_entity_id,created_at
+    #is_public:      true
   ull_flow_app_todo:
     Translation:
       en:

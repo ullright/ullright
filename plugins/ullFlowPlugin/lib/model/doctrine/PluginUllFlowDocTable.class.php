@@ -22,61 +22,73 @@ class PluginUllFlowDocTable extends UllRecordTable
 		  }
 		}
 		
-    $global_access = false;
-    
     // masteradmin
     if (UllUserTable::hasGroup('MasterAdmins'))
     {
-      $global_access = true;
+      return $q;
     }
     
     // app-specific global read access
-    if ($app and !$global_access)
+    if ($app)
     {
       if (UllUserTable::hasPermission('UllFlow_' . $app->slug . '_global_read'))
       {
-        $global_access = true;
+        return $q;
       }
     }
+    
+  	$userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+  	
+  	// check is_public
+  	if (!$userId)
+  	{
+  	  $q->addWhere('x.UllFlowApp.is_public = ?', true);
+  	  
+  	  return $q;
+  	}
 
-    //normal access check
-    if (!$global_access) 
-    {
-    	$userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
-    	
-      // assigned to
+  	//normal access check
+  	
+    // assigned to
 //      $q->addWhere('(');
-      $q->leftJoin('x.UllEntity e');
+    $q->leftJoin('x.UllEntity e');
+    
 //      $q->addQueryPart('where','foobar = 666');
       
-      $q->leftJoin('e.UllEntityGroupsAsGroup aeg');
+    $q->leftJoin('e.UllEntityGroupsAsGroup aeg');
 //      $q->orWhere('aeg.ull_entity_id = ?', $userId);
-      
-      // memory:
-      $q->leftJoin('x.UllFlowMemories m');
+
+    
+    
+    
+    // memory:
+    $q->leftJoin('x.UllFlowMemories m');
 //      $q->orWhere('m.creator_ull_entity_id = ?', $userId);
-      $q->leftJoin('m.CreatorUllEntity.UllEntityGroupsAsGroup meg');
+    $q->leftJoin('m.CreatorUllEntity.UllEntityGroupsAsGroup meg');
 //      $q->orWhere('meg.ull_entity_id = ?', $userId);
-      
+
+    
       // global read access:
-      $q->leftJoin('x.UllFlowApp.UllPermission p');
-      $q->leftJoin('p.UllGroup.UllUser gru');
+    $q->leftJoin('x.UllFlowApp.UllPermission p');
+    $q->leftJoin('p.UllGroup.UllUser gru');
 //      $q->orWhere('gru.id = ? AND p.slug LIKE ?', array($userId, '%_global_read'));
-      
-      // moved all where clauses into one statement to properly set the braces
-      $q->addWhere('
-        e.id = ? 
-        OR aeg.ull_entity_id = ? 
-        OR m.creator_ull_entity_id = ? 
-        OR meg.ull_entity_id = ?
-        OR gru.id = ? AND p.slug LIKE ?',
-        array($userId, $userId, $userId, $userId, $userId, '%_global_read')
-      );
-      
+
+    
+    // moved all where clauses into one statement to properly set the braces
+    $q->addWhere('
+      e.id = ? 
+      OR aeg.ull_entity_id = ? 
+      OR m.creator_ull_entity_id = ? 
+      OR meg.ull_entity_id = ?
+      OR gru.id = ? AND p.slug LIKE ?',
+      array($userId, $userId, $userId, $userId, $userId, '%_global_read')
+    );
+
 //    var_dump($q->getQuery());
 //    var_dump($q->getParams());
-//    die;
-    }
+//    die('access');          
+              
+    
 
     
     return $q;

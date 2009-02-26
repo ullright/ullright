@@ -16,6 +16,8 @@ UllFlowApp:
       type: string(64)
     list_columns:
       type: string(255)
+    is_public:
+      type: boolean
   relations:
     UllPermission:
       refClass: UllFlowAppPermission

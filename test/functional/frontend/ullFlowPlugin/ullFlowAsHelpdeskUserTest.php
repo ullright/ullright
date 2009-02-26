@@ -13,8 +13,9 @@ $dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 
 $b
   ->diag('ullFlow Home')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAsHelpdeskUser()
+  ->get('ullFlow/index')
 ;
 
 $b

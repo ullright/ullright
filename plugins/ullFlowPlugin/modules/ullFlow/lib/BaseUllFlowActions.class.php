@@ -36,7 +36,7 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeIndex()
   {
-    $this->checkAccess('LoggedIn');
+//    $this->checkAccess('LoggedIn');
     
     $this->form = new ullFlowFilterForm;
     
@@ -74,7 +74,7 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeList($request) 
   {
-    $this->checkAccess('LoggedIn');
+//    $this->checkAccess('LoggedIn');
     
     if ($request->isMethod('post'))
     {
@@ -112,6 +112,8 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeCreate() 
   {
+    $this->checkAccess('LoggedIn');
+    
     $this->forward('ullFlow', 'edit');
   }  
   
@@ -140,13 +142,16 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeEdit($request)
   {
-    $this->checkAccess('LoggedIn');
+//    $this->checkAccess('LoggedIn');
 
     $this->getDocFromRequestOrCreate();
     
     $accessType = $this->doc->checkAccess();
     $this->redirectUnless($accessType, 'ullUser/noaccess');
-    $this->workflowActionAccessCheck();
+    if ($accessType == 'w')
+    {
+      $this->workflowActionAccessCheck();
+    }
     
     $this->generator = new ullFlowGenerator($this->app, $accessType);
     $this->generator->buildForm($this->doc);

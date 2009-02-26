@@ -14,8 +14,9 @@ $dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 
 $b
   ->diag('ullFlow Home')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAsTestUser()
+  ->get('ullFlow/index')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'index')
@@ -39,8 +40,9 @@ $b
 
 $b
   ->diag('login as helpdesk_user: check that entry has been created properly')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAs('helpdesk_user')
+  ->get('ullFlow/index')
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->click('Edit')  
@@ -78,8 +80,9 @@ $b
 
 $b
   ->diag('login as helpdesk_admin_user: check that entry has been updated properly')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAs('helpdesk_admin_user')
+  ->get('ullFlow/index')
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->click('Edit')  
@@ -108,8 +111,9 @@ $b
 
 $b
   ->diag('login as helpdesk_user: check that entry has been created properly')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAs('helpdesk_user')
+  ->get('ullFlow/index')
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->click('Edit')  
@@ -139,8 +143,9 @@ $b
 
 $b
   ->diag('again login as helpdesk_admin_user: check that entry has been updated properly')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAs('helpdesk_admin_user')
+  ->get('ullFlow/index')
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->click('Edit')  
@@ -182,8 +187,9 @@ $b
 
 $b
   ->diag('login as helpdesk_user: check that entry has been updated properly')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAs('helpdesk_user')
+  ->get('ullFlow/index')
   ->click('Trouble ticket tool')
   ->click('All entries')
   ->click('Edit')  

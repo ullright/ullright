@@ -60,13 +60,21 @@
       <div class="tc_search_tag_bottom color_light_bg">
         <?php
           $q = new Doctrine_Query;
+//          $q->from('Tagging tg, tg.Tag t, tg.UllFlowDoc x');
           if ($app_slug) 
           {
-            $q->where('tg.UllFlowDoc.ull_flow_app_id = ?', $app->id);
+            $q->where('tg.UllFlowDoc.ull_flow_app_id = ?', $app->id);            
           }
-          $q->limit(sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100));
-        
-          $tags_pop = TagTable::getPopulars($q, array('model' => 'UllFlowDoc'));
+          
+//          $q = UllFlowDocTable::queryAccess($q, $app_slug ? $sf_data->getRaw('app') : null);
+          
+//          $q->limit(sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100));
+          
+//    var_dump($q->getQuery());
+//    var_dump($q->getParams());
+//    die('template');          
+                    
+          $tags_pop = TagTable::getPopulars($q, array('model' => 'UllFlowDoc', 'limit' => sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100)));
           sfLoader::loadHelpers(array('Tags'));
           echo tag_cloud($tags_pop, 'ullFlow/list?filter[search]=%s' . ($app_slug ? '&app=' . $app_slug : ''));
           

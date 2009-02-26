@@ -15,8 +15,9 @@ $dgsListTD = $b->getDgsUllFlowListTodo();
 
 $b
   ->diag('ullFlow Home')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAsAdmin()
+  ->get('ullFlow/index')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'index')

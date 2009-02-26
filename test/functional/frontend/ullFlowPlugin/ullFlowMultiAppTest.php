@@ -13,8 +13,9 @@ $dgsList = $b->getDgsUllFlowListGeneric();
 
 $b
   ->diag('ullFlow Home')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAsAdmin()
+  ->get('ullFlow/index')
 ;
 
 $b

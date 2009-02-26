@@ -14,8 +14,9 @@ $dgsEditTT = $b->getDgsUllFlowEditTroubleTicket();
 
 $b
   ->diag('ullFlow Home')
-  ->get('ullFlow/index')
+  ->get('ullAdmin/index')
   ->loginAsTestUser()
+  ->get('ullFlow/index')
 ;
 
 $b

@@ -273,22 +273,24 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   public function checkAccess()
   {
-    
-    if (UllUserTable::hasGroup('MasterAdmins'))
+    if (sfContext::getInstance()->getUser()->hasAttribute('user_id'))
     {
-      return 'w';
-    }
-    
-    // app-specific global write access
-    if (UllUserTable::hasPermission('UllFlow_' . $this->UllFlowApp->slug . '_global_write'))
-    {
-      return 'w';
-    }    
-    
-    // a user has write access to docs which are assigned to him
-    if (UllEntityTable::has($this->UllEntity))
-    {
-      return 'w';
+      if (UllUserTable::hasGroup('MasterAdmins'))
+      {
+        return 'w';
+      }
+      
+      // app-specific global write access
+      if (UllUserTable::hasPermission('UllFlow_' . $this->UllFlowApp->slug . '_global_write'))
+      {
+        return 'w';
+      }    
+      
+      // a user has write access to docs which are assigned to him
+      if (UllEntityTable::has($this->UllEntity))
+      {
+        return 'w';
+      }
     }
     
     // read-only access check uses the same query as the list action

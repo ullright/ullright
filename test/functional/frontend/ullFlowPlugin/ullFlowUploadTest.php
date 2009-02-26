@@ -11,8 +11,9 @@ $b->resetDatabase();
 
 $b
   ->diag('edit doc')
-  ->get('ullFlow/edit/doc/1')
+  ->get('ullAdmin/index')
   ->loginAsAdmin()
+  ->get('ullFlow/edit/doc/1')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
