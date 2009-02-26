@@ -104,6 +104,11 @@
 <target>Anw.</target>
 </trans-unit>
 
+<trans-unit id="109">
+<source>Is public</source>
+<target>Ist Öffentlich</target>
+</trans-unit>
+
 <!-- Questions -->
 
 <trans-unit id="201">
