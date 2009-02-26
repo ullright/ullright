@@ -80,16 +80,14 @@ class PluginUllFlowDocTable extends UllRecordTable
       OR aeg.ull_entity_id = ? 
       OR m.creator_ull_entity_id = ? 
       OR meg.ull_entity_id = ?
-      OR gru.id = ? AND p.slug LIKE ?',
-      array($userId, $userId, $userId, $userId, $userId, '%_global_read')
+      OR gru.id = ? AND p.slug LIKE ?
+      OR x.UllFlowApp.is_public = ?',
+      array($userId, $userId, $userId, $userId, $userId, '%_global_read', true)
     );
 
-//    var_dump($q->getQuery());
+//    printQuery($q->getQuery());
 //    var_dump($q->getParams());
 //    die('access');          
-              
-    
-
     
     return $q;
 	}
