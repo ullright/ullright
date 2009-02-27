@@ -25,8 +25,6 @@ $b
   ->responseContains('Applications')
   ->responseContains('Trouble ticket tool')
   ->responseContains('Todo list')
-  ->responseContains('Quick search')
-  ->responseContains('All entries')
 ;  
 
 $b
@@ -62,8 +60,6 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'index')
-  ->responseContains('Application Trouble ticket tool')
-  ->responseContains('Quick search')  
   ->click('All entries')
 ;
 

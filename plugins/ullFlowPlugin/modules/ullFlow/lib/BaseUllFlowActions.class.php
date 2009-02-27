@@ -51,6 +51,8 @@ class BaseUllFlowActions extends ullsfActions
     {
       $this->apps = Doctrine::getTable('UllFlowApp')->findAll();
     }
+    
+    $this->loadPopularTags();
   }
 
   
@@ -683,4 +685,14 @@ class BaseUllFlowActions extends ullsfActions
     }
   }    
   
+  /**
+   * Query popular tags for the index action
+   */
+  protected function loadPopularTags()
+  {
+    $q = new Doctrine_Query;
+    $q->from('Tagging tg, tg.Tag t, tg.UllFlowDoc x');
+    $q = UllFlowDocTable::queryAccess($q, $this->app);
+    $this->tags_pop = TagTable::getPopulars($q, array('model' => 'UllFlowDoc', 'limit' => sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100)));
+  }
 }
