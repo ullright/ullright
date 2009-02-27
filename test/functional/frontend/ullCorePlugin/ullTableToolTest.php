@@ -104,7 +104,7 @@ $b
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 1)
-  ->checkResponseElement('tr + tr + tr + tr + tr + tr > td + td + td', '/Required./')
+  ->checkResponseElement('tr + tr + tr + tr + tr + tr > td + td + td', '/Required./')  
 ;
 
 $b
@@ -151,6 +151,30 @@ $b->
 ;
 */
 
+$b
+  ->diag('edit - test checkbox')
+  ->get('ullTableTool/edit/table/TestTable/id/2')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->checkResponseElement('tr + tr > td + td > input[type="checkbox"][checked=""]', true)
+  ->setField('fields[my_boolean]', true)
+  ->click('Save')
+  
+  ->get('ullTableTool/edit/table/TestTable/id/2')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->checkResponseElement('tr + tr > td + td > input[type="checkbox"][checked="checked"]', true)
+  ->setField('fields[my_boolean]', false)
+  ->click('Save')
+  
+  ->get('ullTableTool/edit/table/TestTable/id/2')
+  ->isStatusCode(200)   
+  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('action', 'edit')
+  ->checkResponseElement('tr + tr > td + td > input[type="checkbox"][checked=""]', true)
+;
 
 $b
   ->diag('delete')

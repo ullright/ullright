@@ -68,3 +68,15 @@ $b
   ->checkResponseElement($dgsListTT->getFullRowSelector(), false) // number of rows
 ;
 
+$b
+  ->diag('login as test user: he should still see all tickets')
+  ->get('ullAdmin/index')
+  ->loginAsTestuser()
+  ->get('ullFlow/list/app/trouble_ticket')
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 2) // number of rows
+;  
+
+
