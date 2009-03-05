@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
-class myTestCase extends sfDoctrineTestCase
+class myTestCase extends lime_test
 {
 }
 
@@ -11,12 +11,10 @@ sfContext::createInstance($configuration);
 sfLoader::loadHelpers(array('ull', 'I18N'));
 
 $t = new myTestCase(6, new lime_output_color, $configuration);
-$path = dirname(__FILE__);
-$t->setFixturesPath($path);
 
-$t->begin('__construct()');
+$t->diag('__construct()');
 
-  $form = new ullFlowForm(Doctrine::getTable('UllFlowDoc')->find(1));
+  $form = new ullFlowForm(new UllFlowDoc());
   $handler = new ullFlowActionHandlerAssignToUser($form);
   
   $t->isa_ok($handler, 'ullFlowActionHandlerAssignToUser', 'returns the correct object');
@@ -59,8 +57,8 @@ function filtery_fields_ull_flow_action_assign_to_user_ull_entity(pattern, list)
   
 $t->diag('setting options');
 
-  $form = new ullFlowForm(Doctrine::getTable('UllFlowDoc')->find(1));
-  $handler = new ullFlowActionHandlerAssignToUser($form, array('group' => 'Helpdesk'));
+  $form = new ullFlowForm(new UllFlowDoc());
+  $handler = new ullFlowActionHandlerAssignToUser($form, array('group' => 'TestGroup'));
   
   $reference = '<input type="submit" name="submit|action_slug=assign_to_user" value="Assign" /> to user 
 <script type="text/javascript">
@@ -83,7 +81,7 @@ function filtery_fields_ull_flow_action_assign_to_user_ull_entity(pattern, list)
 //]]>
 </script><input type="text" name="fields_ull_flow_action_assign_to_user_ull_entity_filter" id="fields_ull_flow_action_assign_to_user_ull_entity_filter" value="" size="1" onkeyup="filtery_fields_ull_flow_action_assign_to_user_ull_entity(this.value, document.getElementById(&quot;fields_ull_flow_action_assign_to_user_ull_entity&quot;))" /> <select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
 <option value="" selected="selected"></option>
-<option value="4">User Helpdesk</option>
+<option value="2">User Test</option>
 </select>';
   $t->is($handler->render(), $reference, 'returns the correct html code');  
   

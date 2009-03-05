@@ -14,9 +14,9 @@ $t = new myTestCase(4, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$t->begin('__construct()');
+$t->diag('__construct()');
 
-  $form = new ullFlowForm(Doctrine::getTable('UllFlowDoc')->find(1));
+  $form = new ullFlowForm(new UllFlowDoc());
   $handler = new ullFlowActionHandlerReturn($form);
   
   $t->isa_ok($handler, 'ullFlowActionHandlerReturn', 'returns the correct object');
