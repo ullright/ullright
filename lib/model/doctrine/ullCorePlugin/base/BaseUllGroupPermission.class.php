@@ -24,7 +24,7 @@ abstract class BaseUllGroupPermission extends UllRecord
                                          'foreign' => 'id',
                                          'onDelete' => 'CASCADE'));
 
-    $versionable0 = new Doctrine_Template_Versionable();
-    $this->actAs($versionable0);
+    $superversionable0 = new Doctrine_Template_SuperVersionable();
+    $this->actAs($superversionable0);
   }
 }

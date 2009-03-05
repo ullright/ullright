@@ -337,6 +337,11 @@ abstract class ullGenerator
     return $defaults;
   }
 
+  public function hasColumns()
+  {
+    return (count($this->columnsConfig) > 0) ? true : false;
+  }
+  
   /**
    * get array containing the active columns
    *

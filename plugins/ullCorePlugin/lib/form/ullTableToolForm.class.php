@@ -27,6 +27,8 @@ class ullTableToolForm extends ullGeneratorForm
         unset($i18nFields['id']);
         unset($i18nFields['lang']);
 
+              //var_dump($this->object->toArray());
+        
         foreach ($i18nFields as $fieldName => $value)
         {
           foreach ($this->cultures as $culture)
@@ -79,6 +81,15 @@ class ullTableToolForm extends ullGeneratorForm
     }
     
     $this->values = $values;
+    
+    if ($this->object->getTable()->hasTemplate('Doctrine_Template_SuperVersionable'))
+    {
+      if (isset($this->values['scheduled_update_date']))
+      {
+        $this->object->mapValue('scheduled_update_date', $this->values['scheduled_update_date']);
+      	unset($this->values['scheduled_update_date']);
+      }
+    }
     
     return parent::updateObject();
     

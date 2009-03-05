@@ -607,6 +607,16 @@
 <target>von</target>
 </trans-unit>
 
+<trans-unit id="18010">
+<source>Scheduled update</source>
+<target>Zukünftige Änderung</target>
+</trans-unit>
+
+<trans-unit id="18011">
+<source>Scheduled updates</source>
+<target>Zukünftige Änderungen</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

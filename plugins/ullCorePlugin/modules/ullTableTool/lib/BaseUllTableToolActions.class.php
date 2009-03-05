@@ -154,6 +154,26 @@ class BaseUllTableToolActions extends ullsfActions
     $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }  
   
+  public function executeDeleteFutureVersion(sfRequest $request)
+  {
+    //TODO: a permission check here would be a pretty good idea :)
+    
+  	$this->getTablefromRequest();
+  	
+  	$this->generator = new ullTableToolGenerator($this->table_name);
+
+  	$row = $this->getRowFromRequest();
+ 	
+  	$this->forward404Unless(
+        $this->hasRequestParameter('version'), 
+        'Please specify a future version to delete'
+    );
+  	
+  	$row->getAuditLog()->deleteFutureVersion($row, $request->getParameter('version'));
+  	
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));
+  }
+  
   /**
    * Gets a table object according to request param
    *

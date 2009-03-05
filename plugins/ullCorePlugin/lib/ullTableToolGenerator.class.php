@@ -1,4 +1,4 @@
-<?php
+plu <?php
 
 class ullTableToolGenerator extends ullGenerator
 {
@@ -31,9 +31,11 @@ class ullTableToolGenerator extends ullGenerator
   ;
   
   protected $historyGenerators = array();
+  protected $futureGenerators = array();
   protected $isVersionable = false;
   protected $hasVersions = false;
   protected $isHistoryBuilt = false;
+  protected $isFutureBuilt = false;
   
   /**
    * Constructor
@@ -56,7 +58,7 @@ class ullTableToolGenerator extends ullGenerator
     
     $this->modelName = $modelName;
     
-    $this->isVersionable = Doctrine::getTable($this->modelName)->hasTemplate('Doctrine_Template_Versionable');
+    $this->isVersionable = Doctrine::getTable($this->modelName)->hasTemplate('Doctrine_Template_SuperVersionable');
     
     parent::__construct($defaultAccess);
   }  
@@ -303,18 +305,38 @@ class ullTableToolGenerator extends ullGenerator
       $this->columnsConfig[$columnName] = $columnConfig;
     }
     
+    
     $this->removeBlacklistColumns();
     
     $this->setReadOnlyColumns();
       
     $this->sortColumns();
-    
-    
-//    var_dump($this->columnsConfig);
-//    die;    
+
+    if ($this->isVersionable())
+    {
+    	$columnConfig = array(
+        'widgetOptions'      => array(),
+        'widgetAttributes'   => array(),
+        'validatorOptions'   => array(),
+    	);
+
+    	// set defaults
+    	$columnConfig['label']        = 'Scheduled update date';
+    	$columnConfig['metaWidget']   = 'ullMetaWidgetDate';
+    	$columnConfig['access']       = $this->defaultAccess;
+    	$columnConfig['is_in_list']   = false;
+    	$columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
+
+    	$this->columnsConfig['scheduled_update_date'] = $columnConfig;
+    }
+
+    //    var_dump($this->columnsConfig);
+    //    die;
   }
   
 
+
+  
   /**
    * remove unwanted columns
    *
@@ -365,6 +387,11 @@ class ullTableToolGenerator extends ullGenerator
     return $this->isHistoryBuilt;
   }
   
+  public function hasFutureVersions()
+  {
+    return $this->isFutureBuilt;
+  }
+  
   private function checkHistoryRequirements()
   {
     if (!$this->isVersionable)
@@ -389,6 +416,13 @@ class ullTableToolGenerator extends ullGenerator
 
     return $this->historyGenerators;
   }
+  
+  public function getFutureGenerators()
+  {
+    $this->getHistoryGenerators(); //requirements check
+
+    return $this->futureGenerators;
+  }
 
   public function buildHistoryGenerators()
   {
@@ -409,11 +443,11 @@ class ullTableToolGenerator extends ullGenerator
       return;
     }
 
-    $maxVersion = $row->getAuditLog()->getMaxVersion($row);
-
+    $maxVersion = $row->getAuditLog()->getMaxVersionNumber($row);
+    
     $rowCur = clone $row;
     $rowRev = clone $row;
-
+    
     $this->historyGenerators = array();
     for($i = $maxVersion; $i >= 1; $i--)
     {
@@ -428,6 +462,23 @@ class ullTableToolGenerator extends ullGenerator
       $rowCur = clone $rowRev;
     }
 
+    $futureVersions = $row->getFutureVersions();
+
+    if (count($futureVersions) > 0) {
+      $q = Doctrine::getTable($this->modelName)->createQuery('c')
+            ->where('c.id = ?', $futureVersions[0]->id);
+      $rowRev = $q->fetchOne();
+      
+      for($i = 0; $i < count($futureVersions); $i++)
+      {
+        $rowRev->revert($futureVersions[$i]->reference_version);
+        
+        $this->futureGenerators[$i] = new ullTableToolHistoryGenerator($this->modelName, 'r');
+        $this->futureGenerators[$i]->buildHistoryForm($futureVersions[$i], $rowRev);
+      }
+      $this->isFutureBuilt = true;
+    }
+    
     $this->isHistoryBuilt = true;
   }
 }

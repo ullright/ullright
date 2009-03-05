@@ -6,10 +6,9 @@ UllParentEntity:
     extends: UllRecord
     type: concrete
   actAs:
-    Versionable: #all three parameters are defaults
+    SuperVersionable: #all two parameters are Versionable defaults
       versionColumn:  version
       className:      %CLASS%Version
-      auditLog:       true
   columns:
     first_name:
       type: string(64)
@@ -162,7 +161,7 @@ UllPermission:
     extends: UllRecord
     type: concrete
   actAs:
-    Versionable:
+    SuperVersionable:
 #  actAs:
 #    I18n:
 #      fields: [label, description]
@@ -186,7 +185,7 @@ UllGroupPermission:
     extends: UllRecord
     type: concrete
   actAs:
-    Versionable:
+    SuperVersionable:
   columns:
     ull_group_id:
       type: integer

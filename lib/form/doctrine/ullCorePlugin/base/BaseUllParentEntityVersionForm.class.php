@@ -39,8 +39,11 @@ class BaseUllParentEntityVersionForm extends BaseFormDoctrine
       'created_at'                         => new sfWidgetFormDateTime(),
       'updated_at'                         => new sfWidgetFormDateTime(),
       'creator_user_id'                    => new sfWidgetFormInput(),
-      'updator_user_id'                    => new sfWidgetFormInput(),
+      'updator_user_id'                    => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
       'version'                            => new sfWidgetFormInputHidden(),
+      'reference_version'                  => new sfWidgetFormInput(),
+      'scheduled_update_date'              => new sfWidgetFormDate(),
+      'done_at'                            => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -71,8 +74,11 @@ class BaseUllParentEntityVersionForm extends BaseFormDoctrine
       'created_at'                         => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                         => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id'                    => new sfValidatorInteger(array('required' => false)),
-      'updator_user_id'                    => new sfValidatorInteger(array('required' => false)),
+      'updator_user_id'                    => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'version'                            => new sfValidatorDoctrineChoice(array('model' => 'UllParentEntityVersion', 'column' => 'version', 'required' => false)),
+      'reference_version'                  => new sfValidatorInteger(array('required' => false)),
+      'scheduled_update_date'              => new sfValidatorDate(array('required' => false)),
+      'done_at'                            => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_parent_entity_version[%s]');

@@ -68,22 +68,58 @@
 <br />
 
 <?php
+
+  if ($generator->hasFutureVersions())
+  {
+    echo '<br /><h2>'. __('Scheduled updates', null, 'common') . '</h2>';
+    
+    $fg = $generator->getFutureGenerators();
+    
+    $cnt = count($fg);
+    for ($i = 0; $i < $cnt; $i++)
+    { 
+    	$id = $fg[$i]->getIdentifierArray();
+    	//var_dump($id);
+    	echo '<div class="edit_container">';
+      echo '<br /><h4>' . ull_format_date($fg[$i]->getScheduledUpdateDate()) . '</h4>' .
+            //__('Future version ', null, 'common') . ($i + 1) . ' - ' .
+            __('by', null, 'common') . ' ' . $fg[$i]->getUpdator() . ' - ' .
+             ull_link_to(__('Delete', null, 'common')
+              , 'ullTableTool/deleteFutureVersion?table=' . $table_name .
+                    '&id=' . $id['id'] .
+                    '&version=' . $id['version']
+              , 'confirm='.__('Are you sure?', null, 'common')
+              ) .
+            '<br /><br />';
+      echo '<table class="edit_table"><tbody>';
+      echo ($fg[$i]->hasColumns()) ? $fg[$i]->getForm() : '<tr><td>' . __('No changes') . '</td></tr>';
+      echo '</tbody></table>';
+      echo '</div><br />';
+    }
+    
+  }
   if ($generator->hasGeneratedVersions())
   {
     echo '<br /><h2>'. __('Version history', null, 'common') . '</h2>';
     
     $hg = $generator->getHistoryGenerators();
-    
     $cnt = count($hg);
     for ($i = $cnt; $i > 0; $i--)
     { 
       echo '<div class="edit_container">';
       echo '<br /><h4>' . ull_format_datetime($hg[$i - 1]->getUpdatedAt()) . '</h4>' .
-            __('Version ', null, 'common') . $i . ' - ' .
-            __('by', null, 'common') . ' ' . $hg[$i - 1]->getUpdator() .
-            '<br /><br />';
+            __('Version ', null, 'common') . $i . ' - ';
+      if ($hg[$i - 1]->wasScheduledUpdate())
+      {
+      	echo __('Scheduled update', null, 'common') . ' ' . __('by', null, 'common') . ' ' . $hg[$i - 1]->getscheduledUpdator();
+      }
+      else
+      {
+        echo __('by', null, 'common') . ' ' . $hg[$i - 1]->getUpdator();
+      }
+      echo '<br />';
       echo '<table class="edit_table"><tbody>';
-      echo $hg[$i - 1]->getForm();
+      echo ($hg[$i - 1]->hasColumns()) ? $hg[$i - 1]->getForm() : '<tr><td>' . __('No changes') . '</td></tr>';
       echo '</tbody></table>';
       echo '</div><br />';
     }
