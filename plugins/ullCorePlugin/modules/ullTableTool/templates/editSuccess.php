@@ -41,15 +41,15 @@
   <div class='edit_action_buttons_right'>
     <ul>
       <li>
-		    <?php if ($generator->getRow()->exists()): ?>    
-		      <?php 
-		        echo link_to(
-		          __('Delete', null, 'common')
-		          , 'ullTableTool/delete?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0)
-		          , 'confirm='.__('Are you sure?', null, 'common')
-		          ); 
-		      ?> &nbsp; 
-		    <?php endif; ?>
+    <?php if ($generator->getRow()->exists()): ?>    
+          <?php 
+            echo link_to(
+              __('Delete', null, 'common')
+              , 'ullTableTool/delete?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0)
+              , 'confirm='.__('Are you sure?', null, 'common')
+              ); 
+          ?> &nbsp; 
+        <?php endif; ?>
       </li>
     </ul>
   </div>
@@ -78,13 +78,13 @@
     $cnt = count($fg);
     for ($i = 0; $i < $cnt; $i++)
     { 
-    	$id = $fg[$i]->getIdentifierArray();
-    	//var_dump($id);
-    	echo '<div class="edit_container">';
+      $id = $fg[$i]->getIdentifierArray();
+      //var_dump($id);
+      echo '<div class="edit_container">';
       echo '<br /><h4>' . ull_format_date($fg[$i]->getScheduledUpdateDate()) . '</h4>' .
             //__('Future version ', null, 'common') . ($i + 1) . ' - ' .
             __('by', null, 'common') . ' ' . $fg[$i]->getUpdator() . ' - ' .
-             ull_link_to(__('Delete', null, 'common')
+             ull_link_to(ull_image_tag('delete')
               , 'ullTableTool/deleteFutureVersion?table=' . $table_name .
                     '&id=' . $id['id'] .
                     '&version=' . $id['version']
@@ -111,7 +111,7 @@
             __('Version ', null, 'common') . $i . ' - ';
       if ($hg[$i - 1]->wasScheduledUpdate())
       {
-      	echo __('Scheduled update', null, 'common') . ' ' . __('by', null, 'common') . ' ' . $hg[$i - 1]->getscheduledUpdator();
+        echo __('Scheduled update', null, 'common') . ' ' . __('by', null, 'common') . ' ' . $hg[$i - 1]->getscheduledUpdator();
       }
       else
       {

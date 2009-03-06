@@ -358,7 +358,7 @@ abstract class ullGenerator
     
     foreach ($this->columnsConfig as $columnName => $columnConfig)
     {
-    	if ($this->isColumnEnabled($columnConfig)) 
+      if ($this->isColumnEnabled($columnConfig)) 
       {
         $this->activeColumns[$columnName] = $columnConfig;
       }
@@ -375,11 +375,11 @@ abstract class ullGenerator
    */
   protected function isColumnEnabled($columnConfig)
   {
-  	if ($columnConfig['access'])
+    if ($columnConfig['access'])
     { 
       if($this->getRequestAction() == "list")
       {
-    	  if ($columnConfig['is_in_list'])
+        if ($columnConfig['is_in_list'])
         {
           return true;
         }

@@ -34,74 +34,74 @@
  */
 class Doctrine_Template_SuperVersionable extends Doctrine_Template
 {
-	/**
-	 * __construct
-	 *
-	 * @param array $options
-	 * @return void
-	 */
-	public function __construct(array $options = array())
-	{
-		$this->_plugin = new Doctrine_SuperAuditLog($options);
-	}
+  /**
+   * __construct
+   *
+   * @param array $options
+   * @return void
+   */
+  public function __construct(array $options = array())
+  {
+    $this->_plugin = new Doctrine_SuperAuditLog($options);
+  }
 
-	/**
-	 * Setup the Versionable behavior for the template
-	 *
-	 * @return void
-	 */
+  /**
+   * Setup the Versionable behavior for the template
+   *
+   * @return void
+   */
 
-	public function setUp()
-	{
-		$this->_plugin->initialize($this->_table);
-			
-		$this->hasColumn('version', 'integer', 8);
+  public function setUp()
+  {
+    $this->_plugin->initialize($this->_table);
+      
+    $this->hasColumn('version', 'integer', 8);
 
-		$this->addListener(new Doctrine_SuperAuditLog_Listener($this->_plugin));
-	}
+    $this->addListener(new Doctrine_SuperAuditLog_Listener($this->_plugin));
+  }
 
-	/**
-	 * Get plugin for Versionable template
-	 *
-	 * @return void
-	 */
-	public function getAuditLog()
-	{
-		return $this->_plugin;
-	}
+  /**
+   * Get plugin for Versionable template
+   *
+   * @return void
+   */
+  public function getAuditLog()
+  {
+    return $this->_plugin;
+  }
 
-	/**
-	 * revert
-	 * reverts this record to given version, this method only works if versioning plugin
-	 * is enabled
-	 *
-	 * @throws Doctrine_Record_Exception    if given version does not exist
-	 * @param integer $version      an integer > 1
-	 * @return Doctrine_Record      this object
-	 */
-	public function revert($version)
-	{
-		$auditLog = $this->_plugin;
+  /**
+   * revert
+   * reverts this record to given version, this method only works if versioning plugin
+   * is enabled
+   *
+   * @throws Doctrine_Record_Exception    if given version does not exist
+   * @param integer $version      an integer > 1
+   * @return Doctrine_Record      this object
+   */
+  public function revert($version)
+  {
+    $auditLog = $this->_plugin;
 
-		$data = $auditLog->getVersion($this->getInvoker(), $version);
+    $data = $auditLog->getVersion($this->getInvoker(), $version);
 
-		if ( ! isset($data[0])) {
-			throw new Doctrine_Record_Exception('Version ' . $version . ' does not exist!');
-		}
+    if ( ! isset($data[0])) {
+      throw new Doctrine_Record_Exception('Version ' . $version . ' does not exist!');
+    }
 
-		$this->getInvoker()->merge($data[0]);
+    $this->getInvoker()->merge($data[0]);
 
-		return $this->getInvoker();
-	}
+    return $this->getInvoker();
+  }
 
-	public function getFutureVersions()
-	{
-		$auditLog = $this->_plugin;
-		return $auditLog->getFutureVersions($this->getInvoker());
-	}
+  public function getFutureVersions()
+  {
+    $auditLog = $this->_plugin;
+    return $auditLog->getFutureVersions($this->getInvoker());
+  }
 
-	public function getClassName()
-	{
-		return $this->_plugin->getOption('className');
-	}
+  public function getClassName()
+  {
+    return $this->_plugin->getOption('className');
+  }
 }

@@ -1,4 +1,4 @@
-plu <?php
+<?php
 
 class ullTableToolGenerator extends ullGenerator
 {
@@ -314,20 +314,20 @@ class ullTableToolGenerator extends ullGenerator
 
     if ($this->isVersionable())
     {
-    	$columnConfig = array(
+      $columnConfig = array(
         'widgetOptions'      => array(),
         'widgetAttributes'   => array(),
         'validatorOptions'   => array(),
-    	);
+      );
 
-    	// set defaults
-    	$columnConfig['label']        = 'Scheduled update date';
-    	$columnConfig['metaWidget']   = 'ullMetaWidgetDate';
-    	$columnConfig['access']       = $this->defaultAccess;
-    	$columnConfig['is_in_list']   = false;
-    	$columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
+      // set defaults
+      $columnConfig['label']        = 'Scheduled update date';
+      $columnConfig['metaWidget']   = 'ullMetaWidgetDate';
+      $columnConfig['access']       = $this->defaultAccess;
+      $columnConfig['is_in_list']   = false;
+      $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
 
-    	$this->columnsConfig['scheduled_update_date'] = $columnConfig;
+      $this->columnsConfig['scheduled_update_date'] = $columnConfig;
     }
 
     //    var_dump($this->columnsConfig);

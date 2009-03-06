@@ -32,148 +32,149 @@
  */
 class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
 {
-	/**
-	 * Instance of Doctrine_Auditlog
-	 *
-	 * @var Doctrine_AuditLog
-	 */
-	protected $_auditLog;
+  /**
+   * Instance of Doctrine_Auditlog
+   *
+   * @var Doctrine_AuditLog
+   */
+  protected $_auditLog;
 
-	/**
-	 * Instantiate AuditLog listener and set the Doctrine_AuditLog instance to the class
-	 *
-	 * @param   Doctrine_AuditLog $auditLog
-	 * @return  void
-	 */
-	public function __construct(Doctrine_SuperAuditLog $auditLog)
-	{
-		$this->_auditLog = $auditLog;
-	}
+  /**
+   * Instantiate AuditLog listener and set the Doctrine_AuditLog instance to the class
+   *
+   * @param   Doctrine_AuditLog $auditLog
+   * @return  void
+   */
+  public function __construct(Doctrine_SuperAuditLog $auditLog)
+  {
+    $this->_auditLog = $auditLog;
+  }
 
-	/**
-	 * Pre insert event hook for incrementing version number
-	 *
-	 * @param   Doctrine_Event $event
-	 * @return  void
-	 */
-	public function preInsert(Doctrine_Event $event)
-	{
-		$versionColumn = $this->_auditLog->getOption('versionColumn');
+  /**
+   * Pre insert event hook for incrementing version number
+   *
+   * @param   Doctrine_Event $event
+   * @return  void
+   */
+  public function preInsert(Doctrine_Event $event)
+  {
+    $versionColumn = $this->_auditLog->getOption('versionColumn');
 
-		$event->getInvoker()->set($versionColumn, 1);
-	}
+    $event->getInvoker()->set($versionColumn, 1);
+  }
 
-	/**
-	 * Post insert event hook which creates the new version record
-	 * This will only insert a version record if the auditLog is enabled
-	 *
-	 * @param   Doctrine_Event $event
-	 * @return  void
-	 */
-	public function postInsert(Doctrine_Event $event)
-	{
-		$class = $this->_auditLog->getOption('className');
+  /**
+   * Post insert event hook which creates the new version record
+   * This will only insert a version record if the auditLog is enabled
+   *
+   * @param   Doctrine_Event $event
+   * @return  void
+   */
+  public function postInsert(Doctrine_Event $event)
+  {
+    $class = $this->_auditLog->getOption('className');
 
-		$record  = $event->getInvoker();
-		$version = new $class();
-		$version->merge($record->toArray());
-		$version->save();
-	}
+    $record  = $event->getInvoker();
+    $version = new $class();
+    $version->merge($record->toArray());
+    $version->save();
+  }
 
-	/**
-	 * Pre delete event hook deletes all related versions
-	 * This will only delete version records if the auditLog is enabled
-	 *
-	 * @param   Doctrine_Event $event
-	 * @return  void
-	 */
-	public function preDelete(Doctrine_Event $event)
-	{
-		//throw new Exception("Deleting is not supported for SuperVersionable objects.");
-		
-		$className = $this->_auditLog->getOption('className');
-		$versionColumn = $this->_auditLog->getOption('versionColumn');
-		$event->getInvoker()->set($versionColumn, null);
+  /**
+   * Pre delete event hook deletes all related versions
+   * This will only delete version records if the auditLog is enabled
+   *
+   * @param   Doctrine_Event $event
+   * @return  void
+   */
+  public function preDelete(Doctrine_Event $event)
+  {
+    //throw new Exception("Deleting is not supported for SuperVersionable objects.");
+    
+    $className = $this->_auditLog->getOption('className');
+    $versionColumn = $this->_auditLog->getOption('versionColumn');
+    $event->getInvoker()->set($versionColumn, null);
 
-		$q = Doctrine_Query::create();
-		foreach ((array) $this->_auditLog->getOption('table')->getIdentifier() as $id) {
-			$conditions[] = 'obj.' . $id . ' = ?';
-			$values[] = $event->getInvoker()->get($id);
-		}
+    $q = new Doctrine_Query;
+    foreach ((array) $this->_auditLog->getOption('table')->getIdentifier() as $id) {
+      $conditions[] = 'obj.' . $id . ' = ?';
+      $values[] = $event->getInvoker()->get($id);
+    }
 
-		$rows = $q->delete($className)
-		->from($className.' obj')
-		->where(implode(' AND ', $conditions))
-		->execute($values);
-	}
+    $q
+      ->delete($className)
+      ->from($className.' obj')
+      ->where(implode(' AND ', $conditions))
+    ;
+    
+    $rows = $q->execute($values);
+  }
 
-	/**
-	 * Pre update event hook for inserting new version record
-	 * This will only insert a version record if the auditLog is enabled
-	 *
-	 * @param  Doctrine_Event $event
-	 * @return void
-	 */
-	public function preUpdate(Doctrine_Event $event)
-	{
-		$record = $event->getInvoker();
-		$class  = $this->_auditLog->getOption('className');
-		$versionColumn = $this->_auditLog->getOption('versionColumn');
-		$version = new $class();
+  /**
+   * Pre update event hook for inserting new version record
+   * This will only insert a version record if the auditLog is enabled
+   *
+   * @param  Doctrine_Event $event
+   * @return void
+   */
+  public function preUpdate(Doctrine_Event $event)
+  {
+    $record = $event->getInvoker();
+    $class  = $this->_auditLog->getOption('className');
+    $versionColumn = $this->_auditLog->getOption('versionColumn');
+    $version = new $class();
 
-		//check if the update time exists and is in the future
-		if ($record->contains('scheduled_update_date'))
-		{
-			if (strtotime($record->scheduled_update_date) > time())
-			{
-				//$record->updated_at = $record->scheduled_update_date;
-				
-				//don't update the record
-				$event->skipOperation();
+    //check if the update time exists and is in the future
+    if ($record->contains('scheduled_update_date'))
+    {
+      if (strtotime($record->scheduled_update_date) > time())
+      {
+        //$record->updated_at = $record->scheduled_update_date;
+        
+        //don't update the record
+        $event->skipOperation();
 
-				//but insert a new (future) version
-				$version->merge($record->toArray());
-				$version->set('scheduled_update_date', $record->scheduled_update_date);
+        //but insert a new (future) version
+        $version->merge($record->toArray());
+        $version->set('scheduled_update_date', $record->scheduled_update_date);
         $version->set('reference_version', $this->_getNextVersion($record) - 1);
-        //var_dump($version->toArray()); 
-				//var_dump($record->toArray()); die();
-				//$version->set('reference_version', $record->version);
-				$version->set($versionColumn, $this->_getNextFutureVersion($record));
-				$version->save();
-				
-				return;
-			}
-			else
-			{
-				//we got a scheduled date in the past -
-				//the form validation process should
-				//catch this, but we're doing a safety 'unset'
-				$record->mapValue('scheduled_update_date', NULL);
-			}
-		}
+        //$version->set('reference_version', $record->version);
+        $version->set($versionColumn, $this->_getNextFutureVersion($record));
+        $version->save();
+        
+        return;
+      }
+      else
+      {
+        //we got a scheduled date in the past -
+        //the form validation process should
+        //catch this, but we're doing a safety 'unset'
+        $record->mapValue('scheduled_update_date', NULL);
+      }
+    }
 
-		$record->set($versionColumn, $this->_getNextVersion($record));
+    $record->set($versionColumn, $this->_getNextVersion($record));
 
-		$version->merge($record->toArray());
-		$version->save();
-	}
+    $version->merge($record->toArray());
+    $version->save();
+  }
 
-	/**
-	 * Get the next version number for the audit log
-	 *
-	 * @param Doctrine_Record $record
-	 * @return integer $nextVersion
-	 */
-	protected function _getNextVersion(Doctrine_Record $record)
-	{
-		return ($this->_auditLog->getMaxVersionNumber($record) + 1);
-	}
-	
+  /**
+   * Get the next version number for the audit log
+   *
+   * @param Doctrine_Record $record
+   * @return integer $nextVersion
+   */
+  protected function _getNextVersion(Doctrine_Record $record)
+  {
+    return ($this->_auditLog->getMaxVersionNumber($record) + 1);
+  }
+  
   protected function _getNextFutureVersion(Doctrine_Record $record)
   {
     $minVersion = $this->_auditLog->getMaxVersionNumber($record, true);
-  	//if a record has no future versions,
-  	//we need to fix the version number
+    //if a record has no future versions,
+    //we need to fix the version number
     $minVersion = ($minVersion == 1) ? 0 : $minVersion;
     return $minVersion - 1;
   }
