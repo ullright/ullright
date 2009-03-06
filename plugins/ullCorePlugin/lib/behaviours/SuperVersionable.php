@@ -31,6 +31,8 @@
  * @since       1.0
  * @version     $Revision$
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
+ * 
+ * Adapted to SuperAuditLog (SuperVersionable) for ullright.
  */
 class Doctrine_Template_SuperVersionable extends Doctrine_Template
 {
@@ -94,12 +96,22 @@ class Doctrine_Template_SuperVersionable extends Doctrine_Template
     return $this->getInvoker();
   }
 
+  /**
+   * Retrieves all future versions for the invoker
+   * 
+   * @return the future *Version Doctrine_Records
+   */
   public function getFutureVersions()
   {
     $auditLog = $this->_plugin;
     return $auditLog->getFutureVersions($this->getInvoker());
   }
-
+  
+  /**
+   * Gets the className of the log.
+   * 
+   * @return the className
+   */
   public function getClassName()
   {
     return $this->_plugin->getOption('className');

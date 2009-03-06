@@ -377,21 +377,41 @@ class ullTableToolGenerator extends ullGenerator
     $this->columnsConfig = array_merge($this->columnsConfig, $bottom);
   }
   
+  /**
+   * Is the object this generator represents SuperVersionable?
+   * 
+   * @return boolean
+   */
   public function isVersionable()
   {
     return $this->isVersionable;
   }
   
+  /**
+   * Are there generated versions?
+   * 
+   * @return boolean
+   */
   public function hasGeneratedVersions()
   {
     return $this->isHistoryBuilt;
   }
   
+  /**
+   * Are there generated future versions?
+   * 
+   * @return boolean
+   */
   public function hasFutureVersions()
   {
     return $this->isFutureBuilt;
   }
   
+  /**
+   * Internal function, checks the history requirements
+   * 
+   * @return void
+   */
   private function checkHistoryRequirements()
   {
     if (!$this->isVersionable)
@@ -404,7 +424,12 @@ class ullTableToolGenerator extends ullGenerator
       throw new RuntimeException('You have to call buildForm() first.');
     }
   }
-
+  
+  /**
+   * Gets the built history generators
+   * 
+   * @return the history generators
+   */
   public function getHistoryGenerators()
   {
     $this->checkHistoryRequirements();
@@ -417,13 +442,30 @@ class ullTableToolGenerator extends ullGenerator
     return $this->historyGenerators;
   }
   
+  /**
+   * Gets the future generators
+   * 
+   * @return the future generators
+   */
   public function getFutureGenerators()
   {
     $this->getHistoryGenerators(); //requirements check
 
     return $this->futureGenerators;
   }
-
+  
+  /**
+   * Builds the history (and future) generators.
+   * 
+   * This retrieves past and future versions for a row and
+   * constructs a history/future generator for each pair.
+   * 
+   * The generators can then be displayed by the view.
+   * 
+   * @see ullTableToolHistoryGenerator
+   * 
+   * @return void
+   */
   public function buildHistoryGenerators()
   {
     $this->checkHistoryRequirements();

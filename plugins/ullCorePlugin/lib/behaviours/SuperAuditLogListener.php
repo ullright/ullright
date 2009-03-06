@@ -29,6 +29,9 @@
  * @since       1.0
  * @version     $Revision$
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
+ * 
+ * 
+ * Adapted to SuperAuditLog (SuperVersionable) for ullright.
  */
 class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
 {
@@ -112,7 +115,11 @@ class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
 
   /**
    * Pre update event hook for inserting new version record
-   * This will only insert a version record if the auditLog is enabled
+   * 
+   * This function will now check if the scheduled_update_date
+   * column is set to a future date. If true, the actual record
+   * updating gets skipped but a future version gets inserted
+   * into the *Version table.
    *
    * @param  Doctrine_Event $event
    * @return void
@@ -170,6 +177,12 @@ class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
     return ($this->_auditLog->getMaxVersionNumber($record) + 1);
   }
   
+  /**
+   * Gets the next negative (future) number for the audit log
+   * 
+   * @param $record
+   * @return integer $nextMinVersion
+   */
   protected function _getNextFutureVersion(Doctrine_Record $record)
   {
     $minVersion = $this->_auditLog->getMaxVersionNumber($record, true);

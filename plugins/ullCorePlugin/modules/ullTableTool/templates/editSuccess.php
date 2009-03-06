@@ -111,7 +111,7 @@
             __('Version ', null, 'common') . $i . ' - ';
       if ($hg[$i - 1]->wasScheduledUpdate())
       {
-        echo __('Scheduled update', null, 'common') . ' ' . __('by', null, 'common') . ' ' . $hg[$i - 1]->getscheduledUpdator();
+        echo __('Scheduled update', null, 'common') . ' ' . __('by', null, 'common') . ' ' . $hg[$i - 1]->getScheduledUpdator();
       }
       else
       {

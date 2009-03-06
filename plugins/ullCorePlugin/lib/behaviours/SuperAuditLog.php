@@ -29,6 +29,11 @@
  * @since       1.0
  * @version     $Revision$
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
+ * 
+ * Adapted to SuperAuditLog (SuperVersionable) for ullright.
+ * 
+ * The option hasAuditLog (yes/no) was removed, since the new
+ * 'future version' system needs it anyway.
  */
 class Doctrine_SuperAuditLog extends Doctrine_Record_Generator
 {
@@ -128,6 +133,14 @@ class Doctrine_SuperAuditLog extends Doctrine_Record_Generator
     return $q->execute($values, Doctrine::HYDRATE_ARRAY);
   }
   
+  /**
+   * Get a Doctrine_Record for the passed record and the specified version
+   * If no version is given, the most current one will be retrieved.
+   * 
+   * @param Doctrine_Record $record
+   * @param integer $version
+   * @return Doctrine_Record the Doctrine_Record with the specified version
+   */
   public function getVersionRecord(Doctrine_Record $record, $version = NULL)
   {
     $version = ($version == NULL) ? $this->getMaxVersionNumber($record) : $version;
@@ -154,6 +167,13 @@ class Doctrine_SuperAuditLog extends Doctrine_Record_Generator
     return $q->fetchOne($values);
   }
   
+  /**
+   * Retrives all future versions for the given Doctrine_Record,
+   * ordered by 'newest on top'.
+   * 
+   * @param Doctrine_Record $record
+   * @return future versions (multiple Doctrine_Record)
+   */
   public function getFutureVersions(Doctrine_Record $record)
   {
     $className = $this->_options['className'];
@@ -180,6 +200,13 @@ class Doctrine_SuperAuditLog extends Doctrine_Record_Generator
     return $results;
   }
   
+  /**
+   * Deletes a specified future version for a given record.
+   * 
+   * @param Doctrine_Record $record
+   * @param integer $version
+   * @return void
+   */
   public function deleteFutureVersion(Doctrine_Record $record, $version) {
     if ($version >= 0)
     {
