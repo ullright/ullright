@@ -18,6 +18,9 @@
 <!-- html head slot -->
 <?php include_slot('html_head') ?>
 <!-- end of html head slot -->
+<?php 
+  sfContext::getInstance()->getResponse()->addStylesheet('custom_override.css', 'last', array('media' => 'all'));
+?>
 </head>
 <body>
 <div id="indicator" style="display: none"></div> <!-- Ajax indicatior -->
