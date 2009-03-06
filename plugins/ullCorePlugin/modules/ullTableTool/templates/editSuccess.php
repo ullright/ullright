@@ -19,7 +19,15 @@
 <table class="edit_table">
 <tbody>
 
-<?php echo $generator->getForm(); ?>
+<?php
+  foreach ($generator->getActiveColumns() as $column_name => $columns_config)
+  {
+    if ($column_name != 'scheduled_update_date')
+    {
+      echo $generator->getForm()->offsetGet($column_name)->renderRow();
+    }
+  }
+?>
 
 </tbody>
 </table>
@@ -31,6 +39,16 @@
   <h3><?php echo __('Actions', null, 'common')?></h3>
   
   <div class='edit_action_buttons_left'>
+    <?php
+      if ($generator->isVersionable())
+      {
+        echo ' <label for="fields_scheduled_update">';
+        echo __('Scheduled update', null, 'common') . ':';
+        echo '</label>'; 
+        echo $generator->getForm()->offsetGet('scheduled_update_date')->render();
+        echo $generator->getForm()->offsetGet('scheduled_update_date')->renderError();
+      }
+    ?>
     <ul>
       <li>
         <?php echo submit_tag(__('Save', null, 'common')) ?>
