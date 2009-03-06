@@ -617,6 +617,11 @@
 <target>Geplante Änderungen</target>
 </trans-unit>
 
+<trans-unit id="18011">
+<source>Schedule changes on this date</source>
+<target>Änderungen an folgendem Tag durchführen</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

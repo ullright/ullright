@@ -43,8 +43,8 @@
       if ($generator->isVersionable())
       {
         echo ' <label for="fields_scheduled_update">';
-        echo __('Scheduled update', null, 'common') . ':';
-        echo '</label>'; 
+        echo __('Schedule changes on this date', null, 'common') . ':';
+        echo '</label><br />'; 
         echo $generator->getForm()->offsetGet('scheduled_update_date')->render();
         echo $generator->getForm()->offsetGet('scheduled_update_date')->renderError();
       }
