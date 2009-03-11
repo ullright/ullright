@@ -3,7 +3,7 @@
 class ApplyScheduledUpdatesTask extends sfBaseTask
 {
   protected $blacklist =
-  array(
+    array(
       'updated_at',
       'version',
       'reference_version',
@@ -48,9 +48,14 @@ EOF;
         return;
       }
     }
-
+    
+    $this->applyUpdates($arguments, $options);
+  }
+  
+  public function applyUpdates($arguments = array(), $options = array())
+  {
     $configuration = ProjectConfiguration::getApplicationConfiguration(
-    $arguments['application'], $arguments['env'], true);
+      $arguments['application'], $arguments['env'], true);
 
     $databaseManager = new sfDatabaseManager($configuration);
     $conn = Doctrine_Manager::connection();
@@ -66,7 +71,7 @@ EOF;
       $table = Doctrine::getTable($modelName);
       if ($table->hasTemplate('Doctrine_Template_SuperVersionable'))
       {
-        $this->logSection('Now looking at model: ' . $modelName);
+        $this->log('Now looking at model: ' . $modelName);
 
         $template = $table->getTemplate('Doctrine_Template_SuperVersionable');
         $className = $template->getClassName();
@@ -140,6 +145,7 @@ EOF;
       }
     }
     //$conn->rollback();
-    $conn->commit();   
+    $conn->commit();
+    echo("ApplyScheduledUpdatesTask finished\n");
   }
 }

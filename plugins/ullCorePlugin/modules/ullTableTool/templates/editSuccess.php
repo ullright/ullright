@@ -20,6 +20,7 @@
 <tbody>
 
 <?php
+  //var_dump($generator->getActiveColumns()); var_dump($generator->getForm()->getFormFieldSchema()); die;
   foreach ($generator->getActiveColumns() as $column_name => $columns_config)
   {
     if ($column_name != 'scheduled_update_date')
@@ -27,6 +28,8 @@
       echo $generator->getForm()->offsetGet($column_name)->renderRow();
     }
   }
+
+//echo $generator->getForm();
 ?>
 
 </tbody>
@@ -40,7 +43,7 @@
   
   <div class='edit_action_buttons_left'>
     <?php
-      if ($generator->isVersionable())
+      if ($generator->getRow()->exists() && $generator->isVersionable())
       {
         echo ' <label for="fields_scheduled_update">';
         echo __('Schedule changes on this date', null, 'common') . ':';
@@ -89,6 +92,7 @@
 
   if ($generator->hasFutureVersions())
   {
+    echo '<div id="edit_future_versions">';
     echo '<br /><h2>'. __('Scheduled updates', null, 'common') . '</h2>';
     
     $fg = $generator->getFutureGenerators();
@@ -114,10 +118,11 @@
       echo '</tbody></table>';
       echo '</div><br />';
     }
-    
+    echo '</div>';
   }
   if ($generator->hasGeneratedVersions())
   {
+    echo '<div id="edit_versions">';
     echo '<br /><h2>'. __('Version history', null, 'common') . '</h2>';
     
     $hg = $generator->getHistoryGenerators();
@@ -141,5 +146,6 @@
       echo '</tbody></table>';
       echo '</div><br />';
     }
+    echo '</div>';
   }
 ?>
