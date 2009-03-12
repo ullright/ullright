@@ -134,6 +134,11 @@ class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
     //check if the update time exists and is in the future
     if ($record->contains('scheduled_update_date'))
     {
+      if ($this->_auditLog->getOption('enableFutureVersions') == false)
+      {
+        throw new Exception("Future versions are not allowed!");
+      }
+      
       if (strtotime($record->scheduled_update_date) > time())
       {
         //$record->updated_at = $record->scheduled_update_date;

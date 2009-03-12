@@ -39,7 +39,7 @@ abstract class BaseUllParentEntity extends UllRecord
   public function setUp()
   {
     parent::setUp();
-    $superversionable0 = new Doctrine_Template_SuperVersionable(array('versionColumn' => 'version', 'className' => '%CLASS%Version'));
+    $superversionable0 = new Doctrine_Template_SuperVersionable(array('versionColumn' => 'version', 'className' => '%CLASS%Version', 'enableFutureVersions' => true));
     $this->actAs($superversionable0);
   }
 }

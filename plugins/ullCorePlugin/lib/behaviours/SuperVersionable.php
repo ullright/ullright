@@ -72,6 +72,11 @@ class Doctrine_Template_SuperVersionable extends Doctrine_Template
     return $this->_plugin;
   }
 
+  public function enableFutureVersions()
+  {
+    return $this->_plugin->getOption('enableFutureVersions'); 
+  }
+  
   /**
    * revert
    * reverts this record to given version, this method only works if versioning plugin
@@ -103,6 +108,11 @@ class Doctrine_Template_SuperVersionable extends Doctrine_Template
    */
   public function getFutureVersions()
   {
+    if ($this->_plugin->getOption('enableFutureVersions') == false)
+    {
+      throw new Exception("Future versions are not allowed!");
+    }
+    
     $auditLog = $this->_plugin;
     return $auditLog->getFutureVersions($this->getInvoker());
   }

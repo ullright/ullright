@@ -6,9 +6,10 @@ UllParentEntity:
     extends: UllRecord
     type: concrete
   actAs:
-    SuperVersionable: #all two parameters are Versionable defaults
-      versionColumn:  version
-      className:      %CLASS%Version
+    SuperVersionable: #first two parameters are SuperVersionable defaults
+      versionColumn:          version
+      className:              %CLASS%Version
+      enableFutureVersions:   true
   columns:
     first_name:
       type: string(64)

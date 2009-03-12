@@ -36,6 +36,7 @@ class ullTableToolGenerator extends ullGenerator
   protected $hasVersions = false;
   protected $isHistoryBuilt = false;
   protected $isFutureBuilt = false;
+  protected $enableFutureVersions = false;
   
   /**
    * Constructor
@@ -59,7 +60,12 @@ class ullTableToolGenerator extends ullGenerator
     $this->modelName = $modelName;
     
     $this->isVersionable = Doctrine::getTable($this->modelName)->hasTemplate('Doctrine_Template_SuperVersionable');
-    
+    if ($this->isVersionable())
+    {
+      $this->enableFutureVersions = Doctrine::getTable($this->modelName)
+       ->getTemplate('Doctrine_Template_SuperVersionable')
+       ->getPlugin()->getOption('enableFutureVersions');
+    }
     parent::__construct($defaultAccess);
   }  
   
@@ -327,7 +333,7 @@ class ullTableToolGenerator extends ullGenerator
       
     $this->sortColumns();
 
-    if ($this->isVersionable())
+    if ($this->isVersionable() && $this->enableFutureVersions == true)
     {
       $columnConfig = array(
         'widgetOptions'      => array(),

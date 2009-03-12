@@ -4,6 +4,9 @@
  */
 class AddInitialVersions extends Doctrine_Migration
 {
+  //this can be solved better by doing this in 13's postUp()
+  //NOW we know ;)
+  
   public function up()
   {
     $table = Doctrine::getTable('UllUser')->findAll();

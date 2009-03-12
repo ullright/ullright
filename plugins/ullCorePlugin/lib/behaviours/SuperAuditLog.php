@@ -50,6 +50,7 @@ class Doctrine_SuperAuditLog extends Doctrine_Record_Generator
                             'table'         => false,
                             'pluginTable'   => false,
                             'children'      => array(),
+                            'enableFutureVersions' => false,
   );
 
   /**
@@ -208,6 +209,11 @@ class Doctrine_SuperAuditLog extends Doctrine_Record_Generator
    * @return void
    */
   public function deleteFutureVersion(Doctrine_Record $record, $version) {
+   if ($this->_options['enableFutureVersions'] == false)
+    {
+      throw new Exception("Future versions are not allowed!");
+    }
+    
     if ($version >= 0)
     {
       throw new RuntimeException('Only future versions can be deleted.');
