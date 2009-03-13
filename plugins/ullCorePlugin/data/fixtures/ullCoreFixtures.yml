@@ -155,6 +155,10 @@ UllColumnType:
     class:        ullMetaWidgetCountry
     label:        Country
     namespace:    ullCore
+  percentage:
+    class:        ullMetaWidgetPercentage
+    label:        Percentage
+    namespace:    ullCore      
 
 UllTableConfig:
   ull_user_tc:

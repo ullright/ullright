@@ -525,6 +525,32 @@ ul.tag-cloud li {
 
 /*
  * ************************************************
+ *  percentage widget
+ * ************************************************
+ */
+ 
+.widget_very_low {
+	border-bottom: 4px solid #ff4f57; 
+}
+
+.widget_low {
+  border-bottom: 4px solid #ffa24f;
+}
+
+.widget_medium {
+  border-bottom: 4px solid #fff94f; 
+}
+
+.widget_high {
+	border-bottom: 4px solid #abe94a;
+}
+
+.widget_very_high {
+	border-bottom: 4px solid #5ed23a;
+}
+
+/*
+ * ************************************************
  *  generic styles
  * ************************************************
  */ /* Ajax indicator */

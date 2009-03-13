@@ -13,5 +13,3 @@ class ullWidget extends sfWidgetForm
     return $values;
   }
 }
-
-?>
