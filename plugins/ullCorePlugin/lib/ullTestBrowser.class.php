@@ -63,8 +63,9 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'actions'     => 1,
         'app'         => 2,
         'subject'     => 3,
-        'created_by'  => 4,
-        'created_at'  => 5,
+        'priority'    => 4,
+        'created_by'  => 5,
+        'created_at'  => 6,
       ),
       'table > thead > tr', 'th'
     );

@@ -10,6 +10,7 @@ class ullFlowGenerator extends ullGenerator
     $defaultListColumns = array(
       'ull_flow_app_id',      
       'subject',
+      'priority',
       'creator_user_id',
       'created_at',
     )
