@@ -195,6 +195,7 @@ $b
 
 $b
   ->diag('filter - search by id')
+//  ->dumpDie()
   ->setField('filter[search]', 2)
   ->click('search_list')
   ->isRedirected()

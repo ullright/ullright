@@ -298,33 +298,12 @@ class ullTableToolGenerator extends ullGenerator
       
       // parse UllColumnConfigData table
       $columnConfig = UllColumnConfigTable::addColumnConfigArray($columnConfig, $this->modelName, $columnName);
-      // try to translate label
-      $columnConfig['label'] = __($columnConfig['label'], null, 'common');
       
-      // TODO: more defaults (humanized default label names, ...)
+      // try to translate label 
+      $columnConfig['label'] = __($columnConfig['label'], null, 'common');       
       
-      // TODO: more Doctrine column config (widget by column type, primary keys, unique, notnull, ...)
-
-      // TODO: handle default "ullRecord" columns like created_by, Namespace etc...
-      
-      if (isset($columnConfig['translation']))
-      {
-        $cultures = self::getDefaultCultures();
-        foreach ($cultures as $culture)
-        {
-          $translationColumnName = $columnName . '_translation_' . $culture;
-          $columnConfigTranslation = $columnConfig;
-          $columnConfigTranslation['label'] = __('%1% %2%', array('%1%' => $columnConfigTranslation['label'], '%2%' => strtoupper($culture)), 'common');
-          $this->columnsConfig[$translationColumnName] = $columnConfigTranslation;
-        }
-      }
-      else
-      {
-        $this->columnsConfig[$columnName] = $columnConfig;
-      }
+      $this->columnsConfig[$columnName] = $columnConfig;
     }
-    
-    
     
     
     $this->removeBlacklistColumns();
@@ -351,8 +330,8 @@ class ullTableToolGenerator extends ullGenerator
       $this->columnsConfig['scheduled_update_date'] = $columnConfig;
     }
 
-      //var_dump($this->columnsConfig);
-      //die ('blub');
+    //    var_dump($this->columnsConfig);
+    //    die;
   }
   
 

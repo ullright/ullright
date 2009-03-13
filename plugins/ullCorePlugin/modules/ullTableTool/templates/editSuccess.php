@@ -20,16 +20,13 @@
 <tbody>
 
 <?php
-  //var_dump($generator->getActiveColumns()); var_dump($generator->getForm()->getFormFieldSchema()); die;
-  foreach ($generator->getActiveColumns() as $column_name => $columns_config)
+  foreach ($generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
   {
     if ($column_name != 'scheduled_update_date')
     {
       echo $generator->getForm()->offsetGet($column_name)->renderRow();
     }
   }
-
-//echo $generator->getForm();
 ?>
 
 </tbody>

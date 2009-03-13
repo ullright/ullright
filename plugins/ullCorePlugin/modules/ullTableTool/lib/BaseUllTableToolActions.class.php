@@ -207,30 +207,18 @@ class BaseUllTableToolActions extends ullsfActions
     $q = new Doctrine_Query;
     $q->from($this->table_name . ' x');
     
-    $culture = substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2);
-    
     if ($search = $this->filter_form->getValue('search'))
     {      
       $cols = $this->generator->getTableConfig()->getSearchColumnsAsArray();
-     
-      $translatedColumns = array();
       $columnsConfig = $this->generator->getColumnsConfig();
-      foreach ($columnsConfig as $columnKey => $columnConfig)
-      {
-        if (isset($columnConfig['translation']))
-        {
-          $translatedColumns[] = $columnKey;
-        }  
-      }
       
       foreach ($cols as $key => $col)
       {
-        if(in_array($col . '_translation_' . $culture, $translatedColumns))
+        if (isset($columnsConfig[$col]['translation']))
         {
           $cols[$key] = 'Translation.' . $col;
         }
       }
-      
       ullCoreTools::doctrineSearch($q, $search, $cols);
     }
 
