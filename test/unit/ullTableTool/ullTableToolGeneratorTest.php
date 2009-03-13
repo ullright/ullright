@@ -68,21 +68,21 @@ class myTestCase extends sfDoctrineTestCase
 //        'metaWidget'          => 'ullMetaWidgetString',
 //        'access'              => 'r',
 //        ),   
-    'my_string_translation_en' => array (
+    'my_string' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array('maxlength' => 64),
         'validatorOptions'    => array('required' => true, 'max_length' => 64),
-        'label'               => 'My custom string label EN',
+        'label'               => 'My custom string label',
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => 'w',
         'is_in_list'        => true,
         'translation'         => true,
         ),   
-    'my_text_translation_en' => array (
+    'my_text' => array (
         'widgetOptions'       => array(),
         'widgetAttributes'    => array(),
         'validatorOptions'    => array('required' => false),
-        'label'               => 'My text EN',
+        'label'               => 'My text',
         'metaWidget'          => 'ullMetaWidgetTextarea',
         'access'              => 'w',
         'is_in_list'        => true,
