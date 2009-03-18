@@ -413,15 +413,15 @@ ul.list_action_buttons li {
 .error_list {
 	margin: 0;
 	list-style: none;
-	float: left;	
+	display: inline;	
 }
 
 .error_list > li {
-	float: left;
 	font-style: normal;
   font-size: 1.1em;
   font-weight: bold;
   color: #D41400;
+  display: inline;
 }	
 
 /*
