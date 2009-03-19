@@ -44,6 +44,7 @@ EOF;
       $dm->getCurrentVersion();
     }
     catch (Exception $e) {
+      //this should not happen anymore
       $this->logSection('Migration table not existing, creating...');
       $conn->export->createTable($dm->getTableName() , array('version' => array('type' => 'integer', 'size' => 11)));
       $conn->exec("INSERT INTO " . $dm->getTableName() . " VALUES(0)");
