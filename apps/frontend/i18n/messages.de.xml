@@ -37,6 +37,11 @@
 <target>"%value%" ist keine Ganzzahl.</target>
 </trans-unit>
 
+<trans-unit id="7">
+<source>The date must be after %min%.</source>
+<target>Das Datum muss nach dem %min% liegen.</target>
+</trans-unit>
+    
     </body>
   </file>
 </xliff>

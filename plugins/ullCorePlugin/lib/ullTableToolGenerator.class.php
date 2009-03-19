@@ -320,13 +320,14 @@ class ullTableToolGenerator extends ullGenerator
         'validatorOptions'   => array(),
       );
 
-      // set defaults
       $columnConfig['label']        = 'Scheduled update date';
       $columnConfig['metaWidget']   = 'ullMetaWidgetDate';
       $columnConfig['access']       = $this->defaultAccess;
       $columnConfig['is_in_list']   = false;
       $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
-
+      $tomorrow = mktime(0, 0, 0, date("m"), date("d")+1, date("y"));
+      $columnConfig['validatorOptions']['min'] = $tomorrow;
+      $columnConfig['validatorOptions']['date_format_range_error'] = ull_date_pattern(false, true); //no time display
       $this->columnsConfig['scheduled_update_date'] = $columnConfig;
     }
 

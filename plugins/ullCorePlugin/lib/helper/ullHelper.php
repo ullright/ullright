@@ -9,6 +9,35 @@
 sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url'));
 
 
+function ull_date_pattern($zeroPadding = true, $php_format = false)
+{
+  $culture = sfContext::getInstance()->getUser()->getCulture();
+  $culture_parts = explode('_', $culture);
+  $language = $culture_parts[0];
+  
+  if ($php_format)
+  {
+    $dayPattern = $zeroPadding ? 'd' : 'j';
+    $monthPattern = $zeroPadding ? 'm' : 'n';
+    $yearPattern = 'Y';
+  }
+  else
+  {
+    $dayPattern = $zeroPadding ? 'dd' : 'd';
+    $monthPattern = $zeroPadding ? 'MM' : 'M';
+    $yearPattern = 'yyyy';
+  }
+  
+  switch ($language)
+  {
+    case 'de':
+      return $dayPattern . '.' . $monthPattern . '.' . $yearPattern;
+    
+    default:
+      return $monthPattern . '-' . $dayPattern . '-' . $yearPattern;
+  }
+}
+
 /**
  * Extends symfony's DateHelper with a specific date format
  * This is culture sensitive.
@@ -21,25 +50,8 @@ function ull_format_date($date = null, $zeroPadding = true)
 {
   if ($date == null)
     $date = time();
-    
-  $culture = sfContext::getInstance()->getUser()->getCulture();
-  $culture_parts = explode('_', $culture);
-  $language = $culture_parts[0];
-  
-  $dayPattern = $zeroPadding ? 'dd' : 'd';
-  $monthPattern = $zeroPadding ? 'MM' : 'M';
-  
-  switch ($language)
-  {
-    case 'de':
-      $dt = format_datetime($date, $dayPattern . '.' . $monthPattern . '.yyyy');
-      break;
-    
-    default:
-      $dt = format_datetime($date, $monthPattern . '-' . $dayPattern . '-yyyy');
-  }
-   
-  return $dt;
+
+  return format_datetime($date, ull_date_pattern($zeroPadding));
 }
 
 
@@ -56,24 +68,7 @@ function ull_format_datetime($date = null, $zeroPadding = true)
   if ($date == null)
     $date = time();
   
-  $culture = sfContext::getInstance()->getUser()->getCulture();
-  $culture_parts = explode('_', $culture);
-  $language = $culture_parts[0];
-  
-  $dayPattern = $zeroPadding ? 'dd' : 'd';
-  $monthPattern = $zeroPadding ? 'MM' : 'M';
-  
-  switch ($language)
-  {
-    case 'de':
-      $dt = format_datetime($date, $dayPattern . '.' . $monthPattern . '.yyyy HH:mm:ss');
-      break;
-    
-    default:
-      $dt = format_datetime($date, $monthPattern . '-' . $dayPattern . '-yyyy HH:mm:ss');
-  }
-   
-  return $dt;
+  return format_datetime($date, ull_date_pattern($zeroPadding) . ' HH:mm:ss');
 }
 
 function ull_image_path($type, $width = null, $height = null, $plugin = null)
