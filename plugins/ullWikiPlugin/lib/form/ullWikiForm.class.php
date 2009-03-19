@@ -18,6 +18,7 @@ class ullWikiForm extends ullGeneratorForm
     
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache', 'SerializerPath', $cachePath);
+    $config->set('Attr', 'EnableID', true);
     $purifier = new HTMLPurifier($config);
  
     $object->body = htmlentities($purifier->purify($object->body), ENT_QUOTES, 'UTF-8');   

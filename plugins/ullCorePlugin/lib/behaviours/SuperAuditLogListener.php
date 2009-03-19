@@ -148,11 +148,12 @@ class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
 
         //don't insert a future version if no changes were done
         $modified = $record->getModified();
-		    if (count($modified) == 1 && isset($modified['updated_at']))
-		    {
-		      return;
-		    }
-        
+
+        if (count($modified) == 1 && isset($modified['updated_at']))
+        {
+          return;
+        }
+
         $version->merge($record->toArray());
         $version->set('scheduled_update_date', $record->scheduled_update_date);
         $version->set('reference_version', $this->_getNextVersion($record) - 1);
