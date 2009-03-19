@@ -45,6 +45,7 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
     $this->columnsBlacklist[] = 'created_at';
     $this->columnsBlacklist[] = 'creator_user_id';
     $this->columnsBlacklist[] = 'scheduled_update_date';
+    $this->columnsBlacklist[] = 'type';
 
     //->Updator is available in Version as well
     $this->updator = $curRow->Updator;
