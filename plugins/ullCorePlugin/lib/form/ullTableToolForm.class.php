@@ -4,8 +4,7 @@
  *
  */
 class ullTableToolForm extends ullGeneratorForm
-{
-
+{  
   /**
    * Override getting the default values form the object
    *
@@ -27,14 +26,16 @@ class ullTableToolForm extends ullGeneratorForm
         unset($i18nFields['id']);
         unset($i18nFields['lang']);
 
-              //var_dump($this->object->toArray());
-        
         foreach ($i18nFields as $fieldName => $value)
         {
           foreach ($this->cultures as $culture)
           {
-            $newFieldName = $fieldName . '_translation_' . $culture; 
-            $defaults[$newFieldName] = $translations[$culture][$fieldName];
+            //only retrieve the translations if there are any
+            if (isset($translations[$culture]))
+            {
+              $newFieldName = $fieldName . '_translation_' . $culture; 
+              $defaults[$newFieldName] = $translations[$culture][$fieldName];
+            }
           }
         }
       }
@@ -90,7 +91,7 @@ class ullTableToolForm extends ullGeneratorForm
       	unset($this->values['scheduled_update_date']);
       }
     }
-    
+
     return parent::updateObject();
     
 //    $this->object->fromArray($values);

@@ -708,6 +708,11 @@ UllColumnConfig:
 
   #UllColumnConfig
   ull_column_config_cc_description:
+    Translation:
+      en:
+        label:      Description
+      de:
+        label:      Beschreibung
     db_table_name:  UllColumnConfig
     db_column_name: description
     is_in_list:     false
