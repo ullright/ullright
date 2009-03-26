@@ -29,7 +29,7 @@
 
 <trans-unit id="5">
 <source>Invalid.</source>
-<target>Ungültig</target>
+<target>Ungültig.</target>
 </trans-unit>
 
 <trans-unit id="6">
@@ -40,6 +40,11 @@
 <trans-unit id="7">
 <source>The date must be after %min%.</source>
 <target>Das Datum muss nach dem %min% liegen.</target>
+</trans-unit>
+
+<trans-unit id="8">
+<source>An object with the same "%column%" already exist.</source>
+<target>Dieser Wert muss eindeutig sein, ist aber bereits vergeben.</target>
 </trans-unit>
     
     </body>

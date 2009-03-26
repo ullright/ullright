@@ -24,8 +24,9 @@ $b
 ;
 
 $b
-  ->diag('set no password')
+  ->diag('set no password and change username')
   ->setField('fields[first_name]', 'Testasius')
+  ->setField('fields[username]', 'test_asius')
   ->click('Save')
   ->isRedirected()
   ->followRedirect()
@@ -40,7 +41,7 @@ $b
   ->diag('login as testuser to check unchanged password')
   ->click('Log out')
   ->get('ullAdmin/index')
-  ->loginAsTestUser()
+  ->loginAs('test_asius')
   ->followRedirect()
 ;
 
@@ -86,5 +87,5 @@ $b
   ->diag('login as testuser to check changed password')
   ->click('Log out')
   ->get('ullAdmin/index')
-  ->loginAsTestUser('newpass')
+  ->loginAs('test_asius', 'newpass')
 ;

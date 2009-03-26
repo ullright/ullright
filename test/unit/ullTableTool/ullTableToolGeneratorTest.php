@@ -13,6 +13,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetInteger',
         'access'              => 'r',
         'is_in_list'        => true,
+        'unique'            => false,
         ),                   
     'my_boolean' => array (
         'widgetOptions'       => array(),
@@ -22,6 +23,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetCheckbox',
         'access'              => 'w',
         'is_in_list'        => true,
+        'unique'            => false,
         ),
     'my_email' => array (
         'widgetOptions'       => array(),
@@ -31,6 +33,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetEmail',
         'access'              => 'w',
         'is_in_list'        => true,
+        'unique'            => false,
         ),
     'my_select_box' => array (
         'widgetOptions'       => array('ull_select' => 'ull_select_test', 'add_empty' => true),
@@ -40,6 +43,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetUllSelect',
         'access'              => 'w',
         'is_in_list'        => true,
+        'unique'            => false,
         ),                    
     'my_useless_column' => array (
         'widgetOptions'       => array(),
@@ -49,6 +53,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetString',
         'access'              => null,
         'is_in_list'        => true,
+        'unique'            => false,
         ),        
     'ull_user_id' => array (
         'widgetOptions'       => array(),
@@ -59,6 +64,7 @@ class myTestCase extends sfDoctrineTestCase
         'access'              => 'w',
         'is_in_list'        => true,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
+        'unique'            => false,
         ),  
 //    'namespace' => array (
 //        'widgetOptions'       => array(),
@@ -77,6 +83,7 @@ class myTestCase extends sfDoctrineTestCase
         'access'              => 'w',
         'is_in_list'        => true,
         'translation'         => true,
+        'unique'            => false,
         ),   
     'my_text' => array (
         'widgetOptions'       => array(),
@@ -87,6 +94,7 @@ class myTestCase extends sfDoctrineTestCase
         'access'              => 'w',
         'is_in_list'        => true,
         'translation'         => true,
+        'unique'            => false,
         ),   
     'creator_user_id' => array (
         'widgetOptions'       => array(),
@@ -97,6 +105,7 @@ class myTestCase extends sfDoctrineTestCase
         'access'              => 'r',
         'is_in_list'        => false,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
+        'unique'            => false,
         ),
     'created_at' => array (
         'widgetOptions'       => array(),
@@ -106,6 +115,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
         'is_in_list'        => false,
+        'unique'            => false,
         ),
     'updator_user_id' => array (
         'widgetOptions'       => array(),
@@ -116,6 +126,7 @@ class myTestCase extends sfDoctrineTestCase
         'access'              => 'r',
         'is_in_list'        => false,
         'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
+        'unique'            => false,
         ),                  
     'updated_at' => array (
         'widgetOptions'       => array(),
@@ -125,6 +136,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetDateTime',
         'access'              => 'r',
         'is_in_list'        => false,
+        'unique'            => false,
         ),                   
   ); 
 

@@ -1,6 +1,6 @@
 #This is not actually a yaml file,
-#we just need this executed at model
-#creation time :)
+#we just need this executed at fixture
+#insertion time :)
 #TODO: Create proper install script
 
 <?php
