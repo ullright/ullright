@@ -13,7 +13,6 @@ class ullWidgetTextarea extends ullWidget
     {
       $value = '';
     }
-    return $value;
+    return auto_link_text($value);
   }
-
 }
