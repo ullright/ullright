@@ -1138,4 +1138,24 @@ function printQuery($query) {
     echo "$out<br /><br />";
 }
 
+function ull_load_table_tool_edit_config($modelName)
+{
+  $editConfigClassName = $modelName . 'TableToolEditConfig';
+
+  if (class_exists($editConfigClassName))
+  {
+    $editConfig = new $editConfigClassName;
+    if (!($editConfig instanceof TableToolEditConfig))
+    {
+      throw new Exception("A table tool edit config must extend TableToolEditConfig.");
+    }
+    
+    return $editConfig;
+  }
+  
+  //don't throw an exception on purpose
+  return NULL;
+  //throw new Exception("Could not find an edit config for the given model name.");
+}
+
 ?>
