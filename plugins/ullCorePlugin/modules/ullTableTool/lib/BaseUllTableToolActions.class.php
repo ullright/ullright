@@ -126,8 +126,8 @@ class BaseUllTableToolActions extends ullsfActions
     if ($request->isMethod('post'))
     {
 //      var_dump($request->getParameterHolder()->getAll());die();
-      
-      if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
+      //$request->setParameter('id', $row->id);
+      if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id))))
       {
         $this->redirect($this->getUriMemory()->getAndDelete('list'));
       }

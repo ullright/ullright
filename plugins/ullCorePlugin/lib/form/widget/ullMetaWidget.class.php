@@ -78,7 +78,41 @@ abstract class ullMetaWidget
     {
       $columnName = $this->columnName;
     }
+
+    if (isset($this->columnConfig['unique']) &&
+      $this->columnConfig['unique'] == true &&
+      $this->isWriteMode())
+    {
+      $this->form->mergePostValidator(
+      new sfValidatorDoctrineUnique(
+        array(
+          'model' => $this->form->getModelName(),
+          'column' => $columnName,
+          'required' => true
+      )));
+      
+      $validator->setOption('required', true);
+    }
+    
     $this->form->getValidatorSchema()->offsetSet($columnName, $validator);
+    
+    
+    /*
+
+    if (!($this->form instanceof sfFormDoctrine))
+    {
+    throw new Exception("Unique validation only works with sfFormDoctrine forms.");
+    }
+
+    $validatorArray = new sfValidatorAnd(array($validator,
+    new sfValidatorDoctrineUnique(array('model' => $this->form->getModelName(), 'column' => $columnName))));
+
+    $this->form->getValidatorSchema()->offsetSet($columnName, $validatorArray);
+    }
+    else
+    {*/
+    //
+    //}
   }
   
   protected function isWriteMode()

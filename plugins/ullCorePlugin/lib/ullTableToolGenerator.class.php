@@ -224,6 +224,7 @@ class ullTableToolGenerator extends ullGenerator
       $columnConfig['access']       = $this->defaultAccess;
       $columnConfig['is_in_list']   = true;
       $columnConfig['validatorOptions']['required'] = false; //must be set, as default = true
+      $columnConfig['unique']       = false;
       
       if (isset($this->system_column_names_humanized[$columnName])) 
       {
@@ -266,6 +267,11 @@ class ullTableToolGenerator extends ullGenerator
       {
         $columnConfig['validatorOptions']['required'] = true;
       }
+      
+      if (isset($column['unique']))
+      {
+        $columnConfig['unique'] = true;
+      }      
       
       if (isset($column['primary']))
       {
@@ -331,8 +337,8 @@ class ullTableToolGenerator extends ullGenerator
       $this->columnsConfig['scheduled_update_date'] = $columnConfig;
     }
 
-    //    var_dump($this->columnsConfig);
-    //    die;
+      //  var_dump($this->columnsConfig);
+      //  die;
   }
   
 
