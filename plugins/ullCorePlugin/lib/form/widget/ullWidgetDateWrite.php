@@ -23,6 +23,7 @@ class ullWidgetDateWrite extends ullWidget
         changeYear: true,
         changeMonth: true,
         firstDay: 1,
+        showOn: \'button\',
      });' . 
      $dateline .
     '});

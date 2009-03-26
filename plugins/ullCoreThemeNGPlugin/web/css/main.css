@@ -589,3 +589,15 @@ div#indicator {
 .no_access_info {
   color: #AAAAAA;
 }
+
+/*
+ * ************************************************
+ *  date picker
+ * ************************************************
+ */
+.ui-datepicker-trigger {
+    margin-left: 3px;
+    background: url(../images/new_window.png) no-repeat 0 0;
+    border: none;
+    height: 1em;
+}
