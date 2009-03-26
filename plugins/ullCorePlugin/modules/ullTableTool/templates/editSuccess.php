@@ -4,6 +4,8 @@
 
 <?php $generator = $sf_data->getRaw('generator') ?>
 
+<?php $editConfig = ull_load_table_tool_edit_config($generator->getModelName()) ?>
+
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
@@ -53,6 +55,14 @@
       <li>
         <?php echo submit_tag(__('Save', null, 'common')) ?>
       </li>
+      <?php
+        if (isset($editConfig) && $editConfig->hasActionButtons())
+        {
+          echo '<li>';
+          echo $editConfig->getActionButtons();
+          echo '</li>';
+        }
+        ?>
     </ul>
   </div>
 
@@ -61,11 +71,14 @@
       <li>
     <?php if ($generator->getRow()->exists()): ?>    
           <?php 
-            echo link_to(
-              __('Delete', null, 'common')
-              , 'ullTableTool/delete?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0)
-              , 'confirm='.__('Are you sure?', null, 'common')
-              ); 
+            if (!isset($editConfig) || (isset($editConfig) && $editConfig->allowDelete()))
+            {
+	            echo link_to(
+	              __('Delete', null, 'common')
+	              , 'ullTableTool/delete?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0)
+	              , 'confirm='.__('Are you sure?', null, 'common')
+	              );
+            }
           ?> &nbsp; 
         <?php endif; ?>
       </li>

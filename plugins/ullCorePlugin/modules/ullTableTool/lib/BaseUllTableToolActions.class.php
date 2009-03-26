@@ -148,6 +148,12 @@ class BaseUllTableToolActions extends ullsfActions
     
     $this->generator = new ullTableToolGenerator($this->table_name);
     
+    $editConfig = ull_load_table_tool_edit_config($this->generator->getModelName());
+    if ($editConfig != NULL)
+    {
+      $this->redirectUnless($editConfig->allowDelete(), 'ullUser/noaccess');
+    }
+    
     $row = $this->getRowFromRequest();   
     $row->delete();
     
