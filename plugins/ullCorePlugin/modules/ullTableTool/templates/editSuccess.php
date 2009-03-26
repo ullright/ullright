@@ -4,7 +4,7 @@
 
 <?php $generator = $sf_data->getRaw('generator') ?>
 
-<?php $editConfig = ull_load_table_tool_edit_config($generator->getModelName()) ?>
+<?php $editConfig = TableToolEditConfig::loadClass($generator->getModelName()) ?>
 
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
