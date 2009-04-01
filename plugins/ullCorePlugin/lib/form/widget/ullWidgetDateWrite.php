@@ -12,7 +12,7 @@ class ullWidgetDateWrite extends ullWidget
     
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     $id = $this->getAttribute('id');
-    
+
     $curdate = strtotime($value);
     $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . '));';
     
@@ -27,6 +27,9 @@ class ullWidgetDateWrite extends ullWidget
      });' . 
      $dateline .
     '});
+    
+    ' . $id . '_initial_date = \'' . (($curdate == 0) ? '' : ull_format_date($value, true)) . '\';
+    
     </script>';
 
     $culture = sfContext::getInstance()->getUser()->getCulture();
@@ -64,8 +67,9 @@ EOF
       default: 
     }
 
-    $return .= $this->renderTag('input', array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
-
+    $return .= $this->renderTag('input',
+      array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
+          
     return $return;
   }
 }

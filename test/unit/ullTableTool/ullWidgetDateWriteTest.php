@@ -15,7 +15,7 @@ $t->diag('__construct()');
 	$t->diag('->render()');
 	$now = time();  
 	
-	$expected = '
+  $expected = '
     <script type="text/javascript">
     $(function() {
      $("#foo").datepicker({
@@ -24,10 +24,11 @@ $t->diag('__construct()');
         firstDay: 1,
         showOn: \'button\',
      });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
-    </script>';
-  $expected .= '<input name="foo" id="foo" type="text" value="' . date('c', $now) . '" />';
-	
-
+    
+    foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
+    
+    </script><input name="foo" id="foo" type="text" value="' . date('c', $now) . '" />';
+  
   $t->is($w->render('foo', date('c', $now)), $expected);
   
   $instance->getUser()->setCulture("de");
@@ -41,6 +42,9 @@ $t->diag('__construct()');
         firstDay: 1,
         showOn: \'button\',
      });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
+    
+    foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
+    
     </script><script type="text/javascript">$.datepicker.regional[\'de\'] = {clearText: \'löschen\', clearStatus: \'aktuelles Datum löschen\',
             closeText: \'schließen\', closeStatus: \'ohne Änderungen schließen\',
             prevText: \'&#x3c;zurück\', prevStatus: \'letzten Monat zeigen\',

@@ -14,7 +14,7 @@ $t->diag('__construct()');
   
 $t->diag('->render()');
   $now = time();  
-  $t->is($w->render('foo', $now), date("m-d-Y H:i:s"));
+  $t->is($w->render('foo', $now), date("m/d/Y H:i:s"));
   
   $instance->getUser()->setCulture("de");
   

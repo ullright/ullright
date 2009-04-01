@@ -34,7 +34,7 @@ function ull_date_pattern($zeroPadding = true, $php_format = false)
       return $dayPattern . '.' . $monthPattern . '.' . $yearPattern;
     
     default:
-      return $monthPattern . '-' . $dayPattern . '-' . $yearPattern;
+      return $monthPattern . '/' . $dayPattern . '/' . $yearPattern;
   }
 }
 
@@ -239,8 +239,8 @@ function ull_navigation_link($img_source, $internal_uri, $link_text, $options = 
 //    $link_text . '</a>';
 //  
   
-	$link = ull_link_to(image_tag($img_source, $options), $internal_uri) .
-	        '<br />' . ull_link_to($link_text, $internal_uri);
+	$link = ull_link_to(image_tag($img_source, $options), $internal_uri, 'ull_js_observer_confirm=true') .
+	        '<br />' . ull_link_to($link_text, $internal_uri, 'ull_js_observer_confirm=true');
   
   return $link;
 }
@@ -1005,40 +1005,62 @@ function ull_js_observer($form_id) {
   $html .= javascript_tag('
     var elements = document.getElementById("' . $form_id . '");
     var initial_state = new Array();
-
-    for (i=0; i<elements.length; i++) {
-      if (elements[i]) {
-        initial_state[i] = elements[i].value;
+    
+    for (i = 0; i < elements.length; i++) {
+      if (elements[i] && elements[i].id != "") {
+        if (elements[i].type == "checkbox")  
+          initial_state[elements[i].id] = elements[i].checked;
+        else
+          initial_state[elements[i].id] = elements[i].value;
       }
     }
 
-    document.getElementById("ull_js_observer_initial_state").value = initial_state.join("@@@");
-
-
-
     function ull_js_observer_detect_change() {
 
-      var inital_state = document.getElementById("ull_js_observer_initial_state").value.split("@@@");
       var elements = document.getElementById("' . $form_id . '");
 
-      for (i=0; i<elements.length; i++) {
-        var e = elements[i];
-
-        //detect FCKEditor Field
-        if (e.id.indexOf("___Config") > -1) {
-          var instance_name = e.id.replace(/___Config/, "");
+      for (i=0; i < elements.length; i++) {
+        var newElement = elements[i];
+              
+        if (newElement.id.indexOf("___Config") > -1) {
+          var instance_name = newElement.id.replace(/___Config/, "");
           var oEditor = FCKeditorAPI.GetInstance(instance_name);
           if (oEditor.IsDirty()) {
+            //alert("FCKeditor modified");
             return true;
           }
-        } else {
+        }
 
-          //normal form field
-          if (e.value != initial_state[i]) {
-            //alert("Field "+e.id+" changed! Old value: "+initial_state[i]+" New value: "+e.value);
+        var oldElement = initial_state[newElement.id];
+       
+        if (typeof(oldElement) == \'undefined\') {
+          //skip this element, since it seems to be new
+          continue;  
+        }
+
+        if (newElement.className == \'hasDatepicker\') {
+          if (window[newElement.id + "_initial_date"] != newElement.value) {
+            //alert("date different! Old value: " + window[newElement.id + "_initial_date"] + " New value: " + newElement.value);  
             return true;
           }
+          else {
+            continue;
+          }
+        }
 
+        if (newElement.type == "checkbox") {
+          if (newElement.checked != oldElement) {
+            //alert("Checkbox " + newElement.id + " changed! Old checked: " + oldElement + " New checked: " + newElement.checked);
+            return true;
+          }
+          else {
+            continue;
+          }
+        }
+        
+        if (newElement.value != oldElement) {
+           //alert("Field " + newElement.id + " changed! Old value: " + oldElement + " New value: " + newElement.value);
+           return true;
         }
       }
     }

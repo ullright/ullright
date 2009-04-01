@@ -174,6 +174,6 @@
 <?php endif ?>
 
 <?php
-//  echo ull_js_observer("ull_flow_form");
+  echo ull_js_observer("edit_form");
 //  ullCoreTools::printR($ull_form);
 ?>   

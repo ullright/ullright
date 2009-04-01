@@ -63,7 +63,7 @@ $b
   ->isRequestParameter('id', $testUserId)
   ->checkResponseElement('input[id="fields_username"][value="test_user"]', true)
   ->checkResponseElement('input[id="fields_email"][value="test.user@example.com"]', true)
-  ->checkResponseElement('div#edit_future_versions', '/08-15-2037/')
+  ->checkResponseElement('div#edit_future_versions', '/08\/15\/2037/')
   ->checkResponseElement('div#edit_future_versions', '/software_tester/')
   ->checkResponseElement('div#edit_future_versions', '/softwaretester@example.com/')
 ;
@@ -93,7 +93,7 @@ $b
   ->isRequestParameter('id', $testUserId)
   ->checkResponseElement('input[id="fields_username"][value="test_user"]', true)
   ->checkResponseElement('input[id="fields_email"][value="st@example.com"]', true)
-  ->checkResponseElement('div#edit_future_versions', '/08-15-2037/')
+  ->checkResponseElement('div#edit_future_versions', '/08\/15\/2037/')
   ->checkResponseElement('div#edit_future_versions', '/software_tester/')
   ->checkResponseElement('div#edit_future_versions', '/softwaretester@example.com/')
 ;

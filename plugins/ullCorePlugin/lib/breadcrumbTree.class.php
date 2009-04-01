@@ -104,9 +104,9 @@ class breadcrumbTree
 
     $return = "<ul id='breadcrumbs'>\n";
     $return .= "<li class='first'>";
-    $return .= link_to(
+    $return .= ull_link_to(
                   ull_image_tag('home', array(), 10, 10),
-                  '@homepage'
+                  '@homepage', 'ull_js_observer_confirm=true'
                 ); 
     $return .= "</li>\n";                
     
