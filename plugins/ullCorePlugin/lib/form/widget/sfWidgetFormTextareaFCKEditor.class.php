@@ -66,8 +66,18 @@ window.onload = function()
   var oFCKeditor = new FCKeditor( '%s' , '%s', '%s');
   oFCKeditor.BasePath = "%s" ;
   oFCKeditor.Config["CustomConfigurationsPath"] = "%s";
-  oFCKeditor.ReplaceTextarea() ;
+  oFCKeditor.ReplaceTextarea();
 }
+
+//without this, IsDirty() returns true in the
+//wiki->create view, which causes the js observer
+//to warn about changes where there aren't any
+
+function FCKeditor_OnComplete(editorInstance)
+{
+  editorInstance.ResetIsDirty();
+}
+
 
 </script>
 EOF
