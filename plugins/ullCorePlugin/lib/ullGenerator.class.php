@@ -269,6 +269,8 @@ abstract class ullGenerator
         $ullMetaWidgetClassName = $columnConfig['metaWidget'];
         $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->forms[$key]);
         
+//        var_dump($columnConfig);
+        
         // label
         if (isset($columnConfig['translation']))
         { 
@@ -283,10 +285,10 @@ abstract class ullGenerator
         else
         {
           $ullMetaWidget->addToFormAs($columnName);
-          //var_dump($columnName);
-          //$this->forms[$key]->getWidgetSchema()->setLabel($columnName, $columnConfig['label']);
           $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig['label'], null, 'common'));
         }
+        
+        $this->markMandatoryColumns($this->forms[$key], $columnName, $columnConfig);
       }
     }
     
@@ -390,4 +392,25 @@ abstract class ullGenerator
       }
      }
   }
+  
+  /**
+   * mark the label of mandatory fields with an asterix "*"
+   * 
+   * @param $form
+   * @param $columnName
+   * @param $columnConfig
+   * @return none
+   */
+  protected function markMandatoryColumns(sfForm $form, $columnName, array $columnConfig)
+  {
+    if ($columnConfig["access"] == 'w' && $form->offsetExists($columnName))
+    {
+      $label = $form->getWidgetSchema()->getLabel($columnName);
+      if ($columnConfig["validatorOptions"]["required"] === true)
+      {
+        $form->getWidgetSchema()->setLabel($columnName, $label . ' *');  
+      }
+    }
+  }
+  
 }

@@ -194,7 +194,7 @@ $t->begin('getTableConfig()');
   $t->is($tableConfig->getIdentifier(), 'id', 'Identifier is correct');
   $t->is($tableConfig->label, 'TestTableLabel', 'Label is correct'); 
 
-// we don't habe any composite primaray keys at the moment  
+// we don't habe any composite primary keys at the moment  
 //$t->begin('getTableConfig() for a table with a multi-columns primary key');  
 //  $tableTool2 = new ullTableToolGenerator('UllEntityGroup');
 //  $tableConfig = $tableTool2->getTableConfig();
