@@ -269,8 +269,6 @@ abstract class ullGenerator
         $ullMetaWidgetClassName = $columnConfig['metaWidget'];
         $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->forms[$key]);
         
-//        var_dump($columnConfig);
-        
         // label
         if (isset($columnConfig['translation']))
         { 
