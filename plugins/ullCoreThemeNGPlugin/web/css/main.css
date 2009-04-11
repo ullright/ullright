@@ -1,9 +1,14 @@
 @import "common.css";
-
 @import "taskcenter.css";
 
-/*  Modules should at least override the
-    following format definitions. */
+
+/*
+ * ************************************************
+ *  Theme-plugins should at least override the
+ *  following format definitions.
+ * ************************************************
+ */
+
 .color_light_bg {
 	background: #e1e2e2;
 }
@@ -16,47 +21,67 @@
 	background: #adafb0;
 }
 
-/* End of module format css */
+
+/*
+ * ************************************************
+ *  top level
+ * ************************************************
+ */
+
 body {
-	margin: 15px;
-	margin-top: 5px;
+	margin: 10px 15px 15px 15px;
 	padding: 0;
 	background-color: white;
+	/* border: 1px red dotted; */
 }
 
+/* contains sidebar and canavas */
 #container {
-	margin-top: -15px;
+	margin: 0;
+	padding: 0;
 	text-align: left;
-	min-width: 1000px;
 }
+
+/* contains navigation, content and footer */
+#canvas {
+  margin-left: 13em;
+  padding: 0:
+}
+
+
+/*
+ * ************************************************
+ *  sidebar
+ * ************************************************
+ */
 
 #sidebar {
-	width: 150px;
-	/* max-width: 200px; */
+	width: 12em;
+	margin: 0;
 	float: left;
-}
-
-#sidebar_content {
-	color: #000;
-	text-align: left;
-	padding-left: 6px;
 }
 
 #sidebar_logo {
-	padding-top: 25px;
-	padding-bottom: 20px;
-	text-align: center;
+	padding-top: .7em;
+  padding-bottom: 1.6em;
+  text-align: center;
 }
 
-#canvas {
-	padding: 20px 0px 20px 20px;
-	width: 83%;
-	float: left;
+#sidebar_content {
+	padding-left: 6px;
+	text-align: left;
+  color: #000;
 }
+
+
+/*
+ * ************************************************
+ *  navigation
+ * ************************************************
+ */
 
 #nav_top {
 	text-align: left;
-	background-color: white;
 	/* the following workaround: only for ff 2.0 ? */
 	/* border: 1px solid white; /* workaround for firefox (displaying top margin otherwise) */
 }
@@ -65,33 +90,7 @@ body {
 	color: #777475;
 }
 
-#nav_syslinks_container {
-	float: right;
-	margin-top: 0;
-}
-
-#nav_langlinks {
-	color: #777777;
-	text-align: right;
-	margin-top: 0.2em;
-	margin-bottom: 1.78em;
-}
-
-#nav_searchbox {
-	text-align: right;
-	margin-top: -10px;
-	margin-bottom: -10px;
-}
-
-#nav_loginbox {
-	color: #777475;
-	text-align: right;
-	margin-top: 5px;
-}
-
 ul.nav_top_links {
-	clear: both;
-	float: left;
 	margin: 0;
 	padding: .25em 0;
 	line-height: 1.3em;
@@ -101,20 +100,16 @@ ul.nav_top_links {
 
 ul.nav_top_links li {
 	float: left;
-	margin: 0;
-	padding: 0px;
-	background: none;
+	margin: 0 2em 0 0;
+	padding: 0;
 	text-align: center;
-	padding-bottom: 4px;
-	margin-right: 2em;
-	border-bottom: 5px solid #fff;
+	padding-bottom: .35em;
+	border-bottom: none;
 	min-width: 6em;
 }
 
 ul.nav_top_links li:hover {
 	border-bottom: 5px solid #777475;
-	position: relative;
-	z-index: 5;
 }
 
 .nav_top_links a {
@@ -147,11 +142,35 @@ ul.nav_top_links li:hover {
 	border-color: #777475;
 }
 
-#nav_top_separator_line {
-	position: relative;
-	border-top: 3px solid #777475;
-	margin-top: -0.60em;
+#nav_syslinks_container {
+  float: right;
+  margin-top: 0;
 }
+
+#nav_langlinks {
+  color: #777777;
+  text-align: right;
+  margin-top: 0.2em;
+}
+
+#nav_searchbox {
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+#nav_loginbox {
+  color: #777475;
+  text-align: right;
+  margin-top: 1.1em;
+}
+
+#nav_top_separator_line {
+	margin-top: 29px;
+	padding: 1em;
+	border-bottom: 3px solid #777475;
+}
+
 
 /*
  * ************************************************
@@ -161,6 +180,7 @@ ul.nav_top_links li:hover {
 #content {
 	min-height: 32em;
 }
+
 
 /*
  * ************************************************
@@ -194,6 +214,7 @@ ul.nav_top_links li:hover {
 	float: right;
 }
 
+
 /*
  * ************************************************
  *  breadcrumbs
@@ -222,6 +243,7 @@ ul#breadcrumbs li.first {
 	background: none;
 }
 
+
 /*
  * ************************************************
  *  ull_filter
@@ -243,6 +265,7 @@ ul#breadcrumbs li.first {
 	margin-left: 1em;
 	padding: 0.2em;
 }
+
 
 /*
  * ************************************************
@@ -278,6 +301,7 @@ ul#breadcrumbs li.first {
   background: #E8E5A8;
 }
 
+
 /*
  * ************************************************
  *  list action buttons
@@ -293,6 +317,7 @@ ul.list_action_buttons li {
   padding-left: 0px;
   margin-left: 10px;
 }
+
 
 /*
  * ************************************************
@@ -346,23 +371,6 @@ ul.list_action_buttons li {
  * ************************************************
  */
  
-/* list */
-/*
-.action_buttons {
-  clear: both;
-  background: #e3f5fd;
-  padding: .5em;
-}
-
-.action_buttons_left {
-  float: left;
-}
-
-.action_buttons_right {
-  float: right;
-}*/
-
-/* edit */
 .edit_action_buttons {
   clear: both;
   background-color: #dad9d9;
@@ -424,6 +432,7 @@ ul.list_action_buttons li {
   display: inline;
 }	
 
+
 /*
  * ************************************************
  *  tag could
@@ -439,7 +448,6 @@ ul.tag-cloud li {
 	margin: 0;
 	font-size: 1.1em;
 }
-
 
 
 /*
@@ -508,6 +516,7 @@ ul.tag-cloud li {
 	font-size: 1.2em;
 }
 
+
 /*
  * ************************************************
  *  upload and wikilink
@@ -522,6 +531,7 @@ ul.tag-cloud li {
 	background: #e9e9e9;
 	padding: 1em;
 }
+
 
 /*
  * ************************************************
@@ -548,6 +558,7 @@ ul.tag-cloud li {
 .widget_very_high {
 	border-bottom: 4px solid #5ed23a;
 }
+
 
 /*
  * ************************************************
@@ -586,9 +597,14 @@ div#indicator {
 	clear: left;
 }
 
+.clear_right {
+  clear: right;
+}
+
 .no_access_info {
   color: #AAAAAA;
 }
+
 
 /*
  * ************************************************
