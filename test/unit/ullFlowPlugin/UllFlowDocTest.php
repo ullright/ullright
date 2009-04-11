@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(47, new lime_output_color, $configuration);
+$t = new myTestCase(48, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -172,5 +172,9 @@ $t->diag('checkDeleteAccess()');
   $t->ok($doc->checkDeleteAccess(), 'allows access for the creator');
   
   $t->loginAs('admin');
+  $doc = Doctrine::getTable('UllFlowDoc')->find(1);
+  $t->ok($doc->checkDeleteAccess(), 'allows access for masteradmin');  
+  
+  $t->loginAs('helpdesk_user');
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
   $t->ok(!$doc->checkDeleteAccess(), 'disallows access for someone else');  
