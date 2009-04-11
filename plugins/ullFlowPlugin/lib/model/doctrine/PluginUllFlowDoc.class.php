@@ -310,22 +310,19 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   
   /**
    * Checks access for delete action
+   * 
+   * Returns true if the currently logged in user is member of the MasterAdmins
+   * or if he is the creator of the requested document.
    *
    * @return boolean
    */
   public function checkDeleteAccess()
   {
     
-//    if (UllUserTable::hasGroup('MasterAdmins'))
-//    {
-//      return true;
-//    }
-    
-//    // app-specific global write access
-//    if (UllUserTable::hasPermission('UllFlow_' . $this->UllFlowApp->slug . '_global_write'))
-//    {
-//      return true;
-//    }    
+    if (UllUserTable::hasGroup('MasterAdmins'))
+    {
+      return true;
+    }
 
     // Allow access if the logged in user is the creator
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
