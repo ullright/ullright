@@ -524,7 +524,7 @@ class BaseUllFlowActions extends ullsfActions
           break;      
         case('to_me_and_my_groups'): 
           $q->leftJoin('x.UllEntity e_me');
-          $q->leftJoin('e.UllEntityGroupsAsGroup aeg_me');
+          $q->leftJoin('e_me.UllEntityGroupsAsGroup aeg_me');
           
           $q->addWhere('
             e_me.id = ? 
