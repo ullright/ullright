@@ -521,7 +521,23 @@ class BaseUllFlowActions extends ullsfActions
             'query',
             __('Query', null, 'common') . ': ' . __('Entries assigned to me')
           );
+          break;      
+        case('to_me_and_my_groups'): 
+          $q->leftJoin('x.UllEntity e_me');
+          $q->leftJoin('e.UllEntityGroupsAsGroup aeg_me');
+          
+          $q->addWhere('
+            e_me.id = ? 
+            OR aeg_me.ull_entity_id = ?', 
+            array($userId, $userId)
+          );          
+          
+          $this->ull_filter->add(
+            'query',
+            __('Query', null, 'common') . ': ' . __('Entries assigned to me or my groups')
+          );
           break;          
+          
       }
     }       
 

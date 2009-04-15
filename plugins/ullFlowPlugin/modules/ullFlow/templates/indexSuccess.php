@@ -74,6 +74,7 @@
           <li><?php echo ull_link_to(__('All entries'), array('action' => 'list')) ?></li>
           <li><?php echo ull_link_to(__('Entries created by me'), array('action' => 'list', 'query' => 'by_me')) ?></li>
           <li><?php echo ull_link_to(__('Entries assigned to me'), array('action' => 'list', 'query' => 'to_me')) ?></li>
+          <li><?php echo ull_link_to(__('Entries assigned to me or my groups'), array('action' => 'list', 'query' => 'to_me_and_my_groups')) ?></li>
         </ul>
       </div>
       <?php

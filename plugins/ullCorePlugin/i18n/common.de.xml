@@ -491,6 +491,16 @@
 <target>Meine Aufgaben</target>
 </trans-unit>
 
+<trans-unit id="15002">
+<source>My personal tasks</source>
+<target>Persönliche Aufgaben</target>
+</trans-unit>
+
+<trans-unit id="15003">
+<source>All my tasks</source>
+<target>Alle meine Aufgaben</target>
+</trans-unit>
+
 <!-- priority levels -->
 
 <trans-unit id="16000">
