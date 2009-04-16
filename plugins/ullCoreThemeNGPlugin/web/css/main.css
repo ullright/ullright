@@ -612,8 +612,9 @@ div#indicator {
  * ************************************************
  */
 .ui-datepicker-trigger {
-    margin-left: 3px;
-    background: url(../images/new_window.png) no-repeat 0 0;
+    margin-left: .5em;
+    background: url(../images/calendar_16x16.png) no-repeat 0 0;
     border: none;
-    height: 1em;
+    height: 1.2em;
+    vertical-align: middle;
 }
