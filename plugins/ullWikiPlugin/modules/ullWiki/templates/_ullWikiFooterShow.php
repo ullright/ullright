@@ -10,9 +10,9 @@
  * @version    SVN: $Id: actions.class.php 3335 2007-01-23 16:19:56Z fabien $
  */
 ?>
-<div class='ullwiki_footer_show'>
+<div class='ull_wiki_footer_show'>
 
-  <div class='ullwiki_headfoot_float_right'>
+  <div class='ull_wiki_headfoot_float_right'>
     <?php include_component(
             'ullWiki',
             'ullWikiHeadFootActionIcons', 
@@ -29,6 +29,6 @@
             )
           ) ?>
   
-  <div class='clear'></div> <!-- to force the parent-box to enclose the floating divs -->
+  <div class='clear_right'></div> <!-- to force the parent-box to enclose the floating divs -->
   
 </div> <!-- end of ullwiki_footer-->

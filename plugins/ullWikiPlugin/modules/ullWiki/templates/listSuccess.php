@@ -1,9 +1,6 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
 
-<!-- <h1><?php echo __('Wiki Result List'); ?></h1> -->
-
-
 <?php
   echo ull_form_tag('ullWiki/list', array(
       'class' => 'inline',
@@ -24,13 +21,9 @@
 
 </form>
 
-<br />
-
 <?php include_partial('ullTableTool/ullPagerTop',
         array('pager' => $pager)
       ); ?>
-
-<br />
 
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>

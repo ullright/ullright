@@ -456,12 +456,11 @@ ul.tag-cloud li {
  * ************************************************
  */
 .pager {
-	clear: both;
+	clear: right;
+	margin-bottom: .3em;
 }
 
 .pager_left {
-	float: left;
-	position: relative; /* workaround for IE 6 */
 }
 
 .pager_right {
@@ -564,7 +563,9 @@ ul.tag-cloud li {
  * ************************************************
  *  generic styles
  * ************************************************
- */ /* Ajax indicator */
+ */ 
+ 
+ /* Ajax indicator */
 div#indicator {
 	position: absolute;
 	width: 100px;
@@ -585,20 +586,20 @@ div#indicator {
 	clear: both;
 }
 
+.clear_left {
+  clear: left;
+}
+
+.clear_right {
+  clear: right;
+}
+
 .inline {
 	display: inline;
 }
 
 .float_left {
 	float: left;
-}
-
-.clear_left {
-	clear: left;
-}
-
-.clear_right {
-  clear: right;
 }
 
 .no_access_info {

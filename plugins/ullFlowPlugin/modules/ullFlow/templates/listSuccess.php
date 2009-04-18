@@ -36,7 +36,7 @@
         array('pager' => $pager)
       ); ?> 
 
-<br />
+
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>
 

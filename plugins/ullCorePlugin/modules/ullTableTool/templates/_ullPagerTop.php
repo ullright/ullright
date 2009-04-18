@@ -26,6 +26,6 @@
           ); ?>  
   </div>
   
-  <div class='clear'></div>
+  <div class='clear_right'></div>
   
 </div>
