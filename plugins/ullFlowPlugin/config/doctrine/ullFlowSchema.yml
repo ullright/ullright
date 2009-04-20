@@ -66,7 +66,7 @@ UllFlowDoc:
       default: 3
     duplicate_tags_for_search:
       type: clob
-    #this is used to always set the record dirty, even when only virtual columns are changed.    
+    #this is used to set the record always dirty, even when only virtual columns are changed.    
     dirty:
       type: integer
   relations:
@@ -82,7 +82,6 @@ UllFlowDoc:
       foreignAlias: UllFlowDocs
       local: assigned_to_ull_flow_step_id
       onDelete: CASCADE      
-#      onDelete: CASCADE # TODO: test!
     Tagging:
       local: id
       foreign: taggable_id
@@ -124,8 +123,6 @@ UllFlowColumnConfig:
     is_subject:
       type: boolean
       default: false
-#    ull_access_group_id:
-#      type: INTEGER         
     default_value:
       type: string(255)      
   relations:
@@ -238,12 +235,6 @@ UllFlowAction:
     is_comment_mandatory:
       type: boolean
       default: false
-  relations:
-#    UllFlowStepActions:
-#      class: UllFlowStepAction
-#      local: id
-#      foreign: ull_flow_action_id
-      #foreignAlias: UllFlowAction      
       
 UllFlowStep:
   package: ullFlowPlugin.lib.model.doctrine
@@ -269,12 +260,6 @@ UllFlowStep:
     UllFlowApp:
       foreignAlias: UllFlowSteps
       onDelete: CASCADE
-    #UllFlowAction:
-    #  refClass: UllFlowStepAction
-    #UllFlowStepActions:
-    #  class: UllFlowStepAction
-    #  local: id
-    #  foreign: ull_flow_step_id
     
 UllFlowStepAction:
   package: ullFlowPlugin.lib.model.doctrine

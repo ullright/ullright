@@ -31,4 +31,8 @@
   </li>
 </ul>
 
+<?php else: ?>
+
+&nbsp;
+
 <?php endif; ?>

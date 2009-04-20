@@ -50,28 +50,16 @@ class PluginUllFlowDocTable extends UllRecordTable
   	//normal access check
   	
     // assigned to
-//      $q->addWhere('(');
     $q->leftJoin('x.UllEntity e');
-    
-//      $q->addQueryPart('where','foobar = 666');
-      
     $q->leftJoin('e.UllEntityGroupsAsGroup aeg');
-//      $q->orWhere('aeg.ull_entity_id = ?', $userId);
-
-    
-    
     
     // memory:
     $q->leftJoin('x.UllFlowMemories m');
-//      $q->orWhere('m.creator_ull_entity_id = ?', $userId);
     $q->leftJoin('m.CreatorUllEntity.UllEntityGroupsAsGroup meg');
-//      $q->orWhere('meg.ull_entity_id = ?', $userId);
-
     
-      // global read access:
+    // global read access:
     $q->leftJoin('x.UllFlowApp.UllPermission p');
     $q->leftJoin('p.UllGroup.UllUser gru');
-//      $q->orWhere('gru.id = ? AND p.slug LIKE ?', array($userId, '%_global_read'));
 
     
     // moved all where clauses into one statement to properly set the braces

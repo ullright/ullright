@@ -1,4 +1,11 @@
 <div class='pager'>
+
+  <div class='pager_right'>
+    <?php include_partial('ullTableTool/ullPager',
+            array('pager' => $pager)
+          ); ?>  
+  </div>
+
   <div class='pager_left'><?php 
       echo format_number_choice(
         '[0]No results found|[1]1 result found|(1,+Inf]%1% results found',
@@ -20,11 +27,7 @@
     }
   ?></div>
   
-  <div class='pager_right'>
-    <?php include_partial('ullTableTool/ullPager',
-            array('pager' => $pager)
-          ); ?>  
-  </div>
+
   
   <div class='clear_right'></div>
   
