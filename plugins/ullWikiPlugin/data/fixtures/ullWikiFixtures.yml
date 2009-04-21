@@ -1,13 +1,41 @@
+UllWikiAccessLevel:
+  ull_wiki_access_level_public_readable:
+    Translation:
+      en:
+        name:       Public readable
+      de:
+        name:       Öffentlich lesbar
+    slug:           public_readable
+    namespace:      ullWiki
+  ull_wiki_access_level_logged_in_readable:
+    Translation:
+      en:
+        name:       Readable for logged in users
+      de:
+        name:       Für angemeldete Benutzer lesbar
+    slug:           logged_in_readable
+    namespace:      ullWiki      
+  ull_wiki_access_level_wiki_admins:
+    Translation:
+      en:
+        name:       For wiki-admins
+      de:
+        name:       Für Wiki-Administratoren
+    slug:           wiki_admins    
+    namespace:      test
+
 UllWiki:
   ull_wiki_1:
     subject:            Testdoc
     body:               <h1>Testdoc</h1>This is a test document
     duplicate_tags_for_search: ull_wiki_tag1, ull_wiki_tag2
+    UllWikiAccessLevel: ull_wiki_access_level_public_readable
     namespace:    test
   ull_wiki_2:
     subject:            Another Testdoc
     body:               <h1>Another Testdoc</h1>This is a yet another test document
     duplicate_tags_for_search: ull_wiki_tag1
+    UllWikiAccessLevel: ull_wiki_access_level_wiki_admins
     namespace:    test
     
 UllGroup:
@@ -40,6 +68,28 @@ UllGroupPermission:
     UllGroup:           wiki_admin_group
     UllPermission:      ull_wiki_delete
     namespace:          ullWiki
+    
+UllWikiAccessLevelAccess:
+  ull_wiki_access_level_access_1:
+    UllGroup:           ull_group_everyone
+    UllPrivilege:       ull_privilege_read
+    UllWikiAccessLevel: ull_wiki_access_level_public_readable
+    namespace:          ullWiki
+  ull_wiki_access_level_access_2:
+    UllGroup:           wiki_admin_group
+    UllPrivilege:       ull_privilege_read
+    UllWikiAccessLevel: ull_wiki_access_level_wiki_admins
+    namespace:          ullWiki
+  ull_wiki_access_level_access_3:
+    UllGroup:           wiki_admin_group
+    UllPrivilege:       ull_privilege_write
+    UllWikiAccessLevel: ull_wiki_access_level_wiki_admins
+    namespace:          test
+  ull_wiki_access_level_access_4:
+    UllGroup:           ull_group_logged_in_users
+    UllPrivilege:       ull_privilege_read
+    UllWikiAccessLevel: ull_wiki_access_level_logged_in_readable
+    namespace:          test    
     
 Tag:
   ull_wiki_tag1:

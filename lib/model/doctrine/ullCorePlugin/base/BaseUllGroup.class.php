@@ -21,5 +21,8 @@ abstract class BaseUllGroup extends UllEntity
 
     $this->hasMany('UllGroupPermission', array('local' => 'id',
                                                'foreign' => 'ull_group_id'));
+
+    $this->hasMany('UllWikiAccessLevelAccess', array('local' => 'id',
+                                                     'foreign' => 'ull_group_id'));
   }
 }

@@ -1,5 +1,11 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<?php if ($has_no_write_access): ?>
+  <br />
+  <div class='form_error'><?php echo __('Sorry, no permission to edit this page. Displaying read-only version.', null, 'common')?></div>
+  <br /><br />
+<?php endif ?>  
+
 <div id="ull_wiki_header">
 <?php include_component(
         'ullWiki', 

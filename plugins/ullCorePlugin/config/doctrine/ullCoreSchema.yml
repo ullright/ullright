@@ -59,6 +59,9 @@ UllParentEntity:
       type: integer
       notnull: true
       default: 1        #active status
+    is_virtual_group:
+      type: boolean
+      default: false
 
 
 
@@ -155,7 +158,6 @@ UllEntityGroup:
       #foreignAlias: UllEntityGroupsAsGroup
       onDelete: CASCADE
 
-
 UllPermission:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -163,22 +165,13 @@ UllPermission:
     type: concrete
   actAs:
     SuperVersionable:
-#  actAs:
-#    I18n:
-#      fields: [label, description]
   columns:
     slug:
       type: string(64)
-#    label:
-#      type: string(64)
-#    description:
-#      type: clob
   relations:
     UllGroup:
       refClass: UllGroupPermission
       foreignAlias: UllPermissions
-      #local: group_id
-      #foreign: ull_group_id
 
 UllGroupPermission:
   package: ullCorePlugin.lib.model.doctrine
@@ -199,21 +192,16 @@ UllGroupPermission:
       onDelete: CASCADE
     UllPermission:
       onDelete: CASCADE
-      
-#UllAccessGroup:
-#  package: ullCorePlugin.lib.model.doctrine
-#  inheritance:
-#    extends: UllRecord
-#    type: concrete
-#  columns:
-#    ull_access_id:
-#      type: integer
-#      primary: true
-#    ull_group_id:
-#      type: integer
-#      primary: true
-#  relations:
-#    UllGroup:
+
+# common privileges for record level access check. e.g. "read" and "write"      
+UllPrivilege:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    slug:
+      type: string(64)
 
 UllJobTitle:
   package: ullCorePlugin.lib.model.doctrine

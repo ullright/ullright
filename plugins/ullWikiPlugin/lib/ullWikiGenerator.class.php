@@ -7,6 +7,7 @@ class ullWikiGenerator extends ullTableToolGenerator
     
     $columnsNotShownInList = array(
         'body',
+        'ull_wiki_access_level_id',
         'duplicate_tags_for_search'
     )     
   ;
@@ -101,7 +102,10 @@ class ullWikiGenerator extends ullTableToolGenerator
     //configure body
     $this->columnsConfig['body']['metaWidget']  = 'ullMetaWidgetFCKEditor';
     $this->columnsConfig['body']['label']       = 'Text';
-
+    
+    // configure access level
+    $this->columnsConfig['ull_wiki_access_level_id']['label']       = __('Access level');
+    
     // configure tags
     $this->columnsConfig['duplicate_tags_for_search']['label']       = 'Tags';
     $this->columnsConfig['duplicate_tags_for_search']['metaWidget']  = 'ullMetaWidgetTaggable';

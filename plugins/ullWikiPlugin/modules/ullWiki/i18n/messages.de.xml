@@ -33,6 +33,11 @@
 <target>Wiki Ansicht</target>
 </trans-unit>
 
+<trans-unit id="34">
+<source>Access level</source>
+<target>Zugriffsrecht</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

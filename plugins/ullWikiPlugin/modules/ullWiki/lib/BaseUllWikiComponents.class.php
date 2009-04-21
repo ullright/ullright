@@ -11,7 +11,7 @@ class BaseUllWikiComponents extends sfComponents
     {
 
       // show edit link only with sufficent rights
-      if (UllUserTable::hasGroup('MasterAdmins'))
+      if (sfContext::getInstance()->getUser()->hasAttribute('user_id'))
       {
         $this->subject_link = $this->edit_link;
       } 
@@ -36,7 +36,7 @@ class BaseUllWikiComponents extends sfComponents
   public function executeUllWikiHeadFootActionIcons() 
   {
     $this->access = false;
-    if (UllUserTable::hasGroup('MasterAdmins')) 
+    if (sfContext::getInstance()->getUser()->hasAttribute('user_id')) 
     {
       $this->access = true;
     }

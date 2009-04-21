@@ -144,8 +144,6 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeEdit($request)
   {
-//    $this->checkAccess('LoggedIn');
-
     $this->getDocFromRequestOrCreate();
     
     $accessType = $this->doc->checkAccess();

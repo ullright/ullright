@@ -53,6 +53,15 @@ UllGroup:
     namespace:          ullCore
     Creator:            admin_user
     Updator:            admin_user
+  ull_group_everyone:
+   display_name:        Everyone
+   is_virtual_group:    true
+   namespace:           ullCore
+   is_virtual_group:    true
+  ull_group_logged_in_users:
+   display_name:        Logged in users
+   is_virtual_group:    true
+   namespace:           ullCore           
 
 UllPermission:
   test_permission:
@@ -85,6 +94,14 @@ UllGroupPermission:
     UllGroup:       ull_user_admin_group
     UllPermission:  ull_user_mass_change_superior
     namespace:      ullCore
+
+UllPrivilege:
+  ull_privilege_read:
+    slug:               read
+    namespace:          ullCore
+  ull_privilege_write:
+    slug:               write
+    namespace:          ullCore
 
 UllColumnType:
   integer:
@@ -501,6 +518,11 @@ UllColumnConfig:
     db_column_name: version
     is_enabled:     false
     namespace:      ullCore
+  ull_user_cc_is_virtual_group:
+    db_table_name:  UllUser
+    db_column_name: is_virtual_group
+    is_enabled:     false
+    namespace:      ullCore    
 
   #UllGroup
   ull_group_cc_sex:
@@ -627,6 +649,16 @@ UllColumnConfig:
     db_column_name: password
     is_enabled:     false
     namespace:    ullCore
+  ull_group_cc_is_virtual_group:
+    Translation:
+      en:
+        label:      Is a virtual group
+      de:
+        label:      Ist eine virtuelle Gruppe
+    db_table_name:  UllGroup
+    db_column_name: is_virtual_group
+    is_in_list:     false
+    namespace:      ullCore    
 
   #UllEntityGroup
   ull_entity_group_cc_ull_entity_id:

@@ -55,6 +55,22 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 
     return $this;
   }
+
+  public function getDgsUllWikiList()
+  {
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
+      array(
+        'actions'     => 1,
+        'id'          => 2,
+        'subject'     => 3,
+        'updated_by'  => 5,
+        'updated_at'  => 6,
+      ),
+      'table > thead > tr', 'th'
+    );
+    
+    return $s;
+  }  
   
   public function getDgsUllFlowListGeneric()
   {

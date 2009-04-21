@@ -236,6 +236,10 @@
 <target>Ansicht</target>
 </trans-unit>
 
+<trans-unit id="3002">
+<source>Sorry, no permission to edit this page. Displaying read-only version.</source>
+<target>Leider haben Sie kein Recht diese Seite zu bearbeiten. Zeige Version mit lesendem Zugriff.</target>
+</trans-unit>
 
 
 <!-- common edit action phrases -->

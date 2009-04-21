@@ -80,6 +80,8 @@ class BaseUllWikiActions extends ullsfActions
        $this->return_url = $this->getUser()->getAttribute('wiki_return_url') 
         . '&' . $this->return_var . '=' . $this->doc->id;
     }
+    
+    $this->has_no_write_access = $this->getRequestParameter('no_write_access'); 
 
     $this->breadcrumbForShow();
   }
@@ -90,6 +92,8 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeCreate() 
   {
+    $this->checkAccess('LoggedIn');
+    
     $this->forward('ullWiki', 'edit');
   }
 
@@ -99,10 +103,17 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeEdit($request) 
   {
-    $this->checkPermission('ull_wiki_edit');
+    $this->getDocFromRequestOrCreate();
+    
+    $accessType = $this->doc->checkAccess();
+    $this->redirectUnless($accessType, 'ullUser/noaccess');
+    
+    if ($accessType == 'r')
+    {
+      $this->redirect('ullWiki/show?docid=' . $this->doc->id . '&no_write_access=true');
+    }
     
     $this->generator = new ullWikiGenerator('w');
-    $this->getDocFromRequestOrCreate();
     $this->generator->buildForm($this->doc);
     
     $this->breadcrumbForEdit();
@@ -263,6 +274,8 @@ class BaseUllWikiActions extends ullsfActions
     //   because it has side effects and needs further testing
     $q->addWhere('x.deleted = ?', false);
     
+    $q = self::queryReadAccess($q);
+    
     $this->order = $this->getRequestParameter('order', 'updated_at');
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
     
@@ -279,6 +292,10 @@ class BaseUllWikiActions extends ullsfActions
       default:
         $q->orderBy($this->order . ' ' . $orderDir);
     }
+    
+//    printQuery($q->getQuery());
+//    var_dump($q->getParams());
+//    die;    
     
     $this->pager = new Doctrine_Pager(
       $q, 
@@ -317,5 +334,51 @@ class BaseUllWikiActions extends ullsfActions
       $this->doc = new UllWiki;
     }
   }
+  
+  public static function queryReadAccess(Doctrine_Query $q)
+  {
+    if (UllUserTable::hasGroup('MasterAdmins'))
+    {
+      return $q;
+    }
+    
+    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    
+    $q->leftJoin('x.UllWikiAccessLevel.UllWikiAccessLevelAccess a');
+    $q->leftJoin('a.UllGroup ag');
+    
+    // check public access
+    $where = '
+      a.UllPrivilege.slug = ?
+        AND ag.display_name = ?  
+    ';
+    $values = array('read', 'Everyone');
+    
+    if ($userId)
+    {
+      // check access for any "logged in user"
+      $where .= '
+        OR a.UllPrivilege.slug = ?
+          AND ag.display_name = ?  
+      ';
+      $values = array_merge($values, array('read', 'Logged in users'));      
+      
+      // check group membership
+      $where .= '
+        OR a.UllPrivilege.slug = ? 
+          AND ag.UllUser.id = ?
+      ';     
+      $values = array_merge($values, array('read', $userId));
+    }
+    
+//    var_dump($where);
+//    var_dump($values);
+    
+    $q->addWhere($where, $values);
+
+    return $q;
+  }
+  
+  
 
 }

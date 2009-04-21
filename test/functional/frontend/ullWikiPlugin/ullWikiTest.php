@@ -41,7 +41,7 @@ $b
 
 $b
   ->diag('test wiki home searchbox')
-  ->setField('filter[search]', 'yet')
+  ->setField('filter[search]', 'This is a test document')
   ->setField('filter[fulltext]', true)
   ->click('Search_16x16')
   ->isRedirected()
@@ -50,7 +50,7 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->checkResponseElement('table > tbody > tr', 1)
-  ->checkResponseElement('tr > td + td + td', 'Another Testdoc')
+  ->checkResponseElement('tr > td + td + td', 'Testdoc')
 ;
 
 $b

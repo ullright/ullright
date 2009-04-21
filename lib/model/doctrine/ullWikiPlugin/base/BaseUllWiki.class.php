@@ -14,6 +14,7 @@ abstract class BaseUllWiki extends UllRecord
     $this->hasColumn('read_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('edit_counter', 'integer', null, array('type' => 'integer'));
     $this->hasColumn('duplicate_tags_for_search', 'clob', null, array('type' => 'clob'));
+    $this->hasColumn('ull_wiki_access_level_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
   }
 
   public function setUp()
@@ -21,6 +22,9 @@ abstract class BaseUllWiki extends UllRecord
     parent::setUp();
     $this->hasMany('Tagging', array('local' => 'id',
                                     'foreign' => 'taggable_id'));
+
+    $this->hasOne('UllWikiAccessLevel', array('local' => 'ull_wiki_access_level_id',
+                                              'foreign' => 'id'));
 
     $softdelete0 = new Doctrine_Template_SoftDelete();
     $versionable0 = new Doctrine_Template_Versionable();

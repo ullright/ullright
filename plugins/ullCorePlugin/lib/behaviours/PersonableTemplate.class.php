@@ -19,16 +19,12 @@ class Doctrine_Template_Personable extends Doctrine_Template
     protected $_options = array('created' =>  array('name'          =>  'creator_user_id',
                                                     'alias'         =>  null,
                                                     'type'          =>  'integer',
-//                                                    'format'        =>  'Y-m-d H:i:s',
                                                     'disabled'      =>  false,
-//                                                    'expression'    =>  false,
                                                     'options'       =>  array()),
                                 'updated' =>  array('name'          =>  'updator_user_id',
                                                     'alias'         =>  null,
                                                     'type'          =>  'integer',
-//                                                    'format'        =>  'Y-m-d H:i:s',
                                                     'disabled'      =>  false,
-//                                                    'expression'    =>  false,
                                                     'onInsert'      =>  true,
                                                     'options'       =>  array()));
 

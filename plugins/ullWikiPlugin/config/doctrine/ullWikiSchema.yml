@@ -19,9 +19,45 @@ UllWiki:
       type: integer
     duplicate_tags_for_search:
       type: clob
+    ull_wiki_access_level_id:
+      type: integer
+      notnull: true  
   relations:
-   Tagging:
+    Tagging:
       local: id
       foreign: taggable_id
       foreignType: one
-      type: many   
+      type: many
+    UllWikiAccessLevel:
+      
+UllWikiAccessLevel:
+  package: ullWikiPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+  columns:
+    slug:
+      type: string(64)        
+    name:
+      type: string(128)
+          
+UllWikiAccessLevelAccess:
+  package: ullWikiPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_group_id:
+      type: integer
+    ull_privilege_id:
+      type: integer
+    model_id:
+      type: integer            
+  relations:
+    UllGroup:
+    UllPrivilege:
+    UllWikiAccessLevel:
+      local: model_id
