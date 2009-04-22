@@ -99,8 +99,6 @@ a:visited {
 }
 
 .ull_wiki_headfoot_float_left {
-  float: left;
-  position: relative; /* workaround for IE 6 */
   margin: 0;
   margin-right: 25px;
   padding: 0;
