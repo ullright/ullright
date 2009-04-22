@@ -44,11 +44,13 @@ EOF;
         $newbody = htmlentities($wd->body, ENT_QUOTES, "UTF-8");
 
         if ($arguments['dryrun'] != 'dry')
-        {
+        {    
+          // using doctrine query "update" because it doesn't trigger the behaviours, 
+          // so e.g. the updated_at column isn't set 
           $q = new Doctrine_Query();
           $q->update('UllWiki d')
-          ->set('d.body', '?', $newbody)
-          ->where('d.id = ?', $wd->id);
+            ->set('d.body', '?', $newbody)
+            ->where('d.id = ?', $wd->id);
           $q->execute();
         }
       }

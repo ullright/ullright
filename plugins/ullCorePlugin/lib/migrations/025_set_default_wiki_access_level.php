@@ -5,7 +5,9 @@
 class SetDefaultWikiAccessLevel extends Doctrine_Migration
 {
   public function up()
-  {
+  {    
+    // using doctrine query "update" because it doesn't trigger the behaviours, 
+    // so e.g. the updated_at column isn't set 
     $q = new Doctrine_Query();
     
     $q
