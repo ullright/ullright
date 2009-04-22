@@ -28,18 +28,18 @@ class AddUllWikiAccessLevel extends Doctrine_Migration
   {
     $r = new UllWikiAccessLevel();
     $r->Translation[0]->lang = 'en';
-    $r->Translation[0]->label = 'Public readable';
+    $r->Translation[0]->name = 'Public readable';
     $r->Translation[1]->lang = 'de';
-    $r->Translation[1]->label = 'Öffentlich lesbar';    
+    $r->Translation[1]->name = 'Öffentlich lesbar';    
     $r->slug = 'public_readable';
     $r->namespace = 'ullWiki';
     $r->save();
     
     $r = new UllWikiAccessLevel();
     $r->Translation[0]->lang = 'en';
-    $r->Translation[0]->label = 'Readable for logged in users';
+    $r->Translation[0]->name = 'Readable for logged in users';
     $r->Translation[1]->lang = 'de';
-    $r->Translation[1]->label = 'Für angemeldete Besucher lesbar';    
+    $r->Translation[1]->name = 'Für angemeldete Besucher lesbar';    
     $r->slug = 'logged_in_readable';
     $r->namespace = 'ullWiki';
     $r->save();   
