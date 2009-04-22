@@ -10,8 +10,6 @@ class AddUllWikiAccessLevel extends Doctrine_Migration
     $this->createTable('ull_wiki_access_level_translation', array('id' => array('type' => 'integer', 'length' => 8, 'primary' => true), 'name' => array('type' => 'string', 'length' => 128), 'lang' => array('type' => 'string', 'length' => 2, 'fixed' => true, 'primary' => true)), array('indexes' => array(), 'primary' => array(0 => 'id', 1 => 'lang')));    
     $this->createTable('ull_wiki_access_level_access', array('id' => array('type' => 'integer', 'length' => 20, 'autoincrement' => true, 'primary' => true), 'namespace' => array('type' => 'string', 'length' => 32), 'ull_group_id' => array('type' => 'integer', 'length' => 2147483647), 'ull_privilege_id' => array('type' => 'integer', 'length' => 2147483647), 'model_id' => array('type' => 'integer', 'length' => 2147483647), 'created_at' => array('type' => 'timestamp', 'length' => 25), 'updated_at' => array('type' => 'timestamp', 'length' => 25), 'creator_user_id' => array('type' => 'integer', 'length' => 2147483647), 'updator_user_id' => array('type' => 'integer', 'length' => 2147483647)), array('indexes' => array(), 'primary' => array(0 => 'id')));
     
-    $this->addColumn('ull_wiki', 'ull_wiki_access_level_id', 'integer', array('length' => 2147483647));
-        
     $this->createForeignKey('ull_wiki', array('local' => 'ull_wiki_access_level_id', 'foreign' => 'id', 'foreignTable' => 'ull_wiki_access_level', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_wiki_ull_wiki_access_level_id'));
     
     $this->createForeignKey('ull_wiki_access_level', array('local' => 'creator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_wiki_access_level_creator_user_id'));
