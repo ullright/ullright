@@ -109,6 +109,18 @@
 <target>Ist Öffentlich</target>
 </trans-unit>
 
+<trans-unit id="110">
+<source>Group</source>
+<target>Gruppe</target>
+</trans-unit>
+
+<trans-unit id="111">
+<source>Privilege</source>
+<target>Privileg</target>
+</trans-unit>
+
+
+
 <!-- Questions -->
 
 <trans-unit id="201">

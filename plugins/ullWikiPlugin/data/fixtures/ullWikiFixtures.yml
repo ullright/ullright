@@ -110,3 +110,37 @@ Tagging:
     Tag:            ull_wiki_tag1
     taggable_model: UllWiki
     UllWiki:     ull_wiki_2
+    
+UllTableConfig:    
+  ull_wiki_access_level_tc:
+    Translation:
+      en:
+        label: Manage list of access levels
+      de:
+        label: Verwalte Liste der Zugriffsrechte
+    db_table_name: UllWikiAccessLevel
+    sort_columns: slug
+    search_columns: slug
+    namespace:    ullWiki
+    
+  ull_wiki_access_level_access_tc:
+    Translation:
+      en:
+        label: Manage list access rights
+      de:
+        label: Verwalte Zugriffsrechte
+    db_table_name: UllWikiAccessLevelAccess
+    sort_columns: ull_group_id
+    search_columns: ull_group_id
+    namespace:    ullWiki          
+    
+UllColumnConfig:
+  ull_wiki_access_level_access_model:
+    Translation:
+      en:
+        label:      Access level
+      de:
+        label:      Zugriffsrecht
+    db_table_name:  UllWikiAccessLevelAccess
+    db_column_name: model_id
+    namespace:    ullWiki 

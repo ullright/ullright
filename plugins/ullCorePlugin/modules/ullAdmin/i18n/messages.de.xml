@@ -140,6 +140,18 @@
 <target>Verwalte Funktionen</target>
 </trans-unit>
 
+<!-- ullWiki admin actions -->
+
+<trans-unit id="2001">
+<source>Manage list of access levels</source>
+<target>Verwalte Liste der Zugriffsrechte</target>
+</trans-unit>
+
+<trans-unit id="2002">
+<source>Manage access rights</source>
+<target>Verwalte Zugriffsrechte</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

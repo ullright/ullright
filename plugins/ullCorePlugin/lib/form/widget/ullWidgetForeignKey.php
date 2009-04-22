@@ -24,5 +24,3 @@ class ullWidgetForeignKey extends sfWidgetForm
   }
   
 }
-
-?>

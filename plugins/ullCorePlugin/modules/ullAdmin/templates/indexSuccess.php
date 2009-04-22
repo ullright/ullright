@@ -42,7 +42,12 @@
 	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowStep', __('Manage steps')) ?></li>
 	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowStepAction', __('Manage actions for steps')) ?></li>
 	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowAction', __('Manage actions')) ?></li>  
-	    </ul>             
+	    </ul>
+      <h3><?php echo __('Wiki') ?></h3>
+      <ul class="tc_tasks">
+        <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_24x24', 'ullTableTool/list?table=UllWikiAccessLevel', __('Manage list of access levels')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_24x24', 'ullTableTool/list?table=UllWikiAccessLevelAccess', __('Manage access rights')) ?></li>
+      </ul>  	                 
     </div>
     
     <div id="tc_search">

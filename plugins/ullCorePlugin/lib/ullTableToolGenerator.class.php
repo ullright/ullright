@@ -337,8 +337,8 @@ class ullTableToolGenerator extends ullGenerator
       $this->columnsConfig['scheduled_update_date'] = $columnConfig;
     }
 
-      //  var_dump($this->columnsConfig);
-      //  die;
+//        var_dump($this->columnsConfig);
+//        die;
   }
   
 

@@ -268,7 +268,7 @@ UllTableConfig:
     db_table_name: UllSelectChild
     sort_columns: ull_select_id, sequence
     search_columns: ull_select_id
-    namespace:    ullCore
+    namespace:    ullCore   
   test_tc:
     Translation:
       en:
