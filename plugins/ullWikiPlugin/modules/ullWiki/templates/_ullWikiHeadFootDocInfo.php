@@ -19,12 +19,12 @@
     <li><?php echo __('Updated by', null, 'common').' '
       .Doctrine::getTable('UllUser')->find($doc->updator_user_id) .
       ', '.ull_format_datetime($doc->updated_at); ?></li>
-      
-    <li>&nbsp;</li>  
-      
-    <li><?php echo __('Tags', null, 'common').': '
-      . $doc->duplicate_tags_for_search ?></li>      
     <li><?php echo __('Access level').': '
       . $doc->UllWikiAccessLevel->name ?></li>
+    <?php if ($doc->duplicate_tags_for_search): ?>            
+      <li><?php  echo __('Tags', null, 'common').': '
+        . $doc->duplicate_tags_for_search ?></li>
+    <?php endif ?>      
+
   </ul>
 </div>
