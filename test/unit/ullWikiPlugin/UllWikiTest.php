@@ -21,6 +21,7 @@ $t->begin('__construct');
 $t->diag('create');
   $doc->subject = 'Foobar subject';
   $doc->addTag('foobar tag');
+  $doc->UllWikiAccessLevel = Doctrine::getTable('UllWikiAccessLevel')->findOneBySlug('public_readable');
   $doc->save();
   
   $t->is($doc->subject, 'Foobar subject', 'sets the subject correctly');
