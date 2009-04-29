@@ -14,12 +14,12 @@ class BaseUllEntityGroupForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
       'namespace'       => new sfWidgetFormInput(),
-      'ull_entity_id'   => new sfWidgetFormDoctrineSelect(array('model' => 'UllEntity', 'add_empty' => false)),
-      'ull_group_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllGroup', 'add_empty' => false)),
+      'ull_entity_id'   => new sfWidgetFormDoctrineChoice(array('model' => 'UllEntity', 'add_empty' => false)),
+      'ull_group_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllGroup', 'add_empty' => false)),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
-      'creator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(

@@ -5,17 +5,17 @@
  */
 abstract class BaseUllJobTitle extends UllRecord
 {
-  public function setTableDefinition()
-  {
-    parent::setTableDefinition();
-    $this->setTableName('ull_job_title');
-    $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
-  }
+    public function setTableDefinition()
+    {
+        parent::setTableDefinition();
+        $this->setTableName('ull_job_title');
+        $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
+    }
 
-  public function setUp()
-  {
-    parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
     $this->hasMany('UllUser', array('local' => 'id',
-                                    'foreign' => 'ull_job_title_id'));
-  }
+                                        'foreign' => 'ull_job_title_id'));
+    }
 }

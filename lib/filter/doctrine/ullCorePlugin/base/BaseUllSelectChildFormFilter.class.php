@@ -16,7 +16,6 @@ class BaseUllSelectChildFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'namespace'       => new sfWidgetFormFilterInput(),
       'ull_select_id'   => new sfWidgetFormDoctrineChoice(array('model' => 'UllSelect', 'add_empty' => true)),
-      'label'           => new sfWidgetFormFilterInput(),
       'sequence'        => new sfWidgetFormFilterInput(),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
@@ -27,7 +26,6 @@ class BaseUllSelectChildFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'namespace'       => new sfValidatorPass(array('required' => false)),
       'ull_select_id'   => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllSelect', 'column' => 'id')),
-      'label'           => new sfValidatorPass(array('required' => false)),
       'sequence'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -53,7 +51,6 @@ class BaseUllSelectChildFormFilter extends BaseFormFilterDoctrine
       'id'              => 'Number',
       'namespace'       => 'Text',
       'ull_select_id'   => 'ForeignKey',
-      'label'           => 'Text',
       'sequence'        => 'Number',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',

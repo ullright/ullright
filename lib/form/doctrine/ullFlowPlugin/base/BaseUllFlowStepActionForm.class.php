@@ -14,14 +14,14 @@ class BaseUllFlowStepActionForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                 => new sfWidgetFormInputHidden(),
       'namespace'          => new sfWidgetFormInput(),
-      'ull_flow_step_id'   => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowStep', 'add_empty' => true)),
-      'ull_flow_action_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowAction', 'add_empty' => true)),
+      'ull_flow_step_id'   => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowStep', 'add_empty' => true)),
+      'ull_flow_action_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowAction', 'add_empty' => true)),
       'options'            => new sfWidgetFormTextarea(),
       'sequence'           => new sfWidgetFormInput(),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),
-      'creator_user_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'creator_user_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(

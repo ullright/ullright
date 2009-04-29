@@ -5,32 +5,32 @@
  */
 abstract class BaseUllWiki extends UllRecord
 {
-  public function setTableDefinition()
-  {
-    parent::setTableDefinition();
-    $this->setTableName('ull_wiki');
-    $this->hasColumn('subject', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
-    $this->hasColumn('body', 'string', 65536, array('type' => 'string', 'length' => '65536'));
-    $this->hasColumn('read_counter', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('edit_counter', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('duplicate_tags_for_search', 'clob', null, array('type' => 'clob'));
-    $this->hasColumn('ull_wiki_access_level_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-  }
+    public function setTableDefinition()
+    {
+        parent::setTableDefinition();
+        $this->setTableName('ull_wiki');
+        $this->hasColumn('subject', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
+        $this->hasColumn('body', 'string', 65536, array('type' => 'string', 'length' => '65536'));
+        $this->hasColumn('read_counter', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('edit_counter', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('duplicate_tags_for_search', 'clob', null, array('type' => 'clob'));
+        $this->hasColumn('ull_wiki_access_level_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    }
 
-  public function setUp()
-  {
-    parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
     $this->hasMany('Tagging', array('local' => 'id',
-                                    'foreign' => 'taggable_id'));
+                                        'foreign' => 'taggable_id'));
 
-    $this->hasOne('UllWikiAccessLevel', array('local' => 'ull_wiki_access_level_id',
-                                              'foreign' => 'id'));
+        $this->hasOne('UllWikiAccessLevel', array('local' => 'ull_wiki_access_level_id',
+                                                  'foreign' => 'id'));
 
-    $softdelete0 = new Doctrine_Template_SoftDelete();
-    $versionable0 = new Doctrine_Template_Versionable();
-    $taggable0 = new Taggable();
-    $this->actAs($softdelete0);
-    $this->actAs($versionable0);
-    $this->actAs($taggable0);
-  }
+        $softdelete0 = new Doctrine_Template_SoftDelete();
+        $versionable0 = new Doctrine_Template_Versionable();
+        $taggable0 = new Taggable();
+        $this->actAs($softdelete0);
+        $this->actAs($versionable0);
+        $this->actAs($taggable0);
+    }
 }

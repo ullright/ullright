@@ -5,26 +5,26 @@
  */
 abstract class BaseUllLocation extends UllRecord
 {
-  public function setTableDefinition()
-  {
-    parent::setTableDefinition();
-    $this->setTableName('ull_location');
-    $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
-    $this->hasColumn('short_name', 'string', 15, array('type' => 'string', 'length' => '15'));
-    $this->hasColumn('street', 'string', 200, array('type' => 'string', 'length' => '200'));
-    $this->hasColumn('city', 'string', 100, array('type' => 'string', 'length' => '100'));
-    $this->hasColumn('country', 'string', 10, array('type' => 'string', 'length' => '10'));
-    $this->hasColumn('post_code', 'string', 10, array('type' => 'string', 'length' => '10'));
-    $this->hasColumn('phone_base_no', 'string', 20, array('type' => 'string', 'length' => '20'));
-    $this->hasColumn('phone_default_extension', 'integer', null, array('type' => 'integer'));
-    $this->hasColumn('fax_base_no', 'string', 20, array('type' => 'string', 'length' => '20'));
-    $this->hasColumn('fax_default_extension', 'integer', null, array('type' => 'integer'));
-  }
+    public function setTableDefinition()
+    {
+        parent::setTableDefinition();
+        $this->setTableName('ull_location');
+        $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
+        $this->hasColumn('short_name', 'string', 15, array('type' => 'string', 'length' => '15'));
+        $this->hasColumn('street', 'string', 200, array('type' => 'string', 'length' => '200'));
+        $this->hasColumn('city', 'string', 100, array('type' => 'string', 'length' => '100'));
+        $this->hasColumn('country', 'string', 10, array('type' => 'string', 'length' => '10'));
+        $this->hasColumn('post_code', 'string', 10, array('type' => 'string', 'length' => '10'));
+        $this->hasColumn('phone_base_no', 'string', 20, array('type' => 'string', 'length' => '20'));
+        $this->hasColumn('phone_default_extension', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('fax_base_no', 'string', 20, array('type' => 'string', 'length' => '20'));
+        $this->hasColumn('fax_default_extension', 'integer', null, array('type' => 'integer'));
+    }
 
-  public function setUp()
-  {
-    parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
     $this->hasMany('UllUser', array('local' => 'id',
-                                    'foreign' => 'ull_location_id'));
-  }
+                                        'foreign' => 'ull_location_id'));
+    }
 }

@@ -13,9 +13,9 @@ class BaseTaggingForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'tag_id'         => new sfWidgetFormDoctrineSelect(array('model' => 'Tag', 'add_empty' => false)),
+      'tag_id'         => new sfWidgetFormDoctrineChoice(array('model' => 'Tag', 'add_empty' => false)),
       'taggable_model' => new sfWidgetFormInput(),
-      'taggable_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllWiki', 'add_empty' => true)),
+      'taggable_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllWiki', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(

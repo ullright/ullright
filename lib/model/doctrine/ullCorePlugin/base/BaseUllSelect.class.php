@@ -5,21 +5,21 @@
  */
 abstract class BaseUllSelect extends UllRecord
 {
-  public function setTableDefinition()
-  {
-    parent::setTableDefinition();
-    $this->setTableName('ull_select');
-    $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'length' => '32'));
-    $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
-  }
+    public function setTableDefinition()
+    {
+        parent::setTableDefinition();
+        $this->setTableName('ull_select');
+        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'length' => '32'));
+        $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
+    }
 
-  public function setUp()
-  {
-    parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
     $this->hasMany('UllSelectChild as UllSelectChildren', array('local' => 'id',
-                                                                'foreign' => 'ull_select_id'));
+                                                                    'foreign' => 'ull_select_id'));
 
-    $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
-    $this->actAs($i18n0);
-  }
+        $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $this->actAs($i18n0);
+    }
 }

@@ -187,14 +187,14 @@ $t->begin('__construct()');
   $t->isa_ok($tableTool, 'ullTableToolGenerator', '__construct() returns the correct object');
   $t->is($tableTool->getModelName(), 'TestTable', '__construct() sets the right model name');
   
-$t->begin('getTableConfig()');
+$t->diag('getTableConfig()');
   $tableConfig = $tableTool->getTableConfig();
   $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');  
   $t->is(is_string($tableConfig->getIdentifier()), true, 'Identifier is a string');
   $t->is($tableConfig->getIdentifier(), 'id', 'Identifier is correct');
   $t->is($tableConfig->label, 'TestTableLabel', 'Label is correct'); 
 
-// we don't habe any composite primary keys at the moment  
+// we don't have any composite primary keys at the moment  
 //$t->begin('getTableConfig() for a table with a multi-columns primary key');  
 //  $tableTool2 = new ullTableToolGenerator('UllEntityGroup');
 //  $tableConfig = $tableTool2->getTableConfig();
@@ -203,7 +203,7 @@ $t->begin('getTableConfig()');
 //  $t->is($tableConfig->getIdentifier(), array(0 => 'ull_entity_id', 1 => 'ull_group_id'), 'Identifiers are correct');
 //  $t->is($tableConfig->label, 'Group memberships', 'Label is correct');
   
-$t->begin('getColumnConfig()');
+$t->diag('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
   $t->is(count($columnsConfig), 12, 'columnsConfig has the correct number of columns');
@@ -220,7 +220,7 @@ $t->begin('getColumnConfig()');
     $t->is($columnConfig, $mock, 'columnConfig for column "' . key($columnConfig) . '" is correct');
   }
 
-$t->begin('getIdentifierUrlParams() without calling buildForm()');
+$t->diag('getIdentifierUrlParams() without calling buildForm()');
   try
   {
     $tableTool->getIdentifierUrlParams(0);
@@ -231,23 +231,23 @@ $t->begin('getIdentifierUrlParams() without calling buildForm()');
     $t->pass('__construct() throws an exception because buildForm() wasn\'t called yet');
   }  
 
-$t->begin('buildForm()');
+$t->diag('buildForm()');
   $tableTool->buildForm($tests);  
   
   $entityGroups = Doctrine::getTable('UllEntityGroup')->findAll();
   
   
-$t->begin('getIdentifierUrlParams()');
+$t->diag('getIdentifierUrlParams()');
   $t->is($tableTool->getIdentifierUrlParams(0), 'id=1', 'Return the correct URL params');
 // we don't habe any composite primaray keys at the moment
 //  $tableTool2->buildForm($entityGroups);  
 //  $t->is($tableTool2->getIdentifierUrlParams(0), 'ull_entity_id=1&ull_group_id=2', 'Return the correct URL params for multi-column primary keys');  
   
-$t->begin('getForm() with calling buildForm() prior');  
+$t->diag('getForm() with calling buildForm() prior');  
   $form = $tableTool->getForm();
   $t->isa_ok($form, 'ullTableToolForm', 'getForm() returns a UllForm object');
   
-$t->begin('getForms()');
+$t->diag('getForms()');
   $forms = $tableTool->getForms();
   $t->is(is_array($forms), true, 'getForms() returns an array');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');

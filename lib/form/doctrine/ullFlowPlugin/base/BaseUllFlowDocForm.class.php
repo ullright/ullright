@@ -14,18 +14,18 @@ class BaseUllFlowDocForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                           => new sfWidgetFormInputHidden(),
       'namespace'                    => new sfWidgetFormInput(),
-      'ull_flow_app_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowApp', 'add_empty' => false)),
+      'ull_flow_app_id'              => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowApp', 'add_empty' => false)),
       'subject'                      => new sfWidgetFormInput(),
-      'ull_flow_action_id'           => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowAction', 'add_empty' => true)),
-      'assigned_to_ull_entity_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllEntity', 'add_empty' => false)),
-      'assigned_to_ull_flow_step_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowStep', 'add_empty' => false)),
+      'ull_flow_action_id'           => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowAction', 'add_empty' => true)),
+      'assigned_to_ull_entity_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllEntity', 'add_empty' => false)),
+      'assigned_to_ull_flow_step_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowStep', 'add_empty' => false)),
       'priority'                     => new sfWidgetFormInput(),
       'duplicate_tags_for_search'    => new sfWidgetFormTextarea(),
       'dirty'                        => new sfWidgetFormInput(),
       'created_at'                   => new sfWidgetFormDateTime(),
       'updated_at'                   => new sfWidgetFormDateTime(),
-      'creator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'              => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'creator_user_id'              => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'              => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(

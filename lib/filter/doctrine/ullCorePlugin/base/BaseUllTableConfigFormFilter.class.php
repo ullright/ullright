@@ -16,8 +16,6 @@ class BaseUllTableConfigFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'namespace'       => new sfWidgetFormFilterInput(),
       'db_table_name'   => new sfWidgetFormFilterInput(),
-      'label'           => new sfWidgetFormFilterInput(),
-      'description'     => new sfWidgetFormFilterInput(),
       'sort_columns'    => new sfWidgetFormFilterInput(),
       'search_columns'  => new sfWidgetFormFilterInput(),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
@@ -29,8 +27,6 @@ class BaseUllTableConfigFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'namespace'       => new sfValidatorPass(array('required' => false)),
       'db_table_name'   => new sfValidatorPass(array('required' => false)),
-      'label'           => new sfValidatorPass(array('required' => false)),
-      'description'     => new sfValidatorPass(array('required' => false)),
       'sort_columns'    => new sfValidatorPass(array('required' => false)),
       'search_columns'  => new sfValidatorPass(array('required' => false)),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -57,8 +53,6 @@ class BaseUllTableConfigFormFilter extends BaseFormFilterDoctrine
       'id'              => 'Number',
       'namespace'       => 'Text',
       'db_table_name'   => 'Text',
-      'label'           => 'Text',
-      'description'     => 'Text',
       'sort_columns'    => 'Text',
       'search_columns'  => 'Text',
       'created_at'      => 'Date',

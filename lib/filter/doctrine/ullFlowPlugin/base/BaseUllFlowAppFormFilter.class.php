@@ -16,8 +16,6 @@ class BaseUllFlowAppFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'namespace'           => new sfWidgetFormFilterInput(),
       'slug'                => new sfWidgetFormFilterInput(),
-      'label'               => new sfWidgetFormFilterInput(),
-      'doc_label'           => new sfWidgetFormFilterInput(),
       'list_columns'        => new sfWidgetFormFilterInput(),
       'is_public'           => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at'          => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
@@ -30,8 +28,6 @@ class BaseUllFlowAppFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'namespace'           => new sfValidatorPass(array('required' => false)),
       'slug'                => new sfValidatorPass(array('required' => false)),
-      'label'               => new sfValidatorPass(array('required' => false)),
-      'doc_label'           => new sfValidatorPass(array('required' => false)),
       'list_columns'        => new sfValidatorPass(array('required' => false)),
       'is_public'           => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at'          => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -75,8 +71,6 @@ class BaseUllFlowAppFormFilter extends BaseFormFilterDoctrine
       'id'                  => 'Number',
       'namespace'           => 'Text',
       'slug'                => 'Text',
-      'label'               => 'Text',
-      'doc_label'           => 'Text',
       'list_columns'        => 'Text',
       'is_public'           => 'Boolean',
       'created_at'          => 'Date',

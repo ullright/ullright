@@ -16,7 +16,6 @@ class BaseUllUserStatusFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'namespace'       => new sfWidgetFormFilterInput(),
       'slug'            => new sfWidgetFormFilterInput(),
-      'name'            => new sfWidgetFormFilterInput(),
       'is_active'       => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
@@ -27,7 +26,6 @@ class BaseUllUserStatusFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'namespace'       => new sfValidatorPass(array('required' => false)),
       'slug'            => new sfValidatorPass(array('required' => false)),
-      'name'            => new sfValidatorPass(array('required' => false)),
       'is_active'       => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -53,7 +51,6 @@ class BaseUllUserStatusFormFilter extends BaseFormFilterDoctrine
       'id'              => 'Number',
       'namespace'       => 'Text',
       'slug'            => 'Text',
-      'name'            => 'Text',
       'is_active'       => 'Boolean',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',

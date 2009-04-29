@@ -15,8 +15,6 @@ class BaseTestTableFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'namespace'         => new sfWidgetFormFilterInput(),
-      'my_string'         => new sfWidgetFormFilterInput(),
-      'my_text'           => new sfWidgetFormFilterInput(),
       'my_boolean'        => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'my_email'          => new sfWidgetFormFilterInput(),
       'my_select_box'     => new sfWidgetFormFilterInput(),
@@ -30,8 +28,6 @@ class BaseTestTableFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'namespace'         => new sfValidatorPass(array('required' => false)),
-      'my_string'         => new sfValidatorPass(array('required' => false)),
-      'my_text'           => new sfValidatorPass(array('required' => false)),
       'my_boolean'        => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'my_email'          => new sfValidatorPass(array('required' => false)),
       'my_select_box'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -60,8 +56,6 @@ class BaseTestTableFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                => 'Number',
       'namespace'         => 'Text',
-      'my_string'         => 'Text',
-      'my_text'           => 'Text',
       'my_boolean'        => 'Boolean',
       'my_email'          => 'Text',
       'my_select_box'     => 'Number',

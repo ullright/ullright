@@ -68,7 +68,7 @@ $t->begin('hasGroup()');
       , 'returns false for a given group and using the sessions user_id'
       );
         
-$t->begin('hasPermission()');
+$t->diag('hasPermission()');
   $t->is(
         UllUserTable::hasPermission('testPermission', 2)
       , true

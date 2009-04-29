@@ -5,34 +5,34 @@
  */
 abstract class BaseUllFlowAction extends UllRecord
 {
-  public function setTableDefinition()
-  {
-    parent::setTableDefinition();
-    $this->setTableName('ull_flow_action');
-    $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
-    $this->hasColumn('label', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
-    $this->hasColumn('is_status_only', 'boolean', null, array('type' => 'boolean', 'default' => false));
-    $this->hasColumn('is_enable_validation', 'boolean', null, array('type' => 'boolean', 'default' => true));
-    $this->hasColumn('is_notify_creator', 'boolean', null, array('type' => 'boolean', 'default' => false));
-    $this->hasColumn('is_notify_next', 'boolean', null, array('type' => 'boolean', 'default' => false));
-    $this->hasColumn('is_in_resultlist', 'boolean', null, array('type' => 'boolean', 'default' => true));
-    $this->hasColumn('is_show_assigned_to', 'boolean', null, array('type' => 'boolean', 'default' => false));
-    $this->hasColumn('is_comment_mandatory', 'boolean', null, array('type' => 'boolean', 'default' => false));
-  }
+    public function setTableDefinition()
+    {
+        parent::setTableDefinition();
+        $this->setTableName('ull_flow_action');
+        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
+        $this->hasColumn('label', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
+        $this->hasColumn('is_status_only', 'boolean', null, array('type' => 'boolean', 'default' => false));
+        $this->hasColumn('is_enable_validation', 'boolean', null, array('type' => 'boolean', 'default' => true));
+        $this->hasColumn('is_notify_creator', 'boolean', null, array('type' => 'boolean', 'default' => false));
+        $this->hasColumn('is_notify_next', 'boolean', null, array('type' => 'boolean', 'default' => false));
+        $this->hasColumn('is_in_resultlist', 'boolean', null, array('type' => 'boolean', 'default' => true));
+        $this->hasColumn('is_show_assigned_to', 'boolean', null, array('type' => 'boolean', 'default' => false));
+        $this->hasColumn('is_comment_mandatory', 'boolean', null, array('type' => 'boolean', 'default' => false));
+    }
 
-  public function setUp()
-  {
-    parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
     $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
-                                                      'foreign' => 'ull_flow_action_id'));
+                                                          'foreign' => 'ull_flow_action_id'));
 
-    $this->hasMany('UllFlowMemory as UllFlowMemories', array('local' => 'id',
-                                                             'foreign' => 'ull_flow_action_id'));
+        $this->hasMany('UllFlowMemory as UllFlowMemories', array('local' => 'id',
+                                                                 'foreign' => 'ull_flow_action_id'));
 
-    $this->hasMany('UllFlowStepAction as UllFlowStepActions', array('local' => 'id',
-                                                                    'foreign' => 'ull_flow_action_id'));
+        $this->hasMany('UllFlowStepAction as UllFlowStepActions', array('local' => 'id',
+                                                                        'foreign' => 'ull_flow_action_id'));
 
-    $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
-    $this->actAs($i18n0);
-  }
+        $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $this->actAs($i18n0);
+    }
 }

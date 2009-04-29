@@ -5,26 +5,26 @@
  */
 abstract class BaseUllGroupPermission extends UllRecord
 {
-  public function setTableDefinition()
-  {
-    parent::setTableDefinition();
-    $this->setTableName('ull_group_permission');
-    $this->hasColumn('ull_group_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-    $this->hasColumn('ull_permission_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-  }
+    public function setTableDefinition()
+    {
+        parent::setTableDefinition();
+        $this->setTableName('ull_group_permission');
+        $this->hasColumn('ull_group_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+        $this->hasColumn('ull_permission_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+    }
 
-  public function setUp()
-  {
-    parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
     $this->hasOne('UllGroup', array('local' => 'ull_group_id',
-                                    'foreign' => 'id',
-                                    'onDelete' => 'CASCADE'));
+                                        'foreign' => 'id',
+                                        'onDelete' => 'CASCADE'));
 
-    $this->hasOne('UllPermission', array('local' => 'ull_permission_id',
-                                         'foreign' => 'id',
-                                         'onDelete' => 'CASCADE'));
+        $this->hasOne('UllPermission', array('local' => 'ull_permission_id',
+                                             'foreign' => 'id',
+                                             'onDelete' => 'CASCADE'));
 
-    $superversionable0 = new Doctrine_Template_SuperVersionable();
-    $this->actAs($superversionable0);
-  }
+        $superversionable0 = new Doctrine_Template_SuperVersionable();
+        $this->actAs($superversionable0);
+    }
 }

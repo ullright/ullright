@@ -15,18 +15,16 @@ class BaseUllWikiAccessLevelForm extends BaseFormDoctrine
       'id'              => new sfWidgetFormInputHidden(),
       'namespace'       => new sfWidgetFormInput(),
       'slug'            => new sfWidgetFormInput(),
-      'name'            => new sfWidgetFormInput(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
-      'creator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'              => new sfValidatorDoctrineChoice(array('model' => 'UllWikiAccessLevel', 'column' => 'id', 'required' => false)),
       'namespace'       => new sfValidatorString(array('max_length' => 32, 'required' => false)),
       'slug'            => new sfValidatorString(array('max_length' => 64, 'required' => false)),
-      'name'            => new sfValidatorString(array('max_length' => 128, 'required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),

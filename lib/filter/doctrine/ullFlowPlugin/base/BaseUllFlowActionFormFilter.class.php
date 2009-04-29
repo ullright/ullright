@@ -16,7 +16,6 @@ class BaseUllFlowActionFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'namespace'            => new sfWidgetFormFilterInput(),
       'slug'                 => new sfWidgetFormFilterInput(),
-      'label'                => new sfWidgetFormFilterInput(),
       'is_status_only'       => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'is_enable_validation' => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'is_notify_creator'    => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
@@ -33,7 +32,6 @@ class BaseUllFlowActionFormFilter extends BaseFormFilterDoctrine
     $this->setValidators(array(
       'namespace'            => new sfValidatorPass(array('required' => false)),
       'slug'                 => new sfValidatorPass(array('required' => false)),
-      'label'                => new sfValidatorPass(array('required' => false)),
       'is_status_only'       => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'is_enable_validation' => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'is_notify_creator'    => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
@@ -65,7 +63,6 @@ class BaseUllFlowActionFormFilter extends BaseFormFilterDoctrine
       'id'                   => 'Number',
       'namespace'            => 'Text',
       'slug'                 => 'Text',
-      'label'                => 'Text',
       'is_status_only'       => 'Boolean',
       'is_enable_validation' => 'Boolean',
       'is_notify_creator'    => 'Boolean',

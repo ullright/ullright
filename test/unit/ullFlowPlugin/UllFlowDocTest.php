@@ -8,13 +8,13 @@ class myTestCase extends sfDoctrineTestCase
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 
-$t = new myTestCase(48, new lime_output_color, $configuration);
+$t = new myTestCase(52, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $t->begin('__construct');
+
   $doc = new UllFlowDoc;
   $t->isa_ok($doc, 'UllFlowDoc', 'returns the correct object');
   
@@ -47,12 +47,19 @@ $t->diag('findLatestNonStatusOnlyMemory()');
   $t->is($doc->findLatestNonStatusOnlyMemory()->id, $doc->UllFlowMemories[0]->id, 'finds the correct latest non status-only memory');
 
 $t->diag('edit');
+
   $doc->my_subject = 'My fancy edited subject';
   $doc->memory_comment = 'My fancy edited memory comment';
-  $doc->save();
+
+  $t->is($doc->subject, 'My fancy edited subject', 'sets the subject in UllFlowDoc correctly');
+  $t->is($doc->my_subject, 'My fancy edited subject', 'sets the virtual column subject correctly');
+  $t->is($doc->UllFlowValues[0]->value, 'My fancy edited subject', 'virtual column: ok in direct record relation');
   
+  $doc->save();  
+
   $doc = Doctrine::getTable('UllFlowDoc')->find(5);
 
+  $t->is($doc->my_subject, 'My fancy edited subject', 'sets the virtual column subject correctly');
   $t->is($doc->subject, 'My fancy edited subject', 'sets the subject correctly');
   $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the action correctly (default)');
   $t->is($doc->UllFlowMemories[2]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the third memories action correctly (save_close)');  

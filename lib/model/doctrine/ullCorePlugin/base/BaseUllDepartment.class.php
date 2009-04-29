@@ -5,18 +5,18 @@
  */
 abstract class BaseUllDepartment extends UllRecord
 {
-  public function setTableDefinition()
-  {
-    parent::setTableDefinition();
-    $this->setTableName('ull_department');
-    $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
-    $this->hasColumn('short_name', 'string', 15, array('type' => 'string', 'length' => '15'));
-  }
+    public function setTableDefinition()
+    {
+        parent::setTableDefinition();
+        $this->setTableName('ull_department');
+        $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
+        $this->hasColumn('short_name', 'string', 15, array('type' => 'string', 'length' => '15'));
+    }
 
-  public function setUp()
-  {
-    parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
     $this->hasMany('UllUser', array('local' => 'id',
-                                    'foreign' => 'ull_department_id'));
-  }
+                                        'foreign' => 'ull_department_id'));
+    }
 }

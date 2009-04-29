@@ -14,12 +14,12 @@ class BaseUllGroupPermissionForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
       'namespace'         => new sfWidgetFormInput(),
-      'ull_group_id'      => new sfWidgetFormDoctrineSelect(array('model' => 'UllGroup', 'add_empty' => false)),
-      'ull_permission_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllPermission', 'add_empty' => false)),
+      'ull_group_id'      => new sfWidgetFormDoctrineChoice(array('model' => 'UllGroup', 'add_empty' => false)),
+      'ull_permission_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllPermission', 'add_empty' => false)),
       'created_at'        => new sfWidgetFormDateTime(),
       'updated_at'        => new sfWidgetFormDateTime(),
-      'creator_user_id'   => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'   => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'creator_user_id'   => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'   => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'version'           => new sfWidgetFormInput(),
     ));
 

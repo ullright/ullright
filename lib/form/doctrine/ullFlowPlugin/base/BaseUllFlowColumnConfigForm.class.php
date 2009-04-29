@@ -14,11 +14,10 @@ class BaseUllFlowColumnConfigForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                 => new sfWidgetFormInputHidden(),
       'namespace'          => new sfWidgetFormInput(),
-      'ull_flow_app_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllFlowApp', 'add_empty' => false)),
+      'ull_flow_app_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowApp', 'add_empty' => false)),
       'slug'               => new sfWidgetFormInput(),
-      'label'              => new sfWidgetFormInput(),
       'sequence'           => new sfWidgetFormInput(),
-      'ull_column_type_id' => new sfWidgetFormDoctrineSelect(array('model' => 'UllColumnType', 'add_empty' => true)),
+      'ull_column_type_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllColumnType', 'add_empty' => true)),
       'options'            => new sfWidgetFormTextarea(),
       'is_enabled'         => new sfWidgetFormInputCheckbox(),
       'is_in_list'         => new sfWidgetFormInputCheckbox(),
@@ -27,8 +26,8 @@ class BaseUllFlowColumnConfigForm extends BaseFormDoctrine
       'default_value'      => new sfWidgetFormInput(),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),
-      'creator_user_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
-      'updator_user_id'    => new sfWidgetFormDoctrineSelect(array('model' => 'UllUser', 'add_empty' => true)),
+      'creator_user_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'updator_user_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -36,7 +35,6 @@ class BaseUllFlowColumnConfigForm extends BaseFormDoctrine
       'namespace'          => new sfValidatorString(array('max_length' => 32, 'required' => false)),
       'ull_flow_app_id'    => new sfValidatorDoctrineChoice(array('model' => 'UllFlowApp')),
       'slug'               => new sfValidatorString(array('max_length' => 32)),
-      'label'              => new sfValidatorString(array('max_length' => 64, 'required' => false)),
       'sequence'           => new sfValidatorInteger(array('required' => false)),
       'ull_column_type_id' => new sfValidatorDoctrineChoice(array('model' => 'UllColumnType', 'required' => false)),
       'options'            => new sfValidatorString(array('required' => false)),

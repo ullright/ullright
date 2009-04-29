@@ -46,7 +46,9 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
     if ($ullFlowValue)
     {
       $ullFlowValue->value = $value;
-      $ullFlowValue->save(); 
+      $ullFlowValue->save();
+      // refresh values in parent record 
+      $record->refreshRelated('UllFlowValues');
     }
     else
     {

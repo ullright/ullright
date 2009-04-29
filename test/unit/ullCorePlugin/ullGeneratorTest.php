@@ -12,7 +12,6 @@ class myGenerator extends ullGenerator
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfContext::getInstance()->getUser()->setCulture('en'); // because it's set to 'xx' per default !?!
 sfLoader::loadHelpers('I18N');
 sfContext::getInstance()->getRequest()->setParameter('action', 'list');
 
@@ -53,7 +52,7 @@ $t->begin('__construct()');
   $t->is($tableTool->getDefaultAccess(), 'w', '__construct() sets the correct access type "w"');
   $t->is($tableTool->getRequestAction(), 'edit', '__construct() sets the correct request action "edit"'); 
   
-$t->begin('getForm() without calling buildForm()');
+$t->diag('getForm() without calling buildForm()');
   try
   {
     $tableTool->getForm();
@@ -64,7 +63,7 @@ $t->begin('getForm() without calling buildForm()');
     $t->pass('__construct() throws an exception because buildForm() wasn\'t called yet');
   }
   
-$t->begin('static function getDefaultCultures()');
+$t->diag('static function getDefaultCultures()');
   $t->is(array('en',), myGenerator::getDefaultCultures(), 'returns the correct culture');
   sfContext::getInstance()->getUser()->setCulture('de');
   $t->is(array('en', 'de'), myGenerator::getDefaultCultures(), 'returns the correct cultures');

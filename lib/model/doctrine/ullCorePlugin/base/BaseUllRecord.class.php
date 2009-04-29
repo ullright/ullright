@@ -5,17 +5,17 @@
  */
 abstract class BaseUllRecord extends sfDoctrineRecord
 {
-  public function setTableDefinition()
-  {
-    $this->setTableName('ull_record');
-    $this->hasColumn('namespace', 'string', 32, array('type' => 'string', 'length' => '32'));
-  }
+    public function setTableDefinition()
+    {
+        $this->setTableName('ull_record');
+        $this->hasColumn('namespace', 'string', 32, array('type' => 'string', 'length' => '32'));
+    }
 
-  public function setUp()
-  {
-    $timestampable0 = new Doctrine_Template_Timestampable();
-    $personable0 = new Doctrine_Template_Personable();
-    $this->actAs($timestampable0);
-    $this->actAs($personable0);
-  }
+    public function setUp()
+    {
+        $timestampable0 = new Doctrine_Template_Timestampable();
+        $personable0 = new Doctrine_Template_Personable();
+        $this->actAs($timestampable0);
+        $this->actAs($personable0);
+    }
 }
