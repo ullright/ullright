@@ -141,12 +141,23 @@ class BaseUllGroupForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $this->object->unlink('UllUser', array());
-
+    $existing = $this->object->UllUser->getPrimaryKeys();
     $values = $this->getValue('ull_user_list');
-    if (is_array($values))
+    if (!is_array($values))
     {
-      $this->object->link('UllUser', $values);
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('UllUser', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('UllUser', array_values($link));
     }
   }
 
@@ -168,12 +179,23 @@ class BaseUllGroupForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $this->object->unlink('UllPermissions', array());
-
+    $existing = $this->object->UllPermissions->getPrimaryKeys();
     $values = $this->getValue('ull_permissions_list');
-    if (is_array($values))
+    if (!is_array($values))
     {
-      $this->object->link('UllPermissions', $values);
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('UllPermissions', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('UllPermissions', array_values($link));
     }
   }
 

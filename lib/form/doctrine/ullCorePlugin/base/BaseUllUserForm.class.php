@@ -133,12 +133,23 @@ class BaseUllUserForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $this->object->unlink('UllGroup', array());
-
+    $existing = $this->object->UllGroup->getPrimaryKeys();
     $values = $this->getValue('ull_group_list');
-    if (is_array($values))
+    if (!is_array($values))
     {
-      $this->object->link('UllGroup', $values);
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('UllGroup', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('UllGroup', array_values($link));
     }
   }
 

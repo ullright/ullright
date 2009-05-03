@@ -85,12 +85,23 @@ class BaseUllFlowAppForm extends BaseFormDoctrine
       $con = $this->getConnection();
     }
 
-    $this->object->unlink('UllPermission', array());
-
+    $existing = $this->object->UllPermission->getPrimaryKeys();
     $values = $this->getValue('ull_permission_list');
-    if (is_array($values))
+    if (!is_array($values))
     {
-      $this->object->link('UllPermission', $values);
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink('UllPermission', array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link('UllPermission', array_values($link));
     }
   }
 

@@ -505,6 +505,27 @@ for ($i = 0; $i < 2; $i++)
 
 $t->is($w['authors'][0]->generateName('first_name'), 'article[authors][0][first_name]', '->embedFormForEach() changes the name format to reflect the embedding');
 
+// bind too many values for embedded forms
+$t->diag('bind too many values for embedded forms');
+$list = new FormTest();
+$list->setWidgets(array('title' => new sfWidgetFormInput()));
+$list->setValidators(array('title' => new sfValidatorString()));
+$list->embedFormForEach('items', clone $list, 2);
+$list->bind(array(
+  'title' => 'list title',
+  'items' => array(
+    array('title' => 'item 1'),
+    array('title' => 'item 2'),
+    array('title' => 'extra item'),
+  ),
+));
+
+$t->isa_ok($list['items'][0]->getError(), 'sfValidatorErrorSchema', '"sfFormFieldSchema" is given an error schema when an extra embedded form is bound');
+
+// does this trigger a fatal error?
+$list['items']->render();
+$t->pass('"sfFormFieldSchema" renders when an extra embedded form is bound');
+
 // ->getEmbeddedForms()
 $t->diag('->getEmbeddedForms()');
 $article = new FormTest();
@@ -579,101 +600,76 @@ $expected = array(
   ),
 );
 $t->is_deeply(sfForm::convertFileInformation($input), $expected, '::convertFileInformation() converts $_FILES to be coherent with $_GET and $_POST naming convention');
-$t->is_deeply(sfForm::convertFileInformation($expected), $expected, '::convertFileInformation() converts $_FILES to be coherent with $_GET and $_POST naming convention');
+$t->is_deeply(sfForm::convertFileInformation($expected), $expected, '::convertFileInformation() only changes the input array if needed');
 
 $input = array(
+  'file' => array(
+    'name' => 'test.txt',
+    'type' => 'text/plain',
+    'tmp_name' => '/tmp/test.txt',
+    'error' => 0,
+    'size' => 100,
+  ),
   'article' => array(
     'name' => array(
-      'files' => array(
-        'file1' => 'test1.txt',
-        'file2' => 'test2.txt',
+      'name' => array(
+        'name' => 'test1.txt',
+        'another' => array('file2' => 'test2.txt'),
       ),
     ),
     'type' => array(
-      'files' => array(
-        'file1' => 'text/plain',
-        'file2' => 'text/plain',
+      'name' => array(
+        'name' => 'text/plain',
+        'another' => array('file2' => 'text/plain'),
       ),
     ),
     'tmp_name' => array(
-      'files' => array(
-        'file1' => '/tmp/test1.txt',
-        'file2' => '/tmp/test2.txt',
+      'name' => array(
+        'name' => '/tmp/test1.txt',
+        'another' => array('file2' => '/tmp/test2.txt'),
       ),
     ),
     'error' => array(
-      'files' => array(
-        'file1' => 0,
-        'file2' => 0,
+      'name' => array(
+        'name' => 0,
+        'another' => array('file2' => 0),
       ),
     ),
     'size' => array(
-      'files' => array(
-        'file1' => 100,
-        'file2' => 200,
+      'name' => array(
+        'name' => 100,
+        'another' => array('file2' => 200),
       ),
     ),
   ),
 );
 $expected = array(
+  'file' => array(
+    'name' => 'test.txt',
+    'type' => 'text/plain',
+    'tmp_name' => '/tmp/test.txt',
+    'error' => 0,
+    'size' => 100,
+  ),
   'article' => array(
-    'files' => array(
-      'file1' => array(
+    'name' => array(
+      'name' => array(
         'name' => 'test1.txt',
         'type' => 'text/plain',
         'tmp_name' => '/tmp/test1.txt',
         'error' => 0,
         'size' => 100,
       ),
-      'file2' => array(
-        'name' => 'test2.txt',
-        'type' => 'text/plain',
-        'tmp_name' => '/tmp/test2.txt',
-        'error' => 0,
-        'size' => 200,
+      'another' => array(
+        'file2' => array(
+          'name' => 'test2.txt',
+          'type' => 'text/plain',
+          'tmp_name' => '/tmp/test2.txt',
+          'error' => 0,
+          'size' => 200,
+        ),
       ),
     )
-  ),
-);
-$t->is_deeply(sfForm::convertFileInformation($input), $expected, '::convertFileInformation() converts $_FILES to be coherent with $_GET and $_POST naming convention');
-$t->is_deeply(sfForm::convertFileInformation($expected), $expected, '::convertFileInformation() converts $_FILES to be coherent with $_GET and $_POST naming convention');
-
-$input = array(
-  'name' => array(
-    'file1' => 'test1.txt',
-    'file2' => 'test2.txt',
-  ),
-  'type' => array(
-    'file1' => 'text/plain',
-    'file2' => 'text/plain',
-  ),
-  'tmp_name' => array(
-    'file1' => '/tmp/test1.txt',
-    'file2' => '/tmp/test2.txt',
-  ),
-  'error' => array(
-    'file1' => 0,
-    'file2' => 0,
-  ),
-  'size' => array(
-    'file1' => 100,
-    'file2' => 200,
-  ),
-);
-$expected = array(
-  'file1' => array(
-    'name' => 'test1.txt',
-    'type' => 'text/plain',
-    'tmp_name' => '/tmp/test1.txt',
-    'error' => 0,
-    'size' => 100,
-  ),
-  'file2' => array(
-    'name' => 'test2.txt',
-    'type' => 'text/plain',
-    'tmp_name' => '/tmp/test2.txt',
-    'error' => 0,
-    'size' => 200,
   ),
 );
 $t->is_deeply(sfForm::convertFileInformation($input), $expected, '::convertFileInformation() converts $_FILES to be coherent with $_GET and $_POST naming convention');
