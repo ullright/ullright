@@ -1,0 +1,121 @@
+UllVentoryItemManufacturer:
+  apple:
+    name:                       Apple
+    namespace:                  test
+  brother:
+    name:                       Brother
+    namespace:                  test
+    
+UllVentoryItemType:
+  notebook:
+    Translation:
+      en:
+        name:                   Notebook
+      de:
+        name:                   Notebook
+    namespace:                  test        
+  printer:
+    Translation:
+      en:
+        name:                   Printer
+      de:
+        name:                   Drucker
+    namespace:                  test        
+        
+UllVentoryItemModel:
+  macbook:
+    name:                       MacBook
+    UllVentoryItemManufacturer: apple
+    UllVentoryItemType:         notebook
+    namespace:                  test
+  mfc_440cn:
+    name:                       MFC-440CN
+    UllVentoryItemManufacturer: brother
+    UllVentoryItemType:         printer
+    namespace:                  test    
+    
+UllVentoryItem:
+  testusers_macbook:
+    serial_number:              1234567890
+    comment:                    Big scratch on bottom side
+    UllVentoryItemModel:        macbook
+    UllUser:                    test_user
+    UllLocation:                ull_location
+    namespace:                  test
+  testusers_mfc_440cn:
+    serial_number:              6789012345
+    comment:                    USB port broken
+    UllVentoryItemModel:        mfc_440cn
+    UllUser:                    test_user
+    UllLocation:                ull_location
+    namespace:                  test
+    
+# Item Attributes:
+
+UllVentoryItemAttribute:
+  display_size:
+    Translation:
+      en:
+        name:                   Display size
+        help:                   Diagonal in inches
+      de:
+        name:                   Bildschirmgrösse
+        help:                   Diagonale in Zoll
+    UllColumnType:              integer
+    namespace:                  test        
+  wired_network_speed:
+    Translation:
+      en:
+        name:                   Wired network speed
+        help:                   Speed in Mbits/sec.
+      de:
+        name:                   Kabelnetzwerk Übertragungsrate
+        help:                   Geschwindigkeit in Mbits/sek.
+    UllColumnType:              integer
+    namespace:                  test    
+  printer_type:
+    Translation:
+      en:
+        name:                   Type of printer
+      de:
+        name:                   Druckerart
+    UllColumnType:              string
+    namespace:                  test    
+                          
+#n:m Table defines attributes for item types
+UllVentoryItemTypeAttribute:
+  notebook_display_size:        
+    UllVentoryItemType:         notebook
+    UllVentoryItemAttribute:    display_size
+    namespace:                  test
+  notebook_wired_network_speed:        
+    UllVentoryItemType:         notebook
+    UllVentoryItemAttribute:    wired_network_speed
+    namespace:                  test
+  printer_wired_network_speed:        
+    UllVentoryItemType:         printer
+    UllVentoryItemAttribute:    wired_network_speed
+    namespace:                  test
+  printer_printer_type:        
+    UllVentoryItemType:         printer
+    UllVentoryItemAttribute:    printer_type
+    namespace:                  test    
+    
+#n:m Table saves a attribute value for an item
+UllVentoryItemAttributeValue:
+  testusers_macbook_display_size:
+    UllVentoryItem:             testusers_macbook
+    UllVentoryItemTypeAttribute: notebook_display_size
+    value:                      13
+  testusers_macbook_wired_network_speed:
+    UllVentoryItem:             testusers_macbook
+    UllVentoryItemTypeAttribute: notebook_wired_network_speed
+    value:                      1000
+  testusers_mfc_440cn_wired_network_speed:
+    UllVentoryItem:             testusers_mfc_440cn
+    UllVentoryItemTypeAttribute: printer_wired_network_speed
+    value:                      100
+  testusers_mfc_440cn_printer_type:
+    UllVentoryItem:             testusers_mfc_440cn
+    UllVentoryItemTypeAttribute: printer_printer_type
+    value:                      inkjet

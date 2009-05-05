@@ -1,0 +1,126 @@
+# List of manufacturers e.g. Apple, Nokia, HP, ...
+UllVentoryItemManufacturer:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name:
+      type: string(128)
+      notnull: true
+
+# Item types e.g. notebook, mobile phone, printer, ...
+UllVentoryItemType:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name] 
+  columns:
+    name:
+      type: string(128)
+      notnull: true
+
+# List of models e.g. Macbook, 1110i, MFC-440CN       
+UllVentoryItemModel:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name:
+      type: string(128)
+      notnull: true
+    ull_ventory_item_manufacturer_id:
+      type: integer
+      notnull: true
+    ull_ventory_item_type_id:
+      type: integer
+      notnull: true
+  relations:
+    UllVentoryItemManufacturer:
+    UllVentoryItemType:
+
+# Inventory items - the main table    
+UllVentoryItem:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:    
+    serial_number:
+      type: string(128)
+    comment:
+      type: string(4000)
+    ull_ventory_item_model_id:
+      type: integer
+      notnull: true
+    ull_user_id:
+      type: integer
+      notnull: true
+    ull_location_id:
+      type: integer
+      notnull: true
+  relations:
+    UllVentoryItemModel:
+    UllUser:
+    UllLocation:
+
+# Item attributes
+UllVentoryItemAttribute:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name, help] 
+  columns:
+    name:
+      type: string(128)
+      notnull: true
+    help:
+      type: string(4000)
+    ull_column_type_id:
+      type: integer
+  relations:
+    UllColumnType:
+
+#n:m Table defines attributes for item types
+UllVentoryItemTypeAttribute:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_ventory_item_type_id:
+      type: integer
+      notnull: true
+    ull_ventory_item_attribute_id:
+      type: integer
+      notnull: true
+  relations:
+    UllVentoryItemType:
+    UllVentoryItemAttribute:    
+
+#n:m Table saves an attribute's value for an item
+UllVentoryItemAttributeValue:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_ventory_item_id:
+      type: integer
+      notnull: true
+    ull_ventory_item_type_attribute_id:
+      type: integer
+      notnull: true
+    value:
+      type: string(4000)
+  relations:
+    UllVentoryItem:
+    UllVentoryItemTypeAttribute:      
+    

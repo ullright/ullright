@@ -23,3 +23,7 @@ Options +FollowSymLinks +ExecCGI
 
 # big crash from our front web controller
 ErrorDocument 500 "<h2>Application error</h2>symfony application failed to start properly"
+
+#php_value xdebug.profiler_output_dir /tmp
+#php_value xdebug.profiler_enable 1
+
