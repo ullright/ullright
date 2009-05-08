@@ -345,11 +345,11 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));    
     if ($this->id) 
     {
-      $this->breadcrumb_tree->addFinal(__('Edit', null, 'common'));
+      $this->breadcrumb_tree->add(__('Edit', null, 'common'));
     }
     else
     {
-      $this->breadcrumb_tree->addFinal(__('Create', null, 'common'));
+      $this->breadcrumb_tree->add(__('Create', null, 'common'));
     }
   }
   

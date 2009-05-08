@@ -53,20 +53,6 @@ class breadcrumbTree
       'internal_uri' => $internal_uri
     );
   }
-  
-/**
- * Adds the last (=active) element to the breadcrumb tree
- * @param name          name of the item to be displayed
- * @return none
- */ 
-  
-  // TODO: remove, is unnecessary
-  public function addFinal($name) {
-    $this->breadcrumbTree[] = array(
-      'name' => $name,
-      'final' => true
-    );
-  }  
 
 /**
  * Return the breadcrumb array

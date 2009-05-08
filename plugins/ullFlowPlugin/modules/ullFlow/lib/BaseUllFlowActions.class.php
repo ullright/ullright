@@ -421,11 +421,11 @@ class BaseUllFlowActions extends ullsfActions
     $this->breadcrumbTree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));
     if ($this->doc->exists()) 
     {
-      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
+      $this->breadcrumbTree->add(__('Edit', null, 'common'));
     } 
     else 
     {
-      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
+      $this->breadcrumbTree->add(__('Create', null, 'common'));
     }    
     
   }  

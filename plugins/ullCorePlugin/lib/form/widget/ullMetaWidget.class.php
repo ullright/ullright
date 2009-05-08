@@ -49,7 +49,76 @@ abstract class ullMetaWidget
    * Internal method to configure the form
    *
    */
-  abstract protected function addToForm();
+  protected function addToForm()
+  {
+    $this->configure();
+    
+    switch ($this->columnConfig['access'])
+    {
+      case 'w':
+        $this->configureWriteMode();
+        break;
+      case 'r':
+        $this->configureReadMode();
+        break;
+      case 's':
+        if (is_callable($this->configureSearchMode())) 
+        {
+          $this->configureSearchMode();
+        }
+        else
+        {
+          $this->configureWriteMode();
+        }
+        break;  
+    }
+  }
+  
+  /**
+   * Generic configuration for all modes
+   * @return none
+   */
+  protected function configure()
+  {    
+  }
+  
+  
+  /**
+   * Configure form with default write mode (input text field)
+   * @return none
+   */
+  protected function configureWriteMode()
+  {
+    if (!isset($this->columnConfig['widgetAttributes']['size']))
+    {
+      $this->columnConfig['widgetAttributes']['size'] = '50';
+    }
+    
+    $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+    $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
+  }
+  
+  
+  /**
+   * Configure form with default read mode widget (display value)
+   * @return none
+   */  
+  protected function configureReadMode()
+  {
+    $this->addWidget(new ullWidget($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+    $this->addValidator(new sfValidatorPass());    
+  }
+  
+  
+  /**
+   * Configure form with default search mode (use write mode)
+   * @return none
+   */
+  protected function configureSearchMode()
+  {
+    $this->configureWriteMode();
+  }  
+  
   
   /**
    * Add a widget to the form
@@ -95,26 +164,13 @@ abstract class ullMetaWidget
     }
     
     $this->form->getValidatorSchema()->offsetSet($columnName, $validator);
-    
-    
-    /*
-
-    if (!($this->form instanceof sfFormDoctrine))
-    {
-    throw new Exception("Unique validation only works with sfFormDoctrine forms.");
-    }
-
-    $validatorArray = new sfValidatorAnd(array($validator,
-    new sfValidatorDoctrineUnique(array('model' => $this->form->getModelName(), 'column' => $columnName))));
-
-    $this->form->getValidatorSchema()->offsetSet($columnName, $validatorArray);
-    }
-    else
-    {*/
-    //
-    //}
   }
   
+  /**
+   * deprecated
+   * 
+   * @return boolean
+   */
   protected function isWriteMode()
   {
     if ($this->columnConfig['access'] == 'w')
@@ -124,5 +180,3 @@ abstract class ullMetaWidget
   }
 
 }
-
-?>
