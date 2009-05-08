@@ -233,11 +233,11 @@ class BaseUllWikiActions extends ullsfActions
 
     if ($this->doc->exists()) 
     {
-      $this->breadcrumbTree->addFinal(__('Edit', null, 'common'));
+      $this->breadcrumbTree->add(__('Edit', null, 'common'));
     } 
     else 
     {
-      $this->breadcrumbTree->addFinal(__('Create', null, 'common'));
+      $this->breadcrumbTree->add(__('Create', null, 'common'));
     } 
   }
 
