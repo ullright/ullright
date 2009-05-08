@@ -5,5 +5,15 @@
  */
 abstract class PluginUllVentoryItemModel extends BaseUllVentoryItemModel
 {
+  
+  /**
+   * represents the object as a string
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->UllVentoryItemType . ' ' . $this->UllVentoryItemManufacturer . ' ' . $this->name;
+  }
 
 }

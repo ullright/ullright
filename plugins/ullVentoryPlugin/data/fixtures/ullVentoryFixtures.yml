@@ -51,7 +51,6 @@ UllVentoryItem:
     namespace:                  test
     
 # Item Attributes:
-
 UllVentoryItemAttribute:
   display_size:
     Translation:
