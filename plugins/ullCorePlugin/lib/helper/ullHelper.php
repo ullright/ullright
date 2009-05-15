@@ -1160,4 +1160,28 @@ function printQuery($query) {
     echo "$out<br /><br />";
 }
 
-?>
+/**
+ * Orders the top level of an associative array by a given array
+ * Keys which are not defined by $order remain unchanged at the end of return array
+ * See ullHelperTest.php for examples
+ *  
+ * @param $array array to order
+ * @param $order array defining the expected order
+ * @return array
+ */
+function ull_order_array_by_array(array $array, array $order)
+{
+  $ordered = array();
+  
+  foreach ($order as $key)
+  {
+    if (!key_exists($key, $array))
+    {
+      throw new InvalidArgumentException('Invalid key given: ' . $key);
+    }
+    $ordered[$key] = $array[$key];
+    unset($array[$key]);     
+  }
+
+  return array_merge($ordered, $array);
+}

@@ -7,7 +7,7 @@ $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(25, new lime_output_color);
+$t = new lime_test(27, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -223,7 +223,34 @@ $t->diag('ull_navigation_link()');
     'ullFlow/index', __('Workflows', null, 'common'), array('alt' => 'Workflow application')),
     '<a href="/ullFlow"><img alt="Workflow application" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" /></a>' .
     '<br /><a href="/ullFlow">Workflows</a>', 'returns the correct result when specifying an alt-tag');
-            
+
+   
+$t->diag('ull_order_array_by_array()');
+  $test = array(
+    'apple' => array('type' => 'fruit'),
+    'orange' => 'Can be squashed',
+    'pear' => array('type' => 'fruit', 'color' => 'yellow-green')
+  );
+  
+  $reference = array(
+    'orange' => 'Can be squashed',
+    'pear' => array('type' => 'fruit', 'color' => 'yellow-green'),
+    'apple' => array('type' => 'fruit')
+  );
+  
+  $t->is(ull_order_array_by_array($test, array('orange', 'pear')), $reference, 'Orders the given array correctly');
+  try
+  {
+    ull_order_array_by_array($test, array('foobar'));
+    $t->fail('Doesn\'t throw an exception for an invalid key');
+  }
+  catch (Exception $e)
+  {
+    $t->pass('Throws an exception for an invalid key');
+  }
+
+   
+   
 function clean_request_parameters()
 {
   sfContext::getInstance()->getRequest()->getParameterHolder()->clear();
