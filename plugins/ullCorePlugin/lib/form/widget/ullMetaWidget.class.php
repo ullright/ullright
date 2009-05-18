@@ -62,14 +62,7 @@ abstract class ullMetaWidget
         $this->configureReadMode();
         break;
       case 's':
-        if (is_callable($this->configureSearchMode())) 
-        {
-          $this->configureSearchMode();
-        }
-        else
-        {
-          $this->configureWriteMode();
-        }
+        $this->configureSearchMode();
         break;  
     }
   }
@@ -79,7 +72,7 @@ abstract class ullMetaWidget
    * @return none
    */
   protected function configure()
-  {    
+  {
   }
   
   
@@ -173,7 +166,7 @@ abstract class ullMetaWidget
    */
   protected function isWriteMode()
   {
-    if ($this->columnConfig['access'] == 'w')
+    if ($this->columnConfig['access'] == 'w' || $this->columnConfig['access'] == 's')
     {
       return true;
     }
