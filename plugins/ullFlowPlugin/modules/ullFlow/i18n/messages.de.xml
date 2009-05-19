@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+
+<trans-unit id="1">
+<source>Applications</source>
+<target>Anwendungen</target>
+</trans-unit>
+
+<trans-unit id="2">
+<source>Workflows</source>
+<target>Workflows</target>
+</trans-unit>
+
+<trans-unit id="3">
+<source>Home</source>
+<target>Startseite</target>
+</trans-unit>
+
+<trans-unit id="4">
+<source>All entries</source>
+<target>Alle Einträge</target>
+</trans-unit>
+
+<trans-unit id="5">
+<source>Wiki</source>
+<target>Wiki</target>
+</trans-unit>
+
+
+<!-- Actions -->
+
+<trans-unit id="1000">
+<source>Assign</source>
+<target>Zuweisen</target>
+</trans-unit>
+
+<trans-unit id="1001">
+<source>to user</source>
+<target>an Benutzer</target>
+</trans-unit>
+
+<trans-unit id="1002">
+<source>to group</source>
+<target>an Gruppe</target>
+</trans-unit>
+
+<trans-unit id="1003">
+<source>Close</source>
+<target>Abschliessen</target>
+</trans-unit>
+
+<trans-unit id="1004">
+<source>Send</source>
+<target>Abschicken</target>
+</trans-unit>
+
+<trans-unit id="1005">
+<source>Reopen</source>
+<target>Wiedereröffnen</target>
+</trans-unit>
+
+<trans-unit id="1006">
+<source>Reject</source>
+<target>Ablehnen</target>
+</trans-unit>
+
+<trans-unit id="1007">
+<source>Return</source>
+<target>Retournieren</target>
+</trans-unit>
+
+<trans-unit id="1008">
+<source>Approve</source>
+<target>Genehmigen</target>
+</trans-unit>
+
+<!-- action 'index' -->
+
+<trans-unit id="1501">
+<source>Entries created by me</source>
+<target>Von mir erstellte Einträge</target>
+</trans-unit>
+
+<trans-unit id="1502">
+<source>Entries assigned to me</source>
+<target>An mich zugewiesene Einträge</target>
+</trans-unit>
+
+<trans-unit id="1503">
+<source>Entries created by me</source>
+<target>Von mir erstellte Einträge</target>
+</trans-unit>
+
+<trans-unit id="1504">
+<source>Custom queries</source>
+<target>Individuelle Abfragen</target>
+</trans-unit>
+
+<trans-unit id="1505">
+<source>Last changed entries</source>
+<target>Zuletzt geänderte Einträge</target>
+</trans-unit>
+
+<trans-unit id="1506">
+<source>Entries assigned to me or my groups</source>
+<target>An mich oder meine Gruppen zugewiesene Einträge</target>
+</trans-unit>
+
+<!-- action 'list' -->
+
+<trans-unit id="2001">
+<source>Last action</source>
+<target>Letzte Aktion</target>
+</trans-unit>
+
+<trans-unit id="2002">
+<source>Next one</source>
+<target>Nächster Schritt</target>
+</trans-unit>
+
+<trans-unit id="2003">
+<source>by</source>
+<target>von</target>
+</trans-unit>
+
+<trans-unit id="2004">
+<source>at</source>
+<target>am</target>
+</trans-unit>
+
+<trans-unit id="2005">
+<source>Status</source>
+<target>Status</target>
+</trans-unit>
+
+<trans-unit id="2006">
+<source>All</source>
+<target>Alle</target>
+</trans-unit>
+
+<trans-unit id="2007">
+<source>All active</source>
+<target>Alle aktiven</target>
+</trans-unit>
+
+<trans-unit id="2008">
+<source>Filter settings</source>
+<target>Filtereinstellungen</target>
+</trans-unit>
+
+<trans-unit id="2009">
+<source>Assigned to</source>
+<target>Zugewiesen an</target>
+</trans-unit>
+
+<trans-unit id="2010">
+<source>Application</source>
+<target>Anwendung</target>
+</trans-unit>
+
+<trans-unit id="2011">
+<source>Priority</source>
+<target>Wichtigkeit</target>
+</trans-unit>
+
+<!-- action 'edit' -->
+
+<trans-unit id="3001">
+<source>Create %1%</source>
+<target>%1% erstellen</target>
+</trans-unit>
+
+<trans-unit id="3002">
+<source>Progress</source>
+<target>Verlauf</target>
+</trans-unit>
+
+<trans-unit id="3003">
+<source>Workflow actions</source>
+<target>Workflow Aktionen</target>
+</trans-unit>
+
+<trans-unit id="3004">
+<source>Comment for this action</source>
+<target>Bemerkung zu dieser Aktion</target>
+</trans-unit>
+
+<trans-unit id="3005">
+<source>Comment</source>
+<target>Bemerkung</target>
+</trans-unit>
+
+<trans-unit id="3006">
+<source>Please enter a reason for this action</source>
+<target>Bitte geben Sie eine Begründung für diese Aktion an</target>
+</trans-unit>
+
+<trans-unit id="3006">
+<source>You cannot perfom any workflow actions at the moment, because the document is not assigned to you.</source>
+<target>Sie können zur Zeit keine Workflow-Aktionen durchführen, da Ihnen das Dokument nicht zugewiesen ist.</target>
+</trans-unit>
+
+<!-- action 'mailing' -->
+
+<trans-unit id="4001">
+<source>has been %1%</source>
+<target>wurde %1%</target>
+</trans-unit>
+
+<trans-unit id="4002">
+<source>Hello</source>
+<target>Hallo</target>
+</trans-unit>
+
+<trans-unit id="4003">
+<source>Kind regards</source>
+<target>Mit freundlichen Grüßen</target>
+</trans-unit>
+
+<trans-unit id="4004">
+<source>Link</source>
+<target>Link</target>
+</trans-unit>
+
+<trans-unit id="4005">
+<source>Please take care of</source>
+<target>Bitte um Bearbeitung von</target>
+</trans-unit>
+
+    </body>
+  </file>
+</xliff>
