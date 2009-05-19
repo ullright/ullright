@@ -164,7 +164,6 @@ class BaseUllVentoryActions extends ullsfActions
   
 //    $this->getResponse()->setContentType('application/json');
 //    $authors = DemoAuthorPeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
-
     
     $q = new Doctrine_Query;
     $q
@@ -182,15 +181,45 @@ class BaseUllVentoryActions extends ullsfActions
     $models = array();
     foreach ($result as $values)
     {
-      $models[$values['id']] = $values['full_name'];
+//      $models[$values['id']] = $values['full_name'];
+      $models[] = array('id' => $values['id'], 'name' => $values['full_name']);
     }
-    
-    return $this->renderText(json_encode($models));
-    
-    
-
-        
+    $x['results'] = $models;
+     
+    return $this->renderText(json_encode($x));
   }
+  
+  public function executeItemModelsByManufacturer($request)
+  {
+//    var_dump($request->getParameterHolder()->getAll());
+  
+//    $this->getResponse()->setContentType('application/json');
+//    $authors = DemoAuthorPeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
+    
+    $q = new Doctrine_Query;
+    $q
+      ->select('mo.id, mo.name')
+      ->from('UllVentoryItemModel mo')
+    ;
+    if ($id = $request->getParameter('ull_ventory_item_manufacturer_id'))
+    {
+      $q->where('mo.ull_ventory_item_manufacturer_id = ?',$request->getParameter('ull_ventory_item_manufacturer_id'));
+    }    
+    
+//    printQuery($q->getQuery());
+//    var_dump($q->getParams());
+    $result = $q->execute(array(), Doctrine::HYDRATE_ARRAY);
+    
+    $models = array();
+    foreach ($result as $values)
+    {
+//      $models[$values['id']] = $values['name'];
+      $models[] = array('id' => $values['id'], 'name' => $values['name']);
+    }
+//    var_dump($models);die;
+
+    return $this->renderText(json_encode($models));
+  }  
   
   /**
    * Create breadcrumbs for index action

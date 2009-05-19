@@ -405,7 +405,9 @@ ul.list_action_buttons li {
  * ************************************************
  */
 .form_error {
-	margin-left: 0.5em;
+	/* margin-left: 0.5em; */
+	margin: 0;
+  padding: 0;
 	font-style: normal;
 	font-size: 1.1em;
 	font-weight: bold;
@@ -420,6 +422,7 @@ ul.list_action_buttons li {
 /* form errors of sf1.1 forms framework */
 .error_list {
 	margin: 0;
+	padding: 0;
 	list-style: none;
 	display: inline;	
 }
@@ -430,6 +433,8 @@ ul.list_action_buttons li {
   font-weight: bold;
   color: #D41400;
   display: inline;
+  margin: 0;
+  padding 0;
 }	
 
 

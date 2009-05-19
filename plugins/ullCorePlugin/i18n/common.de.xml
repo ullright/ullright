@@ -279,9 +279,14 @@
 <target>Bitte dieses Pflichtfeld ausfüllen</target>
 </trans-unit>
 
-<trans-unit id="5001">
+<trans-unit id="5002">
 <source>Please correct the following errors</source>
 <target>Bitte korrigieren Sie folgende Fehler</target>
+</trans-unit>
+
+<trans-unit id="5003">
+<source>Please select a value or enter a new one</source>
+<target>Bitte wählen Sie einen Wert aus oder geben Sie einen neuen ein.</target>
 </trans-unit>
 
 
@@ -306,6 +311,11 @@
 <trans-unit id="9004">
 <source>Link opens in a new window</source>
 <target>Link öffnet sich in einem neuen Fenster</target>
+</trans-unit>
+
+<trans-unit id="9004">
+<source>or create</source>
+<target>oder neu erstellen</target>
 </trans-unit>
 
 

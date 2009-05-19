@@ -13,13 +13,16 @@ UllVentoryItemType:
         name:                   Notebook
       de:
         name:                   Notebook
-    namespace:                  test        
+    slug:                       notebook
+    namespace:                  test
+            
   printer:
     Translation:
       en:
         name:                   Printer
       de:
         name:                   Drucker
+    slug:                       printer
     namespace:                  test        
         
 UllVentoryItemModel:

@@ -3,7 +3,7 @@
 class ullVentoryGenerator extends ullTableToolGenerator
 {
   protected
-//    $formClass = 'ullVentoryForm',
+    $formClass = 'ullVentoryForm',
     
     $columnsNotShownInList = array(
     )     
@@ -45,24 +45,84 @@ class ullVentoryGenerator extends ullTableToolGenerator
         $this->columnsConfig['updated_at']
       );
     }
-
-//    //configure subject
-//    $this->columnsConfig['subject']['widgetAttributes']['size'] = 50;
-    $this->columnsConfig['ull_ventory_item_model_id']['metaWidget']  = 'ullMetaWidgetAjaxSelect';
-//    $this->columnsConfig['ull_ventory_item_model_id']['metaWidget']  = 'ullMetaWidgetUllVentoryItemModel';
     
-//    
-//    //configure body
-//    $this->columnsConfig['body']['metaWidget']  = 'ullMetaWidgetFCKEditor';
-//    $this->columnsConfig['body']['label']       = 'Text';
-//    
-//    // configure access level
-//    $this->columnsConfig['ull_ventory_access_level_id']['label']       = __('Access level');
-//    
-//    // configure tags
-//    $this->columnsConfig['duplicate_tags_for_search']['label']       = 'Tags';
-//    $this->columnsConfig['duplicate_tags_for_search']['metaWidget']  = 'ullMetaWidgetTaggable';
+    $itemType = array(
+      'metaWidget'        => 'ullMetaWidgetForeignKey',
+      'label'             => 'Type',
+      'access'            => 'w',
+      'is_in_list'        => false,
+      'relation'          => array(
+        'model'             => 'UllVentoryItemType',
+        'foreign_id'        => 'id'
+        ),
+      'widgetOptions'     => array('add_empty' => true), 
+      'validatorOptions'  => array('required' => true),
+      'widgetAttributes'  => array()
+    );
+    $this->columnsConfig['ull_ventory_item_type_id'] = $itemType;
+    
+    $itemManufacturer = array(
+      'metaWidget'        => 'ullMetaWidgetForeignKey',
+      'label'             => __('Manufacturer'),
+      'access'            => 'w',
+      'is_in_list'        => false,
+      'relation'          => array(
+        'model'             => 'UllVentoryItemManufacturer',
+        'foreign_id'        => 'id'
+        ),
+      'widgetOptions'     => array('add_empty' => true), 
+      'validatorOptions'  => array('required' => true),
+      'widgetAttributes'  => array(),
+      'allowCreate'       => true
+    );
+    $this->columnsConfig['ull_ventory_item_manufacturer_id'] = $itemManufacturer;
+        
+    $this->columnsConfig['ull_ventory_item_model_id']['allowCreate']  = true;
+    $this->columnsConfig['ull_ventory_item_model_id']['widgetOptions']['add_empty']  = true;
+    
+  $order = array(
+    'ull_ventory_item_type_id',
+    'ull_ventory_item_manufacturer_id',
+    'ull_ventory_item_model_id'
+  );
+
+  $this->columnsConfig = ull_order_array_by_array($this->columnsConfig, $order);
     
 //    var_dump($this->columnsConfig);die;
+  }
+
+  
+  /**
+   * Extends parents buildForm method
+   * 
+   * @see plugins/ullCorePlugin/lib/ullGenerator#buildForm()
+   */
+  public function buildForm($rows)
+  {
+    parent::buildForm($rows);
+    
+    $this->filterItemModelsByManufacturer();
+  }  
+  
+  
+  /**
+   * Adds filter to the item-model select box by the given manufacturer
+   * Actually adds an option (custom query) for the sfWidgetFormDoctrineSelect widget
+   *  
+   * @return none
+   */
+  protected function filterItemModelsByManufacturer()
+  {
+    if ($this->getRequestAction() == 'edit' && $this->getRow()->exists())
+    {
+      $q = new Doctrine_Query;
+      $q
+        ->from('UllVentoryItemModel mo')
+        ->where('mo.ull_ventory_item_manufacturer_id = ?', $this->getForm()->getDefault('ull_ventory_item_manufacturer_id'))
+      ;
+      
+      $this->getForm()->getWidgetSchema()->offsetGet('ull_ventory_item_model_id')->addOption('alias', 'mo');
+      $this->getForm()->getWidgetSchema()->offsetGet('ull_ventory_item_model_id')->addOption('query', $q);
+    }    
   }
 }

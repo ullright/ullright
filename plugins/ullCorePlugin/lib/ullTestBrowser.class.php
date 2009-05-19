@@ -166,5 +166,51 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $s;
   }   
   
+  /**
+   * ullVentory
+   */
+  
+  public function getDgsUllVentoryList()
+  {
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
+      array(
+        'actions'     => 1,
+        'model'       => 2,
+        'id'          => 3,
+        'serial_number' => 4,
+        'comment'     => 5,
+        'user'        => 6,
+        'updated_by'  => 7,
+        'updated_at'  => 8
+      ),
+      'table > thead > tr', 'th'
+    );
+    
+    return $s;
+  } 
+
+  public function getDgsUllVentoryEdit()
+  {
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
+      array(
+        'type'          => 1,
+        'manufacturer'  => 2,
+        'model'         => 3,
+        'serial_number' => 4,
+        'priority'      => 5,
+        'comment'       => 6,
+        'ull_user_id'   => 7,
+        'location'      => 8
+      ),      
+      array(
+        'label'       => 1,
+        'value'       => 2,
+        'error'       => 3
+      )
+    );
+    
+    return $s;
+  }   
+  
 }
 

@@ -107,6 +107,10 @@
      
      
     <div id="content">
+      <div id="ajax_indicator" style="display:none;">
+        <?php echo image_tag('/ullCoreThemeNGPlugin/images/indicator.gif') ?>
+      </div>
+    
       <?php //var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll()) ?>
       <?php echo $sf_data->getRaw('sf_content') ?>
       <?php //phpinfo() ?>

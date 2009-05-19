@@ -19,9 +19,11 @@ UllVentoryItemType:
     I18n:
       fields: [name] 
   columns:
+    slug:
+      type: string(128)
     name:
       type: string(128)
-      notnull: true
+      notnull: true    
 
 # List of models e.g. Macbook, 1110i, MFC-440CN       
 UllVentoryItemModel:
