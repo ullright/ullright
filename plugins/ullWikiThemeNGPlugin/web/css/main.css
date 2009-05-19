@@ -1,0 +1,138 @@
+/*
+ * ************************************************
+ *  ullWiki styles
+ * ************************************************
+ */
+ 
+ /* Overridden css: ullCore / main.css - formats */
+
+.color_light_bg {
+  background: #E8E5A8;
+}
+
+.color_medium_bg {
+  background: #C6C98D;
+}
+
+.color_dark_bg {
+  background: #A5AE5B;
+}
+
+.edit_container {
+  max-width: 950px;
+}
+
+/* Overridden css: ullCore / taskcenter.css - formats */
+ 
+#tc_wrapper a:visited {
+  color: #51961f;
+}
+
+/* Overridden css: ullCore / common.css - formats */
+ 
+a {
+  color: #51961f;
+}
+
+a:visited {
+  color: #346014;
+}
+
+/* End of overridden css */
+
+
+/*
+ * ************************************************
+ *  ullWiki Header
+ * ************************************************
+ */ 
+
+#ull_wiki_header {
+  max-width: 780px;
+  margin-bottom: .3em;
+}
+
+.ull_wiki_headfoot_float_right {
+  float: right;
+  position: relative; /* workaround for IE 6 */
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  color: #777777;
+  font-size: 1em;
+  padding-top: 0.3em;
+}
+
+.ull_wiki_headfoot_action_icons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ull_wiki_headfoot_action_icons li{
+  float: left;
+  position: relative; /* workaround for IE 6 */
+  background: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 5px; 
+}
+
+.ull_wiki_header_title {
+  float: left;
+}
+
+.ull_wiki_header_title h1 {
+  margin-bottom: 0.1em;
+}
+
+
+/*
+ * ************************************************
+ *  footer
+ * ************************************************
+ */ 
+
+#ull_wiki_footer {
+  max-width: 780px;
+  padding-top: 0.5em;
+}
+
+.ull_wiki_headfoot_float_left {
+  margin: 0;
+  margin-right: 25px;
+  padding: 0;
+  color: #777777;
+  font-size: 1em;
+}
+
+.ull_wiki_headfoot_ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.1em;
+  list-style-image: none;
+}
+
+.ull_wiki_headfoot_ul li {
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+
+/*
+ * ************************************************
+ *  generic styles
+ * ************************************************
+ */ 
+
+.ull_wiki_main {
+  border-top: 1px solid #676767;
+  border-bottom: 1px solid #676767;
+  min-height: 200px;
+  max-width: 780px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
