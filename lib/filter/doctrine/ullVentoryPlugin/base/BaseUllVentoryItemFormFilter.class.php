@@ -15,6 +15,7 @@ class BaseUllVentoryItemFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'namespace'                 => new sfWidgetFormFilterInput(),
+      'inventory_number'          => new sfWidgetFormFilterInput(),
       'serial_number'             => new sfWidgetFormFilterInput(),
       'comment'                   => new sfWidgetFormFilterInput(),
       'ull_ventory_item_model_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllVentoryItemModel', 'add_empty' => true)),
@@ -28,6 +29,7 @@ class BaseUllVentoryItemFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'namespace'                 => new sfValidatorPass(array('required' => false)),
+      'inventory_number'          => new sfValidatorPass(array('required' => false)),
       'serial_number'             => new sfValidatorPass(array('required' => false)),
       'comment'                   => new sfValidatorPass(array('required' => false)),
       'ull_ventory_item_model_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllVentoryItemModel', 'column' => 'id')),
@@ -56,6 +58,7 @@ class BaseUllVentoryItemFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                        => 'Number',
       'namespace'                 => 'Text',
+      'inventory_number'          => 'Text',
       'serial_number'             => 'Text',
       'comment'                   => 'Text',
       'ull_ventory_item_model_id' => 'ForeignKey',

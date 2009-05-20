@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *  
+ * @author Klemens Ullmann-Marx
+ * @todo: allow giving row/column aliases as simple array ('id','name', ..)
+ *
+ */
 class ullDomGridSelector
 {
   protected
@@ -26,8 +32,8 @@ class ullDomGridSelector
     $this->baseSelector = $baseSelector;
     $this->rowSelector = $rowSelector;
     $this->columnSelector = $columnSelector;
-    $this->rowAliases = $rowAliases;
-    $this->columnAliases = $columnAliases;
+    $this->rowAliases = self::convertArray($rowAliases);
+    $this->columnAliases = self::convertArray($columnAliases);
     $this->headerBaseSelector = $headerBaseSelector;
     $this->headerColumnSelector = $headerColumnSelector;
   }
@@ -145,5 +151,29 @@ class ullDomGridSelector
     }
     
     return $this->columnAliases[$alias];
-  }  
+  }
+
+  /**
+   * Converts a simple array (eg. 'apple', 'banana') into a array of the format
+   * 'apple' => 1, 'banana' => 2
+   * @param $array
+   * @return array
+   */
+  public static function convertArray($array)
+  {
+    if (is_numeric(key($array)))
+    {
+      $return = array();
+      $i = 1;
+      foreach ($array as $value)
+      {
+        $return[$value] = $i;
+        $i++; 
+      }
+      
+      return $return;
+    }
+    
+   return $array;
+  }
 }

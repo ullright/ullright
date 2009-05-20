@@ -276,6 +276,7 @@ class ullTableToolGenerator extends ullGenerator
       if (isset($column['primary']))
       {
         $columnConfig['access'] = 'r';
+        $columnConfig['unique'] = true;
         $columnConfig['validatorOptions']['required'] = true;
       }
       

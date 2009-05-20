@@ -14,6 +14,7 @@ class BaseUllVentoryItemForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                        => new sfWidgetFormInputHidden(),
       'namespace'                 => new sfWidgetFormInput(),
+      'inventory_number'          => new sfWidgetFormInput(),
       'serial_number'             => new sfWidgetFormInput(),
       'comment'                   => new sfWidgetFormTextarea(),
       'ull_ventory_item_model_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllVentoryItemModel', 'add_empty' => false)),
@@ -28,6 +29,7 @@ class BaseUllVentoryItemForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'                        => new sfValidatorDoctrineChoice(array('model' => 'UllVentoryItem', 'column' => 'id', 'required' => false)),
       'namespace'                 => new sfValidatorString(array('max_length' => 32, 'required' => false)),
+      'inventory_number'          => new sfValidatorString(array('max_length' => 128)),
       'serial_number'             => new sfValidatorString(array('max_length' => 128, 'required' => false)),
       'comment'                   => new sfValidatorString(array('max_length' => 4000, 'required' => false)),
       'ull_ventory_item_model_id' => new sfValidatorDoctrineChoice(array('model' => 'UllVentoryItemModel')),
@@ -38,6 +40,10 @@ class BaseUllVentoryItemForm extends BaseFormDoctrine
       'creator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id'           => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'UllVentoryItem', 'column' => array('inventory_number')))
+    );
 
     $this->widgetSchema->setNameFormat('ull_ventory_item[%s]');
 

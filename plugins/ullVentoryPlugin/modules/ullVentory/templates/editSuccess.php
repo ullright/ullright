@@ -11,8 +11,9 @@
 <?php endif; ?>
 
 
-<?php 
-  echo form_tag('ullVentory/edit?id=' . $doc->id, 
+<?php
+  // get the correct action to use the correct route (create/edit) 
+  echo form_tag(url_for('ull_ventory_' . $sf_params->get('action'), $generator->getRow()), 
     array('id' => 'ull_ventory_form', 'name' => 'edit_form')) 
 ?>
 
@@ -32,7 +33,7 @@
         </td>
         <td class="form_error"><?php echo $generator->getForm()->offsetGet($column_name)->renderError() ?></td>
       </tr>
-    <?php elseif (in_array($column_name, array('ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create'))): ?>
+    <?php elseif (in_array($column_name, array('id', 'ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create'))): //TODO: it shouldn't be neccessary to hide "id" manually?>
       <?php continue ?>
     <?php else: ?>      
       <?php echo $generator->getForm()->offsetGet($column_name)->renderRow() ?>
@@ -42,6 +43,7 @@
 </tbody>
 </table>
 
+<?php echo $generator->getForm()->renderHiddenFields() ?>
 
 <br />
 

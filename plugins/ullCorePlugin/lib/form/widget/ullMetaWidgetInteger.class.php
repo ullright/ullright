@@ -2,23 +2,18 @@
 
 class ullMetaWidgetInteger extends ullMetaWidget
 {
-  protected function addToForm()
+  protected function configureWriteMode()
   {
-    
-//    var_dump($columnConfig);
-    
-    if ($this->isWriteMode())
+    //TODO: refactor to allow generic usage by all metaWidgets?
+    if (isset($this->columnConfig['widgetOptions']['is_hidden']))
     {
-      $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorInteger($this->columnConfig['validatorOptions']));
+      $this->addWidget(new sfWidgetFormInputHidden($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
     }
     else
     {
-      $this->addWidget(new ullWidget($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorPass());
-    }
-    
-  }  
+      $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+    }    
+    $this->addValidator(new sfValidatorInteger($this->columnConfig['validatorOptions']));    
+  }
+  
 }
-
-?>

@@ -9,6 +9,7 @@ abstract class BaseUllVentoryItem extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_item');
+        $this->hasColumn('inventory_number', 'string', 128, array('type' => 'string', 'notnull' => true, 'unique' => true, 'length' => '128'));
         $this->hasColumn('serial_number', 'string', 128, array('type' => 'string', 'length' => '128'));
         $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
         $this->hasColumn('ull_ventory_item_model_id', 'integer', null, array('type' => 'integer', 'notnull' => true));

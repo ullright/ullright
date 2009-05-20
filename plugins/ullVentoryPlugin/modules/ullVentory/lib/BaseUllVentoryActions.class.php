@@ -101,7 +101,14 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeEdit($request) 
   {
-    $this->getDocFromRequestOrCreate();
+    $this->doc = $this->getRoute()->getObject();
+    
+    
+    
+
+//    var_dump($this->item->toArray());die;
+//    
+//    $this->getDocFromRequestOrCreate();
     
 //    $accessType = $this->doc->checkAccess();
 //    $this->redirectUnless($accessType, 'ullUser/noaccess');
@@ -127,7 +134,9 @@ class BaseUllVentoryActions extends ullsfActions
         // save only
         if ($request->getParameter('action_slug') == 'save_only') 
         {
-          $this->redirect('ullVentory/edit?id=' . $this->doc->id);
+//          $this->redirect('ullVentory/edit?id=' . $this->doc->id);
+          
+          $this->redirect($this->generateUrl('ull_ventory_edit', $this->doc));
         }
         
         // save and show
@@ -340,32 +349,32 @@ class BaseUllVentoryActions extends ullsfActions
     return ($docs->count()) ? $docs : new UllVentoryItem;
   }
 
-  /**
-   * Gets UllWiki doc according to request param
-   * 
-   */
-  protected function getDocFromRequest()
-  {
-    $this->forward404Unless($this->getRequestParameter('id'), 'id is mandatory!');
-
-    $this->getDocFromRequestOrCreate();
-  }
-  
-  /**
-   * Gets a UllVentoryItem or creates it according to request param
-   * 
-   */
-  protected function getDocFromRequestOrCreate()
-  {
-    if ($id = $this->getRequestParameter('id')) 
-    {
-      $this->doc = Doctrine::getTable('UllVentoryItem')->find($id);
-      $this->forward404Unless($this->doc);
-    }
-    else
-    {
-      $this->doc = new UllVentoryItem;
-    }
-  }
+//  /**
+//   * Gets UllWiki doc according to request param
+//   * 
+//   */
+//  protected function getDocFromRequest()
+//  {
+//    $this->forward404Unless($this->getRequestParameter('id'), 'id is mandatory!');
+//
+//    $this->getDocFromRequestOrCreate();
+//  }
+//  
+//  /**
+//   * Gets a UllVentoryItem or creates it according to request param
+//   * 
+//   */
+//  protected function getDocFromRequestOrCreate()
+//  {
+//    if ($id = $this->getRequestParameter('id')) 
+//    {
+//      $this->doc = Doctrine::getTable('UllVentoryItem')->find($id);
+//      $this->forward404Unless($this->doc);
+//    }
+//    else
+//    {
+//      $this->doc = new UllVentoryItem;
+//    }
+//  }
   
 }

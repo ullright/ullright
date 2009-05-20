@@ -141,6 +141,9 @@ abstract class ullMetaWidget
       $columnName = $this->columnName;
     }
 
+//    var_dump($this->getForm()->getObject()->toArray());
+    
+    // set unique validator and required for unique fields
     if (isset($this->columnConfig['unique']) &&
       $this->columnConfig['unique'] == true &&
       $this->isWriteMode())
@@ -149,11 +152,24 @@ abstract class ullMetaWidget
       new sfValidatorDoctrineUnique(
         array(
           'model' => $this->form->getModelName(),
-          'column' => $columnName,
-          'required' => true
-      )));
-      
-      $validator->setOption('required', true);
+          'column' => array($columnName),
+          'throw_global_error' => false,
+//          'id'  => $this->getForm()->getObject()->id
+        ),
+        array(
+          'invalid' => __('Duplicate. Please use another value', null, 'common'). '.'
+        )
+      ));
+
+      // handle "required" - don't set it for the primary key of a new object 
+      if ($columnName == 'id' && !$this->getForm()->getObject()->exists())
+      {
+        $validator->setOption('required', false);
+      }
+      else
+      {
+        $validator->setOption('required', true);
+      }
     }
     
     $this->form->getValidatorSchema()->offsetSet($columnName, $validator);

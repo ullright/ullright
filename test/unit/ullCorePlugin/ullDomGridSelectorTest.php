@@ -7,16 +7,27 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 //sfLoader::loadHelpers('ull');
 //sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(33, new lime_output_color);
+$t = new lime_test(35, new lime_output_color);
 
+
+$t->diag('convertArray()');
+  $testNew = array('id', 'subject');
+  $testOld = array('id' => 1, 'subject' => 2);
+  $reference = array('id' => 1, 'subject' => 2);
+  $t->is(ullDomGridSelector::convertArray($testNew), $reference, 'correctly converts the new simplified array format');  
+  $t->is(ullDomGridSelector::convertArray($testOld), $reference, 'correctly leaves the the old array as it was');
+
+  
 $t->diag('__construct()');
 
   $s1 = new ullDomGridSelector('table > tbody', 'tr', 'td',
+    // new, simplified way
     array(
-      'subject'   => 1,
-      'body'      => 2,
-      'tags'      => 3,
+      'subject',
+      'body',
+      'tags',
     ),
+    // old, depricated wasy
     array(
       'label'     => 1,
       'value'     => 2,
@@ -28,9 +39,9 @@ $t->diag('__construct()');
   
   $s2 = new ullDomGridSelector('ul#memory', 'li', null, 
     array(
-      'created'   => 1,
-      'status'    => 2,
-      'next'      => 3,
+      'created',
+      'status',
+      'next',
     )
   );
   $t->isa_ok($s2, 'ullDomGridSelector', 'returns the correct object');
@@ -111,3 +122,4 @@ $t->diag('getHeader()');
   $t->is($s1->getHeader(2),'table > thead > tr > th + th', 'returns the correct result for 2');
   $t->is($s1->getHeader('label'),'table > thead > tr > th', 'returns the correct result for "label"');
   $t->is($s1->getHeader('value'),'table > thead > tr > th + th', 'returns the correct result for "value"');
+

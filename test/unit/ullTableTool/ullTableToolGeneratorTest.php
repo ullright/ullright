@@ -13,7 +13,7 @@ class myTestCase extends sfDoctrineTestCase
         'metaWidget'          => 'ullMetaWidgetInteger',
         'access'              => 'r',
         'is_in_list'        => true,
-        'unique'            => false,
+        'unique'            => true,
         ),                   
     'my_boolean' => array (
         'widgetOptions'       => array(),

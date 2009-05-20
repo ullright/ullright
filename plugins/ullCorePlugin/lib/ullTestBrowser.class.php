@@ -174,14 +174,14 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   {
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
-        'actions'     => 1,
-        'model'       => 2,
-        'id'          => 3,
-        'serial_number' => 4,
-        'comment'     => 5,
-        'user'        => 6,
-        'updated_by'  => 7,
-        'updated_at'  => 8
+        'actions',
+        'model',
+        'inventory_number',
+        'serial_number',
+        'owner',
+        'comment',
+        'updated_by',
+        'updated_at',
       ),
       'table > thead > tr', 'th'
     );
@@ -193,19 +193,19 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   {
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
       array(
-        'type'          => 1,
-        'manufacturer'  => 2,
-        'model'         => 3,
-        'serial_number' => 4,
-        'priority'      => 5,
-        'comment'       => 6,
-        'ull_user_id'   => 7,
-        'location'      => 8
+        'type',
+        'manufacturer',
+        'model',
+        'inventory_number',
+        'serial_number',
+        'owner',
+        'location',
+        'comment',
       ),      
       array(
-        'label'       => 1,
-        'value'       => 2,
-        'error'       => 3
+        'label',
+        'value',
+        'error',
       )
     );
     

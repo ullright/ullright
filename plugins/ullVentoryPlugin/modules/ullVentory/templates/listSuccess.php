@@ -54,7 +54,7 @@
     <tr <?php echo $odd_style ?>>
       <td class='no_wrap'>          
         <?php
-            echo ull_link_to(ull_image_tag('edit'), 'ullVentory/edit?' . $identifier);
+            echo ull_link_to(ull_image_tag('edit'), url_for('ull_ventory_edit', $form->getObject()));
             echo ull_link_to(ull_image_tag('delete'), 'ullVentory/delete?' . $identifier,
                 'confirm='.__('Are you sure?', null, 'common')); 
         ?>

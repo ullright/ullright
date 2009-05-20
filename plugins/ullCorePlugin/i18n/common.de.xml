@@ -119,6 +119,16 @@
 <target>Privileg</target>
 </trans-unit>
 
+<trans-unit id="112">
+<source>Owner</source>
+<target>Besitzer</target>
+</trans-unit>
+
+<trans-unit id="113">
+<source>Comment</source>
+<target>Kommentar</target>
+</trans-unit>
+
 
 
 <!-- Questions -->
@@ -288,6 +298,12 @@
 <source>Please select a value or enter a new one</source>
 <target>Bitte wählen Sie einen Wert aus oder geben Sie einen neuen ein.</target>
 </trans-unit>
+
+<trans-unit id="5004">
+<source>Duplicate. Please use another value</source>
+<target>Ein Eintrag mit diesem Wert existiert bereits. Bitte geben Sie einen anderen Wert ein</target>
+</trans-unit>
+
 
 
 

@@ -39,6 +39,7 @@ UllVentoryItemModel:
     
 UllVentoryItem:
   testusers_macbook:
+    inventory_number:           1701
     serial_number:              1234567890
     comment:                    Big scratch on bottom side
     UllVentoryItemModel:        macbook
@@ -46,6 +47,7 @@ UllVentoryItem:
     UllLocation:                ull_location
     namespace:                  test
   testusers_mfc_440cn:
+    inventory_number:           1702
     serial_number:              6789012345
     comment:                    USB port broken
     UllVentoryItemModel:        mfc_440cn

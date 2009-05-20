@@ -30,6 +30,8 @@ class ullVentoryGenerator extends ullTableToolGenerator
   {  
     parent::buildColumnsConfig();
     
+//    var_dump($this->columnsConfig);die;
+    
     unset(      
       $this->columnsConfig['creator_user_id'],
       $this->columnsConfig['created_at']      
@@ -40,10 +42,20 @@ class ullVentoryGenerator extends ullTableToolGenerator
     if ($this->requestAction == 'edit')
     {
       unset(
-        $this->columnsConfig['id'],        
+//        $this->columnsConfig['id'],        
         $this->columnsConfig['updator_user_id'],
         $this->columnsConfig['updated_at']
       );
+      $this->columnsConfig['id']['access'] = 'w';
+      $this->columnsConfig['id']['widgetOptions']['is_hidden'] = true;
+      $this->columnsConfig['id']['widgetOptions']['is_hidden'] = true;
+//      $this->columnsConfig['id']['metaWidget'] = 'ullMetaWidgetHidden';
+    }
+    else
+    {
+      unset(
+        $this->columnsConfig['id']        
+      );      
     }
     
     $itemType = array(
@@ -80,13 +92,23 @@ class ullVentoryGenerator extends ullTableToolGenerator
     $this->columnsConfig['ull_ventory_item_model_id']['allowCreate']  = true;
     $this->columnsConfig['ull_ventory_item_model_id']['widgetOptions']['add_empty']  = true;
     
-  $order = array(
-    'ull_ventory_item_type_id',
-    'ull_ventory_item_manufacturer_id',
-    'ull_ventory_item_model_id'
-  );
-
-  $this->columnsConfig = ull_order_array_by_array($this->columnsConfig, $order);
+    $this->columnsConfig['ull_user_id']['label'] = __('Owner', null, 'common');
+    $this->columnsConfig['ull_location_id']['label'] = __('Item location');
+    $this->columnsConfig['ull_ventory_item_model_id']['label'] = __('Model');
+    $this->columnsConfig['comment']['label'] = __('Comment', null, 'common');
+    
+    $order = array(      
+      'ull_ventory_item_type_id',
+      'ull_ventory_item_manufacturer_id',
+      'ull_ventory_item_model_id',
+      'inventory_number',
+      'serial_number',
+      'ull_user_id',
+      'ull_location_id',
+      'comment'
+    );
+  
+    $this->columnsConfig = ull_order_array_by_array($this->columnsConfig, $order);
     
 //    var_dump($this->columnsConfig);die;
   }
@@ -102,6 +124,17 @@ class ullVentoryGenerator extends ullTableToolGenerator
     parent::buildForm($rows);
     
     $this->filterItemModelsByManufacturer();
+    
+//    if ($this->getRequestAction() == 'edit')
+//    { 
+//         
+//      $this->getForm()->mergePostValidator(
+//        new sfValidatorDoctrineUnique(array('model' => 'UllVentoryItem', 'column' => 'id'))
+//      );
+//      
+//      
+////      var_dump($this->getForm()->getValidatorSchema()->getPostValidator()->get->[1]);die;      
+//    }
   }  
   
   

@@ -4,8 +4,8 @@
  *
  */
 class ullVentoryForm extends ullGeneratorForm
-{   
-
+{
+     
   /**
    * Handle item-tye and item-model
    * 
@@ -43,12 +43,40 @@ class ullVentoryForm extends ullGeneratorForm
         $model->name = $modelName;
       }
     }
+    else
+    {
+      $model = Doctrine::getTable('UllVentoryItemModel')->findOneById($values['ull_ventory_item_model_id']);
+    }
 
     $model->ull_ventory_item_type_id = $values['ull_ventory_item_type_id'];
     $model->ull_ventory_item_manufacturer_id = $manufacturer->id;
     $model->save();
     
     $this->object->ull_ventory_item_model_id = $model->id;
+    
+//    var_dump($this->object->getModified());die;
+    // update models which use the item_id as foreign_key
+//    if (array_key_exists('id', $this->object->getModified()))
+//    {
+//      $relations = $this->object->getTable()->getRelations();
+//      foreach ($relations as $relation)
+//      {
+//        if ($relation instanceof Doctrine_Relation_ForeignKey)
+//        {
+//          var_dump($relation);die;
+//          $class = $relation->getClass();
+//          $foreign = $relation->getForeign();
+//          $q = new Doctrine_Query;
+//          $q
+//            ->update($class . ' x')
+//            ->set('x.' . $foreign . ' = ?', $object->id)
+//            ->where('x.' . $foreign . ' = ?', $object->id)
+//        }
+//      }
+//      
+//      
+//    }
+//    die;
     
     return $this->object;
   }

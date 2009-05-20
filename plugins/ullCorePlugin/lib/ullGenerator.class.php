@@ -45,7 +45,8 @@ abstract class ullGenerator
       'sequence'            => 'Sequence',
       'default_value'       => 'Default value',
       'ull_group_id'        => 'Group',
-      'ull_privilege_id'    => 'Privilege'
+      'ull_privilege_id'    => 'Privilege',
+      'comment'             => 'Comment'
     )    
   ;
 

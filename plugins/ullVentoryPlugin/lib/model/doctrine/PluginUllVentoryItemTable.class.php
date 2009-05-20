@@ -4,5 +4,16 @@
  */
 class PluginUllVentoryItemTable extends UllRecordTable
 {
+  
+  /**
+   * Method to return new object for the create route
+   * TODO: is there a better (=built in) way to do this?
+   *  
+   * @return UllVentoryItem
+   */
+  public static function getNew()
+  {
+    return new UllVentoryItem;    
+  }
 
 }

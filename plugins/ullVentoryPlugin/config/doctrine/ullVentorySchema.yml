@@ -51,7 +51,11 @@ UllVentoryItem:
   inheritance:
     extends: UllRecord
     type: concrete
-  columns:    
+  columns:
+    inventory_number:
+      type: string(128)
+      notnull: true
+      unique: true    
     serial_number:
       type: string(128)
     comment:
