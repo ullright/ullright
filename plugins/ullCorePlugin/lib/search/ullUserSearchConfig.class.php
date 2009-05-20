@@ -19,20 +19,20 @@ class ullUserSearchConfig implements ullSearchConfig {
     $sfeArray = array();
 
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = "last_name";
+    $sfe->columnName = 'last_name';
     //$sfe->multipleCount = 1;
     $sfeArray[] = $sfe;
 
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = "ull_department_id";
+    $sfe->columnName = 'ull_department_id';
     $sfeArray[] = $sfe;
 
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = "ull_location_id";
+    $sfe->columnName = 'ull_location_id';
     $sfeArray[] = $sfe;
 
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = "ull_user_status_id";
+    $sfe->columnName = 'ull_user_status_id';
     $sfeArray[] = $sfe;
 
     //    $sfe = new ullSearchFormEntry();
@@ -63,20 +63,29 @@ class ullUserSearchConfig implements ullSearchConfig {
     }
 
     //TBA: If needed: Relations like the following:
-    
-    /*
-    $sfe = new ullSearchFormEntry();
-    $sfe->relations[] = 'Creator';
-    $sfe->relations[] = 'UllLocation';
-    $sfe->columnName = 'country';
-    $sfeArray[] = $sfe;
 
-    $sfe = new ullSearchFormEntry();
-    $sfe->relations[] = 'UllLocation';
-    $sfe->columnName = 'country';
-    $sfeArray[] = $sfe;
-    */
-    
+    /*
+     $sfe = new ullSearchFormEntry();
+     $sfe->relations[] = 'Creator';
+     $sfe->relations[] = 'UllLocation';
+     $sfe->columnName = 'country';
+     $sfeArray[] = $sfe;
+
+     $sfe = new ullSearchFormEntry();
+     $sfe->relations[] = 'UllLocation';
+     $sfe->columnName = 'country';
+     $sfeArray[] = $sfe;
+     */
+
     return $sfeArray;
+  }
+
+  /**
+   * Returns a blacklist of columns we do not want the user to search for
+   * @return array the blacklist
+   */
+  public function getBlacklist()
+  {
+    return $this->blacklist;
   }
 }
