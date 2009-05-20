@@ -93,9 +93,19 @@ class ullVentoryGenerator extends ullTableToolGenerator
     $this->columnsConfig['ull_ventory_item_model_id']['widgetOptions']['add_empty']  = true;
     
     $this->columnsConfig['ull_user_id']['label'] = __('Owner', null, 'common');
-    $this->columnsConfig['ull_location_id']['label'] = __('Item location');
+//    $this->columnsConfig['ull_location_id']['label'] = __('Item location');
     $this->columnsConfig['ull_ventory_item_model_id']['label'] = __('Model');
+    if ($this->requestAction == 'edit')
+    {
+      $this->columnsConfig['inventory_number']['label'] = __('Inventory number');
+    }
+    else
+    {
+      $this->columnsConfig['inventory_number']['label'] = __('Inv.No.');
+    }
+    $this->columnsConfig['serial_number']['label'] = __('Serial number');
     $this->columnsConfig['comment']['label'] = __('Comment', null, 'common');
+    
     
     $order = array(      
       'ull_ventory_item_type_id',
@@ -104,7 +114,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
       'inventory_number',
       'serial_number',
       'ull_user_id',
-      'ull_location_id',
+//      'ull_location_id',
       'comment'
     );
   

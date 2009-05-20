@@ -44,7 +44,7 @@ UllVentoryItem:
     comment:                    Big scratch on bottom side
     UllVentoryItemModel:        macbook
     UllUser:                    test_user
-    UllLocation:                ull_location
+#    UllLocation:                ull_location
     namespace:                  test
   testusers_mfc_440cn:
     inventory_number:           1702
@@ -52,7 +52,7 @@ UllVentoryItem:
     comment:                    USB port broken
     UllVentoryItemModel:        mfc_440cn
     UllUser:                    test_user
-    UllLocation:                ull_location
+#    UllLocation:                ull_location
     namespace:                  test
     
 # Item Attributes:

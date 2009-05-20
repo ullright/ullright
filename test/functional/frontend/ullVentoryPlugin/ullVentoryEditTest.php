@@ -50,7 +50,7 @@ $b
     'serial_number'                     => 'abc123',
     'comment'                           => 'Permanent paper-jam!',
     'ull_user_id'                       => Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id,
-    'ull_location_id'                   => Doctrine::getTable('UllLocation')->findOneByName('Wien Mollardgasse')->id,
+//    'ull_location_id'                   => Doctrine::getTable('UllLocation')->findOneByName('Wien Mollardgasse')->id,
   )))
 ;
   
@@ -120,7 +120,7 @@ $b
     'ull_ventory_item_model_id'         => Doctrine::getTable('UllVentoryItemModel')->findOneByName('MacBook')->id,
     'serial_number'                     => '0123456789',
     'ull_user_id'                       => Doctrine::getTable('UllUser')->findOneByUsername('admin')->id,
-    'ull_location_id'                   => Doctrine::getTable('UllLocation')->findOneByName('Wien Mollardgasse')->id,
+//    'ull_location_id'                   => Doctrine::getTable('UllLocation')->findOneByName('Wien Mollardgasse')->id,
   )))
 ;
   

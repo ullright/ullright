@@ -26,8 +26,5 @@ abstract class BaseUllLocation extends UllRecord
         parent::setUp();
     $this->hasMany('UllUser', array('local' => 'id',
                                         'foreign' => 'ull_location_id'));
-
-        $this->hasMany('UllVentoryItem', array('local' => 'id',
-                                               'foreign' => 'ull_location_id'));
     }
 }

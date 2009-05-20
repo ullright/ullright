@@ -14,7 +14,6 @@ abstract class BaseUllVentoryItem extends UllRecord
         $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
         $this->hasColumn('ull_ventory_item_model_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
         $this->hasColumn('ull_user_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-        $this->hasColumn('ull_location_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     }
 
     public function setUp()
@@ -25,9 +24,6 @@ abstract class BaseUllVentoryItem extends UllRecord
 
         $this->hasOne('UllUser', array('local' => 'ull_user_id',
                                        'foreign' => 'id'));
-
-        $this->hasOne('UllLocation', array('local' => 'ull_location_id',
-                                           'foreign' => 'id'));
 
         $this->hasMany('UllVentoryItemAttributeValue', array('local' => 'id',
                                                              'foreign' => 'ull_ventory_item_id'));

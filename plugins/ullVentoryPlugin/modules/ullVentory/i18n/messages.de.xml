@@ -21,6 +21,26 @@
 <target>Modell</target>
 </trans-unit>
 
+<trans-unit id="1003">
+<source>Inventory number</source>
+<target>Inventurnummer</target>
+</trans-unit>
+
+<trans-unit id="1004">
+<source>Inv.No.</source>
+<target>Inv.Nr.</target>
+</trans-unit>
+
+<trans-unit id="1005">
+<source>Serial number</source>
+<target>Seriennummer</target>
+</trans-unit>
+
+<trans-unit id="1006">
+<source>Item location</source>
+<target>Standort des Gegenstandes</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

@@ -66,13 +66,13 @@ UllVentoryItem:
     ull_user_id:
       type: integer
       notnull: true
-    ull_location_id:
-      type: integer
-      notnull: true
+#    ull_location_id:
+#      type: integer
+#      notnull: true
   relations:
     UllVentoryItemModel:
     UllUser:
-    UllLocation:
+#    UllLocation:
 
 # Item attributes
 UllVentoryItemAttribute:
