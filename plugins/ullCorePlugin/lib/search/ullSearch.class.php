@@ -40,11 +40,6 @@ class ullSearch
    */
   private function addCriterionGroup(ullSearchCritierionGroup $newCriteriaGroup)
   {
-    if (!($newCriteriaGroup instanceof ullSearchCritierionGroup))
-    {
-      throw new RuntimeException("Not a criterion group.");
-    }
-
     $this->criterionGroups[] = $newCriteriaGroup;
   }
   
