@@ -8,7 +8,16 @@ class ullFlowSearch extends ullSearch
 {
   private $ullFlowApp;
 
-  public function __construct($ullFlowApp)
+  /**
+   * Initializes a new ullFlowSearch.
+   * 
+   * Optionally takes an ullFlowApp object representing the application
+   * this search should provide virtual column support for.
+   * 
+   * @param $ullFlowApp an ullFlowApp
+   * @return a new ullFlowSearch object
+   */
+  public function __construct($ullFlowApp = null)
   {
     $this->ullFlowApp = $ullFlowApp;
     parent::__construct();
