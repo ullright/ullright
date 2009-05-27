@@ -12,7 +12,8 @@ class ullMetaWidgetEmail extends ullMetaWidget
     $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
     $this->addValidator(
       ($withValidator == true) ?
-        new sfValidatorEmail($this->columnConfig['validatorOptions']) : new sfValidatorPass());
+        new sfValidatorEmail($this->columnConfig['validatorOptions']) :
+        new sfValidatorString($this->columnConfig['validatorOptions']));
   }
 
   protected function configureSearchMode()

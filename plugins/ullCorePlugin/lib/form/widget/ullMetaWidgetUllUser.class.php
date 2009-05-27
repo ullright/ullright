@@ -69,6 +69,9 @@ class ullMetaWidgetUllUser extends ullMetaWidget
 
     //    var_dump($columnConfig);die;
   }
+  
+  public function getSearchPrefix()
+  {
+    return 'foreign';
+  }
 }
-
-?>

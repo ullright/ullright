@@ -21,4 +21,9 @@ class ullMetaWidgetCountry extends ullMetaWidget
       $this->addValidator(new sfValidatorPass());
     }
   }
+  
+  public function getSearchPrefix()
+  {
+    return 'foreign';
+  }
 }

@@ -10,15 +10,19 @@ class ullMetaWidgetDate extends ullMetaWidget
       {
         $this->columnConfig['widgetAttributes']['size'] = '30';
       }
-    	
-    	$this->addWidget(new ullWidgetDateWrite($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));      
+       
+      $this->addWidget(new ullWidgetDateWrite($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
       $this->addValidator(new sfValidatorDate($this->columnConfig['validatorOptions']));
     }
     else
     {
       $this->addWidget(new ullWidgetDateRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-    	$this->addValidator(new sfValidatorPass());
+      $this->addValidator(new sfValidatorPass());
     }
-    
-  }  
+  }
+
+  public function getSearchPrefix()
+  {
+    return 'range';
+  }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * ullMetaWidgetCheckbox
- * 
+ *
  * Used for checkboxes
  */
 class ullMetaWidgetCheckbox extends ullMetaWidget
@@ -17,7 +17,11 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
     {
       $this->addWidget(new ullWidgetCheckbox($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
       $this->addValidator(new sfValidatorPass());
-    }
-
+    }     
+  }
+  
+  public function getSearchPrefix()
+  {
+    return 'boolean';
   }
 }

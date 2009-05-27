@@ -146,7 +146,7 @@ abstract class ullMetaWidget
     // set unique validator and required for unique fields
     if (isset($this->columnConfig['unique']) &&
       $this->columnConfig['unique'] == true &&
-      $this->isWriteMode())
+      $this->columnConfig['access'] == 'w')
     {
       $this->form->mergePostValidator(
       new sfValidatorDoctrineUnique(
@@ -188,4 +188,8 @@ abstract class ullMetaWidget
     }
   }
 
+  public function getSearchPrefix()
+  {
+    return 'standard';
+  }
 }
