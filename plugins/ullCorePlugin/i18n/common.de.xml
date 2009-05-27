@@ -674,6 +674,111 @@
 <target>Änderungen an folgendem Tag durchführen</target>
 </trans-unit>
 
+<trans-unit id="19001">
+<source>to</source>
+<target>bis</target>
+</trans-unit>
+
+<trans-unit id="19002">
+<source>power search</source>
+<target>Detailsuche</target>
+</trans-unit>
+
+<trans-unit id="19003">
+<source>User</source>
+<target>Benutzer</target>
+</trans-unit>
+
+<trans-unit id="19004">
+<source>Reset search</source>
+<target>Suche zurücksetzen</target>
+</trans-unit>
+
+<trans-unit id="19005">
+<source>Add new criteria</source>
+<target>Neues Suchkriterium hinzufügen</target>
+</trans-unit>
+
+<trans-unit id="19006">
+<source>Criterion</source>
+<target>Kriterium</target>
+</trans-unit>
+
+<trans-unit id="19007">
+<source>Custom</source>
+<target>Individuell</target>
+</trans-unit>
+
+<trans-unit id="19008">
+<source>Value</source>
+<target>Wert</target>
+</trans-unit>
+
+<trans-unit id="20000">
+<source>Creator user</source>
+<target>Ersteller</target>
+</trans-unit>
+
+<trans-unit id="20001">
+<source>Updator user</source>
+<target>Aktualisierer</target>
+</trans-unit>
+
+<trans-unit id="20002">
+<source>Location</source>
+<target>Standort</target>
+</trans-unit>
+
+<trans-unit id="20003">
+<source>Company</source>
+<target>Unternehmen</target>
+</trans-unit>
+
+<trans-unit id="20004">
+<source>Department</source>
+<target>Abteilung</target>
+</trans-unit>
+
+<trans-unit id="20005">
+<source>Employment type</source>
+<target>Beschäfigungsverhältnis</target>
+</trans-unit>
+
+<trans-unit id="20006">
+<source>Job title</source>
+<target>Funktion</target>
+</trans-unit>
+
+<trans-unit id="20007">
+<source>Ull flow app</source>
+<target>UllFlow Applikation</target>
+</trans-unit>
+
+<trans-unit id="20008">
+<source>Ull flow action</source>
+<target>UllFlow Aktion</target>
+</trans-unit>
+
+<trans-unit id="20009">
+<source>Assigned to ull entity</source>
+<target>Zugewiesen an</target>
+</trans-unit>
+
+<trans-unit id="20010">
+<source>Assigned to ull flow step</source>
+<target>Zugewiesener Schritt</target>
+</trans-unit>
+
+<trans-unit id="20011">
+<source>Priority</source>
+<target>Wichtigkeit</target>
+</trans-unit>
+
+<trans-unit id="21000">
+<source>Filter settings</source>
+<target>Filtereinstellungen</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

@@ -146,11 +146,6 @@
 <target>Alle aktiven</target>
 </trans-unit>
 
-<trans-unit id="2008">
-<source>Filter settings</source>
-<target>Filtereinstellungen</target>
-</trans-unit>
-
 <trans-unit id="2009">
 <source>Assigned to</source>
 <target>Zugewiesen an</target>

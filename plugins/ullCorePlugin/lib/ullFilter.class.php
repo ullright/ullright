@@ -27,7 +27,6 @@ class ullFilter
  * Add a filter setting
  * @param request_param 
  * @param name          name of the link to be displayed
- * @param internal_uri  optional, internal symfony url
  * @return none
  */ 
   public function add($request_param, $name) 
@@ -55,7 +54,7 @@ class ullFilter
     if ($this->filters) {
       $return = '<div class="ull_filter">';
       
-      $return .= __('Filter settings') . ': ';
+      $return .= __('Filter settings', null, 'common') . ': ';
       
       $return .= "<ul>\n";
       
