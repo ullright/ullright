@@ -78,13 +78,14 @@ class ullSearch
       {
         $subCriterion = $criterionGroup->subCriteria[$i];
 
+        if (!($subCriterion instanceof ullSearchCriterion))
+        {
+          throw new RuntimeException('Unsupported query class.');
+        }
+        
         $alias = $this->modifyAlias($q, $alias, $subCriterion);
 
-        $newColumnName = $subCriterion->columnName;
-        if (strpos($newColumnName, 'isVirtual.') === 0)
-        {
-          $newColumnName = 'value';
-        }
+        $newColumnName = $this->modifyColumnName($subCriterion->columnName);
 
         if ($subCriterion->isNot === true)
         {
@@ -157,9 +158,6 @@ class ullSearch
             $queryString .= $alias . '.' . $newColumnName . $queryOperator;
 
             break;
-
-          default:
-            throw new RuntimeException('Unsupported query class.');
         }
 
         if ($subCriterion->isNot === true)
@@ -179,15 +177,30 @@ class ullSearch
     return $q;
   }
   
+  //If needed, inheriting classes can override the following functions
+  
+  /**
+   * This function modifies the current column name, allowing
+   * for virtual column support.
+   * See the ullFlowSearch class for a reference implementation.
+   * 
+   * @param $columnName The current column name
+   * @return The modified column name
+   */
+  protected function modifyColumnName($columnName)
+  {
+    return $columnName;
+  }
+  
   /**
    * This function modifies the alias used and allows for
-   * special functions like virtual columns. See the ullFlowSearch
-   * class for a reference implementation.
+   * special functions like virtual columns.
+   * See the ullFlowSearch class for a reference implementation.
    * 
    * @param $q The current doctrine query
    * @param $alias The current alias
    * @param $criterion The current search criterion
-   * @return the modified alias
+   * @return The modified alias
    */
   protected function modifyAlias(Doctrine_Query $q, $alias, ullSearchCriterion $criterion)
   {

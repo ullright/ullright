@@ -10,10 +10,10 @@ class ullFlowSearch extends ullSearch
 
   /**
    * Initializes a new ullFlowSearch.
-   * 
+   *
    * Optionally takes an ullFlowApp object representing the application
    * this search should provide virtual column support for.
-   * 
+   *
    * @param $ullFlowApp an ullFlowApp
    * @return a new ullFlowSearch object
    */
@@ -23,14 +23,31 @@ class ullFlowSearch extends ullSearch
     parent::__construct();
   }
 
-   /**
+  /**
    * This function overrides the base implementation and provides support
    * for virtual columns.
-   * 
+   *
+   * It changes virtual column names to 'virtual'.
+   *
+   * @param $columnName The current column name
+   * @return The modified column name
+   */
+  protected function modifyColumnName($columnName)
+  {
+    if (strpos($columnName, 'isVirtual.') === 0)
+    {
+      return 'value';
+    }
+  }
+  
+  /**
+   * This function overrides the base implementation and provides support
+   * for virtual columns.
+   *
    * It adds a join to the current query, adding the virtual values table.
    * Then it modifies the current alias to reference to the correct column
    * value.
-   * 
+   *
    * @param $q The current doctrine query
    * @param $alias The current alias
    * @param $criterion The current search criterion

@@ -59,7 +59,8 @@ class ullSearchRangeCriterion extends ullSearchCriterion
 class ullSearchBooleanCriterion extends ullSearchCriterion
 {
   //ToDo: add check 
-  //$compareValue shall only be true or false of type boolean.
+  //$compareValue shall only be true or false (of type boolean).
+  public $compareValue;
 }
 
 /**
@@ -69,5 +70,5 @@ class ullSearchBooleanCriterion extends ullSearchCriterion
  */
 class ullSearchForeignKeyCriterion extends ullSearchCriterion
 {
-
+  public $compareValue;
 }
