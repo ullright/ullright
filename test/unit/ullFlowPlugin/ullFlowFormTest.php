@@ -26,15 +26,10 @@ $t->begin('__construct');
   $form = new ullFlowForm($doc, 'edit');
   $t->isa_ok($form, 'ullFlowForm', 'returns the correct object type');
   
-  $columnConfig = array (
-    'widgetOptions'       => array(),
-    'widgetAttributes'    => array(),
-    'validatorOptions'    => array('required' => false),
-    'label'               => 'Your email address',
-    'metaWidget'          => 'ullMetaWidgetEmail',
-    'access'              => 'w',
-    'show_in_list'        => true,
-  );         
+  $columnConfig = new ullColumnConfiguration();
+  $columnConfig->setLabel('Your email address');
+  $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
+       
   $widget = new ullMetaWidgetEmail($columnConfig, $form);
   $widget->addToFormAs('my_email');
   

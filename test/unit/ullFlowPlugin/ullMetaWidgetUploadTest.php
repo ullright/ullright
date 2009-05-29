@@ -4,20 +4,14 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends lime_test
 {
-  protected $columnConfig = array(
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My upload',
-        'metaWidget'          => 'ullMetaWidgetUpload',
-        'access'              => 'r',
-  );
-
   public function getColumnConfig()
   {
-    return $this->columnConfig;
+    $columnConfig = new ullColumnConfiguration();
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetUpload');
+    $columnConfig->setAccess('r');
+    
+    return $columnConfig;
   }
-
 }
 
 $t = new myTestCase(6, new lime_output_color, $configuration);
@@ -34,7 +28,7 @@ $t->diag('for read access:');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
-  $columnConfig['access'] = 'w';
+  $columnConfig->setAccess('w');
   $widget = new ullMetaWidgetUpload($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetUpload', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');

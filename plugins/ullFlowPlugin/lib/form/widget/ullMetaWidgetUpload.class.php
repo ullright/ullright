@@ -10,12 +10,12 @@ class ullMetaWidgetWikiLink extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      $this->addWidget(new ullWidgetWikiLink($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
+      $this->addWidget(new ullWidgetWikiLink($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidgetWikiLinkRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetWikiLinkRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 

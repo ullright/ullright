@@ -9,12 +9,12 @@ class ullMetaWidgetUllFlowAction extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      $this->addWidget(new ullWidgetUllFlowAction($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorPass($this->columnConfig['validatorOptions']));
+      $this->addWidget(new ullWidgetUllFlowAction($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorPass($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidgetUllFlowActionRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetUllFlowActionRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
   }

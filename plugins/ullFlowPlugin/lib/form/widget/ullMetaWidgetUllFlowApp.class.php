@@ -8,7 +8,7 @@ class ullMetaWidgetUllFlowApp extends ullMetaWidget
 {
   protected function addToForm()
   {
-      $this->addWidget(new ullWidgetUllFlowApp($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetUllFlowApp($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
   }
 }

@@ -4,18 +4,13 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnConfig = array(
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My sex',
-        'metaWidget'          => 'ullMetaWidgetSex',
-        'access'              => 'r',
-  );
-
   public function getColumnConfig()
   {
-    return $this->columnConfig;
+    $columnConfig = new ullColumnConfiguration();
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetSex');
+    $columnConfig->setAccess('r');
+    
+    return $columnConfig;
   }
 }
 
@@ -39,7 +34,7 @@ $t->begin('for read access:');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
-  $columnConfig['access'] = 'w';
+  $columnConfig->setAccess('w');
   $widget = new ullMetaWidgetSex($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetSex', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');

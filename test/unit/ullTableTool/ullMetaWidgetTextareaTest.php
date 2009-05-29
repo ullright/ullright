@@ -4,18 +4,13 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends lime_test
 {
-  protected $columnConfig = array(
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array('maxlength' => 64),
-        'validatorOptions'    => array('required' => false, 'max_length' => 64),
-        'label'               => 'My string',
-        'metaWidget'          => 'ullMetaWidgetTextarea',
-        'access'              => 'r',
-  );
-
   public function getColumnConfig()
   {
-    return $this->columnConfig;
+    $columnConfig = new ullColumnConfiguration();
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetTextarea');
+    $columnConfig->setAccess('r');
+    
+    return $columnConfig;
   }
 }
 
@@ -33,7 +28,7 @@ $t->diag('for read access:');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
-  $columnConfig['access'] = 'w';
+  $columnConfig->setAccess('w');
   $widget = new ullMetaWidgetTextarea($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetTextarea', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');

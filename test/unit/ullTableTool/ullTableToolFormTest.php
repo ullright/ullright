@@ -4,18 +4,13 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnConfig = array(
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array('maxlength' => 64),
-        'validatorOptions'    => array('required' => true, 'max_length' => 64),
-        'label'               => 'My string',
-        'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => 'r',
-  ); 
-  
   public function getColumnConfig()
   {
-    return $this->columnConfig;
+    $columnConfig = new ullColumnConfiguration();
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
+    $columnConfig->setAccess('r');
+    
+    return $columnConfig;
   }
 }
 
@@ -44,7 +39,7 @@ $t->begin('__construct()');
   $fields = $form->getWidgetSchema()->getFields();
   $t->isa_ok($fields['test_field'], 'ullWidget', 'added ullMetaWidgetString: read access: form now contains a ullWidget');
   
-  $columnConfig['access'] = 'w';
+  $columnConfig->setAccess('w');
   $form = new ullTableToolForm($test);
   $widget = new ullMetaWidgetString($columnConfig, $form);
   $widget->addToFormAs('test_field');

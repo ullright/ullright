@@ -4,18 +4,13 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnConfig = array(
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My field',
-        'metaWidget'          => 'ullMetaWidgetUllUser',
-        'access'              => 'r',
-  );
-
   public function getColumnConfig()
   {
-    return $this->columnConfig;
+    $columnConfig = new ullColumnConfiguration();
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllUser');
+    $columnConfig->setAccess('r');
+    
+    return $columnConfig;
   }
 }
 
@@ -36,7 +31,7 @@ $t->begin('for read access:');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('write access');
-  $columnConfig['access'] = 'w';
+  $columnConfig->setAccess('w');
   $form = new sfForm();
   $widget = new ullMetaWidgetUllUser($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetUllUser', '__construct() returns the correct object');
@@ -51,8 +46,8 @@ $t->diag('write access');
   
 $t->diag('write access with given UllGroup display_name');
   $columnConfig = $t->getColumnConfig();
-  $columnConfig['access'] = 'w';
-  $columnConfig['widgetOptions'] = array('group' => 'TestGroup');
+  $columnConfig->setAccess('w');
+  $columnConfig->setWidgetOptions(array('group' => 'TestGroup'));
   $form = new sfForm();
   $widget = new ullMetaWidgetUllUser($columnConfig, $form);
   $widget->addToFormAs('my_field');
@@ -64,8 +59,8 @@ $t->diag('write access with given UllGroup display_name');
 
 $t->diag('write access: invalid UllGroup display_name');
   $columnConfig = $t->getColumnConfig();
-  $columnConfig['access'] = 'w';
-  $columnConfig['widgetOptions'] = array('group' => 'FooBar');
+  $columnConfig->setAccess('w');
+  $columnConfig->setWidgetOptions(array('group' => 'FooBar'));
   $form = new sfForm();
   $widget = new ullMetaWidgetUllUser($columnConfig, $form);
   try

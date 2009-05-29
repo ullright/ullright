@@ -10,12 +10,12 @@ class ullMetaWidgetUpload extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      $this->addWidget(new ullWidgetUpload($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
+      $this->addWidget(new ullWidgetUpload($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidgetUploadRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetUploadRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 

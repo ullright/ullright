@@ -4,18 +4,14 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnConfig = array(
-        'widgetOptions'       => array('ull_select' => 'ull_select_test', 'add_empty' => true),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My select box',
-        'metaWidget'          => 'ullMetaWidgetUllSelect',
-        'access'              => 'r',
-  );
-
   public function getColumnConfig()
   {
-    return $this->columnConfig;
+    $columnConfig = new ullColumnConfiguration();
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllSelect');
+    $columnConfig->setAccess('r');
+    $columnConfig->setWidgetOptions(array('ull_select' => 'ull_select_test', 'add_empty' => true));
+    
+    return $columnConfig;
   }
 }
 
@@ -38,7 +34,7 @@ $t->begin('for read access:');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
-  $columnConfig['access'] = 'w';
+  $columnConfig->setAccess('w');
   $widget = new ullMetaWidgetUllSelect($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetUllSelect', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
