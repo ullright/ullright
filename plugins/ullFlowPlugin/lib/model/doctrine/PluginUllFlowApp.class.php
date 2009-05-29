@@ -131,5 +131,23 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
     ;
     return $q->execute();
   }
-
+  
+  /**
+   * Retrieves the column configuration for a given slug
+   * @param $slug The name of the virtual column
+   * @return An UllFlowColumnConfiguration
+   */
+  public function findColumnConfigBySlug($slug)
+  {
+      // resolve virtual column slug to UllColumnConfig.id
+      $q = new Doctrine_Query();
+      $q
+        ->from('UllFlowColumnConfig')
+        ->where('ull_flow_app_id = ?', $this->id)
+        ->addWhere('slug = ?', $slug)
+      ;
+      
+      $columnConfig = $q->execute()->getFirst();      
+      return $columnConfig;
+  }
 }
