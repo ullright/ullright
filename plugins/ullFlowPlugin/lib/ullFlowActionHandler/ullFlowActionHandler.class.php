@@ -58,12 +58,11 @@ abstract class ullFlowActionHandler
   public function addMetaWidget($class, $name, $widgetOptions = array(), 
     $widgetAttributes = array(), $validatorOptions = array ())
   {
-    $columnConfig = array(
-        'access'              => 'w',
-        'widgetOptions'       => $widgetOptions,
-        'widgetAttributes'    => $widgetAttributes,
-        'validatorOptions'    => $validatorOptions
-    );
+    $columnConfig = new ullColumnConfiguration();
+    $columnConfig->setWidgetOptions($widgetOptions);
+    $columnConfig->setWidgetAttributes($widgetAttributes);
+    $columnConfig->setValidatorOptions($validatorOptions);
+    
     $ullMetaWidget = new $class($columnConfig, $this->form);
     $ullMetaWidget->addToFormAs($name);
     

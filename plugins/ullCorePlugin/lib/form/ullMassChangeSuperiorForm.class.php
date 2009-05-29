@@ -11,9 +11,9 @@ class ullMassChangeSuperiorForm extends sfForm
     
     $wo = array('model' => 'UllEntity', 'query' => $q, 'method' => 'getLastNameFirst');
 
-    $tempcc = array('access' => 'w', 'widgetAttributes' => array());
-    $oldSuperiorWidget = new ullMetaWidgetUllUser($tempcc, $this);
-    $newSuperiorWidget = new ullMetaWidgetUllUser($tempcc, $this);
+    $tempCC = new ullColumnConfiguration();
+    $oldSuperiorWidget = new ullMetaWidgetUllUser($tempCC, $this);
+    $newSuperiorWidget = new ullMetaWidgetUllUser($tempCC, $this);
     
     $oldSuperiorWidget->addToFormAs('old_superior');
     $newSuperiorWidget->addToFormAs('new_superior');
