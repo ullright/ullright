@@ -12,6 +12,7 @@
  * and validators
  * 
  */
+
 abstract class ullGenerator
 {
   protected
@@ -24,31 +25,8 @@ abstract class ullGenerator
     $isBuilt        = false,
     $defaultAccess,
     $formClass,
-    $requestAction,
-    $system_column_names_humanized = array (
-      'id'                  => 'ID',
-      'creator_user_id'     => 'Created by', 
-      'created_at'          => 'Created at',
-      'updator_user_id'     => 'Updated by',
-      'updated_at'          => 'Updated at',
-      'db_table_name'       => 'Table name',
-      'db_column_name'      => 'Column name',
-      'field_type'          => 'Field Type',
-      'is_enabled'          => 'Enabled',
-      'is_in_list'          => 'Show in list',
-      'is_mandatory'        => 'Mandatory',
-      'label'               => 'Label',
-      'description'         => 'Description',
-      'slug'                => 'Unique identifier',
-      'options'             => 'Options',
-      'ull_column_type_id'  => 'Type',
-      'sequence'            => 'Sequence',
-      'default_value'       => 'Default value',
-      'ull_group_id'        => 'Group',
-      'ull_privilege_id'    => 'Privilege',
-      'comment'             => 'Comment'
-    )    
-  ;
+    $requestAction
+    ;
 
   /**
    * Constructor
@@ -262,31 +240,31 @@ abstract class ullGenerator
     {
       $cultures = array();
     }
-    
+    //var_dump($this->getActiveColumns());
     foreach ($this->rows as $key => $row) 
     {
       $this->forms[$key] = new $this->formClass($row, $this->requestAction, $this->getDefaults(), $cultures);
       
       foreach ($this->getActiveColumns() as $columnName => $columnConfig)
       {
-        $ullMetaWidgetClassName = $columnConfig['metaWidget'];
+        $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
         $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->forms[$key]);
         
         // label
-        if (isset($columnConfig['translation']))
+        if ($columnConfig->getTranslated() == true)
         { 
           foreach ($cultures as $culture)
           {
             $translationColumnName = $columnName . '_translation_' . $culture;
             $ullMetaWidget->addToFormAs($translationColumnName);
-            $label = $columnConfig['label'] . ' ' . strtoupper($culture);
+            $label = $columnConfig->getLabel() . ' ' . strtoupper($culture);
             $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
           }
         }
         else
         {
           $ullMetaWidget->addToFormAs($columnName);
-          $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig['label'], null, 'common'));
+          $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig->getLabel(), null, 'common'));
         }
         
         $this->markMandatoryColumns($this->forms[$key], $columnName, $columnConfig);
@@ -328,12 +306,13 @@ abstract class ullGenerator
   public function getDefaults()
   {
     $defaults = array();
-    
+
     foreach ($this->columnsConfig as $columnName => $columnConfig)
-    {
-      if (isset($columnConfig['default_value'])) 
+    {      
+      
+      if ($columnConfig->getDefaultValue() != null) 
       {
-        $defaults[$columnName] = $columnConfig['default_value'];
+        $defaults[$columnName] = $columnConfig->getDefaultValue();
       }
     }
     
@@ -352,10 +331,10 @@ abstract class ullGenerator
    */
   public function getActiveColumns()
   {
-    if ($this->activeColumns)
-    {
-      return $this->activeColumns;
-    }
+//    if ($this->activeColumns)
+//    {
+//      return $this->activeColumns;
+//    }
     
     $this->activeColumns = array();
     
@@ -378,11 +357,11 @@ abstract class ullGenerator
    */
   protected function isColumnEnabled($columnConfig)
   {
-    if ($columnConfig['access'])
+    if ($columnConfig->getAccess() != null)
     { 
       if($this->getRequestAction() == "list")
       {
-        if ($columnConfig['is_in_list'])
+        if ($columnConfig->getIsInList() == true)
         {
           return true;
         }
@@ -402,12 +381,13 @@ abstract class ullGenerator
    * @param $columnConfig
    * @return none
    */
-  protected function markMandatoryColumns(sfForm $form, $columnName, array $columnConfig)
+  protected function markMandatoryColumns(sfForm $form, $columnName, ullColumnConfiguration  $columnConfig)
   {
-    if ($columnConfig["access"] == 'w' && $form->offsetExists($columnName))
+    if ($columnConfig->getAccess() == 'w' && $form->offsetExists($columnName))
     {
       $label = $form->getWidgetSchema()->getLabel($columnName);
-      if ($columnConfig["validatorOptions"]["required"] === true)
+      $validatorOptions = $columnConfig->getValidatorOptions();
+      if ($validatorOptions["required"] === true)
       {
         $form->getWidgetSchema()->setLabel($columnName, $label . ' *');  
       }

@@ -84,7 +84,7 @@ class ullWikiGenerator extends ullTableToolGenerator
       $this->columnsConfig['created_at']      
     );
     
-    $this->columnsConfig['updated_at']['metaWidget']  = 'ullMetaWidgetDate';
+    $this->columnsConfig['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');
     
     if ($this->requestAction == 'edit')
     {
@@ -96,19 +96,19 @@ class ullWikiGenerator extends ullTableToolGenerator
     }
 
     //configure subject
-    $this->columnsConfig['subject']['widgetAttributes']['size'] = 50;
-    $this->columnsConfig['subject']['metaWidget']  = 'ullMetaWidgetLink';
+    $this->columnsConfig['subject']->setLabel('Subject');
+    $this->columnsConfig['subject']->setWidgetAttribute('size', 50);
+    $this->columnsConfig['subject']->setMetaWidgetClassName('ullMetaWidgetLink');
     
     //configure body
-    $this->columnsConfig['body']['metaWidget']  = 'ullMetaWidgetFCKEditor';
-    $this->columnsConfig['body']['label']       = 'Text';
+    $this->columnsConfig['body']->setMetaWidgetClassName('ullMetaWidgetFCKEditor');
+    $this->columnsConfig['body']->setLabel('Text');
     
     // configure access level
-    $this->columnsConfig['ull_wiki_access_level_id']['label']       = __('Access level');
+    $this->columnsConfig['ull_wiki_access_level_id']->setLabel(__('Access level'));
     
     // configure tags
-    $this->columnsConfig['duplicate_tags_for_search']['label']       = 'Tags';
-    $this->columnsConfig['duplicate_tags_for_search']['metaWidget']  = 'ullMetaWidgetTaggable';
-    
+    $this->columnsConfig['duplicate_tags_for_search']->setLabel('Tags');
+    $this->columnsConfig['duplicate_tags_for_search']->setMetaWidgetClassName('ullMetaWidgetTaggable');
   }
 }

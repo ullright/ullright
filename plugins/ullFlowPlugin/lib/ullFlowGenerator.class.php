@@ -62,13 +62,13 @@ class ullFlowGenerator extends ullGenerator
   {
     if ($this->activeColumns)
     {
-      return $this->activeColumns;
+       return $this->activeColumns;
     }
     
     if ($this->getRequestAction() == "list")
     {
       $this->activeColumns = array();
-    
+   
       // get selections and order of columns from UllFlowApp
       if (isset($this->app) && $columnList = $this->app->list_columns)
       {
@@ -113,6 +113,18 @@ class ullFlowGenerator extends ullGenerator
     }
   }
   
+  private function buildTempColumnConfig($columnName, $metaWidgetClassName, $access, $isInList = true, $relation = null)
+  {
+    $tempCC = new ullColumnConfiguration();
+    $tempCC->setLabel($columnName);
+    $tempCC->setMetaWidgetClassName($metaWidgetClassName);
+    $tempCC->setAccess($access);
+    $tempCC->setIsInList($isInList);
+    $tempCC->setRelation($relation);
+    
+    return $tempCC;
+  }
+  
   /**
    * builds the column config
    *
@@ -121,107 +133,38 @@ class ullFlowGenerator extends ullGenerator
   {
     if ($this->requestAction == 'list')
     {
-      $this->columnsConfig['id'] = array(
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array(),
-        'label'               => __('ID', null, 'common'),
-        'metaWidget'          => 'ullMetaWidgetInteger',
-        'access'              => $this->defaultAccess,
-        'is_in_list'          => true,
-      );
+      $this->columnsConfig['id'] = $this->buildTempColumnConfig(__('ID', null, 'common'),
+        'ullMetaWidgetInteger', $this->defaultAccess);
 
       if (!$this->app) 
       {      
-	      $this->columnsConfig['ull_flow_app_id'] = array(
-	        'widgetOptions'       => array(),
-	        'widgetAttributes'    => array(),
-	        'validatorOptions'    => array(),
-	        'label'               => __('App', null, 'common'),
-	        'metaWidget'          => 'ullMetaWidgetUllFlowApp',
-	        'access'              => $this->defaultAccess,
-	        'is_in_list'          => true,
-	    	  'relation'            => array('model' => 'UllFlowApp', 'foreign_id' => 'id')
-	      );
+        $this->columnsConfig['ull_flow_app_id'] = $this->buildTempColumnConfig(__('App', null, 'common'),
+          'ullMetaWidgetUllFlowApp', $this->defaultAccess, true, array('model' => 'UllFlowApp', 'foreign_id' => 'id'));
       }
-      
-      $this->columnsConfig['subject'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Subject', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetLink',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-      );
+     
+      $this->columnsConfig['subject'] = $this->buildTempColumnConfig(__('Subject', null, 'common'),
+        'ullMetaWidgetLink', $this->defaultAccess);
 
-      $this->columnsConfig['priority'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Priority'),
-        'metaWidget'        => 'ullMetaWidgetPriority',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-      );            
-      $this->columnsConfig['ull_flow_action_id'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Status'),
-        'metaWidget'        => 'ullMetaWidgetUllFlowAction',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-        'relation'          => array('model' => 'UllFlowAction', 'foreign_id' => 'id')
-      );  
-      $this->columnsConfig['assigned_to_ull_entity_id'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Assigned to'),
-        'metaWidget'        => 'ullMetaWidgetUllUser',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-        'relation'          => array('model' => 'UllEntity', 'foreign_id' => 'id')
-      );          
-      $this->columnsConfig['creator_user_id'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Created by', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetUllUser',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-      'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id')
-      );
-      $this->columnsConfig['created_at'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Created at', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetDate',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-      );
-      $this->columnsConfig['updator_user_id'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Updated by', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetUllUser',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-      'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id')
-      );
-      $this->columnsConfig['updated_at'] = array(
-        'widgetOptions'     => array(),
-        'widgetAttributes'  => array(),
-        'validatorOptions'  => array(),
-        'label'             => __('Updated at', null, 'common'),
-        'metaWidget'        => 'ullMetaWidgetDate',
-        'access'            => $this->defaultAccess,
-        'is_in_list'        => true,
-      );                
+      $this->columnsConfig['priority'] = $this->buildTempColumnConfig(__('Priority'),
+        'ullMetaWidgetPriority', $this->defaultAccess);
+      
+      $this->columnsConfig['ull_flow_action_id'] = $this->buildTempColumnConfig(__('Status'),
+        'ullMetaWidgetUllFlowAction', $this->defaultAccess, true, array('model' => 'UllFlowAction', 'foreign_id' => 'id'));
+      
+      $this->columnsConfig['assigned_to_ull_entity_id'] = $this->buildTempColumnConfig(__('Assigned to'),
+        'ullMetaWidgetUllUser', $this->defaultAccess, true, array('model' => 'UllEntity', 'foreign_id' => 'id'));
+      
+      $this->columnsConfig['creator_user_id'] = $this->buildTempColumnConfig(__('Created by'),
+        'ullMetaWidgetUllUser', $this->defaultAccess, true, array('model' => 'UllEntity', 'foreign_id' => 'id'));
+      
+      $this->columnsConfig['created_at'] = $this->buildTempColumnConfig(__('Created at'),
+        'ullMetaWidgetDate', $this->defaultAccess);
+        
+      $this->columnsConfig['updator_user_id'] = $this->buildTempColumnConfig(__('Updated at', null, 'common'),
+        'ullMetaWidgetUllUser', $this->defaultAccess, true, array('model' => 'UllUser', 'foreign_id' => 'id'));
+      
+      $this->columnsConfig['updated_at'] = $this->buildTempColumnConfig(__('Created at'),
+        'ullMetaWidgetDate', $this->defaultAccess);               
     }
 
     if ($this->app)
@@ -242,22 +185,17 @@ class ullFlowGenerator extends ullGenerator
         //   therefore we need to obmit it here to prevent duplicate
         if ($this->app || (!$this->app && !$column['is_subject']))            
         {
-          $columnConfig = array(
-            'widgetOptions'      => array(),
-            'widgetAttributes'   => array(),
-            'validatorOptions'   => array(),
-          );
+          $columnConfig = new ullColumnConfiguration($columnName, $this->defaultAccess);
           
           // set defaults
-          $columnConfig['label']        = $column->label;
-          $columnConfig['metaWidget']   = $column->UllColumnType->class;
-          $columnConfig['access']       = $this->defaultAccess;
-          $columnConfig['is_in_list']   = $column->is_in_list;
-          $columnConfig['widgetOptions']= sfToolkit::stringToArray($column->options);
-          $columnConfig['validatorOptions']['required'] = $column->is_mandatory;
+          $columnConfig->setLabel($column->label);
+          $columnConfig->setMetaWidgetClassName($column->UllColumnType->class);
+          $columnConfig->setIsInList($column->is_in_list);
+          $columnConfig->setWidgetOptions(sfToolkit::stringToArray($column->options));
+          $columnConfig->setValidatorOption('required', $column->is_mandatory);
           if ($column->default_value)
           {
-            $columnConfig['default_value']= $column->default_value;
+            $columnConfig->setDefaultValue($column->default_value);
           }
           
           $this->columnsConfig[$columnName] = $columnConfig;

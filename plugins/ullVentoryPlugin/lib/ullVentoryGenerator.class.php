@@ -37,7 +37,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
       $this->columnsConfig['created_at']      
     );
     
-    $this->columnsConfig['updated_at']['metaWidget']  = 'ullMetaWidgetDate';
+    $this->columnsConfig['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');
     
     if ($this->requestAction == 'edit')
     {
@@ -46,9 +46,8 @@ class ullVentoryGenerator extends ullTableToolGenerator
         $this->columnsConfig['updator_user_id'],
         $this->columnsConfig['updated_at']
       );
-      $this->columnsConfig['id']['access'] = 'w';
-      $this->columnsConfig['id']['widgetOptions']['is_hidden'] = true;
-      $this->columnsConfig['id']['widgetOptions']['is_hidden'] = true;
+      $this->columnsConfig['id']->setAccess('w');
+      $this->columnsConfig['id']->setWidgetOption('is_hidden', true);
 //      $this->columnsConfig['id']['metaWidget'] = 'ullMetaWidgetHidden';
     }
     else
@@ -58,53 +57,47 @@ class ullVentoryGenerator extends ullTableToolGenerator
       );      
     }
     
-    $itemType = array(
-      'metaWidget'        => 'ullMetaWidgetForeignKey',
-      'label'             => 'Type',
-      'access'            => 'w',
-      'is_in_list'        => false,
-      'relation'          => array(
-        'model'             => 'UllVentoryItemType',
-        'foreign_id'        => 'id'
-        ),
-      'widgetOptions'     => array('add_empty' => true), 
-      'validatorOptions'  => array('required' => true),
-      'widgetAttributes'  => array()
-    );
-    $this->columnsConfig['ull_ventory_item_type_id'] = $itemType;
+    $itemTypeCC = new ullColumnConfiguration();
+    $itemTypeCC->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+    $itemTypeCC->setLabel('Type');
+	  $itemTypeCC->setRelation(array(
+      'model'             => 'UllVentoryItemType',
+      'foreign_id'        => 'id'));
+    $itemTypeCC->setWidgetOptions(array('add_empty' => true));
+    $itemTypeCC->setValidatorOptions(array('required' => true));
+    $itemTypeCC->setIsInList(false);
     
-    $itemManufacturer = array(
-      'metaWidget'        => 'ullMetaWidgetForeignKey',
-      'label'             => __('Manufacturer'),
-      'access'            => 'w',
-      'is_in_list'        => false,
-      'relation'          => array(
+    $this->columnsConfig['ull_ventory_item_type_id'] = $itemTypeCC;
+    
+    $itemManufactorCC = new ullColumnConfiguration();
+    $itemManufactorCC->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+    $itemManufactorCC->setLabel(__('Manufacturer'));
+    $itemManufactorCC->setRelation(array(
         'model'             => 'UllVentoryItemManufacturer',
-        'foreign_id'        => 'id'
-        ),
-      'widgetOptions'     => array('add_empty' => true), 
-      'validatorOptions'  => array('required' => true),
-      'widgetAttributes'  => array(),
-      'allowCreate'       => true
-    );
-    $this->columnsConfig['ull_ventory_item_manufacturer_id'] = $itemManufacturer;
-        
-    $this->columnsConfig['ull_ventory_item_model_id']['allowCreate']  = true;
-    $this->columnsConfig['ull_ventory_item_model_id']['widgetOptions']['add_empty']  = true;
+        'foreign_id'        => 'id'));
+    $itemManufactorCC->setWidgetOptions(array('add_empty' => true));
+    $itemManufactorCC->setValidatorOptions(array('required' => true));
+    $itemManufactorCC->setAllowCreate(true);
+    $itemManufactorCC->setIsInList(false);
     
-    $this->columnsConfig['ull_user_id']['label'] = __('Owner', null, 'common');
+    $this->columnsConfig['ull_ventory_item_manufacturer_id'] = $itemManufactorCC;
+        
+    $this->columnsConfig['ull_ventory_item_model_id']->setAllowCreate(true);
+    $this->columnsConfig['ull_ventory_item_model_id']->setWidgetOption('add_empty', true);
+    
+    $this->columnsConfig['ull_user_id']->setLabel(__('Owner', null, 'common'));
 //    $this->columnsConfig['ull_location_id']['label'] = __('Item location');
-    $this->columnsConfig['ull_ventory_item_model_id']['label'] = __('Model');
+    $this->columnsConfig['ull_ventory_item_model_id']->setLabel(__('Model'));
     if ($this->requestAction == 'edit')
     {
-      $this->columnsConfig['inventory_number']['label'] = __('Inventory number');
+      $this->columnsConfig['inventory_number']->setLabel(__('Inventory number'));
     }
     else
     {
-      $this->columnsConfig['inventory_number']['label'] = __('Inv.No.');
+      $this->columnsConfig['inventory_number']->setLabel(__('Inv.No.'));
     }
-    $this->columnsConfig['serial_number']['label'] = __('Serial number');
-    $this->columnsConfig['comment']['label'] = __('Comment', null, 'common');
+    $this->columnsConfig['serial_number']->setLabel(__('Serial number'));
+    $this->columnsConfig['comment']->setLabel(__('Comment', null, 'common'));
     
     
     $order = array(      
