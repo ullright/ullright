@@ -17,18 +17,16 @@ class ullMetaWidgetFCKEditor extends ullMetaWidget
         'BasePath'                 => '/ullCorePlugin/js/fckeditor/',
       );
 
-      $this->columnConfig['widgetOptions'] = array_merge($defaults, $this->columnConfig['widgetOptions']);
+      $this->columnConfig->setWidgetOptions(array_merge($defaults, $this->columnConfig->getWidgetOptions()));
       
-      $this->addWidget(new sfWidgetFormTextareaFCKEditor($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
+      $this->addWidget(new sfWidgetFormTextareaFCKEditor($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidget($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 
   }
 }
-
-?>

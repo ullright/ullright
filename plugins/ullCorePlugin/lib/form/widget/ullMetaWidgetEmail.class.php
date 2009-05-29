@@ -4,16 +4,16 @@ class ullMetaWidgetEmail extends ullMetaWidget
 {
   protected function configureWriteMode($withValidator = true)
   {
-    if (!isset($this->columnConfig['widgetAttributes']['size']))
+    if ($this->columnConfig->getWidgetAttribute('size') == null)
     {
-      $this->columnConfig['widgetAttributes']['size'] = '30';
+      $this->columnConfig->setWidgetAttribute('size', '30');
     }
      
-    $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+    $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(
       ($withValidator == true) ?
-        new sfValidatorEmail($this->columnConfig['validatorOptions']) :
-        new sfValidatorString($this->columnConfig['validatorOptions']));
+        new sfValidatorEmail($this->columnConfig->getValidatorOptions()) :
+        new sfValidatorString($this->columnConfig->getValidatorOptions()));
   }
 
   protected function configureSearchMode()
@@ -24,8 +24,8 @@ class ullMetaWidgetEmail extends ullMetaWidget
 
   protected function configureReadMode()
   {
-    unset($this->columnConfig['widgetAttributes']['maxlength']);
-    $this->addWidget(new ullWidgetEmail($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+    $this->columnConfig->setWidgetAttribute('maxlength', null);
+    $this->addWidget(new ullWidgetEmail($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorPass());
   }
 }

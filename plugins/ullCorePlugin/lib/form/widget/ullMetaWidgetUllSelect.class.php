@@ -13,7 +13,7 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
   {
     parent::__construct($columnConfig, $form);
 
-    if (!isset($this->columnConfig['widgetOptions']['ull_select']))
+    if ($this->columnConfig->getWidgetOption('ull_select') == null)
     {
       throw new InvalidArgumentException('option "ull_select" is required');
     }
@@ -24,33 +24,31 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
     if ($this->isWriteMode())
     {
       // query only children for the given ull select box
-      $ullSelect = $this->columnConfig['widgetOptions']['ull_select'];
-      unset($this->columnConfig['widgetOptions']['ull_select']);
+      $ullSelect = $this->columnConfig->getWidgetOption('ull_select');
+      $this->columnConfig->removeWidgetOption('ull_select');
       $q = new Doctrine_Query;
       $q
         ->from('UllSelectChild a')
         ->where('a.UllSelect.slug = ?', $ullSelect)
       ;
 
-      $this->columnConfig['widgetOptions']['model'] = 'UllSelectChild';
-      $this->columnConfig['widgetOptions']['order_by'] = array('sequence', 'asc');
-      $this->columnConfig['widgetOptions']['query'] = $q;
+      $this->columnConfig->setWidgetOption('model', 'UllSelectChild');
+      $this->columnConfig->setWidgetOption('order_by', array('sequence', 'asc'));
+      $this->columnConfig->setWidgetOption('query', $q);
 
-      $this->columnConfig['validatorOptions']['model'] = 'UllSelectChild';
-      $this->columnConfig['validatorOptions']['query'] = $q;
+      $this->columnConfig->setValidatorOption('model', 'UllSelectChild');
+      $this->columnConfig->setValidatorOption('query', $q);
 
 
-      $this->addWidget(new sfWidgetFormDoctrineSelect(
-        $this->columnConfig['widgetOptions'],
-        $this->columnConfig['widgetAttributes']
-      ));
-      $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig['validatorOptions']));
+      $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(),
+        $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      unset($this->columnConfig['widgetOptions']['add_empty']);
+      $this->columnConfig->removeWidgetOption('add_empty');
 
-      $this->addWidget(new ullWidgetUllSelect($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetUllSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 

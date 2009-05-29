@@ -15,11 +15,11 @@ class ullMetaWidgetPriority extends ullMetaWidget
       ))));
       
       $this->addValidator(new sfValidatorChoice(
-              array_merge($this->columnConfig['validatorOptions'], array('choices' => array(1, 2, 3, 4, 5)))));
+              array_merge($this->columnConfig->getValidatorOptions(), array('choices' => array(1, 2, 3, 4, 5)))));
     }
     else
     {
-      $this->addWidget(new ullWidgetPriorityRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetPriorityRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
   }

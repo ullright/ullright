@@ -9,7 +9,7 @@
  */
 class ullMetaWidgetUllUser extends ullMetaWidget
 {
-  public function __construct($columnConfig, sfForm $form)
+  public function __construct(ullColumnConfiguration $columnConfig, sfForm $form)
   {
     parent::__construct($columnConfig, $form);
   }
@@ -27,10 +27,10 @@ class ullMetaWidgetUllUser extends ullMetaWidget
       ;
 
       //filter users by group
-      if (isset($this->columnConfig['widgetOptions']['group']))
+      if ($this->columnConfig->getWidgetOption('group') != null)
       {
-        $groupName = $this->columnConfig['widgetOptions']['group'];
-        unset($this->columnConfig['widgetOptions']['group']);
+        $groupName = $this->columnConfig->getWidgetOption('group');
+        $this->columnConfig->removeWidgetOption('group');
         
         $group = Doctrine::getTable('UllGroup')->findOneByDisplayName($groupName);
         
@@ -43,27 +43,25 @@ class ullMetaWidgetUllUser extends ullMetaWidget
       }
 //      var_dump($q->execute(array(), DOCTRINE::HYDRATE_ARRAY));
       
-      $this->columnConfig['widgetOptions']['model'] = 'UllEntity';
-      $this->columnConfig['widgetOptions']['query'] = $q;
-      $this->columnConfig['widgetOptions']['method'] = 'getLastNameFirst';
+      $this->columnConfig->setWidgetOption('model', 'UllEntity');
+      $this->columnConfig->setWidgetOption('query', $q);
+      $this->columnConfig->setWidgetOption('method', 'getLastNameFirst');
       
       $this->addWidget(new ullWidgetUllUser(
-        $this->columnConfig['widgetOptions'],
-        $this->columnConfig['widgetAttributes']
-      ));
+        $this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       
-      $this->columnConfig['validatorOptions']['model'] = 'UllEntity';
-      $this->columnConfig['validatorOptions']['query'] = $q;      
-      $this->columnConfig['validatorOptions']['alias'] = 'u';
+      $this->columnConfig->setValidatorOption('model', 'UllEntity');
+      $this->columnConfig->setValidatorOption('query', $q);      
+      $this->columnConfig->setValidatorOption('alias', 'u');
       
-      $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig['validatorOptions']));
+      $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      unset($this->columnConfig['widgetOptions']['add_empty']);
-      unset($this->columnConfig['widgetOptions']['group']);
+      $this->columnConfig->removeWidgetOption('add_empty');
+      $this->columnConfig->removeWidgetOption('group');
 
-      $this->addWidget(new ullWidgetUllUserRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetUllUserRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 

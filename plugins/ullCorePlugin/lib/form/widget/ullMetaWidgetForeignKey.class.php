@@ -2,35 +2,36 @@
 
 class ullMetaWidgetForeignKey extends ullMetaWidget
 {
-  
   protected function configure()
   {
-    $this->columnConfig['widgetOptions']['model'] = $this->columnConfig['relation']['model'];
+    $relation = $this->columnConfig->getRelation();
+    $this->columnConfig->setWidgetOption('model', $relation['model']);
   }
     
-
   protected function configureWriteMode()
   {
 //    var_dump($this->columnConfig);die;
-    $this->columnConfig['validatorOptions']['model'] = $this->columnConfig['relation']['model'];
+    $validatorOptions = $this->columnConfig->getValidatorOptions();
+    $relation = $this->columnConfig->getRelation();
+    $this->columnConfig->setValidatorOption('model', $relation['model']);
     
     // the dropdown field can't be mandatory in case of allowCreate
-    if (isset($this->columnConfig['allowCreate']))
+    if ($this->columnConfig->getAllowCreate() == true)
     {
-      $this->columnConfig['validatorOptions']['required'] = false;
+      $this->columnConfig->setValidatorOption('required', false);
     }
     
-    $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-    $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig['validatorOptions']));
+    $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     
-    if (isset($this->columnConfig['allowCreate']))
+    if ($this->columnConfig->getAllowCreate() == true)
     {
-      unset($this->columnConfig['widgetOptions']['add_empty']);
-      unset($this->columnConfig['widgetOptions']['model']);
-      unset($this->columnConfig['validatorOptions']['model']);
+      $this->columnConfig->removeWidgetOption('add_empty');
+      $this->columnConfig->removeWidgetOption('model');
+      $this->columnConfig->removeValidatorOption('model');
       $createColumnName = $this->columnName . '_create';
-      $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']), $createColumnName);
-      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']), $createColumnName);
+      $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()), $createColumnName);
+      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()), $createColumnName);
       $this->form->getWidgetSchema()->moveField($createColumnName, 'after', $this->columnName);
       
       // add a "one of the two fields is mandatory" validator
@@ -49,9 +50,9 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
   protected function configureReadMode()
   {
     //ullWidgetForeignKey doesn't support option 'add_empty'
-    unset($this->columnConfig['widgetOptions']['add_empty']);
+    $this->columnConfig->removeWidgetOption('add_empty');
     
-    $this->addWidget(new ullWidgetForeignKey($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+    $this->addWidget(new ullWidgetForeignKey($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorPass());
   }
 

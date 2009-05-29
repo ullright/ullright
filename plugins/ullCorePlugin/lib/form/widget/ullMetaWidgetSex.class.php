@@ -13,11 +13,11 @@ class ullMetaWidgetSex extends ullMetaWidget
       ))));
       
       $this->addValidator(new sfValidatorChoice(
-              array_merge($this->columnConfig['validatorOptions'], array('choices' => array('', 'f', 'm')))));
+              array_merge($this->columnConfig->getValidatorOptions(), array('choices' => array('', 'f', 'm')))));
     }
     else
     {
-      $this->addWidget(new ullWidgetSexRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetSexRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
   }

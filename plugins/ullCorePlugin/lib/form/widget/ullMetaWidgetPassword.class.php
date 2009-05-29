@@ -33,10 +33,8 @@ class ullMetaWidgetPassword extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-//      $this->columnConfig['widgetOptions']['always_render_empty'] = false;
-
-      $widget = new sfWidgetFormInputPassword($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']);
-      $validator = new ullValidatorPassword($this->columnConfig['validatorOptions']);
+      $widget = new sfWidgetFormInputPassword($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes());
+      $validator = new ullValidatorPassword($this->columnConfig->getValidatorOptions());
 
       $this->addWidget($widget);
       $this->addValidator($validator);
@@ -58,10 +56,9 @@ class ullMetaWidgetPassword extends ullMetaWidget
     }
     else
     {
-      unset($this->columnConfig['widgetAttributes']['maxlength']);
-      $this->addWidget(new ullWidgetPassword($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->columnConfig->setWidgetAttribute('maxlength', null);
+      $this->addWidget(new ullWidgetPassword($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
-
   }
 }

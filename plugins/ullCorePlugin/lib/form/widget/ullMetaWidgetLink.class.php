@@ -10,25 +10,22 @@ class ullMetaWidgetLink extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      if (!isset($this->columnConfig['widgetAttributes']['size']))
+      if ($this->columnConfig->getWidgetAttribute('size') == null)
       {
-        $this->columnConfig['widgetAttributes']['size'] = '50';
+        $this->columnConfig->setWidgetAttribute('size', '50');
       }
     	
-    	$this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
+    	$this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      unset(
-        $this->columnConfig['widgetAttributes']['size'],
-        $this->columnConfig['widgetAttributes']['maxlength']
-      );
-      $this->addWidget(new ullWidgetLink($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->columnConfig->removeWidgetAttribute('size');
+      $this->columnConfig->removeWidgetAttribute('maxlength');
+ 
+      $this->addWidget(new ullWidgetLink($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
     
   }  
 }
-
-?>

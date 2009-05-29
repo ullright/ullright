@@ -17,7 +17,7 @@ abstract class ullMetaWidget
    * @param array $columnConfig
    * @param sfForm $form
    */
-  public function __construct($columnConfig, sfForm $form)
+  public function __construct(ullColumnConfiguration $columnConfig, sfForm $form)
   {
     $this->columnConfig = $columnConfig;
     $this->form = $form;
@@ -53,7 +53,7 @@ abstract class ullMetaWidget
   {
     $this->configure();
     
-    switch ($this->columnConfig['access'])
+    switch ($this->columnConfig->getAccess())
     {
       case 'w':
         $this->configureWriteMode();
@@ -73,8 +73,8 @@ abstract class ullMetaWidget
    */
   protected function configure()
   {
-  }
   
+  }
   
   /**
    * Configure form with default write mode (input text field)
@@ -82,13 +82,14 @@ abstract class ullMetaWidget
    */
   protected function configureWriteMode()
   {
-    if (!isset($this->columnConfig['widgetAttributes']['size']))
+    $widgetAttributes = $this->columnConfig->getWidgetAttributes();
+    if (!isset($widgetAttributes['size']))
     {
-      $this->columnConfig['widgetAttributes']['size'] = '50';
+      $this->columnConfig->setWidgetAttribute('size', '50');
     }
     
-    $this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-    $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
+    $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
   }
   
   
@@ -98,7 +99,7 @@ abstract class ullMetaWidget
    */  
   protected function configureReadMode()
   {
-    $this->addWidget(new ullWidget($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+    $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorPass());    
   }
   
@@ -144,9 +145,7 @@ abstract class ullMetaWidget
 //    var_dump($this->getForm()->getObject()->toArray());
     
     // set unique validator and required for unique fields
-    if (isset($this->columnConfig['unique']) &&
-      $this->columnConfig['unique'] == true &&
-      $this->columnConfig['access'] == 'w')
+    if (($this->columnConfig->getUnique() == true) && ($this->columnConfig->getAccess() == 'w'))
     {
       $this->form->mergePostValidator(
       new sfValidatorDoctrineUnique(
@@ -182,7 +181,7 @@ abstract class ullMetaWidget
    */
   protected function isWriteMode()
   {
-    if ($this->columnConfig['access'] == 'w' || $this->columnConfig['access'] == 's')
+    if ($this->columnConfig->getAccess() == 'w' || $this->columnConfig->getAccess() == 's')
     {
       return true;
     }
@@ -191,5 +190,33 @@ abstract class ullMetaWidget
   public function getSearchPrefix()
   {
     return 'standard';
+  }
+  
+  /**
+   * Returns the fitting meta widget class name for a given
+   * database type or null if the argument is invalid.
+   * 
+   * @param $type the database type.
+   * @return string the meta widget class name or null
+   */
+  public static function getMetaWidgetClassName($type)
+  {
+    switch ($type)
+    {
+      case 'string':
+        return 'ullMetaWidgetString';
+        
+      case 'clob':
+        return 'ullMetaWidgetTextarea';
+
+      case 'integer':
+        return 'ullMetaWidgetInteger';
+
+      case 'timestamp':
+        return 'ullMetaWidgetDateTime';
+
+      case 'boolean':
+        return 'ullMetaWidgetCheckbox';
+    }
   }
 }

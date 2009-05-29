@@ -12,12 +12,12 @@ class ullMetaWidgetCountry extends ullMetaWidget
             
       $this->addWidget(new sfWidgetFormI18nSelectCountry(array('culture' => $culture, 'countries' => $countries)));
       //sfValidatorI18nChoiceCountry doesn't support max_length
-      unset($this->columnConfig['validatorOptions']['max_length']);
-      $this->addValidator(new sfValidatorI18nChoiceCountry($this->columnConfig['validatorOptions']));
+      $this->columnConfig->removeValidatorOption('max_length');
+      $this->addValidator(new sfValidatorI18nChoiceCountry($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidgetCountryRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetCountryRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
   }

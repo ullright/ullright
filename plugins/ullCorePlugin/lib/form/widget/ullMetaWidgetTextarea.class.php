@@ -10,25 +10,23 @@ class ullMetaWidgetTextarea extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      if (!isset($this->columnConfig['widgetAttributes']['cols']))
+      if ($this->columnConfig->getWidgetAttribute('cols') == null)
       {
-        $this->columnConfig['widgetAttributes']['cols'] = '58';        
+        $this->columnConfig->setWidgetAttribute('cols', '58');        
       }
-      if (!isset($this->columnConfig['widgetAttributes']['rows']))
+      if ($this->columnConfig->getWidgetAttribute('rows') == null)
       {
-        $this->columnConfig['widgetAttributes']['rows'] = '4';        
+        $this->columnConfig->setWidgetAttribute('rows', '4');        
       }     
       
-      $this->addWidget(new sfWidgetFormTextarea($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorString($this->columnConfig['validatorOptions']));
+      $this->addWidget(new sfWidgetFormTextarea($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidgetTextarea($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetTextarea($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 
   }
 }
-
-?>

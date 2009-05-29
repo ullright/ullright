@@ -6,21 +6,19 @@ class ullMetaWidgetDateTime extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      if (!isset($this->columnConfig['widgetAttributes']['size']))
+      if ($this->columnConfig->getWidgetAttribute('size') == null)
       {
-        $this->columnConfig['widgetAttributes']['size'] = '30';
+        $this->columnConfig->setWidgetAttribute('size', '30');
       }
     	
-    	$this->addWidget(new sfWidgetFormInput($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));      
-      $this->addValidator(new sfValidatorDateTime($this->columnConfig['validatorOptions']));
+    	$this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));      
+      $this->addValidator(new sfValidatorDateTime($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidgetDateTimeRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetDateTimeRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     	$this->addValidator(new sfValidatorPass());
     }
     
   }  
 }
-
-?>

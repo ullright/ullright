@@ -12,43 +12,43 @@ class ullMetaWidgetPercentage extends ullMetaWidget
     if ($this->isWriteMode())
     {
       // parse 'min'
-      if (!isset($this->columnConfig['widgetOptions']['min']))
+      if ($this->columnConfig->getWidgetOption('min') == null)
       {
-        $this->columnConfig['widgetOptions']['min'] = 0;
+        $this->columnConfig->setWidgetOption('min', 0);
       }
-      $this->columnConfig['validatorOptions']['min'] = $this->columnConfig['widgetOptions']['min'];
+      $this->columnConfig->setValidatorOption('min', $this->columnConfig->getWidgetOption('min'));
       
       // parse 'max'
-      if (!isset($this->columnConfig['widgetOptions']['max']))
+      if ($this->columnConfig->getWidgetOption('max') == null)
       {
-        $this->columnConfig['widgetOptions']['max'] = 100;
+        $this->columnConfig->setWidgetOption('max', 100);
       }
-      $this->columnConfig['validatorOptions']['max'] = $this->columnConfig['widgetOptions']['max'];    
+      $this->columnConfig->setValidatorOption('max', $this->columnConfig->getWidgetOption('max'));
       
       // parse 'step'
-      if (!isset($this->columnConfig['widgetOptions']['step']))
+      if ($this->columnConfig->getWidgetOption('step') == null)
       {
-        $this->columnConfig['widgetOptions']['step'] = 1;
+        $this->columnConfig->setWidgetOption('step', 1);
       }    
       
       // parse 'orientation'
-      if (!isset($this->columnConfig['widgetOptions']['orientation']))
+      if ($this->columnConfig->getWidgetOption('orientation') == null)
       {
-        $this->columnConfig['widgetOptions']['orientation'] = 'horizontal';
+        $this->columnConfig->setWidgetOption('orientation', 'horizontal');
       }
 
 //    var_dump($this->columnConfig);die;      
-      $this->addWidget(new ullWidgetPercentageWrite($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorInteger($this->columnConfig['validatorOptions']));
+      $this->addWidget(new ullWidgetPercentageWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorInteger($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      unset($this->columnConfig['widgetOptions']['min']);
-      unset($this->columnConfig['widgetOptions']['max']);
-      unset($this->columnConfig['widgetOptions']['step']);
-      unset($this->columnConfig['widgetOptions']['orientation']);
+      $this->columnConfig->removeWidgetOption('min');
+      $this->columnConfig->removeWidgetOption('max');
+      $this->columnConfig->removeWidgetOption('step');
+      $this->columnConfig->removeWidgetOption('orientation');
       
-      $this->addWidget(new ullWidgetPercentageRead($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetPercentageRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
     

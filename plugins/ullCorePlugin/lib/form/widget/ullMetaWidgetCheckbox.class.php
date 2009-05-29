@@ -10,12 +10,12 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
   {
     if ($this->isWriteMode())
     {
-      $this->addWidget(new ullWidgetCheckboxWrite($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
-      $this->addValidator(new sfValidatorBoolean($this->columnConfig['validatorOptions']));
+      $this->addWidget(new ullWidgetCheckboxWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new sfValidatorBoolean($this->columnConfig->getValidatorOptions()));
     }
     else
     {
-      $this->addWidget(new ullWidgetCheckbox($this->columnConfig['widgetOptions'], $this->columnConfig['widgetAttributes']));
+      $this->addWidget(new ullWidgetCheckbox($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }     
   }
