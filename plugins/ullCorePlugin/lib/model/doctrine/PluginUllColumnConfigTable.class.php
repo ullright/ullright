@@ -28,9 +28,8 @@ class PluginUllColumnConfigTable extends UllRecordTable
    * @param array $columnConfig
    * @param string $table
    * @param string $column
-   * @return array
    */
-  public static function addColumnConfigArray($columnConfig, $table, $column)
+  public static function addColumnConfigArray(ullColumnConfiguration $columnConfig, $table, $column)
   {
     $i18n = false;
     
@@ -50,31 +49,28 @@ class PluginUllColumnConfigTable extends UllRecordTable
     {
       if ($value = $dbColumnConfig->label)
       {
-        $columnConfig['label'] = $value;
+        $columnConfig->setLabel($value);
       }
       
       if ($value = $dbColumnConfig->options)
       {
-        $columnConfig['widgetOptions'] = 
-            array_merge($columnConfig['widgetOptions'], sfToolkit::stringToArray($value));
+        $columnConfig->setWidgetOptions(array_merge($columnConfig->getWidgetOptions(), sfToolkit::stringToArray($value)));
       }
       
       if (!$dbColumnConfig->is_enabled)
       {
-        $columnConfig['access'] = false;
+        $columnConfig->setAccess(false);
       }
       
       if (!$dbColumnConfig->is_in_list)
       {
-        $columnConfig['is_in_list'] = false;
+        $columnConfig->setIsInList(false);
       }
       
       if ($value = $dbColumnConfig->UllColumnType->class)
       {
-        $columnConfig['metaWidget'] = $value;
+        $columnConfig->setMetaWidgetClassName($value);
       }
     }
-    return $columnConfig;
   }
-  
 }

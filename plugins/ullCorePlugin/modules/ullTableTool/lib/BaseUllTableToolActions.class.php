@@ -220,7 +220,7 @@ class BaseUllTableToolActions extends ullsfActions
       
       foreach ($cols as $key => $col)
       {
-        if (isset($columnsConfig[$col]['translation']))
+        if ($columnsConfig[$col]->getTranslated() == true)
         {
           $cols[$key] = 'Translation.' . $col;
         }
