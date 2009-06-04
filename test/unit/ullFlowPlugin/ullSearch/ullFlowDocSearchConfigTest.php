@@ -6,26 +6,26 @@ sfContext::createInstance($configuration);
 
 $t = new lime_test(3, new lime_output_color);
 
-$t->diag('ullUserSearchConfig - blacklist');
+$t->diag('ullFlowDocSearchConfig - blacklist');
 
-$searchConfig = new ullUserSearchConfig();
+$searchConfig = new ullFlowDocSearchConfig();
 
-$expectedFieldCount = count(Doctrine::getTable('UllUser')->getFieldNames());
+$expectedFieldCount = count(Doctrine::getTable('UllFlowDoc')->getFieldNames());
 $expectedFieldCount -= count($searchConfig->getBlacklist());
 $t->is(count($searchConfig->getAllSearchableColumns()), $expectedFieldCount, 'blacklisted field count ok');
 
-$t->diag('ullUserSearchConfig - default fields');
+$t->diag('ullFlowDocSearchConfig - default fields');
 
-$expectedFields = array('last_name', 'ull_department_id', 'ull_location_id', 'ull_user_status_id');
+$expectedFields = array('subject', 'priority');
 
 $defaultSfe = $searchConfig->getDefaultSearchColumns();
-$t->is(count($defaultSfe), 4, 'default field count ok');
+$t->is(count($defaultSfe), 2, 'default field count ok');
 
 foreach ($defaultSfe as $sfe)
 {
   if (array_search($sfe->columnName, $expectedFields) === false)
   {
-    $t->fail('encountered an unexpected default field');
+    $t->fail('encountered an unexpected default field: ' . $sfe->columnName);
   }
 }
 $t->pass('default fields ok');

@@ -5,14 +5,20 @@
  * It provides the ullSearch framework with information regarding
  * searchable fields for the UllUser model.
  */
-class ullUserSearchConfig implements ullSearchConfig {
+class ullUserSearchConfig extends ullSearchConfig {
 
-  //a blacklist of columns we do not want the user to search for
-  private $blacklist = array('namespace', 'password', 'is_virtual_group', 'type', 'version');
-
+  public function __construct()
+  {
+    //a blacklist of columns we do not want the user to search for
+    $this->blacklist = array('namespace', 'password', 'is_virtual_group', 'type', 'version');
+  }
+  
   /**
    * Returns an array of search field entries describing often
    * used columns when searching for a user.
+   * 
+   * NOTE: Every search form entry added here must also be added
+   * to the getAllSearchableColumns below.
    */
   public function getDefaultSearchColumns() {
 
@@ -35,13 +41,22 @@ class ullUserSearchConfig implements ullSearchConfig {
     $sfe->columnName = 'ull_user_status_id';
     $sfeArray[] = $sfe;
 
-    //    $sfe = new ullSearchFormEntry();
-    //    $sfe->relations[] = 'Creator';
-    //    $sfe->relations[] = 'UllLocation';
-    //    $sfe->columnName = 'country';
-    //    $sfeArray[] = $sfe;
-
+    /*
+    $sfe = new ullSearchFormEntry();
+    $sfe->relations[] = 'Creator';
+    $sfe->relations[] = 'UllLocation';
+    $sfe->columnName = 'country';
+    $sfeArray[] = $sfe;
+    */
+    
+    for($i = 0; $i < count($sfeArray); $i++)
+    {
+      $sfeArray[$i]->uuid = $i;
+    }
+    
     return $sfeArray;
+    
+    //return $this->getAllSearchableColumns();
   }
 
   /**
@@ -63,29 +78,14 @@ class ullUserSearchConfig implements ullSearchConfig {
     }
 
     //TBA: If needed: Relations like the following:
-
+  
     /*
-     $sfe = new ullSearchFormEntry();
-     $sfe->relations[] = 'Creator';
-     $sfe->relations[] = 'UllLocation';
-     $sfe->columnName = 'country';
-     $sfeArray[] = $sfe;
-
-     $sfe = new ullSearchFormEntry();
-     $sfe->relations[] = 'UllLocation';
-     $sfe->columnName = 'country';
-     $sfeArray[] = $sfe;
-     */
-
+    $sfe = new ullSearchFormEntry();
+    $sfe->relations[] = 'Creator';
+    $sfe->relations[] = 'UllLocation';
+    $sfe->columnName = 'country';
+    $sfeArray[] = $sfe;
+*/
     return $sfeArray;
-  }
-
-  /**
-   * Returns a blacklist of columns we do not want the user to search for
-   * @return array the blacklist
-   */
-  public function getBlacklist()
-  {
-    return $this->blacklist;
   }
 }

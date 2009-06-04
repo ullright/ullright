@@ -34,5 +34,5 @@ $t->diag('for write access:');
   $widget = new ullMetaWidgetDateTime($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetDateTime', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
-  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormInput', 'returns the correct widget for write access');
-  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorDateTime', 'returns the correct validator for write access');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetDateWrite', 'returns the correct widget for write access');
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorDate', 'returns the correct validator for write access');

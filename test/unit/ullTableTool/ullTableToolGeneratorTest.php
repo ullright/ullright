@@ -4,150 +4,117 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnsConfigMock = array(
-    'id' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => true),
-        'label'               => 'ID',
-        'metaWidget'          => 'ullMetaWidgetInteger',
-        'access'              => 'r',
-        'is_in_list'        => true,
-        'unique'            => true,
-        ),                   
-    'my_boolean' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My boolean',
-        'metaWidget'          => 'ullMetaWidgetCheckbox',
-        'access'              => 'w',
-        'is_in_list'        => true,
-        'unique'            => false,
-        ),
-    'my_email' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array('maxlength' => 64),
-        'validatorOptions'    => array('required' => false, 'max_length' => 64),
-        'label'               => 'My email',
-        'metaWidget'          => 'ullMetaWidgetEmail',
-        'access'              => 'w',
-        'is_in_list'        => true,
-        'unique'            => false,
-        ),
-    'my_select_box' => array (
-        'widgetOptions'       => array('ull_select' => 'ull_select_test', 'add_empty' => true),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My select box',
-        'metaWidget'          => 'ullMetaWidgetUllSelect',
-        'access'              => 'w',
-        'is_in_list'        => true,
-        'unique'            => false,
-        ),                    
-    'my_useless_column' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array('maxlength' => 64),
-        'validatorOptions'    => array('required' => false, 'max_length' => 64),
-        'label'               => 'My useless column',
-        'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => null,
-        'is_in_list'        => true,
-        'unique'            => false,
-        ),        
-    'ull_user_id' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Ull user',
-        'metaWidget'          => 'ullMetaWidgetForeignKey',
-        'access'              => 'w',
-        'is_in_list'        => true,
-        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
-        'unique'            => false,
-        ),  
-//    'namespace' => array (
-//        'widgetOptions'       => array(),
-//        'widgetAttributes'    => array('maxlength' => 32),
-//        'validatorOptions'    => array('required' => false, 'max_length' => 32),
-//        'label'               => 'Namespace',
-//        'metaWidget'          => 'ullMetaWidgetString',
-//        'access'              => 'r',
-//        ),   
-    'my_string' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array('maxlength' => 64),
-        'validatorOptions'    => array('required' => true, 'max_length' => 64),
-        'label'               => 'My custom string label',
-        'metaWidget'          => 'ullMetaWidgetString',
-        'access'              => 'w',
-        'is_in_list'        => true,
-        'translation'         => true,
-        'unique'            => false,
-        ),   
-    'my_text' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My text',
-        'metaWidget'          => 'ullMetaWidgetTextarea',
-        'access'              => 'w',
-        'is_in_list'        => true,
-        'translation'         => true,
-        'unique'            => false,
-        ),   
-    'creator_user_id' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Created by',
-        'metaWidget'          => 'ullMetaWidgetForeignKey',
-        'access'              => 'r',
-        'is_in_list'        => false,
-        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
-        'unique'            => false,
-        ),
-    'created_at' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Created at',
-        'metaWidget'          => 'ullMetaWidgetDateTime',
-        'access'              => 'r',
-        'is_in_list'        => false,
-        'unique'            => false,
-        ),
-    'updator_user_id' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Updated by',
-        'metaWidget'          => 'ullMetaWidgetForeignKey',
-        'access'              => 'r',
-        'is_in_list'        => false,
-        'relation'            => array('model' => 'UllUser', 'foreign_id' => 'id'),
-        'unique'            => false,
-        ),                  
-    'updated_at' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Updated at',
-        'metaWidget'          => 'ullMetaWidgetDateTime',
-        'access'              => 'r',
-        'is_in_list'        => false,
-        'unique'            => false,
-        ),                   
-  ); 
-
-//  public function reset()
-//  {
-//    parent::reset();
-//  }
+  protected $columnsConfigMock = array();
   
+  public function initialize() {
+    
+    $columnConfig = new ullColumnConfiguration('id');
+    $columnConfig->setValidatorOptions(array('required' => true));
+    $columnConfig->setLabel('ID');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetInteger');
+    $columnConfig->setAccess('r');
+    $columnConfig->setUnique(true);
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['id'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_boolean');
+    $columnConfig->setLabel('My boolean');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetCheckbox');
+    $this->columnsConfigMock['my_boolean'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_email');
+    $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
+    $columnConfig->setValidatorOptions(array('required' => false, 'max_length' => 64));
+    $columnConfig->setLabel('My email');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
+    $this->columnsConfigMock['my_email'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_select_box');
+    $columnConfig->setWidgetOptions(array('ull_select' => 'ull_select_test', 'add_empty' => true));
+    $columnConfig->setWidgetAttributes(array());
+    $columnConfig->setLabel('My select box');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllSelect');
+    $this->columnsConfigMock['my_select_box'] = $columnConfig;
+  
+    $columnConfig = new ullColumnConfiguration('my_useless_column');
+    $columnConfig->setWidgetOptions(array());
+    $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
+    $this->columnsConfigMock['my_useless_column'] = $columnConfig;
+  
+    $columnConfig = new ullColumnConfiguration('ull_user_id');
+    $columnConfig->setLabel('Ull user');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+    $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
+    $this->columnsConfigMock['ull_user_id'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_string');
+    $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
+    $columnConfig->setValidatorOptions(array('required' => true, 'max_length' => 64));
+    $columnConfig->setLabel('My custom string label');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
+    $columnConfig->setTranslated(true);
+    $this->columnsConfigMock['my_string'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_text');
+    $columnConfig->setLabel('My text');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetTextarea');
+    $columnConfig->setTranslated(true);
+    $this->columnsConfigMock['my_text'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('creator_user_id');
+    $columnConfig->setLabel('Created by');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+    $columnConfig->setAccess('r');
+    $columnConfig->setIsInList(false);
+    $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
+    $this->columnsConfigMock['creator_user_id'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('created_at');
+    $columnConfig->setLabel('Created at');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
+    $columnConfig->setAccess('r');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['created_at'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('updator_user_id');
+    $columnConfig->setLabel('Created by');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+    $columnConfig->setAccess('r');
+    $columnConfig->setIsInList(false);
+    $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
+    $this->columnsConfigMock['updator_user_id'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('updated_at');
+    $columnConfig->setWidgetOptions(array());
+    $columnConfig->setWidgetAttributes(array());
+    $columnConfig->setLabel('Updated at');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
+    $columnConfig->setAccess('r');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['updated_at'] = $columnConfig;
+  }      
+
   public function getColumnsConfigMock()
   {
     return $this->columnsConfigMock;
+  }
+  
+  public function compareSingleColumnConfig($columnConfig, $columnConfigMock)
+  {
+    $this->diag('Now comparing: ' . $columnConfig->getColumnName());
+    
+    //compare some of the more common values
+    $this->is_deeply($columnConfig->getWidgetOptions(), $columnConfigMock->getWidgetOptions(), 'widget options ok');
+    $this->is_deeply($columnConfig->getWidgetAttributes(), $columnConfigMock->getWidgetAttributes(), 'widget attributes ok');
+    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfig->getValidatorOptions(), 'validator attributes ok');
+    $this->is($columnConfig->getLabel(), $columnConfig->getLabel(), 'label ok');
+    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfig->getMetaWidgetClassName(), 'meta widget class name ok');
+    $this->is($columnConfig->getAccess(), $columnConfig->getAccess(), 'access ok');
+    $this->is($columnConfig->getIsInList(), $columnConfig->getIsInList(), 'isInList ok');
+    $this->is_deeply($columnConfig->getRelation(), $columnConfig->getRelation(), 'relation ok');
+    $this->is($columnConfig->getUnique(), $columnConfig->getUnique(), 'isInList ok');
+    $this->is($columnConfig->getTranslated(), $columnConfig->getTranslated(), 'translation ok');
   }
 }
 
@@ -155,11 +122,13 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(29, new lime_output_color, $configuration);
+$t = new myTestCase(149, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
 $tests = Doctrine::getTable('TestTable')->findAll();
+
+$t->initialize();
 
 $t->begin('__construct()');
 
@@ -207,17 +176,18 @@ $t->diag('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
   $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
   $t->is(count($columnsConfig), 12, 'columnsConfig has the correct number of columns');
-  
+   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();
-  while (list($key, $val) = each($columnsConfig))
+  for ($i = 0; $i < count($columnsConfig); $i++)
   {
-    $columnConfig = array($key => $val);
-    
-    list($key, $val) = each($mocks);
-    $mock = array($key => $val);
-    
-    $t->is($columnConfig, $mock, 'columnConfig for column "' . key($columnConfig) . '" is correct');
+    $columnConfig =  current($columnsConfig);
+    $columnConfigMock = current($mocks);
+    next($columnsConfig);
+    next($mocks);
+
+    $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
+    $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
   }
 
 $t->diag('getIdentifierUrlParams() without calling buildForm()');

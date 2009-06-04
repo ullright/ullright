@@ -4,85 +4,83 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnsConfigMock = array(
-    'my_subject' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => true),
-        'label'               => 'My custom subject label',
-        'metaWidget'          => 'ullMetaWidgetLink',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        ),
-     'my_information_update' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'My information update',
-        'metaWidget'          => 'ullMetaWidgetInformationUpdate',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        ),             
-    'my_date' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Date',
-        'metaWidget'          => 'ullMetaWidgetDate',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        ),                  
-    'my_email' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Your email address',
-        'metaWidget'          => 'ullMetaWidgetEmail',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        ),
-    'column_priority' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Priority',
-        'metaWidget'          => 'ullMetaWidgetPriority',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        'default_value'       => '3',
-        ),        
-    'upload' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Attachments',
-        'metaWidget'          => 'ullMetaWidgetUpload',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        ),
-    'wiki_link' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Wiki links',
-        'metaWidget'          => 'ullMetaWidgetWikiLink',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        ),                 
-    'column_tags' => array (
-        'widgetOptions'       => array(),
-        'widgetAttributes'    => array(),
-        'validatorOptions'    => array('required' => false),
-        'label'               => 'Tags',
-        'metaWidget'          => 'ullMetaWidgetTaggable',
-        'access'              => 'w',
-        'is_in_list'          => false,
-        ),                  
-  );
+  protected $columnsConfigMock = array();
+  
+    public function initialize() {
+    
+    $columnConfig = new ullColumnConfiguration('my_subject');
+    $columnConfig->setValidatorOptions(array('required' => true));
+    $columnConfig->setLabel('My custom subject label');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetLink');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['my_subject'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_information_update');
+    $columnConfig->setLabel('My information update');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetInformationUpdate');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['my_information_update'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_date');
+    $columnConfig->setLabel('Date');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['my_date'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_email');
+    $columnConfig->setLabel('Your email address');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['my_email'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('column_priority');
+    $columnConfig->setLabel('Priority');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetPriority');
+    $columnConfig->setIsInList(false);
+    $columnConfig->setDefaultValue('3');
+    $this->columnsConfigMock['column_priority'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('upload');
+    $columnConfig->setLabel('Attachments');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetUpload');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['upload'] = $columnConfig;
+    
+     $columnConfig = new ullColumnConfiguration('wiki_link');
+    $columnConfig->setLabel('Wiki links');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetWikiLink');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['wiki_link'] = $columnConfig;
+    
+     $columnConfig = new ullColumnConfiguration('column_tags');
+    $columnConfig->setLabel('Tags');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetTaggable');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['column_tags'] = $columnConfig;
+    
+  } 
 
   public function getColumnsConfigMock()
   {
     return $this->columnsConfigMock;
+  }
+  
+  public function compareSingleColumnConfig($columnConfig, $columnConfigMock)
+  {
+    $this->diag('Now comparing: ' . $columnConfig->getColumnName());
+    
+    //compare some of the more common values
+    $this->is_deeply($columnConfig->getWidgetOptions(), $columnConfigMock->getWidgetOptions(), 'widget options ok');
+    $this->is_deeply($columnConfig->getWidgetAttributes(), $columnConfigMock->getWidgetAttributes(), 'widget attributes ok');
+    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfig->getValidatorOptions(), 'validator attributes ok');
+    $this->is($columnConfig->getLabel(), $columnConfig->getLabel(), 'label ok');
+    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfig->getMetaWidgetClassName(), 'meta widget class name ok');
+    $this->is($columnConfig->getAccess(), $columnConfig->getAccess(), 'access ok');
+    $this->is($columnConfig->getIsInList(), $columnConfig->getIsInList(), 'isInList ok');
+    $this->is_deeply($columnConfig->getRelation(), $columnConfig->getRelation(), 'relation ok');
+    $this->is($columnConfig->getUnique(), $columnConfig->getUnique(), 'isInList ok');
+    $this->is($columnConfig->getTranslated(), $columnConfig->getTranslated(), 'translation ok');
+    $this->is($columnConfig->getDefaultValue(), $columnConfig->getDefaultValue(), 'default value ok');
   }
 }
 
@@ -90,12 +88,14 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(24, new lime_output_color, $configuration);
+$t = new myTestCase(112, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $app = Doctrine::getTable('UllFlowApp')->find(1);
 $docs = Doctrine::getTable('UllFlowDoc')->findByUllFlowAppId(1);
+
+$t->initialize();
 
 $t->begin('__construct()');
 
@@ -117,14 +117,15 @@ $t->diag('getColumnConfig()');
   
   // don't use foreach because it ignores the ordering of the fields  
   $mocks = $t->getColumnsConfigMock();
-  while (list($key, $val) = each($columnsConfig))
+  for ($i = 0; $i < count($columnsConfig); $i++)
   {
-    $columnConfig = array($key => $val);
-    
-    list($key, $val) = each($mocks);
-    $mock = array($key => $val);
-    
-    $t->is($columnConfig, $mock, 'columnConfig for column "' . key($columnConfig) . '" is correct');
+    $columnConfig =  current($columnsConfig);
+    $columnConfigMock = current($mocks);
+    next($columnsConfig);
+    next($mocks);
+
+    $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
+    $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
   }
 
 $t->diag('buildForm()');
