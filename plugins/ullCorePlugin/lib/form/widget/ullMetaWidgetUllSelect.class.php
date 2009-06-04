@@ -42,6 +42,7 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
 
       $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(),
         $this->columnConfig->getWidgetAttributes()));
+      $this->columnConfig->setWidgetOption('ull_select', $ullSelect);
       $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     }
     else

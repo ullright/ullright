@@ -37,7 +37,6 @@ class myTestCase extends sfDoctrineTestCase
     $this->columnsConfigMock['my_select_box'] = $columnConfig;
   
     $columnConfig = new ullColumnConfiguration('my_useless_column');
-    $columnConfig->setWidgetOptions(array());
     $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setAccess(false);

@@ -11,6 +11,7 @@ class ullColumnConfiguration
   $widgetOptions, $widgetAttributes,
   $unique, $translated, $relation,
   $defaultValue, $allowCreate;
+  private $customAttributes;
 
   /**
    * Returns a new column configuration object with default values.
@@ -23,16 +24,24 @@ class ullColumnConfiguration
     $this->widgetOptions = array();
     $this->widgetAttributes = array();
     $this->validatorOptions = array();
+    $this->customAttributes = array();
 
-    $this->label = sfInflector::humanize($columnName);
+    $this->label = $columnName;
     $this->metaWidgetClassName = 'ullMetaWidgetString';
     $this->access = $access;
     $this->isInList = true;
     $this->validatorOptions['required'] = false;
     $this->unique = false;
-
-    $this->label = ullHumanizer::humanizeAndTranslate($columnName);
     $this->columnName = $columnName;
+  
+    if (ullHumanizer::hasHumanization($this->label))
+    {
+      $this->label = ullHumanizer::humanizeAndTranslate($this->label);
+    }
+    else
+    {
+      $this->label = sfInflector::humanize($this->label);
+    }
   }
 
   public function parseDoctrineColumnObject(array $doctrineColumn, array $columnRelations)
@@ -269,5 +278,15 @@ class ullColumnConfiguration
   public function setAllowCreate($allowCreate)
   {
     $this->allowCreate = $allowCreate;
+  }
+  
+  public function setCustomAttribute($attributeName, $attributeValue)
+  {
+    $this->customAttributes[$attributeName] = $attributeValue;
+  }
+
+  public function getCustomAttribute($attributeName)
+  {
+    return $this->customAttributes[$attributeName];
   }
 }

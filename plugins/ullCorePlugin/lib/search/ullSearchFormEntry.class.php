@@ -43,7 +43,7 @@ class ullSearchFormEntry
       }
     }
 
-    $this->uuid = str_replace('.', '', uniqid('', true));
+    //$this->uuid = str_replace('.', '', uniqid('', true));
   }
 
   /**

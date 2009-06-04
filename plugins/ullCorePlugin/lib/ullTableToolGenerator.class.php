@@ -46,7 +46,6 @@ class ullTableToolGenerator extends ullGenerator
    */
   public function __construct($modelName = null, $defaultAccess = 'r')
   {
-
     if ($modelName === null)
     {
       throw new InvalidArgumentException('A model must be supplied');
@@ -165,23 +164,11 @@ class ullTableToolGenerator extends ullGenerator
    */
   protected function buildColumnsConfig()
   {
-    // get Doctrine relations
-    $relations = Doctrine::getTable($this->modelName)->getRelations();
-
-    $columnRelations = array();
-
-    foreach ($relations as $relation) {
-      // take the first relation for each column and don't overwrite them lateron
-      if (!isset($columnRelations[$relation->getLocal()]))
-      {
-        $columnRelations[$relation->getLocal()] = array(
-          'model' => $relation->getClass(), 
-          'foreign_id' => $relation->getForeign()
-        );
-      }
-    }
+    $columnRelations = ullGeneratorHelper::resolveDoctrineRelations($this->modelName);
 
     $columns = Doctrine::getTable($this->modelName)->getColumns();
+
+    $relations = Doctrine::getTable($this->modelName)->getRelations();
 
     if (isset($relations['Translation']))
     {
@@ -237,7 +224,7 @@ class ullTableToolGenerator extends ullGenerator
       $columnConfig->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
       
       $this->columnsConfig['scheduled_update_date'] = $columnConfig;
-    }
+    }  
   }
 
   /**

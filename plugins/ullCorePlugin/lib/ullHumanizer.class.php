@@ -42,7 +42,7 @@ class ullHumanizer
      * Returns a human readable string, expects an
      * internal relationship or model name.
      *
-     * @param $relationLabel the relationship or model name to translate
+     * @param $relationLabel the relationship or model name to humanize
      * @return string a human readable string
      */
     public static function humanizeAndTranslate($relationLabel)
@@ -53,5 +53,17 @@ class ullHumanizer
       }
 
       return $relationLabel;
+    }
+
+    /**
+     * Returns true if this class can offer a humanization
+     * for the given argument, false otherwise.
+     *
+     * @param $relationLabel the relationship or model name to humanize
+     * @return boolean true if the argument can be humanized, false otherwise
+     */
+    public static function hasHumanization($relationLabel)
+    {
+      return (isset(self::$relationLabels[$relationLabel])) ? true : false;
     }
 }

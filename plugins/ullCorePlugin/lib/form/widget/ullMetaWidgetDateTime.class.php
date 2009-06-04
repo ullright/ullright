@@ -11,14 +11,18 @@ class ullMetaWidgetDateTime extends ullMetaWidget
         $this->columnConfig->setWidgetAttribute('size', '30');
       }
     	
-    	$this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));      
-      $this->addValidator(new sfValidatorDateTime($this->columnConfig->getValidatorOptions()));
+    	$this->addWidget(new ullWidgetDateWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));      
+      $this->addValidator(new sfValidatorDate($this->columnConfig->getValidatorOptions()));
     }
     else
     {
       $this->addWidget(new ullWidgetDateTimeRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     	$this->addValidator(new sfValidatorPass());
-    }
-    
-  }  
+    } 
+  }
+  
+  public function getSearchPrefix()
+  {
+    return 'range';
+  }
 }
