@@ -46,13 +46,13 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['upload'] = $columnConfig;
     
-     $columnConfig = new ullColumnConfiguration('wiki_link');
+    $columnConfig = new ullColumnConfiguration('wiki_link');
     $columnConfig->setLabel('Wiki links');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetWikiLink');
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['wiki_link'] = $columnConfig;
     
-     $columnConfig = new ullColumnConfiguration('column_tags');
+    $columnConfig = new ullColumnConfiguration('column_tags');
     $columnConfig->setLabel('Tags');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetTaggable');
     $columnConfig->setIsInList(false);
@@ -72,15 +72,15 @@ class myTestCase extends sfDoctrineTestCase
     //compare some of the more common values
     $this->is_deeply($columnConfig->getWidgetOptions(), $columnConfigMock->getWidgetOptions(), 'widget options ok');
     $this->is_deeply($columnConfig->getWidgetAttributes(), $columnConfigMock->getWidgetAttributes(), 'widget attributes ok');
-    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfig->getValidatorOptions(), 'validator attributes ok');
-    $this->is($columnConfig->getLabel(), $columnConfig->getLabel(), 'label ok');
-    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfig->getMetaWidgetClassName(), 'meta widget class name ok');
-    $this->is($columnConfig->getAccess(), $columnConfig->getAccess(), 'access ok');
-    $this->is($columnConfig->getIsInList(), $columnConfig->getIsInList(), 'isInList ok');
-    $this->is_deeply($columnConfig->getRelation(), $columnConfig->getRelation(), 'relation ok');
-    $this->is($columnConfig->getUnique(), $columnConfig->getUnique(), 'isInList ok');
-    $this->is($columnConfig->getTranslated(), $columnConfig->getTranslated(), 'translation ok');
-    $this->is($columnConfig->getDefaultValue(), $columnConfig->getDefaultValue(), 'default value ok');
+    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfigMock->getValidatorOptions(), 'validator attributes ok');
+    $this->is($columnConfig->getLabel(), $columnConfigMock->getLabel(), 'label ok');
+    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfigMock->getMetaWidgetClassName(), 'meta widget class name ok');
+    $this->is($columnConfig->getAccess(), $columnConfigMock->getAccess(), 'access ok');
+    $this->is($columnConfig->getIsInList(), $columnConfigMock->getIsInList(), 'isInList ok');
+    $this->is_deeply($columnConfig->getRelation(), $columnConfigMock->getRelation(), 'relation ok');
+    $this->is($columnConfig->getUnique(), $columnConfigMock->getUnique(), 'isInList ok');
+    $this->is($columnConfig->getTranslated(), $columnConfigMock->getTranslated(), 'translation ok');
+    $this->is($columnConfig->getDefaultValue(), $columnConfigMock->getDefaultValue(), 'default value ok');
   }
 }
 

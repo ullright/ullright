@@ -14,7 +14,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetInteger');
     $columnConfig->setAccess('r');
     $columnConfig->setUnique(true);
-    $columnConfig->setIsInList(false);
+    $columnConfig->setIsInList(true);
     $this->columnsConfigMock['id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_boolean');
@@ -24,7 +24,7 @@ class myTestCase extends sfDoctrineTestCase
     
     $columnConfig = new ullColumnConfiguration('my_email');
     $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
-    $columnConfig->setValidatorOptions(array('required' => false, 'max_length' => 64));
+    $columnConfig->setValidatorOptions(array('required' => false));
     $columnConfig->setLabel('My email');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
     $this->columnsConfigMock['my_email'] = $columnConfig;
@@ -40,6 +40,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setWidgetOptions(array());
     $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
+    $columnConfig->setAccess(false);
     $this->columnsConfigMock['my_useless_column'] = $columnConfig;
   
     $columnConfig = new ullColumnConfiguration('ull_user_id');
@@ -50,7 +51,7 @@ class myTestCase extends sfDoctrineTestCase
     
     $columnConfig = new ullColumnConfiguration('my_string');
     $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
-    $columnConfig->setValidatorOptions(array('required' => true, 'max_length' => 64));
+    $columnConfig->setValidatorOptions(array('required' => true));
     $columnConfig->setLabel('My custom string label');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setTranslated(true);
@@ -78,7 +79,7 @@ class myTestCase extends sfDoctrineTestCase
     $this->columnsConfigMock['created_at'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updator_user_id');
-    $columnConfig->setLabel('Created by');
+    $columnConfig->setLabel('Updated by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetForeignKey');
     $columnConfig->setAccess('r');
     $columnConfig->setIsInList(false);
@@ -107,14 +108,14 @@ class myTestCase extends sfDoctrineTestCase
     //compare some of the more common values
     $this->is_deeply($columnConfig->getWidgetOptions(), $columnConfigMock->getWidgetOptions(), 'widget options ok');
     $this->is_deeply($columnConfig->getWidgetAttributes(), $columnConfigMock->getWidgetAttributes(), 'widget attributes ok');
-    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfig->getValidatorOptions(), 'validator attributes ok');
-    $this->is($columnConfig->getLabel(), $columnConfig->getLabel(), 'label ok');
-    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfig->getMetaWidgetClassName(), 'meta widget class name ok');
-    $this->is($columnConfig->getAccess(), $columnConfig->getAccess(), 'access ok');
-    $this->is($columnConfig->getIsInList(), $columnConfig->getIsInList(), 'isInList ok');
-    $this->is_deeply($columnConfig->getRelation(), $columnConfig->getRelation(), 'relation ok');
-    $this->is($columnConfig->getUnique(), $columnConfig->getUnique(), 'isInList ok');
-    $this->is($columnConfig->getTranslated(), $columnConfig->getTranslated(), 'translation ok');
+    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfigMock->getValidatorOptions(), 'validator attributes ok');
+    $this->is($columnConfig->getLabel(), $columnConfigMock->getLabel(), 'label ok');
+    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfigMock->getMetaWidgetClassName(), 'meta widget class name ok');
+    $this->is($columnConfig->getAccess(), $columnConfigMock->getAccess(), 'access ok');
+    $this->is($columnConfig->getIsInList(), $columnConfigMock->getIsInList(), 'isInList ok');
+    $this->is_deeply($columnConfig->getRelation(), $columnConfigMock->getRelation(), 'relation ok');
+    $this->is($columnConfig->getUnique(), $columnConfigMock->getUnique(), 'isInList ok');
+    $this->is($columnConfig->getTranslated(), $columnConfigMock->getTranslated(), 'translation ok');
   }
 }
 
