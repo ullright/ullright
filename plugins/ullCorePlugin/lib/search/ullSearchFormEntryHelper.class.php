@@ -1,20 +1,17 @@
 <?php
 
 /**
- * This class provides helpers for handling search criteria.
+ * This class provides helpers for handling search form entries.
  * The central function, transformFieldsToCritieraGroups, is
  * responsible for converting posted form fields to criteria
  * groups which are usable with the ull search framework.
  */
-class ullSearchCriteriaHelper
+class ullSearchFormEntryHelper
 {
   /**
-   * Transforms an array of form fields into an array of
-   * search form entries. Notice that this function already
-   * expects an array of existing search fields, which is
-   * updated regarding the content of the posted form fields.
-   * The array returned can be directly fed to the ull search
-   * classes.
+   * Transforms an array of form fields and search form entries
+   * into search criteria groups. The array returned can be
+   * directly fed to the ull search classes.
    * 
    * @param $fields An already validated and sanitized array of
    *                form fields
@@ -134,5 +131,25 @@ class ullSearchCriteriaHelper
     }
 
     return $criterionGroups;
+  }
+  
+  /**
+   * Returns the next valid uuid for an array of search field entries.
+   * 
+   * @param $searchFormEntries The search form entries
+   * @return integer The next id
+   */
+  public static function findNextSearchFormEntryId(array $searchFormEntries)
+  {
+    $id = 0;
+    foreach($searchFormEntries as $sfe)
+    {
+      if ($sfe->uuid > $id)
+      {
+        $id = $sfe->uuid;
+      }
+    }
+    
+    return ($id + 1);
   }
 }

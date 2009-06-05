@@ -4,6 +4,8 @@
 <h3><?php echo $generator->getTableConfig()->label ?></h3>
 <p><?php echo $generator->getTableConfig()->description ?></p>
 
+<?php echo $ull_filter->getHtml(ESC_RAW) ?>
+
 <?php echo ull_form_tag(array('page' => '', 'filter' => array('search' => ''))) ?>
 
 <!-- TODO: add ordered list for options/actions -->
