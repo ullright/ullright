@@ -217,7 +217,8 @@ class ullSearchGenerator
   public function buildForm()
   {
     $this->form = new sfForm();
-var_dump($this->columnConfig);     foreach ($this->columnConfig as $columnName => $columnConfig)
+    
+    foreach ($this->columnConfig as $columnName => $columnConfig)
     {
       for ($i = 0; $i < $columnConfig->getCustomAttribute('searchFormEntry')->multipleCount; $i++)
       {
