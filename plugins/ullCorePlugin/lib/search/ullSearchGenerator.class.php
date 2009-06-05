@@ -155,6 +155,7 @@ class ullSearchGenerator
 
     $columnConfig = new ullColumnConfiguration($columnName, 's');
     $columnConfig->parseDoctrineColumnObject($column, $columnRelations);
+    $columnConfig->setAccess('s');
     $columnConfig->setCustomAttribute('searchFormEntry', $column['searchFormEntry']);
     $columnConfig = $this->customColumnConfig($columnConfig);
     
@@ -216,8 +217,7 @@ class ullSearchGenerator
   public function buildForm()
   {
     $this->form = new sfForm();
-
-    foreach ($this->columnConfig as $columnName => $columnConfig)
+var_dump($this->columnConfig);     foreach ($this->columnConfig as $columnName => $columnConfig)
     {
       for ($i = 0; $i < $columnConfig->getCustomAttribute('searchFormEntry')->multipleCount; $i++)
       {
