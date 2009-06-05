@@ -14,7 +14,7 @@ class ullUserSearchConfig extends ullSearchConfig {
   }
   
   /**
-   * Returns an array of search field entries describing often
+   * Returns an array of search form entries describing often
    * used columns when searching for a user.
    * 
    * NOTE: Every search form entry added here must also be added
@@ -60,7 +60,7 @@ class ullUserSearchConfig extends ullSearchConfig {
   }
 
   /**
-   * Returns an array of search field entries describing all
+   * Returns an array of search form entries describing all
    * available columns when searching for a user.
    */
   public function getAllSearchableColumns() {
