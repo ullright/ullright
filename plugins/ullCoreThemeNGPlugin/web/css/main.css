@@ -338,8 +338,8 @@ ul.list_action_buttons li {
 }
 
 .edit_table th {
-  color: white;
-  background: #0081b8;
+  color: #000;
+  background: #dad9d9;
 }
 
 .edit_table th a {
