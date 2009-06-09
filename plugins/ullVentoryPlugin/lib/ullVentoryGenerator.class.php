@@ -4,6 +4,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
 {
   protected
     $formClass = 'ullVentoryForm',
+    $itemType, 
     
     $columnsNotShownInList = array(
     )     
@@ -14,9 +15,18 @@ class ullVentoryGenerator extends ullTableToolGenerator
    *
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct($defaultAccess = 'r')
+  public function __construct($defaultAccess = 'r', $itemTypeName = null)
   {
+//    var_dump($itemTypeName);
+    
     $this->modelName = 'UllVentoryItem';
+    
+    if ($itemTypeName)
+    {
+      $this->itemType = Doctrine::getTable('UllVentoryItemType')->findOneBySlug($itemTypeName);
+    }
+    
+//    var_dump($this->itemType>toArray());die;
     
     parent::__construct($this->modelName, $defaultAccess);
     
@@ -124,7 +134,76 @@ class ullVentoryGenerator extends ullTableToolGenerator
    */
   public function buildForm($rows)
   {
-    parent::buildForm($rows);
+    
+    // set item type according to request param in create mode
+    if ($rows instanceof Doctrine_Record && !$rows->exists())
+    {
+      //set type in object
+      $model = new UllVentoryItemModel;
+      $model->UllVentoryItemType = $this->itemType;
+      $rows->UllVentoryItemModel = $model;    
+    }
+    
+   parent::buildForm($rows);
+    
+//    $q = new Doctrine_Query;
+//    $q
+//      ->from('UllVentoryItemAttributeValue v')
+////      ->where('v.UllVentoryItemTypeAttribute.UllVentoryItemType.id = ?', 1)
+//    ;
+//    $itemAttributeValues = $q->execute();
+    
+//    var_dump($itemAttributeValues->toArray());die;
+
+    if ($this->getRequestAction() == 'edit')
+    {
+      $listForm = new sfForm;
+
+      // create
+      if (!$this->getRow()->exists())
+      {
+        foreach($this->itemType->UllVentoryItemTypeAttribute as $attribute)
+        {
+          $attributeValue = new UllVentoryItemAttributeValue;
+          $attributeValue->UllVentoryItemTypeAttribute = $attribute;
+          
+          $attributeGenerator = new ullVentoryAttributeGenerator('w', $attributeValue);
+          
+          $listForm->embedForm(count($listForm), $attributeGenerator->getForm());          
+        }
+      }
+      // edit
+      else
+      {
+        foreach ($this->getRow()->UllVentoryItemAttributeValue as $attributeValue)
+        {
+          $attributeGenerator = new ullVentoryAttributeGenerator('w', $attributeValue);
+          
+          $listForm->embedForm(count($listForm), $attributeGenerator->getForm());
+        }        
+      }
+      
+      $this->getForm()->embedForm('attributes', $listForm);
+    }
+    
+//    $attributeGenerator = new ullVentoryAttributeGenerator('w');
+//    $attributeGenerator->buildForm($itemAttributeValues);
+//
+//    $listForm = new sfForm;
+//    
+//    $attributeGenerator = new ullVentoryAttributeGenerator('w');
+//    $attributeGenerator->buildForm(new UllVentoryItemAttributeValue);
+//    $listForm->embedForm(0, $attributeGenerator->getForm());
+//    
+//    $attributeGenerator2 = new ullVentoryAttributeGenerator('w');
+//    $attributeGenerator2->buildForm(new UllVentoryItemAttributeValue);
+//    $listForm->embedForm(1, $attributeGenerator2->getForm());
+//
+////    var_dump(count($listForm));
+//    
+//    $this->getForm()->embedForm('attributes', $listForm);
+    
+    
     
     $this->filterItemModelsByManufacturer();
     

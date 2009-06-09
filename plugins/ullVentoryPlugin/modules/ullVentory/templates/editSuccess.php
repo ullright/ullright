@@ -13,15 +13,28 @@
 
 <?php
   // get the correct action to use the correct route (create/edit) 
-  echo form_tag(url_for('ull_ventory_' . $sf_params->get('action'), $generator->getRow()), 
-    array('id' => 'ull_ventory_form', 'name' => 'edit_form')) 
+//  echo form_tag(url_for('ull_ventory_' . $sf_params->get('action'), $generator->getRow()), 
+//    array('id' => 'ull_ventory_form', 'name' => 'edit_form')) 
+
+  if ($sf_params->get('action') == 'createWithType')
+  {
+    $url = url_for('ullVentory/create') . '/' . $sf_params->get('type');
+  }
+  else
+  {
+    $url = url_for('ull_ventory_edit', $generator->getRow());
+  }
+  
+  echo form_tag($url, 
+    array('id' => 'ull_ventory_form', 'name' => 'edit_form'))    
 ?>
 
 <div class="edit_container">
 
-<table class='edit_table'>
+<table class="edit_table" id="ull_ventory_item">
 <tbody>
 
+<?php // TODO: the action could already provide a ready-to-use list of fields to render...?>
 <?php foreach ($generator->getForm()->getWidgetSchema()->getPositions() as $column_name): ?>
     <?php if (in_array($column_name, array('ull_ventory_item_manufacturer_id', 'ull_ventory_item_model_id'))): ?>
       <tr>
@@ -33,7 +46,12 @@
         </td>
         <td class="form_error"><?php echo $generator->getForm()->offsetGet($column_name)->renderError() ?></td>
       </tr>
-    <?php elseif (in_array($column_name, array('id', 'ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create'))): //TODO: it shouldn't be neccessary to hide "id" manually?>
+    <?php // don't render some specific fields ?>
+    <?php //TODO: it shouldn't be neccessary to hide "id" manually ?!? ?>
+    <?php elseif (in_array($column_name, array('id', 'ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create'))): ?>
+      <?php continue ?>
+    <?php //don't render embeded forms (attributes, software) ?>
+    <?php elseif ($generator->getForm()->offsetGet($column_name) instanceof sfFormFieldSchema): ?>
       <?php continue ?>
     <?php else: ?>      
       <?php echo $generator->getForm()->offsetGet($column_name)->renderRow() ?>
@@ -42,6 +60,41 @@
 
 </tbody>
 </table>
+
+
+<table class="edit_table" id="ull_ventory_attributes">
+<thead>
+  <tr>
+    <th class="color_medium_bg"><?php echo __('Attribute') ?></th>
+    <th class="color_medium_bg"><?php echo __('Value', null, 'common') ?></th>
+    <th class="color_medium_bg"><?php echo __('Comment', null, 'common') ?></th>
+  </tr>
+</thead>
+<tbody>
+<?php foreach ($generator->getForm()->offsetGet('attributes') as $attribute): ?>
+  <?php $values = $attribute->getValue(); //var_dump($values);die;  ?>
+      <tr>
+        <td class="label_column">
+          <label for="<?php echo $attribute->offsetGet('value')->renderId() ?>"><?php echo UllVentoryItemAttributeTable::findNameByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']) ?></label>          
+        </td>
+        <td>
+          <?php echo $attribute->offsetGet('value')->render() ?>
+          <div class="form_help"><dfn><?php echo UllVentoryItemAttributeTable::findHelpByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']) ?></dfn></div>
+          <div class="form_error"><?php echo $attribute->offsetGet('value')->renderError(); ?></div>
+        </td>
+        <td>
+          <?php echo $attribute->offsetGet('comment')->render() ?>
+          <div class="form_error"><?php echo $attribute->offsetGet('comment')->renderError(); ?></div>
+        </td>
+      </tr>
+<?php endforeach ?>
+
+</tbody>
+</table>
+
+<?php //echo $generator->getForm()->offsetGet('attributes')->renderHiddenFields() ?>
+
+
 
 <?php echo $generator->getForm()->renderHiddenFields() ?>
 

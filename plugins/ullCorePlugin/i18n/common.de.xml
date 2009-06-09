@@ -60,6 +60,10 @@
 <target>Schnellsuche</target>
 </trans-unit>
 
+<trans-unit id="12">
+<source>Apply</source>
+<target>Übernehmen</target>
+</trans-unit>
 
 
 <!-- Common Field Names -->
@@ -129,6 +133,15 @@
 <target>Kommentar</target>
 </trans-unit>
 
+<trans-unit id="114">
+<source>Help</source>
+<target>Hilfe</target>
+</trans-unit>
+
+<trans-unit id="115">
+<source>Value</source>
+<target>Wert</target>
+</trans-unit>
 
 
 <!-- Questions -->

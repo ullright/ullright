@@ -9,6 +9,11 @@
 <target>Inventur</target>
 </trans-unit>
 
+<trans-unit id="2">
+<source>Attribute</source>
+<target>Eigenschaft</target>
+</trans-unit>
+
 
 <!-- Column names -->
 <trans-unit id="1001">

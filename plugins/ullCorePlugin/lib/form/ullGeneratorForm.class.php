@@ -55,6 +55,43 @@ class ullGeneratorForm extends sfFormDoctrine
 //    $this->embedI18n(array('en', 'de'));
   }
 
+  
+  /**
+   * Renders hidden form fields.
+   * Also for embedded forms
+   *
+   * @param $formFieldSchema  allows to give a formFieldSchema for recursive call
+   *                          to render the hidden fields of embedded forms 
+   * @return string
+   */
+  public function renderHiddenFields($formFieldSchema = null)
+  {
+    // use the form's own formFieldSchema per default
+    if ($formFieldSchema === null)
+    {
+      $formFieldSchema = $this->getFormFieldSchema();
+    }
+    
+    $output = '';
+    foreach ($formFieldSchema as $name => $field)
+    {
+      // call the method recursively for embedded forms
+      if ($field instanceof sfFormFieldSchema)
+      {
+        $output .= $this->renderHiddenFields($field);
+        continue;
+      }
+      
+      if ($field->isHidden())
+      {
+        $output .= $field->render();
+      }
+    }
+
+    return $output;
+  }
+  
+
   /**
    * Call updateObject of every ullWidget
    *

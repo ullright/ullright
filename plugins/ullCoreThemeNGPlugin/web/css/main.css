@@ -338,8 +338,9 @@ ul.list_action_buttons li {
 }
 
 .edit_table th {
-  color: #000;
-  background: #dad9d9;
+  color: white;
+  /* deactivated because it should be set per plugin */
+  /* background: #0081b8; */
 }
 
 .edit_table th a {

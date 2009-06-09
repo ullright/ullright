@@ -15,6 +15,7 @@ class BaseUllVentoryItemAttributeFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'namespace'          => new sfWidgetFormFilterInput(),
+      'slug'               => new sfWidgetFormFilterInput(),
       'ull_column_type_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllColumnType', 'add_empty' => true)),
       'created_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
@@ -24,6 +25,7 @@ class BaseUllVentoryItemAttributeFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'namespace'          => new sfValidatorPass(array('required' => false)),
+      'slug'               => new sfValidatorPass(array('required' => false)),
       'ull_column_type_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllColumnType', 'column' => 'id')),
       'created_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -48,6 +50,7 @@ class BaseUllVentoryItemAttributeFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                 => 'Number',
       'namespace'          => 'Text',
+      'slug'               => 'Text',
       'ull_column_type_id' => 'ForeignKey',
       'created_at'         => 'Date',
       'updated_at'         => 'Date',

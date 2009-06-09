@@ -191,7 +191,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 
   public function getDgsUllVentoryEdit()
   {
-    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
+    $s = new ullDomGridSelector('table#ull_ventory_item > tbody', 'tr', 'td', 
       array(
         'type',
         'manufacturer',
@@ -212,5 +212,17 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $s;
   }   
   
+  public function getDgsUllVentoryEditAttributes()
+  {
+    $s = new ullDomGridSelector('table#ull_ventory_attributes > tbody', 'tr', 'td', array(),      
+      array(
+        'label',
+        'value',
+        'comment',
+      )
+    );
+    
+    return $s;
+  }   
 }
 

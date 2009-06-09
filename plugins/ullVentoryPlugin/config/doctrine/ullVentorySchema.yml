@@ -84,6 +84,9 @@ UllVentoryItemAttribute:
     I18n:
       fields: [name, help] 
   columns:
+    slug:
+      type: string(128)
+      unique: true
     name:
       type: string(128)
       notnull: true
@@ -125,6 +128,8 @@ UllVentoryItemAttributeValue:
       type: integer
       notnull: true
     value:
+      type: string(4000)
+    comment:
       type: string(4000)
   relations:
     UllVentoryItem:

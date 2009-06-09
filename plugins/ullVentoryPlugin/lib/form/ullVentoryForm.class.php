@@ -5,9 +5,9 @@
  */
 class ullVentoryForm extends ullGeneratorForm
 {
-     
+
   /**
-   * Handle item-tye and item-model
+   * Handle item-type and item-model
    * 
    * @see plugins/ullCorePlugin/lib/form/ullGeneratorForm#updateObject()
    */
@@ -17,6 +17,27 @@ class ullVentoryForm extends ullGeneratorForm
     
     $values = $this->getValues();
     
+    $this->updateManufacturerAndModel($values);
+    
+    $this->updateAttributes($values);
+    
+//    var_dump($this->object->toArray());
+//    var_dump($values);
+//    die('buha');
+    
+    return $this->object;
+  }
+  
+  
+  /**
+   * Update manufacturer and model
+   * and handle the "create new" input fields 
+   * 
+   * @param array $values
+   * @return none
+   */
+  protected function updateManufacturerAndModel(array $values)
+  {
     if ($manufacturerName = $values['ull_ventory_item_manufacturer_id_create'])
     {
       $manufacturer = Doctrine::getTable('UllVentoryItemManufacturer')->findOneByName($manufacturerName);
@@ -52,33 +73,42 @@ class ullVentoryForm extends ullGeneratorForm
     $model->ull_ventory_item_manufacturer_id = $manufacturer->id;
     $model->save();
     
-    $this->object->ull_ventory_item_model_id = $model->id;
-    
-//    var_dump($this->object->getModified());die;
-    // update models which use the item_id as foreign_key
-//    if (array_key_exists('id', $this->object->getModified()))
-//    {
-//      $relations = $this->object->getTable()->getRelations();
-//      foreach ($relations as $relation)
-//      {
-//        if ($relation instanceof Doctrine_Relation_ForeignKey)
-//        {
-//          var_dump($relation);die;
-//          $class = $relation->getClass();
-//          $foreign = $relation->getForeign();
-//          $q = new Doctrine_Query;
-//          $q
-//            ->update($class . ' x')
-//            ->set('x.' . $foreign . ' = ?', $object->id)
-//            ->where('x.' . $foreign . ' = ?', $object->id)
-//        }
-//      }
-//      
-//      
-//    }
-//    die;
-    
-    return $this->object;
+    $this->object->UllVentoryItemModel = $model;   
+  }
+  
+  
+  /**
+   * Update the item's attributes
+   * 
+   * @param $values
+   * @return none
+   */
+  protected function updateAttributes($values)
+  {
+    if (isset($values['attributes']))
+    {
+      $i = 0;
+      
+      foreach ($values['attributes'] as $attribute)
+      {
+//        var_dump($attribute);
+        //create
+        if (!($this->object->exists()))
+        {
+          $this->object->UllVentoryItemAttributeValue[$i]['ull_ventory_item_type_attribute_id'] = $attribute['ull_ventory_item_type_attribute_id'];
+          $this->object->UllVentoryItemAttributeValue[$i]['value'] = $attribute['value'];
+          $this->object->UllVentoryItemAttributeValue[$i]['comment'] = $attribute['comment'];
+          $i++;
+        }
+        //update
+        else
+        {
+          $attributeValue = Doctrine::getTable('UllVentoryItemAttributeValue')->findOneByID($attribute['id']);
+          $attributeValue->fromArray($attribute);
+          $attributeValue->save();
+        }
+      }
+    }
   }
 
   /**
@@ -90,16 +120,18 @@ class ullVentoryForm extends ullGeneratorForm
   {
     parent::updateDefaultsFromObject();
     
-    if (!$this->isNew()) 
-    {
-      $defaults = $this->getDefaults();
-      
-      $model = Doctrine::getTable('UllVentoryItemModel')->findOneById($defaults['ull_ventory_item_model_id']);
-      $defaults['ull_ventory_item_type_id'] = $model->ull_ventory_item_type_id;
-      $defaults['ull_ventory_item_manufacturer_id'] = $model->ull_ventory_item_manufacturer_id;
-      
-      $this->setDefaults($defaults);
-    }
+    $defaults = $this->getDefaults();
+
+    // defaults: set item type and manufacturer because they're not native 
+    $model = $this->getObject()->UllVentoryItemModel;
+    $defaults['ull_ventory_item_type_id'] = $model->ull_ventory_item_type_id;
+    $defaults['ull_ventory_item_manufacturer_id'] = $model->ull_ventory_item_manufacturer_id;
+    
+    $this->setDefaults($defaults);
   }  
   
+  public function saveEmbeddedForms($con = null, $forms = null)
+  {
+    //do nothing - don't save embeded forms
+  }  
 }

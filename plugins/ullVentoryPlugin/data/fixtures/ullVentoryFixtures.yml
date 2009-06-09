@@ -1,22 +1,25 @@
 UllVentoryItemManufacturer:
   apple:
+    id:                         100
     name:                       Apple
     namespace:                  test
   brother:
+    id:                         101
     name:                       Brother
     namespace:                  test
     
 UllVentoryItemType:
   notebook:
+    id:                         200     
     Translation:
       en:
         name:                   Notebook
       de:
         name:                   Notebook
     slug:                       notebook
-    namespace:                  test
-            
+    namespace:                  test           
   printer:
+    id:                         201
     Translation:
       en:
         name:                   Printer
@@ -27,11 +30,13 @@ UllVentoryItemType:
         
 UllVentoryItemModel:
   macbook:
+    id:                         300
     name:                       MacBook
     UllVentoryItemManufacturer: apple
     UllVentoryItemType:         notebook
     namespace:                  test
   mfc_440cn:
+    id:                         301
     name:                       MFC-440CN
     UllVentoryItemManufacturer: brother
     UllVentoryItemType:         printer
@@ -58,6 +63,7 @@ UllVentoryItem:
 # Item Attributes:
 UllVentoryItemAttribute:
   display_size:
+    id:                         400
     Translation:
       en:
         name:                   Display size
@@ -65,9 +71,11 @@ UllVentoryItemAttribute:
       de:
         name:                   Bildschirmgrösse
         help:                   Diagonale in Zoll
+    slug:                       display_size
     UllColumnType:              integer
     namespace:                  test        
   wired_network_speed:
+    id:                         401
     Translation:
       en:
         name:                   Wired network speed
@@ -75,32 +83,54 @@ UllVentoryItemAttribute:
       de:
         name:                   Kabelnetzwerk Übertragungsrate
         help:                   Geschwindigkeit in Mbits/sek.
+    slug:                       wired_network_speed
     UllColumnType:              integer
     namespace:                  test    
   printer_type:
+    id:                         402
     Translation:
       en:
         name:                   Type of printer
       de:
         name:                   Druckerart
+    slug:                       printer_type
     UllColumnType:              string
-    namespace:                  test    
+    namespace:                  test
+  delivery_date:
+    id:                         403
+    Translation:
+      en:
+        name:                   Delivery date
+      de:
+        name:                   Lieferdatum
+    slug:                       delivery_date
+    UllColumnType:              date
+    namespace:                  test           
                           
 #n:m Table defines attributes for item types
 UllVentoryItemTypeAttribute:
-  notebook_display_size:        
+  notebook_display_size:
+    id:                         500        
     UllVentoryItemType:         notebook
     UllVentoryItemAttribute:    display_size
     namespace:                  test
-  notebook_wired_network_speed:        
+  notebook_wired_network_speed:
+    id:                         501        
     UllVentoryItemType:         notebook
     UllVentoryItemAttribute:    wired_network_speed
     namespace:                  test
+  notebook_delivery_date:        
+    id:                         502
+    UllVentoryItemType:         notebook
+    UllVentoryItemAttribute:    delivery_date
+    namespace:                  test    
   printer_wired_network_speed:        
+    id:                         503
     UllVentoryItemType:         printer
     UllVentoryItemAttribute:    wired_network_speed
     namespace:                  test
-  printer_printer_type:        
+  printer_printer_type:      
+    id:                         504  
     UllVentoryItemType:         printer
     UllVentoryItemAttribute:    printer_type
     namespace:                  test    
@@ -108,18 +138,32 @@ UllVentoryItemTypeAttribute:
 #n:m Table saves a attribute value for an item
 UllVentoryItemAttributeValue:
   testusers_macbook_display_size:
+    id:                         600
     UllVentoryItem:             testusers_macbook
     UllVentoryItemTypeAttribute: notebook_display_size
     value:                      13
+    comment:                    1280x800
   testusers_macbook_wired_network_speed:
+    id:                         601
     UllVentoryItem:             testusers_macbook
     UllVentoryItemTypeAttribute: notebook_wired_network_speed
     value:                      1000
+    comment:                    1GB = blue LED color                        
+  testusers_macbook_delivery_date:
+    id:                         602
+    UllVentoryItem:             testusers_macbook
+    UllVentoryItemTypeAttribute: notebook_delivery_date
+    value:                      '2009-05-25'
+    comment:                    2 weeks late!    
   testusers_mfc_440cn_wired_network_speed:
+    id:                         603
     UllVentoryItem:             testusers_mfc_440cn
     UllVentoryItemTypeAttribute: printer_wired_network_speed
     value:                      100
+    comment:                    100MB = green LED color
   testusers_mfc_440cn_printer_type:
+    id:                         604
     UllVentoryItem:             testusers_mfc_440cn
     UllVentoryItemTypeAttribute: printer_printer_type
     value:                      inkjet
+    comment:                    4 separate ink catridges 

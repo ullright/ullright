@@ -12,6 +12,7 @@ abstract class BaseUllVentoryItemAttributeValue extends UllRecord
         $this->hasColumn('ull_ventory_item_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
         $this->hasColumn('ull_ventory_item_type_attribute_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
         $this->hasColumn('value', 'string', 4000, array('type' => 'string', 'length' => '4000'));
+        $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
     }
 
     public function setUp()

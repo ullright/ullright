@@ -32,6 +32,16 @@ abstract class ullMetaWidget
   {
     return $this->form;
   }
+  
+  /**
+   * Get column config
+   * 
+   * @return array
+   */
+  public function getColumnConfig()
+  {
+    return $this->columnConfig;
+  }
 
   /**
    * Configures the form
@@ -126,6 +136,12 @@ abstract class ullMetaWidget
     {
       $columnName = $this->columnName;
     }
+    
+    if ($this->columnConfig->getWidgetOption('is_hidden'))
+    {
+      $widget = new sfWidgetFormInputHidden();
+    }
+    
     $this->form->getWidgetSchema()->offsetSet($columnName, $widget);
   }
   

@@ -1,10 +1,10 @@
 ull_ventory_create:
-  url:     /ullVentory/create
+  url:     /ullVentory/create/:type
   class:   sfDoctrineRoute
   options: { model: UllVentoryItem, type: object, method: getNew }
-  param:   { module: ullVentory, action: create }
+  param:   { module: ullVentory, action: createWithType }
   requirements:
-    sf_method: [get, post]
+    sf_method: [get, post]    
 
 ull_ventory_edit:
   url:     /ullVentory/edit/:inventory_number

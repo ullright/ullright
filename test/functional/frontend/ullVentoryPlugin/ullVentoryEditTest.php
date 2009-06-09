@@ -10,20 +10,51 @@ $b->resetDatabase();
 
 $dgsList = $b->getDgsUllVentoryList();
 $dgsEdit = $b->getDgsUllVentoryEdit();
+$dgsEditAttributes = $b->getDgsUllVentoryEditAttributes();
 
 $b
-  ->info('Inventory create')
+  ->info('Inventory create - type selection -> leave empty to provoce validation error')
   ->get('ullVentory/create')
   ->loginAsAdmin()
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'create')
+  ->isRequestParameter('type', '')
+  ->checkResponseElement($dgsEdit->getFullRowSelector(), 1) // num of rows
+  ->click('Apply')
+;
+
+$b
+  ->info('Inventory create - select type')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('type', '')
+  ->checkResponseElement($dgsEdit->get('type', 'error') . ' > ul > li', 'Required.')
+  ->setField('fields[type]', 'printer')
+  ->click('Apply')
+;
+  
+
+$b
+  ->info('Inventory create')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'createWithType')
+  ->isRequestParameter('type', 'printer')  
+  // item properties
+  ->checkResponseElement($dgsEdit->getFullRowSelector(), 7) // num of rows
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option + option', 'Notebook')
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option + option', 'Apple')  
   ->checkResponseElement('#fields_ull_ventory_item_model_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_model_id > option + option', 'MacBook')
+  // attributes
+  ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 2)
+  
   ->click('Save and close')
 ;
 
@@ -31,27 +62,31 @@ $b
   ->info('Submit without entering anything -> check for validation errors')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
-  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('action', 'createWithType')
+  ->isRequestParameter('type', 'printer')
   ->checkResponseElement($dgsEdit->get('inventory_number', 'error') . ' > ul > li', 'Required.')
-  ->checkResponseElement($dgsEdit->get('type', 'error') . ' > ul > li', 'Required.')
   ->checkResponseElement($dgsEdit->get('manufacturer', 'error') . ' > ul > li', 'Please select a value or enter a new one')
   ->checkResponseElement($dgsEdit->get('model', 'error') . ' > ul > li', 'Please select a value or enter a new one')
 ;
   
 $b
   ->info('Fill in values and submit')  
-  ->click('Save and close', array('fields' => array(
-    'inventory_number'                  => '1703',
-    'ull_ventory_item_type_id'          => Doctrine::getTable('UllVentoryItemType')->findOneBySlug('printer')->id,
-    'ull_ventory_item_manufacturer_id'  => Doctrine::getTable('UllVentoryItemManufacturer')->findOneByName('Brother')->id,
-    // test if "create input text field" overrides the "select box":
-    'ull_ventory_item_model_id'         => Doctrine::getTable('UllVentoryItemModel')->findOneByName('MFC-440CN')->id,
-    'ull_ventory_item_model_id_create'  => 'MFC-9840CDW',
-    'serial_number'                     => 'abc123',
-    'comment'                           => 'Permanent paper-jam!',
-    'ull_user_id'                       => Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id,
-//    'ull_location_id'                   => Doctrine::getTable('UllLocation')->findOneByName('Wien Mollardgasse')->id,
-  )))
+  ->setField('fields[inventory_number]', '1703')
+  ->setField('fields[ull_ventory_item_manufacturer_id]', Doctrine::getTable('UllVentoryItemManufacturer')->findOneByName('Brother')->id)
+  // test if "create input text field" overrides the "select box":
+  ->setField('fields[ull_ventory_item_model_id]', Doctrine::getTable('UllVentoryItemModel')->findOneByName('MFC-440CN')->id)
+  ->setField('fields[ull_ventory_item_model_id_create]', 'MFC-9840CDW')
+  ->setField('fields[serial_number]', 'abc123')
+  ->setField('fields[comment]', 'Permanent paper-jam!')
+  ->setField('fields[ull_user_id]', Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id)
+  
+  //attributes
+  ->setField('fields[attributes][0][value]', '10')
+  ->setField('fields[attributes][0][comment]', 'Old and slow')
+  ->setField('fields[attributes][1][value]', 'Laser')
+  ->setField('fields[attributes][1][comment]', 'Single pass color')
+  
+  ->click('Save and close')  
 ;
   
 $b
@@ -87,6 +122,11 @@ $b
   ->checkResponseElement($dgsEdit->get('inventory_number', 'value') . ' > input[value="1703"]', true)
   ->checkResponseElement($dgsEdit->get('serial_number', 'value') . ' > input[value="abc123"]', true)
   ->checkResponseElement('input[id="fields_id"][value="3"]', true)
+  //attributes
+  ->checkResponseElement('input[id="fields_attributes_0_value"][value="10"]', true)
+  ->checkResponseElement('input[id="fields_attributes_0_comment"][value="Old and slow"]', true)
+  ->checkResponseElement('input[id="fields_attributes_1_value"][value="Laser"]', true)
+  ->checkResponseElement('input[id="fields_attributes_1_comment"][value="Single pass color"]', true)
 ;
 
 $b
@@ -109,10 +149,10 @@ $b
 
 $b
   ->info('Create: try to create an entry with an existing inventory_number')
-  ->get('ullVentory/create')
+  ->get('ullVentory/create/notebook')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
-  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('action', 'createWithType')
   ->click('Save and close', array('fields' => array(
     'inventory_number'                  => '1702',
     'ull_ventory_item_type_id'          => Doctrine::getTable('UllVentoryItemType')->findOneBySlug('notebook')->id,
@@ -128,8 +168,45 @@ $b
   ->info('Create with existing inventory_number: check for "duplicate validation error')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
-  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('action', 'createWithType')
   ->checkResponseElement($dgsEdit->get('inventory_number', 'error') . ' > ul > li', 'Duplicate. Please use another value.')
+;
+
+$b
+  ->info('Edit: change attributes (invalid)')
+  ->get('ullVentory/edit/1701')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('inventory_number', '1701')
+  ->setField('fields[attributes][0][value]', '18foo')
+  ->setField('fields[attributes][0][comment]', 'blabla')
+  ->setField('fields[attributes][1][value]', '100')
+  ->click('Save only')  
+;
+
+$b
+  ->info('Edit: change attributes check validation errors')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('inventory_number', '1701')
+  ->checkResponseElement($dgsEditAttributes->get(1, 'value') . ' ul > li', '"18foo" is not an integer.')
+  ->checkResponseElement($dgsEditAttributes->get(1, 'comment') . ' > input[value="blabla"]', true)
+  ->checkResponseElement($dgsEditAttributes->get(2, 'value'). ' > input[value="100"]', true)
+  ->setField('fields[attributes][0][value]', '18')
+  ->click('Save only')  
+;
+
+$b
+  ->info('Edit: check saved attributes')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('inventory_number', '1701')
+  ->checkResponseElement($dgsEditAttributes->get(1, 'value'). ' > input[value="18"]', true)
 ;
 
 $b

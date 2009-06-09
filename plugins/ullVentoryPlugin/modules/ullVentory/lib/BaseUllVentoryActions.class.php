@@ -88,23 +88,53 @@ class BaseUllVentoryActions extends ullsfActions
    * Execute create action
    * 
    */
-  public function executeCreate() 
+  public function executeCreate($request) 
   {
     $this->checkAccess('LoggedIn');
     
-    $this->forward('ullVentory', 'edit');
+    $this->form = new UllVentoryCreateForm;
+    
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getParameter('fields'));
+      if ($this->form->isValid())
+      {
+        $this->redirect(url_for('ullVentory/create') . '/' . $this->form->getValue('type'));    
+      }
+    }
+    
+    $this->breadcrumbForEdit();
   }
 
+  /**
+   * Execute create action
+   * 
+   */
+  public function executeCreateWithType($request) 
+  {
+    $this->checkAccess('LoggedIn');
+    $this->forward404Unless(Doctrine::getTable('UllVentoryItemType')->findOneBySlug($request->getParameter('type')));
+    
+    $this->forward('ullVentory', 'edit');
+  } 
+   
   /**
    * Execute edit action
    * 
    */
   public function executeEdit($request) 
   {
-    $this->doc = $this->getRoute()->getObject();
+    if ($request->hasParameter('inventory_number'))
+    {
+      $this->doc = $this->getRoute()->getObject();
+    }
+    else
+    {
+      $this->doc = new UllVentoryItem;
+    }
     
-    
-    
+
+   
 
 //    var_dump($this->item->toArray());die;
 //    
@@ -117,8 +147,10 @@ class BaseUllVentoryActions extends ullsfActions
 //    {
 //      $this->redirect('ullWiki/show?docid=' . $this->doc->id . '&no_write_access=true');
 //    }
+
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());die;
     
-    $this->generator = new ullVentoryGenerator('w');
+    $this->generator = new ullVentoryGenerator('w', $request->getParameter('type'));
     $this->generator->buildForm($this->doc);
     
     $this->breadcrumbForEdit();
@@ -284,7 +316,7 @@ class BaseUllVentoryActions extends ullsfActions
     //  the list action 
     $this->breadcrumbTree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));
 
-    if ($this->doc->exists()) 
+    if (isset($this->doc) && $this->doc->exists()) 
     {
       $this->breadcrumbTree->add(__('Edit', null, 'common'));
     } 
