@@ -4,10 +4,10 @@
 <table class="edit_table">
   <thead>
     <tr>
-      <th><?php echo __('Delete', null, 'common')?></th>
-      <th><?php echo __('Criterion', null, 'common')?></th>
-      <th><?php echo __('Not', null, 'common')?></th>
-      <th><?php echo __('Value', null, 'common')?></th>
+      <th class="color_dark_bg">&nbsp;</th>
+      <th class="color_dark_bg"><?php echo __('Criterion', null, 'common')?></th>
+      <th class="color_dark_bg"><?php echo __('Not', null, 'common')?></th>
+      <th class="color_dark_bg"><?php echo __('Value', null, 'common')?></th>
     </tr>
   </thead>
   <tbody>

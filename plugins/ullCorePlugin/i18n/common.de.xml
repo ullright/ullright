@@ -65,6 +65,11 @@
 <target>Übernehmen</target>
 </trans-unit>
 
+<trans-unit id="13">
+<source>Add</source>
+<target>Hinzufügen</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 
