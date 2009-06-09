@@ -20,7 +20,7 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
     }     
   }
   
-  public function getSearchPrefix()
+  public function getSearchType()
   {
     return 'boolean';
   }

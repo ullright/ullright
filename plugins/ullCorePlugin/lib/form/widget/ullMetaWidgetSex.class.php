@@ -22,7 +22,7 @@ class ullMetaWidgetSex extends ullMetaWidget
     }
   }
   
-  public function getSearchPrefix()
+  public function getSearchType()
   {
     return 'foreign';
   }

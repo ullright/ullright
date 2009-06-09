@@ -8,7 +8,7 @@ class ullMetaWidgetInteger extends ullMetaWidget
     $this->addValidator(new sfValidatorInteger($this->columnConfig->getValidatorOptions()));    
   }
   
-  public function getSearchPrefix()
+  public function getSearchType()
   {
     return 'range';
   }

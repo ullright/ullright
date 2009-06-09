@@ -225,7 +225,7 @@ class ullSearchGenerator
         $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
         $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->form);
 
-        $searchPrefix = $ullMetaWidget->getSearchPrefix();
+        $searchPrefix = $ullMetaWidget->getSearchType();
         $enumeratedColumnName = $i . '_' . $columnConfig->getCustomAttribute('searchFormEntry')->uuid;
         switch ($searchPrefix)
         {

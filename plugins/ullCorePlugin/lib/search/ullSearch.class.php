@@ -76,6 +76,11 @@ class ullSearch
 
       for($i = 0; $i < count($criterionGroup->subCriteria); $i++)
       {
+        if (isset($originalAlias))
+        {
+          $alias = $originalAlias;
+        }
+        
         $subCriterion = $criterionGroup->subCriteria[$i];
 
         if (!($subCriterion instanceof ullSearchCriterion))
@@ -83,8 +88,9 @@ class ullSearch
           throw new RuntimeException('Unsupported query class.');
         }
         
+        $originalAlias = $alias;
         $alias = $this->modifyAlias($q, $alias, $subCriterion);
-
+        
         $newColumnName = $this->modifyColumnName($subCriterion->columnName);
 
         if ($subCriterion->isNot === true)

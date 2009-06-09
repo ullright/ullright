@@ -202,8 +202,16 @@ abstract class ullMetaWidget
       return true;
     }
   }
-
-  public function getSearchPrefix()
+  
+  /**
+   * This function is used by the ull search framework to
+   * determine the search behaviour of the type wrapped by
+   * a meta widget.
+   * 
+   * @return One of the following: 'range', 'foreign',
+   *         'boolean', 'standard'.
+   */
+  public function getSearchType()
   {
     return 'standard';
   }

@@ -68,8 +68,8 @@ class ullFlowSearch extends ullSearch
       $columnConfigId = $this->ullFlowApp->findColumnConfigBySlug($columnName)->id;
 
       $uniqueAlias = str_replace('.', '', uniqid(''));
-
-      $q->leftJoin('x.UllFlowValues ' . $uniqueAlias . ' WITH ' .
+      
+      $q->leftJoin($alias . '.UllFlowValues ' . $uniqueAlias . ' WITH ' .
       $uniqueAlias . '.ull_flow_column_config_id = ?', $columnConfigId);
       return $uniqueAlias;
     }

@@ -1,6 +1,6 @@
 <?php
 
-include dirname(__FILE__) . '/../../../bootstrap/unit.php';
+include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('ull');
@@ -109,7 +109,6 @@ $t->like($query->getSql(), '/u.phone_extension between \? AND \?/', 'range crite
 $t->like($query->getSql(), '/\(\(NOT \(u.fax_extension >= \?\)\) OR \(NOT \(u.fax_extension <= \?\)\)\)/', 'double range criterion with NOT - SQL is correct');
 $t->like($query->getSql(), '/u.is_show_extension_in_phonebook IS TRUE/', 'boolean criterion with NOT - SQL is correct');
 $t->like($query->getSql(), '/u.ull_location_id = ?/', 'foreign criterion with NOT - SQL is correct');
-
 
 
 $t->diag('ullSearchTest - query class exception');

@@ -56,7 +56,7 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
     $this->addValidator(new sfValidatorPass());
   }
 
-  public function getSearchPrefix()
+  public function getSearchType()
   {
     return 'foreign';
   }

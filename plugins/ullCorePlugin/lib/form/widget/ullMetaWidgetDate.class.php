@@ -21,7 +21,7 @@ class ullMetaWidgetDate extends ullMetaWidget
     }
   }
 
-  public function getSearchPrefix()
+  public function getSearchType()
   {
     return 'range';
   }
