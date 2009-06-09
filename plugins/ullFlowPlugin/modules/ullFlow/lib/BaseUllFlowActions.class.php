@@ -394,12 +394,13 @@ class BaseUllFlowActions extends ullsfActions
    * 
    * @param $request The current request
    */
-  public function executeSearchIndex(sfRequest $request)
+  public function executeSearch(sfRequest $request)
   {
     $this->getUriMemory()->setUri('search');
     $this->moduleName = $request->getParameter('module');
-    
+
     $this->getAppfromRequest();
+    $this->breadcrumbForSearch();
     
     $this->modelName = 'UllFlowDoc';
     $searchConfig = new ullFlowDocSearchConfig($this->app);
@@ -441,6 +442,27 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->breadcrumbTree = new breadcrumbTree();
     $this->breadcrumbTree->add(__('Workflow') . ' ' . __('Home', null, 'common'), 'ullFlow/index');
+  }
+  
+  /**
+   * Handles breadcrumb bar for search
+   */
+  protected function breadcrumbForSearch()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add(__('Workflow') . ' ' . __('Home', null, 'common'), 'ullFlow/index');
+    if ($this->app)
+    {
+      $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
+    }
+    if ($this->app)
+    {
+      $this->breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullFlow/search?app=' . $this->app->slug);
+    }
+    else
+    {
+      $this->breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullFlow/search');
+    }
   }
 
   /**

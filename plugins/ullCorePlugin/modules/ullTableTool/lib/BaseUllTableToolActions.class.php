@@ -176,56 +176,7 @@ class BaseUllTableToolActions extends ullsfActions
      
     $this->redirect('ullTableTool/edit?table=' . $this->table_name . '&id=' . $this->getRequestParameter('id'));
   }
-  
-  //          _______  _______  _______  _______  _______
-  //        (  ____ \(  ____ \(  ___  )(  ____ )(  ____ \|\     /|
-  //        | (    \/| (    \/| (   ) || (    )|| (    \/| )   ( |
-  //        | (_____ | (__    | (___) || (____)|| |      | (___) |
-  //        (_____  )|  __)   |  ___  ||     __)| |      |  ___  |
-  //              ) || (      | (   ) || (\ (   | |      | (   ) |
-  //        /\____) || (____/\| )   ( || ) \ \__| (____/\| )   ( |
-  //        \_______)(_______/|/     \||/   \__/(_______/|/     \|
-  //
-  
-  /**
-   * This function builds a search form utilizing the ull search
-   * framework, see the individual classes for reference.
-   * If it handles a post request, it builds the actual search object
-   * and forwards to the list action.
-   * 
-   * @param $request The current request
-   */
-  public function executeSearchIndex(sfRequest $request)
-  {
-    $this->getUriMemory()->setUri('search');
-    $this->moduleName = $request->getParameter('module');
-     
-    $this->modelName = 'UllUser';
-    $searchConfig = new ullUserSearchConfig();
-    
-    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
-
-    $searchGenerator =  new ullSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName);
-
-    $this->addCriteriaForm = new ullSearchAddCriteriaForm($searchConfig, $searchGenerator);
-    $searchGenerator->reduce($searchFormEntries);
-    $this->searchForm = new ullSearchForm($searchGenerator);
-
-    if ($request->isMethod('post'))
-    {
-      $this->searchForm->getGenerator()->getForm()->bind($request->getParameter('fields'));
-
-      if ($this->searchForm->getGenerator()->getForm()->isValid())
-      {
-        $search = new ullSearch();
-        $this->addTransformedCriteriaToSearch($search, $searchFormEntries);
-        
-        $this->getUser()->setAttribute('user_ullSearch', $search);
-        $this->redirect('ullTableTool/list?query=custom&table=' . $this->modelName);
-      }
-    }
-  }
-  
+   
   /**
    * Gets a table object according to request param
    *

@@ -1,6 +1,6 @@
 <?php include_partial('ullTableTool/jQueryRequirements')?>
-<br />
-<h1><?php echo __('User', null, 'common') . ' ' . __('power search', null, 'common') ?></h1>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<h1><?php echo __('Advanced search', null, 'common') . ' - ' . __('User', null, 'common') ?></h1>
 
 <?php if ($searchForm->getGenerator()->getForm()->hasErrors()): ?>
 	<div class='form_error'><?php echo __('Please correct the following errors', null, 'common') ?>:
@@ -10,7 +10,7 @@
 <?php endif; ?>
 
 <?php
-$formUrl = 'ullUser/searchIndex';
+$formUrl = 'ullUser/search';
 
 include_partial('ullTableTool/ullSearchCriterionForm',
   array('formUrl' => $formUrl,

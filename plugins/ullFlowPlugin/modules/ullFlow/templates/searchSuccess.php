@@ -1,6 +1,23 @@
 <?php include_partial('ullTableTool/jQueryRequirements')?>
-<br />
-<h1><?php echo __('Workflow', null, 'common') . ' ' . __('power search', null, 'common') ?></h1>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php
+$formUrl = 'ullFlow/search';
+
+if (isset($app) && $app != null)
+{
+  $appSlug = $app->slug;
+  $appLabel = $app->label;
+
+  $formUrl .= '?app=' . $appSlug;
+}
+
+$title = __('Advanced search', null, 'common') . ' - ' . __('Workflow', null, 'common');
+if (isset($appLabel))
+{
+  $title .= ' - ' . __($appLabel);
+}
+?>
+<h1><?php echo $title ?></h1>
 
 <?php if ($searchForm->getGenerator()->getForm()->hasErrors()): ?>
   <div class='form_error'>
@@ -11,12 +28,6 @@
 <?php endif; ?>
  
 <?php
-$formUrl = 'ullFlow/searchIndex';
-
-if (isset($app) && $app != null)
-{
-  $formUrl .= '?app=' . $app->slug;
-}
 
 include_partial('ullTableTool/ullSearchCriterionForm',
   array('formUrl' => $formUrl,

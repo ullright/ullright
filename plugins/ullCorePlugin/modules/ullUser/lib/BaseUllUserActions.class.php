@@ -108,6 +108,57 @@ class BaseUllUserActions extends BaseUllTableToolActions
     }
   }
 
+  //          _______  _______  _______  _______  _______
+  //        (  ____ \(  ____ \(  ___  )(  ____ )(  ____ \|\     /|
+  //        | (    \/| (    \/| (   ) || (    )|| (    \/| )   ( |
+  //        | (_____ | (__    | (___) || (____)|| |      | (___) |
+  //        (_____  )|  __)   |  ___  ||     __)| |      |  ___  |
+  //              ) || (      | (   ) || (\ (   | |      | (   ) |
+  //        /\____) || (____/\| )   ( || ) \ \__| (____/\| )   ( |
+  //        \_______)(_______/|/     \||/   \__/(_______/|/     \|
+  //
+  
+  /**
+   * This function builds a search form utilizing the ull search
+   * framework, see the individual classes for reference.
+   * If it handles a post request, it builds the actual search object
+   * and forwards to the list action.
+   * 
+   * @param $request The current request
+   */
+  public function executeSearch(sfRequest $request)
+  {
+    $this->getUriMemory()->setUri('search');
+    $this->moduleName = $request->getParameter('module');
+
+    $this->breadcrumbForSearch();
+    
+    $this->modelName = 'UllUser';
+    $searchConfig = new ullUserSearchConfig();
+    
+    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
+
+    $searchGenerator =  new ullSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName);
+
+    $this->addCriteriaForm = new ullSearchAddCriteriaForm($searchConfig, $searchGenerator);
+    $searchGenerator->reduce($searchFormEntries);
+    $this->searchForm = new ullSearchForm($searchGenerator);
+
+    if ($request->isMethod('post'))
+    {
+      $this->searchForm->getGenerator()->getForm()->bind($request->getParameter('fields'));
+
+      if ($this->searchForm->getGenerator()->getForm()->isValid())
+      {
+        $search = new ullSearch();
+        $this->addTransformedCriteriaToSearch($search, $searchFormEntries);
+        
+        $this->getUser()->setAttribute('user_ullSearch', $search);
+        $this->redirect('ullTableTool/list?query=custom&table=' . $this->modelName);
+      }
+    }
+  }
+  
   /**
    * Execute login
    *
@@ -190,7 +241,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     }
     $this->redirect('@homepage');
   }
-
+  
   /**
    * Execute no access action
    *
@@ -213,4 +264,13 @@ class BaseUllUserActions extends BaseUllTableToolActions
     $this->setTemplate(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/templates/' . $name);    
   }
 
+  /**
+   * Handles breadcrumb for search
+   */
+  protected function breadcrumbForSearch()
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $this->breadcrumbTree->add(__('Advanced search'), 'ullUser/search');
+  }
 }
