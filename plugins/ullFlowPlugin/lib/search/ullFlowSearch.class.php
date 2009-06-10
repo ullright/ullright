@@ -34,10 +34,7 @@ class ullFlowSearch extends ullSearch
    */
   protected function modifyColumnName($columnName)
   {
-    if (strpos($columnName, 'isVirtual.') === 0)
-    {
-      return 'value';
-    }
+    return (strpos($columnName, 'isVirtual.') === 0) ? 'value' : $columnName;
   }
   
   /**

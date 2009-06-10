@@ -155,37 +155,33 @@ class BaseUllsfActions extends sfActions
    * 
    * @param $request The current request
    */
-  public function executeAddSearchCriteria(sfRequest $request)
+  protected function addSearchCriteria(sfRequest $request)
   {
-    if ($request->isMethod('post'))
+    $fields = $request->getParameter('fields');
+    $newCriteriaString = $fields['columnSelect'];
+    $moduleName = $request->getParameter('module');
+    $searchFormEntries = $this->getUser()->getAttribute($moduleName . '_searchFormEntries');
+
+    $newSfe = new ullSearchFormEntry($newCriteriaString);
+    $newSfe->uuid = ullSearchFormEntryHelper::findNextSearchFormEntryId($searchFormEntries);
+
+    $found = false;
+    foreach($searchFormEntries as $sfe)
     {
-      $fields = $request->getParameter('fields');
-      $newCriteriaString = $fields['columnSelect'];
-      $moduleName = $request->getParameter('module');
-      $searchFormEntries = $this->getUser()->getAttribute($moduleName . '_searchFormEntries');
-
-      $newSfe = new ullSearchFormEntry($newCriteriaString);
-      $newSfe->uuid = ullSearchFormEntryHelper::findNextSearchFormEntryId($searchFormEntries);
-      
-      $found = false;
-      foreach($searchFormEntries as $sfe)
+      if ($sfe->equals($newSfe))
       {
-        if ($sfe->equals($newSfe))
-        {
-          $sfe->multipleCount++;
-          $found = true;
-          break;
-        }
+        $sfe->multipleCount++;
+        $found = true;
+        break;
       }
-
-      if (!$found)
-      {
-        $searchFormEntries[] = $newSfe;
-      }
-
-      $this->getUser()->setAttribute($moduleName . '_searchFormEntries', $searchFormEntries);
-      $this->redirect($this->getUriMemory()->get('search'));
     }
+
+    if (!$found)
+    {
+      $searchFormEntries[] = $newSfe;
+    }
+
+    $this->getUser()->setAttribute($moduleName . '_searchFormEntries', $searchFormEntries);
   }
 
    /**
@@ -194,9 +190,8 @@ class BaseUllsfActions extends sfActions
    * 
    * @param $request The current request
    */
-  public function executeRemoveSearchCriteria(sfRequest $request)
+  protected function removeSearchCriteria(sfRequest $request, $removeCriteriaString)
   {
-    $removeCriteriaString = $request->getParameter('criteriaName');
     $moduleName = $request->getParameter('module');
     $searchFormEntries = $this->getUser()->getAttribute($moduleName . '_searchFormEntries');
 
@@ -229,11 +224,11 @@ class BaseUllsfActions extends sfActions
 
     if ($found === false)
     {
-      throw new RuntimeException("SearchFormEntry not found.");;
+      //throw new RuntimeException("SearchFormEntry not found.");;
+      //let's ignore this, most likely a 'double post'
     }
 
     $this->getUser()->setAttribute($moduleName . '_searchFormEntries', $searchFormEntries);
-    $this->redirect($this->getUriMemory()->get('search'));
   }
 
   /**
@@ -261,7 +256,7 @@ class BaseUllsfActions extends sfActions
    * @param $searchConfig The search config
    * @return array The current search form entries 
    */
-  public function retrieveSearchFormEntries($moduleName, ullSearchConfig $searchConfig)
+  protected function retrieveSearchFormEntries($moduleName, ullSearchConfig $searchConfig)
   {
     $searchFormEntries = $this->getUser()->getAttribute($moduleName . '_searchFormEntries', null);
 
@@ -282,10 +277,44 @@ class BaseUllsfActions extends sfActions
    * @param $search The current ullSearch
    * @param $searchFormEntries The search form entries
    */
-  public function addTransformedCriteriaToSearch(ullSearch $search, array $searchFormEntries)
+  protected function addTransformedCriteriaToSearch(ullSearch $search, array $searchFormEntries)
   {
     $fields = $this->searchForm->getGenerator()->getForm()->getValues();
+    unset($fields['columnSelect']);
     $criterionGroups = ullSearchFormEntryHelper::transformFieldsToCriteriaGroups($fields, $searchFormEntries);
     $search->addCriterionGroups($criterionGroups);
+  }
+  
+  /**
+   * Examines the request for different submit buttons originating
+   * from the search form, calls add/remove criterion accordingly.
+   * 
+   * @param $request the request
+   * @return boolean true if a criterion was added or removed, false otherwise
+   */
+  protected function handleAddOrRemoveCriterionButtons(sfRequest $request)
+  {
+    if ($request->isMethod('post'))
+    {
+      if ($this->getRequestParameter('addSubmit'))
+      {
+        $this->addSearchCriteria($request);
+        return true;
+      }
+      else
+      {
+        foreach ($request->getParameterHolder()->getNames() as $paramName)
+        {
+          if (strpos($paramName, 'removeSubmit_') === 0)
+          {
+            $criteriaString = substr($paramName, 13, -2);
+            $this->removeSearchCriteria($request, $criteriaString);
+            return true;
+          }
+        }
+      }
+    }
+    
+    return false;
   }
 }

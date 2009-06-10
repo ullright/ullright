@@ -394,34 +394,32 @@ class BaseUllFlowActions extends ullsfActions
    * 
    * @param $request The current request
    */
-  public function executeSearch(sfRequest $request)
+ public function executeSearch(sfRequest $request)
   {
-    $this->getUriMemory()->setUri('search');
     $this->moduleName = $request->getParameter('module');
-
+    $this->modelName = 'UllFlowDoc';
     $this->getAppfromRequest();
     $this->breadcrumbForSearch();
-    
-    $this->modelName = 'UllFlowDoc';
     $searchConfig = new ullFlowDocSearchConfig($this->app);
-   
-    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
 
-    $searchGenerator =  new ullFlowSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName, $this->app);
-    
+    $doRebind = $this->handleAddOrRemoveCriterionButtons($request);
+
+    $searchGenerator = new ullFlowSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName, $this->app);
     $this->addCriteriaForm = new ullSearchAddCriteriaForm($searchConfig, $searchGenerator);
+    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
     $searchGenerator->reduce($searchFormEntries);
     $this->searchForm = new ullSearchForm($searchGenerator);
 
-    if ($request->isMethod('post'))
+    $isSubmit = ($request->isMethod('post') && $this->getRequestParameter('searchSubmit'));
+    if (isset($doRebind) || $isSubmit)
     {
       $this->searchForm->getGenerator()->getForm()->bind($request->getParameter('fields'));
 
-      if ($this->searchForm->getGenerator()->getForm()->isValid())
+      if ($isSubmit && $this->searchForm->getGenerator()->getForm()->isValid())
       {
         $search = new ullFlowSearch($this->app);
         $this->addTransformedCriteriaToSearch($search, $searchFormEntries);
-
+         
         $this->getUser()->setAttribute('flow_ullSearch', $search);
         $redirectUrl = 'ullFlow/list?query=custom';
         if ($this->app != null)

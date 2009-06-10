@@ -698,8 +698,8 @@
 </trans-unit>
 
 <trans-unit id="19002">
-<source>power search</source>
-<target>Detailsuche</target>
+<source>Advanced search</source>
+<target>Erweiterte Suche</target>
 </trans-unit>
 
 <trans-unit id="19003">
@@ -795,6 +795,11 @@
 <trans-unit id="21000">
 <source>Filter settings</source>
 <target>Filtereinstellungen</target>
+</trans-unit>
+
+<trans-unit id="21001">
+<source>Not</source>
+<target>Nicht</target>
 </trans-unit>
 
 </body>

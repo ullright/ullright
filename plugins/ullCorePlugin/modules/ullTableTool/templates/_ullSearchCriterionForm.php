@@ -24,7 +24,7 @@
     {
       echo '<tr>';
       echo '<td>';
-      echo  ull_link_to(ull_image_tag('delete'), $moduleName . '/removeSearchCriteria?criteriaName=' . $formField->getName());
+      echo submit_image_tag(ull_image_path('delete'), array('name' => 'removeSubmit_' . $formField->getName())); 
       echo '</td>';
       echo '<td>';
       echo $formField->renderLabel();
@@ -89,7 +89,7 @@
 
 ?>
 <ul>
-  <li><?php echo submit_tag(__('Search', null, 'common')) ?></li>
+  <li><?php echo submit_tag(__('Search', null, 'common'), array('name' => 'searchSubmit')) ?></li>
   <?php
 
   ?>
@@ -107,8 +107,7 @@
 
 </div>
 </div>
-</form>
-
 <br />
 <br />
 <?php include_partial('ullTableTool/ullSearchAddCriteriaForm', array('addCriteriaForm' => $addCriteriaForm, 'moduleName' => $moduleName)) ?>
+</form>

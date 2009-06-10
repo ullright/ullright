@@ -45,7 +45,7 @@ class ullSearchAddCriteriaForm extends sfForm
       $choices[$sfe->__toString()] = ($label != null) ? $label : $sfe->__toString();
     }
 
-    $this->setWidget('columnSelect', new sfWidgetFormSelect(array('choices' => $choices)));
+    $this->setWidget('columnSelect', new sfWidgetFormSelect(array('choices' => $choices), array('onchange'  => 'document.getElementById(\'addSubmit\').click()')));
     $this->widgetSchema->setLabel('columnSelect', __('Criterion', null, 'common'));
 
     $this->getWidgetSchema()->setNameFormat('fields[%s]');

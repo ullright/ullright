@@ -128,31 +128,29 @@ class BaseUllUserActions extends BaseUllTableToolActions
    */
   public function executeSearch(sfRequest $request)
   {
-    $this->getUriMemory()->setUri('search');
     $this->moduleName = $request->getParameter('module');
-
-    $this->breadcrumbForSearch();
-    
     $this->modelName = 'UllUser';
+    $this->breadcrumbForSearch();
     $searchConfig = new ullUserSearchConfig();
-    
-    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
 
-    $searchGenerator =  new ullSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName);
+    $doRebind = $this->handleAddOrRemoveCriterionButtons($request);
 
+    $searchGenerator = new ullSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName);
     $this->addCriteriaForm = new ullSearchAddCriteriaForm($searchConfig, $searchGenerator);
+    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
     $searchGenerator->reduce($searchFormEntries);
     $this->searchForm = new ullSearchForm($searchGenerator);
 
-    if ($request->isMethod('post'))
+    $isSubmit = ($request->isMethod('post') && $this->getRequestParameter('searchSubmit'));
+    if (isset($doRebind) || $isSubmit)
     {
       $this->searchForm->getGenerator()->getForm()->bind($request->getParameter('fields'));
 
-      if ($this->searchForm->getGenerator()->getForm()->isValid())
+      if ($isSubmit && $this->searchForm->getGenerator()->getForm()->isValid())
       {
         $search = new ullSearch();
         $this->addTransformedCriteriaToSearch($search, $searchFormEntries);
-        
+         
         $this->getUser()->setAttribute('user_ullSearch', $search);
         $this->redirect('ullTableTool/list?query=custom&table=' . $this->modelName);
       }

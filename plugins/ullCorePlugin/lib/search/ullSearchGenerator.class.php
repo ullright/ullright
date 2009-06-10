@@ -161,7 +161,9 @@ class ullSearchGenerator
     
     // parse UllColumnConfigData table
     UllColumnConfigTable::addColumnConfigArray($columnConfig, $column['searchFormEntry']->modelName, $columnName);
-
+    
+    $columnConfig->setValidatorOption('required', false);
+    
     switch ($columnConfig->getMetaWidgetClassName())
     {
       case 'ullMetaWidgetInteger': //fall through
