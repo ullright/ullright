@@ -1,4 +1,13 @@
 <form id="searchForm" action="<?php echo url_for($formUrl) ?>" method="post">
+<?php
+  //This input tag is manually hidden and should not be visible.
+  //It's there because most modern browsers activate the first
+  //submit button of a form when the user hits enter, and
+  //without this button here, that would be a delete-criterion
+  //submit button!
+  
+  echo submit_tag(__('Search', null, 'common'), array('name' => 'searchSubmit', 'style' => 'display:none'));
+?>
 <br />
 <div class="edit_container">
 <table class="edit_table">
