@@ -53,11 +53,26 @@
     <div id="tc_search">
       <div class="tc_search_quick_top color_medium_bg">
         <?php echo form_tag('ullTableTool/list?table=UllUser'); ?>
-        <h3><?php echo __('Search for Users') ?></h3>
-        <?php echo $form['search']->render() ?>
-        <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullCore'),
-            array('class' => 'tc_search_quick_top_img')) ?>
+        <table>
+          <tr>
+            <td>
+              <h3><?php echo __('Search for Users') ?></h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <?php echo $form['search']->render() ?>
+            </td>
+            <td>
+              <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullCore'),
+                array('class' => 'tc_search_quick_top_img')) ?>
+            </td>
+          </tr>
+          </table>
         </form>      
+      </div>
+      <div class="tc_search_quick_bottom color_light_bg">
+        <?php echo ull_link_to(__('Advanced search', null, 'common'), 'ullUser/search') ?>
       </div>
       <!-- 
       <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>

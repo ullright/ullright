@@ -49,13 +49,26 @@
             <td><?php echo $form['search']->render() ?></td>
             <td><?php echo submit_image_tag(ull_image_path('search'),
               array('class' => 'tc_search_quick_top_img')) ?></td>
+              
           </tr>
           </table>
           </form>
          </div>
-      <!-- 
-      <div class="tc_search_quick_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
-      -->
+      
+       
+      <div class="tc_search_quick_bottom color_light_bg">
+           <?php
+              if ($app_slug)
+              {
+                echo ull_link_to(__('Advanced search', null, 'common'), 'ullFlow/search?app=' . $app->slug);
+              }
+              else
+              {
+                echo ull_link_to(__('Advanced search', null, 'common'), 'ullFlow/search');
+              }
+            ?>
+      </div>
+      
       <div class="tc_search_tag_top color_medium_bg"><h3><?php echo __('By popular tags', null, 'common') ?></h3></div>
       <div class="tc_search_tag_bottom color_light_bg">
         <?php
