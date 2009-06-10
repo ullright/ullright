@@ -183,7 +183,7 @@ class ullSearchGenerator
       $newLabel = '';
       foreach($column['searchFormEntry']->relations as $relation)
       {
-        $newLabel .= ullHumanizer::humanizeAndTranslate($relation) . " - ";
+        $newLabel .= ullHumanizer::humanizeAndTranslateRelation($relation) . " - ";
       }
       $columnConfig->setLabel($newLabel . $columnConfig->getLabel());
     }

@@ -1,20 +1,23 @@
 <?php
 /**
  * This class returns simple string representations of
- * internal relationship and model names.
+ * common internal relationship, model and column names.
  *
  * It also does translation.
  */
 class ullHumanizer
 {
-  private static $relationLabels = array(
+  private static $relations = array(
     'Creator' => 'Created by',
     'Updator' => 'Updated by',
     'UllLocation' => 'Location',
     'UllCompany' => 'Company',
     'UllDepartment' => 'Department',
     'UllEmploymentType' => 'Employment type',
-    'UllJobTitle' => 'Job title',
+    'UllJobTitle' => 'Job title'
+    );
+    
+  private static $columnNames = array(
     'id'                  => 'ID',
     'creator_user_id'     => 'Created by', 
     'created_at'          => 'Created at',
@@ -45,11 +48,11 @@ class ullHumanizer
      * @param $relationLabel the relationship or model name to humanize
      * @return string a human readable string
      */
-    public static function humanizeAndTranslate($relationLabel)
+    public static function humanizeAndTranslateRelation($relationLabel)
     {
-      if (isset(self::$relationLabels[$relationLabel]))
+      if (isset(self::$relations[$relationLabel]))
       {
-        return __(self::$relationLabels[$relationLabel], null, 'common');
+        return __(self::$relations[$relationLabel], null, 'common');
       }
 
       return $relationLabel;
@@ -62,8 +65,37 @@ class ullHumanizer
      * @param $relationLabel the relationship or model name to humanize
      * @return boolean true if the argument can be humanized, false otherwise
      */
-    public static function hasHumanization($relationLabel)
+    public static function hasRelationHumanization($relationLabel)
     {
-      return (isset(self::$relationLabels[$relationLabel])) ? true : false;
+      return (isset(self::$relations[$relationLabel])) ? true : false;
+    }
+    
+    /**
+     * Returns a human readable string, expects a
+     * column name.
+     *
+     * @param $relationLabel the column name humanize
+     * @return string a human readable string
+     */
+    public static function humanizeAndTranslateColumnName($relationLabel)
+    {
+      if (isset(self::$columnNames[$relationLabel]))
+      {
+        return __(self::$columnNames[$relationLabel], null, 'common');
+      }
+
+      return $relationLabel;
+    }
+
+    /**
+     * Returns true if this class can offer a humanization
+     * for the given argument, false otherwise.
+     *
+     * @param $relationLabel the column name to humanize
+     * @return boolean true if the argument can be humanized, false otherwise
+     */
+    public static function hasColumnNameHumanization($relationLabel)
+    {
+      return (isset(self::$columnNames[$relationLabel])) ? true : false;
     }
 }

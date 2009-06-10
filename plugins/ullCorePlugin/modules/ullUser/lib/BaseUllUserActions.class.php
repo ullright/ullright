@@ -130,14 +130,15 @@ class BaseUllUserActions extends BaseUllTableToolActions
   {
     $this->moduleName = $request->getParameter('module');
     $this->modelName = 'UllUser';
+    $this->getUriMemory()->setUri('search');
     $this->breadcrumbForSearch();
     $searchConfig = new ullUserSearchConfig();
 
-    $doRebind = $this->handleAddOrRemoveCriterionButtons($request);
+    $doRebind = ullSearchActionHelper::handleAddOrRemoveCriterionButtons($request, $this->getUser());
 
     $searchGenerator = new ullSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName);
     $this->addCriteriaForm = new ullSearchAddCriteriaForm($searchConfig, $searchGenerator);
-    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
+    $searchFormEntries = ullSearchActionHelper::retrieveSearchFormEntries($this->moduleName, $searchConfig, $this->getUser());
     $searchGenerator->reduce($searchFormEntries);
     $this->searchForm = new ullSearchForm($searchGenerator);
 
@@ -149,7 +150,8 @@ class BaseUllUserActions extends BaseUllTableToolActions
       if ($isSubmit && $this->searchForm->getGenerator()->getForm()->isValid())
       {
         $search = new ullSearch();
-        $this->addTransformedCriteriaToSearch($search, $searchFormEntries);
+        ullSearchActionHelper::addTransformedCriteriaToSearch($search, $searchFormEntries,
+          $this->searchForm->getGenerator()->getForm()->getValues());
          
         $this->getUser()->setAttribute('user_ullSearch', $search);
         $this->redirect('ullTableTool/list?query=custom&table=' . $this->modelName);

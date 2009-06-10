@@ -398,15 +398,16 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->moduleName = $request->getParameter('module');
     $this->modelName = 'UllFlowDoc';
+    $this->getUriMemory()->setUri('search');
     $this->getAppfromRequest();
     $this->breadcrumbForSearch();
     $searchConfig = new ullFlowDocSearchConfig($this->app);
 
-    $doRebind = $this->handleAddOrRemoveCriterionButtons($request);
+    $doRebind = ullSearchActionHelper::handleAddOrRemoveCriterionButtons($request, $this->getUser());
 
     $searchGenerator = new ullFlowSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName, $this->app);
     $this->addCriteriaForm = new ullSearchAddCriteriaForm($searchConfig, $searchGenerator);
-    $searchFormEntries = $this->retrieveSearchFormEntries($this->moduleName, $searchConfig);
+    $searchFormEntries = ullSearchActionHelper::retrieveSearchFormEntries($this->moduleName, $searchConfig, $this->getUser());
     $searchGenerator->reduce($searchFormEntries);
     $this->searchForm = new ullSearchForm($searchGenerator);
 
@@ -418,7 +419,8 @@ class BaseUllFlowActions extends ullsfActions
       if ($isSubmit && $this->searchForm->getGenerator()->getForm()->isValid())
       {
         $search = new ullFlowSearch($this->app);
-        $this->addTransformedCriteriaToSearch($search, $searchFormEntries);
+        ullSearchActionHelper::addTransformedCriteriaToSearch($search, $searchFormEntries,
+          $this->searchForm->getGenerator()->getForm()->getValues());
          
         $this->getUser()->setAttribute('flow_ullSearch', $search);
         $redirectUrl = 'ullFlow/list?query=custom';

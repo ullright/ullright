@@ -39,10 +39,18 @@ class ullFlowDocSearchConfig extends ullSearchConfig {
     $sfeArray[] = $sfe;
 
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = "priority";
-    $sfe->isVirtual = false;
+    if ($this->ullFlowApp == null)
+    {
+      $sfe->columnName = "priority";
+      $sfe->isVirtual = false;
+    }
+    else
+    {
+      $sfe->columnName = "column_priority";
+      $sfe->isVirtual = true;
+    }
     $sfeArray[] = $sfe;
-
+    
     for($i = 0; $i < count($sfeArray); $i++)
     {
       $sfeArray[$i]->uuid = $i;

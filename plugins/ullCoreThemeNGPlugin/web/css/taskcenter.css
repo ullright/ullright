@@ -82,6 +82,11 @@ ul.tc_tasks li img {
 	padding-left: 7px;
 }
 
+.tc_search_quick_bottom {
+  border: 0px;
+  padding: .6em .3em;
+}
+
 .tc_search_tag_top {
 	border: 0px;
 	padding: 5px;

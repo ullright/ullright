@@ -34,9 +34,9 @@ class ullColumnConfiguration
     $this->unique = false;
     $this->columnName = $columnName;
   
-    if (ullHumanizer::hasHumanization($this->label))
+    if (ullHumanizer::hasColumnNameHumanization($this->label))
     {
-      $this->label = ullHumanizer::humanizeAndTranslate($this->label);
+      $this->label = ullHumanizer::humanizeAndTranslateColumnName($this->label);
     }
     else
     {
@@ -61,7 +61,7 @@ class ullColumnConfiguration
         {
           //uhm... which is it?
           $this->widgetAttributes['maxlength'] =  $doctrineColumn['length'];
-          $this->widgetAttributes['max_length'] = $doctrineColumn['length'];
+          $this->validatorOptions['max_length'] = $doctrineColumn['length'];
         }
       }
     }

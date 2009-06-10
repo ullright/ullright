@@ -109,5 +109,5 @@
 </div>
 <br />
 <br />
-<?php include_partial('ullTableTool/ullSearchAddCriteriaForm', array('addCriteriaForm' => $addCriteriaForm, 'moduleName' => $moduleName)) ?>
+<?php include_partial('ullTableTool/ullSearchAddCriteriaForm', array('addCriteriaForm' => $addCriteriaForm)) ?>
 </form>
