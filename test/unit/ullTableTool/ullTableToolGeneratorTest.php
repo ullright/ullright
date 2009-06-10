@@ -23,8 +23,8 @@ class myTestCase extends sfDoctrineTestCase
     $this->columnsConfigMock['my_boolean'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_email');
-    $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
-    $columnConfig->setValidatorOptions(array('required' => false));
+    $columnConfig->setWidgetAttributes(array('maxlength' => 64));
+    $columnConfig->setValidatorOptions(array('required' => false, 'max_length' => 64));
     $columnConfig->setLabel('My email');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
     $this->columnsConfigMock['my_email'] = $columnConfig;
@@ -37,7 +37,8 @@ class myTestCase extends sfDoctrineTestCase
     $this->columnsConfigMock['my_select_box'] = $columnConfig;
   
     $columnConfig = new ullColumnConfiguration('my_useless_column');
-    $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
+    $columnConfig->setWidgetAttributes(array('maxlength' => 64));
+    $columnConfig->setValidatorOption('max_length', 64);
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setAccess(false);
     $this->columnsConfigMock['my_useless_column'] = $columnConfig;
@@ -49,8 +50,8 @@ class myTestCase extends sfDoctrineTestCase
     $this->columnsConfigMock['ull_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_string');
-    $columnConfig->setWidgetAttributes(array('maxlength' => 64, 'max_length' => 64));
-    $columnConfig->setValidatorOptions(array('required' => true));
+    $columnConfig->setWidgetAttributes(array('maxlength' => 64));
+    $columnConfig->setValidatorOptions(array('required' => true, 'max_length' => 64));
     $columnConfig->setLabel('My custom string label');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setTranslated(true);
