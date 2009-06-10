@@ -75,6 +75,10 @@ input:focus,textarea:focus,select:focus {
 	border: 1px solid #0072a3;
 }
 
+input[type="image"] {
+	border: 0
+}
+
 label {
 	font-weight: bold;
 }
