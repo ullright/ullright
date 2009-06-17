@@ -151,7 +151,7 @@ class BaseUllTableToolActions extends ullsfActions
     $editConfig = TableToolEditConfig::loadClass($this->generator->getModelName());
     if ($editConfig != NULL)
     {
-      $this->redirectUnless($editConfig->allowDelete(), 'ullUser/noaccess');
+      $this->redirectToNoAccessUnless($editConfig->allowDelete());
     }
     
     $row = $this->getRowFromRequest();   

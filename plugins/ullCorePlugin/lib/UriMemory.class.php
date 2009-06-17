@@ -92,6 +92,7 @@ class UriMemory
       $uri = sfContext::getInstance()->getRequest()->getUri();
     }
     
+
     // don't overwrite if the URI exists and overwriting is not allowed
     if (!($this->getUser()->hasAttribute($this->uriName) && !$overwrite))
     {
@@ -116,6 +117,10 @@ class UriMemory
       {
         $uri = $_SERVER['HTTP_REFERER'];
       }
+      else
+      {
+        $uri = $this->getDefault();
+      }      
     }
     
     $this->setUri($action, $module, $overwrite, $uri);

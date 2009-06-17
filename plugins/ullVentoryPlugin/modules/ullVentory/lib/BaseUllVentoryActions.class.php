@@ -141,7 +141,7 @@ class BaseUllVentoryActions extends ullsfActions
 //    $this->getDocFromRequestOrCreate();
     
 //    $accessType = $this->doc->checkAccess();
-//    $this->redirectUnless($accessType, 'ullUser/noaccess');
+//    $this->redirectToNoAccessUnless($accessType);
     
 //    if ($accessType == 'r')
 //    {

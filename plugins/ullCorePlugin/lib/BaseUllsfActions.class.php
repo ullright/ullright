@@ -11,7 +11,7 @@
 class BaseUllsfActions extends sfActions
 {
   protected
-  $uriMemory
+    $uriMemory
   ;
 
   /**
@@ -24,6 +24,10 @@ class BaseUllsfActions extends sfActions
     sfLoader::loadHelpers('ull');
 
     $this->uriMemory = new UriMemory();
+//    if ($this->getModuleName() != 'ulluser' && $this->getActionName() != 'noaccess')
+//    {
+//      $this->uriMemory->setUri('noaccess', 'ullUser'); 
+//    }
 
     $this->ullpreExecute();
   }
@@ -51,7 +55,7 @@ class BaseUllsfActions extends sfActions
   {
     $this->getUriMemory()->setUri('login', 'ullUser');
 
-    $this->redirectUnless(UllUserTable::hasGroup($group), 'ullUser/noaccess');
+    $this->redirectToNoAccessUnless(UllUserTable::hasGroup($group));
   }
 
   /**
@@ -68,7 +72,7 @@ class BaseUllsfActions extends sfActions
   {
     $this->getUriMemory()->setUri('login', 'ullUser');
      
-    $this->redirectUnless(UllUserTable::hasPermission($permission), 'ullUser/noaccess');
+    $this->redirectToNoAccessUnless(UllUserTable::hasPermission($permission));
   }
 
 
@@ -83,9 +87,23 @@ class BaseUllsfActions extends sfActions
   {
     $this->getUriMemory()->setUri('login', 'ullUser');
 
-    $this->redirectUnless($this->getUser()->getAttribute('user_id'), 'ullUser/noaccess');
+    $this->redirectToNoAccessUnless($this->getUser()->getAttribute('user_id'));
   }
 
+  /**
+   * Redirect to the noaccess action unless the condition is true
+   * 
+   * @param $condition
+   * @return none
+   */
+  public function redirectToNoAccessUnless($condition)
+  {
+    // save current URI
+    $this->getUriMemory()->setUri('noaccess', 'ullUser');
+//    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
+    
+    $this->redirectUnless($condition, 'ullUser/noaccess');
+  }
 
   /**
    * counterpart for ullHelper's ull_reqpass_form_tag()

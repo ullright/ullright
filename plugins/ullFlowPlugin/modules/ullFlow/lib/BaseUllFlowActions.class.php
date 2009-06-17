@@ -146,8 +146,10 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->getDocFromRequestOrCreate();
 
+//    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
+    
     $accessType = $this->doc->checkAccess();
-    $this->redirectUnless($accessType, 'ullUser/noaccess');
+    $this->redirectToNoAccessUnless($accessType);
     if ($accessType == 'w')
     {
       $this->workflowActionAccessCheck();
@@ -218,7 +220,7 @@ class BaseUllFlowActions extends ullsfActions
 
     $this->getDocFromRequest();
 
-    $this->redirectUnless($this->doc->checkDeleteAccess(), 'ullUser/noaccess');
+    $this->redirectToNoAccessUnless($this->doc->checkDeleteAccess());
 
     // remove tags
     $this->doc->removeAllTags();
@@ -239,7 +241,7 @@ class BaseUllFlowActions extends ullsfActions
     $this->getDocFromRequestOrCreate();
 
     $accessType = $this->doc->checkAccess();
-    $this->redirectUnless($accessType, 'ullUser/noaccess');
+    $this->redirectToNoAccessUnless($accessType);
 
     $column = $request->getParameter('column');
     $this->column = $column;
@@ -323,7 +325,7 @@ class BaseUllFlowActions extends ullsfActions
     $this->getDocFromRequestOrCreate();
 
     $accessType = $this->doc->checkAccess();
-    $this->redirectUnless($accessType, 'ullUser/noaccess');
+    $this->redirectToNoAccessUnless($accessType);
 
     $column = $request->getParameter('column');
     $this->column = $column;

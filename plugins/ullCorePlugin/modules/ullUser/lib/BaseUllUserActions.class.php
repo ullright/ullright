@@ -18,6 +18,17 @@ class BaseUllUserActions extends BaseUllTableToolActions
 {
 
   /**
+   * Execute  before each action
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#ullpreExecute()
+   */
+  public function ullpreExecute()
+  {
+    $defaultUri = $this->getModuleName() . '/list';
+    $this->getUriMemory()->setDefault($defaultUri);  
+  }  
+  
+  /**
    * Test for extending ullTableTool
    * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeList()
    */
@@ -171,12 +182,18 @@ class BaseUllUserActions extends BaseUllTableToolActions
     //check context
     if ($request->isMethod('get'))
     {
-      $this->getUriMemory()->setReferer(null, null, false);
       
       if ($request->getParameter('option') == 'noaccess')
       {
         $this->msg = __('Please login to verify access');
+        $uri = $this->getUriMemory()->getAndDelete('noaccess', 'ullUser');
+        $this->getUriMemory()->setUri('login', 'ullUser', true, $uri); 
       }
+      else
+      {
+        $this->getUriMemory()->setReferer(null, null, false);
+      }
+      
       return sfView::SUCCESS;
     }
     else
@@ -248,6 +265,8 @@ class BaseUllUserActions extends BaseUllTableToolActions
    */
   public function executeNoaccess($request)
   {
+//    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
+    
     if (!$this->getUser()->hasAttribute('user_id'))
     {
       $request->setParameter('option', 'noaccess');
