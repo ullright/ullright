@@ -125,9 +125,7 @@
 <?php echo input_hidden_tag('external') ?>
 <?php echo input_hidden_tag('external_field') */?>
 
-</div>
 
-</form>
 
 <?php if ($doc->exists()): ?>
   <br />
@@ -172,6 +170,10 @@
   <br />
   </div>
 <?php endif ?>
+
+</div> <!-- end of edit_container -->
+
+</form>
 
 <?php
   echo ull_js_observer("edit_form");
