@@ -56,15 +56,33 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $this;
   }
 
+  public function getDgsUllUserList()
+  {
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
+      array(
+        'actions',
+        'id',
+        'first_name',
+        'last_name',
+        'username',
+        'email'
+       ),
+      'table > thead > tr', 'th'
+    );
+    
+    return $s;
+  }  
+  
   public function getDgsUllWikiList()
   {
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
-        'actions'     => 1,
-        'id'          => 2,
-        'subject'     => 3,
-        'updated_by'  => 5,
-        'updated_at'  => 6,
+        'actions',
+        'id',
+        'subject',
+        'unknown',
+        'updated_by',
+        'updated_at'
       ),
       'table > thead > tr', 'th'
     );
@@ -76,12 +94,12 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   {
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
-        'actions'     => 1,
-        'app'         => 2,
-        'subject'     => 3,
-        'priority'    => 4,
-        'created_by'  => 5,
-        'created_at'  => 6,
+        'actions',
+        'app',
+        'subject',
+        'priority',
+        'created_by',
+        'created_at'
       ),
       'table > thead > tr', 'th'
     );
@@ -94,12 +112,12 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
       array(),      
       array(
-        'actions'     => 1,
-        'id'          => 2,
-        'subject'     => 3,
-        'priority'    => 4,
-        'assigned_to' => 5,
-        'created_at'  => 6,
+        'actions',
+        'id',
+        'subject',
+        'priority',
+        'assigned_to',
+        'created_at'
       ),
       'table > thead > tr', 'th'
     );
@@ -112,10 +130,10 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   	$s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
       array(),      
       array(
-        'actions'     => 1,
-        'subject'     => 2,
-        'created_by'  => 3,
-        'created_at'  => 4,
+        'actions',
+        'subject',
+        'created_by',
+        'created_at'
       ),
       'table > thead > tr', 'th'
     );
@@ -127,19 +145,19 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   {
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', 
       array(
-        'subject'     => 1,
-        'information_update' => 2,
-        'date'        => 3,
-        'email'       => 4,
-        'priority'    => 5,
-        'attachments' => 6,
-        'wiki_links'  => 7,
-        'tags'        => 8
+        'subject',
+        'information_update',
+        'date',
+        'email',
+        'priority',
+        'attachments',
+        'wiki_links',
+        'tags',
       ),      
       array(
-        'label'       => 1,
-        'value'       => 2,
-        'error'       => 3
+        'label',
+        'value',
+        'error'
       )
     );
     
@@ -150,9 +168,9 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   {
     $s = new ullDomGridSelector('ul.ull_flow_edit_header_list', 'li', null, 
       array(
-        'created'     => 1,
-        'status'      => 2,
-        'next'        => 3
+        'created',
+        'status',
+        'next'
       )    
     );
     
