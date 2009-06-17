@@ -19,6 +19,13 @@ class ullWidgetCheckboxWrite extends sfWidgetFormInputCheckbox
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    // hack to uncheck the checkbox in case the value is '' or 0
+    // @see http://trac.symfony-project.org/ticket/5244
+    if (empty($value))
+    {
+      $value = null;
+    }
+    
     $checkbox = parent::render($name, $value, $attributes, $errors);
     
     if (!$this->getAttribute('name'))
