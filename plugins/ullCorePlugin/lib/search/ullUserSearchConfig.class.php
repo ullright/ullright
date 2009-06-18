@@ -45,15 +45,15 @@ class ullUserSearchConfig extends ullSearchConfig {
     $sfe->columnName = 'ull_group_id';
     $sfeArray[] = $sfe;
     
-     $sfe = new ullSearchFormEntry();
+    $sfe = new ullSearchFormEntry();
     $sfe->columnName = 'ull_employment_type_id';
     $sfeArray[] = $sfe;
     
-     $sfe = new ullSearchFormEntry();
+    $sfe = new ullSearchFormEntry();
     $sfe->columnName = 'ull_job_title_id';
     $sfeArray[] = $sfe;
     
-       $sfe = new ullSearchFormEntry();
+    $sfe = new ullSearchFormEntry();
     $sfe->columnName = 'superior_ull_user_id';
     $sfeArray[] = $sfe;
     
@@ -63,8 +63,6 @@ class ullUserSearchConfig extends ullSearchConfig {
     }
     
     return $sfeArray;
-    
-    //return $this->getAllSearchableColumns();
   }
 
   /**
