@@ -176,8 +176,8 @@ class ullSearch
       $q->addWhere($queryString, $queryParameter);
     }
     
-    printQuery($q->getSql());
-    var_dump($q->getParams());
+//    printQuery($q->getSql());
+//    var_dump($q->getParams());
     
     return $q;
   }

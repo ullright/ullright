@@ -15,6 +15,7 @@ class ullSearchFormEntry
   /**
    * Creates a new search form entry,
    * optionally parsing it's members from a given string.
+   * 
    * @param $fromString a string describing a search form entry.
    * @return a new search form entry
    */
@@ -36,7 +37,8 @@ class ullSearchFormEntry
         $this->columnName = $fromString;
         //throw new RuntimeException('Invalid SearchFormEntry string.');
       }
-      else {
+      else 
+      {
         $this->columnName = substr($fromString, $lastDotPosition + 1);
         $tempString = substr($fromString, 0, $lastDotPosition);
         $this->relations = explode('.', $tempString);
@@ -49,6 +51,7 @@ class ullSearchFormEntry
   /**
    * Tests this search form entry for equality.
    * The contained UUID is not tested.
+   * 
    * @param $searchFormEntry another search form entry
    * @return boolean true or false
    */
@@ -74,6 +77,7 @@ class ullSearchFormEntry
 
   /**
    * Renders a string representation of this search form entry.
+   * 
    * @return a string describing this search form entry - can be used
    * with __construct().
    */

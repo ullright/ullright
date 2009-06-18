@@ -6,10 +6,12 @@
  * It forces implementation classes to provide enumerations
  * of default and all search fields.
  */
-abstract class ullSearchConfig {
+abstract class ullSearchConfig 
+{
   protected $blacklist = array();
   
   public abstract function getDefaultSearchColumns();
+  
   public abstract function getAllSearchableColumns();
   
   /**

@@ -5,7 +5,8 @@
  * It provides the ullSearch framework with information regarding
  * searchable fields for the UllFlowDoc model.
  */
-class ullFlowDocSearchConfig extends ullSearchConfig {
+class ullFlowDocSearchConfig extends ullSearchConfig 
+{
 
   private $ullFlowApp;
   private $virtualBlacklist;
@@ -16,11 +17,12 @@ class ullFlowDocSearchConfig extends ullSearchConfig {
    * @param an optional ullFlowApp for virtual column support
    * @return a new ullFlowDocSearchConfig instance
    */
-  public function __construct($ullFlowApp = NULL)
+  public function __construct($ullFlowApp = null)
   {
     $this->ullFlowApp = $ullFlowApp;
     $this->blacklist = array('namespace', 'dirty', 'duplicate_tags_for_search');
-    $this->virtualBlacklist = array('upload', 'wiki_link');
+    // blacklist if virtual columns
+    $this->virtualBlacklist = array('wiki_link');
   }
 
   /**
@@ -65,7 +67,8 @@ class ullFlowDocSearchConfig extends ullSearchConfig {
    *
    * Also adds virtual columns.
    */
-  public function getAllSearchableColumns() {
+  public function getAllSearchableColumns() 
+  {
     $sfeArray = array();
 
     $fieldNames = Doctrine::getTable('UllFlowDoc')->getFieldNames();
@@ -80,6 +83,7 @@ class ullFlowDocSearchConfig extends ullSearchConfig {
     }
 
     $virtualSfe = array();
+    
     //add virtual columns, if an application is set
     if ($this->ullFlowApp != NULL)
     {

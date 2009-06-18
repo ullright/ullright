@@ -141,6 +141,8 @@ abstract class ullMetaWidget
     {
       $widget = new sfWidgetFormInputHidden();
     }
+
+    $widget = $this->handleAddEmpty($widget);
     
     $this->form->getWidgetSchema()->offsetSet($columnName, $widget);
   }
@@ -186,6 +188,35 @@ abstract class ullMetaWidget
         $validator->setOption('required', true);
       }
     }
+    
+    
+    // why isn't it necesarry to add "empty" also to the validators?
+    
+//    if ($widget instanceof sfWidgetFormDoctrineSelect && $this->getColumnConfig()->getAccess() == 's')
+//    {
+//      $widget->setOption('add_empty', true); 
+//    }    
+    
+    
+//    if ($this->getColumnConfig()->getAccess() == 's')
+//    {
+//      var_dump(get_class($validator));
+//      
+//      // Add an empty first entry to a normal sfWidgetFormSelect
+//      if ($validator instanceof sfValidatorChoice)
+//      {
+//        $choices = $validator->getOption('choices');
+//        
+//        if (!in_array('', $choices))
+//        {
+//          $choices[] = '';
+//        }
+//        
+//        var_dump($choices);
+//        
+//        $validator->setOption('choices', $choices);
+//      }    
+//    }
     
     $this->form->getValidatorSchema()->offsetSet($columnName, $validator);
   }
@@ -243,4 +274,40 @@ abstract class ullMetaWidget
         return 'ullMetaWidgetCheckbox';
     }
   }
+  
+  /**
+   * Forces a empty entry for select boxes in search mode
+   * 
+   * @param $widget
+   * @return sfWidgetForm
+   */
+  protected function handleAddEmpty(sfWidgetForm $widget)
+  {
+    if ($this->getColumnConfig()->getAccess() == 's')
+    {
+      // Set the add_empty option if available. Mainly for sfWidgetFormDoctrineSelect
+      if ($widget->hasOption('add_empty'))
+      {
+        $widget->setOption('add_empty', true); 
+      }
+      
+      // Also add an empty first entry to a normal sfWidgetFormSelect
+      if ($widget instanceof sfWidgetFormSelect)
+      {
+        // sfWidgetFormDoctrineSelect is also an instance of sfWidgetFormSelect,
+        //   so we check if the choices are an array (sfCallable for Doctrine)
+        if (is_array($choices = $widget->getOption('choices')))
+        {
+          if (!in_array('', $choices))
+          {
+            $choices = array_merge(array('' => '') , $choices);
+          }
+          
+          $widget->setOption('choices', $choices);
+        }
+      }
+    }
+    return $widget;
+  }
+  
 }

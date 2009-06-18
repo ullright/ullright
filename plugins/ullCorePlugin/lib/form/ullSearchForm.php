@@ -31,7 +31,8 @@ class ullSearchForm
    * 
    * @return ullSearchGenerator The wrapped generator
    */
-  public function getGenerator() {
+  public function getGenerator() 
+  {
     return $this->generator;
   }
 }

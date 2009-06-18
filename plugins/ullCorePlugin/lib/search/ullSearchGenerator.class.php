@@ -54,6 +54,8 @@ class ullSearchGenerator
 
       $this->columnConfig[$columnConfig->getCustomAttribute('searchFormEntry')->__toString()] = $columnConfig;
     }
+    
+//    var_dump($this->columnConfig);die;
   }
   
   /**
