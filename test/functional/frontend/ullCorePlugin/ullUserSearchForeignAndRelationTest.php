@@ -8,20 +8,24 @@ $path = dirname(__FILE__);
 $browser->setFixturesPath($path);
 $browser->resetDatabase();
 
-//a user without department
+//a new user without new department, but a new group
 $newUser = new UllUser();
 $newUser->first_name = 'Mistress';
 $newUser->last_name = 'Modules';
 $newUser->username = 'mistress_modules';
-$newUser->separation_date = '2001-01-01';
+
+$newGroup = new UllGroup();
+$newGroup->id = 815;
+$newGroup->display_name = 'Group of Mistresses';
+$newGroup->save();
+$newUser->UllGroup[] = $newGroup;
 $newUser->save();
 
-//a user with a new department
+//a new user with a new department, but not in the new group
 $newUser = new UllUser();
 $newUser->first_name = 'Head';
 $newUser->last_name = 'Programmer of Modules';
 $newUser->username = 'head_programmer';
-$newUser->separation_date = '2002-02-02';
 
 $department = new UllDepartment();
 $department->id = 33;
@@ -36,7 +40,7 @@ $dgsUser = $browser->getDgsUllUserList();
 $browser->diag('Open advanced search, with login');
 $browser->navigateToSearch(true);
 
-//range search from
+//foreign search
 $browser->diag('Foreign search');
 
 $browser
@@ -69,6 +73,41 @@ $browser
     ->isStatusCode(200)
     ->checkElement($dgsUser->get(1, 'first_name'), 'Head')
     ->checkElement($dgsUser->get(1, 'username'), 'head_programmer')
+        ->checkElement($dgsUser->getFullRowSelector(), 1)
+  ->end()
+;
+
+//reset search
+$browser->navigateToSearch();
+$browser->resetSearch();
+
+//relation search
+$browser->diag('Relation search');
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'foreign_0_4' => '815', //group of mistresses
+  ),
+  'searchSubmit' => 'Search',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+;
+$browser->followRedirect();
+
+$browser
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTableTool')
+    ->isParameter('action', 'list')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+    ->checkElement($dgsUser->get(1, 'first_name'), 'Mistress')
+    ->checkElement($dgsUser->get(1, 'username'), 'mistress_modules')
         ->checkElement($dgsUser->getFullRowSelector(), 1)
   ->end()
 ;
