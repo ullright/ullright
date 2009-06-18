@@ -15,7 +15,7 @@ class ullMetaWidgetString extends ullMetaWidget
   
   protected function configureWriteMode()
   {
-    if ($this->columnConfig->getWidgetAttribute('size') == null)
+    if (!$this->columnConfig->getWidgetAttribute('size'))
     {
       $this->columnConfig->setWidgetAttribute('size', '50');
     }
