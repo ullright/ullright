@@ -43,7 +43,10 @@ class ullSearchAddCriteriaForm extends sfForm
       $label = $this->searchGenerator->getColumnLabel($sfe->__toString());
       
       $choices[$sfe->__toString()] = ($label != null) ? $label : $sfe->__toString();
+      
     }
+    
+    natsort($choices);
 
     $this->setWidget('columnSelect', new sfWidgetFormSelect(array('choices' => $choices), array('onchange'  => 'document.getElementById(\'addSubmit\').click()')));
     $this->widgetSchema->setLabel('columnSelect', __('Criterion', null, 'common'));
