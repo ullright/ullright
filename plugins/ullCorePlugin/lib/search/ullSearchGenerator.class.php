@@ -40,17 +40,18 @@ class ullSearchGenerator
    * handle column configuration of a search form.
    * Must be called before buildForm().
    */
-  private function buildColumnsConfig()
+  protected function buildColumnsConfig()
   {
     $this->resolveSearchFormEntriesRelations();
 
     $columnRelations = ullGeneratorHelper::resolveDoctrineRelations($this->baseModelName);
-
+    $columnRelationsForeign = ullGeneratorHelper::resolveDoctrineRelationsForeign($this->baseModelName);
+    
     $columns = $this->retrieveColumnDefinitions();
 
     foreach ($columns as $column)
     {
-      $columnConfig = $this->buildSingleColumnConfig($column, $columnRelations);
+      $columnConfig = $this->buildSingleColumnConfig($column, $columnRelations, $columnRelationsForeign);
 
       $this->columnConfig[$columnConfig->getCustomAttribute('searchFormEntry')->__toString()] = $columnConfig;
     }
@@ -63,7 +64,7 @@ class ullSearchGenerator
    * in all search form entries and dynamically sets their
    * ->modelName for further use later on.
    */
-  private function resolveSearchFormEntriesRelations()
+  protected function resolveSearchFormEntriesRelations()
   {
     //resolve relations in the search form entries
     foreach ($this->searchFormEntries as $searchFormEntry)
@@ -92,7 +93,7 @@ class ullSearchGenerator
    * @param $searchFormEntry
    * @return array with the column definition
    */
-  private function retrieveSingleColumnDefinition($searchFormEntry)
+  protected function retrieveSingleColumnDefinition($searchFormEntry)
   {
     $columnDefinition = Doctrine::getTable($searchFormEntry->modelName)
     ->getColumnDefinition($searchFormEntry->columnName);
@@ -106,7 +107,7 @@ class ullSearchGenerator
    * 
    * @return array with the column definitions
    */
-  private function retrieveColumnDefinitions()
+  protected function retrieveColumnDefinitions()
   {
     $columns = array();
 
@@ -151,12 +152,12 @@ class ullSearchGenerator
    * @param $columnRelations All doctrine column relations
    * @return UllColumnConfiguration the configured column
    */
-  private function buildSingleColumnConfig($column, $columnRelations)
+  protected function buildSingleColumnConfig($column, $columnRelations, $columnRelationsForeign)
   {
     $columnName = $column['searchFormEntry']->columnName;
 
     $columnConfig = new ullColumnConfiguration($columnName, 's');
-    $columnConfig->parseDoctrineColumnObject($column, $columnRelations);
+    $columnConfig->parseDoctrineColumnObject($column, $columnRelations, $columnRelationsForeign);
     $columnConfig->setAccess('s');
     $columnConfig->setCustomAttribute('searchFormEntry', $column['searchFormEntry']);
     $columnConfig = $this->customColumnConfig($columnConfig);
@@ -189,7 +190,7 @@ class ullSearchGenerator
       }
       $columnConfig->setLabel($newLabel . $columnConfig->getLabel());
     }
-
+    
     return $columnConfig;
   }
 

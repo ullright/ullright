@@ -25,10 +25,9 @@ class ullUserSearchConfig extends ullSearchConfig {
     $sfeArray = array();
 
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = 'last_name';
-    //$sfe->multipleCount = 1;
+    $sfe->columnName = 'ull_company_id';
     $sfeArray[] = $sfe;
-
+    
     $sfe = new ullSearchFormEntry();
     $sfe->columnName = 'ull_department_id';
     $sfeArray[] = $sfe;
@@ -40,14 +39,23 @@ class ullUserSearchConfig extends ullSearchConfig {
     $sfe = new ullSearchFormEntry();
     $sfe->columnName = 'ull_user_status_id';
     $sfeArray[] = $sfe;
-
-    /*
+ 
     $sfe = new ullSearchFormEntry();
-    $sfe->relations[] = 'Creator';
-    $sfe->relations[] = 'UllLocation';
-    $sfe->columnName = 'country';
+    $sfe->relations[] = 'UllEntityGroup';
+    $sfe->columnName = 'ull_group_id';
     $sfeArray[] = $sfe;
-    */
+    
+     $sfe = new ullSearchFormEntry();
+    $sfe->columnName = 'ull_employment_type_id';
+    $sfeArray[] = $sfe;
+    
+     $sfe = new ullSearchFormEntry();
+    $sfe->columnName = 'ull_job_title_id';
+    $sfeArray[] = $sfe;
+    
+       $sfe = new ullSearchFormEntry();
+    $sfe->columnName = 'superior_ull_user_id';
+    $sfeArray[] = $sfe;
     
     for($i = 0; $i < count($sfeArray); $i++)
     {
@@ -79,13 +87,11 @@ class ullUserSearchConfig extends ullSearchConfig {
 
     //TBA: If needed: Relations like the following:
   
-    /*
     $sfe = new ullSearchFormEntry();
-    $sfe->relations[] = 'Creator';
-    $sfe->relations[] = 'UllLocation';
-    $sfe->columnName = 'country';
+    $sfe->relations[] = 'UllEntityGroup';
+    $sfe->columnName = 'ull_group_id';
     $sfeArray[] = $sfe;
-*/
+
     return $sfeArray;
   }
 }

@@ -56,6 +56,70 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $this;
   }
 
+  public function navigateToSearch($withLogin = false)
+  {
+    $this
+	    ->get('ullAdmin/index');
+	    if ($withLogin)
+	    {
+	     $this->loginAsAdmin();
+	    } 
+	 $this
+	    ->isStatusCode(200)
+	    ->isRequestParameter('module', 'ullAdmin')
+	    ->isRequestParameter('action', 'index')
+	    ->responseContains('ullAdmin')
+	  ;
+
+    $this
+	    ->with('response')->begin()
+		    ->contains('Advanced search')
+		    ->click('Advanced search', array())
+	    ->end()
+    ;
+
+    $this
+	    ->with('request')->begin()
+		    ->isParameter('module', 'ullUser')
+		    ->isParameter('action', 'search')
+	    ->end()
+	    ->with('response')->begin()
+	       ->isStatusCode(200)
+	    ->end()
+    ;
+  }
+  
+  public function resetSearch()
+  {
+    $this
+      ->diag('Reset search');
+    
+    $this
+      ->with('response')->begin()
+	       ->contains('Reset search')
+	       ->click('Reset search', array())
+      ->end()
+    ;
+
+		$this
+		  ->with('response')->begin()
+		    ->isRedirected(1)
+		    ->isStatusCode(302)
+		  ->end()
+		  ->followRedirect()
+		;
+		
+		$this
+		  ->with('request')->begin()
+		    ->isParameter('module', 'ullUser')
+		    ->isParameter('action', 'search')
+		  ->end()
+		  ->with('response')->begin()
+		    ->isStatusCode(200)
+		  ->end()
+		;
+  }
+  
   public function getDgsUllUserList()
   {
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      

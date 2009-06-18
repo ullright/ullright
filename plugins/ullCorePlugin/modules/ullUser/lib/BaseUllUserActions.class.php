@@ -143,7 +143,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     $this->modelName = 'UllUser';
     $this->getUriMemory()->setUri('search');
     $this->breadcrumbForSearch();
-    $searchConfig = new ullUserSearchConfig();
+    $searchConfig = ullSearchConfig::loadSearchConfig('ullUser');
 
     $doRebind = ullSearchActionHelper::handleAddOrRemoveCriterionButtons($request, $this->getUser());
 

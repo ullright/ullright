@@ -403,7 +403,7 @@ class BaseUllFlowActions extends ullsfActions
     $this->getUriMemory()->setUri('search');
     $this->getAppfromRequest();
     $this->breadcrumbForSearch();
-    $searchConfig = new ullFlowDocSearchConfig($this->app);
+    $searchConfig = ullSearchConfig::loadSearchConfig('ullFlowDoc', $this->app);
 
     $doRebind = ullSearchActionHelper::handleAddOrRemoveCriterionButtons($request, $this->getUser());
 

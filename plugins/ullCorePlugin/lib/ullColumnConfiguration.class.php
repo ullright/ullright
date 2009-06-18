@@ -44,7 +44,7 @@ class ullColumnConfiguration
     }
   }
 
-  public function parseDoctrineColumnObject(array $doctrineColumn, array $columnRelations)
+  public function parseDoctrineColumnObject(array $doctrineColumn, array $columnRelations, array $columnRelationsForeign = null)
   {
     $metaWidgetClassName = ullMetaWidget::getMetaWidgetClassName($doctrineColumn['type']);
     if ($metaWidgetClassName)
@@ -83,13 +83,40 @@ class ullColumnConfiguration
       $this->validatorOptions['required'] = true;
     }
 
-    // set relations if not the primary key
+    //set relations if not the primary key
+    //first we check for regular 'forward' relations,
+    //if there isn't one we try the 'backward' relations.
+    //example: from user to his groups via entitygroup.
     if (!isset($doctrineColumn['primary']) || $this->columnName != 'id')
     {
       if (isset($columnRelations[$this->columnName]))
       {
         $this->metaWidgetClassName = 'ullMetaWidgetForeignKey';
         $this->relation = $columnRelations[$this->columnName];
+      }
+      else {
+        if ($columnRelationsForeign != null)
+        {
+          if (isset($columnRelationsForeign[$this->columnName]))
+          {
+            $this->metaWidgetClassName = 'ullMetaWidgetForeignKey';
+            $this->relation = $columnRelationsForeign[$this->columnName];
+            
+            //resolve second level relations for many to many relationships
+            $relations = Doctrine::getTable($columnRelationsForeign[$this->columnName]['model'])->getRelations();
+            foreach ($relations as $relation)
+            {
+              if ($relation->getLocal() == $this->columnName)
+              {
+                //var_dump('new model: ' . $relation->getClass());
+                 $this->relation['model'] = $relation->getClass();
+                
+                break;
+              }
+            }
+            
+          }
+        }
       }
     }
   }

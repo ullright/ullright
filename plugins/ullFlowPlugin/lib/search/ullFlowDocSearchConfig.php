@@ -7,9 +7,8 @@
  */
 class ullFlowDocSearchConfig extends ullSearchConfig 
 {
-
-  private $ullFlowApp;
-  private $virtualBlacklist;
+  protected $ullFlowApp;
+  protected $virtualBlacklist;
 
   /**
    * Constructs a new instance of the ullFlowDocSearchConfig class.
@@ -17,9 +16,9 @@ class ullFlowDocSearchConfig extends ullSearchConfig
    * @param an optional ullFlowApp for virtual column support
    * @return a new ullFlowDocSearchConfig instance
    */
-  public function __construct($ullFlowApp = null)
+  public function __construct(array $params = null)
   {
-    $this->ullFlowApp = $ullFlowApp;
+    $this->ullFlowApp = ($params != null && count($params) > 0) ? $params[0] : null;
     $this->blacklist = array('namespace', 'dirty', 'duplicate_tags_for_search');
     // blacklist if virtual columns
     $this->virtualBlacklist = array('wiki_link');
@@ -32,12 +31,20 @@ class ullFlowDocSearchConfig extends ullSearchConfig
    * NOTE: Every search form entry added here must also be added
    * to the getAllSearchableColumns below.
    */
-  public function getDefaultSearchColumns() {
-
+  public function getDefaultSearchColumns()
+  {
     $sfeArray = array();
 
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = "subject";
+    $sfe->columnName = "assigned_to_ull_entity_id";
+    $sfeArray[] = $sfe;
+    
+    $sfe = new ullSearchFormEntry();
+    $sfe->columnName = "creator_user_id";
+    $sfeArray[] = $sfe;
+    
+    $sfe = new ullSearchFormEntry();
+    $sfe->columnName = "updator_user_id";
     $sfeArray[] = $sfe;
 
     $sfe = new ullSearchFormEntry();

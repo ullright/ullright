@@ -1,7 +1,17 @@
 # default values
 
+test:
+  ullUser:
+    # This line makes sure that the test suits use
+    # the predefined search configuration class 
+    search_class: ullUserSearchConfig
+
 all:
   # This is the default language of the App. Don't change it
   # If you want to define the default Browser language ... TODO
   base_default_language:   en  
 
+  ullUser:
+    # This line can be overridden by the user's app.yml
+    # to use a specific search configuration class
+    search_class: ullUserSearchConfig
