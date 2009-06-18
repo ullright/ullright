@@ -98,7 +98,6 @@
 
 <?php echo $generator->getForm()->renderHiddenFields() ?>
 
-<br />
 
   <div class='edit_action_buttons color_light_bg'>
     <h3><?php echo __('Actions', null, 'common')?></h3>

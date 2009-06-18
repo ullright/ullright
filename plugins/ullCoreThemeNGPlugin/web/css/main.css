@@ -376,9 +376,10 @@ ul.list_action_buttons li {
  */
  
 .edit_action_buttons {
+	margin-top: 2em;
   clear: both;
   background-color: #dad9d9;
-  padding: .5em .7em .8em .7em;
+  padding: .5em .7em .8em .7em;  
 }
 
 .edit_action_buttons ul {

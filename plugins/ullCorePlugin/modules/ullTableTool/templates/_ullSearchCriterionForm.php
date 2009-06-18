@@ -89,8 +89,6 @@
   </tbody>
 </table>
 
-<br />
-
 <div class='edit_action_buttons color_light_bg'>
 <h3><?php echo __('Actions', null, 'common')?></h3>
 
@@ -115,8 +113,9 @@
 <div class="clear"></div>
 
 </div>
-</div>
-<br />
-<br />
+
 <?php include_partial('ullTableTool/ullSearchAddCriteriaForm', array('addCriteriaForm' => $addCriteriaForm)) ?>
+
+</div>
+
 </form>

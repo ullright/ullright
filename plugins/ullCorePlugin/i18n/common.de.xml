@@ -713,8 +713,8 @@
 </trans-unit>
 
 <trans-unit id="19005">
-<source>Add new criteria</source>
-<target>Neues Suchkriterium hinzufügen</target>
+<source>Add search criterion</source>
+<target>Suchkriterium hinzufügen</target>
 </trans-unit>
 
 <trans-unit id="19006">
@@ -730,6 +730,11 @@
 <trans-unit id="19008">
 <source>Value</source>
 <target>Wert</target>
+</trans-unit>
+
+<trans-unit id="19009">
+<source>Search criterion</source>
+<target>Suchkriterium</target>
 </trans-unit>
 
 <trans-unit id="20000">

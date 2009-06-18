@@ -30,8 +30,6 @@
 </tbody>
 </table>
 
-<br />
-
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
   <div class='edit_action_buttons color_light_bg'>
       <h3><?php echo __('Actions', null, 'common')?></h3>
@@ -128,7 +126,6 @@
 
 
 <?php if ($doc->exists()): ?>
-  <br />
   <div id="ull_flow_memories">
   <h3><?php echo __('Progress')?></h3>
   <ul>

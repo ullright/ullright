@@ -49,7 +49,7 @@ class ullSearchAddCriteriaForm extends sfForm
     natsort($choices);
 
     $this->setWidget('columnSelect', new sfWidgetFormSelect(array('choices' => $choices), array('onchange'  => 'document.getElementById(\'addSubmit\').click()')));
-    $this->widgetSchema->setLabel('columnSelect', __('Criterion', null, 'common'));
+    $this->widgetSchema->setLabel('columnSelect', __('Search criterion', null, 'common'));
 
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
     $this->getWidgetSchema()->setFormFormatterName('ullTable');
