@@ -25,13 +25,12 @@ class ullFlowDocSearchConfig extends ullSearchConfig
   }
 
   /**
-   * Returns an array of search form entries describing often
-   * used columns when searching for a document.
-   *
-   * NOTE: Every search form entry added here must also be added
-   * to the getAllSearchableColumns below.
+   * Configures an array of search form entries describing often
+   * used columns when searching for a user.
+   * 
+   * NOTE: Uuids are not assigned to the entries.  
    */
-  public function getDefaultSearchColumns()
+  protected function configureDefaultSearchColumns()
   {
     $sfeArray = array();
 
@@ -60,11 +59,6 @@ class ullFlowDocSearchConfig extends ullSearchConfig
     }
     $sfeArray[] = $sfe;
     
-    for($i = 0; $i < count($sfeArray); $i++)
-    {
-      $sfeArray[$i]->uuid = $i;
-    }
-
     return $sfeArray;
   }
 

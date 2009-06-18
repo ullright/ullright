@@ -9,10 +9,30 @@
 abstract class ullSearchConfig 
 {
   protected $blacklist = array();
-  
-  public abstract function getDefaultSearchColumns();
+
+  protected abstract function configureDefaultSearchColumns();
   
   public abstract function getAllSearchableColumns();
+  
+  /**
+   * Returns an array of search form entries describing often
+   * used columns when searching for a user.
+   * 
+   * NOTE: Every search form entry added here must also be added
+   * to the getAllSearchableColumns below.
+   */
+  public function getDefaultSearchColumns()
+  {
+    $sfeArray = $this->configureDefaultSearchColumns();
+    
+    //set consecutive ids for the entries
+    for($i = 0; $i < count($sfeArray); $i++)
+    {
+      $sfeArray[$i]->uuid = $i;
+    }
+    
+    return $sfeArray;
+  }
   
   /**
    * Returns a blacklist of columns we do not want the user to search for

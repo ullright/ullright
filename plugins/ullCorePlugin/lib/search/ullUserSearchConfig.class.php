@@ -14,13 +14,12 @@ class ullUserSearchConfig extends ullSearchConfig {
   }
   
   /**
-   * Returns an array of search form entries describing often
+   * Configures an array of search form entries describing often
    * used columns when searching for a user.
    * 
-   * NOTE: Every search form entry added here must also be added
-   * to the getAllSearchableColumns below.
+   * NOTE: Uuids are not assigned to the entries.  
    */
-  public function getDefaultSearchColumns() {
+  protected function configureDefaultSearchColumns() {
 
     $sfeArray = array();
 
@@ -56,12 +55,7 @@ class ullUserSearchConfig extends ullSearchConfig {
     $sfe = new ullSearchFormEntry();
     $sfe->columnName = 'superior_ull_user_id';
     $sfeArray[] = $sfe;
-    
-    for($i = 0; $i < count($sfeArray); $i++)
-    {
-      $sfeArray[$i]->uuid = $i;
-    }
-    
+      
     return $sfeArray;
   }
 
