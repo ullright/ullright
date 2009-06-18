@@ -107,16 +107,14 @@ class ullFlowDocSearchConfig extends ullSearchConfig
 
           $virtualSfe[] = $vsfe;
 
-          //manually remove base priority column if there is a virtual one
-          if ($vsfe->columnName == 'column_priority')
+          //manually remove ull flow doc priority and subject columns
+          //to prevent duplicate entries
+          foreach ($sfeArray as $sfeKey => $sfe)
           {
-            foreach ($sfeArray as $sfeKey => $sfe)
+            if ((($sfe->columnName == 'priority') && ($sfe->isVirtual == false)) ||
+                (($sfe->columnName == 'subject') && ($sfe->isVirtual == false)))
             {
-              if (($sfe->columnName == 'priority') && ($sfe->isVirtual == false))
-              {
-                unset($sfeArray[$sfeKey]);
-                break;
-              }
+              unset($sfeArray[$sfeKey]);
             }
           }
         }
