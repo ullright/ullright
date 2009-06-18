@@ -18,11 +18,11 @@ class ullSearchFormEntry
    * @param $fromString a string describing a search form entry.
    * @return a new search form entry
    */
-  public function __construct($fromString = NULL)
+  public function __construct($fromString = null)
   {
     $this->isVirtual = false;
 
-    if ($fromString != NULL)
+    if ($fromString != null)
     {
       if (strpos($fromString, 'isVirtual.') === 0)
       {

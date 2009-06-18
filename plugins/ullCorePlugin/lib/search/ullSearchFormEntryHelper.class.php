@@ -58,8 +58,8 @@ class ullSearchFormEntryHelper
       switch ($typeString)
       {
         case 'rangeFrom':
-          if (($fieldValue == NULL || $fieldValue == '') &&
-          ($fields[$fieldKeys[$i + 1]] == NULL || $fields[$fieldKeys[$i + 1]] == ''))
+          if (($fieldValue == null || $fieldValue == '') &&
+          ($fields[$fieldKeys[$i + 1]] == null || $fields[$fieldKeys[$i + 1]] == ''))
           {
             unset($fields[$fieldKey]);
             continue 2;
@@ -81,7 +81,7 @@ class ullSearchFormEntryHelper
           break;
 
         case 'foreign':
-          if ($fieldValue == NULL)
+          if ($fieldValue == null)
           {
             unset($fields[$fieldKey]);
             continue 2;
@@ -93,7 +93,7 @@ class ullSearchFormEntryHelper
           break;
 
         default:
-          if ($fieldValue == NULL || $fieldValue == '')
+          if ($fieldValue == null || $fieldValue == '')
           {
             unset($fields[$fieldKey]);
             continue 2;

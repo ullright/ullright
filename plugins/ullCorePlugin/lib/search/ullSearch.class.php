@@ -38,7 +38,7 @@ class ullSearch
    * 
    * @param $newCriteriaGroup a ullSearchCritierionGroup
    */
-  private function addCriterionGroup(ullSearchCritierionGroup $newCriteriaGroup)
+  protected function addCriterionGroup(ullSearchCritierionGroup $newCriteriaGroup)
   {
     $this->criterionGroups[] = $newCriteriaGroup;
   }
@@ -134,7 +134,7 @@ class ullSearch
             break;
 
           case 'ullSearchRangeCriterion':
-            if ($subCriterion->fromValue == NULL || $subCriterion->fromValue == '')
+            if ($subCriterion->fromValue == null || $subCriterion->fromValue == '')
             {
               //from is not set, to is
               $queryOperator = ' <= ?';
@@ -142,7 +142,7 @@ class ullSearch
             }
             else
             {
-              if ($subCriterion->toValue == NULL || $subCriterion->toValue == '')
+              if ($subCriterion->toValue == null || $subCriterion->toValue == '')
               {
                 //from is set, to isn't
                 $queryOperator = ' >= ?';
@@ -175,6 +175,9 @@ class ullSearch
       
       $q->addWhere($queryString, $queryParameter);
     }
+    
+    printQuery($q->getSql());
+    var_dump($q->getParams());
     
     return $q;
   }

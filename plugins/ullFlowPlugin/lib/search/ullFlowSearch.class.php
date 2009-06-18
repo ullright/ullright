@@ -6,7 +6,7 @@
  */
 class ullFlowSearch extends ullSearch
 {
-  private $ullFlowApp;
+  protected $ullFlowApp;
 
   /**
    * Initializes a new ullFlowSearch.
