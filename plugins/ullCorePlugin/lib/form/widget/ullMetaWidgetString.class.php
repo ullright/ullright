@@ -6,23 +6,22 @@
  */
 class ullMetaWidgetString extends ullMetaWidget
 {
-  protected function addToForm()
+  
+  protected function configureReadMode()
   {
-    if ($this->isWriteMode())
+     $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+     $this->addValidator(new sfValidatorPass());
+  }
+  
+  protected function configureWriteMode()
+  {
+    if ($this->columnConfig->getWidgetAttribute('size') == null)
     {
-      if ($this->columnConfig->getWidgetAttribute('size') == null)
-      {
-        $this->columnConfig->setWidgetAttribute('size', '50');
-      }
-      
-      $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
-    }
-    else
-    {
-      $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-      $this->addValidator(new sfValidatorPass());
+      $this->columnConfig->setWidgetAttribute('size', '50');
     }
     
-  }  
+    $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions())); 
+  }
+  
 }
