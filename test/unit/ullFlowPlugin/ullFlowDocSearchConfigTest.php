@@ -8,7 +8,7 @@ $t = new lime_test(3, new lime_output_color);
 
 $t->diag('ullFlowDocSearchConfig - blacklist');
 
-$searchConfig = new ullFlowDocSearchConfig();
+$searchConfig = ullSearchConfig::loadSearchConfig('ullFlowDoc');
 
 $expectedFieldCount = count(Doctrine::getTable('UllFlowDoc')->getFieldNames());
 $expectedFieldCount -= count($searchConfig->getBlacklist());
@@ -16,10 +16,10 @@ $t->is(count($searchConfig->getAllSearchableColumns()), $expectedFieldCount, 'bl
 
 $t->diag('ullFlowDocSearchConfig - default fields');
 
-$expectedFields = array('subject', 'priority');
+$expectedFields = array('assigned_to_ull_entity_id', 'priority', 'creator_user_id', 'updator_user_id');
 
 $defaultSfe = $searchConfig->getDefaultSearchColumns();
-$t->is(count($defaultSfe), 2, 'default field count ok');
+$t->is(count($defaultSfe), 4, 'default field count ok');
 
 foreach ($defaultSfe as $sfe)
 {

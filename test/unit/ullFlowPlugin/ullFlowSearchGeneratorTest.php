@@ -19,6 +19,8 @@ $t = new myTestCase(7, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
+$t->begin('ullFlowSearchGeneratorTest - fields');
+
 $sfe = new ullSearchFormEntry();
 $sfe->columnName = 'column_priority';
 $sfe->isVirtual = true;
@@ -32,22 +34,18 @@ $sfe->uuid = 1;
 $sfeArray[] = $sfe;
 
 $flowApp = Doctrine::getTable('UllFlowApp')->find(1);
-
 $fieldNames = array('standard_0_1', 'foreign_0_0');
 $widgetClassNames = array('sfWidgetFormInput', 'sfWidgetFormSelect');
 $labels = array('My information update', 'Priority');
 
-$searchConfig = new ullFlowDocSearchConfig($flowApp);
+$searchConfig = ullSearchConfig::loadSearchConfig('ullFlowDoc', $flowApp);
 $searchGenerator = new ullFlowSearchGenerator($searchConfig->getAllSearchableColumns(), 'UllFlowDoc', $flowApp);
-
 $searchGenerator->reduce($sfeArray);
 
 $searchGenerator->buildForm();
 
 $form = $searchGenerator->getForm();
 $positions = $form->getWidgetSchema()->getPositions();
-
-$t->diag('ullFlowSearchGeneratorTest - fields');
 
 $t->is(count($sfeArray), count($positions), 'result field count is ok');
 

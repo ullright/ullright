@@ -6,7 +6,7 @@ $t = new lime_test(27, new lime_output_color);
 
 $t->diag('ullSearchFormEntryHelper');
 
-$searchConfig = new ullUserSearchConfig();
+$searchConfig = ullSearchConfig::loadSearchConfig('ullUser');
 $sfe = $searchConfig->getDefaultSearchColumns();
 
 $fields = array(

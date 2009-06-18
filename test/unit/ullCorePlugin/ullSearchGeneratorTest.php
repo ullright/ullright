@@ -72,7 +72,7 @@ $labels = array('ID', 'to:',
 
 $t->diag('ullSearchGeneratorTest - basic');
 
-$searchConfig = new ullUserSearchConfig();
+$searchConfig = ullSearchConfig::loadSearchConfig('ullUser');
 $searchGenerator = new ullSearchGenerator(array_merge($searchConfig->getAllSearchableColumns(), array($sfeWithRelations)), 'UllUser');
 
 $searchGenerator->reduce($sfeArray);
