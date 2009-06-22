@@ -169,23 +169,23 @@ UllVentoryItemAttributeValue:
     comment:                    4 separate ink catridges
 
 # Add inventory dummy users employment types
-UllEmploymentType:
-  status_dummy:
-    Translation:
-      en:
-        name:   Status dummy
-      de:
-        name:   Status Dummy
-    slug:       status_dummy
-    namespace:  ullVentory
-  origin_dummy:
-    Translation:
-      en:
-        name:   Origin dummy
-      de:
-        name:   Herkunfts Dummy
-    slug:       origin_dummy
-    namespace:  ullVentory
+#UllEmploymentType:
+#  status_dummy:
+#    Translation:
+#      en:
+#        name:   Status dummy
+#      de:
+#        name:   Status Dummy
+#    slug:       status_dummy
+#    namespace:  ullVentory
+#  origin_dummy:
+#    Translation:
+#      en:
+#        name:   Origin dummy
+#      de:
+#        name:   Herkunfts Dummy
+#    slug:       origin_dummy
+#    namespace:  ullVentory
     
 # Add inventory dummy users
 #UllUser:
