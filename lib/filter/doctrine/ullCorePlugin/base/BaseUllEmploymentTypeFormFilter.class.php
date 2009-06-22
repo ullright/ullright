@@ -15,6 +15,7 @@ class BaseUllEmploymentTypeFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'namespace'       => new sfWidgetFormFilterInput(),
+      'slug'            => new sfWidgetFormFilterInput(),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
@@ -23,6 +24,7 @@ class BaseUllEmploymentTypeFormFilter extends BaseFormFilterDoctrine
 
     $this->setValidators(array(
       'namespace'       => new sfValidatorPass(array('required' => false)),
+      'slug'            => new sfValidatorPass(array('required' => false)),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'creator_user_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
@@ -46,6 +48,7 @@ class BaseUllEmploymentTypeFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'              => 'Number',
       'namespace'       => 'Text',
+      'slug'            => 'Text',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',
       'creator_user_id' => 'ForeignKey',

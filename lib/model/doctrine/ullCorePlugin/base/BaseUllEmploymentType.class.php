@@ -9,6 +9,7 @@ abstract class BaseUllEmploymentType extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_employment_type');
+        $this->hasColumn('slug', 'string', 64, array('type' => 'string', 'notnull' => true, 'unique' => true, 'length' => '64'));
         $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
     }
 

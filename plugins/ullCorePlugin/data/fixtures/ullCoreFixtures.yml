@@ -932,6 +932,7 @@ UllEmploymentType:
         name:   CEO
       de:
         name:   Geschäftsführer
+    slug:      ceo
     namespace: test
   intern_et:
     Translation:
@@ -939,6 +940,7 @@ UllEmploymentType:
         name:   Intern
       de:
         name:   Praktikant
+    slug:      intern
     namespace: test
   trainee_et:
     Translation:
@@ -946,7 +948,8 @@ UllEmploymentType:
         name:   Trainee
       de:
         name:   Lehrling
-    namespace: test
+    slug:       trainee
+    namespace:  test          
 
 UllUserStatus:
   active_status:

@@ -166,4 +166,28 @@ UllVentoryItemAttributeValue:
     UllVentoryItem:             testusers_mfc_440cn
     UllVentoryItemTypeAttribute: printer_printer_type
     value:                      inkjet
-    comment:                    4 separate ink catridges 
+    comment:                    4 separate ink catridges
+
+# Add inventory dummy users employment types
+UllEmploymentType:
+  status_dummy:
+    Translation:
+      en:
+        name:   Status dummy
+      de:
+        name:   Status Dummy
+    slug:       status_dummy
+    namespace:  ullVentory
+  origin_dummy:
+    Translation:
+      en:
+        name:   Origin dummy
+      de:
+        name:   Herkunfts Dummy
+    slug:       origin_dummy
+    namespace:  ullVentory
+    
+# Add inventory dummy users
+#UllUser:
+#  inventory_delivered:
+#    display_name:   

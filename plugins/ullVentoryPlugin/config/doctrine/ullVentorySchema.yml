@@ -135,3 +135,32 @@ UllVentoryItemAttributeValue:
     UllVentoryItem:
     UllVentoryItemTypeAttribute:      
     
+#History of owners per item
+UllVentoryItemMemory:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_ventory_item_id:
+      type: integer
+      notnull: true
+    transfer_at:
+      type: timestamp
+      notnull: true
+    source_ull_user_id:
+      type: integer
+      notnull: true
+    target_ull_user_id:
+      type: integer
+      notnull: true      
+    comment:
+      type: string(4000)
+  relations:
+    UllVentoryItem:
+    SourceUllUser:
+      local: source_ull_user_id
+    TargetUllUser:
+      local: target_ull_user_id
+      
+                
