@@ -807,6 +807,11 @@
 <target>Nicht</target>
 </trans-unit>
 
+<trans-unit id="21002">
+<source>Group membership</source>
+<target>Gruppenmitgliedschaft</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

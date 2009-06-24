@@ -56,19 +56,19 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $this;
   }
 
-  public function navigateToSearch($withLogin = false)
+  public function navigateToSearch($withLogin = false, $module = 'ullAdmin', $model = 'ullUser')
   {
     $this
-	    ->get('ullAdmin/index');
+	    ->get($module . '/index');
 	    if ($withLogin)
 	    {
 	     $this->loginAsAdmin();
 	    } 
 	 $this
 	    ->isStatusCode(200)
-	    ->isRequestParameter('module', 'ullAdmin')
+	    ->isRequestParameter('module', $module)
 	    ->isRequestParameter('action', 'index')
-	    ->responseContains('ullAdmin')
+	    ->responseContains($module)
 	  ;
 
     $this
@@ -80,7 +80,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 
     $this
 	    ->with('request')->begin()
-		    ->isParameter('module', 'ullUser')
+		    ->isParameter('module', $model)
 		    ->isParameter('action', 'search')
 	    ->end()
 	    ->with('response')->begin()

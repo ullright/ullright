@@ -215,4 +215,76 @@ $browser
   ->end()
 ;
 
+//reset search
+$browser->navigateToSearch();
+$browser->resetSearch();
 
+//simple OR test with a NOT
+$browser->diag('OR search with two first names, second name with NOT');
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'columnSelect' => 'first_name',
+  ),
+  'addSubmit' => 'Add',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+  ->end()
+;
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'columnSelect' => 'first_name',
+  ),
+  'addSubmit' => 'Add',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+  ->end()
+;
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'standard_0_8' => 'mis',
+    'not_standard_1_8' => '',
+    'standard_1_8' => 'master',
+  ),
+  'searchSubmit' => 'Search',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+;
+
+$browser->followRedirect();
+
+$browser
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTableTool')
+    ->isParameter('action', 'list')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+    ->checkElement($dgsUser->get(1, 'first_name'), 'Mistress')
+    ->checkElement($dgsUser->get(1, 'username'), 'mistress_modules')
+    ->checkElement($dgsUser->get(2, 'first_name'), 'Head')
+    ->checkElement($dgsUser->get(2, 'username'), 'head_programmer')
+    ->checkElement($dgsUser->getFullRowSelector(), 2)
+  ->end()
+;

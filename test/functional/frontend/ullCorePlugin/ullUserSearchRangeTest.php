@@ -196,3 +196,60 @@ $browser
     ->checkElement($dgsUser->getFullRowSelector(), 1)
   ->end()
 ;
+
+//reset search
+$browser->navigateToSearch();
+$browser->resetSearch();
+
+//same search with NOT
+$browser->diag('Same range search - with NOT');
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'columnSelect' => 'separation_date',
+  ),
+  'addSubmit' => 'Add',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+  ->end()
+;
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'not_rangeFrom_0_8' => '',
+    'rangeFrom_0_8' => '01/01/2002',
+    'rangeTo_0_8' => '01/01/2005',
+  ),
+  'searchSubmit' => 'Search',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+;
+
+$browser->followRedirect();
+
+$browser
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTableTool')
+    ->isParameter('action', 'list')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+    ->checkElement($dgsUser->get(1, 'first_name'), 'Master')
+    ->checkElement($dgsUser->get(1, 'username'), 'admin')
+    ->checkElement($dgsUser->get(2, 'first_name'), 'Mistress')
+    ->checkElement($dgsUser->get(2, 'username'), 'mistress_modules')
+    ->checkElement($dgsUser->getFullRowSelector(), 2)
+  ->end()
+;
