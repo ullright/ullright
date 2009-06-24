@@ -59,7 +59,7 @@ $widgetClassNames = array('sfWidgetFormInput', 'sfWidgetFormInput',
   'sfWidgetFormInput',
   'sfWidgetFormInput', 'sfWidgetFormInput',
   'sfWidgetFormDoctrineSelect',
-  'ullWidgetCheckboxWrite',
+  'sfWidgetFormSelect',
   'sfWidgetFormDoctrineSelect',
   'sfWidgetFormI18nSelectCountry');
 $labels = array('ID', 'to:',
