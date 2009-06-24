@@ -40,6 +40,63 @@ $dgsUser = $browser->getDgsUllUserList();
 $browser->diag('Open advanced search, with login');
 $browser->navigateToSearch(true);
 
+//boolean search
+$browser->diag('Boolean search');
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'columnSelect' => 'is_show_fax_extension_in_phonebook',
+  ),
+  'addSubmit' => 'Hinzufügen',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+  ->end()
+;
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'boolean_0_8' => 'unchecked',
+  ),
+  'searchSubmit' => 'Suche',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+;
+$browser
+  ->with('response')->begin()
+    ->isRedirected(1)
+    ->isStatusCode(302)
+  ->end()
+  ->followRedirect()
+;
+
+$browser
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTableTool')
+    ->isParameter('action', 'list')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+    ->checkElement($dgsUser->get(1, 'first_name'), 'Master')
+    ->checkElement($dgsUser->get(1, 'username'), 'admin')
+    ->checkElement($dgsUser->getFullRowSelector(), 1)
+  ->end()
+;
+
+//reset search
+$browser->navigateToSearch();
+$browser->resetSearch();
+
 //foreign search
 $browser->diag('Foreign search');
 
@@ -56,13 +113,7 @@ $browser
     ->isParameter('action', 'search')
   ->end()
 ;
-$browser
-  ->with('response')->begin()
-    ->isRedirected(1)
-    ->isStatusCode(302)
-  ->end()
-  ->followRedirect()
-;
+$browser->followRedirect();
 
 $browser
   ->with('request')->begin()
@@ -108,6 +159,6 @@ $browser
     ->isStatusCode(200)
     ->checkElement($dgsUser->get(1, 'first_name'), 'Mistress')
     ->checkElement($dgsUser->get(1, 'username'), 'mistress_modules')
-        ->checkElement($dgsUser->getFullRowSelector(), 1)
+    ->checkElement($dgsUser->getFullRowSelector(), 1)
   ->end()
 ;

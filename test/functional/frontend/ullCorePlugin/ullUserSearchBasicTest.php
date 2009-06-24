@@ -21,7 +21,7 @@ $newUser->username = 'head_programmer';
 $newUser->save();
 
 $dgsUser = $browser->getDgsUllUserList();
-
+/*
 //login and open advanced search
 $browser->diag('Open advanced search, with login');
 $browser->navigateToSearch(true);
@@ -214,9 +214,9 @@ $browser
     ->checkElement($dgsUser->getFullRowSelector(), 2)
   ->end()
 ;
-
+*/
 //reset search
-$browser->navigateToSearch();
+$browser->navigateToSearch(true);
 $browser->resetSearch();
 
 //simple OR test with a NOT
@@ -285,6 +285,8 @@ $browser
     ->checkElement($dgsUser->get(1, 'username'), 'mistress_modules')
     ->checkElement($dgsUser->get(2, 'first_name'), 'Head')
     ->checkElement($dgsUser->get(2, 'username'), 'head_programmer')
-    ->checkElement($dgsUser->getFullRowSelector(), 2)
+    ->checkElement($dgsUser->get(3, 'first_name'), 'Test')
+    ->checkElement($dgsUser->get(3, 'username'), 'test_user')
+    ->checkElement($dgsUser->getFullRowSelector(), 3)
   ->end()
 ;

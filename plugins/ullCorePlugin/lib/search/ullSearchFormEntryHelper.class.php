@@ -75,9 +75,14 @@ class ullSearchFormEntryHelper
           break;
 
         case 'boolean':
+          if ($fieldValue == 'any')
+          {
+            unset($fields[$fieldKey]);
+            continue 2;
+          }
           $tempCriterion = new ullSearchBooleanCriterion();
           $tempCriterion->columnName = $searchFieldColumn;
-          $tempCriterion->compareValue = ($fieldValue == '1') ? true : false;
+          $tempCriterion->compareValue = ($fieldValue == 'checked') ? true : false;
           break;
 
         case 'foreign':
