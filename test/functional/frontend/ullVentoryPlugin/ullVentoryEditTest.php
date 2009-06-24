@@ -11,6 +11,8 @@ $b->resetDatabase();
 $dgsList = $b->getDgsUllVentoryList();
 $dgsEdit = $b->getDgsUllVentoryEdit();
 $dgsEditAttributes = $b->getDgsUllVentoryEditAttributes();
+$dgsCreateMemory = $b->getDgsUllVentoryCreateMemory();
+$dgsEditMemory = $b->getDgsUllVentoryEditMemory();
 
 $b
   ->info('Inventory create - type selection -> leave empty to provoce validation error')
@@ -57,6 +59,8 @@ $b
   ->checkResponseElement('input[id="fields_ull_entity_id"][type="hidden"][value="'. Doctrine::getTable('UllVentoryStatusDummyUser')->findOneByUsername('stored')->id . '"]')
   // attributes
   ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 2)
+  // memory
+  ->checkResponseElement($dgsCreateMemory->getFullRowSelector(), 3)
   ->click('Save and close')
 ;
 
@@ -130,6 +134,9 @@ $b
   ->checkResponseElement('input[id="fields_attributes_0_comment"][value="Old and slow"]', true)
   ->checkResponseElement('input[id="fields_attributes_1_value"][value="Laser"]', true)
   ->checkResponseElement('input[id="fields_attributes_1_comment"][value="Single pass color"]', true)
+  //memory
+  ->checkResponseElement($dgsCreateMemory->getFullRowSelector(), false)
+  ->checkResponseElement($dgsEditMemory->getFullRowSelector(), 2)
 ;
 
 $b

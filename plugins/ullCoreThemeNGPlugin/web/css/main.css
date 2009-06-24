@@ -638,13 +638,15 @@ div#indicator {
  
 #ull_memory {
   margin-top: 2em;
-  background-image: url(../images/gradient_180.png);
-  background-repeat: repeat-x;
-  background-position: bottom;
-  /* background-color: #dddede; */
   padding-left: .8em;
   padding-top: .5em;
   padding-bottom: .8em;
+}
+
+.ull_memory_background {
+  background-image: url(../images/gradient_180.png);
+  background-repeat: repeat-x;
+  background-position: bottom;
 }
 
 .ull_memory_comment {

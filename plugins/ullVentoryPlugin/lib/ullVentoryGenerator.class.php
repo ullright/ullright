@@ -29,7 +29,6 @@ class ullVentoryGenerator extends ullTableToolGenerator
 //    var_dump($this->itemType>toArray());die;
     
     parent::__construct($this->modelName, $defaultAccess);
-    
   }  
   
   /**
@@ -165,6 +164,13 @@ class ullVentoryGenerator extends ullTableToolGenerator
           
           $listForm->embedForm(count($listForm), $attributeGenerator->getForm());          
         }
+        
+        $memoryGenerator = new ullVentoryMemoryGenerator('w');
+        $memory = new UllVentoryItemMemory;
+        $memory->transfer_at = date('Y-m-d');
+        $memory->target_ull_entity_id = Doctrine::getTable('UllVentoryOriginDummyUser')->findOneByUsername('delivered')->id;
+        $memoryGenerator->buildForm($memory);
+        $this->getForm()->embedForm('memory', $memoryGenerator->getForm());
       }
       // edit
       else

@@ -837,6 +837,16 @@
 <target>Gruppenmitgliedschaft</target>
 </trans-unit>
 
+<trans-unit id="21008">
+<source>Origin</source>
+<target>Herkunft</target>
+</trans-unit>
+
+<trans-unit id="21009">
+<source>Date</source>
+<target>Datum</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

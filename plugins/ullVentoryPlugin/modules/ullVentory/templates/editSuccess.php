@@ -96,12 +96,33 @@
 </tbody>
 </table>
 
-<?php //echo $generator->getForm()->offsetGet('attributes')->renderHiddenFields() ?>
+
+<?php if (!$generator->getRow()->exists()): ?>
+<div class="ull_memory_background" id="ull_ventory_memory">
+<table class="edit_table ull_memory_background">
+<thead>
+  <tr>
+    <th colspan="3">
+      <?php echo __('Origin', null, 'common')?>
+    </th>
+  </tr>
+</thead>
+<tbody>
+<?php foreach ($generator->getForm()->offsetGet('memory') as $widget): ?>
+    <?php if ($widget instanceof sfWidgetFormInputHidden): ?>
+      <?php continue ?>
+    <?php else: ?>      
+      <?php echo $widget->renderRow() ?>
+    <?php endif ?>
+<?php endforeach ?>
+</tbody>
+</table>
+</div>
+<?php endif ?>
 
 
 
 <?php echo $generator->getForm()->renderHiddenFields() ?>
-
 
   <div class='edit_action_buttons color_light_bg'>
     <h3><?php echo __('Actions', null, 'common')?></h3>
@@ -162,7 +183,7 @@
   
   
 <?php if ($doc->exists()): ?>
-  <div id="ull_memory">
+  <div id="ull_memory" class="ull_memory_background">
   <h3><?php echo __('History', null, 'common')?></h3>
   <ul>
     <?php 

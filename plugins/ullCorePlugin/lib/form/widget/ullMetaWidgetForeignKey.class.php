@@ -5,7 +5,10 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
   protected function configure()
   {
     $relation = $this->columnConfig->getRelation();
-    $this->columnConfig->setWidgetOption('model', $relation['model']);
+    if (!$this->columnConfig->getWidgetOption('model'))
+    {
+      $this->columnConfig->setWidgetOption('model', $relation['model']);
+    }
   }
     
   protected function configureWriteMode()

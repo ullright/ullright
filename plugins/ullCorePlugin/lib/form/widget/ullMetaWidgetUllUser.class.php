@@ -9,63 +9,55 @@
  */
 class ullMetaWidgetUllUser extends ullMetaWidget
 {
-  public function __construct(ullColumnConfiguration $columnConfig, sfForm $form)
+
+  protected function configureReadMode()
   {
-    parent::__construct($columnConfig, $form);
+    $this->columnConfig->removeWidgetOption('add_empty');
+    $this->columnConfig->removeWidgetOption('group');
+
+    $this->addWidget(new ullWidgetUllUserRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorPass());
   }
-
-  protected function addToForm()
+  
+  protected function configureWriteMode()
   {
-    if ($this->isWriteMode())
-    {
-      // generic query -> get all users
-      $q = new Doctrine_Query;
-      $q
-        ->select('u.id, u.first_name, u.last_name')
-        ->from('UllUser u')
-        ->orderBy('u.last_name, u.first_name')
-      ;
+    // generic query -> get all users
+    $q = new Doctrine_Query;
+    $q
+      ->select('u.id, u.first_name, u.last_name')
+      ->from('UllUser u')
+      ->orderBy('u.last_name, u.first_name')
+    ;
 
-      //filter users by group
-      if ($this->columnConfig->getWidgetOption('group') != null)
-      {
-        $groupName = $this->columnConfig->getWidgetOption('group');
-        $this->columnConfig->removeWidgetOption('group');
-        
-        $group = Doctrine::getTable('UllGroup')->findOneByDisplayName($groupName);
-        
-        if (!$group) 
-        {
-          throw new InvalidArgumentException('Invalid UllGroup display_name given: ' . $groupName);
-        }
-        
-        $q->addWhere('u.UllGroup.display_name = ?', $groupName);
-      }
-//      var_dump($q->execute(array(), DOCTRINE::HYDRATE_ARRAY));
-      
-      $this->columnConfig->setWidgetOption('model', 'UllEntity');
-      $this->columnConfig->setWidgetOption('query', $q);
-      $this->columnConfig->setWidgetOption('method', 'getLastNameFirst');
-      
-      $this->addWidget(new ullWidgetUllUser(
-        $this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-      
-      $this->columnConfig->setValidatorOption('model', 'UllEntity');
-      $this->columnConfig->setValidatorOption('query', $q);      
-      $this->columnConfig->setValidatorOption('alias', 'u');
-      
-      $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
-    }
-    else
+    //filter users by group
+    if ($this->columnConfig->getWidgetOption('group') != null)
     {
-      $this->columnConfig->removeWidgetOption('add_empty');
+      $groupName = $this->columnConfig->getWidgetOption('group');
       $this->columnConfig->removeWidgetOption('group');
-
-      $this->addWidget(new ullWidgetUllUserRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-      $this->addValidator(new sfValidatorPass());
+      
+      $group = Doctrine::getTable('UllGroup')->findOneByDisplayName($groupName);
+      
+      if (!$group) 
+      {
+        throw new InvalidArgumentException('Invalid UllGroup display_name given: ' . $groupName);
+      }
+      
+      $q->addWhere('u.UllGroup.display_name = ?', $groupName);
     }
-
-    //    var_dump($columnConfig);die;
+//      var_dump($q->execute(array(), DOCTRINE::HYDRATE_ARRAY));
+    
+    $this->columnConfig->setWidgetOption('model', 'UllEntity');
+    $this->columnConfig->setWidgetOption('query', $q);
+    $this->columnConfig->setWidgetOption('method', 'getLastNameFirst');
+    
+    $this->addWidget(new ullWidgetUllUser(
+      $this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    
+    $this->columnConfig->setValidatorOption('model', 'UllEntity');
+    $this->columnConfig->setValidatorOption('query', $q);      
+    $this->columnConfig->setValidatorOption('alias', 'u');
+    
+    $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
   }
   
   public function getSearchType()

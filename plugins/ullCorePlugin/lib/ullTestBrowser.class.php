@@ -306,6 +306,31 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     );
     
     return $s;
-  }   
+  }
+
+  public function getDgsUllVentoryCreateMemory()
+  {
+    $s = new ullDomGridSelector('div#ull_ventory_memory > table > tbody', 'tr', 'td', 
+      array(
+        'origin',
+        'date',
+        'comment'
+      ),      
+      array(
+        'label',
+        'value',
+        'error',
+      )
+    );
+    
+    return $s;
+  }  
+
+  public function getDgsUllVentoryEditMemory()
+  {
+    $s = new ullDomGridSelector('#ull_memory ul > li > ul', 'li');
+    
+    return $s;
+  }    
 }
 

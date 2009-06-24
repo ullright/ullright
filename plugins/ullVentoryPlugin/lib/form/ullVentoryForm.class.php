@@ -21,10 +21,12 @@ class ullVentoryForm extends ullGeneratorForm
     
     $this->updateAttributes($values);
     
+    $this->updateMemory($values);
+    
 //    var_dump($this->object->toArray());
 //    var_dump($values);
 //    die('buha');
-    
+//    
     return $this->object;
   }
   
@@ -108,6 +110,22 @@ class ullVentoryForm extends ullGeneratorForm
           $attributeValue->save();
         }
       }
+    }
+  }
+  
+  protected function updateMemory($values)
+  {
+    if (isset($values['memory']))
+    {
+//      var_dump($values['memory']);die;
+      $this->object->UllVentoryItemMemory[0]['transfer_at']       = $values['memory']['transfer_at'];
+      $this->object->UllVentoryItemMemory[0]['source_ull_entity_id'] = $values['memory']['target_ull_entity_id'];
+      $this->object->UllVentoryItemMemory[0]['target_ull_entity_id'] = $values['memory']['target_ull_entity_id'];
+      $this->object->UllVentoryItemMemory[0]['comment']           = $values['memory']['comment'];
+      
+      $this->object->UllVentoryItemMemory[1]['transfer_at']       = date('Y-m-d');
+      $this->object->UllVentoryItemMemory[1]['source_ull_entity_id'] = $values['memory']['target_ull_entity_id'];
+      $this->object->UllVentoryItemMemory[1]['target_ull_entity_id'] = $values['ull_entity_id'];
     }
   }
 

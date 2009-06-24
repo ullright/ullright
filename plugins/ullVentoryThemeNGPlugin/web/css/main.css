@@ -47,3 +47,19 @@ a:visited {
 table#ull_ventory_attributes {
   margin-top: 2em;
 }
+
+#ull_ventory_memory {
+  margin-top: 2em;
+}
+
+#ull_ventory_memory th{
+  background-color: #adafb0;
+}
+
+#ull_ventory_memory tr {
+  background-color: transparent;
+}
+
+#ull_ventory_memory td {
+  background-color: transparent;
+}

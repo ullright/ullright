@@ -126,7 +126,7 @@
 
 
 <?php if ($doc->exists()): ?>
-  <div id="ull_memory">
+  <div id="ull_memory" class="ull_memory_background">
   <h3><?php echo __('Progress')?></h3>
   <ul>
     <?php 
