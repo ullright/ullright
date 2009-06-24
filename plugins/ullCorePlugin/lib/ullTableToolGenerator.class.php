@@ -404,21 +404,24 @@ class ullTableToolGenerator extends ullGenerator
       $rowCur = clone $rowRev;
     }
 
-    $futureVersions = $row->getFutureVersions();
+    if ($this->enableFutureVersions)
+    {
+      $futureVersions = $row->getFutureVersions();
 
-    if (count($futureVersions) > 0) {
-      $q = Doctrine::getTable($this->modelName)->createQuery('c')
-      ->where('c.id = ?', $futureVersions[0]->id);
-      $rowRev = $q->fetchOne();
-
-      for($i = 0; $i < count($futureVersions); $i++)
-      {
-        $rowRev->revert($futureVersions[$i]->reference_version);
-
-        $this->futureGenerators[$i] = new ullTableToolHistoryGenerator($this->modelName, 'r');
-        $this->futureGenerators[$i]->buildHistoryForm($futureVersions[$i], $rowRev);
-      }
-      $this->isFutureBuilt = true;
+	    if (count($futureVersions) > 0) {
+	      $q = Doctrine::getTable($this->modelName)->createQuery('c')
+	      ->where('c.id = ?', $futureVersions[0]->id);
+	      $rowRev = $q->fetchOne();
+	
+	      for($i = 0; $i < count($futureVersions); $i++)
+	      {
+	        $rowRev->revert($futureVersions[$i]->reference_version);
+	
+	        $this->futureGenerators[$i] = new ullTableToolHistoryGenerator($this->modelName, 'r');
+	        $this->futureGenerators[$i]->buildHistoryForm($futureVersions[$i], $rowRev);
+	      }
+	      $this->isFutureBuilt = true;
+	    }
     }
 
     $this->isHistoryBuilt = true;
@@ -437,5 +440,14 @@ class ullTableToolGenerator extends ullGenerator
     $this->removeBlacklistColumns();
 
     //var_dump($this->columnsConfig); die;
+  }
+  
+  /**
+   * Returns the enabled status of future version functionality.
+   * @return boolean true or false
+   */
+  public function getEnableFutureVersions()
+  {
+    return $this->enableFutureVersions;
   }
 }

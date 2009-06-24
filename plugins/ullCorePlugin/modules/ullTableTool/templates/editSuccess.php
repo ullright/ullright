@@ -40,7 +40,7 @@
   
   <div class='edit_action_buttons_left'>
     <?php
-      if ($generator->getRow()->exists() && $generator->isVersionable())
+      if ($generator->getRow()->exists() && $generator->isVersionable() && $generator->getEnableFutureVersions())
       {
         echo ' <label for="fields_scheduled_update">';
         echo __('Schedule changes on this date', null, 'common') . ':';
