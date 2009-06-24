@@ -11,7 +11,7 @@
 <?php endif; ?>
 
 
-<?php echo form_tag(url_for('ullVentory/create'), array('id' => 'ull_ventory_form')); ?>
+<?php echo form_tag(url_for('ullVentory/create?entity=' . $entity->username), array('id' => 'ull_ventory_form')); ?>
 
 <div class="edit_container">
 
@@ -27,6 +27,8 @@
   </tr>
 </tbody>
 </table>
+
+<?php echo $form->renderHiddenFields() ?>
 
 </div>
 

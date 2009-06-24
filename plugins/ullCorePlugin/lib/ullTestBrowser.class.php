@@ -243,7 +243,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 
   public function getDgsUllFlowMemory()
   {
-    $s = new ullDomGridSelector('#ull_flow_memories ul > li > ul', 'li');
+    $s = new ullDomGridSelector('#ull_memory ul > li > ul', 'li');
     
     return $s;
   }   
@@ -280,9 +280,10 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'model',
         'inventory_number',
         'serial_number',
+        'comment',
         'owner',
 //        'location',
-        'comment',
+        
       ),      
       array(
         'label',

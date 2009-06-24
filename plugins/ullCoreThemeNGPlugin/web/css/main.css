@@ -629,3 +629,46 @@ div#indicator {
     height: 1.2em;
     vertical-align: middle;
 }
+
+/*
+ * ************************************************
+ *  memories
+ * ************************************************
+ */
+ 
+#ull_memory {
+  margin-top: 2em;
+  background-image: url(../images/gradient_180.png);
+  background-repeat: repeat-x;
+  background-position: bottom;
+  /* background-color: #dddede; */
+  padding-left: .8em;
+  padding-top: .5em;
+  padding-bottom: .8em;
+}
+
+.ull_memory_comment {
+  list-style: none;
+  margin: 0.3em;
+  padding-left: 1.1em;
+}
+
+.ull_memory_date {
+  font-weight: bold;
+  list-style: none;
+  padding-top: 10px;
+}
+
+.ull_memory_day {
+  /* padding-left: 30px; */
+  list-style: none;
+}
+
+.ull_memory_light {
+  color: #676767;
+}
+
+.ull_memory_lightsmall {
+  color: #676767;
+  font-size: smaller;
+}

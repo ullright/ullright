@@ -48,7 +48,7 @@ UllVentoryItem:
     serial_number:              1234567890
     comment:                    Big scratch on bottom side
     UllVentoryItemModel:        macbook
-    UllUser:                    test_user
+    UllEntity:                  test_user
 #    UllLocation:                ull_location
     namespace:                  test
   testusers_mfc_440cn:
@@ -56,7 +56,7 @@ UllVentoryItem:
     serial_number:              6789012345
     comment:                    USB port broken
     UllVentoryItemModel:        mfc_440cn
-    UllUser:                    test_user
+    UllEntity:                  test_user
 #    UllLocation:                ull_location
     namespace:                  test
     
@@ -187,7 +187,103 @@ UllVentoryItemAttributeValue:
 #    slug:       origin_dummy
 #    namespace:  ullVentory
     
-# Add inventory dummy users
-#UllUser:
-#  inventory_delivered:
-#    display_name:   
+UllVentoryOriginDummyUser:
+  delivered:
+    username: delivered
+    Translation:
+      en:
+        display_name: Delivered
+      de:
+        display_name: Geliefert
+  inventory_taking:
+    username: inventory_taking
+    Translation:
+      en:
+        display_name: Inventory taking
+      de:
+        display_name: Inventarisiert
+        
+UllVentoryStatusDummyUser:
+  stored:
+    username: stored
+    Translation:
+      en:
+        display_name: Stored
+      de:
+        display_name: Lagernd
+  entsorgt:
+    username: disposed
+    Translation:
+      en:
+        display_name: Disposed
+      de:
+        display_name: Entsorgt
+  stolen:
+    username: stolen
+    Translation:
+      en:
+        display_name: Stolen
+      de:
+        display_name: Gestohlen
+  repair:
+    username: repair
+    Translation:
+      en:
+        display_name: Repair
+      de:
+        display_name: Reparatur
+  sold:
+    username: sold
+    Translation:
+      en:
+        display_name: Sold
+      de:
+        display_name: Verkauft                        
+                
+UllVentoryItemMemory:
+  testusers_macbook_memory_1:
+    UllVentoryItem:     testusers_macbook
+    transfer_at:        '2009-01-01'
+    TargetUllEntity:    delivered
+    SourceUllEntity:    delivered
+    comment:            Delivered by Österreichische Post  
+  testusers_macbook_memory_2:
+    UllVentoryItem:     testusers_macbook
+    transfer_at:        '2009-01-01'
+    SourceUllEntity:    delivered
+    TargetUllEntity:    stored    
+  testusers_macbook_memory_3:
+    UllVentoryItem:     testusers_macbook
+    transfer_at:        '2009-02-01'
+    SourceUllEntity:    stored
+    TargetUllEntity:    admin_user
+    comment:            Admin needed a new notebook pretty badly...       
+  testusers_macbook_memory_4                                                                                                                :
+    UllVentoryItem:     testusers_macbook
+    transfer_at:        '2009-03-01'
+    SourceUllEntity:    admin_user
+    TargetUllEntity:    test_user
+    comment:            Now the notebook is old, so testuser can have it...
+
+  testusers_mfc440cn_memory_1:
+    UllVentoryItem:     testusers_mfc_440cn
+    transfer_at:        '2009-02-02'
+    SourceUllEntity:    inventory_taking
+    TargetUllEntity:    inventory_taking
+  testusers_mfc440cn_memory_2:
+    UllVentoryItem:     testusers_mfc_440cn
+    transfer_at:        '2009-02-02'
+    SourceUllEntity:    inventory_taking
+    TargetUllEntity:    stored
+  testusers_mfc440cn_memory_3:
+    UllVentoryItem:     testusers_mfc_440cn
+    transfer_at:        '2009-03-03'
+    SourceUllEntity:    stored
+    TargetUllEntity:    test_user
+    comment:            For testing purposes       
+
+          
+                     
+        
+        
+

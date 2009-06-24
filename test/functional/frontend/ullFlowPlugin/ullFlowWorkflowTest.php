@@ -203,7 +203,7 @@ $b
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 7) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
-  ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_flow_memory_comment > li', '/Sooo sorry, but I worry!/')
+  ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_memory_comment > li', '/Sooo sorry, but I worry!/')
   ->checkResponseElement($dgsEditMem->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(3), '/Returned[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditMem->get(4), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')

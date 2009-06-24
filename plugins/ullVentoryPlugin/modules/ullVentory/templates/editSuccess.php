@@ -1,6 +1,7 @@
 <?php include_partial('ullTableTool/jQueryRequirements')?>
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php //$doc = $sf_data->getRaw('doc') ?>
 
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
@@ -18,7 +19,7 @@
 
   if ($sf_params->get('action') == 'createWithType')
   {
-    $url = url_for('ullVentory/create') . '/' . $sf_params->get('type');
+    $url = url_for('ullVentory/createWithType') . '/' . $sf_params->get('type');
   }
   else
   {
@@ -36,6 +37,7 @@
 
 <?php // TODO: the action could already provide a ready-to-use list of fields to render...?>
 <?php foreach ($generator->getForm()->getWidgetSchema()->getPositions() as $column_name): ?>
+    <?php //var_dump($generator->getForm()->offsetGet($column_name)->getWidget()) ?>
     <?php if (in_array($column_name, array('ull_ventory_item_manufacturer_id', 'ull_ventory_item_model_id'))): ?>
       <tr>
         <td><?php echo $generator->getForm()->offsetGet($column_name)->renderLabel() ?></td>
@@ -47,8 +49,10 @@
         <td class="form_error"><?php echo $generator->getForm()->offsetGet($column_name)->renderError() ?></td>
       </tr>
     <?php // don't render some specific fields ?>
-    <?php //TODO: it shouldn't be neccessary to hide "id" manually ?!? ?>
-    <?php elseif (in_array($column_name, array('id', 'ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create'))): ?>
+    <?php //TODO: it shouldn't be neccessary to hide "id" and "ull_entity_id" manually -> refactor into generator (getActiveColumns() ?) ?>
+    <?php elseif ($generator->getForm()->offsetGet($column_name)->getWidget() instanceof sfWidgetFormInputHidden): ?>
+      <?php continue ?>
+    <?php elseif (in_array($column_name, array('ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create'))): ?>
       <?php continue ?>
     <?php //don't render embeded forms (attributes, software) ?>
     <?php elseif ($generator->getForm()->offsetGet($column_name) instanceof sfFormFieldSchema): ?>
@@ -155,7 +159,59 @@
 	
 	  <div class="clear"></div>  
   </div>
-</div>
+  
+  
+<?php if ($doc->exists()): ?>
+  <div id="ull_memory">
+  <h3><?php echo __('History', null, 'common')?></h3>
+  <ul>
+    <?php 
+      $tempdate = -1;
+      
+      foreach ($doc->findMemoriesOrderedByDate() as $memory): ?>
+        <?php
+        if ($tempdate != substr($memory->transfer_at, 0, 10)) 
+        {
+          if ($tempdate != -1)
+          { 
+            echo '</ul></li>';
+          }
+            
+          echo '<li class="ull_memory_date">' . ull_format_date($memory->transfer_at) . '</li>' .
+                  '<li class="ull_memory_day"><ul class="ull_memory_day">';
+        } 
+        ?>
+        
+        <li>
+          <?php if ($memory->TargetUllEntity instanceof UllVentoryOriginDummyUser):?>
+            <?php echo __('Source', null, 'common') ?>:
+          <?php else: ?>
+            <?php echo __('Owner', null, 'common') ?>:
+          <?php endif ?>
+          <span class="ull_memory_light"><?php echo $memory->TargetUllEntity ?></span>
+          &ndash;
+          <?php echo __('Updated by', null, 'common') ?>
+          <span class="ull_memory_light"><?php echo $memory->Updator ?></span>
+          <?php echo __('at', null, 'common') ?>
+          <?php echo ull_format_datetime($memory->updated_at) ?>
+        
+          <?php if ($comment = $memory->comment): ?>
+            <ul class="ull_memory_comment">
+              <li class="ull_memory_lightsmall"><?php echo $comment ?></li>
+            </ul>
+          <?php endif ?>
+        </li>
+    
+        <?php $tempdate = substr($memory->transfer_at, 0, 10); ?>
+      <?php endforeach ?>
+      </ul></li>
+    </ul>
+  </div>
+<?php endif ?>  
+  
+  
+  
+</div> <!-- end of edit_container -->
 
 
 </form>

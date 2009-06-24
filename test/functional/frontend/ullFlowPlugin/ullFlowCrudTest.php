@@ -73,7 +73,7 @@ $b->diag('check values and click "save_close"')
   ->checkResponseElement($dgsEditTT->get('tags', 'value') . ' > input[value="my_test_tag"]', true)
   ->responseContains('Progress')
   ->checkResponseElement($dgsEditMem->get(1), '/Edited[\s]+by[\s]+Master[\s]+Admin/')  
-  ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_flow_memory_comment > li', '/My memory comment/')
+  ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_memory_comment > li', '/My memory comment/')
   ->setField('fields[my_subject]', 'This is my shiny little subject')
 ;
 

@@ -126,7 +126,7 @@
 
 
 <?php if ($doc->exists()): ?>
-  <div id="ull_flow_memories">
+  <div id="ull_memory">
   <h3><?php echo __('Progress')?></h3>
   <ul>
     <?php 
@@ -138,23 +138,23 @@
           if ($tempdate != -1) 
             echo '</ul></li>';
             
-          echo '<li class="ull_flow_memories_date">' . ull_format_date($memory->created_at) . '</li>' .
-                  '<li class="ull_flow_memories_day"><ul class="ull_flow_memories_day">';
+          echo '<li class="ull_memory_date">' . ull_format_date($memory->created_at) . '</li>' .
+                  '<li class="ull_memory_day"><ul class="ull_memory_day">';
         } ?>
       <li>
-        <span class="ull_flow_memories_light">
+        <span class="ull_memory_light">
         <?php echo substr($memory->created_at, 11, 5) ?>
         </span>&ndash;
         <?php echo $memory->UllFlowAction->label ?>
         <?php if ($memory->UllFlowAction->is_show_assigned_to): ?>
-          <?php echo '<span class="ull_flow_memories_light">' . $memory->AssignedToUllEntity . '</span>' ?>
+          <?php echo '<span class="ull_memory_light">' . $memory->AssignedToUllEntity . '</span>' ?>
         <?php endif ?>
         <?php echo __('by'); ?>
-        <?php echo '<span class="ull_flow_memories_light">' . $memory->Creator . '</span>' ?>
+        <?php echo '<span class="ull_memory_light">' . $memory->Creator . '</span>' ?>
         
         <?php if ($comment = $memory->comment): ?>
-          <ul class="ull_flow_memory_comment">
-            <li class="ull_flow_memories_lightsmall"> <?php echo $comment ?>
+          <ul class="ull_memory_comment">
+            <li class="ull_memory_lightsmall"> <?php echo $comment ?>
              </li>
           </ul>
         <?php endif ?>

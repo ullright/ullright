@@ -689,7 +689,7 @@
 
 <trans-unit id="18011">
 <source>Schedule changes on this date</source>
-<target>Änderungen an folgendem Tag durchführen</target>
+<target>Änderungen erst an folgendem Tag durchführen</target>
 </trans-unit>
 
 <trans-unit id="19001">
@@ -808,6 +808,31 @@
 </trans-unit>
 
 <trans-unit id="21002">
+<source>at</source>
+<target>am</target>
+</trans-unit>
+
+<trans-unit id="21003">
+<source>Assigned to</source>
+<target>Zugewiesen an</target>
+</trans-unit>
+
+<trans-unit id="21004">
+<source>History</source>
+<target>Verlauf</target>
+</trans-unit>
+
+<trans-unit id="21005">
+<source>Source</source>
+<target>Herkunft</target>
+</trans-unit>
+
+<trans-unit id="21006">
+<source>Target</source>
+<target>Ziel</target>
+</trans-unit>
+
+<trans-unit id="21007">
 <source>Group membership</source>
 <target>Gruppenmitgliedschaft</target>
 </trans-unit>

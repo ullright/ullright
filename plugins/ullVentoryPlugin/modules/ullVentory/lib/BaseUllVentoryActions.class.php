@@ -92,14 +92,18 @@ class BaseUllVentoryActions extends ullsfActions
   {
     $this->checkAccess('LoggedIn');
     
+    $this->entity = $this->retrieveEntityFromRequest();
+    
     $this->form = new UllVentoryCreateForm;
+//    $this->form->setDefault('entity', $entity->username);
     
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('fields'));
       if ($this->form->isValid())
       {
-        $this->redirect(url_for('ullVentory/create') . '/' . $this->form->getValue('type'));    
+        // TODO: why action "create" and not "createWithType ???
+        $this->redirect(url_for('ullVentory/createWithType') . '/' . $this->form->getValue('type') . '/entity/' . $this->entity->username);    
       }
     }
     
@@ -131,10 +135,10 @@ class BaseUllVentoryActions extends ullsfActions
     else
     {
       $this->doc = new UllVentoryItem;
+      $this->entity = $this->retrieveEntityFromRequest();
     }
     
-
-   
+       
 
 //    var_dump($this->item->toArray());die;
 //    
@@ -151,7 +155,10 @@ class BaseUllVentoryActions extends ullsfActions
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());die;
     
     $this->generator = new ullVentoryGenerator('w', $request->getParameter('type'));
+    $this->handleEntityforEdit();
     $this->generator->buildForm($this->doc);
+    $this->handleEntityforCreate();    
+    
     
     $this->breadcrumbForEdit();
     
@@ -408,5 +415,47 @@ class BaseUllVentoryActions extends ullsfActions
 //      $this->doc = new UllVentoryItem;
 //    }
 //  }
+
+  /**
+   * Parse given UllEntity::username and return appropriate UllEntity object
+   * @return UllEntity
+   */
+  protected function retrieveEntityFromRequest()
+  {
+    if ($ull_entity_username = $this->getRequestParameter('entity'))
+    {
+      $ull_entity = Doctrine::getTable('UllEntity')->findOneByUsername($ull_entity_username);
+      
+      if ($ull_entity)
+      {
+        return $ull_entity;  
+      }
+    }
+    
+    // default to status user "stored"
+    return Doctrine::getTable('UllVentoryStatusDummyUser')->findOneByUsername('stored');
+  }
+
+  /**
+   * Set the given user in the form
+   * @return none
+   */
+  protected function handleEntityforCreate()
+  {
+    if (!$this->doc->exists())
+    {
+      $this->generator->getForm()->setDefault('ull_entity_id', $this->entity->id);
+    }
+  }  
   
+  protected function handleEntityforEdit()
+  {
+    if ($this->doc->exists())
+    {
+      $cc = $this->generator->getColumnsConfig();
+      $cc['ull_entity_id']->removeWidgetOption('is_hidden');
+      $cc['ull_entity_id']->setAccess('r');
+      $this->generator->setColumnsConfig($cc);
+    }
+  }   
 }

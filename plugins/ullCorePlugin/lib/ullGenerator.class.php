@@ -143,6 +143,16 @@ abstract class ullGenerator
   }
   
   /**
+   * set the column config
+   *
+   * @return array
+   */
+  public function setColumnsConfig($cc)
+  {
+    $this->columnsConfig = $cc;
+  }  
+  
+  /**
    * get the embedded sfForm
    *
    * @return sfForm

@@ -63,7 +63,7 @@ UllVentoryItem:
     ull_ventory_item_model_id:
       type: integer
       notnull: true
-    ull_user_id:
+    ull_entity_id:
       type: integer
       notnull: true
 #    ull_location_id:
@@ -71,7 +71,7 @@ UllVentoryItem:
 #      notnull: true
   relations:
     UllVentoryItemModel:
-    UllUser:
+    UllEntity:
 #    UllLocation:
 
 # Item attributes
@@ -148,19 +148,38 @@ UllVentoryItemMemory:
     transfer_at:
       type: timestamp
       notnull: true
-    source_ull_user_id:
+    source_ull_entity_id:
       type: integer
       notnull: true
-    target_ull_user_id:
+    target_ull_entity_id:
       type: integer
       notnull: true      
     comment:
       type: string(4000)
   relations:
     UllVentoryItem:
-    SourceUllUser:
-      local: source_ull_user_id
-    TargetUllUser:
-      local: target_ull_user_id
+    SourceUllEntity:
+      class: UllEntity
+      local: source_ull_entity_id
+    TargetUllEntity:
+      class: UllEntity
+      local: target_ull_entity_id
+
+# Dummyuser which defines a non-user status e.g. storing, repair, sold, ...
+UllVentoryStatusDummyUser:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllEntity
+    type: column_aggregation
+    keyValue: status_dummy
+  actAs:
+    I18n:
+      fields: [display_name]
       
-                
+# Dummyuser which describes the origin of an item in the history e.g. delivered      
+UllVentoryOriginDummyUser:
+  package: ullVentoryPlugin.lib.model.doctrine  
+  inheritance:
+    extends: UllVentoryStatusDummyUser
+    type: column_aggregation
+    keyValue: origin_dummy           

@@ -30,6 +30,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('type', '')
+  ->isRequestParameter('entity', 'stored')
   ->checkResponseElement($dgsEdit->get('type', 'error') . ' > ul > li', 'Required.')
   ->setField('fields[type]', 'printer')
   ->click('Apply')
@@ -43,18 +44,19 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'createWithType')
-  ->isRequestParameter('type', 'printer')  
+  ->isRequestParameter('type', 'printer') 
+  ->isRequestParameter('entity', 'stored') 
   // item properties
-  ->checkResponseElement($dgsEdit->getFullRowSelector(), 7) // num of rows
+  ->checkResponseElement($dgsEdit->getFullRowSelector(), 8) // num of rows
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option + option', 'Notebook')
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option + option', 'Apple')  
   ->checkResponseElement('#fields_ull_ventory_item_model_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_model_id > option + option', 'MacBook')
+  ->checkResponseElement('input[id="fields_ull_entity_id"][type="hidden"][value="'. Doctrine::getTable('UllVentoryStatusDummyUser')->findOneByUsername('stored')->id . '"]')
   // attributes
   ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 2)
-  
   ->click('Save and close')
 ;
 
@@ -67,6 +69,7 @@ $b
   ->checkResponseElement($dgsEdit->get('inventory_number', 'error') . ' > ul > li', 'Required.')
   ->checkResponseElement($dgsEdit->get('manufacturer', 'error') . ' > ul > li', 'Please select a value or enter a new one')
   ->checkResponseElement($dgsEdit->get('model', 'error') . ' > ul > li', 'Please select a value or enter a new one')
+  ->checkResponseElement('input[id="fields_ull_entity_id"][type="hidden"][value="'. Doctrine::getTable('UllVentoryStatusDummyUser')->findOneByUsername('stored')->id . '"]')  
 ;
   
 $b
@@ -78,7 +81,6 @@ $b
   ->setField('fields[ull_ventory_item_model_id_create]', 'MFC-9840CDW')
   ->setField('fields[serial_number]', 'abc123')
   ->setField('fields[comment]', 'Permanent paper-jam!')
-  ->setField('fields[ull_user_id]', Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id)
   
   //attributes
   ->setField('fields[attributes][0][value]', '10')
@@ -122,6 +124,7 @@ $b
   ->checkResponseElement($dgsEdit->get('inventory_number', 'value') . ' > input[value="1703"]', true)
   ->checkResponseElement($dgsEdit->get('serial_number', 'value') . ' > input[value="abc123"]', true)
   ->checkResponseElement('input[id="fields_id"][value="3"]', true)
+  ->checkResponseElement($dgsEdit->get('owner', 'value'), 'Stored')
   //attributes
   ->checkResponseElement('input[id="fields_attributes_0_value"][value="10"]', true)
   ->checkResponseElement('input[id="fields_attributes_0_comment"][value="Old and slow"]', true)
@@ -149,7 +152,7 @@ $b
 
 $b
   ->info('Create: try to create an entry with an existing inventory_number')
-  ->get('ullVentory/create/notebook')
+  ->get('ullVentory/createWithType/notebook')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'createWithType')
@@ -159,7 +162,6 @@ $b
     'ull_ventory_item_manufacturer_id'  => Doctrine::getTable('UllVentoryItemManufacturer')->findOneByName('Apple')->id,
     'ull_ventory_item_model_id'         => Doctrine::getTable('UllVentoryItemModel')->findOneByName('MacBook')->id,
     'serial_number'                     => '0123456789',
-    'ull_user_id'                       => Doctrine::getTable('UllUser')->findOneByUsername('admin')->id,
 //    'ull_location_id'                   => Doctrine::getTable('UllLocation')->findOneByName('Wien Mollardgasse')->id,
   )))
 ;

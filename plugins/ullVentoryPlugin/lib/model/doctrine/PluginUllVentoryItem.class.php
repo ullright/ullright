@@ -5,5 +5,18 @@
  */
 abstract class PluginUllVentoryItem extends BaseUllVentoryItem
 {
+  
+  public function findMemoriesOrderedByDate()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentoryItemMemory x')
+      ->addWhere('x.ull_ventory_item_id = ?', $this->id)
+      //additional ordering by id is a hack to properly order in case of exactly the same date 
+      ->orderBy('x.transfer_at DESC, x.updated_at DESC, x.id DESC')  
+    ;      
+     
+    return $q->execute();    
+  }
 
 }
