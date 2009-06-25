@@ -5,13 +5,23 @@
  */
 class ullColumnConfiguration
 {
-  private $columnName;
-  private $label, $metaWidgetClassName,
-  $access, $isInList, $validatorOptions,
-  $widgetOptions, $widgetAttributes,
-  $unique, $translated, $relation,
-  $defaultValue, $allowCreate;
-  private $customAttributes;
+  protected
+    $columnName,
+    $label, 
+    $metaWidgetClassName    = 'ullMetaWidgetString',
+    $access, 
+    $isInList               = true, 
+    $validatorOptions       = array('required' => false),  
+    $widgetOptions          = array(), 
+    $widgetAttributes       = array(),  
+    $unique                 = false, 
+    $translated, 
+    $relation,
+    $defaultValue, 
+    $allowCreate,
+    $customAttributes       = array(),
+    $help
+  ;
 
   /**
    * Returns a new column configuration object with default values.
@@ -21,17 +31,8 @@ class ullColumnConfiguration
    */
   public function __construct($columnName = '', $access = 'w')
   {
-    $this->widgetOptions = array();
-    $this->widgetAttributes = array();
-    $this->validatorOptions = array();
-    $this->customAttributes = array();
-
     $this->label = $columnName;
-    $this->metaWidgetClassName = 'ullMetaWidgetString';
     $this->access = $access;
-    $this->isInList = true;
-    $this->validatorOptions['required'] = false;
-    $this->unique = false;
     $this->columnName = $columnName;
   
     if (ullHumanizer::hasColumnNameHumanization($this->label))
@@ -59,7 +60,6 @@ class ullColumnConfiguration
         }
         else
         {
-          //uhm... which is it?
           $this->widgetAttributes['maxlength'] =  $doctrineColumn['length'];
           $this->validatorOptions['max_length'] = $doctrineColumn['length'];
         }
@@ -142,6 +142,16 @@ class ullColumnConfiguration
   {
     $this->label = $label;
   }
+  
+  public function getHelp()
+  {
+    return $this->help;
+  }
+
+  public function setHelp($help)
+  {
+    $this->help = $help;
+  }  
 
   public function getMetaWidgetClassName()
   {

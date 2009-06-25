@@ -277,6 +277,9 @@ abstract class ullGenerator
           $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig->getLabel(), null, 'common'));
         }
         
+        //help
+        $this->forms[$key]->getWidgetSchema()->setHelp($columnName, $columnConfig->getHelp());
+        
         $this->markMandatoryColumns($this->forms[$key], $columnName, $columnConfig);
       }
     }

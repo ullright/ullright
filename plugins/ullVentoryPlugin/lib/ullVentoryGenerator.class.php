@@ -167,10 +167,12 @@ class ullVentoryGenerator extends ullTableToolGenerator
         
         $memoryGenerator = new ullVentoryMemoryGenerator('w');
         $memory = new UllVentoryItemMemory;
+        // set defaults
         $memory->transfer_at = date('Y-m-d');
         $memory->target_ull_entity_id = Doctrine::getTable('UllVentoryOriginDummyUser')->findOneByUsername('delivered')->id;
         $memoryGenerator->buildForm($memory);
         $this->getForm()->embedForm('memory', $memoryGenerator->getForm());
+        
       }
       // edit
       else

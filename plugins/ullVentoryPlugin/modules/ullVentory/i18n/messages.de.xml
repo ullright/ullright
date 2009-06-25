@@ -46,6 +46,14 @@
 <target>Standort des Gegenstandes</target>
 </trans-unit>
 
+<!-- Help messages -->
+Set the actual delivery date in case of a delivery
+<trans-unit id="2001">
+<source>Set the actual delivery date in case of a delivery</source>
+<target>Setzen Sie das tatsächliche Lieferdatum im Falle einer Lieferung</target>
+</trans-unit>
+
+
     </body>
   </file>
 </xliff>

@@ -21,6 +21,6 @@ class sfWidgetFormSchemaFormatterUllTable extends sfWidgetFormSchemaFormatter
   protected
     $rowFormat       = "<tr>\n  <td class=\"label_column\">%label%</td>\n  <td>%field%%help%%hidden_fields%</td>\n <td class='form_error'>%error%</td>\n</tr>\n",
     $errorRowFormat  = "<tr><td colspan=\"2\">\n%errors%</td></tr>\n",
-    $helpFormat      = '<br />%help%',
+    $helpFormat      = '<br /><dfn>%help%</dfn>',
     $decoratorFormat = "<table>\n  %content%</table>";
 }

@@ -41,10 +41,11 @@ class ullVentoryMemoryGenerator extends ullTableToolGenerator
     
     $this->columnsConfig['transfer_at']->setMetaWidgetClassName('ullMetaWidgetDate');
     $this->columnsConfig['transfer_at']->setLabel(__('Date', null, 'common'));
-//    $this->columnsConfig['target_ull_entity_id']->setHelp(__('Useful to set the real delivery date', null, 'common'));
+    $this->columnsConfig['transfer_at']->setHelp(__('Set the actual delivery date in case of a delivery'));
 //    $this->columnsConfig['target_ull_entity_id']->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $this->columnsConfig['target_ull_entity_id']->setWidgetOption('model', 'UllVentoryOriginDummyUser');
     $this->columnsConfig['target_ull_entity_id']->setLabel(__('Origin', null, 'common'));
+    
     
     $this->columnsConfig['comment']->setMetaWidgetClassName('ullMetaWidgetString');
     //$this->columnsConfig['comment']->setWidgetAttribute('size', 24);    
