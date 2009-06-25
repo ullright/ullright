@@ -10,6 +10,10 @@
   background: #ffe193;
 }
 
+.color_light_bg_ull_ventory {
+  background: #ffe193;
+}
+
 .color_medium_bg {
   background: #eda740;
 }
@@ -23,7 +27,7 @@
 }
 
 .list_table tbody tr:hover {
-  background: ##ffe193;  
+  background: #ffe193;  
 }
 
 /* Overridden css: ullCore / taskcenter.css - formats */

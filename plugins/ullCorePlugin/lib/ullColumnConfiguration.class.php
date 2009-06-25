@@ -20,7 +20,8 @@ class ullColumnConfiguration
     $defaultValue, 
     $allowCreate,
     $customAttributes       = array(),
-    $help
+    $help,
+    $options                = array()
   ;
 
   /**
@@ -326,4 +327,37 @@ class ullColumnConfiguration
   {
     return $this->customAttributes[$attributeName];
   }
+  
+  public function getOption($optionName)
+  {
+    if (isset($this->options[$optionName]))
+    {
+      return $this->options[$optionName];
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  public function getOptions()
+  {
+    return $this->options;
+  }
+
+  public function setOption($optionName, $optionValue)
+  {
+    $this->options[$optionName] = $optionValue;
+  }
+
+  public function setOptions($options)
+  {
+    $this->options = $options;
+  }
+
+  public function removeOption($optionName)
+  {
+    unset($this->options[$optionName]);
+  }  
+  
 }

@@ -14,6 +14,21 @@
 <target>Eigenschaft</target>
 </trans-unit>
 
+<trans-unit id="3">
+<source>Enlist new item</source>
+<target>Neues Gerät erfassen</target>
+</trans-unit>
+
+<trans-unit id="4">
+<source>Items of</source>
+<target>Geräte von</target>
+</trans-unit>
+
+<trans-unit id="5">
+<source>Item of</source>
+<target>Gerät von</target>
+</trans-unit>
+
 
 <!-- Column names -->
 <trans-unit id="1001">
@@ -47,10 +62,14 @@
 </trans-unit>
 
 <!-- Help messages -->
-Set the actual delivery date in case of a delivery
 <trans-unit id="2001">
 <source>Set the actual delivery date in case of a delivery</source>
 <target>Setzen Sie das tatsächliche Lieferdatum im Falle einer Lieferung</target>
+</trans-unit>
+
+<trans-unit id="2002">
+<source>Searches for inventory number, serial number and item comment</source>
+<target>Sucht nach Inventarnummer, Seriennummer und Gerätekommentar</target>
 </trans-unit>
 
 

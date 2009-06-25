@@ -73,8 +73,9 @@ ul.tc_tasks li img {
 }
 
 .tc_search_quick_top {
-	border: 0px;
-	padding: 1px;
+	border: 0;
+	padding: .4em;
+	margin-bottom: 1.5em;
 }
 
 .tc_search_quick_top_img {
@@ -90,7 +91,7 @@ ul.tc_tasks li img {
 .tc_search_tag_top {
 	border: 0px;
 	padding: 5px;
-	margin-top: 15px;
+	/* margin-top: 15px; */
 }
 
 .tc_search_tag_bottom {

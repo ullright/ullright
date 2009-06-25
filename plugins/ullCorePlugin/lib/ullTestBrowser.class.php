@@ -281,7 +281,6 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'inventory_number',
         'serial_number',
         'comment',
-        'owner',
 //        'location',
         
       ),      

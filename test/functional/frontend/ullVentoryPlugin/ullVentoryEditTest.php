@@ -128,7 +128,6 @@ $b
   ->checkResponseElement($dgsEdit->get('inventory_number', 'value') . ' > input[value="1703"]', true)
   ->checkResponseElement($dgsEdit->get('serial_number', 'value') . ' > input[value="abc123"]', true)
   ->checkResponseElement('input[id="fields_id"][value="3"]', true)
-  ->checkResponseElement($dgsEdit->get('owner', 'value'), 'Stored')
   //attributes
   ->checkResponseElement('input[id="fields_attributes_0_value"][value="10"]', true)
   ->checkResponseElement('input[id="fields_attributes_0_comment"][value="Old and slow"]', true)

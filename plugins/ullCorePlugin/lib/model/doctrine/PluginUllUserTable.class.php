@@ -86,4 +86,28 @@ class PluginUllUserTable extends UllEntityTable
     }
   }  
   
+  /**
+   * Return choices for UllMetaWidgetEntity
+   * 
+   * @return array
+   */
+  public static function findChoices()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('u.id, CONCAT(u.last_name, \' \', u.first_name) as name')
+      ->from('UllUser u INDEXBY u.id')
+      ->orderBy('name')
+    ;
+    
+    $result = $q->execute(null, Doctrine::HYDRATE_ARRAY);
+    
+    foreach($result as $key => $value)
+    {
+      unset($result[$key]['id']);  
+    }
+    
+    return $result;
+  }  
+  
 }

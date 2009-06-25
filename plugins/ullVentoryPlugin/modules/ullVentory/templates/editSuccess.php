@@ -32,6 +32,8 @@
 
 <div class="edit_container">
 
+<h3><?php echo __('Item of') . ' ' . $entity ?></h3>
+
 <table class="edit_table" id="ull_ventory_item">
 <tbody>
 

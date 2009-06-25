@@ -33,7 +33,7 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeIndex() 
   {
-    $this->form = new ullWikiFilterForm;
+    $this->form = new ullVentoryFilterForm;
 
     // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
@@ -131,6 +131,7 @@ class BaseUllVentoryActions extends ullsfActions
     if ($request->hasParameter('inventory_number'))
     {
       $this->doc = $this->getRoute()->getObject();
+      $this->entity = $this->doc->UllEntity;
     }
     else
     {
@@ -155,7 +156,7 @@ class BaseUllVentoryActions extends ullsfActions
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());die;
     
     $this->generator = new ullVentoryGenerator('w', $request->getParameter('type'));
-    $this->handleEntityforEdit();
+//    $this->handleEntityforEdit();
     $this->generator->buildForm($this->doc);
     $this->handleEntityforCreate();    
     
@@ -340,22 +341,34 @@ class BaseUllVentoryActions extends ullsfActions
   protected function getFilterFromRequest()
   {
 
-    $this->filter_form = new ullWikiFilterForm;
-//    $this->filter_form->bind($this->getRequestParameter('filter'));
-
+    $this->filter_form = new ullVentoryFilterForm;
+    $this->filter_form->bind($this->getRequestParameter('filter'));
+    
     $q = new Doctrine_Query();
     $q->from('UllVentoryItem x');
 
-    // search has to be the first "where" part, because it uses "or" 
-//    if ($search = $this->filter_form->getValue('search'))
-//    {
-//      $cols = array('id', 'subject', 'duplicate_tags_for_search');
-//      if ($this->filter_form->getValue('fulltext'))
-//      {
-//        $cols[] = 'body';
-//      }
-//      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
-//    }
+    //search has to be the first "where" part, because it uses "or" 
+    if ($search = $this->filter_form->getValue('search'))
+    {
+      $cols = array(
+        'inventory_number', 
+        'serial_number', 
+        'comment', 
+//        'UllVentoryItemModel.name', 
+      );
+      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
+    }
+    
+    //filter per entity
+    if ($ullEntityId = $this->filter_form->getValue('ull_entity_id'))
+    {
+      $q->addWhere('x.ull_entity_id = ?', $ullEntityId);
+      $this->entity = Doctrine::getTable('UllEntity')->findOneById($ullEntityId);
+    }
+    else
+    {
+      $this->entity = null;
+    }    
     
     $this->order = $this->getRequestParameter('order', 'updated_at');
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
@@ -448,14 +461,14 @@ class BaseUllVentoryActions extends ullsfActions
     }
   }  
   
-  protected function handleEntityforEdit()
-  {
-    if ($this->doc->exists())
-    {
-      $cc = $this->generator->getColumnsConfig();
-      $cc['ull_entity_id']->removeWidgetOption('is_hidden');
-      $cc['ull_entity_id']->setAccess('r');
-      $this->generator->setColumnsConfig($cc);
-    }
-  }   
+//  protected function handleEntityforEdit()
+//  {
+//    if ($this->doc->exists())
+//    {
+//      $cc = $this->generator->getColumnsConfig();
+//      $cc['ull_entity_id']->removeWidgetOption('is_hidden');
+//      $cc['ull_entity_id']->setAccess('r');
+//      $this->generator->setColumnsConfig($cc);
+//    }
+//  }   
 }
