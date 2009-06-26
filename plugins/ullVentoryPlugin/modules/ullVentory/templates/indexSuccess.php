@@ -15,12 +15,12 @@
     <div id="tc_search">
     
       <?php echo ull_form_tag(array('action' => 'list')); ?>
-        <div class="tc_search_quick_top color_medium_bg">
+        <div class="tc_box_with_bottom_spacer color_medium_bg">
           <?php echo $form['search']->renderLabel() ?><br />    
           <?php echo $form['search']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
         </div>
         
-        <div class="tc_search_quick_top color_medium_bg">
+        <div class="tc_box_with_bottom_spacer color_medium_bg">
           <?php echo $form['ull_entity_id']->renderLabel() ?><br />
           <?php echo $form['ull_entity_id']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
         </div>

@@ -37,7 +37,7 @@
 	margin-right: 25px;
 }
 
-#tc_tasks>h3 {
+#tc_tasks > h3 {
 	margin-top: .6em;
 	margin-bottom: 1em;
 }
@@ -127,3 +127,16 @@ ul.tc_tasks li img {
 #tc_footer {
 	clear: both;
 }
+
+/*
+ *  Generic
+ */
+
+.tc_box {
+  padding: .4em;
+ }
+ 
+.tc_box_with_bottom_spacer {
+  padding: .4em;
+  margin-bottom: 1.5em;
+} 

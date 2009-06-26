@@ -51,7 +51,7 @@
     </div>
     
     <div id="tc_search">
-      <div class="tc_search_quick_top color_medium_bg">
+      <div class="tc_box color_medium_bg">
         <?php echo form_tag('ullTableTool/list?table=UllUser'); ?>
         <table>
           <tr>
@@ -71,7 +71,7 @@
           </table>
         </form>      
       </div>
-      <div class="tc_search_quick_bottom color_light_bg">
+      <div class="tc_box_with_bottom_spacer color_light_bg">
         <?php echo ull_link_to(__('Advanced search', null, 'common'), 'ullUser/search') ?>
       </div>
       <!-- 

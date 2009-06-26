@@ -41,7 +41,7 @@
     </div>
     
     <div id="tc_search">
-      <div class="tc_search_quick_top color_medium_bg">
+      <div class="tc_box color_medium_bg">
         <?php echo ull_form_tag(array('action' => 'list')); ?>
           <table>
             <tr>
@@ -56,7 +56,7 @@
          </div>
       
        
-      <div class="tc_search_quick_bottom color_light_bg">
+      <div class="tc_box_with_bottom_spacer color_light_bg">
            <?php
               if ($app_slug)
               {
