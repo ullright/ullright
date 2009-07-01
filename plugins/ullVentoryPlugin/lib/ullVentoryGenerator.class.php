@@ -91,6 +91,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
     $this->columnsConfig['ull_entity_id']->setLabel(__('Owner', null, 'common'));
 //    $this->columnsConfig['ull_location_id']['label'] = __('Item location');
     $this->columnsConfig['ull_ventory_item_model_id']->setLabel(__('Model'));
+    
     if ($this->requestAction == 'edit')
     {
       $this->columnsConfig['inventory_number']->setLabel(__('Inventory number'));
@@ -102,17 +103,31 @@ class ullVentoryGenerator extends ullTableToolGenerator
     $this->columnsConfig['serial_number']->setLabel(__('Serial number'));
     $this->columnsConfig['comment']->setLabel(__('Comment', null, 'common'));
     
-    
-    $order = array(      
-      'ull_ventory_item_type_id',
-      'ull_ventory_item_manufacturer_id',
-      'ull_ventory_item_model_id',
-      'inventory_number',
-      'serial_number',
-//      'ull_entity_id',
-//      'ull_location_id',
-      'comment'
-    );
+    if ($this->requestAction == 'edit')
+    {    
+      $order = array(
+        'ull_ventory_item_type_id',
+        'ull_ventory_item_manufacturer_id',
+        'ull_ventory_item_model_id',
+        'inventory_number',
+        'serial_number',
+  //      'ull_entity_id',
+  //      'ull_location_id',
+        'comment'
+      );
+    }
+    else
+    {
+      $order = array(
+        'inventory_number',
+        'ull_ventory_item_type_id',
+        'ull_ventory_item_manufacturer_id',
+        'ull_ventory_item_model_id',
+        'serial_number',
+        'ull_entity_id',
+        'comment'
+      );      
+    }
   
     $this->columnsConfig = ull_order_array_by_array($this->columnsConfig, $order);
     

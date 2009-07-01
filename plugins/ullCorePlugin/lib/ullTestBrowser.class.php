@@ -257,8 +257,8 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
         'actions',
-        'model',
         'inventory_number',
+        'model',
         'serial_number',
         'owner',
         'comment',
