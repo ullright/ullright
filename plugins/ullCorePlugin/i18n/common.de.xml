@@ -847,6 +847,16 @@
 <target>Datum</target>
 </trans-unit>
 
+<trans-unit id="21010">
+<source>Yes</source>
+<target>Ja</target>
+</trans-unit>
+
+<trans-unit id="21011">
+<source>No</source>
+<target>Nein</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
