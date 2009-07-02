@@ -25,8 +25,8 @@ $b
 
 $b
   ->diag('set no password and change username')
-  ->setField('fields[first_name]', 'Testasius')
-  ->setField('fields[username]', 'test_asius')
+  ->setField('fields[first_name]', 'TestMaster')
+  ->setField('fields[username]', 'test_master')
   ->click('Save')
   ->isRedirected()
   ->followRedirect()
@@ -34,14 +34,14 @@ $b
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('table', 'UllUser')
-  ->responseContains('Testasius')
+  ->responseContains('TestMaster')
 ;
 
 $b
   ->diag('login as testuser to check unchanged password')
   ->click('Log out')
   ->get('ullAdmin/index')
-  ->loginAs('test_asius')
+  ->loginAs('test_master')
   ->followRedirect()
 ;
 
@@ -87,5 +87,5 @@ $b
   ->diag('login as testuser to check changed password')
   ->click('Log out')
   ->get('ullAdmin/index')
-  ->loginAs('test_asius', 'newpass')
+  ->loginAs('test_master', 'newpass')
 ;
