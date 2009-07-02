@@ -19,7 +19,7 @@ class ullWidgetInformationUpdateWrite extends ullWidget
     
     if ($value) 
     {
-      $return .= '<div class="ull_flow_fieldtype_information_update">' . nl2br($value) . '</div>';
+      $return .= '<div class="ull_flow_fieldtype_information_update">' . auto_link_text(nl2br($value)) . '</div>';
     }    
 
     $return .= $this->renderContentTag('textarea', '', array_merge(array('name' => $name), $attributes));
