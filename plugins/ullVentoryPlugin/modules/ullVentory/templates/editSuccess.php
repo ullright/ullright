@@ -132,14 +132,18 @@
 
         <ul>
 
+          <!-- 
 		      <li>
-            <?php             
+            <?php
+              /*             
               echo ull_submit_tag(
                 __('Save and show', null, 'common'),
                 array('name' => 'submit|action_slug=save_show')
-              );  
+              );
+              */  
             ?>
 	        </li>
+	         -->
           <li>
             <?php             
               echo ull_submit_tag(
@@ -164,8 +168,9 @@
           ); 
         ?>
       </li>
+      <!-- 
       <li>
-		    <?php if ($doc->id): ?>    
+		    <?php /* if ($doc->id): ?>    
 		      <?php 
 		        echo link_to(
 		          __('Delete', null, 'common'), 
@@ -173,8 +178,9 @@
 		          'confirm='.__('Are you sure?', null, 'common')
 		          ); 
 		      ?>
-		    <?php endif; ?>
+		    <?php endif;  */?>
       </li>
+      -->
 
 	    </ul>
 	

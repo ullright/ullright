@@ -372,20 +372,39 @@ class BaseUllVentoryActions extends ullsfActions
     
     $this->order = $this->getRequestParameter('order', 'updated_at');
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
-    
     $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
-
-    switch ($this->order)
-    {
-      case 'creator_user_id':
-        $q->orderBy('x.Creator.display_name ' . $orderDir);
-        break;
-      case 'updator_user_id':
-        $q->orderBy('x.Updator.display_name ' . $orderDir);
-        break;
-      default:
-        $q->orderBy($this->order . ' ' . $orderDir);
-    }
+    
+    $cc = $this->generator->getColumnsConfig();
+    
+//    if ($relation = $cc[$this->order]->getRelation())
+//    {
+//      $q->orderBy('x.' . $relation['model'] . '.name');
+//    }
+//    else
+//    {
+    
+      switch ($this->order)
+      {
+        case 'creator_user_id':
+          $q->orderBy('x.Creator.display_name ' . $orderDir);
+          break;
+        case 'updator_user_id':
+          $q->orderBy('x.Updator.display_name ' . $orderDir);
+          break;
+        // the following hardcoded order settings could be refactored as 
+        //  a generic feature of the model/generator/metawidget suite
+        case 'ull_ventory_item_type_id':
+           $q->addFrom('x.UllVentoryItemModel.UllVentoryItemType.Translation tt');
+           $q->orderBy('tt.name ' . $orderDir);
+           $q->addWhere('tt.lang = ?', substr($this->getUser()->getCulture(), 0, 2));
+           break;
+        case 'ull_ventory_item_manufacturer_id':
+           $q->orderBy('x.UllVentoryItemModel.UllVentoryItemManufacturer.name ' . $orderDir);
+           break;           
+        default:
+          $q->orderBy($this->order . ' ' . $orderDir);
+      }
+//    }
     
 //    printQuery($q->getQuery());
 //    var_dump($q->getParams());

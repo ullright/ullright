@@ -55,26 +55,16 @@
   <!-- data -->
   
   <tbody>
-  <?php $odd = false; ?>
+  <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-    <?php $identifier = $generator->getIdentifierUrlParams($row) ?>
-    <?php //$form['subject']->getWidget()->setAttribute('href', 
-      //ull_url_for(array_merge($generator->getIdentifierUrlParamsAsArray($row), array('action' => 'show')))) ?>
-      <?php
-        if ($odd) {
-          $odd_style = ' class=\'odd\'';
-          $odd = false;
-        } else {
-          $odd_style = '';
-          $odd = true;
-        }
-      ?>
-    <tr <?php echo $odd_style ?>>
+    <?php $form['inventory_number']->getWidget()->setAttribute('href', 
+      url_for('ull_ventory_edit', $form->getObject())) ?>
+    <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          
         <?php
             echo ull_link_to(ull_image_tag('edit'), url_for('ull_ventory_edit', $form->getObject()));
-            echo ull_link_to(ull_image_tag('delete'), 'ullVentory/delete?' . $identifier,
-                'confirm='.__('Are you sure?', null, 'common')); 
+         //   echo ull_link_to(ull_image_tag('delete'), 'ullVentory/delete?' . $identifier,
+           //     'confirm='.__('Are you sure?', null, 'common')); 
         ?>
       </td>
       <?php echo $form ?>

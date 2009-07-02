@@ -258,9 +258,12 @@ class ullTestBrowser extends sfDoctrineTestBrowser
       array(
         'actions',
         'inventory_number',
+        'type',
+        'manufacturer',
         'model',
-        'serial_number',
+//        'serial_number',
         'owner',
+        'location',
         'comment',
         'updated_by',
         'updated_at',

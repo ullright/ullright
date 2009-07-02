@@ -165,12 +165,12 @@ class ullTableToolGenerator extends ullGenerator
   protected function buildColumnsConfig()
   {
     $columnRelations = ullGeneratorHelper::resolveDoctrineRelations($this->modelName);
+    
+//    var_dump($columnRelations);
 
     $columns = Doctrine::getTable($this->modelName)->getColumns();
 
-    $relations = Doctrine::getTable($this->modelName)->getRelations();
-
-    if (isset($relations['Translation']))
+    if (Doctrine::getTable($this->modelName)->hasRelation('Translation'))
     {
       $translationColumns = Doctrine::getTable($this->modelName . 'Translation')->getColumns();
       unset($translationColumns['id']);

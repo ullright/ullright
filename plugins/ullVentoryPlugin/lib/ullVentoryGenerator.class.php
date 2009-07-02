@@ -41,6 +41,9 @@ class ullVentoryGenerator extends ullTableToolGenerator
     
 //    var_dump($this->columnsConfig);die;
 
+    
+    // Much opportunity to refactore down here...
+
     unset(
       $this->columnsConfig['creator_user_id'],
       $this->columnsConfig['created_at']      
@@ -55,7 +58,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
     else
     {
       unset(
-        $this->columnsConfig['id'] 
+        $this->columnsConfig['id']
       );
       $this->columnsConfig['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');      
     }
@@ -68,7 +71,8 @@ class ullVentoryGenerator extends ullTableToolGenerator
       'foreign_id'        => 'id'));
     $itemTypeCC->setWidgetOptions(array('add_empty' => true));
     $itemTypeCC->setValidatorOptions(array('required' => true));
-    $itemTypeCC->setIsInList(false);
+    $itemTypeCC->setAccess($this->getDefaultAccess());
+    
     
     $this->columnsConfig['ull_ventory_item_type_id'] = $itemTypeCC;
     
@@ -81,9 +85,13 @@ class ullVentoryGenerator extends ullTableToolGenerator
     $itemManufactorCC->setWidgetOptions(array('add_empty' => true));
     $itemManufactorCC->setValidatorOptions(array('required' => true));
     $itemManufactorCC->setAllowCreate(true);
-    $itemManufactorCC->setIsInList(false);
+    $itemManufactorCC->setAccess($this->getDefaultAccess());
     
     $this->columnsConfig['ull_ventory_item_manufacturer_id'] = $itemManufactorCC;
+    
+
+    
+    $this->columnsConfig['ull_ventory_item_manufacturer_id'] = $itemManufactorCC;    
         
     $this->columnsConfig['ull_ventory_item_model_id']->setAllowCreate(true);
     $this->columnsConfig['ull_ventory_item_model_id']->setWidgetOption('add_empty', true);
@@ -100,8 +108,25 @@ class ullVentoryGenerator extends ullTableToolGenerator
     {
       $this->columnsConfig['inventory_number']->setLabel(__('Inv.No.'));
     }
+    
+    $this->columnsConfig['serial_number']->setIsInList(false);
     $this->columnsConfig['serial_number']->setLabel(__('Serial number'));
     $this->columnsConfig['comment']->setLabel(__('Comment', null, 'common'));
+    
+    if ($this->requestAction == 'list')
+    {
+      $cc = new ullColumnConfiguration();
+      $cc->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+      $cc->setLabel(__('Location'));
+      $cc->setRelation(array(
+          'model'             => 'UllLocation',
+          'foreign_id'        => 'id'));
+      $cc->setAccess($this->getDefaultAccess());
+      
+      $this->columnsConfig['ull_location_id'] = $cc;
+      
+      $this->columnsConfig['inventory_number']->setMetaWidgetClassName('ullMetaWidgetLink');
+    }      
     
     if ($this->requestAction == 'edit')
     {    
@@ -123,8 +148,9 @@ class ullVentoryGenerator extends ullTableToolGenerator
         'ull_ventory_item_type_id',
         'ull_ventory_item_manufacturer_id',
         'ull_ventory_item_model_id',
-        'serial_number',
+//        'serial_number',
         'ull_entity_id',
+        'ull_location_id',      
         'comment'
       );      
     }

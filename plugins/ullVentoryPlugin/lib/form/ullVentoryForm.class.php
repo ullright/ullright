@@ -23,10 +23,13 @@ class ullVentoryForm extends ullGeneratorForm
     
     $this->updateMemory($values);
     
+    // why is this necessary?
+    $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['ull_entity_id']);
+    
 //    var_dump($this->object->toArray());
 //    var_dump($values);
 //    die('buha');
-//    
+    
     return $this->object;
   }
   
@@ -118,14 +121,14 @@ class ullVentoryForm extends ullGeneratorForm
     if (isset($values['memory']))
     {
 //      var_dump($values['memory']);die;
-      $this->object->UllVentoryItemMemory[0]['transfer_at']       = $values['memory']['transfer_at'];
-      $this->object->UllVentoryItemMemory[0]['source_ull_entity_id'] = $values['memory']['target_ull_entity_id'];
-      $this->object->UllVentoryItemMemory[0]['target_ull_entity_id'] = $values['memory']['target_ull_entity_id'];
-      $this->object->UllVentoryItemMemory[0]['comment']           = $values['memory']['comment'];
+      $this->object->UllVentoryItemMemory[0]['transfer_at']           = $values['memory']['transfer_at'];
+      $this->object->UllVentoryItemMemory[0]['source_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
+      $this->object->UllVentoryItemMemory[0]['target_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
+      $this->object->UllVentoryItemMemory[0]['comment']               = $values['memory']['comment'];
       
-      $this->object->UllVentoryItemMemory[1]['transfer_at']       = date('Y-m-d');
-      $this->object->UllVentoryItemMemory[1]['source_ull_entity_id'] = $values['memory']['target_ull_entity_id'];
-      $this->object->UllVentoryItemMemory[1]['target_ull_entity_id'] = $values['ull_entity_id'];
+      $this->object->UllVentoryItemMemory[1]['transfer_at']           = date('Y-m-d');
+      $this->object->UllVentoryItemMemory[1]['source_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
+      $this->object->UllVentoryItemMemory[1]['target_ull_entity_id']  = $values['ull_entity_id'];
     }
   }
 
@@ -144,6 +147,8 @@ class ullVentoryForm extends ullGeneratorForm
     $model = $this->getObject()->UllVentoryItemModel;
     $defaults['ull_ventory_item_type_id'] = $model->ull_ventory_item_type_id;
     $defaults['ull_ventory_item_manufacturer_id'] = $model->ull_ventory_item_manufacturer_id;
+    // for the list view:
+    $defaults['ull_location_id'] = $this->getObject()->UllEntity->ull_location_id;
     
     $this->setDefaults($defaults);
   }  
