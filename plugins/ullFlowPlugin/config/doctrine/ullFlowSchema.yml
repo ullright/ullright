@@ -14,6 +14,7 @@ UllFlowApp:
       type: string(64)
     doc_label:
       type: string(64)
+    # comma separated list of db_columns
     list_columns:
       type: string(255)
     is_public:

@@ -857,6 +857,16 @@
 <target>Nein</target>
 </trans-unit>
 
+<trans-unit id="21012">
+<source>Change owner</source>
+<target>Besitzer ändern</target>
+</trans-unit>
+
+<trans-unit id="21013">
+<source>New owner</source>
+<target>Neuer Besitzer</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
