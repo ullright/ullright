@@ -6,22 +6,27 @@
 class ullColumnConfiguration
 {
   protected
-    $columnName,
+    //from ull_column_config table
+    $columnName, //db column name
     $label, 
+    $help, //'description' in ull_column_config table
     $metaWidgetClassName    = 'ullMetaWidgetString',
-    $access, 
     $isInList               = true, 
-    $validatorOptions       = array('required' => false),  
-    $widgetOptions          = array(), 
-    $widgetAttributes       = array(),  
+    $widgetOptions          = array(), //'options' in ull_column_config table
+    $defaultValue,
+    
+    //from model
     $unique                 = false, 
     $translated, 
     $relation,
-    $defaultValue, 
+    
+    //set by generators
     $allowCreate,
-    $customAttributes       = array(),
-    $help,
-    $options                = array()
+    $customAttributes       = array(), //parameter holder, e.g. search form entry
+    $access,
+    $validatorOptions       = array('required' => false),   
+    $widgetAttributes       = array(),
+    $options                = array() //meta widget options
   ;
 
   /**
