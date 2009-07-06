@@ -101,12 +101,21 @@ $b
   ->responseContains('Save and show')
 ;
 
+//delete testuser's Wiki-Admins membership
+Doctrine::getTable('UllEntityGroup')->findOneByUllGroupId(
+  Doctrine::getTable('UllGroup')->findOneByDisplayName('WikiAdmins')->id
+)->delete();
+
 $b
   ->diag('show: check access to a restricted document')
   ->get('ullUser/logout')
   ->get('ullWiki/show/docid/2')
+  ->loginAsTestUser()
   ->isRedirected()
   ->followRedirect()
+  ->responseContains('No Access')
 ;
+
+
 
 
