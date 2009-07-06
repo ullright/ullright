@@ -100,3 +100,13 @@ $b
   ->isRequestParameter('docid', '1')
   ->responseContains('Save and show')
 ;
+
+$b
+  ->diag('show: check access to a restricted document')
+  ->get('ullUser/logout')
+  ->get('ullWiki/show/docid/2')
+  ->isRedirected()
+  ->followRedirect()
+;
+
+

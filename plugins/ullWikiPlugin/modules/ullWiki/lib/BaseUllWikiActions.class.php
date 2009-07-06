@@ -73,6 +73,9 @@ class BaseUllWikiActions extends ullsfActions
   public function executeShow() 
   {
     $this->getDocFromRequest();
+    
+    $accessType = $this->doc->checkAccess();
+    $this->redirectToNoAccessUnless($accessType);    
 
     // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
     if ($this->return_var = $this->getRequestParameter('return_var')) 
