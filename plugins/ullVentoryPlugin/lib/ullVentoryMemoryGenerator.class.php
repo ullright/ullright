@@ -4,7 +4,8 @@ class ullVentoryMemoryGenerator extends ullTableToolGenerator
 {
   protected
     $columnsNotShownInList = array(
-    )
+    ),
+    $parentObject
   ;
     
   /**
@@ -12,9 +13,10 @@ class ullVentoryMemoryGenerator extends ullTableToolGenerator
    *
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct($defaultAccess = 'r')
+  public function __construct($defaultAccess = 'r', $parentObject)
   {
     $this->modelName = 'UllVentoryItemMemory';
+    $this->parentObject = $parentObject;
     
     parent::__construct($this->modelName, $defaultAccess);
   }  
@@ -39,19 +41,32 @@ class ullVentoryMemoryGenerator extends ullTableToolGenerator
       $this->columnsConfig['updated_at']      
     );
     
-    $this->columnsConfig['transfer_at']->setMetaWidgetClassName('ullMetaWidgetDate');
-    $this->columnsConfig['transfer_at']->setLabel(__('Date', null, 'common'));
-    $this->columnsConfig['transfer_at']->setHelp(__('Set the actual delivery date in case of a delivery'));
-//    $this->columnsConfig['target_ull_entity_id']->setMetaWidgetClassName('ullMetaWidgetUllEntity');
-    $this->columnsConfig['target_ull_entity_id']->setWidgetOption('model', 'UllVentoryOriginDummyUser');
-    $this->columnsConfig['target_ull_entity_id']->setLabel(__('Origin', null, 'common'));
-    
+    $this->columnsConfig['target_ull_entity_id']->setMetaWidgetClassName('ullMetaWidgetUllEntity');    
     
     $this->columnsConfig['comment']->setMetaWidgetClassName('ullMetaWidgetString');
     //$this->columnsConfig['comment']->setWidgetAttribute('size', 24);    
-
-    $order = array('target_ull_entity_id', 'transfer_at', 'comment');
     
+    
+    if (!$this->parentObject->exists())
+      {
+      $this->columnsConfig['target_ull_entity_id']->setLabel(__('Origin', null, 'common'));
+      $this->columnsConfig['target_ull_entity_id']->setOption('entity_classes', array('UllVentoryOriginDummyUser'));
+      
+      $this->columnsConfig['transfer_at']->setMetaWidgetClassName('ullMetaWidgetDate');
+      $this->columnsConfig['transfer_at']->setLabel(__('Date', null, 'common'));
+      $this->columnsConfig['transfer_at']->setHelp(__('Set the actual delivery date in case of a delivery'));      
+      
+      $order = array('target_ull_entity_id', 'transfer_at', 'comment');      
+    }
+    else
+    {
+      unset($this->columnsConfig['transfer_at']);
+      $this->columnsConfig['target_ull_entity_id']->setLabel(__('Owner', null, 'common'));
+      $this->columnsConfig['target_ull_entity_id']->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'));
+      
+      $order = array('target_ull_entity_id', 'comment');
+    }
+
     $this->columnsConfig = ull_order_array_by_array($this->columnsConfig, $order);    
     
 //    var_dump($this->columnsConfig);die;

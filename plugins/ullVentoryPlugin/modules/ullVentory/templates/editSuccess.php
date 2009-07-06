@@ -99,13 +99,17 @@
 </table>
 
 
-<?php if (!$generator->getRow()->exists()): ?>
+
 <div class="ull_memory_background" id="ull_ventory_memory">
 <table class="edit_table ull_memory_background">
 <thead>
   <tr>
     <th colspan="3">
-      <?php echo __('Origin', null, 'common')?>
+      <?php if ($doc->exists()): ?>
+        <?php echo __('Change owner', null, 'common')?>
+      <?php else: ?>
+        <?php echo __('Origin', null, 'common')?>
+      <?php endif ?>        
     </th>
   </tr>
 </thead>
@@ -120,7 +124,7 @@
 </tbody>
 </table>
 </div>
-<?php endif ?>
+
 
 
 

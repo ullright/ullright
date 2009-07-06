@@ -13,19 +13,20 @@ class ullVentoryForm extends ullGeneratorForm
    */
   public function updateObject($values = null)
   {
-    parent::updateObject();
-    
     $values = $this->getValues();
+    
+    parent::updateObject();
     
     $this->updateManufacturerAndModel($values);
     
     $this->updateAttributes($values);
     
-    $this->updateMemory($values);
-    
     // why is this necessary?
-    $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['ull_entity_id']);
-    
+    $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['ull_entity_id']);    
+
+    $this->updateMemory($values);
+
+//    var_dump($this->object->exists());
 //    var_dump($this->object->toArray());
 //    var_dump($values);
 //    die('buha');
@@ -98,7 +99,7 @@ class ullVentoryForm extends ullGeneratorForm
       {
 //        var_dump($attribute);
         //create
-        if (!($this->object->exists()))
+        if (!$this->object->exists())
         {
           $this->object->UllVentoryItemAttributeValue[$i]['ull_ventory_item_type_attribute_id'] = $attribute['ull_ventory_item_type_attribute_id'];
           $this->object->UllVentoryItemAttributeValue[$i]['value'] = $attribute['value'];
@@ -121,14 +122,38 @@ class ullVentoryForm extends ullGeneratorForm
     if (isset($values['memory']))
     {
 //      var_dump($values['memory']);die;
-      $this->object->UllVentoryItemMemory[0]['transfer_at']           = $values['memory']['transfer_at'];
-      $this->object->UllVentoryItemMemory[0]['source_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
-      $this->object->UllVentoryItemMemory[0]['target_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
-      $this->object->UllVentoryItemMemory[0]['comment']               = $values['memory']['comment'];
+
+      //create
+      if (!$this->object->exists())
+      {
+        $this->object->UllVentoryItemMemory[0]['source_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
+        $this->object->UllVentoryItemMemory[0]['target_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
+        $this->object->UllVentoryItemMemory[0]['transfer_at']           = $values['memory']['transfer_at'];
+        $this->object->UllVentoryItemMemory[0]['comment']               = $values['memory']['comment'];        
+
+        $this->object->UllVentoryItemMemory[1]['source_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
+        $this->object->UllVentoryItemMemory[1]['target_ull_entity_id']  = $values['ull_entity_id'];
+        $this->object->UllVentoryItemMemory[1]['transfer_at']           = date('Y-m-d');
+
+      }
+      //edit
+      else
+      {
+        //create memory only if we have a new memory comment, or the owner changed
+        if ($values['memory']['comment'] || $values['memory']['target_ull_entity_id'] != $values['ull_entity_id'])
+        {
+          $num = count($this->object->UllVentoryItemMemory);
+          
+          $this->object->UllVentoryItemMemory[$num]['source_ull_entity_id']  = $values['ull_entity_id'];
+          $this->object->UllVentoryItemMemory[$num]['target_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
+          $this->object->UllVentoryItemMemory[$num]['transfer_at']           = date('Y-m-d');
+          $this->object->UllVentoryItemMemory[$num]['comment']               = $values['memory']['comment'];
+          
+          $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['memory']['target_ull_entity_id']);
+        }          
+      }
       
-      $this->object->UllVentoryItemMemory[1]['transfer_at']           = date('Y-m-d');
-      $this->object->UllVentoryItemMemory[1]['source_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
-      $this->object->UllVentoryItemMemory[1]['target_ull_entity_id']  = $values['ull_entity_id'];
+      
     }
   }
 

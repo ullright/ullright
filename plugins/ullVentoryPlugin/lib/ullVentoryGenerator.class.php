@@ -205,15 +205,6 @@ class ullVentoryGenerator extends ullTableToolGenerator
           
           $listForm->embedForm(count($listForm), $attributeGenerator->getForm());          
         }
-        
-        $memoryGenerator = new ullVentoryMemoryGenerator('w');
-        $memory = new UllVentoryItemMemory;
-        // set defaults
-        $memory->transfer_at = date('Y-m-d');
-        $memory->target_ull_entity_id = Doctrine::getTable('UllVentoryOriginDummyUser')->findOneByUsername('delivered')->id;
-        $memoryGenerator->buildForm($memory);
-        $this->getForm()->embedForm('memory', $memoryGenerator->getForm());
-        
       }
       // edit
       else
@@ -227,6 +218,21 @@ class ullVentoryGenerator extends ullTableToolGenerator
       }
       
       $this->getForm()->embedForm('attributes', $listForm);
+      
+      $memoryGenerator = new ullVentoryMemoryGenerator('w', $this->getRow());
+      // set defaults
+      $memory = new UllVentoryItemMemory;
+      if (!$this->getRow()->exists())
+      {
+        $memory->transfer_at = date('Y-m-d');
+        $memory->target_ull_entity_id = Doctrine::getTable('UllVentoryOriginDummyUser')->findOneByUsername('delivered')->id;
+      }
+      else
+      {
+        $memory->target_ull_entity_id = $this->getRow()->UllEntity->id;
+      }
+      $memoryGenerator->buildForm($memory);
+      $this->getForm()->embedForm('memory', $memoryGenerator->getForm());      
     }
     
 //    $attributeGenerator = new ullVentoryAttributeGenerator('w');

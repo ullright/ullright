@@ -8,14 +8,15 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-$dgsList = $b->getDgsUllVentoryList();
-$dgsEdit = $b->getDgsUllVentoryEdit();
-$dgsEditAttributes = $b->getDgsUllVentoryEditAttributes();
-$dgsCreateMemory = $b->getDgsUllVentoryCreateMemory();
-$dgsEditMemory = $b->getDgsUllVentoryEditMemory();
+$dgsList            = $b->getDgsUllVentoryList();
+$dgsEdit            = $b->getDgsUllVentoryEdit();
+$dgsEditAttributes  = $b->getDgsUllVentoryEditAttributes();
+$dgsOrigin          = $b->getDgsUllVentoryOrigin();
+$dgsOwner           = $b->getDgsUllVentoryOwner();
+$dgsMemory          = $b->getDgsUllVentoryMemory();
 
 $b
-  ->info('Inventory create - type selection -> leave empty to provoce validation error')
+  ->info('Inventory create - type selection -> leave empty to provoke validation error')
   ->get('ullVentory/create')
   ->loginAsAdmin()
   ->isStatusCode(200)
@@ -60,7 +61,7 @@ $b
   // attributes
   ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 2)
   // memory
-  ->checkResponseElement($dgsCreateMemory->getFullRowSelector(), 3)
+  ->checkResponseElement($dgsOwner->getFullRowSelector(), 3)
   ->click('Save and close')
 ;
 
@@ -118,6 +119,8 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1703')
+  ->checkResponseElement('div.edit_container > h3', 'Item of Stored')
+  ->checkResponseElement('#fields_ull_ventory_item_type_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option + option', 'Notebook')
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option[selected="selected"]', 'Printer')
@@ -135,9 +138,11 @@ $b
   ->checkResponseElement('input[id="fields_attributes_0_comment"][value="Old and slow"]', true)
   ->checkResponseElement('input[id="fields_attributes_1_value"][value="Laser"]', true)
   ->checkResponseElement('input[id="fields_attributes_1_comment"][value="Single pass color"]', true)
+  // owner
+  ->checkResponseElement($dgsOwner->getFullRowSelector(), 2)
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Stored')  
   //memory
-  ->checkResponseElement($dgsCreateMemory->getFullRowSelector(), false)
-  ->checkResponseElement($dgsEditMemory->getFullRowSelector(), 2)
+  ->checkResponseElement($dgsMemory->getFullRowSelector(), 2)
 ;
 
 $b
@@ -156,6 +161,59 @@ $b
   ->isRequestParameter('inventory_number', '1704')
   ->checkResponseElement($dgsEdit->get('inventory_number', 'value') . ' > input[value="1704"]', true)
   ->checkResponseElement('input[id="fields_id"][value="3"]', true)  
+;
+
+$b
+  ->info('Edit: change owner')
+  ->setField('fields[memory][target_ull_entity_id]', Doctrine::getTable('UllUser')->findOneByUsername('admin')->id)
+  ->setField('fields[memory][comment]', 'The evil master admin want\'s everything!')
+  ->click('Save only')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('inventory_number', '1704')
+  ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
+  // owner
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
+  //memory
+  ->checkResponseElement($dgsMemory->getFullRowSelector(), 3)
+;
+
+$b
+  ->info('Edit: owner: don\'t change anything -> no memory should be created')
+  ->setField('fields[comment]', 'Paper-jam again!')
+  ->click('Save only')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('inventory_number', '1704')
+  ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
+  ->checkResponseElement('#fields_comment', 'Paper-jam again!')
+  // owner
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
+  //memory
+  ->checkResponseElement($dgsMemory->getFullRowSelector(), 3)
+;
+
+$b
+  ->info('Edit: owner: set only comment but no new owner')
+  ->setField('fields[memory][comment]', 'Replaced paper tray')
+  ->click('Save only')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('inventory_number', '1704')
+  ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
+  // owner
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
+  //memory
+  ->checkResponseElement($dgsMemory->getFullRowSelector(), 4)
 ;
 
 $b

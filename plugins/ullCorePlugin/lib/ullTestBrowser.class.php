@@ -310,7 +310,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     return $s;
   }
 
-  public function getDgsUllVentoryCreateMemory()
+  public function getDgsUllVentoryOrigin()
   {
     $s = new ullDomGridSelector('div#ull_ventory_memory > table > tbody', 'tr', 'td', 
       array(
@@ -326,11 +326,28 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     );
     
     return $s;
-  }  
+  }
 
-  public function getDgsUllVentoryEditMemory()
+  public function getDgsUllVentoryOwner()
   {
-    $s = new ullDomGridSelector('#ull_memory ul > li > ul', 'li');
+    $s = new ullDomGridSelector('div#ull_ventory_memory > table > tbody', 'tr', 'td', 
+      array(
+        'owner',
+        'comment'
+      ),      
+      array(
+        'label',
+        'value',
+        'error',
+      )
+    );
+    
+    return $s;
+  }   
+
+  public function getDgsUllVentoryMemory()
+  {
+    $s = new ullDomGridSelector('#ull_memory > ul > li > ul', 'li');
     
     return $s;
   }    
