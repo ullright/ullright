@@ -95,8 +95,6 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeCreate() 
   {
-    $this->checkAccess('LoggedIn');
-    
     $this->forward('ullWiki', 'edit');
   }
 
@@ -106,14 +104,19 @@ class BaseUllWikiActions extends ullsfActions
    */
   public function executeEdit($request) 
   {
+    $this->checkAccess('LoggedIn');
+    
     $this->getDocFromRequestOrCreate();
     
-    $accessType = $this->doc->checkAccess();
-    $this->redirectToNoAccessUnless($accessType);
-    
-    if ($accessType == 'r')
+    if ($this->doc->exists())
     {
-      $this->redirect('ullWiki/show?docid=' . $this->doc->id . '&no_write_access=true');
+      $accessType = $this->doc->checkAccess();
+      $this->redirectToNoAccessUnless($accessType);
+    
+      if ($accessType == 'r')
+      {
+        $this->redirect('ullWiki/show?docid=' . $this->doc->id . '&no_write_access=true');
+      }
     }
     
     $this->generator = new ullWikiGenerator('w');

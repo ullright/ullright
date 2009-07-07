@@ -76,20 +76,30 @@ UllWikiAccessLevelAccess:
     UllWikiAccessLevel: ull_wiki_access_level_public_readable
     namespace:          ullWiki
   ull_wiki_access_level_access_2:
+    UllGroup:           ull_group_logged_in_users
+    UllPrivilege:       ull_privilege_write
+    UllWikiAccessLevel: ull_wiki_access_level_public_readable
+    namespace:          ullWiki    
+  ull_wiki_access_level_access_3:
     UllGroup:           wiki_admin_group
     UllPrivilege:       ull_privilege_read
     UllWikiAccessLevel: ull_wiki_access_level_wiki_admins
     namespace:          ullWiki
-  ull_wiki_access_level_access_3:
+  ull_wiki_access_level_access_4:
     UllGroup:           wiki_admin_group
     UllPrivilege:       ull_privilege_write
     UllWikiAccessLevel: ull_wiki_access_level_wiki_admins
     namespace:          test
-  ull_wiki_access_level_access_4:
+  ull_wiki_access_level_access_5:
     UllGroup:           ull_group_logged_in_users
     UllPrivilege:       ull_privilege_read
     UllWikiAccessLevel: ull_wiki_access_level_logged_in_readable
-    namespace:          test    
+    namespace:          test
+  ull_wiki_access_level_access_6:
+    UllGroup:           ull_group_logged_in_users
+    UllPrivilege:       ull_privilege_write
+    UllWikiAccessLevel: ull_wiki_access_level_logged_in_readable
+    namespace:          test
     
 Tag:
   ull_wiki_tag1:

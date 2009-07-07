@@ -26,12 +26,12 @@ abstract class PluginUllWiki extends BaseUllWiki
       {
         return 'w';
       }  
-      
-      if ($this->hasReadAccess())
-      {
-        return 'r';
-      }
     }
+    
+    if ($this->hasReadAccess())
+    {
+      return 'r';
+    }    
   }    
   
   
