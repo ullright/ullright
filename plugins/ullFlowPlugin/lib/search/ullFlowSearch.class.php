@@ -7,7 +7,8 @@
 class ullFlowSearch extends ullSearch
 {
   protected $ullFlowApp;
-
+  protected $ullFlowAppId;
+  
   /**
    * Initializes a new ullFlowSearch.
    *
@@ -20,9 +21,35 @@ class ullFlowSearch extends ullSearch
   public function __construct($ullFlowApp = null)
   {
     $this->ullFlowApp = $ullFlowApp;
+    $this->ullFlowAppId = $this->ullFlowApp->id;
     parent::__construct();
   }
 
+  /**
+   * This function is called before serialization and ensures that
+   * the ullFlowApp instance is not stored, only the id.
+   * 
+   * @return array with the fields to serialize
+   */
+  public function __sleep()
+  {
+    return array_merge(array('ullFlowAppId'), parent::__sleep());
+  }
+  
+  /*
+   * This function is called after deserialization and reloades
+   * the ullFlowApp instance from the stored id.
+   */
+  public function __wakeup()
+  {
+    $this->ullFlowApp = Doctrine::getTable('UllFlowApp')->findById($this->ullFlowAppId);
+    //if the app is not retrievable, remove any search criteria for safety
+    if ($this->ullFlowApp == null)
+    {
+      $this->criterionGroups = array();
+    }
+  }
+  
   /**
    * This function overrides the base implementation and provides support
    * for virtual columns.

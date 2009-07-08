@@ -176,8 +176,8 @@ class ullSearch
       $q->addWhere($queryString, $queryParameter);
     }
     
-//    printQuery($q->getSql());
-//    var_dump($q->getParams());
+    //printQuery($q->getSql());
+    //var_dump($q->getParams());
     
     return $q;
   }
@@ -210,5 +210,17 @@ class ullSearch
   protected function modifyAlias(Doctrine_Query $q, $alias, ullSearchCriterion $criterion)
   {
     return $alias;
+  }
+  
+  /**
+   * This function is called before serialization.
+   * It's there because ullFlowSearch needs to call it.
+   * (Why is the default magic __sleep function not
+   * callable from child classes?)
+   * 
+   * @return array with the fields to serialize
+   */
+  public function __sleep() {
+    return array('criterionGroups');
   }
 }
