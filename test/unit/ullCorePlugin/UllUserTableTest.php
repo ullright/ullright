@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(13, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(14, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -84,3 +84,13 @@ $t->diag('hasPermission()');
       , true
       , 'returns true for any permission for MasterAdmin'
       );   
+      
+$t->diag('findChoices()');
+  $t->is(
+      UllUserTable::findChoices(),
+      array(
+        1 => array('name' => 'Admin Master'),
+        2 => array('name' => 'User Test'),
+      ),
+      'returns the correct choices for UllUser'
+  );

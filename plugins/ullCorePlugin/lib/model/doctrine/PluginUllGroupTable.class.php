@@ -4,5 +4,30 @@
  */
 class PluginUllGroupTable extends UllEntityTable
 {
+  
+  /**
+   * Return choices for UllMetaWidgetEntity
+   * 
+   * @return array
+   */  
+  public static function findChoices()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('u.id, u.display_name as name')
+      ->from('UllGroup u INDEXBY u.id')
+      ->orderBy('name')
+    ;
+    
+    $result = $q->execute(null, Doctrine::HYDRATE_ARRAY);
+    
+    foreach($result as $key => $value)
+    {
+      unset($result[$key]['id']);
+      $result[$key]['attributes']['class'] = 'color_light_bg_ull_core';  
+    }
+    
+    return $result;
+  } 
 
 }
