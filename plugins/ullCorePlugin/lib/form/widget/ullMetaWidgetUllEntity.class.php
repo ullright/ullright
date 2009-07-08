@@ -7,6 +7,7 @@
  * available options:
  * 'add_empty'  => boolean, true to include an empty entry
  * 'entity_classes'  => array, list of UllEntity classes to include in the option list
+ * 'show_search_box' => boolean, show js search box to filter the select box entries (default = yes)
  */
 class ullMetaWidgetUllEntity extends ullMetaWidget
 {
@@ -20,9 +21,9 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
   protected function configureWriteMode()
   {
     // set default entity class
-    if (!is_array(($this->columnConfig->getOption('entity_classes'))))
+    if (!($this->columnConfig->getOption('entity_classes')))
     {
-      $this->columnConfig->setOption('entity_classes', array('UllUser'));
+      $this->columnConfig->setOption('entity_classes', array('UllUser', 'UllGroup'));
     }
     
     if ($this->columnConfig->getWidgetOption('add_empty'))
@@ -51,6 +52,15 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     }
     
 //    var_dump($choices);
+
+    if ($this->columnConfig->getOption('show_search_box'))
+    {
+      $this->columnConfig->setWidgetOption('show_search_box', true);
+    }
+    else
+    {
+      $this->columnConfig->setWidgetOption('show_search_box', false);
+    }
     
     $this->addWidget(new sfWidgetFormSelectWithOptionAttributes(
         array_merge(array('choices' => $choices), $this->columnConfig->getWidgetOptions()),
