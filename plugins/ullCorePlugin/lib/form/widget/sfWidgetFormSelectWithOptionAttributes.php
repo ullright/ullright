@@ -116,12 +116,22 @@ function filtery_" . $id . "(pattern, list){
       {
         $attributes = array('value' => self::escapeOnce($key));
       }
+      
       if (isset($value_set[strval($key)]))
       {
         $attributes['selected'] = 'selected';
       }
       
-      $options[] = $this->renderContentTag('option', self::escapeOnce($option['name']), $attributes);
+      if (isset($option['name']))
+      {
+        $name = $option['name'];
+      }
+      else
+      {
+        $name = '';
+      }
+      
+      $options[] = $this->renderContentTag('option', self::escapeOnce($name), $attributes);
     }
 
     $this->attributes = $mainAttributes;
