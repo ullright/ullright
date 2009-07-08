@@ -97,8 +97,27 @@ class ullColumnConfiguration
     {
       if (isset($columnRelations[$this->columnName]))
       {
-        $this->metaWidgetClassName = 'ullMetaWidgetForeignKey';
         $this->relation = $columnRelations[$this->columnName];
+        
+        switch($this->relation['model'])
+        {
+          case 'UllUser': 
+            $this->metaWidgetClassName = 'ullMetaWidgetUllEntity';
+            $this->setOption('entity_classes', array('UllUser'));
+            break;
+          
+          case 'UllGroup': 
+            $this->metaWidgetClassName = 'ullMetaWidgetUllEntity';
+            $this->setOption('entity_classes', array('UllGroup'));
+            break;
+          
+          case 'UllEntity': 
+            $this->metaWidgetClassName = 'ullMetaWidgetUllEntity';
+            break;
+            
+          default:
+            $this->metaWidgetClassName = 'ullMetaWidgetForeignKey';
+        }
       }
       else {
         if ($columnRelationsForeign != null)
