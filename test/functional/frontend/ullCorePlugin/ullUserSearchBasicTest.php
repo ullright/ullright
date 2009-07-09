@@ -21,7 +21,7 @@ $newUser->username = 'head_programmer';
 $newUser->save();
 
 $dgsUser = $browser->getDgsUllUserList();
-/*
+
 //login and open advanced search
 $browser->diag('Open advanced search, with login');
 $browser->navigateToSearch(true);
@@ -214,9 +214,9 @@ $browser
     ->checkElement($dgsUser->getFullRowSelector(), 2)
   ->end()
 ;
-*/
+
 //reset search
-$browser->navigateToSearch(true);
+$browser->navigateToSearch();
 $browser->resetSearch();
 
 //simple OR test with a NOT

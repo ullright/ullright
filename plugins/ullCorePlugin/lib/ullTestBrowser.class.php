@@ -89,7 +89,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     ;
   }
   
-  public function resetSearch()
+  public function resetSearch($module = 'ullUser')
   {
     $this
       ->diag('Reset search');
@@ -111,7 +111,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 		
 		$this
 		  ->with('request')->begin()
-		    ->isParameter('module', 'ullUser')
+		    ->isParameter('module', $module)
 		    ->isParameter('action', 'search')
 		  ->end()
 		  ->with('response')->begin()

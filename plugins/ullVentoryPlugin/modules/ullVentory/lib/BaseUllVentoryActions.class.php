@@ -270,6 +270,58 @@ class BaseUllVentoryActions extends ullsfActions
     return $this->renderText(json_encode($models));
   }  
   
+  //          _______  _______  _______  _______  _______
+  //        (  ____ \(  ____ \(  ___  )(  ____ )(  ____ \|\     /|
+  //        | (    \/| (    \/| (   ) || (    )|| (    \/| )   ( |
+  //        | (_____ | (__    | (___) || (____)|| |      | (___) |
+  //        (_____  )|  __)   |  ___  ||     __)| |      |  ___  |
+  //              ) || (      | (   ) || (\ (   | |      | (   ) |
+  //        /\____) || (____/\| )   ( || ) \ \__| (____/\| )   ( |
+  //        \_______)(_______/|/     \||/   \__/(_______/|/     \|
+  //
+  
+  /**
+   * This function builds a search form utilizing the ullSearch
+   * framework, see the individual classes for reference.
+   * If it handles a post request, it builds the actual search object
+   * and forwards to the list action.
+   * 
+   * @param $request The current request
+   */
+  public function executeSearch(sfRequest $request)
+  {
+    $this->moduleName = $request->getParameter('module');
+    $this->modelName = 'UllVentoryItem';
+    $this->getUriMemory()->setUri('search');
+    $this->breadcrumbForSearch();
+    $searchConfig = ullSearchConfig::loadSearchConfig('ullVentoryItem');
+
+    $doRebind = ullSearchActionHelper::handleAddOrRemoveCriterionButtons($request, $this->getUser());
+
+    $searchGenerator = new ullVentorySearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName);
+    $this->addCriteriaForm = new ullSearchAddCriteriaForm($searchConfig, $searchGenerator);
+    $searchFormEntries = ullSearchActionHelper::retrieveSearchFormEntries($this->moduleName, $searchConfig, $this->getUser());
+    $searchGenerator->reduce($searchFormEntries);
+    $this->searchForm = new ullSearchForm($searchGenerator);
+
+    $isSubmit = ($request->isMethod('post') && $this->getRequestParameter('searchSubmit'));
+    if (isset($doRebind) || $isSubmit)
+    {
+      $this->searchForm->getGenerator()->getForm()->bind($request->getParameter('fields'));
+
+      if ($isSubmit && $this->searchForm->getGenerator()->getForm()->isValid())
+      {
+        $search = new ullVentorySearch();
+        ullSearchActionHelper::addTransformedCriteriaToSearch($search, $searchFormEntries,
+          $this->searchForm->getGenerator()->getForm()->getValues());
+         
+        $this->getUser()->setAttribute('ventoryitem_ullSearch', $search);
+        $this->redirect('ullVentory/list?query=custom');
+      }
+    }
+  }
+  
+  
   /**
    * Create breadcrumbs for index action
    * 
@@ -335,6 +387,16 @@ class BaseUllVentoryActions extends ullsfActions
   }
 
   /**
+   * Handles breadcrumb for search
+   */
+  protected function breadcrumbForSearch()
+  {
+    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $this->breadcrumbTree->addDefaultListEntry();
+    $this->breadcrumbTree->add(__('Advanced search'), 'ullVentory/search');
+  }
+  
+  /**
    * Parses filter request params and gets a collection of UllWiki docs
    * 
    */
@@ -343,6 +405,8 @@ class BaseUllVentoryActions extends ullsfActions
 
     $this->filter_form = new ullVentoryFilterForm;
     $this->filter_form->bind($this->getRequestParameter('filter'));
+    
+    $this->ull_filter = new ullFilter();
     
     $q = new Doctrine_Query();
     $q->from('UllVentoryItem x');
@@ -369,6 +433,25 @@ class BaseUllVentoryActions extends ullsfActions
     {
       $this->entity = null;
     }    
+    
+    if ($query = $this->getRequestParameter('query'))
+    {
+      switch($query)
+      {
+        case('custom'):
+          //add ullSearch to query
+          $ullSearch = $this->getUser()->getAttribute('ventoryitem_ullSearch', null);
+          if ($ullSearch != null)
+          {
+            $ullSearch->modifyQuery($q, 'x');
+             
+            $this->ull_filter->add(
+              'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
+            );
+          }
+          break;
+      }
+    }
     
     $this->order = $this->getRequestParameter('order', 'updated_at');
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');

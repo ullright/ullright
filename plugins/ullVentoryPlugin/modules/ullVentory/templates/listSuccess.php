@@ -10,7 +10,8 @@
   <br /><br />
 <?php endif; ?>
 
-
+<?php echo $ull_filter->getHtml(ESC_RAW) ?>
+<?php echo ull_form_tag(array('page' => '', 'filter' => array('search' => ''))) ?>
 
 <?php
   echo ull_form_tag('ullVentory/list', array(

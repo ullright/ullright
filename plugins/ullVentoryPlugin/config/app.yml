@@ -1,0 +1,13 @@
+# default values
+
+test:
+  ullVentoryItem:
+    # This line makes sure that the test suits use
+    # the predefined search configuration class 
+    search_class: ullVentoryItemSearchConfig
+
+all:
+  ullVentoryItem:
+    # This line can be overridden by the user's app.yml
+    # to use a specific search configuration class
+    search_class: ullVentoryItemSearchConfig

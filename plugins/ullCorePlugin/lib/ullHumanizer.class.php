@@ -15,7 +15,9 @@ class ullHumanizer
     'UllDepartment' => 'Department',
     'UllEmploymentType' => 'Employment type',
     'UllJobTitle' => 'Job title',
-    'UllEntityGroup' => 'Group membership'
+    'UllEntityGroup' => 'Group membership',
+    'UllEntity' => 'Entity',
+    'UllVentoryItemModel' => 'Item model',
     );
     
   private static $columnNames = array(
