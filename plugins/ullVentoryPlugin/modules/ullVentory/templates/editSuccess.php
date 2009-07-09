@@ -81,7 +81,14 @@
   <?php $values = $attribute->getValue(); //var_dump($values);die;  ?>
       <tr>
         <td class="label_column">
-          <label for="<?php echo $attribute->offsetGet('value')->renderId() ?>"><?php echo UllVentoryItemAttributeTable::findNameByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']) ?></label>          
+          <label for="<?php echo $attribute->offsetGet('value')->renderId() ?>">
+          <?php
+            echo UllVentoryItemAttributeTable::findNameByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']);
+            echo (Doctrine::getTable('UllVentoryItemTypeAttribute')
+              ->findOneById($values['ull_ventory_item_type_attribute_id'])
+              ->is_mandatory) ? ' *' : '';
+          ?>
+          </label>          
         </td>
         <td>
           <?php echo $attribute->offsetGet('value')->render() ?>

@@ -113,6 +113,7 @@ UllVentoryItemTypeAttribute:
     id:                         500        
     UllVentoryItemType:         notebook
     UllVentoryItemAttribute:    display_size
+    is_mandatory:               true
     namespace:                  test
   notebook_wired_network_speed:
     id:                         501        
@@ -133,6 +134,7 @@ UllVentoryItemTypeAttribute:
     id:                         504  
     UllVentoryItemType:         printer
     UllVentoryItemAttribute:    printer_type
+    is_mandatory:               true
     namespace:                  test    
     
 #n:m Table saves a attribute value for an item
@@ -211,7 +213,7 @@ UllVentoryStatusDummyUser:
         display_name: Stored
       de:
         display_name: Lagernd
-  entsorgt:
+  disposed:
     username: disposed
     Translation:
       en:

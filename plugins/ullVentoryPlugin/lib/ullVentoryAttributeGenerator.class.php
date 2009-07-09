@@ -57,8 +57,10 @@ class ullVentoryAttributeGenerator extends ullTableToolGenerator
       $this->columnsConfig['id']->setAccess('w');
       $this->columnsConfig['id']->setWidgetOption('is_hidden', true);
       $this->columnsConfig['ull_ventory_item_type_attribute_id']->setWidgetOption('is_hidden', true);
-      
-      $this->columnsConfig['value']->setMetaWidgetClassName($this->getAttributeValue()->UllVentoryItemTypeAttribute->UllVentoryItemAttribute->UllColumnType->class);
+
+      $typeAttribute = $this->getAttributeValue()->UllVentoryItemTypeAttribute;
+      $this->columnsConfig['value']->setValidatorOption('required', $typeAttribute->is_mandatory);
+      $this->columnsConfig['value']->setMetaWidgetClassName($typeAttribute->UllVentoryItemAttribute->UllColumnType->class);
       $this->columnsConfig['comment']->setMetaWidgetClassName('ullMetaWidgetString');
       $this->columnsConfig['comment']->setWidgetAttribute('size', 24);
     }

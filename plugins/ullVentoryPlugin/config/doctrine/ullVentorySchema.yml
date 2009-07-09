@@ -110,6 +110,8 @@ UllVentoryItemTypeAttribute:
     ull_ventory_item_attribute_id:
       type: integer
       notnull: true
+    is_mandatory:
+      type: boolean
   relations:
     UllVentoryItemType:
     UllVentoryItemAttribute:    
