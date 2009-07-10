@@ -29,7 +29,7 @@ class BaseTestTableForm extends BaseFormDoctrine
       'id'                => new sfValidatorDoctrineChoice(array('model' => 'TestTable', 'column' => 'id', 'required' => false)),
       'namespace'         => new sfValidatorString(array('max_length' => 32, 'required' => false)),
       'my_boolean'        => new sfValidatorBoolean(array('required' => false)),
-      'my_email'          => new sfValidatorString(array('max_length' => 64, 'required' => false)),
+      'my_email'          => new sfValidatorString(array('max_length' => 64)),
       'my_select_box'     => new sfValidatorInteger(array('required' => false)),
       'my_useless_column' => new sfValidatorString(array('max_length' => 64, 'required' => false)),
       'ull_user_id'       => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
@@ -38,6 +38,10 @@ class BaseTestTableForm extends BaseFormDoctrine
       'creator_user_id'   => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id'   => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'TestTable', 'column' => array('my_email')))
+    );
 
     $this->widgetSchema->setNameFormat('test_table[%s]');
 

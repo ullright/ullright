@@ -24,9 +24,10 @@ class myTestCase extends sfDoctrineTestCase
     
     $columnConfig = new ullColumnConfiguration('my_email');
     $columnConfig->setWidgetAttributes(array('maxlength' => 64));
-    $columnConfig->setValidatorOptions(array('required' => false, 'max_length' => 64));
+    $columnConfig->setValidatorOptions(array('required' => true, 'max_length' => 64));
     $columnConfig->setLabel('My email');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
+    $columnConfig->setUnique(true);
     $this->columnsConfigMock['my_email'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_select_box');
@@ -114,7 +115,7 @@ class myTestCase extends sfDoctrineTestCase
     $this->is($columnConfig->getAccess(), $columnConfigMock->getAccess(), 'access ok');
     $this->is($columnConfig->getIsInList(), $columnConfigMock->getIsInList(), 'isInList ok');
     $this->is_deeply($columnConfig->getRelation(), $columnConfigMock->getRelation(), 'relation ok');
-    $this->is($columnConfig->getUnique(), $columnConfigMock->getUnique(), 'isInList ok');
+    $this->is($columnConfig->getUnique(), $columnConfigMock->getUnique(), 'unique ok');
     $this->is($columnConfig->getTranslated(), $columnConfigMock->getTranslated(), 'translation ok');
   }
 }

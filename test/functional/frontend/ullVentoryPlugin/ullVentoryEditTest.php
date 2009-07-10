@@ -98,6 +98,7 @@ $b
   
 $b
   ->info('Check created entry in list mode')
+  ->dumpDie()
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)

@@ -7,7 +7,7 @@ class ullColumnConfiguration
 {
   protected
     //from ull_column_config table
-    $columnName, //db column name
+    $columnName, //db column name  WHY?
     $label, 
     $help, //'description' in ull_column_config table
     $metaWidgetClassName    = 'ullMetaWidgetString',
@@ -208,6 +208,18 @@ class ullColumnConfiguration
     $this->isInList = $isInList;
   }
 
+  public function getValidatorOption($optionName)
+  {
+    if (isset($this->validatorOptions[$optionName]))
+    {
+      return $this->validatorOptions[$optionName];
+    }
+    else
+    {
+      return null;
+    }
+  }  
+  
   public function getValidatorOptions()
   {
     return $this->validatorOptions;

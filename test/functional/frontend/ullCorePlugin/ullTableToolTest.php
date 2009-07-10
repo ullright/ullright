@@ -65,6 +65,7 @@ $b
   ->checkResponseElement('select#fields_my_select_box > option + option + option', 'My second option')
   ->setField('fields[my_string_translation_en]', 'Quasimodo')
   ->setField('fields[my_text_translation_en]', "Hello,\nthis is a new line")
+  ->setField('fields[my_email]', 'quasimodo@example.com')
   ->setField('fields[my_boolean]', 'true')
   ->setField('fields[my_select_box]', 2)
   ->setField('fields[ull_user_id]', 1)

@@ -12,7 +12,7 @@ abstract class BaseTestTable extends UllRecord
         $this->hasColumn('my_string', 'string', 64, array('type' => 'string', 'notnull' => true, 'length' => '64'));
         $this->hasColumn('my_text', 'clob', null, array('type' => 'clob'));
         $this->hasColumn('my_boolean', 'boolean', null, array('type' => 'boolean'));
-        $this->hasColumn('my_email', 'string', 64, array('type' => 'string', 'length' => '64'));
+        $this->hasColumn('my_email', 'string', 64, array('type' => 'string', 'notnull' => true, 'unique' => true, 'length' => '64'));
         $this->hasColumn('my_select_box', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('my_useless_column', 'string', 64, array('type' => 'string', 'length' => '64'));
         $this->hasColumn('ull_user_id', 'integer', null, array('type' => 'integer'));

@@ -76,18 +76,25 @@ class ullHumanizer
     /**
      * Returns a human readable string, expects a
      * column name.
+     * 
+     * Looks up a dictionary of common column names.
+     * If not found in the dictionary it uses sfInflector::humanize()
      *
-     * @param $relationLabel the column name humanize
-     * @return string a human readable string
+     * @param string $columnName 
+     * @return string a human readable column name
      */
-    public static function humanizeAndTranslateColumnName($relationLabel)
+    public static function humanizeAndTranslateColumnName($columnName)
     {
-      if (isset(self::$columnNames[$relationLabel]))
+      if (isset(self::$columnNames[$columnName]))
       {
-        return __(self::$columnNames[$relationLabel], null, 'common');
+        $humanizedName = self::$columnNames[$columnName];
       }
-
-      return $relationLabel;
+      else 
+      {
+        $humanizedName = sfInflector::humanize($columnName);
+      }
+      
+      return __($humanizedName, null, 'common');
     }
 
     /**

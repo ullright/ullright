@@ -119,6 +119,8 @@ TestTable:
       type: boolean
     my_email:
       type: string(64)
+      notnull: true
+      unique: true
     my_select_box:
       type: integer
     my_useless_column:
