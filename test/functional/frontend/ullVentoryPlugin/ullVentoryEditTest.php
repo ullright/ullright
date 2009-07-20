@@ -98,7 +98,6 @@ $b
   
 $b
   ->info('Check created entry in list mode')
-  ->dumpDie()
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
@@ -193,7 +192,7 @@ $b
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1704')
   ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
-  ->checkResponseElement('#fields_comment', 'Paper-jam again!')
+  ->checkResponseElement('input[id="fields_comment"][value="Paper-jam again!"]', true)
   // owner
   ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
   //memory

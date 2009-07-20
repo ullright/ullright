@@ -7,9 +7,9 @@ class PluginUllRecordTable extends Doctrine_Table
 
   protected
     /*
-     * Array of ullColumnConfiguration objects
+     * ullColumnConfigCollection
      */ 
-    $columnsConfig = array(),
+    $columnsConfig,
     
     /*
      * Array of columns to be included in the columnsConfigs
@@ -117,9 +117,10 @@ class PluginUllRecordTable extends Doctrine_Table
    */
   protected function createColumnsConfig()
   {
+    $this->columnsConfig = new ullColumnConfigCollection;
+    
     foreach ($this->getColumnConfigColumns() as $columnName => $column)
     {
-      // columnName ? access ?
       $this->columnsConfig[$columnName] = new ullColumnConfiguration;
     }
   }
@@ -349,7 +350,10 @@ class PluginUllRecordTable extends Doctrine_Table
   {
     foreach ($this->columnsBlacklist as $column)
     {
-      unset($this->columnsConfig[$column]);
+      if (isset($this->columnsConfig[$column]))
+      {
+        unset($this->columnsConfig[$column]);
+      }
     }
   }
 
@@ -370,17 +374,11 @@ class PluginUllRecordTable extends Doctrine_Table
   /**
    * do some default sorting of the column order
    *
+   * @deprecated use ullColumnConfigCollection::orderBottom()
    */
   protected function sortColumns()
   {
-    $bottom = array();
-    foreach ($this->columnsOrderBottom as $column)
-    {
-      $bottom[$column] = $this->columnsConfig[$column];
-      unset($this->columnsConfig[$column]);
-    }
-
-    $this->columnsConfig = array_merge($this->columnsConfig, $bottom);
+    $this->columnsConfig->orderBottom($this->columnsOrderBottom);
   }  
   
   
@@ -397,6 +395,16 @@ class PluginUllRecordTable extends Doctrine_Table
     }
     
     return 'r';
+  }
+  
+  /**
+   * Returns the default access  
+   * 
+   * @return string ('r' for read / 'w' for write access)
+   */
+  public function getDefaultAccess()
+  {
+    return $this->getDefaultAccessByAction($this->columnConfigAction);  
   }
   
 

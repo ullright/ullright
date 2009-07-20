@@ -16,4 +16,123 @@ class PluginUllVentoryItemTable extends UllRecordTable
     return new UllVentoryItem;    
   }
 
+  protected function applyCustomColumnConfigSettings()
+  {
+    unset(
+      $this->columnsConfig['creator_user_id'],
+      $this->columnsConfig['created_at']      
+    );    
+    
+    
+    if ($this->columnConfigAction == 'list')
+    {
+      unset(
+        $this->columnsConfig['id']
+      );
+      $this->columnsConfig['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');
+    }
+    else
+    {
+      $this->columnsConfig['id']->setAccess('w');
+      $this->columnsConfig['id']->setWidgetOption('is_hidden', true);
+      $this->columnsConfig['ull_entity_id']->setWidgetOption('is_hidden', true);
+      $this->columnsConfig['ull_entity_id']->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'));
+    }
+    
+    $itemTypeCC = new ullColumnConfiguration();
+    $itemTypeCC->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+    $itemTypeCC->setLabel('Type');
+    $itemTypeCC->setRelation(array(
+      'model'             => 'UllVentoryItemType',
+      'foreign_id'        => 'id'));
+    $itemTypeCC->setWidgetOptions(array('add_empty' => true));
+    $itemTypeCC->setValidatorOptions(array('required' => true));
+    $itemTypeCC->setAccess($this->getDefaultAccess());
+    
+    
+    $this->columnsConfig['ull_ventory_item_type_id'] = $itemTypeCC;
+    
+    $itemManufactorCC = new ullColumnConfiguration();
+    $itemManufactorCC->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+    $itemManufactorCC->setLabel(__('Manufacturer'));
+    $itemManufactorCC->setRelation(array(
+        'model'             => 'UllVentoryItemManufacturer',
+        'foreign_id'        => 'id'));
+    $itemManufactorCC->setWidgetOptions(array('add_empty' => true));
+    $itemManufactorCC->setValidatorOptions(array('required' => true));
+    $itemManufactorCC->setAllowCreate(true);
+    $itemManufactorCC->setAccess($this->getDefaultAccess());
+    
+    $this->columnsConfig['ull_ventory_item_manufacturer_id'] = $itemManufactorCC;
+    
+
+    
+    $this->columnsConfig['ull_ventory_item_manufacturer_id'] = $itemManufactorCC;    
+        
+    $this->columnsConfig['ull_ventory_item_model_id']->setAllowCreate(true);
+    $this->columnsConfig['ull_ventory_item_model_id']->setWidgetOption('add_empty', true);
+    
+    $this->columnsConfig['ull_entity_id']->setLabel(__('Owner', null, 'common'));
+//    $this->columnsConfig['ull_location_id']['label'] = __('Item location');
+    $this->columnsConfig['ull_ventory_item_model_id']->setLabel(__('Model'));
+    
+    if ($this->columnConfigAction == 'edit')
+    {
+      $this->columnsConfig['inventory_number']->setLabel(__('Inventory number'));
+    }
+    else
+    {
+      $this->columnsConfig['inventory_number']->setLabel(__('Inv.No.'));
+    }
+    
+    $this->columnsConfig['serial_number']->setIsInList(false);
+    $this->columnsConfig['serial_number']->setLabel(__('Serial number'));
+    $this->columnsConfig['comment']->setLabel(__('Comment', null, 'common'));
+    
+    if ($this->columnConfigAction == 'list')
+    {
+      $cc = new ullColumnConfiguration();
+      $cc->setMetaWidgetClassName('ullMetaWidgetForeignKey');
+      $cc->setLabel(__('Location'));
+      $cc->setRelation(array(
+          'model'             => 'UllLocation',
+          'foreign_id'        => 'id'));
+      $cc->setAccess($this->getDefaultAccess());
+      
+      $this->columnsConfig['ull_location_id'] = $cc;
+      
+      $this->columnsConfig['inventory_number']->setMetaWidgetClassName('ullMetaWidgetLink');
+    }      
+    
+    if ($this->columnConfigAction == 'list')
+    {    
+      $order = array(
+        'inventory_number',
+        'ull_ventory_item_type_id',
+        'ull_ventory_item_manufacturer_id',
+        'ull_ventory_item_model_id',
+//        'serial_number',
+        'ull_entity_id',
+        'ull_location_id',      
+        'comment'
+      );
+    }
+    else
+    {
+      $order = array(
+        'ull_ventory_item_type_id',
+        'ull_ventory_item_manufacturer_id',
+        'ull_ventory_item_model_id',
+        'inventory_number',
+        'serial_number',
+  //      'ull_entity_id',
+  //      'ull_location_id',
+        'comment'
+      );
+    }
+  
+    $this->columnsConfig->order($order);    
+    
+  }
+  
 }

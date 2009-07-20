@@ -1,13 +1,13 @@
 <?php
 /**
- * This class describes a data column and is primarly
+ * This class describes a data column and is primary
  * used by the generators.
  */
 class ullColumnConfiguration
 {
   protected
     //from ull_column_config table
-    $columnName, //db column name  WHY?
+    $columnName, //db column name  
     $label, 
     $help, //'description' in ull_column_config table
     $metaWidgetClassName    = 'ullMetaWidgetString',

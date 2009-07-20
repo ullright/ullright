@@ -13,7 +13,9 @@ $_test_dir = realpath(dirname(__FILE__).'/..');
 require_once(dirname(__FILE__).'/../../config/ProjectConfiguration.class.php');
 $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'test', isset($debug) ? $debug : true);
 
-include($configuration->getSymfonyLibDir().'/vendor/lime/lime.php');
+// deactivated by KU 2009-07-19 while playing around with sfLimeExtraPlugin
+// is it necessary at all?
+//include($configuration->getSymfonyLibDir().'/vendor/lime/lime.php');
 
 // the following two params are necessary for unit tests which use sfWebController::genUrl()
 //sfConfig::set('sf_relative_url_root', '');

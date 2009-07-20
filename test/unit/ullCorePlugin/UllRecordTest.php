@@ -23,7 +23,7 @@ $t->diag('getColumnConfig() - applyCommonColumnConfigSettings');
   $t->is($cc['my_email']->getAccess(), 'w', 'defaultAccess mode is set to "w" because of default action "edit"');
   $t->is($cc['creator_user_id']->getAccess(), 'r', 'access is set to "r" for defined readOnly columns');
   $t->is(isset($cc['namespace']), false, 'blacklisted columns are completely removed');
-  $t->is(end($cc)->getColumnName(), 'updated_at', 'sorts columns to be in correct sequence');
+  $t->is($cc->getLast()->getColumnName(), 'updated_at', 'sorts columns to be in correct sequence');
 
 $t->diag('getColumnConfig() - applyDoctrineColumnConfigSettings for "id"');
   $t->is($cc['id']->getAccess(), 'r', 'access is set to "r" for defined readOnly columns');

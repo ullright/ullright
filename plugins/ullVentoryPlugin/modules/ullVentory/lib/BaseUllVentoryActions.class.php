@@ -160,6 +160,7 @@ class BaseUllVentoryActions extends ullsfActions
     $this->generator->buildForm($this->doc);
     $this->handleEntityforCreate();    
     
+//    $this->generator->getForm()->debug();
     
     $this->breadcrumbForEdit();
     

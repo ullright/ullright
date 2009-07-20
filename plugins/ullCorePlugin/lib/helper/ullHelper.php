@@ -1168,20 +1168,9 @@ function printQuery($query) {
  * @param $array array to order
  * @param $order array defining the expected order
  * @return array
+ * @deprecated use ullCoreTools::orderArrayByArray
  */
 function ull_order_array_by_array(array $array, array $order)
 {
-  $ordered = array();
-  
-  foreach ($order as $key)
-  {
-    if (!key_exists($key, $array))
-    {
-      throw new InvalidArgumentException('Invalid key given: ' . $key);
-    }
-    $ordered[$key] = $array[$key];
-    unset($array[$key]);     
-  }
-
-  return array_merge($ordered, $array);
+  return ullCoreTools::orderArrayByArray($array, $order);
 }
