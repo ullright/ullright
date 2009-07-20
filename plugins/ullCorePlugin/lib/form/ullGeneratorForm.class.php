@@ -169,5 +169,71 @@ class ullGeneratorForm extends sfFormDoctrine
       }
     }  
   }
+  
+  /**
+   * Outputs human readable information of an sfForm for debbugging purposes 
+   * because var_dump($sfForm) is unreadable.
+   * 
+   * Work in progress.
+   * 
+   * @return none
+   */
+  public function debug()
+  {
+    foreach($this->getFormFieldSchema() as $key => $value)
+    {
+      $widget = $value->getWidget();
+      echo "<h3>$key</h3>\n";
+      echo "<h4>Widget:</h4>\n";
+      echo "<ul>";
+      
+      echo "<li>Label: " . $widget->getLabel() . "</li>";
+      echo "<li>Class: " . get_class($widget) . "</li>";
+      echo "<li>Default: " . $this->getDefault($key) . "</li>";
+      
+      if ($widget instanceof sfWidgetFormDoctrineSelect)
+      {
+        echo "<li>Choices: ";
+        $choices = $widget->getOption('choices');
+        if ($choices instanceof sfCallable)
+        {
+          var_dump($choices->call());
+        }  
+        else
+        {
+          var_dump($choices);
+        }
+        echo "</li>";
+      }
+      
+      echo "</ul>";
+      
+      $validator = $this->getValidator($key);
+      echo "<h4>Validator:</h4>\n";
+      echo "<ul>";
+      
+      echo "<li>Class: " . get_class($validator) . "</li>";
+      
+      if ($validator instanceof sfValidatorChoice)
+      {
+        echo "<li>Choices: ";
+        $choices = $validator->getOption('choices');
+        if ($choices instanceof sfCallable)
+        {
+          var_dump($choices->call());
+        }  
+        else
+        {
+          var_dump($choices);
+        }
+        echo "</li>";
+      }
+      
+      
+      echo "</ul>";      
+      
+      echo "<hr />\n\n";
+    }  
+  }
 
 }
