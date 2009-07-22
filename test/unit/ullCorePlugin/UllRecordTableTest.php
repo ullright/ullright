@@ -51,7 +51,7 @@ $t->diag('getColumnConfig() - Label');
   sfContext::getInstance()->getUser()->setCulture('de');
   $ccGerman = Doctrine::getTable('TestTable')->getColumnsConfig();
   $t->is($ccGerman['creator_user_id']->getLabel(), 'Erstellt von', 'returns the correct translated humanized label for a label listed in humanizer dictionary');
-  
+
 
   
   

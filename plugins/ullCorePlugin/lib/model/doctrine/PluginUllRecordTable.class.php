@@ -9,10 +9,10 @@ class PluginUllRecordTable extends Doctrine_Table
     /*
      * ullColumnConfigCollection
      */ 
-    $columnsConfig,
+    $columnConfigCollection,
     
     /*
-     * Array of columns to be included in the columnsConfigs
+     * Array of columns to be included in the columnConfigCollections
      * 
      * Format similiar to Doctrine::getTable('MyModel')->getColumns()
      * 
@@ -92,9 +92,9 @@ class PluginUllRecordTable extends Doctrine_Table
       
     $this->applyCustomColumnConfigSettings();
     
-//    var_dump($this->columnsConfig);die;
+//    var_dump($this->columnConfigCollection);die;
     
-    return $this->columnsConfig;
+    return $this->columnConfigCollection;
   }
   
   
@@ -110,18 +110,18 @@ class PluginUllRecordTable extends Doctrine_Table
   
   
   /**
-   * Fill columnsConfig array with empty ullColumnConfigurations for each
+   * Fill columnConfigCollection array with empty ullColumnConfigurations for each
    * columnConfigColumn
    * 
    * @return none
    */
   protected function createColumnsConfig()
   {
-    $this->columnsConfig = new ullColumnConfigCollection;
+    $this->columnConfigCollection = new ullColumnConfigCollection($this->columnConfigAction);
     
     foreach ($this->getColumnConfigColumns() as $columnName => $column)
     {
-      $this->columnsConfig[$columnName] = new ullColumnConfiguration;
+      $this->columnConfigCollection[$columnName] = new ullColumnConfiguration;
     }
   }
   
@@ -149,7 +149,7 @@ class PluginUllRecordTable extends Doctrine_Table
   
   protected function applyCommonColumnConfigSettings()
   {
-    foreach ($this->columnsConfig as $columnName => $columnConfig)
+    foreach ($this->columnConfigCollection as $columnName => $columnConfig)
     {
       $columnConfig->setColumnName($columnName);
       $columnConfig->setAccess($this->getDefaultAccessByAction());
@@ -169,7 +169,7 @@ class PluginUllRecordTable extends Doctrine_Table
 
   protected function applyDoctrineColumnConfigSettings()
   {
-    foreach ($this->columnsConfig as $columnName => $columnConfig)
+    foreach ($this->columnConfigCollection as $columnName => $columnConfig)
     {
       $this->applyDoctrineColumnConfigColumnSettings($columnName, $columnConfig);
       $this->applyDoctrineColumnConfigRelationSettings($columnName, $columnConfig);
@@ -350,9 +350,9 @@ class PluginUllRecordTable extends Doctrine_Table
   {
     foreach ($this->columnsBlacklist as $column)
     {
-      if (isset($this->columnsConfig[$column]))
+      if (isset($this->columnConfigCollection[$column]))
       {
-        unset($this->columnsConfig[$column]);
+        unset($this->columnConfigCollection[$column]);
       }
     }
   }
@@ -366,7 +366,7 @@ class PluginUllRecordTable extends Doctrine_Table
   {
     foreach($this->columnsReadOnly as $column)
     {
-      $this->columnsConfig[$column]->setAccess('r');
+      $this->columnConfigCollection[$column]->setAccess('r');
     }
   }
 
@@ -378,7 +378,7 @@ class PluginUllRecordTable extends Doctrine_Table
    */
   protected function sortColumns()
   {
-    $this->columnsConfig->orderBottom($this->columnsOrderBottom);
+    $this->columnConfigCollection->orderBottom($this->columnsOrderBottom);
   }  
   
   

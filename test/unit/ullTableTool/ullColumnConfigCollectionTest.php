@@ -6,7 +6,7 @@ class myTestCase extends lime_test
 {
 }
 
-$t = new myTestCase(16, new lime_output_color, $configuration);
+$t = new myTestCase(27, new lime_output_color, $configuration);
 
 $collection = new ullColumnConfigCollection;
 
@@ -17,7 +17,7 @@ $t->diag('__construct()');
 
   $t->isa_ok($collection, 'ullColumnConfigCollection', 'Returns the correct object');
   $t->is($collection instanceof ArrayAccess, true, 'Implements ArrayAccess');
-  
+  $t->is($collection->getAction(), 'edit', 'Sets the correct default action');
   
 $t->diag('offsetSet()');
   try
@@ -106,3 +106,24 @@ $t->diag('orderBottom()');
   $collection->orderBottom($order);
   
   $t->is($collection->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
+  
+  $t->diag('disable()');
+  $collection->disable(array('three'));
+  $t->is($collection['three']->getAccess(), false, 'Sets access to null');
+
+$t->diag('create()');
+  $collection->create('four');
+  $t->is($collection['four']->getColumnName(), 'four', 'Creates a new columnConfig correctly');  
+  
+$t->diag('isXXXAction()');
+  $cc = new ullColumnConfigCollection;
+  $t->is($cc->isEditAction(), true, 'Default is edit action');
+  $t->is($cc->isCreateAction(), false, 'Default is not create action');
+  $t->is($cc->isListAction(), false, 'Default is not list action');
+  $t->is($cc->isCreateOrEditAction(), true, 'True for create or edit');
+  $cc->setAction('list');
+  $t->is($cc->isEditAction(), false, 'List is not edit action');
+  $t->is($cc->isCreateAction(), false, 'List is not create action');
+  $t->is($cc->isListAction(), true, 'Is list action');
+  $t->is($cc->isCreateOrEditAction(), false, 'List is neither create or edit action');
+  

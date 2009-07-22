@@ -156,6 +156,8 @@ class ullColumnConfiguration
   public function setColumnName($columnName)
   {
     $this->columnName = $columnName;
+    
+    return $this;
   }
 
   public function getLabel()
@@ -166,6 +168,8 @@ class ullColumnConfiguration
   public function setLabel($label)
   {
     $this->label = $label;
+    
+    return $this;
   }
   
   public function getHelp()
@@ -176,6 +180,8 @@ class ullColumnConfiguration
   public function setHelp($help)
   {
     $this->help = $help;
+    
+    return $this;
   }  
 
   public function getMetaWidgetClassName()
@@ -186,6 +192,8 @@ class ullColumnConfiguration
   public function setMetaWidgetClassName($metaWidgetClassName)
   {
     $this->metaWidgetClassName = $metaWidgetClassName;
+    
+    return $this;
   }
 
   public function getAccess()
@@ -196,6 +204,8 @@ class ullColumnConfiguration
   public function setAccess($access)
   {
     $this->access = $access;
+    
+    return $this;
   }
 
   public function getIsInList()
@@ -206,6 +216,8 @@ class ullColumnConfiguration
   public function setIsInList($isInList)
   {
     $this->isInList = $isInList;
+    
+    return $this;
   }
 
   public function getValidatorOption($optionName)
@@ -228,16 +240,22 @@ class ullColumnConfiguration
   public function setValidatorOption($validatorOptionName, $validatorOptionValue)
   {
     $this->validatorOptions[$validatorOptionName] = $validatorOptionValue;
+    
+    return $this;
   }
 
   public function setValidatorOptions($validatorOptions)
   {
     $this->validatorOptions = $validatorOptions;
+    
+    return $this;
   }
 
   public function removeValidatorOption($validatorOptionName)
   {
     unset($this->validatorOptions[$validatorOptionName]);
+    
+    return $this;
   }
 
   public function getWidgetOption($optionName)
@@ -260,16 +278,22 @@ class ullColumnConfiguration
   public function setWidgetOption($widgetOptionName, $widgetOptionValue)
   {
     $this->widgetOptions[$widgetOptionName] = $widgetOptionValue;
+    
+    return $this;
   }
 
   public function setWidgetOptions($widgetOptions)
   {
     $this->widgetOptions = $widgetOptions;
+    
+    return $this;
   }
 
   public function removeWidgetOption($widgetOptionName)
   {
     unset($this->widgetOptions[$widgetOptionName]);
+    
+    return $this;
   }
 
   public function getWidgetAttribute($attributeName)
@@ -292,16 +316,22 @@ class ullColumnConfiguration
   public function setWidgetAttribute($attributeName, $attributeValue)
   {
     $this->widgetAttributes[$attributeName] = $attributeValue;
+    
+    return $this;
   }
 
   public function setWidgetAttributes($widgetAttributes)
   {
     $this->widgetAttributes = $widgetAttributes;
+    
+    return $this;
   }
 
   public function removeWidgetAttribute($widgetAttributeName)
   {
     unset($this->widgetOptions[$widgetAttributeName]);
+    
+    return $this;
   }
 
   public function getUnique()
@@ -312,6 +342,8 @@ class ullColumnConfiguration
   public function setUnique($unique)
   {
     $this->unique = $unique;
+    
+    return $this;
   }
 
   public function getTranslated()
@@ -322,6 +354,8 @@ class ullColumnConfiguration
   public function setTranslated($translated)
   {
     $this->translated = $translated;
+    
+    return $this;
   }
 
   public function getRelation()
@@ -332,6 +366,8 @@ class ullColumnConfiguration
   public function setRelation($relation)
   {
     $this->relation = $relation;
+    
+    return $this;
   }
 
   public function getDefaultValue()
@@ -342,6 +378,8 @@ class ullColumnConfiguration
   public function setDefaultValue($defaultValue)
   {
     $this->defaultValue = $defaultValue;
+    
+    return $this;
   }
 
   public function getAllowCreate()
@@ -352,11 +390,15 @@ class ullColumnConfiguration
   public function setAllowCreate($allowCreate)
   {
     $this->allowCreate = $allowCreate;
+    
+    return $this;
   }
   
   public function setCustomAttribute($attributeName, $attributeValue)
   {
     $this->customAttributes[$attributeName] = $attributeValue;
+    
+    return $this;
   }
 
   public function getCustomAttribute($attributeName)
@@ -384,16 +426,22 @@ class ullColumnConfiguration
   public function setOption($optionName, $optionValue)
   {
     $this->options[$optionName] = $optionValue;
+    
+    return $this;
   }
 
   public function setOptions($options)
   {
     $this->options = $options;
+    
+    return $this;
   }
 
   public function removeOption($optionName)
   {
     unset($this->options[$optionName]);
+    
+    return $this;
   }  
   
 }

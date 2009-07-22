@@ -3,8 +3,20 @@
 class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggregate
 {
   protected 
-    $columnsConfig = array()
+    $columnsConfig = array(),
+    $action = 'edit'
   ;
+  
+  /**
+   * Constructor
+   * 
+   * @param $action string symfony controller action. one of 'list', 'create', 'edit'
+   * @return none
+   */
+  public function __construct($action = 'edit')
+  {
+    $this->action = $action;
+  }
   
   // ArrayAccess methods
   
@@ -81,6 +93,27 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
   // Native methods
   
   /**
+   * Sets the symfony controller action
+   * 
+   * @param $action string
+   * @return none
+   */
+  public function setAction($action)
+  {
+    $this->action = $action;
+  }
+  
+  /**
+   * Get the symfony controller action
+   * 
+   * @return string
+   */
+  public function getAction()
+  {
+    return $this->action;
+  }
+  
+  /**
    * Returns the keys of the columnsConfig as array similar to array_keys()
    * 
    * @return array
@@ -113,5 +146,86 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
 
     $this->columnsConfig = array_merge($this->columnsConfig, $bottom);      
   }
+
+  /**
+   * Creates a new ColumnConfiguration
+   * 
+   * @param $columnName
+   * @return ullColumnConfiguration
+   */
+  public function create($columnName)
+  {
+    $this->columnsConfig[$columnName] = new UllColumnConfiguration;
+    $this->columnsConfig[$columnName]->setColumnName($columnName);
+    
+    return $this->columnsConfig[$columnName];
+  }
+  
+  /**
+   * Disables the given columns
+   * 
+   * @param $array array of columnNames
+   * @return none
+   */
+  public function disable(array $array)
+  {
+    foreach ($array as $columnName)
+    {
+      $this->columnsConfig[$columnName]->setAccess(false);     
+    }
+  }
+  
+  /**
+   * Returns true if the current action is 'list'
+   * 
+   * @return boolean
+   */
+  public function isListAction()
+  {
+    if ($this->action == 'list')
+    {
+      return true;   
+    }  
+  }
+  
+  /**
+   * Returns true if the current action is 'create'
+   * 
+   * @return boolean
+   */  
+  public function isCreateAction()
+  {
+    if ($this->action == 'create')
+    {
+      return true;   
+    }  
+  }  
+
+  /**
+   * Returns true if the current action is 'edit'
+   * 
+   * @return boolean
+   */
+  public function isEditAction()
+  {
+    if ($this->action == 'edit')
+    {
+      return true;   
+    }  
+  }  
+
+  /**
+   * Returns true if the current action is 'create' or 'edit'
+   * 
+   * @return boolean
+   */  
+  public function isCreateOrEditAction()
+  {
+    if ($this->isCreateAction() || $this->isEditAction())
+    {
+      return true;
+    }  
+  }
+  
   
 }
