@@ -208,6 +208,18 @@ class ullColumnConfiguration
     return $this;
   }
 
+  /**
+   * Alias for set access = null
+   * 
+   * @return UllColumnConfiguration
+   */
+  public function disable()
+  {
+    $this->access = null;
+    
+    return $this;
+  }  
+
   public function getIsInList()
   {
     return $this->isInList;

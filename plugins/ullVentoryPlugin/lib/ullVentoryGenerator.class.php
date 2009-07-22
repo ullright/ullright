@@ -37,20 +37,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
    */
   protected function buildColumnsConfig()
   {  
-    $this->columnsConfig =  Doctrine::getTable('UllVentoryItem')->getColumnsConfig($this->requestAction);
-    
-    
-    
-//    var_dump($this->columnsConfig);die;
-
-    
-    // Much opportunity to refactore down here...
-
-
-    
-   
-    
-//    var_dump($this->columnsConfig);die;
+    $this->columnsConfig = ullVentoryItemColumnConfigCollection::build($this->requestAction);
   }
 
   

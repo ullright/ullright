@@ -5,9 +5,4 @@
 class PluginTestTableTable extends UllRecordTable
 {
   
-  protected function applyCustomColumnConfigSettings()
-  {
-    $this->columnConfigCollection['my_select_box']->setLabel('My custom select box label');
-  }
-
 }

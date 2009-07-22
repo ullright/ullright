@@ -2,46 +2,92 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
-class myTestCase extends lime_test
+class myTestCase extends sfDoctrineTestCase
 {
 }
 
-$t = new myTestCase(27, new lime_output_color, $configuration);
+sfContext::createInstance($configuration);
+sfLoader::loadHelpers('I18N');
 
-$collection = new ullColumnConfigCollection;
+$t = new myTestCase(53, new lime_output_color, $configuration);
+$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$t->setFixturesPath($path);
 
+$t->diag('buildFor()');
+
+  $c = ullColumnConfigCollection::buildFor('TestTable');
+
+  $t->isa_ok($c, 'ullColumnConfigCollection', 'Returns the correct object');
+  $t->is($c->getModelName(), 'TestTable', 'Sets the correct model name');
+  $t->is($c->getAction(), 'edit', 'Sets the correct default action');
+  $t->is($c instanceof ArrayAccess, true, 'Implements ArrayAccess');
+  $t->is($c instanceof IteratorAggregate, true, 'Implements IteratorAggregat');
+  $t->is($c instanceof Countable, true, 'Implements Countable');
+  $t->isa_ok($c->getFirst(), 'ullColumnConfiguration', 'returns an array of ullColumnConfiguration objects');
+  
+$t->diag('buildFor() - applyCommonSettings');
+  $t->is($c['my_email']->getColumnName(), 'my_email', 'sets column name');
+  $t->is($c['my_email']->getAccess(), 'w', 'defaultAccess mode is set to "w" because of default action "edit"');
+  $t->is($c['creator_user_id']->getAccess(), 'r', 'access is set to "r" for defined readOnly columns');
+  $t->is($c['namespace']->getAccess(), null, 'blacklisted columns are disabled');
+  $t->is($c->getLast()->getColumnName(), 'updated_at', 'sorts columns to be in correct sequence');
+
+$t->diag('buildFor() - applyDoctrineSettings for "id"');
+  $t->is($c['id']->getAccess(), 'r', 'access is set to "r" for id');
+  $t->is($c['id']->getMetaWidgetClassName(), 'ullMetaWidgetInteger', 'sets the correct metaWidget');
+  $t->is($c['id']->getValidatorOption('required'), true, 'sets the validator to "required" because of "notnull"');
+  $t->is($c['id']->getUnique(), true, 'sets "unique" flag');
+  $t->is($c['id']->getRelation(), false, 'no relation set');
+
+$t->diag('buildFor() - applyDoctrineSettings for "my_email"');
+  $t->is($c['my_email']->getMetaWidgetClassName(), 'ullMetaWidgetString', 'sets the correct metaWidget');
+  $t->is($c['my_email']->getWidgetAttribute('maxlength'), '64', 'sets the correct widget length');
+  $t->is($c['my_email']->getValidatorOption('max_length'), '64', 'sets the correct validator length');
+  $t->is($c['my_email']->getValidatorOption('required'), true, 'sets the validator to "required" because of "notnull"');
+  $t->is($c['my_email']->getUnique(), true, 'sets "unique" flag');
+  
+$t->diag('buildFor() - applyDoctrineSettings for "ull_user_id"');
+  $t->is($c['ull_user_id']->getMetaWidgetClassName(), 'ullMetaWidgetUllEntity', 'sets the correct metaWidget');
+  $t->is($c['ull_user_id']->getOption('entity_classes'), array('UllUser'), 'sets the correct options');
+  $t->is($c['ull_user_id']->getRelation(), array('model' => 'UllUser', 'foreign_id' => 'id'), 'returns the correct relation settings');
+  
+$t->diag('buildFor() - Label');  
+  $t->is($c['my_email']->getLabel(), 'My email', 'returns the correct humanized label for a label not in humanizer dictionary');
+  $t->is($c['creator_user_id']->getLabel(), 'Created by', 'returns the correct humanized label for a label listed in humanizer dictionary');
+  sfContext::getInstance()->getUser()->setCulture('de');
+  $cGerman = ullColumnConfigCollection::buildFor('TestTable');
+  $t->is($cGerman['creator_user_id']->getLabel(), 'Erstellt von', 'returns the correct translated humanized label for a label listed in humanizer dictionary');
+
+$t->diag('buildFor() - applyCustomSettings');
+  $cTestTable = ullTestTableColumnConfigCollection::build();
+  $t->is($cTestTable['my_select_box']->getLabel(), 'My custom select box label', 'applies custom label set in applyCustomColumnConfigSettings()');  
+  
 $columnConfig = new ullColumnConfiguration;
-$columnConfig->setColumnName('my_email');
-
-$t->diag('__construct()');
-
-  $t->isa_ok($collection, 'ullColumnConfigCollection', 'Returns the correct object');
-  $t->is($collection instanceof ArrayAccess, true, 'Implements ArrayAccess');
-  $t->is($collection->getAction(), 'edit', 'Sets the correct default action');
+$columnConfig->setColumnName('my_email');  
   
 $t->diag('offsetSet()');
   try
   {
-    $collection->offsetSet('my_email', 'foobar');
+    $c->offsetSet('my_email', 'foobar');
     $t->fail('Doesn\'t throw an exception when giving anything else than a ullColumnConfiguration object as value');
   }
   catch (Exception $e)
   {
     $t->pass('Throws an exception when giving anything else than a ullColumnConfiguration object as value');
   }
-  $t->is($collection->offsetSet('my_email', $columnConfig), null, 'Sets an offset');
+  $t->is($c->offsetSet('my_email', $columnConfig), null, 'Sets an offset');
   
   
 $t->diag('offsetExists()');
-  $t->is($collection->offsetExists('my_email'), true, 'Returns true for an existing offset');  
-  $t->is($collection->offsetExists('blubb'), false, 'Returns false for an non-existing offset');
+  $t->is($c->offsetExists('my_email'), true, 'Returns true for an existing offset');  
+  $t->is($c->offsetExists('blubb'), false, 'Returns false for an non-existing offset');
 
   
 $t->diag('offsetGet()');
-  $t->is($collection->offsetGet('my_email')->getColumnName(), 'my_email', 'Returns the correct offset');
+  $t->is($c->offsetGet('my_email')->getColumnName(), 'my_email', 'Returns the correct offset');
   try
   {
-    $collection->offsetGet('blubb');
+    $c->offsetGet('blubb');
     $t->fail('Doesn\'t throw an exception when trying to get an invalid offset');    
   }
   catch (Exception $e)
@@ -51,11 +97,11 @@ $t->diag('offsetGet()');
   
   
 $t->diag('offsetUnset()');
-  $t->is($collection->offsetUnset('my_email'), null, 'Unsets an offset');
-  $t->is($collection->offsetExists('my_email'), false, 'Offset was really removed');
+  $t->is($c->offsetUnset('my_email'), null, 'Unsets an offset');
+  $t->is($c->offsetExists('my_email'), false, 'Offset was really removed');
   try
   {
-    $collection->offsetUnset('my_email');
+    $c->offsetUnset('my_email');
     $t->fail('Doesn\'t throw an exception when trying to unset an invalid offset');    
   }
   catch (Exception $e)
@@ -65,12 +111,12 @@ $t->diag('offsetUnset()');
 
 
 $t->diag('Iterator');
-  $collection = new ullColumnConfigCollection;
-  $collection['one'] = new UllColumnConfiguration;
-  $collection['one']->setColumnName('one');
+  $c = new ullColumnConfigCollection('TestTable');
+  $c['one'] = new UllColumnConfiguration;
+  $c['one']->setColumnName('one');
   $k = null;
   $v = null;
-  foreach($collection as $key => $value)
+  foreach($c as $key => $value)
   {
     $k = $key;
     $v = $value;
@@ -80,50 +126,50 @@ $t->diag('Iterator');
     
   
 $t->diag('order()');
-  $collection = new ullColumnConfigCollection;
-  $collection['three'] = new UllColumnConfiguration; 
-  $collection['one'] = new UllColumnConfiguration;
-  $collection['one']->setColumnName('one');
-  $collection['two'] = new UllColumnConfiguration;
+  $c = new ullColumnConfigCollection('TestTable');
+  $c['three'] = new UllColumnConfiguration; 
+  $c['one'] = new UllColumnConfiguration;
+  $c['one']->setColumnName('one');
+  $c['two'] = new UllColumnConfiguration;
   
   $order = array('one', 'two');
   
-  $collection->order($order);
+  $c->order($order);
   
-  $t->is($collection->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
+  $t->is($c->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
 
 $t->diag('Countable');
-  $t->is(count($collection), 3 , 'count() returns the correct number');  
+  $t->is(count($c), 3 , 'count() returns the correct number');  
   
 $t->diag('orderBottom()');
-  $collection = new ullColumnConfigCollection;
-  $collection['three'] = new UllColumnConfiguration; 
-  $collection['one'] = new UllColumnConfiguration;
-  $collection['two'] = new UllColumnConfiguration;    
+  $c = new ullColumnConfigCollection('TestTable');
+  $c['three'] = new UllColumnConfiguration; 
+  $c['one'] = new UllColumnConfiguration;
+  $c['two'] = new UllColumnConfiguration;    
 
   $order = array('two', 'three');
   
-  $collection->orderBottom($order);
+  $c->orderBottom($order);
   
-  $t->is($collection->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
+  $t->is($c->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
   
   $t->diag('disable()');
-  $collection->disable(array('three'));
-  $t->is($collection['three']->getAccess(), false, 'Sets access to null');
+  $c->disable(array('three'));
+  $t->is($c['three']->getAccess(), false, 'Sets access to null');
 
 $t->diag('create()');
-  $collection->create('four');
-  $t->is($collection['four']->getColumnName(), 'four', 'Creates a new columnConfig correctly');  
+  $c->create('four');
+  $t->is($c['four']->getColumnName(), 'four', 'Creates a new columnConfig correctly');  
   
 $t->diag('isXXXAction()');
-  $cc = new ullColumnConfigCollection;
-  $t->is($cc->isEditAction(), true, 'Default is edit action');
-  $t->is($cc->isCreateAction(), false, 'Default is not create action');
-  $t->is($cc->isListAction(), false, 'Default is not list action');
-  $t->is($cc->isCreateOrEditAction(), true, 'True for create or edit');
-  $cc->setAction('list');
-  $t->is($cc->isEditAction(), false, 'List is not edit action');
-  $t->is($cc->isCreateAction(), false, 'List is not create action');
-  $t->is($cc->isListAction(), true, 'Is list action');
-  $t->is($cc->isCreateOrEditAction(), false, 'List is neither create or edit action');
+  $c = new ullColumnConfigCollection('TestTable');
+  $t->is($c->isEditAction(), true, 'Default is edit action');
+  $t->is($c->isCreateAction(), false, 'Default is not create action');
+  $t->is($c->isListAction(), false, 'Default is not list action');
+  $t->is($c->isCreateOrEditAction(), true, 'True for create or edit');
+  $c->setAction('list');
+  $t->is($c->isEditAction(), false, 'List is not edit action');
+  $t->is($c->isCreateAction(), false, 'List is not create action');
+  $t->is($c->isListAction(), true, 'Is list action');
+  $t->is($c->isCreateOrEditAction(), false, 'List is neither create or edit action');
   
