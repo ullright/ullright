@@ -9,16 +9,14 @@ class ullVentoryGenerator extends ullTableToolGenerator
     $columnsNotShownInList = array(
     )     
   ;
-    
+  
   /**
    * Constructor
    *
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct($defaultAccess = 'r', $itemTypeName = null)
+  public function __construct($itemTypeName = null, $defaultAccess = null, $requestAction = null)
   {
-//    var_dump($itemTypeName);
-    
     $this->modelName = 'UllVentoryItem';
     
     if ($itemTypeName)
@@ -26,10 +24,9 @@ class ullVentoryGenerator extends ullTableToolGenerator
       $this->itemType = Doctrine::getTable('UllVentoryItemType')->findOneBySlug($itemTypeName);
     }
     
-//    var_dump($this->itemType>toArray());die;
-    
-    parent::__construct($this->modelName, $defaultAccess);
+    parent::__construct($this->modelName, $defaultAccess, $requestAction);
   }  
+  
   
   /**
    * builds the column config
@@ -37,18 +34,19 @@ class ullVentoryGenerator extends ullTableToolGenerator
    */
   protected function buildColumnsConfig()
   {  
-    $this->columnsConfig = ullVentoryItemColumnConfigCollection::build($this->requestAction);
+    $this->columnsConfig = ullColumnConfigCollection::buildFor('UllVentoryItem', $this->defaultAccess, $this->requestAction);
+    
+//    var_dump($this->columnsConfig);die;
   }
 
   
   /**
-   * Extends parents buildForm method
+   * Extends parent buildForm method
    * 
    * @see plugins/ullCorePlugin/lib/ullGenerator#buildForm()
    */
   public function buildForm($rows)
   {
-    
     // set item type according to request param in create mode
     if ($rows instanceof Doctrine_Record && !$rows->exists())
     {
@@ -58,56 +56,48 @@ class ullVentoryGenerator extends ullTableToolGenerator
       $rows->UllVentoryItemModel = $model;    
     }
     
-   parent::buildForm($rows);
+    parent::buildForm($rows);
     
-//    $q = new Doctrine_Query;
-//    $q
-//      ->from('UllVentoryItemAttributeValue v')
-////      ->where('v.UllVentoryItemTypeAttribute.UllVentoryItemType.id = ?', 1)
-//    ;
-//    $itemAttributeValues = $q->execute();
-    
-//    var_dump($itemAttributeValues->toArray());die;
-
-    if ($this->getRequestAction() == 'edit')
+    if ($this->isAction(array('createWithType', 'edit')))
     {
       $listForm = new sfForm;
 
-      // create
-      if (!$this->getRow()->exists())
+      if ($this->isAction('createWithType'))
       {
         foreach($this->itemType->UllVentoryItemTypeAttribute as $attribute)
         {
           $attributeValue = new UllVentoryItemAttributeValue;
           $attributeValue->UllVentoryItemTypeAttribute = $attribute;
           
-          $attributeGenerator = new ullVentoryAttributeGenerator('w', $attributeValue);
+          $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);
           
           $listForm->embedForm(count($listForm), $attributeGenerator->getForm());          
         }
       }
-      // edit
-      else
+      
+      if ($this->isEditAction()) 
       {
         foreach ($this->getRow()->UllVentoryItemAttributeValue as $attributeValue)
         {
-          $attributeGenerator = new ullVentoryAttributeGenerator('w', $attributeValue);
+          $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);
           
           $listForm->embedForm(count($listForm), $attributeGenerator->getForm());
         }        
       }
       
+   
+      
       $this->getForm()->embedForm('attributes', $listForm);
       
-      $memoryGenerator = new ullVentoryMemoryGenerator('w', $this->getRow());
+      $memoryGenerator = new ullVentoryMemoryGenerator();
       // set defaults
       $memory = new UllVentoryItemMemory;
-      if (!$this->getRow()->exists())
+      if ($this->isAction('createWithType'))
       {
         $memory->transfer_at = date('Y-m-d');
         $memory->target_ull_entity_id = Doctrine::getTable('UllVentoryOriginDummyUser')->findOneByUsername('delivered')->id;
       }
-      else
+      if ($this->isEditAction())
       {
         $memory->target_ull_entity_id = $this->getRow()->UllEntity->id;
       }
@@ -115,37 +105,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
       $this->getForm()->embedForm('memory', $memoryGenerator->getForm());      
     }
     
-//    $attributeGenerator = new ullVentoryAttributeGenerator('w');
-//    $attributeGenerator->buildForm($itemAttributeValues);
-//
-//    $listForm = new sfForm;
-//    
-//    $attributeGenerator = new ullVentoryAttributeGenerator('w');
-//    $attributeGenerator->buildForm(new UllVentoryItemAttributeValue);
-//    $listForm->embedForm(0, $attributeGenerator->getForm());
-//    
-//    $attributeGenerator2 = new ullVentoryAttributeGenerator('w');
-//    $attributeGenerator2->buildForm(new UllVentoryItemAttributeValue);
-//    $listForm->embedForm(1, $attributeGenerator2->getForm());
-//
-////    var_dump(count($listForm));
-//    
-//    $this->getForm()->embedForm('attributes', $listForm);
-    
-    
-    
     $this->filterItemModelsByManufacturer();
-    
-//    if ($this->getRequestAction() == 'edit')
-//    { 
-//         
-//      $this->getForm()->mergePostValidator(
-//        new sfValidatorDoctrineUnique(array('model' => 'UllVentoryItem', 'column' => 'id'))
-//      );
-//      
-//      
-////      var_dump($this->getForm()->getValidatorSchema()->getPostValidator()->get->[1]);die;      
-//    }
   }  
   
   

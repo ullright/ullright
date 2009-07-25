@@ -180,60 +180,57 @@ class ullGeneratorForm extends sfFormDoctrine
    */
   public function debug()
   {
+    $output = array();
+    
+    $output['generic_info'] = array('num_of_fields' => count($this->getFormFieldSchema()));
+    
     foreach($this->getFormFieldSchema() as $key => $value)
     {
-      $widget = $value->getWidget();
-      echo "<h3>$key</h3>\n";
-      echo "<h4>Widget:</h4>\n";
-      echo "<ul>";
-      
-      echo "<li>Label: " . $widget->getLabel() . "</li>";
-      echo "<li>Class: " . get_class($widget) . "</li>";
-      echo "<li>Default: " . $this->getDefault($key) . "</li>";
+      $widgetData = array();
+      $widget = $value->getWidget(); 
+
+      $widgetData['label'] = $widget->getLabel();
+      $widgetData['class'] = get_class($widget);
+      $widgetData['default'] = $this->getDefault($key);
       
       if ($widget instanceof sfWidgetFormDoctrineSelect)
       {
-        echo "<li>Choices: ";
         $choices = $widget->getOption('choices');
         if ($choices instanceof sfCallable)
         {
-          var_dump($choices->call());
+          $widgetData['choices'] = $choices->call();
         }  
         else
         {
-          var_dump($choices);
+          $widgetData['choices'] = ($choices);
         }
-        echo "</li>";
       }
       
-      echo "</ul>";
-      
+      $validatorData = array();            
       $validator = $this->getValidator($key);
-      echo "<h4>Validator:</h4>\n";
-      echo "<ul>";
-      
-      echo "<li>Class: " . get_class($validator) . "</li>";
+
+      $validatorData['class'] = get_class($validator);
       
       if ($validator instanceof sfValidatorChoice)
       {
-        echo "<li>Choices: ";
         $choices = $validator->getOption('choices');
         if ($choices instanceof sfCallable)
         {
-          var_dump($choices->call());
+          $validatorData['choices'] = $choices->call();
         }  
         else
         {
-          var_dump($choices);
+          $validatorData['choices'] = $choices;
         }
-        echo "</li>";
       }
       
-      
-      echo "</ul>";      
-      
-      echo "<hr />\n\n";
-    }  
+      $output[$key] = array(
+        'widget' => $widgetData,
+        'validator' => $validatorData
+      );      
+    }
+
+    var_dump($output);
   }
 
 }

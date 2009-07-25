@@ -1,6 +1,15 @@
 <?php 
 
-class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggregate
+/**
+ * The ullColumnConfigCollection class represents one one hand an "array object"
+ * as a collection of ullColumnConfigs, on the other hand it builds the column
+ * configs for a given model and allows customization of the columnConfigs
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
+
+class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess, Countable, IteratorAggregate
 {
   protected 
     $collection = array(),
@@ -19,7 +28,8 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
     $columns = array(),
     $relations = array(),
     $modelName,
-    $action,
+    $defaultAccess,     
+    $requestAction,
     
     $blacklist = array(
           'namespace',
@@ -50,25 +60,38 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
    * Constructor
    * 
    * @param $modelName string Doctrine model name e.g. 'TestTable'
-   * @param $action string symfony controller action. one of 'list', 'create', 'edit'
+   * @param $requestAction string symfony controller requestAction. e.g. 'list', 'create', 'edit'
+   * @param $defaultAccess string 'r' or 'w'
    * @return none
    */
-  public function __construct($modelName, $action = 'edit')
+  public function __construct($modelName, $defaultAccess = null, $requestAction = null)
   {
     $this->modelName = $modelName;
-    $this->action = $action;
+    
+    parent::__construct($defaultAccess, $requestAction);
   }
   
   /**
    * Default static method to get a ullColumnConfigCollection for a model
    * 
+   * It's possible to customize per model by providing a myModelColumnConfigCollection class
+   * 
    * @param $modelName string Doctrine model name e.g. 'TestTable'
-   * @param $action string symfony controller action. one of 'list', 'create', 'edit'
-   * @return UllColumnConfigurationCollection
+   * @param $defaultAccess string 'r' or 'w'
+   * @param $requestAction string symfony controller requestAction. one of 'list', 'create', 'edit'
+   * @return ullColumnConfigurationCollection
    */
-  public static function buildFor($modelName, $action = 'edit')
+  public static function buildFor($modelName, $defaultAccess = null, $requestAction = null)
   {
-    $c = new self($modelName, $action);
+    $className = $modelName . 'ColumnConfigCollection';
+    if (class_exists($className))
+    {
+      $c = new $className($modelName, $defaultAccess, $requestAction);
+    }
+    else
+    {
+      $c = new self($modelName, $defaultAccess, $requestAction);
+    }
     $c->buildCollection();
     
     return $c;
@@ -148,7 +171,7 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
     {
       $columnConfig
         ->setColumnName($columnName)
-        ->setAccess($this->getDefaultAccessByAction())
+        ->setAccess($this->defaultAccess)
         ->setLabel(ullHumanizer::humanizeAndTranslateColumnName($columnName))
       ;
     }
@@ -159,22 +182,6 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
   }
   
   
-
-  /**
-   * Returns an access type string according to the action
-   * 
-   * @return string ('r' for read / 'w' for write access)
-   */
-  protected function getDefaultAccessByAction()
-  {
-    if (in_array($this->action, array('create', 'edit')))
-    {
-      return 'w';
-    }
-    
-    return 'r';
-  }
-
   /**
    * Remove unwanted columns
    *
@@ -397,26 +404,6 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
     return $this->modelName;
   }
   
-  /**
-   * Sets the symfony controller action
-   * 
-   * @param $action string
-   * @return none
-   */
-  public function setAction($action)
-  {
-    $this->action = $action;
-  }
-  
-  /**
-   * Get the symfony controller action
-   * 
-   * @return string
-   */
-  public function getAction()
-  {
-    return $this->action;
-  }
   
   /**
    * Returns the keys of the collection as array similar to array_keys()
@@ -463,7 +450,7 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
     $this->collection[$columnName] = new UllColumnConfiguration;    
     $this->collection[$columnName]
       ->setColumnName($columnName)
-      ->setAccess($this->getDefaultAccessByAction())
+      ->setAccess($this->defaultAccess)
     ;
     
     return $this->collection[$columnName];
@@ -482,59 +469,6 @@ class ullColumnConfigCollection implements ArrayAccess, Countable, IteratorAggre
       $this->collection[$columnName]->setAccess(false);     
     }
   }
-  
-  /**
-   * Returns true if the current action is 'list'
-   * 
-   * @return boolean
-   */
-  public function isListAction()
-  {
-    if ($this->action == 'list')
-    {
-      return true;   
-    }  
-  }
-  
-  /**
-   * Returns true if the current action is 'create'
-   * 
-   * @return boolean
-   */  
-  public function isCreateAction()
-  {
-    if ($this->action == 'create')
-    {
-      return true;   
-    }  
-  }  
-
-  /**
-   * Returns true if the current action is 'edit'
-   * 
-   * @return boolean
-   */
-  public function isEditAction()
-  {
-    if ($this->action == 'edit')
-    {
-      return true;   
-    }  
-  }  
-
-  /**
-   * Returns true if the current action is 'create' or 'edit'
-   * 
-   * @return boolean
-   */  
-  public function isCreateOrEditAction()
-  {
-    if ($this->isCreateAction() || $this->isEditAction())
-    {
-      return true;
-    }  
-  }
-
   
   // ArrayAccess methods
   

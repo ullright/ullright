@@ -65,7 +65,6 @@ class BaseUllTableToolActions extends ullsfActions
     $this->getUriMemory()->setUri();
     
     $this->breadcrumbForList();
-
   }
 
   
@@ -126,7 +125,6 @@ class BaseUllTableToolActions extends ullsfActions
     if ($request->isMethod('post'))
     {
 //      var_dump($request->getParameterHolder()->getAll());die();
-      //$request->setParameter('id', $row->id);
       if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id))))
       {
         $this->redirect($this->getUriMemory()->getAndDelete('list'));
@@ -141,7 +139,6 @@ class BaseUllTableToolActions extends ullsfActions
    */
   public function executeDelete()
   { 
-    // check access
     $this->checkAccess('MasterAdmins');
     
     $this->getTablefromRequest();
@@ -162,7 +159,7 @@ class BaseUllTableToolActions extends ullsfActions
   
   public function executeDeleteFutureVersion(sfRequest $request)
   {
-    //TODO: a permission check here would be a pretty good idea :)
+    $this->checkAccess('MasterAdmins');
 
     $this->getTablefromRequest();
      

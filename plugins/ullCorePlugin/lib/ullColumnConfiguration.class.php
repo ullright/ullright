@@ -339,9 +339,9 @@ class ullColumnConfiguration
     return $this;
   }
 
-  public function removeWidgetAttribute($widgetAttributeName)
+  public function removeWidgetAttribute($attributeName)
   {
-    unset($this->widgetOptions[$widgetAttributeName]);
+    unset($this->widgetAttributes[$attributeName]);
     
     return $this;
   }

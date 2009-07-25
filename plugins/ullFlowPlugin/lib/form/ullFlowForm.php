@@ -14,8 +14,12 @@ class ullFlowForm extends ullGeneratorForm
   {
     parent::configure();
     
-    // add meta data fields only for edit action
-    if ($this->requestAction == 'edit')
+    // add meta data fields only for create/edit action
+    //TODO: why here? why not in generator?
+    
+    var_dump($this->requestAction);
+    
+    if ($this->requestAction == 'create' or $this->requestAction == 'edit')
     {
       $this->getWidgetSchema()->offsetSet('memory_comment', new sfWidgetFormInput(array(), array('size' => 50)));
       $this->getValidatorSchema()->offsetSet('memory_comment', new sfValidatorString(array('required' => false)));

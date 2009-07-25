@@ -50,7 +50,7 @@ $b
   ->isRequestParameter('type', 'printer') 
   ->isRequestParameter('entity', 'stored') 
   // item properties
-  ->checkResponseElement($dgsEdit->getFullRowSelector(), 8) // num of rows
+  ->checkResponseElement($dgsEdit->getFullRowSelector(), 6) // num of rows
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option + option', 'Notebook')
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 3)

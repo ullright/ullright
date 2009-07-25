@@ -1,16 +1,8 @@
 <?php 
 
-class ullVentoryItemColumnConfigCollection extends ullColumnConfigCollection
+class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
 {
 
-  public static function build($action = 'edit')
-  {
-    $c = new self('UllVentoryItem', $action);
-    $c->buildCollection();
-    
-    return $c;
-  }
-  
   /**
    * Applies model specific custom column configuration
    * 
@@ -61,7 +53,7 @@ class ullVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       $this->disable(array('id'));
       
       $this['inventory_number']
-        ->setMetaWidgetClassName('ullMetaWidgetLink')
+        //->setMetaWidgetClassName('ullMetaWidgetLink') disabled, because a link should point to show, not edit
         ->setLabel(__('Inv.No.'))
       ;
       
@@ -73,14 +65,14 @@ class ullVentoryItemColumnConfigCollection extends ullColumnConfigCollection
           'foreign_id'        => 'id'))
       ;
       
-      $this['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate'); //?            
+      // Display only date - no time
+      $this['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');             
       
       $this->order(array(
         'inventory_number',
         'ull_ventory_item_type_id',
         'ull_ventory_item_manufacturer_id',
         'ull_ventory_item_model_id',
-//        'serial_number',
         'ull_entity_id',
         'ull_location_id',      
         'comment'
@@ -88,7 +80,12 @@ class ullVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       
     }
     
-    if ($this->isCreateOrEditAction())
+    if ($this->isAction('createWithType'))
+    {
+      $this->disable(array('updator_user_id', 'updated_at'));
+    }
+    
+    if ($this->isAction(array('createWithType', 'edit')))
     {
       $this['id']
         ->setAccess('w')
@@ -106,12 +103,9 @@ class ullVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         'ull_ventory_item_model_id',
         'inventory_number',
         'serial_number',
-  //      'ull_entity_id',
-  //      'ull_location_id',
         'comment'
       ));      
     }  
     
-  }     
-  
+  }   
 }

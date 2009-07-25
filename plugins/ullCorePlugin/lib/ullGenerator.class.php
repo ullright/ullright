@@ -11,9 +11,11 @@
  * read access (e.g. for list view or read only fields), a widget for write access
  * and validators
  * 
+ * Using this ullMetaWidgets a sfForm is built
+ * 
  */
 
-abstract class ullGenerator
+abstract class ullGenerator extends ullGeneratorBase
 {
   protected
     $tableConfig    = array(),
@@ -23,40 +25,21 @@ abstract class ullGenerator
     $rows           = array(),
     $modelName,
     $isBuilt        = false,
-    $defaultAccess,
-    $formClass,
-    $requestAction
+    $formClass
     ;
 
   /**
-   * Constructor
-   *
-   * @param string $defaultAccess can be "r" or "w" for read or write
-   * @param string $requestAction sets the mode (list or edit)
-   */
-  public function __construct($defaultAccess = 'r', $requestAction = null)
+   * @see ullGeneratorBase::__construct()
+   */  
+  public function __construct($defaultAccess = null, $requestAction = null)
   {
-    $this->setDefaultAccess($defaultAccess);
+    parent::__construct($defaultAccess, $requestAction);    
 
-    if ($requestAction === null)
-    {
-      if (sfContext::getInstance()->getRequest()->getParameter('action') == 'list')
-      {
-        $requestAction = 'list';
-      }
-      else
-      {
-        $requestAction = 'edit';
-      }
-    }
-    
-    $this->setRequestAction($requestAction);
-    
     $this->buildTableConfig();
     
     $this->buildColumnsConfig();
   }
-
+  
   /**
    * Returns true if the current form has some associated i18n objects.
    *
@@ -66,61 +49,6 @@ abstract class ullGenerator
   {
     return $this->rows[0]->getTable()->hasTemplate('Doctrine_Template_I18n');
   }  
-  
-  /**
-   * set default access
-   *
-   * @param string $access can be "r" or "w" for read or write
-   * @throws InvalidArgumentException
-   */
-  // makes no sense as a public function because it doesn't rebuild the columnsConfig etc
-  protected function setDefaultAccess($access = 'r')
-  {
-    if (!in_array($access, array('r', 'w')))
-    {
-      throw new InvalidArgumentException('Invalid access type "'. $access .'. Has to be either "r" or "w"'); 
-    }
-
-    $this->defaultAccess = $access;
-  }  
-
-  /**
-   * get default access
-   *
-   * @return string can be "r" or "w" for read or write
-   */
-  public function getDefaultAccess()
-  {
-    return $this->defaultAccess;
-  }  
-  
-  /**
-   * set request action
-   * 
-   * allows detection of the mode used
-   *
-   * @param string $action
-   * @throws InvalidArgumentException
-   */
-  public function setRequestAction($action = 'list')
-  {
-    if (!in_array($action, array('list', 'edit')))
-    {
-      throw new InvalidArgumentException('Invalid request action "'. $action .'". Has to be either "list" or "edit"'); 
-    }
-
-    $this->requestAction = $action; 
-  }
-  
-  /**
-   * get request action
-   *
-   * @return string can be "list" or "edit"
-   */
-  public function getRequestAction()
-  {
-    return $this->requestAction;
-  } 
 
   /**
    * get the table config

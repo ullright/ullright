@@ -44,7 +44,7 @@ class ullTableToolGenerator extends ullGenerator
    * @param string $modelName
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct($modelName = null, $defaultAccess = 'r')
+  public function __construct($modelName = null, $defaultAccess = null, $requestAction = null)
   {
     if ($modelName === null)
     {
@@ -62,10 +62,12 @@ class ullTableToolGenerator extends ullGenerator
     if ($this->isVersionable())
     {
       $this->enableFutureVersions = Doctrine::getTable($this->modelName)
-      ->getTemplate('Doctrine_Template_SuperVersionable')
-      ->getPlugin()->getOption('enableFutureVersions');
+          ->getTemplate('Doctrine_Template_SuperVersionable')
+          ->getPlugin()
+          ->getOption('enableFutureVersions');
     }
-    parent::__construct($defaultAccess);
+    
+    parent::__construct($defaultAccess, $requestAction);
   }
 
   /**
@@ -438,8 +440,6 @@ class ullTableToolGenerator extends ullGenerator
     }
 
     $this->removeBlacklistColumns();
-
-    //var_dump($this->columnsConfig); die;
   }
   
   /**

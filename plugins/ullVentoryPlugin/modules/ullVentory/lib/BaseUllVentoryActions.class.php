@@ -95,14 +95,12 @@ class BaseUllVentoryActions extends ullsfActions
     $this->entity = $this->retrieveEntityFromRequest();
     
     $this->form = new UllVentoryCreateForm;
-//    $this->form->setDefault('entity', $entity->username);
     
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('fields'));
       if ($this->form->isValid())
       {
-        // TODO: why action "create" and not "createWithType ???
         $this->redirect(url_for('ullVentory/createWithType') . '/' . $this->form->getValue('type') . '/entity/' . $this->entity->username);    
       }
     }
@@ -155,7 +153,7 @@ class BaseUllVentoryActions extends ullsfActions
 
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());die;
     
-    $this->generator = new ullVentoryGenerator('w', $request->getParameter('type'));
+    $this->generator = new ullVentoryGenerator($request->getParameter('type'));
 //    $this->handleEntityforEdit();
     $this->generator->buildForm($this->doc);
     $this->handleEntityforCreate();    

@@ -157,6 +157,7 @@ class BaseUllFlowActions extends ullsfActions
 
     $this->generator = new ullFlowGenerator($this->app, $accessType);
     $this->generator->buildForm($this->doc);
+    
     $this->generator->buildListOfUllFlowActionHandlers();
 
     //    var_dump($this->doc->UllFlowStep->UllFlowStepActions->toArray(true));die;

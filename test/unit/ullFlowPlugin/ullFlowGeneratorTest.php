@@ -148,13 +148,15 @@ $t->diag('getForms()');
 $t->diag('buildListOfUllFlowActionHandlers()');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(2);
-  $generator = new ullFlowGenerator($app, 'w');
+  sfContext::getInstance()->getRequest()->setParameter('action', 'edit');
+  $generator = new ullFlowGenerator($app);
   $generator->buildForm($doc);
   
   $generator->buildListOfUllFlowActionHandlers();
-  $form = $generator->getForm();
-  $t->is(count($form->getWidgetSchema()->getFields()), 10, 'The form now contains one more field from the action handler');
+  
+  $t->is(count($generator->getForm()->getFormFieldSchema()), 10, 'The form now contains one more field from the action handler');
 
+  
 $t->diag('getListOfUllFlowActionHandlers()');
 
   $handlers = $generator->getListOfUllFlowActionHandlers();

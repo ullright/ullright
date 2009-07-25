@@ -9,17 +9,19 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(53, new lime_output_color, $configuration);
+$t = new myTestCase(47, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
 $t->diag('buildFor()');
 
-  $c = ullColumnConfigCollection::buildFor('TestTable');
+  $c = ullColumnConfigCollection::buildFor('TestTable', null, 'edit');
 
-  $t->isa_ok($c, 'ullColumnConfigCollection', 'Returns the correct object');
+  $t->isa_ok($c, 'TestTableColumnConfigCollection', 'Returns the correct object');
   $t->is($c->getModelName(), 'TestTable', 'Sets the correct model name');
-  $t->is($c->getAction(), 'edit', 'Sets the correct default action');
+  $t->is($c->getRequestAction(), 'edit', 'Sets the correct default action');
+  $t->is($c instanceof ullGeneratorBase, true, 'Instance of ullGeneratorBase');
+  $t->is($c instanceof ullColumnConfigCollection, true, 'Instance of ullColumnConfigCollection');
   $t->is($c instanceof ArrayAccess, true, 'Implements ArrayAccess');
   $t->is($c instanceof IteratorAggregate, true, 'Implements IteratorAggregat');
   $t->is($c instanceof Countable, true, 'Implements Countable');
@@ -59,8 +61,7 @@ $t->diag('buildFor() - Label');
   $t->is($cGerman['creator_user_id']->getLabel(), 'Erstellt von', 'returns the correct translated humanized label for a label listed in humanizer dictionary');
 
 $t->diag('buildFor() - applyCustomSettings');
-  $cTestTable = ullTestTableColumnConfigCollection::build();
-  $t->is($cTestTable['my_select_box']->getLabel(), 'My custom select box label', 'applies custom label set in applyCustomColumnConfigSettings()');  
+  $t->is($c['my_select_box']->getLabel(), 'My custom select box label', 'applies custom label set in applyCustomColumnConfigSettings()');  
   
 $columnConfig = new ullColumnConfiguration;
 $columnConfig->setColumnName('my_email');  
@@ -160,16 +161,3 @@ $t->diag('orderBottom()');
 $t->diag('create()');
   $c->create('four');
   $t->is($c['four']->getColumnName(), 'four', 'Creates a new columnConfig correctly');  
-  
-$t->diag('isXXXAction()');
-  $c = new ullColumnConfigCollection('TestTable');
-  $t->is($c->isEditAction(), true, 'Default is edit action');
-  $t->is($c->isCreateAction(), false, 'Default is not create action');
-  $t->is($c->isListAction(), false, 'Default is not list action');
-  $t->is($c->isCreateOrEditAction(), true, 'True for create or edit');
-  $c->setAction('list');
-  $t->is($c->isEditAction(), false, 'List is not edit action');
-  $t->is($c->isCreateAction(), false, 'List is not create action');
-  $t->is($c->isListAction(), true, 'Is list action');
-  $t->is($c->isCreateOrEditAction(), false, 'List is neither create or edit action');
-  

@@ -203,8 +203,8 @@ class ullFlowGenerator extends ullGenerator
       }
     }
     
-    //var_dump($this->columnsConfig);
-    //die; 
+//    var_dump($this->columnsConfig);
+//    die; 
    
   }
   
