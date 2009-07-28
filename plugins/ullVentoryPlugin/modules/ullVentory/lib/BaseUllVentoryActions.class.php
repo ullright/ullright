@@ -164,9 +164,12 @@ class BaseUllVentoryActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
+      
+//      var_dump($_REQUEST);
+//      var_dump($this->getRequest()->getParameterHolder()->getAll());
+//      die;
 
       if ($this->handlePresetLoading($request)) { return; } 
-//      var_dump($this->getRequest()->getParameterHolder()->getAll());die;
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {

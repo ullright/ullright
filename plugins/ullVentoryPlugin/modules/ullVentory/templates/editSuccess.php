@@ -51,7 +51,7 @@
             <?php             
               echo ull_submit_tag(
                 __('Load presets'),
-                array('name' => 'submit|action_slug=load_presets')
+                array('name' => 'submit|action_slug=load_presets', 'id' => 'load_presets')
               );  
             ?>
           <?php endif ?>
@@ -314,5 +314,19 @@ $("#fields_ull_ventory_item_manufacturer_id").bind("change", function(e)
 //    });
   }
 );  
+
+
+
+// Load attribute presets upon model select
+$("#load_presets").hide();
+
+$("#fields_ull_ventory_item_model_id").bind("change", function(e)
+  {
+    $("#ull_ventory_form").append("<input type=\"hidden\" name=\"submit|action_slug=load_presets\" value=\"1\" />\n");
+    $("#ull_ventory_form").submit();
+  }
+);
+
+
   ');
 ?>
