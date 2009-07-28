@@ -304,6 +304,10 @@ UllVentoryItemAttributePreset:
     value:                          13       
     namespace:                      test
                      
-        
+UllVentoryTaking:
+  summer_2009:
+    name:               Summer 2009
+    created_at:         '2009-01-01'         
+    namespace:          test        
         
 

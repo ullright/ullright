@@ -18,5 +18,31 @@ abstract class PluginUllVentoryItem extends BaseUllVentoryItem
      
     return $q->execute();    
   }
+  
+  /**
+   * Toggle inventory taking
+   * 
+   * Creates or removes an entry in UllVentoryItemTaking for the current (=latest)
+   * UllVentoryTaking
+   *  
+   * @return none
+   */
+  public function toggleInventoryTaking()
+  {
+    $taking = UllVentoryTakingTable::findLatest();
+    
+    $itemTaking = UllVentoryItemTakingTable::findByItemAndTaking($this, $taking);
+    
+    if ($itemTaking)
+    {
+      $itemTaking->delete();
+    }
+    else
+    {
+      $this->UllVentoryItemTaking[]->UllVentoryTaking = UllVentoryTakingTable::findLatest();
+      $this->UllVentoryItemTaking->save();
+    }
+    
+  }
 
 }

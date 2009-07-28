@@ -206,4 +206,33 @@ UllVentoryOriginDummyUser:
   inheritance:
     extends: UllVentoryStatusDummyUser
     type: column_aggregation
-    keyValue: origin_dummy           
+    keyValue: origin_dummy
+
+# List of inventory takings
+UllVentoryTaking:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name: 
+      type: string(128)
+    
+# Log which item was audited during each inventory taking
+UllVentoryItemTaking:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:    
+    ull_ventory_item_id:
+      type: integer
+      notnull: true
+    ull_ventory_taking_id:
+      type: integer
+      notnull: true
+  relations:
+    UllVentoryItem:
+    UllVentoryTaking:
+    
+    
