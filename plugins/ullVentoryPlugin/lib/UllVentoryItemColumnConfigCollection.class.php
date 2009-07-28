@@ -57,6 +57,11 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         ->setLabel(__('Inv.No.'))
       ;
       
+      $this->create('toggle_inventory_taking')
+        ->setMetaWidgetClassName('ullMetaWidgetUllVentoryTaking')
+        ->setLabel(' ')
+      ;
+      
       $this->create('ull_location_id')
         ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
         ->setLabel(__('Location'))
@@ -70,6 +75,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       
       $this->order(array(
         'inventory_number',
+        'toggle_inventory_taking',
         'ull_ventory_item_type_id',
         'ull_ventory_item_manufacturer_id',
         'ull_ventory_item_model_id',
