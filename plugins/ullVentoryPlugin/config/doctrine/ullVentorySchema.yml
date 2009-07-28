@@ -112,6 +112,9 @@ UllVentoryItemTypeAttribute:
       notnull: true
     is_mandatory:
       type: boolean
+    is_presetable:
+      type: boolean
+      default: true      
   relations:
     UllVentoryItemType:
     UllVentoryItemAttribute:    
@@ -166,6 +169,25 @@ UllVentoryItemMemory:
     TargetUllEntity:
       class: UllEntity
       local: target_ull_entity_id
+      
+#Item attribute presets per model
+UllVentoryItemAttributePreset:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_ventory_item_model_id:
+      type: integer
+      notnull: true
+    ull_ventory_item_type_attribute_id:
+      type: integer
+      notnull: true
+    value:
+      type: string(4000)
+  relations:
+    UllVentoryItemModel:
+    UllVentoryItemTypeAttribute:
 
 # Dummyuser which defines a non-user status e.g. storing, repair, sold, ...
 UllVentoryStatusDummyUser:

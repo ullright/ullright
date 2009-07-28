@@ -61,6 +61,21 @@
 <target>Standort des Gegenstandes</target>
 </trans-unit>
 
+<trans-unit id="1007">
+<source>Load presets</source>
+<target>Lade Voreinstellungen</target>
+</trans-unit>
+
+<trans-unit id="1008">
+<source>Save as preset</source>
+<target>Als Voreinstellung speichern</target>
+</trans-unit>
+
+<trans-unit id="1009">
+<source>Save attributes as preset for the current model</source>
+<target>Eigenschaften als Voreinstellung für das ausgewählte Modell speichen</target>
+</trans-unit>
+
 <!-- Help messages -->
 <trans-unit id="2001">
 <source>Set the actual delivery date in case of a delivery</source>

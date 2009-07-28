@@ -25,5 +25,8 @@ abstract class BaseUllVentoryItemModel extends UllRecord
 
         $this->hasMany('UllVentoryItem', array('local' => 'id',
                                                'foreign' => 'ull_ventory_item_model_id'));
+
+        $this->hasMany('UllVentoryItemAttributePreset', array('local' => 'id',
+                                                              'foreign' => 'ull_ventory_item_model_id'));
     }
 }

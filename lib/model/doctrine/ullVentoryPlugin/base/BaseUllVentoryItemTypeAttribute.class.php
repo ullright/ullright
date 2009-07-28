@@ -12,6 +12,7 @@ abstract class BaseUllVentoryItemTypeAttribute extends UllRecord
         $this->hasColumn('ull_ventory_item_type_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
         $this->hasColumn('ull_ventory_item_attribute_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
         $this->hasColumn('is_mandatory', 'boolean', null, array('type' => 'boolean'));
+        $this->hasColumn('is_presetable', 'boolean', null, array('type' => 'boolean', 'default' => true));
     }
 
     public function setUp()
@@ -25,5 +26,8 @@ abstract class BaseUllVentoryItemTypeAttribute extends UllRecord
 
         $this->hasMany('UllVentoryItemAttributeValue', array('local' => 'id',
                                                              'foreign' => 'ull_ventory_item_type_attribute_id'));
+
+        $this->hasMany('UllVentoryItemAttributePreset', array('local' => 'id',
+                                                              'foreign' => 'ull_ventory_item_type_attribute_id'));
     }
 }

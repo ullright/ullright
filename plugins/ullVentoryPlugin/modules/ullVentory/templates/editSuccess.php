@@ -47,6 +47,14 @@
           <?php echo $generator->getForm()->offsetGet($column_name)->render() ?>
           <?php echo __('or create', null, 'common') ?>:
           <?php echo $generator->getForm()->offsetGet($column_name . '_create')->render() ?>
+          <?php if ($column_name == 'ull_ventory_item_model_id'): ?>
+            <?php             
+              echo ull_submit_tag(
+                __('Load presets'),
+                array('name' => 'submit|action_slug=load_presets')
+              );  
+            ?>
+          <?php endif ?>
         </td>
         <td class="form_error"><?php echo $generator->getForm()->offsetGet($column_name)->renderError() ?></td>
       </tr>
@@ -54,7 +62,7 @@
     <?php //TODO: it shouldn't be neccessary to hide "id" and "ull_entity_id" manually -> refactor into generator (getActiveColumns() ?) ?>
     <?php elseif ($generator->getForm()->offsetGet($column_name)->getWidget() instanceof sfWidgetFormInputHidden): ?>
       <?php continue ?>
-    <?php elseif (in_array($column_name, array('ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create'))): ?>
+    <?php elseif (in_array($column_name, array('ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create', 'save_preset'))): ?>
       <?php continue ?>
     <?php //don't render embeded forms (attributes, software) ?>
     <?php elseif ($generator->getForm()->offsetGet($column_name) instanceof sfFormFieldSchema): ?>
@@ -101,6 +109,23 @@
         </td>
       </tr>
 <?php endforeach ?>
+
+  <!-- Save attributes as preset -->
+  <?php if ($sf_params->get('action') == 'createWithType'): ?>
+  <tr>
+    <?php $save_preset = $generator->getForm()->offsetGet('save_preset') ?>
+    <td class="label_column">
+      <label for="<?php echo $save_preset->renderId() ?>">
+        <?php echo $save_preset->renderLabel() ?>
+      </label>
+    </td>
+    <td colspan="2">
+      <?php echo $save_preset->render() ?>
+      <?php echo $save_preset->renderHelp() ?>
+      <div class="form_error"><?php echo $save_preset->renderError(); ?></div>
+    </td>
+  </tr>
+  <?php endif ?>
 
 </tbody>
 </table>

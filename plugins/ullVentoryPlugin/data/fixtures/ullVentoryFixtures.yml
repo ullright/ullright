@@ -124,6 +124,7 @@ UllVentoryItemTypeAttribute:
     id:                         502
     UllVentoryItemType:         notebook
     UllVentoryItemAttribute:    delivery_date
+    is_presetable:              false
     namespace:                  test    
   printer_wired_network_speed:        
     id:                         503
@@ -145,30 +146,35 @@ UllVentoryItemAttributeValue:
     UllVentoryItemTypeAttribute: notebook_display_size
     value:                      13
     comment:                    1280x800
+    namespace:                  test
   testusers_macbook_wired_network_speed:
     id:                         601
     UllVentoryItem:             testusers_macbook
     UllVentoryItemTypeAttribute: notebook_wired_network_speed
     value:                      1000
-    comment:                    1GB = blue LED color                        
+    comment:                    1GB = blue LED color
+    namespace:                  test                        
   testusers_macbook_delivery_date:
     id:                         602
     UllVentoryItem:             testusers_macbook
     UllVentoryItemTypeAttribute: notebook_delivery_date
     value:                      '2009-05-25'
-    comment:                    2 weeks late!    
+    comment:                    2 weeks late!
+    namespace:                  test    
   testusers_mfc_440cn_wired_network_speed:
     id:                         603
     UllVentoryItem:             testusers_mfc_440cn
     UllVentoryItemTypeAttribute: printer_wired_network_speed
     value:                      100
     comment:                    100MB = green LED color
+    namespace:                  test
   testusers_mfc_440cn_printer_type:
     id:                         604
     UllVentoryItem:             testusers_mfc_440cn
     UllVentoryItemTypeAttribute: printer_printer_type
     value:                      inkjet
     comment:                    4 separate ink catridges
+    namespace:                  test
 
 # Add inventory dummy users employment types
 #UllEmploymentType:
@@ -248,43 +254,55 @@ UllVentoryItemMemory:
     transfer_at:        '2009-01-01'
     TargetUllEntity:    delivered
     SourceUllEntity:    delivered
-    comment:            Delivered by Österreichische Post  
+    comment:            Delivered by Österreichische Post
+    namespace:          test  
   testusers_macbook_memory_2:
     UllVentoryItem:     testusers_macbook
     transfer_at:        '2009-01-01'
     SourceUllEntity:    delivered
     TargetUllEntity:    stored    
+    namespace:          test
   testusers_macbook_memory_3:
     UllVentoryItem:     testusers_macbook
     transfer_at:        '2009-02-01'
     SourceUllEntity:    stored
     TargetUllEntity:    admin_user
-    comment:            Admin needed a new notebook pretty badly...       
+    comment:            Admin needed a new notebook pretty badly...
+    namespace:          test       
   testusers_macbook_memory_4                                                                                                                :
     UllVentoryItem:     testusers_macbook
     transfer_at:        '2009-03-01'
     SourceUllEntity:    admin_user
     TargetUllEntity:    test_user
     comment:            Now the notebook is old, so testuser can have it...
+    namespace:          test
 
   testusers_mfc440cn_memory_1:
     UllVentoryItem:     testusers_mfc_440cn
     transfer_at:        '2009-02-02'
     SourceUllEntity:    inventory_taking
     TargetUllEntity:    inventory_taking
+    namespace:          test
   testusers_mfc440cn_memory_2:
     UllVentoryItem:     testusers_mfc_440cn
     transfer_at:        '2009-02-02'
     SourceUllEntity:    inventory_taking
     TargetUllEntity:    stored
+    namespace:          test
   testusers_mfc440cn_memory_3:
     UllVentoryItem:     testusers_mfc_440cn
     transfer_at:        '2009-03-03'
     SourceUllEntity:    stored
     TargetUllEntity:    test_user
-    comment:            For testing purposes       
+    comment:            For testing purposes
+    namespace:          test       
 
-          
+UllVentoryItemAttributePreset:
+  macbook_display_size:
+    UllVentoryItemModel:            macbook
+    UllVentoryItemTypeAttribute:    notebook_display_size
+    value:                          13       
+    namespace:                      test
                      
         
         

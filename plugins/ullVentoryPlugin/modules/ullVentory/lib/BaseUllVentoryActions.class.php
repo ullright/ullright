@@ -164,6 +164,8 @@ class BaseUllVentoryActions extends ullsfActions
     
     if ($request->isMethod('post'))
     {
+
+      if ($this->handlePresetLoading($request)) { return; } 
 //      var_dump($this->getRequest()->getParameterHolder()->getAll());die;
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
@@ -191,6 +193,33 @@ class BaseUllVentoryActions extends ullsfActions
         }
       }
     }
+  }
+  
+  /**
+   * Loads attribute presets for the current model and redisplays the form
+   * 
+   * @param $request
+   * @return boolean
+   */
+  protected function handlePresetLoading($request)
+  {
+    if ($request->getParameter('action_slug') == 'load_presets')
+    {
+      $fields = $request->getParameter('fields');
+      $model = Doctrine::getTable('UllVentoryItemModel')->findOneById($fields['ull_ventory_item_model_id']);
+      
+      foreach ($fields['attributes'] as $key => $attribute)
+      {
+        if (!$attribute['value'])
+        {
+          $fields['attributes'][$key]['value'] =
+              UllVentoryItemAttributePresetTable::findValueByModelIdAndTypeAttributeId($model->id, $attribute['ull_ventory_item_type_attribute_id']);  
+        }
+      }
+      
+      $this->generator->getForm()->setDefaults($fields);
+      return true;                
+    }    
   }
 
   /**

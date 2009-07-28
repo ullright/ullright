@@ -83,6 +83,12 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
     if ($this->isAction('createWithType'))
     {
       $this->disable(array('updator_user_id', 'updated_at'));
+      
+      $this->create('save_preset')
+        ->setMetaWidgetClassName('ullMetaWidgetCheckbox')
+        ->setLabel(__('Save as preset'))
+        ->setHelp(__('Save attributes as preset for the current model'))
+      ;      
     }
     
     if ($this->isAction(array('createWithType', 'edit')))

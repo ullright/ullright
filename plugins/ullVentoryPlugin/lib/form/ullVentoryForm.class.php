@@ -25,6 +25,8 @@ class ullVentoryForm extends ullGeneratorForm
     $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['ull_entity_id']);    
 
     $this->updateMemory($values);
+    
+    $this->savePreset($values);
 
 //    var_dump($this->object->exists());
 //    var_dump($this->object->toArray());
@@ -117,12 +119,16 @@ class ullVentoryForm extends ullGeneratorForm
     }
   }
   
+  /**
+   * Update the item's memories
+   * 
+   * @param $values
+   * @return none
+   */
   protected function updateMemory($values)
   {
     if (isset($values['memory']))
     {
-//      var_dump($values['memory']);die;
-
       //create
       if (!$this->object->exists())
       {
@@ -152,8 +158,32 @@ class ullVentoryForm extends ullGeneratorForm
           $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['memory']['target_ull_entity_id']);
         }          
       }
-      
-      
+    }
+  }
+  
+  /**
+   * Save presets 
+   * 
+   * @param $values
+   * @return none
+   */
+  protected function savePreset($values)
+  {
+    if (isset($values['save_preset']) && $values['save_preset'])
+    {
+      foreach($values['attributes'] as $attribute)
+      {
+        $typeAttribute = Doctrine::getTable('UllVentoryItemTypeAttribute')->findOneById($attribute['ull_ventory_item_type_attribute_id']);
+        
+        if ($attribute['value'] && $typeAttribute->is_presetable)
+        {
+          UllVentoryItemAttributePresetTable::saveValueByModelIdAndTypeAttributeId(
+            $attribute['value'],
+            $this->object->ull_ventory_item_model_id,
+            $typeAttribute->id
+          );
+        }
+      }
     }
   }
 
@@ -182,4 +212,5 @@ class ullVentoryForm extends ullGeneratorForm
   {
     //do nothing - don't save embeded forms
   }  
+  
 }

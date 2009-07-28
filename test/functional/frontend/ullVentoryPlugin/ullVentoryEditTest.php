@@ -59,7 +59,7 @@ $b
   ->checkResponseElement('#fields_ull_ventory_item_model_id > option + option', 'MacBook')
   ->checkResponseElement('input[id="fields_ull_entity_id"][type="hidden"][value="'. Doctrine::getTable('UllVentoryStatusDummyUser')->findOneByUsername('stored')->id . '"]')
   // attributes
-  ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 2)
+  ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 3)
   // memory
   ->checkResponseElement($dgsOwner->getFullRowSelector(), 3)
   ->click('Save and close')
@@ -323,3 +323,55 @@ $b
   ->isRequestParameter('inventory_number', '12345')
   ->checkResponseElement('input[id="fields_id"][value="2"]', true)
 ;
+
+$b
+  ->info('Create: select model and load preset')
+  ->get('ullVentory/createWithType/notebook')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'createWithType')
+  ->isRequestParameter('type', 'notebook')
+  ->setField('fields[inventory_number]', '1705')
+  ->setField('fields[ull_ventory_item_manufacturer_id]', Doctrine::getTable('UllVentoryItemManufacturer')->findOneByName('Apple')->id)
+  ->setField('fields[ull_ventory_item_model_id]', Doctrine::getTable('UllVentoryItemModel')->findOneByName('Macbook')->id)
+  ->checkResponseElement('input[id="fields_attributes_0_value"][value=""]', true)
+  ->click('Load presets')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'createWithType')
+  ->isRequestParameter('type', 'notebook')
+  ->checkResponseElement('input[id="fields_attributes_0_value"][value="13"]', true)
+;
+
+$b
+  ->info('Create: save preset')
+  ->setField('fields[attributes][0][value]', '17') // overwrite an existing preset
+  ->setField('fields[attributes][1][value]', '1000') // save a new preset
+  ->setField('fields[attributes][2][value]', '2009-07-28') // set a preset that is not presetable
+  ->setField('fields[save_preset]', true) 
+  ->click('Save and close')
+  ->isRedirected()
+  ->followRedirect()
+;
+
+$b
+  ->info('Create: check saved preset')
+  ->get('ullVentory/createWithType/notebook')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'createWithType')
+  ->isRequestParameter('type', 'notebook')
+  ->setField('fields[inventory_number]', '1706')
+  ->setField('fields[ull_ventory_item_manufacturer_id]', Doctrine::getTable('UllVentoryItemManufacturer')->findOneByName('Apple')->id)
+  ->setField('fields[ull_ventory_item_model_id]', Doctrine::getTable('UllVentoryItemModel')->findOneByName('Macbook')->id)
+  ->checkResponseElement('input[id="fields_attributes_0_value"][value=""]', true)
+  ->click('Load presets')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'createWithType')
+  ->isRequestParameter('type', 'notebook')
+  ->checkResponseElement('input[id="fields_attributes_0_value"][value="17"]', true)
+  ->checkResponseElement('input[id="fields_attributes_1_value"][value="1000"]', true)
+  ->checkResponseElement('input[id="fields_attributes_2_value"][value=""]', true)
+;
+
