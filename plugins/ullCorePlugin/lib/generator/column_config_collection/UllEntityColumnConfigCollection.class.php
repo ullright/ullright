@@ -19,14 +19,14 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setMetaWidgetClassName('ullMetaWidgetDate');
     $this['ull_employment_type_id']
       ->setLabel(__('Employment type', null, 'ullCoreMessages'))
-      ->setOption('add_empty', true);
+      ->setWidgetOption('add_empty', true);
     $this['ull_job_title_id']
       ->setLabel(__('Job title', null, 'ullCoreMessages'))
-      ->setOption('add_empty', true);
-    $this['ull_company_id']->setOption('add_empty', true);
-    $this['ull_department_id']->setOption('add_empty', true);
-    $this['ull_location_id']->setOption('add_empty', true);
-    $this['superior_ull_user_id']->setOption('add_empty', true);
+      ->setWidgetOption('add_empty', true);
+    $this['ull_company_id']->setWidgetOption('add_empty', true);
+    $this['ull_department_id']->setWidgetOption('add_empty', true);
+    $this['ull_location_id']->setWidgetOption('add_empty', true);
+    $this['superior_ull_user_id']->setWidgetOption('add_empty', true);
     $this['phone_extension']->setLabel(__('Phone extension', null, 'ullCoreMessages'));
     $this['is_show_extension_in_phonebook']->setLabel(__('Show phone ext. in phone book', null, 'ullCoreMessages'));
     $this['fax_extension']->setLabel(__('Fax extension', null, 'ullCoreMessages'));
