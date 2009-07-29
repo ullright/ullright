@@ -41,7 +41,17 @@ class ullHumanizer
     'default_value'       => 'Default value',
     'ull_group_id'        => 'Group',
     'ull_privilege_id'    => 'Privilege',
-    'comment'             => 'Comment'
+    'comment'             => 'Comment',
+    //first_name, last_name, display_name,
+    //'username', 'email', 'password', 'sex',
+    //are not listed because they're correctly humanized
+    //by the fallback sfInflector::humanize call anyway.
+    //ToDo: remove similar entries above
+    'ull_company_id'      => 'Company',
+    'ull_department_id'   => 'Department',
+    'ull_location_id'     => 'Location',
+    'superior_ull_user_id'=> 'Superior',
+    'ull_user_status_id'  => 'Status',
     );
 
     /**

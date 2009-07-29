@@ -466,7 +466,23 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   {
     foreach ($array as $columnName)
     {
-      $this->collection[$columnName]->setAccess(false);     
+      $this->collection[$columnName]->setAccess(null);     
+    }
+  }
+  
+  /**
+   * Disables all columns except those given
+   * @param $array of columnNames
+   * @return none
+   */
+  public function disableAllExcept(array $array)
+  {
+    foreach ($this->collection as $key => $value)
+    {
+      if (array_search($key, $array) === false)
+      {
+        $value->setAccess(null);
+      }
     }
   }
   

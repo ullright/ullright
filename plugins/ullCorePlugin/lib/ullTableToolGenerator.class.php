@@ -213,6 +213,7 @@ class ullTableToolGenerator extends ullGenerator
 
     $this->sortColumns();
 
+  
     if ($this->isVersionable() && $this->enableFutureVersions == true)
     {
       $columnConfig = new ullColumnConfiguration('scheduled_update_date', $this->defaultAccess);
@@ -227,6 +228,27 @@ class ullTableToolGenerator extends ullGenerator
       
       $this->columnsConfig['scheduled_update_date'] = $columnConfig;
     }  
+    
+    //new column config (with collections)
+    $ultraModernColumnConfig = ullColumnConfigCollection::buildFor($this->modelName, $this->defaultAccess, $this->requestAction);
+  
+    if ($this->isVersionable() && $this->enableFutureVersions == true)
+    {
+      $tomorrow = mktime(0, 0, 0, date("m"), date("d")+1, date("y"));
+
+      if ($this->isCreateOrEditAction())
+      {
+        $ultraModernColumnConfig->create('scheduled_update_date')
+          ->setLabel('Scheduled update date')
+          ->setMetaWidgetClassName('ullMetaWidgetDate')
+          ->setValidatorOption('required', false) //must be set, as default = true
+          ->setValidatorOption('min', $tomorrow)
+          ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
+      }
+    }  
+    
+    //flip the switch here :)
+    //$this->columnsConfig = $ultraModernColumnConfig;
   }
 
   /**

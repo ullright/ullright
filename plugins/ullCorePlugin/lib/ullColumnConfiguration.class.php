@@ -1,6 +1,6 @@
 <?php
 /**
- * This class describes a data column and is primary
+ * This class describes a data column and is primarily
  * used by the generators.
  */
 class ullColumnConfiguration

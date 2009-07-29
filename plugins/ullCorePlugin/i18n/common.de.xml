@@ -625,6 +625,56 @@
 <target>Zur vorherigen Seite zurückkehren</target>
 </trans-unit>
 
+<trans-unit id="17008">
+<source>First name</source>
+<target>Vorname</target>
+</trans-unit>
+
+<trans-unit id="17009">
+<source>Last name</source>
+<target>Nachname</target>
+</trans-unit>
+
+<trans-unit id="17010">
+<source>Email</source>
+<target>E-Mail</target>
+</trans-unit>
+
+<trans-unit id="17011">
+<source>Sex</source>
+<target>Geschlecht</target>
+</trans-unit>
+
+<trans-unit id="17012">
+<source>Location</source>
+<target>Standort</target>
+</trans-unit>
+
+<trans-unit id="17013">
+<source>Company</source>
+<target>Unternehmen</target>
+</trans-unit>
+
+<trans-unit id="17014">
+<source>Department</source>
+<target>Abteilung</target>
+</trans-unit>
+
+<trans-unit id="17015">
+<source>Superior</source>
+<target>Vorgesetzter</target>
+</trans-unit>
+
+<trans-unit id="17016">
+<source>Status</source>
+<target>Status</target>
+</trans-unit>
+
+<trans-unit id="17017">
+<source>Display name</source>
+<target>Anzeigename</target>
+</trans-unit>
+
 <!-- labels -->
 
 <trans-unit id="18000">
@@ -747,30 +797,6 @@
 <target>Aktualisierer</target>
 </trans-unit>
 
-<trans-unit id="20002">
-<source>Location</source>
-<target>Standort</target>
-</trans-unit>
-
-<trans-unit id="20003">
-<source>Company</source>
-<target>Unternehmen</target>
-</trans-unit>
-
-<trans-unit id="20004">
-<source>Department</source>
-<target>Abteilung</target>
-</trans-unit>
-
-<trans-unit id="20005">
-<source>Employment type</source>
-<target>Beschäfigungsverhältnis</target>
-</trans-unit>
-
-<trans-unit id="20006">
-<source>Job title</source>
-<target>Funktion</target>
-</trans-unit>
 
 <trans-unit id="20007">
 <source>Ull flow app</source>
