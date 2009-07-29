@@ -34,6 +34,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     $blacklist = array(
           'namespace',
           'type',
+          'version',
     ),
     // columns which should be displayed at last position
     $orderBottom = array(
@@ -122,9 +123,9 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     $this->createColumnConfigs();
     
     $this->applyCommonSettings();
-      
+    
     $this->applyDoctrineSettings();
-      
+    
     $this->applyCustomSettings();
   }
 
@@ -176,8 +177,15 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       ;
     }
 
-    $this->blacklist();
     $this->setReadOnly();
+    
+    if ($this->isListAction())
+    {
+      $this->blacklist($this->notInList);
+    }
+    
+    $this->blacklist();
+
     $this->orderBottom($this->orderBottom);    
   }
   
@@ -186,9 +194,14 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    * Remove unwanted columns
    *
    */
-  protected function blacklist()
+  protected function blacklist(array $blacklist = null)
   {
-    foreach ($this->blacklist as $column)
+    if ($blacklist === null)
+    {
+      $blacklist = $this->blacklist;
+    }
+    
+    foreach ($blacklist as $column)
     {
       if (isset($this->collection[$column]))
       {
