@@ -4,11 +4,7 @@ class ullTableToolGenerator extends ullGenerator
 {
   protected
   $formClass = 'ullTableToolForm',
-  $modelName,
-  $columnsBlacklist = array(
-        'namespace',
-        'type',
-  );
+  $modelName;
 
   protected $historyGenerators = array();
   protected $futureGenerators = array();
@@ -165,7 +161,7 @@ class ullTableToolGenerator extends ullGenerator
     }  
     
     //flip the switch here :)
-    $this->columnsConfig = $ultraModernColumnConfig;  
+    $this->columnsConfig = $ultraModernColumnConfig;
   }
 
   /**

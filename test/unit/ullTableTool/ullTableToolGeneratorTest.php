@@ -14,8 +14,13 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetInteger');
     $columnConfig->setAccess('r');
     $columnConfig->setUnique(true);
-    $columnConfig->setIsInList(true);
     $this->columnsConfigMock['id'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('namespace');
+    $columnConfig->setAccess(null);
+    $columnConfig->setWidgetAttributes(array('maxlength' => 32));
+    $columnConfig->setValidatorOptions(array('required' => false, 'max_length' => 32));
+    $this->columnsConfigMock['namespace'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_boolean');
     $columnConfig->setLabel('My boolean');
@@ -68,7 +73,6 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Created by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setAccess('r');
-    $columnConfig->setIsInList(false);
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['creator_user_id'] = $columnConfig;
     
@@ -76,14 +80,12 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Created at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess('r');
-    $columnConfig->setIsInList(false);
     $this->columnsConfigMock['created_at'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updator_user_id');
     $columnConfig->setLabel('Updated by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setAccess('r');
-    $columnConfig->setIsInList(false);
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['updator_user_id'] = $columnConfig;
     
@@ -93,7 +95,6 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Updated at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess('r');
-    $columnConfig->setIsInList(false);
     $this->columnsConfigMock['updated_at'] = $columnConfig;
   }      
 
@@ -113,7 +114,8 @@ class myTestCase extends sfDoctrineTestCase
     $this->is($columnConfig->getLabel(), $columnConfigMock->getLabel(), 'label ok');
     $this->is($columnConfig->getMetaWidgetClassName(), $columnConfigMock->getMetaWidgetClassName(), 'meta widget class name ok');
     $this->is($columnConfig->getAccess(), $columnConfigMock->getAccess(), 'access ok');
-    $this->is($columnConfig->getIsInList(), $columnConfigMock->getIsInList(), 'isInList ok');
+    //we don't need this anymore, compare access to null instead
+    //$this->is($columnConfig->getIsInList(), $columnConfigMock->getIsInList(), 'isInList ok');
     $this->is_deeply($columnConfig->getRelation(), $columnConfigMock->getRelation(), 'relation ok');
     $this->is($columnConfig->getUnique(), $columnConfigMock->getUnique(), 'unique ok');
     $this->is($columnConfig->getTranslated(), $columnConfigMock->getTranslated(), 'translation ok');
@@ -124,7 +126,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(149, new lime_output_color, $configuration);
+$t = new myTestCase(147, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -176,21 +178,34 @@ $t->diag('getTableConfig()');
   
 $t->diag('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
-  $t->is(is_array($columnsConfig), true, 'columnsConfig is an array');
-  $t->is(count($columnsConfig), 12, 'columnsConfig has the correct number of columns');
-   
-  // don't use foreach because it ignores the ordering of the fields  
+  $t->isa_ok($columnsConfig, 'TestTableColumnConfigCollection',
+    'columnsConfig is an TestTableColumnConfigCollection object');
+  $t->is(count($columnsConfig), 13, 'columnsConfig has the correct number of columns');
+
   $mocks = $t->getColumnsConfigMock();
+  foreach($columnsConfig as $columnConfig)
+  {
+    $columnConfigMock = current($mocks);
+    next($mocks);
+    
+    $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
+    $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
+  }
+  /*
+  // don't use foreach because it ignores the ordering of the fields  
   for ($i = 0; $i < count($columnsConfig); $i++)
   {
-    $columnConfig =  current($columnsConfig);
+    $columnConfig = current($columnsConfig);
     $columnConfigMock = current($mocks);
     next($columnsConfig);
     next($mocks);
 
+    var_dump('BLUB');
+    var_dump($columnConfig);
+    
     $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
     $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
-  }
+  }*/
 
 $t->diag('getIdentifierUrlParams() without calling buildForm()');
   try
