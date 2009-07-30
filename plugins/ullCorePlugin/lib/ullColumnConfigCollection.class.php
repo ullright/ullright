@@ -517,6 +517,10 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       {
         $value->setAccess(null);
       }
+      else
+      {
+        $value->setAccess($this->defaultAccess);
+      }
     }
   }
   

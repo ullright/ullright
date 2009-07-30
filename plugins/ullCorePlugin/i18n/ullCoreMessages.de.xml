@@ -68,6 +68,10 @@
     <target>Auswahlfeld</target>
     </trans-unit>
    
+    <trans-unit id="14">
+    <source>My custom string label</source>
+    <target>Mein spezielles String label</target>
+    </trans-unit>
 </body>
   </file>
 </xliff>
