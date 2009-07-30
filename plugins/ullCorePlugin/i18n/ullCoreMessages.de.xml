@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+    <trans-unit id="1">
+    <source>Is a virtual group</source>
+    <target>Ist eine virtuelle Gruppe</target>
+    </trans-unit>
+
+    <trans-unit id="2">
+    <source>Entry date</source>
+    <target>Eintrittsdatum</target>
+    </trans-unit>
+    
+    <trans-unit id="3">
+    <source>Deactivation date</source>
+    <target>Deaktivierungsdatum</target>
+    </trans-unit>
+    
+    <trans-unit id="4">
+    <source>Separation date</source>
+    <target>Austrittsdatum</target>
+    </trans-unit>
+
+    <trans-unit id="5">
+    <source>Employment type</source>
+    <target>Beschäfigungsverhältnis</target>
+    </trans-unit>
+    
+    <trans-unit id="6">
+    <source>Job title</source>
+    <target>Funktion</target>
+    </trans-unit>
+    
+    <trans-unit id="7">
+    <source>Phone extension</source>
+    <target>Durchwahl</target>
+    </trans-unit>
+    
+    <trans-unit id="8">
+    <source>Show phone ext. in phone book</source>
+    <target>Durchwahl in Telefonb. anzeigen</target>
+    </trans-unit>
+    
+    <trans-unit id="9">
+    <source>Fax extension</source>
+    <target>Fax-Durchwahl</target>
+    </trans-unit>
+    
+    <trans-unit id="10">
+    <source>Show fax ext. in phone book</source>
+    <target>Fax-Durchwahl in Telefonb. anzeigen</target>
+    </trans-unit>
+     
+    <trans-unit id="11">
+    <source>Order by columns</source>
+    <target>Sortiere nach Spalten</target>
+    </trans-unit>
+    
+    <trans-unit id="12">
+    <source>Search in columns</source>
+    <target>Suche in Spalten</target>
+    </trans-unit>
+   
+    <trans-unit id="13">
+    <source>Select box</source>
+    <target>Auswahlfeld</target>
+    </trans-unit>
+   
+    <trans-unit id="14">
+    <source>My custom string label</source>
+    <target>Mein spezielles String label</target>
+    </trans-unit>
+</body>
+  </file>
+</xliff>
