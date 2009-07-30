@@ -8,27 +8,7 @@ class ullTableToolGenerator extends ullGenerator
   $columnsBlacklist = array(
         'namespace',
         'type',
-  ),
-  // columns which should be displayed last (at the bottom of the edit template)
-  $columnsOrderBottom = array(
-        'creator_user_id',
-        'created_at',
-        'updator_user_id',
-        'updated_at',
-  ),
-  $columnsReadOnly = array(
-        'creator_user_id',
-        'created_at',
-        'updator_user_id',
-        'updated_at',
-  ),
-  $columnsNotShownInList = array(
-        'creator_user_id',
-        'created_at',
-        'updator_user_id',
-        'updated_at',
-  )
-  ;
+  );
 
   protected $historyGenerators = array();
   protected $futureGenerators = array();
@@ -166,69 +146,6 @@ class ullTableToolGenerator extends ullGenerator
    */
   protected function buildColumnsConfig()
   {
-    $columnRelations = ullGeneratorHelper::resolveDoctrineRelations($this->modelName);
-    
-//    var_dump($columnRelations);
-
-    $columns = Doctrine::getTable($this->modelName)->getColumns();
-
-    if (Doctrine::getTable($this->modelName)->hasRelation('Translation'))
-    {
-      $translationColumns = Doctrine::getTable($this->modelName . 'Translation')->getColumns();
-      unset($translationColumns['id']);
-      unset($translationColumns['lang']);
-
-      $columns += $translationColumns;
-    }
-
-    foreach ($columns as $columnName => $column)
-    {
-      $columnConfig = new ullColumnConfiguration($columnName, $this->defaultAccess);
-      $columnConfig->parseDoctrineColumnObject($column, $columnRelations);
-      
-      // mark translated fields
-      if (isset($translationColumns[$columnName]))
-      {
-        $columnConfig->setTranslated(true);
-      }
-
-      // remove certain columns from the list per default
-      if (in_array($columnName, $this->columnsNotShownInList))
-      {
-        $columnConfig->setIsInList(false);
-      }
-
-      // parse UllColumnConfigData table
-      UllColumnConfigTable::addColumnConfigArray($columnConfig, $this->modelName, $columnName);
-      // try to translate label
-      $columnConfig->setLabel(__($columnConfig->getLabel(), null, 'common'));
-
-      $this->columnsConfig[$columnName] = $columnConfig;
-    }
-
-
-    $this->removeBlacklistColumns();
-
-    $this->setReadOnlyColumns();
-
-    $this->sortColumns();
-
-  
-    if ($this->isVersionable() && $this->enableFutureVersions == true)
-    {
-      $columnConfig = new ullColumnConfiguration('scheduled_update_date', $this->defaultAccess);
-      
-      $columnConfig->setLabel('Scheduled update date');
-      $columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
-      $columnConfig->setIsInList(false);
-      $columnConfig->setValidatorOption('required', false); //must be set, as default = true
-      $tomorrow = mktime(0, 0, 0, date("m"), date("d")+1, date("y"));
-      $columnConfig->setValidatorOption('min', $tomorrow);
-      $columnConfig->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
-      
-      $this->columnsConfig['scheduled_update_date'] = $columnConfig;
-    }  
-    
     //new column config (with collections)
     $ultraModernColumnConfig = ullColumnConfigCollection::buildFor($this->modelName, $this->defaultAccess, $this->requestAction);
   
@@ -248,7 +165,7 @@ class ullTableToolGenerator extends ullGenerator
     }  
     
     //flip the switch here :)
-    //$this->columnsConfig = $ultraModernColumnConfig;  
+    $this->columnsConfig = $ultraModernColumnConfig;  
   }
 
   /**
@@ -269,34 +186,6 @@ class ullTableToolGenerator extends ullGenerator
       //  trigger_error("Trying to blacklist non-existing column: " . $column, E_USER_NOTICE);
       //}
     }
-  }
-
-  /**
-   * set columns which are always read only
-   *
-   */
-  protected function setReadOnlyColumns()
-  {
-    foreach($this->columnsReadOnly as $column)
-    {
-      $this->columnsConfig[$column]->setAccess('r');
-    }
-  }
-
-  /**
-   * do some default sorting of the column order
-   *
-   */
-  protected function sortColumns()
-  {
-    $bottom = array();
-    foreach ($this->columnsOrderBottom as $column)
-    {
-      $bottom[$column] = $this->columnsConfig[$column];
-      unset($this->columnsConfig[$column]);
-    }
-
-    $this->columnsConfig = array_merge($this->columnsConfig, $bottom);
   }
 
   /**

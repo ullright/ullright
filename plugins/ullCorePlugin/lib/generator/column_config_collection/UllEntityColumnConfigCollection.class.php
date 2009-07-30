@@ -34,12 +34,12 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['email']->setMetaWidgetClassName('ullMetaWidgetEmail');
     $this['password']->setMetaWidgetClassName('ullMetaWidgetPassword');
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
-    
+
     $this->disable(array('version', 'is_virtual_group', 'display_name'));
     
     if ($this->isListAction())
     {
-      $this->disableAllExcept(array('id', 'first_name', 'last_name', 'display_name', 'username', 'email'));
+      $this->disableAllExcept(array('id', 'first_name', 'last_name', 'username', 'email'));
     } 
   }
 }

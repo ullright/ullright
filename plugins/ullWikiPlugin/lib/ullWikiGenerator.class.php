@@ -3,14 +3,7 @@
 class ullWikiGenerator extends ullTableToolGenerator
 {
   protected
-    $formClass = 'ullWikiForm',
-    
-    $columnsNotShownInList = array(
-        'body',
-        'ull_wiki_access_level_id',
-        'duplicate_tags_for_search'
-    )     
-  ;
+    $formClass = 'ullWikiForm';
     
   /**
    * Constructor
@@ -65,50 +58,5 @@ class ullWikiGenerator extends ullTableToolGenerator
     }
     
     return array('docid' => $this->rows[$row]->id);
-  }    
-  
-  /**
-   * builds the column config
-   *
-   */
-  protected function buildColumnsConfig()
-  {  
-    parent::buildColumnsConfig();
-    
-    unset(      
-      $this->columnsConfig['read_counter'],
-      $this->columnsConfig['edit_counter'],
-      $this->columnsConfig['deleted'],
-      $this->columnsConfig['version'],
-      $this->columnsConfig['creator_user_id'],
-      $this->columnsConfig['created_at']      
-    );
-    
-    $this->columnsConfig['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');
-    
-    if ($this->requestAction == 'edit')
-    {
-      unset(
-        $this->columnsConfig['id'],        
-        $this->columnsConfig['updator_user_id'],
-        $this->columnsConfig['updated_at']
-      );
-    }
-
-    //configure subject
-    $this->columnsConfig['subject']->setLabel('Subject');
-    $this->columnsConfig['subject']->setWidgetAttribute('size', 50);
-    $this->columnsConfig['subject']->setMetaWidgetClassName('ullMetaWidgetLink');
-    
-    //configure body
-    $this->columnsConfig['body']->setMetaWidgetClassName('ullMetaWidgetFCKEditor');
-    $this->columnsConfig['body']->setLabel('Text');
-    
-    // configure access level
-    $this->columnsConfig['ull_wiki_access_level_id']->setLabel(__('Access level'));
-    
-    // configure tags
-    $this->columnsConfig['duplicate_tags_for_search']->setLabel('Tags');
-    $this->columnsConfig['duplicate_tags_for_search']->setMetaWidgetClassName('ullMetaWidgetTaggable');
   }
 }
