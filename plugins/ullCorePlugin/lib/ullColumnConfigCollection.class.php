@@ -130,20 +130,6 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   }
 
   /**
-   * Fill collection array with empty ullColumnConfigurations for each
-   * model column
-   * 
-   * @return none
-   */
-  protected function createColumnConfigs()
-  {
-    foreach ($this->columns as $columnName => $column)
-    {
-      $this->collection[$columnName] = new ullColumnConfiguration;
-    }
-  }  
-  
-  /**
    * Build a list of columns
    * 
    * Default are the model columns
@@ -157,7 +143,42 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    */  
   protected function buildColumns()
   {
-    $this->columns = Doctrine::getTable($this->modelName)->getColumns();
+    $modelTable = Doctrine::getTable($this->modelName);
+    
+    $this->columns = $modelTable->getColumns();
+    
+    //handle translated fields
+    if ($modelTable->hasRelation('Translation'))
+    {
+      $translationColumns = Doctrine::getTable($this->modelName . 'Translation')->getColumns();
+      unset($translationColumns['id']);
+      unset($translationColumns['lang']);
+
+      foreach ($translationColumns as $translationColumnName => $translationColumn)
+      {
+        $translationColumn['translated'] = true;
+        $this->columns[$translationColumnName] = $translationColumn;
+      }
+    }
+  }  
+  
+  /**
+   * Fill collection array with empty ullColumnConfigurations for each
+   * model column and set translation flag if necessary
+   * 
+   * @return none
+   */
+  protected function createColumnConfigs()
+  {
+    foreach ($this->columns as $columnName => $column)
+    {
+      $this->collection[$columnName] = new ullColumnConfiguration;
+
+      if (isset($column['translated']) && $column['translated'] === true)
+      {
+        $this->collection[$columnName]->setTranslated(true);
+      }
+    }
   }  
   
   

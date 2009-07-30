@@ -52,7 +52,22 @@
     <source>Show fax ext. in phone book</source>
     <target>Fax-Durchwahl in Telefonb. anzeigen</target>
     </trans-unit>
-
+     
+    <trans-unit id="11">
+    <source>Order by columns</source>
+    <target>Sortiere nach Spalten</target>
+    </trans-unit>
+    
+    <trans-unit id="12">
+    <source>Search in columns</source>
+    <target>Suche in Spalten</target>
+    </trans-unit>
+   
+    <trans-unit id="13">
+    <source>Select box</source>
+    <target>Auswahlfeld</target>
+    </trans-unit>
+   
 </body>
   </file>
 </xliff>

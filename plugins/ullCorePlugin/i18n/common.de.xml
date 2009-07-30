@@ -742,6 +742,11 @@
 <target>Änderungen erst an folgendem Tag durchführen</target>
 </trans-unit>
 
+<trans-unit id="18012">
+<source>Country</source>
+<target>Land</target>
+</trans-unit>
+
 <trans-unit id="19001">
 <source>to</source>
 <target>bis</target>
@@ -891,6 +896,11 @@
 <trans-unit id="21013">
 <source>New owner</source>
 <target>Neuer Besitzer</target>
+</trans-unit>
+
+<trans-unit id="22000">
+<source>Permission</source>
+<target>Zugriffsrecht</target>
 </trans-unit>
 
 </body>

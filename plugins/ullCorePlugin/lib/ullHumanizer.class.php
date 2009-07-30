@@ -19,7 +19,10 @@ class ullHumanizer
     'UllEntity' => 'Entity',
     'UllVentoryItemModel' => 'Item model',
     );
-    
+  
+  //Some fields (e.g. first_name, last_name, ...)
+  //are not listed because they're correctly humanized
+  //by the fallback sfInflector::humanize call anyway.
   private static $columnNames = array(
     'id'                  => 'ID',
     'creator_user_id'     => 'Created by', 
@@ -32,26 +35,16 @@ class ullHumanizer
     'is_enabled'          => 'Enabled',
     'is_in_list'          => 'Show in list',
     'is_mandatory'        => 'Mandatory',
-    'label'               => 'Label',
-    'description'         => 'Description',
     'slug'                => 'Unique identifier',
-    'options'             => 'Options',
     'ull_column_type_id'  => 'Type',
-    'sequence'            => 'Sequence',
-    'default_value'       => 'Default value',
     'ull_group_id'        => 'Group',
     'ull_privilege_id'    => 'Privilege',
-    'comment'             => 'Comment',
-    //first_name, last_name, display_name,
-    //'username', 'email', 'password', 'sex',
-    //are not listed because they're correctly humanized
-    //by the fallback sfInflector::humanize call anyway.
-    //ToDo: remove similar entries above
     'ull_company_id'      => 'Company',
     'ull_department_id'   => 'Department',
     'ull_location_id'     => 'Location',
     'superior_ull_user_id'=> 'Superior',
     'ull_user_status_id'  => 'Status',
+    'ull_permission_id'      => 'Permission'
     );
 
     /**
