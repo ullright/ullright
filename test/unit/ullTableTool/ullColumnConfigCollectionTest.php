@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(47, new lime_output_color, $configuration);
+$t = new myTestCase(49, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -26,7 +26,11 @@ $t->diag('buildFor()');
   $t->is($c instanceof IteratorAggregate, true, 'Implements IteratorAggregat');
   $t->is($c instanceof Countable, true, 'Implements Countable');
   $t->isa_ok($c->getFirst(), 'ullColumnConfiguration', 'returns an array of ullColumnConfiguration objects');
-  
+
+$t->diag('buildFor() - createColumnConfigs');
+  $t->is($c['my_string']->getTranslated(), true, 'sets translation flag');
+  $t->is($c['my_text']->getTranslated(), true, 'sets translation flag');
+
 $t->diag('buildFor() - applyCommonSettings');
   $t->is($c['my_email']->getColumnName(), 'my_email', 'sets column name');
   $t->is($c['my_email']->getAccess(), 'w', 'defaultAccess mode is set to "w" because of default action "edit"');
@@ -42,7 +46,7 @@ $t->diag('buildFor() - applyDoctrineSettings for "id"');
   $t->is($c['id']->getRelation(), false, 'no relation set');
 
 $t->diag('buildFor() - applyDoctrineSettings for "my_email"');
-  $t->is($c['my_email']->getMetaWidgetClassName(), 'ullMetaWidgetString', 'sets the correct metaWidget');
+  $t->is($c['my_email']->getMetaWidgetClassName(), 'ullMetaWidgetEmail', 'sets the correct metaWidget');
   $t->is($c['my_email']->getWidgetAttribute('maxlength'), '64', 'sets the correct widget length');
   $t->is($c['my_email']->getValidatorOption('max_length'), '64', 'sets the correct validator length');
   $t->is($c['my_email']->getValidatorOption('required'), true, 'sets the validator to "required" because of "notnull"');
@@ -61,7 +65,7 @@ $t->diag('buildFor() - Label');
   $t->is($cGerman['creator_user_id']->getLabel(), 'Erstellt von', 'returns the correct translated humanized label for a label listed in humanizer dictionary');
 
 $t->diag('buildFor() - applyCustomSettings');
-  $t->is($c['my_select_box']->getLabel(), 'My custom select box label', 'applies custom label set in applyCustomColumnConfigSettings()');  
+  $t->is($c['my_string']->getLabel(), 'My custom string label', 'applies custom label set in applyCustomColumnConfigSettings()');  
   
 $columnConfig = new ullColumnConfiguration;
 $columnConfig->setColumnName('my_email');  

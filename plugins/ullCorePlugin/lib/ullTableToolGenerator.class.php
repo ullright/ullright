@@ -248,7 +248,7 @@ class ullTableToolGenerator extends ullGenerator
     }  
     
     //flip the switch here :)
-    //$this->columnsConfig = $ultraModernColumnConfig;
+    //$this->columnsConfig = $ultraModernColumnConfig;  
   }
 
   /**
@@ -259,7 +259,15 @@ class ullTableToolGenerator extends ullGenerator
   {
     foreach ($this->columnsBlacklist as $column)
     {
-      unset($this->columnsConfig[$column]);
+      if (isset($this->columnsConfig[$column]))
+      {
+        unset($this->columnsConfig[$column]);
+      }
+      //ToDo: Check why this is even necessary
+      //else
+      //{
+      //  trigger_error("Trying to blacklist non-existing column: " . $column, E_USER_NOTICE);
+      //}
     }
   }
 

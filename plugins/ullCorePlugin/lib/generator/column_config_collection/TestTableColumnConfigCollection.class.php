@@ -8,7 +8,7 @@ class TestTableColumnConfigCollection extends UllEntityColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    //$this['my_string']->setMetaWidgetClassName('My custom string label');
+    $this['my_string']->setLabel(__('My custom string label', null, 'ullCoreMessages'));
     $this['my_email']->setMetaWidgetClassName('ullMetaWidgetEmail');
     $this['my_select_box']->setMetaWidgetClassName('ullMetaWidgetUllSelect')
     ->setWidgetOption('ull_select', 'ull_select_test')
