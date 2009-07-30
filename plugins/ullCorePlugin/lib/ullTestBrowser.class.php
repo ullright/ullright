@@ -258,6 +258,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
       array(
         'actions',
         'inventory_number',
+        'toggle_inventory_taking',
         'type',
         'manufacturer',
         'model',

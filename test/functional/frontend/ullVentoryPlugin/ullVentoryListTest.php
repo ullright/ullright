@@ -31,6 +31,25 @@ $b
 ;
 
 $b
+  ->diag('Toggle inventory taking')
+  ->checkResponseElement($dgsList->get(1, 'toggle_inventory_taking') . ' img[src*="notok_16x16.png"]', true)
+  ->click('Not yet audited during latest inventory taking')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement($dgsList->get(1, 'toggle_inventory_taking') . ' img[src*="ok_16x16.png"]', true)
+  ->click('Audited during latest inventory taking')
+  ->isRedirected()
+  ->followRedirect() 
+  ->isStatusCode(200) 
+  ->isRequestParameter('module', 'ullVentory')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement($dgsList->get(1, 'toggle_inventory_taking') . ' img[src*="notok_16x16.png"]', true)  
+;
+
+$b
   ->diag('Index quicksearch')
   ->get('ullVentory/index')
   ->setField('filter[search]', '1701') //1701 is an inventory number

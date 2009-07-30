@@ -62,6 +62,15 @@ class BaseUllVentoryActions extends ullsfActions
     
     $this->generator->buildForm($this->docs);
   }
+  
+  
+  public function executeToggleInventoryTaking(sfRequest $request)
+  {
+    $this->doc = $this->getRoute()->getObject();
+    $this->doc->toggleInventoryTaking();
+    
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));
+  }
 
 
   /**

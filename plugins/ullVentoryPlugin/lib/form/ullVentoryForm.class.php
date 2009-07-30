@@ -204,6 +204,7 @@ class ullVentoryForm extends ullGeneratorForm
     $defaults['ull_ventory_item_manufacturer_id'] = $model->ull_ventory_item_manufacturer_id;
     // for the list view:
     $defaults['ull_location_id'] = $this->getObject()->UllEntity->ull_location_id;
+    $defaults['toggle_inventory_taking'] = $this->getObject()->hasLatestInventoryTaking();
     
     $this->setDefaults($defaults);
   }  

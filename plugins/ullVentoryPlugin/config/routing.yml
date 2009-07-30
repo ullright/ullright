@@ -14,3 +14,12 @@ ull_ventory_edit:
   param:   { module: ullVentory, action: edit }
   requirements:
     sf_method: [get, post]
+    
+    
+ull_ventory_toggle_inventory_taking:
+  url:     /ullVentory/toggleInventoryTaking/:inventory_number
+  class:   sfDoctrineRoute
+  options: { model: UllVentoryItem, type: object }
+  param:   { module: ullVentory, action: toggleInventoryTaking }
+  requirements:
+    sf_method: [get]    

@@ -36,13 +36,46 @@ abstract class PluginUllVentoryItem extends BaseUllVentoryItem
     if ($itemTaking)
     {
       $itemTaking->delete();
+      $this->refresh(true);
+      $this->UllVentoryItemMemory[] = $this->createMemory('Inventory taking withdrawn: ' . $taking->name);
     }
     else
     {
       $this->UllVentoryItemTaking[]->UllVentoryTaking = UllVentoryTakingTable::findLatest();
       $this->UllVentoryItemTaking->save();
+      $this->UllVentoryItemMemory[] = $this->createMemory('Inventory taking: ' . $taking->name);
     }
+    $this->UllVentoryItemMemory->save();
     
+  }
+  
+  public function hasLatestInventoryTaking()
+  {
+    if (UllVentoryItemTakingTable::findByItemAndTaking($this, UllVentoryTakingTable::findLatest()))
+    {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Create a new UllVentoryItemMemory for the current item
+   * 
+   * @param $comment string
+   * @param $transfer_at string
+   * @param $source_ull_entity_id integer
+   * @param $target_ull_entity_id integer
+   * @return UllVentoryItemMemory
+   */
+  public function createMemory($comment, $transfer_at = null, $source_ull_entity_id = null, $target_ull_entity_id = null)
+  {
+    $memory = new UllVentoryItemMemory;
+    $memory->transfer_at = ($transfer_at) ? $transfer_at : date('Y-m-d');
+    $memory->source_ull_entity_id = ($source_ull_entity_id) ? $source_ull_entity_id : $this->ull_entity_id;
+    $memory->target_ull_entity_id = ($target_ull_entity_id) ? $target_ull_entity_id : $this->ull_entity_id;
+    $memory->comment = $comment;
+    
+    return $memory;
   }
 
 }

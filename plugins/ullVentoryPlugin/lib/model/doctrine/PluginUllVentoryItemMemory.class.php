@@ -5,5 +5,27 @@
  */
 abstract class PluginUllVentoryItemMemory extends BaseUllVentoryItemMemory
 {
+  
+  public function getComment()
+  {
+    $originalComment = parent::_get('comment');
+
+    if (strstr($originalComment, 'Inventory taking withdrawn: '))
+    {
+      $comment = str_replace('Inventory taking withdrawn: ', '', $originalComment);
+      $comment = __('Audit for inventory taking "%1%" withdrawn', array('%1%' => $comment));
+    }  
+    elseif (strstr($originalComment, 'Inventory taking: '))
+    {
+      $comment = str_replace('Inventory taking: ', '', $originalComment);
+      $comment = __('Audited during inventory taking "%1%"', array('%1%' => $comment));
+    }
+    else
+    {
+      $comment = $originalComment;
+    }
+    
+    return $comment;
+  }
 
 }

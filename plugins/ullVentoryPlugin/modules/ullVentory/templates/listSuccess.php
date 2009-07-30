@@ -58,8 +58,10 @@
   <tbody>
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-    <?php $form['inventory_number']->getWidget()->setAttribute('href', 
-      url_for('ull_ventory_edit', $form->getObject())) ?>
+    <?php /* $form['inventory_number']->getWidget()->setAttribute('href', 
+      url_for('ull_ventory_edit', $form->getObject())) */ ?>
+    <?php $form['toggle_inventory_taking']->getWidget()->setAttribute('href', 
+      url_for('ull_ventory_toggle_inventory_taking', $form->getObject())) ?>      
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          
         <?php

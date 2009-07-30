@@ -76,6 +76,28 @@
 <target>Eigenschaften als Voreinstellung für das ausgewählte Modell speichen</target>
 </trans-unit>
 
+<trans-unit id="1010">
+<source>Audited during inventory taking "%1%"</source>
+<target>Überprüft bei Inventur "%1%"</target>
+</trans-unit>
+
+<trans-unit id="1011">
+<source>Audit for inventory taking "%1%" withdrawn</source>
+<target>Überprüfung bei Inventur "%1%" zurückgezogen</target>
+</trans-unit>
+
+<trans-unit id="1012">
+<source>Audited during latest inventory taking</source>
+<target>Bei der aktuellen Inventur überprüft</target>
+</trans-unit>
+
+<trans-unit id="1013">
+<source>Not yet audited during latest inventory taking</source>
+<target>Bei der aktuellen Inventur noch nicht überprüft</target>
+</trans-unit>
+
+
+
 <!-- Help messages -->
 <trans-unit id="2001">
 <source>Set the actual delivery date in case of a delivery</source>

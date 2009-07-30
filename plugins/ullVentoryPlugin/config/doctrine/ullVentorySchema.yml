@@ -17,7 +17,7 @@ UllVentoryItemType:
     type: concrete
   actAs:
     I18n:
-      fields: [name] 
+      fields: [name]
   columns:
     slug:
       type: string(128)

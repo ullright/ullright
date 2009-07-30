@@ -7,11 +7,15 @@ class ullWidgetUllVentoryTaking extends ullWidget
   {
     if ($value)
     {
-      return link_to(ull_image_tag('ok'), 'ullVentory/toogleInventoryTaking');  
+      $title = __('Audited during latest inventory taking');
+      $options = array('alt' => $title, 'title' => $title);
+      return link_to(ull_image_tag('ok', $options), $attributes['href']);  
     }
     else
     {
-      return link_to(ull_image_tag('notok'), 'ullVentory/toogleInventoryTaking');
+      $title = __('Not yet audited during latest inventory taking');
+      $options = array('alt' => $title, 'title' => $title);
+      return link_to(ull_image_tag('notok', $options), $attributes['href']);
     }
   } 
 }
