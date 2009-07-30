@@ -3,11 +3,11 @@
   <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
     <body>
 
-		<trans-unit id="1">
-		<source>Access level</source>
-		<target>Zugriffsrecht</target>
-		</trans-unit>
-		
+    <trans-unit id="1">
+    <source>Access level</source>
+    <target>Zugriffsrecht</target>
+    </trans-unit>
+    
 </body>
   </file>
 </xliff>
