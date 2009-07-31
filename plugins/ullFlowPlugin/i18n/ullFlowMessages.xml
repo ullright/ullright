@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext"
+    date="2007-12-13T14:54:05Z">
+    <body>
+
+      <trans-unit id="1">
+        <source>Label of a document</source>
+        <target>Bezeichnung eines Dokuments</target>
+      </trans-unit>
+
+      <trans-unit id="2">
+        <source>Application</source>
+        <target>Applikation</target>
+      </trans-unit>
+
+      <trans-unit id="3">
+        <source>Is subject?</source>
+        <target>Ist Betreff?</target>
+      </trans-unit>
+
+      <trans-unit id="4">
+        <source>Is start-step?</source>
+        <target>Ist Startschritt?</target>
+      </trans-unit>
+
+      <trans-unit id="5">
+        <source>Step</source>
+        <target>Schritt</target>
+      </trans-unit>
+
+      <trans-unit id="6">
+        <source>Action</source>
+        <target>Aktion</target>
+      </trans-unit>
+
+      <trans-unit id="7">
+        <source>Status-only action?</source>
+        <target>Nur eine Statusaktion?</target>
+      </trans-unit>
+
+      <trans-unit id="8">
+        <source>Validation?</source>
+        <target>Validierung?</target>
+      </trans-unit>
+
+      <trans-unit id="9">
+        <source>Notify creator?</source>
+        <target>Verständige Ersteller?</target>
+      </trans-unit>
+
+      <trans-unit id="10">
+        <source>Notify next?</source>
+        <target>Verständige die Nächsten?</target>
+      </trans-unit>
+
+      <trans-unit id="11">
+        <source>In list per default?</source>
+        <target>Standardmäßig in der Listenansicht?</target>
+      </trans-unit>
+
+      <trans-unit id="12">
+        <source>Show assigned to?</source>
+        <target>Zeige zugewiesen an?</target>
+      </trans-unit>
+
+      <trans-unit id="13">
+        <source>Is comment mandatory?</source>
+        <target>Kommentar muss ausgefüllt werden?</target>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>
