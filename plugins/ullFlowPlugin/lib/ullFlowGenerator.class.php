@@ -113,99 +113,14 @@ class ullFlowGenerator extends ullGenerator
     }
   }
   
-  private function buildTempColumnConfig($columnName, $metaWidgetClassName, $access, $isInList = true, $relation = null)
-  {
-    $tempCC = new ullColumnConfiguration();
-    $tempCC->setLabel($columnName);
-    $tempCC->setMetaWidgetClassName($metaWidgetClassName);
-    $tempCC->setAccess($access);
-    $tempCC->setIsInList($isInList);
-    $tempCC->setRelation($relation);
-    
-    return $tempCC;
-  }
-  
   /**
    * builds the column config
    *
    */
   protected function buildColumnsConfig()
-  {
-    if ($this->requestAction == 'list')
-    {
-      $this->columnsConfig['id'] = $this->buildTempColumnConfig(__('ID', null, 'common'),
-        'ullMetaWidgetInteger', $this->defaultAccess);
-
-      if (!$this->app) 
-      {      
-        $this->columnsConfig['ull_flow_app_id'] = $this->buildTempColumnConfig(__('App', null, 'common'),
-          'ullMetaWidgetUllFlowApp', $this->defaultAccess, true, array('model' => 'UllFlowApp', 'foreign_id' => 'id'));
-      }
-     
-      $this->columnsConfig['subject'] = $this->buildTempColumnConfig(__('Subject', null, 'common'),
-        'ullMetaWidgetLink', $this->defaultAccess);
-
-      $this->columnsConfig['priority'] = $this->buildTempColumnConfig(__('Priority'),
-        'ullMetaWidgetPriority', $this->defaultAccess);
-      
-      $this->columnsConfig['ull_flow_action_id'] = $this->buildTempColumnConfig(__('Status'),
-        'ullMetaWidgetUllFlowAction', $this->defaultAccess, true, array('model' => 'UllFlowAction', 'foreign_id' => 'id'));
-      
-      $this->columnsConfig['assigned_to_ull_entity_id'] = $this->buildTempColumnConfig(__('Assigned to'),
-        'ullMetaWidgetUllUser', $this->defaultAccess, true, array('model' => 'UllEntity', 'foreign_id' => 'id'));
-      
-      $this->columnsConfig['creator_user_id'] = $this->buildTempColumnConfig(__('Created by'),
-        'ullMetaWidgetUllUser', $this->defaultAccess, true, array('model' => 'UllEntity', 'foreign_id' => 'id'));
-      
-      $this->columnsConfig['created_at'] = $this->buildTempColumnConfig(__('Created at'),
-        'ullMetaWidgetDate', $this->defaultAccess);
-        
-      $this->columnsConfig['updator_user_id'] = $this->buildTempColumnConfig(__('Updated at', null, 'common'),
-        'ullMetaWidgetUllUser', $this->defaultAccess, true, array('model' => 'UllUser', 'foreign_id' => 'id'));
-      
-      $this->columnsConfig['updated_at'] = $this->buildTempColumnConfig(__('Created at'),
-        'ullMetaWidgetDate', $this->defaultAccess);               
-    }
-
-    if ($this->app)
-    {
-      $dbColumnConfig = $this->app->findOrderedColumns();
-
-      $columns = array();
-    
-      foreach ($dbColumnConfig as $config)
-      {
-        $columns[$config->slug] = $config;  
-      }
-      
-      // loop through columns
-      foreach ($columns as $columnName => $column)
-      {
-        // the subject column is taken from UllFlowDoc if no app is given,
-        //   therefore we need to obmit it here to prevent duplicate
-        if ($this->app || (!$this->app && !$column['is_subject']))            
-        {
-          $columnConfig = new ullColumnConfiguration($columnName, $this->defaultAccess);
-          
-          // set defaults
-          $columnConfig->setLabel($column->label);
-          $columnConfig->setMetaWidgetClassName($column->UllColumnType->class);
-          $columnConfig->setIsInList($column->is_in_list);
-          $columnConfig->setWidgetOptions(sfToolkit::stringToArray($column->options));
-          $columnConfig->setValidatorOption('required', $column->is_mandatory);
-          if ($column->default_value)
-          {
-            $columnConfig->setDefaultValue($column->default_value);
-          }
-          
-          $this->columnsConfig[$columnName] = $columnConfig;
-        }
-      }
-    }
-    
-//    var_dump($this->columnsConfig);
-//    die; 
-   
+  {  	
+    $this->columnsConfig = UllFlowDocColumnConfigCollection::build(
+        $this->app, $this->defaultAccess, $this->requestAction);
   }
   
   /**

@@ -520,10 +520,24 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       {
         $value->setAccess(null);
       }
-      else
-      {
-        $value->setAccess($this->defaultAccess);
-      }
+//      else
+//      {
+//        $value->setAccess($this->defaultAccess);
+//      }
+    }
+  }
+  
+  /**
+   * Enables the given columns
+   * 
+   * @param $array array of columnNames
+   * @return none
+   */
+  public function enable(array $array)
+  {
+    foreach ($array as $columnName)
+    {
+      $this->collection[$columnName]->setAccess($this->defaultAccess);     
     }
   }
   

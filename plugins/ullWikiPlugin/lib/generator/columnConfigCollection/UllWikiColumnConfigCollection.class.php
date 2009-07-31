@@ -38,7 +38,8 @@ class UllWikiColumnConfigCollection extends UllEntityColumnConfigCollection
 
     if ($this->isListAction())
     {
-      $this->disableAllExcept(array('id', 'subject', 'updator_user_id', 'updated_at'));
+      $this->disableAllExcept(array('id', 'subject'));
+      $this->enable(array('updator_user_id', 'updated_at'));
     } 
   }
 }
