@@ -8,40 +8,32 @@ class UllWikiColumnConfigCollection extends UllEntityColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    unset(      
-      $this['read_counter'],
-      $this['edit_counter'],
-      $this['deleted'],
-      $this['version'],
-      $this['creator_user_id'],
-      $this['created_at']      
-    );
+    $this->disable(array('read_counter', 'edit_counter', 'deleted', 'version', 'creator_user_id', 'created_at'));
     
     $this['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');
     
     //configure subject
-    $this['subject']->setLabel('Subject');
-    $this['subject']->setWidgetAttribute('size', 50);
-    $this['subject']->setMetaWidgetClassName('ullMetaWidgetLink');
+    $this['subject']
+      ->setLabel('Subject')
+      ->setWidgetAttribute('size', 50)
+      ->setMetaWidgetClassName('ullMetaWidgetLink');
     
     //configure body
-    $this['body']->setMetaWidgetClassName('ullMetaWidgetFCKEditor');
-    $this['body']->setLabel('Text');
+    $this['body']
+      ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
+      ->setLabel('Text');
     
     // configure access level
     $this['ull_wiki_access_level_id']->setLabel(__('Access level'));
     
     // configure tags
-    $this['duplicate_tags_for_search']->setLabel('Tags');
-    $this['duplicate_tags_for_search']->setMetaWidgetClassName('ullMetaWidgetTaggable');
+    $this['duplicate_tags_for_search']
+      ->setLabel('Tags')
+      ->setMetaWidgetClassName('ullMetaWidgetTaggable');
     
     if ($this->isCreateOrEditAction())
     {
-      unset(
-        $this['id'],        
-        $this['updator_user_id'],
-        $this['updated_at']
-      );
+      $this->disable(array('id', 'updator_user_id', 'updated_at'));
     }    
 
     if ($this->isListAction())

@@ -142,15 +142,4 @@ UllTableConfig:
     db_table_name: UllWikiAccessLevelAccess
     sort_columns: ull_group_id
     search_columns: ull_group_id
-    namespace:    ullWiki          
-    
-UllColumnConfig:
-  ull_wiki_access_level_access_model:
-    Translation:
-      en:
-        label:      Access level
-      de:
-        label:      Zugriffsrecht
-    db_table_name:  UllWikiAccessLevelAccess
-    db_column_name: model_id
-    namespace:    ullWiki 
+    namespace:    ullWiki
