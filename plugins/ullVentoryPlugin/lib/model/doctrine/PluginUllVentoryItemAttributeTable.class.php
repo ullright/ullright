@@ -23,6 +23,6 @@ class PluginUllVentoryItemAttributeTable extends UllRecordTable
       ->where('a.UllVentoryItemTypeAttribute.id = ?', $id)
     ;
     return $q->execute()->getFirst()->help;
-  }  
+  }
 
 }

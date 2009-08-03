@@ -143,6 +143,7 @@ $b
   ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Stored')  
   //memory
   ->checkResponseElement($dgsMemory->getFullRowSelector(), 2)
+//  ->dumpDie()
 ;
 
 $b

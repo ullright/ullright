@@ -5,6 +5,16 @@
 class PluginUllVentoryItemAttributeValueTable extends UllRecordTable
 {
   
-
+  public static function findByItemIdAndTypeAttributeId($itemId, $typeAttributeId)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentoryItemAttributeValue x')
+      ->where('x.ull_ventory_item_id = ?', $itemId)
+      ->addWhere('x.ull_ventory_item_type_attribute_id = ?', $typeAttributeId)
+    ;
+    return $q->execute()->getFirst();   
+  }
+  
 
 }

@@ -23,7 +23,9 @@ UllVentoryItemType:
       type: string(128)
     name:
       type: string(128)
-      notnull: true    
+      notnull: true
+    has_software:
+      type: boolean    
 
 # List of models e.g. Macbook, 1110i, MFC-440CN       
 UllVentoryItemModel:
@@ -234,5 +236,52 @@ UllVentoryItemTaking:
   relations:
     UllVentoryItem:
     UllVentoryTaking:
-    
-    
+
+# List of software e.g. Adobe Photoshop, Windows 3.11
+UllVentorySoftware:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    name: string(128)
+
+# Assignment of software to item and optionally of license    
+UllVentoryItemSoftware:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_ventory_item_id:
+      type: integer
+      notnull: true
+    ull_ventory_software_id:
+      type: integer
+      notnull: true
+    ull_ventory_software_license_id:
+      type: integer
+    comment:
+      type: string(4000)    
+  relations:
+    UllVentoryItem:
+    UllVentorySoftware:
+    UllVentorySoftwareLicense:
+
+# List of licenses per software    
+UllVentorySoftwareLicense:
+  package: ullVentoryPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_ventory_software_id:
+      type: integer
+      notnull: true
+    # "key" is a reserved mysql word
+    license_key:
+      type: string(128)
+    quantity:
+      type: integer    
+  relations:
+    UllVentorySoftware:   

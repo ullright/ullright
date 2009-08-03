@@ -17,6 +17,7 @@ UllVentoryItemType:
       de:
         name:                   Notebook
     slug:                       notebook
+    has_software:               true
     namespace:                  test           
   printer:
     id:                         201
@@ -310,4 +311,35 @@ UllVentoryTaking:
     created_at:         '2009-01-01'         
     namespace:          test        
         
-
+UllVentorySoftware:
+  adobe_writer:
+    name:               Adobe Writer 6.0
+    namespace:          test
+  windows:
+    name:               Microsoft Windows 7
+    namespace:          test
+    
+UllVentorySoftwareLicense:
+  adobe_writer_1:
+    UllVentorySoftware: adobe_writer
+    license_key:        XXXX-YYYY-1234
+    quantity:           1
+    namespace:          test
+  adobe_writer_2:
+    UllVentorySoftware: adobe_writer
+    license_key:        YYYY-ZZZZ-5678
+    quantity:           5   
+    namespace:          test         
+  
+UllVentoryItemSoftware:
+  testusers_macbook_adobe:
+    UllVentoryItem:     testusers_macbook
+    UllVentorySoftware: adobe_writer
+    UllVentorySoftwareLicense: adobe_writer_1
+    comment:            Remember to update in October 2009
+    namespace:          test
+  testusers_macbook_windows:
+    UllVentoryItem:     testusers_macbook
+    UllVentorySoftware: windows
+    namespace:          test    
+    

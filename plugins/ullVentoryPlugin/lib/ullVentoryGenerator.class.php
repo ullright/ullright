@@ -60,35 +60,44 @@ class ullVentoryGenerator extends ullTableToolGenerator
     
     if ($this->isAction(array('createWithType', 'edit')))
     {
-      $listForm = new sfForm;
+      // ATTRIBUTES
+      $attributesForm = new sfForm;
 
-      if ($this->isAction('createWithType'))
+      if ($this->isAction(array('createWithType', 'edit')))
       {
-        foreach($this->itemType->UllVentoryItemTypeAttribute as $attribute)
+        if (!$this->itemType)
         {
-          $attributeValue = new UllVentoryItemAttributeValue;
-          $attributeValue->UllVentoryItemTypeAttribute = $attribute;
+          $this->itemType = $this->getRow()->UllVentoryItemModel->UllVentoryItemType;
+        }
+        
+        foreach($this->itemType->UllVentoryItemTypeAttribute as $typeAttribute)
+        {
+          if ($this->isAction('createWithType'))
+          {
+            $attributeValue = new UllVentoryItemAttributeValue;
+            $attributeValue->UllVentoryItemTypeAttribute = $typeAttribute;
+          }
+          
+          if ($this->isEditAction())
+          {
+            $attributeValue = UllVentoryItemAttributeValueTable::findByItemIdAndTypeAttributeId($this->getRow()->id, $typeAttribute->id);
+          }
           
           $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);
-          
-          $listForm->embedForm(count($listForm), $attributeGenerator->getForm());          
+          $attributesForm->embedForm(count($attributesForm), $attributeGenerator->getForm());          
         }
       }
       
-      if ($this->isEditAction()) 
+      $this->getForm()->embedForm('attributes', $attributesForm);
+      
+      // SOFTWARE
+      if ($this->getRow()->UllVentoryItemModel->UllVentoryItemType->has_software)
       {
-        foreach ($this->getRow()->UllVentoryItemAttributeValue as $attributeValue)
-        {
-          $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);
-          
-          $listForm->embedForm(count($listForm), $attributeGenerator->getForm());
-        }        
+        
       }
       
-   
       
-      $this->getForm()->embedForm('attributes', $listForm);
-      
+      // MEMORY
       $memoryGenerator = new ullVentoryMemoryGenerator();
       // set defaults
       $memory = new UllVentoryItemMemory;

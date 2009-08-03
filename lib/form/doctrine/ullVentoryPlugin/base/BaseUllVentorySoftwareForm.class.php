@@ -1,21 +1,20 @@
 <?php
 
 /**
- * UllVentoryItemType form base class.
+ * UllVentorySoftware form base class.
  *
  * @package    form
- * @subpackage ull_ventory_item_type
+ * @subpackage ull_ventory_software
  * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 8508 2008-04-17 17:39:15Z fabien $
  */
-class BaseUllVentoryItemTypeForm extends BaseFormDoctrine
+class BaseUllVentorySoftwareForm extends BaseFormDoctrine
 {
   public function setup()
   {
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
       'namespace'       => new sfWidgetFormInput(),
-      'slug'            => new sfWidgetFormInput(),
-      'has_software'    => new sfWidgetFormInputCheckbox(),
+      'name'            => new sfWidgetFormInput(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
       'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
@@ -23,17 +22,16 @@ class BaseUllVentoryItemTypeForm extends BaseFormDoctrine
     ));
 
     $this->setValidators(array(
-      'id'              => new sfValidatorDoctrineChoice(array('model' => 'UllVentoryItemType', 'column' => 'id', 'required' => false)),
+      'id'              => new sfValidatorDoctrineChoice(array('model' => 'UllVentorySoftware', 'column' => 'id', 'required' => false)),
       'namespace'       => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'slug'            => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'has_software'    => new sfValidatorBoolean(array('required' => false)),
+      'name'            => new sfValidatorString(array('max_length' => 128, 'required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
     ));
 
-    $this->widgetSchema->setNameFormat('ull_ventory_item_type[%s]');
+    $this->widgetSchema->setNameFormat('ull_ventory_software[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -42,7 +40,7 @@ class BaseUllVentoryItemTypeForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'UllVentoryItemType';
+    return 'UllVentorySoftware';
   }
 
 }
