@@ -34,20 +34,19 @@ class ullVentorySearchGenerator extends ullSearchGenerator
       return $columnConfig;
     }
     
-    //|\     /|(  ___  )(  ____ \| \    /\
-    //| )   ( || (   ) || (    \/|  \  / /
-    //| (___) || (___) || |      |  (_/ / 
-    //|  ___  ||  ___  || |      |   _ (  
-    //| (   ) || (   ) || |      |  ( \ \ 
-    //| )   ( || )   ( || (____/\|  /  \ \
-    //|/     \||/     \|(_______/|_/    \/
-    //Manually set entity types of UllMetaWidgetUllEntity.
-    //Refactoring of column configuration handling should resolve this.
-    if ($columnConfig->getColumnName() == 'ull_entity_id')
-    {
-      $columnConfig->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'));
-    }
-    
     return $columnConfig;
+  }
+  
+  protected function customRelationHumanization($humanization)
+  {
+    switch ($humanization)
+    {
+      case 'UllEntity':
+        return __('Owner', null, 'common');
+      case 'UllVentoryItemModel':
+        return __('Item model', null, 'ullVentoryMessages');
+      default:
+        return $humanization;
+    }
   }
 }

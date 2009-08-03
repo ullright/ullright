@@ -8,7 +8,7 @@
     <div id="tc_tasks">
       <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/action_icons/create_24x24', 'ullVentory/create', __('Enlist new item')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/action_icons/create_24x24', 'ullVentory/create', __('Enlist new item', null, 'ullVentoryMessages')) ?></li>
       </ul>
     </div>
     

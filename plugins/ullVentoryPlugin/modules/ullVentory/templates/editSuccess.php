@@ -32,7 +32,7 @@
 
 <div class="edit_container">
 
-<h3><?php echo __('Item of') . ' ' . $entity ?></h3>
+<h3><?php echo __('Item of', null, 'ullVentoryMessages') . ' ' . $entity ?></h3>
 
 <table class="edit_table" id="ull_ventory_item">
 <tbody>
@@ -45,12 +45,12 @@
         <td><?php echo $generator->getForm()->offsetGet($column_name)->renderLabel() ?></td>
         <td>
           <?php echo $generator->getForm()->offsetGet($column_name)->render() ?>
-          <?php echo __('or create', null, 'common') ?>:
+          <?php echo __('or create', null, 'ullVentoryMessages') ?>:
           <?php echo $generator->getForm()->offsetGet($column_name . '_create')->render() ?>
           <?php if ($column_name == 'ull_ventory_item_model_id'): ?>
             <?php             
               echo ull_submit_tag(
-                __('Load presets'),
+                __('Load presets', null, 'ullVentoryMessages'),
                 array('name' => 'submit|action_slug=load_presets', 'id' => 'load_presets')
               );  
             ?>
@@ -79,7 +79,7 @@
 <table class="edit_table" id="ull_ventory_attributes">
 <thead>
   <tr>
-    <th class="color_medium_bg"><?php echo __('Attribute') ?></th>
+    <th class="color_medium_bg"><?php echo __('Attribute', null, 'ullVentoryMessages') ?></th>
     <th class="color_medium_bg"><?php echo __('Value', null, 'common') ?></th>
     <th class="color_medium_bg"><?php echo __('Comment', null, 'common') ?></th>
   </tr>
@@ -249,7 +249,7 @@
         
         <li>
           <?php if ($memory->TargetUllEntity instanceof UllVentoryOriginDummyUser):?>
-            <?php echo __('Source', null, 'common') ?>:
+            <?php echo __('Source', null, 'ullVentoryMessages') ?>:
           <?php else: ?>
             <?php echo __('Owner', null, 'common') ?>:
           <?php endif ?>

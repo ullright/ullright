@@ -26,14 +26,14 @@ class UllVentoryItemMemoryColumnConfigCollection extends ullColumnConfigCollecti
     if ($this->isAction('createWithType'))
     {
       $this['target_ull_entity_id']
-        ->setLabel(__('Origin', null, 'common'))
+        ->setLabel(__('Origin', null, 'ullVentoryMessages'))
         ->setOption('entity_classes', array('UllVentoryOriginDummyUser'))
       ;
       
       $this['transfer_at']
         ->setMetaWidgetClassName('ullMetaWidgetDate')
-        ->setLabel(__('Date', null, 'common'))
-        ->setHelp(__('Set the actual delivery date in case of a delivery'))
+        ->setLabel(__('Date', null, 'ullVentoryMessages'))
+        ->setHelp(__('Set the actual delivery date in case of a delivery', null, 'ullVentoryMessages'))
       ;
       
       $this->order(array('target_ull_entity_id', 'transfer_at', 'comment'));      
@@ -43,7 +43,7 @@ class UllVentoryItemMemoryColumnConfigCollection extends ullColumnConfigCollecti
     {
       $this['transfer_at']->disable();
       $this['target_ull_entity_id']
-        ->setLabel(__('Owner', null, 'common'))
+        ->setLabel(__('Owner', null, 'ullVentoryMessages'))
         ->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'))
       ;
       

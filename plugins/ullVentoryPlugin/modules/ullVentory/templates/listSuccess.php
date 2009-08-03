@@ -21,7 +21,7 @@
 ?>
 
 <ul class='list_action_buttons color_light_bg'>
-    <li><?php echo ull_button_to(__('Enlist new item'), 'ullVentory/create' . ($entity ? '?entity=' . $entity->username : '')); ?></li>
+    <li><?php echo ull_button_to(__('Enlist new item', null, 'ullVentoryMessages'), 'ullVentory/create' . ($entity ? '?entity=' . $entity->username : '')); ?></li>
 
     <li>
      <?php echo $filter_form['search']->renderLabel() ?>    
@@ -38,7 +38,7 @@
 
 </form>
 
-<h3><?php if ($entity) { echo __('Items of') . ' ' . $entity; } ?></h3>
+<h3><?php if ($entity) { echo __('Items of', null, 'ullVentoryMessages') . ' ' . $entity; } ?></h3>
 
 <?php include_partial('ullTableTool/ullPagerTop',
         array('pager' => $pager)

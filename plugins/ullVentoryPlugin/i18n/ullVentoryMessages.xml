@@ -29,6 +29,20 @@
 <target>Gerät von</target>
 </trans-unit>
 
+<trans-unit id="6">
+<source>Item manufacturer</source>
+<target>Hersteller</target>
+</trans-unit>
+
+<trans-unit id="7">
+<source>Item type</source>
+<target>Typ</target>
+</trans-unit>
+
+<trans-unit id="8">
+<source>Item model</source>
+<target>Modell</target>
+</trans-unit>
 
 <!-- Column names -->
 <trans-unit id="1001">

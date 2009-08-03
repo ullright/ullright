@@ -13,12 +13,12 @@ abstract class PluginUllVentoryItemMemory extends BaseUllVentoryItemMemory
     if (strstr($originalComment, 'Inventory taking withdrawn: '))
     {
       $comment = str_replace('Inventory taking withdrawn: ', '', $originalComment);
-      $comment = __('Audit for inventory taking "%1%" withdrawn', array('%1%' => $comment));
+      $comment = __('Audit for inventory taking "%1%" withdrawn', array('%1%' => $comment, null, 'ullVentoryMessages'));
     }  
     elseif (strstr($originalComment, 'Inventory taking: '))
     {
       $comment = str_replace('Inventory taking: ', '', $originalComment);
-      $comment = __('Audited during inventory taking "%1%"', array('%1%' => $comment));
+      $comment = __('Audited during inventory taking "%1%"', array('%1%' => $comment, null, 'ullVentoryMessages'));
     }
     else
     {

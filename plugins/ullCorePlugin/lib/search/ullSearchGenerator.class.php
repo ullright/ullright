@@ -3,9 +3,8 @@
 /**
  * This class provides build support for search forms.
  * It's meant to be used like the existing generator
- * framework, however, this class does NOT inherit from
- * ullGenerator, since code intersection is not high
- * enough to warrant a forced inheritance structure.
+ * framework, however, this class does not inherit from
+ * ullGenerator, only ullGeneratorBase.
  * 
  * Note that plugins which rely on virtual columns need
  * to inherit from this class, see the
@@ -16,8 +15,6 @@ class ullSearchGenerator extends ullGeneratorBase
   protected
   $searchFormEntries,
   $columnConfig,
-  $doctrineRelationCache,
-  $doctrineRelationCacheForeign,
   $form,
   $baseModelName,
   $columnConfigCollectionCache;
@@ -33,8 +30,6 @@ class ullSearchGenerator extends ullGeneratorBase
    */
   public function __construct(array $searchFormEntries, $baseModelName)
   {
-    $this->doctrineRelationCache = array();
-    $this->doctrineRelationCacheForeign = array();
     $this->columnConfigCollectionCache = array();
     $this->baseModelName = $baseModelName;
     $this->searchFormEntries = $searchFormEntries;
@@ -56,15 +51,7 @@ class ullSearchGenerator extends ullGeneratorBase
     {
       $modelName = $column['searchFormEntry']->modelName;
       
-      if (!isset($this->doctrineRelationCache[$modelName]))
-      {
-        $this->doctrineRelationCache[$modelName] = ullGeneratorHelper::resolveDoctrineRelations($modelName);
-        $this->doctrineRelationCacheForeign[$modelName] = ullGeneratorHelper::resolveDoctrineRelationsForeign($modelName);
-      }
-
-      $columnRelations = $this->doctrineRelationCache[$modelName];
-      $columnRelationsForeign = $this->doctrineRelationCacheForeign[$modelName];
-      $columnConfig = $this->buildSingleColumnConfig($column, $columnRelations, $columnRelationsForeign);
+      $columnConfig = $this->buildSingleColumnConfig($column); //, $columnRelations, $columnRelationsForeign);
 
       $this->columnConfig[$columnConfig->getCustomAttribute('searchFormEntry')->__toString()] = $columnConfig;
     }
@@ -94,37 +81,7 @@ class ullSearchGenerator extends ullGeneratorBase
       }
       //we assign this on the fly
       $searchFormEntry->modelName = $tempClassName;
-    
-	    //|\     /|(  ___  )(  ____ \| \    /\
-	    //| )   ( || (   ) || (    \/|  \  / /
-	    //| (___) || (___) || |      |  (_/ / 
-	    //|  ___  ||  ___  || |      |   _ (  
-	    //| (   ) || (   ) || |      |  ( \ \ 
-	    //| )   ( || )   ( || (____/\|  /  \ \
-	    //|/     \||/     \|(_______/|_/    \/
-      //This hack results in 'correct' column configuration for models
-      //where UllEntity is referenced but UllUser needed.
-      //Refactoring of column configuration handling should resolve this.
-      if ($searchFormEntry->modelName == 'UllEntity')
-      {
-        $searchFormEntry->modelName = 'UllUser';
-      }
     }
-  }
-  
-  /**
-   * Internal function which retrieves a single doctrine
-   * column definition for a given search form entry.
-   * 
-   * @param $searchFormEntry
-   * @return array with the column definition
-   */
-  protected function retrieveSingleColumnDefinition($searchFormEntry)
-  {
-    $columnDefinition = Doctrine::getTable($searchFormEntry->modelName)
-    ->getColumnDefinition($searchFormEntry->columnName);
-
-    return $columnDefinition;
   }
   
   /**
@@ -145,7 +102,7 @@ class ullSearchGenerator extends ullGeneratorBase
       }
       else
       {
-        $columns[$searchFormEntry->__toString()] = $this->retrieveSingleColumnDefinition($searchFormEntry);
+        $columns[$searchFormEntry->__toString()] = array();
       }
 
       $columns[$searchFormEntry->__toString()]['searchFormEntry'] = $searchFormEntry;
@@ -178,7 +135,7 @@ class ullSearchGenerator extends ullGeneratorBase
    * @param $columnRelations All doctrine column relations
    * @return UllColumnConfiguration the configured column
    */
-  protected function buildSingleColumnConfig($column, $columnRelations, $columnRelationsForeign)
+  protected function buildSingleColumnConfig($column)
   {
     $realModelName = $column['searchFormEntry']->modelName;
     $columnName = $column['searchFormEntry']->columnName;
@@ -201,12 +158,13 @@ class ullSearchGenerator extends ullGeneratorBase
     {
       $columnConfig = new ullColumnConfiguration($columnName, $this->defaultAccess);
     }
-    
     //specific search code
     $columnConfig->setCustomAttribute('searchFormEntry', $column['searchFormEntry']);
     $columnConfig->setAccess('s');
-    $columnConfig = $this->customColumnConfig($columnConfig);
     $columnConfig->setValidatorOption('required', false);
+    $columnConfig->setAllowCreate(false);
+    $columnConfig = $this->customColumnConfig($columnConfig);
+
     
     switch ($columnConfig->getMetaWidgetClassName())
     {
@@ -219,12 +177,15 @@ class ullSearchGenerator extends ullGeneratorBase
     }
 
     //if this columnConfig has relations, humanize their labels
+    //and try plugin-specific translation as well
     if (count($column['searchFormEntry']->relations) > 0)
     {
       $newLabel = '';
       foreach($column['searchFormEntry']->relations as $relation)
       {
-        $newLabel .= ullHumanizer::humanizeAndTranslateRelation($relation) . " - ";
+        $humanization = ullHumanizer::humanizeAndTranslateRelation($relation);
+        $humanization = $this->customRelationHumanization($humanization);
+        $newLabel .=  $humanization . " - ";
       }
       $columnConfig->setLabel($newLabel . $columnConfig->getLabel());
     }
@@ -232,6 +193,11 @@ class ullSearchGenerator extends ullGeneratorBase
     return $columnConfig;
   }
 
+  protected function customRelationHumanization($humanization)
+  {
+    return $humanization;
+  }
+  
   /**
    * This function removes all search form entries from this
    * generator not contained in the given array.

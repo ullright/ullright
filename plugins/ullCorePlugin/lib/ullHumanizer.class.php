@@ -16,8 +16,6 @@ class ullHumanizer
     'UllEmploymentType' => 'Employment type',
     'UllJobTitle' => 'Job title',
     'UllEntityGroup' => 'Group membership',
-    'UllEntity' => 'Entity',
-    'UllVentoryItemModel' => 'Item model',
     );
   
   //Some fields (e.g. first_name, last_name, ...)

@@ -6,7 +6,7 @@ class ullVentoryBreadcrumbTree extends breadcrumbTree
   public function __construct()
   {
     parent::__construct();
-    $this->add(__('Inventory') . ' ' . __('Home', null, 'common'), 'ullVentory/index');
+    $this->add(__('Inventory', null, 'ullVentoryMessages') . ' ' . __('Home', null, 'common'), 'ullVentory/index');
   }
   
   public function addDefaultListEntry()

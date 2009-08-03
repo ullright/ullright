@@ -20,10 +20,10 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOptions(array('add_empty' => true))
       ->setValidatorOptions(array('required' => true))
     ;
-    
+
     $this->create('ull_ventory_item_manufacturer_id')
       ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
-      ->setLabel(__('Manufacturer'))
+      ->setLabel(__('Manufacturer', null, 'ullVentoryMessages'))
       ->setRelation(array(
         'model'             => 'UllVentoryItemManufacturer',
         'foreign_id'        => 'id'))
@@ -33,20 +33,24 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
     ;    
         
     $this['ull_ventory_item_model_id']
-      ->setLabel(__('Model'))
+      ->setLabel(__('Model', null, 'ullVentoryMessages'))
       ->setAllowCreate(true)
       ->setWidgetOption('add_empty', true)
     ;
     
     $this['serial_number']
-      ->setLabel(__('Model'))
+      ->setLabel(__('Model', null, 'ullVentoryMessages'))
       ->setIsInList(false)
-      ->setLabel(__('Serial number'))
+      ->setLabel(__('Serial number', null, 'ullVentoryMessages'))
     ;    
     
-    $this['ull_entity_id']->setLabel(__('Owner', null, 'common'));
+    $this['ull_entity_id']
+      ->setLabel(__('Owner',  null, 'common'))
+      ->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'))
+    ;
 
     $this['comment']->setLabel(__('Comment', null, 'common'));
+    $this['inventory_number']->setLabel(__('Inventory number', null, 'ullVentoryMessages'));
     
     if ($this->isListAction())
     {
@@ -54,7 +58,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       
       $this['inventory_number']
         //->setMetaWidgetClassName('ullMetaWidgetLink') disabled, because a link should point to show, not edit
-        ->setLabel(__('Inv.No.'))
+        ->setLabel(__('Inv.No.', null, 'ullVentoryMessages'))
       ;
       
       $this->create('toggle_inventory_taking')
@@ -64,7 +68,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       
       $this->create('ull_location_id')
         ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
-        ->setLabel(__('Location'))
+        ->setLabel(__('Location', null, 'ullVentoryMessages'))
         ->setRelation(array(
           'model'             => 'UllLocation',
           'foreign_id'        => 'id'))
@@ -92,8 +96,8 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       
       $this->create('save_preset')
         ->setMetaWidgetClassName('ullMetaWidgetCheckbox')
-        ->setLabel(__('Save as preset'))
-        ->setHelp(__('Save attributes as preset for the current model'))
+        ->setLabel(__('Save as preset', null, 'ullVentoryMessages'))
+        ->setHelp(__('Save attributes as preset for the current model', null, 'ullVentoryMessages'))
       ;      
     }
     
@@ -103,11 +107,9 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         ->setAccess('w')
         ->setWidgetOption('is_hidden', true)
       ;
-      $this['ull_entity_id']
-        ->setWidgetOption('is_hidden', true)
-        ->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'))
-      ;
-      $this['inventory_number']->setLabel(__('Inventory number'));
+      $this['ull_entity_id']->setWidgetOption('is_hidden', true);
+      
+      $this['inventory_number']->setLabel(__('Inventory number', null, 'ullVentoryMessages'));
       
       $this->order(array(
         'ull_ventory_item_type_id',
@@ -119,5 +121,5 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ));      
     }  
     
-  }   
+  }
 }

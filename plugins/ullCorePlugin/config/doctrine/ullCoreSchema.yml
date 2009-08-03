@@ -62,7 +62,30 @@ UllParentEntity:
     is_virtual_group:
       type: boolean
       default: false
-
+  
+  relations:
+    Superior:
+      class: UllUser
+      local: superior_ull_user_id
+      foreign: id 
+    UllJobTitle:
+      local: ull_job_title_id
+      foreign: id
+    UllCompany:
+      local: ull_company_id
+      foreign: id
+    UllEmploymentType:
+      local: ull_employment_type_id
+      foreign: id
+    UllDepartment:
+      local: ull_department_id
+      foreign: id
+    UllLocation:
+      local: ull_location_id
+      foreign: id  
+    UllUserStatus:
+      local: ull_user_status_id
+      foreign: id
 
 
 #  indexes:
@@ -89,34 +112,12 @@ UllUser:
     extends: UllEntity
     type: column_aggregation
     keyValue: user
+  
   relations:
     UllGroup:
       refClass: UllEntityGroup
       foreignAlias: UllUsers
       local: ull_entity_id
-    Superior:
-      class: UllUser
-      local: superior_ull_user_id
-      foreign: id 
-    UllJobTitle:
-      local: ull_job_title_id
-      foreign: id
-    UllCompany:
-      local: ull_company_id
-      foreign: id
-    UllEmploymentType:
-      local: ull_employment_type_id
-      foreign: id
-    UllDepartment:
-      local: ull_department_id
-      foreign: id
-    UllLocation:
-      local: ull_location_id
-      foreign: id  
-    UllUserStatus:
-      local: ull_user_status_id
-      foreign: id
-
 UllGroup:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
