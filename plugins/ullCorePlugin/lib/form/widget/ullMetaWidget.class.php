@@ -300,7 +300,8 @@ abstract class ullMetaWidget
         {
           if (!in_array('', $choices))
           {
-            $choices = array_merge(array('' => '') , $choices);
+            //don't use array_merge here, would reindex the array
+            $choices = array('' => '') + $choices;
           }
           
           $widget->setOption('choices', $choices);
