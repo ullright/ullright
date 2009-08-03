@@ -8,7 +8,7 @@ class ullVentoryFilterForm extends sfForm
       'search'  => new sfWidgetFormInput(array(), array('size' => '14',
                                                         //'onchange' => 'submit()', Commented
                                                         //if you type in a keyword for search, you have no possibility to click the checkbox
-                                                        'title' => __('Searches for inventory number, serial number and item comment'))),
+                                                        'title' => __('Searches for inventory number, serial number and item comment', null, 'ullVentoryMessages'))),
     ));
     
     $this->setValidators(array(

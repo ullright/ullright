@@ -13,7 +13,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
     
     $this->create('ull_ventory_item_type_id')
       ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
-      ->setLabel('Type')
+      ->setLabel(__('Type', null, 'common'))
       ->setRelation(array(
         'model'             => 'UllVentoryItemType',
         'foreign_id'        => 'id'))
