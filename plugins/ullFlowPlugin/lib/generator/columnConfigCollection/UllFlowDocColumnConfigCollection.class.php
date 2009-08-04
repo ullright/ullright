@@ -2,17 +2,17 @@
 
 class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
 {
-  protected $flowApp;
+  protected $app;
 
-  public function __construct($modelName, $flowApp, $defaultAccess = null, $requestAction = null)
+  public function __construct($modelName, $app, $defaultAccess = null, $requestAction = null)
   {
-    $this->flowApp = $flowApp;
+    $this->app = $app;
     parent::__construct($modelName, $defaultAccess, $requestAction);
   }
 
-  public static function build($flowApp, $defaultAccess = null, $requestAction = null)
+  public static function build($app, $defaultAccess = null, $requestAction = null)
   {
-    $c = new self('UllFlowDoc', $flowApp, $defaultAccess, $requestAction);
+    $c = new self('UllFlowDoc', $app, $defaultAccess, $requestAction);
     $c->buildCollection();
 
     return $c;
@@ -26,7 +26,7 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
   {
     if ($this->isListAction())
     {
-      if (!$this->flowApp)
+      if (!$this->$app)
       {
         $this['ull_flow_app_id']
           ->setLabel(__('App', null, 'common'))
@@ -68,9 +68,9 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       $this->disableAllExcept(array());
     }
     
-    if ($this->flowApp)
+    if ($this->app)
     {
-      $dbColumnConfig = $this->flowApp->findOrderedColumns();
+      $dbColumnConfig = $this->app->findOrderedColumns();
 
       $columns = array();
 
@@ -84,7 +84,7 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       {
         // the subject column is taken from UllFlowDoc if no app is given,
         //   therefore we need to obmit it here to prevent duplicate
-        if ($this->flowApp || (!$this->flowApp && !$column['is_subject']))
+        if ($this->app || (!$this->app && !$column['is_subject']))
         {
           if (!($this->isListAction() && $column->is_in_list))
           {
@@ -92,7 +92,8 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
               ->setLabel($column->label)
               ->setMetaWidgetClassName($column->UllColumnType->class)
               ->setWidgetOptions(sfToolkit::stringToArray($column->options))
-              ->setValidatorOption('required', $column->is_mandatory);
+              ->setValidatorOption('required', $column->is_mandatory)
+            ;
             
             if ($column->default_value)
             {
