@@ -61,6 +61,10 @@ class BaseUllVentoryActions extends ullsfActions
     $this->docs = $this->getFilterFromRequest();
     
     $this->generator->buildForm($this->docs);
+    
+    $filterParam = $request->getParameter('filter');
+    $this->displayMassChangeOwnerButton =
+      (is_array($filterParam) && isset($filterParam['ull_entity_id'])) ? true : false;
   }
   
   
@@ -361,6 +365,60 @@ class BaseUllVentoryActions extends ullsfActions
     }
   }
   
+  public function executeMassChangeOwner(sfRequest $request)
+  {
+    $this->oldEntityId = $request->getParameter('oldEntityId');
+    $this->redirectUnless(($this->oldEntityId !== null), 'ullVentory/list');
+    
+    $oldEntity = Doctrine::getTable('UllEntity')->findOneById($this->oldEntityId);
+    $this->redirectUnless(($oldEntity !== false), 'ullVentory/list');
+    
+    $this->form = new ullVentoryMassChangeOwnerForm();
+    $this->oldEntityDisplayName = (string)$oldEntity;
+    $this->breadcrumbForMassChangeOwner();
+    
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getParameter('fields'));
+      if ($this->form->isValid())
+      {
+        $newEntityId = $this->form->getValue('ull_new_owner_entity_id');
+        //safety check new id
+        $this->redirectUnless(
+          (Doctrine::getTable('UllEntity')->findOneById($newEntityId) !== false), 'ullVentory/list');
+        
+        $connection = Doctrine_Manager::connection();
+        try
+        {
+          $connection->beginTransaction();
+            
+          $items = Doctrine::getTable('UllVentoryItem')->findByUllEntityId($this->oldEntityId);
+          foreach ($items as $item)
+          {
+            $item->ull_entity_id = $newEntityId;
+            
+            $memory = new UllVentoryItemMemory();
+            $memory->source_ull_entity_id = $this->oldEntityId;
+            $memory->target_ull_entity_id = $newEntityId;
+            $memory->transfer_at = date('Y-m-d');
+            $memory->comment = $this->form->getValue('ull_change_comment');
+            
+            $item->UllVentoryItemMemory[] = $memory;
+            $item->save();
+          }
+          
+          $connection->commit();
+        }
+        catch (Doctrine_Exception $e)
+        {
+          $connection->rollback();
+          throw $e;
+        }
+      
+        $this->redirect('ullVentory/list');    
+      }
+    }
+  }
   
   /**
    * Create breadcrumbs for index action
@@ -379,6 +437,17 @@ class BaseUllVentoryActions extends ullsfActions
   {
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
     $this->breadcrumbTree->addDefaultListEntry();
+  }  
+  
+  /**
+   * Create breadcrumbs for massChangeOwner action
+   * 
+   */ 
+  protected function breadcrumbForMassChangeOwner() 
+  {
+    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $this->breadcrumbTree->addDefaultListEntry();
+    $this->breadcrumbTree->add(__('Change owner', null, 'ullVentoryMessages'));
   }  
 
   /**
@@ -432,7 +501,6 @@ class BaseUllVentoryActions extends ullsfActions
   protected function breadcrumbForSearch()
   {
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
-    $this->breadcrumbTree->addDefaultListEntry();
     $this->breadcrumbTree->add(__('Advanced search'), 'ullVentory/search');
   }
   
@@ -442,7 +510,6 @@ class BaseUllVentoryActions extends ullsfActions
    */
   protected function getFilterFromRequest()
   {
-
     $this->filter_form = new ullVentoryFilterForm;
     $this->filter_form->bind($this->getRequestParameter('filter'));
     

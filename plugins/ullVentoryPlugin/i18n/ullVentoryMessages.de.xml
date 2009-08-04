@@ -127,6 +127,21 @@
 <target>Sucht nach Inventarnummer, Seriennummer und Gerätekommentar</target>
 </trans-unit>
 
+<!-- Mass owner change -->
+<trans-unit id="3001">
+<source>Change owner for all items belonging to</source>
+<target>Besitzer ändern für alle Geräte von</target>
+</trans-unit>
+
+<trans-unit id="3002">
+<source>Change owner</source>
+<target>Besitzer ändern</target>
+</trans-unit>
+
+<trans-unit id="3003">
+<source>New owner</source>
+<target>Neuer Besitzer</target>
+</trans-unit>
 
     </body>
   </file>

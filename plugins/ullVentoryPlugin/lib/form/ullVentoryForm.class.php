@@ -148,12 +148,12 @@ class ullVentoryForm extends ullGeneratorForm
         //create memory only if we have a new memory comment, or the owner changed
         if ($values['memory']['comment'] || $values['memory']['target_ull_entity_id'] != $values['ull_entity_id'])
         {
-          $num = count($this->object->UllVentoryItemMemory);
-          
-          $this->object->UllVentoryItemMemory[$num]['source_ull_entity_id']  = $values['ull_entity_id'];
-          $this->object->UllVentoryItemMemory[$num]['target_ull_entity_id']  = $values['memory']['target_ull_entity_id'];
-          $this->object->UllVentoryItemMemory[$num]['transfer_at']           = date('Y-m-d');
-          $this->object->UllVentoryItemMemory[$num]['comment']               = $values['memory']['comment'];
+          $memory = new UllVentoryItemMemory();
+          $memory->source_ull_entity_id = $values['ull_entity_id'];
+          $memory->target_ull_entity_id = $values['memory']['target_ull_entity_id'];
+          $memory->transfer_at = date('Y-m-d');
+          $memory->comment = $values['memory']['comment'];
+          $this->object->UllVentoryItemMemory[] = $memory;
           
           $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['memory']['target_ull_entity_id']);
         }          

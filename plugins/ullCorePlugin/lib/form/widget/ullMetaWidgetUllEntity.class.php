@@ -28,7 +28,7 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     
     if ($this->columnConfig->getWidgetOption('add_empty'))
     {
-      $choices = array(array('name' => ''));
+      $choices = array('' => array('name' => ''));
     }
     else
     {
@@ -51,8 +51,7 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       }
     }
     
-//    var_dump($choices);
-
+ 
     if ($this->columnConfig->getOption('show_search_box'))
     {
       $this->columnConfig->setWidgetOption('show_search_box', true);
