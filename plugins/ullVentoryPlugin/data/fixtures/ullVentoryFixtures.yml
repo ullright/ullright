@@ -70,7 +70,7 @@ UllVentoryItemAttribute:
         name:                   Display size
         help:                   Diagonal in inches
       de:
-        name:                   Bildschirmgrösse
+        name:                   Bildschirmgröße
         help:                   Diagonale in Zoll
     slug:                       display_size
     UllColumnType:              integer

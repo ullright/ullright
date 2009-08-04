@@ -17,7 +17,7 @@ class ullMetaWidgetString extends ullMetaWidget
   {
     if (!$this->columnConfig->getWidgetAttribute('size'))
     {
-      $this->columnConfig->setWidgetAttribute('size', '50');
+      $this->columnConfig->setWidgetAttribute('size', '40');
     }
     
     $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));

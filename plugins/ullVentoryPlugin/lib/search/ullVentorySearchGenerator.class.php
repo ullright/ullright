@@ -28,9 +28,9 @@ class ullVentorySearchGenerator extends ullSearchGenerator
         throw new RuntimeException("Invalid slug, no inventory attribute found.");
       }
 
-      $columnConfig->setLabel($attribute->name);
+      $columnConfig->setLabel(__('Attribute', null, 'ullVentoryMessages') . ' - ' . $attribute->name);
       $columnConfig->setMetaWidgetClassName($attribute->UllColumnType->class);
-
+      
       return $columnConfig;
     }
     
