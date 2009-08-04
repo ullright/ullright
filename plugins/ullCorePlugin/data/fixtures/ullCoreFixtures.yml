@@ -112,7 +112,7 @@ UllColumnType:
     class:        ullMetaWidgetString
     label:        String
     namespace:    ullCore
-  string:
+  link:
     class:        ullMetaWidgetLink
     label:        Link
     namespace:    ullCore

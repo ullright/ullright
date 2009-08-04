@@ -50,6 +50,7 @@ class UllVentoryItemAttributeValueColumnConfigCollection extends ullColumnConfig
         ->setValidatorOption('required', $typeAttribute->is_mandatory)
         ->setMetaWidgetClassName($typeAttribute->UllVentoryItemAttribute->UllColumnType->class)
       ;
+      
       $this['comment']
         ->setMetaWidgetClassName('ullMetaWidgetString')
         ->setWidgetAttribute('size', 24)

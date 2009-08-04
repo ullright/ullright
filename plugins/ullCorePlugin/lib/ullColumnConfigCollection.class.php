@@ -283,7 +283,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     {
       if ($length > 255)
       {
-        $columnConfig->setMetaWidgetClassName = 'ullMetaWidgetTextarea';
+        $columnConfig->setMetaWidgetClassName('ullMetaWidgetTextarea');
       }
       else
       {

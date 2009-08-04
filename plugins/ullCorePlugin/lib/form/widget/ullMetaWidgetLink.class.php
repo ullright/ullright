@@ -2,30 +2,17 @@
 /**
  * ullMetaWidgetLink 
  * 
- * Used for strings
+ * This widget is used for linking columns in the
+ * result list to e.g. the show action
  */
-class ullMetaWidgetLink extends ullMetaWidget
+class ullMetaWidgetLink extends ullMetaWidgetString
 {
-  protected function addToForm()
+  protected function configureReadMode()
   {
-    if ($this->isWriteMode())
-    {
-      if ($this->columnConfig->getWidgetAttribute('size') == null)
-      {
-        $this->columnConfig->setWidgetAttribute('size', '50');
-      }
-    	
-    	$this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-      $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
-    }
-    else
-    {
-      $this->columnConfig->removeWidgetAttribute('size');
-      $this->columnConfig->removeWidgetAttribute('maxlength');
- 
-      $this->addWidget(new ullWidgetLink($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-      $this->addValidator(new sfValidatorPass());
-    }
-    
+    $this->columnConfig->removeWidgetAttribute('size');
+    $this->columnConfig->removeWidgetAttribute('maxlength');
+
+    $this->addWidget(new ullWidgetLink($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorPass());
   }  
 }
