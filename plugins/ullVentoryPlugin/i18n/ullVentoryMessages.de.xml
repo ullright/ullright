@@ -110,6 +110,10 @@
 <target>Bei der aktuellen Inventur noch nicht überprüft</target>
 </trans-unit>
 
+<trans-unit id="1014">
+<source>%1% of %2% used</source>
+<target>%1% von %2% verwendet</target>
+</trans-unit>
 
 
 <!-- Help messages -->

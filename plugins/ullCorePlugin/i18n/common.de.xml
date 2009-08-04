@@ -148,6 +148,15 @@
 <target>Wert</target>
 </trans-unit>
 
+<trans-unit id="116">
+<source>Software</source>
+<target>Software</target>
+</trans-unit>
+
+<trans-unit id="117">
+<source>License</source>
+<target>Lizenz</target>
+</trans-unit>
 
 <!-- Questions -->
 
