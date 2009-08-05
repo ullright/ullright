@@ -43,6 +43,16 @@
 	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowStepAction', __('Manage actions for steps')) ?></li>
 	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowAction', __('Manage actions')) ?></li>  
 	    </ul>
+      <h3><?php echo __('Inventory', null, 'ullVentoryMessages') ?></h3>
+      <ul class="tc_tasks">
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemType', __('Manage item types', null, 'ullVentoryMessages')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemAttribute', __('Manage item attributes', null, 'ullVentoryMessages')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemTypeAttribute', __('Manage attributes per item type', null, 'ullVentoryMessages')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentorySoftware', __('Manage software', null, 'ullVentoryMessages')) ?></li>  
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentorySoftwareLicense', __('Manage software licenses', null, 'ullVentoryMessages')) ?></li>  
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryOriginDummyUser', __('Manage origin users', null, 'ullVentoryMessages')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryStatusDummyUser', __('Manage status users', null, 'ullVentoryMessages')) ?></li>
+      </ul>
       <h3><?php echo __('Wiki') ?></h3>
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_24x24', 'ullTableTool/list?table=UllWikiAccessLevel', __('Manage list of access levels')) ?></li>

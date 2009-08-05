@@ -44,6 +44,26 @@
 <target>Modell</target>
 </trans-unit>
 
+<trans-unit id="9">
+<source>Has software?</source>
+<target>Hat Software?</target>
+</trans-unit>
+
+<trans-unit id="10">
+<source>Allow saving as preset?</source>
+<target>Als Voreinstellung speicherbar?</target>
+</trans-unit>
+
+<trans-unit id="11">
+<source>License key</source>
+<target>Lizenzschlüssel</target>
+</trans-unit>
+
+<trans-unit id="11">
+<source>Quantity</source>
+<target>Anzahl</target>
+</trans-unit>
+
 <!-- Column names -->
 <trans-unit id="1001">
 <source>Manufacturer</source>
@@ -141,6 +161,42 @@
 <trans-unit id="3003">
 <source>New owner</source>
 <target>Neuer Besitzer</target>
+</trans-unit>
+
+<!--  Admin index -->
+<trans-unit id="4001">
+<source>Manage origin users</source>
+<target>Verwalte Herkunft-Benutzer</target>
+</trans-unit>
+
+<trans-unit id="4002">
+<source>Manage status users</source>
+<target>Verwalte Status-Benutzer</target>
+</trans-unit>
+
+<trans-unit id="4003">
+<source>Manage item types</source>
+<target>Verwalte Geräte-Typen</target>
+</trans-unit>
+
+<trans-unit id="4004">
+<source>Manage item attributes</source>
+<target>Verwalte Geräte-Eigenschaften</target>
+</trans-unit>
+
+<trans-unit id="4005">
+<source>Manage attributes per item type</source>
+<target>Verwalte Attribute pro Geräte-Typ</target>
+</trans-unit>
+
+<trans-unit id="4006">
+<source>Manage software</source>
+<target>Verwalte Software</target>
+</trans-unit>
+
+<trans-unit id="4007">
+<source>Manage software licenses</source>
+<target>Verwalte Software-Lizenzen</target>
 </trans-unit>
 
     </body>
