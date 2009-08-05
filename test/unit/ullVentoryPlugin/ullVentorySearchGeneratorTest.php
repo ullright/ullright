@@ -35,7 +35,7 @@ $sfeArray[] = $sfe;
 
 $fieldNames = array('rangeFrom_0_0', 'rangeTo_0_0', 'rangeFrom_0_1', 'rangeTo_0_1');
 $widgetClassNames = array('sfWidgetFormInput', 'sfWidgetFormInput', 'ullWidgetDateWrite', 'ullWidgetDateWrite');
-$labels = array('Display size', 'to:', 'Delivery date', 'to:');
+$labels = array('Attribute - Display size', 'to:', 'Attribute - Delivery date', 'to:');
 
 $searchConfig = ullSearchConfig::loadSearchConfig('ullVentoryItem');
 $searchGenerator = new ullVentorySearchGenerator($searchConfig->getAllSearchableColumns(), 'UllVentoryItem');

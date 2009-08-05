@@ -11,7 +11,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig = new ullColumnConfiguration('my_subject');
     $columnConfig->setValidatorOptions(array('required' => true));
     $columnConfig->setLabel('My custom subject label');
-    $columnConfig->setMetaWidgetClassName('ullMetaWidgetLink');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['my_subject'] = $columnConfig;
     

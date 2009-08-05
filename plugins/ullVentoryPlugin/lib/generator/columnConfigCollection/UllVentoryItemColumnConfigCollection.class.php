@@ -49,7 +49,10 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'))
     ;
 
-    $this['comment']->setLabel(__('Comment', null, 'common'));
+    $this['comment']
+      ->setLabel(__('Comment', null, 'common'))
+      ->setMetaWidgetClassName('ullMetaWidgetString')
+    ;
     $this['inventory_number']->setLabel(__('Inventory number', null, 'ullVentoryMessages'));
     
     if ($this->isListAction())
