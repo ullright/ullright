@@ -31,27 +31,31 @@ abstract class PluginUllVentoryItem extends BaseUllVentoryItem
   {
     $taking = UllVentoryTakingTable::findLatest();
     
-    $itemTaking = UllVentoryItemTakingTable::findByItemAndTaking($this, $taking);
-    
-    if ($itemTaking)
+    if ($taking)
     {
-      $itemTaking->delete();
-      $this->refresh(true);
-      $this->UllVentoryItemMemory[] = $this->createMemory('Inventory taking withdrawn: ' . $taking->name);
-    }
-    else
-    {
-      $this->UllVentoryItemTaking[]->UllVentoryTaking = UllVentoryTakingTable::findLatest();
-      $this->UllVentoryItemTaking->save();
-      $this->UllVentoryItemMemory[] = $this->createMemory('Inventory taking: ' . $taking->name);
-    }
-    $this->UllVentoryItemMemory->save();
+      $itemTaking = UllVentoryItemTakingTable::findByItemAndTaking($this, $taking);
     
+      if ($itemTaking)
+      {
+        $itemTaking->delete();
+        $this->refresh(true);
+        $this->UllVentoryItemMemory[] = $this->createMemory('Inventory taking withdrawn: ' . $taking->name);
+      }
+      else
+      {
+        $this->UllVentoryItemTaking[]->UllVentoryTaking = UllVentoryTakingTable::findLatest();
+        $this->UllVentoryItemTaking->save();
+        $this->UllVentoryItemMemory[] = $this->createMemory('Inventory taking: ' . $taking->name);
+      }
+      $this->UllVentoryItemMemory->save();
+    }
   }
   
   public function hasLatestInventoryTaking()
   {
-    if (UllVentoryItemTakingTable::findByItemAndTaking($this, UllVentoryTakingTable::findLatest()))
+    $taking = UllVentoryTakingTable::findLatest();
+    
+    if (($taking !== false) && UllVentoryItemTakingTable::findByItemAndTaking($this, $taking))
     {
       return true;
     }
