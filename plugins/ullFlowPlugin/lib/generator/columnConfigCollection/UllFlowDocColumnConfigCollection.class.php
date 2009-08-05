@@ -26,7 +26,7 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
   {
     if ($this->isListAction())
     {
-      if (!$this->$app)
+      if (!$this->app)
       {
         $this['ull_flow_app_id']
           ->setLabel(__('App', null, 'common'))
