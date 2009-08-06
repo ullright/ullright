@@ -16,7 +16,7 @@ abstract class BaseUllDepartment extends UllRecord
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllUser', array('local' => 'id',
-                                        'foreign' => 'ull_department_id'));
+    $this->hasMany('UllParentEntity', array('local' => 'id',
+                                                'foreign' => 'ull_department_id'));
     }
 }

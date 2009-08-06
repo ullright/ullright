@@ -4,5 +4,32 @@
  */
 class PluginUllVentoryItemSoftwareTable extends UllRecordTable
 {
+  
+  public static function findByItemIdAndSoftwareId($itemId, $softwareId)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllVentoryItemSoftware x')
+      ->where('x.ull_ventory_item_id = ?', $itemId)
+      ->addWhere('x.ull_ventory_software_id = ?', $softwareId)
+    ;
+    
+    return $q->fetchOne();
+  }
+  
+  public static function findByItemIdAndSoftwareIdOrCreate($itemId, $softwareId)
+  {
+    $itemSoftware = UllVentoryItemSoftwareTable::findByItemIdAndSoftwareId($itemId, $softwareId);
+    
+    if (!$itemSoftware)
+    {
+      $itemSoftware = new UllVentoryItemSoftware; 
+      $itemSoftware->ull_ventory_item_id = $itemId;
+      $itemSoftware->ull_ventory_software_id = $softwareId;  
+    }
+    
+    return $itemSoftware; 
+  }
 
 }

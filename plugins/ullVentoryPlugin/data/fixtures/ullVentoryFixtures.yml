@@ -337,9 +337,4 @@ UllVentoryItemSoftware:
     UllVentorySoftware: adobe_writer
     UllVentorySoftwareLicense: adobe_writer_1
     comment:            Remember to update in October 2009
-    namespace:          test
-  testusers_macbook_windows:
-    UllVentoryItem:     testusers_macbook
-    UllVentorySoftware: windows
     namespace:          test    
-    

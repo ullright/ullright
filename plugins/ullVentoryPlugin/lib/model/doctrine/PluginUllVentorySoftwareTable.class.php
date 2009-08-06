@@ -4,5 +4,16 @@
  */
 class PluginUllVentorySoftwareTable extends UllRecordTable
 {
+  
+  public static function findOrderedByName()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentorySoftware x')
+      ->orderBy('x.name')
+    ;
+    
+    return $q->execute();
+  }
 
 }

@@ -15,7 +15,7 @@ abstract class BaseUllJobTitle extends UllRecord
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllUser', array('local' => 'id',
-                                        'foreign' => 'ull_job_title_id'));
+    $this->hasMany('UllParentEntity', array('local' => 'id',
+                                                'foreign' => 'ull_job_title_id'));
     }
 }

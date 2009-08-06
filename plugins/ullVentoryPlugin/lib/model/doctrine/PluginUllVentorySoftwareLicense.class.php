@@ -6,4 +6,9 @@
 abstract class PluginUllVentorySoftwareLicense extends BaseUllVentorySoftwareLicense
 {
 
+  public function __toString()
+  {
+    return $this->license_key;
+  }  
+  
 }

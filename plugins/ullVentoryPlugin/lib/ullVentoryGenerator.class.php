@@ -61,10 +61,10 @@ class ullVentoryGenerator extends ullTableToolGenerator
     if ($this->isAction(array('createWithType', 'edit')))
     {
       // ATTRIBUTES
-      $attributesForm = new sfForm;
-
       if ($this->isAction(array('createWithType', 'edit')))
       {
+        $attributesForm = new sfForm;
+        
         if (!$this->itemType)
         {
           $this->itemType = $this->getRow()->UllVentoryItemModel->UllVentoryItemType;
@@ -93,7 +93,26 @@ class ullVentoryGenerator extends ullTableToolGenerator
       // SOFTWARE
       if ($this->getRow()->UllVentoryItemModel->UllVentoryItemType->has_software)
       {
+        $softwareForm = new sfForm;
         
+        foreach(UllVentorySoftwareTable::findOrderedByName() as $software)
+        {
+          if ($this->isAction('createWithType'))
+          {
+            $itemSoftware = new UllVentoryItemSoftware;
+            $itemSoftware->UllVentorySoftware = $software;
+          }
+          
+          if ($this->isEditAction())
+          {
+            $itemSoftware = UllVentoryItemSoftwareTable::findByItemIdAndSoftwareIdOrCreate($this->getRow()->id, $software->id);
+          }
+          
+          $softwareGenerator = new ullVentorySoftwareGenerator($itemSoftware);
+          $softwareForm->embedForm(count($softwareForm), $softwareGenerator->getForm());
+        }
+        
+        $this->getForm()->embedForm('software', $softwareForm);
       }
       
       

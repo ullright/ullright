@@ -17,8 +17,8 @@ abstract class BaseUllUserStatus extends UllRecord
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllUser', array('local' => 'id',
-                                        'foreign' => 'ull_user_status_id'));
+    $this->hasMany('UllParentEntity', array('local' => 'id',
+                                                'foreign' => 'ull_user_status_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'name')));
         $this->actAs($i18n0);

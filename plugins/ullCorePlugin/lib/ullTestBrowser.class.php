@@ -310,6 +310,20 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     
     return $s;
   }
+  
+  public function getDgsUllVentoryEditSoftware()
+  {
+    $s = new ullDomGridSelector('table#ull_ventory_software > tbody', 'tr', 'td', array(),      
+      array(
+        'label',
+        'enabled',
+        'license',
+        'comment',
+      )
+    );
+    
+    return $s;
+  }  
 
   public function getDgsUllVentoryOrigin()
   {

@@ -132,6 +132,47 @@
 
 
 
+<?php if ($generator->getForm()->offsetExists('software')): ?>
+  <table class="edit_table" id="ull_ventory_software">
+  <thead>
+    <tr>
+      <th class="color_light_bg"><?php echo __('Software', null, 'common') ?></th>
+      <th class="color_light_bg"></th>
+      <th class="color_light_bg"><?php echo __('License', null, 'common') ?></th>
+      <th class="color_light_bg"><?php echo __('Comment', null, 'common') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <?php foreach ($generator->getForm()->offsetGet('software') as $software): ?>
+      <?php $values = $software->getValue(); //var_dump($values);  ?>
+      <tr>
+        <td class="label_column">
+          <label for="<?php echo $software->offsetGet('enabled')->renderId() ?>">
+          <?php echo Doctrine::getTable('UllVentorySoftware')->findOneById($values['ull_ventory_software_id'])->name ?>
+          </label>          
+        </td>
+        <td>
+          <?php echo $software->offsetGet('enabled')->render() ?>
+          <div class="form_error"><?php echo $software->offsetGet('enabled')->renderError() ?></div>
+        </td>
+        <td>
+          <?php echo $software->offsetGet('ull_ventory_software_license_id')->render() ?>
+          <div class="form_error"><?php echo $software->offsetGet('ull_ventory_software_license_id')->renderError() ?></div>        
+        </td>
+        <td>
+          <?php echo $software->offsetGet('comment')->render() ?>
+          <div class="form_error"><?php echo $software->offsetGet('comment')->renderError() ?></div>
+        </td>
+      </tr>
+    <?php endforeach ?>
+  </tbody>
+  </table>    
+<?php endif ?>
+
+
+
+
 <div class="ull_memory_background" id="ull_ventory_memory">
 <table class="edit_table ull_memory_background">
 <thead>

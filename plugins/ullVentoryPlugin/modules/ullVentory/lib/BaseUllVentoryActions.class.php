@@ -208,7 +208,13 @@ class BaseUllVentoryActions extends ullsfActions
           $this->redirect($this->getUriMemory()->getAndDelete('list'));
         }
       }
+      else
+      {
+//        var_dump($this->generator->getForm()->getErrorSchema());
+      }
     }
+    
+//    echo $this->generator->getForm()->debug();
   }
   
   /**

@@ -52,6 +52,14 @@ table#ull_ventory_attributes {
   margin-top: 2em;
 }
 
+table#ull_ventory_software {
+  margin-top: 2em;
+}
+
+table#ull_ventory_software th {
+  color: #777777;
+}
+
 #ull_ventory_memory {
   margin-top: 2em;
 }

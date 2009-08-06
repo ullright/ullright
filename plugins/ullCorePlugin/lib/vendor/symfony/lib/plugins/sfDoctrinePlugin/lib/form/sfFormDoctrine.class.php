@@ -203,7 +203,7 @@ abstract class sfFormDoctrine extends sfForm
     {
       $values = $this->values;
     }
-
+    
     $values = $this->processValues($values);
 
     $this->object->fromArray($values);

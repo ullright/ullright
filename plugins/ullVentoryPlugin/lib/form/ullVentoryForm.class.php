@@ -21,6 +21,8 @@ class ullVentoryForm extends ullGeneratorForm
     
     $this->updateAttributes($values);
     
+    $this->updateSoftware($values);
+    
     // why is this necessary?
     $this->object->UllEntity = Doctrine::getTable('UllEntity')->findOneById($values['ull_entity_id']);    
 
@@ -114,6 +116,46 @@ class ullVentoryForm extends ullGeneratorForm
           $attributeValue = Doctrine::getTable('UllVentoryItemAttributeValue')->findOneByID($attribute['id']);
           $attributeValue->fromArray($attribute);
           $attributeValue->save();
+        }
+      }
+    }
+  }
+
+  /**
+   * Updates the software of an item.
+   * 
+   * @param $values
+   * @return unknown_type
+   */
+  protected function updateSoftware($values)
+  {
+    if (isset($values['software']))
+    {
+      foreach($values['software'] as $software)
+      {
+        if ($software['enabled'])
+        {
+          if ($software['id'])
+          {
+            $itemSoftware = Doctrine::getTable('UllVentoryItemSoftware')->findOneById($software['id']);
+            $itemSoftware->fromArray($software);
+            $itemSoftware->save();
+          }
+          else
+          {
+            $itemSoftware = new UllVentoryItemSoftware;
+            $itemSoftware->fromArray($software);
+            $this->object->UllVentoryItemSoftware[] = $itemSoftware;
+          }
+          
+        }
+        else
+        {
+          if ($software['id'])
+          {
+            $itemSoftware = Doctrine::getTable('UllVentoryItemSoftware')->findOneById($software['id']);
+            $itemSoftware->delete();
+          }  
         }
       }
     }
@@ -212,6 +254,10 @@ class ullVentoryForm extends ullGeneratorForm
   public function saveEmbeddedForms($con = null, $forms = null)
   {
     //do nothing - don't save embeded forms
+  } 
+
+  public function updateObjectEmbeddedForms($values, $forms = null)  
+  {
+    //do nothing - don't save embeded forms
   }  
-  
 }

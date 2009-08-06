@@ -5,5 +5,10 @@
  */
 abstract class PluginUllVentorySoftware extends BaseUllVentorySoftware
 {
+  
+  public function __toString()
+  {
+    return $this->name;
+  }
 
 }

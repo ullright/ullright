@@ -12,32 +12,11 @@ abstract class BaseUllUser extends UllEntity
                                          'local' => 'ull_entity_id',
                                          'foreign' => 'ull_group_id'));
 
-        $this->hasOne('UllUser as Superior', array('local' => 'superior_ull_user_id',
-                                                   'foreign' => 'id'));
-
-        $this->hasOne('UllJobTitle', array('local' => 'ull_job_title_id',
-                                           'foreign' => 'id'));
-
-        $this->hasOne('UllCompany', array('local' => 'ull_company_id',
-                                          'foreign' => 'id'));
-
-        $this->hasOne('UllEmploymentType', array('local' => 'ull_employment_type_id',
-                                                 'foreign' => 'id'));
-
-        $this->hasOne('UllDepartment', array('local' => 'ull_department_id',
-                                             'foreign' => 'id'));
-
-        $this->hasOne('UllLocation', array('local' => 'ull_location_id',
-                                           'foreign' => 'id'));
-
-        $this->hasOne('UllUserStatus', array('local' => 'ull_user_status_id',
-                                             'foreign' => 'id'));
-
         $this->hasMany('TestTable', array('local' => 'id',
                                           'foreign' => 'ull_user_id'));
 
-        $this->hasMany('UllUser', array('local' => 'id',
-                                        'foreign' => 'superior_ull_user_id'));
+        $this->hasMany('UllParentEntity', array('local' => 'id',
+                                                'foreign' => 'superior_ull_user_id'));
 
         $this->hasMany('UllEntityGroup', array('local' => 'id',
                                                'foreign' => 'ull_entity_id'));
