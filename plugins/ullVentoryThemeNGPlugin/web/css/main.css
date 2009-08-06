@@ -48,6 +48,10 @@ a:visited {
 
 /* End of overridden css */
 
+#nav_link_ull_ventory:hover {
+  border-color: #d65e18;
+}
+
 table#ull_ventory_attributes {
   margin-top: 2em;
 }

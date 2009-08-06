@@ -15,6 +15,14 @@
   ?>
   </li>
   
+  <li id='nav_link_ull_ventory'>
+  <?php
+  echo ull_navigation_link('/ullVentoryThemeNGPlugin/images/ull_ventory_32x32',
+      'ullVentory/index', __('Inventory', null, 'ullVentoryMessages'),
+      array());
+  ?>
+  </li>  
+  
   <?php if (UllUserTable::hasGroup('MasterAdmins')): ?>
     <li id="nav_link_admin">
       <?php echo ull_navigation_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
