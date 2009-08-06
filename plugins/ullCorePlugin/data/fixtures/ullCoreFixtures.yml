@@ -176,7 +176,15 @@ UllColumnType:
     class:        ullMetaWidgetPercentage
     label:        Percentage
     namespace:    ullCore      
-
+  mac:
+    class:        ullMetaWidgetMacAddress
+    label:        MAC address
+    namespace:    ullCore
+  ip:
+    class:        ullMetaWidgetIpAddress
+    label:        IP address
+    namespace:    ullCore
+  
 UllTableConfig:
   ull_user_tc:
     Translation:
