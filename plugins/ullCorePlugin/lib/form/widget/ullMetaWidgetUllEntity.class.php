@@ -47,7 +47,7 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       }
       else
       {
-        throw new InvalidArgumentException('The given entity class has no "getChoices()" method implemented: ' . $class);
+        throw new InvalidArgumentException('The given entity table class has no "findChoices()" method implemented: ' . $class);
       }
     }
     
