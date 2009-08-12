@@ -282,6 +282,10 @@ UllVentorySoftwareLicense:
     license_key:
       type: string(128)
     quantity:
-      type: integer    
+      type: integer
+    supplier:
+      type: string(128)
+    comment:
+      type: string(4000)    
   relations:
     UllVentorySoftware:   

@@ -12,6 +12,8 @@ abstract class BaseUllVentorySoftwareLicense extends UllRecord
         $this->hasColumn('ull_ventory_software_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
         $this->hasColumn('license_key', 'string', 128, array('type' => 'string', 'length' => '128'));
         $this->hasColumn('quantity', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('supplier', 'string', 128, array('type' => 'string', 'length' => '128'));
+        $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
     }
 
     public function setUp()
