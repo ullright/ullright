@@ -16,5 +16,18 @@ class PluginUllVentoryItemAttributeValueTable extends UllRecordTable
     return $q->execute()->getFirst();   
   }
   
+  public static function findByItemIdAndTypeAttributeIdOrCreate($itemId, $typeAttributeId)
+  {
+    $itemAttributeValue = UllVentoryItemAttributeValueTable::findByItemIdAndTypeAttributeId($itemId, $typeAttributeId);
+    
+    if (!$itemAttributeValue)
+    {
+      $itemAttributeValue = new UllVentoryItemAttributeValue; 
+      $itemAttributeValue->ull_ventory_item_id = $itemId;
+      $itemAttributeValue->ull_ventory_item_type_attribute_id = $typeAttributeId;
+    }
+    
+    return $itemAttributeValue; 
+  }  
 
 }

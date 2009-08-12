@@ -80,7 +80,8 @@ class ullVentoryGenerator extends ullTableToolGenerator
           
           if ($this->isEditAction())
           {
-            $attributeValue = UllVentoryItemAttributeValueTable::findByItemIdAndTypeAttributeId($this->getRow()->id, $typeAttribute->id);
+            $attributeValue = UllVentoryItemAttributeValueTable::findByItemIdAndTypeAttributeIdOrCreate($this->getRow()->id, $typeAttribute->id);
+                        
           }
           
           $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);

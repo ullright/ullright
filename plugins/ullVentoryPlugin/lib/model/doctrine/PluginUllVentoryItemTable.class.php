@@ -16,4 +16,23 @@ class PluginUllVentoryItemTable extends UllRecordTable
     return new UllVentoryItem;    
   }
   
+  /**
+   * Find id by inventory_number
+   * 
+   * @param $inventoryNumber
+   * @return integer / false
+   */
+  public static function findIdByInventoryNumber($inventoryNumber)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('i.id')
+      ->from('UllVentoryItem i')
+      ->where('i.inventory_number = ?', $inventoryNumber)
+      ->useResultCache(true)
+    ;
+    $r = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+    
+    return ($r) ? $r[0] : false;
+  }
 }
