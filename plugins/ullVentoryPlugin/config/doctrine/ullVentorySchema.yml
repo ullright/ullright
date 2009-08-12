@@ -285,6 +285,8 @@ UllVentorySoftwareLicense:
       type: integer
     supplier:
       type: string(128)
+    delivery_date:
+      type: timestamp
     comment:
       type: string(4000)    
   relations:
