@@ -693,7 +693,7 @@ div#indicator {
 	}
 	
 	/* Otherwise all input tags are HUGHE in Firefox (3.0.13) */
-	input {
+	input, select {
 	 font-size: 1em;
 	}
   
