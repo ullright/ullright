@@ -166,7 +166,7 @@
 <!--  Admin index -->
 <trans-unit id="4001">
 <source>Manage origin users</source>
-<target>Verwalte Herkunft-Benutzer</target>
+<target>Verwalte Herkunfts-Benutzer</target>
 </trans-unit>
 
 <trans-unit id="4002">
