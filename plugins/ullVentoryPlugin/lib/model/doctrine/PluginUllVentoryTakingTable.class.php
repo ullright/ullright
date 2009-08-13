@@ -16,8 +16,9 @@ class PluginUllVentoryTakingTable extends UllRecordTable
     $q
       ->from('UllVentoryTaking x')
       ->orderBy('x.created_at DESC')
+      ->useResultCache(true)
     ;
-    return $q->execute()->getFirst();
+    return $q->fetchOne();
   }
 
 }

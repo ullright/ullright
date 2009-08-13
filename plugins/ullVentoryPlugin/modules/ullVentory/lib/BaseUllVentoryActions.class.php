@@ -522,7 +522,13 @@ class BaseUllVentoryActions extends ullsfActions
     $this->ull_filter = new ullFilter();
     
     $q = new Doctrine_Query();
-    $q->from('UllVentoryItem x');
+    $q->from('
+      UllVentoryItem x, 
+      x.UllVentoryItemModel mo, 
+      mo.UllVentoryItemType t, t.Translation tt,
+      mo.UllVentoryItemManufacturer ma,      
+      x.UllEntity e, e.UllLocation lo
+    ');
 
     //search has to be the first "where" part, because it uses "or" 
     if ($search = $this->filter_form->getValue('search'))
