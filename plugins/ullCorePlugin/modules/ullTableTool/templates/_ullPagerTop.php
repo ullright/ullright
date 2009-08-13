@@ -14,7 +14,7 @@
         , 'common'
       ); 
     ?>. <?php
-    if ($pager->getNumResults()) {
+    if ($pager->haveToPaginate()) {
       //  $cursor = $pager->getFirstIndice();
         echo __(
           'Displaying results %1% to %2%'
