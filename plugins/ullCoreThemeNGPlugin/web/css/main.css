@@ -63,6 +63,7 @@ body {
 	width: 12em;
 	margin: 0;
 	float: left;
+	
 }
 
 #sidebar_logo {
@@ -678,3 +679,35 @@ div#indicator {
   color: #676767;
   font-size: smaller;
 }
+
+/*
+ * ************************************************
+ *  settings for media "print"
+ * ************************************************
+ */
+ 
+@media print {
+	
+	body {
+	 font-size: 50%;
+	}
+	
+	/* Otherwise all input tags are HUGHE in Firefox (3.0.13) */
+	input {
+	 font-size: 1em;
+	}
+  
+  #sidebar {
+    display: none;
+  }
+  
+  #canvas {
+    margin-left: 0;
+  }
+  
+  #nav_top {
+    display: none;
+  }
+  
+}
+ 
