@@ -3,21 +3,27 @@ prod:
   doctrine:
     class:          sfDoctrineDatabase
     param:
-      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+      dsn:          'mysql:host=localhost;dbname=ullright'
+      username:     ullright
+      password:     'right&wrong!'
 
 ### dev Environment
 dev:
   doctrine:
     class:          sfDoctrineDatabase
     param:
-      dsn:          mysql://ullright:right&wrong!@localhost/ullright
+      dsn:          'mysql:host=localhost;dbname=ullright'
+      username:     ullright
+      password:     'right&wrong!'
       
 ### cli Environment
 cli:
   doctrine:
     class:          sfDoctrineDatabase
     param:
-      dsn:          mysql://ullright:right&wrong!@localhost/ullright      
+      dsn:          'mysql:host=localhost;dbname=ullright'
+      username:     ullright
+      password:     'right&wrong!' 
 
 ### Test Environment
 test:
@@ -25,7 +31,9 @@ test:
     class:          sfDoctrineDatabase
     param:
 #      dsn:          "sqlite::memory:"
-      dsn:          mysql://ullright_test:test@localhost/ullright_test
+      dsn:          'mysql:host=localhost;dbname=ullright_test'
+      username:     ullright_test
+      password:     test      
 
 ### Other
 #all:   all does not work since DoctrineTestbrowser is deleting all the tables...
