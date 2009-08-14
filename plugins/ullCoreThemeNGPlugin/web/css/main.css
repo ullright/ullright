@@ -693,7 +693,7 @@ div#indicator {
 	}
 	
 	/* Otherwise all input tags are HUGE in Firefox (3.0.13) */
-	input, select {
+	input, select, textarea {
 	 font-size: 1em;
 	}
   
