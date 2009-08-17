@@ -17,7 +17,7 @@ class AddUllVentoryAccessCheck extends Doctrine_Migration
     $gp->UllGroup = $group;
     $gp->UllPermission = $x;
     $gp->namespace = 'ull_ventory';
-    $gp->save;
+    $gp->save();
     
     $x = new UllPermission;
     $x->slug = 'ull_ventory_list';
@@ -28,7 +28,7 @@ class AddUllVentoryAccessCheck extends Doctrine_Migration
     $gp->UllGroup = $group;
     $gp->UllPermission = $x;
     $gp->namespace = 'ull_ventory';
-    $gp->save;    
+    $gp->save();    
     
     $x = new UllPermission;
     $x->slug = 'ull_ventory_create';
@@ -39,7 +39,7 @@ class AddUllVentoryAccessCheck extends Doctrine_Migration
     $gp->UllGroup = $group;
     $gp->UllPermission = $x;
     $gp->namespace = 'ull_ventory';
-    $gp->save;    
+    $gp->save();    
     
     $x = new UllPermission;
     $x->slug = 'ull_ventory_edit';
@@ -50,7 +50,7 @@ class AddUllVentoryAccessCheck extends Doctrine_Migration
     $gp->UllGroup = $group;
     $gp->UllPermission = $x;
     $gp->namespace = 'ull_ventory';
-    $gp->save;    
+    $gp->save();    
     
     $x = new UllPermission;
     $x->slug = 'ull_ventory_show';
@@ -61,7 +61,7 @@ class AddUllVentoryAccessCheck extends Doctrine_Migration
     $gp->UllGroup = $group;
     $gp->UllPermission = $x;
     $gp->namespace = 'ull_ventory';
-    $gp->save;    
+    $gp->save();    
             
     $x = new UllPermission;
     $x->slug = 'ull_ventory_delete';
@@ -72,7 +72,7 @@ class AddUllVentoryAccessCheck extends Doctrine_Migration
     $gp->UllGroup = $group;
     $gp->UllPermission = $x;
     $gp->namespace = 'ull_ventory';
-    $gp->save;
+    $gp->save();
     }
   
   public function down()
