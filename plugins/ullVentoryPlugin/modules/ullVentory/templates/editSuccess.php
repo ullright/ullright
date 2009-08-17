@@ -62,7 +62,7 @@
     <?php //TODO: it shouldn't be neccessary to hide "id" and "ull_entity_id" manually -> refactor into generator (getActiveColumns() ?) ?>
     <?php elseif ($generator->getForm()->offsetGet($column_name)->getWidget() instanceof sfWidgetFormInputHidden): ?>
       <?php continue ?>
-    <?php elseif (in_array($column_name, array('ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create', 'save_preset'))): ?>
+    <?php elseif (in_array($column_name, array('ull_ventory_item_manufacturer_id_create', 'ull_ventory_item_model_id_create', 'save_preset', 'add_software'))): ?>
       <?php continue ?>
     <?php //don't render embeded forms (attributes, software) ?>
     <?php elseif ($generator->getForm()->offsetGet($column_name) instanceof sfFormFieldSchema): ?>
@@ -115,9 +115,7 @@
   <tr>
     <?php $save_preset = $generator->getForm()->offsetGet('save_preset') ?>
     <td class="label_column">
-      <label for="<?php echo $save_preset->renderId() ?>">
         <?php echo $save_preset->renderLabel() ?>
-      </label>
     </td>
     <td colspan="2">
       <?php echo $save_preset->render() ?>
@@ -148,9 +146,7 @@
       <?php $values = $software->getValue(); //var_dump($values);  ?>
       <tr>
         <td class="label_column">
-          <label for="<?php echo $software->offsetGet('enabled')->renderId() ?>">
-          <?php echo Doctrine::getTable('UllVentorySoftware')->findOneById($values['ull_ventory_software_id'])->name ?>
-          </label>          
+          <label for="<?php echo $software->offsetGet('enabled')->renderId() ?>"><?php echo Doctrine::getTable('UllVentorySoftware')->findOneById($values['ull_ventory_software_id'])->name ?></label>          
         </td>
         <td>
           <?php echo $software->offsetGet('enabled')->render() ?>
@@ -166,6 +162,24 @@
         </td>
       </tr>
     <?php endforeach ?>
+    
+  <!-- Add software -->
+  <tr>
+    <?php $add_software = $generator->getForm()->offsetGet('add_software') ?>
+    <td class="label_column">
+        <?php echo $add_software->renderLabel() ?>
+    </td>
+    <td colspan="3">
+      <?php echo $add_software->render() ?>
+      <?php echo $add_software->renderHelp() ?>
+      <?php echo ull_submit_tag(
+                __('Add software', null, 'ullVentoryMessages'),
+                array('name' => 'submit|action_slug=save_only', 'id' => 'add_software')
+              ) ?>       
+      <div class="form_error"><?php echo $add_software->renderError(); ?></div>
+    </td>
+  </tr>
+    
   </tbody>
   </table>    
 <?php endif ?>
@@ -364,6 +378,17 @@ $("#load_presets").hide();
 $("#fields_ull_ventory_item_model_id").bind("change", function(e)
   {
     $("#ull_ventory_form").append("<input type=\"hidden\" name=\"submit|action_slug=load_presets\" value=\"1\" />\n");
+    $("#ull_ventory_form").submit();
+  }
+);
+
+
+// Hide "Add software" button and add auto submit
+$("#add_software").hide();
+
+$("#fields_add_software").bind("change", function(e)
+  {
+    $("#submit_action_slug_save_only").attr("value", 1);
     $("#ull_ventory_form").submit();
   }
 );

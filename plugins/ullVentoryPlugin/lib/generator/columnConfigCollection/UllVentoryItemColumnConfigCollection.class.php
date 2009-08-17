@@ -102,6 +102,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
     {
       $this->disable(array('updator_user_id', 'updated_at'));
       
+      // Attributes: save as preset
       $this->create('save_preset')
         ->setMetaWidgetClassName('ullMetaWidgetCheckbox')
         ->setLabel(__('Save as preset', null, 'ullVentoryMessages'))
@@ -126,7 +127,13 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         'inventory_number',
         'serial_number',
         'comment'
-      ));      
+      ));  
+
+      // Software: add software
+      $this->create('add_software')
+        ->setMetaWidgetClassName('ullMetaWidgetUllVentorySoftware')
+        ->setLabel(__('Add software', null, 'ullVentoryMessages'))
+      ;       
     }  
     
   }

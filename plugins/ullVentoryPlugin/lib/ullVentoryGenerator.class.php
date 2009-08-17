@@ -96,18 +96,19 @@ class ullVentoryGenerator extends ullTableToolGenerator
       {
         $softwareForm = new sfForm;
         
-        foreach(UllVentorySoftwareTable::findOrderedByName() as $software)
+//        foreach(UllVentorySoftwareTable::findOrderedByName() as $software)
+        foreach($this->getRow()->UllVentoryItemSoftware as $itemSoftware)
         {
-          if ($this->isAction('createWithType'))
-          {
-            $itemSoftware = new UllVentoryItemSoftware;
-            $itemSoftware->UllVentorySoftware = $software;
-          }
-          
-          if ($this->isEditAction())
-          {
-            $itemSoftware = UllVentoryItemSoftwareTable::findByItemIdAndSoftwareIdOrCreate($this->getRow()->id, $software->id);
-          }
+//          if ($this->isAction('createWithType'))
+//          {
+//            $itemSoftware = new UllVentoryItemSoftware;
+//            $itemSoftware->UllVentorySoftware = $software;
+//          }
+//          
+//          if ($this->isEditAction())
+//          {
+//            $itemSoftware = UllVentoryItemSoftwareTable::findByItemIdAndSoftwareIdOrCreate($this->getRow()->id, $software->id);
+//          }
           
           $softwareGenerator = new ullVentorySoftwareGenerator($itemSoftware);
           $softwareForm->embedForm(count($softwareForm), $softwareGenerator->getForm());

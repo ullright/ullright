@@ -31,8 +31,8 @@ class ullVentoryForm extends ullGeneratorForm
     $this->savePreset($values);
 
 //    var_dump($this->object->exists());
-//    var_dump($this->object->toArray());
 //    var_dump($values);
+//    var_dump($this->object->toArray());
 //    die('buha');
     
     return $this->object;
@@ -131,6 +131,7 @@ class ullVentoryForm extends ullGeneratorForm
   {
     if (isset($values['software']))
     {
+      
       foreach($values['software'] as $software)
       {
         if ($software['enabled'])
@@ -153,11 +154,37 @@ class ullVentoryForm extends ullGeneratorForm
         {
           if ($software['id'])
           {
-            $itemSoftware = Doctrine::getTable('UllVentoryItemSoftware')->findOneById($software['id']);
-            $itemSoftware->delete();
+            foreach ($this->object->UllVentoryItemSoftware as $key => $itemSoftware)
+            {
+              if ($itemSoftware->id == $software['id'])
+              {
+                unset($this->object->UllVentoryItemSoftware[$key]);
+              }  
+            }
           }  
         }
       }
+      
+      if (isset($values['add_software']))
+      {
+        $exists = false;
+        foreach($this->object->UllVentoryItemSoftware as $itemSoftware)
+        {
+          if ($itemSoftware->ull_ventory_software_id == $values['add_software'])
+          {
+            $exists = true;
+            break;
+          }
+        }
+        
+        if (!$exists)
+        {
+          $itemSoftware = new UllVentoryItemSoftware;
+          $itemSoftware->ull_ventory_software_id = $values['add_software'];
+          $this->object->UllVentoryItemSoftware[] = $itemSoftware;
+        }
+      }  
+    
     }
   }
   
