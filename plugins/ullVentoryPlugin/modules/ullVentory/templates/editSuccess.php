@@ -44,6 +44,10 @@
       <tr>
         <td><?php echo $generator->getForm()->offsetGet($column_name)->renderLabel() ?></td>
         <td>
+          <?php if ($column_name == 'ull_ventory_item_model_id'): ?>
+            <?php echo image_tag('/ullCoreThemeNGPlugin/images/indicator.gif', array('id' => 'ull_ventory_item_model_id_ajax_indicator', 'style' => 'display: none;')) ?>
+          <?php endif ?>        
+        
           <?php echo $generator->getForm()->offsetGet($column_name)->render() ?>
           <?php echo __('or create', null, 'ullVentoryMessages') ?>:
           <?php echo $generator->getForm()->offsetGet($column_name . '_create')->render() ?>
@@ -346,7 +350,10 @@
 $("#fields_ull_ventory_item_manufacturer_id").bind("change", function(e)
   {
     $.getJSON("/ullVentory/itemModelsByManufacturer", 
-      {ull_ventory_item_manufacturer_id: $("#fields_ull_ventory_item_manufacturer_id").attr("value")},
+      {
+      ull_ventory_item_manufacturer_id: $("#fields_ull_ventory_item_manufacturer_id").attr("value"),
+      ull_ventory_item_type_id: $("#fields_ull_ventory_item_type_id").attr("value")
+      },
       function(data)
       {
         $("#fields_ull_ventory_item_model_id").empty();
@@ -358,15 +365,15 @@ $("#fields_ull_ventory_item_manufacturer_id").bind("change", function(e)
       }
     );
 
-//    // ajax indicator
-//    $.ajax({
-//      beforeSend: function(){
-//        $("#ajax_indicator").show();
-//      },
-//      complete: function(){
-//        $("#ajax_indicator").hide();
-//      }
-//    });
+    // ajax indicator
+    $.ajax({
+      beforeSend: function(){
+        $("#ull_ventory_item_model_id_ajax_indicator").show();
+      },
+      complete: function(){
+        $("#ull_ventory_item_model_id_ajax_indicator").hide();
+      }
+    });
   }
 );  
 

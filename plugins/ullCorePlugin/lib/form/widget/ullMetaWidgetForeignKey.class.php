@@ -31,6 +31,7 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
     {
       $this->columnConfig->removeWidgetOption('add_empty');
       $this->columnConfig->removeWidgetOption('model');
+      $this->columnConfig->removeWidgetOption('query');
       $this->columnConfig->removeValidatorOption('model');
       $createColumnName = $this->columnName . '_create';
       $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()), $createColumnName);

@@ -5,4 +5,15 @@
 class PluginUllVentoryItemManufacturerTable extends UllRecordTable
 {
 
+  public static function findByTypeSlug($itemTypeSlug)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentoryItemManufacturer ma, ma.UllVentoryItemModel mo, mo.UllVentoryItemType t')
+      ->where('t.slug = ?', $itemTypeSlug)
+      ->orderBy('ma.name')
+    ;
+    return $q->execute();
+  }
+  
 }

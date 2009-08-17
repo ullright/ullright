@@ -34,7 +34,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
    */
   protected function buildColumnsConfig()
   {  
-    $this->columnsConfig = ullColumnConfigCollection::buildFor('UllVentoryItem', $this->defaultAccess, $this->requestAction);
+    $this->columnsConfig = UllVentoryItemColumnConfigCollection::build($this->itemType, $this->defaultAccess, $this->requestAction);
     
 //    var_dump($this->columnsConfig);die;
   }
@@ -61,32 +61,29 @@ class ullVentoryGenerator extends ullTableToolGenerator
     if ($this->isAction(array('createWithType', 'edit')))
     {
       // ATTRIBUTES
-      if ($this->isAction(array('createWithType', 'edit')))
+      $attributesForm = new sfForm;
+      
+      if (!$this->itemType)
       {
-        $attributesForm = new sfForm;
-        
-        if (!$this->itemType)
+        $this->itemType = $this->getRow()->UllVentoryItemModel->UllVentoryItemType;
+      }
+      
+      foreach($this->itemType->UllVentoryItemTypeAttribute as $typeAttribute)
+      {
+        if ($this->isAction('createWithType'))
         {
-          $this->itemType = $this->getRow()->UllVentoryItemModel->UllVentoryItemType;
+          $attributeValue = new UllVentoryItemAttributeValue;
+          $attributeValue->UllVentoryItemTypeAttribute = $typeAttribute;
         }
         
-        foreach($this->itemType->UllVentoryItemTypeAttribute as $typeAttribute)
+        if ($this->isEditAction())
         {
-          if ($this->isAction('createWithType'))
-          {
-            $attributeValue = new UllVentoryItemAttributeValue;
-            $attributeValue->UllVentoryItemTypeAttribute = $typeAttribute;
-          }
-          
-          if ($this->isEditAction())
-          {
-            $attributeValue = UllVentoryItemAttributeValueTable::findByItemIdAndTypeAttributeIdOrCreate($this->getRow()->id, $typeAttribute->id);
-                        
-          }
-          
-          $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);
-          $attributesForm->embedForm(count($attributesForm), $attributeGenerator->getForm());          
+          $attributeValue = UllVentoryItemAttributeValueTable::findByItemIdAndTypeAttributeIdOrCreate($this->getRow()->id, $typeAttribute->id);
+                      
         }
+        
+        $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);
+        $attributesForm->embedForm(count($attributesForm), $attributeGenerator->getForm());          
       }
       
       $this->getForm()->embedForm('attributes', $attributesForm);

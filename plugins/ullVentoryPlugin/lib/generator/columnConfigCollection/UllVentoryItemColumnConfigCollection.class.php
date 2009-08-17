@@ -2,6 +2,24 @@
 
 class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
 {
+  
+  protected
+    $itemType
+  ;
+  
+  public function __construct($modelName, $itemType, $defaultAccess = null, $requestAction = null)
+  {
+    $this->itemType = $itemType;
+    parent::__construct($modelName, $defaultAccess, $requestAction);
+  }
+
+  public static function build($itemType, $defaultAccess = null, $requestAction = null)
+  {
+    $c = new self('UllVentoryItem', $itemType, $defaultAccess, $requestAction);
+    $c->buildCollection();
+    
+    return $c;
+  }  
 
   /**
    * Applies model specific custom column configuration
@@ -20,6 +38,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOptions(array('add_empty' => true))
       ->setValidatorOptions(array('required' => true))
     ;
+    
 
     $this->create('ull_ventory_item_manufacturer_id')
       ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
@@ -27,10 +46,20 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ->setRelation(array(
         'model'             => 'UllVentoryItemManufacturer',
         'foreign_id'        => 'id'))
-      ->setWidgetOptions(array('add_empty' => true))
+      ->setWidgetOption('add_empty', true)
       ->setValidatorOptions(array('required' => true))
       ->setAllowCreate(true)
-    ;    
+    ;
+    if ($this->itemType)
+    {
+      $q = new Doctrine_Query;
+      $q
+        ->from('UllVentoryItemManufacturer ma, ma.UllVentoryItemModel mo, mo.UllVentoryItemType t')
+        ->where('t.slug = ?', $this->itemType->slug)
+        ->orderBy('ma.name')
+      ;
+      $this['ull_ventory_item_manufacturer_id']->setWidgetOption('query', $q);
+    }        
         
     $this['ull_ventory_item_model_id']
       ->setLabel(__('Model', null, 'ullVentoryMessages'))

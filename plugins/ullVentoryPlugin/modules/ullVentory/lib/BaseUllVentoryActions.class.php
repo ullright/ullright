@@ -301,10 +301,8 @@ class BaseUllVentoryActions extends ullsfActions
   public function executeItemModelsByManufacturer($request)
   {
 //    var_dump($request->getParameterHolder()->getAll());
+//    die;
   
-//    $this->getResponse()->setContentType('application/json');
-//    $authors = DemoAuthorPeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
-    
     $q = new Doctrine_Query;
     $q
       ->select('mo.id, mo.name')
@@ -312,8 +310,12 @@ class BaseUllVentoryActions extends ullsfActions
     ;
     if ($id = $request->getParameter('ull_ventory_item_manufacturer_id'))
     {
-      $q->where('mo.ull_ventory_item_manufacturer_id = ?',$request->getParameter('ull_ventory_item_manufacturer_id'));
-    }    
+      $q->where('mo.ull_ventory_item_manufacturer_id = ?',$id);
+    }
+    if ($id = $request->getParameter('ull_ventory_item_type_id'))
+    {
+      $q->addWhere('mo.ull_ventory_item_type_id = ?',$id);
+    }     
     
 //    printQuery($q->getQuery());
 //    var_dump($q->getParams());
