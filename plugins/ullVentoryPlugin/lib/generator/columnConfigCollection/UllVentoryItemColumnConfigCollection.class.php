@@ -66,6 +66,16 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ->setAllowCreate(true)
       ->setWidgetOption('add_empty', true)
     ;
+    if ($this->itemType)
+    {
+      $q = new Doctrine_Query;
+      $q
+        ->from('UllVentoryItemModel mo, mo.UllVentoryItemType t')
+        ->where('t.slug = ?', $this->itemType->slug)
+        ->orderBy('mo.name')
+      ;
+      $this['ull_ventory_item_model_id']->setWidgetOption('query', $q);
+    }       
     
     $this['serial_number']
       ->setLabel(__('Model', null, 'ullVentoryMessages'))
