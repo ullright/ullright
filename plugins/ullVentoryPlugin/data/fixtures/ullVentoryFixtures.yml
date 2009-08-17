@@ -204,6 +204,7 @@ UllVentoryOriginDummyUser:
         display_name: Delivered
       de:
         display_name: Geliefert
+    namespace: ull_ventory
   inventory_taking:
     username: inventory_taking
     Translation:
@@ -211,6 +212,7 @@ UllVentoryOriginDummyUser:
         display_name: Inventory taking
       de:
         display_name: Inventarisiert
+    namespace: ull_ventory        
         
 UllVentoryStatusDummyUser:
   stored:
@@ -220,6 +222,7 @@ UllVentoryStatusDummyUser:
         display_name: Stored
       de:
         display_name: Lagernd
+    namespace: ull_ventory        
   disposed:
     username: disposed
     Translation:
@@ -227,6 +230,7 @@ UllVentoryStatusDummyUser:
         display_name: Disposed
       de:
         display_name: Entsorgt
+    namespace: ull_ventory        
   stolen:
     username: stolen
     Translation:
@@ -234,6 +238,7 @@ UllVentoryStatusDummyUser:
         display_name: Stolen
       de:
         display_name: Gestohlen
+    namespace: ull_ventory        
   repair:
     username: repair
     Translation:
@@ -241,13 +246,15 @@ UllVentoryStatusDummyUser:
         display_name: Repair
       de:
         display_name: Reparatur
+    namespace: ull_ventory        
   sold:
     username: sold
     Translation:
       en:
         display_name: Sold
       de:
-        display_name: Verkauft                        
+        display_name: Verkauft
+    namespace: ull_ventory
                 
 UllVentoryItemMemory:
   testusers_macbook_memory_1:
@@ -344,3 +351,55 @@ UllVentoryItemSoftware:
     UllVentorySoftwareLicense: adobe_writer_1
     comment:            Remember to update in October 2009
     namespace:          test    
+    
+UllGroup:
+  inventory_admins:
+    display_name:       InventoryAdmins
+    namespace:          ull_ventory
+    
+UllPermission:
+  ull_ventory_index:
+    slug:               ull_ventory_index
+    namespace:          ull_ventory
+  ull_ventory_list:
+    slug:               ull_ventory_list
+    namespace:          ull_ventory    
+  ull_ventory_create:
+    slug:               ull_ventory_create
+    namespace:          ull_ventory    
+  ull_ventory_edit:
+    slug:               ull_ventory_edit
+    namespace:          ull_ventory
+  ull_ventory_show:
+    slug:               ull_ventory_show
+    namespace:          ull_ventory    
+  ull_ventory_delete:
+    slug:               ull_ventory_delete
+    namespace:          ull_ventory    
+    
+UllGroupPermission:
+  ull_ventory_admin_index:
+    UllGroup:           inventory_admins
+    UllPermission:      ull_ventory_index
+    namespace:          ull_ventory
+  ull_ventory_admin_list:
+    UllGroup:           inventory_admins
+    UllPermission:      ull_ventory_list
+    namespace:          ull_ventory
+  ull_ventory_admin_create:
+    UllGroup:           inventory_admins
+    UllPermission:      ull_ventory_create
+    namespace:          ull_ventory       
+  ull_ventory_admin_edit:
+    UllGroup:           inventory_admins
+    UllPermission:      ull_ventory_edit
+    namespace:          ull_ventory
+  ull_ventory_admin_show:
+    UllGroup:           inventory_admins
+    UllPermission:      ull_ventory_show
+    namespace:          ull_ventory    
+  ull_ventory_admin_delete:
+    UllGroup:           inventory_admins
+    UllPermission:      ull_ventory_delete
+    namespace:          ull_ventory    
+  

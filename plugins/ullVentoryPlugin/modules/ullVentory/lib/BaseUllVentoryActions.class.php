@@ -33,6 +33,8 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeIndex() 
   {
+    $this->checkPermission('ull_ventory_index');
+    
     $this->form = new ullVentoryFilterForm;
 
     // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
@@ -47,6 +49,8 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeList(sfRequest $request) 
   {
+    $this->checkPermission('ull_ventory_list');
+    
     $this->getUriMemory()->setUri();
 
     if ($request->isMethod('post'))
@@ -70,6 +74,8 @@ class BaseUllVentoryActions extends ullsfActions
   
   public function executeToggleInventoryTaking(sfRequest $request)
   {
+    $this->checkPermission('ull_ventory_edit');
+    
     $this->doc = $this->getRoute()->getObject();
     $this->doc->toggleInventoryTaking();
     
@@ -81,21 +87,23 @@ class BaseUllVentoryActions extends ullsfActions
    * Execute Show action
    * 
    */
-  public function executeShow() 
-  {
-    $this->getDocFromRequest();
-
-    // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
-    if ($this->return_var = $this->getRequestParameter('return_var')) 
-    {
-       $this->return_url = $this->getUser()->getAttribute('wiki_return_url') 
-        . '&' . $this->return_var . '=' . $this->doc->id;
-    }
-    
-    $this->has_no_write_access = $this->getRequestParameter('no_write_access'); 
-
-    $this->breadcrumbForShow();
-  }
+//  public function executeShow() 
+//  {
+//    $this->checkPermission('ull_ventory_show');
+//    
+//    $this->getDocFromRequest();
+//
+//    // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
+//    if ($this->return_var = $this->getRequestParameter('return_var')) 
+//    {
+//       $this->return_url = $this->getUser()->getAttribute('wiki_return_url') 
+//        . '&' . $this->return_var . '=' . $this->doc->id;
+//    }
+//    
+//    $this->has_no_write_access = $this->getRequestParameter('no_write_access'); 
+//
+//    $this->breadcrumbForShow();
+//  }
 
   /**
    * Execute create action
@@ -103,7 +111,7 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeCreate($request) 
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_ventory_create');
     
     $this->entity = $this->retrieveEntityFromRequest();
     
@@ -127,7 +135,7 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeCreateWithType($request) 
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_ventory_create');
     $this->forward404Unless(Doctrine::getTable('UllVentoryItemType')->findOneBySlug($request->getParameter('type')));
     
     $this->forward('ullVentory', 'edit');
@@ -139,6 +147,8 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeEdit($request) 
   {
+    $this->checkPermission('ull_ventory_edit');
+    
     if ($request->hasParameter('inventory_number'))
     {
       $this->doc = $this->getRoute()->getObject();
@@ -247,15 +257,15 @@ class BaseUllVentoryActions extends ullsfActions
   /**
    * Execute delete action
    */
-  public function executeDelete() 
-  {
-    $this->checkPermission('ull_wiki_delete');
-    
-    $this->getDocFromRequest();
-    $this->doc->delete();
-    
-    $this->redirect($this->getUriMemory()->getAndDelete('list'));
-  }
+//  public function executeDelete() 
+//  {
+//    $this->checkPermission('ull_ventory_delete');
+//    
+//    $this->getDocFromRequest();
+//    $this->doc->delete();
+//    
+//    $this->redirect($this->getUriMemory()->getAndDelete('list'));
+//  }
 
   public function executeItemModels($request)
   {
@@ -340,6 +350,8 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeSearch(sfRequest $request)
   {
+    $this->checkPermission('ull_ventory_list');
+    
     $this->moduleName = $request->getParameter('module');
     $this->modelName = 'UllVentoryItem';
     $this->getUriMemory()->setUri('search');
@@ -373,6 +385,8 @@ class BaseUllVentoryActions extends ullsfActions
   
   public function executeMassChangeOwner(sfRequest $request)
   {
+    $this->checkPermission('ull_ventory_edit');
+    
     $this->oldEntityId = $request->getParameter('oldEntityId');
     $this->redirectUnless(($this->oldEntityId !== null), 'ullVentory/list');
     

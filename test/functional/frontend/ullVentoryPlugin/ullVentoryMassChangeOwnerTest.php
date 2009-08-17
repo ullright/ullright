@@ -23,8 +23,7 @@ $dgsList = $browser->getDgsUllVentoryList();
 $browser
   ->info('Mass change owner - navigating to list')
   ->get('ullVentory/list')
-  //this will be necessary once permission checking is enabled
-  //->loginAsAdmin()
+  ->loginAsAdmin()
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'list')
@@ -52,8 +51,6 @@ $browser
     ->isStatusCode(200)
   ->end()
   ->checkResponseElement($dgsList->getFullRowSelector(), 2)
-  ->checkResponseElement($dgsList->get(1, 'owner'), 'Test User')
-  ->checkResponseElement($dgsList->get(2, 'owner'), 'Test User')
 ;
 
 $browser

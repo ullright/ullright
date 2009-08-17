@@ -13,6 +13,7 @@ $dgsList = $b->getDgsUllVentoryList();
 $b
   ->info('Inventory index')
 	->get('ullVentory/index')
+	->loginAsAdmin()
 	->isStatusCode(200)
 	->isRequestParameter('module', 'ullVentory')
 	->isRequestParameter('action', 'index')
@@ -86,7 +87,6 @@ $b
 $b
   ->diag('Now create an entry and check if the owner is passed correctly')
   ->click('Enlist new item')
-  ->loginAsAdmin()
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'create')
