@@ -78,7 +78,7 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       {
         $columns[$config->slug] = $config;
       }
-
+      
       // loop through columns
       foreach ($columns as $columnName => $column)
       {
@@ -86,19 +86,21 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
         //   therefore we need to obmit it here to prevent duplicate
         if ($this->app || (!$this->app && !$column['is_subject']))
         {
-          if (!($this->isListAction() && $column->is_in_list))
-          {
-            $this->create($columnName)
-              ->setLabel($column->label)
-              ->setMetaWidgetClassName($column->UllColumnType->class)
-              ->setWidgetOptions(sfToolkit::stringToArray($column->options))
-              ->setValidatorOption('required', $column->is_mandatory)
-            ;
+          $this->create($columnName)
+            ->setLabel($column->label)
+            ->setMetaWidgetClassName($column->UllColumnType->class)
+            ->setWidgetOptions(sfToolkit::stringToArray($column->options))
+            ->setValidatorOption('required', $column->is_mandatory)
+          ;
             
-            if ($column->default_value)
-            {
-              $this[$columnName]->setDefaultValue($column->default_value);
-            }
+          if ($this->isListAction() && !$column->is_in_list)
+          {
+            $this[$columnName]->disable();
+          }            
+            
+          if ($column->default_value)
+          {
+            $this[$columnName]->setDefaultValue($column->default_value);
           }
         }
       }

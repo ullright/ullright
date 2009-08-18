@@ -62,7 +62,7 @@ class ullFlowGenerator extends ullGenerator
   {
     if ($this->activeColumns)
     {
-       return $this->activeColumns;
+      return $this->activeColumns;
     }
     
     if ($this->getRequestAction() == "list")
