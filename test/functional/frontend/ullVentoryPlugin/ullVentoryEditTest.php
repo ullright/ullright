@@ -53,10 +53,10 @@ $b
   ->checkResponseElement($dgsEdit->getFullRowSelector(), 6) // num of rows
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_type_id > option + option', 'Notebook')
-  ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 3)
-  ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option + option', 'Apple')  
-  ->checkResponseElement('#fields_ull_ventory_item_model_id > option', 3)
-  ->checkResponseElement('#fields_ull_ventory_item_model_id > option + option', 'MacBook')
+  ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 2)
+  ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option + option', 'Brother')  
+  ->checkResponseElement('#fields_ull_ventory_item_model_id > option', 2)
+  ->checkResponseElement('#fields_ull_ventory_item_model_id > option + option', 'MFC-440CN')
   ->checkResponseElement('input[id="fields_ull_entity_id"][type="hidden"][value="'. Doctrine::getTable('UllVentoryStatusDummyUser')->findOneByUsername('stored')->id . '"]')
   // attributes
   ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 3)
@@ -177,7 +177,7 @@ $b
   ->isRequestParameter('inventory_number', '1704')
   ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
   // owner
-  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
   //memory
   ->checkResponseElement($dgsMemory->getFullRowSelector(), 3)
 ;
@@ -195,7 +195,7 @@ $b
   ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
   ->checkResponseElement('input[id="fields_comment"][value="Paper-jam again!"]', true)
   // owner
-  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
   //memory
   ->checkResponseElement($dgsMemory->getFullRowSelector(), 3)
 ;
@@ -212,7 +212,7 @@ $b
   ->isRequestParameter('inventory_number', '1704')
   ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
   // owner
-  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
   //memory
   ->checkResponseElement($dgsMemory->getFullRowSelector(), 4)
 ;

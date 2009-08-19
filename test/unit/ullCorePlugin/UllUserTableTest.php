@@ -89,8 +89,8 @@ $t->diag('findChoices()');
   $t->is(
       UllUserTable::findChoices(),
       array(
-        1 => array('name' => 'Admin Master'),
-        2 => array('name' => 'User Test'),
+        1 => array('name' => 'Master Admin'),
+        2 => array('name' => 'Test User'),
       ),
       'returns the correct choices for UllUser'
   );

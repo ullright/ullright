@@ -32,5 +32,5 @@ $t->diag('for write access:');
   $widget = new ullMetaWidgetForeignKey($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetForeignKey', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
-  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormDoctrineSelect', 'returns the correct widget for write access');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetFormDoctrineSelect', 'returns the correct widget for write access');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorDoctrineChoice', 'returns the correct validator for write access');
