@@ -17,12 +17,15 @@ class ullVentoryFilterForm extends sfForm
 
     $this->getWidgetSchema()->setNameFormat('filter[%s]');
     
-    $cc = new ullColumnConfiguration;
-    $cc->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'));
-    $cc->setWidgetOption('add_empty', true);
-    $cc->setWidgetAttribute('onchange', 'submit()');
-    $cc->setValidatorOption('required', false);
-    $widget = new ullMetaWidgetUllEntity($cc, $this);
+    $c = new ullColumnConfiguration;
+    $c
+      ->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'))
+      ->setOption('show_search_box', true)
+      ->setWidgetOption('add_empty', true)
+      ->setWidgetAttribute('onchange', 'submit()')
+      ->setValidatorOption('required', false)
+    ;
+    $widget = new ullMetaWidgetUllEntity($c, $this);
     $widget->addToFormAs('ull_entity_id');
     
     $this->widgetSchema->setLabels(array(

@@ -15,7 +15,7 @@ $(document).ready(function()
 		      ull_ventory_item_manufacturer_id: $("#fields_ull_ventory_item_manufacturer_id").attr("value"),
 		      ull_ventory_item_type_id: $("#fields_ull_ventory_item_type_id").attr("value")
 		    },
-		    function()
+		    function(data)
 		    {
 		      $("#fields_ull_ventory_item_model_id").empty();
 		      $("#fields_ull_ventory_item_model_id").append("<option></option");

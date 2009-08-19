@@ -24,7 +24,16 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
       $this->columnConfig->setValidatorOption('required', false);
     }
     
-    $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    if ($this->columnConfig->getOption('show_search_box'))
+    {
+      $this->columnConfig->setWidgetOption('show_search_box', true);
+    }
+    else
+    {
+      $this->columnConfig->setWidgetOption('show_search_box', false);
+    }    
+    
+    $this->addWidget(new ullWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     
     if ($this->columnConfig->getAllowCreate() == true)
@@ -32,6 +41,7 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
       $this->columnConfig->removeWidgetOption('add_empty');
       $this->columnConfig->removeWidgetOption('model');
       $this->columnConfig->removeWidgetOption('query');
+      $this->columnConfig->removeWidgetOption('show_search_box');
       $this->columnConfig->removeValidatorOption('model');
       $createColumnName = $this->columnName . '_create';
       $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()), $createColumnName);

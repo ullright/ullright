@@ -1,4 +1,4 @@
-<?php include_partial('ullTableTool/jQueryRequirements')?>
+<?php use_javascript('/ullVentoryPlugin/js/createSuccess.js') ?>
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
@@ -18,10 +18,10 @@
 <table class="edit_table" id="ull_ventory_item">
 <tbody>
   <tr>
-    <td><?php echo $form['type']->renderLabel() ?></td>
+    <td class="label_column"><?php echo $form['type']->renderLabel() ?></td>
     <td>
       <?php echo $form['type']->render() ?>
-      <?php echo submit_tag(__('Apply', null, 'common'), array('name' => false)) ?>
+      <?php echo submit_tag(__('Apply', null, 'common'), array('name' => false, 'id' => 'type_submit')) ?>
     </td>
     <td class="form_error"><?php echo $form['type']->renderError() ?></td>
   </tr>
@@ -34,11 +34,3 @@
 
 </form>
 
-<?php echo javascript_tag('
-  $("#fields_type").change(
-    function() 
-    { 
-      $("#ull_ventory_form").submit();
-    }
-  );
-')?>

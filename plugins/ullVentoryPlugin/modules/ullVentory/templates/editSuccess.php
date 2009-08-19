@@ -1,5 +1,4 @@
-<?php include_partial('ullTableTool/jQueryRequirements')?>
-<?php use_javascript('/ullVentoryPlugin/js/edit.js') ?>
+<?php use_javascript('/ullVentoryPlugin/js/editSuccess.js') ?>
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <?php //$doc = $sf_data->getRaw('doc') ?>

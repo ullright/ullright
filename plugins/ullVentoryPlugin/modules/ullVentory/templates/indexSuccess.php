@@ -1,5 +1,3 @@
-<?php include_partial('ullTableTool/jQueryRequirements')?>
-
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml();?>
 
 <div id="tc_wrapper">

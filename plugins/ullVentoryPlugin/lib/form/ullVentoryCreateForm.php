@@ -6,9 +6,9 @@ class UllVentoryCreateForm extends sfForm
   {
     $choices = UllVentoryItemTypeTable::findChoicesIndexedBySlug();
     $this->setWidgets(array(
-      'type'  => new sfWidgetFormSelect(array(
-        'choices' => array_merge(array('' => ''), $choices))),
-//      'entity' => new sfWidgetFormInputHidden()
+      'type'  => new ullWidgetFormSelect(array(
+        'choices' => array_merge(array('' => ''), $choices)
+      )),
     ));
     
     $this->widgetSchema->setLabels(array(

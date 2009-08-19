@@ -39,92 +39,30 @@ class sfWidgetFormSelectWithOptionAttributes extends sfWidgetFormSelect
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $this->getJavaScripts();
+    $return = '';
     
-    if (!$this->getAttribute('name'))
+    if ($this->getOption('show_search_box') == true)
     {
-      $this->setAttribute('name', $name);
-    }
-    
-    $this->setAttributes($this->fixFormId($this->getAttributes()));
-    $id = $this->getAttribute('id');
-    
-    $return = javascript_tag("
-var filtery_" . $id . "_cache = new Array();
-    
-function filtery_" . $id . "(pattern, list)
-{
-  // fill cache with original select options
-  if (filtery_" . $id . "_cache.length == 0)
-  { 
-    for(var i = 0; i < list.length; i++)
-    {
-      filtery_" . $id . "_cache.push(new Array(
-        list[i].text,
-        list[i].value,
-        list[i].getAttribute('class')
-      ));
-    }
-  }
-  // restore original select options from cache
-  else
-  {
-    // remove all select options
-    list.length = 0;
-    for(var i = 0; i < filtery_" . $id . "_cache.length; i++)
-    {
-      var option = new Option(
-        filtery_" . $id . "_cache[i][0],
-        filtery_" . $id . "_cache[i][1]
-      );
-      option.setAttribute('class', filtery_" . $id . "_cache[i][2]);
-      list[list.length] = option;
-    }
-  }
-  
-  // create list of options to be removed
-  pattern = new RegExp(pattern,\"i\");
-  removeList = new Array();
-  i = 0;
-  while(i < list.options.length) 
-  {
-    // add options to remove list
-    if (!pattern.test(list.options[i].text)) 
-    {
-      removeList.push(list.options[i].text);
-    }
-    i++;
-  }
-  
-  // remove select options
-  for(var x = 0; x < removeList.length; x++)
-  {
-    for(i = 0; i < list.options.length; i++)
-    {
-      if(list.options[i].text == removeList[x])
+      if (!$this->getAttribute('name'))
       {
-        list.options[i] = null;
-        break
+        $this->setAttribute('name', $name);
       }
+      
+      $this->setAttributes($this->fixFormId($this->getAttributes()));
+      $id = $this->getAttribute('id');
+      
+      $return .= javascript_tag('
+$(document).ready(function()
+{
+  $("#' . $id . '").addSelectFilter();
+});
+      ');      
     }
-  }
-}
 
-");
-
-    $return .= input_tag($id . '_filter', null, array(
-      'size' => '1',
-      'id' => $id . '_filter',
-      'onkeyup' => 'filtery_' .  $id . '(this.value, document.getElementById("' . $id . '"))'
-    ));
-    
-    $return .= ' ';    
-    
     $return .= parent::render($name, $value, $attributes, $errors);
     
     return $return;
   }  
-  
   
   /**
    * Returns an array of option tags for the given choices

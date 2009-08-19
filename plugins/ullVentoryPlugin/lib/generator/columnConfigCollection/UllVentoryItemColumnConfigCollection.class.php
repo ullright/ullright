@@ -63,9 +63,9 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         
     $this['ull_ventory_item_model_id']
       ->setLabel(__('Model', null, 'ullVentoryMessages'))
-      ->setAllowCreate(true)
       ->setWidgetOption('add_empty', true)
       ->setValidatorOption('required' , true)
+      ->setAllowCreate(true)
     ;
     if ($this->itemType)
     {

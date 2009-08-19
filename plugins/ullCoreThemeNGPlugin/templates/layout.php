@@ -20,6 +20,12 @@
 <?php include_slot('html_head') ?>
 <!-- end of html head slot -->
 
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js', 'first') ?>
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-ui-min.js', 'first') ?>
+<?php use_javascript('/ullCorePlugin/js/jq/jquery.add_select_filter.js') ?>
+
+<?php use_stylesheet('/ullCorePlugin/css/jqui/ui.all.css', 'last', array('media' => 'all')) ?>
+
 <?php 
   sfContext::getInstance()->getResponse()->addStylesheet('custom_override.css', 'last', array('media' => 'all'));
 ?>

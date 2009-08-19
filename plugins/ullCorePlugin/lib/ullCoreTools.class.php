@@ -92,6 +92,5 @@ class ullCoreTools
     return array_merge($ordered, $array);
   }
   
-
 }
 
