@@ -51,7 +51,6 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       }
     }
     
- 
     if ($this->columnConfig->getOption('show_search_box'))
     {
       $this->columnConfig->setWidgetOption('show_search_box', true);

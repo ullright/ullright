@@ -47,7 +47,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         'model'             => 'UllVentoryItemManufacturer',
         'foreign_id'        => 'id'))
       ->setWidgetOption('add_empty', true)
-      ->setValidatorOptions(array('required' => true))
+      ->setValidatorOption('required', true)
       ->setAllowCreate(true)
     ;
     if ($this->itemType)
@@ -65,6 +65,7 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Model', null, 'ullVentoryMessages'))
       ->setAllowCreate(true)
       ->setWidgetOption('add_empty', true)
+      ->setValidatorOption('required' , true)
     ;
     if ($this->itemType)
     {

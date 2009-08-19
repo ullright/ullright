@@ -1,4 +1,5 @@
 <?php include_partial('ullTableTool/jQueryRequirements')?>
+<?php use_javascript('/ullVentoryPlugin/js/edit.js') ?>
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <?php //$doc = $sf_data->getRaw('doc') ?>
@@ -45,7 +46,7 @@
         <td><?php echo $generator->getForm()->offsetGet($column_name)->renderLabel() ?></td>
         <td>
           <?php if ($column_name == 'ull_ventory_item_model_id'): ?>
-            <?php echo image_tag('/ullCoreThemeNGPlugin/images/indicator.gif', array('id' => 'ull_ventory_item_model_id_ajax_indicator', 'style' => 'display: none;')) ?>
+            <?php echo image_tag('/ullCoreThemeNGPlugin/images/indicator.gif', array('id' => 'ull_ventory_item_model_id_ajax_indicator', 'style' => 'display: none; vertical-align: middle;')) ?>
           <?php endif ?>        
         
           <?php echo $generator->getForm()->offsetGet($column_name)->render() ?>
@@ -342,64 +343,6 @@
 
 <?php
   echo ull_js_observer("ull_ventory_form");
-  use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js');
-  use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css');
-
-  echo javascript_tag('
-// filter the item-model select box by the given item-manufacturer  
-$("#fields_ull_ventory_item_manufacturer_id").bind("change", function(e)
-  {
-    $.getJSON("/ullVentory/itemModelsByManufacturer", 
-      {
-      ull_ventory_item_manufacturer_id: $("#fields_ull_ventory_item_manufacturer_id").attr("value"),
-      ull_ventory_item_type_id: $("#fields_ull_ventory_item_type_id").attr("value")
-      },
-      function(data)
-      {
-        $("#fields_ull_ventory_item_model_id").empty();
-        $("#fields_ull_ventory_item_model_id").append("<option></option");
-        for (var i = 0; i < data.length; i++) 
-        {
-          $("#fields_ull_ventory_item_model_id").append("<option value=" + data[i].id + ">" + data[i].name + "</option");
-        }
-      }
-    );
-
-    // ajax indicator
-    $.ajax({
-      beforeSend: function(){
-        $("#ull_ventory_item_model_id_ajax_indicator").show();
-      },
-      complete: function(){
-        $("#ull_ventory_item_model_id_ajax_indicator").hide();
-      }
-    });
-  }
-);  
-
-
-
-// Load attribute presets upon model select
-$("#load_presets").hide();
-
-$("#fields_ull_ventory_item_model_id").bind("change", function(e)
-  {
-    $("#ull_ventory_form").append("<input type=\"hidden\" name=\"submit|action_slug=load_presets\" value=\"1\" />\n");
-    $("#ull_ventory_form").submit();
-  }
-);
-
-
-// Hide "Add software" button and add auto submit
-$("#add_software").hide();
-
-$("#fields_add_software").bind("change", function(e)
-  {
-    $("#submit_action_slug_save_only").attr("value", 1);
-    $("#ull_ventory_form").submit();
-  }
-);
-
-
-  ');
+//  use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js');
+//  use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css');
 ?>

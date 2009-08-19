@@ -95,7 +95,7 @@ class PluginUllUserTable extends UllEntityTable
   {
     $q = new Doctrine_Query;
     $q
-      ->select('u.id, CONCAT(u.last_name, \' \', u.first_name) as name')
+      ->select('u.id, u.display_name as name')
       ->from('UllUser u INDEXBY u.id')
       ->orderBy('name')
     ;
