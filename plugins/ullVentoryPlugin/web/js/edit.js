@@ -1,9 +1,11 @@
+// javascripts for the ullVentory editSuccess template
+
 $(document).ready(function()
 {
 	//filter the item-model select box by the given item-manufacturer  
 	$("#fields_ull_ventory_item_manufacturer_id").bind(
 	  "change", 
-	  function(e)
+	  function()
 	  {
 			$("#ull_ventory_item_model_id_ajax_indicator").show();
 			
@@ -13,7 +15,7 @@ $(document).ready(function()
 		      ull_ventory_item_manufacturer_id: $("#fields_ull_ventory_item_manufacturer_id").attr("value"),
 		      ull_ventory_item_type_id: $("#fields_ull_ventory_item_type_id").attr("value")
 		    },
-		    function(data)
+		    function()
 		    {
 		      $("#fields_ull_ventory_item_model_id").empty();
 		      $("#fields_ull_ventory_item_model_id").append("<option></option");
@@ -21,10 +23,9 @@ $(document).ready(function()
 		      {
 		        $("#fields_ull_ventory_item_model_id").append("<option value=" + data[i].id + ">" + data[i].name + "</option");
 		      }
+		      $("#ull_ventory_item_model_id_ajax_indicator").hide();
 		    }
 	    );
-	    
-	    $("#ull_ventory_item_model_id_ajax_indicator").hide();
 	  }
   );  
 	
@@ -32,7 +33,7 @@ $(document).ready(function()
 	// Load attribute presets upon model select
 	$("#load_presets").hide();
 	
-	$("#fields_ull_ventory_item_model_id").bind("change", function(e)
+	$("#fields_ull_ventory_item_model_id").bind("change", function()
 	  {
 	    $("#ull_ventory_form").append("<input type=\"hidden\" name=\"submit|action_slug=load_presets\" value=\"1\" />\n");
 	    $("#ull_ventory_form").submit();
@@ -43,7 +44,7 @@ $(document).ready(function()
 	// Hide "Add software" button and add auto submit
 	$("#add_software").hide();
 	
-	$("#fields_add_software").bind("change", function(e)
+	$("#fields_add_software").bind("change", function()
 	  {
 	    $("#submit_action_slug_save_only").attr("value", 1);
 	    $("#ull_ventory_form").submit();
