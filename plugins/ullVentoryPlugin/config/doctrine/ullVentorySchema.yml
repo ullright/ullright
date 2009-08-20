@@ -74,6 +74,12 @@ UllVentoryItem:
   relations:
     UllVentoryItemModel:
     UllEntity:
+#    UllVentoryItemAttributeValue:
+#      local: id
+#      foreign: ull_ventory_item_id
+#      type: many
+      #delete: [cascade]
+#      onDelete: CASCADE
 #    UllLocation:
 
 # Item attributes
@@ -140,6 +146,7 @@ UllVentoryItemAttributeValue:
       type: string(4000)
   relations:
     UllVentoryItem:
+      onDelete: CASCADE
     UllVentoryItemTypeAttribute:      
     
 #History of owners per item
@@ -165,6 +172,7 @@ UllVentoryItemMemory:
       type: string(4000)
   relations:
     UllVentoryItem:
+      onDelete: CASCADE
     SourceUllEntity:
       class: UllEntity
       local: source_ull_entity_id
@@ -235,6 +243,7 @@ UllVentoryItemTaking:
       notnull: true
   relations:
     UllVentoryItem:
+      onDelete: CASCADE
     UllVentoryTaking:
 
 # List of software e.g. Adobe Photoshop, Windows 3.11
@@ -265,6 +274,7 @@ UllVentoryItemSoftware:
       type: string(4000)    
   relations:
     UllVentoryItem:
+      onDelete: CASCADE
     UllVentorySoftware:
     UllVentorySoftwareLicense:
 

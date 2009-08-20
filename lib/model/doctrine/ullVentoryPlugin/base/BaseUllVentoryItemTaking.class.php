@@ -17,7 +17,8 @@ abstract class BaseUllVentoryItemTaking extends UllRecord
     {
         parent::setUp();
     $this->hasOne('UllVentoryItem', array('local' => 'ull_ventory_item_id',
-                                              'foreign' => 'id'));
+                                              'foreign' => 'id',
+                                              'onDelete' => 'CASCADE'));
 
         $this->hasOne('UllVentoryTaking', array('local' => 'ull_ventory_taking_id',
                                                 'foreign' => 'id'));

@@ -184,7 +184,7 @@ ALTER TABLE ull_employment_type ADD FOREIGN KEY (creator_user_id) REFERENCES ull
 ALTER TABLE ull_location ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_location ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_memory ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
-ALTER TABLE ull_ventory_item_memory ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id);
+ALTER TABLE ull_ventory_item_memory ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id) ON DELETE CASCADE;
 ALTER TABLE ull_ventory_item_memory ADD FOREIGN KEY (target_ull_entity_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_memory ADD FOREIGN KEY (source_ull_entity_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_memory ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
@@ -203,13 +203,13 @@ ALTER TABLE ull_ventory_item_attribute ADD FOREIGN KEY (creator_user_id) REFEREN
 ALTER TABLE ull_ventory_item_software ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_software ADD FOREIGN KEY (ull_ventory_software_license_id) REFERENCES ull_ventory_software_license(id);
 ALTER TABLE ull_ventory_item_software ADD FOREIGN KEY (ull_ventory_software_id) REFERENCES ull_ventory_software(id);
-ALTER TABLE ull_ventory_item_software ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id);
+ALTER TABLE ull_ventory_item_software ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id) ON DELETE CASCADE;
 ALTER TABLE ull_ventory_item_software ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_taking ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_taking ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_attribute_value ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_attribute_value ADD FOREIGN KEY (ull_ventory_item_type_attribute_id) REFERENCES ull_ventory_item_type_attribute(id);
-ALTER TABLE ull_ventory_item_attribute_value ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id);
+ALTER TABLE ull_ventory_item_attribute_value ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id) ON DELETE CASCADE;
 ALTER TABLE ull_ventory_item_attribute_value ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_type_attribute ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_type_attribute ADD FOREIGN KEY (ull_ventory_item_type_id) REFERENCES ull_ventory_item_type(id);
@@ -234,7 +234,7 @@ ALTER TABLE ull_ventory_item_manufacturer ADD FOREIGN KEY (updator_user_id) REFE
 ALTER TABLE ull_ventory_item_manufacturer ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_taking ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_taking ADD FOREIGN KEY (ull_ventory_taking_id) REFERENCES ull_ventory_taking(id);
-ALTER TABLE ull_ventory_item_taking ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id);
+ALTER TABLE ull_ventory_item_taking ADD FOREIGN KEY (ull_ventory_item_id) REFERENCES ull_ventory_item(id) ON DELETE CASCADE;
 ALTER TABLE ull_ventory_item_taking ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_ventory_item_type_translation ADD FOREIGN KEY (id) REFERENCES ull_ventory_item_type(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE ull_ventory_item_type ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
