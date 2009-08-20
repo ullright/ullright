@@ -6,6 +6,10 @@
 class ullFlowForm extends ullGeneratorForm
 {
   
+  protected
+    $ullFlowAction = null
+  ;
+  
   /**
    * Configures the form
    *
@@ -57,6 +61,8 @@ class ullFlowForm extends ullGeneratorForm
   public function updateObject($values = null)
   {
     parent::updateObject();
+    
+//    var_dump($this->object->UllFlowAction->toArray());
 
     $this->setVirtualValues();
     $this->setAction();
@@ -101,12 +107,22 @@ class ullFlowForm extends ullGeneratorForm
   { 
     $actionSlug = sfContext::getInstance()->getRequest()->getParameter('action_slug', 'save_close');    
     
-    if (!$action = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug))
+    if ($this->ullFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug))
+    {
+      // Don't update doc with status only actions (e.g. editing a closed doc should stay closed)
+      if ($this->ullFlowAction->is_status_only)
+      {
+        $this->object->setMemoryAction($this->ullFlowAction);
+      }
+      else
+      {
+        $this->object->UllFlowAction = $this->ullFlowAction;
+      }
+    }
+    else
     {
       throw new InvalidArgumentException('Invalid UllFlowAction given: ' . $actionSlug); 
     }
-    
-    $this->object->UllFlowAction = $action;
   } 
     
   /**
@@ -117,7 +133,7 @@ class ullFlowForm extends ullGeneratorForm
    */
   protected function setNext()
   {
-    if (!$this->object->UllFlowAction->is_status_only)
+    if (!$this->ullFlowAction->is_status_only)
     {
       // Step One: get information about "next" from ullFlowActionHandler
       $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));

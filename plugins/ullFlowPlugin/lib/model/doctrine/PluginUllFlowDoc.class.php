@@ -7,7 +7,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 {
 
   protected
-    $memoryComment = ''
+    $memoryComment = '',
+    $memoryAction = null
   ;
   
   /**
@@ -81,7 +82,29 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   public function getMemoryComment()
   {
     return $this->memoryComment;
-  }  
+  }
+
+  /**
+   * Sets a custom UllFlowMemory action.
+   * 
+   * If none given (default) the doc's action is used.
+   *
+   * @param string $value
+   */
+  public function setMemoryAction($value)
+  {
+    $this->memoryAction = $value;
+  }
+  
+  /**
+   * Get the current custom UllFlowMemory action
+   *
+   * @param string $value
+   */
+  public function getMemoryAction()
+  {
+    return $this->memoryAction;
+  }   
   
   /**
    * Set the value of a virtual column
@@ -349,7 +372,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   {
     $i = count($this->UllFlowMemories);
     $this->UllFlowMemories[$i]->ull_flow_step_id = $this->assigned_to_ull_flow_step_id;
-    $this->UllFlowMemories[$i]->ull_flow_action_id = $this->ull_flow_action_id;
+    // Use the doc's action as memory action by default, except a special memory action is given
+    $this->UllFlowMemories[$i]->ull_flow_action_id = ($this->getMemoryAction()) ? $this->getMemoryAction() : $this->ull_flow_action_id;
     $this->UllFlowMemories[$i]->assigned_to_ull_entity_id = $this->assigned_to_ull_entity_id;
 
     // get creator_ull_entity from previous non status-only memory

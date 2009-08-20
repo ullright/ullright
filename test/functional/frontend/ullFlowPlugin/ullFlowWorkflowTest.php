@@ -241,7 +241,7 @@ $b
 ;
 
 $b
-  ->diag('edit closed doc and check')
+  ->diag('check closed doc')
   ->click('Edit')  
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
@@ -260,6 +260,19 @@ $b
   ->checkResponseElement($dgsEditMem->get(6), '/Sent[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditMem->get(7), '/Created[\s]+by[\s]+Test User/')
 ;  
+
+$b
+  ->diag('edit closed doc and check that the doc action isn\'t overwritten')
+  ->setField('fields[my_email]', 'serenus@spongebob.com')
+  ->click('Save only')
+  ->isRedirected()
+  ->followRedirect()
+  
+  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Closed[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 9) // number of memory entries
+  ->checkResponseElement($dgsEditMem->get(1), '/Edited[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Closed[\s]+by[\s]+Helpdesk User/')
+;
 
 $b
   ->diag('reopen and check result list')
@@ -300,13 +313,14 @@ $b
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Reopened[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 9) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 10) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Reopened[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditMem->get(2), '/Closed[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditMem->get(3), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
-  ->checkResponseElement($dgsEditMem->get(4), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditMem->get(5), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
-  ->checkResponseElement($dgsEditMem->get(6), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
-  ->checkResponseElement($dgsEditMem->get(7), '/Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditMem->get(8), '/Created[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Edited[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(3), '/Closed[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(4), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
+  ->checkResponseElement($dgsEditMem->get(5), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(6), '/Returned[\s]+by[\s]+Helpdesk Admin User/')  
+  ->checkResponseElement($dgsEditMem->get(7), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
+  ->checkResponseElement($dgsEditMem->get(8), '/Sent[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(9), '/Created[\s]+by[\s]+Test User/')
 ; 

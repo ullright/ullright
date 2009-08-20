@@ -180,7 +180,7 @@ class BaseUllFlowActions extends ullsfActions
           'doc'        => $this->doc
         )));
 
-        if (!$this->doc->UllFlowAction->is_status_only)
+        if (!$this->isStatusOnlyRequestAction())
         {
           $this->sendMails();
         }
@@ -810,5 +810,20 @@ class BaseUllFlowActions extends ullsfActions
     $q->from('Tagging tg, tg.Tag t, tg.UllFlowDoc x');
     $q = UllFlowDocTable::queryAccess($q, $this->app);
     $this->tags_pop = TagTable::getPopulars($q, array('model' => 'UllFlowDoc', 'limit' => sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100)));
+  }
+  
+  /**
+   * Returns true if the request action is a non-workflow action ("status only")
+   * @return unknown_type
+   */
+  protected function isStatusOnlyRequestAction()
+  {
+    if(in_array($this->getRequestParameter('action_slug'), array(
+      'save_only',
+      'save_close',
+    )))
+    {
+      return true;
+    }
   }
 }
