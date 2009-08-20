@@ -172,8 +172,8 @@ class BaseUllFlowActions extends ullsfActions
 
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
-        //        var_dump($request->getParameterHolder()->getAll());
-        //        die;
+//                var_dump($request->getParameterHolder()->getAll());
+//                die;
 
         // notify post_save event
         $this->dispatcher->notify(new sfEvent($this, 'ull_flow.post_save', array(
@@ -814,14 +814,21 @@ class BaseUllFlowActions extends ullsfActions
   
   /**
    * Returns true if the request action is a non-workflow action ("status only")
+   * It's also a non-workflow action when a full page widget is called
    * @return unknown_type
    */
   protected function isStatusOnlyRequestAction()
   {
-    if(in_array($this->getRequestParameter('action_slug'), array(
+    if (in_array($this->getRequestParameter('action_slug'), array(
+      'edit',
       'save_only',
       'save_close',
     )))
+    {
+      return true;
+    }
+    
+    if ($this->getRequestParameter('full_page_widget'))
     {
       return true;
     }

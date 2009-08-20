@@ -109,6 +109,8 @@ class ullFlowForm extends ullGeneratorForm
     
     if ($this->ullFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug))
     {
+      // TODO: maybe this could be refactored into UllFlowDoc...
+      
       // Don't update doc with status only actions (e.g. editing a closed doc should stay closed)
       if ($this->ullFlowAction->is_status_only)
       {
