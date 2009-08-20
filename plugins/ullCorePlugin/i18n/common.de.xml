@@ -158,6 +158,11 @@
 <target>Lizenz</target>
 </trans-unit>
 
+<trans-unit id="118">
+<source>Last updated on</source>
+<target>Zuletzt aktualisiert am</target>
+</trans-unit>
+
 <!-- Questions -->
 
 <trans-unit id="201">

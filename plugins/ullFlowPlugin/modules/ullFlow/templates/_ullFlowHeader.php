@@ -26,7 +26,9 @@
 		    <?php endif ?>
 		    <?php echo __('by') ?>
 		    <?php echo $doc->Updator ?>
-		    (<?php echo ull_format_datetime($doc->updated_at); ?>)
+		    -
+		    <?php echo __('Last updated on', null, 'common')?> 
+		    <?php echo ull_format_datetime($doc->updated_at); ?>
 		  </li>
 		  <?php if ($doc->UllFlowAction->is_in_resultlist): //excludes action "closed" ?>
 		    <li>
