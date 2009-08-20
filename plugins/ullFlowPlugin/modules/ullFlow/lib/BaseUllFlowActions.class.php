@@ -636,61 +636,56 @@ class BaseUllFlowActions extends ullsfActions
 
     // order
     $this->order = $this->getRequestParameter('order', 'created_at');
+    $orderArray = array_flip(explode(',', $this->order));
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
 
     $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
-
-    // for native UllFlowDoc columns...
-    if (Doctrine::getTable('UllFlowDoc')->hasColumn($this->order))
+    
+    foreach($orderArray as $column => $value)
     {
-      switch ($this->order)
+      // for native UllFlowDoc columns...
+      if (Doctrine::getTable('UllFlowDoc')->hasColumn($column))
       {
-        case 'assigned_to_ull_entity_id':
-          $q->orderBy('x.UllEntity.display_name ' . $orderDir);
-          break;
-        case 'creator_user_id':
-          $q->orderBy('x.Creator.display_name ' . $orderDir);
-          break;
-        case 'updator_user_id':
-          $q->orderBy('x.Updator.display_name ' . $orderDir);
-          break;
-        default:
-          $q->orderBy($this->order . ' ' . $orderDir);
+        switch ($column)
+        {
+          case 'assigned_to_ull_entity_id':
+            $orderArray[$column] = 'x.UllEntity.display_name';
+            break;
+          case 'creator_user_id':
+            $orderArray[$column] = 'x.Creator.display_name';
+            break;
+          case 'updator_user_id':
+            $orderArray[$column] = 'x.Updator.display_name';
+            break;
+          default:
+            $orderArray[$column] = 'x.' . $column;
+        }
+      }
+      // for virtual columns...
+      else
+      {
+        $order_cc_id = $this->app->findColumnConfigBySlug($column)->id;
+        
+        $q->leftJoin('x.UllFlowValues ' . $column . ' WITH ' . $column . '.ull_flow_column_config_id=?', $order_cc_id);
+        
+        $orderArray[$column] = $column . '.value';
       }
     }
-    // for virtual columns...
-    else
+    
+    foreach ($orderArray as $order)
     {
-      //doesn't work...
-            //$q->leftJoin('x.UllFlowValues v1 WITH v1.UllFlowColumnConfig.slug=?', $this->order);
-
-      // resolve virtual column slug to UllColumnConfig.id
-      /*
-      $q1 = new Doctrine_Query();
-      $q1
-      ->from('UllFlowColumnConfig')
-      ->where('ull_flow_app_id = ?', $this->app->id)
-      ->addWhere('slug = ?', $this->order)
-      ;
-      $order_cc_id = $q1->execute()->getFirst()->id;
-      */
-
-      //refactored into app
-      $order_cc_id = $this->app->findColumnConfigBySlug($this->order)->id;
-      
-      $q->leftJoin('x.UllFlowValues v1 WITH v1.ull_flow_column_config_id=?', $order_cc_id);
-      
-      $q->orderBy('v1.value'. ' ' . $orderDir);
+      $q->addOrderBy($order . ' ' . $orderDir);
     }
 
-    // add 'created_at (desc)' as default 2nd order criteria
-    if ($this->order != 'created_at') {
+    // add 'created_at (desc)' as final order criteria
+    if (!in_array('x.created_at', $orderArray))
+    {
       $q->addOrderBy('x.created_at DESC');
     }
 
-        //printQuery($q->getQuery());
-        //var_dump($q->getParams());
-       // die;
+//        printQuery($q->getQuery());
+//        var_dump($q->getParams());
+//        die;
 
 
     //print_r($q->getSql());
