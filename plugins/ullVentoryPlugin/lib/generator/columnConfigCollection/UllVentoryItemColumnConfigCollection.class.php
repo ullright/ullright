@@ -30,12 +30,12 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
     $this->disable(array('creator_user_id', 'created_at'));
     
     $this->create('ull_ventory_item_type_id')
+      ->setAccess('r')
       ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
       ->setLabel(__('Type', null, 'common'))
       ->setRelation(array(
         'model'             => 'UllVentoryItemType',
         'foreign_id'        => 'id'))
-      ->setWidgetOptions(array('add_empty' => true))
       ->setValidatorOptions(array('required' => true))
     ;
     
@@ -156,6 +156,9 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         ->setAccess('w')
         ->setWidgetOption('is_hidden', true)
       ;
+      
+      $this['ull_ventory_item_type_id']->setWidgetOptions(array('render_additional_hidden_field' => true));
+      
       $this['ull_entity_id']->setWidgetOption('is_hidden', true);
       
       $this['inventory_number']->setLabel(__('Inventory number', null, 'ullVentoryMessages'));
