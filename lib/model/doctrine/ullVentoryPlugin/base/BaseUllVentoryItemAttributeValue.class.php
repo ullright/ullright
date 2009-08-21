@@ -23,6 +23,7 @@ abstract class BaseUllVentoryItemAttributeValue extends UllRecord
                                               'onDelete' => 'CASCADE'));
 
         $this->hasOne('UllVentoryItemTypeAttribute', array('local' => 'ull_ventory_item_type_attribute_id',
-                                                           'foreign' => 'id'));
+                                                           'foreign' => 'id',
+                                                           'onDelete' => 'CASCADE'));
     }
 }

@@ -21,7 +21,8 @@ abstract class BaseUllVentorySoftwareLicense extends UllRecord
     {
         parent::setUp();
     $this->hasOne('UllVentorySoftware', array('local' => 'ull_ventory_software_id',
-                                                  'foreign' => 'id'));
+                                                  'foreign' => 'id',
+                                                  'onDelete' => 'CASCADE'));
 
         $this->hasMany('UllVentoryItemSoftware', array('local' => 'id',
                                                        'foreign' => 'ull_ventory_software_license_id'));

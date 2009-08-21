@@ -23,9 +23,11 @@ abstract class BaseUllVentoryItemSoftware extends UllRecord
                                               'onDelete' => 'CASCADE'));
 
         $this->hasOne('UllVentorySoftware', array('local' => 'ull_ventory_software_id',
-                                                  'foreign' => 'id'));
+                                                  'foreign' => 'id',
+                                                  'onDelete' => 'CASCADE'));
 
         $this->hasOne('UllVentorySoftwareLicense', array('local' => 'ull_ventory_software_license_id',
-                                                         'foreign' => 'id'));
+                                                         'foreign' => 'id',
+                                                         'onDelete' => 'CASCADE'));
     }
 }

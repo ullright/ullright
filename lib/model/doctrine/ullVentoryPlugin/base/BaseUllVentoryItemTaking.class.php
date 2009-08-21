@@ -21,6 +21,7 @@ abstract class BaseUllVentoryItemTaking extends UllRecord
                                               'onDelete' => 'CASCADE'));
 
         $this->hasOne('UllVentoryTaking', array('local' => 'ull_ventory_taking_id',
-                                                'foreign' => 'id'));
+                                                'foreign' => 'id',
+                                                'onDelete' => 'CASCADE'));
     }
 }

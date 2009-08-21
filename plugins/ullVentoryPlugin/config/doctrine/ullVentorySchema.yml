@@ -45,7 +45,9 @@ UllVentoryItemModel:
       notnull: true
   relations:
     UllVentoryItemManufacturer:
+      onDelete: CASCADE
     UllVentoryItemType:
+      onDelete: CASCADE
 
 # Inventory items - the main table    
 UllVentoryItem:
@@ -68,19 +70,11 @@ UllVentoryItem:
     ull_entity_id:
       type: integer
       notnull: true
-#    ull_location_id:
-#      type: integer
-#      notnull: true
   relations:
     UllVentoryItemModel:
+      onDelete: CASCADE
     UllEntity:
-#    UllVentoryItemAttributeValue:
-#      local: id
-#      foreign: ull_ventory_item_id
-#      type: many
-      #delete: [cascade]
-#      onDelete: CASCADE
-#    UllLocation:
+      onDelete: CASCADE
 
 # Item attributes
 UllVentoryItemAttribute:
@@ -125,7 +119,9 @@ UllVentoryItemTypeAttribute:
       default: true      
   relations:
     UllVentoryItemType:
-    UllVentoryItemAttribute:    
+      onDelete: CASCADE
+    UllVentoryItemAttribute:
+      onDelete: CASCADE    
 
 #n:m Table saves an attribute's value for an item
 UllVentoryItemAttributeValue:
@@ -147,7 +143,8 @@ UllVentoryItemAttributeValue:
   relations:
     UllVentoryItem:
       onDelete: CASCADE
-    UllVentoryItemTypeAttribute:      
+    UllVentoryItemTypeAttribute:
+      onDelete: CASCADE      
     
 #History of owners per item
 UllVentoryItemMemory:
@@ -197,7 +194,9 @@ UllVentoryItemAttributePreset:
       type: string(4000)
   relations:
     UllVentoryItemModel:
+      onDelete: CASCADE
     UllVentoryItemTypeAttribute:
+      onDelete: CASCADE
 
 # Dummyuser which defines a non-user status e.g. storing, repair, sold, ...
 UllVentoryStatusDummyUser:
@@ -245,6 +244,7 @@ UllVentoryItemTaking:
     UllVentoryItem:
       onDelete: CASCADE
     UllVentoryTaking:
+      onDelete: CASCADE
 
 # List of software e.g. Adobe Photoshop, Windows 3.11
 UllVentorySoftware:
@@ -276,7 +276,9 @@ UllVentoryItemSoftware:
     UllVentoryItem:
       onDelete: CASCADE
     UllVentorySoftware:
+      onDelete: CASCADE
     UllVentorySoftwareLicense:
+      onDelete: CASCADE
 
 # List of licenses per software    
 UllVentorySoftwareLicense:
@@ -300,4 +302,5 @@ UllVentorySoftwareLicense:
     comment:
       type: string(4000)    
   relations:
-    UllVentorySoftware:   
+    UllVentorySoftware:
+      onDelete: CASCADE   
