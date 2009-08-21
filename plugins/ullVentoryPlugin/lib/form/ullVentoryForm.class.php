@@ -97,25 +97,44 @@ class ullVentoryForm extends ullGeneratorForm
   {
     if (isset($values['attributes']))
     {
-      $i = 0;
-      
       foreach ($values['attributes'] as $attribute)
       {
-//        var_dump($attribute);
-        //create
-        if (!$this->object->exists())
+        if ($attribute['value'])
         {
-          $this->object->UllVentoryItemAttributeValue[$i]['ull_ventory_item_type_attribute_id'] = $attribute['ull_ventory_item_type_attribute_id'];
-          $this->object->UllVentoryItemAttributeValue[$i]['value'] = $attribute['value'];
-          $this->object->UllVentoryItemAttributeValue[$i]['comment'] = $attribute['comment'];
-          $i++;
+          //create
+          if (!$attribute['id'])
+          {
+            $attributeValue = new UllVentoryItemAttributeValue;
+            $attributeValue->fromArray($attribute);
+            $this->object->UllVentoryItemAttributeValue[] = $attributeValue;
+          }
+          //update
+          else
+          {
+            foreach ($this->object->UllVentoryItemAttributeValue as $key => $attributeValue)
+            {
+              // a changed value is ignored when we assign a new attributeValue object
+              if ($attributeValue->id == $attribute['id'])
+              {
+                $attributeValue = $this->object->UllVentoryItemAttributeValue[$key];
+                $attributeValue->fromArray($attribute);
+              }
+            }
+          }            
         }
-        //update
         else
         {
-          $attributeValue = Doctrine::getTable('UllVentoryItemAttributeValue')->findOneByID($attribute['id']);
-          $attributeValue->fromArray($attribute);
-          $attributeValue->save();
+          if ($attribute['id'])
+          {
+            // we properly remove the attributeValue from the item object graph
+            foreach ($this->object->UllVentoryItemAttributeValue as $key => $attributeValue)
+            {
+              if ($attributeValue->id == $attribute['id'])
+              {
+                unset($this->object->UllVentoryItemAttributeValue[$key]);
+              }  
+            }
+          }
         }
       }
     }
