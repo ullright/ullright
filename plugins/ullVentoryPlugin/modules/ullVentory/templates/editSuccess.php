@@ -42,7 +42,12 @@
     <?php //var_dump($generator->getForm()->offsetGet($column_name)->getWidget()) ?>
     <?php if (in_array($column_name, array('ull_ventory_item_manufacturer_id', 'ull_ventory_item_model_id'))): ?>
       <tr>
-        <td><?php echo $generator->getForm()->offsetGet($column_name)->renderLabel() ?></td>
+        <td>
+          <?php echo $generator->getForm()->offsetGet($column_name)->renderLabel() ?>
+          <?php if (in_array($column_name, array('ull_ventory_item_manufacturer_id', 'ull_ventory_item_model_id'))): ?>
+            <label>*</label>
+          <?php endif ?>
+        </td>
         <td>
           <?php if ($column_name == 'ull_ventory_item_model_id'): ?>
             <?php echo image_tag('/ullCoreThemeNGPlugin/images/indicator.gif', array('id' => 'ull_ventory_item_model_id_ajax_indicator', 'style' => 'display: none; vertical-align: middle;')) ?>
