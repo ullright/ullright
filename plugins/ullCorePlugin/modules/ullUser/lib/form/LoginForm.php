@@ -8,6 +8,10 @@ class LoginForm extends sfForm
       'username'  => new sfWidgetFormInput,
       'password'  => new sfWidgetFormInputPassword,
       'js_check'  => new sfWidgetFormInputHidden(),
+      // Stores POST values of the last request to prevent data loss when the session timed out
+      'original_request_params' => new sfWidgetFormInputHidden(),
+      // Distinguished between request to the login input and the login procedure itself
+      'login_request' => new sfWidgetFormInputHidden(),
     ));
     
     $this->widgetSchema->setNameFormat('login[%s]');
@@ -31,7 +35,15 @@ class LoginForm extends sfForm
               'required'    => 'Your password is required!',
             )),
         'js_check' => new sfValidatorPass(),  //empty validator
+        'original_request_params' => new sfValidatorString(
+            array('required'    => false),
+            array()),
+        'login_request' => new sfValidatorString(
+            array('required'    => false),
+            array()),
     ));
+    
+    $this->setDefault('login_request', true);
 
     
   }

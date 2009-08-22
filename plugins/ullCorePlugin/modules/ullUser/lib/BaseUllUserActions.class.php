@@ -177,11 +177,20 @@ class BaseUllUserActions extends BaseUllTableToolActions
    */
   public function executeLogin($request)
   {
+//    var_dump($this->getUser()->getAttributeHolder()->getAll());
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());
+    
+    $loginData = $request->getParameter('login');
     $this->form = new LoginForm();
     
     //check context
-    if ($request->isMethod('get'))
+    if (!isset($loginData['login_request']))
     {
+      // Stores POST values of the last request to prevent data loss when the session timed out
+      if ($request->isMethod('post'))
+      {
+        $this->form->setDefault('original_request_params', urlencode(serialize($this->getRequest()->getParameterHolder()->getAll())));
+      }
       
       if ($request->getParameter('option') == 'noaccess')
       {
@@ -199,7 +208,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     else
     {
 //      var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll());die;
-      $this->form->bind($request->getParameter('login'));
+      $this->form->bind($loginData);
 
       if ($this->form->isValid())
       {
@@ -234,9 +243,28 @@ class BaseUllUserActions extends BaseUllTableToolActions
             }
             else
             {
-              $this->getUser()->setAttribute('user_id', $user->getId());              
+              $this->getUser()->setAttribute('user_id', $user->getId());      
 
-	            $this->redirect($this->getUriMemory()->getAndDelete());
+              // Restore original POST request values and forward
+              if ($originalRequestParams = $this->form->getValue('original_request_params'))
+              {
+                $originalRequestParams = unserialize(urldecode($originalRequestParams));
+                $this->getRequest()->getParameterHolder()->remove('login');
+                $this->getRequest()->getParameterHolder()->remove('commit');
+                
+                foreach ($originalRequestParams as $name => $param)
+                {
+                  $request->setParameter($name, $param);
+                }
+                
+                $this->getUriMemory()->delete();
+  	            $this->forward($request->getParameter('module'), $request->getParameter('action'));
+              }
+              // Use UriMemory and redirect to the source URI 
+              else
+              {
+                $this->redirect($this->getUriMemory()->getAndDelete()); 
+              }
 	          }
           }
         }
@@ -266,6 +294,8 @@ class BaseUllUserActions extends BaseUllTableToolActions
   public function executeNoaccess($request)
   {
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
+
+
     
     if (!$this->getUser()->hasAttribute('user_id'))
     {

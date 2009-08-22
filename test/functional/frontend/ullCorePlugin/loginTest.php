@@ -24,7 +24,7 @@ $b
 //	->setField('username', 'admin')
 //	->setField('password', 'admin')
 //  ->click('Log in')
-  ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin')))
+  ->post('/ullUser/login', array('login' => array('username' => 'admin', 'password' => 'admin', 'login_request' => true)))
   ->isRedirected()
   ->followRedirect()  
 	->isStatusCode(200)
@@ -52,19 +52,10 @@ $b
   ->isRequestParameter('action', 'login')
   ->responseContains('Username')
   ->responseContains('Password')
-// we can't use the following, because there is a link and a button with the same name
-//  ->setField('username', 'admin')
-//  ->setField('password', 'admin')
-//  ->click('Log in')
-  ->post('/ullUser/login', array('login[username]' => 'invalidUser', 'login[password]' => 'admin'))
+  ->post('/ullUser/login', array('login' => array('username' => 'foouser', 'password' => 'happy treefriends', 'login_request' => true)))
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'login')
   ->responseContains('Login failed. Please try again:')  
 ;  
   
-  
-//	->responseContains('!/error/')
-//	->checkResponseElement('body', '!/error|Error|ERROR/')
-
-//print $b->getResponse()->getContent();

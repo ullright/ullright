@@ -44,25 +44,19 @@ $b
 $b
   ->diag('show: check access to a restricted document')
   ->get('ullWiki/show/docid/2')
-  ->isRedirected()
-  ->followRedirect()
-  ->responseContains('Please login') 
+  ->responseContains('Log in')
 ;
 
 $b
   ->diag('create - not logged in -> display login')
   ->get('ullWiki/create')
-  ->isRedirected()
-  ->followRedirect()
-  ->responseContains('Please login')
+  ->responseContains('Log in')
 ;
 
 $b
   ->diag('edit - not logged in -> display login')
   ->get('ullWiki/edit/docid/1')
-  ->isRedirected()
-  ->followRedirect()
-  ->responseContains('Please login')
+  ->responseContains('Log in')
 ;
 
 // logged in as Masteradmin
@@ -239,8 +233,6 @@ $b
 $b
   ->diag('show: check access to a restricted document')
   ->get('ullWiki/show/docid/2')
-  ->isRedirected()
-  ->followRedirect()
   ->responseContains('No Access') 
 ;
 
@@ -265,8 +257,6 @@ $b
 $b
   ->diag('edit as test_user: restricted doc')
   ->get('ullWiki/edit/docid/2')
-  ->isRedirected()
-  ->followRedirect()
   ->responseContains('No Access')   
 ;
 

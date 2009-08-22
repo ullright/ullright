@@ -93,6 +93,9 @@ class BaseUllsfActions extends sfActions
   /**
    * Redirect to the noaccess action unless the condition is true
    * 
+   * Actually forwards now, to preserve the original POST request
+   * values when the session timed out
+   * 
    * @param $condition
    * @return none
    */
@@ -100,9 +103,9 @@ class BaseUllsfActions extends sfActions
   {
     // save current URI
     $this->getUriMemory()->setUri('noaccess', 'ullUser');
-//    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
     
-    $this->redirectUnless($condition, 'ullUser/noaccess');
+//    $this->redirectUnless($condition, 'ullUser/noaccess');
+    $this->forwardUnless($condition, 'ullUser', 'noaccess');
   }
 
   /**

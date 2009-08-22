@@ -46,17 +46,13 @@ $b
 $b
   ->diag('Try to create (not allowed)')
   ->get('ullFlow/create/app/trouble_ticket')
-  ->isRedirected()
-  ->followRedirect()
-  ->isRequestParameter('action', 'noaccess')
+  ->responseContains('Log in')
 ;
 
 $b
   ->diag('Try to delete (not allowed)')
   ->get('ullFlow/delete/doc/1')
-  ->isRedirected()
-  ->followRedirect()
-  ->isRequestParameter('action', 'noaccess')
+  ->responseContains('Log in')
 ;
 
 $b
