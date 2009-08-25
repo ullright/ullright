@@ -46,6 +46,11 @@
 <source>An object with the same "%column%" already exist.</source>
 <target>Dieser Wert muss eindeutig sein, ist aber bereits vergeben.</target>
 </trans-unit>
+
+<trans-unit id="9">
+<source>"%value%" has too many decimal places (%max_decimals% max).</source>
+<target>"%value%" besitzt zuviele Nachkommastellen (max. %max_decimals%).</target>
+</trans-unit>
     
     </body>
   </file>
