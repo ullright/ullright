@@ -86,6 +86,7 @@ UllVentoryItemAttribute:
         name:                   Kabelnetzwerk Übertragungsrate
         help:                   Geschwindigkeit in Mbits/sek.
     slug:                       wired_network_speed
+    options:                    suffix=Mbits
     UllColumnType:              integer
     namespace:                  test    
   printer_type:

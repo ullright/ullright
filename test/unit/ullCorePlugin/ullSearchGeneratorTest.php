@@ -55,7 +55,7 @@ $fieldNames = array('rangeFrom_0_5', 'rangeTo_0_5',
   'boolean_0_4',
   'foreign_0_3',
   'foreign_0_7');
-$widgetClassNames = array('sfWidgetFormInput', 'sfWidgetFormInput',
+$widgetClassNames = array('ullWidgetFormInput', 'ullWidgetFormInput',
   'sfWidgetFormInput',
   'sfWidgetFormInput', 'sfWidgetFormInput',
   'ullWidgetFormDoctrineSelect',

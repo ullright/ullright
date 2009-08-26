@@ -258,7 +258,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1701')
-  ->checkResponseElement($dgsEditAttributes->get(1, 'value') . ' ul > li', '"18foo" is not an integer.')
+  ->checkResponseElement($dgsEditAttributes->get(1, 'value') . ' ul > li', 'Invalid.')
   ->checkResponseElement($dgsEditAttributes->get(1, 'comment') . ' > input[value="blabla"]', true)
   ->checkResponseElement($dgsEditAttributes->get(2, 'value'). ' > input[value="100"]', true)
   ->setField('fields[attributes][0][value]', '18')
