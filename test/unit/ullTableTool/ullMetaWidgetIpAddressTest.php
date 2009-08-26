@@ -36,5 +36,5 @@ $t->diag('for write access:');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorRegex', 'returns the correct validator for write access');
   $validatorOptions = $form->getValidatorSchema()->offsetGet('my_field')->getOptions();
   $t->is($validatorOptions['pattern'],
-    '\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b',
+    '/^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:[.](?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/',
     'regex pattern is valid');
