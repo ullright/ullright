@@ -51,6 +51,13 @@ class UllVentoryItemAttributeValueColumnConfigCollection extends ullColumnConfig
         ->setMetaWidgetClassName($typeAttribute->UllVentoryItemAttribute->UllColumnType->class)
       ;
       
+      if ($options = $typeAttribute->UllVentoryItemAttribute->options)
+      {
+        $this['value']->
+          setOptions(array_merge(sfToolkit::stringToArray($options), $this['value']->getOptions()))
+        ;
+      }
+      
       $this['comment']
         ->setMetaWidgetClassName('ullMetaWidgetString')
         ->setWidgetAttribute('size', 24)

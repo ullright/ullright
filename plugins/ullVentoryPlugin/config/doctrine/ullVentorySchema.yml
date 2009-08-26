@@ -96,6 +96,8 @@ UllVentoryItemAttribute:
       type: string(4000)
     ull_column_type_id:
       type: integer
+    options:
+      type: string(4000)
   relations:
     UllColumnType:
 

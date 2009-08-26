@@ -73,7 +73,8 @@ UllVentoryItemAttribute:
         name:                   Bildschirmgröße
         help:                   Diagonale in Zoll
     slug:                       display_size
-    UllColumnType:              integer
+    options:                    max_decimals=1 suffix=Inch
+    UllColumnType:              float
     namespace:                  test        
   wired_network_speed:
     id:                         401

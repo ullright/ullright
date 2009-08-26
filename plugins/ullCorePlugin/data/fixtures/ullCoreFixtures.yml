@@ -184,7 +184,7 @@ UllColumnType:
     class:        ullMetaWidgetIpAddress
     label:        IP address
     namespace:    ullCore
-  ip:
+  float:
     class:        ullMetaWidgetFloat
     label:        Float
     namespace:    ullCore
