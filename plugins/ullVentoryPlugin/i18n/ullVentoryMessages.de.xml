@@ -204,6 +204,21 @@
 <target>Verwalte Software-Lizenzen</target>
 </trans-unit>
 
+<trans-unit id="4008">
+<source>Manage item manufacturers</source>
+<target>Verwalte Geräte-Hersteller</target>
+</trans-unit>
+
+<trans-unit id="4009">
+<source>Manage item models</source>
+<target>Verwalte Geräte-Modelle</target>
+</trans-unit>
+
+<trans-unit id="4010">
+<source>Manage inventory takings</source>
+<target>Verwalte Inventur-Überprüfungen</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

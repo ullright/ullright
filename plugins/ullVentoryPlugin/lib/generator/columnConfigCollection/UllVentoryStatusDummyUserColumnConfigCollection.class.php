@@ -8,12 +8,12 @@ class UllVentoryStatusDummyUserColumnConfigCollection extends UllEntityColumnCon
    */
   protected function applyCustomSettings()
   {
-    $this->disableAllExcept(array('id', 'username', 'display_name',
+    $this->disableAllExcept(array('id', 'username', 'display_name', 'comment',
       'creator_user_id', 'created_at', 'updator_user_id', 'updated_at'));
 
     if ($this->isListAction())
     {
-      $this->disableAllExcept(array('id', 'username', 'display_name'));
+      $this->disableAllExcept(array('id', 'username', 'display_name', 'comment'));
     } 
   }
 }
