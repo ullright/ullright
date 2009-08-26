@@ -20,7 +20,6 @@ class RecreateForeignKeys extends Doctrine_Migration
     }
 
     //recreate correct foreign keys
-    
     $this->createForeignKey('ull_record', array('local' => 'creator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_record_creator_user_id'));  
     $this->createForeignKey('ull_record', array('local' => 'updator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_record_updator_user_id'));  
     $this->createForeignKey('ull_ventory_item_memory', array('local' => 'creator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_ventory_item_memory_creator_user_id'));  
@@ -156,11 +155,12 @@ class RecreateForeignKeys extends Doctrine_Migration
     $this->createForeignKey('ull_wiki', array('local' => 'ull_wiki_access_level_id', 'foreign' => 'id', 'foreignTable' => 'ull_wiki_access_level', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_wiki_ull_wiki_access_level_id')); 
     $this->createForeignKey('ull_wiki_access_level', array('local' => 'creator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_wiki_access_level_creator_user_id'));  
     $this->createForeignKey('ull_wiki_access_level', array('local' => 'updator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_wiki_access_level_updator_user_id'));  
-    $this->createForeignKey('ull_ventory_item_attribute_translation', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_ventory_item_attribute', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_ventory_item_attribute_translation_id'));  
-    $this->createForeignKey('ull_parent_entity_version', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_parent_entity', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_parent_entity_version_id')); 
-    $this->createForeignKey('ull_parent_entity_version', array('local' => 'updator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_parent_entity_version_updator_user_id'));  
-    $this->createForeignKey('ull_entity_version', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_entity_version_id'));  
-    $this->createForeignKey('ull_entity_version', array('local' => 'updator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_entity_version_updator_user_id'));  
+    $this->createForeignKey('ull_ventory_item_attribute_translation', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_ventory_item_attribute', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_ventory_item_attribute_translation_id'));
+    // disabled, because we didn't migrate it to the customers because the table is not used  
+//    $this->createForeignKey('ull_parent_entity_version', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_parent_entity', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_parent_entity_version_id')); 
+//    $this->createForeignKey('ull_parent_entity_version', array('local' => 'updator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_parent_entity_version_updator_user_id'));  
+//    $this->createForeignKey('ull_entity_version', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_entity_version_id'));  
+//    $this->createForeignKey('ull_entity_version', array('local' => 'updator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_entity_version_updator_user_id'));  
     $this->createForeignKey('ull_ventory_status_dummy_user_version', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_ventory_status_dummy_user_version_id'));  
     $this->createForeignKey('ull_ventory_status_dummy_user_version', array('local' => 'updator_user_id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => NULL, 'onDelete' => NULL, 'name' => 'ull_ventory_status_dummy_user_version_updator_user_id'));  
     $this->createForeignKey('ull_ventory_status_dummy_user_translation', array('local' => 'id', 'foreign' => 'id', 'foreignTable' => 'ull_entity', 'onUpdate' => 'CASCADE', 'onDelete' => 'CASCADE', 'name' => 'ull_ventory_status_dummy_user_translation_id'));  
