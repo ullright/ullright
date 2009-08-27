@@ -13,54 +13,51 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
   {
     parent::__construct($columnConfig, $form);
 
-    $selectOption = $this->columnConfig->getOption('ull_select');
-
-    if ($selectOption)
-    {
-      $this->columnConfig->setWidgetOption('ull_select', $selectOption);
-    }
-    
-    if ($this->columnConfig->getWidgetOption('ull_select') == null)
+    if (!$this->columnConfig->getWidgetOption('ull_select') && !$this->columnConfig->getOption('ull_select'))
     {
       throw new InvalidArgumentException('option "ull_select" is required');
     }
   }
-
-  protected function addToForm()
+  
+  protected function configure()
   {
-    if ($this->isWriteMode())
+    if ($ullSelect = $this->columnConfig->getOption('ull_select'))
     {
-      // query only children for the given ull select box
-      $ullSelect = $this->columnConfig->getWidgetOption('ull_select');
-      $this->columnConfig->removeWidgetOption('ull_select');
-      $q = new Doctrine_Query;
-      $q
-        ->from('UllSelectChild a')
-        ->where('a.UllSelect.slug = ?', $ullSelect)
-      ;
-
-      $this->columnConfig->setWidgetOption('model', 'UllSelectChild');
-      $this->columnConfig->setWidgetOption('order_by', array('sequence', 'asc'));
-      $this->columnConfig->setWidgetOption('query', $q);
-
-      $this->columnConfig->setValidatorOption('model', 'UllSelectChild');
-      $this->columnConfig->setValidatorOption('query', $q);
-
-
-      $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(),
-        $this->columnConfig->getWidgetAttributes()));
       $this->columnConfig->setWidgetOption('ull_select', $ullSelect);
-      $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     }
-    else
-    {
-      $this->columnConfig->removeWidgetOption('add_empty');
+  }
 
-      $this->addWidget(new ullWidgetUllSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-      $this->addValidator(new sfValidatorPass());
-    }
+  protected function configureReadMode()
+  {
+    $this->columnConfig->removeWidgetOption('add_empty');
 
-    //    var_dump($columnConfig);die;
+    $this->addWidget(new ullWidgetUllSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorPass());
+  } 
+ 
+  protected function configureWriteMode()
+  {
+    // query only children for the given ull select box
+    $ullSelect = $this->columnConfig->getWidgetOption('ull_select');
+    $this->columnConfig->removeWidgetOption('ull_select');
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllSelectChild a')
+      ->where('a.UllSelect.slug = ?', $ullSelect)
+    ;
+
+    $this->columnConfig->setWidgetOption('model', 'UllSelectChild');
+    $this->columnConfig->setWidgetOption('order_by', array('sequence', 'asc'));
+    $this->columnConfig->setWidgetOption('query', $q);
+
+    $this->columnConfig->setValidatorOption('model', 'UllSelectChild');
+    $this->columnConfig->setValidatorOption('query', $q);
+
+
+    $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(),
+      $this->columnConfig->getWidgetAttributes()));
+    $this->columnConfig->setWidgetOption('ull_select', $ullSelect);
+    $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
   }
   
   public function getSearchType()
