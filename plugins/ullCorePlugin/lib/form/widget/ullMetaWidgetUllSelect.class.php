@@ -37,6 +37,11 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
  
   protected function configureWriteMode()
   {
+    if ($this->columnConfig->getOption('show_search_box'))
+    {
+      $this->columnConfig->setWidgetOption('show_search_box', true);
+    }
+    
     // query only children for the given ull select box
     $ullSelect = $this->columnConfig->getWidgetOption('ull_select');
     $this->columnConfig->removeWidgetOption('ull_select');
@@ -54,7 +59,7 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
     $this->columnConfig->setValidatorOption('query', $q);
 
 
-    $this->addWidget(new sfWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(),
+    $this->addWidget(new ullWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(),
       $this->columnConfig->getWidgetAttributes()));
     $this->columnConfig->setWidgetOption('ull_select', $ullSelect);
     $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
