@@ -13,6 +13,13 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
   {
     parent::__construct($columnConfig, $form);
 
+    $selectOption = $this->columnConfig->getOption('ull_select');
+
+    if ($selectOption)
+    {
+      $this->columnConfig->setWidgetOption('ull_select', $selectOption);
+    }
+    
     if ($this->columnConfig->getWidgetOption('ull_select') == null)
     {
       throw new InvalidArgumentException('option "ull_select" is required');

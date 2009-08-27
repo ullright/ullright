@@ -48,7 +48,9 @@ class ullSearchAddCriteriaForm extends sfForm
     
     natsort($choices);
 
-    $this->setWidget('columnSelect', new sfWidgetFormSelect(array('choices' => $choices), array('onchange'  => 'document.getElementById(\'addSubmit\').click()')));
+    $this->setWidget('columnSelect', new ullWidgetFormSelect(array('choices' => $choices, 'show_search_box' => true),
+      array('onchange'  => 'document.getElementById(\'addSubmit\').click()')));
+
     $this->widgetSchema->setLabel('columnSelect', __('Search criterion', null, 'common'));
 
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
