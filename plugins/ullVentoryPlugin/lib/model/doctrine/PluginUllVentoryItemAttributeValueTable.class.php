@@ -13,6 +13,7 @@ class PluginUllVentoryItemAttributeValueTable extends UllRecordTable
       ->where('x.ull_ventory_item_id = ?', $itemId)
       ->addWhere('x.ull_ventory_item_type_attribute_id = ?', $typeAttributeId)
     ;
+
     return $q->execute()->getFirst();   
   }
   
@@ -28,6 +29,16 @@ class PluginUllVentoryItemAttributeValueTable extends UllRecordTable
     }
     
     return $itemAttributeValue; 
-  }  
+  } 
+  
+  public static function findAllByItemId($itemId)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentoryItemAttributeValue x')
+      ->where('x.ull_ventory_item_id = ?', $itemId)
+    ;
 
+    return $q->execute();
+  }
 }

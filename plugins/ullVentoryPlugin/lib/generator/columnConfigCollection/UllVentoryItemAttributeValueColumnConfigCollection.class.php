@@ -46,12 +46,14 @@ class UllVentoryItemAttributeValueColumnConfigCollection extends ullColumnConfig
       $this['ull_ventory_item_type_attribute_id']->setWidgetOption('is_hidden', true);
 
       $typeAttribute = $this->getAttributeValue()->UllVentoryItemTypeAttribute;
+      $itemAttribute = $typeAttribute->UllVentoryItemAttribute;
+      
       $this['value']
         ->setValidatorOption('required', $typeAttribute->is_mandatory)
-        ->setMetaWidgetClassName($typeAttribute->UllVentoryItemAttribute->UllColumnType->class)
+        ->setMetaWidgetClassName($itemAttribute->UllColumnType->class)
       ;
       
-      if ($options = $typeAttribute->UllVentoryItemAttribute->options)
+      if ($options = $itemAttribute->options)
       {
         $this['value']->
           setOptions(array_merge(sfToolkit::stringToArray($options), $this['value']->getOptions()))

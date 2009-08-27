@@ -4,6 +4,15 @@
  */
 class PluginUllVentoryItemAttributeTable extends UllRecordTable
 {
+  public static function findOneByItemTypeAttributeId($id)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentoryItemAttribute a')
+      ->where('a.UllVentoryItemTypeAttribute.id = ?', $id)
+    ;
+    return $q->execute()->getFirst();
+  }
   
   public static function findNameByItemTypeAttributeId($id)
   {

@@ -100,16 +100,16 @@
         <td class="label_column">
           <label for="<?php echo $attribute->offsetGet('value')->renderId() ?>">
           <?php
-            echo UllVentoryItemAttributeTable::findNameByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']);
-            echo (Doctrine::getTable('UllVentoryItemTypeAttribute')
-              ->findOneById($values['ull_ventory_item_type_attribute_id'])
-              ->is_mandatory) ? ' *' : '';
+            $typeAttribute = Doctrine::getTable('UllVentoryItemTypeAttribute')->findOneById($values['ull_ventory_item_type_attribute_id']);
+            $itemAttribute = UllVentoryItemAttributeTable::findOneByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']);
+            echo $itemAttribute->name;
+            echo ($typeAttribute->is_mandatory) ? ' *' : '';
           ?>
           </label>          
         </td>
         <td>
           <?php echo $attribute->offsetGet('value')->render() ?>
-          <div class="form_help"><dfn><?php echo UllVentoryItemAttributeTable::findHelpByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']) ?></dfn></div>
+          <div class="form_help"><dfn><?php echo $itemAttribute->help ?></dfn></div>
           <div class="form_error"><?php echo $attribute->offsetGet('value')->renderError(); ?></div>
         </td>
         <td>
