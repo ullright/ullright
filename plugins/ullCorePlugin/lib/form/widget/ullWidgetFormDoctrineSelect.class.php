@@ -48,6 +48,11 @@ $(document).ready(function()
       ');      
     }
 
+    //retrieve choices and sort them
+    $choices = $this->getOption('choices')->call();
+    natsort($choices);
+    $this->setOption('choices', $choices);
+    
     $return .= parent::render($name, $value, $attributes, $errors);
     
     return $return;
