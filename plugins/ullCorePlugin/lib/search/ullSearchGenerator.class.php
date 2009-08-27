@@ -174,6 +174,11 @@ class ullSearchGenerator extends ullGeneratorBase
         $columnConfig->setWidgetAttribute('size', 12); //hardcode this here? bad? =)
         //ToDo: the widget knows this now, remove this fragment
         break;
+      case 'ullMetaWidgetForeignKey':
+      case 'ullMetaWidgetUllEntity':
+      case 'ullMetaWidgetUllSelect':
+        $columnConfig->setOption('show_search_box', true);
+        break;
     }
 
     //if this columnConfig has relations, humanize their labels

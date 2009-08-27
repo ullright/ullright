@@ -31,6 +31,12 @@ class ullVentorySearchGenerator extends ullSearchGenerator
       $columnConfig->setLabel(__('Attribute', null, 'ullVentoryMessages') . ' - ' . $attribute->name);
       $columnConfig->setMetaWidgetClassName($attribute->UllColumnType->class);
       
+      if ($attribute->options)
+      {
+        $columnConfig->setOptions(
+          array_merge(sfToolkit::stringToArray($attribute->options), $columnConfig->getOptions()));
+      }
+      
       return $columnConfig;
     }
     
