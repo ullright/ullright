@@ -76,9 +76,11 @@ UllSelect:
   actAs:
     I18n:
       fields: [label]
+    Sluggable:
+      unique: true
+      fields: [label]
+      canUpdate: true
   columns:
-    slug:
-      type: string(32)
     label:
       type: string(64)
 
@@ -90,6 +92,10 @@ UllSelectChild:
   actAs:
     I18n:
       fields: [label]
+    Sluggable:
+      unique: true
+      fields: [label]
+      canUpdate: true      
   columns:
     ull_select_id:
       type: integer

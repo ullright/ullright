@@ -21,6 +21,8 @@ abstract class BaseUllSelectChild extends UllRecord
                                          'foreign' => 'id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'label'), 'canUpdate' => true));
         $this->actAs($i18n0);
+        $this->actAs($sluggable0);
     }
 }

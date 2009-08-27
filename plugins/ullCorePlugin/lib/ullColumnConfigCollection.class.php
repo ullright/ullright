@@ -208,8 +208,16 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       $this->blacklist($this->notInList);
     }
     
+    if ($this->isCreateOrEditAction())
+    {
+      if (isset($this['slug']))
+      {
+        $this['slug']->disable();
+      }
+    }
+    
     $this->blacklist();
-
+    
     $this->orderBottom($this->orderBottom);    
   }
   

@@ -14,8 +14,6 @@ class PluginUllSelectTable extends UllRecordTable
    */
   public static function findValue($slug, $label)
   {
-    var_dump($slug);
-    var_dump($label);
     $q = new Doctrine_Query;
     $q
       ->select('c.id')

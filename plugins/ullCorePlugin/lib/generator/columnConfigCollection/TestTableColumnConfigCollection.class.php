@@ -12,7 +12,7 @@ class TestTableColumnConfigCollection extends UllEntityColumnConfigCollection
     $this['my_email']->setMetaWidgetClassName('ullMetaWidgetEmail');
     $this['my_select_box']
       ->setMetaWidgetClassName('ullMetaWidgetUllSelect')
-      ->setWidgetOption('ull_select', 'ull_select_test')
+      ->setWidgetOption('ull_select', 'my-test-select-box')
       ->setWidgetOption('add_empty', true)
     ;
     

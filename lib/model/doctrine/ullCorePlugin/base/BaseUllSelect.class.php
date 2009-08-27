@@ -9,7 +9,6 @@ abstract class BaseUllSelect extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_select');
-        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'length' => '32'));
         $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
     }
 
@@ -20,6 +19,8 @@ abstract class BaseUllSelect extends UllRecord
                                                                     'foreign' => 'ull_select_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'label'), 'canUpdate' => true));
         $this->actAs($i18n0);
+        $this->actAs($sluggable0);
     }
 }

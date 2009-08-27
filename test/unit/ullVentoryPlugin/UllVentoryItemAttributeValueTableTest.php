@@ -20,7 +20,7 @@ $t->begin('findByItemIdAndTypeAttributeId()');
   $q
     ->from('UllVentoryItemTypeAttribute x')
     ->where('x.UllVentoryItemType.slug = ?', 'notebook')
-    ->addWhere('x.UllVentoryItemAttribute.slug = ?', 'display_size')
+    ->addWhere('x.UllVentoryItemAttribute.slug = ?', 'display-size')
   ;
   $typeAttribute = $q->execute()->getFirst();
   

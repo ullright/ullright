@@ -39,7 +39,7 @@ $browser
   ->call('/ullVentory/search', 'POST', array (
   'fields' => 
   array (
-    'columnSelect' => 'isVirtual.display_size',
+    'columnSelect' => 'isVirtual.display-size',
   ),
   'fields_foreign_0_0_filter' => '',
   'addSubmit' => 'Hinzufügen',
@@ -57,7 +57,7 @@ $browser
   ->call('/ullVentory/search', 'POST', array (
   'fields' => 
   array (
-    'columnSelect' => 'isVirtual.wired_network_speed',
+    'columnSelect' => 'isVirtual.wired-network-speed',
   ),
   'fields_foreign_0_0_filter' => '',
   'addSubmit' => 'Hinzufügen',
@@ -128,7 +128,7 @@ $browser
   ->call('/ullVentory/search', 'POST', array (
   'fields' => 
   array (
-    'columnSelect' => 'isVirtual.wired_network_speed',
+    'columnSelect' => 'isVirtual.wired-network-speed',
   ),
   'fields_foreign_0_0_filter' => '',
   'addSubmit' => 'Add',

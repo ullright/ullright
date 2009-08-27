@@ -18,9 +18,11 @@ UllVentoryItemType:
   actAs:
     I18n:
       fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name]
+      canUpdate: true      
   columns:
-    slug:
-      type: string(128)
     name:
       type: string(128)
       notnull: true
@@ -85,10 +87,11 @@ UllVentoryItemAttribute:
   actAs:
     I18n:
       fields: [name, help] 
-  columns:
-    slug:
-      type: string(128)
+    Sluggable:
       unique: true
+      fields: [name]
+      canUpdate: true      
+  columns:
     name:
       type: string(128)
       notnull: true

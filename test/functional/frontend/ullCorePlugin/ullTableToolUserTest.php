@@ -42,7 +42,8 @@ $b
   ->click('Log out')
   ->get('ullAdmin/index')
   ->loginAs('test_master')
-  ->followRedirect()
+  ->responseContains('Logged in as test_master')
+  ->responseContains('No Access')
 ;
 
 $b
@@ -89,3 +90,4 @@ $b
   ->get('ullAdmin/index')
   ->loginAs('test_master', 'newpass')
 ;
+

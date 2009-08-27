@@ -11,4 +11,4 @@ $t->setFixturesPath($path);
 
 
 $t->begin('findValue()');
-  $t->is(UllSelectTable::findValue('ull_select_test', 'My first option'), 2, 'returns the correct value');      
+  $t->is(UllSelectTable::findValue('my-test-select-box', 'My first option'), 2, 'returns the correct value');      

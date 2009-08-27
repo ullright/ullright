@@ -301,7 +301,6 @@ UllSelect:
         label:    My test select box
       de:
         label:    Meine Test Selectbox
-    slug: ull_select_test
     namespace:    test
     UllSelectChildren:
       ull_select_child_test_1:
@@ -326,7 +325,6 @@ UllSelect:
         label:    My test select box 2
       de:
         label:    Meine Test Selectbox 2
-    slug: test
     namespace:    test
     UllSelectChildren:
       ull_select_child_test2_1:

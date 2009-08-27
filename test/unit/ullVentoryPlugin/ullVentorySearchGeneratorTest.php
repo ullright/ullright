@@ -22,13 +22,13 @@ $t->setFixturesPath($path);
 $t->begin('ullVentorySearchGeneratorTest - fields');
 
 $sfe = new ullSearchFormEntry();
-$sfe->columnName = 'display_size';
+$sfe->columnName = 'display-size';
 $sfe->isVirtual = true;
 $sfe->uuid = 0;
 $sfeArray[] = $sfe;
 
 $sfe = new ullSearchFormEntry();
-$sfe->columnName = 'delivery_date';
+$sfe->columnName = 'delivery-date';
 $sfe->isVirtual = true;
 $sfe->uuid = 1;
 $sfeArray[] = $sfe;

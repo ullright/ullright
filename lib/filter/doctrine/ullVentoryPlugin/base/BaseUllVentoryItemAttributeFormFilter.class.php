@@ -15,22 +15,24 @@ class BaseUllVentoryItemAttributeFormFilter extends BaseFormFilterDoctrine
   {
     $this->setWidgets(array(
       'namespace'          => new sfWidgetFormFilterInput(),
-      'slug'               => new sfWidgetFormFilterInput(),
       'ull_column_type_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllColumnType', 'add_empty' => true)),
+      'options'            => new sfWidgetFormFilterInput(),
       'created_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'creator_user_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'    => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'slug'               => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
       'namespace'          => new sfValidatorPass(array('required' => false)),
-      'slug'               => new sfValidatorPass(array('required' => false)),
       'ull_column_type_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllColumnType', 'column' => 'id')),
+      'options'            => new sfValidatorPass(array('required' => false)),
       'created_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'creator_user_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
       'updator_user_id'    => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
+      'slug'               => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_ventory_item_attribute_filters[%s]');
@@ -50,12 +52,13 @@ class BaseUllVentoryItemAttributeFormFilter extends BaseFormFilterDoctrine
     return array(
       'id'                 => 'Number',
       'namespace'          => 'Text',
-      'slug'               => 'Text',
       'ull_column_type_id' => 'ForeignKey',
+      'options'            => 'Text',
       'created_at'         => 'Date',
       'updated_at'         => 'Date',
       'creator_user_id'    => 'ForeignKey',
       'updator_user_id'    => 'ForeignKey',
+      'slug'               => 'Text',
     );
   }
 }

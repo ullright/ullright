@@ -16,7 +16,7 @@ $t->setFixturesPath($path);
 $t->begin('findByModelIdAndTypeAttributeId()');
 
   $model = Doctrine::getTable('UllVentoryItemModel')->findOneByName('Macbook');
-  $attribute = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('display_size');
+  $attribute = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('display-size');
   $typeAttribute = $attribute->UllVentoryItemTypeAttribute->getFirst();
   
   $t->is(UllVentoryItemAttributePresetTable::findValueByModelIdAndTypeAttributeId($model->id, $typeAttribute->id), 13, 'Returns the correct value');
@@ -25,7 +25,7 @@ $t->begin('findByModelIdAndTypeAttributeId()');
 $t->info('saveValueByModelIdAndTypeAttributeId()');
 
   $model = Doctrine::getTable('UllVentoryItemModel')->findOneByName('MFC-440CN');
-  $attribute = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('printer_type');
+  $attribute = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('type-of-printer');
   $typeAttribute = $attribute->UllVentoryItemTypeAttribute->getFirst();
 
   UllVentoryItemAttributePresetTable::saveValueByModelIdAndTypeAttributeId('Inkjet', $model->id, $typeAttribute->id);

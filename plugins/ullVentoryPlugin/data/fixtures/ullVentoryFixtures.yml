@@ -16,7 +16,6 @@ UllVentoryItemType:
         name:                   Notebook
       de:
         name:                   Notebook
-    slug:                       notebook
     has_software:               true
     namespace:                  test           
   printer:
@@ -26,7 +25,6 @@ UllVentoryItemType:
         name:                   Printer
       de:
         name:                   Drucker
-    slug:                       printer
     namespace:                  test        
         
 UllVentoryItemModel:
@@ -72,7 +70,6 @@ UllVentoryItemAttribute:
       de:
         name:                   Bildschirmgröße
         help:                   Diagonale in Zoll
-    slug:                       display_size
     options:                    max_decimals=1 suffix=Inch
     UllColumnType:              float
     namespace:                  test        
@@ -85,7 +82,6 @@ UllVentoryItemAttribute:
       de:
         name:                   Kabelnetzwerk Übertragungsrate
         help:                   Geschwindigkeit in Mbits/sek.
-    slug:                       wired_network_speed
     options:                    suffix=Mbits
     UllColumnType:              integer
     namespace:                  test    
@@ -96,7 +92,6 @@ UllVentoryItemAttribute:
         name:                   Type of printer
       de:
         name:                   Druckerart
-    slug:                       printer_type
     UllColumnType:              string
     namespace:                  test
   delivery_date:
@@ -106,7 +101,6 @@ UllVentoryItemAttribute:
         name:                   Delivery date
       de:
         name:                   Lieferdatum
-    slug:                       delivery_date
     UllColumnType:              date
     namespace:                  test           
                           
@@ -179,25 +173,6 @@ UllVentoryItemAttributeValue:
     comment:                    4 separate ink catridges
     namespace:                  test
 
-# Add inventory dummy users employment types
-#UllEmploymentType:
-#  status_dummy:
-#    Translation:
-#      en:
-#        name:   Status dummy
-#      de:
-#        name:   Status Dummy
-#    slug:       status_dummy
-#    namespace:  ullVentory
-#  origin_dummy:
-#    Translation:
-#      en:
-#        name:   Origin dummy
-#      de:
-#        name:   Herkunfts Dummy
-#    slug:       origin_dummy
-#    namespace:  ullVentory
-    
 UllVentoryOriginDummyUser:
   delivered:
     username: delivered

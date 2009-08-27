@@ -20,6 +20,7 @@ class BaseUllSelectChildForm extends BaseFormDoctrine
       'updated_at'      => new sfWidgetFormDateTime(),
       'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'slug'            => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -31,7 +32,12 @@ class BaseUllSelectChildForm extends BaseFormDoctrine
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'slug'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'UllSelectChild', 'column' => array('slug')))
+    );
 
     $this->widgetSchema->setNameFormat('ull_select_child[%s]');
 
