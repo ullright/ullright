@@ -36,7 +36,7 @@ class myTestCase extends sfDoctrineTestCase
     $this->columnsConfigMock['my_email'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_select_box');
-    $columnConfig->setWidgetOptions(array('ull_select' => 'ull_select_test', 'add_empty' => true));
+    $columnConfig->setWidgetOptions(array('ull_select' => 'my-test-select-box', 'add_empty' => true));
     $columnConfig->setWidgetAttributes(array());
     $columnConfig->setLabel('My select box');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllSelect');
