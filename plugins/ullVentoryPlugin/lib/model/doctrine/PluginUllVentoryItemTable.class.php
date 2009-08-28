@@ -35,4 +35,15 @@ class PluginUllVentoryItemTable extends UllRecordTable
     
     return ($r) ? $r[0] : false;
   }
+  
+  public static function findByTypeSlug($typeSlug)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentoryItem i, i.UllVentoryItemModel m, m.UllVentoryItemType t')
+      ->where('t.slug = ?', $typeSlug)
+      ->useResultCache(true)
+    ;
+    return $q->execute();
+  }
 }
