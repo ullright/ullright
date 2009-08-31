@@ -19,7 +19,10 @@ class UllVentoryItemMemoryColumnConfigCollection extends ullColumnConfigCollecti
       'updated_at'      
     ));
     
-    $this['target_ull_entity_id']->setMetaWidgetClassName('ullMetaWidgetUllEntity');    
+    $this['target_ull_entity_id']
+      ->setMetaWidgetClassName('ullMetaWidgetUllEntity')
+      ->setOption('show_search_box', true)
+    ;    
     
     $this['comment']->setMetaWidgetClassName('ullMetaWidgetString');
     

@@ -5,4 +5,16 @@
 class PluginUllVentoryItemTypeAttributeTable extends UllRecordTable
 {
 
+  public static function findByAttributeSlugAndTypeSlug($attributeSlug, $typeSlug)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllVentoryItemTypeAttribute ta, ta.UllVentoryItemAttribute a, ta.UllVentoryItemType t')
+      ->where('a.slug = ?', $attributeSlug)
+      ->addWhere('t.slug = ?', $typeSlug)
+    ;
+
+    return $q->execute()->getFirst();   
+  }
+  
 }
