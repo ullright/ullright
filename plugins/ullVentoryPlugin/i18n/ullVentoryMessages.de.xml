@@ -140,6 +140,15 @@
 <target>Software hinzufügen</target>
 </trans-unit>
 
+<trans-unit id="1016">
+<source>Supplier</source>
+<target>Lieferant</target>
+</trans-unit>
+
+<trans-unit id="1017">
+<source>Delivery date</source>
+<target>Lieferdatum</target>
+</trans-unit>
 
 <!-- Help messages -->
 <trans-unit id="2001">
