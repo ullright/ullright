@@ -1,5 +1,9 @@
 <?php
 /**
+ * 
+ * Note: This class is deprecated,
+ * use ullMetaWidgetUllEntity in write mode instead.
+ * 
  * ullMetaWidgetUllUser
  *
  *

@@ -88,23 +88,27 @@ class BaseUllUserActions extends BaseUllTableToolActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('fields'));
-      $newsup = $this->form->getValue('new_superior');
-      $oldsup = $this->form->getValue('old_superior');
 
-      if ($newsup == $oldsup)
+      if ($this->form->isValid())
       {
-        $this->redirect('ullUser/massChangeSuperiorSave?' . http_build_query(array('ok' => 0)));
-      }
+        $newsup = $this->form->getValue('new_superior');
+        $oldsup = $this->form->getValue('old_superior');
 
-      $cnt = 0;
-      $users = Doctrine::getTable('UllUser')->findBySuperiorUllUserId($oldsup);
-      foreach ($users as $user)
-      {
-        $user->superior_ull_user_id = $newsup;
-        $user->save();
-        $cnt++;
+        if ($newsup == $oldsup)
+        {
+          $this->redirect('ullUser/massChangeSuperiorSave?' . http_build_query(array('ok' => 0)));
+        }
+
+        $cnt = 0;
+        $users = Doctrine::getTable('UllUser')->findBySuperiorUllUserId($oldsup);
+        foreach ($users as $user)
+        {
+          $user->superior_ull_user_id = $newsup;
+          $user->save();
+          $cnt++;
+        }
+        $this->redirect('ullUser/massChangeSuperiorSave?' . http_build_query(array('ok' => 1, 'cnt' => $cnt)));
       }
-      $this->redirect('ullUser/massChangeSuperiorSave?' . http_build_query(array('ok' => 1, 'cnt' => $cnt)));
     }
   }
 

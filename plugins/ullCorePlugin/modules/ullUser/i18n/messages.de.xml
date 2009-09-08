@@ -49,18 +49,18 @@
 </trans-unit>
 
 <trans-unit id="61">
-<source>Save superior change</source>
-<target>Vorgesetzenwechsel speichern</target>
+<source>Save change</source>
+<target>Änderung speichern</target>
 </trans-unit>
 
 <trans-unit id="62">
-<source>Current superior:</source>
-<target>Bisheriger Vorgesetzter:</target>
+<source>Current superior</source>
+<target>Derzeitiger Vorgesetzter</target>
 </trans-unit>
 
 <trans-unit id="63">
-<source>Replacing superior:</source>
-<target>Zukünftiger Vorgesetzter:</target>
+<source>Replacing superior</source>
+<target>Zukünftiger Vorgesetzter</target>
 </trans-unit>
 
 <trans-unit id="64">

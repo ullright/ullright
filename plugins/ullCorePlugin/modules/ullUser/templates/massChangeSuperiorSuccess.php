@@ -13,7 +13,7 @@
     <div class='edit_action_buttons color_light_bg'>
       <div class='edit_action_buttons_left'>
         <ul>
-        	<li><?php echo submit_tag(__('Save superior change')) ?></li>
+        	<li><?php echo submit_tag(__('Save change')) ?></li>
         </ul>
       </div>
       

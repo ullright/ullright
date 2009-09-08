@@ -21,10 +21,21 @@ $b
 ;
 
 $b
+  ->diag('set invalid superior')
+  ->setField('fields[old_superior]', 2)
+  ->setField('fields[new_superior]', 0)
+  ->click('Save change')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullUser')
+  ->isRequestParameter('action', 'massChangeSuperior')
+  ->responseContains('Invalid.')
+;
+
+$b
   ->diag('set the same current and replacing superior')
   ->setField('fields[old_superior]', 2)
   ->setField('fields[new_superior]', 2)
-  ->click('Save superior change')
+  ->click('Save change')
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
@@ -39,7 +50,7 @@ $b
   ->isStatusCode(200)
   ->setField('fields[old_superior]', 2)
   ->setField('fields[new_superior]', 1)
-  ->click('Save superior change')
+  ->click('Save change')
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
@@ -54,7 +65,7 @@ $b
   ->isStatusCode(200)
   ->setField('fields[old_superior]', 1)
   ->setField('fields[new_superior]', 2)
-  ->click('Save superior change')
+  ->click('Save change')
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
