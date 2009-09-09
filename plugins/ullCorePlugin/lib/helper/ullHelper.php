@@ -1082,55 +1082,6 @@ function ull_js_observer($form_id) {
   return $html;
 }
 
-
-/**
-  * Create a javascript debug popup
-  */
-function ull_trap($v, $force = false)
-{
-  if (SF_DEBUG || $force)
-  {
-
-    error_reporting(E_ERROR | E_PARSE);
-
-    $key = rand(1,10000000);
-    $args = debug_backtrace();
-    $file = $args[0]['file'];
-    $line = $args[0]['line'];
-
-    SF_ROOT_DIR ? $file = str_replace(SF_ROOT_DIR, '/..', $file) : '';
-    $file = str_replace('\\', '\\\\', $file);
-    ob_start();
-    print_r($v);
-    $result = ob_get_contents();
-    ob_end_clean();
-    $or = array("\n", " "   );
-    $pr = array("<br>", "&nbsp;");
-
-    $result = str_replace($or, $pr, $result);
-    $result = str_replace('=>', '<font color="00FF00">=></font>', $result);
-    $result = str_replace('Array', '<font color="00FF00"><b>Array</b></font>', $result);
-    $result = preg_replace("/\[(\w*)\]/i", '<font color="CACACA">[$1]</font>', $result);
-
-    $result = preg_replace('/([^ !#$%@()*+,-.\x30-\x5b\x5d-\x7e])/e',"'\\x'.(ord('\\1')<16? '0': '').dechex(ord('\\1'))",$result);
-?>
-
-<script language="JavaScript">
-  ullPopup<?php echo $key; ?> = window.open("","ullWin<?php echo $key; ?>","toolbar=no,scrollbars=yes,resizable=yes,width=700,height=400");
-  ullPopup<?php echo $key; ?>.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ull_trap()</title><style>body{background-color: #000000; padding: 0; margin: 0}</style></head><body>');
-  ullPopup<?php echo $key; ?>.document.writeln('<div style="background-color: #333333; font-family: courier; color: white; font-size: 8px; padding: 5px; position: fixed; width: 100%">Trap in <span style="color: #00FF00; font-weight: bold"><?php echo $file; ?></span> on line <span style="color: #00FF00; font-weight: bold"><?php echo $line; ?></span></div>');
-  ullPopup<?php echo $key; ?>.document.writeln('<br><br><div style="color: yellow; font-size: 8px; font-family: courier"><?php echo $result; ?></div>');
-  ullPopup<?php echo $key; ?>.document.writeln('</div> </bb> </html>');
-</script>
-
-<?
-  }
-  else
-  {
-    return null;
-  }
-} // end function
-
 function _convert_array_to_string($arr) {
 	$str = '';
 	foreach ($arr as $key => $value) {
