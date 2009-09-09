@@ -9,20 +9,31 @@ abstract class BaseUllVentoryItemAttributePreset extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_item_attribute_preset');
-        $this->hasColumn('ull_ventory_item_model_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-        $this->hasColumn('ull_ventory_item_type_attribute_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-        $this->hasColumn('value', 'string', 4000, array('type' => 'string', 'length' => '4000'));
+        $this->hasColumn('ull_ventory_item_model_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
+        $this->hasColumn('ull_ventory_item_type_attribute_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
+        $this->hasColumn('value', 'string', 4000, array(
+             'type' => 'string',
+             'length' => '4000',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasOne('UllVentoryItemModel', array('local' => 'ull_ventory_item_model_id',
-                                                   'foreign' => 'id',
-                                                   'onDelete' => 'CASCADE'));
+    $this->hasOne('UllVentoryItemModel', array(
+             'local' => 'ull_ventory_item_model_id',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
-        $this->hasOne('UllVentoryItemTypeAttribute', array('local' => 'ull_ventory_item_type_attribute_id',
-                                                           'foreign' => 'id',
-                                                           'onDelete' => 'CASCADE'));
+        $this->hasOne('UllVentoryItemTypeAttribute', array(
+             'local' => 'ull_ventory_item_type_attribute_id',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
     }
 }

@@ -9,16 +9,21 @@ abstract class BaseUllVentorySoftware extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_software');
-        $this->hasColumn('name', 'string', 128, array('type' => 'string', 'length' => '128'));
+        $this->hasColumn('name', 'string', 128, array(
+             'type' => 'string',
+             'length' => '128',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllVentoryItemSoftware', array('local' => 'id',
-                                                       'foreign' => 'ull_ventory_software_id'));
+    $this->hasMany('UllVentoryItemSoftware', array(
+             'local' => 'id',
+             'foreign' => 'ull_ventory_software_id'));
 
-        $this->hasMany('UllVentorySoftwareLicense', array('local' => 'id',
-                                                          'foreign' => 'ull_ventory_software_id'));
+        $this->hasMany('UllVentorySoftwareLicense', array(
+             'local' => 'id',
+             'foreign' => 'ull_ventory_software_id'));
     }
 }

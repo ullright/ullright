@@ -8,17 +8,21 @@ abstract class BaseUllUser extends UllEntity
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllGroup', array('refClass' => 'UllEntityGroup',
-                                         'local' => 'ull_entity_id',
-                                         'foreign' => 'ull_group_id'));
+    $this->hasMany('UllGroup', array(
+             'refClass' => 'UllEntityGroup',
+             'local' => 'ull_entity_id',
+             'foreign' => 'ull_group_id'));
 
-        $this->hasMany('TestTable', array('local' => 'id',
-                                          'foreign' => 'ull_user_id'));
+        $this->hasMany('TestTable', array(
+             'local' => 'id',
+             'foreign' => 'ull_user_id'));
 
-        $this->hasMany('UllParentEntity', array('local' => 'id',
-                                                'foreign' => 'superior_ull_user_id'));
+        $this->hasMany('UllParentEntity', array(
+             'local' => 'id',
+             'foreign' => 'superior_ull_user_id'));
 
-        $this->hasMany('UllEntityGroup', array('local' => 'id',
-                                               'foreign' => 'ull_entity_id'));
+        $this->hasMany('UllEntityGroup', array(
+             'local' => 'id',
+             'foreign' => 'ull_entity_id'));
     }
 }

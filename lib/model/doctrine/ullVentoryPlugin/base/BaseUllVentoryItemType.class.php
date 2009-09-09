@@ -9,21 +9,41 @@ abstract class BaseUllVentoryItemType extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_item_type');
-        $this->hasColumn('name', 'string', 128, array('type' => 'string', 'notnull' => true, 'length' => '128'));
-        $this->hasColumn('has_software', 'boolean', null, array('type' => 'boolean'));
+        $this->hasColumn('name', 'string', 128, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '128',
+             ));
+        $this->hasColumn('has_software', 'boolean', null, array(
+             'type' => 'boolean',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllVentoryItemModel', array('local' => 'id',
-                                                    'foreign' => 'ull_ventory_item_type_id'));
+    $this->hasMany('UllVentoryItemModel', array(
+             'local' => 'id',
+             'foreign' => 'ull_ventory_item_type_id'));
 
-        $this->hasMany('UllVentoryItemTypeAttribute', array('local' => 'id',
-                                                            'foreign' => 'ull_ventory_item_type_id'));
+        $this->hasMany('UllVentoryItemTypeAttribute', array(
+             'local' => 'id',
+             'foreign' => 'ull_ventory_item_type_id'));
 
-        $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'name')));
-        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'name'), 'canUpdate' => true));
+        $i18n0 = new Doctrine_Template_I18n(array(
+             'fields' => 
+             array(
+              0 => 'name',
+             ),
+             ));
+        $sluggable0 = new Doctrine_Template_Sluggable(array(
+             'unique' => true,
+             'fields' => 
+             array(
+              0 => 'name',
+             ),
+             'canUpdate' => true,
+             ));
         $this->actAs($i18n0);
         $this->actAs($sluggable0);
     }

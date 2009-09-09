@@ -57,7 +57,7 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
   }
 
   /**
-   * Logic for getting a virtual ullFlow column
+   * Get the value of a virtual ullFlow column
    *
    * @param Doctrine_Record $record
    * @param string $name
@@ -65,7 +65,19 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
    */
   public function filterGet(Doctrine_Record $record, $name)
   {
-    return $record->getValueByColumn($name);
+    if ($record->UllFlowValues)
+    {
+      foreach ($record->UllFlowValues as $ullFlowValue)
+      {
+        if ($ullFlowValue->UllFlowColumnConfig->slug == $name)
+        {
+          return $ullFlowValue->value;
+        }
+      }
+    }
+    // The filter chain in Doctrine_Record::_get() expects an exception if the current 
+    // filter can't resolve the given field
+    throw new InvalidArgumentException('UllFlowDocRecordFilter: invalid virtual column ' . $name);    
   }
   
 }

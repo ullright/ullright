@@ -9,29 +9,51 @@ abstract class BaseUllFlowStep extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_flow_step');
-        $this->hasColumn('ull_flow_app_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
-        $this->hasColumn('label', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
-        $this->hasColumn('is_start', 'boolean', null, array('type' => 'boolean'));
+        $this->hasColumn('ull_flow_app_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
+        $this->hasColumn('slug', 'string', 32, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '32',
+             ));
+        $this->hasColumn('label', 'string', 32, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '32',
+             ));
+        $this->hasColumn('is_start', 'boolean', null, array(
+             'type' => 'boolean',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasOne('UllFlowApp', array('local' => 'ull_flow_app_id',
-                                          'foreign' => 'id',
-                                          'onDelete' => 'CASCADE'));
+    $this->hasOne('UllFlowApp', array(
+             'local' => 'ull_flow_app_id',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
-        $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
-                                                          'foreign' => 'assigned_to_ull_flow_step_id'));
+        $this->hasMany('UllFlowDoc as UllFlowDocs', array(
+             'local' => 'id',
+             'foreign' => 'assigned_to_ull_flow_step_id'));
 
-        $this->hasMany('UllFlowMemory as UllFlowMemories', array('local' => 'id',
-                                                                 'foreign' => 'ull_flow_step_id'));
+        $this->hasMany('UllFlowMemory as UllFlowMemories', array(
+             'local' => 'id',
+             'foreign' => 'ull_flow_step_id'));
 
-        $this->hasMany('UllFlowStepAction as UllFlowStepActions', array('local' => 'id',
-                                                                        'foreign' => 'ull_flow_step_id'));
+        $this->hasMany('UllFlowStepAction as UllFlowStepActions', array(
+             'local' => 'id',
+             'foreign' => 'ull_flow_step_id'));
 
-        $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $i18n0 = new Doctrine_Template_I18n(array(
+             'fields' => 
+             array(
+              0 => 'label',
+             ),
+             ));
         $this->actAs($i18n0);
     }
 }
