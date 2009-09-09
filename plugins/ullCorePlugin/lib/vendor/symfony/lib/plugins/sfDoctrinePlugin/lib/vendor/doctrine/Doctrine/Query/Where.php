@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Where.php 5801 2009-06-02 17:30:27Z piccoloprincipe $
+ *  $Id: Where.php 5056 2008-10-06 18:47:56Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5801 $
+ * @version     $Revision: 5056 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Query_Where extends Doctrine_Query_Condition
@@ -104,7 +104,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
                 $q     = $this->query->createSubquery()->parseQuery($trimmed, false);
                 $sql   = $q->getSql();
                 $value = '(' . $sql . ')';
-                $q->free();
+
             // If custom sql for custom subquery
             // You can specify SQL: followed by any valid sql expression
             // FROM User u WHERE u.id = SQL:(select id from user where id = 1)
@@ -149,9 +149,6 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
 
         $sub = $this->_tokenizer->bracketTrim(substr($where, $pos));
 
-        $q = $this->query->createSubquery()->parseQuery($sub, false);
-        $sql = $q->getSql();
-        $q->free();
-        return $operator . ' (' . $sql . ')';
+        return $operator . ' (' . $this->query->createSubquery()->parseQuery($sub, false)->getQuery() . ')';
     }
 }

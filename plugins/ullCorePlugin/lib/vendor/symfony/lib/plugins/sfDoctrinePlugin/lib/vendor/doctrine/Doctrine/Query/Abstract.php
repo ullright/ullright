@@ -189,13 +189,6 @@ abstract class Doctrine_Query_Abstract
      */
     protected $_queryComponents = array();
 
-	/**
-     * Stores the root DQL alias
-     *
-     * @var string
-     */
-    protected $_rootAlias = '';
-
     /**
      * @var integer $type                   the query type
      *
@@ -821,8 +814,9 @@ abstract class Doctrine_Query_Abstract
         if ( ! $this->_queryComponents) {
           $this->getSql();
         }
+        reset($this->_queryComponents);
 
-        return $this->_rootAlias;
+        return key($this->_queryComponents);
     }
 
     /**
@@ -833,7 +827,7 @@ abstract class Doctrine_Query_Abstract
      */
     public function getRootDeclaration()
     {
-        $map = $this->_queryComponents[$this->_rootAlias];
+        $map = reset($this->_queryComponents);
         return $map;
     }
 
@@ -845,7 +839,7 @@ abstract class Doctrine_Query_Abstract
      */
     public function getRoot()
     {
-        $map = $this->_queryComponents[$this->_rootAlias];
+        $map = reset($this->_queryComponents);
 
         if ( ! isset($map['table'])) {
             throw new Doctrine_Query_Exception('Root component not initialized.');
@@ -942,7 +936,7 @@ abstract class Doctrine_Query_Abstract
         $dql = $this->getDql();
         $params = $this->getParams($params);
         $conn = $this->getConnection();
-        $hash = md5($this->_hydrator->getHydrationMode() . $conn->getName() . $conn->getOption('dsn') . $dql . var_export($params, true));
+        $hash = md5($conn->getName() . $conn->getOption('dsn') . $dql . var_export($params, true));
         return $hash;
     }
 
@@ -1165,23 +1159,19 @@ abstract class Doctrine_Query_Abstract
         $queryComponents = array();
         $cachedComponents = $cached[1];
         foreach ($cachedComponents as $alias => $components) {
-            $e = explode('.', $components['name']);
+            $e = explode('.', $components[0]);
             if (count($e) === 1) {
-                $manager = Doctrine_Manager::getInstance(); 
-                if ($manager->hasConnectionForComponent($e[0])) { 
-                    $this->_conn = $manager->getConnectionForComponent($e[0]); 
-                }
                 $queryComponents[$alias]['table'] = $this->_conn->getTable($e[0]);
             } else {
                 $queryComponents[$alias]['parent'] = $e[0];
                 $queryComponents[$alias]['relation'] = $queryComponents[$e[0]]['table']->getRelation($e[1]);
                 $queryComponents[$alias]['table'] = $queryComponents[$alias]['relation']->getTable();
             }
-            if (isset($components['agg'])) {
-                $queryComponents[$alias]['agg'] = $components['agg'];
+            if (isset($components[1])) {
+                $queryComponents[$alias]['agg'] = $components[1];
             }
-            if (isset($components['map'])) {
-                $queryComponents[$alias]['map'] = $components['map'];
+            if (isset($components[2])) {
+                $queryComponents[$alias]['map'] = $components[2];
             }
         }
         $this->_queryComponents = $queryComponents;
@@ -1202,15 +1192,15 @@ abstract class Doctrine_Query_Abstract
 
         foreach ($this->getQueryComponents() as $alias => $components) {
             if ( ! isset($components['parent'])) {
-                $componentInfo[$alias]['name'] = $components['table']->getComponentName();
+                $componentInfo[$alias][] = $components['table']->getComponentName();
             } else {
-                $componentInfo[$alias]['name'] = $components['parent'] . '.' . $components['relation']->getAlias();
+                $componentInfo[$alias][] = $components['parent'] . '.' . $components['relation']->getAlias();
             }
             if (isset($components['agg'])) {
-                $componentInfo[$alias]['agg'] = $components['agg'];
+                $componentInfo[$alias][] = $components['agg'];
             }
             if (isset($components['map'])) {
-                $componentInfo[$alias]['map'] = $components['map'];
+                $componentInfo[$alias][] = $components['map'];
             }
         }
 
@@ -1405,7 +1395,7 @@ abstract class Doctrine_Query_Abstract
 
         // if there's no params, return (else we'll get a WHERE IN (), invalid SQL)
         if ( ! count($params)) {
-            throw new Doctrine_Query_Exception('You must pass at least one parameter when using an IN() condition.');
+            return $this;
         }
 
         $a = array();
@@ -1912,7 +1902,7 @@ abstract class Doctrine_Query_Abstract
      */
     public function expireResultCache($expire = true)
     {
-        $this->_expireResultCache = $expire;
+        $this->_expireResultCache = true;
         return $this;
     }
 
@@ -1924,7 +1914,7 @@ abstract class Doctrine_Query_Abstract
      */
     public function expireQueryCache($expire = true)
     {
-        $this->_expireQueryCache = $expire;
+        $this->_expireQueryCache = true;
         return $this;
     }
 

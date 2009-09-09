@@ -107,6 +107,32 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   }   
   
   /**
+   * Set the value of a virtual column
+   *
+   * @param string $ullFlowColumnConfigSlug
+   * @param string $value
+   * @return mixed
+   */
+  public function setValueByColumn($ullFlowColumnConfigSlug, $value)
+  {
+    $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
+    $ullFlowValue->value = $value;
+    return $ullFlowValue->save();
+  }  
+  
+  /**
+   * Get the value of a virtual column
+   *
+   * @param string $ullFlowColumnConfigSlug
+   * @return mixed
+   */
+  public function getValueByColumn($ullFlowColumnConfigSlug)
+  {
+    $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
+    return $ullFlowValue->value;
+  }
+  
+  /**
    * Returns an array with the values of the virtual columns
    * 
    * Example: 
@@ -120,9 +146,6 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   public function getVirtualValuesAsArray()
   {
     $values = $this->UllFlowValues;
-    
-//    var_dump($this->toArray(false));
-//    die('schmusi');
     
     $return = array();
     

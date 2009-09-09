@@ -9,17 +9,13 @@ abstract class BaseUllVentoryTaking extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_taking');
-        $this->hasColumn('name', 'string', 128, array(
-             'type' => 'string',
-             'length' => '128',
-             ));
+        $this->hasColumn('name', 'string', 128, array('type' => 'string', 'length' => '128'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllVentoryItemTaking', array(
-             'local' => 'id',
-             'foreign' => 'ull_ventory_taking_id'));
+    $this->hasMany('UllVentoryItemTaking', array('local' => 'id',
+                                                     'foreign' => 'ull_ventory_taking_id'));
     }
 }

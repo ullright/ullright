@@ -35,7 +35,7 @@
 
 class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
     /**
-     *    execution mode
+     *    execution mode 
      */
     protected $executeMode = OCI_COMMIT_ON_SUCCESS;
 
@@ -72,49 +72,29 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
      * $conn = new Doctrine_Adapter_Oracle(array('dbname'=>'db','username'=>'usr','password'=>'pass'));
      * </code>
      *
-     * or
-     *
-     * <code>
-     * Doctrine_Manager::connection(array('oracle:dbname=SID;charset=NLS_CHARACTERSET','usr', 'pass'),"doctrine_connection_name")
-     * </code>
-     *
-     * @param string $name
+     * @param string $name 
      * @return void
      */
-    public function __construct($config = array(), $username = null, $password = null)
+    public function __construct($config = array())
     {
-        if (is_string($config))
-        {
-            $config = str_replace("oracle:","",$config);
-            $parts = explode(";", $config);
-            foreach($parts as $part) {
-                list($var, $value)=explode("=", $part);
-                switch($var)
-                {
-                    case 'dbname':
-                        $this->config['dbname'] = $value;
-                        break;
-                    case 'charset':
-                        $this->config['charset'] = $value;
-                        break;
-                }
-            }
-
-            $this->config['username'] = $username;
-            $this->config['password'] = $password;
-        } else {
-            if ( ! isset($config['password']) || ! isset($config['username'])) {
-                throw new Doctrine_Adapter_Exception('config array must have at least a username and a password');
-            }
-
-            $this->config['username'] = $config['username'];
-            $this->config['password'] = $config['password'];
-            $this->config['dbname']   = $config['dbname'];
-            $this->config['charset']  = $config['charset'];
+        if ( ! isset($config['password']) || ! isset($config['username'])) {
+            throw new Doctrine_Adapter_Exception('config array must have at least a username and a password');
         }
 
-        $this->connection = @oci_connect($this->config['username'], $this->config['password'],
-                                             $this->config['dbname'], $this->config['charset']);
+        $this->config['username'] = $config['username'];
+        $this->config['password'] = $config['password'];
+        $this->config['dbname']   = $config['dbname'];
+        $this->config['charset']  = $config['charset'];
+    }
+    /**
+     * Connect to a database
+     * @throws Doctrine_Adapter_Exception
+     * @return void
+     */
+    private function connect()
+    {
+        $this->connection = @oci_connect($this->config['username'], $this->config['password'], 
+                                         $this->config['dbname'], $this->config['charset']);
 
         if ($this->connection === false) {
             throw new Doctrine_Adapter_Exception(sprintf("Unable to Connect to :'%s' as '%s'", $this->config['dbname'], $this->config['username']));
@@ -129,6 +109,10 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
      */
     public function prepare($query)
     {
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+
         $stmt = new Doctrine_Adapter_Statement_Oracle($this, $query, $this->executeMode);
 
         return $stmt;
@@ -137,11 +121,15 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
     /**
      * Execute query and return results as statement object
      *
-     * @param string $query
+     * @param string $query 
      * @return Doctrine_Adapter_Statement_Oracle $stmt
      */
     public function query($query)
     {
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+
         $stmt = new Doctrine_Adapter_Statement_Oracle($this, $query, $this->executeMode);
         $stmt->execute();
 
@@ -151,7 +139,7 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
     /**
      * Quote a value for the dbms
      *
-     * @param string $input
+     * @param string $input 
      * @return string $quoted
      */
     public function quote($input)
@@ -162,11 +150,15 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
     /**
      * Execute a raw sql statement
      *
-     * @param string $statement
+     * @param string $statement 
      * @return void
      */
     public function exec($statement)
     {
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+
         $stmt = new Doctrine_Adapter_Statement_Oracle($this, $statement, $this->executeMode);
         $stmt->execute();
         $count = $stmt->rowCount();
@@ -191,7 +183,7 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
      */
     public function beginTransaction()
     {
-       $this->executeMode = OCI_DEFAULT;
+       $this->_executeMode = OCI_DEFAULT;
        return true;
     }
 
@@ -202,6 +194,10 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
      */
     public function commit()
     {
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+
         return @oci_commit($this->connection);
     }
 
@@ -212,7 +208,10 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
      */
     public function rollBack()
     {
-        return @oci_rollback($this->connection);
+        if ($this->connection ===false) {
+            $this->connect();
+        }
+       return @oci_rollback($this->connection);
     }
 
     /**
@@ -244,7 +243,7 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
     }
 
     /**
-     * Retrieve a statement attribute
+     * Retrieve a statement attribute 
      *
      * @param integer $attribute
      * @see Doctrine::ATTR_* constants
@@ -254,21 +253,21 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
     {
         return $this->attributes[$attribute];
     }
-
+ 
     /**
      * Returns established OCI connection handler
-     *
-     * @return resource OCI connection handler
+     * 
+     * @return resource OCI connection handler 
      */
     public function getConnection()
     {
         return $this->connection;
     }
-
+    
     public function errorCode()
     {
         if (is_resource($this->connection)) {
-            $error = @oci_error($this->connection);
+            $error = @oci_error($this->connection);            
         } else {
             $error = @oci_error();
         }
@@ -278,7 +277,7 @@ class Doctrine_Adapter_Oracle implements Doctrine_Adapter_Interface{
     public function errorInfo()
     {
         if (is_resource($this->connection)) {
-            $error = @oci_error($this->connection);
+            $error = @oci_error($this->connection);            
         } else {
             $error = @oci_error();
         }

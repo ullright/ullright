@@ -14,7 +14,7 @@
  *
  * @package    sfDoctrinePlugin
  * @author     Jonathan H. Wage <jonwage@gmail.com>
- * @version    SVN: $Id: sfDoctrinePager.class.php 19265 2009-06-15 10:13:34Z Jonathan.Wage $
+ * @version    SVN: $Id: sfDoctrinePager.class.php 14793 2009-01-15 23:15:41Z Jonathan.Wage $
  */
 class sfDoctrinePager extends sfPager implements Serializable
 {
@@ -160,18 +160,18 @@ class sfDoctrinePager extends sfPager implements Serializable
   /**
    * Get all the results for the pager instance
    *
-   * @param integer $hydrationMode Doctrine::HYDRATE_* constants
-   * @return mixed Doctrine_Collection/array
+   * @param integer $fetchtype Doctrine::HYDRATE_* constants
+   * @return Doctrine_Collection
    */
-  public function getResults($hydrationMode = Doctrine::HYDRATE_RECORD)
+  public function getResults($fetchtype = null)
   {
     $p = $this->getQuery();
 
-    if ($hydrationMode == 'array')
+    if ($fetchtype == 'array')
     {
-      $hydrationMode = Doctrine::HYDRATE_ARRAY;
+      return $p->execute(array(), Doctrine::HYDRATE_ARRAY);
     }
 
-    return $p->execute(array(), $hydrationMode);
+    return $p->execute();
   }
 }

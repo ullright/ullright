@@ -23,41 +23,53 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
    */
   public function filterSet(Doctrine_Record $record, $name, $value)
   {
+//    var_dump($record->toArray());
+//    var_dump($name);
+//    var_dump($value);
+    
+//    $q = new Doctrine_Query;
+//    $q
+//      ->from('UllFlowValue v, v.UllFlowColumnConfig c')
+//      ->where('v.ull_flow_doc_id = ?', $record->id)
+//      ->addWhere('c.slug = ?', $name)
+//    ;
+
+    $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($record->ull_flow_app_id, $name);
+    
+    $ullFlowValue = null;
+    
     if ($record->exists())
     {
-      foreach ($record->UllFlowValues as $key => $ullFlowValue)
-      {
-        if ($ullFlowValue->UllFlowColumnConfig->slug == $name)
-        {
-          $record->UllFlowValues[$key]->value = $value;
-          $cc = $ullFlowValue->UllFlowColumnConfig;
-          // also set the subject column of UllFlowDoc
-          if ($cc->is_subject)
-          {
-            $record->subject = $value;
-          }          
-        }
-      }
+      $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($record->id, $name);
+    }
+    
+    if ($ullFlowValue)
+    {
+      $ullFlowValue->value = $value;
+      $ullFlowValue->save();
+      // refresh values in parent record 
+      $record->refreshRelated('UllFlowValues');
     }
     else
     {
-      $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($record->ull_flow_app_id, $name);
-      $ullFlowValue = new UllFlowValue;
-      $ullFlowValue->value = $value;
-      $ullFlowValue->ull_flow_column_config_id = $cc->id;
-      $record->UllFlowValues[] = $ullFlowValue;
-      // also set the subject column of UllFlowDoc
-      if ($cc->is_subject)
-      {
-        $record->subject = $value;
-      }
+      // create new UllFlowValue objects
+      // we have to do it this way because we want to set 2 attributes: value & ull_flow_column_config_id
+      $i = count($record->UllFlowValues);
+      $record->UllFlowValues[$i]->value = $value;
+      $record->UllFlowValues[$i]->ull_flow_column_config_id = $cc->id;
+    }
+    
+    // also set the subject column of UllFlowDoc
+    if ($cc->is_subject)
+    {
+      $record->subject = $value;
     }
     
     return true;
   }
 
   /**
-   * Get the value of a virtual ullFlow column
+   * Logic for getting a virtual ullFlow column
    *
    * @param Doctrine_Record $record
    * @param string $name
@@ -65,19 +77,7 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
    */
   public function filterGet(Doctrine_Record $record, $name)
   {
-    if ($record->UllFlowValues)
-    {
-      foreach ($record->UllFlowValues as $ullFlowValue)
-      {
-        if ($ullFlowValue->UllFlowColumnConfig->slug == $name)
-        {
-          return $ullFlowValue->value;
-        }
-      }
-    }
-    // The filter chain in Doctrine_Record::_get() expects an exception if the current 
-    // filter can't resolve the given field
-    throw new InvalidArgumentException('UllFlowDocRecordFilter: invalid virtual column ' . $name);    
+    return $record->getValueByColumn($name);
   }
   
 }

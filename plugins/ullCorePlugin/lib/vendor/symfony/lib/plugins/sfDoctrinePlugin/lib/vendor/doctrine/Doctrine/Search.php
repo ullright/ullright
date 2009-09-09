@@ -83,8 +83,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
 
             $newQuery = $query->copy();
             $query->getSql();
-            $key = (array) $this->getOption('table')->getIdentifier();
-            $newQuery->addWhere($query->getRootAlias() . '.'.current($key).' IN (SQL:' . $q->getSql() . ')', $q->getParams());
+            $newQuery->addWhere($query->getRootAlias() . '.id IN (SQL:' . $q->getSql() . ')', $q->getParams());
 
             return $newQuery;
         } else {
@@ -172,14 +171,14 @@ class Doctrine_Search extends Doctrine_Record_Generator
 
         $conn      = $this->_options['table']->getConnection();
         $tableName = $this->_options['table']->getTableName();
-        $id        = current($this->_options['table']->getIdentifierColumnNames());
+        $id        = $this->_options['table']->getIdentifier();
 
         $query = 'SELECT * FROM ' . $conn->quoteIdentifier($tableName)
                . ' WHERE ' . $conn->quoteIdentifier($id)
-               . ' IN (SELECT ' . $conn->quoteIdentifier('id')
+               . ' IN (SELECT ' . $conn->quoteIdentifier($id)
                . ' FROM ' . $conn->quoteIdentifier($this->_table->getTableName())
-               . ' WHERE keyword = \'\') OR ' . $conn->quoteIdentifier($id)
-               . ' NOT IN (SELECT ' . $conn->quoteIdentifier('id')
+               . ' WHERE keyword IS NULL) OR ' . $conn->quoteIdentifier($id)
+               . ' NOT IN (SELECT ' . $conn->quoteIdentifier($id)
                . ' FROM ' . $conn->quoteIdentifier($this->_table->getTableName()) . ')';
 
         $query = $conn->modifyLimitQuery($query, $limit, $offset);
@@ -196,41 +195,33 @@ class Doctrine_Search extends Doctrine_Record_Generator
      */
     public function batchUpdateIndex($limit = null, $offset = null)
     {
-        $table = $this->_options['table'];
+        $this->initialize($this->_options['table']);
 
-        $this->initialize($table);
-
-        $id        = current($table->getIdentifierColumnNames());
+        $id        = $this->_options['table']->getIdentifier();
         $class     = $this->_options['className'];
         $fields    = $this->_options['fields'];
         $conn      = $this->_options['connection'];
+        try {
 
-        for ($i = 0; $i < count($fields); $i++) {
-            $fields[$i] = $table->getColumnName($fields[$i], $fields[$i]);
-        }
+            $conn->beginTransaction();
 
-        $rows = $this->readTableData($limit, $offset);
+            $rows = $this->readTableData($limit, $offset);
 
-        $ids = array();
-        foreach ($rows as $row) {
-           $ids[] = $row[$id];
-        }
+            $ids = array();
+            foreach ($rows as $row) {
+                $ids[] = $row[$id];
+            }
 
-        if (count($ids) > 0)
-        {
             $placeholders = str_repeat('?, ', count($ids));
             $placeholders = substr($placeholders, 0, strlen($placeholders) - 2);
 
             $sql = 'DELETE FROM ' 
-                 . $conn->quoteIdentifier($this->_table->getTableName())
-                 . ' WHERE ' . $conn->quoteIdentifier($table->getIdentifier()) . ' IN (' . substr($placeholders, 0) . ')';
+                  . $conn->quoteIdentifier($this->_table->getTableName())
+                  . ' WHERE ' . $conn->quoteIdentifier($id) . ' IN (' . substr($placeholders, 0) . ')';
 
             $conn->exec($sql, $ids);
-        }
 
-        foreach ($rows as $row) {
-            $conn->beginTransaction();
-            try {
+            foreach ($rows as $row) {
                 foreach ($fields as $field) {
                     $data  = $row[$field];
         
@@ -243,18 +234,18 @@ class Doctrine_Search extends Doctrine_Record_Generator
                         $index->position = $pos;
                         $index->field = $field;
                         
-                        foreach ((array) $table->getIdentifier() as $identifier) {
-                            $index->$identifier = $row[$table->getColumnName($identifier, $identifier)];
+                        foreach ((array) $id as $identifier) {
+                            $index->$identifier = $row[$identifier];
                         }
     
                         $index->save();
                     }
                 }
-                $conn->commit();
-            } catch (Doctrine_Exception $e) {
-                $conn->rollback();
-                throw $e;
             }
+
+            $conn->commit();
+        } catch (Doctrine_Exception $e) {
+            $conn->rollback();
         }
     }
 
@@ -273,8 +264,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
 
         $className = $this->getOption('className');
 
-        $autoLoad = (bool) ($this->_options['generateFiles']);
-        if (class_exists($className, $autoLoad)) {
+        if (class_exists($className)) {
             return false;
         }
 

@@ -9,59 +9,33 @@ abstract class BaseUllFlowApp extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_flow_app');
-        $this->hasColumn('slug', 'string', 32, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '32',
-             ));
-        $this->hasColumn('label', 'string', 64, array(
-             'type' => 'string',
-             'length' => '64',
-             ));
-        $this->hasColumn('doc_label', 'string', 64, array(
-             'type' => 'string',
-             'length' => '64',
-             ));
-        $this->hasColumn('list_columns', 'string', 255, array(
-             'type' => 'string',
-             'length' => '255',
-             ));
-        $this->hasColumn('is_public', 'boolean', null, array(
-             'type' => 'boolean',
-             ));
+        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
+        $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
+        $this->hasColumn('doc_label', 'string', 64, array('type' => 'string', 'length' => '64'));
+        $this->hasColumn('list_columns', 'string', 255, array('type' => 'string', 'length' => '255'));
+        $this->hasColumn('is_public', 'boolean', null, array('type' => 'boolean'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllPermission', array(
-             'refClass' => 'UllFlowAppPermission',
-             'local' => 'ull_flow_app_id',
-             'foreign' => 'ull_permission_id'));
+    $this->hasMany('UllPermission', array('refClass' => 'UllFlowAppPermission',
+                                              'local' => 'ull_flow_app_id',
+                                              'foreign' => 'ull_permission_id'));
 
-        $this->hasMany('UllFlowAppPermission', array(
-             'local' => 'id',
-             'foreign' => 'ull_flow_app_id'));
+        $this->hasMany('UllFlowAppPermission', array('local' => 'id',
+                                                     'foreign' => 'ull_flow_app_id'));
 
-        $this->hasMany('UllFlowDoc as UllFlowDocs', array(
-             'local' => 'id',
-             'foreign' => 'ull_flow_app_id'));
+        $this->hasMany('UllFlowDoc as UllFlowDocs', array('local' => 'id',
+                                                          'foreign' => 'ull_flow_app_id'));
 
-        $this->hasMany('UllFlowColumnConfig as UllFlowColumnConfigs', array(
-             'local' => 'id',
-             'foreign' => 'ull_flow_app_id'));
+        $this->hasMany('UllFlowColumnConfig as UllFlowColumnConfigs', array('local' => 'id',
+                                                                            'foreign' => 'ull_flow_app_id'));
 
-        $this->hasMany('UllFlowStep as UllFlowSteps', array(
-             'local' => 'id',
-             'foreign' => 'ull_flow_app_id'));
+        $this->hasMany('UllFlowStep as UllFlowSteps', array('local' => 'id',
+                                                            'foreign' => 'ull_flow_app_id'));
 
-        $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' => 
-             array(
-              0 => 'label',
-              1 => 'doc_label',
-             ),
-             ));
+        $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label', 1 => 'doc_label')));
         $this->actAs($i18n0);
     }
 }

@@ -18,7 +18,7 @@
  * @subpackage exception
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author     Sean Kerr <sean@code-box.org>
- * @version    SVN: $Id: sfException.class.php 18492 2009-05-20 14:19:35Z nicolas $
+ * @version    SVN: $Id: sfException.class.php 17858 2009-05-01 21:22:50Z FabianLange $
  */
 class sfException extends Exception
 {
@@ -275,7 +275,7 @@ class sfException extends Exception
    */
   static protected function formatArrayAsHtml($values)
   {
-    return '<pre>'.self::escape(@sfYaml::dump($values)).'</pre>';
+    return '<pre>'.htmlspecialchars(@sfYaml::Dump($values), ENT_QUOTES, sfConfig::get('sf_charset', 'UTF-8')).'</pre>';
   }
 
   /**
@@ -321,45 +321,26 @@ class sfException extends Exception
     {
       if (is_object($value))
       {
-        $formattedValue = ($format == 'html' ? '<em>object</em>' : 'object').sprintf("('%s')", get_class($value));
+        $result[] = ($format == 'html' ? '<em>object</em>' : 'object').'(\''.get_class($value).'\')';
       }
       else if (is_array($value))
       {
-        $formattedValue = ($format == 'html' ? '<em>array</em>' : 'array').sprintf("(%s)", self::formatArgs($value));
+        $result[] = ($format == 'html' ? '<em>array</em>' : 'array').'('.self::formatArgs($value).')';
       }
-      else if (is_string($value))
+      else if ($value === null)
       {
-        $formattedValue = ($format == 'html' ? sprintf("'%s'", self::escape($value)) : "'$value'");
+        $result[] = $format == 'html' ? '<em>null</em>' : 'null';
       }
-      else if (is_null($value))
+      else if (!is_int($key))
       {
-        $formattedValue = ($format == 'html' ? '<em>null</em>' : 'null');
+        $result[] = $format == 'html' ? "'$key' =&gt; '$value'" : "'$key' => '$value'";
       }
       else
       {
-        $formattedValue = $value;
+        $result[] = "'".$value."'";
       }
-      
-      $result[] = is_int($key) ? $formattedValue : sprintf("'%s' => %s", self::escape($key), $formattedValue);
     }
 
     return implode(', ', $result);
-  }
-  
-  /**
-   * Escapes a string value with html entities
-   *
-   * @param  string  $value
-   *
-   * @return string
-   */
-  static protected function escape($value)
-  {
-    if (!is_string($value))
-    {
-      return $value;
-    }
-    
-    return htmlspecialchars($value, ENT_QUOTES, sfConfig::get('sf_charset', 'UTF-8'));
   }
 }

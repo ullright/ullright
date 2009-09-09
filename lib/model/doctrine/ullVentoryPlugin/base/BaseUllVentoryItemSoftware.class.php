@@ -9,39 +9,25 @@ abstract class BaseUllVentoryItemSoftware extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_item_software');
-        $this->hasColumn('ull_ventory_item_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
-        $this->hasColumn('ull_ventory_software_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
-        $this->hasColumn('ull_ventory_software_license_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
-        $this->hasColumn('comment', 'string', 4000, array(
-             'type' => 'string',
-             'length' => '4000',
-             ));
+        $this->hasColumn('ull_ventory_item_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+        $this->hasColumn('ull_ventory_software_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+        $this->hasColumn('ull_ventory_software_license_id', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasOne('UllVentoryItem', array(
-             'local' => 'ull_ventory_item_id',
-             'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+    $this->hasOne('UllVentoryItem', array('local' => 'ull_ventory_item_id',
+                                              'foreign' => 'id',
+                                              'onDelete' => 'CASCADE'));
 
-        $this->hasOne('UllVentorySoftware', array(
-             'local' => 'ull_ventory_software_id',
-             'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+        $this->hasOne('UllVentorySoftware', array('local' => 'ull_ventory_software_id',
+                                                  'foreign' => 'id',
+                                                  'onDelete' => 'CASCADE'));
 
-        $this->hasOne('UllVentorySoftwareLicense', array(
-             'local' => 'ull_ventory_software_license_id',
-             'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+        $this->hasOne('UllVentorySoftwareLicense', array('local' => 'ull_ventory_software_license_id',
+                                                         'foreign' => 'id',
+                                                         'onDelete' => 'CASCADE'));
     }
 }

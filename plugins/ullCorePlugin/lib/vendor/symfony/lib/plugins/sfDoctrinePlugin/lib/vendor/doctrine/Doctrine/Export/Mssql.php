@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php 5824 2009-06-04 15:17:57Z jwage $
+ *  $Id: Mssql.php 5203 2008-11-21 12:36:27Z guilhermeblanco $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5824 $
+ * @version     $Revision: 5203 $
  */
 class Doctrine_Export_Mssql extends Doctrine_Export
 {
@@ -61,7 +61,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
     public function dropDatabase($name)
     {
         $name = $this->conn->quoteIdentifier($name, true);
-        return $this->conn->standaloneQuery('DROP DATABASE ' . $name, array(), true);
+        return $this->conn->standaloneQuery('DROP DATABASE ' . $name, null, true);
     }
 
     /**
@@ -255,82 +255,38 @@ class Doctrine_Export_Mssql extends Doctrine_Export
     }
 
     /**
-     * create a new table
+     * Obtain DBMS specific SQL code portion needed to set an index
+     * declaration to be used in statements like CREATE TABLE.
      *
-     * @param string $name   Name of the database that should be created
-     * @param array $fields  Associative array that contains the definition of each field of the new table
-     *                       The indexes of the array entries are the names of the fields of the table an
-     *                       the array entry values are associative arrays like those that are meant to be
-     *                       passed with the field definitions to get[Type]Declaration() functions.
-     *                          array(
-     *                              'id' => array(
-     *                                  'type' => 'integer',
-     *                                  'unsigned' => 1
-     *                                  'notnull' => 1
-     *                                  'default' => 0
-     *                              ),
-     *                              'name' => array(
-     *                                  'type' => 'text',
-     *                                  'length' => 12
-     *                              ),
-     *                              'password' => array(
-     *                                  'type' => 'text',
-     *                                  'length' => 12
-     *                              )
-     *                          );
-     * @param array $options  An associative array of table options:
-     *
-     * @return string
+     * @param string $name          name of the index
+     * @param array $definition     index definition
+     * @return string               DBMS specific SQL code portion needed to set an index
      */
-    public function createTableSql($name, array $fields, array $options = array())
+    public function getIndexDeclaration($name, array $definition)
     {
-        if ( ! $name) {
-            throw new Doctrine_Export_Exception('no valid table name specified');
-        }
+        $name   = $this->conn->quoteIdentifier($name);
+        $type   = '';
 
-        if (empty($fields)) {
-            throw new Doctrine_Export_Exception('no fields specified for table ' . $name);
-        }
-
-        $queryFields = $this->getFieldDeclarationList($fields);
-
-
-        if (isset($options['primary']) && ! empty($options['primary'])) {
-            $primaryKeys = array_map(array($this->conn, 'quoteIdentifier'), array_values($options['primary']));
-            $queryFields .= ', PRIMARY KEY(' . implode(', ', $primaryKeys) . ')';
-        }
-
-        $query = 'CREATE TABLE ' . $this->conn->quoteIdentifier($name, true) . ' (' . $queryFields;
-        
-        $check = $this->getCheckDeclaration($fields);
-
-        if ( ! empty($check)) {
-            $query .= ', ' . $check;
-        }
-
-        $query .= ')';
-
-        $sql[] = $query;
-        
-        if (isset($options['indexes']) && ! empty($options['indexes'])) {
-            foreach($options['indexes'] as $index => $definition) {
-                if (is_array($definition)) {
-                    $sql[] = $this->createIndexSql($name,$index, $definition);
-                }
+        if (isset($definition['type'])) {
+            if (strtolower($definition['type']) == 'unique') {
+                $type = strtoupper($definition['type']);
+            } else {
+                throw new Doctrine_Export_Exception(
+                    'Unknown type ' . $definition['type'] . ' for index ' . $name
+                );
             }
         }
-        
-        if (isset($options['foreignKeys'])) {
 
-            foreach ((array) $options['foreignKeys'] as $k => $definition) {
-                if (is_array($definition)) {
-                    $sql[] = $this->createForeignKeySql($name, $definition);
-                }
-            }
+        if ( ! isset($definition['fields']) || ! is_array($definition['fields'])) {
+            throw new Doctrine_Export_Exception('No columns given for index ' . $name);
         }
-        return $sql;
+
+        $query = 'CONSTRAINT ' . $name . ' ' . $type;
+        $query .= ' (' . $this->getIndexFieldDeclarationList($definition['fields']) . ')';
+
+        return $query;
     }
-
+    
     /**
      * getNotNullFieldDeclaration
      * Obtain DBMS specific SQL code portion needed to set a NOT NULL
@@ -341,9 +297,6 @@ class Doctrine_Export_Mssql extends Doctrine_Export
      */
     public function getNotNullFieldDeclaration(array $definition)
     {
-        return (
-            (isset($definition['notnull']) && $definition['notnull']) || 
-            (isset($definition['primary']) && $definition['primary'])
-        ) ? ' NOT NULL' : ' NULL';
+        return (isset($definition['notnull']) && $definition['notnull']) ? ' NOT NULL' : ' NULL';
     }
 }

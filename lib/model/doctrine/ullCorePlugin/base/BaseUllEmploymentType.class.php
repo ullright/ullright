@@ -9,32 +9,17 @@ abstract class BaseUllEmploymentType extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_employment_type');
-        $this->hasColumn('slug', 'string', 64, array(
-             'type' => 'string',
-             'notnull' => true,
-             'unique' => true,
-             'length' => '64',
-             ));
-        $this->hasColumn('name', 'string', 100, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '100',
-             ));
+        $this->hasColumn('slug', 'string', 64, array('type' => 'string', 'notnull' => true, 'unique' => true, 'length' => '64'));
+        $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllParentEntity', array(
-             'local' => 'id',
-             'foreign' => 'ull_employment_type_id'));
+    $this->hasMany('UllParentEntity', array('local' => 'id',
+                                                'foreign' => 'ull_employment_type_id'));
 
-        $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' => 
-             array(
-              0 => 'name',
-             ),
-             ));
+        $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'name')));
         $this->actAs($i18n0);
     }
 }

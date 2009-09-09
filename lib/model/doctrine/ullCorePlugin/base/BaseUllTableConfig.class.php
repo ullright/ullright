@@ -9,37 +9,17 @@ abstract class BaseUllTableConfig extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_table_config');
-        $this->hasColumn('db_table_name', 'string', 32, array(
-             'type' => 'string',
-             'length' => '32',
-             ));
-        $this->hasColumn('label', 'string', 64, array(
-             'type' => 'string',
-             'length' => '64',
-             ));
-        $this->hasColumn('description', 'clob', null, array(
-             'type' => 'clob',
-             ));
-        $this->hasColumn('sort_columns', 'string', 255, array(
-             'type' => 'string',
-             'length' => '255',
-             ));
-        $this->hasColumn('search_columns', 'string', 255, array(
-             'type' => 'string',
-             'length' => '255',
-             ));
+        $this->hasColumn('db_table_name', 'string', 32, array('type' => 'string', 'length' => '32'));
+        $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
+        $this->hasColumn('description', 'clob', null, array('type' => 'clob'));
+        $this->hasColumn('sort_columns', 'string', 255, array('type' => 'string', 'length' => '255'));
+        $this->hasColumn('search_columns', 'string', 255, array('type' => 'string', 'length' => '255'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $i18n0 = new Doctrine_Template_I18n(array(
-             'fields' => 
-             array(
-              0 => 'label',
-              1 => 'description',
-             ),
-             ));
+    $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label', 1 => 'description')));
         $this->actAs($i18n0);
     }
 }

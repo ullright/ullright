@@ -203,7 +203,7 @@ abstract class sfFormDoctrine extends sfForm
     {
       $values = $this->values;
     }
-
+    
     $values = $this->processValues($values);
 
     $this->object->fromArray($values);
@@ -467,7 +467,7 @@ abstract class sfFormDoctrine extends sfForm
 
     $this->removeFile($field);
 
-    return $this->saveFile($field, $filename, $values[$field]);
+    return $this->saveFile($field, $filename);
   }
 
   /**

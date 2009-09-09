@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Compiler.php 5801 2009-06-02 17:30:27Z piccoloprincipe $
+ *  $Id: Compiler.php 3884 2008-02-22 18:26:35Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@
  * @license     http://www.opensource.org/licenses/lgpllicense.php LGPL
  * @link        www.phpdoctrine.
  * @since       1.0
- * @version     $Revision: 5801 $
+ * @version     $Revision: 3884 $
  */
 class Doctrine_Compiler
 {

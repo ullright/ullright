@@ -8,48 +8,26 @@ abstract class BaseTagging extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('tagging');
-        $this->hasColumn('tag_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
-        $this->hasColumn('taggable_model', 'string', 30, array(
-             'type' => 'string',
-             'length' => '30',
-             ));
-        $this->hasColumn('taggable_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
+        $this->hasColumn('tag_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+        $this->hasColumn('taggable_model', 'string', 30, array('type' => 'string', 'length' => '30'));
+        $this->hasColumn('taggable_id', 'integer', null, array('type' => 'integer'));
 
 
-        $this->index('tag', array(
-             'fields' => 
-             array(
-              0 => 'tag_id',
-             ),
-             ));
-        $this->index('taggable', array(
-             'fields' => 
-             array(
-              0 => 'taggable_model',
-              1 => 'taggable_id',
-             ),
-             ));
+        $this->index('tag', array('fields' => array(0 => 'tag_id')));
+        $this->index('taggable', array('fields' => array(0 => 'taggable_model', 1 => 'taggable_id')));
 
         $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);
     }
 
     public function setUp()
     {
-        $this->hasOne('Tag', array(
-             'local' => 'tag_id',
-             'foreign' => 'id'));
+        $this->hasOne('Tag', array('local' => 'tag_id',
+                                   'foreign' => 'id'));
 
-        $this->hasOne('UllWiki', array(
-             'local' => 'taggable_id',
-             'foreign' => 'id'));
+        $this->hasOne('UllWiki', array('local' => 'taggable_id',
+                                       'foreign' => 'id'));
 
-        $this->hasOne('UllFlowDoc', array(
-             'local' => 'taggable_id',
-             'foreign' => 'id'));
+        $this->hasOne('UllFlowDoc', array('local' => 'taggable_id',
+                                          'foreign' => 'id'));
     }
 }

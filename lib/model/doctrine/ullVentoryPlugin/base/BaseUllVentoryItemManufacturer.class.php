@@ -9,18 +9,13 @@ abstract class BaseUllVentoryItemManufacturer extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_item_manufacturer');
-        $this->hasColumn('name', 'string', 128, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '128',
-             ));
+        $this->hasColumn('name', 'string', 128, array('type' => 'string', 'notnull' => true, 'length' => '128'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllVentoryItemModel', array(
-             'local' => 'id',
-             'foreign' => 'ull_ventory_item_manufacturer_id'));
+    $this->hasMany('UllVentoryItemModel', array('local' => 'id',
+                                                    'foreign' => 'ull_ventory_item_manufacturer_id'));
     }
 }

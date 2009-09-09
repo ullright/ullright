@@ -40,7 +40,7 @@ class Doctrine_Validator_Timestamp
      */
     public function validate($value)
     {
-        if (is_null($value)) {
+        if ($value === null) {
             return true;
         }
 

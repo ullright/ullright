@@ -9,31 +9,20 @@ abstract class BaseUllFlowStepAction extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_flow_step_action');
-        $this->hasColumn('ull_flow_step_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
-        $this->hasColumn('ull_flow_action_id', 'integer', null, array(
-             'type' => 'integer',
-             ));
-        $this->hasColumn('options', 'string', 4096, array(
-             'type' => 'string',
-             'length' => '4096',
-             ));
-        $this->hasColumn('sequence', 'integer', null, array(
-             'type' => 'integer',
-             ));
+        $this->hasColumn('ull_flow_step_id', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('ull_flow_action_id', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('options', 'string', 4096, array('type' => 'string', 'length' => '4096'));
+        $this->hasColumn('sequence', 'integer', null, array('type' => 'integer'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasOne('UllFlowStep', array(
-             'local' => 'ull_flow_step_id',
-             'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+    $this->hasOne('UllFlowStep', array('local' => 'ull_flow_step_id',
+                                           'foreign' => 'id',
+                                           'onDelete' => 'CASCADE'));
 
-        $this->hasOne('UllFlowAction', array(
-             'local' => 'ull_flow_action_id',
-             'foreign' => 'id'));
+        $this->hasOne('UllFlowAction', array('local' => 'ull_flow_action_id',
+                                             'foreign' => 'id'));
     }
 }

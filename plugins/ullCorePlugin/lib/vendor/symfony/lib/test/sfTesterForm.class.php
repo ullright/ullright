@@ -14,7 +14,7 @@
  * @package    symfony
  * @subpackage test
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfTesterForm.class.php 20144 2009-07-13 11:07:31Z FabianLange $
+ * @version    SVN: $Id: sfTesterForm.class.php 13481 2008-11-29 14:35:33Z dwhittle $
  */
 class sfTesterForm extends sfTester
 {
@@ -101,7 +101,8 @@ class sfTesterForm extends sfTester
   /**
    * Tests if the submitted form has a specific error.
    *
-   * @param mixed $value The error message or the number of errors for the field (optional)
+   * @param  string $field   The field name to check for an error (null for global errors)
+   * @param  mixed  $message The error message or the number of errors for the field (optional)
    *
    * @return sfTestFunctionalBase|sfTester
    */
@@ -113,8 +114,8 @@ class sfTesterForm extends sfTester
   /**
    * Tests if the submitted form has a specific error.
    *
-   * @param string $field The field name to check for an error (null for global errors)
-   * @param mixed  $value The error message or the number of errors for the field (optional)
+   * @param  string $field   The field name to check for an error (null for global errors)
+   * @param  mixed  $message The error message or the number of errors for the field (optional)
    *
    * @return sfTestFunctionalBase|sfTester
    */

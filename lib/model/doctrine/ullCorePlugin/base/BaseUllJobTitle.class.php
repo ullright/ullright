@@ -9,18 +9,13 @@ abstract class BaseUllJobTitle extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_job_title');
-        $this->hasColumn('name', 'string', 100, array(
-             'type' => 'string',
-             'notnull' => true,
-             'length' => '100',
-             ));
+        $this->hasColumn('name', 'string', 100, array('type' => 'string', 'notnull' => true, 'length' => '100'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllParentEntity', array(
-             'local' => 'id',
-             'foreign' => 'ull_job_title_id'));
+    $this->hasMany('UllParentEntity', array('local' => 'id',
+                                                'foreign' => 'ull_job_title_id'));
     }
 }

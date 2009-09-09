@@ -42,25 +42,24 @@ class Doctrine_Validator_Time
      */
     public function validate($value)
     {
-        if (is_null($value)) {
+        if ($value === null) {
             return true;
         }
 
-		if ( ! preg_match('/^\s*(\d{2}):(\d{2})(:(\d{2}))?(\.(\d{1,6}))?([+-]\d{1,2}(:(\d{2}))?)?\s*$/', $value, $matches)) {
+        $e = explode(':', $value);
+
+        if (count($e) !== 3) {
             return false;
         }
 
-        $hh = (isset($matches[1])) ? intval($matches[1]) : 0;
-        $mm = (isset($matches[2])) ? intval($matches[2]) : 0;
-        $ss = (isset($matches[4])) ? intval($matches[4]) : 0;
-        $ms = (isset($matches[6])) ? intval($matches[6]) : 0;
-        $tz_hh = (isset($matches[7])) ? intval($matches[7]) : 0;
-        $tz_mm = (isset($matches[9])) ? intval($matches[9]) : 0;
+        if ( ! preg_match('/^ *\d{2}:\d{2}:\d{2}(.\d{6}\+\d{2})? *$/', $value)) {
+            return false;
+        }
 
-        return 	($hh >= 0 && $hh <= 23) &&
-				($mm >= 0 && $mm <= 59) &&
-				($ss >= 0 && $ss <= 59) &&
-				($tz_hh >= -13 && $tz_hh <= 14) &&
-				($tz_mm >= 0 && $tz_mm <= 59) ;
+        $hr = intval($e[0], 10);
+        $min = intval($e[1], 10);
+        $sec = intval($e[2], 10);
+
+        return $hr >= 0 && $hr <= 23 && $min >= 0 && $min <= 59 && $sec >= 0 && $sec <= 59;      
     }
 }

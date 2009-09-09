@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(51, new lime_output_color, $configuration);
+$t = new myTestCase(52, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -105,6 +105,14 @@ $t->diag('findPreviousNonStatusOnlyMemory()');
 
   $t->is($doc->findPreviousNonStatusOnlyMemory()->id, $doc->UllFlowMemories[3]->id, 'finds the correct latest non status-only memory');  
   
+$t->begin('setValueByColumn() and getValueByColumn()');
+  $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
+  $doc1->setValueByColumn('my_email', 'luke.skywalker@ull.at');
+  $doc1->save();  
+  
+  $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
+  $t->is($doc1->getValueByColumn('my_email'), 'luke.skywalker@ull.at', 'getValueByColumn() returns the correct value');
+
 $t->begin('getVirtualValuesAsArray()');
   $doc1 = Doctrine::getTable('UllFlowDoc')->find(1);
   $columns = $doc1->getVirtualValuesAsArray();

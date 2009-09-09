@@ -9,57 +9,34 @@ abstract class BaseUllVentoryItem extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_ventory_item');
-        $this->hasColumn('inventory_number', 'string', 128, array(
-             'type' => 'string',
-             'notnull' => true,
-             'unique' => true,
-             'length' => '128',
-             ));
-        $this->hasColumn('serial_number', 'string', 128, array(
-             'type' => 'string',
-             'length' => '128',
-             ));
-        $this->hasColumn('comment', 'string', 4000, array(
-             'type' => 'string',
-             'length' => '4000',
-             ));
-        $this->hasColumn('ull_ventory_item_model_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
-        $this->hasColumn('ull_entity_id', 'integer', null, array(
-             'type' => 'integer',
-             'notnull' => true,
-             ));
+        $this->hasColumn('inventory_number', 'string', 128, array('type' => 'string', 'notnull' => true, 'unique' => true, 'length' => '128'));
+        $this->hasColumn('serial_number', 'string', 128, array('type' => 'string', 'length' => '128'));
+        $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
+        $this->hasColumn('ull_ventory_item_model_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
+        $this->hasColumn('ull_entity_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasOne('UllVentoryItemModel', array(
-             'local' => 'ull_ventory_item_model_id',
-             'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+    $this->hasOne('UllVentoryItemModel', array('local' => 'ull_ventory_item_model_id',
+                                                   'foreign' => 'id',
+                                                   'onDelete' => 'CASCADE'));
 
-        $this->hasOne('UllEntity', array(
-             'local' => 'ull_entity_id',
-             'foreign' => 'id',
-             'onDelete' => 'CASCADE'));
+        $this->hasOne('UllEntity', array('local' => 'ull_entity_id',
+                                         'foreign' => 'id',
+                                         'onDelete' => 'CASCADE'));
 
-        $this->hasMany('UllVentoryItemAttributeValue', array(
-             'local' => 'id',
-             'foreign' => 'ull_ventory_item_id'));
+        $this->hasMany('UllVentoryItemAttributeValue', array('local' => 'id',
+                                                             'foreign' => 'ull_ventory_item_id'));
 
-        $this->hasMany('UllVentoryItemMemory', array(
-             'local' => 'id',
-             'foreign' => 'ull_ventory_item_id'));
+        $this->hasMany('UllVentoryItemMemory', array('local' => 'id',
+                                                     'foreign' => 'ull_ventory_item_id'));
 
-        $this->hasMany('UllVentoryItemTaking', array(
-             'local' => 'id',
-             'foreign' => 'ull_ventory_item_id'));
+        $this->hasMany('UllVentoryItemTaking', array('local' => 'id',
+                                                     'foreign' => 'ull_ventory_item_id'));
 
-        $this->hasMany('UllVentoryItemSoftware', array(
-             'local' => 'id',
-             'foreign' => 'ull_ventory_item_id'));
+        $this->hasMany('UllVentoryItemSoftware', array('local' => 'id',
+                                                       'foreign' => 'ull_ventory_item_id'));
     }
 }

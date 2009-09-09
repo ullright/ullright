@@ -9,32 +9,21 @@ abstract class BaseUllColumnType extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_column_type');
-        $this->hasColumn('class', 'string', 32, array(
-             'type' => 'string',
-             'length' => '32',
-             ));
-        $this->hasColumn('label', 'string', 64, array(
-             'type' => 'string',
-             'length' => '64',
-             ));
-        $this->hasColumn('description', 'clob', null, array(
-             'type' => 'clob',
-             ));
+        $this->hasColumn('class', 'string', 32, array('type' => 'string', 'length' => '32'));
+        $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
+        $this->hasColumn('description', 'clob', null, array('type' => 'clob'));
     }
 
     public function setUp()
     {
         parent::setUp();
-    $this->hasMany('UllFlowColumnConfig as UllFlowColumnConfigs', array(
-             'local' => 'id',
-             'foreign' => 'ull_column_type_id'));
+    $this->hasMany('UllFlowColumnConfig as UllFlowColumnConfigs', array('local' => 'id',
+                                                                            'foreign' => 'ull_column_type_id'));
 
-        $this->hasMany('UllColumnConfig', array(
-             'local' => 'id',
-             'foreign' => 'ull_column_type_id'));
+        $this->hasMany('UllColumnConfig', array('local' => 'id',
+                                                'foreign' => 'ull_column_type_id'));
 
-        $this->hasMany('UllVentoryItemAttribute', array(
-             'local' => 'id',
-             'foreign' => 'ull_column_type_id'));
+        $this->hasMany('UllVentoryItemAttribute', array('local' => 'id',
+                                                        'foreign' => 'ull_column_type_id'));
     }
 }

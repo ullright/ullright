@@ -580,13 +580,7 @@ class sfDoctrineFormGenerator extends sfGenerator
     {
       if (isset($index['type']) && $index['type'] == 'unique')
       {
-        $tmp = $index['fields'];
-        if (is_array(array_shift($tmp)))
-        {
-          $uniqueColumns[] = array_keys($index['fields']);
-        } else {
-          $uniqueColumns[] = $index['fields'];
-        }
+        $uniqueColumns[] = $index['fields'];
       }
     }
 

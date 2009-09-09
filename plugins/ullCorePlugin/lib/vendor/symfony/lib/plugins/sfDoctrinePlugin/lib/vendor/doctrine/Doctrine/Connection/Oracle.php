@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Oracle.php 5893 2009-06-16 15:25:42Z jwage $
+ *  $Id: Oracle.php 5116 2008-10-21 20:35:42Z adrive $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.phpdoctrine.org
  * @since       1.0
- * @version     $Revision: 5893 $
+ * @version     $Revision: 5116 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Connection_Oracle extends Doctrine_Connection
@@ -130,10 +130,5 @@ class Doctrine_Connection_Oracle extends Doctrine_Connection
         }
         $column = $columnNames[0];
         return $this->_createLimitSubquery($query, $limit, $offset, $column);
-    }
-
-    public function getTmpConnection($info)
-    {
-        return $this;
     }
 }

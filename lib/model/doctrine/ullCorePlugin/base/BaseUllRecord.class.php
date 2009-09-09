@@ -8,10 +8,7 @@ abstract class BaseUllRecord extends sfDoctrineRecord
     public function setTableDefinition()
     {
         $this->setTableName('ull_record');
-        $this->hasColumn('namespace', 'string', 32, array(
-             'type' => 'string',
-             'length' => '32',
-             ));
+        $this->hasColumn('namespace', 'string', 32, array('type' => 'string', 'length' => '32'));
     }
 
     public function setUp()

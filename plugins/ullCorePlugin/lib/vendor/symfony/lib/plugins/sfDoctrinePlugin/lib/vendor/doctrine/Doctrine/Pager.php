@@ -105,8 +105,7 @@ class Doctrine_Pager
     protected function _initialize($params = array())
     {
         // retrieve the number of items found
-        $countQuery = clone $this->getCountQuery();
-        $count = $countQuery->count($this->getCountQueryParams($params));
+        $count = $this->getCountQuery()->count($this->getCountQueryParams($params));
 
         $this->_setNumResults($count);
         $this->_setExecuted(true); // _adjustOffset relies of _executed equals true = getNumResults()
