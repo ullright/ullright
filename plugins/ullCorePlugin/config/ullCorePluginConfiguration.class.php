@@ -25,10 +25,14 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     {
       $cacheDriver = new Doctrine_Cache_Array();
     }
-//    $manager->setAttribute(Doctrine::ATTR_QUERY_CACHE, $cacheDriver);
     $manager->setAttribute(Doctrine::ATTR_RESULT_CACHE, $cacheDriver);
     
-//    $manager->setAttribute('use_dql_callbacks', true);
+    // disabled because ist has sideeffects which have to be investigated (i18n, ...)
+    //$manager->setAttribute(Doctrine::ATTR_QUERY_CACHE, $cacheDriver);
+    
+    
+    // disabled because ist has sideeffects which have to be investigated
+    // $manager->setAttribute('use_dql_callbacks', true);
   }
 
 }
