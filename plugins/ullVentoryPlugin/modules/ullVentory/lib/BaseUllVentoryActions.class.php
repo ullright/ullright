@@ -36,9 +36,8 @@ class BaseUllVentoryActions extends ullsfActions
     $this->checkPermission('ull_ventory_index');
     
     $this->form = new ullVentoryFilterForm;
-
-    // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
-    $this->return_var = $this->getRequestParameter('return_var');
+    
+    $this->named_queries = new ullNamedQueriesUllVentory;
 
     $this->breadcrumbForIndex();
   }
@@ -62,9 +61,12 @@ class BaseUllVentoryActions extends ullsfActions
     
     $this->generator = new ullVentoryGenerator();
 
+    $this->named_queries = new ullNamedQueriesUllVentory;
+    
     $this->docs = $this->getFilterFromRequest();
     
     $this->generator->buildForm($this->docs);
+    
     
     $filterParam = $request->getParameter('filter');
     $this->displayMassChangeOwnerButton =
@@ -535,7 +537,7 @@ class BaseUllVentoryActions extends ullsfActions
     $this->filter_form = new ullVentoryFilterForm;
     $this->filter_form->bind($this->getRequestParameter('filter'));
     
-    $this->ull_filter = new ullFilter();
+    $this->ull_filter = new ullFilter;
     
     $q = new Doctrine_Query();
     $q->from('
@@ -587,6 +589,8 @@ class BaseUllVentoryActions extends ullsfActions
           break;
       }
     }
+    
+    $this->named_queries->handleFilter($q, $this->ull_filter, $this->getRequest());
     
     $this->order = $this->getRequestParameter('order', 'updated_at');
     $this->order_dir = $this->getRequestParameter('order_dir', 'desc');

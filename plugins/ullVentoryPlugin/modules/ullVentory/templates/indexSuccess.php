@@ -44,10 +44,7 @@
         <h3>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
-        <ul>
-          <li><?php echo ull_link_to(__('Items changed today', null, 'common'), array('action' => 'list')) ?></li>
-          <li><?php echo ull_link_to(__('PCs without software', null, 'common'), array('action' => 'list')) ?></li>
-        </ul>
+        <?php echo $named_queries->renderList(ESC_RAW) ?>
       </div>
       <!-- 
       <div class="tc_query_box color_light_bg">

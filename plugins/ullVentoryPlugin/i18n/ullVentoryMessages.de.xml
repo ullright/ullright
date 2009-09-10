@@ -228,6 +228,14 @@
 <target>Verwalte Inventur-Überprüfungen</target>
 </trans-unit>
 
+<!-- queries -->
+
+<trans-unit id="5000">
+<source>All items modified today</source>
+<target>Alle veränderten Geräte von heute</target>
+</trans-unit>
+
+
     </body>
   </file>
 </xliff>
