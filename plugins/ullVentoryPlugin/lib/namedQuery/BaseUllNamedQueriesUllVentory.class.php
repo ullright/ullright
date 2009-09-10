@@ -15,7 +15,10 @@ class BaseUllNamedQueriesUllVentory extends ullNamedQueries
     $this
       ->setBaseUri('ullVentory/list')
       ->setI18nCatalogue('ullVentoryMessages')
+      ->add('ullNamedQueryUllVentoryAllItems')
       ->add('ullNamedQueryUllVentoryModifiedToday')
+      ->add('ullNamedQueryUllVentoryInactiveUsers')
+      ->add('ullNamedQueryUllVentoryNoSoftware')
     ;
   }
   

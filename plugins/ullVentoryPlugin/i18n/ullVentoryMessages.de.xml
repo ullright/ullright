@@ -235,6 +235,21 @@
 <target>Alle veränderten Geräte von heute</target>
 </trans-unit>
 
+<trans-unit id="5001">
+<source>Items belonging to inactive users</source>
+<target>Geräte inaktiver Benutzer</target>
+</trans-unit>
+
+<trans-unit id="5002">
+<source>Computer without software</source>
+<target>Computer ohne Software</target>
+</trans-unit>
+
+<trans-unit id="5003">
+<source>All items</source>
+<target>Alle Geräte</target>
+</trans-unit>
+
 
     </body>
   </file>
