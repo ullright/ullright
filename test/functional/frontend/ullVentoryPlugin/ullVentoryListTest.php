@@ -22,7 +22,7 @@ $b
 
 $b
   ->diag('Inventory list')
-  ->click('Items changed today')
+  ->click('All items modified today')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'list')
