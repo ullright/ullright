@@ -100,8 +100,16 @@
         <td class="label_column">
           <label for="<?php echo $attribute->offsetGet('value')->renderId() ?>">
           <?php
-            $typeAttribute = Doctrine::getTable('UllVentoryItemTypeAttribute')->findOneById($values['ull_ventory_item_type_attribute_id']);
-            $itemAttribute = UllVentoryItemAttributeTable::findOneByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']);
+
+            foreach ($doc->UllVentoryItemModel->UllVentoryItemType->UllVentoryItemTypeAttribute as $docTypeAttribute)
+            {
+              if ($docTypeAttribute->id == $values['ull_ventory_item_type_attribute_id'])
+              {
+                $typeAttribute = $docTypeAttribute;
+              }
+            }
+            //$itemAttribute = UllVentoryItemAttributeTable::findOneByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']);
+            $itemAttribute = $typeAttribute->UllVentoryItemAttribute;
             echo $itemAttribute->name;
             echo ($typeAttribute->is_mandatory) ? ' *' : '';
           ?>

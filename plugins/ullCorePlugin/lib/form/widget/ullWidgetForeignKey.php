@@ -29,7 +29,19 @@ class ullWidgetForeignKey extends sfWidgetFormInput
       return $return;
     }
     
-    $object = Doctrine::getTable($this->getOption('model'))->find($value);
+    //This is a temporary solution to reduce the
+    //query count in ullVentory list view.
+    $q = new Doctrine_Query();
+    $q
+      ->from($this->getOption('model') . ' x')
+      ->where('x.' . implode(' = ? AND x.', (array) Doctrine::getTable($this->getOption('model'))->getIdentifier()) . ' = ?', $value)
+      ->useResultCache(true)
+      //Test different settings
+      //->setResultCacheLifeSpan(1)
+    ;
+
+    $object = $q->fetchOne();
+
     $method = $this->getOption('method');
     $return .= $object->$method();
     

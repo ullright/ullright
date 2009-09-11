@@ -31,5 +31,11 @@ class ullVentoryAttributeGenerator extends ullTableToolGenerator
     $this->columnsConfig = UllVentoryItemAttributeValueColumnConfigCollection::build(
         $this->attributeValue, $this->defaultAccess, $this->requestAction);
   }
-
+  
+  /**
+   * Not used
+   */
+  protected function buildTableConfig()
+  {
+  } 
 }

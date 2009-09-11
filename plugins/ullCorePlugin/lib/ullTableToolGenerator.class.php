@@ -13,7 +13,7 @@ class ullTableToolGenerator extends ullGenerator
   protected $isHistoryBuilt = false;
   protected $isFutureBuilt = false;
   protected $enableFutureVersions = false;
-
+  
   /**
    * Constructor
    *
@@ -123,8 +123,8 @@ class ullTableToolGenerator extends ullGenerator
    */
   protected function buildTableConfig()
   {
-    $tableConfig = Doctrine::getTable('UllTableConfig')->
-    findOneByDbTableName($this->modelName);
+    $tableConfig = Doctrine::getTable('UllTableConfig')
+      ->findOneByDbTableNameCached($this->modelName);
 
     if (!$tableConfig)
     {

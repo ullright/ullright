@@ -4,5 +4,15 @@
  */
 class PluginUllTableConfigTable extends UllRecordTable
 {
-
+  protected static $cache = array();
+  
+  public static function findOneByDbTableNameCached($name)
+  {
+    if (!(isset(self::$cache[$name])))
+    {
+      self::$cache[$name] = Doctrine::getTable('UllTableConfig')->findOneByDbTableName($name);
+    }
+    
+    return self::$cache[$name];
+  }
 }

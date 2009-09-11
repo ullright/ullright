@@ -62,15 +62,16 @@ class BaseUllVentoryActions extends ullsfActions
     $this->generator = new ullVentoryGenerator();
 
     $this->named_queries = new ullNamedQueriesUllVentory;
-    
+
     $this->docs = $this->getFilterFromRequest();
-    
+
     $this->generator->buildForm($this->docs);
     
     
     $filterParam = $request->getParameter('filter');
     $this->displayMassChangeOwnerButton =
       (is_array($filterParam) && isset($filterParam['ull_entity_id'])) ? true : false;
+     
   }
   
   
@@ -153,7 +154,8 @@ class BaseUllVentoryActions extends ullsfActions
     
     if ($request->hasParameter('inventory_number'))
     {
-      $this->doc = $this->getRoute()->getObject();
+      //$this->doc = $this->getRoute()->getObject();
+      $this->getItemFromRequest();
       $this->entity = $this->doc->UllEntity;
     }
     else
@@ -225,7 +227,6 @@ class BaseUllVentoryActions extends ullsfActions
 //        var_dump($this->generator->getForm()->getErrorSchema());
       }
     }
-    
 //    echo $this->generator->getForm()->debug();
   }
   
@@ -701,6 +702,35 @@ class BaseUllVentoryActions extends ullsfActions
       $this->generator->getForm()->setDefault('ull_entity_id', $this->entity->id);
     }
   }  
+  
+  protected function getItemFromRequest()
+  {
+    if (!$itemId = $this->getRequestParameter('inventory_number'))
+    {
+      throw new InvalidArgumentException('The "inventory_number" parameter is empty');
+    }
+ 
+    $q = new Doctrine_Query();
+    $q
+      //->select('x.*, a1.id, ta1.id, t.id, mo.id, ct1.class, v.value')
+      ->from('
+        UllVentoryItem x, 
+        x.UllVentoryItemModel mo, 
+        mo.UllVentoryItemType t, t.Translation tt,
+        t.UllVentoryItemTypeAttribute ta1,
+        ta1.UllVentoryItemAttribute a1,
+        a1.UllColumnType ct1,
+        mo.UllVentoryItemManufacturer ma,   
+        x.UllEntity e,
+        x.UllVentoryItemAttributeValue v,
+        v.UllVentoryItemTypeAttribute ta2,
+        ta2.UllVentoryItemAttribute a2')
+      ->where('x.inventory_number = ?', $itemId);
+    
+    $this->doc = $q->fetchOne();
+    
+    $this->forward404Unless($this->doc);
+  }
   
 //  protected function handleEntityforEdit()
 //  {

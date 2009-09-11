@@ -34,9 +34,8 @@ class ullVentoryGenerator extends ullTableToolGenerator
    */
   protected function buildColumnsConfig()
   {  
-    $this->columnsConfig = UllVentoryItemColumnConfigCollection::build($this->itemType, $this->defaultAccess, $this->requestAction);
-    
-//    var_dump($this->columnsConfig);die;
+    $this->columnsConfig = UllVentoryItemColumnConfigCollection::build(
+      $this->itemType, $this->defaultAccess, $this->requestAction);
   }
 
   
@@ -69,7 +68,7 @@ class ullVentoryGenerator extends ullTableToolGenerator
       }
       
       $rowId = $this->getRow()->id;
-      $attributeValues = UllVentoryItemAttributeValueTable::findAllByItemId($rowId);
+      $attributeValues = $this->getRow()->UllVentoryItemAttributeValue;
       
       foreach($this->itemType->UllVentoryItemTypeAttribute as $typeAttribute)
       {
@@ -81,7 +80,6 @@ class ullVentoryGenerator extends ullTableToolGenerator
         
         if ($this->isEditAction())
         {
-          //$attributeValue = UllVentoryItemAttributeValueTable::findByItemIdAndTypeAttributeIdOrCreate($this->getRow()->id, $typeAttribute->id);
           $attributeValue = null;
           foreach ($attributeValues as $value)
           {
@@ -95,15 +93,19 @@ class ullVentoryGenerator extends ullTableToolGenerator
           {
             $attributeValue = new UllVentoryItemAttributeValue; 
             $attributeValue->ull_ventory_item_id = $rowId;
-            $attributeValue->ull_ventory_item_type_attribute_id = $typeAttribute->id;
+            $attributeValue->UllVentoryItemTypeAttribute = $typeAttribute;
           }
         }
         
         $attributeGenerator = new ullVentoryAttributeGenerator($attributeValue);
-        $attributesForm->embedForm(count($attributesForm), $attributeGenerator->getForm());          
+        $attributesForm->embedForm(count($attributesForm), $attributeGenerator->getForm());
       }
       
+      //$attributesForm = new sfForm();
       $this->getForm()->embedForm('attributes', $attributesForm);
+      $this->attributes = null;
+      
+      
       
       // SOFTWARE
       if ($this->getRow()->UllVentoryItemModel->UllVentoryItemType->has_software)
