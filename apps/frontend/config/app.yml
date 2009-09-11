@@ -38,4 +38,8 @@ all:
     max_per_page:   30
     
   sfDoctrineActAsTaggablePlugin:
-    limit:          16    
+    limit:          16
+    
+  ull_user:
+    display_name_length_limit:              22
+    display_name_first_name_length_limit:   10

@@ -29,15 +29,18 @@ abstract class PluginUllUser extends BaseUllUser
     $firstNameLength = strlen($firstName);
     $lastNameLength = strlen($lastName);
     
-    if ($firstNameLength + $lastNameLength > 24)
+    $limit = sfConfig::get('app_ull_user_display_name_length_limit', 22);
+    $firstNameLimit = sfConfig::get('app_ull_user_display_name_first_name_length_limit', 10);
+    
+    if ($firstNameLength + $lastNameLength > $limit)
     { 
-      if ($firstNameLength > 8)
+      if ($firstNameLength > $firstNameLimit)
       {
-        $firstName = substr($firstName, 0, 8) . '.';
+        $firstName = substr($firstName, 0, $firstNameLimit) . '.';
         $firstNameLength = strlen($firstName);
       }
       
-      $spaceForLastName = 24 - $firstNameLength;
+      $spaceForLastName = $limit - $firstNameLength;
       
       if ($lastNameLength > $spaceForLastName)
       {
