@@ -21,7 +21,12 @@ class ullFlowSearch extends ullSearch
   public function __construct($ullFlowApp = null)
   {
     $this->ullFlowApp = $ullFlowApp;
-    $this->ullFlowAppId = $this->ullFlowApp->id;
+    
+    if ($this->ullFlowApp != null)
+    {
+      $this->ullFlowAppId = $this->ullFlowApp->id;
+    }
+   
     parent::__construct();
   }
 
@@ -33,7 +38,7 @@ class ullFlowSearch extends ullSearch
    */
   public function __sleep()
   {
-    return array_merge(array('ullFlowAppId'), parent::__sleep());
+    return array_merge(parent::__sleep(), array('ullFlowAppId'));
   }
   
   /*
@@ -42,11 +47,14 @@ class ullFlowSearch extends ullSearch
    */
   public function __wakeup()
   {
-    $this->ullFlowApp = Doctrine::getTable('UllFlowApp')->findById($this->ullFlowAppId);
-    //if the app is not retrievable, remove any search criteria for safety
-    if ($this->ullFlowApp == null)
+    if ($this->ullFlowAppId != null)
     {
-      $this->criterionGroups = array();
+      $this->ullFlowApp = Doctrine::getTable('UllFlowApp')->findById($this->ullFlowAppId);
+      //if the app is not retrievable, remove any search criteria for safety
+      if ($this->ullFlowApp == null)
+      {
+        $this->criterionGroups = array();
+      }
     }
   }
   
