@@ -23,7 +23,30 @@ abstract class PluginUllUser extends BaseUllUser
    */
   public function preUpdate($event)
   {
-    $this->display_name = $this->first_name . ' ' . $this->last_name;
+    $firstName  = $this->first_name;
+    $lastName   = $this->last_name;
+    
+    $firstNameLength = strlen($firstName);
+    $lastNameLength = strlen($lastName);
+    
+    if ($firstNameLength + $lastNameLength > 24)
+    { 
+      if ($firstNameLength > 8)
+      {
+        $firstName = substr($firstName, 0, 8) . '.';
+        $firstNameLength = strlen($firstName);
+      }
+      
+      $spaceForLastName = 24 - $firstNameLength;
+      
+      if ($lastNameLength > $spaceForLastName)
+      {
+        $lastName = substr($lastName, 0, $spaceForLastName) . '.';
+      }
+    }  
+    
+    $this->display_name = $firstName . ' ' . $lastName;
+    
   }   
   
   /**
