@@ -89,33 +89,31 @@
   </tbody>
 </table>
 
+<?php include_partial('ullTableTool/ullSearchAddCriteriaForm', array('addCriteriaForm' => $addCriteriaForm)) ?>
+
 <div class='edit_action_buttons color_light_bg'>
 <h3><?php echo __('Actions', null, 'common')?></h3>
 
-<div class='edit_action_buttons_left'><?php
+  <div class='edit_action_buttons_left'>
+    <ul>
+      <li>
+      <?php echo submit_tag(__('Search', null, 'common'), array('name' => 'searchSubmit')) ?>
+      </li>
+    </ul>
+  </div>
 
-?>
-<ul>
-  <li><?php echo submit_tag(__('Search', null, 'common'), array('name' => 'searchSubmit')) ?></li>
-  <?php
+  <div class='edit_action_buttons_right'>
+    <ul>
+      <li>
+      <?php echo ull_link_to(__('Reset search', null, 'common'), $moduleName. '/resetSearchCriteria') ?>
+      </li>
+    </ul>
+  </div>
 
-  ?>
-</ul>
-</div>
-
-<div class='edit_action_buttons_right'>
-<ul>
-  <li><?php echo ull_link_to(__('Reset search', null, 'common'), $moduleName. '/resetSearchCriteria') ?>
-  </li>
-</ul>
-</div>
-
-<div class="clear"></div>
+  <div class="clear"></div>
 
 </div>
 
-<?php include_partial('ullTableTool/ullSearchAddCriteriaForm', array('addCriteriaForm' => $addCriteriaForm)) ?>
-
-</div>
+</div> <!-- end of edit_container -->
 
 </form>
