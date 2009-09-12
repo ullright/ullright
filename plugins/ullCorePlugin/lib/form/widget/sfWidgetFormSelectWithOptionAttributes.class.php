@@ -39,7 +39,7 @@ class sfWidgetFormSelectWithOptionAttributes extends sfWidgetFormSelect
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $return = '<div style="white-space: nowrap;">';
+    $return = '<div style="white-space: nowrap; display: inline;">';
     
     if ($this->getOption('show_search_box') == true)
     {
