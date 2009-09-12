@@ -1,4 +1,3 @@
-<?php include_partial('ullTableTool/jQueryRequirements')?>
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <h1><?php echo __('Advanced search', null, 'common') . ' - ' . __('User', null, 'common') ?></h1>
 

@@ -1,7 +1,6 @@
 <?php use_javascript('/ullVentoryPlugin/js/editSuccess.js') ?>
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
-<?php //$doc = $sf_data->getRaw('doc') ?>
 
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
@@ -14,9 +13,6 @@
 
 <?php
   // get the correct action to use the correct route (create/edit) 
-//  echo form_tag(url_for('ull_ventory_' . $sf_params->get('action'), $generator->getRow()), 
-//    array('id' => 'ull_ventory_form', 'name' => 'edit_form')) 
-
   if ($sf_params->get('action') == 'createWithType')
   {
     $url = url_for('ullVentory/createWithType') . '/' . $sf_params->get('type');
@@ -39,7 +35,6 @@
 
 <?php // TODO: the action could already provide a ready-to-use list of fields to render...?>
 <?php foreach ($generator->getForm()->getWidgetSchema()->getPositions() as $column_name): ?>
-    <?php //var_dump($generator->getForm()->offsetGet($column_name)->getWidget()) ?>
     <?php if (in_array($column_name, array('ull_ventory_item_manufacturer_id', 'ull_ventory_item_model_id'))): ?>
       <tr>
         <td>
@@ -95,7 +90,7 @@
 </thead>
 <tbody>
 <?php foreach ($generator->getForm()->offsetGet('attributes') as $attribute): ?>
-  <?php $values = $attribute->getValue(); //var_dump($values);die;  ?>
+  <?php $values = $attribute->getValue(); ?>
       <tr>
         <td class="label_column">
           <label for="<?php echo $attribute->offsetGet('value')->renderId() ?>">
@@ -108,7 +103,6 @@
                 $typeAttribute = $docTypeAttribute;
               }
             }
-            //$itemAttribute = UllVentoryItemAttributeTable::findOneByItemTypeAttributeId($values['ull_ventory_item_type_attribute_id']);
             $itemAttribute = $typeAttribute->UllVentoryItemAttribute;
             echo $itemAttribute->name;
             echo ($typeAttribute->is_mandatory) ? ' *' : '';
@@ -160,7 +154,7 @@
   <tbody>
   
     <?php foreach ($generator->getForm()->offsetGet('software') as $software): ?>
-      <?php $values = $software->getValue(); //var_dump($values);  ?>
+      <?php $values = $software->getValue(); ?>
       <tr>
         <td class="label_column">
           <label for="<?php echo $software->offsetGet('enabled')->renderId() ?>"><?php echo Doctrine::getTable('UllVentorySoftware')->findOneById($values['ull_ventory_software_id'])->name ?></label>          
@@ -355,6 +349,4 @@
 
 <?php
   echo ull_js_observer("ull_ventory_form");
-//  use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js');
-//  use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css');
 ?>
