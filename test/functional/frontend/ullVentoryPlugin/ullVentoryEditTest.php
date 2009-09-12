@@ -62,7 +62,7 @@ $b
   ->checkResponseElement($dgsEditAttributes->getFullRowSelector(), 3)
   // memory
   ->checkResponseElement($dgsOwner->getFullRowSelector(), 3)
-  ->click('Save and close')
+  ->click('Save and return to list')
 ;
 
 $b
@@ -93,7 +93,7 @@ $b
   ->setField('fields[attributes][1][value]', 'Laser')
   ->setField('fields[attributes][1][comment]', 'Single pass color')
   
-  ->click('Save and close')  
+  ->click('Save and return to list')  
 ;
   
 $b
@@ -221,7 +221,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'createWithType')
-  ->click('Save and close', array('fields' => array(
+  ->click('Save and return to list', array('fields' => array(
     'inventory_number'                  => '1702',
     'ull_ventory_item_type_id'          => Doctrine::getTable('UllVentoryItemType')->findOneBySlug('notebook')->id,
     'ull_ventory_item_manufacturer_id'  => Doctrine::getTable('UllVentoryItemManufacturer')->findOneByName('Apple')->id,
@@ -348,7 +348,7 @@ $b
   ->setField('fields[attributes][1][value]', '1000') // save a new preset
   ->setField('fields[attributes][2][value]', '2009-07-28') // set a preset that is not presetable
   ->setField('fields[save_preset]', true) 
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
 ;

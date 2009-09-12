@@ -78,7 +78,7 @@
           <li>  
           <?php 
             echo ull_submit_tag(
-              __('Save and close', null, 'common'),
+              __('Save and return to list', null, 'common'),
               array('name' => 'submit|action_slug=save_close', 'form_id' => 'edit_form', 'display_as_link' => true)
             ); 
           ?>

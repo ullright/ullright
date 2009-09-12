@@ -78,7 +78,7 @@ $b->diag('check values and click "save_close"')
 ;
 
 $b->diag('check list')
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()  
   ->isStatusCode(200)    
@@ -100,7 +100,7 @@ $b
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 4) // number of memory entries
   ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)    
@@ -148,7 +148,7 @@ $b
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
   ->setField('fields[my_subject]', 'tag: <i>italy</i>')
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()  
   ->isStatusCode(200)    

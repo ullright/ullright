@@ -148,12 +148,12 @@ $b
 ;
 
 $b
-  ->diag('update (save and close)')
+  ->diag('update (Save and return to list)')
   ->click('Edit')
   ->responseContains('My new test subject')
   ->setField('fields[subject]', 'My new test subject, updated again')
   ->setField('fields[body]', '<b>My body, updated again</b>')
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
@@ -256,7 +256,7 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'create')
   ->setField('fields[subject]', 'tag: <i>italy</i>')
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()  
 

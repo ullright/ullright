@@ -54,7 +54,7 @@ $b
 
 $b
   ->diag('save and close')
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', '1')

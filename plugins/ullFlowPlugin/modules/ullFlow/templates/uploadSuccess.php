@@ -46,7 +46,7 @@
 
 
   <div class='action_buttons_left'>
-      <?php echo ull_button_to(__('Save and close', null, 'common'), 'ullFlow/edit?doc=' . $doc->id) ?>
+      <?php echo ull_button_to(__('Save and return to list', null, 'common'), 'ullFlow/edit?doc=' . $doc->id) ?>
       <div class="clear"></div>
   </div>
 

@@ -47,7 +47,7 @@ $b
   
 $b
   ->diag('Save wiki doc and return')
-  ->click('Save and close')
+  ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
 ;
