@@ -24,12 +24,16 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
+    $this['ull_flow_app_id']
+      ->setLabel(__('Workflow', null, 'ullFlowMessages'))
+    ;    
+    
     if ($this->isListAction())
     {
       if (!$this->app)
       {
         $this['ull_flow_app_id']
-          ->setLabel(__('App', null, 'common'))
+          ->setLabel(__('WF', null, 'ullFlowMessages') . '.')
           ->setMetaWidgetClassName('ullMetaWidgetUllFlowApp')
         ;
       }

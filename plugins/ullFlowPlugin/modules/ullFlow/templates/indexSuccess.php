@@ -1,12 +1,6 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
-<!-- 
-<?php if ($app_slug): ?>
-  <h1><?php echo __('Application') . ' ' . $app->label?></h1>
-<?php else: ?>
-  <h1><?php echo __('Workflows') . ' ' . __('Home') ?></h1>
- <?php endif ?>
- -->
+
 <div id="tc_wrapper">
   <div id="tc_header">
     <!-- add header here -->
@@ -20,7 +14,7 @@
         }
         else
         {
-          echo '<h3>' . __('Applications', null, 'common') . '</h3>';
+          echo '<h3>' . __('Workflows', null, 'ullFlowMessages') . '</h3>';
         }
       ?>
 

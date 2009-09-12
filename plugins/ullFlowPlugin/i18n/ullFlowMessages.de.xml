@@ -69,6 +69,21 @@
         <target>Kommentar muss ausgefüllt werden?</target>
       </trans-unit>
 
+      <trans-unit id="14">
+        <source>Workflow</source>
+        <target>Workflow</target>
+      </trans-unit>
+      
+      <trans-unit id="15">
+        <source>Workflows</source>
+        <target>Workflows</target>
+      </trans-unit>
+      
+      <trans-unit id="16">
+        <source>WF</source>
+        <target>WF</target>
+      </trans-unit>      
+
       <!-- Queries -->
       <trans-unit id="101">
         <source>Entries assigned to me</source>
@@ -89,6 +104,8 @@
         <source>All entries</source>
         <target>Alle Einträge</target>
       </trans-unit>
+      
+      
 
     </body>
   </file>

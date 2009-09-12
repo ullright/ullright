@@ -36,8 +36,6 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeIndex()
   {
-    //    $this->checkAccess('LoggedIn');
-
     $this->form = new ullFlowFilterForm;
 
     $this->breadcrumbForIndex();
@@ -76,11 +74,8 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeList($request)
   {
-    //    $this->checkAccess('LoggedIn');
-    //var_dump($request->getParameterHolder()->getAll());
     if ($request->isMethod('post'))
     {
-      //     var_dump($request->getParameterHolder()->getAll());die;
       $this->ull_reqpass_redirect();
     }
 
@@ -145,8 +140,6 @@ class BaseUllFlowActions extends ullsfActions
   public function executeEdit($request)
   {
     $this->getDocFromRequestOrCreate();
-
-//    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
     
     $accessType = $this->doc->checkAccess();
     $this->redirectToNoAccessUnless($accessType);
@@ -160,11 +153,6 @@ class BaseUllFlowActions extends ullsfActions
     
     $this->generator->buildListOfUllFlowActionHandlers();
 
-    //    var_dump($this->doc->UllFlowStep->UllFlowStepActions->toArray(true));die;
-
-    //    var_dump($this->doc->toArray());
-    //    die;
-
     if ($request->isMethod('post'))
     {
 
@@ -172,9 +160,6 @@ class BaseUllFlowActions extends ullsfActions
 
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
-//                var_dump($request->getParameterHolder()->getAll());
-//                die;
-
         // notify post_save event
         $this->dispatcher->notify(new sfEvent($this, 'ull_flow.post_save', array(
           'doc'        => $this->doc
@@ -251,10 +236,6 @@ class BaseUllFlowActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
-      //      var_dump($this->getRequest()->getParameterHolder()->getAll());
-      //      var_dump($this->getRequest()->getFiles());
-      //      die;
-
       $this->form->bind($request->getParameter('fields'), $this->getRequest()->getFiles('fields'));
 
       if ($this->form->isValid())
@@ -274,8 +255,6 @@ class BaseUllFlowActions extends ullsfActions
         ;
 
         $file->save($path);
-
-        //        var_dump($path);die;
 
         $relativePath = str_replace(sfConfig::get('sf_web_dir'), '', $path);
 
@@ -321,8 +300,6 @@ class BaseUllFlowActions extends ullsfActions
    */
   public function executeWikiLink($request)
   {
-    //    var_dump($this->getRequest()->getParameterHolder()->getAll());
-
     $this->getDocFromRequestOrCreate();
 
     $accessType = $this->doc->checkAccess();
@@ -516,7 +493,6 @@ class BaseUllFlowActions extends ullsfActions
   {
     if ($this->hasRequestParameter('app'))
     {
-      //var_dump("retrieved app");
       $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
     }
   }
@@ -554,7 +530,7 @@ class BaseUllFlowActions extends ullsfActions
 
       $this->ull_filter->add(
         'app',
-      __('Application') . ': ' . $this->app->label
+      __('Workflow', null, 'ullFlowMessages') . ': ' . $this->app->label
       );
     }
 
@@ -632,8 +608,6 @@ class BaseUllFlowActions extends ullsfActions
       }
     }
 
-//$q->leftJoin('x.UllFlowValues v1 WITH v1.UllFlowColumnConfig.slug=?', $this->order);
-
     // order
     $this->order = $this->getRequestParameter('order', 'created_at');
     $orderArray = array_flip(explode(',', $this->order));
@@ -687,9 +661,6 @@ class BaseUllFlowActions extends ullsfActions
 //        var_dump($q->getParams());
 //        die;
 
-
-    //print_r($q->getSql());
-
     $this->pager = new Doctrine_Pager(
     $q,
     $this->getRequestParameter('page', 1),
@@ -697,9 +668,6 @@ class BaseUllFlowActions extends ullsfActions
     );
     $docs = $this->pager->execute();
 
-    //    var_dump($rows->toArray());
-    //    die;
-    //print_r($docs->count()); die;
     return ($docs->count()) ? $docs : new UllFlowDoc;
   }
 
@@ -765,9 +733,6 @@ class BaseUllFlowActions extends ullsfActions
       $mail->send();
     }
 
-    // call ullFlowActionHandler specific mailing
-    //    var_dump(get_class($this->generator->getUllFlowActionHandler()));
-    //    var_dump($this->getRequestParameter('action_slug'));
     $this->generator->getUllFlowActionHandler()->sendMail();
 
   }
