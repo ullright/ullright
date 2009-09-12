@@ -21,8 +21,8 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'index')
-  ->responseContains('Workflows Home')
-  ->responseContains('Applications')
+  ->responseContains('Workflow Home')
+  ->responseContains('Workflows')
   ->responseContains('Trouble ticket tool')
   ->responseContains('Todo list')
 ;  

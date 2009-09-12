@@ -287,6 +287,8 @@ $b
 ;
 $tableConfig = Doctrine::getTable('UllTableConfig')->findOneByDbTableName('TestTable');
 $tableConfig->delete();
+UllTableConfigTable::clearCache();
+
 $b
   ->get('ullTableTool/list/table/TestTable')
   ->checkResponseElement('h3', 'TestTable')

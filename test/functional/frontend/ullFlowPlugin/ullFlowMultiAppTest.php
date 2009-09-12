@@ -36,7 +36,7 @@ $b
 $b
   ->diag('list - column headers')
   ->checkResponseElement($dgsList->getFullHeaderColumnSelector(), 6) // number of columns
-  ->checkResponseElement($dgsList->getHeader('app') . ' > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'App')
+  ->checkResponseElement($dgsList->getHeader('app') . ' > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'WF.')
   ->checkResponseElement($dgsList->getHeader('subject') . ' > a[href*="/ullFlow/list/order/subject/order_dir/asc"]', 'Subject')
   ->checkResponseElement($dgsList->getHeader('created_by') . ' > a', 'Created by')
   ->checkResponseElement($dgsList->getHeader('created_at') . ' > a', 'Created at ↑')  
@@ -53,7 +53,7 @@ $b
 
 $b
   ->diag('list - order by application - the result should be ordered by app ASC, created_at DESC')
-  ->click('App')
+  ->click('WF.')
   ->checkResponseElement($dgsList->get(1, 'subject'), 'AAA My second trouble ticket')
   ->checkResponseElement($dgsList->get(2, 'subject'), 'My first trouble ticket')  
   ->checkResponseElement($dgsList->get(3, 'subject'), 'AAA My second thing todo')

@@ -15,4 +15,9 @@ class PluginUllTableConfigTable extends UllRecordTable
     
     return self::$cache[$name];
   }
+  
+  public static function clearCache()
+  {
+    self::$cache = array();
+  }
 }
