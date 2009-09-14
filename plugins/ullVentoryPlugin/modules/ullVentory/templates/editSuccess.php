@@ -80,6 +80,7 @@
 </table>
 
 
+<?php if (count($generator->getForm()->offsetGet('attributes'))): ?>
 <table class="edit_table" id="ull_ventory_attributes">
 <thead>
   <tr>
@@ -138,7 +139,7 @@
 
 </tbody>
 </table>
-
+<?php endif ?>
 
 
 <?php if ($generator->getForm()->offsetExists('software')): ?>
