@@ -15,10 +15,7 @@
   <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
   
   <li><?php echo ull_button_to(__('Configure table'), 
-      'ullTableTool/list?table=UllTableConfig&filter[search] =' . $table_name);?></li>
-  
-  <li><?php echo ull_button_to(__('Configure columns'), 
-      'ullTableTool/list?table=UllColumnConfig&filter[search] =' . $table_name);?></li>                      
+      'ullTableTool/list?table=UllTableConfig&filter[search] =' . $table_name);?></li>                   
   
   <li>
     <?php echo $filter_form['search']->renderLabel() ?>: 

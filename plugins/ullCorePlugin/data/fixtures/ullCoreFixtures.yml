@@ -241,16 +241,6 @@ UllTableConfig:
     sort_columns: ull_group_id
     search_columns: ull_group_id, ull_permission_id
     namespace:    ullCore
-  ull_column_config_tc:
-    Translation:
-      en:
-        label: Column configuration
-      de:
-        label: Spaltenkonfiguration
-    db_table_name: UllColumnConfig
-    sort_columns: db_table_name
-    search_columns: db_table_name, db_column_name
-    namespace:    ullCore
   ull_table_config_tc:
     Translation:
       en:

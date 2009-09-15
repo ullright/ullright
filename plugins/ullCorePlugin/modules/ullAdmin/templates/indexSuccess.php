@@ -31,7 +31,6 @@
       <h3><?php echo __('Table Administration') ?></h3>
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllTableConfig', __('Manage table configurations')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllColumnConfig', __('Manage column configurations')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllColumnType', __('Manage field types (ullMetaWidgets)')) ?></li>
       </ul> 
       <h3><?php echo __('Workflow') ?></h3>

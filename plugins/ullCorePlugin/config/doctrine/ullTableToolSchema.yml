@@ -35,39 +35,6 @@ UllColumnType:
     description:
       type: clob
 
-UllColumnConfig:
-  package: ullCorePlugin.lib.model.doctrine
-  inheritance:
-    extends: UllRecord
-    type: concrete
-  actAs:
-    I18n:
-      fields: [label, description]
-  columns:
-    # column name 'table' is not possible because it's a mysql reserved word
-    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony
-    db_table_name: 
-      type: string(32)
-    db_column_name:
-      type: string(64)
-    label:
-      type: string(64)
-    description:
-      type: clob
-    ull_column_type_id:
-      type: integer
-      #notnull: true    
-    options:
-      type: clob
-    is_enabled:
-      type: boolean
-      default: true
-    is_in_list:
-      type: boolean
-      default: true
-  relations:
-    UllColumnType:
-
 UllSelect:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
