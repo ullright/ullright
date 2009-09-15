@@ -159,8 +159,6 @@ abstract class ullMetaWidget
     {
       $columnName = $this->columnName;
     }
-
-//    var_dump($this->getForm()->getObject()->toArray());
     
     // set unique validator and required for unique fields
     if (($this->columnConfig->getUnique() == true) && ($this->columnConfig->getAccess() == 'w'))
@@ -197,26 +195,6 @@ abstract class ullMetaWidget
 //      $widget->setOption('add_empty', true); 
 //    }    
     
-    
-//    if ($this->getColumnConfig()->getAccess() == 's')
-//    {
-//      var_dump(get_class($validator));
-//      
-//      // Add an empty first entry to a normal sfWidgetFormSelect
-//      if ($validator instanceof sfValidatorChoice)
-//      {
-//        $choices = $validator->getOption('choices');
-//        
-//        if (!in_array('', $choices))
-//        {
-//          $choices[] = '';
-//        }
-//        
-//        var_dump($choices);
-//        
-//        $validator->setOption('choices', $choices);
-//      }    
-//    }
     
     $this->form->getValidatorSchema()->offsetSet($columnName, $validator);
   }
