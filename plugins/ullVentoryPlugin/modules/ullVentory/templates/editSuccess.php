@@ -49,7 +49,7 @@
           <?php endif ?>        
         
           <?php echo $generator->getForm()->offsetGet($column_name)->render() ?>
-          <?php echo __('or create', null, 'ullVentoryMessages') ?>:
+          <?php echo __('or create', null, 'common') ?>:
           <?php echo $generator->getForm()->offsetGet($column_name . '_create')->render() ?>
           <?php if ($column_name == 'ull_ventory_item_model_id'): ?>
             <?php             
