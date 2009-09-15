@@ -19,4 +19,10 @@ class ullNamedQueryUllFlowAllEntries extends ullNamedQuery
   {
   }
   
+  public function getUri()
+  {
+    //this is overridden because we don't actually want to
+    //modify the query
+    return $this->getBaseUri();
+  }
 }

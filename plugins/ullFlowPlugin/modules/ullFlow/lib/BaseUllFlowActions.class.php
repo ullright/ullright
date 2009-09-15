@@ -47,6 +47,8 @@ class BaseUllFlowActions extends ullsfActions
     {
       $this->app = UllFlowAppTable::findBySlug($this->app_slug);
       $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
+      $this->namedQueries->setBaseUriForExisting($this->namedQueries->getBaseUri() . '?app=' . $this->app->slug);
+      $this->namedQueriesCustom->setBaseUriForExisting($this->namedQueriesCustom->getBaseUri() . '?app=' . $this->app->slug);
     }
     else
     {

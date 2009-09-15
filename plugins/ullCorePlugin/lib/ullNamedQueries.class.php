@@ -129,4 +129,39 @@ abstract class ullNamedQueries extends ullNamedQueryCommon
     }
   }
   
+  /**
+   * Set the base uri, also for existing queries
+   * 
+   * @param string $uri
+   * @return self
+   */
+  public function setBaseUriForExisting($uri)
+  {
+    $this->setBaseUri($uri);
+    
+    foreach ($this->namedQueries as $namedQuery)
+    {
+      $namedQuery->setBaseUri($this->baseUri);
+    }
+
+    return $this;
+  }
+  
+  /**
+   * Set the I18n catalogue, also for existing queries
+   * 
+   * @param string $i18n
+   * @return self
+   */
+  public function setI18nCatalogueForExisting($i18n)
+  {
+    $this->setI18nCatalogue($i18n);
+    
+    foreach ($this->namedQueries as $namedQuery)
+    {
+      $namedQuery->setI18nCatalogue($this->i18nCatalogue);
+    }
+
+    return $this;
+  }
 }
