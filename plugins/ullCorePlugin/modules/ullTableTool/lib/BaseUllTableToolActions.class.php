@@ -124,7 +124,6 @@ class BaseUllTableToolActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
-//      var_dump($request->getParameterHolder()->getAll());die();
       if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id))))
       {
         $this->redirect($this->getUriMemory()->getAndDelete('list'));
@@ -250,7 +249,6 @@ class BaseUllTableToolActions extends ullsfActions
     {
       $defaultOrder = 'id';
     }
-//    var_dump($defaultOrder);die;
     
     $this->order = $this->getRequestParameter('order', $defaultOrder);
     $this->order_dir = $this->getRequestParameter('order_dir', 'asc');
