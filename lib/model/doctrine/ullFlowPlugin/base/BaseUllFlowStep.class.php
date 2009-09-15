@@ -10,7 +10,6 @@ abstract class BaseUllFlowStep extends UllRecord
         parent::setTableDefinition();
         $this->setTableName('ull_flow_step');
         $this->hasColumn('ull_flow_app_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
         $this->hasColumn('label', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
         $this->hasColumn('is_start', 'boolean', null, array('type' => 'boolean'));
     }
@@ -32,6 +31,8 @@ abstract class BaseUllFlowStep extends UllRecord
                                                                         'foreign' => 'ull_flow_step_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'label'), 'canUpdate' => true));
         $this->actAs($i18n0);
+        $this->actAs($sluggable0);
     }
 }

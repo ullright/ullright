@@ -9,7 +9,6 @@ abstract class BaseUllFlowAction extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_flow_action');
-        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
         $this->hasColumn('label', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
         $this->hasColumn('is_status_only', 'boolean', null, array('type' => 'boolean', 'default' => false));
         $this->hasColumn('is_enable_validation', 'boolean', null, array('type' => 'boolean', 'default' => true));
@@ -33,6 +32,8 @@ abstract class BaseUllFlowAction extends UllRecord
                                                                         'foreign' => 'ull_flow_action_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'label'), 'canUpdate' => true));
         $this->actAs($i18n0);
+        $this->actAs($sluggable0);
     }
 }

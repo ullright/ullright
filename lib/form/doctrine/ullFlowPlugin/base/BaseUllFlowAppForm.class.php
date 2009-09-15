@@ -14,28 +14,32 @@ class BaseUllFlowAppForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                  => new sfWidgetFormInputHidden(),
       'namespace'           => new sfWidgetFormInput(),
-      'slug'                => new sfWidgetFormInput(),
       'list_columns'        => new sfWidgetFormInput(),
       'is_public'           => new sfWidgetFormInputCheckbox(),
       'created_at'          => new sfWidgetFormDateTime(),
       'updated_at'          => new sfWidgetFormDateTime(),
       'creator_user_id'     => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'     => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'slug'                => new sfWidgetFormInput(),
       'ull_permission_list' => new sfWidgetFormDoctrineChoiceMany(array('model' => 'UllPermission')),
     ));
 
     $this->setValidators(array(
       'id'                  => new sfValidatorDoctrineChoice(array('model' => 'UllFlowApp', 'column' => 'id', 'required' => false)),
       'namespace'           => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'slug'                => new sfValidatorString(array('max_length' => 32)),
       'list_columns'        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'is_public'           => new sfValidatorBoolean(array('required' => false)),
       'created_at'          => new sfValidatorDateTime(array('required' => false)),
       'updated_at'          => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id'     => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id'     => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'slug'                => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'ull_permission_list' => new sfValidatorDoctrineChoiceMany(array('model' => 'UllPermission', 'required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'UllFlowApp', 'column' => array('slug')))
+    );
 
     $this->widgetSchema->setNameFormat('ull_flow_app[%s]');
 

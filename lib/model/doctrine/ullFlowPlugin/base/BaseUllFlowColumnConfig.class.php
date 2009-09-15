@@ -10,7 +10,6 @@ abstract class BaseUllFlowColumnConfig extends UllRecord
         parent::setTableDefinition();
         $this->setTableName('ull_flow_column_config');
         $this->hasColumn('ull_flow_app_id', 'integer', null, array('type' => 'integer', 'notnull' => true));
-        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
         $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
         $this->hasColumn('sequence', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('ull_column_type_id', 'integer', null, array('type' => 'integer'));
@@ -19,6 +18,8 @@ abstract class BaseUllFlowColumnConfig extends UllRecord
         $this->hasColumn('is_in_list', 'boolean', null, array('type' => 'boolean', 'default' => true));
         $this->hasColumn('is_mandatory', 'boolean', null, array('type' => 'boolean', 'default' => false));
         $this->hasColumn('is_subject', 'boolean', null, array('type' => 'boolean', 'default' => false));
+        $this->hasColumn('is_priority', 'boolean', null, array('type' => 'boolean', 'default' => false));
+        $this->hasColumn('is_tagging', 'boolean', null, array('type' => 'boolean', 'default' => false));
         $this->hasColumn('default_value', 'string', 255, array('type' => 'string', 'length' => '255'));
     }
 
@@ -37,6 +38,8 @@ abstract class BaseUllFlowColumnConfig extends UllRecord
                                                               'foreign' => 'ull_flow_column_config_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label')));
+        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'label'), 'canUpdate' => true));
         $this->actAs($i18n0);
+        $this->actAs($sluggable0);
     }
 }

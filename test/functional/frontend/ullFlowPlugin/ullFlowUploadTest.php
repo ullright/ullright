@@ -29,7 +29,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'upload')
   ->isRequestParameter('doc', '1')  
-  ->isRequestParameter('column', 'upload')
+  ->isRequestParameter('column', 'my_upload')
   ->checkResponseElement('table.ull_flow_upload > tbody > tr', 1)
   ->checkResponseElement('table.ull_flow_upload > tbody > tr > td > a', 'Icons.zip')  
 
@@ -46,7 +46,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'upload')
   ->isRequestParameter('doc', '1')  
-  ->isRequestParameter('column', 'upload')
+  ->isRequestParameter('column', 'my_upload')
   ->checkResponseElement('table.ull_flow_upload > tbody > tr', 2)
   ->checkResponseElement('table.ull_flow_upload > tbody > tr > td > a', 'Icons.zip')
   ->checkResponseElement('table.ull_flow_upload > tbody > tr + tr > td > a', 'test_image.png')

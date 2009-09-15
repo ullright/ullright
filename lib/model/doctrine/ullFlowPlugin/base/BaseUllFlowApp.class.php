@@ -9,7 +9,6 @@ abstract class BaseUllFlowApp extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_flow_app');
-        $this->hasColumn('slug', 'string', 32, array('type' => 'string', 'notnull' => true, 'length' => '32'));
         $this->hasColumn('label', 'string', 64, array('type' => 'string', 'length' => '64'));
         $this->hasColumn('doc_label', 'string', 64, array('type' => 'string', 'length' => '64'));
         $this->hasColumn('list_columns', 'string', 255, array('type' => 'string', 'length' => '255'));
@@ -36,6 +35,8 @@ abstract class BaseUllFlowApp extends UllRecord
                                                             'foreign' => 'ull_flow_app_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'label', 1 => 'doc_label')));
+        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'label'), 'canUpdate' => true));
         $this->actAs($i18n0);
+        $this->actAs($sluggable0);
     }
 }

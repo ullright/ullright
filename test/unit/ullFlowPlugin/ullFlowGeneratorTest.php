@@ -33,30 +33,30 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['my_email'] = $columnConfig;
     
-    $columnConfig = new ullColumnConfiguration('column_priority');
+    $columnConfig = new ullColumnConfiguration('my_priority');
     $columnConfig->setLabel('Priority');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetPriority');
     $columnConfig->setIsInList(false);
     $columnConfig->setDefaultValue('3');
-    $this->columnsConfigMock['column_priority'] = $columnConfig;
+    $this->columnsConfigMock['my_priority'] = $columnConfig;
     
-    $columnConfig = new ullColumnConfiguration('upload');
+    $columnConfig = new ullColumnConfiguration('my_upload');
     $columnConfig->setLabel('Attachments');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUpload');
     $columnConfig->setIsInList(false);
-    $this->columnsConfigMock['upload'] = $columnConfig;
+    $this->columnsConfigMock['my_upload'] = $columnConfig;
     
-    $columnConfig = new ullColumnConfiguration('wiki_link');
+    $columnConfig = new ullColumnConfiguration('my_wiki_link');
     $columnConfig->setLabel('Wiki links');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetWikiLink');
     $columnConfig->setIsInList(false);
-    $this->columnsConfigMock['wiki_link'] = $columnConfig;
+    $this->columnsConfigMock['my_wiki_link'] = $columnConfig;
     
-    $columnConfig = new ullColumnConfiguration('column_tags');
+    $columnConfig = new ullColumnConfiguration('my_tags');
     $columnConfig->setLabel('Tags');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetTaggable');
     $columnConfig->setIsInList(false);
-    $this->columnsConfigMock['column_tags'] = $columnConfig;
+    $this->columnsConfigMock['my_tags'] = $columnConfig;
     
   } 
 

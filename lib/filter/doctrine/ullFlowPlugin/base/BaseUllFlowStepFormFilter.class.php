@@ -16,23 +16,23 @@ class BaseUllFlowStepFormFilter extends BaseFormFilterDoctrine
     $this->setWidgets(array(
       'namespace'       => new sfWidgetFormFilterInput(),
       'ull_flow_app_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllFlowApp', 'add_empty' => true)),
-      'slug'            => new sfWidgetFormFilterInput(),
       'is_start'        => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'slug'            => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
       'namespace'       => new sfValidatorPass(array('required' => false)),
       'ull_flow_app_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllFlowApp', 'column' => 'id')),
-      'slug'            => new sfValidatorPass(array('required' => false)),
       'is_start'        => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'creator_user_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
       'updator_user_id' => new sfValidatorDoctrineChoice(array('required' => false, 'model' => 'UllUser', 'column' => 'id')),
+      'slug'            => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_flow_step_filters[%s]');
@@ -53,12 +53,12 @@ class BaseUllFlowStepFormFilter extends BaseFormFilterDoctrine
       'id'              => 'Number',
       'namespace'       => 'Text',
       'ull_flow_app_id' => 'ForeignKey',
-      'slug'            => 'Text',
       'is_start'        => 'Boolean',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',
       'creator_user_id' => 'ForeignKey',
       'updator_user_id' => 'ForeignKey',
+      'slug'            => 'Text',
     );
   }
 }

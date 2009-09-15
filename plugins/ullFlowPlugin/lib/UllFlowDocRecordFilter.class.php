@@ -59,11 +59,21 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
       $record->UllFlowValues[$i]->ull_flow_column_config_id = $cc->id;
     }
     
-    // also set the subject column of UllFlowDoc
+    // also set the native "duplicate" columns of UllFlowDoc
     if ($cc->is_subject)
     {
       $record->subject = $value;
     }
+    if ($cc->is_priority)
+    {
+      $record->priority = $value;
+    }
+    if ($cc->is_tagging)
+    {
+      $record->duplicate_tags_for_search = $value;
+      // Set tags in taggable behaviour
+      $record->setTags($value);
+    }        
     
     return true;
   }

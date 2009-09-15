@@ -5,11 +5,12 @@ UllFlowApp:
     type: concrete
   actAs:
     I18n:
-      fields: [label, doc_label] 
+      fields: [label, doc_label]
+    Sluggable:
+      unique: true
+      fields: [label]
+      canUpdate: true    
   columns:
-    slug:
-      type: string(32)
-      notnull: true
     label:
       type: string(64)
     doc_label:
@@ -96,14 +97,15 @@ UllFlowColumnConfig:
     type: concrete
   actAs:
     I18n:
-      fields: [label] 
+      fields: [label]
+    Sluggable:
+      unique: true
+      fields: [label]
+      canUpdate: true         
   columns:
     ull_flow_app_id:
       type: integer
-      notnull: true
-    slug:
-      type: string(32)
-      notnull: true                  
+      notnull: true                
     label:
       type: string(64)
     sequence:
@@ -122,6 +124,12 @@ UllFlowColumnConfig:
       type: boolean
       default: false
     is_subject:
+      type: boolean
+      default: false
+    is_priority:
+      type: boolean
+      default: false
+    is_tagging:
       type: boolean
       default: false
     default_value:
@@ -206,12 +214,12 @@ UllFlowAction:
     type: concrete
   actAs:
     I18n:
-      fields: [label] 
+      fields: [label]
+    Sluggable:
+      unique: true
+      fields: [label]
+      canUpdate: true         
   columns:
-    # a slug is a distinguised name, which is 1:1 connected to the id.
-    slug:
-      type: string(32)
-      notnull: true
     label:
       type: string(32)
       notnull: true    
@@ -245,12 +253,13 @@ UllFlowStep:
   actAs:
     I18n:
       fields: [label]
+    Sluggable:
+      unique: true
+      fields: [label]
+      canUpdate: true            
   columns: 
     ull_flow_app_id:
       type: integer
-      notnull: true
-    slug:
-      type: string(32)
       notnull: true
     label:
       type: string(32)

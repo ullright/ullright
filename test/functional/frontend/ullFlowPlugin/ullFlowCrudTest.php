@@ -40,9 +40,9 @@ $b
   ->checkResponseElement('input#fields_memory_comment', true)
   ->setField('fields[my_email]', 'foobar')
   ->setField('fields[memory_comment]', 'My memory comment')
-  ->setField('fields[column_priority]', 2)
-  ->setField('fields[column_tags]', 'my_test_tag')
-  ->setField('fields[information_update]', 'mew, die katze')
+  ->setField('fields[my_priority]', 2)
+  ->setField('fields[my_tags]', 'my_test_tag')
+  ->setField('fields[my_information_update]', 'mew, die katze')
 ;
 
 $b

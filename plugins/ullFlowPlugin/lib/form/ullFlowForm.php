@@ -69,10 +69,6 @@ class ullFlowForm extends ullGeneratorForm
     $this->setNext();
     $this->setMemory();
     
-    $this->object->setTags($this->getValue('column_tags'));
-    $this->object->duplicate_tags_for_search = $this->getValue('column_tags');
-    $this->object->priority = $this->getValue('column_priority');
-    
 //    var_dump($this->object->toArray());die;
     
     return $this->object;

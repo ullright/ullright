@@ -61,6 +61,8 @@ UllGroupPermission:
     UllPermission:      ullFlow_trouble_ticket_global_read
     namespace:          test
 
+
+
 UllFlowApp:
   ull_flow_app_trouble_ticket:
     Translation:
@@ -90,7 +92,9 @@ UllFlowAppPermission:
     UllFlowApp:     ull_flow_app_trouble_ticket
     UllPermission:  ullFlow_trouble_ticket_global_read
     namespace:      test
-                    
+
+# It's not possible to set the virtual column-values here via fixtures
+# @see http://trac.doctrine-project.org/ticket/2493                 
 UllFlowDoc:
   ull_flow_doc_trouble_ticket1:
     UllFlowApp:     ull_flow_app_trouble_ticket    
@@ -192,12 +196,13 @@ UllFlowColumnConfig:
       de:
         label:      Wichtigkeit
     UllFlowApp:     ull_flow_app_trouble_ticket
-    slug:           column_priority
+    slug:           my_priority
     sequence:       4000
     UllColumnType:  priority
     default_value:  3
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
     is_in_list:     false
+    is_priority:    true
     namespace:      test
   ull_flow_column_config_trouble_ticket_upload:
     Translation:
@@ -206,7 +211,7 @@ UllFlowColumnConfig:
       de:
         label:      Anhänge
     UllFlowApp:     ull_flow_app_trouble_ticket
-    slug:           upload
+    slug:           my_upload
     sequence:       5000
     UllColumnType:  upload
     is_in_list:     false  
@@ -218,7 +223,7 @@ UllFlowColumnConfig:
       de:
         label:      Wiki Links
     UllFlowApp:     ull_flow_app_trouble_ticket
-    slug:           wiki_link
+    slug:           my_wiki_link
     sequence:       6000
     UllColumnType:  wiki_link
     is_in_list:     false
@@ -231,10 +236,11 @@ UllFlowColumnConfig:
         label:      Tags
     UllFlowApp:     ull_flow_app_trouble_ticket
     # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
-    slug:           column_tags 
+    slug:           my_tags 
     sequence:       7000
     UllColumnType:  taggable
     is_in_list:     false
+    is_tagging:    true
     namespace:      test    
     
   ull_flow_column_config_todo_subject:
@@ -244,7 +250,7 @@ UllFlowColumnConfig:
       de:
         label:      Meine spezielle Todo-Titel Bezeichnung
     UllFlowApp:     ull_flow_app_todo
-    slug:           my_subject # TODO: test if slug has to be unique
+    slug:           todo_subject
     sequence:       1000
     UllColumnType:  string
     is_mandatory:   true
@@ -259,12 +265,13 @@ UllFlowColumnConfig:
       de:
         label:      Wichtigkeit
     UllFlowApp:     ull_flow_app_todo
-    slug:           column_priority
+    slug:           todo_priority
     sequence:       2000
     UllColumnType:  priority
     default_value:  3
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
     is_in_list:     false
+    is_priority:    true
     namespace:      test    
   ull_flow_column_config_todo_column_tags:
     Translation:
@@ -274,10 +281,11 @@ UllFlowColumnConfig:
         label:      Tags
     UllFlowApp:     ull_flow_app_todo
     # can't be "tags" because it would be ambiguous with the "setTags()" method of the taggable behaviour
-    slug:           column_tags 
+    slug:           todo_tags 
     sequence:       3000
     UllColumnType:  taggable
     is_in_list:     false
+    is_tagging:    true
     namespace:      test              
         
 UllFlowValue:  
@@ -345,7 +353,7 @@ UllFlowValue:
     value:          AAA My second thing todo
     namespace:      test
   ull_flow_value_doc_todo2_column_tags:
-    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowDoc:     ull_flow_doc_todo2
     UllFlowColumnConfig: ull_flow_column_config_todo_column_tags
     value:          ull_flow_tag1
     namespace:      test    

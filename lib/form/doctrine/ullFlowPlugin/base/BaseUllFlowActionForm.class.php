@@ -14,7 +14,6 @@ class BaseUllFlowActionForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'                   => new sfWidgetFormInputHidden(),
       'namespace'            => new sfWidgetFormInput(),
-      'slug'                 => new sfWidgetFormInput(),
       'is_status_only'       => new sfWidgetFormInputCheckbox(),
       'is_enable_validation' => new sfWidgetFormInputCheckbox(),
       'is_notify_creator'    => new sfWidgetFormInputCheckbox(),
@@ -26,12 +25,12 @@ class BaseUllFlowActionForm extends BaseFormDoctrine
       'updated_at'           => new sfWidgetFormDateTime(),
       'creator_user_id'      => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id'      => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'slug'                 => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
       'id'                   => new sfValidatorDoctrineChoice(array('model' => 'UllFlowAction', 'column' => 'id', 'required' => false)),
       'namespace'            => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'slug'                 => new sfValidatorString(array('max_length' => 32)),
       'is_status_only'       => new sfValidatorBoolean(array('required' => false)),
       'is_enable_validation' => new sfValidatorBoolean(array('required' => false)),
       'is_notify_creator'    => new sfValidatorBoolean(array('required' => false)),
@@ -43,7 +42,12 @@ class BaseUllFlowActionForm extends BaseFormDoctrine
       'updated_at'           => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id'      => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'slug'                 => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorDoctrineUnique(array('model' => 'UllFlowAction', 'column' => array('slug')))
+    );
 
     $this->widgetSchema->setNameFormat('ull_flow_action[%s]');
 

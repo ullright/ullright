@@ -22,7 +22,7 @@ $t->setFixturesPath($path);
 $t->begin('ullFlowSearchGeneratorTest - fields');
 
 $sfe = new ullSearchFormEntry();
-$sfe->columnName = 'column_priority';
+$sfe->columnName = 'my_priority';
 $sfe->isVirtual = true;
 $sfe->uuid = 0;
 $sfeArray[] = $sfe;
