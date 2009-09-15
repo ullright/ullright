@@ -40,6 +40,9 @@ class BaseUllFlowActions extends ullsfActions
 
     $this->breadcrumbForIndex();
 
+    $this->namedQueries = new ullNamedQueriesUllFlow();
+    $this->namedQueriesCustom = new ullNamedQueriesUllFlowCustom();
+    
     if ($this->app_slug = $this->getRequestParameter('app'))
     {
       $this->app = UllFlowAppTable::findBySlug($this->app_slug);
@@ -81,6 +84,9 @@ class BaseUllFlowActions extends ullsfActions
 
     $this->getAppfromRequest();
 
+    $this->namedQueries = new ullNamedQueriesUllFlow();
+    $this->namedQueriesCustom = new ullNamedQueriesUllFlowCustom();
+    
     $this->generator = new ullFlowGenerator($this->app);
 
     $docs = $this->getFilterFromRequest($request);
@@ -563,35 +569,6 @@ class BaseUllFlowActions extends ullsfActions
     {
       switch($query)
       {
-        case('by_me'):
-          $q->addWhere('x.creator_user_id = ?', $userId);
-          $this->ull_filter->add(
-            'query',
-          __('Query', null, 'common') . ': ' . __('Entries created by me')
-          );
-          break;
-        case('to_me'):
-          $q->addWhere('x.assigned_to_ull_entity_id = ?', $userId);
-          $this->ull_filter->add(
-            'query',
-          __('Query', null, 'common') . ': ' . __('Entries assigned to me')
-          );
-          break;
-        case('to_me_and_my_groups'):
-          $q->leftJoin('x.UllEntity e_me');
-          $q->leftJoin('e_me.UllEntityGroupsAsGroup aeg_me');
-
-          $q->addWhere('
-            e_me.id = ? 
-            OR aeg_me.ull_entity_id = ?', 
-          array($userId, $userId)
-          );
-
-          $this->ull_filter->add(
-            'query',
-          __('Query', null, 'common') . ': ' . __('Entries assigned to me or my groups')
-          );
-          break;
         case('custom'):
           //add ullSearch to query
           $ullSearch = $this->getUser()->getAttribute('flow_ullSearch', null);
@@ -608,6 +585,17 @@ class BaseUllFlowActions extends ullsfActions
       }
     }
 
+    //namedQueries may not have the correct filter, but
+    //namedQueriesCustom should.
+    try
+    {
+      $this->namedQueries->handleFilter($q, $this->ull_filter, $this->getRequest());
+    }
+    catch (InvalidArgumentException $e)
+    {
+      $this->namedQueriesCustom->handleFilter($q, $this->ull_filter, $this->getRequest());
+    }
+     
     // order
     $this->order = $this->getRequestParameter('order', 'created_at');
     $orderArray = array_flip(explode(',', $this->order));

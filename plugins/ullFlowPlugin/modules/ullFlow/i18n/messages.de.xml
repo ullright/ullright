@@ -19,11 +19,6 @@
 <target>Startseite</target>
 </trans-unit>
 
-<trans-unit id="4">
-<source>All entries</source>
-<target>Alle Einträge</target>
-</trans-unit>
-
 <trans-unit id="5">
 <source>Wiki</source>
 <target>Wiki</target>
@@ -79,21 +74,6 @@
 
 <!-- action 'index' -->
 
-<trans-unit id="1501">
-<source>Entries created by me</source>
-<target>Von mir erstellte Einträge</target>
-</trans-unit>
-
-<trans-unit id="1502">
-<source>Entries assigned to me</source>
-<target>An mich zugewiesene Einträge</target>
-</trans-unit>
-
-<trans-unit id="1503">
-<source>Entries created by me</source>
-<target>Von mir erstellte Einträge</target>
-</trans-unit>
-
 <trans-unit id="1504">
 <source>Custom queries</source>
 <target>Individuelle Abfragen</target>
@@ -102,11 +82,6 @@
 <trans-unit id="1505">
 <source>Last changed entries</source>
 <target>Zuletzt geänderte Einträge</target>
-</trans-unit>
-
-<trans-unit id="1506">
-<source>Entries assigned to me or my groups</source>
-<target>An mich oder meine Gruppen zugewiesene Einträge</target>
 </trans-unit>
 
 <!-- action 'list' -->

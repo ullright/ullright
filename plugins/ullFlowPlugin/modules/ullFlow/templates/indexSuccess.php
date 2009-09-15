@@ -77,32 +77,18 @@
         <h3>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
-        <ul>
-          <li><?php echo ull_link_to(__('All entries'), array('action' => 'list')) ?></li>
-          <li><?php echo ull_link_to(__('Entries created by me'), array('action' => 'list', 'query' => 'by_me')) ?></li>
-          <li><?php echo ull_link_to(__('Entries assigned to me'), array('action' => 'list', 'query' => 'to_me')) ?></li>
-          <li><?php echo ull_link_to(__('Entries assigned to me or my groups'), array('action' => 'list', 'query' => 'to_me_and_my_groups')) ?></li>
-        </ul>
+        <?php echo $namedQueries->renderList(ESC_RAW) ?>
       </div>
       <?php
-        if (class_exists('UllFlowCustomQueries')):
-        
+        if (class_exists('ullNamedQueriesUllFlowCustom')):  
       ?>
         <div class="tc_query_box color_light_bg">
         <h3>
           <?php echo __('Individual queries', null, 'common') ?>
         </h3>
-        <ul>
-         <?php 
-            $u = new UllFlowCustomQueries;
-            foreach ($u->getAllQueries() as $cqkey => $cqvalue)
-            {
-            	echo '<li>' . ull_link_to(__($cqkey), __($cqvalue)) . '</li>';
-            }
-            endif
-         ?>
-        </ul>
+        <?php echo $namedQueriesCustom->renderList(ESC_RAW) ?>
       </div>
+      <?php endif ?>
     </div>
   </div>
   <div id="tc_footer">
