@@ -15,7 +15,6 @@
  */
 class ullTableToolHistoryGenerator extends ullTableToolGenerator
 {
-  protected $columnsBlacklist = array();
   protected $updator;
   protected $updated_at;
   protected $scheduled_update_date;
@@ -37,15 +36,18 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
     foreach ($curRow->toArray() as $key => $value)
     {
       if (!array_key_exists($key, $changes))
-      $this->columnsBlacklist[] = $key;
+      $this->columnsConfig[$key]->disable();
     }
-    $this->columnsBlacklist[] = 'version';
-    $this->columnsBlacklist[] = 'updated_at';
-    $this->columnsBlacklist[] = 'updator_user_id';
-    $this->columnsBlacklist[] = 'created_at';
-    $this->columnsBlacklist[] = 'creator_user_id';
-    $this->columnsBlacklist[] = 'scheduled_update_date';
-    $this->columnsBlacklist[] = 'type';
+    
+    $this->columnsConfig->disable(array(
+      'version',
+      'updated_at',
+      'updator_user_id',
+      'created_at',
+      'creator_user_id',
+      'scheduled_update_date',
+      'type'    
+    ));
 
     //->Updator is available in Version as well
     $this->updator = $curRow->Updator;
@@ -68,7 +70,6 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
         $this->scheduledUpdater = $versionRecord->Updator;
       }
     }
-    parent::removeBlacklistColumns();
     parent::buildForm($curRow);
   }
   

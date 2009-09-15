@@ -46,13 +46,9 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
           'updator_user_id',
           'updated_at',
     ),
-    $readOnly = array(
-          'creator_user_id',
-          'created_at',
-          'updator_user_id',
-          'updated_at',
-    ),
-    $notInList = array(
+    $showOnlyInEditModeAndReadOnly = array(
+          'id',
+          'slug',
           'creator_user_id',
           'created_at',
           'updator_user_id',
@@ -121,7 +117,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    */
   protected function buildCollection()
   {
-    $this->buildColumns();
+    $this->buildColumns();    
     
     $this->createColumnConfigs();
     
@@ -201,20 +197,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       ;
     }
 
-    $this->setReadOnly();
-    
-    if ($this->isListAction())
-    {
-      $this->blacklist($this->notInList);
-    }
-    
-    if ($this->isCreateOrEditAction())
-    {
-      if (isset($this['slug']))
-      {
-        $this['slug']->disable();
-      }
-    }
+    $this->showOnlyInEditModeAndReadOnly();
     
     $this->blacklist();
     
@@ -244,16 +227,31 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   
   
   /**
-   * Set columns which are always read only
-   *
+   * Remove columns except in edit mode -> display readonly
+   * 
+   * @return none
    */
-  protected function setReadOnly()
+  protected function showOnlyInEditModeAndReadOnly()
   {
-    foreach($this->readOnly as $column)
+    foreach ($this->showOnlyInEditModeAndReadOnly as $column)
     {
-      $this->collection[$column]->setAccess('r');
+      if ($this->isEditAction())
+      {
+        if (isset($this->collection[$column]))
+        {
+          $this->collection[$column]->setAccess('r');
+        }
+      }
+      else
+      {
+        if (isset($this->collection[$column]))
+        {
+          $this->collection[$column]->disable();
+        }    
+      } 
     }
   }
+  
   
   /**
    * Apply Doctrine settings
@@ -266,7 +264,9 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     {
       $this->applyDoctrineColumnSettings($columnName, $columnConfig);
       $this->applyDoctrineRelationSettings($columnName, $columnConfig);
-    }    
+    }
+
+    $this->orderTranslatedColumns();
   }    
 
   
@@ -302,8 +302,6 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       }
     }  
     
-//    var_dump($this->columnConfigColumns['my_email']);die;
-
     if (isset($column['notnull']))
     {
       $columnConfig->setValidatorOption('required', true);
@@ -317,10 +315,15 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     if (isset($column['primary']))
     {
       $columnConfig
-        ->setAccess('r')
         ->setUnique(true)
         ->setValidatorOption('required', true)
-      ;
+      ;      
+      
+      // don't re-enable inactive columns
+      if ($columnConfig->isActive())
+      {
+        $columnConfig->setAccess('r');
+      }
     }    
       
   }
@@ -429,6 +432,40 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   
   
   /**
+   * Move translated columns to the top of the list (after "id")
+   * Reason: the translated columns are often descriptive, and are expected to be on top
+   *
+   * @return none
+   */
+  protected function orderTranslatedColumns()
+  {
+    $order = array_merge(array('id'), $this->getTranslatedColumns());
+    
+    $this->order($order);
+  }
+  
+  
+  /**
+   * Returns an array with the names of translated columns
+   * 
+   * @return array
+   */
+  public function getTranslatedColumns()
+  {
+    $translatedColumns = array();
+    foreach ($this->collection as $key => $columnConfig)
+    {
+      if ($columnConfig->getTranslated())
+      {
+        $translatedColumns[] = $key;
+      }
+    } 
+    
+    return $translatedColumns;
+  }
+  
+  
+  /**
    * Empty method to be overwritten by child classes
    * 
    * @return unknown_type
@@ -460,10 +497,22 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     return array_keys($this->collection);
   }
   
+  
+  /**
+   * Orders the collection using ullCoreTools::orderArrayByArray
+   * 
+   * From ullCoreTools::orderArrayByArray:
+   * Orders the top level of an associative array by a given array
+   * Keys which are not defined by $order remain unchanged at the end of return array
+   * 
+   * @param $array
+   * @return none
+   */
   public function order($array)
   {
     $this->collection = ullCoreTools::orderArrayByArray($this->collection, $array);
   }
+  
   
   /**
    * Takes an array of keys and orders the bottom of the collection accordingly
@@ -548,6 +597,18 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       $this->collection[$columnName]->setAccess($this->defaultAccess);     
     }
   }
+  
+  
+  /**
+   * Get the whole collection array
+   * 
+   * @return array
+   */  
+  public function getCollection()
+  {
+    return $this->collection;
+  }
+  
   
   // ArrayAccess methods
   

@@ -3,16 +3,16 @@
 class ullTableToolGenerator extends ullGenerator
 {
   protected
-  $formClass = 'ullTableToolForm',
-  $modelName;
-
-  protected $historyGenerators = array();
-  protected $futureGenerators = array();
-  protected $isVersionable = false;
-  protected $hasVersions = false;
-  protected $isHistoryBuilt = false;
-  protected $isFutureBuilt = false;
-  protected $enableFutureVersions = false;
+    $formClass = 'ullTableToolForm',
+    $modelName,
+    $historyGenerators = array(),
+    $futureGenerators = array(),
+    $isVersionable = false,
+    $hasVersions = false,
+    $isHistoryBuilt = false,
+    $isFutureBuilt = false,
+    $enableFutureVersions = false
+  ;
   
   /**
    * Constructor
@@ -143,7 +143,7 @@ class ullTableToolGenerator extends ullGenerator
   protected function buildColumnsConfig()
   {
     //new column config (with collections)
-    $ultraModernColumnConfig = ullColumnConfigCollection::buildFor($this->modelName, $this->defaultAccess, $this->requestAction);
+    $this->columnsConfig = ullColumnConfigCollection::buildFor($this->modelName, $this->defaultAccess, $this->requestAction);
   
     if ($this->isVersionable() && $this->enableFutureVersions == true)
     {
@@ -151,7 +151,7 @@ class ullTableToolGenerator extends ullGenerator
 
       if ($this->isCreateOrEditAction())
       {
-        $ultraModernColumnConfig->create('scheduled_update_date')
+        $this->columnsConfig->create('scheduled_update_date')
           ->setLabel('Scheduled update date')
           ->setMetaWidgetClassName('ullMetaWidgetDate')
           ->setValidatorOption('required', false) //must be set, as default = true
@@ -159,29 +159,6 @@ class ullTableToolGenerator extends ullGenerator
           ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
       }
     }  
-    
-    //flip the switch here :)
-    $this->columnsConfig = $ultraModernColumnConfig;
-  }
-
-  /**
-   * remove unwanted columns
-   *
-   */
-  protected function removeBlacklistColumns()
-  {
-    foreach ($this->columnsBlacklist as $column)
-    {
-      if (isset($this->columnsConfig[$column]))
-      {
-        unset($this->columnsConfig[$column]);
-      }
-      //ToDo: Check why this is even necessary
-      //else
-      //{
-      //  trigger_error("Trying to blacklist non-existing column: " . $column, E_USER_NOTICE);
-      //}
-    }
   }
 
   /**
@@ -229,7 +206,7 @@ class ullTableToolGenerator extends ullGenerator
    *
    * @return void
    */
-  private function checkHistoryRequirements()
+  protected function checkHistoryRequirements()
   {
     if (!$this->isVersionable)
     {
@@ -344,19 +321,6 @@ class ullTableToolGenerator extends ullGenerator
     $this->isHistoryBuilt = true;
   }
 
-  public function addAllToBlacklistExcept(array $exceptColumns)
-  {
-    $this->columnsBlacklist = array();
-    foreach ($this->getActiveColumns() as $activeColumnKey => $activeColumnValue)
-    {
-      if (!(in_array($activeColumnKey, $exceptColumns))) {
-        $this->columnsBlacklist[] = $activeColumnKey;
-      }
-    }
-
-    $this->removeBlacklistColumns();
-  }
-  
   /**
    * Returns the enabled status of future version functionality.
    * @return boolean true or false

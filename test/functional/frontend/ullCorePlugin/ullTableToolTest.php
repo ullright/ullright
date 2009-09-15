@@ -8,7 +8,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
-$my_string_col_selector = 'td + td + td + td + td + td + td';
+$my_string_col_selector = 'td + td';
 
 $b
   ->diag('login')
@@ -32,16 +32,15 @@ $b
   ->checkResponseElement('body', '!/namespace|Namespace/')
   ->checkResponseElement('body', '!/useless|Useless/')
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar')
-  ->checkResponseElement('tr > td + td + td + td > a', 'foobar@example.com')
-  ->checkResponseElement('tr > td + td + td + td + td', 'My first option')
+  ->checkResponseElement('tr > td + td + td + td + td > a', 'foobar@example.com')
+  ->checkResponseElement('tr > td + td + td + td + td + td', 'My first option')
   ->checkResponseElement('tr + tr > ' . $my_string_col_selector, 'Foo Bar More')
-  
 ;
 
 $b
   ->diag('list - test column headers')
-  ->checkResponseElement('tr > th + th + th + th + th + th + th > a', 'My custom string label EN')
-  ->checkResponseElement('table > thead > tr > th', 8) // number of columns
+  ->checkResponseElement('tr > th + th > a', 'My custom string label EN')
+  ->checkResponseElement('table > thead > tr > th', 7) // number of columns
 ;
   
 $b
@@ -58,7 +57,7 @@ $b
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('table', 'TestTable')
-  ->checkResponseElement('table tr', 11) // number of displayed fields
+  ->checkResponseElement('table tr', 6) // number of displayed fields
   ->checkResponseElement('select#fields_my_select_box > option', 3) // number of options for the my_select_box field
   ->checkResponseElement('select#fields_my_select_box > option', true)
   ->checkResponseElement('select#fields_my_select_box > option + option', 'My first option')
@@ -105,7 +104,7 @@ $b
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 1)
-  ->checkResponseElement('tr + tr + tr + tr + tr + tr > td + td + td', '/Required./')  
+  ->checkResponseElement('tr + tr > td + td + td', '/Required./')  
 ;
 
 $b

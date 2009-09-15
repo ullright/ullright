@@ -50,7 +50,7 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->checkResponseElement('table > tbody > tr', 1)
-  ->checkResponseElement('tr > td + td + td', 'Testdoc')
+  ->checkResponseElement('tr > td + td', 'Testdoc')
 ;
 
 $b
@@ -62,7 +62,7 @@ $b
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[search]', 'ull_wiki_tag2')
   ->checkResponseElement('table > tbody > tr', 1)
-  ->checkResponseElement('tr > td + td + td', 'Testdoc')  
+  ->checkResponseElement('tr > td + td', 'Testdoc')  
 ;
 
 $b
@@ -211,24 +211,19 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
   ->checkResponseElement('table > tbody > tr', 3)
-  ->checkResponseElement('tr > td + td + td', 'My new test subject, updated again')
-  ->checkResponseElement('tr + tr > td + td + td', 'Testdoc')
-  ->checkResponseElement('tr + tr + tr > td + td + td', 'Another Testdoc')
+  ->checkResponseElement('tr > td + td', 'My new test subject, updated again')
+  ->checkResponseElement('tr + tr > td + td', 'Testdoc')
+  ->checkResponseElement('tr + tr + tr > td + td', 'Another Testdoc')
 
-  ->click('ID')
-  ->checkResponseElement('tr > td + td + td', 'Testdoc')
-  ->checkResponseElement('tr + tr > td + td + td', 'Another Testdoc')
-  ->checkResponseElement('tr + tr + tr > td + td + td', 'My new test subject, updated again')
-  
   ->click('Subject')
-  ->checkResponseElement('tr > td + td + td', 'Another Testdoc')
-  ->checkResponseElement('tr + tr > td + td + td', 'My new test subject, updated again')
-  ->checkResponseElement('tr + tr + tr > td + td + td', 'Testdoc')
+  ->checkResponseElement('tr > td + td ', 'Another Testdoc')
+  ->checkResponseElement('tr + tr > td + td', 'My new test subject, updated again')
+  ->checkResponseElement('tr + tr + tr > td + td', 'Testdoc')
   
   ->click('Updated at')
-  ->checkResponseElement('tr > td + td + td', 'Testdoc')
-  ->checkResponseElement('tr + tr > td + td + td', 'Another Testdoc')
-  ->checkResponseElement('tr + tr + tr > td + td + td', 'My new test subject, updated again')
+  ->checkResponseElement('tr > td + td', 'Testdoc')
+  ->checkResponseElement('tr + tr > td + td', 'Another Testdoc')
+  ->checkResponseElement('tr + tr + tr > td + td', 'My new test subject, updated again')
 ;
 
 $b
@@ -263,5 +258,5 @@ $b
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
-  ->checkResponseElement('tr > td + td + td > b > a > i', false)
+  ->checkResponseElement('tr > td + td > b > a > i', false)
 ;

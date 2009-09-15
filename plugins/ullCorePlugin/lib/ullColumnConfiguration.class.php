@@ -124,6 +124,19 @@ class ullColumnConfiguration
     
     return $this;
   }  
+  
+  /**
+   * A column is active when access is set
+   * 
+   * @return boolean
+   */
+  public function isActive()
+  {
+    if ($this->access)
+    {
+      return true;
+    }
+  }
 
   public function getIsInList()
   {

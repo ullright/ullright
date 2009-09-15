@@ -116,7 +116,6 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
         'actions',
-        'id',
         'first_name',
         'last_name',
         'username',
@@ -133,7 +132,6 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
         'actions',
-        'id',
         'subject',
         'unknown',
         'updated_by',

@@ -6,15 +6,29 @@ class myTestCase extends sfDoctrineTestCase
 {
   protected $columnsConfigMock = array();
   
-  public function initialize() {
-    
+  public function initialize() 
+  {
     $columnConfig = new ullColumnConfiguration('id');
     $columnConfig->setValidatorOptions(array('required' => true));
     $columnConfig->setLabel('ID');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetInteger');
-    $columnConfig->setAccess('r');
+    $columnConfig->setAccess(false);
     $columnConfig->setUnique(true);
     $this->columnsConfigMock['id'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_string');
+    $columnConfig->setWidgetAttributes(array('maxlength' => 64));
+    $columnConfig->setValidatorOptions(array('required' => true, 'max_length' => 64));
+    $columnConfig->setLabel('My custom string label');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
+    $columnConfig->setTranslated(true);
+    $this->columnsConfigMock['my_string'] = $columnConfig;    
+    
+    $columnConfig = new ullColumnConfiguration('my_text');
+    $columnConfig->setLabel('My text');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetTextarea');
+    $columnConfig->setTranslated(true);
+    $this->columnsConfigMock['my_text'] = $columnConfig;    
     
     $columnConfig = new ullColumnConfiguration('namespace');
     $columnConfig->setAccess(null);
@@ -55,37 +69,25 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['ull_user_id'] = $columnConfig;
     
-    $columnConfig = new ullColumnConfiguration('my_string');
-    $columnConfig->setWidgetAttributes(array('maxlength' => 64));
-    $columnConfig->setValidatorOptions(array('required' => true, 'max_length' => 64));
-    $columnConfig->setLabel('My custom string label');
-    $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
-    $columnConfig->setTranslated(true);
-    $this->columnsConfigMock['my_string'] = $columnConfig;
-    
-    $columnConfig = new ullColumnConfiguration('my_text');
-    $columnConfig->setLabel('My text');
-    $columnConfig->setMetaWidgetClassName('ullMetaWidgetTextarea');
-    $columnConfig->setTranslated(true);
-    $this->columnsConfigMock['my_text'] = $columnConfig;
+
     
     $columnConfig = new ullColumnConfiguration('creator_user_id');
     $columnConfig->setLabel('Created by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
-    $columnConfig->setAccess('r');
+    $columnConfig->setAccess(null);
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['creator_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('created_at');
     $columnConfig->setLabel('Created at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
-    $columnConfig->setAccess('r');
+    $columnConfig->setAccess(null);
     $this->columnsConfigMock['created_at'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updator_user_id');
     $columnConfig->setLabel('Updated by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
-    $columnConfig->setAccess('r');
+    $columnConfig->setAccess(null);
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['updator_user_id'] = $columnConfig;
     
@@ -94,7 +96,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setWidgetAttributes(array());
     $columnConfig->setLabel('Updated at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
-    $columnConfig->setAccess('r');
+    $columnConfig->setAccess(null);
     $this->columnsConfigMock['updated_at'] = $columnConfig;
   }      
 

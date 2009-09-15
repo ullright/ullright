@@ -20,13 +20,6 @@ class UllFlowDuplicateColumns extends Doctrine_Migration
       $columnConfig->save();
     }
 
-    // unique-fy slugs
-    $columnConfigs = Doctrine::getTable('UllFlowColumnConfig')->findAll();
-    foreach ($columnConfigs as $columnConfig)
-    {
-      $columnConfig->save();
-    }
-    
   }
   
   public function down()

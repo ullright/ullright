@@ -8,7 +8,6 @@ class ullFlowGenerator extends ullGenerator
     $ullFlowActionHandlers = array(),
     $ullFlowActionHandler,
     $defaultListColumns = array(
-      'ull_flow_app_id',      
       'subject',
       'priority',
       'creator_user_id',
@@ -77,19 +76,20 @@ class ullFlowGenerator extends ullGenerator
       else
       {
         $columnList = $this->defaultListColumns;
-      }
-      
-//      var_dump($columnList);
-      
-      foreach($columnList as $column)
-      {
-        if (isset($this->columnsConfig[$column]) and $this->isColumnEnabled($this->columnsConfig[$column])) 
+        if (!$this->app)
         {
-          $this->activeColumns[$column] = $this->columnsConfig[$column];
+          array_unshift($columnList, 'ull_flow_app_id');
         }
       }
       
-//      var_dump($this->activeColumns);die;
+      foreach($columnList as $column)
+      {
+        if (isset($this->columnsConfig[$column])) 
+        {
+          $this->columnsConfig[$column]->setAccess('r');
+          $this->activeColumns[$column] = $this->columnsConfig[$column];
+        }
+      }
       
       return $this->activeColumns;
     }

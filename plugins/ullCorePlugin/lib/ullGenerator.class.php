@@ -188,7 +188,6 @@ abstract class ullGenerator extends ullGeneratorBase
         $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
         $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->forms[$key]);
         
-        // label
         if ($columnConfig->getTranslated() == true)
         { 
           foreach ($cultures as $culture)
