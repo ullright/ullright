@@ -2,7 +2,15 @@
 
 class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
 {
-  protected $app;
+  protected 
+    $app,
+    $defaultListColumns = array(
+      'subject',
+      'priority',
+      'creator_user_id',
+      'created_at',
+    )
+  ;
 
   public function __construct($modelName, $app, $defaultAccess = null, $requestAction = null)
   {
@@ -72,6 +80,19 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       $this->disableAllExcept(array());
     }
     
+    $this->addVirtualColumns();
+    
+    $this->handleListColumns();
+  }
+  
+  
+  /**
+   * Add virtual columns
+   * 
+   * @return none
+   */
+  protected function addVirtualColumns()
+  {
     if ($this->app)
     {
       $dbColumnConfig = $this->app->findOrderedColumns();
@@ -108,6 +129,49 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
           }
         }
       }
-    }
+    }    
+  }
+  
+  
+  
+  /**
+   * Handle list columns
+   * 
+   * @return none
+   */
+  protected function handleListColumns()
+  {
+    if ($this->isListAction())
+    {
+      if ($this->app)
+      {
+        if ($columns = $this->app->list_columns)
+        {
+          $listColumns = explode(',', $columns);
+        }
+        else
+        {
+          $listColumns = $this->defaultListColumns;
+        }
+      }
+      else
+      {
+        $listColumns = array_merge(array('ull_flow_app_id'), $this->defaultListColumns);
+      }
+      
+      foreach ($this->collection as $key => $columnConfig)
+      {
+        if (in_array($key, $listColumns))
+        {
+          $columnConfig->setAccess('r');
+        }  
+        else
+        {
+          $columnConfig->disable();
+        }
+      }
+      
+      $this->order($listColumns);
+    }  
   }
 }

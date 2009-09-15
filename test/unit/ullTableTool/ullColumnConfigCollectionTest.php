@@ -9,9 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(49, new lime_output_color, $configuration);
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
-$t->setFixturesPath($path);
+$t = new myTestCase(50, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -158,10 +156,13 @@ $t->diag('orderBottom()');
   
   $t->is($c->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
   
-  $t->diag('disable()');
+$t->diag('disable()');
   $c->disable(array('three'));
   $t->is($c['three']->getAccess(), false, 'Sets access to null');
-
+  
 $t->diag('create()');
   $c->create('four');
   $t->is($c['four']->getColumnName(), 'four', 'Creates a new columnConfig correctly');  
+  
+$t->diag('getActiveColumns');
+  $t->is(array_keys($c->getActiveColumns()), array('one', 'two', 'four'), 'returns the correct columns');  

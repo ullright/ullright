@@ -6,13 +6,7 @@ class ullFlowGenerator extends ullGenerator
     $formClass = 'ullFlowForm',
     $app,
     $ullFlowActionHandlers = array(),
-    $ullFlowActionHandler,
-    $defaultListColumns = array(
-      'subject',
-      'priority',
-      'creator_user_id',
-      'created_at',
-    )
+    $ullFlowActionHandler
   ;
 
   /**
@@ -49,55 +43,9 @@ class ullFlowGenerator extends ullGenerator
   
   public function getIdentifierUrlParamsAsArray($row)
   { 
-  	return array('doc' => $this->rows[$row]->id);
+    return array('doc' => $this->rows[$row]->id);
   }  
   
-  /**
-   * get array containing the active columns
-   *
-   * @return array active columns
-   */
-  public function getActiveColumns()
-  {
-    if ($this->activeColumns)
-    {
-      return $this->activeColumns;
-    }
-    
-    if ($this->getRequestAction() == "list")
-    {
-      $this->activeColumns = array();
-   
-      // get selections and order of columns from UllFlowApp
-      if (isset($this->app) && $columnList = $this->app->list_columns)
-      {
-        $columnList = explode(',', $columnList);
-      }
-      else
-      {
-        $columnList = $this->defaultListColumns;
-        if (!$this->app)
-        {
-          array_unshift($columnList, 'ull_flow_app_id');
-        }
-      }
-      
-      foreach($columnList as $column)
-      {
-        if (isset($this->columnsConfig[$column])) 
-        {
-          $this->columnsConfig[$column]->setAccess('r');
-          $this->activeColumns[$column] = $this->columnsConfig[$column];
-        }
-      }
-      
-      return $this->activeColumns;
-    }
-    else
-    {
-      return parent::getActiveColumns();
-    }
-  }  
   
   /**
    * builds the table config
@@ -118,7 +66,7 @@ class ullFlowGenerator extends ullGenerator
    *
    */
   protected function buildColumnsConfig()
-  {  	
+  {   
     $this->columnsConfig = UllFlowDocColumnConfigCollection::build(
         $this->app, $this->defaultAccess, $this->requestAction);
   }

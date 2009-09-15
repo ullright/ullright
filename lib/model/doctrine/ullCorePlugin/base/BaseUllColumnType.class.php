@@ -20,9 +20,6 @@ abstract class BaseUllColumnType extends UllRecord
     $this->hasMany('UllFlowColumnConfig as UllFlowColumnConfigs', array('local' => 'id',
                                                                             'foreign' => 'ull_column_type_id'));
 
-        $this->hasMany('UllColumnConfig', array('local' => 'id',
-                                                'foreign' => 'ull_column_type_id'));
-
         $this->hasMany('UllVentoryItemAttribute', array('local' => 'id',
                                                         'foreign' => 'ull_column_type_id'));
     }

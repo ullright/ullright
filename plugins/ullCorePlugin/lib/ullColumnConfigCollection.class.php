@@ -453,6 +453,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   public function getTranslatedColumns()
   {
     $translatedColumns = array();
+    
     foreach ($this->collection as $key => $columnConfig)
     {
       if ($columnConfig->getTranslated())
@@ -462,6 +463,27 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     } 
     
     return $translatedColumns;
+  }
+  
+  
+  /** 
+   * Get a list of active columnConfigurations
+   * 
+   * @return array
+   */
+  public function getActiveColumns()
+  {
+    $activeColumns = array();
+    
+    foreach($this->collection as $key => $columnConfig)
+    {
+      if ($columnConfig->isActive())
+      {
+        $activeColumns[$key] = $columnConfig;
+      }
+    }
+    
+    return $activeColumns;
   }
   
   

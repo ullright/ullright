@@ -264,29 +264,15 @@ abstract class ullGenerator extends ullGeneratorBase
     return (count($this->columnsConfig) > 0) ? true : false;
   }
   
+  
   /**
-   * get array containing the active columns
+   * Get list of active columnConfigurations
    *
    * @return array active columns
    */
   public function getActiveColumns()
   {
-//    if ($this->activeColumns)
-//    {
-//      return $this->activeColumns;
-//    }
-    
-    $this->activeColumns = array();
-    
-    foreach ($this->columnsConfig as $columnName => $columnConfig)
-    {
-      if ($this->isColumnEnabled($columnConfig)) 
-      {
-        $this->activeColumns[$columnName] = $columnConfig;
-      }
-    }
-    
-    return $this->activeColumns;
+    return $this->columnsConfig->getActiveColumns(); 
   }
 
   /**
