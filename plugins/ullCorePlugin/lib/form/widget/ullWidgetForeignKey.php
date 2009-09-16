@@ -43,7 +43,17 @@ class ullWidgetForeignKey extends sfWidgetFormInput
     $object = $q->fetchOne();
 
     $method = $this->getOption('method');
-    $return .= $object->$method();
+
+    try
+    {
+      $return .= $object->$method();
+    }
+    catch (Exception $e)
+    {
+      // This is necessary for translated columns. Why?
+      $object = Doctrine::getTable($this->getOption('model'))->find($value);
+      $return .= $object->$method();
+    }
     
     return $return;
   }
