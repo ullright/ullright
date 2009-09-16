@@ -39,16 +39,11 @@ class BaseUllFlowActions extends ullsfActions
     $this->form = new ullFlowFilterForm;
 
     $this->breadcrumbForIndex();
-
-    $this->namedQueries = new ullNamedQueriesUllFlow();
-    $this->namedQueriesCustom = new ullNamedQueriesUllFlowCustom();
     
     if ($this->app_slug = $this->getRequestParameter('app'))
     {
       $this->app = UllFlowAppTable::findBySlug($this->app_slug);
       $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
-      $this->namedQueries->setBaseUriForExisting($this->namedQueries->getBaseUri() . '?app=' . $this->app->slug);
-      $this->namedQueriesCustom->setBaseUriForExisting($this->namedQueriesCustom->getBaseUri() . '?app=' . $this->app->slug);
     }
     else
     {
@@ -56,6 +51,7 @@ class BaseUllFlowActions extends ullsfActions
     }
 
     $this->loadPopularTags();
+    $this->loadNamedQueries();
   }
 
 
@@ -85,10 +81,9 @@ class BaseUllFlowActions extends ullsfActions
     }
 
     $this->getAppfromRequest();
-
-    $this->namedQueries = new ullNamedQueriesUllFlow();
-    $this->namedQueriesCustom = new ullNamedQueriesUllFlowCustom();
     
+    $this->loadNamedQueries();
+
     $this->generator = new ullFlowGenerator($this->app);
 
     $docs = $this->getFilterFromRequest($request);
@@ -98,7 +93,6 @@ class BaseUllFlowActions extends ullsfActions
     $this->getUriMemory()->setUri();
 
     $this->breadcrumbForList();
-
   }
 
   /**
@@ -591,11 +585,14 @@ class BaseUllFlowActions extends ullsfActions
     //namedQueriesCustom should.
     try
     {
-      $this->namedQueries->handleFilter($q, $this->ull_filter, $this->getRequest());
+      $this->named_queries->handleFilter($q, $this->ull_filter, $this->getRequest());
     }
     catch (InvalidArgumentException $e)
     {
-      $this->namedQueriesCustom->handleFilter($q, $this->ull_filter, $this->getRequest());
+      if ($this->named_queries_custom)
+      {
+        $this->named_queries_custom->handleFilter($q, $this->ull_filter, $this->getRequest());
+      }
     }
      
     // order
@@ -781,6 +778,35 @@ class BaseUllFlowActions extends ullsfActions
     if ($this->getRequestParameter('full_page_widget'))
     {
       return true;
+    }
+  }
+  
+  
+  /**
+   * Load named queries for index and list action
+   * 
+   * @return none
+   */
+  protected function loadNamedQueries()
+  {
+    $this->named_queries = new ullNamedQueriesUllFlow();
+    
+    if (class_exists('ullNamedQueriesUllFlowCustom'))
+    {
+      $this->named_queries_custom = new ullNamedQueriesUllFlowCustom();
+    }
+    else
+    {
+      $this->named_queries_custom = null;
+    }
+    
+    if ($this->app_slug)
+    {
+      $this->named_queries->setBaseUriForExisting($this->named_queries->getBaseUri() . '?app=' . $this->app->slug);
+      if ($this->named_queries_custom)
+      {
+        $this->named_queries_custom->setBaseUriForExisting($this->named_queries_custom->getBaseUri() . '?app=' . $this->app->slug);
+      }      
     }
   }
 }

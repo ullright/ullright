@@ -77,16 +77,14 @@
         <h3>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
-        <?php echo $namedQueries->renderList(ESC_RAW) ?>
+        <?php echo $named_queries->renderList(ESC_RAW) ?>
       </div>
-      <?php
-        if (class_exists('ullNamedQueriesUllFlowCustom')):  
-      ?>
+      <?php if ($named_queries_custom): ?>
         <div class="tc_query_box color_light_bg">
         <h3>
           <?php echo __('Individual queries', null, 'common') ?>
         </h3>
-        <?php echo $namedQueriesCustom->renderList(ESC_RAW) ?>
+        <?php echo $named_queries_custom->renderList(ESC_RAW) ?>
       </div>
       <?php endif ?>
     </div>
