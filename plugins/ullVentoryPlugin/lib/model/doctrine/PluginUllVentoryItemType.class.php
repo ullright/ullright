@@ -6,4 +6,14 @@
 abstract class PluginUllVentoryItemType extends BaseUllVentoryItemType
 {
 
+  /**
+   * represents the object as a string
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->name;
+  }  
+  
 }

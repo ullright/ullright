@@ -5,5 +5,15 @@
  */
 abstract class PluginUllVentoryItemAttribute extends BaseUllVentoryItemAttribute
 {
+  
+  /**
+   * represents the object as a string
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->name;
+  }  
 
 }
