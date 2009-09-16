@@ -82,7 +82,12 @@
       <trans-unit id="16">
         <source>WF</source>
         <target>WF</target>
-      </trans-unit>      
+      </trans-unit>
+      
+      <trans-unit id="17">
+        <source>List of result list columns</source>
+        <target>Liste der Ergebnislisten-Spalten</target>
+      </trans-unit>               
 
       <!-- Queries -->
       <trans-unit id="101">
