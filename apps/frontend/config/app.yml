@@ -32,7 +32,12 @@ all:
     send_debug_cc: false
     
   auth:
-    function: default      
+    function:       default
+    fileshare_share:      '//my_samba_server/my_auth_share\$'
+    fileshare_domain:     my_domain
+    fileshare_checkfile:  checkfile-do_not_delete.txt   
+    imap_mailbox:   '{127.0.0.1:143/notls}INBOX'
+    
     
   pager:
     max_per_page:   30
