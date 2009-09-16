@@ -15,8 +15,8 @@
       </trans-unit>
 
       <trans-unit id="3">
-        <source>Is subject?</source>
-        <target>Ist Betreff?</target>
+        <source>Is subject column?</source>
+        <target>Ist Betreff-Spalte?</target>
       </trans-unit>
 
       <trans-unit id="4">
@@ -87,7 +87,17 @@
       <trans-unit id="17">
         <source>List of result list columns</source>
         <target>Liste der Ergebnislisten-Spalten</target>
-      </trans-unit>               
+      </trans-unit> 
+      
+      <trans-unit id="18">
+        <source>Is priority column?</source>
+        <target>Ist Wichtigkeits-Spalte?</target>
+      </trans-unit>
+      
+      <trans-unit id="19">
+        <source>Is tagging column?</source>
+        <target>Ist Tagging-Spalte?</target>
+      </trans-unit>              
 
       <!-- Queries -->
       <trans-unit id="101">

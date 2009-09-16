@@ -9,6 +9,8 @@ class UllFlowColumnConfigColumnConfigCollection extends ullColumnConfigCollectio
   protected function applyCustomSettings()
   {
     $this['ull_flow_app_id']->setLabel(__('Application', null, 'ullFlowMessages'));
-    $this['is_subject']->setLabel(__('Is subject?', null, 'ullFlowMessages'));
+    $this['is_subject']->setLabel(__('Is subject column?', null, 'ullFlowMessages'));
+    $this['is_priority']->setLabel(__('Is priority column?', null, 'ullFlowMessages'));
+    $this['is_tagging']->setLabel(__('Is tagging column?', null, 'ullFlowMessages'));
   }
 }
