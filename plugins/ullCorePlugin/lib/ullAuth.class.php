@@ -71,7 +71,7 @@ abstract class ullAuth
   {
     $mailbox   = sfConfig::get('app_auth_imap_mailbox', '{127.0.0.1:143/notls}INBOX');
     
-    if (@imap_open ($mailbox, $username, $plainpwd)) 
+    if (@imap_open($mailbox, $user->username, $password)) 
     {
       return "IMAP";
     }
