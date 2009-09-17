@@ -164,10 +164,10 @@ $t->begin('__construct()');
   
 $t->diag('getTableConfig()');
   $tableConfig = $tableTool->getTableConfig();
-  $t->isa_ok($tableConfig, 'UllTableConfig', 'tableConfig is a UllTableConfig object');  
+  $t->isa_ok($tableConfig, 'TestTableTableConfiguration', 'Returns the correct object');  
   $t->is(is_string($tableConfig->getIdentifier()), true, 'Identifier is a string');
   $t->is($tableConfig->getIdentifier(), 'id', 'Identifier is correct');
-  $t->is($tableConfig->label, 'TestTableLabel', 'Label is correct'); 
+  $t->is($tableConfig->getName(), 'TestTableLabel', 'Label is correct'); 
 
 // we don't have any composite primary keys at the moment  
 //$t->begin('getTableConfig() for a table with a multi-columns primary key');  

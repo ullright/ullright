@@ -130,10 +130,17 @@ class ullTableToolGenerator extends ullGenerator
     {
       $tableConfig = new UllTableConfig;
       $tableConfig->db_table_name = $this->modelName;
-      //      $tableConfig->save();
     }
-
+    
     $this->tableConfig = $tableConfig;
+    
+
+    // test for new ullTableConfiguration for TestTable
+    // flip the switch here!
+    if ($this->modelName == 'TestTable')
+    {
+      $this->tableConfig = ullTableConfiguration::buildFor($this->modelName);
+    }
   }
 
   /**

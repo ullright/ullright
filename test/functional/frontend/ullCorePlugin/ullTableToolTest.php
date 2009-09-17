@@ -281,15 +281,3 @@ $b
   ->checkResponseElement('body', '!/Foo Bar edited/')
 ;  
 
-$b
-  ->diag('testing list without having a table_config entry')
-;
-$tableConfig = Doctrine::getTable('UllTableConfig')->findOneByDbTableName('TestTable');
-$tableConfig->delete();
-UllTableConfigTable::clearCache();
-
-$b
-  ->get('ullTableTool/list/table/TestTable')
-  ->checkResponseElement('h3', 'TestTable')
-  ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')
-;

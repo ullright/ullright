@@ -13,10 +13,10 @@ class TestTableTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setName('My TestTable name');
-    $this->setDescription('My TestTable description');
-    $this->setSearchColumns('id,my_email');
-    $this->setSortColumns('created_at DESC, my_email');
+    $this->setName(__('TestTableLabel', null, 'testMessages'));
+    $this->setDescription(__('TestTable for automated testing', null, 'testMessages'));
+    $this->setSearchColumns(array('id', 'my_string', 'my_text'));
+    $this->setSortColumns('id');
   }
   
 }

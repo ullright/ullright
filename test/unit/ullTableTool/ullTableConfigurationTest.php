@@ -6,6 +6,9 @@ class myTestCase extends sfDoctrineTestCase
 {
 }
 
+sfContext::createInstance($configuration);
+sfLoader::loadHelpers('I18N');
+
 $t = new myTestCase(19, new lime_output_color, $configuration);
 
 class TestTableWithoutTableConfiguration extends sfDoctrineRecord
@@ -61,8 +64,8 @@ $t->diag('set/getSortColumns()');
 
   
 $t->diag('set/getSearchColumns()');
-  $config->setSearchColumns('user_name,email');
-  $t->is($config->getSearchColumns(), 'user_name,email', 'Returns the correct searchColumns');  
+  $config->setSearchColumns(array('user_name', 'email'));
+  $t->is($config->getSearchColumns(), array('user_name', 'email'), 'Returns the correct searchColumns');  
 
   
 $t->diag('getSearchColumnsAsArray()');
@@ -75,7 +78,7 @@ $t->diag('buildFor() a class without a TableConfig');
   $t->is($config instanceof TestTableWithoutTableConfigurationTableConfiguration, false, 'has no TableConfig');
 
   $t->is($config->getName(), 'TestTableWithoutTableConfiguration', 'build sets the correct name');
-  $t->is($config->getSearchColumns(), 'id', 'build sets the correct default search columns');
+  $t->is($config->getSearchColumns(), array('id'), 'build sets the correct default search columns');
   
   
 $t->diag('buildFor() a class with a TableConfig');
@@ -83,10 +86,10 @@ $t->diag('buildFor() a class with a TableConfig');
   $t->is($config instanceof ullTableConfiguration, true, 'Returns the correct object');
   $t->isa_ok($config, 'TestTableTableConfiguration', 'has TableConfig');
 
-  $t->is($config->getName(), 'My TestTable name', 'build sets the correct name');
-  $t->is($config->getDescription(), 'My TestTable description', 'build sets the correct description');
-  $t->is($config->getSearchColumns(), 'id,my_email', 'build sets the correct search columns');  
-  $t->is($config->getSortColumns(), 'created_at DESC, my_email', 'build sets the sort columns');
+  $t->is($config->getName(), 'TestTableLabel', 'build sets the correct name');
+  $t->is($config->getDescription(), 'TestTable for automated testing', 'build sets the correct description');
+  $t->is($config->getSearchColumns(), array('id', 'my_string', 'my_text'), 'build sets the correct search columns');  
+  $t->is($config->getSortColumns(), 'id', 'build sets the sort columns');
 
   
   

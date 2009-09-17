@@ -353,7 +353,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree = new breadcrumbTree();
     $this->breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $this->breadcrumb_tree->add(__('Tabletool'));
-    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->getLabel());
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->getName());
     $this->breadcrumb_tree->add(__('Result list', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
   }
   
@@ -367,7 +367,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree->setEditFlag(true);
     $this->breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $this->breadcrumb_tree->add(__('Tabletool'));
-    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->table_name);
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->getName());
     $this->breadcrumb_tree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));    
     if ($this->id) 
     {

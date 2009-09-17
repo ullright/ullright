@@ -25,9 +25,9 @@ class ullTableConfiguration
     $description,
     
     /**
-     * String for Doctrine_Query::orderBy()
+     * Column to order by
      * 
-     * Example: created_at DESC, priority
+     * Example: created_at
      */
     $sortColumns,
     
@@ -36,7 +36,7 @@ class ullTableConfiguration
      * 
      * Example: user_name,email
      */
-    $searchColumns
+    $searchColumns = array()
   ;
   
   
@@ -133,9 +133,9 @@ class ullTableConfiguration
   {
     $searchColumns = $this->getIdentifier();
     
-    if (is_array($searchColumns))
+    if (!is_array($searchColumns))
     {
-      $searchColumns = implode(', ', $searchColumns);
+      $searchColumns = array($searchColumns);
     }
 
     $this->searchColumns = $searchColumns;        
@@ -214,11 +214,11 @@ class ullTableConfiguration
   
   
   /**
-   * Set default result list order
+   * Set result list order
    * 
-   * This must be a valid string for Doctrine_Query::orderBy()
+   * This must be a valid column
    * 
-   * Example: created_at DESC, priority
+   * Example: created_at
    * 
    * @param string $sortColumns
    * @return self
@@ -245,13 +245,13 @@ class ullTableConfiguration
   /**
    * Set searchColumns
    * 
-   * Comma separated list of columns for the quick search
-   * Example: user_name,email 
+   * list of columns for the quick search
+   * Example: array('user_name', 'email') 
    * 
-   * @param string $sortColumns
+   * @param array $sortColumns
    * @return self
    */
-  public function setSearchColumns($searchColumns)
+  public function setSearchColumns(array $searchColumns)
   {
     $this->searchColumns = $searchColumns;
   
@@ -262,7 +262,7 @@ class ullTableConfiguration
   /**
    * Get searchColumns
    * 
-   * @return string
+   * @return array
    */
   public function getSearchColumns()
   {
@@ -272,12 +272,14 @@ class ullTableConfiguration
   
   /**
    * Return the searchColumns as an array
+   * 
+   * Temp. alias legacy function for the ullTableConfiguration migration
    *
    * @return array
    */
   public function getSearchColumnsAsArray()
   {
-    return explode(',', $this->searchColumns);
+    return $this->searchColumns;
   }
   
   

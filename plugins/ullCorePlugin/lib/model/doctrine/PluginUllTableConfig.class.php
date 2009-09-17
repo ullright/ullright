@@ -24,6 +24,15 @@ abstract class PluginUllTableConfig extends BaseUllTableConfig
 //    $this->rawGet('label');
     return ($label) ? $label : $this->db_table_name;
   }
+  
+  /**
+   * Transitional alias for migration to ullTableConfiguration
+   * @return unknown_type
+   */
+  public function getName()
+  {
+    return $this->getLabel();
+  }
 
   /**
    * Return the identifiers as default search columns
