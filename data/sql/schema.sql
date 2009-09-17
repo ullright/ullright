@@ -69,6 +69,8 @@ CREATE TABLE ull_wiki (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), subject 
 CREATE TABLE ull_wiki_access_level_access (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), ull_group_id BIGINT, ull_privilege_id BIGINT, model_id BIGINT, created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), INDEX ull_group_id_idx (ull_group_id), INDEX ull_privilege_id_idx (ull_privilege_id), INDEX model_id_idx (model_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ull_wiki_access_level_translation (id BIGINT, name VARCHAR(128), lang CHAR(2), PRIMARY KEY(id, lang)) ENGINE = INNODB;
 CREATE TABLE ull_wiki_access_level (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), slug VARCHAR(64), created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE ull_project_translation (id BIGINT, name VARCHAR(128) NOT NULL, lang CHAR(2), PRIMARY KEY(id, lang)) ENGINE = INNODB;
+CREATE TABLE ull_project (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, slug VARCHAR(255), UNIQUE INDEX sluggable_idx (slug), INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 ALTER TABLE ull_record ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_record ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_flow_column_config_translation ADD FOREIGN KEY (id) REFERENCES ull_flow_column_config(id) ON UPDATE CASCADE ON DELETE CASCADE;
@@ -233,3 +235,6 @@ ALTER TABLE ull_wiki_access_level_access ADD FOREIGN KEY (creator_user_id) REFER
 ALTER TABLE ull_wiki_access_level_translation ADD FOREIGN KEY (id) REFERENCES ull_wiki_access_level(id) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE ull_wiki_access_level ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_wiki_access_level ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
+ALTER TABLE ull_project_translation ADD FOREIGN KEY (id) REFERENCES ull_project(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ull_project ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
+ALTER TABLE ull_project ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);

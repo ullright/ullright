@@ -1,6 +1,6 @@
 /*
  * ************************************************
- *  ullVentory styles
+ *  ullTime styles
  * ************************************************
  */
  
@@ -52,30 +52,3 @@ a:visited {
   border-color: #d65e18;
 }
 
-table#ull_ventory_attributes {
-  margin-top: 2em;
-}
-
-table#ull_ventory_software {
-  margin-top: 2em;
-}
-
-table#ull_ventory_software th {
-  color: #777777;
-}
-
-#ull_ventory_memory {
-  margin-top: 2em;
-}
-
-#ull_ventory_memory th{
-  background-color: #adafb0;
-}
-
-#ull_ventory_memory tr {
-  background-color: transparent;
-}
-
-#ull_ventory_memory td {
-  background-color: transparent;
-}

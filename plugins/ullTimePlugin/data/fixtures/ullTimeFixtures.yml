@@ -1,0 +1,16 @@
+# List of projects
+UllProject:
+  introduce_ullright:
+    Translation:
+      en:
+        name:                   Introduce ullright
+      de:
+        name:                   ullright einführen
+    namespace:                  test           
+  meeting_room_furniture:
+    Translation:
+      en:
+        name:                   Meeting room furniture
+      de:
+        name:                   Besprechungsraum-Möbel
+    namespace:                  test     

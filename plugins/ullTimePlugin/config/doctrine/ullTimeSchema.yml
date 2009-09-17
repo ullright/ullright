@@ -1,0 +1,17 @@
+# List of Projects
+UllProject:
+  package: ullTimePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name] 
+    Sluggable:
+      unique: true
+      fields: [name]
+      canUpdate: true         
+  columns:
+    name:
+      type: string(128)
+      notnull: true
