@@ -1,8 +1,8 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
 
-<h3><?php echo $generator->getTableConfig()->label ?></h3>
-<p><?php echo $generator->getTableConfig()->description ?></p>
+<h3><?php echo $generator->getTableConfig()->getLabel() ?></h3>
+<p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
 

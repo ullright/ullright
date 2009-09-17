@@ -178,7 +178,7 @@ abstract class ullGenerator extends ullGeneratorBase
     {
       $cultures = array();
     }
-    //var_dump($this->getActiveColumns());
+
     foreach ($this->rows as $key => $row) 
     {
       $this->forms[$key] = new $this->formClass($row, $this->requestAction, $this->getDefaults(), $cultures);

@@ -114,7 +114,6 @@ class BaseUllTableToolActions extends ullsfActions
     $row = $this->getRowFromRequestOrCreate();
     $this->generator->buildForm($row);
     
-    //TODO: Add permission check
     if ($this->generator->isVersionable())
     {
       $this->generator->buildHistoryGenerators();
@@ -156,6 +155,13 @@ class BaseUllTableToolActions extends ullsfActions
     $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }  
   
+  
+  /**
+   * Delete a scheduled future version
+   * 
+   * @param sfRequest $request
+   * @return none
+   */
   public function executeDeleteFutureVersion(sfRequest $request)
   {
     $this->checkAccess('MasterAdmins');
@@ -173,6 +179,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->redirect('ullTableTool/edit?table=' . $this->table_name . '&id=' . $this->getRequestParameter('id'));
   }
    
+  
   /**
    * Gets a table object according to request param
    *
@@ -194,6 +201,7 @@ class BaseUllTableToolActions extends ullsfActions
 
     return true;
   }
+  
   
   /**
    * Parses filter request params
@@ -245,7 +253,7 @@ class BaseUllTableToolActions extends ullsfActions
       }
     }
     
-    if (!$defaultOrder = $this->generator->getTableConfig()->sort_columns)
+    if (!$defaultOrder = $this->generator->getTableConfig()->getSortColumns())
     {
       $defaultOrder = 'id';
     }
@@ -285,6 +293,7 @@ class BaseUllTableToolActions extends ullsfActions
     return ($rows->count()) ? $rows : new $this->table_name;
   }
 
+  
   /**
    * Gets record according to request param
    *
@@ -296,6 +305,7 @@ class BaseUllTableToolActions extends ullsfActions
     
     return $this->getRowFromRequestOrCreate();
   }
+  
   
   /**
    * Gets record according to request params or creates a new
@@ -343,7 +353,7 @@ class BaseUllTableToolActions extends ullsfActions
     $this->breadcrumb_tree = new breadcrumbTree();
     $this->breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $this->breadcrumb_tree->add(__('Tabletool'));
-    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->label);
+    $this->breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->getLabel());
     $this->breadcrumb_tree->add(__('Result list', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
   }
   

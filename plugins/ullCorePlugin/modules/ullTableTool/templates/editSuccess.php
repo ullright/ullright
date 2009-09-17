@@ -2,7 +2,7 @@
 
 <?php $generator = $sf_data->getRaw('generator') ?>
 
-<?php $editConfig = TableToolEditConfig::loadClass($generator->getModelName()) ?>
+<?php $editConfig = TableToolEditConfig::loadClass($generator->getModelName()) //TODO: this should be loaded in the action !!! ?>
 
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>

@@ -1,7 +1,7 @@
 <?php
 /**
  * This class describes a data column and is primarily
- * used by the generators.
+ * used by the generators to build a sfForm
  */
 class ullColumnConfiguration
 {
