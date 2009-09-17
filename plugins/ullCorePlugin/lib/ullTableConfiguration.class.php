@@ -283,4 +283,20 @@ class ullTableConfiguration
   }
   
   
+  /**
+   * Helper function to render a task center link for the admin index action
+   * 
+   * It uses the given image, and the tableConfig's name and description
+   * 
+   * @param string $modelName
+   * @param string $image
+   * @return string
+   */
+  public static function renderTaskCenterLink($modelName, $image = '/ullCoreThemeNGPlugin/images/ull_admin_24x24')
+  {
+    $config = self::buildFor($modelName);
+    
+    return ull_tc_task_link($image, 'ullTableTool/list?table=' . $modelName, $config->getName(), array('title' => $config->getDescription())); 
+  }
+ 
 }

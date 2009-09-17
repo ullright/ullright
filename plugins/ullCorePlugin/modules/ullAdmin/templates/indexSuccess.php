@@ -59,7 +59,13 @@
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_24x24', 'ullTableTool/list?table=UllWikiAccessLevel', __('Manage list of access levels')) ?></li>
         <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_24x24', 'ullTableTool/list?table=UllWikiAccessLevelAccess', __('Manage access rights')) ?></li>
-      </ul>  	                 
+      </ul>
+      
+      <!-- This can be safely removed after ullTableConfiguration migration -->
+      <h3><?php echo __('Test') ?></h3>
+      <ul class="tc_tasks">
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('TestTable', '/ullCoreThemeNGPlugin/images/ull_admin_24x24') ?></li>
+      </ul>          	                 
     </div>
     
     <div id="tc_search">

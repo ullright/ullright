@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+    <trans-unit id="1">
+    <source>TestTableLabel</source>
+    <target>TestTabellenBeschriftung</target>
+    </trans-unit>
+
+    <trans-unit id="2">
+    <source>TestTable for automated testing</source>
+    <target>TestTabelle für automatisierte Tests</target>
+    </trans-unit>
+ 
+</body>
+  </file>
+</xliff>

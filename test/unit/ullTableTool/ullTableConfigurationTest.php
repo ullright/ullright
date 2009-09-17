@@ -7,9 +7,9 @@ class myTestCase extends sfDoctrineTestCase
 }
 
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers('I18N');
+sfLoader::loadHelpers(array('I18N', 'ull'));
 
-$t = new myTestCase(19, new lime_output_color, $configuration);
+$t = new myTestCase(20, new lime_output_color, $configuration);
 
 class TestTableWithoutTableConfiguration extends sfDoctrineRecord
 {
@@ -92,4 +92,7 @@ $t->diag('buildFor() a class with a TableConfig');
   $t->is($config->getSortColumns(), 'id', 'build sets the sort columns');
 
   
+$t->diag('renderTaskCenterLink()');
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/TestTable"><img title="TestTable for automated testing" alt="TestTableLabel" src="/ullCoreThemeNGPlugin/images/ull_admin_24x24.png" height="24" width="24" /></a></div><div><a title="TestTable for automated testing" href="/ullTableTool/list/table/TestTable">TestTableLabel</a></div><div class="clear_left" />';
+  $t->is(ullTableConfiguration::renderTaskCenterLink('TestTable'), $reference, 'Returns the correct HTML');  
   

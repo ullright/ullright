@@ -7,7 +7,7 @@ $request = sfContext::getInstance()->getRequest();
 sfLoader::loadHelpers('ull');
 sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(25, new lime_output_color);
+$t = new lime_test(26, new lime_output_color);
 
 $t->diag('_ull_reqpass_array_clean');
 
@@ -187,30 +187,33 @@ $t->diag('ull_image_tag()');
     'returns the correct result for default ull_image_tag() params');
   
 $t->diag('ull_tc_task_link()');
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="Manage users" title="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Manage users" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />';
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
                           'ullTableTool/list?table=UllUser', __('Manage users')),
-      '<div class="float_left"><a href="/ullTableTool/list/table/UllUser">' .
-      '<img alt="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a>' .
-      '</div><div><a href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />',
+    $reference,
     'returns the correct result');
   
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="User admin" title="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Manage users" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />';
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
                           'ullTableTool/list?table=UllUser', __('Manage users'), array('alt' => 'User admin')),
-      '<div class="float_left"><a href="/ullTableTool/list/table/UllUser">' .
-      '<img alt="User admin" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a>' .
-      '</div><div><a href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />',
+    $reference,
     'returns the correct result when specifying an alt-tag');
+    
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="User admin" title="Here you can play god" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Here you can play god" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />';
+  $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
+                          'ullTableTool/list?table=UllUser', __('Manage users'), array('alt' => 'User admin', 'title' => 'Here you can play god')),
+    $reference,
+    'returns the correct result when specifying an alt-tag and title-tag');    
 
   clean_request_parameters();
   sfContext::getInstance()->getRequest()->setParameter('module', 'ullFlow');
   sfContext::getInstance()->getRequest()->setParameter('app', 'trouble_ticket');
   sfContext::getInstance()->getRequest()->setParameter('action', 'index');
   
+  $reference = '<div class="float_left"><a href="/ullFlow/create/app/trouble_ticket"><img alt="Create" title="Create" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" height="24" width="24" /></a></div><div><a title="Create" href="/ullFlow/create/app/trouble_ticket">Create</a></div><div class="clear_left" />';
   $t->is(ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
             array('action' => 'create'), __('Create')),
-      '<div class="float_left"><a href="/ullFlow/create/app/trouble_ticket">' .
-      '<img alt="Create" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" height="24" width="24" /></a>' .
-      '</div><div><a href="/ullFlow/create/app/trouble_ticket">Create</a></div><div class="clear_left" />',
+    $reference,
     'returns the correct result when using reqpas');
 
 $t->diag('ull_navigation_link()');

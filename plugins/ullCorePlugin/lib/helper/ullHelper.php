@@ -250,12 +250,14 @@ function ull_tc_task_link($img_source, $internal_uri, $link_text, $options = arr
 	$options = _convert_options($options);
 	$options['size'] = '24x24';
   $options['alt'] = isset($options['alt']) ? $options['alt'] : $link_text;
+  $options['title'] = isset($options['title']) ? $options['title'] : $link_text;
+  $link_options['title'] = $options['title'];
     
 	$link = '<div class="float_left">' .
 	        ull_link_to(image_tag($img_source, $options), $internal_uri) .
 	        '</div>' .
 	        '<div>' . 
-          ull_link_to($link_text, $internal_uri) . '</div>' .
+          ull_link_to($link_text, $internal_uri, $link_options) . '</div>' .
           '<div class="clear_left" />';
 	
 	return $link;
