@@ -1,0 +1,81 @@
+/*
+ * ************************************************
+ *  ullVentory styles
+ * ************************************************
+ */
+ 
+ /* Overridden css: ullCore / main.css - formats */
+
+.color_light_bg {
+  background: #ffe193;
+}
+
+.color_light_bg_ull_ventory {
+  background: #ffe193;
+}
+
+.color_medium_bg {
+  background: #eda740;
+}
+
+.color_dark_bg {
+  background: #d65e18;
+}
+
+.edit_container {
+  max-width: 780px;
+}
+
+.list_table tbody tr:hover {
+  background: #ffe193;  
+}
+
+/* Overridden css: ullCore / taskcenter.css - formats */
+ 
+#tc_wrapper a:visited {
+  color: #d65e18;
+}
+
+/* Overridden css: ullCore / common.css - formats */
+ 
+a {
+  color: #d65e18;
+}
+
+a:visited {
+  color: #d65e18;
+}
+
+/* End of overridden css */
+
+#nav_link_ull_ventory:hover {
+  border-color: #d65e18;
+}
+
+table#ull_ventory_attributes {
+  margin-top: 2em;
+}
+
+table#ull_ventory_software {
+  margin-top: 2em;
+}
+
+table#ull_ventory_software th {
+  color: #777777;
+}
+
+#ull_ventory_memory {
+  margin-top: 2em;
+}
+
+#ull_ventory_memory th{
+  background-color: #adafb0;
+}
+
+#ull_ventory_memory tr {
+  background-color: transparent;
+}
+
+#ull_ventory_memory td {
+  background-color: transparent;
+}
