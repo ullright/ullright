@@ -1,8 +1,8 @@
 <?php 
 
 /**
- * The ullTableConfiguration class represents settings on the database level
- * for the ullTableToolGenerator
+ * The ullTableConfiguration class represents settings on the database table level
+ * for the ullTableToolGenerator like a humanized name, a description, sort and search columns
  * 
  * @author klemens.ullmann-marx@ull.at
  *
