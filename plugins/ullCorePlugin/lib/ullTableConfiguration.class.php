@@ -81,8 +81,9 @@ class ullTableConfiguration
   
   
   /**
+   * Builds the tableConfiguration
    * 
-   * @return unknown_type
+   * @return none
    */
   protected function build()
   {
@@ -94,6 +95,10 @@ class ullTableConfiguration
   }
   
   
+  /**
+   * Applies common settings
+   * @return unknown_type
+   */
   protected function applyCommonSettings()
   {
     $this->name = $this->getModelName();
