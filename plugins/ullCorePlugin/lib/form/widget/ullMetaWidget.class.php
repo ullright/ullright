@@ -227,29 +227,35 @@ abstract class ullMetaWidget
   
   /**
    * Returns the fitting meta widget class name for a given
-   * database type or null if the argument is invalid.
+   * database type. Fallback to type "string" if a unknown type is given
    * 
    * @param $type the database type.
-   * @return string the meta widget class name or null
+   * @return string the meta widget class name
    */
   public static function getMetaWidgetClassName($type)
   {
     switch ($type)
     {
-      case 'string':
-        return 'ullMetaWidgetString';
-        
       case 'clob':
         return 'ullMetaWidgetTextarea';
 
       case 'integer':
         return 'ullMetaWidgetInteger';
+        
+      case 'float':
+        return 'ullMetaWidgetFloat';        
 
       case 'timestamp':
         return 'ullMetaWidgetDateTime';
+        
+      case 'date':
+        return 'ullMetaWidgetDate';        
 
       case 'boolean':
         return 'ullMetaWidgetCheckbox';
+        
+      default:
+        return 'ullMetaWidgetString';
     }
   }
   
