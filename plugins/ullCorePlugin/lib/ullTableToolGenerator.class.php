@@ -300,7 +300,7 @@ class ullTableToolGenerator extends ullGenerator
       $rowRev = new $this->modelName;
 
       $this->historyGenerators[$i - 1] = new ullTableToolHistoryGenerator($this->modelName, 'r');
-      $this->historyGenerators[$i - 1]->buildHistoryForm($rowCur, $rowRev);
+      $this->historyGenerators[$i - 1]->buildHistoryForm($rowCur, $rowRev, $this->enableFutureVersions);
 
       $rowCur = clone $rowRev;
     }
@@ -319,7 +319,7 @@ class ullTableToolGenerator extends ullGenerator
 	        $rowRev->revert($futureVersions[$i]->reference_version);
 	
 	        $this->futureGenerators[$i] = new ullTableToolHistoryGenerator($this->modelName, 'r');
-	        $this->futureGenerators[$i]->buildHistoryForm($futureVersions[$i], $rowRev);
+	        $this->futureGenerators[$i]->buildHistoryForm($futureVersions[$i], $rowRev, $this->enableFutureVersions);
 	      }
 	      $this->isFutureBuilt = true;
 	    }

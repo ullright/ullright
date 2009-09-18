@@ -30,25 +30,43 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
    * @param Doctrine_Record $revRow the revision record
    * @return void
    */
-  public function buildHistoryForm(Doctrine_Record $curRow, Doctrine_Record $revRow) {
+  public function buildHistoryForm(Doctrine_Record $curRow, Doctrine_Record $revRow, $enableFutureVersions) {
     $changes = array_diff_assoc($curRow->toArray(), $revRow->toArray());
 
     foreach ($curRow->toArray() as $key => $value)
     {
+      //HACK
+      //Our change detection algorithm doesn't handle I18n
+      //fields correctly yet.
+      if ($key == 'Translation')
+      {
+        continue;
+      }
+      
       if (!array_key_exists($key, $changes))
-      $this->columnsConfig[$key]->disable();
+      {
+        $this->columnsConfig[$key]->disable();
+      }
     }
-    
+
     $this->columnsConfig->disable(array(
       'version',
       'updated_at',
       'updator_user_id',
       'created_at',
-      'creator_user_id',
-      'scheduled_update_date',
-      'type'    
+      'creator_user_id',   
     ));
 
+    if ($enableFutureVersions)
+    {
+      $this->columnsConfig->disable(array('scheduled_update_date'));
+    }
+    
+    if (in_array('UllEntity', class_parents($curRow)))
+    {
+      $this->columnsConfig->disable(array('type'));
+    }
+    
     //->Updator is available in Version as well
     $this->updator = $curRow->Updator;
     $this->id = $curRow->identifier();
