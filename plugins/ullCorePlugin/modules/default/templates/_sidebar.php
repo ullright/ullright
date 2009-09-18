@@ -8,6 +8,6 @@
   echo '<br />';
   echo __('Links', null, 'common') . ':<br />';
   echo ull_link_to(__('My personal tasks', null, 'common'), 'ullFlow/list?query=to_me', 'ull_js_observer_confirm=true') . '<br />';
-  echo ull_link_to(__('All my tasks', null, 'common'), 'ullFlow/list?query=to_me_and_my_groups', 'ull_js_observer_confirm=true');
+  echo ull_link_to(__('All my tasks', null, 'common'), 'ullFlow/list?query=to_me_or_my_groups', 'ull_js_observer_confirm=true');
   echo '<br />';
 ?>
