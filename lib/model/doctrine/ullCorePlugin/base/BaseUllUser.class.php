@@ -15,6 +15,12 @@ abstract class BaseUllUser extends UllEntity
         $this->hasMany('TestTable', array('local' => 'id',
                                           'foreign' => 'ull_user_id'));
 
+        $this->hasMany('UllProjectReporting', array('local' => 'id',
+                                                    'foreign' => 'ull_user_id'));
+
+        $this->hasMany('UllTimeReporting', array('local' => 'id',
+                                                 'foreign' => 'ull_user_id'));
+
         $this->hasMany('UllParentEntity', array('local' => 'id',
                                                 'foreign' => 'superior_ull_user_id'));
 

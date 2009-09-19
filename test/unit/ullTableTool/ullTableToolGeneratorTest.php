@@ -64,7 +64,7 @@ class myTestCase extends sfDoctrineTestCase
     $this->columnsConfigMock['my_useless_column'] = $columnConfig;
   
     $columnConfig = new ullColumnConfiguration('ull_user_id');
-    $columnConfig->setLabel('Ull user');
+    $columnConfig->setLabel('User');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['ull_user_id'] = $columnConfig;

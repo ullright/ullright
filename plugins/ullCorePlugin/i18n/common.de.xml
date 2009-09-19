@@ -163,6 +163,11 @@
 <target>Zuletzt aktualisiert am</target>
 </trans-unit>
 
+<trans-unit id="119">
+<source>Duration</source>
+<target>Dauer</target>
+</trans-unit>
+
 <!-- Questions -->
 
 <trans-unit id="201">

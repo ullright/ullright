@@ -11,6 +11,83 @@ UllProject:
     Translation:
       en:
         name:                   Meeting room furniture
+        description:            "Let's find some cool new furniture for our meeting room"
       de:
         name:                   Besprechungsraum-Möbel
-    namespace:                  test     
+        description:            Coole neue Möbel für den Besprechungsraum finden                        
+    namespace:                  test
+    
+    
+UllProjectReporting:
+  ull_project_reporting_1:
+    UllUser:                    test_user
+    date:                       '2009-09-17'
+    UllProject:                 introduce_ullright
+    duration_seconds:           5400
+    comment:                    Server hardware setup
+    namespace:                  test
+  ull_project_reporting_2:
+    UllUser:                    test_user
+    date:                       '2009-09-17'
+    UllProject:                 introduce_ullright
+    duration_seconds:           3600
+    comment:                    Ubuntu installation
+    namespace:                  test
+  ull_project_reporting_3:
+    UllUser:                    test_user
+    date:                       '2009-09-17'
+    UllProject:                 meeting_room_furniture
+    duration_seconds:           9000
+    comment:                    Browsed catalogues
+    namespace:                  test
+
+
+UllTimeReporting:
+  ull_time_reporting_1:
+    UllUser:                    test_user
+    date:                       '2009-09-17'
+    begin_work_at:              '08:20:00'
+    end_work_at:                '15:30:00'
+    begin_break1_at:            '10:00:00'
+    end_break1_at:              '10:15:00'
+    begin_break2_at:            '12:30:00'
+    end_break2_at:              '13:30:00'
+    begin_break3_at:            '14:45:00'
+    end_break3_at:              '14:55:00'
+    namespace:                  test
+  ull_time_reporting_2:
+    UllUser:                    test_user
+    date:                       '2009-09-18'
+    begin_work_at:              '08:10:00'
+    namespace:                  test
+
+
+# A period for project time reporting - usually a month
+UllTimePeriod:
+  ull_time_period_august_2009:
+    Translation:
+      en:
+        name:                   August 2009
+      de:
+        name:                   August 2009
+    from_date:                  '2009-08-01'
+    to_date:                    '2009-08-31'
+    namespace:                  test
+  ull_time_period_september_2009:
+    Translation:
+      en:
+        name:                   September 2009
+      de:
+        name:                   September 2009
+    from_date:                  '2009-09-01'
+    to_date:                    '2009-09-30'
+    namespace:                  test                        
+  ull_time_period_october_2009:
+    Translation:
+      en:
+        name:                   October 2009
+      de:
+        name:                   Oktober 2009
+    from_date:                  '2009-10-01'
+    to_date:                    '2009-10-31'
+    namespace:                  test    

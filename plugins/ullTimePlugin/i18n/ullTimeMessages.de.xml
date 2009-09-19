@@ -9,6 +9,11 @@
 <target>Projektzeiterfassung</target>
 </trans-unit>
 
+<trans-unit id="2">
+<source>Project</source>
+<target>Projekt</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

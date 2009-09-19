@@ -5,5 +5,15 @@
  */
 abstract class PluginUllProject extends BaseUllProject
 {
+  
+  /**
+   * return the app's label
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->name;
+  }
 
 }

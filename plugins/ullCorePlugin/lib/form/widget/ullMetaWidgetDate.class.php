@@ -8,7 +8,7 @@ class ullMetaWidgetDate extends ullMetaWidget
     {
       if ($this->columnConfig->getWidgetAttribute('size') == null)
       {
-        $this->columnConfig->setWidgetAttribute('size', '30');
+        $this->columnConfig->setWidgetAttribute('size', '10');
       }
        
       $this->addWidget(new ullWidgetDateWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));

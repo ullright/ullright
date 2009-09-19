@@ -92,5 +92,35 @@ class ullCoreTools
     return array_merge($ordered, $array);
   }
   
+  
+  /**
+   * Formats given seconds to HH:mm
+   * 
+   * @param integer $time
+   * @return string
+   */
+  public static function timeToString($time)
+  {
+    if ($time >= 3600)
+    {
+      $hours = floor($time / 3600);
+      $minutes = round(bcmod($time, 3600) / 60);
+    }
+    else
+    {
+      $hours = 0;
+      $minutes = round($time / 60);
+    }
+      
+    if (strlen($minutes) == 1)
+    {
+      $minutes = '0' . $minutes;
+    }
+    
+    $return = $hours . ':' . $minutes;
+    
+    return $return;
+  }
+  
 }
 

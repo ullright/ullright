@@ -14,11 +14,13 @@ class BaseUllProjectTranslationFormFilter extends BaseFormFilterDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'name' => new sfWidgetFormFilterInput(),
+      'name'        => new sfWidgetFormFilterInput(),
+      'description' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'name' => new sfValidatorPass(array('required' => false)),
+      'name'        => new sfValidatorPass(array('required' => false)),
+      'description' => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_project_translation_filters[%s]');
@@ -36,9 +38,10 @@ class BaseUllProjectTranslationFormFilter extends BaseFormFilterDoctrine
   public function getFields()
   {
     return array(
-      'id'   => 'Number',
-      'name' => 'Text',
-      'lang' => 'Text',
+      'id'          => 'Number',
+      'name'        => 'Text',
+      'description' => 'Text',
+      'lang'        => 'Text',
     );
   }
 }

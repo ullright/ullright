@@ -36,6 +36,7 @@ class ullHumanizer
     'slug'                => 'Unique identifier',
     'ull_column_type_id'  => 'Type',
     'ull_group_id'        => 'Group',
+    'ull_user_id'         => 'User',
     'ull_privilege_id'    => 'Privilege',
     'ull_company_id'      => 'Company',
     'ull_department_id'   => 'Department',

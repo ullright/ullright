@@ -6,6 +6,89 @@ UllProject:
     type: concrete
   actAs:
     I18n:
+      fields: [name, description] 
+    Sluggable:
+      unique: true
+      fields: [name]
+      canUpdate: true         
+  columns:
+    name:
+      type: string(128)
+      notnull: true
+    description:
+      type: string(4000)
+
+UllProjectReporting:
+  package: ullTimePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_user_id:
+      type: integer
+      notnull: true
+    date:
+      type: date
+      notnull: true
+    ull_project_id:
+      type: integer
+      notnull: true
+    duration_seconds:
+      type: integer
+      notnull: true
+    comment:
+      type: string(4000)
+    week:
+      type: integer
+  relations:
+    UllUser:
+    UllProject:
+      onDelete: CASCADE
+      
+UllTimeReporting:
+  package: ullTimePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_user_id:
+      type: integer
+      notnull: true
+    date:
+      type: date
+      notnull: true
+    begin_work_at:
+      type: time       
+    end_work_at:
+      type: time
+    begin_break1_at:
+      type: time
+    end_break1_at:
+      type: time
+    begin_break2_at:
+      type: time
+    end_break2_at:
+      type: time
+    begin_break3_at:
+      type: time
+    end_break3_at:
+      type: time
+    total_work_seconds:
+      type: integer
+    total_break_seconds:
+      type: integer
+  relations:
+    UllUser:
+    
+
+# A period for project time reporting - usually a month    
+UllTimePeriod:
+  package: ullTimePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
       fields: [name] 
     Sluggable:
       unique: true
@@ -15,3 +98,10 @@ UllProject:
     name:
       type: string(128)
       notnull: true
+    from_date:
+      type: date
+      notnull: true
+    to_date:
+      type: date
+      notnull: true  
+              

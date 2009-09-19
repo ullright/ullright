@@ -12,15 +12,17 @@ class BaseUllProjectTranslationForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'   => new sfWidgetFormInputHidden(),
-      'name' => new sfWidgetFormInput(),
-      'lang' => new sfWidgetFormInputHidden(),
+      'id'          => new sfWidgetFormInputHidden(),
+      'name'        => new sfWidgetFormInput(),
+      'description' => new sfWidgetFormTextarea(),
+      'lang'        => new sfWidgetFormInputHidden(),
     ));
 
     $this->setValidators(array(
-      'id'   => new sfValidatorDoctrineChoice(array('model' => 'UllProjectTranslation', 'column' => 'id', 'required' => false)),
-      'name' => new sfValidatorString(array('max_length' => 128)),
-      'lang' => new sfValidatorDoctrineChoice(array('model' => 'UllProjectTranslation', 'column' => 'lang', 'required' => false)),
+      'id'          => new sfValidatorDoctrineChoice(array('model' => 'UllProjectTranslation', 'column' => 'id', 'required' => false)),
+      'name'        => new sfValidatorString(array('max_length' => 128)),
+      'description' => new sfValidatorString(array('max_length' => 4000, 'required' => false)),
+      'lang'        => new sfValidatorDoctrineChoice(array('model' => 'UllProjectTranslation', 'column' => 'lang', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('ull_project_translation[%s]');
