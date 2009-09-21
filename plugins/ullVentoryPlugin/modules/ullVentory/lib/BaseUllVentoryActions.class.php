@@ -144,6 +144,7 @@ class BaseUllVentoryActions extends ullsfActions
     $this->forward('ullVentory', 'edit');
   } 
    
+  
   /**
    * Execute edit action
    * 
@@ -154,7 +155,6 @@ class BaseUllVentoryActions extends ullsfActions
     
     if ($request->hasParameter('inventory_number'))
     {
-      //$this->doc = $this->getRoute()->getObject();
       $this->getItemFromRequest();
       $this->entity = $this->doc->UllEntity;
     }
@@ -164,28 +164,9 @@ class BaseUllVentoryActions extends ullsfActions
       $this->entity = $this->retrieveEntityFromRequest();
     }
     
-       
-
-//    var_dump($this->item->toArray());die;
-//    
-//    $this->getDocFromRequestOrCreate();
-    
-//    $accessType = $this->doc->checkAccess();
-//    $this->redirectToNoAccessUnless($accessType);
-    
-//    if ($accessType == 'r')
-//    {
-//      $this->redirect('ullWiki/show?docid=' . $this->doc->id . '&no_write_access=true');
-//    }
-
-//    var_dump($this->getRequest()->getParameterHolder()->getAll());die;
-    
     $this->generator = new ullVentoryGenerator($request->getParameter('type'));
-//    $this->handleEntityforEdit();
     $this->generator->buildForm($this->doc);
     $this->handleEntityforCreate();    
-    
-//    $this->generator->getForm()->debug();
     
     $this->breadcrumbForEdit();
     
@@ -205,7 +186,6 @@ class BaseUllVentoryActions extends ullsfActions
         // save only
         if ($request->getParameter('action_slug') == 'save_only') 
         {
-//          $this->redirect('ullVentory/edit?id=' . $this->doc->id);
           
           $this->redirect($this->generateUrl('ull_ventory_edit', $this->doc));
         }
