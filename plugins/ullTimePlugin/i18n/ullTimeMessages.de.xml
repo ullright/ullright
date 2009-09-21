@@ -14,6 +14,22 @@
 <target>Projekt</target>
 </trans-unit>
 
+<trans-unit id="3">
+<source>Project efforts for user %user% on %date%</source>
+<target>Projektaufwände von Benutzer %user% für den %date%</target>
+</trans-unit>
+
+<trans-unit id="4">
+<source>Enter new project effort</source>
+<target>Neuen Projektaufwand erfassen</target>
+</trans-unit>
+
+<trans-unit id="5">
+<source>Edit project effort</source>
+<target>Projektaufwand bearbeiten</target>
+</trans-unit>
+
+
     </body>
   </file>
 </xliff>

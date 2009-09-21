@@ -160,7 +160,7 @@ class PluginUllUserTable extends UllEntityTable
    */
   public static function getLoggedInUsername()
   {
-    $userId = sfContext::getUser()->getAttribute('user_id');
+    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     
     return self::findUsernameById($userId);
   }

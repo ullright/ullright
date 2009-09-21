@@ -18,5 +18,5 @@ $t->begin('findByDateAndUserId()');
   
   $user = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
 
-  $t->is(UllProjectReportingTable::findByDateAndUserId('2009-09-17', 666), false, 'returns false for an invalid userId');
+  $t->is(count(UllProjectReportingTable::findByDateAndUserId('2009-09-17', 666)), 0, 'returns no entry for an invalid userId');
   $t->is(UllProjectReportingTable::findByDateAndUserId('2009-09-17', $user->id)->getFirst()->comment, 'Server hardware setup', 'returns the correct row');

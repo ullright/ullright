@@ -24,6 +24,6 @@ class PluginUllProjectReportingTable extends UllRecordTable
 
     $result = $q->execute();
     
-    return count($result) ? $result : false;
+    return $result;
   }
 }

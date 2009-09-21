@@ -70,6 +70,11 @@
 <target>Hinzufügen</target>
 </trans-unit>
 
+<trans-unit id="14">
+<source>Save and create another entry</source>
+<target>Speichern und weiter eintragen</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 

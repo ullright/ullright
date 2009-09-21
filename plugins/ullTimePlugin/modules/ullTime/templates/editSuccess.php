@@ -1,6 +1,12 @@
 <?php //use_javascript('/ullVentoryPlugin/js/editSuccess.js') ?>
 
-<?php //echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php $list_generator = $sf_data->getRaw('list_generator') ?>
+
+<h3><?php echo __('Project efforts for user %user% on %date%', array(
+  '%user%' => $edit_generator->getForm()->offsetGet('ull_user_id')->render(), 
+  '%date%' => $edit_generator->getForm()->offsetGet('date')->render()
+), 'ullTimeMessages')?></h3>
 
 <?php if ($edit_generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
@@ -43,6 +49,14 @@
 <?php endif ?>
 
 
+<h3>
+  <?php if ($edit_generator->getRow()->exists()): ?>
+    <?php echo __('Edit project effort', null, 'ullTimeMessages')?>
+  <?php else: ?>
+    <?php echo __('Enter new project effort', null, 'ullTimeMessages')?>
+  <?php endif ?>
+</h3>
+
 
 <?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
 
@@ -53,7 +67,10 @@
 <?php
   foreach ($edit_generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
   {
-    echo $edit_generator->getForm()->offsetGet($column_name)->renderRow();
+    if (!in_array($column_name, array('ull_user_id', 'date')))
+    {
+      echo $edit_generator->getForm()->offsetGet($column_name)->renderRow();
+    }
   }
 ?>
 
@@ -66,8 +83,21 @@
   <div class='edit_action_buttons_left'>
     <ul>
       <li>
-        <?php echo submit_tag(__('Save', null, 'common')) ?>
+        <?php             
+          echo ull_submit_tag(
+            __('Save and create another entry', null, 'common'),
+            array('name' => 'submit|action_slug=save_new')
+          );  
+        ?>         
       </li>
+      <li>
+        <?php             
+          echo ull_submit_tag(
+            __('Save and return to list', null, 'common'),
+            array('name' => 'submit|action_slug=save_close')
+          );  
+        ?>       
+      </li>      
     </ul>
   </div>
 

@@ -9,8 +9,17 @@ class UllProjectReportingColumnConfigCollection extends ullColumnConfigCollectio
    */
   protected function applyCustomSettings()
   {
-    $this['ull_user_id']->disable();
-    $this['date']->disable();
+    $this['id']->disable();
+    if ($this->isListAction())
+    {
+      $this['ull_user_id']->disable();
+      $this['date']->disable();
+    }
+    else
+    {
+      $this['ull_user_id']->setAccess('r');
+      $this['date']->setAccess('r');
+    }
     $this['ull_project_id']
       ->setLabel(__('Project', null, 'ullTimeMessages'))
       ->setWidgetOption('add_empty', true)
@@ -21,5 +30,9 @@ class UllProjectReportingColumnConfigCollection extends ullColumnConfigCollectio
       ->setLabel(__('Duration', null, 'common'));
     ;
     $this['week']->disable();
+    $this['created_at']->disable();
+    $this['creator_user_id']->disable();
+    $this['updated_at']->disable();
+    $this['updator_user_id']->disable();
   }
 }

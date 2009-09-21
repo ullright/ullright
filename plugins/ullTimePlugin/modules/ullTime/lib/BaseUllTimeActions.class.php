@@ -49,7 +49,7 @@ class BaseUllTimeActions extends ullsfActions
    */
   public function executeCreate($request) 
   {
-    $this->forward('ullVentory', 'edit');
+    $this->forward('ullTime', 'edit');
   } 
   
   /**
@@ -68,7 +68,7 @@ class BaseUllTimeActions extends ullsfActions
     $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', 'w');
     $this->edit_generator->buildForm($this->doc);
     
-//    $this->breadcrumbForEdit();
+    $this->breadcrumbForEdit();
     
     if ($request->isMethod('post'))
     {
@@ -76,10 +76,17 @@ class BaseUllTimeActions extends ullsfActions
 //      var_dump($_REQUEST);
 //      var_dump($this->getRequest()->getParameterHolder()->getAll());
 //      die;
-
-      if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
+      if ($this->edit_generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
-        $this->redirect($this->getUriMemory()->getAndDelete('list'));
+        if ($request->getParameter('action_slug') == 'save_new') 
+        {
+          $this->redirect('ullTime/create?date=' . $request->getParameter('date') . '&username=' . $request->getParameter('username'));
+        } 
+        // use the default referer
+        else
+        {
+          $this->redirect($this->getUriMemory()->getAndDelete('list'));
+        }
       }
       else
       {
@@ -89,6 +96,19 @@ class BaseUllTimeActions extends ullsfActions
 //    echo $this->generator->getForm()->debug();
   }
 
+
+  /**
+   * Delete a project effort
+   * 
+   * @return none
+   */
+  public function executeDelete($request)
+  {
+    $this->checkAccess('LoggedIn');
+    $this->getDocsFromRequestOrCreate();
+    $this->doc->delete();
+    $this->redirect('ullTime/create?date=' . $request->getParameter('date') . '&username=' . $request->getParameter('username'));
+  }
   
   /**
    * Gets  doc according to request params
@@ -102,28 +122,52 @@ class BaseUllTimeActions extends ullsfActions
     if (!$date)
     {
       $date = date('Y-m-d');
+      $this->getRequest()->setParameter('date', $date);
     }
     
     if (!$username)
     {
       $username = UllUserTable::getLoggedInUsername();
+      $this->getRequest()->setParameter('username', $username);
     }
     
     $userId = UllUserTable::findIdByUsername($username);
     
     $this->docs = UllProjectReportingTable::findByDateAndUserId($date, $userId);
     
-    
-    $id = $this->getRequestParameter('id');
-    if ($id)
+    if ($this->getRequestParameter('action') == 'create')
     {
-      $this->doc = Doctrine::getTable('UllProjectReporting')->findOneById($id);
+      $this->doc = new UllProjectReporting;
+      $this->doc->ull_user_id = $userId;
+      $this->doc->date = $date;      
     }
     else
     {
-      $this->doc = new UllProjectReporting;
+      $this->forward404Unless($this->doc = Doctrine::getTable('UllProjectReporting')->findOneById($this->getRequestParameter('id')));
+      
     }
   }
+  
+  
+  /**
+   * Create breadcrumbs for edit action
+   * 
+   */
+  protected function breadcrumbForEdit() 
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+    $this->breadcrumbTree->setEditFlag(true);
+    $this->breadcrumbTree->add(__('Time Reporting') . ' ' . __('Home', null, 'common'), 'ullTime/index');
+
+    if ($this->doc->exists()) 
+    {
+      $this->breadcrumbTree->add(__('Edit', null, 'common'));
+    } 
+    else 
+    {
+      $this->breadcrumbTree->add(__('Create', null, 'common'));
+    } 
+  }  
   
 
 }
