@@ -683,6 +683,12 @@ class BaseUllVentoryActions extends ullsfActions
     }
   }  
   
+  
+  /**
+   * Retrieve ullVentoryItem by given inventory_number
+   * 
+   * @return none
+   */
   protected function getItemFromRequest()
   {
     if (!$itemId = $this->getRequestParameter('inventory_number'))
@@ -712,14 +718,4 @@ class BaseUllVentoryActions extends ullsfActions
     $this->forward404Unless($this->doc);
   }
   
-//  protected function handleEntityforEdit()
-//  {
-//    if ($this->doc->exists())
-//    {
-//      $cc = $this->generator->getColumnsConfig();
-//      $cc['ull_entity_id']->removeWidgetOption('is_hidden');
-//      $cc['ull_entity_id']->setAccess('r');
-//      $this->generator->setColumnsConfig($cc);
-//    }
-//  }   
 }
