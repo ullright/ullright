@@ -45,21 +45,10 @@
   <!-- data -->
   
   <tbody>
-  <?php $odd = false; ?>
+  <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-      <?php
-        if ($odd) {
-          $odd_style = ' class=\'odd\'';
-          $odd = false;
-        } else {
-          $odd_style = '';
-          $odd = true;
-        }
-        
-        $idAsArray = (array) $generator->getIdentifierUrlParamsAsArray($row);
-        
-      ?>
-    <tr <?php echo $odd_style ?>>
+      <?php $idAsArray = (array) $generator->getIdentifierUrlParamsAsArray($row); ?>
+    <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          
         <?php
             echo ull_link_to(ull_image_tag('edit'), array('action' => 'edit') + $idAsArray);

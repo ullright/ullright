@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(14, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(18, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -94,3 +94,13 @@ $t->diag('findChoices()');
       ),
       'returns the correct choices for UllUser'
   );
+  
+  
+$t->diag('findUsernameById()');
+  $userId = Doctrine::getTable('UllUser')->findOneByUserName('test_user')->id;
+  $t->is(UllUserTable::findUsernameById(666), false, 'returns false for an invalid id');  
+  $t->is(UllUserTable::findUsernameById($userId), 'test_user', 'returns the correct id');
+  
+$t->diag('findIdByUsername()');
+  $t->is(UllUserTable::findIdByUsername('foobar'), false, 'returns false for an invalid username');  
+  $t->is(UllUserTable::findIdByUsername('test_user'), 2, 'returns the correct username');  

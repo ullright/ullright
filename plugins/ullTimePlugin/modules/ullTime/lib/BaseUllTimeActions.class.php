@@ -27,6 +27,7 @@ class BaseUllTimeActions extends ullsfActions
     $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
   }  
   
+  
   /**
    * Execute index action
    * 
@@ -41,5 +42,88 @@ class BaseUllTimeActions extends ullsfActions
 
 //    $this->breadcrumbForIndex();
   }
+  
+  /**
+   * Execute create action
+   * 
+   */
+  public function executeCreate($request) 
+  {
+    $this->forward('ullVentory', 'edit');
+  } 
+  
+  /**
+   * Execute edit action
+   * 
+   */
+  public function executeEdit($request) 
+  {
+    $this->checkAccess('LoggedIn');
+    
+    $this->getDocsFromRequestOrCreate();
+    
+    $this->list_generator = new ullTableToolGenerator('UllProjectReporting', 'r', 'list');
+    $this->list_generator->buildForm($this->docs);
+    
+    $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', 'w');
+    $this->edit_generator->buildForm($this->doc);
+    
+//    $this->breadcrumbForEdit();
+    
+    if ($request->isMethod('post'))
+    {
+      
+//      var_dump($_REQUEST);
+//      var_dump($this->getRequest()->getParameterHolder()->getAll());
+//      die;
+
+      if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
+      {
+        $this->redirect($this->getUriMemory()->getAndDelete('list'));
+      }
+      else
+      {
+//        var_dump($this->generator->getForm()->getErrorSchema());
+      }
+    }
+//    echo $this->generator->getForm()->debug();
+  }
+
+  
+  /**
+   * Gets  doc according to request params
+   * 
+   */
+  protected function getDocsFromRequestOrCreate()
+  {
+    $date = $this->getRequestParameter('date');
+    $username = $this->getRequestParameter('username');
+    
+    if (!$date)
+    {
+      $date = date('Y-m-d');
+    }
+    
+    if (!$username)
+    {
+      $username = UllUserTable::getLoggedInUsername();
+    }
+    
+    $userId = UllUserTable::findIdByUsername($username);
+    
+    $this->docs = UllProjectReportingTable::findByDateAndUserId($date, $userId);
+    
+    
+    $id = $this->getRequestParameter('id');
+    if ($id)
+    {
+      $this->doc = Doctrine::getTable('UllProjectReporting')->findOneById($id);
+    }
+    else
+    {
+      $this->doc = new UllProjectReporting;
+    }
+  }
+  
 
 }

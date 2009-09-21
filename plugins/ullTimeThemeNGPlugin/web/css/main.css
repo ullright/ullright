@@ -7,19 +7,19 @@
  /* Overridden css: ullCore / main.css - formats */
 
 .color_light_bg {
-  background: #ffe193;
+  background: #edcadb;
 }
 
 .color_light_bg_ull_ventory {
-  background: #ffe193;
+  background: #edcadb;
 }
 
 .color_medium_bg {
-  background: #eda740;
+  background: #d796b6;
 }
 
 .color_dark_bg {
-  background: #d65e18;
+  background: #a84181;
 }
 
 .edit_container {
@@ -27,28 +27,32 @@
 }
 
 .list_table tbody tr:hover {
-  background: #ffe193;  
+  background: #edcadb;  
 }
 
 /* Overridden css: ullCore / taskcenter.css - formats */
  
 #tc_wrapper a:visited {
-  color: #d65e18;
+  color: #d796b6;
 }
 
 /* Overridden css: ullCore / common.css - formats */
  
 a {
-  color: #d65e18;
+  color: #d796b6;
 }
 
 a:visited {
-  color: #d65e18;
+  color: #d796b6;
 }
 
 /* End of overridden css */
 
 #nav_link_ull_ventory:hover {
-  border-color: #d65e18;
+  border-color: #d796b6;
 }
 
+#ull_time_edit_list {
+  width: 780px;
+  margin-bottom: 2em;
+}

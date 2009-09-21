@@ -4,5 +4,26 @@
  */
 class PluginUllProjectReportingTable extends UllRecordTable
 {
+  
+  /**
+   * Find a row by date and user_id
+   * 
+   * @param $date
+   * @param $ull_user_id
+   * @return mixed
+   */
+  public static function findByDateAndUserId($date, $ullUserId)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllProjectReporting x')
+      ->where('x.date = ?', $date)
+      ->addWhere('x.ull_user_id = ?', $ullUserId)
+      ->orderBy('created_at, id')
+    ;
 
+    $result = $q->execute();
+    
+    return count($result) ? $result : false;
+  }
 }

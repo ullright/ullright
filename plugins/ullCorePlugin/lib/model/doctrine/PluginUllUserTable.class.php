@@ -110,4 +110,59 @@ class PluginUllUserTable extends UllEntityTable
     return $result;
   }  
   
+  
+  /**
+   * Find username by id
+   * 
+   * @param $id UllUser->id
+   * @return mixed
+   */
+  public static function findUsernameById($id)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('u.username')
+      ->from('UllUser u')
+      ->where('u.id = ?', $id)
+    ;
+
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+
+    return $result[0];
+  }
+  
+
+  /**
+   * Find id by username
+   * 
+   * @param $username
+   * @return mixed
+   */
+  public static function findIdByUsername($username)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('u.id')
+      ->from('UllUser u')
+      ->where('u.username = ?', $username)
+    ;
+
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+
+    return $result[0];
+  }  
+
+  
+  /**
+   * Get the username of the logged in user
+   * 
+   * @return mixed
+   */
+  public static function getLoggedInUsername()
+  {
+    $userId = sfContext::getUser()->getAttribute('user_id');
+    
+    return self::findUsernameById($userId);
+  }
+  
 }
