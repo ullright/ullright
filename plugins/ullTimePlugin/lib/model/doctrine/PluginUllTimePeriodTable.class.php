@@ -4,5 +4,26 @@
  */
 class PluginUllTimePeriodTable extends UllRecordTable
 {
+  
+  /**
+   * Find a period slug by a given date
+   * 
+   * @param $date
+   * @return string
+   */
+  public static function findSlugByDate($date)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('tp.slug')
+      ->from('UllTimePeriod tp')
+      ->where('tp.from_date <= ?', $date)
+      ->addWhere('tp.to_date >= ?', $date)
+    ;
+    
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0];
+  }
 
 }

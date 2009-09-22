@@ -46,7 +46,7 @@ function ull_date_pattern($zeroPadding = true, $php_format = false)
  * @return string date        formated date like "4.12.2007" for "de"
  */
 
-function ull_format_date($date = null, $zeroPadding = true) 
+function ull_format_date($date = null, $zeroPadding = true, $showWeekDay = false) 
 {
   if ($date == null)
     $date = time();

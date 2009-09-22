@@ -5,4 +5,27 @@
 class PluginUllTimeReportingTable extends UllRecordTable
 {
 
+  /** 
+   * Find the total work seconds by date and userId
+   * 
+   * @param $date
+   * @param $userId
+   * @return integer
+   */
+  public static function findTotalWorkSecondsByDateAndUserId($date, $userId)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->select('tp.total_work_seconds')
+      ->from('UllTimeReporting tp')
+      ->where('tp.date = ?', $date)
+      ->addWhere('tp.ull_user_id = ?', $userId)
+    ;
+    
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0];
+  }
+  
 }

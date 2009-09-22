@@ -12,18 +12,34 @@ class PluginUllProjectReportingTable extends UllRecordTable
    * @param $ull_user_id
    * @return mixed
    */
-  public static function findByDateAndUserId($date, $ullUserId)
+  public static function findByDateAndUserId($date, $userId)
   {
     $q = new Doctrine_Query;
     $q
-      ->from('UllProjectReporting x')
-      ->where('x.date = ?', $date)
-      ->addWhere('x.ull_user_id = ?', $ullUserId)
+      ->from('UllProjectReporting pr')
+      ->where('pr.date = ?', $date)
+      ->addWhere('pr.ull_user_id = ?', $userId)
       ->orderBy('created_at, id')
     ;
 
     $result = $q->execute();
     
     return $result;
+  }
+  
+
+  public static function findSumByDateAndUserId($date, $userId)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('SUM(pr.duration_seconds)')
+      ->from('UllProjectReporting pr')
+      ->where('pr.date = ?', $date)
+      ->addWhere('pr.ull_user_id = ?', $userId)
+    ;
+    
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0];
   }
 }

@@ -43,6 +43,39 @@ class BaseUllTimeActions extends ullsfActions
 //    $this->breadcrumbForIndex();
   }
   
+  public function executeList($request)
+  {
+    $this->getPeriodFromRequest();
+    $this->getUserFromRequest();
+    
+    $this->dates = $this->period->getDateList();
+    
+    $dateWidget = new ullWidgetDateRead();
+    $timeDurationWidget = new ullWidgetTimeDurationRead();
+    
+    foreach($this->dates as $date => $day)
+    {
+      if ($date <= date('Y-m-d'))
+      {
+        $this->dates[$date]['humanized_date'] = $dateWidget->render(null, $date);
+        
+        $sumProject = UllProjectReportingTable::findSumByDateAndUserId($date, $this->user_id);  
+        $this->dates[$date]['sum_project'] = $timeDurationWidget->render(null, $sumProject);
+        
+        $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($date, $this->user_id);
+        $this->dates[$date]['sum_time'] = $timeDurationWidget->render(null, $sumTime);
+      }
+      else
+      {
+        unset($this->dates[$date]);
+      }
+    }
+    
+    rsort($this->dates);
+    
+    $this->breadcrumbForList();
+  }
+  
   /**
    * Execute create action
    * 
@@ -117,7 +150,6 @@ class BaseUllTimeActions extends ullsfActions
   protected function getDocsFromRequestOrCreate()
   {
     $date = $this->getRequestParameter('date');
-    $username = $this->getRequestParameter('username');
     
     if (!$date)
     {
@@ -125,20 +157,14 @@ class BaseUllTimeActions extends ullsfActions
       $this->getRequest()->setParameter('date', $date);
     }
     
-    if (!$username)
-    {
-      $username = UllUserTable::getLoggedInUsername();
-      $this->getRequest()->setParameter('username', $username);
-    }
+    $this->getUserFromRequest();
     
-    $userId = UllUserTable::findIdByUsername($username);
-    
-    $this->docs = UllProjectReportingTable::findByDateAndUserId($date, $userId);
+    $this->docs = UllProjectReportingTable::findByDateAndUserId($date, $this->user_id);
     
     if ($this->getRequestParameter('action') == 'create')
     {
       $this->doc = new UllProjectReporting;
-      $this->doc->ull_user_id = $userId;
+      $this->doc->ull_user_id = $this->user_id;
       $this->doc->date = $date;      
     }
     else
@@ -147,6 +173,52 @@ class BaseUllTimeActions extends ullsfActions
       
     }
   }
+  
+  
+  /**
+   * Get user from request
+   * 
+   * @return none
+   */
+  protected function getUserFromRequest()
+  {
+    $username = $this->getRequestParameter('username');
+    if (!$username)
+    {
+      $username = UllUserTable::getLoggedInUsername();
+      $this->getRequest()->setParameter('username', $username);
+    }
+    
+    $this->user = Doctrine::getTable('UllUser')->findOneByUsername($username);
+    $this->user_id = $this->user->id;
+  }
+  
+  
+  /**
+   * Get the period from request
+   * 
+   * @return unknown_type
+   */
+  protected function getPeriodFromRequest()
+  {
+    $slug = $this->getRequestParameter('period_slug');
+    if (!$slug)
+    {
+      $slug = UllTimePeriodTable::findSlugByDate(date('Y-m-d'));
+    }  
+    $this->period = Doctrine::getTable('UllTimePeriod')->findOneBySlug($slug);
+  }
+  
+  
+  /**
+   * Create breadcrumbs for list action
+   * 
+   */  
+  protected function breadcrumbForList() 
+  {
+    $this->breadcrumbTree = new breadcrumbTree();
+        $this->breadcrumbTree->add(__('Time Reporting') . ' ' . __('Home', null, 'common'), 'ullTime/index');
+  }  
   
   
   /**
