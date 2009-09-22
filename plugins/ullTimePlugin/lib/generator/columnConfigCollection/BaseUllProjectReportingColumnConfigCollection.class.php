@@ -1,6 +1,6 @@
 <?php 
 
-class UllProjectReportingColumnConfigCollection extends ullColumnConfigCollection
+class BaseUllProjectReportingColumnConfigCollection extends ullColumnConfigCollection
 {
 
   /**
