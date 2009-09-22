@@ -29,6 +29,9 @@ class BaseUllProjectReportingColumnConfigCollection extends ullColumnConfigColle
       ->setMetaWidgetClassName('ullMetaWidgetTimeDuration')
       ->setLabel(__('Duration', null, 'common'));
     ;
+    $this['comment']
+      ->setMetaWidgetClassName('ullMetaWidgetString')
+    ;
     $this['week']->disable();
     $this['created_at']->disable();
     $this['creator_user_id']->disable();
