@@ -17,6 +17,14 @@ UllProject:
         description:            Coole neue Möbel für den Besprechungsraum finden                        
     namespace:                  test
     
+#<?php
+#for ($i = 1; $i <= 100; $i++)
+#{
+#  echo "  project_$i:\n";
+#  echo "    name: blabla$i\n";
+#}
+#?>
+    
     
 UllProjectReporting:
   ull_project_reporting_1:
