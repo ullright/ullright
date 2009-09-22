@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Handle foreign key fields
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
 class ullMetaWidgetForeignKey extends ullMetaWidget
 {
   protected function configure()
@@ -13,7 +19,37 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
     
   protected function configureWriteMode()
   {
-//    var_dump($this->columnConfig);die;
+    $this->parseOptions();
+    
+    $this->addWidget(new ullWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
+    
+    $this->handleAllowCreate();
+  }
+  
+  
+  protected function configureReadMode()
+  {
+    //ullWidgetForeignKey doesn't support option 'add_empty'
+    $this->columnConfig->removeWidgetOption('add_empty');
+    
+    $this->addWidget(new ullWidgetForeignKey($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorPass());
+  }
+
+  public function getSearchType()
+  {
+    return 'foreign';
+  }
+  
+  
+  /**
+   * Parse options
+   * 
+   * @return unknown_type
+   */
+  protected function parseOptions()
+  {
     $validatorOptions = $this->columnConfig->getValidatorOptions();
     $relation = $this->columnConfig->getRelation();
     $this->columnConfig->setValidatorOption('model', $relation['model']);
@@ -31,11 +67,16 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
     else
     {
       $this->columnConfig->setWidgetOption('show_search_box', false);
-    }    
-    
-    $this->addWidget(new ullWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-    $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
-    
+    }        
+  }
+  
+  
+  /**
+   * Handle allow create
+   * @return unknown_type
+   */
+  protected function handleAllowCreate()
+  {
     if ($this->columnConfig->getAllowCreate() == true)
     {
       $this->columnConfig->removeWidgetOption('add_empty');
@@ -57,21 +98,6 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
           $createColumnName, 
           new sfValidatorString(array('required' => true), array('required' => __('Please select a value or enter a new one', null, 'common')))),
       ))); 
-    }
-  }
-  
-  
-  protected function configureReadMode()
-  {
-    //ullWidgetForeignKey doesn't support option 'add_empty'
-    $this->columnConfig->removeWidgetOption('add_empty');
-    
-    $this->addWidget(new ullWidgetForeignKey($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-    $this->addValidator(new sfValidatorPass());
-  }
-
-  public function getSearchType()
-  {
-    return 'foreign';
+    }    
   }
 }
