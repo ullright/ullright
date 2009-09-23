@@ -1,6 +1,6 @@
 <?php
 
-class TestTableColumnConfigCollection extends UllEntityColumnConfigCollection
+class TestTableColumnConfigCollection extends ullColumnConfigCollection
 {
   /**
    * Applies model specific custom column configuration

@@ -1,6 +1,6 @@
 <?php
 
-class UllSelectChildColumnConfigCollection extends UllEntityColumnConfigCollection
+class UllSelectChildColumnConfigCollection extends ullColumnConfigCollection
 {
   /**
    * Applies model specific custom column configuration

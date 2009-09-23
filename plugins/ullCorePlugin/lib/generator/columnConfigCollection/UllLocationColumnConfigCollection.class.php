@@ -1,6 +1,6 @@
 <?php
 
-class UllLocationColumnConfigCollection extends UllEntityColumnConfigCollection
+class UllLocationColumnConfigCollection extends ullColumnConfigCollection
 {
   /**
    * Applies model specific custom column configuration

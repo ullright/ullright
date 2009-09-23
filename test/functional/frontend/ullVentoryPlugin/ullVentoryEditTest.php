@@ -119,7 +119,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1703')
-  ->checkResponseElement('div.edit_container > h3', 'Item of Stored')
+  ->checkResponseElement('div.edit_container > h3', 'Item of user: Stored')
   ->checkResponseElement($dgsEdit->get('type', 'value'), 'Printer')
   ->checkResponseElement($dgsEdit->get('type', 'value') . ' > input[type="hidden"]', true)  
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 3)
@@ -173,7 +173,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1704')
-  ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
+  ->checkResponseElement('div.edit_container > h3', 'Item of user: Master Admin')
   // owner
   ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
   //memory
@@ -190,7 +190,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1704')
-  ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
+  ->checkResponseElement('div.edit_container > h3', 'Item of user: Master Admin')
   ->checkResponseElement('input[id="fields_comment"][value="Paper-jam again!"]', true)
   // owner
   ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
@@ -208,7 +208,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1704')
-  ->checkResponseElement('div.edit_container > h3', 'Item of Master Admin')
+  ->checkResponseElement('div.edit_container > h3', 'Item of user: Master Admin')
   // owner
   ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
   //memory

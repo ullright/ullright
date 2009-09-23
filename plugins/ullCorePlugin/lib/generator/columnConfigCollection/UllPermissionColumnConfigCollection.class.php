@@ -1,6 +1,6 @@
 <?php
 
-class UllPermissionColumnConfigCollection extends UllEntityColumnConfigCollection
+class UllPermissionColumnConfigCollection extends ullColumnConfigCollection
 {
   /**
    * Applies model specific custom column configuration

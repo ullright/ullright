@@ -1,6 +1,6 @@
 <?php
 
-class UllWikiAccessLevelAccessColumnConfigCollection extends UllEntityColumnConfigCollection
+class UllWikiAccessLevelAccessColumnConfigCollection extends ullColumnConfigCollection
 {
   /**
    * Applies model specific custom column configuration
