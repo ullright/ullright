@@ -1,3 +1,43 @@
+#list
+ull_time_list:
+  url:     /ullTime/list/:period_slug/:username
+  class:   sfRequestRoute
+  param:   { module: ullTime, action: list }
+  requirements:
+    sf_method: [get, post] 
+
+
+#time
+ull_time_create:
+  url:     /ullTime/create/:date/:username
+  class:   sfRequestRoute
+  param:   { module: ullTime, action: create }
+  requirements:
+    sf_method: [get, post] 
+
+ull_time_create_date_only:
+  url:     /ullTime/create/:date
+  class:   sfRequestRoute
+  param:   { module: ullTime, action: create }
+  requirements:
+    sf_method: [get, post]
+    
+ull_time_edit:
+  url:     /ullTime/edit/:date/:username/*
+  class:   sfRequestRoute
+  param:   { module: ullTime, action: edit }
+  requirements:
+    sf_method: [get, post]
+    
+ull_time_delete:
+  url:     /ullTime/delete/:date/:username/*
+  class:   sfRequestRoute
+  param:   { module: ullTime, action: delete }
+  requirements:
+    sf_method: [get, post] 
+
+
+# project
 ull_time_create_project:
   url:     /ullTime/createProject/:date/:username
   class:   sfRequestRoute
@@ -26,9 +66,3 @@ ull_time_delete_project:
   requirements:
     sf_method: [get, post]            
 
-ull_time_list:
-  url:     /ullTime/list/:period_slug/:username
-  class:   sfRequestRoute
-  param:   { module: ullTime, action: list }
-  requirements:
-    sf_method: [get, post] 

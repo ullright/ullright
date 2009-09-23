@@ -79,6 +79,12 @@ class ullTableToolForm extends ullGeneratorForm
         $values['Translation'][$culture]['lang'] = $culture;
         $values['Translation'][$culture][$realFieldName] = $value;
       }
+      
+      // create proper null entries
+      if (!$value)
+      {
+        $values[$fieldName] = null;
+      }
     }
     
     $this->values = $values;

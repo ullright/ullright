@@ -15,11 +15,6 @@ abstract class PluginUllTimeReporting extends BaseUllTimeReporting
    */
   public function preSave($event)
   {
-    if ($this->begin_work_at && $this->end_work_at)
-    {
-      $this->total_work_seconds = strtotime($this->end_work_at) - strtotime($this->begin_work_at);
-    }  
-    
     $this->total_break_seconds = 0;
     
     if ($this->begin_break1_at && $this->end_break1_at)
@@ -35,7 +30,12 @@ abstract class PluginUllTimeReporting extends BaseUllTimeReporting
     if ($this->begin_break3_at && $this->end_break3_at)
     {
       $this->total_break_seconds += strtotime($this->end_break3_at) - strtotime($this->begin_break3_at);
-    }    
+    }
+
+    if ($this->begin_work_at && $this->end_work_at)
+    {
+      $this->total_work_seconds = strtotime($this->end_work_at) - strtotime($this->begin_work_at) - $this->total_break_seconds;
+    }   
   }  
 
 }

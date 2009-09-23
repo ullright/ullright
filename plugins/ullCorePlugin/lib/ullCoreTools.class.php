@@ -128,5 +128,49 @@ class ullCoreTools
     return $return;
   }
   
+  
+  /**
+   * Convert a human readable time to iso time
+   * 
+   * Example: 1:20 -> 01:20:00
+   * 
+   * @param $time
+   * @return string
+   */
+  public static function humanTimeToIsoTime($time)
+  {
+    $parts = explode(':', $time);
+    $hour = $parts[0];
+    $minute = $parts[1];
+    $second = '00';
+    if (strlen($hour) == 1)
+    {
+      $hour = '0' . $hour;
+    }
+    
+    return $hour . ':' . $minute . ':' . $second;
+  }
+  
+  
+  /**
+   * Convert iso time to human readable time
+   * 
+   * Example: 01:20:00 -> 1:20
+   * 
+   * @param $time
+   * @return unknown_type
+   */
+  public static function isoTimeToHumanTime($time)
+  {
+    $parts = explode(':', $time);
+    $hour = $parts[0];
+    $minute = $parts[1];    
+    if (substr($hour,0,1) == 0)
+    {
+      $hour = substr($hour,1,1);
+    }
+    
+    return $hour . ':' . $minute;
+  }
 }
 

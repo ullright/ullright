@@ -28,4 +28,26 @@ class PluginUllTimeReportingTable extends UllRecordTable
     return $result[0];
   }
   
+  
+  /**
+   * Find a row by date and user_id
+   * 
+   * @param $date
+   * @param $ull_user_id
+   * @return mixed
+   */
+  public static function findByDateAndUserId($date, $userId)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllTimeReporting tr')
+      ->where('tr.date = ?', $date)
+      ->addWhere('tr.ull_user_id = ?', $userId)
+    ;
+
+    $result = $q->fetchOne();
+    
+    return $result;
+  } 
+  
 }

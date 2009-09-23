@@ -15,8 +15,8 @@
 </trans-unit>
 
 <trans-unit id="3">
-<source>Project efforts for user %user% on %date%</source>
-<target>Projektaufwände von Benutzer %user% für den %date%</target>
+<source>Project efforts</source>
+<target>Projektaufwände</target>
 </trans-unit>
 
 <trans-unit id="4">
@@ -49,11 +49,35 @@
 <target>Bearbeite Projektaufwand</target>
 </trans-unit>
 
-<trans-unit id="9">
+<trans-unit id="10">
 <source>Create project effort</source>
 <target>Erstelle Projektaufwand</target>
 </trans-unit>
 
+<trans-unit id="11">
+<source>Edit time report</source>
+<target>Bearbeite Zeiterfassung</target>
+</trans-unit>
+
+<trans-unit id="12">
+<source>Create time report</source>
+<target>Erstelle Zeiterfassung</target>
+</trans-unit>
+
+<trans-unit id="13">
+<source>Time report</source>
+<target>Zeiterfassung</target>
+</trans-unit>
+
+<trans-unit id="14">
+<source>Work time</source>
+<target>Arbeitszeit</target>
+</trans-unit>
+
+<trans-unit id="15">
+<source>Break</source>
+<target>Pause</target>
+</trans-unit>
 
 
     </body>

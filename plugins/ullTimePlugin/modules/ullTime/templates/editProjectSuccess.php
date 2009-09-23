@@ -1,12 +1,11 @@
-<?php //use_javascript('/ullVentoryPlugin/js/editSuccess.js') ?>
-
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <?php $list_generator = $sf_data->getRaw('list_generator') ?>
 
-<h3><?php echo __('Project efforts for user %user% on %date%', array(
-  '%user%' => $edit_generator->getForm()->offsetGet('ull_user_id')->render(), 
-  '%date%' => $edit_generator->getForm()->offsetGet('date')->render()
-), 'ullTimeMessages')?></h3>
+<h3>
+  <?php echo __('Project efforts', null, 'ullTimeMessages')?>
+  <?php echo $edit_generator->getForm()->offsetGet('date')->render() ?> /
+  <?php echo $edit_generator->getForm()->offsetGet('ull_user_id')->render() ?>
+</h3>
 
 <?php if ($edit_generator->getForm()->hasErrors()): ?>
   <div class='form_error'>

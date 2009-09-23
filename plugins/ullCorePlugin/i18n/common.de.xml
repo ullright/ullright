@@ -178,9 +178,19 @@
 <target>Tag</target>
 </trans-unit>
 
-<trans-unit id="119">
+<trans-unit id="121">
 <source>Total</source>
 <target>Summe</target>
+</trans-unit>
+
+<trans-unit id="122">
+<source>Begin</source>
+<target>Anfang</target>
+</trans-unit>
+
+<trans-unit id="123">
+<source>End</source>
+<target>Ende</target>
 </trans-unit>
 
 

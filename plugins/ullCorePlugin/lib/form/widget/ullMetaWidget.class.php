@@ -249,7 +249,10 @@ abstract class ullMetaWidget
         return 'ullMetaWidgetDateTime';
         
       case 'date':
-        return 'ullMetaWidgetDate';        
+        return 'ullMetaWidgetDate';
+
+      case 'time':
+        return 'ullMetaWidgetTime';           
 
       case 'boolean':
         return 'ullMetaWidgetCheckbox';
