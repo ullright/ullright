@@ -24,7 +24,7 @@ $b
   ->setField('fields[ull_ventory_item_manufacturer_id_create]', 'Lenovo')
   ->setField('fields[ull_ventory_item_model_id_create]', 'ThinkPad SL500')
   ->setField('fields[inventory_number]', '1234')
-  ->setField('fields[attributes][0][value]', '14')
+  ->setField('fields[attributes][1][value]', '14')
   ->setField('fields[add_software]', Doctrine::getTable('UllVentorySoftware')->findOneByName('Adobe Writer 6.0')->id)
   ->click('Add software')
 ;

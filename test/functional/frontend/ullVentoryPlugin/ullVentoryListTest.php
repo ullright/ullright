@@ -99,7 +99,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'createWithType')
   ->isRequestParameter('entity', 'test_user')
-  ->checkResponseElement('h3', 'Item of Test User')
+  ->checkResponseElement('h3', 'Item of user: Test User')
 ;  
   
 

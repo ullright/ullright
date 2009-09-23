@@ -70,7 +70,15 @@ class ullVentoryGenerator extends ullTableToolGenerator
       $rowId = $this->getRow()->id;
       $attributeValues = $this->getRow()->UllVentoryItemAttributeValue;
       
+      $itemTypeAttributes = array();
       foreach($this->itemType->UllVentoryItemTypeAttribute as $typeAttribute)
+      {
+        $itemTypeAttributes[$typeAttribute->UllVentoryItemAttribute->name] = $typeAttribute;
+      }
+      
+      uksort($itemTypeAttributes, 'strnatcmp');
+      
+      foreach($itemTypeAttributes as $itemAttributeName => $typeAttribute)
       {
         if ($this->isAction('createWithType'))
         {

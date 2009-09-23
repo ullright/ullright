@@ -88,10 +88,10 @@ $b
   ->setField('fields[comment]', 'Permanent paper-jam!')
   
   //attributes
-  ->setField('fields[attributes][0][value]', '10')
-  ->setField('fields[attributes][0][comment]', 'Old and slow')
-  ->setField('fields[attributes][1][value]', 'Laser')
-  ->setField('fields[attributes][1][comment]', 'Single pass color')
+  ->setField('fields[attributes][0][value]', 'Laser')
+  ->setField('fields[attributes][0][comment]', 'Single pass color')
+  ->setField('fields[attributes][1][value]', '10')
+  ->setField('fields[attributes][1][comment]', 'Old and slow')
   
   ->click('Save and return to list')  
 ;
@@ -132,10 +132,10 @@ $b
   ->checkResponseElement($dgsEdit->get('serial_number', 'value') . ' > input[value="abc123"]', true)
   ->checkResponseElement('input[id="fields_id"][value="3"]', true)
   //attributes
-  ->checkResponseElement('input[id="fields_attributes_0_value"][value="10"]', true)
-  ->checkResponseElement('input[id="fields_attributes_0_comment"][value="Old and slow"]', true)
-  ->checkResponseElement('input[id="fields_attributes_1_value"][value="Laser"]', true)
-  ->checkResponseElement('input[id="fields_attributes_1_comment"][value="Single pass color"]', true)
+  ->checkResponseElement('input[id="fields_attributes_0_value"][value="Laser"]', true)
+  ->checkResponseElement('input[id="fields_attributes_0_comment"][value="Single pass color"]', true)
+  ->checkResponseElement('input[id="fields_attributes_1_value"][value="10"]', true)
+  ->checkResponseElement('input[id="fields_attributes_1_comment"][value="Old and slow"]', true)
   // owner
   ->checkResponseElement($dgsOwner->getFullRowSelector(), 2)
   ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Stored')  
@@ -246,9 +246,10 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1701')
-  ->setField('fields[attributes][0][value]', '18foo')
-  ->setField('fields[attributes][0][comment]', 'blabla')
-  ->setField('fields[attributes][1][value]', '100')
+  //->dumpDie()
+  ->setField('fields[attributes][1][value]', '18foo')
+  ->setField('fields[attributes][1][comment]', 'blabla')
+  ->setField('fields[attributes][2][value]', '100')
   ->click('Save only')  
 ;
 
@@ -258,10 +259,10 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1701')
-  ->checkResponseElement($dgsEditAttributes->get(1, 'value') . ' ul > li', 'Invalid.')
-  ->checkResponseElement($dgsEditAttributes->get(1, 'comment') . ' > input[value="blabla"]', true)
-  ->checkResponseElement($dgsEditAttributes->get(2, 'value'). ' > input[value="100"]', true)
-  ->setField('fields[attributes][0][value]', '18')
+  ->checkResponseElement($dgsEditAttributes->get(2, 'value') . ' ul > li', 'Invalid.')
+  ->checkResponseElement($dgsEditAttributes->get(2, 'comment') . ' > input[value="blabla"]', true)
+  ->checkResponseElement($dgsEditAttributes->get(3, 'value'). ' > input[value="100"]', true)
+  ->setField('fields[attributes][1][value]', '18')
   ->click('Save only')  
 ;
 
@@ -273,7 +274,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('inventory_number', '1701')
-  ->checkResponseElement($dgsEditAttributes->get(1, 'value'). ' > input[value="18"]', true)
+  ->checkResponseElement($dgsEditAttributes->get(2, 'value'). ' > input[value="18"]', true)
 ;
 
 $b
@@ -339,14 +340,14 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'createWithType')
   ->isRequestParameter('type', 'notebook')
-  ->checkResponseElement('input[id="fields_attributes_0_value"][value="13"]', true)
+  ->checkResponseElement('input[id="fields_attributes_1_value"][value="13"]', true)
 ;
 
 $b
   ->info('Create: save preset')
-  ->setField('fields[attributes][0][value]', '17') // overwrite an existing preset
-  ->setField('fields[attributes][1][value]', '1000') // save a new preset
-  ->setField('fields[attributes][2][value]', '2009-07-28') // set a preset that is not presetable
+  ->setField('fields[attributes][1][value]', '17') // overwrite an existing preset
+  ->setField('fields[attributes][2][value]', '1000') // save a new preset
+  ->setField('fields[attributes][0][value]', '2009-07-28') // set a preset that is not presetable
   ->setField('fields[save_preset]', true) 
   ->click('Save and return to list')
   ->isRedirected()
@@ -369,8 +370,8 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'createWithType')
   ->isRequestParameter('type', 'notebook')
-  ->checkResponseElement('input[id="fields_attributes_0_value"][value="17"]', true)
-  ->checkResponseElement('input[id="fields_attributes_1_value"][value="1000"]', true)
-  ->checkResponseElement('input[id="fields_attributes_2_value"][value=""]', true)
+  ->checkResponseElement('input[id="fields_attributes_1_value"][value="17"]', true)
+  ->checkResponseElement('input[id="fields_attributes_2_value"][value="1000"]', true)
+  ->checkResponseElement('input[id="fields_attributes_0_value"][value=""]', true)
 ;
 
