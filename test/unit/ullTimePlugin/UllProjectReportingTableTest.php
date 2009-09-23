@@ -20,6 +20,6 @@ $t->begin('findByDateAndUserId()');
   $t->is(UllProjectReportingTable::findByDateAndUserId('2009-09-17', $user->id)->getFirst()->comment, 'Server hardware setup', 'returns the correct row');
 
   
-$t->begin('findSumByDateAndUserId()');
+$t->diag('findSumByDateAndUserId()');
   $t->is(UllProjectReportingTable::findSumByDateAndUserId('2009-09-17', $user->id), 18000, 'returns the correct sum');
   

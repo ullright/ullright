@@ -4,7 +4,14 @@ ull_time_list:
   class:   sfRequestRoute
   param:   { module: ullTime, action: list }
   requirements:
-    sf_method: [get, post] 
+    sf_method: [get, post]
+    
+ull_time_list_period_slug_only:
+  url:     /ullTime/list/:period_slug
+  class:   sfRequestRoute
+  param:   { module: ullTime, action: list }
+  requirements:
+    sf_method: [get, post]      
 
 
 #time

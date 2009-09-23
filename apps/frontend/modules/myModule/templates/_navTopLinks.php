@@ -21,6 +21,14 @@
       'ullVentory/index', __('Inventory', null, 'ullVentoryMessages'),
       array());
   ?>
+  </li>
+  
+  <li id='nav_link_ull_time'>
+  <?php
+  echo ull_navigation_link('/ullTimeThemeNGPlugin/images/ull_time_32x32',
+      'ullTime/index', __('Timereporting', null, 'ullTimeMessages'),
+      array());
+  ?>
   </li>  
   
   <?php if (UllUserTable::hasGroup('MasterAdmins')): ?>

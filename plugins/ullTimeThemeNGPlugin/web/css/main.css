@@ -33,7 +33,7 @@
 /* Overridden css: ullCore / taskcenter.css - formats */
  
 #tc_wrapper a:visited {
-  color: #d796b6;
+  color: #a84181;
 }
 
 /* Overridden css: ullCore / common.css - formats */
@@ -48,9 +48,6 @@ a:visited {
 
 /* End of overridden css */
 
-#nav_link_ull_ventory:hover {
-  border-color: #d796b6;
-}
 
 #ull_time_edit_list {
   width: 780px;

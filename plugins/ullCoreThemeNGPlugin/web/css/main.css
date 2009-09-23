@@ -143,6 +143,14 @@ ul.nav_top_links li:hover {
 	border-color: #b3ce00;
 }
 
+#nav_link_ull_ventory:hover {
+  border-color: #d65e18;
+}
+
+#nav_link_ull_time:hover {
+  border-color: #d796b6;
+}
+
 #nav_link_admin:hover {
 	border-color: #777475;
 }

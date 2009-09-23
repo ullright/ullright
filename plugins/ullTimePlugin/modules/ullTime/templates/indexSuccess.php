@@ -1,4 +1,4 @@
-<?php //echo $sf_data->getRaw('breadcrumbTree')->getHtml();?>
+<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml();?>
 
 <div id="tc_wrapper">
   <div id="tc_header">
@@ -8,12 +8,21 @@
     <div id="tc_tasks">
       <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php //echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/create', __('Create', null, 'common')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/create', __('Timereporting for today', null, 'ullTimeMessages')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/createProject', __('Project timereporting for today', null, 'ullTimeMessages')) ?></li>
       </ul>
+      
+      <h3><?php echo __('Monthly overviews', null, 'ullTimeMessages') ?></h3>
+      <ul class="tc_tasks">
+        <?php foreach ($periods as $period): ?>
+          <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/list?period_slug=' . $period->slug, $period->name) ?></li>
+        <?php endforeach ?>
+      </ul>      
     </div>
     
     <div id="tc_search">
     
+    <!-- 
     <?php //echo ull_form_tag(array('action' => 'list')); ?>
       <div class="tc_box color_medium_bg">
         <?php //echo $form['search']->renderLabel() ?><br />    
@@ -27,6 +36,7 @@
         <?php //echo $form['ull_entity_id']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
       </div>
       </form>
+    -->
 
       <!-- 
       <div class="tc_search_quick_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
@@ -42,7 +52,7 @@
     <div id="tc_queries">
       <div class="tc_query_box color_light_bg">
         <h3>
-         <?php //echo __('Queries', null, 'common') ?>
+         <?php echo __('Queries', null, 'common') ?>
         </h3>
         <?php //echo $named_queries->renderList(ESC_RAW) ?>
       </div>

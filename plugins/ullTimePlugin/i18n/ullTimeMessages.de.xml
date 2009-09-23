@@ -79,6 +79,30 @@
 <target>Pause</target>
 </trans-unit>
 
+<trans-unit id="16">
+<source>Timereporting for today</source>
+<target>Zeiterfassung für heute</target>
+</trans-unit>
+
+<trans-unit id="17">
+<source>Project timereporting for today</source>
+<target>Projektaufwände für heute</target>
+</trans-unit>
+
+<trans-unit id="18">
+<source>Monthly overviews</source>
+<target>Monatsübersichten</target>
+</trans-unit>
+
+<trans-unit id="19">
+<source>Timereporting</source>
+<target>Zeiterfassung</target>
+</trans-unit>
+
+<trans-unit id="19">
+<source>Projects</source>
+<target>Projekte</target>
+</trans-unit>
 
     </body>
   </file>

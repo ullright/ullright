@@ -22,7 +22,7 @@
         <?php echo 'weekend'; $odd = 'odd' ?>
       <?php endif ?>
     ">
-      <td>Weekday <?php echo $day['humanized_date'] ?></td>
+      <td><?php echo $day['humanized_date'] ?></td>
       <td><?php echo link_to(__('Time reporting', null, 'ullTimeMessages'), 'ullTime/create?date=' . $day['date'] . '&username=' . $user->username) ?></td>
       <td><?php echo $day['sum_time'] ?></td>
       <td><?php echo link_to(__('Project reporting', null, 'ullTimeMessages'), 'ullTime/createProject?date=' . $day['date'] . '&username=' . $user->username) ?></td>

@@ -26,4 +26,28 @@ class PluginUllTimePeriodTable extends UllRecordTable
     return $result[0];
   }
 
+  
+  /**
+   * Find the current and all past periods
+   * @param $date
+   * @return unknown_type
+   */
+  public static function findCurrentAndPast($date = null)
+  {
+    if (!$date)
+    {
+      $date = date('Y-m-d');
+    }
+    
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllTimePeriod tp')
+      ->where('tp.from_date <= ?', $date)
+      ->orderBy('tp.from_date DESC')
+    ;
+    
+    return $q->execute();
+  }
+  
 }
+  
