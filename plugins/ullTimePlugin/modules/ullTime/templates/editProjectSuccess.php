@@ -35,8 +35,8 @@
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          
         <?php
-            echo ull_link_to(ull_image_tag('edit'), array('action' => 'edit') + $idAsArray);
-            echo ull_link_to(ull_image_tag('delete'), array('action' => 'delete') +$idAsArray,
+            echo ull_link_to(ull_image_tag('edit'), array('action' => 'editProject') + $idAsArray);
+            echo ull_link_to(ull_image_tag('delete'), array('action' => 'deleteProject') +$idAsArray,
                 'confirm=' . __('Are you sure?', null, 'common')); 
         ?>
       </td>

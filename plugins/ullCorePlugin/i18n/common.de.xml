@@ -173,6 +173,17 @@
 <target>Dauer</target>
 </trans-unit>
 
+<trans-unit id="120">
+<source>Day</source>
+<target>Tag</target>
+</trans-unit>
+
+<trans-unit id="119">
+<source>Total</source>
+<target>Summe</target>
+</trans-unit>
+
+
 <!-- Questions -->
 
 <trans-unit id="201">
@@ -291,6 +302,11 @@
 <trans-unit id="2013">
 <source>Search</source>
 <target>Suche</target>
+</trans-unit>
+
+<trans-unit id="2014">
+<source>Overview</source>
+<target>Übersicht</target>
 </trans-unit>
 
 <!-- common show action phrases -->

@@ -29,6 +29,32 @@
 <target>Projektaufwand bearbeiten</target>
 </trans-unit>
 
+<trans-unit id="6">
+<source>Project reporting</source>
+<target>Projektaufwände</target>
+</trans-unit>
+
+<trans-unit id="7">
+<source>Time reporting</source>
+<target>Zeiterfassung</target>
+</trans-unit>
+
+<trans-unit id="8">
+<source>Monthly overview</source>
+<target>Monatsübersicht</target>
+</trans-unit>
+
+<trans-unit id="9">
+<source>Edit project effort</source>
+<target>Bearbeite Projektaufwand</target>
+</trans-unit>
+
+<trans-unit id="9">
+<source>Create project effort</source>
+<target>Erstelle Projektaufwand</target>
+</trans-unit>
+
+
 
     </body>
   </file>

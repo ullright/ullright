@@ -1,28 +1,32 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
 <h3>
-  <?php echo $period->name ?> / <?php echo $user->display_name ?>
+  <?php echo __('Overview', null, 'common')?> <?php echo $period->name ?> / <?php echo $user->display_name ?>
 </h3>
 
 <table class="list_table" id="ull_time_list">
   
   <tr class="color_dark_bg">
-    <th class="color_dark_bg"><?php echo __('Day', null, 'ullVentoryMessages') ?></th>
-    <th class="color_dark_bg"><?php echo __('Total time', null, 'ullVentoryMessages') ?></th>
+    <th class="color_dark_bg"><?php echo __('Day', null, 'common') ?></th>
+    <th class="color_dark_bg"><?php echo __('Time reporting', null, 'ullTimeMessages') ?></th>
+    <th class="color_dark_bg"><?php echo __('Total', null, 'common') ?></th>
+    <th class="color_dark_bg"><?php echo __('Project reporting', null, 'ullTimeMessages') ?></th>
+    <th class="color_dark_bg"><?php echo __('Total', null, 'common') ?></th>
   </tr>
  
+  <?php $odd = true; ?>
   <?php foreach ($dates as $date => $day): ?>
-    <?php $class = ($day['weekend']) ? 'class="weekend"' : null ?>
-    <tr class="ull_time_weekday">
-      <td colspan=2" <?php echo $class ?>>Weekday <?php echo $day['humanized_date'] ?></td>
-    </tr>
-    <tr>
-      <td <?php echo $class ?>><ul><li><?php echo link_to(__('Time reporting', null, 'ullVentoryMessages'), 'ullTime/create') ?></li></ul></td>
-      <td <?php echo $class ?>><?php echo $day['sum_time'] ?></td>
-    </tr>
-    <tr>
-      <td <?php echo $class ?>><ul><li><?php echo link_to(__('Project reporting', null, 'ullVentoryMessages'), 'ullProject/create') ?></li></ul></td>
-      <td <?php echo $class ?>><?php echo $day['sum_project'] ?></td>
+    <tr class="
+      <?php echo ($odd) ? $odd = '' : $odd = 'odd' ?>
+      <?php if ($day['weekend']): ?>
+        <?php echo 'weekend'; $odd = 'odd' ?>
+      <?php endif ?>
+    ">
+      <td>Weekday <?php echo $day['humanized_date'] ?></td>
+      <td><?php echo link_to(__('Time reporting', null, 'ullTimeMessages'), 'ullTime/create?date=' . $day['date'] . '&username=' . $user->username) ?></td>
+      <td><?php echo $day['sum_time'] ?></td>
+      <td><?php echo link_to(__('Project reporting', null, 'ullTimeMessages'), 'ullTime/createProject?date=' . $day['date'] . '&username=' . $user->username) ?></td>
+      <td><?php echo $day['sum_project'] ?></td>
     </tr>    
   <?php endforeach ?>
   

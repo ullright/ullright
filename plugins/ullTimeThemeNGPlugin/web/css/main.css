@@ -57,33 +57,13 @@ a:visited {
   margin-bottom: 2em;
 }
 
+/**
+ * List action
+ */
 #ull_time_list {
   width: 780px;
 }
 
-#ull_time_list td {
-  width: 780px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-#ull_time_list td.weekend {
-  background: #dddddd;
-}
-
-#ull_time_list ul {
-  margin-top: 0em;
-  margin-bottom: 0em;
-  margin-left: 2em;
-}
-
-#ull_time_list ul > li {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-
-
-.ull_time_weekday {
-  font-weight: bold;
-  font-size: 1.1em;
+#ull_time_list tr.weekend {
+  background: #d0d0d0;
 }
