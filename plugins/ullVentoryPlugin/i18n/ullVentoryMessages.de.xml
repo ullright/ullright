@@ -179,53 +179,48 @@
 
 <!--  Admin index -->
 <trans-unit id="4001">
-<source>Manage origin users</source>
-<target>Verwalte Herkunfts-Benutzer</target>
+<source>Origin users</source>
+<target>Herkunfts-Benutzer</target>
 </trans-unit>
 
 <trans-unit id="4002">
-<source>Manage status users</source>
-<target>Verwalte Status-Benutzer</target>
+<source>Status users</source>
+<target>Status-Benutzer</target>
 </trans-unit>
 
 <trans-unit id="4003">
-<source>Manage item types</source>
-<target>Verwalte Geräte-Typen</target>
+<source>Item types</source>
+<target>Geräte-Typen</target>
 </trans-unit>
 
 <trans-unit id="4004">
-<source>Manage item attributes</source>
-<target>Verwalte Geräte-Eigenschaften</target>
+<source>Item attributes</source>
+<target>Geräte-Eigenschaften</target>
 </trans-unit>
 
 <trans-unit id="4005">
-<source>Manage attributes per item type</source>
-<target>Verwalte Eigenschaften pro Geräte-Typ</target>
-</trans-unit>
-
-<trans-unit id="4006">
-<source>Manage software</source>
-<target>Verwalte Software</target>
+<source>Attributes per item type</source>
+<target>Eigenschaften pro Geräte-Typ</target>
 </trans-unit>
 
 <trans-unit id="4007">
-<source>Manage software licenses</source>
-<target>Verwalte Software-Lizenzen</target>
+<source>Software licenses</source>
+<target>Software-Lizenzen</target>
 </trans-unit>
 
 <trans-unit id="4008">
-<source>Manage item manufacturers</source>
-<target>Verwalte Geräte-Hersteller</target>
+<source>Item manufacturers</source>
+<target>Geräte-Hersteller</target>
 </trans-unit>
 
 <trans-unit id="4009">
-<source>Manage item models</source>
-<target>Verwalte Geräte-Modelle</target>
+<source>Item models</source>
+<target>Geräte-Modelle</target>
 </trans-unit>
 
 <trans-unit id="4010">
-<source>Manage inventory takings</source>
-<target>Verwalte Inventur-Überprüfungen</target>
+<source>Inventory takings</source>
+<target>Inventur-Überprüfungen</target>
 </trans-unit>
 
 <!-- queries -->

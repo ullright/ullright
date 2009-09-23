@@ -623,66 +623,6 @@ UllFlowAction:
     is_notify_next:      true
     namespace:        ullFlow
               
-UllTableConfig:
-  ull_flow_app_tc:
-    Translation:
-      en:
-        label: Applications
-      de:
-        label: Anwendungen
-    db_table_name: UllFlowApp
-    sort_columns: slug
-    search_columns: slug
-    namespace:        ullFlow
-  ull_flow_app_permission_tc:
-    Translation:
-      en:
-        label: Application access rights
-      de:
-        label: Anwendungs-Zugriffsrechte
-    db_table_name: UllFlowAppPermission
-    sort_columns: ull_flow_app_id
-    namespace:        ullFlow
-  ull_flow_column_config_tc:
-    Translation:
-      en:
-        label: Columns
-      de:
-        label: Spalten
-    db_table_name: UllFlowColumnConfig
-    sort_columns: ull_flow_app_id, sequence
-    search_columns: slug
-    namespace:        ullFlow
-  ull_flow_step_tc:
-    Translation:
-      en:
-        label: Steps
-      de:
-        label: Schritte
-    db_table_name: UllFlowStep
-    sort_columns: ull_flow_app_id
-    search_columns: slug
-    namespace:        ullFlow
-  ull_flow_step_action_tc:
-    Translation:
-      en:
-        label: Actions for Steps
-      de:
-        label: Aktionen für Schritte
-    db_table_name: UllFlowStepAction
-    sort_columns: sequence
-    namespace:        ullFlow
-  ull_flow_actions_tc:
-    Translation:
-      en:
-        label: Actions
-      de:
-        label: Aktionen
-    db_table_name: UllFlowAction
-    sort_columns: slug
-    search_columns: slug    
-    namespace:        ullFlow
-
 Tag:
   ull_flow_tag1:
     name:           ull_flow_tag1

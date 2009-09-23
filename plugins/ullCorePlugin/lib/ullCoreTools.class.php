@@ -92,6 +92,12 @@ class ullCoreTools
     return array_merge($ordered, $array);
   }
   
+  public static function makeI18nColumnName($columnName)
+  {
+    $lang = substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2);
+    
+    return $columnName . '_translation_' . $lang;
+  }
   
   /**
    * Formats given seconds to HH:mm

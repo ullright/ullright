@@ -3,51 +3,6 @@
   <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
     <body>
 
-<trans-unit id="1000">
-<source>Manage users</source>
-<target>Verwalte Benutzer</target>
-</trans-unit>
-
-<trans-unit id="1001">
-<source>Manage groups</source>
-<target>Verwalte Gruppen</target>
-</trans-unit>
-
-<trans-unit id="1002">
-<source>Manage group memberships</source>
-<target>Verwalte Gruppen-Mitgliedschaften</target>
-</trans-unit>
-
-<trans-unit id="1003">
-<source>Manage permissions</source>
-<target>Verwalte Zugriffsrechte</target>
-</trans-unit>
-
-<trans-unit id="1004">
-<source>Manage group permissions</source>
-<target>Verwalte Gruppen-Zugriffsrechte</target>
-</trans-unit>
-
-<trans-unit id="1005">
-<source>Manage select boxes</source>
-<target>Verwalte Auswahlfelder</target>
-</trans-unit>
-
-<trans-unit id="1006">
-<source>Manage select box entries</source>
-<target>Verwalte Auswahlfeld-Einträge</target>
-</trans-unit>
-
-<trans-unit id="1007">
-<source>Manage table configurations</source>
-<target>Verwalte Tabellen-Konfigurationen</target>
-</trans-unit>
-
-<trans-unit id="1008">
-<source>Manage column configurations</source>
-<target>Verwalte Spalten-Konfigurationen</target>
-</trans-unit>
-
 <trans-unit id="1009">
 <source>Manage field types (ullMetaWidgets)</source>
 <target>Verwalte Feldtypen (ullMetaWidgets)</target>
@@ -116,40 +71,8 @@
 </trans-unit>
 
 <trans-unit id="1507">
-<source>Manage companies</source>
-<target>Verwalte Unternehmen</target>
-</trans-unit>
-
-<trans-unit id="1508">
-<source>Manage departments</source>
-<target>Verwalte Abteilungen</target>
-</trans-unit>
-
-<trans-unit id="1509">
-<source>Manage locations</source>
-<target>Verwalte Standorte</target>
-</trans-unit>
-
-<trans-unit id="1510">
-<source>Manage employment types</source>
-<target>Verwalte Beschäftungsverhältnisse</target>
-</trans-unit>
-
-<trans-unit id="1511">
-<source>Manage job titles</source>
-<target>Verwalte Funktionen</target>
-</trans-unit>
-
-<!-- ullWiki admin actions -->
-
-<trans-unit id="2001">
-<source>Manage list of access levels</source>
-<target>Verwalte Liste der Zugriffsrechte</target>
-</trans-unit>
-
-<trans-unit id="2002">
-<source>Manage access rights</source>
-<target>Verwalte Zugriffsrechte</target>
+<source>Organizational</source>
+<target>Organisation</target>
 </trans-unit>
 
 </body>

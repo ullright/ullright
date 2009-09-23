@@ -1,26 +1,3 @@
-UllTableConfig:
-  package: ullCorePlugin.lib.model.doctrine
-  inheritance:
-    extends: UllRecord
-    type: concrete
-  actAs:
-    I18n:
-      fields: [label, description]
-  columns:
-    # column name 'table' is not possible because it's a mysql reserved word
-    # column name 'table_name' is not possible, because MyTablePeer::TABLE_NAME is reserved by symfony   
-    db_table_name:
-      type: string(32)
-    label:
-      type: string(64)
-    description:
-      type: clob
-    # TODO: move the following column definitions to columnConfig?
-    sort_columns:
-      type: string(255)
-    search_columns:
-      type: string(255)
-
 # Cannot be called UllMetaWidget because the UllMetaWidgetBase class is named like that
 UllColumnType:
   package: ullCorePlugin.lib.model.doctrine

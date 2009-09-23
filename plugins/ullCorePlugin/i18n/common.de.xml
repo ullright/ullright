@@ -943,6 +943,16 @@
 <target>Zugriffsrecht</target>
 </trans-unit>
 
+<trans-unit id="23000">
+<source>Manage</source>
+<target>Verwalte</target>
+</trans-unit>
+
+<trans-unit id="23001">
+<source>Class</source>
+<target>Klasse</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

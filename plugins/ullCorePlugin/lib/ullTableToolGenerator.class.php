@@ -123,24 +123,7 @@ class ullTableToolGenerator extends ullGenerator
    */
   protected function buildTableConfig()
   {
-    $tableConfig = Doctrine::getTable('UllTableConfig')
-      ->findOneByDbTableNameCached($this->modelName);
-
-    if (!$tableConfig)
-    {
-      $tableConfig = new UllTableConfig;
-      $tableConfig->db_table_name = $this->modelName;
-    }
-    
-    $this->tableConfig = $tableConfig;
-    
-
-    // test for new ullTableConfiguration for TestTable
-    // flip the switch here!
-    if ($this->modelName == 'TestTable')
-    {
-      $this->tableConfig = ullTableConfiguration::buildFor($this->modelName);
-    }
+    $this->tableConfig = ullTableConfiguration::buildFor($this->modelName);
   }
 
   /**

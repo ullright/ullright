@@ -578,11 +578,14 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    * @param $array array of columnNames
    * @return none
    */
-  public function disable(array $array)
+  public function disable(array $array, $withoutErrors = false)
   {
     foreach ($array as $columnName)
     {
-      $this->collection[$columnName]->setAccess(null);     
+      if (!$withoutErrors || isset($this->collection[$columnName]))
+      {
+        $this->collection[$columnName]->setAccess(null);
+      }    
     }
   }
   

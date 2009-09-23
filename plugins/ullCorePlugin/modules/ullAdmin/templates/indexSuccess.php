@@ -8,64 +8,57 @@
     <div id="tc_tasks">
       <h3><?php echo __('User and Groups') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_user_24x24', 'ullTableTool/list?table=UllUser', __('Manage users')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_24x24', 'ullTableTool/list?table=UllGroup', __('Manage groups')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_permission_24x24', 'ullTableTool/list?table=UllPermission', __('Manage permissions')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_24x24', 'ullTableTool/list?table=UllEntityGroup', __('Manage group memberships')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_permission_24x24', 'ullTableTool/list?table=UllGroupPermission', __('Manage group permissions')) ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllUser', 'ullCore', 'ull_user_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllGroup', 'ullCore', 'ull_group_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllPermission', 'ullCore', 'ull_permission_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEntityGroup', 'ullCore', 'ull_group_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllGroupPermission', 'ullCore', 'ull_permission_24x24') ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_24x24', 'ullUser/massChangeSuperior', __('Superior mass change')) ?></li>
       </ul>
       <h3><?php echo __('Organizational') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllCompany', __('Manage companies')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllDepartment', __('Manage departments')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllLocation', __('Manage locations')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllEmploymentType', __('Manage employment types')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllJobTitle', __('Manage job titles')) ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllCompany', 'ullCore', 'ull_admin_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllDepartment', 'ullCore', 'ull_admin_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllLocation', 'ullCore', 'ull_admin_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEmploymentType', 'ullCore', 'ull_admin_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllJobTitle', 'ullCore', 'ull_admin_24x24') ?></li>
       </ul>
       <h3><?php echo __('Select Boxes') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllSelect', __('Manage select boxes')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllSelectChild', __('Manage select box entries')) ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllSelect', 'ullCore', 'ull_admin_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllSelectChild', 'ullCore', 'ull_admin_24x24') ?></li>
       </ul>
       <h3><?php echo __('Table Administration') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllTableConfig', __('Manage table configurations')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullTableTool/list?table=UllColumnType', __('Manage field types (ullMetaWidgets)')) ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllColumnType', 'ullCore', 'ull_admin_24x24', __('Manage field types (ullMetaWidgets)')) ?></li>
       </ul> 
       <h3><?php echo __('Workflow') ?></h3>
       <ul class="tc_tasks">
-	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowApp', __('Manage applications')) ?></li>
-	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowAppPermission', __('Manage application access rights')) ?></li>
-	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowColumnConfig', __('Manage columns')) ?></li>
-	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowStep', __('Manage steps')) ?></li>
-	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowStepAction', __('Manage actions for steps')) ?></li>
-	      <li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_24x24', 'ullTableTool/list?table=UllFlowAction', __('Manage actions')) ?></li>  
+	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowApp', 'ullFlow', 'ull_flow_24x24') ?></li>
+	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAppPermission', 'ullFlow', 'ull_flow_24x24') ?></li>
+	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowColumnConfig', 'ullFlow', 'ull_flow_24x24') ?></li>
+	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStep', 'ullFlow', 'ull_flow_24x24') ?></li>
+	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStepAction', 'ullFlow', 'ull_flow_24x24') ?></li>
+	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAction', 'ullFlow', 'ull_flow_24x24') ?></li>  
 	    </ul>
       <h3><?php echo __('Inventory', null, 'ullVentoryMessages') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemType', __('Manage item types', null, 'ullVentoryMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemManufacturer', __('Manage item manufacturers', null, 'ullVentoryMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemModel', __('Manage item models', null, 'ullVentoryMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemAttribute', __('Manage item attributes', null, 'ullVentoryMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryItemTypeAttribute', __('Manage attributes per item type', null, 'ullVentoryMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentorySoftware', __('Manage software', null, 'ullVentoryMessages')) ?></li>  
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentorySoftwareLicense', __('Manage software licenses', null, 'ullVentoryMessages')) ?></li>  
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryOriginDummyUser', __('Manage origin users', null, 'ullVentoryMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryStatusDummyUser', __('Manage status users', null, 'ullVentoryMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/ull_ventory_24x24', 'ullTableTool/list?table=UllVentoryTaking', __('Manage inventory takings', null, 'ullVentoryMessages')) ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemType', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemManufacturer', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemModel', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemAttribute', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemTypeAttribute', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentorySoftware', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentorySoftwareLicense', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryOriginDummyUser', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryStatusDummyUser', 'ullVentory', 'ull_ventory_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryTaking', 'ullVentory', 'ull_ventory_24x24') ?></li>
       </ul>
       <h3><?php echo __('Wiki') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_24x24', 'ullTableTool/list?table=UllWikiAccessLevel', __('Manage list of access levels')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/ull_wiki_24x24', 'ullTableTool/list?table=UllWikiAccessLevelAccess', __('Manage access rights')) ?></li>
-      </ul>
-      
-      <!-- This can be safely removed after ullTableConfiguration migration -->
-      <h3><?php echo __('Test') ?></h3>
-      <ul class="tc_tasks">
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('TestTable', '/ullCoreThemeNGPlugin/images/ull_admin_24x24') ?></li>
-      </ul>          	                 
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevel', 'ullWiki', 'ull_wiki_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevelAccess', 'ullWiki', 'ull_wiki_24x24') ?></li>
+      </ul>            
     </div>
     
     <div id="tc_search">

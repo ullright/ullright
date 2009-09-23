@@ -45,7 +45,7 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
       
       if (!array_key_exists($key, $changes))
       {
-        $this->columnsConfig[$key]->disable();
+        $this->columnsConfig->disable(array($key), true);
       }
     }
 

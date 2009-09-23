@@ -32,7 +32,7 @@ class ullTableConfiguration
     $sortColumns,
     
     /**
-     * Comma separated list of columns for the quick search
+     * List of columns for the quick search
      * 
      * Example: user_name,email
      */
@@ -297,11 +297,17 @@ class ullTableConfiguration
    * @param string $image
    * @return string
    */
-  public static function renderTaskCenterLink($modelName, $image = '/ullCoreThemeNGPlugin/images/ull_admin_24x24')
+  public static function renderTaskCenterLink($modelName, $plugin, $image, $text = null)
   {
     $config = self::buildFor($modelName);
     
-    return ull_tc_task_link($image, 'ullTableTool/list?table=' . $modelName, $config->getName(), array('title' => $config->getDescription())); 
+    $path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') . 'Plugin/images/' . $image;
+    
+    if (!$text)
+    {
+      $text = __('Manage', null, 'common') . ' ' . $config->getName();
+    }
+    
+    return ull_tc_task_link($path, 'ullTableTool/list?table=' . $modelName, $text, array('title' => $config->getDescription())); 
   }
- 
 }

@@ -9,7 +9,7 @@
 sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url'));
 
 
-function ull_date_pattern($zeroPadding = true, $php_format = false)
+function ull_date_pattern($zeroPadding = true, $php_format = false, $showWeekday = false)
 {
   $culture = sfContext::getInstance()->getUser()->getCulture();
   $culture_parts = explode('_', $culture);
@@ -28,14 +28,19 @@ function ull_date_pattern($zeroPadding = true, $php_format = false)
     $yearPattern = 'yyyy';
   }
   
+  $resultPattern = ($showWeekday) ? 'EEEE, ' : '';
+
   switch ($language)
   {
     case 'de':
-      return $dayPattern . '.' . $monthPattern . '.' . $yearPattern;
+      $resultPattern .= $dayPattern . '.' . $monthPattern . '.' . $yearPattern;
+      break;
     
     default:
-      return $monthPattern . '/' . $dayPattern . '/' . $yearPattern;
+      $resultPattern .= $monthPattern . '/' . $dayPattern . '/' . $yearPattern;
   }
+  
+  return $resultPattern;
 }
 
 /**
@@ -46,12 +51,12 @@ function ull_date_pattern($zeroPadding = true, $php_format = false)
  * @return string date        formated date like "4.12.2007" for "de"
  */
 
-function ull_format_date($date = null, $zeroPadding = true, $showWeekDay = false) 
+function ull_format_date($date = null, $zeroPadding = true, $showWeekday = false) 
 {
   if ($date == null)
     $date = time();
 
-  return format_datetime($date, ull_date_pattern($zeroPadding));
+  return format_datetime($date, ull_date_pattern($zeroPadding, false, $showWeekday));
 }
 
 

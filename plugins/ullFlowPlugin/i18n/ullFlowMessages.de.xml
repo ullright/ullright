@@ -73,31 +73,31 @@
         <source>Workflow</source>
         <target>Workflow</target>
       </trans-unit>
-      
+
       <trans-unit id="15">
         <source>Workflows</source>
         <target>Workflows</target>
       </trans-unit>
-      
+
       <trans-unit id="16">
         <source>WF</source>
         <target>WF</target>
       </trans-unit>
-      
+
       <trans-unit id="17">
         <source>List of result list columns</source>
         <target>Liste der Ergebnislisten-Spalten</target>
-      </trans-unit> 
-      
+      </trans-unit>
+
       <trans-unit id="18">
         <source>Is priority column?</source>
         <target>Ist Wichtigkeits-Spalte?</target>
       </trans-unit>
-      
+
       <trans-unit id="19">
         <source>Is tagging column?</source>
         <target>Ist Tagging-Spalte?</target>
-      </trans-unit>              
+      </trans-unit>
 
       <!-- Queries -->
       <trans-unit id="101">
@@ -119,9 +119,32 @@
         <source>All entries</source>
         <target>Alle Einträge</target>
       </trans-unit>
-      
-      
 
+      <!-- table config -->
+      <trans-unit id="200">
+        <source>Workflow access rights</source>
+        <target>Workflow-Zugriffsrechte</target>
+      </trans-unit>
+
+      <trans-unit id="201">
+        <source>Columns</source>
+        <target>Spalten</target>
+      </trans-unit>
+
+      <trans-unit id="202">
+        <source>Steps</source>
+        <target>Schritte</target>
+      </trans-unit>
+
+      <trans-unit id="203">
+        <source>Actions for steps</source>
+        <target>Aktionen für Schritte</target>
+      </trans-unit>
+
+      <trans-unit id="203">
+        <source>Actions</source>
+        <target>Aktionen</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -12,10 +12,7 @@
 
 <ul class='list_action_buttons color_light_bg'>
   
-  <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>
-  
-  <li><?php echo ull_button_to(__('Configure table'), 
-      'ullTableTool/list?table=UllTableConfig&filter[search] =' . $table_name);?></li>                   
+  <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>                
   
   <li>
     <?php echo $filter_form['search']->renderLabel() ?>: 

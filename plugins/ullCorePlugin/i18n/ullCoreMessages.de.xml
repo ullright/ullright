@@ -1,77 +1,144 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+  <file orginal="global" source-language="en_US" datatype="plaintext"
+    date="2007-12-13T14:54:05Z">
     <body>
 
-    <trans-unit id="1">
-    <source>Is a virtual group</source>
-    <target>Ist eine virtuelle Gruppe</target>
-    </trans-unit>
+      <trans-unit id="1">
+        <source>Is a virtual group</source>
+        <target>Ist eine virtuelle Gruppe</target>
+      </trans-unit>
 
-    <trans-unit id="2">
-    <source>Entry date</source>
-    <target>Eintrittsdatum</target>
-    </trans-unit>
-    
-    <trans-unit id="3">
-    <source>Deactivation date</source>
-    <target>Deaktivierungsdatum</target>
-    </trans-unit>
-    
-    <trans-unit id="4">
-    <source>Separation date</source>
-    <target>Austrittsdatum</target>
-    </trans-unit>
+      <trans-unit id="2">
+        <source>Entry date</source>
+        <target>Eintrittsdatum</target>
+      </trans-unit>
 
-    <trans-unit id="5">
-    <source>Employment type</source>
-    <target>Beschäfigungsverhältnis</target>
-    </trans-unit>
-    
-    <trans-unit id="6">
-    <source>Job title</source>
-    <target>Funktion</target>
-    </trans-unit>
-    
-    <trans-unit id="7">
-    <source>Phone extension</source>
-    <target>Durchwahl</target>
-    </trans-unit>
-    
-    <trans-unit id="8">
-    <source>Show phone ext. in phone book</source>
-    <target>Durchwahl in Telefonb. anzeigen</target>
-    </trans-unit>
-    
-    <trans-unit id="9">
-    <source>Fax extension</source>
-    <target>Fax-Durchwahl</target>
-    </trans-unit>
-    
-    <trans-unit id="10">
-    <source>Show fax ext. in phone book</source>
-    <target>Fax-Durchwahl in Telefonb. anzeigen</target>
-    </trans-unit>
-     
-    <trans-unit id="11">
-    <source>Order by columns</source>
-    <target>Sortiere nach Spalten</target>
-    </trans-unit>
-    
-    <trans-unit id="12">
-    <source>Search in columns</source>
-    <target>Suche in Spalten</target>
-    </trans-unit>
-   
-    <trans-unit id="13">
-    <source>Select box</source>
-    <target>Auswahlfeld</target>
-    </trans-unit>
-   
-    <trans-unit id="14">
-    <source>My custom string label</source>
-    <target>Mein spezielles String label</target>
-    </trans-unit>
-</body>
+      <trans-unit id="3">
+        <source>Deactivation date</source>
+        <target>Deaktivierungsdatum</target>
+      </trans-unit>
+
+      <trans-unit id="4">
+        <source>Separation date</source>
+        <target>Austrittsdatum</target>
+      </trans-unit>
+
+      <trans-unit id="5">
+        <source>Employment type</source>
+        <target>Beschäfigungsverhältnis</target>
+      </trans-unit>
+
+      <trans-unit id="6">
+        <source>Job title</source>
+        <target>Funktion</target>
+      </trans-unit>
+
+      <trans-unit id="7">
+        <source>Phone extension</source>
+        <target>Durchwahl</target>
+      </trans-unit>
+
+      <trans-unit id="8">
+        <source>Show phone ext. in phone book</source>
+        <target>Durchwahl in Telefonb. anzeigen</target>
+      </trans-unit>
+
+      <trans-unit id="9">
+        <source>Fax extension</source>
+        <target>Fax-Durchwahl</target>
+      </trans-unit>
+
+      <trans-unit id="10">
+        <source>Show fax ext. in phone book</source>
+        <target>Fax-Durchwahl in Telefonb. anzeigen</target>
+      </trans-unit>
+
+      <trans-unit id="11">
+        <source>Order by columns</source>
+        <target>Sortiere nach Spalten</target>
+      </trans-unit>
+
+      <trans-unit id="12">
+        <source>Search in columns</source>
+        <target>Suche in Spalten</target>
+      </trans-unit>
+
+      <trans-unit id="13">
+        <source>Select box</source>
+        <target>Auswahlfeld</target>
+      </trans-unit>
+
+      <trans-unit id="14">
+        <source>My custom string label</source>
+        <target>Mein spezielles String label</target>
+      </trans-unit>
+
+      <!-- table config -->
+      <trans-unit id="20">
+        <source>Group memberships</source>
+        <target>Gruppen-Mitgliedschaften</target>
+      </trans-unit>
+
+      <trans-unit id="21">
+        <source>Group permissions</source>
+        <target>Gruppen-Zugriffsrechte</target>
+      </trans-unit>
+
+      <trans-unit id="22">
+        <source>Groups</source>
+        <target>Gruppen</target>
+      </trans-unit>
+
+      <trans-unit id="23">
+        <source>Permissions</source>
+        <target>Zugriffsrechte</target>
+      </trans-unit>
+
+      <trans-unit id="24">
+        <source>Select box entries</source>
+        <target>Auswahlfeld-Einträge</target>
+      </trans-unit>
+
+      <trans-unit id="25">
+        <source>Select boxes</source>
+        <target>Auswahlfelder</target>
+      </trans-unit>
+
+      <trans-unit id="26">
+        <source>Users</source>
+        <target>Benutzer</target>
+      </trans-unit>
+
+      <trans-unit id="27">
+        <source>Companies</source>
+        <target>Unternehmen</target>
+      </trans-unit>
+
+      <trans-unit id="28">
+        <source>Departments</source>
+        <target>Abteilungen</target>
+      </trans-unit>
+
+      <trans-unit id="29">
+        <source>Locations</source>
+        <target>Standorte</target>
+      </trans-unit>
+
+      <trans-unit id="30">
+        <source>Employment types</source>
+        <target>Beschäfigungsverhältnisse</target>
+      </trans-unit>
+
+      <trans-unit id="31">
+        <source>Job titles</source>
+        <target>Funktionen</target>
+      </trans-unit>
+
+      <trans-unit id="32">
+        <source>Field types</source>
+        <target>Feldtypen</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
