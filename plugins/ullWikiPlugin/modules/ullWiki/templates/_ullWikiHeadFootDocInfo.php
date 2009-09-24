@@ -11,13 +11,15 @@
  */
 ?>
 
+<?php $user_widget = $sf_data->getRaw('user_widget') ?>
+
 <div class='ull_wiki_headfoot_float_left'>
   <ul class='ull_wiki_headfoot_ul'>
     <li><?php echo __('Created by', null, 'common').' '
-      .Doctrine::getTable('UllUser')->find($doc->creator_user_id) .
+      . $user_widget->render(null, $doc->creator_user_id) .
       ', '.ull_format_datetime($doc->created_at); ?></li>
     <li><?php echo __('Updated by', null, 'common').' '
-      .Doctrine::getTable('UllUser')->find($doc->updator_user_id) .
+      . $user_widget->render(null, $doc->updator_user_id) .
       ', '.ull_format_datetime($doc->updated_at); ?></li>
     <li><?php echo __('Access level').': '
       . $doc->UllWikiAccessLevel->name ?></li>

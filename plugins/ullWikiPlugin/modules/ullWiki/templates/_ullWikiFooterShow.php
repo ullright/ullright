@@ -10,6 +10,10 @@
  * @version    SVN: $Id: actions.class.php 3335 2007-01-23 16:19:56Z fabien $
  */
 ?>
+
+<?php $user_widget = $sf_data->getRaw('user_widget') ?>
+
+
 <div class='ull_wiki_footer_show'>
 
   <div class='ull_wiki_headfoot_float_right'>
@@ -25,7 +29,8 @@
   <?php include_partial(
           'ullWikiHeadFootDocInfo',
           array(
-              'doc'     => $doc
+              'doc'     => $doc,
+              'user_widget' => $user_widget
             )
           ) ?>
   

@@ -1,4 +1,5 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php $user_widget = $sf_data->getRaw('user_widget') ?>
 
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
@@ -9,7 +10,7 @@
 <?php endif; ?>
 
 <?php if ($generator->getRow()->exists()): ?>
-  <?php include_partial('ullFlowHeader', array('doc' => $doc)) ?>
+  <?php include_partial('ullFlowHeader', array('doc' => $doc, 'user_widget' => $user_widget)) ?>
 <?php endif ?>
 
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
@@ -121,8 +122,6 @@
 <?php echo input_hidden_tag('external') ?>
 <?php echo input_hidden_tag('external_field') */?>
 
-
-
 <?php if ($doc->exists()): ?>
   <div id="ull_memory" class="ull_memory_background">
   <h3><?php echo __('Progress')?></h3>
@@ -145,10 +144,10 @@
         </span>&ndash;
         <?php echo $memory->UllFlowAction->label ?>
         <?php if ($memory->UllFlowAction->is_show_assigned_to): ?>
-          <?php echo '<span class="ull_memory_light">' . $memory->AssignedToUllEntity . '</span>' ?>
+          <?php echo $user_widget->render(null, $memory->assigned_to_ull_entity_id) ?>
         <?php endif ?>
         <?php echo __('by'); ?>
-        <?php echo '<span class="ull_memory_light">' . $memory->Creator . '</span>' ?>
+        <?php echo $user_widget->render(null, $memory->creator_user_id) ?>
         
         <?php if ($comment = $memory->comment): ?>
           <ul class="ull_memory_comment">

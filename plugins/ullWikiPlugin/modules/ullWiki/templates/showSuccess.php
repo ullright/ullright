@@ -1,4 +1,5 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php $user_widget = $sf_data->getRaw('user_widget') ?>
 
 <?php if ($has_no_write_access): ?>
   <br />
@@ -124,6 +125,6 @@ if (!function_exists('u_func')) {
 <div id="ull_wiki_footer">
 <?php include_partial(
         'ullWikiFooterShow', 
-        array('doc' => $doc)
+        array('doc' => $doc, 'user_widget' => $user_widget)
       ); ?>
 </div>

@@ -87,6 +87,8 @@ class BaseUllWikiActions extends ullsfActions
     $this->has_no_write_access = $this->getRequestParameter('no_write_access'); 
 
     $this->breadcrumbForShow();
+    
+    $this->user_widget = new ullWidgetForeignKey(array('model' => 'UllEntity', 'show_ull_entity_popup' => true));
   }
 
   /**

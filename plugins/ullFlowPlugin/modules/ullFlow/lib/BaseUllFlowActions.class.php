@@ -154,6 +154,8 @@ class BaseUllFlowActions extends ullsfActions
     $this->generator->buildForm($this->doc);
     
     $this->generator->buildListOfUllFlowActionHandlers();
+    
+    $this->user_widget = new ullWidgetForeignKey(array('model' => 'UllEntity', 'show_ull_entity_popup' => true));
 
     if ($request->isMethod('post'))
     {
