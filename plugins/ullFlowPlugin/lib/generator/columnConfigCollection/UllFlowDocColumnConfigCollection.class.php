@@ -67,7 +67,7 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
 
       $this['assigned_to_ull_entity_id']
         ->setLabel(__('Assigned to', null, 'ullFlowMessages'))
-        ->setMetaWidgetClassName('ullMetaWidgetUllUser')
+        ->setMetaWidgetClassName('ullMetaWidgetUllEntity')
       ;
       
       $this['created_at']->setMetaWidgetClassName('ullMetaWidgetDate');
