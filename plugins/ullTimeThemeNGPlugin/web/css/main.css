@@ -27,7 +27,7 @@
 }
 
 .list_table tbody tr:hover {
-  background: #edcadb;  
+  background: #edcadb !important;  
 }
 
 /* Overridden css: ullCore / taskcenter.css - formats */
