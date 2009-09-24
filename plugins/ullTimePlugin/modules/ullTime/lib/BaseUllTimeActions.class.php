@@ -105,6 +105,7 @@ class BaseUllTimeActions extends ullsfActions
     
     $this->generator = new ullTableToolGenerator('UllTimeReporting', 'w');
     $this->generator->buildForm($this->doc);
+    $this->addGlobalValidators();
     
     $this->breadcrumbForEdit();
     
@@ -301,6 +302,21 @@ class BaseUllTimeActions extends ullsfActions
     }  
     $this->period = Doctrine::getTable('UllTimePeriod')->findOneBySlug($slug);
   }
+  
+  
+  /**
+   * Set global time compare validators for ullTimeReporting
+   * 
+   * @return none
+   */
+  protected function addGlobalValidators()
+  {
+    $this->generator->getForm()->addGlobalCompareTimeValidator('begin_work_at', 'end_work_at');
+    $this->generator->getForm()->addGlobalCompareTimeValidator('begin_break1_at', 'end_break1_at');
+    $this->generator->getForm()->addGlobalCompareTimeValidator('begin_break2_at', 'end_break2_at');
+    $this->generator->getForm()->addGlobalCompareTimeValidator('begin_break3_at', 'end_break3_at');
+  }
+  
   
   
   /**

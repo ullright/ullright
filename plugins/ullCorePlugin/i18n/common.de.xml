@@ -185,7 +185,7 @@
 
 <trans-unit id="122">
 <source>Begin</source>
-<target>Anfang</target>
+<target>Beginn</target>
 </trans-unit>
 
 <trans-unit id="123">
@@ -372,6 +372,10 @@
 <target>Ein Eintrag mit diesem Wert existiert bereits. Bitte geben Sie einen anderen Wert ein</target>
 </trans-unit>
 
+<trans-unit id="5005">
+<source>Invalid. The begin time must be before the end time</source>
+<target>Ungültig. Die Beginnzeit muss vor der Endzeit liegen</target>
+</trans-unit>
 
 
 

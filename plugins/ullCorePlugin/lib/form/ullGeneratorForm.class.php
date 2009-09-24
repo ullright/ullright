@@ -232,5 +232,23 @@ class ullGeneratorForm extends sfFormDoctrine
 
     var_dump($output);
   }
+  
+  
+  /**
+   * Add a global validator making sure that the $time_field_1 is
+   * less than $time_field_2
+   * 
+   * @param string $time_field1
+   * @param string $time_field2
+   * @return none
+   */
+  public function addGlobalCompareTimeValidator($time_field1, $time_field2)
+  {
+    $this->mergePostValidator(
+      new sfValidatorSchemaCompare($time_field1, sfValidatorSchemaCompare::LESS_THAN_EQUAL, $time_field2,
+      array(),
+      array('invalid' => __('Invalid. The begin time must be before the end time', null, 'common'))
+    ));
+  }
 
 }
