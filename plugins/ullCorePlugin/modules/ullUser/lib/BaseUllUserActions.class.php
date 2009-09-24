@@ -47,6 +47,11 @@ class BaseUllUserActions extends BaseUllTableToolActions
    */
   public function executeShow($request)
   {
+    $layout = sfConfig::get('sf_root_dir') . '/plugins/ullCoreTheme' .
+      sfConfig::get('app_theme_package', 'NG') .
+      'Plugin/templates/emptyLayout';
+    $this->setLayout($layout);
+    
     $this->checkAccess('LoggedIn');
     
     $this->allow_edit = false;
@@ -59,10 +64,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     $this->getUserFromRequest();
     $this->generator->buildForm($this->user);
     
-    $layout = sfConfig::get('sf_root_dir') . '/plugins/ullCoreTheme' .
-      sfConfig::get('app_theme_package', 'NG') .
-      'Plugin/templates/emptyLayout';
-    $this->setLayout($layout);
+    
   }  
   
   /**
