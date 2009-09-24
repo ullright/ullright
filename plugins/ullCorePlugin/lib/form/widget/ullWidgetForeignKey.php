@@ -56,7 +56,7 @@ class ullWidgetForeignKey extends sfWidgetFormInput
       $return .= $object->$method();
     }
     
-    if ($this->getOption('show_ull_entity_popup') == true)
+    if ($this->getOption('show_ull_entity_popup') == true && $object instanceof UllUser)
     {
       $uri = 'ullUser/show?username=' . $object->username;
       $return = link_to($return, $uri, array(
