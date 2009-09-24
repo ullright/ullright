@@ -49,6 +49,12 @@ class BaseUllUserActions extends BaseUllTableToolActions
   {
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());
     
+    $this->allow_edit = false;
+    if (UllUserTable::hasGroup('MasterAdmins'))
+    {
+      $this->allow_edit = true;
+    }
+    
     $this->generator = new ullTableToolGenerator('UllUser', 'r');
     $this->getUserFromRequest();
     $this->generator->buildForm($this->user);

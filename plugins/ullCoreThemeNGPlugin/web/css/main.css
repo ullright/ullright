@@ -708,6 +708,12 @@ div#indicator {
   width: 450px;
 }
 
+.ull_user_popup_edit_icon {
+  float:left; 
+  margin-top: .2em; 
+  margin-right: .5em;
+} 
+
 
 /*
  * ************************************************
