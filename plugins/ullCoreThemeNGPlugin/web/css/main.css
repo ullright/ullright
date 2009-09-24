@@ -381,6 +381,15 @@ ul.list_action_buttons li {
   background: #e3f5fd;
 }
 
+.edit_table_spacer_row > td {
+  background: #b3ce00 !important;
+  border-top: 1em #E9E9E9 solid; 
+  border-bottom: 1em #E9E9E9 solid;
+  padding: .2em;
+}
+
+
+
 
 /*
  * ************************************************
@@ -697,7 +706,7 @@ div#indicator {
 @media print {
 	
 	body {
-	 font-size: 50%;
+	 font-size: 66%;
 	}
 	
 	/* Otherwise all input tags are HUGE in Firefox (3.0.13) */

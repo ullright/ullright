@@ -11,7 +11,7 @@ class ullColumnConfiguration
     $label, 
     $help, //'description' in ull_column_config table
     $metaWidgetClassName    = 'ullMetaWidgetString',
-    $isInList               = true, 
+    $isInList               = true,    // deprecated, since column config collections can configure for different actions
     $widgetOptions          = array(), //'options' in ull_column_config table
     $defaultValue,
     
@@ -26,7 +26,8 @@ class ullColumnConfiguration
     $access,
     $validatorOptions       = array('required' => false),   
     $widgetAttributes       = array(),
-    $options                = array() //meta widget options
+    $options                = array(), //meta widget options
+    $showSpacerAfter        = false
   ;
 
   /**
@@ -372,6 +373,18 @@ class ullColumnConfiguration
     unset($this->options[$optionName]);
     
     return $this;
-  }  
+  }
+
+  public function setShowSpacerAfter($boolean)
+  {
+    $this->showSpacerAfter = (boolean) $boolean;
+
+    return $this;
+  }
+  
+  public function getShowSpacerAfter()
+  {
+    return $this->showSpacerAfter;    
+  }
   
 }

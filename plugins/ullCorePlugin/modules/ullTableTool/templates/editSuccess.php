@@ -26,6 +26,12 @@
     {
       echo $generator->getForm()->offsetGet($column_name)->renderRow();
     }
+    
+    $ccc = $generator->getColumnsConfig();
+    if (isset($ccc[$column_name]) && $ccc[$column_name]->getShowSpacerAfter())
+    {
+      echo '<tr class="edit_table_spacer_row"><td colspan="3"></td></tr>';
+    }
   }
 ?>
 
