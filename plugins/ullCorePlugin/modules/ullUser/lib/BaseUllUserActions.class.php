@@ -47,7 +47,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
    */
   public function executeShow($request)
   {
-//    var_dump($this->getRequest()->getParameterHolder()->getAll());
+    $this->checkAccess('LoggedIn');
     
     $this->allow_edit = false;
     if (UllUserTable::hasGroup('MasterAdmins'))
