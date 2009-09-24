@@ -1,0 +1,6 @@
+ull_user_show:
+  url:     /ullUser/show/:username
+  class:   sfRequestRoute
+  param:   { module: ullUser, action: show }
+  requirements:
+    sf_method: [get]

@@ -10,6 +10,7 @@ class ullWidgetForeignKey extends sfWidgetFormInput
     
     $this->addRequiredOption('model');
     $this->addOption('method', '__toString');
+    $this->addOption('show_ull_entity_popup', false);
     
     parent::configure($options, $attributes);
   }
@@ -53,6 +54,18 @@ class ullWidgetForeignKey extends sfWidgetFormInput
       // This is necessary for translated columns. Why?
       $object = Doctrine::getTable($this->getOption('model'))->find($value);
       $return .= $object->$method();
+    }
+    
+    if ($this->getOption('show_ull_entity_popup') == true)
+    {
+      $uri = 'ullUser/show?username=' . $object->username;
+      $return = link_to($return, $uri, array(
+        'onclick' => 'this.href="#";popup(
+          "' . url_for($uri) . '",
+          "Popup ' . $object->username . '",
+          "width=480,height=480"
+        );'
+      )); 
     }
     
     return $return;

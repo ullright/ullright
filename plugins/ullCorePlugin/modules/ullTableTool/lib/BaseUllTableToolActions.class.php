@@ -72,7 +72,7 @@ class BaseUllTableToolActions extends ullsfActions
    * Executes show action
    *
    */
-  public function executeShow() 
+  public function executeShow($request) 
   {
     $this->forward('ullTableTool', 'edit');
   }

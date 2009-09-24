@@ -41,6 +41,24 @@ class BaseUllUserActions extends BaseUllTableToolActions
     $this->setTableToolTemplate('list'); 
   }
   
+
+  /**
+   * Execute show action
+   */
+  public function executeShow($request)
+  {
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());
+    
+    $this->generator = new ullTableToolGenerator('UllUser', 'r');
+    $this->getUserFromRequest();
+    $this->generator->buildForm($this->user);
+    
+    $layout = sfConfig::get('sf_root_dir') . '/plugins/ullCoreTheme' .
+      sfConfig::get('app_theme_package', 'NG') .
+      'Plugin/templates/emptyLayout';
+    $this->setLayout($layout);
+  }  
+  
   /**
    * Test for extending ullTableTool
    * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeEdit()
@@ -52,8 +70,8 @@ class BaseUllUserActions extends BaseUllTableToolActions
     parent::executeEdit($request);
     
     $this->setTableToolTemplate('edit'); 
-  }  
-   
+  } 
+
   
   
   
@@ -316,7 +334,19 @@ class BaseUllUserActions extends BaseUllTableToolActions
   {
     $this->setTemplate(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/templates/' . $name);    
   }
+  
+  
+  /**
+   * Get user by username from request
+   * @return none
+   */
+  protected function getUserFromRequest()
+  {
+    
+    $this->user = Doctrine::getTable('UllUser')->findOneByUsername($this->getRequestParameter('username'));
+  }
 
+  
   /**
    * Handles breadcrumb for search
    */

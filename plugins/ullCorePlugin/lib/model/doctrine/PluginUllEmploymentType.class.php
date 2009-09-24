@@ -6,4 +6,11 @@
 abstract class PluginUllEmploymentType extends BaseUllEmploymentType
 {
 
+  /**
+   * toString
+   */
+  public function __toString()
+  {
+    return $this->name;
+  }
 }

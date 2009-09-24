@@ -88,6 +88,20 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
     if ($this->isListAction())
     {
       $this->disableAllExcept(array('id', 'first_name', 'last_name', 'username', 'email'));
-    } 
+    }
+
+    if ($this->isShowAction())
+    {
+      $this->disable(array(
+        'sex', 
+        'password',
+        'is_show_extension_in_phonebook',
+        'is_show_fax_extension_in_phonebook',      
+        'entry_date',
+        'deactivation_date',
+        'separation_date',
+        'comment'
+      ));
+    }    
   }
 }

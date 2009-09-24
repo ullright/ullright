@@ -26,7 +26,7 @@
 
       <trans-unit id="5">
         <source>Employment type</source>
-        <target>Beschäfigungsverhältnis</target>
+        <target>Beschäftigungsverhältnis</target>
       </trans-unit>
 
       <trans-unit id="6">

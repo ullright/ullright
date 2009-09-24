@@ -14,7 +14,7 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
 
   protected function configureReadMode()
   {
-    $this->addWidget(new ullWidgetForeignKey(array('model' => 'UllEntity')));
+    $this->addWidget(new ullWidgetForeignKey(array('model' => 'UllEntity', 'show_ull_entity_popup' => true)));
     $this->addValidator(new sfValidatorPass());
   }
   

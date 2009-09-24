@@ -143,6 +143,16 @@ class ullGeneratorBase
   }
   
   /**
+   * Returns true if the current requestAction is 'show'
+   * 
+   * @return boolean
+   */
+  public function isShowAction()
+  {
+    return $this->isAction('show');
+  }  
+  
+  /**
    * Returns true if the current requestAction is 'create'
    * 
    * @return boolean
