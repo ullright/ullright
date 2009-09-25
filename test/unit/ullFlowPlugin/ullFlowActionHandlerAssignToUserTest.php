@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
-class myTestCase extends lime_test
+class myTestCase extends sfDoctrineTestCase
 {
 }
 
@@ -11,8 +11,10 @@ sfContext::createInstance($configuration);
 sfLoader::loadHelpers(array('ull', 'I18N'));
 
 $t = new myTestCase(6, new lime_output_color, $configuration);
+$path = dirname(__FILE__);
+$t->setFixturesPath($path);
 
-$t->diag('__construct()');
+$t->begin('__construct()');
 
   $form = new ullFlowForm(new UllFlowDoc());
   $handler = new ullFlowActionHandlerAssignToUser($form);
@@ -40,6 +42,8 @@ $(document).ready(function()
 //]]>
 </script><select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
 <option value="" selected="selected"></option>
+<option value="3">Helpdesk Admin User</option>
+<option value="4">Helpdesk User</option>
 <option value="1">Master Admin</option>
 <option value="2">Test User</option>
 </select></div>';
