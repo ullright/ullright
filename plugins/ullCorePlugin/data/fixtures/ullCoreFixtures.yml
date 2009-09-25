@@ -152,10 +152,6 @@ UllColumnType:
     class:        ullMetaWidgetTextarea
     label:        Textarea
     namespace:    ullCore
-  ull_user:
-    class:        ullMetaWidgetUllUser
-    label:        UllUser
-    namespace:    ullCore
   priority:
     class:        ullMetaWidgetPriority
     label:        Priority

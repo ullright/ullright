@@ -36,6 +36,8 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     }
     $this->columnConfig->removeWidgetOption('add_empty');
     
+    $filterUsersByGroup = $this->columnConfig->getOption('filter_users_by_group');
+    
     // build choices
     foreach($this->columnConfig->getOption('entity_classes') as $class)
     {
@@ -43,7 +45,9 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       
       if (method_exists($className, 'findChoices'))
       {
-        $choices += call_user_func(array($className, 'findChoices'));
+        $choices += ($class == 'UllUser' && $filterUsersByGroup !== null) ? 
+         call_user_func(array($className, 'findChoices'), $filterUsersByGroup) :
+         call_user_func(array($className, 'findChoices'));
       }
       else
       {

@@ -91,7 +91,7 @@ class PluginUllUserTable extends UllEntityTable
    * 
    * @return array
    */
-  public static function findChoices()
+  public static function findChoices($filterUsersByGroup = null)
   {
     $q = new Doctrine_Query;
     $q
@@ -100,6 +100,11 @@ class PluginUllUserTable extends UllEntityTable
       ->orderBy('name')
     ;
     
+    if ($filterUsersByGroup !== null)
+    {
+      $q->addWhere('u.UllGroup.display_name = ?', $filterUsersByGroup);
+    }
+
     $result = $q->execute(null, Doctrine::HYDRATE_ARRAY);
     
     foreach($result as $key => $value)

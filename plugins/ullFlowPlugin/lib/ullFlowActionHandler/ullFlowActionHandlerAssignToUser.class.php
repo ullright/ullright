@@ -5,12 +5,21 @@ class ullFlowActionHandlerAssignToUser extends ullFlowActionHandler
   
   public function configure()
   {
+    $columnConfigOptions = array('entity_classes' => array('UllUser'), 'show_search_box' => true);
+    
+    if (isset($this->options['group']))
+    {
+      $columnConfigOptions['filter_users_by_group'] = $this->options['group'];
+      unset($this->options['group']);
+    }
+    
     $this->addMetaWidget(
-      'ullMetaWidgetUllUser', 
+      'ullMetaWidgetUllEntity', 
       'ull_flow_action_assign_to_user_ull_entity', 
-      array_merge($this->options, array('add_empty' => true)),
-      array(),
-      array('required' => false)
+      array_merge($this->options, array('add_empty' => true)), //widget options
+      array(), //widget attributes
+      array('required' => false), //validator options
+      $columnConfigOptions
     );
   } 
   
