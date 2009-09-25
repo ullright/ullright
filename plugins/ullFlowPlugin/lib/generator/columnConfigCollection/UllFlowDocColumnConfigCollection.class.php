@@ -122,8 +122,8 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
           {
             $this[$columnName]->disable();
           }            
-            
-          if ($column->default_value)
+          
+          if ($column->default_value !== null)
           {
             $this[$columnName]->setDefaultValue($column->default_value);
           }

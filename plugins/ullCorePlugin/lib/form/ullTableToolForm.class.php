@@ -81,7 +81,7 @@ class ullTableToolForm extends ullGeneratorForm
       }
       
       // create proper null entries
-      if (!$value)
+      if ($value == '')
       {
         $values[$fieldName] = null;
       }
