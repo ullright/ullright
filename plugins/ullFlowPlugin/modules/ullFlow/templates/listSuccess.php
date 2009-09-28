@@ -32,7 +32,7 @@
 
 <!-- pager: num of results -->
 <?php include_partial('ullTableTool/ullPagerTop',
-        array('pager' => $pager)
+        array('pager' => $pager, 'logged_in' => $sf_user->hasAttribute('user_id'))
       ); ?> 
 
 

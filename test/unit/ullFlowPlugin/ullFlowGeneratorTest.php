@@ -152,6 +152,8 @@ $t->diag('buildListOfUllFlowActionHandlers()');
   $generator = new ullFlowGenerator($app);
   $generator->buildForm($doc);
   
+  $t->loginAs('helpdesk_user');
+
   $generator->buildListOfUllFlowActionHandlers();
   
   $t->is(count($generator->getForm()->getFormFieldSchema()), 10, 'The form now contains one more field from the action handler');
@@ -169,6 +171,8 @@ $t->diag('setUllFlowActionHandler()');
   $doc = Doctrine::getTable('UllFlowDoc')->find(2);
   $generator = new ullFlowGenerator($app, 'w');
   $generator->buildForm($doc);
+  
+  $generator->buildListOfUllFlowActionHandlers();
   
   $generator->setUllFlowActionHandler('assign_to_user');
   $form = $generator->getForm();  

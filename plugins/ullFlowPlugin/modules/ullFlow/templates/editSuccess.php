@@ -35,7 +35,7 @@
       
       <div class='edit_action_buttons_left'>
       
-      <?php if ($workflow_action_access): // $step_actions and ?>
+      <?php if (count($generator->getListOfUllFlowActionHandlers())) : // $step_actions and ?>
         
         <label for="fields_memory_comment">
           <?php echo __('Comment for this action') . ':'; ?>

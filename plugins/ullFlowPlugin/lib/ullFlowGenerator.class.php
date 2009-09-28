@@ -80,11 +80,29 @@ class ullFlowGenerator extends ullGenerator
    */
   public function buildListOfUllFlowActionHandlers()
   {
-    foreach ($this->getRow()->UllFlowStep->UllFlowStepActions as $stepAction) 
+    if (UllEntityTable::has($this->getRow()->UllEntity))
     {
-      $ullFlowActionSlug = $stepAction->UllFlowAction->slug;
-      $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowActionSlug);
-      $this->ullFlowActionHandlers[$ullFlowActionSlug] = new $ullFlowActionHandlerName($this->getForm(), $stepAction->options);     
+      foreach ($this->getRow()->UllFlowStep->UllFlowStepActions as $stepAction) 
+      {
+        $ullFlowActionSlug = $stepAction->UllFlowAction->slug;
+        $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowActionSlug);
+        $this->ullFlowActionHandlers[$ullFlowActionSlug] = new $ullFlowActionHandlerName($this->getForm(), $stepAction->options);     
+      }
+    }
+    
+    //master admin always allow assign to
+    if (UllUserTable::hasGroup('MasterAdmins') &&
+      !in_array('assign_to_user', $this->ullFlowActionHandlers))
+    {
+      $this->ullFlowActionHandlers['assign_to_user'] = new ullFlowActionHandlerAssignToUser($this->getForm());
+      return;
+    }
+  
+    //only the user to whom the document is assigned to is allowed to perform workflow actions
+    if ($this->getRow()->exists() && !(UllEntityTable::has($this->getRow()->UllEntity)))
+    {
+      $this->ullFlowActionHandlers = array();
+      return;
     }
   }    
   
@@ -112,6 +130,12 @@ class ullFlowGenerator extends ullGenerator
     if (UllFlowActionTable::isNonStatusOnly($actionSlug))
     {
       $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($actionSlug);
+      
+      if (!in_array($actionSlug, array_keys($this->ullFlowActionHandlers)))
+      {
+        throw new InvalidArgumentException('Invalid ullFlowAction slug: ' . $actionSlug);
+      }
+      
       $this->ullFlowActionHandler = new $ullFlowActionHandlerName($this->getForm());
       
       // check if comment is mandatory

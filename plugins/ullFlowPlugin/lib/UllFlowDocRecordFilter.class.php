@@ -38,13 +38,17 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
     
     $ullFlowValue = null;
     
+    
+
+    
     if ($record->exists())
     {
       $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($record->id, $name);
     }
-    
+
     if ($ullFlowValue)
     {
+                 
       $ullFlowValue->value = $value;
       $ullFlowValue->save();
       // refresh values in parent record 
@@ -53,10 +57,21 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
     else
     {
       // create new UllFlowValue objects
-      // we have to do it this way because we want to set 2 attributes: value & ull_flow_column_config_id
-      $i = count($record->UllFlowValues);
-      $record->UllFlowValues[$i]->value = $value;
-      $record->UllFlowValues[$i]->ull_flow_column_config_id = $cc->id;
+      $flowValue = new ullFlowValue();
+      $flowValue->value = $value;
+      $flowValue->ull_flow_column_config_id = $cc->id;
+      
+      // WTF - why is this even necessary?
+      if ($record->exists())
+      {
+        $flowValue->ull_flow_doc_id = $record->id;
+        $flowValue->save();
+        $record->refreshRelated('UllFlowValues');
+      }
+      else
+      {
+         $record->UllFlowValues[] = $flowValue;
+      }
     }
     
     // also set the native "duplicate" columns of UllFlowDoc
@@ -74,7 +89,7 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
       // Set tags in taggable behaviour
       $record->setTags($value);
     }        
-    
+
     return true;
   }
 

@@ -145,10 +145,6 @@ class BaseUllFlowActions extends ullsfActions
     
     $accessType = $this->doc->checkAccess();
     $this->redirectToNoAccessUnless($accessType);
-    if ($accessType == 'w')
-    {
-      $this->workflowActionAccessCheck();
-    }
 
     $this->generator = new ullFlowGenerator($this->app, $accessType);
     $this->generator->buildForm($this->doc);
@@ -724,30 +720,6 @@ class BaseUllFlowActions extends ullsfActions
 
     $this->generator->getUllFlowActionHandler()->sendMail();
 
-  }
-
-  /**
-   * Check access for the workflow actions
-   *
-   * for existing docs, only the entities whom the doc is assigned to
-   * are allowed to do make workflow actions (like send, assign, reject, ...)
-   *
-   */
-  protected function workflowActionAccessCheck()
-  {
-    if ($this->doc->exists())
-    {
-      $this->workflow_action_access = false;
-
-      if (UllEntityTable::has($this->doc->UllEntity))
-      {
-        $this->workflow_action_access = true;
-      }
-    }
-    else
-    {
-      $this->workflow_action_access = true;
-    }
   }
 
   /**

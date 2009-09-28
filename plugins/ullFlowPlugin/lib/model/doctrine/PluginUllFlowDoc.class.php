@@ -129,7 +129,10 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   public function getValueByColumn($ullFlowColumnConfigSlug)
   {
     $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
-    return $ullFlowValue->value;
+    if ($ullFlowValue)
+    {
+      return $ullFlowValue->value;
+    }
   }
   
   /**

@@ -12,14 +12,22 @@ class PluginUllParentEntityTable extends UllRecordTable
    * 
    * @param UllEntity $entity
    * @param mixed $user         optional, = logged in user per default
-   * @return string 'user' or 'group' if successful
+   * @return string 'user' or 'group' if successful, null if user is not logged in
    */
   public static function has(UllEntity $entity, $user = null)
   {   
     if ($user === null)
     {
-      $user = Doctrine::getTable('UllUser')->findOneById(
-          sfContext::getInstance()->getUser()->getAttribute('user_id'));
+      $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+      
+      if ($userId !== null)
+      {
+        $user = Doctrine::getTable('UllUser')->findOneById($userId);
+      }
+      else
+      {
+        return null;
+      }
     }
     
     if (!$user instanceof UllUser)
