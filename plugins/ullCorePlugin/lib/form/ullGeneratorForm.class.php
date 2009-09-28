@@ -245,8 +245,8 @@ class ullGeneratorForm extends sfFormDoctrine
   public function addGlobalCompareTimeValidator($time_field1, $time_field2)
   {
     $this->mergePostValidator(
-      new sfValidatorSchemaCompare($time_field1, sfValidatorSchemaCompare::LESS_THAN_EQUAL, $time_field2,
-      array(),
+      new ullSfValidatorSchemaCompare($time_field1, sfValidatorSchemaCompare::LESS_THAN_EQUAL, $time_field2,
+      array('allow_empty' => true),
       array('invalid' => __('Invalid. The begin time must be before the end time', null, 'common'))
     ));
   }
