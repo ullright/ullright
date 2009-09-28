@@ -80,11 +80,14 @@ class ullTableToolForm extends ullGeneratorForm
         $values['Translation'][$culture][$realFieldName] = $value;
       }
       
+      //removed because this caused checkboxes to re-enable themselves
+      //in sfFormDoctrine#updateObject when set to default
+      
       // create proper null entries
-      if ($value == '')
-      {
-        $values[$fieldName] = null;
-      }
+//      if ($value == '')
+//      {
+//        $values[$fieldName] = null;
+//      }
     }
     
     $this->values = $values;
