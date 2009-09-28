@@ -13,7 +13,13 @@
         $pager->getNumResults()
         , 'common'
       ); 
-    ?>. <?php
+    ?>.
+    <?php
+    if (isset($logged_in) && (!$logged_in) && ($pager->getNumResults() == 0))
+    {
+      echo __('Not logged in', null, 'common') . '.';
+    }
+    
     if ($pager->haveToPaginate()) {
       //  $cursor = $pager->getFirstIndice();
         echo __(

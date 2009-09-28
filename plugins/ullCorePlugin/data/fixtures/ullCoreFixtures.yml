@@ -184,6 +184,18 @@ UllColumnType:
     class:        ullMetaWidgetFloat
     label:        Float
     namespace:    ullCore
+  time:
+    class:        ullMetaWidgetTime
+    label:        Time
+    namespace:    ullCore
+  time_duration:
+    class:        ullMetaWidgetTimeDuration
+    label:        TimeDuration
+    namespace:    ullCore
+  ull_entity:
+    class:        ullMetaWidgetUllEntity
+    label:        UllEntity
+    namespace:    ullCore
   
 UllSelect:
   ull_select_test:

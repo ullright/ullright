@@ -344,7 +344,7 @@ UllFlowValue:
   ull_flow_value_doc_todo1_subject:
     UllFlowDoc:     ull_flow_doc_todo1
     UllFlowColumnConfig: ull_flow_column_config_todo_subject
-    value:          AAA My first thing todo
+    value:          My first thing todo
     namespace:      test
 
   ull_flow_value_doc_todo2_subject:

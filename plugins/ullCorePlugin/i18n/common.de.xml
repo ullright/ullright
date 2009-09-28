@@ -967,6 +967,11 @@
 <target>Klasse</target>
 </trans-unit>
 
+<trans-unit id="23002">
+<source>Not logged in</source>
+<target>Nicht angemeldet</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
