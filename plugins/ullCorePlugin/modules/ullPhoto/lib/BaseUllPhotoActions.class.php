@@ -129,6 +129,7 @@ class BaseUllPhotoActions extends ullsfActions
     if (!is_file($path . '/' . $editedFile))
     {
       copy($path . '/' . $file, $path . '/' . $editedFile);
+      chmod($path . '/' . $editedFile, 0666);
     }
     
     $this->photo = $webPath . '/' . $editedFile;
@@ -206,6 +207,7 @@ class BaseUllPhotoActions extends ullsfActions
             '.jpg'
           ;            
           $img->saveAs($fullPath);
+          chmod($fullPath, 0666);
           
           $this->user->photo = $this->user->username . '.jpg';
           $this->user->save();
