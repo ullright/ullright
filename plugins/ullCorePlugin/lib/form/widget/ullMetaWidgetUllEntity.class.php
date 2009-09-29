@@ -11,10 +11,15 @@
  */
 class ullMetaWidgetUllEntity extends ullMetaWidget
 {
+  protected
+    $readWidget = 'ullWidgetForeignKey',
+    $writeWidget = 'sfWidgetFormSelectWithOptionAttributes',
+    $validator = 'sfValidatorChoice'
+  ;
 
   protected function configureReadMode()
   {
-    $this->addWidget(new ullWidgetForeignKey(array('model' => 'UllEntity', 'show_ull_entity_popup' => true)));
+    $this->addWidget(new $this->readWidget(array('model' => 'UllEntity', 'show_ull_entity_popup' => true)));
     $this->addValidator(new sfValidatorPass());
   }
   
@@ -64,12 +69,12 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       $this->columnConfig->setWidgetOption('show_search_box', false);
     }
     
-    $this->addWidget(new sfWidgetFormSelectWithOptionAttributes(
+    $this->addWidget(new $this->writeWidget(
         array_merge(array('choices' => $choices), $this->columnConfig->getWidgetOptions()),
         $this->columnConfig->getWidgetAttributes()
     ));
     
-    $this->addValidator(new sfValidatorChoice(
+    $this->addValidator(new $this->validator(
         array_merge(array('choices' => array_keys($choices)), $this->columnConfig->getValidatorOptions()))
     );
   }

@@ -350,8 +350,17 @@ class BaseUllUserActions extends BaseUllTableToolActions
    */
   protected function getUserFromRequest()
   {
+    $username = $this->getRequestParameter('username');
     
-    $this->user = Doctrine::getTable('UllUser')->findOneByUsername($this->getRequestParameter('username'));
+    // also allow the id for bc compatibility
+    if (is_numeric($username))
+    {     
+      $this->user = Doctrine::getTable('UllUser')->find($username);
+    }
+    else
+    {
+      $this->user = Doctrine::getTable('UllUser')->findOneByUsername($username);
+    }
   }
 
   
