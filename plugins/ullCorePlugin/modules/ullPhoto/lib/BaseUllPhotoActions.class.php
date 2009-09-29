@@ -136,6 +136,9 @@ class BaseUllPhotoActions extends ullsfActions
     $this->form = new ullPhotoEditForm;
     $this->form->setDefault('photo', $editedFile);
     $this->form->setDefault('ull_user_id', $this->user->id);
+
+    // override plugin's default
+    sfConfig::set('app_sfImageTransformPlugin_default_adapter', 'ImageMagick');
     
     $img = new sfImage($path . '/' . $editedFile, 'image/png' );
     $maxHeight = sfConfig::get('app_ull_photo_display_height', 400);
