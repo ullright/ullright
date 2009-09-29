@@ -116,7 +116,31 @@ class ullTableToolGenerator extends ullGenerator
     }
     return $identifier;
   }
+  
+  
+  /**
+   * Get the identifier value of a row
+   * 
+   * Supports only tables with a single primary key
+   * 
+   * Usage example: UllUser: inject the id into the photo widget to create edit link  
+   * 
+   * @param $row
+   * @return unknown_type
+   */
+  public function getIdentifierValue($row = 0)
+  {
+    $identifierColumns = $this->getIdentifierAsArray();
+    if (count($identifierColumns) > 1)
+    {
+      throw new Exception('Composite identifiers are not supported by getIdentifierValue()');
+    }
+    $identifierColumn = $identifierColumns[0];
+    
+    return $this->rows[$row]->$identifierColumn;
+  }
 
+  
   /**
    * builds the table config
    *

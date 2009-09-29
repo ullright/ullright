@@ -27,7 +27,8 @@ class ullColumnConfiguration
     $validatorOptions       = array('required' => false),   
     $widgetAttributes       = array(),
     $options                = array(), //meta widget options
-    $showSpacerAfter        = false
+    $showSpacerAfter        = false,
+    $injectIdentifier       = false
   ;
 
   /**
@@ -385,6 +386,18 @@ class ullColumnConfiguration
   public function getShowSpacerAfter()
   {
     return $this->showSpacerAfter;    
+  }
+  
+  public function setInjectIdentifier($boolean)
+  {
+    $this->injectIdentifier = (boolean) $boolean;
+    
+    return $this;
+  }
+  
+  public function getInjectIdentifier()
+  {
+    return $this->injectIdentifier;
   }
   
 }

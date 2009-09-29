@@ -15,8 +15,7 @@ class BaseUllAdminActions extends ullsfActions
   {
     $this->checkAccess('Masteradmins');
     
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');    
+    $this->breadcrumbTree = new ullAdminBreadcrumbTree;
     
     $this->form = new ullTableToolFilterForm;
   }

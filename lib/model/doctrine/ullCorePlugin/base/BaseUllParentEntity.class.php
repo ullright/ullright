@@ -32,6 +32,7 @@ abstract class BaseUllParentEntity extends UllRecord
         $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
         $this->hasColumn('ull_user_status_id', 'integer', null, array('type' => 'integer', 'notnull' => true, 'default' => '1'));
         $this->hasColumn('is_virtual_group', 'boolean', null, array('type' => 'boolean', 'default' => false));
+        $this->hasColumn('photo', 'string', 255, array('type' => 'string', 'length' => '255'));
 
 
         $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);

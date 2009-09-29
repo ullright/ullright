@@ -75,6 +75,11 @@
 <target>Speichern und weiter eintragen</target>
 </trans-unit>
 
+<trans-unit id="15">
+<source>Upload</source>
+<target>Hochladen</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 
@@ -193,6 +198,11 @@
 <target>Ende</target>
 </trans-unit>
 
+<trans-unit id="124">
+<source>Photo</source>
+<target>Foto</target>
+</trans-unit>
+
 
 <!-- Questions -->
 
@@ -255,6 +265,10 @@
 <target>Individuelle Abfragen</target>
 </trans-unit>
 
+<trans-unit id="1011">
+<source>Ignored some files with invalid types</source>
+<target>Einige Dateien wurden wegen ungültiger Dateitypen ignoriert</target>
+</trans-unit>
 
 
 <!-- Common list action phrases-->

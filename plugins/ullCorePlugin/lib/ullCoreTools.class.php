@@ -172,5 +172,105 @@ class ullCoreTools
     
     return $hour . ':' . $minute;
   }
+  
+  
+  /**
+   * Deletes all files in the given directory which don't have the given extenstions
+   * 
+   * @param $path
+   * @param $extensionsToKeep
+   * @return array or null
+   */
+  public static function clearDirectoryByFileExtension($path, $extensionsToKeep = array())
+  {    
+    if (!is_dir($path))
+    {
+      throw new InvalidArgumentException('Directory not found: ' . $path);
+    }
+    
+    
+    $ignoreList = array('.', '..');
+
+    $cleared = array();
+    
+    $files = scandir($path);
+
+    foreach ($files as $file)
+    {
+      $parts = explode('.', $file);
+      {
+        if (
+          !in_array($file, $ignoreList) 
+          && !in_array($parts[count($parts) - 1], $extensionsToKeep)
+        )
+        {
+          unlink($path . '/' . $file);
+          $cleared[] = $file; 
+        }
+      }
+    }
+    
+    return count($cleared) ? $cleared : false;
+  }
+  
+  
+  /**
+   * Check whether a directory is empty
+   * 
+   * @param $path
+   * @return boolean
+   */
+  public static function isEmptyDir($path)
+  {
+    if (!is_dir($path))
+    {
+      throw new InvalidArgumentException('Directory not found: ' . $path);
+    }
+    
+    if (($files = scandir($path)) && count($files) <= 2) 
+    {
+      return true;
+    }
+    
+    return false;
+  }
+  
+  
+  /**
+   * Returns the filename of the first file in the given directory
+   * 
+   * @param string $path
+   * @param string $excludePattern    A regular expression to exclude
+   * @return unknown_type
+   */
+  public static function getFirstFileInDirectory($path, $excludePattern = null)
+  {
+    if (!is_dir($path))
+    {
+      throw new InvalidArgumentException('Directory not found: ' . $path);
+    }
+    
+    $ignoreList = array('.', '..');
+    
+    $files = scandir($path);
+    
+    foreach ($files as $file)
+    {
+      if (in_array($file, $ignoreList))
+      {
+        continue;
+      }
+      
+      if ($excludePattern)
+      {
+        if (preg_match($excludePattern, $file))
+        {
+          continue;    
+        }
+      }
+      
+      return $file;
+    }
+  }
 }
 

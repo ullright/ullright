@@ -22,12 +22,19 @@
 <?php
   foreach ($generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
   {
-    if ($column_name != 'scheduled_update_date')
+    $ccc = $generator->getColumnsConfig();
+    
+    $attributes = array();
+    if (isset($ccc[$column_name]) && $ccc[$column_name]->getInjectIdentifier())
     {
-      echo $generator->getForm()->offsetGet($column_name)->renderRow();
+      $attributes = array('identifier' => $generator->getIdentifierValue());
     }
     
-    $ccc = $generator->getColumnsConfig();
+    if ($column_name != 'scheduled_update_date')
+    {
+      echo $generator->getForm()->offsetGet($column_name)->renderRow($attributes);
+    }
+    
     if (isset($ccc[$column_name]) && $ccc[$column_name]->getShowSpacerAfter())
     {
       echo '<tr class="edit_table_spacer_row"><td colspan="3"></td></tr>';

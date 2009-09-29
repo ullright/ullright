@@ -10,9 +10,12 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
   {
     $this->disable(array('version', 'is_virtual_group', 'display_name'));
     
-    $this['sex']
-      ->setMetaWidgetClassName('ullMetaWidgetSex')
-      ->setShowSpacerAfter(true);
+    $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
+    
+    $this['photo']
+      ->setMetaWidgetClassName('ullMetaWidgetPhoto')
+      ->setInjectIdentifier(true)
+      ->setShowSpacerAfter(true)
     ;
     
     $this['password']->setMetaWidgetClassName('ullMetaWidgetPassword');
@@ -65,6 +68,7 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
       'first_name',
       'last_name',
       'sex',
+      'photo',
       'username',
       'password',
       'email',

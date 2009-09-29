@@ -1,6 +1,23 @@
+# ullUser
 ull_user_show:
   url:     /ullUser/show/:username
   class:   sfRequestRoute
   param:   { module: ullUser, action: show }
   requirements:
     sf_method: [get]
+    
+    
+# ullPhoto
+ull_photo_index_with_username:
+  url:     /ullPhoto/index/:username
+  class:   sfRequestRoute
+  param:   { module: ullPhoto, action: index }
+  requirements:
+    sf_method: [get, post]
+    
+ull_photo_edit_with_username:
+  url:     /ullPhoto/edit/:username
+  class:   sfRequestRoute
+  param:   { module: ullPhoto, action: edit }
+  requirements:
+    sf_method: [get, post]          

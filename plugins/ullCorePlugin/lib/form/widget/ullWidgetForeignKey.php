@@ -63,7 +63,7 @@ class ullWidgetForeignKey extends sfWidgetFormInput
         'onclick' => 'this.href="#";popup(
           "' . url_for($uri) . '",
           "Popup ' . $object->username . '",
-          "width=480,height=480"
+          "width=480,height=720"
         );'
       )); 
     }

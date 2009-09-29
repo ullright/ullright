@@ -48,3 +48,10 @@ all:
   ull_user:
     display_name_length_limit:              22
     display_name_first_name_length_limit:   10
+    
+  ull_photo:
+    upload_path:    /uploads/userPhotos
+    # displayed height of the uploaded image before cropping 
+    display_height: 400
+    width:          200
+    height:         200

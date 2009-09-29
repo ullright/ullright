@@ -128,7 +128,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(147, new lime_output_color, $configuration);
+$t = new myTestCase(148, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -231,6 +231,10 @@ $t->diag('getIdentifierUrlParams()');
 // we don't habe any composite primaray keys at the moment
 //  $tableTool2->buildForm($entityGroups);  
 //  $t->is($tableTool2->getIdentifierUrlParams(0), 'ull_entity_id=1&ull_group_id=2', 'Return the correct URL params for multi-column primary keys');  
+  
+$t->diag('getIdentifierValue()');
+  $t->is($tableTool->getIdentifierValue(), 1, 'Returns the correct identifier value');  
+
   
 $t->diag('getForm() with calling buildForm() prior');  
   $form = $tableTool->getForm();

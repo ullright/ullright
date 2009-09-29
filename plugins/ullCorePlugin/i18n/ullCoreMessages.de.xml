@@ -139,6 +139,85 @@
         <source>Field types</source>
         <target>Feldtypen</target>
       </trans-unit>
+      
+      <!--  ullPhoto -->
+      <trans-unit id="100">
+        <source>Edit photo</source>
+        <target>Foto bearbeiten</target>
+      </trans-unit>
+      
+      <trans-unit id="101">
+        <source>Please save once. Afterwards the photo can be edited.</source>
+        <target>Bitte einmal speichern. Danach kann das Foto bearbeitet werden.</target>
+      </trans-unit>
+      
+      <trans-unit id="102">
+        <source>There are no photos left to be processed</source>
+        <target>Es sind keine Fotos mehr zur Bearbeitung übrig</target>
+      </trans-unit>
+   
+       <trans-unit id="103">
+        <source>Select a photo or multiple photos in a zip archive from your computer.
+Valid filetypes are jpg and png.</source>
+        <target>Wählen Sie ein Foto oder mehrere Fotos in einem Zip-Archiv von Ihrem Computer.
+Gültige Dateitypen sind jpg und png.</target>
+      </trans-unit>     
+  
+      <trans-unit id="104">
+        <source>Upload new photos</source>
+        <target>Neue Fotos hochladen</target>
+      </trans-unit>
+      
+      <trans-unit id="105">
+        <source>Upload a new photo for %user%</source>
+        <target>Neues Foto für %user% hochladen</target>
+      </trans-unit>         
+      
+      <trans-unit id="106">
+        <source>Click and drag on the image to select an area</source>
+        <target>Klicken und ziehen um einen Ausschnitt zu wählen</target>
+      </trans-unit>           
+      
+      <trans-unit id="107">
+        <source>Rotate counterclockwise</source>
+        <target>Nach links drehen</target>
+      </trans-unit>
+      
+      <trans-unit id="108">
+        <source>Rotate clockwise</source>
+        <target>Nach rechts drehen</target>
+      </trans-unit>
+      
+      <trans-unit id="109">
+        <source>Flip</source>
+        <target>Umdrehen</target>
+      </trans-unit>    
+      
+      <trans-unit id="110">
+        <source>Crop</source>
+        <target>Zuschneiden</target>
+      </trans-unit>    
+      
+      <trans-unit id="111">
+        <source>Save photo</source>
+        <target>Foto speichern</target>
+      </trans-unit>     
+      
+      <trans-unit id="112">
+        <source>Revert changes</source>
+        <target>Änderungen rückgängig machen</target>
+      </trans-unit>          
+      
+      <trans-unit id="113">
+        <source>Skip this photo</source>
+        <target>Dieses Foto überspringen</target>
+      </trans-unit>
+      
+       <trans-unit id="114">
+        <source>Upload user photos</source>
+        <target>Benutzer-Fotos hochladen</target>
+      </trans-unit>   
+      
     </body>
   </file>
 </xliff>

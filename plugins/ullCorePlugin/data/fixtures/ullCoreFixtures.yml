@@ -22,6 +22,7 @@ UllUser:
     ull_employment_type_id: 1
     superior_ull_user_id:   1
     ull_user_status_id:     1
+    photo:              admin.png
     creator_user_id:    1               # integer since the adminuser isn't created yet
     updator_user_id:    1               # integer since the adminuser isn't created yet
     namespace:          ullCore
@@ -34,6 +35,7 @@ UllUser:
     Superior:           admin_user
     Creator:            admin_user
     Updator:            admin_user
+    photo:              test_user.png
     namespace:          test
 
 UllGroup:

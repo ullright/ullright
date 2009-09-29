@@ -62,6 +62,9 @@ UllParentEntity:
     is_virtual_group:
       type: boolean
       default: false
+    # format: usually $username.png
+    photo:
+      type: string(255)
   
   relations:
     Superior:

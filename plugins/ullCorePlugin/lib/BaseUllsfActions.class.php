@@ -185,4 +185,19 @@ class BaseUllsfActions extends sfActions
       $this->redirect($this->getUriMemory()->get('search'));
     }
   }
+  
+  
+  /**
+   * Get the username of the currently logged in user
+   * 
+   * @return string
+   */
+  protected function getLoggedInUsername()
+  {
+    $userId = $this->getUser()->getAttribute('user_id');
+    if ($userId)
+    {
+      return UllUserTable::findUsernameById($userId);
+    } 
+  }
 }
