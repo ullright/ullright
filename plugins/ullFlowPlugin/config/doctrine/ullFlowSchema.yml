@@ -113,11 +113,8 @@ UllFlowColumnConfig:
     ull_column_type_id:
       type: integer    
     options:
-      type: clob      
+      type: clob
     is_enabled:
-      type: boolean
-      default: true
-    is_in_list:
       type: boolean
       default: true
     is_mandatory:

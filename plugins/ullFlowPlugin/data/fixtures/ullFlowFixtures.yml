@@ -146,7 +146,6 @@ UllFlowColumnConfig:
     UllColumnType:  information_update
     is_mandatory:   false
     namespace:      test
-    is_in_list:     false
 
   # mix order id vs. sequence identionally to test order of columns 
   ull_flow_column_config_trouble_ticket_subject:
@@ -162,7 +161,6 @@ UllFlowColumnConfig:
     is_mandatory:   true
     is_subject:     true
     namespace:      test
-    is_in_list:     false
     
   ull_flow_column_config_trouble_ticket_date:
     Translation:
@@ -174,7 +172,6 @@ UllFlowColumnConfig:
     slug:           my_date
     sequence:       2000
     UllColumnType:  date
-    is_in_list:     false
     namespace:      test
   ull_flow_column_config_trouble_ticket_email:
     Translation:
@@ -187,7 +184,6 @@ UllFlowColumnConfig:
     sequence:       3000
     UllColumnType:  email
     namespace:      test
-    is_in_list:     false
     
   ull_flow_column_config_trouble_ticket_column_priority:
     Translation:
@@ -201,7 +197,6 @@ UllFlowColumnConfig:
     UllColumnType:  priority
     default_value:  3
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
-    is_in_list:     false
     is_priority:    true
     namespace:      test
   ull_flow_column_config_trouble_ticket_upload:
@@ -214,7 +209,6 @@ UllFlowColumnConfig:
     slug:           my_upload
     sequence:       5000
     UllColumnType:  upload
-    is_in_list:     false  
     namespace:      test
   ull_flow_column_config_trouble_ticket_wiki_link:
     Translation:
@@ -226,7 +220,6 @@ UllFlowColumnConfig:
     slug:           my_wiki_link
     sequence:       6000
     UllColumnType:  wiki_link
-    is_in_list:     false
     namespace:      test              
   ull_flow_column_config_trouble_ticket_column_tags:
     Translation:
@@ -239,7 +232,6 @@ UllFlowColumnConfig:
     slug:           my_tags 
     sequence:       7000
     UllColumnType:  taggable
-    is_in_list:     false
     is_tagging:    true
     namespace:      test    
     
@@ -256,7 +248,6 @@ UllFlowColumnConfig:
     is_mandatory:   true
     is_subject:     true
     namespace:      test
-    is_in_list:     false
     
   ull_flow_column_config_todo_column_priority:
     Translation:
@@ -270,7 +261,6 @@ UllFlowColumnConfig:
     UllColumnType:  priority
     default_value:  3
     #don't include in the list, because the native UllFlowDoc->priority column is used for that
-    is_in_list:     false
     is_priority:    true
     namespace:      test    
   ull_flow_column_config_todo_column_tags:
@@ -284,7 +274,6 @@ UllFlowColumnConfig:
     slug:           todo_tags 
     sequence:       3000
     UllColumnType:  taggable
-    is_in_list:     false
     is_tagging:    true
     namespace:      test              
         
