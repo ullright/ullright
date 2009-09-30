@@ -1,6 +1,6 @@
 <?php 
 
-class BaseUllTimeReportingColumnConfigCollection extends ullColumnConfigCollection
+class BaseUllTimePeriodColumnConfigCollection extends ullColumnConfigCollection
 {
 
   /**
@@ -9,25 +9,8 @@ class BaseUllTimeReportingColumnConfigCollection extends ullColumnConfigCollecti
    */
   protected function applyCustomSettings()
   {
-    $this['id']->disable();
-    $this['ull_user_id']->setAccess('r');
-    $this['date']->setAccess('r');
-    
-    if ($this->isCreateAction())
-    {
-      $this['total_work_seconds']->disable();
-      $this['total_break_seconds']->disable();
-    }
+    $this['from_date']->setLabel(__('Start date', null, 'ullTimeMessages'));
+    $this['to_date']->setLabel(__('End date', null, 'ullTimeMessages'));
 
-    if ($this->isEditAction())
-    {
-      $this['total_work_seconds']->setAccess('r');
-      $this['total_break_seconds']->setAccess('r');      
-    }
-    
-    $this['created_at']->disable();
-    $this['creator_user_id']->disable();
-    $this['updated_at']->disable();
-    $this['updator_user_id']->disable();
   }
 }

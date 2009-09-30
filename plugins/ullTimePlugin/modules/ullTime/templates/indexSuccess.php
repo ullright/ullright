@@ -12,7 +12,7 @@
         <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/createProject', __('Project timereporting for today', null, 'ullTimeMessages')) ?></li>
       </ul>
       
-      <h3><?php echo __('Monthly overviews', null, 'ullTimeMessages') ?></h3>
+      <h3><?php echo __('Period overviews', null, 'ullTimeMessages') ?></h3>
       <ul class="tc_tasks">
         <?php foreach ($periods as $period): ?>
           <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/list?period_slug=' . $period->slug, $period->name) ?></li>

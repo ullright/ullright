@@ -11,7 +11,7 @@ class ullTimeBreadcrumbTree extends breadcrumbTree
   
   public function addDefaultListEntry()
   {
-    $this->add(__('Monthly overview', null, 'ullTimeMessages'), 'ullTime/list');
+    $this->add(__('Period overview', null, 'ullTimeMessages'), 'ullTime/list');
   }
 
 }

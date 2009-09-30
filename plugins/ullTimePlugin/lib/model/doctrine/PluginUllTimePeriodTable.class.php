@@ -49,5 +49,26 @@ class PluginUllTimePeriodTable extends UllRecordTable
     return $q->execute();
   }
   
+  
+  /**
+   * Check if a given period overlapps an existing period
+   * 
+   * @param $fromDate
+   * @param $toDate
+   * @return false or an array of Doctrine records of overlapping existing periods
+   */
+  public static function periodExists($fromDate, $toDate)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllTimePeriod tp')
+      ->where('tp.from_date BETWEEN ? AND ?', array($fromDate, $toDate))
+      ->orWhere('tp.to_date BETWEEN ? AND ?', array($fromDate, $toDate))
+    ;
+    $result = $q->execute(null, Doctrine::HYDRATE_ARRAY);
+    
+    return count($result) ? $result: null;
+  }
+  
 }
   

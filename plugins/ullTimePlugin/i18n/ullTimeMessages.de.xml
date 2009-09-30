@@ -40,8 +40,8 @@
 </trans-unit>
 
 <trans-unit id="8">
-<source>Monthly overview</source>
-<target>Monatsübersicht</target>
+<source>Period overviews</source>
+<target>Periodenübersichten</target>
 </trans-unit>
 
 <trans-unit id="9">
@@ -90,8 +90,8 @@
 </trans-unit>
 
 <trans-unit id="18">
-<source>Monthly overviews</source>
-<target>Monatsübersichten</target>
+<source>Period overviews</source>
+<target>Periodenübersichten</target>
 </trans-unit>
 
 <trans-unit id="19">
@@ -99,9 +99,29 @@
 <target>Zeiterfassung</target>
 </trans-unit>
 
-<trans-unit id="19">
+<trans-unit id="20">
 <source>Projects</source>
 <target>Projekte</target>
+</trans-unit>
+
+<trans-unit id="21">
+<source>Start date</source>
+<target>Begindatum</target>
+</trans-unit>
+
+<trans-unit id="22">
+<source>End date</source>
+<target>Enddatum</target>
+</trans-unit>
+
+<trans-unit id="23">
+<source>Periods</source>
+<target>Perioden</target>
+</trans-unit>
+
+<trans-unit id="24">
+<source>Period overview</source>
+<target>Periodenübersicht</target>
 </trans-unit>
 
     </body>
