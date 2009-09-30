@@ -34,7 +34,7 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
   {
     $this['ull_flow_app_id']
       ->setLabel(__('Workflow', null, 'ullFlowMessages'))
-    ;    
+    ;
     
     if ($this->isListAction())
     {
@@ -117,9 +117,10 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
             ->setWidgetOptions(sfToolkit::stringToArray($column->options))
             ->setValidatorOption('required', $column->is_mandatory)
           ;
-            
-          if ($this->isListAction() && !$column->is_in_list)
+
+          if (!$column->is_enabled)
           {
+            $this[$columnName]->setCustomAttribute('disabled_override', true);
             $this[$columnName]->disable();
           }            
           
@@ -161,6 +162,12 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       
       foreach ($this->collection as $key => $columnConfig)
       {
+        //handle manual ullFlowColumnConfig override
+        if ($columnConfig->getCustomAttribute('disabled_override'))
+        {
+          continue;
+        }
+        
         if (in_array($key, $listColumns))
         {
           $columnConfig->setAccess('r');

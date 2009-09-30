@@ -335,7 +335,14 @@ class ullColumnConfiguration
 
   public function getCustomAttribute($attributeName)
   {
-    return $this->customAttributes[$attributeName];
+    if (isset($this->customAttributes[$attributeName]))
+    {
+      return $this->customAttributes[$attributeName];
+    }
+    else
+    {
+      return null;
+    }
   }
   
   public function getOption($optionName)
