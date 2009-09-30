@@ -44,6 +44,7 @@ EOF;
     if (!$options['end-date'])
     {
       $this->logBlock('Option --end-date is required', 'ERROR');
+      exit();
     }
     
     $options['languages'] = explode(',', $options['languages']);
