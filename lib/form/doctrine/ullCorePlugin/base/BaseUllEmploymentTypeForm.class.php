@@ -14,21 +14,21 @@ class BaseUllEmploymentTypeForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
       'namespace'       => new sfWidgetFormInput(),
-      'slug'            => new sfWidgetFormInput(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
       'creator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
       'updator_user_id' => new sfWidgetFormDoctrineChoice(array('model' => 'UllUser', 'add_empty' => true)),
+      'slug'            => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
       'id'              => new sfValidatorDoctrineChoice(array('model' => 'UllEmploymentType', 'column' => 'id', 'required' => false)),
       'namespace'       => new sfValidatorString(array('max_length' => 32, 'required' => false)),
-      'slug'            => new sfValidatorString(array('max_length' => 64)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
       'creator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
       'updator_user_id' => new sfValidatorDoctrineChoice(array('model' => 'UllUser', 'required' => false)),
+      'slug'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

@@ -9,7 +9,6 @@ abstract class BaseUllUserStatus extends UllRecord
     {
         parent::setTableDefinition();
         $this->setTableName('ull_user_status');
-        $this->hasColumn('slug', 'string', 64, array('type' => 'string', 'length' => '64'));
         $this->hasColumn('name', 'string', 50, array('type' => 'string', 'notnull' => true, 'length' => '50'));
         $this->hasColumn('is_active', 'boolean', null, array('type' => 'boolean'));
     }
@@ -21,6 +20,8 @@ abstract class BaseUllUserStatus extends UllRecord
                                                 'foreign' => 'ull_user_status_id'));
 
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'name')));
+        $sluggable0 = new Doctrine_Template_Sluggable(array('unique' => true, 'fields' => array(0 => 'name'), 'canUpdate' => true));
         $this->actAs($i18n0);
+        $this->actAs($sluggable0);
     }
 }

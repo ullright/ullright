@@ -225,11 +225,11 @@ UllEmploymentType:
   actAs:
     I18n:
       fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name]
+      canUpdate: true               
   columns:
-    slug:
-      type: string(64)
-      notnull: true
-      unique: true 
     name:
       type: string(100)
       notnull: true
@@ -295,9 +295,11 @@ UllUserStatus:
   actAs:
     I18n:
       fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name]
+      canUpdate: true               
   columns:
-    slug:
-      type: string(64)
     name:
       type: string(50)
       notnull: true
