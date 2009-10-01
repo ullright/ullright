@@ -19,8 +19,13 @@ class defaultActions extends ullsfActions
 //    $this->forward('default', 'module');
 //  }
   
-  public function executeError404() {
+  public function executeError404() 
+  {
     
+  }
+  
+  public function executeError()
+  {
     
   }
 }

@@ -604,13 +604,15 @@ class BaseUllVentoryActions extends ullsfActions
         // the following hardcoded order settings could be refactored as 
         //  a generic feature of the model/generator/metawidget suite
         case 'ull_ventory_item_type_id':
-           $q->addFrom('x.UllVentoryItemModel.UllVentoryItemType.Translation tt');
            $q->orderBy('tt.name ' . $orderDir);
            $q->addWhere('tt.lang = ?', substr($this->getUser()->getCulture(), 0, 2));
            break;
         case 'ull_ventory_item_manufacturer_id':
-           $q->orderBy('x.UllVentoryItemModel.UllVentoryItemManufacturer.name ' . $orderDir);
-           break;           
+           $q->orderBy('ma.name ' . $orderDir);
+           break;
+        case 'ull_location_id':
+           $q->orderBy('lo.name ' . $orderDir);
+           break;                       
         default:
           $q->orderBy($this->order . ' ' . $orderDir);
       }

@@ -237,4 +237,19 @@ class BaseUllsfActions extends sfActions
     
     return $params;
   }
+  
+  
+  /**
+   * Forwards to the default error page.
+   * 
+   * Use this for non-critical errors, that can be corrected by the user/helpdesk
+   * 
+   * @param $message
+   * @return none
+   */
+  protected function showError($message)
+  {
+    $this->getUser()->setFlash('error', $message);
+    $this->forward('default', 'error');
+  }
 }

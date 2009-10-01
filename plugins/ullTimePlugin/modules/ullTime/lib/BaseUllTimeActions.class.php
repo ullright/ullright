@@ -299,8 +299,19 @@ class BaseUllTimeActions extends ullsfActions
     if (!$slug)
     {
       $slug = UllTimePeriodTable::findSlugByDate(date('Y-m-d'));
+    }
+    
+    $this->period = null;
+    
+    if ($slug)
+    {
+      $this->period = Doctrine::getTable('UllTimePeriod')->findOneBySlug($slug);
     }  
-    $this->period = Doctrine::getTable('UllTimePeriod')->findOneBySlug($slug);
+    
+    if (!$this->period)
+    {    
+      $this->showError('No period for date ' . date('Y-m-d') . ' found. Please create a period on the administration page.');
+    }
   }
   
   
