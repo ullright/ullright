@@ -6,7 +6,7 @@ jQuery.fn.addSelectFilter = function()
   return this.each(function()
   {
     var filterId= this.id + '_filter';
-    var filter = $('<input type="text" id="' + filterId + '" size="1" />');
+    var filter = $('<input type="text" id="' + filterId + '" size="1" title="Filter dropdown" />');
     
     $(this).before(filter);
     filter.after(" ");
