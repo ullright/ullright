@@ -123,14 +123,14 @@ $t->diag('ull_submit_tag()');
   $reference = '<input type="hidden" name="submit_my_name" id="submit_my_name" value="" />
 <script type="text/javascript">
 //<![CDATA[
-function submit_my_name() 
+function submit_my_name_cheersIE8() 
 {
   document.getElementById("submit_my_name").value = 1;
   document.getElementById("my_form_id").submit();
 }
 //]]>
 </script>
-<a href="#" onclick="submit_my_name(); return false;">my_value</a>
+<a href="#" onclick="submit_my_name_cheersIE8(); return false;">my_value</a>
 ';  
   $t->is(ull_submit_tag('my_value', array('name' => 'submit_my_name', 'form_id' => 'my_form_id', 'display_as_link' => true)), 
       $reference,

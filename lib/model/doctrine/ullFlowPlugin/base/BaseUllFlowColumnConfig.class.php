@@ -15,7 +15,6 @@ abstract class BaseUllFlowColumnConfig extends UllRecord
         $this->hasColumn('ull_column_type_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('options', 'clob', null, array('type' => 'clob'));
         $this->hasColumn('is_enabled', 'boolean', null, array('type' => 'boolean', 'default' => true));
-        $this->hasColumn('is_in_list', 'boolean', null, array('type' => 'boolean', 'default' => true));
         $this->hasColumn('is_mandatory', 'boolean', null, array('type' => 'boolean', 'default' => false));
         $this->hasColumn('is_subject', 'boolean', null, array('type' => 'boolean', 'default' => false));
         $this->hasColumn('is_priority', 'boolean', null, array('type' => 'boolean', 'default' => false));

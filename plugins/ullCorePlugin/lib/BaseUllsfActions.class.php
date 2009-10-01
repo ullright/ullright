@@ -123,14 +123,16 @@ class BaseUllsfActions extends sfActions
     {
       $params = $this->getRequest()->getParameterHolder()->getAll();
 
+      $params = $this->prioritizeFilterParamsFromPOST($params);
+      
       if ($ull_reqpass = $this->getRequestParameter('ull_reqpass'))
       {
         $ull_reqpass = unserialize($ull_reqpass);
         $params = array_merge($params, $ull_reqpass);
       }
-
+      
       $params = _ull_reqpass_initialize($params);
-
+      
       $url = _ull_reqpass_build_url($params);
 
       /*
@@ -199,5 +201,40 @@ class BaseUllsfActions extends sfActions
     {
       return UllUserTable::findUsernameById($userId);
     } 
+  }
+  
+  
+  /**
+   * We have to prioritize POST request values for the (search) filters
+   * 
+   * Usecase: 
+   *  * list action -> search for "foo"
+   *  * with reqpass_redirect we get to the page "myModule/list/filter[search]/foo"
+   *  * now we search for "bar"
+   *  * for the param filter[search] we now have two request values:
+   *    * POST: "bar"
+   *    * GET (from routing) "foo"
+   *  * the routing GET param overrides the POST param, but we neet the POST param
+   *    because it holds the actual value. 
+   * 
+   * @param $params
+   * @return array
+   */
+  protected function prioritizeFilterParamsFromPOST($params)
+  {
+    $POST = get_magic_quotes_gpc() ? sfToolkit::stripslashesDeep($_POST) : $_POST;
+
+    if (isset($params['filter']))
+    {
+      foreach ($params['filter'] as $key => $value)
+      {
+        if (isset($POST['filter'][$key]))
+        {
+          $params['filter'][$key] = $POST['filter'][$key];
+        }
+      }
+    }
+    
+    return $params;
   }
 }

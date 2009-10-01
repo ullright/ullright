@@ -11,8 +11,6 @@ class ullWebRequest extends sfWebRequest
   {
     parent::fixParameters();
     
-//    var_dump($this->getParameterHolder()->getAll());die;
-    
     $this->parseSubmitName();
     
     $this->parseSquareBracketKeys();

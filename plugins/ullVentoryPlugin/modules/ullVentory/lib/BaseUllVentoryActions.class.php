@@ -48,6 +48,13 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeList(sfRequest $request) 
   {
+//    throw new Exception('Arsch');
+//    var_dump($request->getParameterHolder()->getAll());die('baseullflow');
+    
+//    var_dump($_REQUEST);
+//    var_dump($this->getRequest()->getParameterHolder()->getAll());
+//    die;
+    
     $this->checkPermission('ull_ventory_list');
     
     $this->getUriMemory()->setUri();
