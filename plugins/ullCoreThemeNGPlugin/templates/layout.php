@@ -94,7 +94,7 @@
      
      
     <div id="footer">
-      <div id="footer_copyright">© 2007-2009 by Klemens Ullmann</div>
+      <div id="footer_copyright">© 2007-2009 by Klemens Ullmann-Marx</div>
       <div id="footer_links">powered by <?php echo ull_link_to('ull.at', 'http://www.ull.at', 'ull_js_observer_confirm=true'); ?></div>
       <!-- <div class='clear'></div> --> 
     </div>  <!-- end of footer -->
