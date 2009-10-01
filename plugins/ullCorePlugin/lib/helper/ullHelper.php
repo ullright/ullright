@@ -505,12 +505,17 @@ function _ull_to_function($name = 'link', $function, $options = array(), $type =
  * 
  * adds an option to display a link instead of a button (with javascript)
  * supports graceful degradation without javascript (displays a submit button)
+ * TODO: support real unobstrusive javascript using jquery without ->getUser()->getAttribute('has_javascript')
  *  
  * options:
  *   boolean display_as_link  displays a link instead of a button if javascript is available
  *   string name              the tag's name attribute (required for option "display_as_link)
  *   string form_id           the id of the form to submit (required for option "display_as_link)
  *    
+ * Crazy stuff: using this function with the option display_as_link links failed in 
+ *   Internet Exporer 8 with error message "Object doesn’t support this property or method"
+ *   because there is an html id and a javascript function of the same name.
+ *   Solution: renamed javascript function
  *
  * @param string $value       field value (title of submit button)
  * @param array $options      array of options
@@ -531,7 +536,7 @@ function ull_submit_tag($value = 'Save changes', $options = array())
 	   sfContext::getInstance()->getUser()->getAttribute('has_javascript'))
 	{
     $js_function_name = str_replace(array('|', '='), array('_', '_'),
-      $options['name']) . '()'; 
+      $options['name']) . '_cheersIE8()'; 
 	  
     $return = input_hidden_tag($options['name'], null, array('id' => str_replace(array('|', '='), '_', $options['name']))) . "\n";
     $return .= javascript_tag('function ' . $js_function_name . ' 
