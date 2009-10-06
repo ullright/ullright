@@ -19,6 +19,9 @@ all:
   
   supported_languages: en,de
   
+  error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
+  error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
+  
   mailing:
     enable:         true
     charset:        utf-8

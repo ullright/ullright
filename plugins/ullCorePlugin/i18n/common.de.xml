@@ -986,6 +986,51 @@
 <target>Nicht angemeldet</target>
 </trans-unit>
 
+<trans-unit id="24000">
+<source>Sorry, but the page you requested was not found.</source>
+<target>Die angeforderte Seite kann leider nicht gefunden werden.</target>
+</trans-unit>
+
+<trans-unit id="24001">
+<source>You may find one of the following links useful:</source>
+<target>Vielleicht finden Sie das Gewünschte hier:</target>
+</trans-unit>
+
+<trans-unit id="24002">
+<source>find out about ullright</source>
+<target>mehr über ullright erfahren</target>
+</trans-unit>
+
+<trans-unit id="24003">
+<source>search for what you were looking for</source>
+<target>die Wissensdatenbank durchsuchen</target>
+</trans-unit>
+
+<trans-unit id="24004">
+<source>Welcome page</source>
+<target>Startseite</target>
+</trans-unit>
+
+<trans-unit id="24005">
+<source>If you need further assistance, please do not hesitate to contact the helpdesk.</source>
+<target>Falls Sie weitere Hilfe benötigen, kontaktieren Sie bitte den Helpdesk.</target>
+</trans-unit>
+
+<trans-unit id="24006">
+<source>Sorry, but a technical difficulty occured.</source>
+<target>Leider ist ein technisches Problem aufgetreten.</target>
+</trans-unit>
+
+<trans-unit id="24007">
+<source>Please try again in a few minutes.</source>
+<target>Bitte versuchen Sie es in ein paar Minuten erneut.</target>
+</trans-unit>
+
+<trans-unit id="24008">
+<source>If the problem persists, please do not hesitate to contact the IT department.</source>
+<target>Falls das Problem weiter auftritt, kontaktieren Sie bitte die IT-Abteilung</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

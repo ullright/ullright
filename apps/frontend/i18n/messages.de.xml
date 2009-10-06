@@ -51,7 +51,17 @@
 <source>"%value%" has too many decimal places (%max_decimals% max).</source>
 <target>"%value%" besitzt zuviele Nachkommastellen (max. %max_decimals%).</target>
 </trans-unit>
-    
+
+<trans-unit id="10">
+<source>If you need further assistance, please do not hesitate to contact helpdesk@example.com.</source>
+<target>Falls Sie weitere Hilfe benötigen, kontaktieren Sie bitte helpdesk@example.de.</target>
+</trans-unit>
+
+<trans-unit id="11">
+<source>If the problem persists, please do not hesitate to contact it.department@example.com.</source>
+<target>Falls das Problem weiter auftritt, kontaktieren Sie bitte it.department@example.de.</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
