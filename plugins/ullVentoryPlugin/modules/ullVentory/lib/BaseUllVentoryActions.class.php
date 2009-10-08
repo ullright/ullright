@@ -513,7 +513,7 @@ class BaseUllVentoryActions extends ullsfActions
   protected function breadcrumbForSearch()
   {
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
-    $this->breadcrumbTree->add(__('Advanced search'), 'ullVentory/search');
+    $this->breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullVentory/search');
   }
   
   /**
