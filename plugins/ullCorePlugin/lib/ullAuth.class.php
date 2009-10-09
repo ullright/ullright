@@ -75,7 +75,32 @@ abstract class ullAuth
     {
       return "IMAP";
     }
-
+  }  
+  
+  
+  /**
+   * LDAP / Active Directory
+   * 
+   * @param UllUser $user
+   * @param $password
+   * @return string
+   */
+  protected static function authLdap(UllUser $user, $password) 
+  {
+    $adldap = new adLDAP(array(
+      'account_suffix'      => sfConfig::get('app_auth_ldap_account_suffix'),
+      'base_dn'             => sfConfig::get('app_auth_ldap_base_dn'),
+      'domain_controllers'  => sfConfig::get('app_auth_ldap_domain_controllers'),
+    ));
+    
+    if ($adldap->authenticate($user->username, $password)) 
+    {
+      return "LDAP";
+    }
+    else
+    {
+//      var_dump($adldap->get_last_error());
+    }
   }  
   
 }
