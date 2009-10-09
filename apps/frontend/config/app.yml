@@ -35,12 +35,14 @@ all:
     send_debug_cc: false
     
   auth:
-    function:       default
+    function:             default
     fileshare_share:      '//my_samba_server/my_auth_share\$'
     fileshare_domain:     my_domain
     fileshare_checkfile:  checkfile-do_not_delete.txt   
-    imap_mailbox:   '{127.0.0.1:143/notls}INBOX'
-    
+    imap_mailbox:         '{127.0.0.1:143/notls}INBOX'
+    ldap_account_suffix:  '@my_company.local'
+    ldap_base_dn:         'DC=my_company,DC=local'
+    ldap_domain_controllers: [ 'dc.my_company.local' ]    
     
   pager:
     max_per_page:   30
