@@ -10,6 +10,9 @@ class ApplyScheduledUpdatesTask extends sfBaseTask
       'scheduled_update_date',
       'done_at');
 
+  protected $ignoreTables =
+    array('UllParentEntity');
+    
   protected function configure()
   {
     $this->namespace        = 'ullright';
@@ -67,6 +70,12 @@ EOF;
     $conn->beginTransaction();
     
     foreach ($modelNames as $modelName) {
+        
+      if (in_array($modelName, $this->ignoreTables))
+      {
+        $this->log('Skipping ' . $modelName);
+        continue;
+      }
       
       $table = Doctrine::getTable($modelName);
       if ($table->hasTemplate('Doctrine_Template_SuperVersionable'))
@@ -75,7 +84,7 @@ EOF;
 
         $template = $table->getTemplate('Doctrine_Template_SuperVersionable');
         $className = $template->getClassName();
-
+        
         $q = new Doctrine_Query;
         
         $q
