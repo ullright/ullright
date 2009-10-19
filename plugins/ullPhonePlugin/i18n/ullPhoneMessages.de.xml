@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext"
+    date="2007-12-13T14:54:05Z">
+    <body>
+      <trans-unit id="1">
+        <source>No location specified</source>
+        <target>Kein Standort angegeben</target>
+      </trans-unit>
+
+      <trans-unit id="2">
+        <source>Telephone directory</source>
+        <target>Telefonbuch</target>
+      </trans-unit>
+
+      <trans-unit id="3">
+        <source>Everyone</source>
+        <target>Alle</target>
+      </trans-unit>
+
+      <trans-unit id="4">
+        <source>Phone book</source>
+        <target>Telefonbuch</target>
+      </trans-unit>
+
+      <trans-unit id="5">
+        <source>Sort by location</source>
+        <target>Sortiert nach Standort</target>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>
