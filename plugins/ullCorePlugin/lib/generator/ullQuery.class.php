@@ -72,6 +72,9 @@ class ullQuery
   /**
    * Add WHERE clauses
    * 
+   * Attention: it currently supports only a single where statement
+   * Example: 'UllUser.Username = ?'
+   * 
    * @param string $where   A valid doctrine WHERE string
    * @param $params
    * @return self
