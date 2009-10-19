@@ -6,7 +6,7 @@
 class ullColumnConfiguration
 {
   protected
-    //from ull_column_config table
+    //manual
     $columnName, //db column name  
     $label, 
     $help, //'description' in ull_column_config table
@@ -28,7 +28,8 @@ class ullColumnConfiguration
     $widgetAttributes       = array(),
     $options                = array(), //meta widget options
     $showSpacerAfter        = false,
-    $injectIdentifier       = false
+    $injectIdentifier       = false,
+    $autoRender             = true
   ;
 
   /**
@@ -123,6 +124,13 @@ class ullColumnConfiguration
   public function disable()
   {
     $this->access = null;
+    
+    return $this;
+  }  
+  
+  public function enable($access = 'r')
+  {
+    $this->access = ($access == 'r' || $access == 'w') ? $access : 'r';
     
     return $this;
   }  
@@ -407,4 +415,15 @@ class ullColumnConfiguration
     return $this->injectIdentifier;
   }
   
+  public function getAutoRender()
+  {
+    return $this->autoRender;
+  }
+  
+  public function setAutoRender($boolean)
+  {
+    $this->autoRender = (boolean) $boolean;
+    
+    return $this;
+  }
 }

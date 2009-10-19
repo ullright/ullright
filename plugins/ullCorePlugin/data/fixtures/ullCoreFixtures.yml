@@ -18,7 +18,7 @@ UllUser:
     ull_job_title_id:       1     # TODO: TEMP because UllJobTitle: programmer_jt won't work
     ull_company_id:         1
     ull_department_id:      1
-    ull_location_id:        1
+    ull_location_id:        2
     ull_employment_type_id: 1
     superior_ull_user_id:   1
     ull_user_status_id:     1
@@ -37,6 +37,7 @@ UllUser:
     Updator:            admin_user
     photo:              test_user.png
     namespace:          test
+    UllLocation:        new_york
 
 UllGroup:
   admin_group:
@@ -306,7 +307,7 @@ UllDepartment:
     namespace: test
 
 UllLocation:
-  ull_location:
+  vienna:
     name:                     Wien Mollardgasse
     short_name:               WMO
     street:                   Mollardgasse 85a
@@ -318,6 +319,19 @@ UllLocation:
     fax_base_no:              "+43 1 2345678"
     fax_default_extension:    5432
     namespace:                test
+  new_york:
+    name:                     New York 5th Ave
+    short_name:               NYC
+    street:                   1000 5th Avenue
+    city:                     New York
+    country:                  US
+    post_code:                10028
+    phone_base_no:            "+1 212 765432"
+    phone_default_extension:  1234
+    fax_base_no:              "+1 212 8765432"
+    fax_default_extension:    2345
+    namespace:                test                 
+  
 
 UllEmploymentType:
   ceo_et:

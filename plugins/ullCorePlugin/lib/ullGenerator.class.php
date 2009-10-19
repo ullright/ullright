@@ -138,6 +138,38 @@ abstract class ullGenerator extends ullGeneratorBase
     return $this->forms[0]->getWidgetSchema()->getLabels();
   }
   
+  public function getAutoRenderedLabels()
+  {
+    $labels = $this->getLabels();
+    
+    $columns = $this->getActiveAutoRenderedColumns();
+    
+    $labelKeys = array_keys($labels);
+    $columnKeys = array_keys($columns);
+    
+    foreach ($labelKeys as $labelKey)
+    {
+      $translationPosition = strrpos($labelKey, '_translation_');
+      if ($translationPosition !== false)
+      {
+        $originalColumnKey = substr($labelKey, 0, $translationPosition);
+        if (isset($columns[$originalColumnKey]) && $columns[$originalColumnKey]->getTranslated() === true)
+        {
+          //this is a valid translated label
+          continue;
+        }
+      }
+      
+      if (!(in_array($labelKey, $columnKeys)))
+      {
+        //this label is not to be rendered
+        unset($labels[$labelKey]);
+      }
+    }
+    
+    return $labels;
+  }
+  
   /**
    * builds the table config
    *
@@ -273,6 +305,21 @@ abstract class ullGenerator extends ullGeneratorBase
   public function getActiveColumns()
   {
     return $this->columnsConfig->getActiveColumns(); 
+  }
+  
+  public function getActiveAutoRenderedColumns()
+  {
+    $columns = $this->getActiveColumns();
+
+    foreach ($columns as $columnKey => $column)
+    {
+      if (!$column->getAutoRender())
+      {
+        unset($columns[$columnKey]);
+      }
+    }
+    
+    return $columns;
   }
 
   /**

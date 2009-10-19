@@ -1,8 +1,14 @@
   <!-- header -->
   <thead>
   <tr>  
-    <th class="color_dark_bg">&nbsp;</th>
-    <?php foreach ($generator->getLabels() as $field_name => $label): ?>
+    <?php
+      if (!(isset($add_icon_th) && $add_icon_th == false))
+      {
+        echo '<th class="color_dark_bg">&nbsp;</th>';
+      }
+    
+      foreach ($generator->getAutoRenderedLabels() as $field_name => $label): ?>
+      
       <th class="color_dark_bg">
         <?php 
         if ($order == $field_name) {
