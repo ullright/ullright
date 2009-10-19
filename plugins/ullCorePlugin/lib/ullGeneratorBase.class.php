@@ -21,6 +21,18 @@ class ullGeneratorBase
    */
   public function __construct($defaultAccess = null, $requestAction = null)
   {
+    $this->handleDefaultAccessAndRequestAction($defaultAccess, $requestAction);
+  }
+  
+  /**
+   * Handle the defaultAccess and requestAction params
+   * 
+   * @param $defaultAccess
+   * @param $requestAction
+   * @return none
+   */
+  protected function handleDefaultAccessAndRequestAction($defaultAccess = null, $requestAction = null)
+  {
     if ($requestAction === null)
     {
       if (sfContext::getInstance()->getRequest()->hasParameter('action'))
@@ -44,7 +56,7 @@ class ullGeneratorBase
     else
     {
       $this->setDefaultAccess($defaultAccess);
-    }
+    }   
   }
   
   /**

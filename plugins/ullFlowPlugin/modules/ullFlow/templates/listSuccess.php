@@ -39,7 +39,7 @@
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>
 
-  <?php include_partial('ullTableTool/ullResultListHeader', array(
+  <?php include_partial('ullTableTool/ullResultListHeaderDeprecated', array(
       'generator' => $generator,
       'order'     => $order,
       'order_dir' => $order_dir,

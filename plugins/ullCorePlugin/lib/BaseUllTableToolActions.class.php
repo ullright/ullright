@@ -11,6 +11,9 @@
 class BaseUllTableToolActions extends ullsfActions
 {
   
+  protected
+    $ullFilterClassName = 'ullTableToolFilterForm'
+  ;  
   private
     $class_name   = '',
     $field_types  = array(),
@@ -34,7 +37,7 @@ class BaseUllTableToolActions extends ullsfActions
    * Executes index action
    *
    */
-  public function executeIndex()
+  public function executeIndex(sfRequest $request)
   {    
     $this->redirect('ullAdmin/index');
   }
@@ -45,7 +48,7 @@ class BaseUllTableToolActions extends ullsfActions
    *
    * @param sfWebRequest $request
    */
-  public function executeList($request) 
+  public function executeList(sfRequest $request) 
   {
     $this->checkAccess('Masteradmins');
     
@@ -56,15 +59,29 @@ class BaseUllTableToolActions extends ullsfActions
       $this->ull_reqpass_redirect();
     }
     
-    $this->generator = new ullTableToolGenerator($this->table_name);
+    //temp test for relation project
+    if ($columns = $request->getParameter('columns'))
+    {
+      $columns = explode('|', $columns);
+    }
+    else
+    {
+      $columns = array();
+    }
+    
+    $this->generator = new ullTableToolGenerator($this->table_name, 'r', 'list', $columns);
     
     $rows = $this->getFilterFromRequest();
     
     $this->generator->buildForm($rows);
     
+//    $this->generator->getForm()->debug();
+    
     $this->getUriMemory()->setUri();
     
     $this->breadcrumbForList();
+    
+//    $this->setEmptyLayout();
   }
 
   
@@ -72,7 +89,7 @@ class BaseUllTableToolActions extends ullsfActions
    * Executes show action
    *
    */
-  public function executeShow($request) 
+  public function executeShow(sfRequest $request) 
   {
     $this->forward('ullTableTool', 'edit');
   }
@@ -82,7 +99,7 @@ class BaseUllTableToolActions extends ullsfActions
    * Executes create action
    *
    */
-  public function executeCreate() 
+  public function executeCreate(sfRequest $request) 
   {
     $this->forward('ullTableTool', 'edit');
   }  
@@ -104,7 +121,7 @@ class BaseUllTableToolActions extends ullsfActions
    *
    * @param sfWebRequest $request
    */
-  public function executeEdit($request)
+  public function executeEdit(sfRequest $request)
   {
     $this->checkAccess('Masteradmins');
 
@@ -137,7 +154,7 @@ class BaseUllTableToolActions extends ullsfActions
    * Execute delete action
    *
    */
-  public function executeDelete()
+  public function executeDelete(sfRequest $request)
   { 
     $this->checkAccess('MasterAdmins');
     
@@ -180,6 +197,93 @@ class BaseUllTableToolActions extends ullsfActions
      
     $this->redirect('ullTableTool/edit?table=' . $this->table_name . '&id=' . $this->getRequestParameter('id'));
   }
+  
+  
+  /**
+   * Parses filter request params
+   * and returns records accordingly
+   *
+   * @return Doctrine_Collection
+   */
+  protected function getFilterFromRequest()
+  {
+    $this->filter_form = new $this->ullFilterClassName;
+    $this->filter_form->bind($this->getRequestParameter('filter'));
+    
+    $this->ull_filter = new ullFilter();
+    
+    $this->q = $this->generator->createQuery();
+    
+    if ($search = $this->filter_form->getValue('search'))
+    {      
+//      $columnsConfig = $this->generator->getColumnsConfig();
+//      
+//      foreach ($this->getSearchColumnsForFilter() as $key => $col)
+//      {
+//        if ($columnsConfig[$col]->getTranslated() == true)
+//        {
+//          $cols[$key] = 'Translation.' . $col;
+//        }
+//      }
+      ullGeneratorTools::doctrineSearch($this->q->getDoctrineQuery(), $search, $this->getSearchColumnsForFilter());
+    }
+
+    if ($query = $this->getRequestParameter('query'))
+    {
+      switch($query)
+      {
+        case('custom'):
+          //add ullSearch to query
+          $ullSearch = $this->getUser()->getAttribute('user_ullSearch', null);
+          if ($ullSearch != null)
+          {
+            $ullSearch->modifyQuery($this->q->getDoctrineQuery(), 'x');
+             
+            $this->ull_filter->add(
+              'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
+            );
+          }
+          break;
+      }
+    }
+    
+    if (isset($this->named_queries))
+    {
+      $this->named_queries->handleFilter($this->q, $this->ull_filter, $this->getRequest());
+    }
+
+    // ORDER
+    if ($this->hasRequestParameter('order'))
+    {
+      $this->order = ullGeneratorTools::convertOrderByFromUriToQuery($this->getRequestParameter('order'));
+    }
+    else
+    {
+      if (!$this->order = $this->generator->getTableConfig()->getOrderBy())
+      {
+        $this->order = 'id';
+      }
+    }
+    
+    $this->q->addOrderBy($this->order);
+    
+    $this->modifyQueryForFilter();
+    
+//    printQuery($this->q->getSql());
+//    var_dump($this->q->getDoctrineQuery()->getParams());
+//    die;
+
+    $this->pager = new Doctrine_Pager(
+      $this->q->getDoctrineQuery(), 
+      $this->getRequestParameter('page', 1),
+      sfConfig::get('app_pager_max_per_page')
+    );
+    $rows = $this->pager->execute();    
+    
+    
+    $modelName = $this->generator->getModelName();
+    return ($rows->count()) ? $rows : new $modelName;
+  }   
    
   
   /**
@@ -206,95 +310,37 @@ class BaseUllTableToolActions extends ullsfActions
   
   
   /**
-   * Parses filter request params
-   * and returns records accordingly
-   *
-   * @return Doctrine_Collection
+   * Configure the ullFilter class name
+   * 
+   * @return string
    */
-  protected function getFilterFromRequest()
+  protected function getUllFilterClassName()
   {
-    $this->filter_form = new ullTableToolFilterForm;
-    $this->filter_form->bind($this->getRequestParameter('filter'));
-    
-    $this->ull_filter = new ullFilter();
-    
-    $q = new Doctrine_Query;
-    $q->from($this->table_name . ' x');
-    
-    if ($search = $this->filter_form->getValue('search'))
-    {      
-      $cols = $this->generator->getTableConfig()->getSearchColumnsAsArray();
-      $columnsConfig = $this->generator->getColumnsConfig();
-      
-      foreach ($cols as $key => $col)
-      {
-        if ($columnsConfig[$col]->getTranslated() == true)
-        {
-          $cols[$key] = 'Translation.' . $col;
-        }
-      }
-      ullCoreTools::doctrineSearch($q, $search, $cols);
-    }
-
-    if ($query = $this->getRequestParameter('query'))
-    {
-      switch($query)
-      {
-        case('custom'):
-          //add ullSearch to query
-          $ullSearch = $this->getUser()->getAttribute('user_ullSearch', null);
-          if ($ullSearch != null)
-          {
-            $ullSearch->modifyQuery($q, 'x');
-             
-            $this->ull_filter->add(
-              'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
-            );
-          }
-          break;
-      }
-    }
-    
-    if (!$defaultOrder = $this->generator->getTableConfig()->getSortColumns())
-    {
-      $defaultOrder = 'id';
-    }
-    
-    $this->order = $this->getRequestParameter('order', $defaultOrder);
-    $this->order_dir = $this->getRequestParameter('order_dir', 'asc');
-    
-    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
-
-    switch ($this->order)
-    {
-      case 'creator_user_id':
-        $q->orderBy('x.Creator.display_name ' . $orderDir);
-        break;
-      case 'updator_user_id':
-        $q->orderBy('x.Updator.display_name ' . $orderDir);
-        break;
-      default:
-        if (strpos($this->order, '_translation_'))
-        {
-          $a = explode('_', $this->order);
-          $q->orderBy('x.Translation.' . $a[0] . ' ' . $orderDir);
-        } 
-        else
-        {
-          $q->orderBy($this->order . ' ' . $orderDir);  
-        }
-    }    
-    
-    $this->pager = new Doctrine_Pager(
-      $q, 
-      $this->getRequestParameter('page', 1),
-      sfConfig::get('app_pager_max_per_page')
-    );
-    $rows = $this->pager->execute();    
-    
-    return ($rows->count()) ? $rows : new $this->table_name;
+    return 'ullTableToolFilterForm';
   }
 
+  
+  /** 
+   * Get array of columns for the quicksearch
+   * 
+   * @return array
+   */
+  protected function getSearchColumnsForFilter()
+  {
+    return $this->generator->getTableConfig()->getSearchColumnsAsArray();
+  }
+  
+  
+  /**
+   * Apply custom modifications to the query
+   *  
+   * @return none
+   */
+  protected function modifyQueryForFilter()
+  {
+    
+  } 
+ 
   
   /**
    * Gets record according to request param

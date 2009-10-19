@@ -16,7 +16,7 @@ $t->setFixturesPath($path);
 
 $t->diag('__construct()');
 
-  $form = new ullFlowForm(new UllFlowDoc());
+  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
   $handler = new ullFlowActionHandlerReturn($form);
   
   $t->isa_ok($handler, 'ullFlowActionHandlerReturn', 'returns the correct object');
@@ -45,7 +45,7 @@ $t->diag('getNextFromPreviousStep()');
   $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('trouble_ticket_troubleshooter')->id;
   $doc->save();
   
-  $form = new ullFlowForm($doc);
+  $form = new ullFlowForm($doc, new ullColumnConfigCollection('ullFlowDoc'));
   $handler = new ullFlowActionHandlerReturn($form);
   $next = $handler->getNextFromPreviousStep();
   

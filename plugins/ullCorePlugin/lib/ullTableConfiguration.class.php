@@ -25,18 +25,66 @@ class ullTableConfiguration
     $description,
     
     /**
-     * Column to order by
+     * Doctrine orderBy string, 
+     * Also supports relation columns
      * 
-     * Example: created_at
+     * Example: created_at DESC, priority, Creator->username
      */
-    $sortColumns,
+    $orderBy,
     
     /**
      * List of columns for the quick search
      * 
-     * Example: user_name,email
+     * Example: array('user_name', 'email')
      */
-    $searchColumns = array()
+    $searchColumns = array(),
+    
+    /**
+     * List of columns which are shown in the list action per default
+     * 
+     * TODO: refactor into a parameter holder to allow configuring
+     * columns for arbitrary actions? e.g. "createWithType"
+     * 
+     * Example: array('last_name', 'UllLocation->street');
+     */
+    $listColumns = array(),
+    
+    /**
+     * List of columns which are shown in the edit action per default
+     * 
+     * TODO: Do edit columns make sense?
+     * 
+     * Example: array('last_name', 'UllLocation->street');
+     */
+    $editColumns = array(),    
+    
+    /**
+     * Dictionary for custom relation names
+     * 
+     * Format: array($relationAsString => $humanizedName)
+     * 
+     * Example for UllVentoryItem: 
+     * array(
+     *   'UllVentoryItemModel->UllVentoryItemType' => 'Type',
+     * )
+     * 
+     */
+    $customRelationNames = array(),
+    
+    /**
+     * Dictionary for humanized foreign relation names
+     * Tables with a relation to this table should use the appropriate humanized name:
+     * 
+     * Format: array($relationName => $humanizedName)
+     * 
+     * Example for UllUser: 
+     * array(
+     *   'UllUser'   => 'User',
+     *   'Creator'   => 'Created by',
+     * ) 
+     *  
+     */
+    $foreignRelationNames = array()
   ;
   
   
@@ -130,7 +178,7 @@ class ullTableConfiguration
   /**
    * Set the identifier as default search column
    * 
-   * Defined private because could be confused with setSerachColumns in child classes
+   * Defined private because could be confused with setSearchColumns in child classes
    * 
    * @return none
    */
@@ -219,31 +267,31 @@ class ullTableConfiguration
   
   
   /**
-   * Set result list order
+   * Set default result list orderBy
    * 
-   * This must be a valid column
+   * This must be a valid doctrine orderBy string
    * 
-   * Example: created_at
+   * Example: created_at DESC, priority, Creator->username
    * 
    * @param string $sortColumns
    * @return self
    */
-  public function setSortColumns($sortColumns)
+  public function setOrderBy($orderBy)
   {
-    $this->sortColumns = $sortColumns;
+    $this->orderBy = $orderBy;
     
     return $this;
   }
   
   
   /**
-   * Get sortColumns
+   * Get default orderBy 
    * 
    * @return string
    */
-  public function getSortColumns()
+  public function getOrderBy()
   {
-    return $this->sortColumns;
+    return $this->orderBy;
   }
   
   
@@ -262,7 +310,7 @@ class ullTableConfiguration
   
     return $this;
   }
-
+  
   
   /**
    * Get searchColumns
@@ -285,6 +333,154 @@ class ullTableConfiguration
   public function getSearchColumnsAsArray()
   {
     return $this->searchColumns;
+  }  
+  
+  
+  /**
+   * Set the default list columns
+   * 
+   * @param array $columns
+   * @return self
+   */
+  public function setListColumns(array $columns)
+  {
+    // Deactivated because it's difficult to check e.g. artificial columns
+    //   We would have to force a column name syntax (e.g. 'artificial_my_column')
+    //   or we'd have to check the columnConfig for ->getArtificial()
+//    ullGeneratorTools::validateColumnNames($this->getModelName(), $columns);
+    
+    $this->listColumns = $columns;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get the default list columns
+   * 
+   * @return array
+   */
+  public function getListColumns()
+  {
+    return $this->listColumns;
+  }
+  
+  
+  /**
+   * Set the default Edit columns
+   * 
+   * @param array $columns
+   * @return self
+   */
+  public function setEditColumns(array $columns)
+  {
+    ullGeneratorTools::validateColumnNames($this->getModelName(), $columns);
+    
+    $this->editColumns = $columns;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get the default Edit columns
+   * 
+   * @return array
+   */
+  public function getEditColumns()
+  {
+    return $this->editColumns;
+  }  
+  
+
+  
+  /**
+   * Set a custom relation name
+   * 
+   * @param string $name
+   * @param mixed $relation   array of relations or string representation
+   * @return self
+   */
+  public function setCustomRelationName($relation, $name)
+  {
+    if (is_array($relation))
+    {
+      $relation = ullGeneratorTools::relationArrayToString($relation);
+    }
+    
+    $this->customRelationNames[$relation] = $name;
+    
+    return $this;
+  }  
+  
+  
+  /**
+   * Get a custom relation name
+   * 
+   * @param mixed $relation   array of relations or string representation
+   * @return string
+   */
+  public function getCustomRelationName($relation)
+  {
+    if (is_array($relation))
+    {
+      $relation = ullGeneratorTools::relationArrayToString($relation);
+    }
+    
+    if (isset($this->customRelationNames[$relation]))
+    {
+      return $this->customRelationNames[$relation];
+    }
+  }
+  
+  
+  /**
+   * Set a name that tables which have a relation to this table
+   * should use.
+   * 
+   * @param $name
+   * @param $relation
+   * @return unknown_type
+   */
+  public function setForeignRelationName($name, $relation = null)
+  {
+    if ($relation === null)
+    {
+      $relation = $this->modelName;
+    }
+    
+    $this->foreignRelationNames[$relation] = $name;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get the humanized name for a given foreign relation.
+   * That is the relation name, that tables which have a relation to this
+   * table should use.
+   * 
+   * If a match is found in the dictionary -> use it.
+   * Otherwise try the generic relation humanization.
+   * 
+   * @param $name   optional Default relation name is the current model name.
+   * @return none
+   */  
+  public function getForeignRelationName($relation = null)
+  {
+    if ($relation === null)
+    {
+      $relation = $this->modelName;
+    }
+    
+    if (isset($this->foreignRelationNames[$relation]))
+    {
+      return $this->foreignRelationNames[$relation];
+    }
+    else
+    {
+      return ullHumanizer::humanizeAndTranslateRelation($relation);
+    }
   }
   
   

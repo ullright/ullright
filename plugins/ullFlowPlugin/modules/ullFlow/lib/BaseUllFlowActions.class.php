@@ -520,7 +520,7 @@ class BaseUllFlowActions extends ullsfActions
     if ($search = $this->filter_form->getValue('search'))
     {
       $cols = array('id', 'subject', 'duplicate_tags_for_search');
-      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
+      $q = ullGeneratorTools::doctrineSearch($q, $search, $cols);
     }
 
     // app

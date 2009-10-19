@@ -14,7 +14,7 @@ $t = new myTestCase(2, new lime_output_color, $configuration);
 
 $t->diag('__construct');
 
-  $form = new ullFlowForm(new UllFlowDoc());
+  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
   $handler = new ullFlowActionHandlerSend($form);
   
   $t->isa_ok($handler, 'ullFlowActionHandlerSend', 'returns the correct object');

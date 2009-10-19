@@ -7,23 +7,36 @@ class ullGeneratorForm extends sfFormDoctrine
 {
   protected
     $modelName,
-    $requestAction
+    $requestAction,
+    $columnsConfig
   ;
 
   /**
    * Constructor
    *
    * @param Doctrine_Record $object
+   * @param ullColumnConfigCollection $columnsConfig
    * @param string $requestAction 		Request Action ('list' or 'edit')
    * @param array $cultures 			List of cultures for i18n forms
    * @param array $options
    * @param string $CSRFSecret
    */
-  public function __construct(Doctrine_Record $object, $requestAction = 'list', $defaults = array(), $cultures = array(), $options = array(), $CSRFSecret = null)
+  public function __construct
+  (
+    Doctrine_Record $object, 
+    ullColumnConfigCollection $columnsConfig, 
+    $requestAction = 'list', 
+    $defaults = array(), 
+    $cultures = array(), 
+    $options = array(), 
+    $CSRFSecret = null
+  )
   {
     $this->modelName = get_class($object);
 
     $this->requestAction = $requestAction;
+    
+    $this->columnsConfig = $columnsConfig;
 
     $this->setCultures($cultures);
 
@@ -91,6 +104,68 @@ class ullGeneratorForm extends sfFormDoctrine
     return $output;
   }
   
+  /**
+   * Update defaults for relations
+   * 
+   * @return none
+   */
+  public function updateDefaults()
+  {
+//    var_dump($this->getObject()->toArray());die;
+    
+    $defaults = $this->getDefaults();
+    
+    foreach($this->getWidgetSchema()->getPositions() as $fieldName)
+    {
+      if (
+        ullGeneratorTools::hasRelations($fieldName) ||
+        // we have to check for translated columns for the edit action 
+        // in the form my_column_translation_xx 
+        (isset($this->columnsConfig[$fieldName]) && 
+          $this->columnsConfig[$fieldName]->getTranslated())
+      )
+      {
+        $relations = ullGeneratorTools::relationStringToArray($fieldName);
+        // remove columnName
+        array_pop($relations);
+        $relations[] = 'id';
+        $idColumn = ullGeneratorTools::relationArrayToString($relations);
+        
+        $eval = '$id = @$this->getObject()->' . $idColumn . ';';
+        eval($eval);
+        
+        // Handle translated columns
+        if ($this->columnsConfig[$fieldName]->getTranslated())
+        {
+//          var_dump($fieldName);
+          $relations = ullGeneratorTools::relationStringToArray($fieldName);
+          $columnName = array_pop($relations);
+          $relations = array_merge($relations, array('Translation', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2), $columnName));
+          $column = ullGeneratorTools::relationArrayToString($relations);
+//          var_dump($fieldName);die;
+        }
+        else
+        {
+          $column = $fieldName;
+        }
+        // We use '@' to supress notice when a field is empty.
+        // Maybe there is a cleaner solution?        
+        $eval = '$value = @$this->getObject()->' . $column . ';';
+//        var_dump($eval);die;
+        eval($eval);
+        
+//        var_dump($value);
+//        var_dump($id);
+        
+        
+        $defaults[$fieldName] = array('value' => $value, 'id' => $id);
+      }
+    }
+
+//    var_dump($defaults);
+    
+    $this->setDefaults($defaults);
+  }  
 
   /**
    * Call updateObject of every ullWidget

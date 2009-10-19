@@ -107,8 +107,8 @@ $b
   ->checkResponseElement($dgsList->get(1, 'inventory_number'), '1703')
   ->checkResponseElement($dgsList->get(1, 'model'), 'MFC-9840CDW')
   ->checkResponseElement($dgsList->get(1, 'owner'), 'Stored')
-  ->checkResponseElement($dgsList->get(2, 'model'), 'MacBook')  
-  ->checkResponseElement($dgsList->get(3, 'model'), 'MFC-440CN')
+  ->checkResponseElement($dgsList->get(2, 'model'), 'MFC-440CN')
+  ->checkResponseElement($dgsList->get(3, 'model'), 'MacBook')
 ;  
 
 $b

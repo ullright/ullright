@@ -16,7 +16,7 @@ $t->setFixturesPath($path);
 
 $t->begin('__construct()');
 
-  $form = new ullFlowForm(new UllFlowDoc());
+  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
   $handler = new ullFlowActionHandlerAssignToUser($form);
   
   $t->isa_ok($handler, 'ullFlowActionHandlerAssignToUser', 'returns the correct object');
@@ -51,7 +51,7 @@ $(document).ready(function()
   
 $t->diag('setting options');
 
-  $form = new ullFlowForm(new UllFlowDoc());
+  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
   $handler = new ullFlowActionHandlerAssignToUser($form, array('group' => 'TestGroup'));
   
   $reference = '<input type="submit" name="submit|action_slug=assign_to_user" value="Assign" /> to user 

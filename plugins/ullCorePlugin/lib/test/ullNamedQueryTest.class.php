@@ -15,9 +15,9 @@ class ullNamedQueryTest extends ullNamedQuery
     $this->identifier = 'my_test_query';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
-    $q->addWhere('u.username = ?', 'admin');
+    $q->addWhere('my_useless_column = ?', 'bla');
   }
   
 }

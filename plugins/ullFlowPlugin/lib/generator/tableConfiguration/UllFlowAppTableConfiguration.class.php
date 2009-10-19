@@ -15,7 +15,7 @@ class UllFlowAppTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Workflows', null, 'ullFlowMessages'));
     $this->setSearchColumns(array('slug'));
-    $this->setSortColumns('slug');
+    $this->setOrderBy('slug');
   }
   
 }

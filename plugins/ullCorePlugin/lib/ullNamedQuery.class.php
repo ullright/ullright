@@ -117,12 +117,12 @@ abstract class ullNamedQuery extends ullNamedQueryCommon
   
   
   /**
-   * Modifies a given Doctrine_Query with the desired clauses 
+   * Modifies a given ullQuery or Doctrine_Query (=deprecated) with the desired clauses 
    * To be defined by child classes
    * 
-   * @param Doctrine_Query $q
-   * @return Doctrine_Query
+   * @param ullQuery $q
+   * @return ullQuery
    */
-  abstract public function modifyQuery(Doctrine_Query $q);
+  abstract public function modifyQuery($q);
   
 }

@@ -15,7 +15,7 @@ class UllPermissionTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Permissions', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('slug'));
-    $this->setSortColumns('slug');
+    $this->setOrderBy('slug');
   }
   
 }

@@ -12,8 +12,6 @@
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 
-require_once(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions.class.php');
-
 class BaseUllUserActions extends BaseUllTableToolActions
 {
 
@@ -32,7 +30,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
    * Test for extending ullTableTool
    * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeList()
    */
-  public function executeList($request)
+  public function executeList(sfRequest $request)
   {
     $request->setParameter('table', 'UllUser');
     
@@ -45,12 +43,9 @@ class BaseUllUserActions extends BaseUllTableToolActions
   /**
    * Execute show action
    */
-  public function executeShow($request)
+  public function executeShow(sfRequest $request)
   {
-    $layout = sfConfig::get('sf_root_dir') . '/plugins/ullCoreTheme' .
-      sfConfig::get('app_theme_package', 'NG') .
-      'Plugin/templates/emptyLayout';
-    $this->setLayout($layout);
+    $this->setEmptyLayout();
     
     $this->checkAccess('LoggedIn');
     
@@ -71,7 +66,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
    * Test for extending ullTableTool
    * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeEdit()
    */
-  public function executeEdit($request)
+  public function executeEdit(sfRequest $request)
   {
     $request->setParameter('table', 'UllUser');
     
@@ -87,7 +82,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
    * Execute change culture
    *
    */
-  public function executeChangeCulture($request)
+  public function executeChangeCulture(sfRequest $request)
   {
     $this->getUriMemory()->setReferer();
         
@@ -205,7 +200,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
    *
    * @param unknown_type $request
    */
-  public function executeLogin($request)
+  public function executeLogin(sfRequest $request)
   {
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());
@@ -321,7 +316,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
    * Execute no access action
    *
    */
-  public function executeNoaccess($request)
+  public function executeNoaccess(sfRequest $request)
   {
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
 
@@ -355,11 +350,11 @@ class BaseUllUserActions extends BaseUllTableToolActions
     // also allow the id for bc compatibility
     if (is_numeric($username))
     {     
-      $this->user = Doctrine::getTable('UllUser')->find($username);
+      $this->user = Doctrine::getTable('UllEntity')->find($username);
     }
     else
     {
-      $this->user = Doctrine::getTable('UllUser')->findOneByUsername($username);
+      $this->user = Doctrine::getTable('UllEntity')->findOneByUsername($username);
     }
   }
 

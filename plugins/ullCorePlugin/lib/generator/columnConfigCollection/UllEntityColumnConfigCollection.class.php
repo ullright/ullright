@@ -10,6 +10,8 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
   {
     $this->disable(array('version', 'is_virtual_group', 'display_name'));
     
+    $this['display_name']->setMetaWidgetClassName('ullMetaWidgetUllEntity');
+    
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
     
     $this['photo']

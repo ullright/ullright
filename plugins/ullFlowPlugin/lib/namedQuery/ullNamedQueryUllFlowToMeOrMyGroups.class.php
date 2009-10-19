@@ -15,7 +15,7 @@ class ullNamedQueryUllFlowToMeOrMyGroups extends ullNamedQuery
     $this->identifier = 'to_me_or_my_groups';
   }
 
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     

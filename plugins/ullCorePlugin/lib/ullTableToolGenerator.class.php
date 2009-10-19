@@ -3,15 +3,18 @@
 class ullTableToolGenerator extends ullGenerator
 {
   protected
-    $formClass = 'ullTableToolForm',
-    $modelName,
+    // TODO: check if some of these properties belong to ullGenerator
     $historyGenerators = array(),
     $futureGenerators = array(),
     $isVersionable = false,
     $hasVersions = false,
     $isHistoryBuilt = false,
     $isFutureBuilt = false,
-    $enableFutureVersions = false
+    $enableFutureVersions = false,
+    /**
+     * A list of columns in the format Relation.fieldName
+     */
+    $columns = array()
   ;
   
   /**
@@ -20,30 +23,80 @@ class ullTableToolGenerator extends ullGenerator
    * @param string $modelName
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct($modelName = null, $defaultAccess = null, $requestAction = null)
+  public function __construct($modelName, $defaultAccess = null, $requestAction = null, $columns = array())
   {
-    if ($modelName === null)
+    $this->handleDefaultAccessAndRequestAction($defaultAccess, $requestAction);
+    
+    $this->formClass = 'ullTableToolForm';
+    $this->modelName = $modelName;
+    
+    $this->validateConstructorParams($this->modelName);
+    $this->checkForVersionableBehaviour($this->modelName);
+
+    // has to be called before setting the columns once 
+    $this->buildTableConfig();
+    
+    // handle new column param for list action
+    if ($columns)
+    {
+      $this->columns = $columns;
+    }
+    else
+    {
+      if ($this->isListAction())
+      {
+        $this->columns = $this->getTableConfig()->getListColumns();
+      }
+      // deactivated at the moment until we further investigate the relation handling
+      //  for the edit actions
+//      else
+//      {
+//        $this->columns = $this->getTableConfig()->getEditColumns();
+//      } 
+    }
+    
+    $this->buildColumnsConfig();
+  }
+  
+  
+  /**
+   * Validate constructor parameters
+   * 
+   * * Model is mandatory
+   * * Model must exist
+   * 
+   * @return none
+   */
+  protected function validateConstructorParams()
+  {
+    if ($this->modelName === null)
     {
       throw new InvalidArgumentException('A model must be supplied');
     }
 
-    if (!class_exists($modelName))
+    if (!class_exists($this->modelName))
     {
-      throw new InvalidArgumentException('Invalid model: ' . $modelName);
-    }
-
-    $this->modelName = $modelName;
-
+      throw new InvalidArgumentException('Invalid model: ' . $this->modelName);
+    }    
+  }
+  
+  
+  /**
+   * Handle versionable behaviour if enabled for the current model
+   * 
+   * @return none
+   */
+  protected function checkForVersionableBehaviour()
+  {
     $this->isVersionable = Doctrine::getTable($this->modelName)->hasTemplate('Doctrine_Template_SuperVersionable');
+    
     if ($this->isVersionable())
     {
       $this->enableFutureVersions = Doctrine::getTable($this->modelName)
           ->getTemplate('Doctrine_Template_SuperVersionable')
           ->getPlugin()
           ->getOption('enableFutureVersions');
-    }
-    
-    parent::__construct($defaultAccess, $requestAction);
+    }    
   }
 
   /**
@@ -156,9 +209,10 @@ class ullTableToolGenerator extends ullGenerator
    */
   protected function buildColumnsConfig()
   {
-    //new column config (with collections)
     $this->columnsConfig = ullColumnConfigCollection::buildFor($this->modelName, $this->defaultAccess, $this->requestAction);
-  
+    
+    $this->handleRelationColumns();
+    
     if ($this->isVersionable() && $this->enableFutureVersions == true)
     {
       $tomorrow = mktime(0, 0, 0, date("m"), date("d")+1, date("y"));
@@ -172,8 +226,69 @@ class ullTableToolGenerator extends ullGenerator
           ->setValidatorOption('min', $tomorrow)
           ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
       }
-    }  
+    }
+
+//    var_dump($this->columnsConfig->getActive());
+//    die;
   }
+  
+  /**
+   * New relation column handling
+   * 
+   * Get the columnConfigurations for the related columns
+   * and store the relation information in the columnConfiguration as customAttributes
+   * 
+   * Also do it only for the selected columns
+   * 
+   * @return unknown_type
+   */
+  protected function handleRelationColumns()
+  {
+    // use the new relation handling if we have a list of columns
+    if ($this->columns)
+    {
+      $this->columnsConfig->disableAllExcept(array());
+      
+      foreach ($this->columns as $column)
+      {
+        // native columns
+        if (!ullGeneratorTools::hasRelations($column))
+        {
+          $this->columnsConfig[$column]->setAccess($this->getDefaultAccess());
+        }
+        else
+        {
+          //resolve relation to model
+          $relations = ullGeneratorTools::relationStringToArray($column);
+          $field = array_pop($relations);
+          
+          $finalModel = ullGeneratorTools::getFinalModelFromRelations($this->modelName, $relations);
+          
+//          var_dump($relations);
+//          var_dump($field);
+//          var_dump($finalModel);          
+          
+          $relationColumnsConfig = ullColumnConfigCollection::buildFor($finalModel);
+          
+//          var_dump($relationColumnsConfig);
+          
+          $this->columnsConfig[$column] = $relationColumnsConfig[$field];
+          $this->columnsConfig[$column]
+            ->setColumnName($column)
+            ->setAccess($this->getDefaultAccess())
+            ->setCustomAttribute('field', $field)
+            ->setCustomAttribute('relations', $relations)
+            ->setLabel(ullGeneratorTools::buildRelationsLabel($this->modelName, $relations))
+          ;          
+        }
+      }
+      
+      $this->columnsConfig->order($this->columns);
+    } 
+    
+//    var_dump($this->columnsConfig->getActive());
+//    die;    
+  }  
 
   /**
    * Get the model name of the data object
@@ -335,6 +450,7 @@ class ullTableToolGenerator extends ullGenerator
     $this->isHistoryBuilt = true;
   }
 
+  
   /**
    * Returns the enabled status of future version functionality.
    * @return boolean true or false
@@ -343,4 +459,19 @@ class ullTableToolGenerator extends ullGenerator
   {
     return $this->enableFutureVersions;
   }
+  
+  
+  /**
+   * Create a ullQuery for the current model
+   * 
+   * @return ullQuery
+   */
+  public function createQuery()
+  {
+    $q = new ullQuery($this->modelName);
+    $q->addSelect(array_keys($this->getActiveColumns()));
+    
+    return $q; 
+  }
+
 }

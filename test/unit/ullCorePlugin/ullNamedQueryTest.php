@@ -35,11 +35,10 @@ $t->diag('getUri()');
 
   
 $t->diag('modifyQuery()');
-  $q = new Doctrine_Query;
+  $q = new ullQuery('TestTable');
   $q
-    ->select('u.last_name')
-    ->from('UllUser u')
+    ->addSelect('my_email')
   ;
   $namedQuery->modifyQuery($q);
-  $expectedSql = 'SELECT u.id AS u__id, u.last_name AS u__last_name FROM ull_entity u WHERE u.username = ? AND (u.type = \'user\')';
+  $expectedSql = 'SELECT t.id AS t__id, t.my_email AS t__my_email FROM test_table t WHERE t.my_useless_column = ?';
   $t->is($q->getSql(), $expectedSql, 'correctly modifies the query');

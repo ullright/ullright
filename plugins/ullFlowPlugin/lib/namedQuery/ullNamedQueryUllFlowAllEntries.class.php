@@ -15,7 +15,7 @@ class ullNamedQueryUllFlowAllEntries extends ullNamedQuery
     $this->identifier = 'all_entries';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
   }
   

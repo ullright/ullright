@@ -15,7 +15,7 @@ class UllColumnTypeTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Field types', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('class', 'label'));
-    $this->setSortColumns('class');
+    $this->setOrderBy('class');
   }
   
 }

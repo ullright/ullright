@@ -15,7 +15,7 @@ class UllJobTitleTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Job titles', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('name'));
-    $this->setSortColumns('name');
+    $this->setOrderBy('name');
   }
   
 }

@@ -15,7 +15,7 @@ class UllFlowStepTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Steps', null, 'ullFlowMessages'));
     $this->setSearchColumns(array('slug'));
-    $this->setSortColumns('ull_flow_app_id');
+    $this->setOrderBy('ull_flow_app_id');
   }
   
 }

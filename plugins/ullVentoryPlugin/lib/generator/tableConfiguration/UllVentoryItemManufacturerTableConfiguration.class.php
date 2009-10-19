@@ -13,9 +13,12 @@ class UllVentoryItemManufacturerTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setName(__('Item manufacturers', null, 'ullVentoryMessages'));
-    $this->setSearchColumns(array('name'));
-    $this->setSortColumns('name');
+    $this
+      ->setName(__('Item manufacturers', null, 'ullVentoryMessages'))
+      ->setSearchColumns(array('name'))
+      ->setOrderBy('name')
+      ->setForeignRelationName(__('Manufacturer', null, 'ullVentoryMessages'))
+    ;
   }
   
 }

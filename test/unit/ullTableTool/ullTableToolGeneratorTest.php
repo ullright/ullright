@@ -251,4 +251,13 @@ $t->diag('getForms()');
   
 //TODO: test access/enablement of fields
   
-   
+// obsolote...  
+//$t->diag('orderQueryBy()');
+//  $q = new Doctrine_Query;
+//  $q->from('TestTable x');
+//  $generator = new UllTableToolGenerator('TestTable');
+//  $t->is(
+//    $generator->orderQueryBy($q, 'my_email, UllUser->username desc')->getQueryPart('orderby'), 
+//    'x.my_email asc, x.ulluser.username desc', 
+//    'Builds the correct orderBy query part'
+//  );   

@@ -5,8 +5,7 @@ class ullVentorySoftwareGenerator extends ullTableToolGenerator
   protected
     $columnsNotShownInList = array(
     ),
-    $itemSoftware,
-    $formClass = 'ullVentoryItemSoftwareForm'     
+    $itemSoftware
   ;
     
   /**
@@ -19,6 +18,8 @@ class ullVentorySoftwareGenerator extends ullTableToolGenerator
     $this->itemSoftware = $itemSoftware;
     
     parent::__construct($this->modelName, $defaultAccess, $requestAction);
+    
+    $this->formClass = 'ullVentoryItemSoftwareForm';
     
     $this->buildForm($this->itemSoftware);
   }  

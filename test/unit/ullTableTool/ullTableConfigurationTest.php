@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers(array('I18N', 'ull'));
 
-$t = new myTestCase(20, new lime_output_color, $configuration);
+$t = new myTestCase(32, new lime_output_color, $configuration);
 
 class TestTableWithoutTableConfiguration extends sfDoctrineRecord
 {
@@ -58,9 +58,9 @@ $t->diag('set/getDescription()');
   $t->is($config->getDescription(), 'This table is for ... *useless blabla*', 'Returns the correct description');
 
   
-$t->diag('set/getSortColumns()');
-  $config->setSortColumns('created_at DESC, priority');
-  $t->is($config->getSortColumns(), 'created_at DESC, priority', 'Returns the correct sortColumns');
+$t->diag('set/getOrderBy()');
+  $config->setOrderBy('created_at DESC, priority');
+  $t->is($config->getOrderBy(), 'created_at DESC, priority', 'Returns the correct sortColumns');
 
   
 $t->diag('set/getSearchColumns()');
@@ -88,11 +88,57 @@ $t->diag('buildFor() a class with a TableConfig');
 
   $t->is($config->getName(), 'TestTableLabel', 'build sets the correct name');
   $t->is($config->getDescription(), 'TestTable for automated testing', 'build sets the correct description');
-  $t->is($config->getSearchColumns(), array('id', 'my_string', 'my_text'), 'build sets the correct search columns');  
-  $t->is($config->getSortColumns(), 'id', 'build sets the sort columns');
+  $t->is($config->getSearchColumns(), array('id', 'my_email'), 'build sets the correct search columns');  
+  $t->is($config->getOrderBy(), 'id', 'build sets the sort columns');
 
   
 $t->diag('renderTaskCenterLink()');
   $reference = '<div class="float_left"><a href="/ullTableTool/list/table/TestTable"><img title="TestTable for automated testing" alt="Manage TestTableLabel" src="/ullCoreThemeNGPlugin/images/ull_admin_24x24.png" height="24" width="24" /></a></div><div><a title="TestTable for automated testing" href="/ullTableTool/list/table/TestTable">Manage TestTableLabel</a></div><div class="clear_left" />';
   $t->is(ullTableConfiguration::renderTaskCenterLink('TestTable', 'ullCore', 'ull_admin_24x24'), $reference, 'Returns the correct HTML');  
   
+  
+$t->diag('set/getForeignRelationName()');
+  $config->setForeignRelationName('Test');
+  $t->is($config->getForeignRelationName(), 'Test', 'Gets the foreign relation name for the current model');
+  $t->is($config->getForeignRelationName('TestTable'), 'Test', 'Gets the foreign relation name for the given name');
+  $config->setForeignRelationName('Relation to user', 'UllEntity');
+  $t->is($config->getForeignRelationName('UllEntity'), 'Relation to user', 'Gets the foreign relation name for the given name');
+  $t->is($config->getForeignRelationName('FooBar'), 'FooBar', 'Returns the humanized value for an invalid name');
+
+  
+$t->diag('set/getCustomRelationName()');
+  $config->setCustomRelationName('UllUser->UllLocation', 'User location');
+  $t->is($config->getCustomRelationName('UllUser->UllLocation'), 'User location', 'Returns the correct name for a given relation string');  
+  $t->is($config->getCustomRelationName(array('UllUser', 'UllLocation')), 'User location', 'Returns the correct name for a given relation array');
+  $config->setCustomRelationName(array('UllUser', 'UllLocation'), 'User location');
+  $t->is($config->getCustomRelationName('UllUser->UllLocation'), 'User location', 'Returns the correct name for a given relation string');  
+  $t->is($config->getCustomRelationName(array('UllUser', 'UllLocation')), 'User location', 'Returns the correct name for a given relation array');
+  $t->is($config->getCustomRelationName('foobar'), null, 'Returns null for an invalid name');
+
+
+$t->diag('set/getListColumns()');
+  $config->setListColumns(array('my_email', 'UllUser->username'));
+  $t->is($config->getListColumns(), array('my_email', 'UllUser->username'), 'Returns the correct columns');
+// deactivated by ku 2009-10-13 because check for artificial columns needs more think-through...  
+//  try
+//  {
+//    $config->setListColumns(array('UllUser->foobar'));
+//    $t->fail('Setting an invalid relation column doesn\'t throw an exception');
+//  }
+//  catch (Exception $e)
+//  {
+//    $t->pass('Setting an invalid relation column throws an exception');
+//  }
+
+$t->diag('set/getEditColumns()');
+  $config->setEditColumns(array('my_email', 'UllUser->username'));
+  $t->is($config->getEditColumns(), array('my_email', 'UllUser->username'), 'Returns the correct columns');
+  try
+  {
+    $config->setEditColumns(array('UllUser->foobar'));
+    $t->fail('Setting an invalid relation column doesn\'t throw an exception');
+  }
+  catch (Exception $e)
+  {
+    $t->pass('Setting an invalid relation column throws an exception');
+  }   

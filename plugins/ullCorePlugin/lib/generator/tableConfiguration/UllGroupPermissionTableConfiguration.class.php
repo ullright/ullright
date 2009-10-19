@@ -15,7 +15,7 @@ class UllGroupPermissionTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Group permissions', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('ull_group_id', 'ull_permission_id'));
-    $this->setSortColumns('ull_group_id');
+    $this->setOrderBy('ull_group_id');
   }
   
 }

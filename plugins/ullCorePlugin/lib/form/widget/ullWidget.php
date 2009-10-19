@@ -10,6 +10,11 @@ class ullWidget extends sfWidgetForm
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    if (is_array($value))
+    {
+      $value = $value['value'];
+    }
+    
     $suffix = $this->getOption('suffix');
     return esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
   }

@@ -3,7 +3,6 @@
 class ullVentoryGenerator extends ullTableToolGenerator
 {
   protected
-    $formClass = 'ullVentoryForm',
     $itemType, 
     
     $columnsNotShownInList = array(
@@ -25,6 +24,8 @@ class ullVentoryGenerator extends ullTableToolGenerator
     }
     
     parent::__construct($this->modelName, $defaultAccess, $requestAction);
+    
+    $this->formClass = 'ullVentoryForm';
   }  
   
   
@@ -35,7 +36,18 @@ class ullVentoryGenerator extends ullTableToolGenerator
   protected function buildColumnsConfig()
   {  
     $this->columnsConfig = UllVentoryItemColumnConfigCollection::build(
-      $this->itemType, $this->defaultAccess, $this->requestAction);
+      $this->defaultAccess, $this->requestAction, $this->itemType);
+
+    // Remove owner column if we show the items of a selected owner
+    if (sfContext::getInstance()->getRequest()->hasParameter('filter[ull_entity_id]'))
+    {
+      $this->columns = array_diff($this->columns, array('ull_entity_id'));
+    }      
+      
+    $this->handleRelationColumns();
+    
+//    var_dump($this->getColumnsConfig()->getActive());
+//    die;
   }
 
   

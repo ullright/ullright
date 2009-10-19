@@ -15,7 +15,7 @@ class UllVentoryStatusDummyUserTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Status users', null, 'ullVentoryMessages'));
     $this->setSearchColumns(array('username', 'comment'));
-    $this->setSortColumns('username');
+    $this->setOrderBy('username');
   }
   
 }

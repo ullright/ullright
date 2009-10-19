@@ -28,7 +28,8 @@ class PluginUllUserTable extends UllEntityTable
     else
     {
       $q = new Doctrine_Query;
-      $q->from('UllUser u, u.UllGroup g')
+      $q
+        ->from('UllUser u, u.UllGroup g')
         ->where('u.id = ?', $user_id)
       ;
   

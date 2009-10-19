@@ -17,7 +17,7 @@ class ullNamedQueryUllFlowGroupITHelpdesk extends ullNamedQuery
     $this->groupName  = 'Helpdesk';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
     $helpdesk = Doctrine::getTable('UllGroup')->findOneByDisplayName($this->groupName, Doctrine::HYDRATE_ARRAY);
     if ($helpdesk !== false)

@@ -24,8 +24,6 @@ CREATE TABLE ull_select_child (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), 
 CREATE TABLE ull_permission_version (id BIGINT, namespace VARCHAR(32), slug VARCHAR(64), created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, version BIGINT, reference_version BIGINT, scheduled_update_date DATE, done_at DATETIME, INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id, version)) ENGINE = INNODB;
 CREATE TABLE ull_permission (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), slug VARCHAR(64), created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, version BIGINT, INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ull_company (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), name VARCHAR(100) NOT NULL, short_name VARCHAR(15), created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id)) ENGINE = INNODB;
-CREATE TABLE ull_table_config_translation (id BIGINT, label VARCHAR(64), description LONGTEXT, lang CHAR(2), PRIMARY KEY(id, lang)) ENGINE = INNODB;
-CREATE TABLE ull_table_config (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), db_table_name VARCHAR(32), sort_columns VARCHAR(255), search_columns VARCHAR(255), created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ull_column_type (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), class VARCHAR(32), label VARCHAR(64), description LONGTEXT, created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ull_department (id BIGINT AUTO_INCREMENT, namespace VARCHAR(32), name VARCHAR(100) NOT NULL, short_name VARCHAR(15), created_at DATETIME, updated_at DATETIME, creator_user_id BIGINT, updator_user_id BIGINT, INDEX creator_user_id_idx (creator_user_id), INDEX updator_user_id_idx (updator_user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE test_table_translation (id BIGINT, my_string VARCHAR(64) NOT NULL, my_text LONGTEXT, lang CHAR(2), PRIMARY KEY(id, lang)) ENGINE = INNODB;
@@ -139,9 +137,6 @@ ALTER TABLE ull_permission ADD FOREIGN KEY (updator_user_id) REFERENCES ull_enti
 ALTER TABLE ull_permission ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_company ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_company ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
-ALTER TABLE ull_table_config_translation ADD FOREIGN KEY (id) REFERENCES ull_table_config(id) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE ull_table_config ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
-ALTER TABLE ull_table_config ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_column_type ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_column_type ADD FOREIGN KEY (creator_user_id) REFERENCES ull_entity(id);
 ALTER TABLE ull_department ADD FOREIGN KEY (updator_user_id) REFERENCES ull_entity(id);

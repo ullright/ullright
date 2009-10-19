@@ -15,7 +15,7 @@ class ullNamedQueryUllFlowToMe extends ullNamedQuery
     $this->identifier = 'to_me';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id'); 
     $q->addWhere('x.assigned_to_ull_entity_id = ?', $userId);

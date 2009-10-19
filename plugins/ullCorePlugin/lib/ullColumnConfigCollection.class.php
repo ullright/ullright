@@ -487,6 +487,17 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   }
   
   
+  /** 
+   * Alias for getActiveColumns()
+   * 
+   * @return array
+   */
+  public function getActive()
+  {
+    return $this->getActiveColumns();
+  }
+  
+  
   /**
    * Empty method to be overwritten by child classes
    * 

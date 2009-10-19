@@ -115,7 +115,7 @@ abstract class ullNamedQueries extends ullNamedQueryCommon
    * @param sfWebRequest $request
    * @return none
    */
-  public function handleFilter(Doctrine_Query $q, ullFilter $ullFilter, sfWebRequest $request)
+  public function handleFilter($q, ullFilter $ullFilter, sfWebRequest $request)
   {
     $identifier = $request->getParameter('query');
 

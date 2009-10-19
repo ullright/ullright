@@ -11,10 +11,18 @@
       
       <th class="color_dark_bg">
         <?php 
-        if ($order == $field_name) {
-          $arrow  = ($order_dir == 'desc') ? ' <span class="order_arrow">↑</span>' : ' <span class="order_arrow">↓</span>';
-          $dir    = ($order_dir == 'desc') ? 'asc' : 'desc';
-        } else {
+        $order = $sf_data->getRaw('order');
+//        var_dump(ullGeneratorTools::arrayizeOrderBy($order));
+        $order_array = ullGeneratorTools::arrayizeOrderBy($order);
+        $order_first_column = reset($order_array);
+        
+        if ($order_first_column['column'] == $field_name) 
+        {
+          $arrow  = ($order_first_column['direction'] == 'desc') ? ' <span class="order_arrow">↑</span>' : ' <span class="order_arrow">↓</span>';
+          $dir    = ($order_first_column['direction'] == 'desc') ? 'asc' : 'desc';
+        } 
+        else 
+        {
           $arrow = '';
           $dir = 'asc'; // always default to 'asc' order for a new column
         }
@@ -22,8 +30,7 @@
         echo ull_link_to(
           $label . $arrow
           , array(
-              'order' => $field_name,
-              'order_dir' => $dir,
+              'order' => UllGeneratorTools::convertOrderByFromQueryToUri($field_name . ' ' . $dir)
             )
         );
       ?>      

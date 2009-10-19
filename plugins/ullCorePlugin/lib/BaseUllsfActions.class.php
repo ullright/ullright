@@ -8,7 +8,7 @@
  *
  */
 
-class BaseUllsfActions extends sfActions
+abstract class BaseUllsfActions extends sfActions
 {
   protected
     $uriMemory
@@ -252,4 +252,21 @@ class BaseUllsfActions extends sfActions
     $this->getUser()->setFlash('error', $message);
     $this->forward('default', 'error');
   }
+  
+  
+  /**
+   * Set empty layout (without sidebar, navigation, etc)
+   * 
+   * @return none
+   */
+  protected function setEmptyLayout()
+  {
+    $layout = sfConfig::get('sf_root_dir') . '/plugins/ullCoreTheme' .
+      sfConfig::get('app_theme_package', 'NG') .
+      'Plugin/templates/emptyLayout';
+    $this->setLayout($layout);
+  }
+  
+  
+ 
 }

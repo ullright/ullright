@@ -13,10 +13,14 @@ class TestTableTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setName(__('TestTableLabel', null, 'testMessages'));
-    $this->setDescription(__('TestTable for automated testing', null, 'testMessages'));
-    $this->setSearchColumns(array('id', 'my_string', 'my_text'));
-    $this->setSortColumns('id');
+    $this
+      ->setName(__('TestTableLabel', null, 'testMessages'))
+      ->setDescription(__('TestTable for automated testing', null, 'testMessages'))
+      ->setCustomRelationName('UllUser->UllLocation', 
+        __('Owner', null, 'common') . ' special location')
+      ->setSearchColumns(array('id', 'my_email'))
+      ->setOrderBy('id')
+    ;
   }
   
 }

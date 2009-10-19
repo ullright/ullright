@@ -27,9 +27,21 @@ class ullColumnConfiguration
     $validatorOptions       = array('required' => false),   
     $widgetAttributes       = array(),
     $options                = array(), //meta widget options
+    /*
+     * Show a horizintal spacer row after the current column
+     * Used to organise edit views into sections
+     */
     $showSpacerAfter        = false,
     $injectIdentifier       = false,
-    $autoRender             = true
+    /*
+     * Disable automatical rendering of a column in list/edit view
+     *   to allow special handling
+     */
+    $autoRender             = true,
+    /*
+     * True if the current column is no native database column.
+     */
+    $isArtificial           = false
   ;
 
   /**
@@ -426,4 +438,29 @@ class ullColumnConfiguration
     
     return $this;
   }
+  
+  /**
+   * Set if the current column is artificial (no database column)
+   * 
+   * @param boolean $boolean
+   * @return self
+   */
+  public function setIsArtificial($boolean)
+  {
+    $this->isArtificial = (boolean) $boolean;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get if the current column is artificial (no database column)
+   * 
+   * @return boolean
+   */
+  public function getIsArtificial()
+  {
+    return $this->isArtificial;
+  }
+    
 }

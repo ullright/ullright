@@ -15,7 +15,7 @@ class UllSelectChildTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Select box entries', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('ull_select_id'));
-    $this->setSortColumns('ull_select_id', 'sequence');
+    $this->setOrderBy('ull_select_id', 'sequence');
   }
   
 }

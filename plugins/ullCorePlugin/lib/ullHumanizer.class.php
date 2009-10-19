@@ -8,14 +8,15 @@
 class ullHumanizer
 {
   private static $relations = array(
-    'Creator' => 'Created by',
-    'Updator' => 'Updated by',
-    'UllLocation' => 'Location',
-    'UllCompany' => 'Company',
-    'UllDepartment' => 'Department',
-    'UllEmploymentType' => 'Employment type',
-    'UllJobTitle' => 'Job title',
-    'UllEntityGroup' => 'Group membership',
+    'Creator'             => 'Created by',
+    'Updator'             => 'Updated by',
+    'UllLocation'         => 'Location',
+    'UllCompany'          => 'Company',
+    'UllDepartment'       => 'Department',
+    'UllEmploymentType'   => 'Employment type',
+    'UllJobTitle'         => 'Job title',
+    'UllEntityGroup'      => 'Group membership',
+    'UllEntity'           => 'User',
     );
   
   //Some fields (e.g. first_name, last_name, ...)

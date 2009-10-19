@@ -15,14 +15,12 @@ class ullNamedQueryUllVentoryNoSoftware extends ullNamedQuery
     $this->identifier = 'no_software';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
     $q
-      ->addWhere('t.has_software = ?', true)
-      ->addWhere('x.UllVentoryItemSoftware.id IS NULL')
+      ->addWhere('UllVentoryItemModel->UllVentoryItemType->has_software = ?', true)
+      ->addWhere('UllVentoryItemSoftware->id IS NULL')
     ;
-    
-    
   }
   
 }

@@ -15,7 +15,7 @@ class UllFlowStepActionTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Actions for Steps', null, 'ullFlowMessages'));
     $this->setSearchColumns(array('sequence'));
-    $this->setSortColumns('sequence');
+    $this->setOrderBy('sequence');
   }
   
 }

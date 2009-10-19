@@ -62,7 +62,7 @@ class ullSearch
    * @param $alias The table alias which refers to the searched class, e.g. 'x'
    * @return Doctrine_Query The modified query
    */
-  public function modifyQuery(Doctrine_Query $q, $alias)
+  public function modifyQuery($q, $alias)
   {
     if (count($this->getCriterionGroups()) == 0)
     {

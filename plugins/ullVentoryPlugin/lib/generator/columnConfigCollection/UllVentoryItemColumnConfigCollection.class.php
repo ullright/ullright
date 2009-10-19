@@ -7,15 +7,15 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
     $itemType
   ;
   
-  public function __construct($modelName, $itemType, $defaultAccess = null, $requestAction = null)
+  public function __construct($modelName, $defaultAccess = null, $requestAction = null, $itemType = null)
   {
     $this->itemType = $itemType;
     parent::__construct($modelName, $defaultAccess, $requestAction);
   }
 
-  public static function build($itemType, $defaultAccess = null, $requestAction = null)
+  public static function build($defaultAccess = null, $requestAction = null, $itemType = null)
   {
-    $c = new self('UllVentoryItem', $itemType, $defaultAccess, $requestAction);
+    $c = new self('UllVentoryItem', $defaultAccess, $requestAction, $itemType);
     $c->buildCollection();
     
     return $c;
@@ -29,58 +29,14 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
   {
     $this->disable(array('creator_user_id', 'created_at'));
     
-    $this->create('ull_ventory_item_type_id')
-      ->setAccess('r')
-      ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
-      ->setLabel(__('Type', null, 'common'))
-      ->setRelation(array(
-        'model'             => 'UllVentoryItemType',
-        'foreign_id'        => 'id'))
-      ->setValidatorOptions(array('required' => true))
-    ;
-    
-
-    $this->create('ull_ventory_item_manufacturer_id')
-      ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
-      ->setLabel(__('Manufacturer', null, 'ullVentoryMessages'))
-      ->setRelation(array(
-        'model'             => 'UllVentoryItemManufacturer',
-        'foreign_id'        => 'id'))
-      ->setWidgetOption('add_empty', true)
-      ->setValidatorOption('required', true)
-      ->setAllowCreate(true)
-    ;
-    if ($this->itemType)
-    {
-      $q = new Doctrine_Query;
-      $q
-        ->from('UllVentoryItemManufacturer ma, ma.UllVentoryItemModel mo, mo.UllVentoryItemType t')
-        ->where('t.slug = ?', $this->itemType->slug)
-        ->orderBy('ma.name')
-      ;
-      $this['ull_ventory_item_manufacturer_id']->setWidgetOption('query', $q);
-    }        
-        
     $this['ull_ventory_item_model_id']
       ->setLabel(__('Model', null, 'ullVentoryMessages'))
       ->setWidgetOption('add_empty', true)
       ->setValidatorOption('required' , true)
       ->setAllowCreate(true)
     ;
-    if ($this->itemType)
-    {
-      $q = new Doctrine_Query;
-      $q
-        ->from('UllVentoryItemModel mo, mo.UllVentoryItemType t')
-        ->where('t.slug = ?', $this->itemType->slug)
-        ->orderBy('mo.name')
-      ;
-      $this['ull_ventory_item_model_id']->setWidgetOption('query', $q);
-    }       
     
     $this['serial_number']
-      ->setLabel(__('Model', null, 'ullVentoryMessages'))
-      ->setIsInList(false)
       ->setLabel(__('Serial number', null, 'ullVentoryMessages'))
     ;    
     
@@ -93,48 +49,48 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Comment', null, 'common'))
       ->setMetaWidgetClassName('ullMetaWidgetString')
     ;
+    
     $this['inventory_number']->setLabel(__('Inventory number', null, 'ullVentoryMessages'));
     
     if ($this->isListAction())
     {
-      $this->disable(array('id', 'comment'));
-      
       $this['inventory_number']
         //->setMetaWidgetClassName('ullMetaWidgetLink') disabled, because a link should point to show, not edit
         ->setLabel(__('Inv.No.', null, 'ullVentoryMessages'))
       ;
       
-      $this->create('toggle_inventory_taking')
+      $this->create('artificial_toggle_inventory_taking')
         ->setMetaWidgetClassName('ullMetaWidgetUllVentoryTaking')
         ->setLabel(' ')
+        ->setIsArtificial(true)
       ;
       
-      $this->create('ull_location_id')
-        ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
-        ->setLabel(__('Location', null, 'ullVentoryMessages'))
-        ->setRelation(array(
-          'model'             => 'UllLocation',
-          'foreign_id'        => 'id'))
-      ;
+//      $this->create('ull_location_id')
+//        ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
+//        ->setLabel(__('Location', null, 'ullVentoryMessages'))
+////        ->setRelation(array(
+////          'model'             => 'UllLocation',
+////          'foreign_id'        => 'id'))
+//      ;
       
       // Display only date - no time
       $this['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');
 
       // Don't display owner column if only items of one owner are shown
-      if (sfContext::getInstance()->getRequest()->hasParameter('filter[ull_entity_id]'))
-      {
-        $this['ull_entity_id']->disable();
-      }
+//      if (sfContext::getInstance()->getRequest()->hasParameter('filter[ull_entity_id]'))
+//      {
+//        $this['ull_entity_id']->disable();
+//      }
       
-      $this->order(array(
-        'inventory_number',
-        'toggle_inventory_taking',
-        'ull_ventory_item_type_id',
-        'ull_ventory_item_manufacturer_id',
-        'ull_ventory_item_model_id',
-        'ull_entity_id',
-        'ull_location_id',      
-      ));      
+//      $this->order(array(
+//        'inventory_number',
+//        'toggle_inventory_taking',
+//        'ull_ventory_item_type_id',
+//        'ull_ventory_item_manufacturer_id',
+//        'ull_ventory_item_model_id',
+//        'ull_entity_id',
+//        'ull_location_id',      
+//      ));      
       
     }
     
@@ -156,6 +112,52 @@ class UllVentoryItemColumnConfigCollection extends ullColumnConfigCollection
         ->setAccess('w')
         ->setWidgetOption('is_hidden', true)
       ;
+      
+      // filter select list depending on the item type (e.g. only notebook models)    
+      if ($this->itemType)
+      {
+        $q = new Doctrine_Query;
+        $q
+          ->from('UllVentoryItemModel mo, mo.UllVentoryItemType t')
+          ->where('t.slug = ?', $this->itemType->slug)
+          ->orderBy('mo.name')
+        ;
+        $this['ull_ventory_item_model_id']->setWidgetOption('query', $q);
+      }  
+        
+      $this->create('ull_ventory_item_type_id')
+        ->setAccess('r')
+        ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
+        ->setLabel(__('Type', null, 'common'))
+        ->setRelation(array(
+          'model'             => 'UllVentoryItemType',
+          'foreign_id'        => 'id'))
+        ->setValidatorOptions(array('required' => true))
+      ;
+      
+  
+      $this->create('ull_ventory_item_manufacturer_id')
+        ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
+        ->setLabel(__('Manufacturer', null, 'ullVentoryMessages'))
+        ->setRelation(array(
+          'model'             => 'UllVentoryItemManufacturer',
+          'foreign_id'        => 'id'))
+        ->setWidgetOption('add_empty', true)
+        ->setValidatorOption('required', true)
+        ->setAllowCreate(true)
+      ;
+       
+      //filter select list depending on the item type (e.g. only notebook manufacturers
+      if ($this->itemType)
+      {
+        $q = new Doctrine_Query;
+        $q
+          ->from('UllVentoryItemManufacturer ma, ma.UllVentoryItemModel mo, mo.UllVentoryItemType t')
+          ->where('t.slug = ?', $this->itemType->slug)
+          ->orderBy('ma.name')
+        ;
+        $this['ull_ventory_item_manufacturer_id']->setWidgetOption('query', $q);
+      }              
       
       $this['ull_ventory_item_type_id']->setWidgetOptions(array('render_additional_hidden_field' => true));
       

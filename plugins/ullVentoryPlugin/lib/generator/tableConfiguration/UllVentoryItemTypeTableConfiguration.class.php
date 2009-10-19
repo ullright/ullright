@@ -15,9 +15,12 @@ class UllVentoryItemTypeTableConfiguration extends ullTableConfiguration
   {
     //$nameColumnI18n = ullCoreTools::makeI18nColumnName('name');
     
-    $this->setName(__('Item types', null, 'ullVentoryMessages'));
-    $this->setSearchColumns(array('slug'));
-    $this->setSortColumns('slug');
+    $this
+      ->setName(__('Item types', null, 'ullVentoryMessages'))
+      ->setSearchColumns(array('slug'))
+      ->setOrderBy('slug')
+      ->setForeignRelationName(__('Type', null, 'ullVentoryMessages'))
+    ;
   }
   
 }

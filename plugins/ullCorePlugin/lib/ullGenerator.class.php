@@ -11,7 +11,7 @@
  * read access (e.g. for list view or read only fields), a widget for write access
  * and validators
  * 
- * Using this ullMetaWidgets a sfForm is built
+ * Using these ullMetaWidgets a sfForm is built
  * 
  */
 
@@ -31,7 +31,7 @@ abstract class ullGenerator extends ullGeneratorBase
   /**
    * @see ullGeneratorBase::__construct()
    */  
-  public function __construct($defaultAccess = null, $requestAction = null)
+  public function __construct($defaultAccess = null, $requestAction = null, $columns = array())
   {
     parent::__construct($defaultAccess, $requestAction);    
 
@@ -53,7 +53,7 @@ abstract class ullGenerator extends ullGeneratorBase
   /**
    * get the table config
    *
-   * @return UllTableConfig
+   * @return UllTableConfiguration
    */
   public function getTableConfig()
   {
@@ -63,7 +63,7 @@ abstract class ullGenerator extends ullGeneratorBase
   /**
    * get the column config
    *
-   * @return array
+   * @return ullColumnConfigCollection
    */
   public function getColumnsConfig()
   {
@@ -213,14 +213,14 @@ abstract class ullGenerator extends ullGeneratorBase
 
     foreach ($this->rows as $key => $row) 
     {
-      $this->forms[$key] = new $this->formClass($row, $this->requestAction, $this->getDefaults(), $cultures);
+      $this->forms[$key] = new $this->formClass($row, $this->columnsConfig, $this->requestAction, $this->getDefaults(), $cultures);
       
       foreach ($this->getActiveColumns() as $columnName => $columnConfig)
       {
         $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
         $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->forms[$key]);
         
-        if ($columnConfig->getTranslated() == true)
+        if ($columnConfig->getTranslated() == true && !$this->isListAction())
         { 
           foreach ($cultures as $culture)
           {
@@ -241,7 +241,11 @@ abstract class ullGenerator extends ullGeneratorBase
         
         $this->markMandatoryColumns($this->forms[$key], $columnName, $columnConfig);
       }
+      
+      $this->forms[$key]->updateDefaults();
     }
+    
+    
     
     $this->isBuilt = true;
   }
@@ -270,6 +274,7 @@ abstract class ullGenerator extends ullGeneratorBase
     return $cultures;
   }
   
+  
   /**
    * Get default values 
    * 
@@ -287,10 +292,10 @@ abstract class ullGenerator extends ullGeneratorBase
         $defaults[$columnName] = $columnConfig->getDefaultValue();
       }
     }
-    
+
     return $defaults;
   }
-
+  
   public function hasColumns()
   {
     return (count($this->columnsConfig) > 0) ? true : false;

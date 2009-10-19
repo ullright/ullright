@@ -11,6 +11,9 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $memoryAction = null
   ;
   
+  // TODO: give UllFlowApp in the constructor to force check if 
+  //  a virtual column exists?
+  
   /**
    * add Doctrine_Filter to handle virtual columns transparently
    *

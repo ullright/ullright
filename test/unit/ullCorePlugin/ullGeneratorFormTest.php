@@ -7,18 +7,19 @@ class myTestCase extends lime_test
 }
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
+sfLoader::loadHelpers('I18N');
 
 $t = new myTestCase(3, new lime_output_color, $configuration);
 
-//$form = new ullTableToolForm;
-
 $t->diag('__construct()');
 
-  $form = new ullGeneratorForm(new TestTable, 'edit');
+  $columnsConfig = ullColumnConfigCollection::buildFor('TestTable');
+  
+  $form = new ullGeneratorForm(new TestTable, $columnsConfig, 'edit');
   $t->isa_ok($form, 'ullGeneratorForm', '__construct() returns the correct object');
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullTable', 'The form uses the "ullTable" formatter by default');
   
-  $form = new ullGeneratorForm(new TestTable);
+  $form = new ullGeneratorForm(new TestTable, $columnsConfig);
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullList', 'The form uses the "ullList" formatter for list actions');
 
   

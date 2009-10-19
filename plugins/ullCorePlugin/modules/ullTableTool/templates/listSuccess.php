@@ -1,5 +1,6 @@
 <?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
+<?php $order = $sf_data->getRaw('order'); ?>
 
 <h3><?php echo $generator->getTableConfig()->getName() ?></h3>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
@@ -36,7 +37,6 @@
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator' => $generator,
       'order'     => $order,
-      'order_dir' => $order_dir,
   )); ?>
   
   <!-- data -->

@@ -9,8 +9,13 @@
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 
-class BaseUllVentoryActions extends ullsfActions
+class BaseUllVentoryActions extends BaseUllTableToolActions
 {
+  
+  protected
+    $ullFilterClassName = 'ullVentoryFilterForm',
+    $defaultSearchOrder = 'desc'
+  ;
  
   /**
    * Execute  before each action
@@ -31,7 +36,7 @@ class BaseUllVentoryActions extends ullsfActions
    * Execute index action
    * 
    */
-  public function executeIndex() 
+  public function executeIndex(sfRequest $request) 
   {
     $this->checkPermission('ull_ventory_index');
     
@@ -48,9 +53,6 @@ class BaseUllVentoryActions extends ullsfActions
    */
   public function executeList(sfRequest $request) 
   {
-//    throw new Exception('Arsch');
-//    var_dump($request->getParameterHolder()->getAll());die('baseullflow');
-    
 //    var_dump($_REQUEST);
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());
 //    die;
@@ -119,7 +121,7 @@ class BaseUllVentoryActions extends ullsfActions
    * Execute create action
    * 
    */
-  public function executeCreate($request) 
+  public function executeCreate(sfRequest $request) 
   {
     $this->checkPermission('ull_ventory_create');
     
@@ -143,7 +145,7 @@ class BaseUllVentoryActions extends ullsfActions
    * Execute create action
    * 
    */
-  public function executeCreateWithType($request) 
+  public function executeCreateWithType(sfRequest $request) 
   {
     $this->checkPermission('ull_ventory_create');
     $this->forward404Unless(Doctrine::getTable('UllVentoryItemType')->findOneBySlug($request->getParameter('type')));
@@ -156,7 +158,7 @@ class BaseUllVentoryActions extends ullsfActions
    * Execute edit action
    * 
    */
-  public function executeEdit($request) 
+  public function executeEdit(sfRequest $request) 
   {
     $this->checkPermission('ull_ventory_edit');
     
@@ -223,7 +225,7 @@ class BaseUllVentoryActions extends ullsfActions
    * @param $request
    * @return boolean
    */
-  protected function handlePresetLoading($request)
+  protected function handlePresetLoading(sfRequest $request)
   {
     if ($request->getParameter('action_slug') == 'load_presets')
     {
@@ -257,12 +259,12 @@ class BaseUllVentoryActions extends ullsfActions
 //    $this->redirect($this->getUriMemory()->getAndDelete('list'));
 //  }
 
-  public function executeItemModels($request)
+  public function executeItemModels(sfRequest $request)
   {
 //    var_dump($request->getParameterHolder()->getAll());
+//    die;
   
 //    $this->getResponse()->setContentType('application/json');
-//    $authors = DemoAuthorPeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
     
     $q = new Doctrine_Query;
     $q
@@ -288,7 +290,7 @@ class BaseUllVentoryActions extends ullsfActions
     return $this->renderText(json_encode($x));
   }
   
-  public function executeItemModelsByManufacturer($request)
+  public function executeItemModelsByManufacturer(sfRequest $request)
   {
 //    var_dump($request->getParameterHolder()->getAll());
 //    die;
@@ -516,121 +518,150 @@ class BaseUllVentoryActions extends ullsfActions
     $this->breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullVentory/search');
   }
   
-  /**
-   * Parses filter request params and gets a collection of UllWiki docs
+//  /**
+//   * Parses filter request params and gets a collection of UllWiki docs
+//   * 
+//   */
+//  protected function getFilterFromRequest()
+//  {
+//    $this->filter_form = new ullVentoryFilterForm;
+//    $this->filter_form->bind($this->getRequestParameter('filter'));
+//    
+//    $this->ull_filter = new ullFilter;
+//    
+//    $q = new Doctrine_Query();
+//    $q->from('
+//      UllVentoryItem x, 
+//      x.UllVentoryItemModel mo, 
+//      mo.UllVentoryItemType t, t.Translation tt,
+//      mo.UllVentoryItemManufacturer ma,      
+//      x.UllEntity e, e.UllLocation lo
+//    ');
+//
+//    //search has to be the first "where" part, because it uses "or" 
+//    if ($search = $this->filter_form->getValue('search'))
+//    {
+//      $cols = array(
+//        'inventory_number', 
+//        'serial_number', 
+//        'comment', 
+////        'UllVentoryItemModel.name', 
+//      );
+//      $q = ullGeneratorTools::doctrineSearch($q, $search, $cols);
+//    }
+//    
+//   
+//    
+//    if ($query = $this->getRequestParameter('query'))
+//    {
+//      switch($query)
+//      {
+//        case('custom'):
+//          //add ullSearch to query
+//          $ullSearch = $this->getUser()->getAttribute('ventoryitem_ullSearch', null);
+//          if ($ullSearch != null)
+//          {
+//            $ullSearch->modifyQuery($q, 'x');
+//             
+//            $this->ull_filter->add(
+//              'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
+//            );
+//          }
+//          break;
+//      }
+//    }
+//    
+//    $this->named_queries->handleFilter($q, $this->ull_filter, $this->getRequest());
+//    
+//    $this->order = $this->getRequestParameter('order', 'updated_at');
+//    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
+//    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
+//    
+//    $cc = $this->generator->getColumnsConfig();
+//    
+////    if ($relation = $cc[$this->order]->getRelation())
+////    {
+////      $q->orderBy('x.' . $relation['model'] . '.name');
+////    }
+////    else
+////    {
+//    
+//      switch ($this->order)
+//      {
+//        case 'creator_user_id':
+//          $q->orderBy('x.Creator.display_name ' . $orderDir);
+//          break;
+//        case 'updator_user_id':
+//          $q->orderBy('x.Updator.display_name ' . $orderDir);
+//          break;
+//        // the following hardcoded order settings could be refactored as 
+//        //  a generic feature of the model/generator/metawidget suite
+//        case 'ull_ventory_item_type_id':
+//           $q->orderBy('tt.name ' . $orderDir);
+//           $q->addWhere('tt.lang = ?', substr($this->getUser()->getCulture(), 0, 2));
+//           break;
+//        case 'ull_ventory_item_manufacturer_id':
+//           $q->orderBy('ma.name ' . $orderDir);
+//           break;
+//        case 'ull_location_id':
+//           $q->orderBy('lo.name ' . $orderDir);
+//           break;                       
+//        default:
+//          $q->orderBy($this->order . ' ' . $orderDir);
+//      }
+////    }
+//    
+////    printQuery($q->getQuery());
+////    var_dump($q->getParams());
+////    die;    
+//    
+//    $this->pager = new Doctrine_Pager(
+//      $q, 
+//      $this->getRequestParameter('page', 1),
+//      sfConfig::get('app_pager_max_per_page')
+//    );
+//    $docs = $this->pager->execute();
+//
+//    return ($docs->count()) ? $docs : new UllVentoryItem;
+//  }
+  
+  
+  /** 
+   * Get array of columns for the quicksearch
    * 
+   * @return array
    */
-  protected function getFilterFromRequest()
+  protected function getSearchColumnsForFilter()
   {
-    $this->filter_form = new ullVentoryFilterForm;
-    $this->filter_form->bind($this->getRequestParameter('filter'));
-    
-    $this->ull_filter = new ullFilter;
-    
-    $q = new Doctrine_Query();
-    $q->from('
-      UllVentoryItem x, 
-      x.UllVentoryItemModel mo, 
-      mo.UllVentoryItemType t, t.Translation tt,
-      mo.UllVentoryItemManufacturer ma,      
-      x.UllEntity e, e.UllLocation lo
-    ');
-
-    //search has to be the first "where" part, because it uses "or" 
-    if ($search = $this->filter_form->getValue('search'))
-    {
-      $cols = array(
+    return array(
         'inventory_number', 
         'serial_number', 
         'comment', 
 //        'UllVentoryItemModel.name', 
-      );
-      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
-    }
-    
+    );
+  }  
+  
+  
+  /**
+   * Apply custom modifications to the query
+   *  
+   * @return none
+   */
+  protected function modifyQueryForFilter()
+  {
     //filter per entity
     if ($ullEntityId = $this->filter_form->getValue('ull_entity_id'))
     {
-      $q->addWhere('x.ull_entity_id = ?', $ullEntityId);
+      $this->q->addWhere('x.ull_entity_id = ?', $ullEntityId);
       $this->entity = Doctrine::getTable('UllEntity')->findOneById($ullEntityId);
     }
     else
     {
       $this->entity = null;
-    }    
-    
-    if ($query = $this->getRequestParameter('query'))
-    {
-      switch($query)
-      {
-        case('custom'):
-          //add ullSearch to query
-          $ullSearch = $this->getUser()->getAttribute('ventoryitem_ullSearch', null);
-          if ($ullSearch != null)
-          {
-            $ullSearch->modifyQuery($q, 'x');
-             
-            $this->ull_filter->add(
-              'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
-            );
-          }
-          break;
-      }
-    }
-    
-    $this->named_queries->handleFilter($q, $this->ull_filter, $this->getRequest());
-    
-    $this->order = $this->getRequestParameter('order', 'updated_at');
-    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
-    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
-    
-    $cc = $this->generator->getColumnsConfig();
-    
-//    if ($relation = $cc[$this->order]->getRelation())
-//    {
-//      $q->orderBy('x.' . $relation['model'] . '.name');
-//    }
-//    else
-//    {
-    
-      switch ($this->order)
-      {
-        case 'creator_user_id':
-          $q->orderBy('x.Creator.display_name ' . $orderDir);
-          break;
-        case 'updator_user_id':
-          $q->orderBy('x.Updator.display_name ' . $orderDir);
-          break;
-        // the following hardcoded order settings could be refactored as 
-        //  a generic feature of the model/generator/metawidget suite
-        case 'ull_ventory_item_type_id':
-           $q->orderBy('tt.name ' . $orderDir);
-           $q->addWhere('tt.lang = ?', substr($this->getUser()->getCulture(), 0, 2));
-           break;
-        case 'ull_ventory_item_manufacturer_id':
-           $q->orderBy('ma.name ' . $orderDir);
-           break;
-        case 'ull_location_id':
-           $q->orderBy('lo.name ' . $orderDir);
-           break;                       
-        default:
-          $q->orderBy($this->order . ' ' . $orderDir);
-      }
-//    }
-    
-//    printQuery($q->getQuery());
-//    var_dump($q->getParams());
-//    die;    
-    
-    $this->pager = new Doctrine_Pager(
-      $q, 
-      $this->getRequestParameter('page', 1),
-      sfConfig::get('app_pager_max_per_page')
-    );
-    $docs = $this->pager->execute();
+    }   
+  } 
 
-    return ($docs->count()) ? $docs : new UllVentoryItem;
-  }
+  
 
 //  /**
 //   * Gets UllWiki doc according to request param

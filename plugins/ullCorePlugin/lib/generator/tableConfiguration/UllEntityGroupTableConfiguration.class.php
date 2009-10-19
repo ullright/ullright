@@ -15,7 +15,7 @@ class UllEntityGroupTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Group memberships', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('ull_entity_id', 'ull_group_id'));
-    $this->setSortColumns('ull_group_id');
+    $this->setOrderBy('ull_group_id');
   }
   
 }

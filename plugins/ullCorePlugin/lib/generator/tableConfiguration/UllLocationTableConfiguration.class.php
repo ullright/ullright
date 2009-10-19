@@ -15,7 +15,7 @@ class UllLocationTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Locations', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('name', 'short_name'));
-    $this->setSortColumns('name');
+    $this->setOrderBy('name');
   }
   
 }

@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(7, new lime_output_color, $configuration);
+$t = new myTestCase(9, new lime_output_color, $configuration);
 
 $cc = new ullColumnConfiguration;
 $cc->setAccess('r');
@@ -31,4 +31,9 @@ $t->diag('set/getShowSpacerAfter()');
 $t->diag('set/getInjectIdentifier()');
   $t->is($cc->getInjectIdentifier(), false, 'false per default');
   $cc->setInjectIdentifier(true);
-  $t->is($cc->getInjectIdentifier(), true, 'true when set');    
+  $t->is($cc->getInjectIdentifier(), true, 'true when set');
+
+$t->diag('set/getIsArtificial()');
+  $t->is($cc->getIsArtificial(), false, 'false per default');
+  $cc->setIsArtificial(true);
+  $t->is($cc->getIsArtificial(), true, 'true when set');      

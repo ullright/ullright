@@ -15,6 +15,6 @@ class UllFlowActionTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Actions', null, 'ullFlowMessages'));
     $this->setSearchColumns(array('slug'));
-    $this->setSortColumns('slug');
+    $this->setOrderBy('slug');
   }
 }

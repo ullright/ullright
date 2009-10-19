@@ -380,3 +380,6 @@ UllGroupPermission:
     UllPermission:      ull_ventory_delete
     namespace:          ull_ventory    
   
+UllVentoryTaking:
+  summer_2009:
+    name:               Summer 2009

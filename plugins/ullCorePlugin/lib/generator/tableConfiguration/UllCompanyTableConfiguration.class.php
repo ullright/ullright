@@ -15,7 +15,7 @@ class UllCompanyTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Companies', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('name', 'short_name'));
-    $this->setSortColumns('name');
+    $this->setOrderBy('name');
   }
   
 }

@@ -17,7 +17,7 @@ class UllVentoryItemAttributeTableConfiguration extends ullTableConfiguration
     
     $this->setName(__('Item attributes', null, 'ullVentoryMessages'));
     $this->setSearchColumns(array('slug'));
-    $this->setSortColumns('slug');
+    $this->setOrderBy('slug');
   }
   
 }

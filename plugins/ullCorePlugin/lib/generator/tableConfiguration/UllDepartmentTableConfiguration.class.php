@@ -15,7 +15,7 @@ class UllDepartmentTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Departments', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('name', 'short_name'));
-    $this->setSortColumns('name');
+    $this->setOrderBy('name');
   }
   
 }

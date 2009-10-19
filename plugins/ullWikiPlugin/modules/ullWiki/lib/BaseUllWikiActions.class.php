@@ -272,7 +272,7 @@ class BaseUllWikiActions extends ullsfActions
       {
         $cols[] = 'body';
       }
-      $q = ullCoreTools::doctrineSearch($q, $search, $cols);
+      $q = ullGeneratorTools::doctrineSearch($q, $search, $cols);
     }
     
     // TODO: (Klemens 2008-12-16) this should not be necessary,

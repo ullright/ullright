@@ -15,7 +15,7 @@ class UllGroupTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Groups', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('display_name', 'email'));
-    $this->setSortColumns('display_name');
+    $this->setOrderBy('display_name');
   }
   
 }

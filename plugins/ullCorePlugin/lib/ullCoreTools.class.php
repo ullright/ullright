@@ -12,44 +12,6 @@ class ullCoreTools
 {
 
   /**
-   * Search for a string in multiple columns
-   * 
-   * @param Doctrine_Query $q
-   * @param string $search
-   * @param array $columns
-   * @return Doctrine_Query
-   */
-  public static function doctrineSearch($q, $search, $columns)
-  {
-    $searchParts = explode(' ', $search);
-    foreach ($searchParts as $key => $part)
-    {
-      $searchParams[] = '%' . $part . '%';
-    }
-    
-    $whereTopLevel = array();
-    $params = array();
-    
-    foreach($columns as $col)
-    {
-      $where = array();
-      for ($i = 0; $i < count($searchParts); $i++)
-      {
-        $where[] = 'x.' . $col . ' LIKE ?'; 
-      }
-      $whereTopLevel[] = implode(' AND ', $where);
-
-      $params = array_merge($params, $searchParams);
-    }    
-
-    $where = '(' . implode(' OR ', $whereTopLevel) . ')';
-    
-    $q->addWhere($where, $params);
-    
-    return $q;
-  }
-  
-  /**
    * This filters a string into a "friendly" string for use in URL's. 
    *   It converts the string to lower case and replaces any non-alphanumeric 
    *   (and accented) characters with underscores.
@@ -90,13 +52,6 @@ class ullCoreTools
     }
   
     return array_merge($ordered, $array);
-  }
-  
-  public static function makeI18nColumnName($columnName)
-  {
-    $lang = substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2);
-    
-    return $columnName . '_translation_' . $lang;
   }
   
   /**
@@ -272,6 +227,5 @@ class ullCoreTools
       return $file;
     }
   }
-  
-}
 
+}

@@ -6,18 +6,18 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class ullNamedQueryUllVentoryInactiveUsers extends ullNamedQuery
+class ullNamedQueryUllVentoryModifiedToday extends ullNamedQuery
 {
   
   public function configure()
   {
-    $this->name       = 'Items belonging to inactive users';
-    $this->identifier = 'inactive_users';
+    $this->name       = 'All items modified today';
+    $this->identifier = 'modified_today';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
-    $q->addWhere('e.UllUserStatus.slug <> ?', 'active');
+    $q->addWhere('updated_at LIKE ?', date('Y-m-d%'));
   }
   
 }

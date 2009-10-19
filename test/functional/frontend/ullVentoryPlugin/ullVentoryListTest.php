@@ -27,8 +27,8 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'list')
   ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
-  ->checkResponseElement($dgsList->get(1, 'model'), 'MacBook')  
-  ->checkResponseElement($dgsList->get(2, 'model'), 'MFC-440CN')
+  ->checkResponseElement($dgsList->get(1, 'model'), 'MFC-440CN')
+  ->checkResponseElement($dgsList->get(2, 'model'), 'MacBook')
 ;
 
 $b
@@ -80,8 +80,9 @@ $b
   ->isRequestParameter('filter[ull_entity_id]', $testUserId)
   ->checkResponseElement('h3', 'Items of Test User')
   ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
-  ->checkResponseElement($dgsList->get(1, 'inventory_number'), '1701')
-  ->checkResponseElement($dgsList->get(2, 'inventory_number'), '1702')
+  ->checkResponseElement($dgsList->get(1, 'inventory_number'), '1702')
+  ->checkResponseElement($dgsList->get(2, 'inventory_number'), '1701')
+  
 ;  
 
 $b

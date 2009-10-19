@@ -39,7 +39,7 @@ $b
 
 $b
   ->diag('list - test column headers')
-  ->checkResponseElement('tr > th + th > a', 'My custom string label EN')
+  ->checkResponseElement('tr > th + th > a', 'My custom string label')
   ->checkResponseElement('table > thead > tr > th', 7) // number of columns
 ;
   
@@ -224,8 +224,8 @@ $b
 ;
 
 $b
-  ->diag('filter - search in my_string and my_text column')
-  ->setField('filter[search]', 'ore my')
+  ->diag('filter - search in my_email column')
+  ->setField('filter[search]', 're@e')
   ->click('search_list')
   ->isRedirected()
   ->followRedirect()  

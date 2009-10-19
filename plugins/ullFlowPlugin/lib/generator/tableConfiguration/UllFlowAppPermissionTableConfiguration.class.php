@@ -15,7 +15,7 @@ class UllFlowAppPermissionTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Workflow access rights', null, 'ullFlowMessages'));
     $this->setSearchColumns(array('ull_flow_app_id'));
-    $this->setSortColumns('ull_flow_app_id');
+    $this->setOrderBy('ull_flow_app_id');
   }
   
 }

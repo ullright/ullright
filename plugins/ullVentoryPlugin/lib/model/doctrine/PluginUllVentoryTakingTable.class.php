@@ -15,7 +15,7 @@ class PluginUllVentoryTakingTable extends UllRecordTable
     $q = new Doctrine_Query;
     $q
       ->from('UllVentoryTaking x')
-      ->orderBy('x.created_at DESC')
+      ->orderBy('x.created_at DESC, x.id DESC')
       ->useResultCache(true)
     ;
     return $q->fetchOne();

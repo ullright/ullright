@@ -30,43 +30,66 @@ class ullWidgetForeignKey extends sfWidgetFormInput
       return $return;
     }
     
-    //This is a temporary solution to reduce the
-    //query count in ullVentory list view.
-    $q = new Doctrine_Query();
-    $q
-      ->from($this->getOption('model') . ' x')
-      ->where('x.' . implode(' = ? AND x.', (array) Doctrine::getTable($this->getOption('model'))->getIdentifier()) . ' = ?', $value)
-      ->useResultCache(true)
-      //Test different settings
-      //->setResultCacheLifeSpan(1)
-    ;
-
-    $object = $q->fetchOne();
-
-    $method = $this->getOption('method');
-
-    try
+    if (is_array($value))
     {
-      $return .= $object->$method();
+      $primaryKey = $value['id'];
+      $value = $value['value'];
+      
+      $return .= $value;
     }
-    catch (Exception $e)
+    else
     {
-      // This is necessary for translated columns. Why?
-      $object = Doctrine::getTable($this->getOption('model'))->find($value);
-      $return .= $object->$method();
+      //This is a temporary solution to reduce the
+      //query count in ullVentory list view.
+      $q = new Doctrine_Query();
+      $q
+        ->from($this->getOption('model') . ' x')
+        ->where('x.' . implode(' = ? AND x.', (array) Doctrine::getTable($this->getOption('model'))->getIdentifier()) . ' = ?', $value)
+        ->useResultCache(true)
+        //Test different settings
+        //->setResultCacheLifeSpan(1)
+      ;
+  
+      $object = $q->fetchOne();
+      
+      // Don't die with an invalid id
+      if (!$object)
+      {
+        return 'Invalid id: ' . $value;
+      }
+  
+      $method = $this->getOption('method');
+  
+      try
+      {
+        $return .= $object->$method();
+      }
+      catch (Exception $e)
+      {
+        // This is necessary for translated columns. Why?
+        $object = Doctrine::getTable($this->getOption('model'))->find($value);
+        $return .= $object->$method();
+      }
+      
+      if ($this->getOption('show_ull_entity_popup'))
+      {
+        $primaryKey = $object->id;
+      }
+
     }
     
-    if ($this->getOption('show_ull_entity_popup') == true && $object instanceof UllUser)
+//    if ($this->getOption('show_ull_entity_popup') == true && $object instanceof UllUser)
+    if ($this->getOption('show_ull_entity_popup') == true)
     {
-      $uri = 'ullUser/show?username=' . $object->username;
+      $uri = 'ullUser/show?username=' . $primaryKey;
       $return = link_to($return, $uri, array(
         'onclick' => 'this.href="#";popup(
           "' . url_for($uri) . '",
-          "Popup ' . $object->username . '",
+          "Popup ' . $primaryKey . '",
           "width=480,height=720"
         );'
       )); 
-    }
+    }    
     
     return $return;
   }

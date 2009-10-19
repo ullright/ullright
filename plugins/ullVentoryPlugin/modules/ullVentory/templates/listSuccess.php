@@ -1,5 +1,6 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
+<?php $order = $sf_data->getRaw('order'); ?>
 
 <?php if ($filter_form->hasErrors()): ?>
   <div class='form_error'>
@@ -58,7 +59,7 @@
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator' => $generator,
       'order'     => $order,
-      'order_dir' => $order_dir,
+//      'order_dir' => $order_dir,
   )); ?>
   
   <!-- data -->
@@ -68,7 +69,7 @@
   <?php foreach($generator->getForms() as $row => $form): ?>
     <?php /* $form['inventory_number']->getWidget()->setAttribute('href', 
       url_for('ull_ventory_edit', $form->getObject())) */ ?>
-    <?php $form['toggle_inventory_taking']->getWidget()->setAttribute('href', 
+    <?php /*TODO: use injectIdentifier? or array() value? */ $form['artificial_toggle_inventory_taking']->getWidget()->setAttribute('href', 
       url_for('ull_ventory_toggle_inventory_taking', $form->getObject())) ?>      
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          

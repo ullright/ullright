@@ -23,7 +23,7 @@ $helpdeskGroupId = UllGroupTable::findIdByDisplayName('Helpdesk');
 $t->begin('__construct');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
-  $form = new ullFlowForm($doc, 'edit');
+  $form = new ullFlowForm($doc, new ullColumnConfigCollection('ullFlowDoc'), 'edit');
   $t->isa_ok($form, 'ullFlowForm', 'returns the correct object type');
   
   $columnConfig = new ullColumnConfiguration();

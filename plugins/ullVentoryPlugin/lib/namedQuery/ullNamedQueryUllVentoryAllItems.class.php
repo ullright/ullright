@@ -15,7 +15,7 @@ class ullNamedQueryUllVentoryAllItems extends ullNamedQuery
     $this->identifier = 'all_items';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
   }
   
