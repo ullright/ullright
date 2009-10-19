@@ -1,0 +1,49 @@
+/*
+ * ************************************************
+ *  ullPhone styles
+ * ************************************************
+ */
+ 
+ /* Overridden css: ullCore / main.css - formats */
+
+.color_light_bg {
+  background: #ffec91;
+}
+
+.color_medium_bg {
+  background: #f3c100;
+}
+
+.color_dark_bg {
+  background: #e9aa00;
+}
+
+.edit_container {
+  max-width: 780px;
+}
+
+.list_table tbody tr:hover {
+  background: #ffec91 !important;  
+}
+
+/* Overridden css: ullCore / taskcenter.css - formats */
+ 
+#tc_wrapper a:visited {
+  color: #f3c100;
+}
+
+/* Overridden css: ullCore / common.css - formats */
+ 
+a {
+  color: #f3c100;
+}
+
+a:visited {
+  color: #e9aa00;
+}
+
+/* End of overridden css */
+
+.location_header {
+  width: 17em;
+}
