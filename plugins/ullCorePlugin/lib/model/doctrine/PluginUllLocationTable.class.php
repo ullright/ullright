@@ -4,5 +4,16 @@
  */
 class PluginUllLocationTable extends UllRecordTable
 {
+  public function findAllOrderedByNameAsArray()
+  {
+    $q = new Doctrine_Query;
 
+    $q
+      ->select('u.name, u.id')
+      ->from('UllLocation u')
+      ->orderBy('u.name')
+    ;
+
+    return $q->execute(array(), Doctrine::HYDRATE_ARRAY);
+  }
 }
