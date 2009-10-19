@@ -22,10 +22,16 @@ class DeleteOldColumnConfig extends Doctrine_Migration
     $this->dropTable('ull_column_config_translation');
     $this->dropTable('ull_column_config');
     
-    $tableConfig = Doctrine::getTable('UllTableConfig')->findOneByDbTableName('UllColumnConfig');
-    if ($tableConfig !== false)
+    try {
+      $tableConfig = Doctrine::getTable('UllTableConfig')->findOneByDbTableName('UllColumnConfig');
+      if ($tableConfig !== false)
+      {
+        $tableConfig->delete();
+      }
+    }
+    catch (Exception $exception)
     {
-      $tableConfig->delete();
+      //doesn't matter
     }
   }
   
