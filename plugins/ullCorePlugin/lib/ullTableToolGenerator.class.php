@@ -276,8 +276,6 @@ class ullTableToolGenerator extends ullGenerator
           $this->columnsConfig[$column]
             ->setColumnName($column)
             ->setAccess($this->getDefaultAccess())
-            ->setCustomAttribute('field', $field)
-            ->setCustomAttribute('relations', $relations)
             ->setLabel(ullGeneratorTools::buildRelationsLabel($this->modelName, $relations))
           ;          
         }
