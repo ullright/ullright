@@ -2,9 +2,6 @@
 
 class ullWikiGenerator extends ullTableToolGenerator
 {
-  protected
-    $formClass = 'ullWikiForm';
-    
   /**
    * Constructor
    *
@@ -16,6 +13,7 @@ class ullWikiGenerator extends ullTableToolGenerator
     
     parent::__construct($this->modelName, $defaultAccess);
     
+    $this->formClass = 'ullWikiForm';
   }  
   
   /**
