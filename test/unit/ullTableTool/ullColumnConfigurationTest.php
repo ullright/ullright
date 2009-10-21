@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(9, new lime_output_color, $configuration);
+$t = new myTestCase(11, new lime_output_color, $configuration);
 
 $cc = new ullColumnConfiguration;
 $cc->setAccess('r');
@@ -36,4 +36,9 @@ $t->diag('set/getInjectIdentifier()');
 $t->diag('set/getIsArtificial()');
   $t->is($cc->getIsArtificial(), false, 'false per default');
   $cc->setIsArtificial(true);
-  $t->is($cc->getIsArtificial(), true, 'true when set');      
+  $t->is($cc->getIsArtificial(), true, 'true when set');
+
+$t->diag('set/getIsAutoRender()');
+  $t->is($cc->getAutoRender(), true, 'true per default');
+  $cc->setAutoRender(false);
+  $t->is($cc->getAutoRender(), false, 'false when set');
