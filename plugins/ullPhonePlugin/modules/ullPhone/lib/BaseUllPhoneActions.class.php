@@ -60,7 +60,7 @@ class BaseUllPhoneActions extends ullsfActions
       $this->phoneSearchFilter = $request->getParameter('autocomplete_sidebarPhoneSearch');
     }
     
-    //shall we render location renders?
+    //shall we render location headers?
     $this->isLocationView = $this->getRequestParameter('locationView');
     
     if ($this->isLocationView)
@@ -92,7 +92,7 @@ class BaseUllPhoneActions extends ullsfActions
 
     $q = new Doctrine_Query();
     $q
-      ->from('UllUser x, x.UllLocation l')
+      ->from('UllUser x, x.UllLocation l, x.UllDepartment d')
       //the following query includes phone and fax extensions, but overrides
       //the columns with a dash if the matching boolean is false
       ->select('x.first_name, x.last_name, x.email,
@@ -109,15 +109,25 @@ class BaseUllPhoneActions extends ullsfActions
     
     if (!empty($this->phoneSearchFilter))
     {
-      $searchColumns = array('first_name', 'last_name', 'phone_extension', 'fax_extension',
-        'UllLocation.name', 'UllLocation.short_name', 'UllLocation.phone_base_no',
-        'UllDepartment.name', 'UllJobTitle.name');
+      $searchColumns = array('x.first_name', 'x.last_name', 'l.name', 'l.short_name', 'l.phone_base_no',
+        'd.name'); // 'UllJobTitle.name'); include?
       
-      ullGeneratorTools::doctrineSearch($q, $this->phoneSearchFilter, $searchColumns); 
+      //this adds the criteria above
+      ullGeneratorTools::doctrineSearch($q, $this->phoneSearchFilter, $searchColumns, false);
+      
+      //we need special handling here because we don't want hidden
+      //numbers to be searchable
+      $q->orWhere('x.is_show_extension_in_phonebook is not FALSE ' .
+        'AND x.phone_extension LIKE ?', '%' . $this->phoneSearchFilter . '%');
+    
+      $q->orWhere('x.is_show_fax_extension_in_phonebook is not FALSE ' .
+        'AND x.fax_extension LIKE ?', '%' . $this->phoneSearchFilter . '%');
     }
     
     $defaultOrder = 'last_name';
 
+    //if we have enabled location headers,
+    //order results by location name first
     if ($this->isLocationView)
     {
       $q->orderBy('l.name');

@@ -19,7 +19,7 @@ class ullGeneratorTools
    * @param array $columns
    * @return Doctrine_Query
    */
-  public static function doctrineSearch($q, $search, $columns)
+  public static function doctrineSearch($q, $search, $columns, $addToRootAlias = true)
   {
     $searchParts = explode(' ', $search);
     foreach ($searchParts as $key => $part)
@@ -35,7 +35,8 @@ class ullGeneratorTools
       $where = array();
       for ($i = 0; $i < count($searchParts); $i++)
       {
-        $where[] = 'x.' . $col . ' LIKE ?'; 
+        $rootAlias = $addToRootAlias ? 'x.' : '';
+        $where[] = $rootAlias . $col . ' LIKE ?'; 
       }
       $whereTopLevel[] = implode(' AND ', $where);
 

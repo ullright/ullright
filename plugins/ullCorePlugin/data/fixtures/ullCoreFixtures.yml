@@ -12,7 +12,7 @@ UllUser:
     separation_date:    "2888-08-08"
     phone_extension:    123
     is_show_extension_in_phonebook: true
-    fax_extension:      321
+    fax_extension:      3333
     is_show_fax_extension_in_phonebook: false
     comment:            "Fear the admin"
     ull_job_title_id:       1     # TODO: TEMP because UllJobTitle: programmer_jt won't work
@@ -38,6 +38,10 @@ UllUser:
     photo:              test_user.png
     namespace:          test
     UllLocation:        new_york
+    phone_extension:    2222
+    is_show_extension_in_phonebook: false
+    fax_extension:      4444
+    is_show_fax_extension_in_phonebook: true
 
 UllGroup:
   admin_group:
