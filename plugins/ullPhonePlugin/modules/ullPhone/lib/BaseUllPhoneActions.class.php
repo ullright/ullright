@@ -60,10 +60,13 @@ class BaseUllPhoneActions extends ullsfActions
       $this->phoneSearchFilter = $request->getParameter('autocomplete_sidebarPhoneSearch');
     }
     
+    //shall we render location renders?
     $this->isLocationView = $this->getRequestParameter('locationView');
     
     if ($this->isLocationView)
     {
+      //the view needs the location column's content but we don't want
+      //the generator to render it since the data is already in the location header
       $this->generator->getColumnsConfig()->offsetGet('ull_location_id')->setAutoRender(false);
       
       if ($this->filter_location_id = $this->getRequestParameter('ull_location_id'))
@@ -79,7 +82,11 @@ class BaseUllPhoneActions extends ullsfActions
 
     $this->generator->buildForm($rows);
   }
-
+  
+  /**
+   * This function builds a query selecting UllUsers for the phone book;
+   * see inline comments for further details.
+   */
   protected function getFilterFromRequest()
   {
 
@@ -106,13 +113,7 @@ class BaseUllPhoneActions extends ullsfActions
         'UllLocation.name', 'UllLocation.short_name', 'UllLocation.phone_base_no',
         'UllDepartment.name', 'UllJobTitle.name');
       
-      ullCoreTools::doctrineSearch($q, $this->phoneSearchFilter, $searchColumns); 
-      
-      //      //is concat mysql only?
-//      $q
-//        ->where('concat(x.last_name, \' \', x.first_name) like ?', '%' . $this->phoneSearchFilter . '%')
-//        ->orWhere('concat(x.first_name, \' \', x.last_name) like ?', '%' . $this->phoneSearchFilter . '%')
-//      ;
+      ullGeneratorTools::doctrineSearch($q, $this->phoneSearchFilter, $searchColumns); 
     }
     
     $defaultOrder = 'last_name';

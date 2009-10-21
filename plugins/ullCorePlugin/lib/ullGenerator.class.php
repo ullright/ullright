@@ -138,6 +138,11 @@ abstract class ullGenerator extends ullGeneratorBase
     return $this->forms[0]->getWidgetSchema()->getLabels();
   }
   
+  /**
+   * Returns the labels getLabels() would return but without the ones
+   * where the originating column's autoRender flag is set to false.
+   * @return array of labels of columns with autoRender = false 
+   */
   public function getAutoRenderedLabels()
   {
     $labels = $this->getLabels();
@@ -312,6 +317,12 @@ abstract class ullGenerator extends ullGeneratorBase
     return $this->columnsConfig->getActiveColumns(); 
   }
   
+  /**
+   * Returns the list of columns getActiveColumns() would return but
+   * without the ones where the autoRender flag is set to false.
+   * 
+   * @return array of active columns with autoRender flag set to false
+   */
   public function getActiveAutoRenderedColumns()
   {
     $columns = $this->getActiveColumns();

@@ -427,11 +427,21 @@ class ullColumnConfiguration
     return $this->injectIdentifier;
   }
   
+  /*
+   * Gets the autoRender flag (whether the view should render the columns or not)
+   * 
+   * @return boolean
+   */
   public function getAutoRender()
   {
     return $this->autoRender;
   }
   
+  /*
+   * Sets the autoRender flag (whether the view should render the columns or not)
+   * 
+   * @return boolean
+   */
   public function setAutoRender($boolean)
   {
     $this->autoRender = (boolean) $boolean;

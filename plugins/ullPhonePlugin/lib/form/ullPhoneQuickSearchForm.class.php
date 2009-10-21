@@ -1,4 +1,9 @@
 <?php
+/**
+ * This class configures a sfForm object for usage
+ * as a small quicksearch box in the sidebar.
+ *
+ */
 class ullPhoneQuickSearchForm extends sfForm
 {
   public function configure()
