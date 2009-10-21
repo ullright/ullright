@@ -189,7 +189,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
         ullSearchActionHelper::addTransformedCriteriaToSearch($search, $searchFormEntries,
           $this->searchForm->getGenerator()->getForm()->getValues());
          
-        $this->getUser()->setAttribute('user_ullSearch', $search);
+        $this->getUser()->setAttribute('ullTableToolGenerator_ullSearch', $search);
         $this->redirect('ullTableTool/list?query=custom&table=' . $this->modelName);
       }
     }
@@ -358,6 +358,33 @@ class BaseUllUserActions extends BaseUllTableToolActions
     }
   }
 
+  public function executeUserSearchAutocomplete(sfRequest $request)
+  {
+    $this->getResponse()->setContentType('application/json');
+    
+    $queryString = $request->getParameter('q');
+    $queryLimit = $request->getParameter('limit');
+    
+    //is concat mysql only?
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllUser u')
+      ->where('concat(u.last_name, \' \', u.first_name) like ?', '%' . $queryString . '%')
+      ->orWhere('concat(u.first_name, \' \', u.last_name) like ?', '%' . $queryString . '%')
+      ->orderBy('u.last_name')
+      ->limit($queryLimit)
+    ;
+    
+    $results = $q->execute(array(), Doctrine::HYDRATE_ARRAY);
+    
+    $users = array();
+    foreach ($results as $user)
+    {
+      $users[$user['id']] = $user['last_name'] . ' ' . $user['first_name'];
+    }
+    
+    return $this->renderText(json_encode($users));
+  }  
   
   /**
    * Handles breadcrumb for search

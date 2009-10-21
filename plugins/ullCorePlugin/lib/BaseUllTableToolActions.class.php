@@ -234,11 +234,12 @@ class BaseUllTableToolActions extends ullsfActions
       {
         case('custom'):
           //add ullSearch to query
-          $ullSearch = $this->getUser()->getAttribute('user_ullSearch', null);
+          $ullSearch = $this->getUser()->getAttribute(get_class($this->generator) .'_ullSearch', null);
+
           if ($ullSearch != null)
           {
             $ullSearch->modifyQuery($this->q->getDoctrineQuery(), 'x');
-             
+            
             $this->ull_filter->add(
               'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
             );

@@ -402,7 +402,7 @@ class BaseUllFlowActions extends ullsfActions
         ullSearchActionHelper::addTransformedCriteriaToSearch($search, $searchFormEntries,
           $this->searchForm->getGenerator()->getForm()->getValues());
          
-        $this->getUser()->setAttribute('flow_ullSearch', $search);
+        $this->getUser()->setAttribute('ullFlowGenerator_ullSearch', $search);
         $redirectUrl = 'ullFlow/list?query=custom';
         if ($this->app != null)
         {
@@ -565,7 +565,7 @@ class BaseUllFlowActions extends ullsfActions
       {
         case('custom'):
           //add ullSearch to query
-          $ullSearch = $this->getUser()->getAttribute('flow_ullSearch', null);
+          $ullSearch = $this->getUser()->getAttribute('ullFlowGenerator_ullSearch', null);
           if ($ullSearch != null)
           {
             $ullSearch->modifyQuery($q, 'x');

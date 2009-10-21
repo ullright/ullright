@@ -371,7 +371,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
         ullSearchActionHelper::addTransformedCriteriaToSearch($search, $searchFormEntries,
           $this->searchForm->getGenerator()->getForm()->getValues());
          
-        $this->getUser()->setAttribute('ventoryitem_ullSearch', $search);
+        $this->getUser()->setAttribute('ullVentoryGenerator_ullSearch', $search);
         $this->redirect('ullVentory/list?query=custom');
       }
     }
