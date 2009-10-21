@@ -354,6 +354,25 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     $s = new ullDomGridSelector('#ull_memory > ul > li > ul', 'li');
     
     return $s;
-  }    
+  }
+  
+  public function getDgsUllPhoneList()
+  {
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
+      array(
+        'last_name',
+        'first_name',
+        'phone_extension',
+        'fax_extension',
+        'email_link',
+        'company',
+        'department',
+        'location'
+       ),
+      'table > thead > tr', 'th'
+    );
+    
+    return $s;
+  }  
 }
 

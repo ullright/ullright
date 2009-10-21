@@ -28,6 +28,10 @@
         <target>Sortiert nach Standort</target>
       </trans-unit>
 
+      <trans-unit id="6">
+        <source>Map</source>
+        <target>Karte</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

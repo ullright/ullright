@@ -31,7 +31,7 @@
         if (!empty($location['city']) || (!empty($location['street']) && !empty($location['post_code'])))
         {
           $address = implode(' ', array($location['street'], $location['post_code'], $location['city']));
-          echo '&nbsp;<small>' . link_to_google_maps('Map', $address) . '</small>';
+          echo '&nbsp;<small>' . link_to_google_maps(__('Map', null, 'ullPhoneMessages'), $address) . '</small>';
         }
         
         echo '</b><br />' .

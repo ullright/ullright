@@ -34,9 +34,7 @@ class BaseUllPhoneActions extends ullsfActions
    */
   public function executeIndex()
   {
-    $this->checkAccess('LoggedIn');
-
-    $this->breadcrumbForIndex();
+    $this->redirect('ullPhone/list');
   }
 
 
@@ -110,7 +108,7 @@ class BaseUllPhoneActions extends ullsfActions
     if (!empty($this->phoneSearchFilter))
     {
       $searchColumns = array('x.first_name', 'x.last_name', 'l.name', 'l.short_name', 'l.phone_base_no',
-        'd.name'); // 'UllJobTitle.name'); include?
+        'd.name');
       
       //this adds the criteria above
       ullGeneratorTools::doctrineSearch($q, $this->phoneSearchFilter, $searchColumns, false);
