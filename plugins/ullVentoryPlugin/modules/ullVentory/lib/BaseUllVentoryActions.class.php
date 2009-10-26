@@ -231,13 +231,16 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     {
       $fields = $request->getParameter('fields');
       $model = Doctrine::getTable('UllVentoryItemModel')->findOneById($fields['ull_ventory_item_model_id']);
-      
-      foreach ($fields['attributes'] as $key => $attribute)
+
+      if (isset($fields['attributes']))
       {
-        if (!$attribute['value'])
+        foreach ($fields['attributes'] as $key => $attribute)
         {
-          $fields['attributes'][$key]['value'] =
-              UllVentoryItemAttributePresetTable::findValueByModelIdAndTypeAttributeId($model->id, $attribute['ull_ventory_item_type_attribute_id']);  
+          if (!$attribute['value'])
+          {
+            $fields['attributes'][$key]['value'] =
+                UllVentoryItemAttributePresetTable::findValueByModelIdAndTypeAttributeId($model->id, $attribute['ull_ventory_item_type_attribute_id']);  
+          }
         }
       }
       
