@@ -19,8 +19,9 @@ class DeleteOldTableConfig extends Doctrine_Migration
     unlink($libPath . '/filter/doctrine/ullCorePlugin/base/BaseUllTableConfigTranslationFormFilter.class.php');
     unlink($libPath . '/filter/doctrine/ullCorePlugin/UllTableConfigTranslationFormFilter.class.php');
     
-    $this->dropTable('ull_table_config_translation');
-    $this->dropTable('ull_table_config');
+    $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+    $dbh->exec("DROP TABLE ull_table_config_translation");
+    $dbh->exec("DROP TABLE ull_table_config");  
   }
   
   public function down()
