@@ -373,6 +373,13 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     );
     
     return $s;
-  }  
+  }
+  
+  public function getDgsUllPhoneListLocationHeader()
+  {
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td > div > b', array(), array('location_name'));
+    
+    return $s;
+  }
 }
 

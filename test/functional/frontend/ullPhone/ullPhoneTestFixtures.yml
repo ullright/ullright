@@ -1,0 +1,19 @@
+UllUser:
+  helpdesk_admin_user:
+    first_name:         Helpdesk
+    last_name:          Admin User
+    email:              helpdesk.admin.user@example.com
+    username:           helpdesk_admin_user
+    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Creator:            admin_user
+    Updator:            admin_user
+    namespace:          test
+  helpdesk_user:
+    first_name:         Helpdesk
+    last_name:          User
+    email:              helpdesk.user@example.com
+    username:           helpdesk_user
+    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    Creator:            admin_user
+    Updator:            admin_user
+    namespace:          test
