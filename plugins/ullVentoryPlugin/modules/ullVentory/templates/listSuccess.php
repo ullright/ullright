@@ -25,7 +25,7 @@
     <li><?php echo ull_button_to(__('Enlist new item', null, 'ullVentoryMessages'), 'ullVentory/create' . ($entity ? '?entity=' . $entity->username : '')); ?></li>
     
     <?php 
-    if ($displayMassChangeOwnerButton && ($entity !== null))
+    if ($display_mass_change_owner_button && ($entity !== null))
     {
       echo '<li>' . ull_button_to(__('Change owner', null, 'ullVentoryMessages'), 'ullVentory/massChangeOwner'
         . '?oldEntityId=' . $entity->id)

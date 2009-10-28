@@ -169,4 +169,14 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
     $this->_checkBuildRequirement();
     return $this->scheduledUpdater;
   }
+  
+  
+  /**
+   * Prevent looping 
+   * @see plugins/ullCorePlugin/lib/ullTableToolGenerator#buildHistoryGenerators()
+   */
+  public function buildHistoryGenerators()
+  {
+    // do nothing
+  }
 }

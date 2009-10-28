@@ -33,6 +33,7 @@ abstract class BaseUllParentEntity extends UllRecord
         $this->hasColumn('ull_user_status_id', 'integer', null, array('type' => 'integer', 'notnull' => true, 'default' => '1'));
         $this->hasColumn('is_virtual_group', 'boolean', null, array('type' => 'boolean', 'default' => false));
         $this->hasColumn('photo', 'string', 255, array('type' => 'string', 'length' => '255'));
+        $this->hasColumn('parent_ull_user_id', 'integer', null, array('type' => 'integer'));
 
 
         $this->setAttribute(Doctrine::ATTR_EXPORT, Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);
@@ -43,6 +44,9 @@ abstract class BaseUllParentEntity extends UllRecord
         parent::setUp();
     $this->hasOne('UllUser as Superior', array('local' => 'superior_ull_user_id',
                                                    'foreign' => 'id'));
+
+        $this->hasOne('UllUser as Parent', array('local' => 'parent_ull_user_id',
+                                                 'foreign' => 'id'));
 
         $this->hasOne('UllJobTitle', array('local' => 'ull_job_title_id',
                                            'foreign' => 'id'));

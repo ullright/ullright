@@ -29,6 +29,18 @@ class ullVentoryGenerator extends ullTableToolGenerator
   }  
   
   
+  /** 
+   * Configures the generator
+   * 
+   * (non-PHPdoc)
+   * @see plugins/ullCorePlugin/lib/ullGenerator#configure()
+   */
+  public function configure()
+  {
+    $this->setAllowDelete(false);
+  }  
+  
+  
   /**
    * builds the column config
    *

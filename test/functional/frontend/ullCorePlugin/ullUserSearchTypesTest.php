@@ -82,7 +82,7 @@ $browser
 
 $browser
   ->with('request')->begin()
-    ->isParameter('module', 'ullTableTool')
+    ->isParameter('module', 'ullUser')
     ->isParameter('action', 'list')
   ->end()
   ->with('response')->begin()
@@ -117,7 +117,7 @@ $browser->followRedirect();
 
 $browser
   ->with('request')->begin()
-    ->isParameter('module', 'ullTableTool')
+    ->isParameter('module', 'ullUser')
     ->isParameter('action', 'list')
   ->end()
   ->with('response')->begin()
@@ -152,7 +152,7 @@ $browser->followRedirect();
 
 $browser
   ->with('request')->begin()
-    ->isParameter('module', 'ullTableTool')
+    ->isParameter('module', 'ullUser')
     ->isParameter('action', 'list')
   ->end()
   ->with('response')->begin()

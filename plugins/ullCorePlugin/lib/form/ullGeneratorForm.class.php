@@ -115,6 +115,8 @@ class ullGeneratorForm extends sfFormDoctrine
     
     $defaults = $this->getDefaults();
     
+//    var_dump($defaults);die;
+    
     foreach($this->getWidgetSchema()->getPositions() as $fieldName)
     {
       if (

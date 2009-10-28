@@ -12,34 +12,34 @@
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 
-class BaseUllUserActions extends BaseUllTableToolActions
+class BaseUllUserActions extends BaseUllGeneratorActions
 {
-
+  
   /**
-   * Execute  before each action
-   * 
-   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#ullpreExecute()
+   * Executes list action
+   *
+   * @param sfWebRequest $request
    */
-  public function ullpreExecute()
+  public function executeList(sfRequest $request) 
   {
-    $defaultUri = $this->getModuleName() . '/list';
-    $this->getUriMemory()->setDefault($defaultUri);  
+    $this->checkAccess('Masteradmins');
+    
+    parent::executeList($request);
+
+    $this->setTableToolTemplate('list');
   }  
   
   /**
-   * Test for extending ullTableTool
-   * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeList()
+   * Setup ullUserGenerator
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
    */
-  public function executeList(sfRequest $request)
+  protected function getListGenerator()
   {
-    $request->setParameter('table', 'UllUser');
-    
-    parent::executeList($request);
-    
-    $this->setTableToolTemplate('list'); 
+    return new ullUserGenerator('r', 'list', $this->columns);
   }
   
-
+  
   /**
    * Execute show action
    */
@@ -58,26 +58,83 @@ class BaseUllUserActions extends BaseUllTableToolActions
     $this->generator = new ullTableToolGenerator('UllUser', 'r');
     $this->getUserFromRequest();
     $this->generator->buildForm($this->user);
-    
-    
   }  
+    
   
   /**
-   * Test for extending ullTableTool
-   * @see plugins/ullCorePlugin/modules/ullTableTool/lib/BaseUllTableToolActions#executeEdit()
+   * Executes edit action
+   *
+   * @param sfWebRequest $request
    */
-  public function executeEdit(sfRequest $request)
+  public function executeEdit(sfRequest $request) 
   {
-    $request->setParameter('table', 'UllUser');
+    $this->checkAccess('Masteradmins');
     
     parent::executeEdit($request);
+
+    $this->setTableToolTemplate('edit');
+  }  
+  
+  
+  /**
+   * Setup ullUserGenerator
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
+   */
+  protected function getEditGenerator()
+  {
+    return new ullUserGenerator('w');
+  }  
+  
+  
+  /**
+   * Executes delete action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeDelete(sfRequest $request)
+  { 
+    $this->checkAccess('MasterAdmins');
     
-    $this->setTableToolTemplate('edit'); 
-  } 
+    parent::executeDelete($request);
+  }  
+  
+
+  /**
+   * Setup ullUserGenerator
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
+   */
+  protected function getDeleteGenerator() 
+  { 
+    return new ullUserGenerator();
+  }
+  
+  
+  /**
+   * Executes delete action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeDeleteFutureVersion(sfRequest $request)
+  { 
+    $this->checkAccess('MasterAdmins');
+    
+    parent::executeDeleteFutureVersion($request);
+  }
 
   
+  /**
+   * Configure the ullFilter class name
+   * 
+   * @return string
+   */
+  public function getUllFilterClassName()
+  {
+    return 'ullTableToolFilterForm';
+  }  
   
-  
+
   /**
    * Execute change culture
    *
@@ -94,6 +151,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     $this->redirect($this->getUriMemory()->getAndDelete());
   }
 
+  
   /**
    * Execute mass change superior action
    * 
@@ -133,6 +191,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     }
   }
 
+  
   public function executeMassChangeSuperiorSave(sfRequest $request)
   {
     $this->checkPermission('ull_user_mass_change_superior');
@@ -144,6 +203,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     }
   }
 
+  
   //          _______  _______  _______  _______  _______
   //        (  ____ \(  ____ \(  ___  )(  ____ )(  ____ \|\     /|
   //        | (    \/| (    \/| (   ) || (    )|| (    \/| )   ( |
@@ -189,11 +249,12 @@ class BaseUllUserActions extends BaseUllTableToolActions
         ullSearchActionHelper::addTransformedCriteriaToSearch($search, $searchFormEntries,
           $this->searchForm->getGenerator()->getForm()->getValues());
          
-        $this->getUser()->setAttribute('ullTableToolGenerator_ullSearch', $search);
-        $this->redirect('ullTableTool/list?query=custom&table=' . $this->modelName);
+        $this->getUser()->setAttribute('ullUserGenerator_ullSearch', $search);
+        $this->redirect('ullUser/list?query=custom');
       }
     }
   }
+  
   
   /**
    * Execute login
@@ -299,6 +360,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
     }
   }
 
+  
   /**
    * Execute logout
    *
@@ -309,8 +371,10 @@ class BaseUllUserActions extends BaseUllTableToolActions
     {
       $this->getUser()->getAttributeHolder()->remove($key);
     }
+    
     $this->redirect('@homepage');
   }
+  
   
   /**
    * Execute no access action
@@ -319,8 +383,6 @@ class BaseUllUserActions extends BaseUllTableToolActions
   public function executeNoaccess(sfRequest $request)
   {
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());die;
-
-
     
     if (!$this->getUser()->hasAttribute('user_id'))
     {
@@ -328,6 +390,7 @@ class BaseUllUserActions extends BaseUllTableToolActions
       $this->forward('ullUser', 'login');
     }
   }
+  
   
   /**
    * Shortcut method to set a template of ullTableTool
@@ -385,6 +448,43 @@ class BaseUllUserActions extends BaseUllTableToolActions
     
     return $this->renderText(json_encode($users));
   }  
+  
+  /**
+   * Handles breadcrumb for list action
+   */
+  protected function breadcrumbForList()
+  {
+    $breadcrumb_tree = new breadcrumbTree();
+    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('Users', null, 'ullCoreMessages'));
+    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullUser/list');
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
+  
+  
+  /**
+   * Handles breadcrumb for edit action
+   *
+   */
+  protected function breadcrumbForEdit()
+  {
+    $breadcrumb_tree = new breadcrumbTree();
+    $breadcrumb_tree->setEditFlag(true);
+    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('Users', null, 'ullCoreMessages'));
+    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullUser/list');  
+    if ($this->id) 
+    {
+      $breadcrumb_tree->add(__('Edit', null, 'common'));
+    }
+    else
+    {
+      $breadcrumb_tree->add(__('Create', null, 'common'));
+    }
+    
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
+  
   
   /**
    * Handles breadcrumb for search

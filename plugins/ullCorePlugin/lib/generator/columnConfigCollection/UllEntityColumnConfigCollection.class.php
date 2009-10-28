@@ -8,7 +8,7 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this->disable(array('version', 'is_virtual_group', 'display_name'));
+    $this->disable(array('version', 'is_virtual_group', 'display_name', 'parent_ull_user_id'));
     
     $this['display_name']->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     
@@ -23,6 +23,10 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['password']->setMetaWidgetClassName('ullMetaWidgetPassword');
     $this['email']
       ->setMetaWidgetClassName('ullMetaWidgetEmail')      
+    ;
+    
+    $this['type']
+      ->setMetaWidgetClassName('ullMetaWidgetUllEntityType')
       ->setShowSpacerAfter(true)
     ;
       
@@ -74,6 +78,7 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
       'username',
       'password',
       'email',
+      'type',
       'ull_company_id',
       'ull_location_id',
       'ull_department_id',

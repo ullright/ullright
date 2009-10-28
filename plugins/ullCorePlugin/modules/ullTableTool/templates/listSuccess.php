@@ -1,19 +1,15 @@
-<?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
-<?php $generator = $sf_data->getRaw('generator') ?>
-<?php $order = $sf_data->getRaw('order'); ?>
+<?php echo $breadcrumb_tree ?>
 
 <h3><?php echo $generator->getTableConfig()->getName() ?></h3>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
-<?php echo $ull_filter->getHtml(ESC_RAW) ?>
+<?php echo $ull_filter ?>
 
 <?php echo ull_form_tag(array('page' => '', 'filter' => array('search' => ''))) ?>
 
-<!-- TODO: add ordered list for options/actions -->
-
 <ul class='list_action_buttons color_light_bg'>
   
-  <li><?php echo ull_button_to(__('Create', null, 'common'), 'ullTableTool/create?table=' . $table_name); ?></li>                
+  <li><?php echo ull_button_to(__('Create', null, 'common'), $create_base_uri); ?></li>                
   
   <li>
     <?php echo $filter_form['search']->renderLabel() ?>: 
@@ -30,7 +26,6 @@
         array('pager' => $pager)
       ); ?>
 
-<?php // detect empty table_tool ?>
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>
   
@@ -44,14 +39,14 @@
   <tbody>
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-      <?php $idAsArray = (array) $generator->getIdentifierUrlParamsAsArray($row); ?>
+    <?php $id_url_params = $generator->getIdentifierUrlParams($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          
-        <?php
-            echo ull_link_to(ull_image_tag('edit'), array('action' => 'edit') + $idAsArray);
-            echo ull_link_to(ull_image_tag('delete'), array('action' => 'delete') +$idAsArray,
-                'confirm=' . __('Are you sure?', null, 'common')); 
-        ?>
+        <?php echo ull_link_to(ull_image_tag('edit'), ullCoreTools::appendParamsToUri($edit_base_uri, $id_url_params)); ?>
+        <?php if ($generator->getAllowDelete()): ?>
+          <?php echo ull_link_to(ull_image_tag('delete'), ullCoreTools::appendParamsToUri($delete_base_uri, $id_url_params), 
+                'confirm=' . __('Are you sure?', null, 'common')); ?>
+        <?php endif ?>
       </td>
       <?php echo $form ?>
     </tr>

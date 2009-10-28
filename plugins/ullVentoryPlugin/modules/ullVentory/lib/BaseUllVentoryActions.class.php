@@ -9,28 +9,23 @@
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 
-class BaseUllVentoryActions extends BaseUllTableToolActions
+class BaseUllVentoryActions extends BaseUllGeneratorActions
 {
-  
-  protected
-    $ullFilterClassName = 'ullVentoryFilterForm',
-    $defaultSearchOrder = 'desc'
-  ;
  
   /**
-   * Execute  before each action
+   * Everything here is executed before each action
    * 
-   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#ullpreExecute()
+   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#preExecute()
    */
-  public function ullpreExecute()
+  public function preExecute()
   {
-    $defaultUri = $this->getModuleName() . '/list';
-    $this->getUriMemory()->setDefault($defaultUri);  
+    parent::preExecute();
     
     //Add ullVentory stylsheet for all actions
     $path =  '/ullVentoryTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
-  }  
+    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));    
+  }
+
   
   /**
    * Execute index action
@@ -47,6 +42,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->breadcrumbForIndex();
   }
 
+  
   /**
    * Execute list action
    * 
@@ -76,9 +72,9 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
 
     $this->generator->buildForm($this->docs);
     
-    
     $filterParam = $request->getParameter('filter');
-    $this->displayMassChangeOwnerButton =
+    
+    $this->display_mass_change_owner_button =
       (is_array($filterParam) && isset($filterParam['ull_entity_id'])) ? true : false;
      
   }
@@ -94,28 +90,6 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }
 
-
-  /**
-   * Execute Show action
-   * 
-   */
-//  public function executeShow() 
-//  {
-//    $this->checkPermission('ull_ventory_show');
-//    
-//    $this->getDocFromRequest();
-//
-//    // allow ullwiki used as a plugin (e.g. ullFlow to ullForms interface)
-//    if ($this->return_var = $this->getRequestParameter('return_var')) 
-//    {
-//       $this->return_url = $this->getUser()->getAttribute('wiki_return_url') 
-//        . '&' . $this->return_var . '=' . $this->doc->id;
-//    }
-//    
-//    $this->has_no_write_access = $this->getRequestParameter('no_write_access'); 
-//
-//    $this->breadcrumbForShow();
-//  }
 
   /**
    * Execute create action
@@ -141,6 +115,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->breadcrumbForEdit();
   }
 
+  
   /**
    * Execute create action
    * 
@@ -249,19 +224,24 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     }    
   }
 
+  
   /**
-   * Execute delete action
+   * Setup ullGenerator
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
    */
-//  public function executeDelete() 
-//  {
-//    $this->checkPermission('ull_ventory_delete');
-//    
-//    $this->getDocFromRequest();
-//    $this->doc->delete();
-//    
-//    $this->redirect($this->getUriMemory()->getAndDelete('list'));
-//  }
-
+  protected function getDeleteGenerator() 
+  { 
+    return new ullVentoryGenerator();
+  }  
+  
+  
+  /**
+   * Ajax action for item models select box
+   * 
+   * @param sfRequest $request
+   * @return unknown_type
+   */
   public function executeItemModels(sfRequest $request)
   {
 //    var_dump($request->getParameterHolder()->getAll());
@@ -285,7 +265,6 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $models = array();
     foreach ($result as $values)
     {
-//      $models[$values['id']] = $values['full_name'];
       $models[] = array('id' => $values['id'], 'name' => $values['full_name']);
     }
     $x['results'] = $models;
@@ -293,6 +272,13 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     return $this->renderText(json_encode($x));
   }
   
+  
+  /**
+   * Ajax action for item models select box
+   * 
+   * @param sfRequest $request
+   * @return unknown_type
+   */
   public function executeItemModelsByManufacturer(sfRequest $request)
   {
 //    var_dump($request->getParameterHolder()->getAll());
@@ -326,6 +312,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
 
     return $this->renderText(json_encode($models));
   }  
+  
   
   //          _______  _______  _______  _______  _______
   //        (  ____ \(  ____ \(  ___  )(  ____ )(  ____ \|\     /|
@@ -380,6 +367,15 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     }
   }
   
+  
+  /**
+   * Mass change owner action
+   * 
+   *  Transfer all items from one owner to a new owner 
+   *  
+   * @param $request
+   * @return none
+   */
   public function executeMassChangeOwner(sfRequest $request)
   {
     $this->checkPermission('ull_ventory_edit');
@@ -437,6 +433,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     }
   }
   
+  
   /**
    * Create breadcrumbs for index action
    * 
@@ -446,6 +443,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
   }
 
+  
   /**
    * Create breadcrumbs for list action
    * 
@@ -455,6 +453,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
     $this->breadcrumbTree->addDefaultListEntry();
   }  
+  
   
   /**
    * Create breadcrumbs for massChangeOwner action
@@ -467,6 +466,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->breadcrumbTree->add(__('Change owner', null, 'ullVentoryMessages'));
   }  
 
+  
   /**
    * Create breadcrumbs for show action
    * 
@@ -489,6 +489,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->breadcrumbTree->add($this->doc->subject);
   }  
 
+  
   /**
    * Create breadcrumbs for edit action
    * 
@@ -512,6 +513,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     } 
   }
 
+  
   /**
    * Handles breadcrumb for search
    */
@@ -520,113 +522,6 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
     $this->breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullVentory/search');
   }
-  
-//  /**
-//   * Parses filter request params and gets a collection of UllWiki docs
-//   * 
-//   */
-//  protected function getFilterFromRequest()
-//  {
-//    $this->filter_form = new ullVentoryFilterForm;
-//    $this->filter_form->bind($this->getRequestParameter('filter'));
-//    
-//    $this->ull_filter = new ullFilter;
-//    
-//    $q = new Doctrine_Query();
-//    $q->from('
-//      UllVentoryItem x, 
-//      x.UllVentoryItemModel mo, 
-//      mo.UllVentoryItemType t, t.Translation tt,
-//      mo.UllVentoryItemManufacturer ma,      
-//      x.UllEntity e, e.UllLocation lo
-//    ');
-//
-//    //search has to be the first "where" part, because it uses "or" 
-//    if ($search = $this->filter_form->getValue('search'))
-//    {
-//      $cols = array(
-//        'inventory_number', 
-//        'serial_number', 
-//        'comment', 
-////        'UllVentoryItemModel.name', 
-//      );
-//      $q = ullGeneratorTools::doctrineSearch($q, $search, $cols);
-//    }
-//    
-//   
-//    
-//    if ($query = $this->getRequestParameter('query'))
-//    {
-//      switch($query)
-//      {
-//        case('custom'):
-//          //add ullSearch to query
-//          $ullSearch = $this->getUser()->getAttribute('ventoryitem_ullSearch', null);
-//          if ($ullSearch != null)
-//          {
-//            $ullSearch->modifyQuery($q, 'x');
-//             
-//            $this->ull_filter->add(
-//              'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
-//            );
-//          }
-//          break;
-//      }
-//    }
-//    
-//    $this->named_queries->handleFilter($q, $this->ull_filter, $this->getRequest());
-//    
-//    $this->order = $this->getRequestParameter('order', 'updated_at');
-//    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
-//    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
-//    
-//    $cc = $this->generator->getColumnsConfig();
-//    
-////    if ($relation = $cc[$this->order]->getRelation())
-////    {
-////      $q->orderBy('x.' . $relation['model'] . '.name');
-////    }
-////    else
-////    {
-//    
-//      switch ($this->order)
-//      {
-//        case 'creator_user_id':
-//          $q->orderBy('x.Creator.display_name ' . $orderDir);
-//          break;
-//        case 'updator_user_id':
-//          $q->orderBy('x.Updator.display_name ' . $orderDir);
-//          break;
-//        // the following hardcoded order settings could be refactored as 
-//        //  a generic feature of the model/generator/metawidget suite
-//        case 'ull_ventory_item_type_id':
-//           $q->orderBy('tt.name ' . $orderDir);
-//           $q->addWhere('tt.lang = ?', substr($this->getUser()->getCulture(), 0, 2));
-//           break;
-//        case 'ull_ventory_item_manufacturer_id':
-//           $q->orderBy('ma.name ' . $orderDir);
-//           break;
-//        case 'ull_location_id':
-//           $q->orderBy('lo.name ' . $orderDir);
-//           break;                       
-//        default:
-//          $q->orderBy($this->order . ' ' . $orderDir);
-//      }
-////    }
-//    
-////    printQuery($q->getQuery());
-////    var_dump($q->getParams());
-////    die;    
-//    
-//    $this->pager = new Doctrine_Pager(
-//      $q, 
-//      $this->getRequestParameter('page', 1),
-//      sfConfig::get('app_pager_max_per_page')
-//    );
-//    $docs = $this->pager->execute();
-//
-//    return ($docs->count()) ? $docs : new UllVentoryItem;
-//  }
   
   
   /** 
@@ -666,33 +561,6 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
 
   
 
-//  /**
-//   * Gets UllWiki doc according to request param
-//   * 
-//   */
-//  protected function getDocFromRequest()
-//  {
-//    $this->forward404Unless($this->getRequestParameter('id'), 'id is mandatory!');
-//
-//    $this->getDocFromRequestOrCreate();
-//  }
-//  
-//  /**
-//   * Gets a UllVentoryItem or creates it according to request param
-//   * 
-//   */
-//  protected function getDocFromRequestOrCreate()
-//  {
-//    if ($id = $this->getRequestParameter('id')) 
-//    {
-//      $this->doc = Doctrine::getTable('UllVentoryItem')->find($id);
-//      $this->forward404Unless($this->doc);
-//    }
-//    else
-//    {
-//      $this->doc = new UllVentoryItem;
-//    }
-//  }
 
   /**
    * Parse given UllEntity::username and return appropriate UllEntity object
@@ -714,6 +582,7 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     return Doctrine::getTable('UllVentoryStatusDummyUser')->findOneByUsername('stored');
   }
 
+  
   /**
    * Set the given user in the form
    * @return none
@@ -760,5 +629,16 @@ class BaseUllVentoryActions extends BaseUllTableToolActions
     
     $this->forward404Unless($this->doc);
   }
+  
+  
+  /**
+   * Configure the ullFilter class name
+   * 
+   * @return string
+   */
+  public function getUllFilterClassName()
+  {
+    return 'ullVentoryFilterForm';
+  }    
   
 }

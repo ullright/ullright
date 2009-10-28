@@ -65,12 +65,19 @@ UllParentEntity:
     # format: usually $username.png
     photo:
       type: string(255)
+    # for clone users
+    parent_ull_user_id:
+      type: integer
   
   relations:
     Superior:
       class: UllUser
       local: superior_ull_user_id
       foreign: id 
+    Parent:
+      class: UllUser
+      local: parent_ull_user_id
+      foreign: id      
     UllJobTitle:
       local: ull_job_title_id
       foreign: id
@@ -306,3 +313,12 @@ UllUserStatus:
     is_active:
       type: boolean
       
+      
+# Users can be cloned to allow them to fulfill multiple functions in a company
+# Example: for the org-chart. One user can be CEO and head of IT at the same time
+UllCloneUser:
+  package: ullCorePLugin.lib.model.doctrine
+  inheritance:
+    extends: UllEntity
+    type: column_aggregation
+    keyValue: clone_user

@@ -25,9 +25,15 @@ abstract class ullGenerator extends ullGeneratorBase
     $rows           = array(),
     $modelName,
     $isBuilt        = false,
-    $formClass
+    $formClass,
+    
+    /**
+     * Provide delete functionality
+     */
+    $allowDelete    = true
     ;
 
+    
   /**
    * @see ullGeneratorBase::__construct()
    */  
@@ -38,7 +44,21 @@ abstract class ullGenerator extends ullGeneratorBase
     $this->buildTableConfig();
     
     $this->buildColumnsConfig();
+    
+    $this->configure();
   }
+  
+  
+  /**
+   * Configures the generator
+   * 
+   * @return none
+   */
+  public function configure()
+  {
+    
+  }
+  
   
   /**
    * Returns true if the current form has some associated i18n objects.
@@ -301,6 +321,12 @@ abstract class ullGenerator extends ullGeneratorBase
     return $defaults;
   }
   
+  
+  /**
+   * Check if there are any columns
+   * 
+   * @return boolean
+   */
   public function hasColumns()
   {
     return (count($this->columnsConfig) > 0) ? true : false;
@@ -317,11 +343,12 @@ abstract class ullGenerator extends ullGeneratorBase
     return $this->columnsConfig->getActiveColumns(); 
   }
   
+  
   /**
-   * Returns the list of columns getActiveColumns() would return but
-   * without the ones where the autoRender flag is set to false.
+   * Get a list of active columnConfigurations that are marked
+   * to be rendered automatically 
    * 
-   * @return array of active columns with autoRender flag set to false
+   * @return array of columnConfigurations
    */
   public function getActiveAutoRenderedColumns()
   {
@@ -337,6 +364,31 @@ abstract class ullGenerator extends ullGeneratorBase
     
     return $columns;
   }
+  
+  
+  /**
+   * Set allow delete flag
+   * 
+   * @param boolean $allowDelete
+   * @return self
+   */
+  public function setAllowDelete($allowDelete)
+  {
+    $this->allowDelete = (boolean) $allowDelete;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get allow delete flag
+   * 
+   * @return boolean
+   */
+  public function getAllowDelete()
+  {
+    return $this->allowDelete;
+  }  
 
   /**
    * tests if a column is enabled

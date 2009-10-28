@@ -17,8 +17,11 @@ class ullTableToolGenerator extends ullGenerator
     $columns = array()
   ;
   
+  
   /**
    * Constructor
+   * 
+   * // TODO: extend parent constructor !!!
    *
    * @param string $modelName
    * @param string $defaultAccess can be "r" or "w" for read or write
@@ -56,6 +59,8 @@ class ullTableToolGenerator extends ullGenerator
     }
     
     $this->buildColumnsConfig();
+    
+    $this->configure();
   }
   
   
@@ -363,6 +368,7 @@ class ullTableToolGenerator extends ullGenerator
     return $this->historyGenerators;
   }
 
+  
   /**
    * Gets the future generators
    *
@@ -375,6 +381,23 @@ class ullTableToolGenerator extends ullGenerator
     return $this->futureGenerators;
   }
 
+  
+  /**
+   * Also build history generators for superVersionable behaviour
+   * 
+   * @see plugins/ullCorePlugin/lib/ullGenerator#buildForm($rows)
+   */
+  public function buildForm($rows)
+  {
+    parent::buildForm($rows);
+  
+    if ($this->isCreateOrEditAction() && $this->isVersionable())
+    {
+      $this->buildHistoryGenerators();
+    }
+  }  
+
+  
   /**
    * Builds the history (and future) generators.
    *

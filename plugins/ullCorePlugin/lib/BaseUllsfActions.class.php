@@ -14,6 +14,7 @@ abstract class BaseUllsfActions extends sfActions
     $uriMemory
   ;
 
+  
   /**
    * Default preExecute method
    *
@@ -24,16 +25,13 @@ abstract class BaseUllsfActions extends sfActions
     sfLoader::loadHelpers('ull');
 
     $this->uriMemory = new UriMemory();
-//    if ($this->getModuleName() != 'ulluser' && $this->getActionName() != 'noaccess')
-//    {
-//      $this->uriMemory->setUri('noaccess', 'ullUser'); 
-//    }
 
     $this->ullpreExecute();
   }
 
+  
   /**
-   * Child actions should overwrite ullpreExecute()
+   * Template function for child actions
    *
    * @return none
    */
@@ -41,6 +39,7 @@ abstract class BaseUllsfActions extends sfActions
   {
   }
 
+  
   /**
    * access check (group based)
    * checks if the currently logged in user is member of the given group

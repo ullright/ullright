@@ -64,6 +64,18 @@
 <target>Anzahl</target>
 </trans-unit>
 
+<trans-unit id="12">
+<source>Inventory origin dummy user</source>
+<target>Inventur Herkunfts-Dummybenutzer</target>
+</trans-unit>
+
+<trans-unit id="13">
+<source>Inventory status dumy user</source>
+<target>Inventur Status-Dummybenutzer</target>
+</trans-unit>
+
+
+
 <!-- Column names -->
 <trans-unit id="1001">
 <source>Manufacturer</source>
@@ -150,6 +162,8 @@
 <target>Lieferdatum</target>
 </trans-unit>
 
+
+
 <!-- Help messages -->
 <trans-unit id="2001">
 <source>Set the actual delivery date in case of a delivery</source>
@@ -176,6 +190,8 @@
 <source>New owner</source>
 <target>Neuer Besitzer</target>
 </trans-unit>
+
+
 
 <!--  Admin index -->
 <trans-unit id="4001">

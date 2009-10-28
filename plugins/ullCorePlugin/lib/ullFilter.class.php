@@ -14,14 +14,6 @@ class ullFilter
     $filters = array()
   ;
   
-/**
- * gets symfony context objects
- * @param none
- * @return none
- */ 
-//  public function __construct() 
-//  {    
-//  }  
 
 /**
  * Add a filter setting
@@ -41,9 +33,9 @@ class ullFilter
  */ 
   public function getFilters() 
   {
-    
     return $this->filters;
   }
+
   
 /**
  * Return html filter status row
@@ -51,27 +43,40 @@ class ullFilter
  */
   public function getHtml() 
   {
-    if ($this->filters) {
-      $return = '<div class="ull_filter">';
+    $return = '';
+    
+    if ($this->filters) 
+    {
+      $return .= '<div class="ull_filter">';
       
       $return .= __('Filter settings', null, 'common') . ': ';
       
       $return .= "<ul>\n";
       
-//      ullCoreTools::printR($this->filters);
-      
-      foreach ($this->filters as $request_param => $filter) {
-          $return .= '<li class="color_light_bg">';
-          $return .= $filter;
-          $return .= ' ';
-          $return .= ull_link_to(ull_image_tag('delete', array(), 12, 12), array($request_param => ''));
-          $return .= '</li>'; 
+      foreach ($this->filters as $request_param => $filter) 
+      {
+        $return .= '<li class="color_light_bg">';
+        $return .= $filter;
+        $return .= ' ';
+        $return .= ull_link_to(ull_image_tag('delete', array(), 12, 12), array($request_param => ''));
+        $return .= '</li>'; 
       }
       $return .= '</ul>';
       $return .= '</div>';
-      
-      return $return;
     }
+    
+    return $return;
   }   
+  
+  
+  /**
+   * String representation
+   * 
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->getHtml();
+  }  
   
 }

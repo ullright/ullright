@@ -10,7 +10,7 @@ UllUser:
     entry_date:         "2009-01-01"
     deactivation_date:  "2999-09-09"
     separation_date:    "2888-08-08"
-    phone_extension:    123
+    phone_extension:    1111
     is_show_extension_in_phonebook: true
     fax_extension:      3333
     is_show_fax_extension_in_phonebook: false
@@ -36,12 +36,20 @@ UllUser:
     Creator:            admin_user
     Updator:            admin_user
     photo:              test_user.png
-    namespace:          test
     UllLocation:        new_york
     phone_extension:    2222
     is_show_extension_in_phonebook: false
     fax_extension:      4444
-    is_show_fax_extension_in_phonebook: true
+    is_show_fax_extension_in_phonebook: true    
+    namespace:          test
+    
+UllCloneUser:
+  admin_clone:
+    Parent:             admin_user
+    UllLocation:        new_york
+    phone_extension:    7777
+    comment:            admin_clone_user
+    namespace:          test 
 
 UllGroup:
   admin_group:

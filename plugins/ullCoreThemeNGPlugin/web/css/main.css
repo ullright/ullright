@@ -403,7 +403,13 @@ ul.list_action_buttons li {
   padding: .2em;
 }
 
+#edit_versions {
+  margin-top: 4em;
+}
 
+#edit_future_versions {
+  margin-top: 4em;
+}
 
 
 /*

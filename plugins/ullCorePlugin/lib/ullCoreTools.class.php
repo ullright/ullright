@@ -227,5 +227,22 @@ class ullCoreTools
       return $file;
     }
   }
+  
+
+  /**
+   * Add params to an uri
+   * 
+   * Automatically detects if we need ? or & as separator
+   * 
+   * @param string $uri
+   * @param string $params
+   * @return string
+   */
+  public static function appendParamsToUri($uri, $params)
+  {
+    $separator = (strpos($uri, '?')) ? '&' : '?';
+
+    return $uri . $separator . $params;
+  } 
 
 }

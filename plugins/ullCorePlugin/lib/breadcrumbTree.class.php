@@ -110,8 +110,17 @@ class breadcrumbTree
     
 //    return '<div class="breadcrumb">'.implode(' » ', $breadcrumbTreeReturn).'</div>';
     
-  }   
+  }  
+
+  
+  /**
+   * String representation
+   * 
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->getHtml();
+  }
   
 }
-
-?>

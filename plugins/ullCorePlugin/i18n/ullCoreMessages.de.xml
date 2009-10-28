@@ -140,7 +140,10 @@
         <target>Feldtypen</target>
       </trans-unit>
       
+      
+      
       <!--  ullPhoto -->
+      
       <trans-unit id="100">
         <source>Edit photo</source>
         <target>Foto bearbeiten</target>
@@ -217,6 +220,16 @@ Gültige Dateitypen sind jpg und png.</target>
         <source>Upload user photos</source>
         <target>Benutzer-Fotos hochladen</target>
       </trans-unit>   
+      
+      
+      <!--  UllEntityTypes -->
+      
+       <trans-unit id="115">
+        <source>Clone user</source>
+        <target>Geklonter Benutzer</target>
+      </trans-unit>   
+            
+      
       
     </body>
   </file>

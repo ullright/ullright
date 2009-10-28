@@ -1,19 +1,13 @@
-<?php echo $sf_data->getRaw('breadcrumb_tree')->getHtml() ?>
-
-<?php $generator = $sf_data->getRaw('generator') ?>
-
-<?php $editConfig = TableToolEditConfig::loadClass($generator->getModelName()) //TODO: this should be loaded in the action !!! ?>
+<?php echo $breadcrumb_tree ?>
 
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
   <?php echo $generator->getForm()->renderGlobalErrors() ?>
   </div>  
-  <br /><br />
 <?php endif; ?>
 
-<?php echo form_tag($sf_context->getModuleName() . '/edit?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0), 
-    array('id' => 'ull_tabletool_form')) ?>
+<?php echo form_tag($form_uri, array('id' => 'ull_tabletool_form')) ?>
 
 <div class="edit_container">
 <table class="edit_table">
@@ -64,14 +58,6 @@
       <li>
         <?php echo submit_tag(__('Save', null, 'common')) ?>
       </li>
-      <?php
-        if (isset($editConfig) && $editConfig->hasActionButtons())
-        {
-          echo '<li>';
-          echo $editConfig->getActionButtons();
-          echo '</li>';
-        }
-        ?>
     </ul>
   </div>
 
@@ -80,7 +66,7 @@
       <li>
     <?php if ($generator->getRow()->exists()): ?>    
           <?php 
-            if (!isset($editConfig) || (isset($editConfig) && $editConfig->allowDelete()))
+            if ($generator->getAllowDelete())
             {
 	            echo link_to(
 	              __('Delete', null, 'common')
@@ -104,18 +90,13 @@
   echo ull_js_observer("ull_tabletool_form");
 ?>  
 
-<br />
-<br />
-
-<?php
-
-  if ($generator->hasFutureVersions())
-  {
-    echo '<div id="edit_future_versions">';
-    echo '<br /><h2>'. __('Scheduled updates', null, 'common') . '</h2>';
+<?php if ($generator->hasFutureVersions()): ?>
+  <div id="edit_future_versions">
+  <h2><?php echo __('Scheduled updates', null, 'common') ?></h2>
     
+  <?php 
     $fg = $generator->getFutureGenerators();
-    
+      
     $cnt = count($fg);
     for ($i = 0; $i < $cnt; $i++)
     { 
@@ -125,10 +106,11 @@
       echo '<br /><h4>' . ull_format_date($fg[$i]->getScheduledUpdateDate()) . '</h4>' .
             //__('Future version ', null, 'common') . ($i + 1) . ' - ' .
             __('by', null, 'common') . ' ' . $fg[$i]->getUpdator() . ' - ' .
-             ull_link_to(ull_image_tag('delete')
-              , 'ullTableTool/deleteFutureVersion?table=' . $table_name .
-                    '&id=' . $id['id'] .
-                    '&version=' . $id['version']
+             ull_link_to(ull_image_tag('delete'), 
+             ullCoreTools::appendParamsToUri(
+              $delete_future_version_base_uri,
+                    'id=' . $id['id'] .
+                    '&version=' . $id['version'])
               , 'confirm='.__('Are you sure?', null, 'common')
               ) .
             '<br /><br />';
@@ -137,13 +119,15 @@
       echo '</tbody></table>';
       echo '</div><br />';
     }
-    echo '</div>';
-  }
-  if ($generator->hasGeneratedVersions())
-  {
-    echo '<div id="edit_versions">';
-    echo '<br /><h2>'. __('Version history', null, 'common') . '</h2>';
-    
+  ?>
+  </div>
+<?php endif ?>
+
+<?php if ($generator->hasGeneratedVersions()): ?>
+  <div id="edit_versions">
+  <h2><?php echo __('Version history', null, 'common') ?></h2>
+  
+  <?php   
     $hg = $generator->getHistoryGenerators();
     $cnt = count($hg);
     for ($i = $cnt; $i > 0; $i--)
@@ -165,6 +149,6 @@
       echo '</tbody></table>';
       echo '</div><br />';
     }
-    echo '</div>';
-  }
-?>
+  ?>
+  </div>
+<?php endif ?>

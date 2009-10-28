@@ -11,7 +11,7 @@ abstract class BaseUllEntity extends UllParentEntity
         $this->setTableName('ull_entity');
         $this->hasColumn('type', 'string', 255, array('type' => 'string', 'length' => 255));
 
-        $this->setSubClasses(array('UllVentoryStatusDummyUser' => array('type' => 'status_dummy'), 'UllVentoryOriginDummyUser' => array('type' => 'origin_dummy'), 'UllUser' => array('type' => 'user'), 'UllGroup' => array('type' => 'group')));
+        $this->setSubClasses(array('UllVentoryStatusDummyUser' => array('type' => 'status_dummy'), 'UllVentoryOriginDummyUser' => array('type' => 'origin_dummy'), 'UllUser' => array('type' => 'user'), 'UllGroup' => array('type' => 'group'), 'UllCloneUser' => array('type' => 'clone_user')));
     }
 
     public function setUp()

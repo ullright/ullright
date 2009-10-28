@@ -8,7 +8,7 @@
     <div id="tc_tasks">
       <h3><?php echo __('User and Groups') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllUser', 'ullCore', 'ull_user_24x24') ?></li>
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_user_24x24', 'ullUser/list', __('Manage', null, 'common') . ' ' . __('Users', null, 'ullCoreMessages')) ?></li>      
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllGroup', 'ullCore', 'ull_group_24x24') ?></li>
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllPermission', 'ullCore', 'ull_permission_24x24') ?></li>
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEntityGroup', 'ullCore', 'ull_group_24x24') ?></li>
@@ -69,7 +69,7 @@
     
     <div id="tc_search">
       <div class="tc_box color_medium_bg">
-        <?php echo form_tag('ullTableTool/list?table=UllUser'); ?>
+        <?php echo form_tag('ullUser/list'); ?>
         <table>
           <tr>
             <td>

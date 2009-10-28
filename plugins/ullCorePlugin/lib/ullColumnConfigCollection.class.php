@@ -36,7 +36,6 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   private
     $blacklist = array(
           'namespace',
-          'type',
           'version',
     ),
     // columns which should be displayed at last position

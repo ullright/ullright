@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(16, new lime_output_color);
+$t = new lime_test(18, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -55,3 +55,8 @@ $t->diag('isoTimeToHumanTime()');
   $t->is(ullCoreTools::isoTimeToHumanTime('00:00:00'), '0:00', 'Returns the correct string');
   $t->is(ullCoreTools::isoTimeToHumanTime('01:01:00'), '1:01', 'Returns the correct string');
   $t->is(ullCoreTools::isoTimeToHumanTime('10:10:00'), '10:10', 'Returns the correct string');
+
+$t->diag('appendParamsToUri()');
+  $t->is(ullCoreTools::appendParamsToUri('ullUser/edit', 'id=2'), 'ullUser/edit?id=2', 'Creates the correct uri');
+  $t->is(ullCoreTools::appendParamsToUri('ullTableTool/edit?table=UllLocation', 'id=2'), 'ullTableTool/edit?table=UllLocation&id=2', 'Creates the correct uri');
+  
