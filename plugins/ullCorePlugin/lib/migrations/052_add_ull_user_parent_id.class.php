@@ -5,7 +5,8 @@ class AddUllUserParentId extends Doctrine_Migration
   public function up()
   {
     $this->addColumn('ull_entity', 'parent_ull_user_id', 'integer', array('length' => 2147483647));
-    $this->addColumn('ull_entity_version', 'parent_ull_user_id', 'integer', array('length' => 2147483647));
+    // we did't write migrations for the useless ull_entity_version table, so the customers don't have it
+//    $this->addColumn('ull_entity_version', 'parent_ull_user_id', 'integer', array('length' => 2147483647));
     $this->addColumn('ull_user_version', 'parent_ull_user_id', 'integer', array('length' => 2147483647));
     $this->addColumn('ull_group_version', 'parent_ull_user_id', 'integer', array('length' => 2147483647));
     $this->addColumn('ull_ventory_origin_dummy_user_version', 'parent_ull_user_id', 'integer', array('length' => 2147483647));
@@ -20,7 +21,8 @@ class AddUllUserParentId extends Doctrine_Migration
   public function down()
   {
     $this->removeColumn('ull_entity', 'parent_ull_user_id');
-    $this->removeColumn('ull_entity_version', 'parent_ull_user_id');
+    // we did't write migrations for the useless ull_entity_version table, so the customers don't have it
+//    $this->removeColumn('ull_entity_version', 'parent_ull_user_id');
     $this->removeColumn('ull_user_version', 'parent_ull_user_id');
     $this->removeColumn('ull_group_version', 'parent_ull_user_id'); 
     $this->removeColumn('ull_ventory_origin_dummy_user_version', 'parent_ull_user_id');
