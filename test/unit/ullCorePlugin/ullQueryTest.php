@@ -8,7 +8,7 @@ class myTestCase extends lime_test {}
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(13, new lime_output_color, $configuration);
+$t = new myTestCase(15, new lime_output_color, $configuration);
 //$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 //$t->setFixturesPath($path);
 
@@ -127,9 +127,30 @@ $t->diag('addWhere()');
     $q->getSql(),
     "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? AND t.my_email = ? AND u3.lang = ? AND u3.name = ? ORDER BY t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
-  );  
+  );
 
+  $t->isa_ok($q->execute(), 'Doctrine_Collection', 'Successfully executes the query');
+  $t->ok(is_array($q->execute(null, Doctrine::HYDRATE_ARRAY)), 'Successfully executes the query in array hydration mode');
+
+  
 //var_dump($q->getSql());
 //var_dump($q->getDoctrineQuery()->getParams());
 //var_dump($q->execute(null, Doctrine::HYDRATE_ARRAY));
+//var_dump($q->execute()->toArray(false));
+
+
+$t->diag('Doctrine bug with UllUser and SELECT on >= 2 relations');  
+  
+// Uncaught exception 'Doctrine_Record_UnknownPropertyException' with message 'Unknown record property / related component "ull_department_id" on "UllUser"' in /var/www/ullright/plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Record/Filter/Standard.php:44
+//$q = new Doctrine_Query;
+//$q
+//  ->select('u.last_name, c.*, d.*')
+//  ->from('UllUser u, u.UllCompany c, u.UllDepartment d')
+//;
+//
+//$q->execute();
+
+
+
+
         

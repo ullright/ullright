@@ -53,6 +53,7 @@ all:
   ull_user:
     display_name_length_limit:              22
     display_name_first_name_length_limit:   10
+    clone_user_columns:                     [ 'ull_company_id', 'ull_location_id', 'ull_department_id', 'ull_job_title_id', 'superior_ull_user_id', 'ull_user_status_id', 'comment' ]
     
   ull_photo:
     upload_path:    /uploads/userPhotos

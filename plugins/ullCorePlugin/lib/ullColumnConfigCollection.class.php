@@ -28,12 +28,8 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     $relations = array(),
     $modelName,
     $defaultAccess,     
-    $requestAction
-  ;
+    $requestAction,
     
-  //These defaults are private because inheriting classes
-  //should use appropriate functions instead of overriding
-  private
     $blacklist = array(
           'namespace',
           'version',

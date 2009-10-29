@@ -55,7 +55,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       $this->allow_edit = true;
     }
     
-    $this->generator = new ullTableToolGenerator('UllUser', 'r');
+    $this->generator = new ullTableToolGenerator('UllEntity', 'r');
     $this->getUserFromRequest();
     $this->generator->buildForm($this->user);
   }  
@@ -389,16 +389,6 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       $request->setParameter('option', 'noaccess');
       $this->forward('ullUser', 'login');
     }
-  }
-  
-  
-  /**
-   * Shortcut method to set a template of ullTableTool
-   * @param string $name      name of the template. Examples: "list", "edit", ...
-   */
-  protected function setTableToolTemplate($name)
-  {
-    $this->setTemplate(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/templates/' . $name);    
   }
   
   

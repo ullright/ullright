@@ -30,15 +30,26 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setShowSpacerAfter(true)
     ;
       
-    $this['ull_company_id']->setWidgetOption('add_empty', true);
-    $this['ull_location_id']->setWidgetOption('add_empty', true);
-    $this['ull_department_id']->setWidgetOption('add_empty', true);
+    $this['ull_company_id']
+      ->setWidgetOption('add_empty', true)
+      ->setOption('show_search_box', true)
+    ;
+    $this['ull_location_id']
+      ->setWidgetOption('add_empty', true)
+      ->setOption('show_search_box', true)
+    ;
+    $this['ull_department_id']
+      ->setWidgetOption('add_empty', true)
+      ->setOption('show_search_box', true)
+    ;
     $this['ull_job_title_id']
       ->setLabel(__('Job title', null, 'ullCoreMessages'))
       ->setWidgetOption('add_empty', true)
+      ->setOption('show_search_box', true)
     ;
     $this['superior_ull_user_id']
       ->setWidgetOption('add_empty', true)
+      ->setOption('show_search_box', true)
       ->setShowSpacerAfter(true)
     ;
     

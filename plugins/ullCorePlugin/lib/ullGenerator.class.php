@@ -25,7 +25,7 @@ abstract class ullGenerator extends ullGeneratorBase
     $rows           = array(),
     $modelName,
     $isBuilt        = false,
-    $formClass,
+    $formClass      = 'ullGeneratorForm',
     
     /**
      * Provide delete functionality
@@ -433,6 +433,31 @@ abstract class ullGenerator extends ullGeneratorBase
         $form->getWidgetSchema()->setLabel($columnName, $label . ' *');  
       }
     }
+  }
+  
+  
+  /**
+   * Set the class name of the sfForm to use
+   * 
+   * @param string $name
+   * @return self
+   */
+  public function setFormClassName($name)
+  {
+    $this->formClass = $name;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get the class name of the sfForm to use
+   * 
+   * @return string
+   */
+  public function getFormClassName()
+  {
+    return $this->formClass;      
   }
   
 }

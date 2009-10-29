@@ -327,5 +327,30 @@ class ullGeneratorForm extends sfFormDoctrine
       array('invalid' => __('Invalid. The begin time must be before the end time', null, 'common'))
     ));
   }
+  
+
+  /**
+   * Set the columnsConfig
+   * 
+   * @param ullColumnConfigCollection
+   * @return self
+   */
+  public function setColumnsConfig($columnsConfig)
+  {
+    $this->columnsConfig = $columnsConfig;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get the columnsConfig
+   * 
+   * @return ullColumnConfigCollection
+   */
+  public function getColumnsConfig()
+  {
+    return $this->columnsConfig;
+  }
 
 }

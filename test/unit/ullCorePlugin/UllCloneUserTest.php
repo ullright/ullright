@@ -9,14 +9,17 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(6, new lime_output_color, $configuration);
+$t = new myTestCase(10, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
 $t->begin('Access to parent values via UllCloneUser object getters');
   $cloneUser = Doctrine::getTable('UllCloneUser')->findOneByComment('admin_clone_user');
   $t->is($cloneUser->phone_extension, '7777', 'returns the correct value for a native data');
+  $t->is($cloneUser->UllJobTitle->name, 'Head of marketing', 'returns the correct value for relation native data');
   $t->is($cloneUser->fax_extension, '3333', 'returns the correct value for data retrieved from the parent');
+  $t->is($cloneUser->UllDepartment->name, 'Information Technology', 'returns the correct value for relation data retrieved from the parent');  
+  
   
   
 $t->diag('Access to parent values via UllEntity object->toArray()');
@@ -30,11 +33,13 @@ $t->diag('Access to parent values via a query using select and basing on UllEnti
   $q = new Doctrine_Query;
   $q
     ->select('u.phone_extension, u.fax_extension')
+    ->addSelect('u.*') // possible doctrine bug, see ullQueryTest
     ->from('UllEntity u')
     ->where('u.comment = ?', 'admin_clone_user')
   ;
   $cloneUser = $q->fetchOne();
   
   $t->is($cloneUser->phone_extension, '7777', 'returns the correct value for native data');
-  $t->is($cloneUser->fax_extension, '3333', 'returns the correct value for data retrieved from the parent');  
-  
+  $t->is($cloneUser->UllJobTitle->name, 'Head of marketing', 'returns the correct value for native relation data');
+  $t->is($cloneUser->fax_extension, '3333', 'returns the correct value for data retrieved from the parent');
+  $t->is($cloneUser->UllDepartment->name, 'Information Technology', 'returns the correct value for relation data retrieved from the parent');

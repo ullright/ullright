@@ -224,12 +224,28 @@ Gültige Dateitypen sind jpg und png.</target>
       
       <!--  UllEntityTypes -->
       
-       <trans-unit id="115">
+       <trans-unit id="200">
         <source>Clone user</source>
-        <target>Geklonter Benutzer</target>
+        <target>Klon-Benutzer</target>
       </trans-unit>   
-            
+
+
+      <!--  UllCloneUsers -->
+
+       <trans-unit id="300">
+        <source>Clone users</source>
+        <target>Klon-Benutzer</target>
+      </trans-unit>  
       
+       <trans-unit id="301">
+        <source>Original user</source>
+        <target>Original-Benutzer</target>
+      </trans-unit> 
+      
+       <trans-unit id="302">
+        <source>Clone users make it possible to define multiple jobtitles / positions for one user in a company. Simply enter the values which differ. All other values are taken from the original user account.</source>
+        <target>Klon-Benutzer ermöglichen es mehrere Funktionen für einen Benutzer zu definieren. Einfach die Werte eingeben, die sich vom Original-Benutzer unterscheiden. Alle anderen Werte werden vom Original-Benutzer übernommen.</target>
+      </trans-unit> 
       
     </body>
   </file>

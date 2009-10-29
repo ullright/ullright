@@ -117,6 +117,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->generator = $this->getEditGenerator();
     
     $row = $this->getRowFromRequestOrCreate();
+    
     $this->generator->buildForm($row);
     
     $this->setVar('generator', $this->generator, true);    
@@ -125,8 +126,6 @@ abstract class BaseUllGeneratorActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
-//      var_dump($request->getParameterHolder()->getAll());
-      
       if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id))))
       {
         $this->redirect($this->getUriMemory()->getAndDelete('list'));
@@ -450,5 +449,15 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
   }
+  
+  
+  /**
+   * Shortcut method to set a template of ullTableTool
+   * @param string $name      name of the template. Examples: "list", "edit", ...
+   */
+  protected function setTableToolTemplate($name)
+  {
+    $this->setTemplate(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/templates/' . $name);    
+  }  
   
 }

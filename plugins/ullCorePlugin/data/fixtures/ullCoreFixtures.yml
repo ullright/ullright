@@ -47,6 +47,7 @@ UllCloneUser:
   admin_clone:
     Parent:             admin_user
     UllLocation:        new_york
+    UllJobTitle:        ull_job_title_head_of_marketing
     phone_extension:    7777
     comment:            admin_clone_user
     namespace:          test 
@@ -304,6 +305,9 @@ UllJobTitle:
   programmer_jt:
     name:  Programmer
     namespace:    test
+  ull_job_title_head_of_marketing:
+    name:  Head of marketing
+    namespace:    test    
 
 
 UllCompany:
