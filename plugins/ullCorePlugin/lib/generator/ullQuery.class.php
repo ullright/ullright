@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /**
  * ullQuery is a wrapper for Doctrine_Query which allows giving related columns
@@ -96,22 +96,59 @@ class ullQuery
     return $this;
   }
   
+  /**
+   * Adds an ORDER BY query in front of the existing query part
+   * 
+   * e.g.
+   * ORDER BY last_name, first_name
+   * gets transformed to
+   * ORDER BY location_name, last_name, first_name
+   * 
+   * @param $orderPrefix the ORDER BY query part to add
+   * @return unknown_type
+   */
+  public function addOrderByPrefix($orderPrefix)
+  {
+    return $this->addOrderBy($orderPrefix, true);
+  }
   
   /**
    * Add ORDER BY
    * 
-   * @param string $orderBy
+   * @param string $orderBy the ORDER BY query part to add
+   * @param boolean $addAsPrefix if true, adds $orderBy in front of the existing query part
    * @return self
    */
-  public function addOrderBy($orderBy)
+  public function addOrderBy($orderBy, $addAsPrefix = false)
   {
     $orderByArray = ullGeneratorTools::arrayizeOrderBy($orderBy);
-
+    
+    //if we are adding prefixes, we need to invert
+    //the new ORDER BY parts because we insert not
+    //at the end but in front
+    if($addAsPrefix && count($orderByArray) >= 2)
+    {
+      $orderByArray = array_reverse($orderByArray);
+    }
+    
     foreach ($orderByArray as $orderBy)
     {
       if ($orderByColumn = $this->relationStringToDoctrineQueryColumn($orderBy['column']))
       {
-        $this->q->addOrderBy($orderByColumn . ' ' . $orderBy['direction']);        
+        $newOrderString = $orderByColumn . ' ' . $orderBy['direction'];
+        
+        if ($addAsPrefix)
+        {
+            //retrieve the existing ORDER BY query part,
+            //and add the new token in front
+            $existingOrderString = implode(', ', $this->q->getDqlPart('orderby'));
+            $this->q->orderBy($newOrderString);
+            $this->q->addOrderBy($existingOrderString);
+        }
+        else
+        {
+          $this->q->addOrderBy($newOrderString);
+        }
       }
     }
     
