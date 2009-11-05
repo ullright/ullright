@@ -15,6 +15,19 @@ class ullMetaWidgetTextarea extends ullMetaWidgetString
   
   protected function configureWriteMode()
   {
+    if ($cols = $this->columnConfig->getWidgetOption('cols'))
+    {
+      $this->columnConfig->setWidgetAttribute('cols', $cols);
+      $this->columnConfig->removeWidgetOption('cols');
+    }
+    
+    if ($rows = $this->columnConfig->getWidgetOption('rows'))
+    {
+      $this->columnConfig->setWidgetAttribute('rows', $rows);
+      $this->columnConfig->removeWidgetOption('rows');
+    }    
+    
+    
     if ($this->columnConfig->getWidgetAttribute('cols') == null)
     {
       $this->columnConfig->setWidgetAttribute('cols', '58');        
