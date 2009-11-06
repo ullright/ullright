@@ -240,6 +240,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
 //          $cols[$key] = 'Translation.' . $col;
 //        }
 //      }
+
       ullGeneratorTools::doctrineSearch($this->q->getDoctrineQuery(), $search, $this->getSearchColumnsForFilter());
     }
 

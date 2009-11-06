@@ -74,6 +74,7 @@
         <target>Mein spezielles String label</target>
       </trans-unit>
 
+
       <!-- table config -->
       <trans-unit id="20">
         <source>Group memberships</source>
@@ -139,7 +140,11 @@
         <source>Field types</source>
         <target>Feldtypen</target>
       </trans-unit>
-      
+
+      <trans-unit id="33">
+        <source>Searches for name, username and email</source>
+        <target>Suche nach Name, Benutzername und E-Mail Adresse</target>
+      </trans-unit>
       
       
       <!--  ullPhoto -->
