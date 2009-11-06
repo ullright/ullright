@@ -22,10 +22,11 @@
       <div class='edit_action_buttons_left'>
         <?php echo submit_tag(__('Log in')); ?>
       </div>
-            <div class='edit_action_buttons_right'>
+      
+      <div class='edit_action_buttons_right'>
         <ul>
           <li>
-          <?php echo ull_link_to(__('Cancel', null, 'common'), '@homepage') ?>
+          <?php //echo ull_link_to(__('Cancel', null, 'common'), '@homepage') ?>
           </li>
         </ul>
       </div>
