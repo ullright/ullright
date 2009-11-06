@@ -14,6 +14,8 @@ class UllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     $this->disable('type');
     
     $this['email']->setShowSpacerAfter(true);
+    
+    $this['username']->setValidatorOption('required', true);
   }  
  
 }
