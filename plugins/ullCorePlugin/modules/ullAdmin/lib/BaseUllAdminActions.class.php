@@ -18,6 +18,8 @@ class BaseUllAdminActions extends ullsfActions
     $this->breadcrumbTree = new ullAdminBreadcrumbTree;
     
     $this->form = new ullTableToolFilterForm;
+    
+    $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
   }
   
 }

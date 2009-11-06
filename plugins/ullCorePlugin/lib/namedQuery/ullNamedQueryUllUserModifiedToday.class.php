@@ -15,9 +15,9 @@ class ullNamedQueryUllUserModifiedToday extends ullNamedQuery
     $this->identifier = 'modified_today';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
-    $q->addWhere('x.updated_at LIKE ?', date('Y-m-d%'));
+    $q->addWhere('updated_at LIKE ?', date('Y-m-d%'));
   }
   
 }

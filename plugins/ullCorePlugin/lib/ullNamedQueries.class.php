@@ -164,4 +164,15 @@ abstract class ullNamedQueries extends ullNamedQueryCommon
 
     return $this;
   }
+  
+  
+  /**
+   * String representation
+   * 
+   * @return string
+   */
+  public function __toString()
+  {
+    return (string) $this->renderList();
+  }
 }

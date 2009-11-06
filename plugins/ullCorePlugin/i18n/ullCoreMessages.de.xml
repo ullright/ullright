@@ -247,6 +247,26 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Klon-Benutzer ermöglichen es mehrere Funktionen für einen Benutzer zu definieren. Einfach die Werte eingeben, die sich vom Original-Benutzer unterscheiden. Alle anderen Werte werden vom Original-Benutzer übernommen.</target>
       </trans-unit> 
       
+      
+      <!--  UllUser named queries -->
+
+      <trans-unit id="400">
+        <source>All active users</source>
+        <target>Alle aktiven Benutzer</target>
+      </trans-unit>  
+      
+      <trans-unit id="401">
+        <source>All inactive users</source>
+        <target>Alle inaktiven Benutzer</target>
+      </trans-unit>    
+      
+      <trans-unit id="402">
+        <source>All users modified today</source>
+        <target>Alle heute veränderten Benutzer</target>
+      </trans-unit>  
+      
+            
+      
     </body>
   </file>
 </xliff>

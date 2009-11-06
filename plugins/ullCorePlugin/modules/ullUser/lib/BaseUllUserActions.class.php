@@ -24,6 +24,8 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   {
     $this->checkAccess('Masteradmins');
     
+    $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
+    
     parent::executeList($request);
 
     $this->setTableToolTemplate('list');

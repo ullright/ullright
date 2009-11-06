@@ -15,9 +15,9 @@ class ullNamedQueryUllUserAllInactive extends ullNamedQuery
     $this->identifier = 'all_inactive';
   }
   
-  public function modifyQuery(Doctrine_Query $q)
+  public function modifyQuery($q)
   {
-    $q->addWhere('UllEntity->UllUserStatus->slug <> ?', 'active');
+    $q->addWhere('UllUserStatus->slug <> ?', 'active');
   }
   
 }

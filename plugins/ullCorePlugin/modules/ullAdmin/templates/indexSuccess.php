@@ -103,10 +103,11 @@
         <h3>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
-        <!-- empty ul is not xhtml compliant 
         <ul>
+          <li>
+            <?php echo $named_queries ?>
+          </li>
         </ul>
-        -->
       </div>
       <!-- 
       <div class="tc_query_box color_light_bg">
