@@ -54,23 +54,23 @@
 </trans-unit>
 
 <trans-unit id="62">
-<source>Current superior</source>
-<target>Derzeitiger Vorgesetzter</target>
+<source>Superior until now</source>
+<target>Bisheriger Vorgesetzter</target>
 </trans-unit>
 
 <trans-unit id="63">
-<source>Replacing superior</source>
+<source>Future superior</source>
 <target>Zukünftiger Vorgesetzter</target>
 </trans-unit>
 
 <trans-unit id="64">
-<source>The replacing superior must be different from the old superior.</source>
+<source>The future superior must be different from the superior until now.</source>
 <target>Der zukünftige Vorgesetze muss sich vom bisherigen unterscheiden.</target>
 </trans-unit>
 
 <trans-unit id="65">
 <source>There are no subordinated users for the given superior.</source>
-<target>Zu dem angegeben Vorgesetzen konnten keine Benutzer gefunden werden.</target>
+<target>Zu dem angegebenen Vorgesetzen konnten keine Benutzer gefunden werden.</target>
 </trans-unit>
 
 <trans-unit id="66">

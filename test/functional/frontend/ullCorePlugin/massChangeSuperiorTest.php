@@ -16,15 +16,15 @@ $b
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'massChangeSuperior')
   ->responseContains('Superior mass change')
-  ->responseContains('Current superior')
-  ->responseContains('Replacing superior')
+  ->responseContains('Superior until now')
+  ->responseContains('Future superior')
 ;
 
 $b
   ->diag('set invalid superior')
   ->setField('fields[old_superior]', 2)
   ->setField('fields[new_superior]', 0)
-  ->click('Save change')
+  ->click('Save')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'massChangeSuperior')
@@ -32,16 +32,25 @@ $b
 ;
 
 $b
+  ->diag('test required')
+  ->setField('fields[old_superior]', 2)
+  ->setField('fields[new_superior]', '')
+  ->click('Save')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullUser')
+  ->isRequestParameter('action', 'massChangeSuperior')
+  ->responseContains('Required.')
+;
+
+$b
   ->diag('set the same current and replacing superior')
   ->setField('fields[old_superior]', 2)
   ->setField('fields[new_superior]', 2)
-  ->click('Save change')
-  ->isRedirected()
-  ->followRedirect()
+  ->click('Save')
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'massChangeSuperiorSave')
-  ->responseContains('The replacing superior must be different from the old superior.')
+  ->isRequestParameter('action', 'massChangeSuperior')
+  ->responseContains('The future superior must be different from the superior until now.')
 ;
 
 $b
@@ -50,12 +59,12 @@ $b
   ->isStatusCode(200)
   ->setField('fields[old_superior]', 2)
   ->setField('fields[new_superior]', 1)
-  ->click('Save change')
+  ->click('Save')
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'massChangeSuperiorSave')
+  ->isRequestParameter('action', 'massChangeSuperior')
   ->responseContains('There are no subordinated users for the given superior.')
 ;
 
@@ -65,11 +74,11 @@ $b
   ->isStatusCode(200)
   ->setField('fields[old_superior]', 1)
   ->setField('fields[new_superior]', 2)
-  ->click('Save change')
+  ->click('Save')
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullUser')
-  ->isRequestParameter('action', 'massChangeSuperiorSave')
+  ->isRequestParameter('action', 'massChangeSuperior')
   ->responseContains('The superior was successfully replaced for 2 users.')
 ;

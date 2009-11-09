@@ -165,6 +165,8 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_user_mass_change_superior');
 
     $this->form = new ullMassChangeSuperiorForm();
+    
+    $this->breadcrumbForMassChangeSuperior();
 
     if ($request->isMethod('post'))
     {
@@ -175,33 +177,32 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         $newsup = $this->form->getValue('new_superior');
         $oldsup = $this->form->getValue('old_superior');
 
-        if ($newsup == $oldsup)
-        {
-          $this->redirect('ullUser/massChangeSuperiorSave?' . http_build_query(array('ok' => 0)));
-        }
-
-        $cnt = 0;
+        $count = 0;
         $users = Doctrine::getTable('UllUser')->findBySuperiorUllUserId($oldsup);
         foreach ($users as $user)
         {
           $user->superior_ull_user_id = $newsup;
           $user->save();
-          $cnt++;
+          $count++;
         }
-        $this->redirect('ullUser/massChangeSuperiorSave?' . http_build_query(array('ok' => 1, 'cnt' => $cnt)));
-      }
-    }
-  }
-
   
-  public function executeMassChangeSuperiorSave(sfRequest $request)
-  {
-    $this->checkPermission('ull_user_mass_change_superior');
-
-    $this->ok = $request->getParameter('ok');
-    if ($this->ok == 1)
-    {
-      $this->cnt = $request->getParameter('cnt');
+        if ($count)
+        {
+          $this->getUser()->setFlash('message',
+            format_number_choice('[1]The superior was successfully replaced for one user.' .
+              '|(1,+Inf]The superior was successfully replaced for %1% users.',
+              array('%1%' => $count), $count)
+          );
+        }
+        else
+        {
+          $this->getUser()->setFlash('message',        
+            __('There are no subordinated users for the given superior.')
+          );
+        }
+        
+        $this->redirect('ullUser/massChangeSuperior');
+      }
     }
   }
 
@@ -487,4 +488,15 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->breadcrumbTree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $this->breadcrumbTree->add(__('Advanced search'), 'ullUser/search');
   }
+  
+  /**
+   * Handles breadcrumb for mass change superior
+   */
+  protected function breadcrumbForMassChangeSuperior()
+  {
+    $breadcrumb_tree = new breadcrumbTree();
+    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $breadcrumb_tree->add(__('Superior mass change'));
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
 }
