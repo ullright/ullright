@@ -15,7 +15,6 @@
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator'   => $generator,
       'order'       => $order,
-      'order_dir'   => $order_dir,
       'add_icon_th' => false,
   )); ?>
   
@@ -37,13 +36,17 @@
     
     foreach($generator->getForms() as $row => $form)
     {
+      //die($form->debug());
       //if this record has a different id than the previous,
       //display a location header
       //we only do this if there are multiple locations
       //and if location view is enabled
       if ($isLocationView && empty($location))
       {
-        $currentLocationId = $form['ull_location_id']->getValue();
+
+        $currentLocationArray = $form['UllLocation->name']->getValue();
+        $currentLocationId = $currentLocationArray['id'];
+         
         if ($previousLocationId !== $currentLocationId)
         {
           $currentLocationArray = empty($currentLocationId) ?
@@ -62,6 +65,7 @@
       echo '<tr ' . $odd . '>';
       
       $renderColumnsKeys = array_keys($generator->getActiveAutoRenderedColumns());
+
       foreach ($form as $widgetKey => $widget)
       {
         if (in_array($widgetKey, $renderColumnsKeys))
@@ -76,6 +80,8 @@
   
   </tbody>
   </table>
+<?php else: ?>
+<?php echo __('No results found', null, 'common') . '.'; ?>
 <?php endif ?>
 
 <?php include_partial('ullTableTool/ullPagerBottom',

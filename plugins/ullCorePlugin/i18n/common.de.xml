@@ -1031,6 +1031,11 @@
 <target>Falls das Problem weiter auftritt, kontaktieren Sie bitte die IT-Abteilung</target>
 </trans-unit>
 
+<trans-unit id="25000">
+<source>No results found</source>
+<target>Keine Einträge gefunden</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

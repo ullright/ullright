@@ -220,14 +220,13 @@ abstract class BaseUllGeneratorActions extends ullsfActions
    * @return Doctrine_Collection
    */
   protected function getFilterFromRequest()
-  {
+  { 
+    $this->q = $this->generator->createQuery();
+    
     $filterClassName = $this->getUllFilterClassName();
+
     $this->filter_form = new $filterClassName;
     $this->filter_form->bind($this->getRequestParameter('filter'));
-    
-    $ull_filter = new ullFilter();
-    
-    $this->q = $this->generator->createQuery();
     
     if ($search = $this->filter_form->getValue('search'))
     {      
@@ -244,6 +243,10 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       ullGeneratorTools::doctrineSearch($this->q->getDoctrineQuery(), $search, $this->getSearchColumnsForFilter());
     }
 
+    $ull_filter = new ullFilter();
+    
+
+    
     if ($query = $this->getRequestParameter('query'))
     {
       switch($query)
@@ -269,7 +272,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     }
 
     $this->setVar('ull_filter', $ull_filter, true);
-    
+
     // ORDER
     if ($this->hasRequestParameter('order'))
     {
@@ -288,9 +291,9 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyQueryForFilter();
     
-//    printQuery($this->q->getSql());
-//    var_dump($this->q->getDoctrineQuery()->getParams());
-//    die;
+    //printQuery($this->q->getDoctrineQuery()->getSql());
+    //var_dump($this->q->getDoctrineQuery()->getParams());
+
 
     $this->pager = new Doctrine_Pager(
       $this->q->getDoctrineQuery(), 
@@ -298,7 +301,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       sfConfig::get('app_pager_max_per_page')
     );
     $rows = $this->pager->execute();    
-    
+
     
     $modelName = $this->generator->getModelName();
     

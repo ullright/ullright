@@ -1144,9 +1144,10 @@ function ull_order_array_by_array(array $array, array $order)
  * 
  * @param $link text/image part of the link
  * @param $searchString query url for Google Maps - will be urlencoded()
+ * @param $options additional <a> tag options
  * @return unknown_type the link
  */
-function link_to_google_maps($link, $searchString)
+function link_to_google_maps($link, $searchString, $options)
 {
-  return link_to($link, 'http://maps.google.com/maps?q=' . urlencode($searchString));
+  return link_to($link, 'http://maps.google.com/maps?q=' . urlencode($searchString), $options);
 }
