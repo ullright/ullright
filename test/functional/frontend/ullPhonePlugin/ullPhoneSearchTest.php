@@ -38,5 +38,30 @@
       ->checkElement($dgsList->get(4, 'phone_extension'), '1111')
       ->checkElement($dgsList->get(4, 'fax_extension'), '-')
     ->end()
+    
+    ->info('Search for \'1111\'')
+    ->info('Should list one user')
+    ->call('/ullPhone/list/locationView/true', 'POST',
+      array('autocomplete_sidebarPhoneSearch' => '1111'))
+    
+    ->with('response')->begin()
+      //there should be two location headers and two users
+      ->checkElement($dgsList->getFullRowSelector(), 2) // number of rows
+      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'Wien Mollardgasse (WMO) Map')
+      ->checkElement($dgsList->get(2, 'last_name'), 'Admin')
+      ->checkElement($dgsList->get(2, 'first_name'), 'Master')
+      ->checkElement($dgsList->get(2, 'phone_extension'), '1111')
+      ->checkElement($dgsList->get(2, 'fax_extension'), '-')
+    ->end()
+    
+    ->info('Search for \'2222\'')
+    ->info('Should list no user, since the number is hidden')
+    ->call('/ullPhone/list/locationView/true', 'POST',
+      array('autocomplete_sidebarPhoneSearch' => '2222'))
+    
+    ->with('response')->begin()
+      //there should be two location headers and two users
+      ->checkElement($dgsList->getFullRowSelector(), 0) // number of rows
+    ->end()
   ;
   

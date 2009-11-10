@@ -34,13 +34,13 @@
     ->checkResponseElement($dgsList->get(1, 'email_link') . ' > a[href="mailto:admin@example.com"]')
     ->checkResponseElement($dgsList->get(2, 'last_name'), 'Admin User')
     ->checkResponseElement($dgsList->get(2, 'phone_extension'), '')
-    ->checkResponseElement($dgsList->get(3, 'phone_extension'), '-')
-    ->checkResponseElement($dgsList->get(3, 'fax_extension'), '4444')
-    ->checkResponseElement($dgsList->get(3, 'location'), 'New York 5th Ave')
-    ->checkResponseElement($dgsList->get(3, 'email_link') . ' > a[href="mailto:test.user@example.com"]')
-    ->checkResponseElement($dgsList->get(4, 'last_name'), 'User')
-    ->checkResponseElement($dgsList->get(4, 'first_name'), 'Helpdesk')
-    ->checkResponseElement($dgsList->get(4, 'fax_extension'), '')
+    ->checkResponseElement($dgsList->get(4, 'phone_extension'), '-')
+    ->checkResponseElement($dgsList->get(4, 'fax_extension'), '4444')
+    ->checkResponseElement($dgsList->get(4, 'location'), 'New York 5th Ave')
+    ->checkResponseElement($dgsList->get(4, 'email_link') . ' > a[href="mailto:test.user@example.com"]')
+    ->checkResponseElement($dgsList->get(3, 'last_name'), 'User')
+    ->checkResponseElement($dgsList->get(3, 'first_name'), 'Helpdesk')
+    ->checkResponseElement($dgsList->get(3, 'fax_extension'), '')
   ;
   
   $b
