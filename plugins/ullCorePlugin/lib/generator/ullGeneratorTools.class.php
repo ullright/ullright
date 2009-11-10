@@ -14,9 +14,13 @@ class ullGeneratorTools
   /**
    * Search for a string in multiple columns
    * 
+   * Note: This should be deprecated.
+   * Use ullQuery class if possible!
+   * 
    * @param Doctrine_Query $q
    * @param string $search
    * @param array $columns
+   * @deprecated
    * @return Doctrine_Query
    */
   public static function doctrineSearch($q, $search, $columns, $addToRootAlias = true)

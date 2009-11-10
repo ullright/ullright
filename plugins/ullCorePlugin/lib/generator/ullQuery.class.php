@@ -73,7 +73,7 @@ class ullQuery
    * Add WHERE clauses
    * 
    * Attention: it currently supports only a single where statement
-   * Example: 'UllUser.Username = ?'
+   * Example: 'UllUser->Username = ?'
    * 
    * @param string $where   A valid doctrine WHERE string
    * @param $params
@@ -81,13 +81,86 @@ class ullQuery
    */
   public function addWhere($where, $params = array())
   {
+    $this->handleWhere($where, $params, false);
+    
+    return $this;
+  }
+  
+  /**
+   * Add OR WHERE clauses
+   * 
+   * Attention: it currently supports only a single where statement
+   * Example: 'UllUser->Username = ?'
+   * 
+   * @param string $where   A valid doctrine WHERE string
+   * @param $params
+   * @return self
+   */
+  public function orWhere($where, $params = array())
+  {
+    $this->handleWhere($where, $params, true);
+    
+    return $this;
+  }
+  
+  protected function handleWhere($where, $params = array(), $coordinatorIsOr)
+  {
     preg_match('/^([a-z>_-])+/i', $where, $matches);
-//    var_dump($where);
-//    var_dump($matches);
+    //var_dump($where);
+    //var_dump($matches);
     $search = $matches[0];
     $replace = $this->relationStringToDoctrineQueryColumn($search);
 
     $where = str_replace($search, $replace, $where);
+    
+    if ($coordinatorIsOr)
+    {
+      $this->q->orWhere($where, $params);
+    }
+    else
+    {
+      $this->q->addWhere($where, $params);
+    }
+    
+    $this->addRelationsToQuery();
+    
+    return $this;
+  }
+  
+ /**
+   * Search for a string in multiple columns
+   * 
+   * @param string $searchString
+   * @param array $columnsToSearch
+   * @return ullQuery
+   */
+  public function addSearch($searchString, array $columnsToSearch)
+  {
+    $searchParts = explode(' ', $searchString);
+    foreach ($searchParts as $key => $part)
+    {
+      $searchParams[] = '%' . $part . '%';
+    }
+    
+    $whereTopLevel = array();
+    $params = array();
+    
+    foreach($columnsToSearch as $col)
+    {
+      //let's replace aliases
+      $col = $this->relationStringToDoctrineQueryColumn($col);
+      
+      $where = array();
+      for ($i = 0; $i < count($searchParts); $i++)
+      {
+        $where[] = $col . ' LIKE ?'; 
+      }
+      $whereTopLevel[] = implode(' AND ', $where);
+
+      $params = array_merge($params, $searchParams);
+    }    
+
+    $where = '(' . implode(' OR ', $whereTopLevel) . ')';
     
     $this->q->addWhere($where, $params);
     
@@ -278,6 +351,7 @@ class ullQuery
         // ignore invalid columns, it could be an artificial column
         if (!$finalModelTable->hasColumn($finalColumn))
         {
+
           return false;
         }
         
@@ -285,6 +359,7 @@ class ullQuery
       }
       else
       {
+
         // ignore invalid columns, it could be an artificial column
         return false;
       }
