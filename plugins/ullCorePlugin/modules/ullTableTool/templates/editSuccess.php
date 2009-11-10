@@ -106,14 +106,15 @@
       echo '<br /><h4>' . ull_format_date($fg[$i]->getScheduledUpdateDate()) . '</h4>' .
             //__('Future version ', null, 'common') . ($i + 1) . ' - ' .
             __('by', null, 'common') . ' ' . $fg[$i]->getUpdator() . ' - ' .
-             ull_link_to(ull_image_tag('delete'), 
-             ullCoreTools::appendParamsToUri(
+            ull_format_datetime($fg[$i]->getUpdatedAt()) . ' - ' .
+            ull_link_to(ull_image_tag('delete'), 
+            ullCoreTools::appendParamsToUri(
               $delete_future_version_base_uri,
-                    'id=' . $id['id'] .
-                    '&version=' . $id['version'])
-              , 'confirm='.__('Are you sure?', null, 'common')
-              ) .
-            '<br /><br />';
+                'id=' . $id['id'] .
+                '&version=' . $id['version'])
+                , 'confirm='.__('Are you sure?', null, 'common')
+                ) .
+              '<br /><br />';
       echo '<table class="edit_table"><tbody>';
       echo ($fg[$i]->hasColumns()) ? $fg[$i]->getForm() : '<tr><td>' . __('No changes') . '</td></tr>';
       echo '</tbody></table>';
