@@ -37,7 +37,7 @@
 <?php if (isset($quickSearchForm)): ?>
 <form action="<?php echo url_for('ullPhone/list?locationView=true') ?>" method="post">
 <?php
-  echo $quickSearchForm['sidebarPhoneSearch']->render();
+  echo $quickSearchForm['search']->render();
   endif;
 ?>
 </form>

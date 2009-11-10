@@ -52,11 +52,8 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
 
     $this->generator = new ullPhoneGenerator();
 
-    //do we have a POST from the sidebar's quick search box?
-    if ($request->isMethod('post'))
-    {
-      $this->phoneSearchFilter = $request->getParameter('autocomplete_sidebarPhoneSearch');
-    }
+    //search term set?
+    $this->phoneSearchFilter = $request->getParameter('filter[search]');
 
     //shall we render location headers?
     $this->isLocationView = $this->getRequestParameter('locationView');
@@ -127,8 +124,8 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
 
     if (!empty($this->phoneSearchFilter))
     {
-      //this is the former doctrineSearch
-      $this->q->addSearch($this->phoneSearchFilter, $this->getSearchColumnsForFilter());
+      //doctrineSearch was here
+      //BaseUllGeneratorActions handles this now
       
       //we need special handling here because we don't want hidden
       //numbers to be searchable
@@ -166,7 +163,7 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   public function getUllFilterClassName()
   {
-    return 'ullTableToolFilterForm';
+    return 'ullPhoneQuickSearchForm';
   }
 
   /**

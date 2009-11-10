@@ -8,14 +8,20 @@ class ullPhoneQuickSearchForm extends sfForm
 {
   public function configure()
   {
-    $searchWidget = new sfWidgetFormJQueryAutocompleter(array(
-        'url' => sfContext::getInstance()->getController()->genUrl('ullUser/userSearchAutocomplete'),
-        'config' => '{ minChars:2, highlight:false }',
-    ), array('size' => 14)); 
+//    $searchWidget = new sfWidgetFormJQueryAutocompleter(array(
+//        'url' => sfContext::getInstance()->getController()->genUrl('ullUser/userSearchAutocomplete'),
+//        'config' => '{ minChars:2, highlight:false }',
+//    ), array('size' => 14)); 
 
-    $this->widgetSchema['sidebarPhoneSearch'] = $searchWidget;
-
+    $searchWidget = new sfWidgetFormInput(array(), array('size' => 14));
+    
+    $this->widgetSchema['search'] = $searchWidget;
+    
+    $this->validatorSchema['search'] = new sfValidatorString(array('required' => false));
+    
+    $this->widgetSchema->setNameFormat('filter[%s]');
+    
     $this->widgetSchema->setLabels(array(
-      'sidebarPhoneSearch' => 'Search: ' ));
+      'search' => 'Search: ' ));
   }
 }

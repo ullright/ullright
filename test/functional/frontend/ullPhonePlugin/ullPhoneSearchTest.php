@@ -19,7 +19,7 @@
   
     ->info('Search for \'admin\'')
     ->call('/ullPhone/list/locationView/true', 'POST',
-      array('autocomplete_sidebarPhoneSearch' => 'admin'))
+      array('filter[search]' => 'admin'))
     
     ->with('request')->begin()
       ->isParameter('module', 'ullPhone')
@@ -42,7 +42,7 @@
     ->info('Search for \'1111\'')
     ->info('Should list one user')
     ->call('/ullPhone/list/locationView/true', 'POST',
-      array('autocomplete_sidebarPhoneSearch' => '1111'))
+      array('filter[search]' => '1111'))
     
     ->with('response')->begin()
       //there should be two location headers and two users
@@ -57,7 +57,7 @@
     ->info('Search for \'2222\'')
     ->info('Should list no user, since the number is hidden')
     ->call('/ullPhone/list/locationView/true', 'POST',
-      array('autocomplete_sidebarPhoneSearch' => '2222'))
+      array('filter[search]' => '2222'))
     
     ->with('response')->begin()
       //there should be two location headers and two users

@@ -239,13 +239,11 @@ abstract class BaseUllGeneratorActions extends ullsfActions
 //          $cols[$key] = 'Translation.' . $col;
 //        }
 //      }
-
-      ullGeneratorTools::doctrineSearch($this->q->getDoctrineQuery(), $search, $this->getSearchColumnsForFilter());
+      
+      $this->q->addSearch($search, $this->getSearchColumnsForFilter());
     }
 
     $ull_filter = new ullFilter();
-    
-
     
     if ($query = $this->getRequestParameter('query'))
     {
@@ -293,7 +291,6 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     //printQuery($this->q->getDoctrineQuery()->getSql());
     //var_dump($this->q->getDoctrineQuery()->getParams());
-
 
     $this->pager = new Doctrine_Pager(
       $this->q->getDoctrineQuery(), 
