@@ -17,9 +17,9 @@ class ullWikiForm extends ullGeneratorForm
     }
     
     $config = HTMLPurifier_Config::createDefault();
-    $config->set('Cache', 'SerializerPath', $cachePath);
-    $config->set('Attr', 'EnableID', true);
-    $config->set('Attr', 'AllowedFrameTargets', '_blank, _parent, _self, _top');
+    $config->set('Cache.SerializerPath', $cachePath);
+    $config->set('Attr.EnableID', true);
+    $config->set('Attr.AllowedFrameTargets', '_blank, _parent, _self, _top');
     $purifier = new HTMLPurifier($config);
  
     $object->body = htmlentities($purifier->purify($object->body), ENT_QUOTES, 'UTF-8');   
