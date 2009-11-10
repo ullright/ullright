@@ -10,7 +10,7 @@ class ullUserSearchConfig extends ullSearchConfig {
   public function __construct()
   {
     //a blacklist of columns we do not want the user to search for
-    $this->blacklist = array('namespace', 'password', 'is_virtual_group', 'type', 'version');
+    $this->blacklist = array('photo', 'namespace', 'password', 'is_virtual_group', 'type', 'version');
   }
   
   /**
