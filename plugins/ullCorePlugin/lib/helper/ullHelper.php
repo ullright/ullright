@@ -350,7 +350,7 @@ function _ull_to($name = 'link', $url = array(), $options = array(), $type = 'li
     // use default msg if no custom msg
     if (is_bool($options['ull_js_observer_confirm'])) 
     {
-      $msg = __('You will loose unsaved changes! Are you sure?', null, 'common');
+      $msg = __('You will lose unsaved changes! Are you sure?', null, 'common');
     } 
     else 
     {
@@ -467,7 +467,7 @@ function _ull_to_function($name = 'link', $function, $options = array(), $type =
 
     // use default msg if no custom msg
     if (is_bool($html_options['ull_js_observer_confirm'])) {
-      $msg = __('You will loose unsaved changes! Are you sure?', null, 'common');
+      $msg = __('You will lose unsaved changes! Are you sure?', null, 'common');
     } else {
       $msg = $html_options['ull_js_observer_confirm'];
     }
