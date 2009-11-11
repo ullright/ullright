@@ -108,7 +108,7 @@ ul.nav_top_links li {
 	margin: 0 2em 0 0;
 	padding: 0;
 	text-align: center;
-	padding-bottom: .35em;
+	padding-bottom: .33em;
 	border-bottom: none;
 	min-width: 6em;
 }
@@ -149,6 +149,10 @@ ul.nav_top_links li:hover {
 
 #nav_link_ull_time:hover {
   border-color: #a84181;
+}
+
+#nav_link_ull_phone:hover {
+  border-color: #f3c100;
 }
 
 #nav_link_admin:hover {
