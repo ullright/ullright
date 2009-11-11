@@ -6,8 +6,10 @@
 <?php //echo $ull_filter->getHtml(ESC_RAW) ?>
 
 <?php //echo ull_form_tag(array('page' => '', 'filter' => array('search' => ''))) ?>
-<!--></form><-->
-    
+
+<?php include_partial('ullTableTool/ullPagerTop',
+        array('pager' => $pager)
+      ); ?>
 <?php // detect empty table_tool ?>
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>
@@ -80,8 +82,6 @@
   
   </tbody>
   </table>
-<?php else: ?>
-<?php echo __('No results found', null, 'common') . '.'; ?>
 <?php endif ?>
 
 <?php include_partial('ullTableTool/ullPagerBottom',
