@@ -56,8 +56,9 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['phone_extension']->setLabel(__('Phone extension', null, 'ullCoreMessages'));
     $this['is_show_extension_in_phonebook']->setLabel(__('Show phone ext. in phone book', null, 'ullCoreMessages'));
     $this['fax_extension']->setLabel(__('Fax extension', null, 'ullCoreMessages'));
-    $this['is_show_fax_extension_in_phonebook']
-      ->setLabel(__('Show fax ext. in phone book', null, 'ullCoreMessages'))
+    $this['mobile_number']->setLabel(__('Mobile number', null, 'ullCoreMessages'));
+    $this['is_show_mobile_number_in_phonebook']
+      ->setLabel(__('Show mobile number in phone book', null, 'ullCoreMessages'))
       ->setShowSpacerAfter(true)
     ;
     
@@ -98,7 +99,8 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
       'phone_extension',
       'is_show_extension_in_phonebook',
       'fax_extension',
-      'is_show_fax_extension_in_phonebook',
+      'mobile_number',
+      'is_show_mobile_number_in_phonebook',
       'ull_employment_type_id',
       'entry_date',
       'deactivation_date',
@@ -118,7 +120,7 @@ class UllEntityColumnConfigCollection extends ullColumnConfigCollection
         'sex', 
         'password',
         'is_show_extension_in_phonebook',
-        'is_show_fax_extension_in_phonebook',      
+        'is_show_mobile_number_in_phonebook',      
         'entry_date',
         'deactivation_date',
         'separation_date',

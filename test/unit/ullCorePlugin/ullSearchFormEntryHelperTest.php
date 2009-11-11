@@ -41,7 +41,7 @@ $sfe->uuid = 3;
 $sfeArray[] = $sfe;
 
 $sfe = new ullSearchFormEntry();
-$sfe->columnName = 'is_show_fax_extension_in_phonebook';
+$sfe->columnName = 'is_show_mobile_number_in_phonebook';
 $sfe->uuid = 4;
 $sfeArray[] = $sfe;
 
@@ -80,7 +80,7 @@ $t->is($criterion->isNot, true, 'cg 3 - isNot ok');
 $criterion = $criterionGroups[4]->subCriteria[0];
 $t->isa_ok($criterion, 'ullSearchBooleanCriterion', 'cg 4 - class name ok');
 $t->is($criterion->compareValue, 1, 'cg 4 - compare value ok');
-$t->is($criterion->columnName, 'is_show_fax_extension_in_phonebook', 'cg 4 - column name ok');
+$t->is($criterion->columnName, 'is_show_mobile_number_in_phonebook', 'cg 4 - column name ok');
 $t->is($criterion->isNot, false, 'cg 4 - isNot ok');
 
 $criterion = $criterionGroups[5]->subCriteria[0];

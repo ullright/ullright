@@ -9,6 +9,7 @@ class ullPhoneGenerator extends ullTableToolGenerator
       'first_name',
       'phone_extension',
       'fax_extension',
+      'mobile_number',
       'email',
       'UllCompany->name',
       'UllDepartment->name',

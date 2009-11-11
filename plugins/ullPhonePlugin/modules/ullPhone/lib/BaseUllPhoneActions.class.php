@@ -109,7 +109,7 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     //the columns with a dash if the matching boolean is false
     $this->q->getDoctrineQuery()->addSelect('x.*, ' .
       'if(x.is_show_extension_in_phonebook is not false, x.phone_extension, \'-\') as phone_extension, ' .
-      'if(x.is_show_fax_extension_in_phonebook is not false, x.fax_extension, \'-\') as fax_extension');
+      'if(x.is_show_mobile_number_in_phonebook is not false, x.mobile_number, \'-\') as mobile_number');
     
     if ($this->isLocationView)
     {
@@ -132,8 +132,8 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
       $this->q->orWhere('is_show_extension_in_phonebook is not FALSE ' .
         'AND phone_extension LIKE ?', '%' . $this->phoneSearchFilter . '%');
 
-      $this->q->orWhere('is_show_fax_extension_in_phonebook is not FALSE ' .
-        'AND fax_extension LIKE ?', '%' . $this->phoneSearchFilter . '%');
+      $this->q->orWhere('is_show_mobile_number_in_phonebook is not FALSE ' .
+        'AND mobile_number LIKE ?', '%' . $this->phoneSearchFilter . '%');
     }
   }
 

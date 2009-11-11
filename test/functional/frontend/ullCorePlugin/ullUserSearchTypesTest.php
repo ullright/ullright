@@ -46,7 +46,7 @@ $browser
   ->call('/ullUser/search', 'POST', array (
   'fields' => 
   array (
-    'columnSelect' => 'is_show_fax_extension_in_phonebook',
+    'columnSelect' => 'is_show_mobile_number_in_phonebook',
   ),
   'addSubmit' => 'Hinzufügen',
 ))

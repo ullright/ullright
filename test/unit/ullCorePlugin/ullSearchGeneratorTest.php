@@ -27,7 +27,7 @@ $sfe->uuid = 3;
 $sfeArray[] = $sfe;
 
 $sfe = new ullSearchFormEntry();
-$sfe->columnName = 'is_show_fax_extension_in_phonebook';
+$sfe->columnName = 'is_show_mobile_number_in_phonebook';
 $sfe->uuid = 4;
 $sfeArray[] = $sfe;
 
@@ -66,7 +66,7 @@ $labels = array('ID', 'to:',
   'First name',
   'Last name', 'Last name',
   'Department',
-  'Show fax ext. in phone book',
+  'Show mobile number in phone book',
   'Status',
   'Created by - Location - Country');
 
@@ -78,7 +78,7 @@ $searchGenerator = new ullSearchGenerator(array_merge($searchConfig->getAllSearc
 $searchGenerator->reduce($sfeArray);
 
 $t->is($searchGenerator->getColumnLabel('ull_user_status_id'), 'Status', 'getColumnLabel ok');
-$t->is($searchGenerator->getColumnLabel('is_show_fax_extension_in_phonebook'), 'Show fax ext. in phone book', 'getColumnLabel ok');
+$t->is($searchGenerator->getColumnLabel('is_show_mobile_number_in_phonebook'), 'Show mobile number in phone book', 'getColumnLabel ok');
 
 $searchGenerator->buildForm();
 

@@ -364,6 +364,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'first_name',
         'phone_extension',
         'fax_extension',
+        'mobile_number',
         'email_link',
         'company',
         'department',

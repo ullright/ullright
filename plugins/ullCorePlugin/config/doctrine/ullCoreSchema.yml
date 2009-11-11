@@ -51,7 +51,9 @@ UllParentEntity:
       type: boolean
     fax_extension:
       type: integer(20)
-    is_show_fax_extension_in_phonebook:
+    mobile_number:
+      type: string(20)
+    is_show_mobile_number_in_phonebook:
       type: boolean
     comment:
       type: string(4000)

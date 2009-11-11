@@ -50,8 +50,8 @@
       </trans-unit>
 
       <trans-unit id="10">
-        <source>Show fax ext. in phone book</source>
-        <target>Fax-Durchwahl in Telefonb. anzeigen</target>
+        <source>Show mobile number in phone book</source>
+        <target>Handynummer in Telefonb. anzeigen</target>
       </trans-unit>
 
       <trans-unit id="11">
@@ -144,6 +144,11 @@
       <trans-unit id="33">
         <source>Searches for name, username and email</source>
         <target>Suche nach Name, Benutzername und E-Mail Adresse</target>
+      </trans-unit>
+      
+      <trans-unit id="34">
+        <source>Mobile number</source>
+        <target>Handynummer</target>
       </trans-unit>
       
       
