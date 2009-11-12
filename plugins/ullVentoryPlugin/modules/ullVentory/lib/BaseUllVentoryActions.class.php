@@ -70,7 +70,10 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
 
     $this->docs = $this->getFilterFromRequest();
     
-    $this->redirectToEditIfSingleResult();
+    // Deactivated because it's confusing and not intuitive for the user why the 
+    //   list action is skipped. Furthermore it results in a loop when clicking
+    //   on the breadcrumb list link
+    //$this->redirectToEditIfSingleResult();
 
     $this->generator->buildForm($this->docs);
     
@@ -515,9 +518,18 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
     $this->breadcrumbTree->setEditFlag(true);
 
+//    var_dump($this->getUriMemory()->get('list'));die;
+    
     // display result list link only when there is a referer containing 
     //  the list action 
-    $this->breadcrumbTree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));
+    if ($referer = $this->getUriMemory()->get('list'))
+    {
+      $this->breadcrumbTree->add(__('Result list', null, 'common'), $referer);
+    }
+    else
+    {
+      $this->breadcrumbTree->addDefaultListEntry();
+    }
 
     if (isset($this->doc) && $this->doc->exists()) 
     {
