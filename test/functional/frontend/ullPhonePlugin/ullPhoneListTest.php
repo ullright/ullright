@@ -18,7 +18,7 @@
     ->isStatusCode(200)
     ->isRequestParameter('module', 'ullPhone')
     ->isRequestParameter('action', 'list')
-    ->responseContains('Telephone directory')
+    ->responseContains('Phone directory')
     ->responseContains('Result list')
     
     //checks for
@@ -46,13 +46,13 @@
   ;
   
   $b
-    ->info('Telephone directory list with location headers')
+    ->info('Phone directory list with location headers')
     ->get('ullPhone/list/locationView/true')
     ->isStatusCode(200)
     ->isRequestParameter('module', 'ullPhone')
     ->isRequestParameter('action', 'list')
     ->isRequestParameter('locationView', 'true')
-    ->responseContains('Telephone directory')
+    ->responseContains('Phone directory')
     ->responseContains('Result list')
     
     //With location headers there are now 7 rows instead of 4
