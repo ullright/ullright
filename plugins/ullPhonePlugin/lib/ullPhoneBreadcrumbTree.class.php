@@ -6,7 +6,7 @@ class ullPhoneBreadcrumbTree extends breadcrumbTree
   public function __construct()
   {
     parent::__construct();
-    $this->add(__('Telephone directory', null, 'ullPhoneMessages'), 'ullPhone/index');
+    $this->add(__('Phone directory', null, 'ullPhoneMessages'), 'ullPhone/index');
   }
   
   public function addDefaultListEntry()
