@@ -319,7 +319,7 @@ UllUserStatus:
 # Users can be cloned to allow them to fulfill multiple functions in a company
 # Example: for the org-chart. One user can be CEO and head of IT at the same time
 UllCloneUser:
-  package: ullCorePLugin.lib.model.doctrine
+  package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllEntity
     type: column_aggregation
