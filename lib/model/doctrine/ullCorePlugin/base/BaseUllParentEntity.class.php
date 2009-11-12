@@ -28,7 +28,8 @@ abstract class BaseUllParentEntity extends UllRecord
         $this->hasColumn('phone_extension', 'integer', 20, array('type' => 'integer', 'length' => '20'));
         $this->hasColumn('is_show_extension_in_phonebook', 'boolean', null, array('type' => 'boolean'));
         $this->hasColumn('fax_extension', 'integer', 20, array('type' => 'integer', 'length' => '20'));
-        $this->hasColumn('is_show_fax_extension_in_phonebook', 'boolean', null, array('type' => 'boolean'));
+        $this->hasColumn('mobile_number', 'string', 20, array('type' => 'string', 'length' => '20'));
+        $this->hasColumn('is_show_mobile_number_in_phonebook', 'boolean', null, array('type' => 'boolean'));
         $this->hasColumn('comment', 'string', 4000, array('type' => 'string', 'length' => '4000'));
         $this->hasColumn('ull_user_status_id', 'integer', null, array('type' => 'integer', 'notnull' => true, 'default' => '1'));
         $this->hasColumn('is_virtual_group', 'boolean', null, array('type' => 'boolean', 'default' => false));
