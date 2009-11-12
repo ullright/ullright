@@ -261,6 +261,16 @@
 <target>Alle Geräte</target>
 </trans-unit>
 
+<trans-unit id="5004">
+<source>Not audited during current inventory taking</source>
+<target>Bei aktueller Inventur noch nicht überprüft</target>
+</trans-unit>
+
+<trans-unit id="5005">
+<source>Audited during current inventory taking</source>
+<target>Bei aktueller Inventur überprüft</target>
+</trans-unit>
+
 
     </body>
   </file>

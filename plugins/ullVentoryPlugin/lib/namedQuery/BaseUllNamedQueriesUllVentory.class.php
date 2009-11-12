@@ -19,6 +19,8 @@ class BaseUllNamedQueriesUllVentory extends ullNamedQueries
       ->add('ullNamedQueryUllVentoryModifiedToday')
       ->add('ullNamedQueryUllVentoryInactiveUsers')
       ->add('ullNamedQueryUllVentoryNoSoftware')
+      ->add('ullNamedQueryUllVentoryAudited')
+      ->add('ullNamedQueryUllVentoryNotAudited')
     ;
   }
   

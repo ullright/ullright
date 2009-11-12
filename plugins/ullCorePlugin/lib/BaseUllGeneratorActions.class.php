@@ -289,8 +289,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyQueryForFilter();
     
-    //printQuery($this->q->getDoctrineQuery()->getSql());
-    //var_dump($this->q->getDoctrineQuery()->getParams());
+//    printQuery($this->q->getDoctrineQuery()->getSql());
+//    var_dump($this->q->getDoctrineQuery()->getParams());
 
     $this->pager = new Doctrine_Pager(
       $this->q->getDoctrineQuery(), 

@@ -51,6 +51,12 @@ abstract class PluginUllVentoryItem extends BaseUllVentoryItem
     }
   }
   
+  
+  /**
+   * Check if an item was confirmed during the current inventory taking
+   * 
+   * @return boolean
+   */
   public function hasLatestInventoryTaking()
   {
     $taking = UllVentoryTakingTable::findLatest();
@@ -62,6 +68,7 @@ abstract class PluginUllVentoryItem extends BaseUllVentoryItem
     return false;
   }
 
+  
   /**
    * Create a new UllVentoryItemMemory for the current item
    * 
