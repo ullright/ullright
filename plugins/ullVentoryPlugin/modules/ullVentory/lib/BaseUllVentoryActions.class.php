@@ -69,6 +69,8 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     $this->named_queries = new ullNamedQueriesUllVentory;
 
     $this->docs = $this->getFilterFromRequest();
+    
+    $this->redirectToEditIfSingleResult();
 
     $this->generator->buildForm($this->docs);
     
@@ -77,6 +79,20 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     $this->display_mass_change_owner_button =
       (is_array($filterParam) && isset($filterParam['ull_entity_id'])) ? true : false;
      
+  }
+  
+  
+  /**
+   * Shortcut: redirect directly to edit action if we have a single result
+   * 
+   * @return none
+   */
+  protected function redirectToEditIfSingleResult()
+  {
+    if (count($this->docs) == 1)
+    {
+      $this->redirect('ullVentory/edit?inventory_number=' . $this->docs[0]->inventory_number);
+    }
   }
   
   
