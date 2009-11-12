@@ -163,7 +163,8 @@ class ullGeneratorForm extends sfFormDoctrine
         $defaults[$fieldName] = array('value' => $value, 'id' => $id);
       }
       
-      if ($this->columnsConfig[$fieldName]->getInjectIdentifier())
+      // inject identifier
+      if (isset($this->columnsConfig[$fieldName]) && $this->columnsConfig[$fieldName]->getInjectIdentifier())
       {
         $defaults[$fieldName] = array('value' => $defaults[$fieldName], 'id' => $this->getObject()->id);
       }
