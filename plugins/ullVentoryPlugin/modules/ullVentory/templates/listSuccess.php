@@ -2,23 +2,15 @@
 <?php $generator = $sf_data->getRaw('generator') ?>
 <?php $order = $sf_data->getRaw('order'); ?>
 
-<?php if ($filter_form->hasErrors()): ?>
-  <div class='form_error'>
-  <?php echo __('Please correct the following errors', null, 'common') ?>:
-  <?php echo $filter_form->renderGlobalErrors() ?>
-  <?php foreach($filter_form as $widget){ echo $widget->renderLabel(); echo $widget->renderError(); } ?>
-  </div>  
-  <br /><br />
-<?php endif; ?>
+<?php include_partial('ullTableTool/global_error', array('form' => $filter_form)) ?>
 
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
-<?php echo ull_form_tag(array('page' => '', 'filter' => array('ull_entity_id' => ''))) ?>
 
-<?php
-  echo ull_form_tag('ullVentory/list', array(
-      'class' => 'inline',
-      'name' => 'ull_ventory_search_form')
-  );
+<?php 
+  echo ull_form_tag(
+    array('page' => '', 'filter' => array('ull_entity_id' => ''), 'single_redirect' => ''),
+    array('class' => 'inline', 'name' => 'ull_ventory_search_form')    
+  ) 
 ?>
 
 <ul class='list_action_buttons color_light_bg'>
@@ -35,6 +27,8 @@
     <li>
      <?php echo $filter_form['search']->renderLabel() ?>    
      <?php echo $filter_form['search']->render() ?>
+     <?php echo submit_image_tag(ull_image_path('search'),
+              array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) ?>     
     </li>
 
     <li>
@@ -42,8 +36,11 @@
      <?php echo $filter_form['ull_entity_id']->render() ?>
      <?php echo submit_image_tag(ull_image_path('search'),
               array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) ?>
+     
     </li>      
 </ul>
+
+<?php echo $filter_form->renderHiddenFields() ?>
 
 </form>
 
