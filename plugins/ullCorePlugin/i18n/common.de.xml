@@ -363,6 +363,12 @@
 <target>Häufige Tags</target>
 </trans-unit>
 
+<trans-unit id="4004">
+<source>Redirected from the result list because there was only a single result. Click on "result list" in the breadcrumb navigation above to return to the list view.</source>
+<target>Weitergeleitet von der Ergebnisliste, da es nur ein einziges Ergebnis gab. Klicken Sie oben in der Brotkrumen-Navigationsleiste auf "Ergebnisliste" um zur Listenansicht zurückzukehren.</target>
+</trans-unit>
+
+
 
 <!-- common validation phrases -->
 

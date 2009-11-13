@@ -73,7 +73,7 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     // Deactivated because it's confusing and not intuitive for the user why the 
     //   list action is skipped. Furthermore it results in a loop when clicking
     //   on the breadcrumb list link
-    //$this->redirectToEditIfSingleResult();
+    $this->redirectToEditIfSingleResult();
 
     $this->generator->buildForm($this->docs);
     
@@ -92,8 +92,12 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
    */
   protected function redirectToEditIfSingleResult()
   {
-    if (count($this->docs) == 1)
+    if (count($this->docs) == 1 && $this->getRequestParameter('single_redirect', 'true') == 'true')
     {
+      $this->getUser()->setFlash('message', __(
+        'Redirected from the result list because there was only a single result. Click on "result list" in the breadcrumb navigation above to return to the list view.', 
+        null, 'common'));
+      $this->getUriMemory()->append('single_redirect=false');
       $this->redirect('ullVentory/edit?inventory_number=' . $this->docs[0]->inventory_number);
     }
   }
@@ -212,6 +216,7 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     }
 //    echo $this->generator->getForm()->debug();
   }
+  
   
   /**
    * Loads attribute presets for the current model and redisplays the form
@@ -550,22 +555,6 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
     $this->breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullVentory/search');
   }
-  
-  
-  /** 
-   * Get array of columns for the quicksearch
-   * 
-   * @return array
-   */
-  protected function getSearchColumnsForFilter()
-  {
-    return array(
-        'inventory_number', 
-        'serial_number', 
-        'comment', 
-//        'UllVentoryItemModel.name', 
-    );
-  }  
   
   
   /**

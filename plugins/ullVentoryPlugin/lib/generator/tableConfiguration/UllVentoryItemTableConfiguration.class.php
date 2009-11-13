@@ -28,15 +28,25 @@ class UllVentoryItemTableConfiguration extends ullTableConfiguration
 //        'Updator->display_name',
 //        'updated_at',
       ))
-      ->setEditColumns(array(
-        'UllVentoryItemModel->ull_ventory_item_type_id',
-        'UllVentoryItemModel->ull_ventory_item_manufacturer_id',
-        'ull_ventory_item_model_id',
-        'inventory_number',
-        'serial_number',
-        'comment',
-      ))
+      
+      // relation handling is not implemented yet for edit mode
+//      ->setEditColumns(array(
+//        'UllVentoryItemModel->ull_ventory_item_type_id',
+//        'UllVentoryItemModel->ull_ventory_item_manufacturer_id',
+//        'ull_ventory_item_model_id',
+//        'inventory_number',
+//        'serial_number',
+//        'comment',
+//      ))
       ->setOrderBy('updated_at desc, id desc')
+      ->setSearchColumns(array(
+        'inventory_number',
+        'UllVentoryItemModel->UllVentoryItemType->name',
+        'UllVentoryItemModel->UllVentoryItemManufacturer->name',
+        'UllVentoryItemModel->name',      
+        'serial_number', 
+        'comment'
+      ))
       ->setCustomRelationName('UllEntity', 
         __('Owner', null, 'common'))
       ->setCustomRelationName('UllEntity->UllLocation', 

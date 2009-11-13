@@ -2,6 +2,10 @@
 
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<div class="edit_container">
+
+<?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+
 <?php if ($generator->getForm()->hasErrors()): ?>
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
@@ -26,7 +30,7 @@
     array('id' => 'ull_ventory_form', 'name' => 'edit_form'))    
 ?>
 
-<div class="edit_container">
+
 
 <h3><?php echo __('Item of user', null, 'ullVentoryMessages') . ': ' . $entity ?></h3>
 

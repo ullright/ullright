@@ -74,6 +74,7 @@ class UriMemory
     }
   }  
 
+  
   /**
    * Sets an URI
    * 
@@ -99,6 +100,27 @@ class UriMemory
       $this->getUser()->setAttribute($this->uriName, $uri);
     }
   }    
+  
+  
+  /**
+   * Append params to URI
+   * 
+   * @param string $params        URI params without leading '?' or '&'
+   * @param string $action
+   * @param string $module
+   * @return none
+   */
+  public function append($params, $action = null, $module = null)
+  {
+    $this->setModuleAndAction($module, $action);
+    
+    $uri = $this->getUser()->getAttribute($this->uriName);
+    
+    $uri = ullCoreTools::appendParamsToUri($uri, $params);
+    
+    $this->getUser()->setAttribute($this->uriName, $uri);
+  }
+  
   
   /**
    * Sets an URI, uses the current HTTP referer by default

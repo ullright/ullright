@@ -51,18 +51,18 @@ $b
 ;
 
 $b
-  ->diag('Index quicksearch')
+  ->diag('Index quicksearch for an inventory number')
   ->get('ullVentory/index')
   ->setField('filter[search]', '1701') //1701 is an inventory number
   ->click('Search_16x16')
   ->isRedirected()
   ->followRedirect()
+  ->isRedirected()
+  ->followRedirect()  
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
-  ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[search]', '1701')
-  ->checkResponseElement($dgsList->getFullRowSelector(), 1) // number of rows
-  ->checkResponseElement($dgsList->get(1, 'inventory_number'), '1701')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('inventory_number', '1701')
 ;    
 
 $testUserId = Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id;

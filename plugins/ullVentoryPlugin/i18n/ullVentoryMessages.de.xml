@@ -171,8 +171,8 @@
 </trans-unit>
 
 <trans-unit id="2002">
-<source>Searches for inventory number, serial number and item comment</source>
-<target>Sucht nach Inventarnummer, Seriennummer und Gerätekommentar</target>
+<source>Searches for inventory number, item type, manufacturer, model, serial number and item comment</source>
+<target>Sucht nach Inventarnummer, Gerätetyp, Hersteller, Modell, Seriennummer und Gerätekommentar</target>
 </trans-unit>
 
 <!-- Mass owner change -->

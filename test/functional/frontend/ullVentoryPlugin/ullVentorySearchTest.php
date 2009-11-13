@@ -97,17 +97,16 @@ $browser
 ;
 
 $browser
+    ->with('response')->begin()
+    ->isRedirected(1)
+    ->isStatusCode(302)
+  ->end()
+  
+  ->followRedirect()
   ->with('request')->begin()
     ->isParameter('module', 'ullVentory')
-    ->isParameter('action', 'list')
-  ->end()
-  ->with('response')->begin()
-    ->isStatusCode(200)
-    ->checkElement($dgsUser->get(1, 'inventory_number'), '1701')
-    ->checkElement($dgsUser->get(1, 'type'), 'Notebook')
-    ->checkElement($dgsUser->get(1, 'manufacturer'), 'Apple')
-    ->checkElement($dgsUser->get(1, 'model'), 'MacBook')
-    ->checkElement($dgsUser->getFullRowSelector(), 1)
+    ->isParameter('action', 'edit')
+    ->isParameter('inventory_number', '1701')
   ->end()
 ;
 
@@ -161,17 +160,16 @@ $browser
 $browser->followRedirect();
 
 $browser
+    ->with('response')->begin()
+    ->isRedirected(1)
+    ->isStatusCode(302)
+  ->end()
+  
+  ->followRedirect()
   ->with('request')->begin()
     ->isParameter('module', 'ullVentory')
-    ->isParameter('action', 'list')
-  ->end()
-  ->with('response')->begin()
-    ->checkElement($dgsUser->get(1, 'inventory_number'), '1702')
-    ->checkElement($dgsUser->get(1, 'type'), 'Printer')
-    ->checkElement($dgsUser->get(1, 'manufacturer'), 'Brother')
-    ->checkElement($dgsUser->get(1, 'model'), 'MFC-440CN')
-    ->isStatusCode(200)
-    
+    ->isParameter('action', 'edit')
+    ->isParameter('inventory_number', '1702')
   ->end()
 ;
 
