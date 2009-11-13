@@ -1,7 +1,10 @@
 <?php
   //uncomment this for autocompletion support
   //use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js');
-  
+
+  // TODO: these module specific parts should be injected by the module.
+  // TODO: use <ul> instead of <br>
+
   echo __('Create', null, 'common') . ':';
   echo '<br />';
 
@@ -34,13 +37,11 @@
     echo '<br />';
   }
 ?>
+
 <?php if (isset($quickSearchForm)): ?>
-<form action="<?php echo url_for('ullPhone/list?locationView=true') ?>" method="post">
-<?php
-  echo $quickSearchForm['search']->render();
-  endif;
-?>
-</form>
-<br />
+  <form action="<?php echo url_for('ullPhone/list?locationView=true') ?>" method="post">
+  <?php echo $quickSearchForm['search']->render() ?>
+  </form>  
+<?php endif ?>
 
 
