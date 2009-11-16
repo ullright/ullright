@@ -18,6 +18,12 @@ class ullWidgetPhoto extends ullWidget
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    if (is_array($value))
+    {
+      $id = $value['id'];
+      $value = $value['value'];
+    }    
+    
     if ($value)
     {
       $photoPath = sfConfig::get('app_ull_photo_upload_path', '/uploads/userPhotos');
@@ -33,9 +39,9 @@ class ullWidgetPhoto extends ullWidget
     if ($this->getOption('show_edit_link') == true)
     {
       $return .= ' ';
-      if (isset($attributes['identifier']))
+      if ($id)
       {
-        $username = UllUserTable::findUsernameById($attributes['identifier']);
+        $username = UllUserTable::findUsernameById($id);
         $return .= link_to(__('Edit photo', null, 'ullCoreMessages'), 'ullPhoto/index?username=' . $username);
       }
       else
