@@ -216,14 +216,16 @@ function ull_link_to($name = 'link', $url = array(), $options = array())
 
   $options = _convert_options($options);
 
-  if (isset($options['link_new_window'])) {
+  if (isset($options['link_new_window'])) 
+  {
     unset($options['link_new_window']);
     $options['class']   = 'link_new_window';
     $options['target']  = '_blank';
     $options['title']   = __('Link opens in a new window', null, 'common');
   }
 
-  if (isset($options['link_external'])) {
+  if (isset($options['link_external'])) 
+  {
     unset($options['link_external']);
     $options['class'] = 'link_external';
     $options['target'] = '_blank';
@@ -682,6 +684,22 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
     'x',            // image submit buttons coordinates
     'y',            // image submit buttons coordinates
   );
+
+  // convert [] options to array format
+  // TODO: What if we have two filter params? They have to be merged ?!?
+  /*
+  foreach ($array as $key => $value) 
+  {
+    if (preg_match('/([^\[]+)[\[]([^\]]+)[\]]/', $key, $matches)) 
+    {
+      unset($array[$key]);
+      $key = $matches[1];
+      $value = array($matches[2] => $value);
+      if (is_array())
+      $array[$key] = $value;
+    }  
+  }
+  */
   
   foreach ($array as $key => $value) 
   {
@@ -709,6 +727,7 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
       }
     }
   }
+  
   return $array; 
 }
 

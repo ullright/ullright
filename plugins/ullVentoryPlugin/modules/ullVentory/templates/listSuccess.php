@@ -4,7 +4,7 @@
 
 <?php include_partial('ullTableTool/global_error', array('form' => $filter_form)) ?>
 
-<?php echo $ull_filter->getHtml(ESC_RAW) ?>
+<?php echo $ull_filter ?>
 
 <?php 
   echo ull_form_tag(

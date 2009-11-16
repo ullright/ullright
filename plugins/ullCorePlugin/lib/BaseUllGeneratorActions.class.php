@@ -228,22 +228,14 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->filter_form = new $filterClassName;
     $this->filter_form->bind($this->getRequestParameter('filter'));
     
+    $ull_filter = new ullFilter();
+    
     if ($search = $this->filter_form->getValue('search'))
     {      
-//      $columnsConfig = $this->generator->getColumnsConfig();
-//      
-//      foreach ($this->getSearchColumnsForFilter() as $key => $col)
-//      {
-//        if ($columnsConfig[$col]->getTranslated() == true)
-//        {
-//          $cols[$key] = 'Translation.' . $col;
-//        }
-//      }
-      
       $this->q->addSearch($search, $this->getSearchColumnsForFilter());
+      // TODO: add filter for search. see #640
+//      $ull_filter->add('filter[search]', __('Search', null, 'common') . ': ' . $search);
     }
-
-    $ull_filter = new ullFilter();
     
     if ($query = $this->getRequestParameter('query'))
     {
