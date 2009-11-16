@@ -19,10 +19,6 @@
     $ccc = $generator->getColumnsConfig();
     
     $attributes = array();
-    if (isset($ccc[$column_name]) && $ccc[$column_name]->getInjectIdentifier())
-    {
-      $attributes = array('identifier' => $generator->getIdentifierValue());
-    }
     
     if ($column_name != 'scheduled_update_date')
     {
