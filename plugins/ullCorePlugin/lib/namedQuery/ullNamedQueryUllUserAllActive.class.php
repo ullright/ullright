@@ -17,7 +17,7 @@ class ullNamedQueryUllUserAllActive extends ullNamedQuery
   
   public function modifyQuery($q)
   {
-    $q->addWhere('UllUserStatus->slug = ?', 'active');
+    $q->addWhere('UllUserStatus->is_active = ?', true);
   }
   
 }
