@@ -170,7 +170,7 @@ class ullGeneratorForm extends sfFormDoctrine
       }
     }
 
-//    var_dump($defaults);
+//    var_dump($defaults);    
     
     $this->setDefaults($defaults);
   }  

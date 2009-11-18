@@ -29,11 +29,6 @@
 <target>Spaltenkonfiguration</target>
 </trans-unit>
 
-<trans-unit id="6">
-<source>Please enter the same password twice</source>
-<target>Bitte geben Sie zwei Mal das gleiche Passwort ein</target>
-</trans-unit>
-
 <trans-unit id="7">
 <source>Tabletool</source>
 <target>Tabellenverwaltung</target>

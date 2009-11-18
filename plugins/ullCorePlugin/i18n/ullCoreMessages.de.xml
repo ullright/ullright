@@ -73,6 +73,11 @@
         <source>My custom string label</source>
         <target>Mein spezielles String label</target>
       </trans-unit>
+      
+      <trans-unit id="15">
+      <source>Please enter the same password twice</source>
+      <target>Bitte geben Sie zwei Mal das gleiche Passwort ein</target>
+      </trans-unit>      
 
 
       <!-- table config -->

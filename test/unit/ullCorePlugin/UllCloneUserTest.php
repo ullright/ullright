@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(10, new lime_output_color, $configuration);
+$t = new myTestCase(11, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -43,3 +43,18 @@ $t->diag('Access to parent values via a query using select and basing on UllEnti
   $t->is($cloneUser->UllJobTitle->name, 'Head of marketing', 'returns the correct value for native relation data');
   $t->is($cloneUser->fax_extension, '3333', 'returns the correct value for data retrieved from the parent');
   $t->is($cloneUser->UllDepartment->name, 'Information Technology', 'returns the correct value for relation data retrieved from the parent');
+
+  
+$t->diag('Set / check for invalid columns');
+  $cloneUser = new UllCloneUser;
+  $cloneUser->comment = 'Foobar clone user comment';
+  try
+  {
+    $cloneUser->username = 'luzifer';
+    $t->fail('Doesn\'t throw an exception when setting an invalid column');
+  } 
+  catch (Exception $e)
+  {
+    $t->pass('Throws an exception when setting an invalid column');
+  } 
+  

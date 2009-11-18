@@ -18,6 +18,8 @@ class ullWidgetPhoto extends ullWidget
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    $id = null;
+    
     if (is_array($value))
     {
       $id = $value['id'];

@@ -53,8 +53,8 @@ all:
   ull_user:
     display_name_length_limit:              22
     display_name_first_name_length_limit:   10
-    clone_user_columns:                     [ 'ull_company_id', 'ull_location_id', 'ull_department_id', 'ull_job_title_id', 'superior_ull_user_id', 'ull_user_status_id', 'comment' ]
-    phone_book_columns:                     [ 'last_name', 'first_name', 'phone_extension', 'fax_extension', 'mobile_number', 'email', 'UllCompany->short_name',  'UllDepartment->name', 'UllLocation->short_name']
+    clone_user_columns:                     [ 'ull_company_id', 'ull_location_id', 'ull_department_id', 'ull_job_title_id', 'superior_ull_user_id', 'phone_extension', 'fax_extension', 'ull_user_status_id', 'comment' ]
+    phone_book_columns:                     [ 'last_name', 'first_name', 'phone_extension', 'mobile_number', 'email', 'UllLocation->name',  'UllDepartment->name', 'UllJobTitle->name' ]
     
   ull_photo:
     upload_path:    /uploads/userPhotos

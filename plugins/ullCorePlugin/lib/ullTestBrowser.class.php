@@ -363,12 +363,11 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'last_name',
         'first_name',
         'phone_extension',
-        'fax_extension',
         'mobile_number',
         'email_link',
-        'company',
+        'location',
         'department',
-        'location'
+        'job_title',
        ),
       'table > thead > tr', 'th'
     );
