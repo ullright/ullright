@@ -6,6 +6,36 @@
 abstract class PluginUllCloneUser extends BaseUllCloneUser
 {
   
+  /**
+   * Don't allow to set invalid clone user columns
+   * 
+   * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#set($fieldName, $value, $load)
+   */
+  public function set($fieldName, $value, $load = true)
+  {
+    $validColumns = array_merge(
+      sfConfig::get('app_ull_user_clone_user_columns'),
+      array(
+        'id',
+        'parent_ull_user_id',
+        'created_at',
+        'creator_ull_user_id',
+        'updated_at',
+        'updator_user_id',
+        'version',
+      )  
+    );
+    
+    if (in_array($fieldName, $validColumns))
+    {
+      parent::set($fieldName, $value, $load);
+    }  
+    else
+    {
+      throw new InvalidArgumentException('Column is not a valid clone user column: ' . $fieldName);
+    }
+  }
+  
 //  protected 
 //    $parentCache
 //  ;
