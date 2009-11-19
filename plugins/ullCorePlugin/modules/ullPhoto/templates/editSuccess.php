@@ -15,7 +15,7 @@
 
 <?php include_partial('ullTableTool/flash', array('name' => 'cleared')) ?>
 
-<?php include_partial('ullTableTool/global_error', array('form' => $form)) ?>
+<?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
 
 <?php echo form_tag($form_uri, 'multipart=true id=edit_form'); ?>
 

@@ -119,6 +119,7 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       $this->disable(array(
         'sex', 
         'password',
+        'ull_location_id',
         'is_show_extension_in_phonebook',
         'is_show_mobile_number_in_phonebook',      
         'entry_date',
@@ -126,6 +127,21 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'separation_date',
         'comment'
       ));
+      
+      $this['photo']->setAutoRender(false);
+      $this['last_name']->setAutoRender(false);
+      $this['first_name']->setAutoRender(false);
+      
+      $this['phone_extension']
+        ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+        ->setOption('show_base_number', true)
+        ->setInjectIdentifier(true)
+      ;
+      $this['fax_extension']
+        ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+        ->setOption('show_base_number', true)
+        ->setInjectIdentifier(true)
+      ;
     }    
   }
 }

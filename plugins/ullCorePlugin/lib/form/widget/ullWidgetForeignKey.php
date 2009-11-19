@@ -86,7 +86,7 @@ class ullWidgetForeignKey extends sfWidgetFormInput
         'onclick' => 'this.href="#";popup(
           "' . url_for($uri) . '",
           "Popup ' . $primaryKey . '",
-          "width=480,height=720"
+          "width=720,height=720,scrollbars=yes,resizable=yes"
         );'
       )); 
     }    

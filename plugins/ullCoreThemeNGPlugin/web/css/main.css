@@ -732,7 +732,7 @@ div#indicator {
  * ************************************************
  */
  
-#user_popup {
+#ull_user_popup {
   margin-top: 1em;
   width: 450px;
 }
@@ -741,12 +741,27 @@ div#indicator {
   float:left; 
   margin-top: .2em; 
   margin-right: .5em;
-} 
+}
 
+#ull_user_popup_sidebar {
+  float:right;
+}
+
+#ull_user_popup_photo {
+  margin-bottom: 2em; 
+}  
+
+#ull_user_popup_sidebar_list {
+  list-style: none;
+}
+
+#ull_user_popup_sidebar_list > li {
+  margin-left: 0;
+}
 
 /*
  * ************************************************
- *  settings for media "print"
+ *  Printout settings
  * ************************************************
  */
  

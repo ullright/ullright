@@ -47,9 +47,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeShow(sfRequest $request)
   {
-    $this->setEmptyLayout();
-    
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_user_show');
     
     $this->allow_edit = false;
     if (UllUserTable::hasGroup('MasterAdmins'))
@@ -58,8 +56,19 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     }
     
     $this->generator = new ullTableToolGenerator('UllEntity', 'r');
+    $this->handlePublicAccess();
     $this->getUserFromRequest();
     $this->generator->buildForm($this->user);
+    
+    $this->setVar('generator', $this->generator, true);
+    
+    $this->location_generator = new ullTableToolGenerator('UllLocation', 'r');
+    $this->location_generator->buildForm($this->user->UllLocation);
+    $this->location_generator->getForm()->getWidgetSchema()->setLabel('name', __('Location', null, 'common'));
+    
+    $this->setVar('location_generator', $this->location_generator, true);
+
+    $this->setEmptyLayout();
   }  
     
   
@@ -76,6 +85,36 @@ class BaseUllUserActions extends BaseUllGeneratorActions
 
     $this->setTableToolTemplate('edit');
   }  
+  
+  
+  /**
+   * Disable columns which should not be seen by unpriviledged users
+   * 
+   * @return none
+   */
+  protected function handlePublicAccess()
+  {
+    if (!UllUserTable::hasGroup('MasterAdmins') && !UllUserTable::hasGroup('UserAdmins'))
+    {
+      $this->generator->getColumnsConfig()->disableAllExcept(
+        sfConfig::get('app_ull_user_popup_public_columns', array(
+          'last_name',
+          'first_name',
+          'email',
+          'photo',
+          'type',
+          'ull_company_id',
+          'ull_department_id',
+          'ull_job_title_id',
+          'superior_ull_user_id',
+          'phone_extension',
+          'fax_extension',
+          'mobile_number',
+          'ull_user_status_id',
+        ))
+      );
+    }    
+  }
   
   
   /**

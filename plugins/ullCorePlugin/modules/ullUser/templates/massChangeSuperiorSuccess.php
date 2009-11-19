@@ -5,7 +5,7 @@
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
-<?php include_partial('ullTableTool/global_error', array('form' => $form)) ?>
+<?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
 
 <form action="<?php echo url_for('ullUser/massChangeSuperior') ?>" method="post">
   <div class="edit_container">

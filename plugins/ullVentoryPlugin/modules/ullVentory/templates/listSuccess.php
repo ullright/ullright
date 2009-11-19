@@ -2,7 +2,7 @@
 <?php $generator = $sf_data->getRaw('generator') ?>
 <?php $order = $sf_data->getRaw('order'); ?>
 
-<?php include_partial('ullTableTool/global_error', array('form' => $filter_form)) ?>
+<?php include_partial('ullTableTool/globalError', array('form' => $filter_form)) ?>
 
 <?php echo $ull_filter ?>
 

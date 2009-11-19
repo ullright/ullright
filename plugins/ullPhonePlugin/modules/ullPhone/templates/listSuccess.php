@@ -24,7 +24,7 @@
   
   <tbody>
   <?php
-    $colspanNumber = count($generator->getActiveAutoRenderedColumns());
+    $colspanNumber = count($generator->getAutoRenderedColumns());
   
     //if a single location is set, display the header immediately
     if (isset($location))
@@ -66,7 +66,7 @@
       ($odd) ? $odd = '' : $odd = 'class="odd"';
       echo '<tr ' . $odd . '>';
       
-      $renderColumnsKeys = array_keys($generator->getActiveAutoRenderedColumns());
+      $renderColumnsKeys = array_keys($generator->getAutoRenderedColumns());
 
       foreach ($form as $widgetKey => $widget)
       {

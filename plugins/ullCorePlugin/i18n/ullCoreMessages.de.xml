@@ -280,6 +280,21 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Alle heute veränderten Benutzer</target>
       </trans-unit>  
       
+      
+      <!--  UllUser Popup -->
+      
+      <trans-unit id="500">
+        <source>Edit user</source>
+        <target>Bearbeite Benutzer</target>
+      </trans-unit>
+      
+      <trans-unit id="501">
+        <source>Show inventory</source>
+        <target>Zeige Inventar</target>
+      </trans-unit>    
+      
+         
+      
             
       
     </body>

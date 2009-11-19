@@ -88,6 +88,9 @@ UllPermission:
   ull_user_mass_change_superior:
     slug:               ull_user_mass_change_superior
     namespace:          test
+  ull_permission_ull_user_show:
+    slug:               ull_user_show
+    namespace:          ullCore
     
 UllEntityGroup:
   ull_entity_group_1:
@@ -112,6 +115,10 @@ UllGroupPermission:
     UllGroup:       ull_user_admin_group
     UllPermission:  ull_user_mass_change_superior
     namespace:      ullCore
+  ull_group_permission_2:
+    UllGroup:       ull_group_everyone
+    UllPermission:  ull_permission_ull_user_show
+    namespace:      ullCore    
 
 UllPrivilege:
   ull_privilege_read:
@@ -214,6 +221,10 @@ UllColumnType:
     class:        ullMetaWidgetUllEntity
     label:        UllEntity
     namespace:    ullCore
+  phone_number:
+    class:        ullMetaWidgetPhoneNumber
+    label:        PhoneNumber
+    namespace:    ullCore    
   
 UllSelect:
   ull_select_test:

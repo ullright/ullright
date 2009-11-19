@@ -103,7 +103,7 @@ abstract class ullGenerator extends ullGeneratorBase
   /**
    * get the embedded sfForm
    *
-   * @return sfForm
+   * @return ullGeneratorForm
    * @throws RuntimeException
    */
   public function getForm()
@@ -161,13 +161,14 @@ abstract class ullGenerator extends ullGeneratorBase
   /**
    * Returns the labels getLabels() would return but without the ones
    * where the originating column's autoRender flag is set to false.
+   * 
    * @return array of labels of columns with autoRender = false 
    */
   public function getAutoRenderedLabels()
   {
     $labels = $this->getLabels();
     
-    $columns = $this->getActiveAutoRenderedColumns();
+    $columns = $this->getAutoRenderedColumns();
     
     $labelKeys = array_keys($labels);
     $columnKeys = array_keys($columns);
@@ -350,7 +351,7 @@ abstract class ullGenerator extends ullGeneratorBase
    * 
    * @return array of columnConfigurations
    */
-  public function getActiveAutoRenderedColumns()
+  public function getAutoRenderedColumns()
   {
     $columns = $this->getActiveColumns();
 
