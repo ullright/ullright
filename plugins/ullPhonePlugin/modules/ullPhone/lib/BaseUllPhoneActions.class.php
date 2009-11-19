@@ -46,7 +46,7 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   public function executeList(sfRequest $request)
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_phone_list');
 
     $this->breadcrumbForList();
 
@@ -79,7 +79,49 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
 
     $this->generator->buildForm($rows);
   }
+  
+  
+  /**
+   * Execute show action
+   *
+   */
+  public function executeShow(sfRequest $request)
+  {
+    $this->redirect('ullPhone/list');
+  }
 
+  
+  /**
+   * Execute create action
+   *
+   */
+  public function executeCreate(sfRequest $request)
+  {
+    $this->redirect('ullPhone/list');
+  }    
+  
+  
+  /**
+   * Execute edit action
+   *
+   */
+  public function executeEdit(sfRequest $request)
+  {
+    $this->redirect('ullPhone/list');
+  }    
+  
+  
+  /**
+   * Execute delete action
+   *
+   */
+  public function executeDelete(sfRequest $request)
+  {
+    $this->redirect('ullPhone/list');
+  }    
+  
+
+  
   /**
    * Apply custom modifications to the query
    *
