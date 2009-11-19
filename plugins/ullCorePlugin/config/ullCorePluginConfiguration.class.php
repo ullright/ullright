@@ -17,14 +17,18 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
   {
     //enable Doctrine cache
     $manager = Doctrine_Manager::getInstance();
-    if (extension_loaded('apc'))
-    {
-      $cacheDriver = new Doctrine_Cache_Apc();    
-    }
-    else
-    {
+    
+    // KU: 2009-11-19: disabled apc cache because of typical caching problems.
+    //   let's see if we really need it.
+//    if (extension_loaded('apc'))
+//    {
+//      $cacheDriver = new Doctrine_Cache_Apc();    
+//    }
+//    else
+//    {
       $cacheDriver = new Doctrine_Cache_Array();
-    }
+//    }
+    
     $manager->setAttribute(Doctrine::ATTR_RESULT_CACHE, $cacheDriver);
     $manager->setAttribute(Doctrine::ATTR_RESULT_CACHE_LIFESPAN, 60 * 5);
     
