@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(18, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(21, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -67,7 +67,9 @@ $t->begin('hasGroup()');
       , false
       , 'returns false for a given group and using the sessions user_id'
       );
-        
+
+      
+      
 $t->diag('hasPermission()');
   $t->is(
         UllUserTable::hasPermission('testPermission', 2)
@@ -83,9 +85,52 @@ $t->diag('hasPermission()');
         UllUserTable::hasPermission('invalidPermission', 1)
       , true
       , 'returns true for any permission for MasterAdmin'
-      );   
+      );
       
-$t->diag('findChoices()');
+  $t->logout();
+  $permission = new UllPermission;
+  $permission->slug = 'ull_foo_show';
+  $permission->save();
+  $groupPermission = new UllGroupPermission;
+  $groupPermission->UllPermission = $permission;
+  $groupPermission->UllGroup = Doctrine::getTable('UllGroup')->findOneByDisplayName('Everyone');
+  $groupPermission->save();
+  
+  $t->is(
+    UllUserTable::hasPermission('ull_foo_show'),
+    true,
+    'Access allowed. Not logged in, but permission ull_foo_show is accessible by everyone'
+  );
+  
+  $groupPermission->UllGroup = Doctrine::getTable('UllGroup')->findOneByDisplayName('Logged in users');
+  $groupPermission->save();
+  
+  $t->is(
+    UllUserTable::hasPermission('ull_foo_show'),
+    false,
+    'Access not allowed. Not logged in and permission ull_foo_show is not accessible for everyone'
+  );
+  
+  $t->loginAs('test_user');
+  
+  $t->is(
+    UllUserTable::hasPermission('ull_foo_show'),
+    true,
+    'Access allowed. Logged in as unprivileged user, and permission ull_foo_show is accessible by logged in users'
+  );  
+  
+  
+  
+  
+  
+  
+     
+      
+      
+      
+      
+      
+$t->begin('findChoices()');
   $t->is(
       UllUserTable::findChoices(),
       array(

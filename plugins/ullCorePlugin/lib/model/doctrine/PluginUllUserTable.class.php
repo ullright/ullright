@@ -68,9 +68,17 @@ class PluginUllUserTable extends UllEntityTable
     {
       $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     }
+    
+    // MasterAdmins have all permissions
+    if (self::hasGroup('MasterAdmins', $userId))
+    {
+      return true;
+    }        
 
+    // Check access by permission / group / user
     $q = new Doctrine_Query;
-    $q->from('UllUser u, u.UllGroup g, g.UllPermissions p')
+    $q
+      ->from('UllUser u, u.UllGroup g, g.UllPermissions p')
       ->where('u.id = ?', $userId)
       ->addWhere('p.slug = ?', $permission)      
     ;
@@ -79,12 +87,34 @@ class PluginUllUserTable extends UllEntityTable
     {
       return true;
     }
+
+    // Check logged in access
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllGroupPermission gp, gp.UllPermission p, gp.UllGroup g')
+      ->addWhere('p.slug = ?', $permission)
+      ->addWhere('g.display_name = ?', 'Logged in users')      
+    ;
     
-    // MasterAdmins have all permissions
-    if (self::hasGroup('MasterAdmins', $userId))
+    if ($q->count() && $userId)
     {
       return true;
-    }
+    }       
+    
+    // Check everyone access
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllGroupPermission gp, gp.UllPermission p, gp.UllGroup g')
+      ->addWhere('p.slug = ?', $permission)
+      ->addWhere('g.display_name = ?', 'Everyone')      
+    ;
+    
+    if ($q->count())
+    {
+      return true;
+    }    
+    
+
   }  
   
   /**
