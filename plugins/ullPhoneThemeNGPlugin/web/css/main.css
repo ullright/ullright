@@ -29,17 +29,18 @@
 /* Overridden css: ullCore / taskcenter.css - formats */
  
 #tc_wrapper a:visited {
-  color: #c28d00;
+  color: #e9aa00;
+  font-weight: bold;
 }
 
 /* Overridden css: ullCore / common.css - formats */
  
 a {
-  color: #c28d00;
+  color: #e08200;
 }
 
 a:visited {
-  color: #c28d00;
+  color: #e08200;
 }
 
 /* End of overridden css */

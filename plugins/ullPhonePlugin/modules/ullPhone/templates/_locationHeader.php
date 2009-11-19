@@ -32,9 +32,9 @@
         {
           $address = implode(' ', array($location['street'], $location['post_code'], $location['city']));
           echo
-            '&nbsp;<small>' .
+            ' &nbsp; ' .
             link_to_google_maps(__('Map', null, 'ullPhoneMessages'), $address, array('target' => '_blank')) .
-            '</small>';
+            '';
         }
         
         echo '</b><br />' .

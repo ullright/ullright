@@ -31,6 +31,14 @@
   ?>
   </li>  
   
+  <li id='nav_link_ull_phone'>
+  <?php
+  echo ull_navigation_link('/ullPhoneThemeNGPlugin/images/ull_phone_32x32',
+      'ullPhone/list', __('Phone directory', null, 'ullPhoneMessages'),
+      array());
+  ?>
+  </li>  
+  
   <?php if (UllUserTable::hasGroup('MasterAdmins')): ?>
     <li id="nav_link_admin">
       <?php echo ull_navigation_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
