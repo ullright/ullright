@@ -1,0 +1,12 @@
+UllPermission:
+  ull_permission_phone_list:
+    slug:               ull_phone_list
+    namespace:          ull_phone
+      
+UllGroupPermission:
+  ull_group_permission_ull_phone_1:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_phone_list
+    namespace:          ull_phone
+
+     
