@@ -99,6 +99,8 @@ class sfDoctrineTestCase extends lime_test
 	
 	/**
 	 * "Login by username"
+	 * 
+	 * Set the given user_id in the session
 	 *
 	 * @param string $username
 	 */
@@ -107,6 +109,18 @@ class sfDoctrineTestCase extends lime_test
     $userId = Doctrine::getTable('UllUser')->findOneByUsername($username)->id;
     sfContext::getInstance()->getUser()->setAttribute('user_id', $userId);	
 	}
+	
+  /**
+   * "Logout"
+   * 
+   * Deletes the user_id in the session
+   *
+   * @param string $username
+   */
+  public function logout()
+  {
+    sfContext::getInstance()->getUser()->getAttributeHolder()->remove('user_id');  
+  }	
 	
 	/**
 	 * Deletes the database and creates it again
