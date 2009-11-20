@@ -354,7 +354,7 @@ class ullQuery
         // Leave invalid columns untouched, it could be an artificial column
         if (!$finalModelTable->hasColumn($finalColumn))
         {
-
+          
           return $column;
         }
         
@@ -362,6 +362,7 @@ class ullQuery
       }
       else
       {
+        
         // Leave invalid columns untouched, it could be an artificial column
         return $column;
       }

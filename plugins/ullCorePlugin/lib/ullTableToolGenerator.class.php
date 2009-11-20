@@ -531,7 +531,7 @@ class ullTableToolGenerator extends ullGenerator
   public function createQuery()
   {
     $q = new ullQuery($this->modelName);
-    $q->addSelect(array_keys($this->getActiveColumns()));
+    $q->addSelect(array_keys($this->getDatabaseColumns()));
     
     return $q; 
   }

@@ -360,8 +360,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   {
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
-        'last_name',
-        'first_name',
+        'name',
         'phone_extension',
         'mobile_number',
         'email_link',

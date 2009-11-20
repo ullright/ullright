@@ -31,10 +31,10 @@
       //there should be two location headers and two users
       ->checkElement($dgsList->getFullRowSelector(), 4) // number of rows
       ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'No location specified')
-      ->checkElement($dgsList->get(2, 'last_name'), 'Admin User')
+      ->checkElement($dgsList->get(2, 'name'), 'Admin User Helpdesk')
       ->checkElement($dgsList->get(2, 'phone_extension'), '')
-      ->checkElement($dgsListLocationHeader->get(3, 'location_name'), 'Wien Mollardgasse (WMO) Map')
-      ->checkElement($dgsList->get(4, 'last_name'), 'Admin')
+      ->checkElement($dgsListLocationHeader->get(3, 'location_name'), 'Wien Mollardgasse (WMO)   Map')
+      ->checkElement($dgsList->get(4, 'name'), 'Admin Master')
       ->checkElement($dgsList->get(4, 'phone_extension'), '1111')
       ->checkElement($dgsList->get(4, 'mobile_number'), '-')
     ->end()
@@ -49,9 +49,8 @@
     ->with('response')->begin()
       //there should be two location headers and two users
       ->checkElement($dgsList->getFullRowSelector(), 2) // number of rows
-      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'Wien Mollardgasse (WMO) Map')
-      ->checkElement($dgsList->get(2, 'last_name'), 'Admin')
-      ->checkElement($dgsList->get(2, 'first_name'), 'Master')
+      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'Wien Mollardgasse (WMO)   Map')
+      ->checkElement($dgsList->get(2, 'name'), 'Admin Master')
       ->checkElement($dgsList->get(2, 'phone_extension'), '1111')
       ->checkElement($dgsList->get(2, 'mobile_number'), '-')
     ->end()

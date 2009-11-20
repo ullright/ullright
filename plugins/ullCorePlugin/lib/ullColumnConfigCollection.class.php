@@ -482,6 +482,49 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   }
   
   
+  /**
+   * Get a list of columnConfigurations for database fields
+   * 
+   * @return array of column configs
+   */
+  public function getDatabaseColumns()
+  {
+    $columns = $this->getActiveColumns();
+
+    foreach ($columns as $columnKey => $column)
+    {
+      if ($column->getIsArtificial())
+      {
+        unset($columns[$columnKey]);
+      }
+    }
+    
+    return $columns;
+  }  
+  
+  
+  /**
+   * Get a list of active columnConfigurations that are marked
+   * to be rendered automatically 
+   * 
+   * @return array
+   */
+  public function getAutoRenderedColumns()
+  {
+    $columns = $this->getActiveColumns();
+
+    foreach ($columns as $columnKey => $column)
+    {
+      if (!$column->getAutoRender())
+      {
+        unset($columns[$columnKey]);
+      }
+    }
+    
+    return $columns;
+  }     
+  
+  
   /** 
    * Alias for getActiveColumns()
    * 

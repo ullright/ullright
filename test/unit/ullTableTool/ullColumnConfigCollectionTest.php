@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(50, new lime_output_color, $configuration);
+$t = new myTestCase(52, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -166,3 +166,11 @@ $t->diag('create()');
   
 $t->diag('getActiveColumns');
   $t->is(array_keys($c->getActiveColumns()), array('one', 'two', 'four'), 'returns the correct columns');  
+  
+$t->diag('getAutoRenderedColumns');
+  $c['two']->setAutoRender(false);
+  $t->is(array_keys($c->getAutoRenderedColumns()), array('one', 'four'), 'returns the correct columns');  
+  
+$t->diag('getDatabaseColumns');
+  $c['one']->setIsArtificial(true);
+  $t->is(array_keys($c->getDatabaseColumns()), array('two', 'four'), 'returns the correct columns');  

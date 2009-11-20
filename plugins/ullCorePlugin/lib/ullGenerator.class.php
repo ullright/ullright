@@ -346,6 +346,17 @@ abstract class ullGenerator extends ullGeneratorBase
   
   
   /**
+   * Get a list of columnConfigurations for database fields
+   * 
+   * @return array of column configs
+   */
+  public function getDatabaseColumns()
+  {
+    return $this->columnsConfig->getDatabaseColumns();
+  }
+  
+  
+  /**
    * Get a list of active columnConfigurations that are marked
    * to be rendered automatically 
    * 
@@ -353,17 +364,7 @@ abstract class ullGenerator extends ullGeneratorBase
    */
   public function getAutoRenderedColumns()
   {
-    $columns = $this->getActiveColumns();
-
-    foreach ($columns as $columnKey => $column)
-    {
-      if (!$column->getAutoRender())
-      {
-        unset($columns[$columnKey]);
-      }
-    }
-    
-    return $columns;
+    return $this->columnsConfig->getAutoRenderedColumns();
   }
   
   
