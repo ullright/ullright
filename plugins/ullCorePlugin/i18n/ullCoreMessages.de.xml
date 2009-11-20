@@ -291,7 +291,12 @@ Gültige Dateitypen sind jpg und png.</target>
       <trans-unit id="501">
         <source>Show inventory</source>
         <target>Zeige Inventar</target>
-      </trans-unit>    
+      </trans-unit>
+      
+      <trans-unit id="502">
+        <source>Show business card</source>
+        <target>Zeige Visitenkarte</target>
+      </trans-unit>  
       
          
       

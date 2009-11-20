@@ -127,6 +127,7 @@ class ullQuery
     return $this;
   }
   
+  
  /**
    * Search for a string in multiple columns
    * 
@@ -169,6 +170,7 @@ class ullQuery
     return $this;
   }
   
+  
   /**
    * Adds an ORDER BY query in front of the existing query part
    * 
@@ -184,6 +186,7 @@ class ullQuery
   {
     return $this->addOrderBy($orderPrefix, true);
   }
+  
   
   /**
    * Add ORDER BY
@@ -348,20 +351,19 @@ class ullQuery
         $finalModel = ullGeneratorTools::getFinalModelFromRelations($this->baseModel, $relations);
         $finalModelTable = Doctrine::getTable($finalModel);
         
-        // ignore invalid columns, it could be an artificial column
+        // Leave invalid columns untouched, it could be an artificial column
         if (!$finalModelTable->hasColumn($finalColumn))
         {
 
-          return false;
+          return $column;
         }
         
         $translated = true;
       }
       else
       {
-
-        // ignore invalid columns, it could be an artificial column
-        return false;
+        // Leave invalid columns untouched, it could be an artificial column
+        return $column;
       }
     }  
 

@@ -13,7 +13,7 @@ class ullPhoneQuickSearchForm extends sfForm
 //        'config' => '{ minChars:2, highlight:false }',
 //    ), array('size' => 14)); 
 
-    $searchWidget = new sfWidgetFormInput(array(), array('size' => 14));
+    $searchWidget = new sfWidgetFormInput(array(), array('size' => 11));
     
     $this->widgetSchema['search'] = $searchWidget;
     

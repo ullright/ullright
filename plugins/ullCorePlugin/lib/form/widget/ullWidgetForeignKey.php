@@ -82,8 +82,9 @@ class ullWidgetForeignKey extends sfWidgetFormInput
     if ($this->getOption('show_ull_entity_popup') == true)
     {
       $uri = 'ullUser/show?username=' . $primaryKey;
-//      $return = link_to(image_tag('/ullCoreThemeNGPlugin/images/ull_user_12x12') . $return, $uri, array(
+//      $return = $return . link_to(image_tag('/ullCoreThemeNGPlugin/images/ull_user_16x16', array('class' => 'ull_user_popup_icon')), $uri, array(
       $return = link_to($return, $uri, array(
+        'title' => __('Show business card', null, 'ullCoreMessages'),
         'onclick' => 'this.href="#";popup(
           "' . url_for($uri) . '",
           "Popup ' . $primaryKey . '",

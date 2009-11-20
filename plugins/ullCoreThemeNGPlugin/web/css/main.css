@@ -13,10 +13,6 @@
 	background: #e1e2e2;
 }
 
-.color_light_bg_ull_core {
-  background: #e1e2e2;
-}
-
 .color_medium_bg {
 	background: #adafb0;
 }
@@ -25,6 +21,11 @@
 	background: #adafb0;
 }
 
+
+/* default grey for all modules */
+.color_light_bg_ull_core {
+  background: #e1e2e2;
+}
 
 /*
  * ************************************************
@@ -757,6 +758,11 @@ div#indicator {
 
 #ull_user_popup_sidebar_list > li {
   margin-left: 0;
+}
+
+img.ull_user_popup_icon {
+  margin-left: .5em;
+  vertical-align: bottom;  
 }
 
 /*

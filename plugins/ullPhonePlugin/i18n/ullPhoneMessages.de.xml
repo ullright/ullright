@@ -32,6 +32,17 @@
         <source>Map</source>
         <target>Karte</target>
       </trans-unit>
+      
+      <trans-unit id="7">
+        <source>Mobile</source>
+        <target>Handy</target>
+      </trans-unit>     
+      
+      <trans-unit id="8">
+        <source>Ext.</source>
+        <target>DW</target>
+      </trans-unit>        
+      
     </body>
   </file>
 </xliff>

@@ -41,6 +41,7 @@
 <?php if (isset($quickSearchForm)): ?>
   <form action="<?php echo url_for('ullPhone/list?locationView=true') ?>" method="post">
   <?php echo $quickSearchForm['search']->render() ?>
+  <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullCore')) ?>
   </form>  
 <?php endif ?>
 

@@ -51,7 +51,7 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     $this->breadcrumbForList();
 
     $this->generator = new ullPhoneGenerator();
-
+    
     //search term set?
     $this->phoneSearchFilter = $request->getParameter('filter[search]');
 
@@ -151,7 +151,9 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     //the columns with a dash if the matching boolean is false
     $this->q->getDoctrineQuery()->addSelect('x.*, ' .
       'if(x.is_show_extension_in_phonebook is not false, x.phone_extension, \'-\') as phone_extension, ' .
-      'if(x.is_show_mobile_number_in_phonebook is not false, x.mobile_number, \'-\') as mobile_number');
+      'if(x.is_show_mobile_number_in_phonebook is not false, x.mobile_number, \'-\') as mobile_number' .
+      ', CONCAT(IFNULL(x.last_name, \' \'), \' \', IFNULL(x.first_name, \' \')) as last_name_first'
+    );
     
     if ($this->isLocationView)
     {
@@ -163,12 +165,12 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     {
       $this->q->addWhere('ull_location_id = ?', $this->filter_location_id);
     }
+    
+    // We only want active users
+    $this->q->addWhere('UllUserStatus->is_active = ?', true);
 
     if (!empty($this->phoneSearchFilter))
     {
-      //doctrineSearch was here
-      //BaseUllGeneratorActions handles this now
-      
       //we need special handling here because we don't want hidden
       //numbers to be searchable
       $this->q->orWhere('is_show_extension_in_phonebook is not FALSE ' .
@@ -177,6 +179,8 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
       $this->q->orWhere('is_show_mobile_number_in_phonebook is not FALSE ' .
         'AND mobile_number LIKE ?', '%' . $this->phoneSearchFilter . '%');
     }
+    
+    
   }
 
   /**

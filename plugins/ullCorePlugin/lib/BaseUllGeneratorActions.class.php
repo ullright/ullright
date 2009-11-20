@@ -274,6 +274,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       {
         $order = 'id';
       }
+      
     }
     
     $this->q->addOrderBy($order);

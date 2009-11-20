@@ -206,8 +206,23 @@ class ullTableToolGenerator extends ullGenerator
   protected function buildTableConfig()
   {
     $this->tableConfig = ullTableConfiguration::buildFor($this->modelName);
+    
+    $this->customizeTableConfig();
+  }
+  
+  
+  /**
+   * Template method to modify the tableConfig
+   * on the generator level
+   * 
+   * @return none
+   */
+  protected function customizeTableConfig()
+  {
+    
   }
 
+  
   /**
    * builds the column config
    *
@@ -216,26 +231,28 @@ class ullTableToolGenerator extends ullGenerator
   {
     $this->columnsConfig = ullColumnConfigCollection::buildFor($this->modelName, $this->defaultAccess, $this->requestAction);
     
+    $this->customizeColumnsConfig();
+    
     $this->handleRelationColumns();
     
-    if ($this->isVersionable() && $this->enableFutureVersions == true)
-    {
-      $tomorrow = mktime(0, 0, 0, date("m"), date("d")+1, date("y"));
-
-      if ($this->isCreateOrEditAction())
-      {
-        $this->columnsConfig->create('scheduled_update_date')
-          ->setLabel('Scheduled update date')
-          ->setMetaWidgetClassName('ullMetaWidgetDate')
-          ->setValidatorOption('required', false) //must be set, as default = true
-          ->setValidatorOption('min', $tomorrow)
-          ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
-      }
-    }
+    $this->handleVersionableBehaviour();
 
 //    var_dump($this->columnsConfig->getActive());
 //    die;
   }
+  
+  
+  /**
+   * Template method to modify the columnConfigCollection
+   * on the generator level
+   * 
+   * @return none
+   */
+  protected function customizeColumnsConfig()
+  {
+    
+  }
+  
   
   /**
    * New relation column handling
@@ -292,6 +309,30 @@ class ullTableToolGenerator extends ullGenerator
 //    var_dump($this->columnsConfig->getActive());
 //    die;    
   }  
+  
+  
+  /**
+   * Add "scheduled_update_date" field funknown_typeor versionable behaviour
+   * 
+   * @return none
+   */
+  protected function handleVersionableBehaviour()
+  {
+    if ($this->isVersionable() && $this->enableFutureVersions == true)
+    {
+      $tomorrow = mktime(0, 0, 0, date("m"), date("d")+1, date("y"));
+
+      if ($this->isCreateOrEditAction())
+      {
+        $this->columnsConfig->create('scheduled_update_date')
+          ->setLabel('Scheduled update date')
+          ->setMetaWidgetClassName('ullMetaWidgetDate')
+          ->setValidatorOption('required', false) //must be set, as default = true
+          ->setValidatorOption('min', $tomorrow)
+          ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
+      }
+    }    
+  }
 
   /**
    * Get the model name of the data object
