@@ -7,8 +7,9 @@ class ullWidgetCountryRead extends ullWidget
   {
     $culture = sfContext::getInstance()->getUser()->getCulture();
     $fc = format_country($value, $culture);
-    if ($fc == '')
-      throw new InvalidArgumentException('Not a valid ISO 3166 country code.');
+    //Standard behavior is to -not- throw an exception 
+    //if ($fc == '')
+    //  throw new InvalidArgumentException('Not a valid ISO 3166 country code.');
     
     return $fc;
   }
