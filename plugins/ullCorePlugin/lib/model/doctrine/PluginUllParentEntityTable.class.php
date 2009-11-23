@@ -66,7 +66,7 @@ class PluginUllParentEntityTable extends UllRecordTable
       ->useResultCache(true)
     ;
     
-    return $q->execute()->getFirst();
+    return $q->fetchOne();
   }
 
   /**
@@ -84,7 +84,7 @@ class PluginUllParentEntityTable extends UllRecordTable
       ->useResultCache(true)
     ;
     
-    return $q->execute()->getFirst();    
+    return $q->fetchOne();    
   }
   
   /**
