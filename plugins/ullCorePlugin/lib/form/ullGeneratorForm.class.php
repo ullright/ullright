@@ -42,7 +42,8 @@ class ullGeneratorForm extends sfFormDoctrine
 
     parent::__construct($object, $options, $CSRFSecret);
 
-    // called after parent:__construct, because sfFormDoctrine overwrites defaults with emtpy array *#!?$
+    // called after parent:__construct, because sfFormDoctrine overwrites defaults 
+    //   with emtpy array *#!?$
     $this->setDefaults($defaults);
     $this->updateDefaultsFromObject();
 //    var_dump($this->getDefaults());die;
@@ -103,6 +104,7 @@ class ullGeneratorForm extends sfFormDoctrine
 
     return $output;
   }
+  
   
   /**
    * Update defaults for relations
@@ -209,8 +211,30 @@ class ullGeneratorForm extends sfFormDoctrine
       }
     }
     
-    return parent::updateObject();    
+    $object =  parent::updateObject();
+
+    $this->notifyPostSaveEvent($object);
+    
+    return $object;
   }
+  
+  
+  /**
+   * Notify "form.post_save event" for post save hooks
+   * 
+   * @param Doctrine_Record $object
+   * @return none
+   */
+  protected function notifyPostSaveEvent($object)
+  {
+//    var_dump(sfContext::getInstance()->getEventDispatcher()->getListeners('form.post_save'));
+//    die;
+    
+    sfContext::getInstance()->getEventDispatcher()->notify(
+      new sfEvent($this, 'form.post_save', $object)
+    ); 
+  }  
+  
   
   /**
    * get the name of the model
