@@ -16,7 +16,7 @@ class ullWidget extends sfWidgetForm
     }
     
     $suffix = $this->getOption('suffix');
-    return esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
+    return (string) esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
   }
   
   public function updateObject(Doctrine_Record $object, $values, $fieldName)

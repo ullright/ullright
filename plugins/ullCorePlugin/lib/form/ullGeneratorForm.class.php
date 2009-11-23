@@ -8,7 +8,11 @@ class ullGeneratorForm extends sfFormDoctrine
   protected
     $modelName,
     $requestAction,
-    $columnsConfig
+    $columnsConfig,
+    /**
+     * Used to store the modified array in the saving process
+     */
+    $modified       = array()
   ;
 
   /**
@@ -188,6 +192,7 @@ class ullGeneratorForm extends sfFormDoctrine
     $this->setDefaults($defaults);
   }  
 
+  
   /**
    * Call updateObject of every ullWidget
    *
@@ -213,6 +218,21 @@ class ullGeneratorForm extends sfFormDoctrine
     
     $object =  parent::updateObject();
 
+    // Save modified for post save event
+    $this->modified = $object->getModified();
+    
+    return $object;
+  }
+  
+  /**
+   * Fire post save event
+   * 
+   * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/form/sfFormDoctrine#save($con)
+   */
+  public function save($con = null)
+  {
+    $object = parent::Save($con);
+    
     $this->notifyPostSaveEvent($object);
     
     return $object;
@@ -231,7 +251,7 @@ class ullGeneratorForm extends sfFormDoctrine
 //    die;
     
     sfContext::getInstance()->getEventDispatcher()->notify(
-      new sfEvent($this, 'form.post_save', $object)
+      new sfEvent($this, 'form.post_save', array('object' => $object, 'modified' => $this->modified))
     ); 
   }  
   
