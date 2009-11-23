@@ -82,7 +82,13 @@
   
   </tbody>
   </table>
-<?php endif ?>
+<?php else: ?>
+  <?php if (($isLocationView) && isset($location)) : ?>
+  <table class='list_table'>
+  <?php include_partial('locationHeader', array('location' => $location, 'colspanNumber' => 1)); ?>
+  </table>
+  <?php endif ?>
+<?php endif?>
 
 <?php include_partial('ullTableTool/ullPagerBottom',
         array('pager' => $pager)

@@ -12,15 +12,19 @@ $w = new ullWidgetCountryRead();
 
 // ->render()
 $t->diag('->render()');
-$t->is($w->render('foo', 'AT'),   'Austria', '->render() renders AT correctly.');
-$t->is($w->render('foo', 'DE'),   'Germany', '->render() renders DE correctly.');
-$t->is($w->render('foo', 'CH'),   'Switzerland', '->render() renders CH correctly.');
-try
-  {
-    $w->render('foo', -1);
-    $t->fail('__render() doesn\'t throw an exception if an invalid country code is given');
-  }
-  catch (InvalidArgumentException $e)
-  {
-    $t->pass('__render() throws an exception if an invalid country code is given');
-  }
+$t->is($w->render('foo', 'AT'),     'Austria', '->render() renders AT correctly.');
+$t->is($w->render('foo', 'DE'),     'Germany', '->render() renders DE correctly.');
+$t->is($w->render('foo', 'CH'),     'Switzerland', '->render() renders CH correctly.');
+$t->is($w->render('foo', 'foobar'), '', '->render() renders incorrect code correctly.');
+
+//commented because we adapted the widget to NOT
+//throw an exception in case of invalid code
+//try
+//  {
+//    $w->render('foo', -1);
+//    $t->fail('__render() doesn\'t throw an exception if an invalid country code is given');
+//  }
+//  catch (InvalidArgumentException $e)
+//  {
+//    $t->pass('__render() throws an exception if an invalid country code is given');
+//  }
