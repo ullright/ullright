@@ -10,11 +10,16 @@ class ullGeneratorForm extends sfFormDoctrine
     $requestAction,
     $columnsConfig,
     /**
-     * Used to store the modified array in the saving process
+     * Store the modified array in the saving process
      */
-    $modified       = array()
+    $modified       = array(),
+    /**
+     * Stores the exists status of an object 
+     */
+    $exists         = null
   ;
 
+  
   /**
    * Constructor
    *
@@ -53,6 +58,7 @@ class ullGeneratorForm extends sfFormDoctrine
 //    var_dump($this->getDefaults());die;
   }
 
+  
   /**
    * Form configuration
    *
@@ -220,9 +226,11 @@ class ullGeneratorForm extends sfFormDoctrine
 
     // Save modified for post save event
     $this->modified = $object->getModified();
+    $this->exists = $object->exists();
     
     return $object;
   }
+  
   
   /**
    * Fire post save event
@@ -251,7 +259,11 @@ class ullGeneratorForm extends sfFormDoctrine
 //    die;
     
     sfContext::getInstance()->getEventDispatcher()->notify(
-      new sfEvent($this, 'form.post_save', array('object' => $object, 'modified' => $this->modified))
+      new sfEvent($this, 'form.post_save', array(
+        'object'    => $object, 
+        'modified'  => $this->modified,
+        'exists'    => $this->exists,
+      ))
     ); 
   }  
   
