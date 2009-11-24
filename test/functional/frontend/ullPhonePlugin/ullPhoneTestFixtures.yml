@@ -1,19 +1,23 @@
 UllUser:
-  helpdesk_admin_user:
-    first_name:         Helpdesk
-    last_name:          Admin User
-    email:              helpdesk.admin.user@example.com
-    username:           helpdesk_admin_user
-    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+  tony_almeida_user:
+    first_name:         Tony
+    last_name:          Almeida
+    email:              tony_almeida@example.com
+    username:           tony_almeida
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
-  helpdesk_user:
-    first_name:         Helpdesk
-    last_name:          User
-    email:              helpdesk.user@example.com
-    username:           helpdesk_user
-    password:           098f6bcd4621d373cade4e832627b4f6 # = test
+    is_show_in_phonebook: false
+
+  jack_bauer_user:
+    first_name:         Jack
+    last_name:          Bauer
+    email:              jack.bauer@example.com
+    username:           jack_bauer
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
+    phone_extension:    5555
+    # alternative_phone_extension: not set on purpose
+    is_show_extension_in_phonebook: false
+    mobile_number:      +43 1 789987

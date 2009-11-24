@@ -1,8 +1,8 @@
 <?php 
 
 /**
- * ullQuery is a wrapper for Doctrine_Query which allows giving related columns
- * in the ull-relation syntax relative to a given base model
+ * ullQuery is a wrapper for ullDoctrineQuery (which in turn extends from Doctrine_Query).
+ * It allows giving related columns in the ull-relation syntax relative to a given base model.
  * 
  * Example for ullVentoryItem: 'UllUser->username' selects the username of an item's owner
  * 
@@ -32,7 +32,7 @@ class ullQuery
   {
     $this->baseModel = $baseModel;
     
-    $this->q = new Doctrine_Query;
+    $this->q = new ullDoctrineQuery();
     $this->q->from($this->baseModel . ' x');
   }
   
@@ -103,11 +103,18 @@ class ullQuery
     return $this;
   }
   
+  /**
+   * Internal function which handles adding where clauses to
+   * the query; supports AND and OR.
+   * 
+   * @param $where the where term to add
+   * @param $params
+   * @param $coordinatorIsOr true if OR, false if AND
+   * @return self
+   */
   protected function handleWhere($where, $params = array(), $coordinatorIsOr)
   {
     preg_match('/^([a-z>_-])+/i', $where, $matches);
-    //var_dump($where);
-    //var_dump($matches);
     $search = $matches[0];
     $replace = $this->relationStringToDoctrineQueryColumn($search);
 
@@ -244,7 +251,6 @@ class ullQuery
     return $this->q->getSql();
   }
   
-  
   /**
    * Return query sql
    * 
@@ -276,7 +282,7 @@ class ullQuery
   /**
    * Returns the Doctrine_Query object
    * 
-   * @return Doctrine_Query
+   * @return ullDoctrineQuery
    */
   public function getDoctrineQuery()
   {

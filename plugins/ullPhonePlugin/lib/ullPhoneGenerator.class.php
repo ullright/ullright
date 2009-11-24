@@ -48,7 +48,4 @@ class ullPhoneGenerator extends ullTableToolGenerator
       ->setInjectIdentifier(true)
     ;
   }
-  
-
- 
 }

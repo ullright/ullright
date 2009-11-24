@@ -45,10 +45,16 @@ UllParentEntity:
       type: integer
     superior_ull_user_id:
       type: integer
+    is_show_in_phonebook:
+      type: boolean
+      default: true
     phone_extension:
       type: integer(20)
+    alternative_phone_extension:
+      type: integer
     is_show_extension_in_phonebook:
       type: boolean
+      default: true
     fax_extension:
       type: integer(20)
     mobile_number:
@@ -67,6 +73,9 @@ UllParentEntity:
     # format: usually $username.png
     photo:
       type: string(255)
+    is_photo_public:
+      type: boolean
+      default: true
     # for clone users
     parent_ull_user_id:
       type: integer

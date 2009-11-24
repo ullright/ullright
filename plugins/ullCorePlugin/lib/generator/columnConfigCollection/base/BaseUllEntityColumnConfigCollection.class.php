@@ -17,6 +17,11 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['photo']
       ->setMetaWidgetClassName('ullMetaWidgetPhoto')
       ->setInjectIdentifier(true)
+    ;
+    
+    $this['is_photo_public']
+      ->setLabel(__('Show photo', null, 'ullCoreMessages'))
+      ->setHelp(__('If unchecked, the photo will be visible in administrative areas only.', null, 'ullCoreMessages'))
       ->setShowSpacerAfter(true)
     ;
     
@@ -53,8 +58,19 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setShowSpacerAfter(true)
     ;
     
+    $this['is_show_in_phonebook']
+      ->setLabel(__('Show in phone book', null, 'ullCoreMessages'))
+      ->setHelp(__('If unchecked, none of the user\'s contact data will ' .
+        'be listed in the phone book.', null, 'ullCoreMessages'))
+    ;
+    
     $this['phone_extension']->setLabel(__('Phone extension', null, 'ullCoreMessages'));
-    $this['is_show_extension_in_phonebook']->setLabel(__('Show phone ext. in phone book', null, 'ullCoreMessages'));
+    $this['alternative_phone_extension']->setLabel(__('Alternative phone extension', null, 'ullCoreMessages'));
+    $this['is_show_extension_in_phonebook']
+      ->setLabel(__('Show phone ext. in phone book', null, 'ullCoreMessages'))
+      ->setHelp(__('If unchecked, the alternative phone extension ' .
+        'replaces the regular one.', null, 'ullCoreMessages'))
+    ;
     $this['fax_extension']->setLabel(__('Fax extension', null, 'ullCoreMessages'));
     $this['mobile_number']->setLabel(__('Mobile number', null, 'ullCoreMessages'));
     $this['is_show_mobile_number_in_phonebook']
@@ -80,13 +96,13 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     ;
     $this['ull_user_status_id']->setShowSpacerAfter(true);
     
-    
     $this->order(array(
       'id',
       'first_name',
       'last_name',
       'sex',
       'photo',
+      'is_photo_public',
       'username',
       'password',
       'email',
@@ -96,8 +112,10 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       'ull_department_id',
       'ull_job_title_id',
       'superior_ull_user_id',
+      'is_show_in_phonebook',
       'phone_extension',
       'is_show_extension_in_phonebook',
+      'alternative_phone_extension',
       'fax_extension',
       'mobile_number',
       'is_show_mobile_number_in_phonebook',
@@ -125,7 +143,10 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'entry_date',
         'deactivation_date',
         'separation_date',
-        'comment'
+        'comment',
+        'is_photo_public',
+        'alternative_phone_extension',
+        'is_show_in_phonebook'
       ));
       
       $this['photo']->setAutoRender(false);

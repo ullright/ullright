@@ -118,6 +118,14 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $row = $this->getRowFromRequestOrCreate();
     
+    //should this be in BaseUllUserActions instead?
+    if (get_class($row) == 'UllUser')
+    {
+      //let's override some accessors since we are editing
+      $row->mapValue('overridePhotoAccessor', true);
+      $row->mapValue('overridePhoneExtensionAccessor', true);
+    }
+    
     $this->generator->buildForm($row);
     
     $this->setVar('generator', $this->generator, true);    
@@ -282,16 +290,15 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyQueryForFilter();
     
-//    printQuery($this->q->getDoctrineQuery()->getSql());
-//    var_dump($this->q->getDoctrineQuery()->getParams());
+    //printQuery($this->q->getDoctrineQuery()->getSql());
+    //var_dump($this->q->getDoctrineQuery()->getParams());
 
     $this->pager = new Doctrine_Pager(
       $this->q->getDoctrineQuery(), 
       $this->getRequestParameter('page', 1),
       sfConfig::get('app_pager_max_per_page')
     );
-    $rows = $this->pager->execute();    
-
+    $rows = $this->pager->execute();
     
     $modelName = $this->generator->getModelName();
     

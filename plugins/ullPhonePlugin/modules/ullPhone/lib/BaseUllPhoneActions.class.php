@@ -150,8 +150,7 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     //the following select includes phone and fax extensions, but overrides
     //the columns with a dash if the matching boolean is false
     $this->q->getDoctrineQuery()->addSelect('x.*, ' .
-      'if(x.is_show_extension_in_phonebook is not false, x.phone_extension, \'-\') as phone_extension, ' .
-      'if(x.is_show_mobile_number_in_phonebook is not false, x.mobile_number, \'-\') as mobile_number' .
+      'if(x.is_show_mobile_number_in_phonebook is not FALSE, x.mobile_number, \'\') as mobile_number' .
       ', CONCAT(IFNULL(x.last_name, \' \'), \' \', IFNULL(x.first_name, \' \')) as last_name_first'
     );
     
@@ -161,26 +160,34 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
       $this->q->addOrderByPrefix('UllLocation->name');
     }
 
+    if (!empty($this->phoneSearchFilter))
+    {
+      $this->q->getDoctrineQuery()->openParenthesisBeforeLastPart();
+      
+      //we need special handling here because we don't want hidden
+      //numbers to be searchable
+      $phoneSearchFilterPattern = '%' . $this->phoneSearchFilter . '%';
+      
+      $this->q->getDoctrineQuery()->orWhere(
+        '(is_show_extension_in_phonebook is not FALSE AND phone_extension LIKE ?) ' .
+        'OR (is_show_extension_in_phonebook is FALSE AND alternative_phone_extension LIKE ?)',
+        array($phoneSearchFilterPattern, $phoneSearchFilterPattern));
+
+      $this->q->orWhere('is_show_mobile_number_in_phonebook is not FALSE ' .
+        'AND mobile_number LIKE ?', $phoneSearchFilterPattern);
+      
+      $this->q->getDoctrineQuery()->closeParenthesis();
+    }
+    
+
     if (!empty($this->filter_location_id))
     {
       $this->q->addWhere('ull_location_id = ?', $this->filter_location_id);
     }
     
-    // We only want active users
-    $this->q->addWhere('UllUserStatus->is_active = ?', true);
-
-    if (!empty($this->phoneSearchFilter))
-    {
-      //we need special handling here because we don't want hidden
-      //numbers to be searchable
-      $this->q->orWhere('is_show_extension_in_phonebook is not FALSE ' .
-        'AND phone_extension LIKE ?', '%' . $this->phoneSearchFilter . '%');
-
-      $this->q->orWhere('is_show_mobile_number_in_phonebook is not FALSE ' .
-        'AND mobile_number LIKE ?', '%' . $this->phoneSearchFilter . '%');
-    }
-    
-    
+    //we only want users which are active and have their
+    //show-in-phonebook not set to false
+    $this->q->addWhere('UllUserStatus->is_active is TRUE and is_show_in_phonebook is not FALSE');
   }
 
   /**
@@ -221,15 +228,13 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   protected function getSearchColumnsForFilter()
   {
-    //return array('first_name, last_name');
-    //doctrinesearch is not ready for this
     return array(
       'first_name',
       'last_name',
       'UllLocation->name',
       'UllLocation->short_name',
       'UllLocation->phone_base_no',
-      'UllDepartment->name'
+      'UllDepartment->name',
     );
   }
 }

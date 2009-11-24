@@ -10,8 +10,8 @@ UllUser:
     entry_date:         "2009-01-01"
     deactivation_date:  "2999-09-09"
     separation_date:    "2888-08-08"
+    is_show_in_phonebook: true
     phone_extension:    1111
-    is_show_extension_in_phonebook: true
     fax_extension:      3333
     mobile_number:      +1 212 9988777
     is_show_mobile_number_in_phonebook: false
@@ -37,8 +37,10 @@ UllUser:
     Creator:            admin_user
     Updator:            admin_user
     photo:              test_user.png
+    is_photo_public:    false
     UllLocation:        new_york
     phone_extension:    2222
+    alternative_phone_extension: 8888
     is_show_extension_in_phonebook: false
     fax_extension:      4444
     mobile_number:      +43 1 55556666

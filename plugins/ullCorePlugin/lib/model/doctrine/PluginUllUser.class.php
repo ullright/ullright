@@ -50,7 +50,7 @@ abstract class PluginUllUser extends BaseUllUser
     
     $this->display_name = $firstName . ' ' . $lastName;
     
-  }   
+  }
   
   /**
    * get User's Shortname
@@ -87,5 +87,24 @@ abstract class PluginUllUser extends BaseUllUser
   public function getLastNameFirst()
   {
     return $this->last_name . ' ' . $this->first_name;
-  }   
+  }
+  
+  public function getPhoto()
+  {
+    //overridePhotoAccessor is a mapped value
+    return ($this->_get('is_photo_public') === false && !isset($this->overridePhotoAccessor))
+      ? null : $this->_get('photo');
+  }
+  
+  public function getPhoneExtension()
+  {
+    //overridePhoneExtensionAccessor is a mapped value
+    if ($this->_get('is_show_extension_in_phonebook') === false && !isset($this->overridePhoneExtensionAccessor))
+    {
+      $alternativeExtension = $this->_get('alternative_phone_extension');
+      return !empty($alternativeExtension) ? $this->_get('alternative_phone_extension') : null;
+    }
+
+    return $this->_get('phone_extension');
+  }
 }

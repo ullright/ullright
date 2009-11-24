@@ -77,8 +77,17 @@
       <trans-unit id="15">
       <source>Please enter the same password twice</source>
       <target>Bitte geben Sie zwei Mal das gleiche Passwort ein</target>
-      </trans-unit>      
+      </trans-unit>
+      
+      <trans-unit id="16">
+      <source>Alternative phone extension</source>
+      <target>Alternative Durchwahl</target>
+      </trans-unit>    
 
+      <trans-unit id="17">
+      <source>Show photo</source>
+      <target>Foto anzeigen</target>
+      </trans-unit>  
 
       <!-- table config -->
       <trans-unit id="20">
@@ -298,10 +307,26 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Zeige Visitenkarte</target>
       </trans-unit>  
       
+      <trans-unit id="600">
+        <source>If unchecked, the photo will be visible in administrative areas only.</source>
+        <target>Wenn nicht angehakt, wird das Foto nur in administrativen Bereichen angezeigt.</target>
+      </trans-unit>
+      
+      <trans-unit id="601">
+        <source>If unchecked, the alternative phone extension replaces the regular one.</source>
+        <target>Wenn nicht angehakt, wird die alternative Durchwahl anstelle der normalen angezeigt.</target>
+      </trans-unit>  
+      
+      <trans-unit id="602">
+        <source>If unchecked, none of the user's contact data will be listed in the phone book.</source>
+        <target>Wenn nicht angehakt, werden die Kontaktdaten des Benutzers im Telefonbuch nicht angezeigt.</target>
+      </trans-unit>  
          
-      
-            
-      
+      <trans-unit id="603">
+        <source>Show in phone book</source>
+        <target>In Telefonbuch anzeigen</target>
+      </trans-unit>  
+
     </body>
   </file>
 </xliff>

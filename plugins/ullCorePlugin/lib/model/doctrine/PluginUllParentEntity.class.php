@@ -69,6 +69,9 @@ abstract class PluginUllParentEntity extends BaseUllParentEntity
   {
     $array = parent::toArray($deep, $prefixKey);
     
+    $array['photo'] = $this->get('photo');
+    $array['phone_extension'] = $this->get('phone_extension');
+    
     if ($this->_get('type') == 'clone_user')
     {
       foreach ($array as $fieldName => $value)
@@ -79,7 +82,7 @@ abstract class PluginUllParentEntity extends BaseUllParentEntity
         }
       }   
     }
-    
+
     return $array;
   }
 

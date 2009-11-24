@@ -22,7 +22,7 @@ $t->diag('getBaseModel()');
 
 
 $t->diag('getDoctrineQuery()');
-  $t->isa_ok($q->getDoctrineQuery(), 'Doctrine_Query', 'Returns a valid Doctrine_Query object');   
+  $t->isa_ok($q->getDoctrineQuery(), 'ullDoctrineQuery', 'Returns a valid ullDoctrineQuery object');   
   $t->is($q->getDoctrineQuery()->getDqlPart('from'), array(0 => 'TestTable x'), 'Constructor sets the correct basemodel in the query');
   
   
