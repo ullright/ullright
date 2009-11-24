@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetForeignKey extends sfWidgetFormInput
+class ullWidgetForeignKey extends ullWidget
 {
   
   protected function configure($options = array(), $attributes = array())

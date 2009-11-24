@@ -25,8 +25,10 @@ abstract class BaseUllParentEntity extends UllRecord
         $this->hasColumn('ull_department_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('ull_location_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('superior_ull_user_id', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('is_show_in_phonebook', 'boolean', null, array('type' => 'boolean', 'default' => true));
         $this->hasColumn('phone_extension', 'integer', 20, array('type' => 'integer', 'length' => '20'));
-        $this->hasColumn('is_show_extension_in_phonebook', 'boolean', null, array('type' => 'boolean'));
+        $this->hasColumn('alternative_phone_extension', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('is_show_extension_in_phonebook', 'boolean', null, array('type' => 'boolean', 'default' => true));
         $this->hasColumn('fax_extension', 'integer', 20, array('type' => 'integer', 'length' => '20'));
         $this->hasColumn('mobile_number', 'string', 20, array('type' => 'string', 'length' => '20'));
         $this->hasColumn('is_show_mobile_number_in_phonebook', 'boolean', null, array('type' => 'boolean'));
@@ -34,6 +36,7 @@ abstract class BaseUllParentEntity extends UllRecord
         $this->hasColumn('ull_user_status_id', 'integer', null, array('type' => 'integer', 'notnull' => true, 'default' => '1'));
         $this->hasColumn('is_virtual_group', 'boolean', null, array('type' => 'boolean', 'default' => false));
         $this->hasColumn('photo', 'string', 255, array('type' => 'string', 'length' => '255'));
+        $this->hasColumn('is_photo_public', 'boolean', null, array('type' => 'boolean', 'default' => true));
         $this->hasColumn('parent_ull_user_id', 'integer', null, array('type' => 'integer'));
 
 
