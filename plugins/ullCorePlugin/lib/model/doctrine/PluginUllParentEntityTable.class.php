@@ -51,11 +51,12 @@ class PluginUllParentEntityTable extends UllRecordTable
     }
   }
   
+  
   /**
    * Find by Id
    *
    * @param integer $id
-   * @return Doctrine_Record
+   * @return UllEntity
    */
   public static function findById($id)
   {
@@ -69,6 +70,7 @@ class PluginUllParentEntityTable extends UllRecordTable
     return $q->fetchOne();
   }
 
+  
   /**
    * Find UllEntity by display_name
    *
@@ -87,6 +89,7 @@ class PluginUllParentEntityTable extends UllRecordTable
     return $q->fetchOne();    
   }
   
+  
   /**
    * Find UllEntity->id by display_name
    *
@@ -100,6 +103,52 @@ class PluginUllParentEntityTable extends UllRecordTable
     {
       return $entity->id;
     }
+  }
+  
+  
+  public static function getSubordinateTree(UllEntity $entity, $hydrate = true)
+  {
+    $tree = array();
+    
+    $tree[$entity->id] = array(
+      'data'      => ($hydrate) ? $entity : $entity->id,
+      'meta'      => array(),
+      'children'  => null,
+    );
+    
+    if ($subordinates = $entity->getSubordinates())
+    {
+      $tree[$entity->id]['children'] = array();
+      $markAsLeftMost = null;
+      
+      if (count($subordinates) > 1)
+      {
+        $markAsLeftMost = true;
+      }
+      
+      foreach ($subordinates as $subordinate)
+      {
+//        var_dump('-----');
+//        var_dump(self::getSubordinateTree($subordinate, $hydrate));
+//        var_dump($tree[$entity->id]['children']);
+        $tree[$entity->id]['children'] += self::getSubordinateTree($subordinate, $hydrate);
+//        var_dump($tree[$entity->id]['children']); 
+
+        if ($markAsLeftMost)
+        {
+          $tree[$entity->id]['children'][$subordinate->id]['meta']['leftmost'] = true;
+          $markAsLeftMost = false;
+        }
+      }
+      
+      if (count($subordinates) > 1)
+      {
+        $tree[$entity->id]['children'][$subordinate->id]['meta']['rightmost'] = true;
+      }
+      
+    }     
+
+   return $tree;     
   }
   
 }

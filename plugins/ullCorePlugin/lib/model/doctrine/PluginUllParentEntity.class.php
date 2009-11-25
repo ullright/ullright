@@ -85,5 +85,26 @@ abstract class PluginUllParentEntity extends BaseUllParentEntity
 
     return $array;
   }
+  
+  
+  /**
+   * Get the subordinates for the current entity
+   * 
+   * @param boolean $hydration
+   * @return mixed
+   */
+  public function getSubordinates($hydrationMode = null)
+  {
+    $q =  new Doctrine_Query;
+    $q
+      ->from('UllEntity x')
+      ->where('x.superior_ull_user_id = ?', $this->id)
+      ->orderby('x.last_name, x.first_name')
+    ;
+    
+    $result = $q->execute(null, $hydrationMode);
+    
+    return $result;
+  }
 
 }

@@ -21,7 +21,6 @@ UllUser:
     ull_department_id:      1
     ull_location_id:        2
     ull_employment_type_id: 1
-    superior_ull_user_id:   1
     ull_user_status_id:     1
     photo:              admin.png
     creator_user_id:    1               # integer since the adminuser isn't created yet
