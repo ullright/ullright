@@ -78,6 +78,8 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     $rows = $this->getFilterFromRequest();
 
     $this->generator->buildForm($rows);
+    
+//    var_dump($this->generator->getForm()->debug());die;
   }
   
   

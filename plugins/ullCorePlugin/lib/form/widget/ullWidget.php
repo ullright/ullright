@@ -16,18 +16,72 @@ class ullWidget extends sfWidgetForm
       $value = $value['value'];
     }
     
-    $suffix = $this->getOption('suffix');
-    $value = esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
-    
-    if ($this->getOption('nowrap'))
-    {
-      $value = '<span style="white-space: nowrap;">' . $value . '</span>';
-    }
+    $value = $this->handleOptions($value);
+
     return (string) $value;
   }
   
+  
+  /**
+   * 
+   * TODO: what's the idea here ???
+   *  
+   * @param Doctrine_Record $object
+   * @param unknown_type $values
+   * @param unknown_type $fieldName
+   * @return unknown_type
+   */
   public function updateObject(Doctrine_Record $object, $values, $fieldName)
   {
     return $values;
   }
+
+  
+  /**
+   * Handle common functionality for all ullWidgets
+   * 
+   * @param string $value
+   * @return string
+   */
+  protected function handleOptions($value)
+  {
+    $value = $this->handleSuffixOption($value);
+    
+    $value = $this->handleNowrapOption($value);
+    
+    return $value;
+  }
+  
+  
+  /**
+   * Handle suffix option
+   * 
+   * @param string $value
+   * @return string
+   */  
+  protected function handleSuffixOption($value)
+  {
+    $suffix = $this->getOption('suffix');
+    $value = esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
+    
+    return $value;
+  }
+  
+  
+  /**
+   * Handle nowrap option
+   * 
+   * @param string $value
+   * @return string
+   */  
+  protected function handleNowrapOption($value)
+  {
+    if ($this->getOption('nowrap'))
+    {
+      $value = '<span style="white-space: nowrap;">' . $value . '</span>';
+    } 
+
+    return $value;
+  }
+  
 }

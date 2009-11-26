@@ -235,6 +235,8 @@ class ullTableToolGenerator extends ullGenerator
     
     $this->handleRelationColumns();
     
+    $this->customizeRelationColumns();
+    
     $this->handleVersionableBehaviour();
 
 //    var_dump($this->columnsConfig->getActive());
@@ -246,12 +248,28 @@ class ullTableToolGenerator extends ullGenerator
    * Template method to modify the columnConfigCollection
    * on the generator level
    * 
+   * This is the place to create artifical columns
+   * 
    * @return none
    */
   protected function customizeColumnsConfig()
   {
     
   }
+  
+
+  /**
+   * Template method to modify the columnConfigCollection
+   * for relation columnns
+   * 
+   * Called after getting the columnConfigs for relation columns
+   * 
+   * @return none
+   */
+  protected function customizeRelationColumns()
+  {
+    
+  }  
   
   
   /**

@@ -39,10 +39,6 @@ class ullPhoneGenerator extends ullTableToolGenerator
       ->setLabel(__('Mobile', null, 'ullPhoneMessages'))
       ->setWidgetOption('nowrap', true)
     ;
-    
-    $this->columnsConfig['ull_location_id']
-      ->setWidgetOption('nowrap', true)
-    ;
 
     // Create columnConfig for artificial "last_name_first" column
     $this->getColumnsConfig()
@@ -54,4 +50,12 @@ class ullPhoneGenerator extends ullTableToolGenerator
       ->setWidgetOption('nowrap', true)
     ;
   }
+
+  
+  protected function customizeRelationColumns()
+  {
+    $this->columnsConfig['UllLocation->name']
+      ->setWidgetOption('nowrap', true)
+    ;
+  }  
 }

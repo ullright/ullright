@@ -22,7 +22,8 @@ class ullWidgetForeignKey extends ullWidget
     if ($this->getOption('render_additional_hidden_field'))
     {
       $attributes['type'] = 'hidden';
-      $return .= parent::render($name, $value, $attributes, $errors);  
+      $hiddenField = new sfWidgetFormInput($this->getOptions(), $attributes);
+      $return .= $hiddenField->render($name, $value, $attributes, $errors);  
     }
     
     if (empty($value))
@@ -34,6 +35,8 @@ class ullWidgetForeignKey extends ullWidget
     {
       $primaryKey = $value['id'];
       $value = $value['value'];
+      
+      $value = $this->handleOptions($value);
       
       $return .= $value;
     }
