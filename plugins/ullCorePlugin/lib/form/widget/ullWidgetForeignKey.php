@@ -22,7 +22,7 @@ class ullWidgetForeignKey extends ullWidget
     if ($this->getOption('render_additional_hidden_field'))
     {
       $attributes['type'] = 'hidden';
-      $hiddenField = new sfWidgetFormInput($this->getOptions(), $attributes);
+      $hiddenField = new sfWidgetFormInput(array(), $attributes);
       $return .= $hiddenField->render($name, $value, $attributes, $errors);  
     }
     
