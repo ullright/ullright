@@ -49,8 +49,7 @@ a:visited {
   width: 17em;
 }
 
-/*
-.list_table a {
-  color: #777475 !important;
+
+.list_table tbody a {
+  color: #777475;
 }
-*/
