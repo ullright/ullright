@@ -16,6 +16,7 @@ dev:
 # default values
 all:
   theme_package:    NG
+  sidebar_logo:     /ullCoreThemeNGPlugin/images/logo_120
   
   supported_languages: en,de
   

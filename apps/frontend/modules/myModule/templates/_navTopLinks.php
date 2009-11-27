@@ -39,7 +39,7 @@
   ?>
   </li>  
   
-  <?php if (UllUserTable::hasGroup('MasterAdmins')): ?>
+  <?php if (UllUserTable::hasGroup('MasterAdmins') || UllUserTable::hasGroup('UserAdmins')): ?>
     <li id="nav_link_admin">
       <?php echo ull_navigation_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
         'ullAdmin/index', __('Admin'),
