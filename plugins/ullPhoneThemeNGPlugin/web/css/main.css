@@ -52,4 +52,5 @@ a:visited {
 
 .list_table tbody a {
   color: #777475;
+  font-weight: bold;
 }
