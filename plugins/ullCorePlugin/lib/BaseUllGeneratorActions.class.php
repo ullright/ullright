@@ -136,6 +136,19 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     {
       if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id))))
       {
+        // save only
+        if ($request->getParameter('action_slug') == 'save_only') 
+        {
+          $this->redirect(ullCoreTools::appendParamsToUri(
+            $this->edit_base_uri, 
+            'id=' . $this->generator->getForm()->getObject()->id
+          ));
+        }
+        elseif ($request->getParameter('action_slug') == 'save_new') 
+        {
+          $this->redirect($this->create_base_uri);
+        }
+                
         $this->redirect($this->getUriMemory()->getAndDelete('list'));
       }
     }

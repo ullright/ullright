@@ -65,6 +65,16 @@
           ); 
         ?>
       </li>
+      
+      <li>
+        <?php 
+          echo ull_submit_tag(
+            __('Save and new', null, 'common'), 
+            array('name' => 'submit|action_slug=save_new', 'form_id' => 'ull_wiki_form', 'display_as_link' => true)
+          ); 
+        ?>
+      </li>       
+      
       <li>
 		    <?php if ($doc->id): ?>    
 		      <?php 

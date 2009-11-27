@@ -158,6 +158,12 @@ class BaseUllWikiActions extends ullsfActions
           $this->redirect('ullWiki/show?docid=' . $this->doc->id);
         } 
         
+        // save and new
+        elseif ($request->getParameter('action_slug') == 'save_new') 
+        {
+          $this->redirect('ullWiki/create');
+        }            
+        
         // use the default referer
         else
         {

@@ -261,39 +261,35 @@
           </li>
 
         </ul> 
-  </div>    
+    </div>    
 
-  <div class='edit_action_buttons_right'>
-
-    <ul>
-      
-      <li>
-        <?php 
-          echo ull_submit_tag(
-            __('Save only', null, 'common'), 
-            array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_ventory_form', 'display_as_link' => true)
-          ); 
-        ?>
-      </li>
-      <!-- 
-      <li>
-		    <?php /* if ($doc->id): ?>    
-		      <?php 
-		        echo link_to(
-		          __('Delete', null, 'common'), 
-		          'ullVentory/delete?id=' . $doc->id, 
-		          'confirm='.__('Are you sure?', null, 'common')
-		          ); 
-		      ?>
-		    <?php endif;  */?>
-      </li>
-      -->
-
-	    </ul>
-	
-	  </div>
-	
-	  <div class="clear"></div>  
+    <div class='edit_action_buttons_right'>
+  
+      <ul>
+        
+        <li>
+          <?php 
+            echo ull_submit_tag(
+              __('Save only', null, 'common'), 
+              array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_ventory_form', 'display_as_link' => true)
+            ); 
+          ?>
+        </li>
+        
+        <li>
+          <?php 
+            echo ull_submit_tag(
+              __('Save and new', null, 'common'), 
+              array('name' => 'submit|action_slug=save_new', 'form_id' => 'ull_ventory_form', 'display_as_link' => true)
+            ); 
+          ?>
+        </li>       
+  
+      </ul>
+  	
+    </div>
+  	
+    <div class="clear"></div>  
   </div>
   
   

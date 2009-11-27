@@ -80,6 +80,11 @@
 <target>Hochladen</target>
 </trans-unit>
 
+<trans-unit id="15">
+<source>Save and new</source>
+<target>Speichern und neu</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 

@@ -51,14 +51,38 @@
       }
     ?>
     <ul>
-      <li>
-        <?php echo submit_tag(__('Save', null, 'common')) ?>
-      </li>
+        <li>
+          <?php             
+            echo ull_submit_tag(
+              __('Save and return to list', null, 'common'),
+              array('name' => 'submit|action_slug=save_close')
+            );  
+          ?>
+        </li>        
     </ul>
   </div>
 
   <div class='edit_action_buttons_right'>
     <ul>
+    
+      <li>
+        <?php 
+          echo ull_submit_tag(
+            __('Save only', null, 'common'), 
+            array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
+          ); 
+        ?>
+      </li>    
+    
+      <li>
+        <?php 
+          echo ull_submit_tag(
+            __('Save and new', null, 'common'), 
+            array('name' => 'submit|action_slug=save_new', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
+          ); 
+        ?>
+      </li>    
+    
       <li>
     <?php if ($generator->getRow()->exists()): ?>    
           <?php 

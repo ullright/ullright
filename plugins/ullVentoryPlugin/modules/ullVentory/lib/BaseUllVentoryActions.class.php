@@ -203,6 +203,12 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
           $this->redirect('ullVentory/show?id=' . $this->doc->id);
         } 
         
+        // save and new
+        elseif ($request->getParameter('action_slug') == 'save_new') 
+        {
+          $this->redirect('ullVentory/create' . ($request->hasParameter('entity') ? '?entity=' . $request->getParameter('entity') : ''));
+        }         
+        
         // use the default referer
         else
         {

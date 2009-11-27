@@ -235,7 +235,7 @@ class ullCoreTools
    * Automatically detects if we need ? or & as separator
    * 
    * @param string $uri
-   * @param string $params
+   * @param string $params  in the format param1=value1&param2=value2
    * @return string
    */
   public static function appendParamsToUri($uri, $params)
