@@ -16,6 +16,7 @@
      <?php echo $filter_form['search']->render() ?>
      <?php echo submit_image_tag(ull_image_path('search'),
               array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) ?>
+     <?php echo javascript_tag('document.getElementById("filter_search").focus();'); ?>
     </li> 
 </ul>
 

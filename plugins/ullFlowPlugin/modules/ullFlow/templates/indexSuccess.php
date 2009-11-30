@@ -43,7 +43,7 @@
             <td><?php echo $form['search']->render() ?></td>
             <td><?php echo submit_image_tag(ull_image_path('search'),
               array('class' => 'tc_search_quick_top_img')) ?></td>
-              
+            <?php echo javascript_tag('document.getElementById("filter_search").focus();'); ?>
           </tr>
           </table>
           </form>

@@ -17,6 +17,7 @@
   <?php echo $quickSearchForm['search']->render() ?>
   <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullCore')) ?>
   </form>
+  <?php echo javascript_tag('document.getElementById("filter_search").focus();'); ?>
   <br />  
 <?php endif ?>  
 

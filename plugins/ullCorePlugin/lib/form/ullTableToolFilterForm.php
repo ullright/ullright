@@ -6,7 +6,6 @@ class ullTableToolFilterForm extends sfForm
   {
     $this->setWidgets(array(
       'search'  => new sfWidgetFormInput(array(), array('size' => '15',
-                                                        'onchange' => 'submit()',
                                                         'title' => __('Search', null, 'common'))),
     ));
 

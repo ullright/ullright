@@ -18,6 +18,7 @@
       <div class="tc_box color_medium_bg">
         <?php echo $form['search']->renderLabel() ?><br />    
         <?php echo $form['search']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
+        <?php echo javascript_tag('document.getElementById("filter_search").focus();'); ?>
       </div>
       <div class="tc_box_with_bottom_spacer color_light_bg">
         <?php echo ull_link_to(__('Advanced search', null, 'common'), 'ullVentory/search') ?>

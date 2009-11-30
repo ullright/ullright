@@ -89,6 +89,7 @@
             <td>
               <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullCore'),
                 array('class' => 'tc_search_quick_top_img')) ?>
+                <?php echo javascript_tag('document.getElementById("filter_search").focus();'); ?>
             </td>
           </tr>
           </table>
