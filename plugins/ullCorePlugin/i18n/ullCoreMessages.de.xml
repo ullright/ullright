@@ -88,6 +88,12 @@
       <source>Show photo</source>
       <target>Foto anzeigen</target>
       </trans-unit>  
+      
+      <trans-unit id="18">
+      <source>Create user</source>
+      <target>Erstelle Benutzer</target>
+      </trans-unit>      
+      
 
       <!-- table config -->
       <trans-unit id="20">

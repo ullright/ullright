@@ -6,9 +6,12 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
-      <h3><?php echo __('User and Groups') ?></h3>
+      <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_user_24x24', 'ullUser/list', __('Manage', null, 'common') . ' ' . __('Users', null, 'ullCoreMessages')) ?></li>      
+        <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_user_24x24', 'ullUser/create', __('Create user', null, 'ullCoreMessages')) ?></li>
+      </ul>
+      <h3><?php echo __('User and Groups') ?></h3>
+      <ul class="tc_tasks">      
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_clone_user_24x24', 'ullCloneUser/list', __('Manage', null, 'common') . ' ' . __('Clone users', null, 'ullCoreMessages')) ?></li>
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllGroup', 'ullCore', 'ull_group_24x24') ?></li>
         <!-- Users won't normally add permissions <li><?php //echo ullTableConfiguration::renderTaskCenterLink('UllPermission', 'ullCore', 'ull_permission_24x24') ?></li> //-->
