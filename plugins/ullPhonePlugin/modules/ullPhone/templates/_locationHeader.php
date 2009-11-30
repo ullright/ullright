@@ -20,7 +20,7 @@
       }
       else
       {
-        echo '<b>' . $location['name'];
+        echo '<span class="no_wrap"><b>' . $location['name'];
         if (!empty($location['short_name']))
         {
           echo ' (' . $location['short_name'] . ')';
@@ -37,7 +37,7 @@
             '';
         }
         
-        echo '</b><br />' .
+        echo '</b></span><br />' .
           __('Tel', null, 'common') . ': ' . $location['phone_base_no'] . ' ' . $location['phone_default_extension'] . '<br />' .
           __('Fax', null, 'common') . ': ' . $location['fax_base_no'] . ' ' . $location['fax_default_extension']
         ;
