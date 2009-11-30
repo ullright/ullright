@@ -49,7 +49,8 @@ abstract class PluginUllUser extends BaseUllUser
     }  
     
     $this->display_name = $firstName . ' ' . $lastName;
-    
+
+    $this->last_name_first = $lastName . ' ' . $firstName;
   }
   
   /**
@@ -75,18 +76,6 @@ abstract class PluginUllUser extends BaseUllUser
     $return .= $last_name;
 
     return $return;
-  }
-  
-  /**
-   * Get Full Name but the Lastname first
-   * 
-   * Example: Lennon John
-   *
-   * @return string
-   */
-  public function getLastNameFirst()
-  {
-    return $this->last_name . ' ' . $this->first_name;
   }
   
   public function getPhoto()

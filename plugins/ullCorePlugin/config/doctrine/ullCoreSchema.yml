@@ -17,6 +17,8 @@ UllParentEntity:
       type: string(64)
     display_name:
       type: string(64)
+    last_name_first:
+      type: string(129)
     username:
       type: string(64)
       unique: true

@@ -8,10 +8,10 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this->disable(array('version', 'is_virtual_group', 'display_name', 'parent_ull_user_id'));
+    $this->disable(array('version', 'is_virtual_group', 'display_name', 'last_name_first', 'parent_ull_user_id'));
     
     $this['display_name']->setMetaWidgetClassName('ullMetaWidgetUllEntity');
-    
+
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
     
     $this['photo']
@@ -149,7 +149,7 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'is_photo_public',
         'alternative_phone_extension',
         'is_show_in_phonebook',
-        'personnel_number'
+        'personnel_number',
       ));
       
       $this['photo']->setAutoRender(false);

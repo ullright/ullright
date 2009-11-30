@@ -379,7 +379,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   
   public function getDgsUllPhoneListLocationHeader()
   {
-    $s = new ullDomGridSelector('table > tbody', 'tr', 'td > div > b', array(), array('location_name'));
+    $s = new ullDomGridSelector('table > tbody', 'tr', 'td > div > span > b', array(), array('location_name'));
     
     return $s;
   }

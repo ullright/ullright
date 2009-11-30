@@ -149,11 +149,10 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     //
     // why does adding u.* resolve this?
 
-    //the following select includes phone and fax extensions, but overrides
-    //the columns with a dash if the matching boolean is false
+    //the following select includes the mobile number, but overrides
+    //the columns with an empty string if the matching boolean is false
     $this->q->getDoctrineQuery()->addSelect('x.*, ' .
-      'if(x.is_show_mobile_number_in_phonebook is not FALSE, x.mobile_number, \'\') as mobile_number' .
-      ', CONCAT(IFNULL(x.last_name, \' \'), \' \', IFNULL(x.first_name, \' \')) as last_name_first'
+      'if(x.is_show_mobile_number_in_phonebook is not FALSE, x.mobile_number, \'\') as mobile_number'
     );
     
     if ($this->isLocationView)
