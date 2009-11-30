@@ -364,22 +364,30 @@ UllLocation:
   
 
 UllEmploymentType:
-  ceo_et:
+  employee_et:
     Translation:
       en:
-        name:   CEO
+        name:   Employee
       de:
-        name:   Geschäftsführer
-    slug:      ceo
-    namespace: test
+        name:   Angstellter
+    slug:       employee
+    namespace:  ullCore
+  freelancer_et:
+    Translation:
+      en:
+        name:   Freelancer
+      de:
+        name:   Freier Mitarbeiter
+    slug:       freelancer
+    namespace:  ullCore  
   intern_et:
     Translation:
       en:
         name:   Intern
       de:
         name:   Praktikant
-    slug:      intern
-    namespace: test
+    slug:       intern
+    namespace:  ullCore
   trainee_et:
     Translation:
       en:
@@ -387,7 +395,7 @@ UllEmploymentType:
       de:
         name:   Lehrling
     slug:       trainee
-    namespace:  test          
+    namespace:  ullCore          
 
 UllUserStatus:
   active_status:
