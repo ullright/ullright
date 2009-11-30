@@ -127,11 +127,6 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       'comment'
     ));
     
-    if ($this->isListAction())
-    {
-      $this->disableAllExcept(array('id', 'first_name', 'last_name', 'username', 'email'));
-    }
-
     if ($this->isShowAction())
     {
       $this->disable(array(

@@ -162,8 +162,8 @@
       </trans-unit>
 
       <trans-unit id="33">
-        <source>Searches for name, username and email</source>
-        <target>Suche nach Name, Benutzername und E-Mail Adresse</target>
+        <source>Searches for name, username, email, location and department</source>
+        <target>Suche nach Name, Benutzername, E-Mail Adresse, Standort und Abteilung</target>
       </trans-unit>
       
       <trans-unit id="34">

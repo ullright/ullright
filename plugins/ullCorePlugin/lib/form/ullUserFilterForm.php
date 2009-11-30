@@ -6,6 +6,6 @@ class ullUserFilterForm extends ullTableToolFilterForm
   {
     parent::configure();
     
-    $this->getWidget('search')->setAttribute('title', __('Searches for name, username and email', null, 'ullCoreMessages'));
+    $this->getWidget('search')->setAttribute('title', __('Searches for name, username, email, location and department', null, 'ullCoreMessages'));
   }
 }
