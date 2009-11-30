@@ -22,7 +22,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeList(sfRequest $request) 
   {
-    $this->checkAccess('Masteradmins');
+    $this->checkAccess(array('MasterAdmins', 'UserAdmins'));
     
     $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
     
@@ -111,7 +111,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeEdit(sfRequest $request) 
   {
-    $this->checkAccess('Masteradmins');
+    $this->checkAccess(array('MasterAdmins', 'UserAdmins'));
     
     parent::executeEdit($request);
 

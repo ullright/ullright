@@ -29,7 +29,7 @@ class BaseUllPhotoActions extends ullsfActions
    */
   public function executeIndex($request)
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_photo');
     
     $this->getUserFromRequest();
     
@@ -108,7 +108,8 @@ class BaseUllPhotoActions extends ullsfActions
    */
   public function executeEdit($request)
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_photo');
+    
     $this->getUserFromRequest();
     
     $this->buildFormUri();

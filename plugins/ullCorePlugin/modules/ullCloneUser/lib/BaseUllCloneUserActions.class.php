@@ -20,7 +20,7 @@ class BaseUllCloneUserActions extends BaseUllGeneratorActions
    */
   public function executeList(sfRequest $request) 
   {
-    $this->checkAccess('Masteradmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeList($request);
 
@@ -45,7 +45,7 @@ class BaseUllCloneUserActions extends BaseUllGeneratorActions
    */
   public function executeEdit(sfRequest $request) 
   {
-    $this->checkAccess('Masteradmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeEdit($request);
 
@@ -71,7 +71,7 @@ class BaseUllCloneUserActions extends BaseUllGeneratorActions
    */
   public function executeDelete(sfRequest $request)
   { 
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeDelete($request);
   }  
@@ -95,7 +95,7 @@ class BaseUllCloneUserActions extends BaseUllGeneratorActions
    */
   public function executeDeleteFutureVersion(sfRequest $request)
   { 
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeDeleteFutureVersion($request);
   }
@@ -123,6 +123,20 @@ class BaseUllCloneUserActions extends BaseUllGeneratorActions
     //  see ullQueryTest for details
     $this->q->getDoctrineQuery()->addSelect('x.*'); 
   }   
+  
+  
+  /**
+   * Dynamically create the UllPermission name
+   * 
+   * @return string
+   */
+  protected function getPermissionName()
+  {
+    $permission = 'ull_tabletool_ull_clone_user';
+    
+    return $permission;
+  }  
+  
   
   /**
    * Handles breadcrumb for list action

@@ -96,6 +96,27 @@ UllPermission:
   ull_permission_ull_user_show:
     slug:               ull_user_show
     namespace:          ullCore
+  ull_permission_ull_photo:
+    slug:               ull_photo
+    namespace:          ullCore    
+  ull_permission_ull_clone_user:
+    slug:               ull_tabletool_ull_clone_user
+    namespace:          ullCore    
+  ull_permission_ull_company:
+    slug:               ull_tabletool_ull_company
+    namespace:          ullCore    
+  ull_permission_ull_location:
+    slug:               ull_tabletool_ull_location
+    namespace:          ullCore    
+  ull_permission_ull_department:
+    slug:               ull_tabletool_ull_department
+    namespace:          ullCore    
+  ull_permission_ull_job_title:
+    slug:               ull_tabletool_ull_job_title
+    namespace:          ullCore    
+  ull_permission_ull_employment_type:
+    slug:               ull_tabletool_ull_employment_type
+    namespace:          ullCore    
     
 UllEntityGroup:
   ull_entity_group_1:
@@ -117,13 +138,41 @@ UllGroupPermission:
     UllPermission:      test_permission
     namespace:          test
   ull_user_admin_mass_change_superior:
-    UllGroup:       ull_user_admin_group
-    UllPermission:  ull_user_mass_change_superior
-    namespace:      ullCore
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_user_mass_change_superior
+    namespace:          ullCore
   ull_group_permission_2:
-    UllGroup:       ull_group_everyone
-    UllPermission:  ull_permission_ull_user_show
-    namespace:      ullCore    
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_ull_user_show
+    namespace:          ullCore   
+  ull_group_permission_3:
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_permission_ull_photo
+    namespace:          ullCore
+  ull_group_permission_4:
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_permission_ull_clone_user
+    namespace:          ullCore
+  ull_group_permission_5:
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_permission_ull_company
+    namespace:          ullCore   
+  ull_group_permission_6:
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_permission_ull_location
+    namespace:          ullCore    
+  ull_group_permission_7:
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_permission_ull_department
+    namespace:          ullCore    
+  ull_group_permission_8:
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_permission_ull_job_title
+    namespace:          ullCore    
+  ull_group_permission_9:
+    UllGroup:           ull_user_admin_group
+    UllPermission:      ull_permission_ull_employment_type
+    namespace:          ullCore    
 
 UllPrivilege:
   ull_privilege_read:

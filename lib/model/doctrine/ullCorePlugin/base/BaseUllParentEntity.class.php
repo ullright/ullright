@@ -19,10 +19,12 @@ abstract class BaseUllParentEntity extends UllRecord
         $this->hasColumn('entry_date', 'date', null, array('type' => 'date'));
         $this->hasColumn('deactivation_date', 'date', null, array('type' => 'date'));
         $this->hasColumn('separation_date', 'date', null, array('type' => 'date'));
+        $this->hasColumn('personnel_number', 'string', 20, array('type' => 'string', 'length' => '20'));
         $this->hasColumn('ull_employment_type_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('ull_job_title_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('ull_company_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('ull_department_id', 'integer', null, array('type' => 'integer'));
+        $this->hasColumn('cost_center', 'string', 64, array('type' => 'string', 'length' => '64'));
         $this->hasColumn('ull_location_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('superior_ull_user_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('is_show_in_phonebook', 'boolean', null, array('type' => 'boolean', 'default' => true));

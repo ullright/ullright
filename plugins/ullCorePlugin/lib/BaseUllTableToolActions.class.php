@@ -56,7 +56,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    */
   public function executeList(sfRequest $request) 
   {
-    $this->checkAccess('Masteradmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeList($request);
   }  
@@ -111,7 +111,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    */
   public function executeEdit(sfRequest $request) 
   {
-    $this->checkAccess('Masteradmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeEdit($request);
   }  
@@ -135,7 +135,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    */
   public function executeDelete(sfRequest $request)
   { 
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeDelete($request);
   }
@@ -159,7 +159,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    */
   public function executeDeleteFutureVersion(sfRequest $request)
   { 
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission($this->getPermissionName());
     
     parent::executeDeleteFutureVersion($request);
   }    
@@ -196,6 +196,19 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     );
 
     return true;
+  }
+  
+  
+  /**
+   * Dynamically create the UllPermission name
+   * 
+   * @return string
+   */
+  protected function getPermissionName()
+  {
+    $permission = 'ull_tabletool_' . sfInflector::underscore($this->getRequest()->getParameter('table'));
+    
+    return $permission;
   }
   
   
