@@ -116,10 +116,13 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     $s = new ullDomGridSelector('table > tbody', 'tr', 'td', array(),      
       array(
         'actions',
+        'id',
         'first_name',
         'last_name',
         'username',
-        'email'
+        'email',
+        'location',
+        'department'
        ),
       'table > thead > tr', 'th'
     );

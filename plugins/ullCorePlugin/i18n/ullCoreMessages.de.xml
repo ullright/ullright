@@ -333,6 +333,16 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>In Telefonbuch anzeigen</target>
       </trans-unit>  
 
+      <trans-unit id="604">
+        <source>Cost center</source>
+        <target>Kostenstelle</target>
+      </trans-unit>  
+      
+      <trans-unit id="605">
+        <source>Personnel number</source>
+        <target>Personalnummer</target>
+      </trans-unit>  
+
     </body>
   </file>
 </xliff>

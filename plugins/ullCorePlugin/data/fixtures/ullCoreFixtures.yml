@@ -19,7 +19,9 @@ UllUser:
     ull_job_title_id:       1     # TODO: TEMP because UllJobTitle: programmer_jt won't work
     ull_company_id:         1
     ull_department_id:      1
+    cost_center:            10002
     ull_location_id:        2
+    personnel_number:       4712
     ull_employment_type_id: 1
     ull_user_status_id:     1
     photo:              admin.png
@@ -35,6 +37,8 @@ UllUser:
     Superior:           admin_user
     Creator:            admin_user
     Updator:            admin_user
+    cost_center:        10003
+    personnel_number:   0815
     photo:              test_user.png
     is_photo_public:    false
     UllLocation:        new_york

@@ -47,6 +47,9 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOption('add_empty', true)
       ->setOption('show_search_box', true)
     ;
+    
+    $this['cost_center']->setLabel(__('Cost center', null, 'ullCoreMessages'));
+    
     $this['ull_job_title_id']
       ->setLabel(__('Job title', null, 'ullCoreMessages'))
       ->setWidgetOption('add_empty', true)
@@ -77,6 +80,8 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Show mobile number in phone book', null, 'ullCoreMessages'))
       ->setShowSpacerAfter(true)
     ;
+    
+    $this['personnel_number']->setLabel(__('Personnel number', null, 'ullCoreMessages'));
     
     $this['ull_employment_type_id']
       ->setLabel(__('Employment type', null, 'ullCoreMessages'))
@@ -110,6 +115,7 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       'ull_company_id',
       'ull_location_id',
       'ull_department_id',
+      'cost_center',
       'ull_job_title_id',
       'superior_ull_user_id',
       'is_show_in_phonebook',
@@ -119,6 +125,7 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       'fax_extension',
       'mobile_number',
       'is_show_mobile_number_in_phonebook',
+      'personnel_number',
       'ull_employment_type_id',
       'entry_date',
       'deactivation_date',

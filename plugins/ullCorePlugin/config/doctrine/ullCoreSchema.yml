@@ -33,6 +33,8 @@ UllParentEntity:
       type: date
     separation_date:
       type: date
+    personnel_number:
+      type: string(20)
     ull_employment_type_id:
       type: integer
     ull_job_title_id:
@@ -41,6 +43,8 @@ UllParentEntity:
       type: integer
     ull_department_id:
       type: integer
+    cost_center:
+      type: string(64)
     ull_location_id:
       type: integer
     superior_ull_user_id:
