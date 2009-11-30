@@ -148,7 +148,8 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'comment',
         'is_photo_public',
         'alternative_phone_extension',
-        'is_show_in_phonebook'
+        'is_show_in_phonebook',
+        'personnel_number'
       ));
       
       $this['photo']->setAutoRender(false);

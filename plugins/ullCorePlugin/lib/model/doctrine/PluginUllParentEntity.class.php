@@ -71,6 +71,7 @@ abstract class PluginUllParentEntity extends BaseUllParentEntity
     
     $array['photo'] = $this->get('photo');
     $array['phone_extension'] = $this->get('phone_extension');
+    $array['mobile_number'] = $this->get('mobile_number');
     
     if ($this->_get('type') == 'clone_user')
     {

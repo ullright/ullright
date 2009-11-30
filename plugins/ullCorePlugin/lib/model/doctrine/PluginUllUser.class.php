@@ -98,13 +98,20 @@ abstract class PluginUllUser extends BaseUllUser
   
   public function getPhoneExtension()
   {
-    //overridePhoneExtensionAccessor is a mapped value
-    if ($this->_get('is_show_extension_in_phonebook') === false && !isset($this->overridePhoneExtensionAccessor))
+    //overrideContactDataAccessor is a mapped value
+    if ($this->_get('is_show_extension_in_phonebook') === false && !isset($this->overrideContactDataAccessor))
     {
       $alternativeExtension = $this->_get('alternative_phone_extension');
       return !empty($alternativeExtension) ? $this->_get('alternative_phone_extension') : null;
     }
 
     return $this->_get('phone_extension');
+  }
+  
+ public function getMobileNumber()
+  {
+    //overrideContactDataAccessor is a mapped value
+    return ($this->_get('is_show_mobile_number_in_phonebook') === false && !isset($this->overrideContactDataAccessor))
+      ? null : $this->_get('mobile_number');
   }
 }

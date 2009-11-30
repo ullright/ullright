@@ -123,7 +123,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     {
       //let's override some accessors since we are editing
       $row->mapValue('overridePhotoAccessor', true);
-      $row->mapValue('overridePhoneExtensionAccessor', true);
+      $row->mapValue('overrideContactDataAccessor', true);
     }
     
     $this->generator->buildForm($row);
