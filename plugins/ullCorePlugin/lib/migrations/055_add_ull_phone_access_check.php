@@ -9,7 +9,12 @@ class AddUllPhoneAccessCheck extends Doctrine_Migration
     $p->save();    
     
     $gp = new UllGroupPermission;
-    $gp->UllGroup = Doctrine::getTable('UllGroup')->findOneByDisplayName('Everyone');
+    
+    $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+    $result = $dbh->query("SELECT id FROM ull_entity WHERE type='group' AND display_name = 'Everyone'");
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $gp->ull_group_id = $row['id'];    
+
     $gp->UllPermission = $p;
     $gp->namespace = 'ull_phone';
     $gp->save();
