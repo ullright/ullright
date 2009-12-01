@@ -26,6 +26,8 @@ abstract class PluginUllUser extends BaseUllUser
     $firstName  = $this->first_name;
     $lastName   = $this->last_name;
     
+    $this->last_name_first = trim($lastName . ' ' . $firstName);
+    
     $firstNameLength = strlen($firstName);
     $lastNameLength = strlen($lastName);
     
@@ -49,8 +51,6 @@ abstract class PluginUllUser extends BaseUllUser
     }  
     
     $this->display_name = $firstName . ' ' . $lastName;
-
-    $this->last_name_first = $lastName . ' ' . $firstName;
   }
   
   /**
