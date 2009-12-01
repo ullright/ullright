@@ -347,7 +347,9 @@ class ullTableToolGenerator extends ullGenerator
           ->setMetaWidgetClassName('ullMetaWidgetDate')
           ->setValidatorOption('required', false) //must be set, as default = true
           ->setValidatorOption('min', $tomorrow)
-          ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)); //no time display
+          ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)) //no time display
+          ->setAutoRender(false)
+        ;
       }
     }    
   }

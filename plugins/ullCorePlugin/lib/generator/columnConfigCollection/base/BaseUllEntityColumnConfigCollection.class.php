@@ -22,7 +22,6 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['is_photo_public']
       ->setLabel(__('Show photo', null, 'ullCoreMessages'))
       ->setHelp(__('If unchecked, the photo will be visible in administrative areas only.', null, 'ullCoreMessages'))
-      ->setShowSpacerAfter(true)
     ;
     
     $this['password']->setMetaWidgetClassName('ullMetaWidgetPassword');
@@ -32,7 +31,6 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     
     $this['type']
       ->setMetaWidgetClassName('ullMetaWidgetUllEntityType')
-      ->setShowSpacerAfter(true)
     ;
       
     $this['ull_company_id']
@@ -58,7 +56,6 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['superior_ull_user_id']
       ->setWidgetOption('add_empty', true)
       ->setOption('show_search_box', true)
-      ->setShowSpacerAfter(true)
     ;
     
     $this['is_show_in_phonebook']
@@ -78,7 +75,6 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['mobile_number']->setLabel(__('Mobile number', null, 'ullCoreMessages'));
     $this['is_show_mobile_number_in_phonebook']
       ->setLabel(__('Show mobile number in phone book', null, 'ullCoreMessages'))
-      ->setShowSpacerAfter(true)
     ;
     
     $this['personnel_number']->setLabel(__('Personnel number', null, 'ullCoreMessages'));
@@ -99,38 +95,47 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Separation date', null, 'ullCoreMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetDate')
     ;
-    $this['ull_user_status_id']->setShowSpacerAfter(true);
     
     $this->order(array(
       'id',
-      'first_name',
-      'last_name',
-      'sex',
-      'photo',
-      'is_photo_public',
-      'username',
-      'password',
-      'email',
-      'type',
-      'ull_company_id',
-      'ull_location_id',
-      'ull_department_id',
-      'cost_center',
-      'ull_job_title_id',
-      'superior_ull_user_id',
-      'is_show_in_phonebook',
-      'phone_extension',
-      'is_show_extension_in_phonebook',
-      'alternative_phone_extension',
-      'fax_extension',
-      'mobile_number',
-      'is_show_mobile_number_in_phonebook',
-      'personnel_number',
-      'ull_employment_type_id',
-      'entry_date',
-      'deactivation_date',
-      'separation_date',
-      'ull_user_status_id',
+      'personal' => array(
+        'first_name',
+        'last_name',
+        'sex',
+        'photo',
+        'is_photo_public',
+      ),
+      'it' => array(
+        'username',
+        'password',
+        'email',
+        'type',
+      ),
+      'organizational' => array(
+        'ull_company_id',
+        'ull_location_id',
+        'ull_department_id',
+        'cost_center',
+        'ull_job_title_id',
+        'superior_ull_user_id',
+      ),
+      'phone_book' => array(
+        'is_show_in_phonebook',
+        'phone_extension',
+        'is_show_extension_in_phonebook',
+        'alternative_phone_extension',
+        'fax_extension',
+        'mobile_number',
+        'is_show_mobile_number_in_phonebook',
+      ),
+      'human_resources' => array(
+        'personnel_number',
+        'ull_employment_type_id',
+        'entry_date',
+        'deactivation_date',
+        'separation_date',
+        'ull_user_status_id',
+      ),
       'comment'
     ));
     

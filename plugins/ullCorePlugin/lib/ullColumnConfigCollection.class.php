@@ -570,7 +570,30 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   
   
   /**
-   * Orders the collection using ullCoreTools::orderArrayByArray
+   * Orders the collection using the order of the given array of field names
+   * Format:
+   * 
+   * array(
+   *  'field_1',
+   *  'field_2',
+   *  ...
+   * );
+   * 
+   * Also supports the subdivision into sections:
+   * Format:
+   * 
+   * array(
+   *   'section_1' => array(
+   *     'field_1',
+   *     'field_2',
+   *    ),
+   *    'section_2' => array(
+   *      'field_3',
+   *    ),
+   *    // also mixed without given section:
+   *    field_4, 
+   *  );
+   *
    * 
    * From ullCoreTools::orderArrayByArray:
    * Orders the top level of an associative array by a given array
@@ -581,7 +604,25 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    */
   public function order($array)
   {
-    $this->collection = ullCoreTools::orderArrayByArray($this->collection, $array);
+    $plainArray = array();
+    
+    foreach ($array as $section => $sectionOrField)
+    {
+      if (is_array($sectionOrField))
+      {
+        foreach($sectionOrField as $field)
+        {
+          $this[$field]->setSection($section);
+          $plainArray[] = $field;
+        }
+      }
+      else
+      {
+        $plainArray[] = $sectionOrField;
+      }
+    }
+    
+    $this->collection = ullCoreTools::orderArrayByArray($this->collection, $plainArray);    
   }
   
   

@@ -43,7 +43,7 @@ $b
   ->get('ullAdmin/index')
   ->loginAs('test_master')
   ->responseContains('Logged in as test_master')
-  ->responseContains('No Access')
+  ->responseContains('Admin Home')
 ;
 
 $b

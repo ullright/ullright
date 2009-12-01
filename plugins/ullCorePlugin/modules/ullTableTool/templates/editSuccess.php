@@ -1,40 +1,12 @@
 <?php echo $breadcrumb_tree ?>
 
-<?php if ($generator->getForm()->hasErrors()): ?>
-  <div class='form_error'>
-  <?php echo __('Please correct the following errors', null, 'common') ?>:
-  <?php echo $generator->getForm()->renderGlobalErrors() ?>
-  </div>  
-<?php endif; ?>
+<?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
 <?php echo form_tag($form_uri, array('id' => 'ull_tabletool_form')) ?>
 
 <div class="edit_container">
-<table class="edit_table">
-<tbody>
 
-<?php
-  foreach ($generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
-  {
-    $ccc = $generator->getColumnsConfig();
-    
-    $attributes = array();
-    
-    if ($column_name != 'scheduled_update_date')
-    {
-      echo $generator->getForm()->offsetGet($column_name)->renderRow($attributes);
-    }
-    
-    if (isset($ccc[$column_name]) && $ccc[$column_name]->getShowSpacerAfter())
-    {
-      echo '<tr class="edit_table_spacer_row"><td colspan="3"></td></tr>';
-    }
-  }
-?>
-
-</tbody>
-</table>
-
+<?php include_partial('ullTableTool/editTable', array('generator' => $generator)) ?>
 
 <div class='edit_action_buttons color_light_bg'>
   <h3><?php echo __('Actions', null, 'common')?></h3>

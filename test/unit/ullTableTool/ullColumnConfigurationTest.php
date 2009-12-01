@@ -23,10 +23,10 @@ $t->diag('disable() / isActive()');
   $cc->disable();
   $t->is($cc->isActive(), false, 'After calling disable() the column is not active');
   
-$t->diag('set/getShowSpacerAfter()');
-  $t->is($cc->getShowSpacerAfter(), false, 'false per default');
-  $cc->setShowSpacerAfter(true);
-  $t->is($cc->getShowSpacerAfter(), true, 'true when set');
+$t->diag('set/getSection()');
+  $t->is($cc->getSection(), '', 'empty per default');
+  $cc->setSection('my_section');
+  $t->is($cc->getSection(), 'my_section', 'Returns the correct section');
 
 $t->diag('set/getInjectIdentifier()');
   $t->is($cc->getInjectIdentifier(), false, 'false per default');

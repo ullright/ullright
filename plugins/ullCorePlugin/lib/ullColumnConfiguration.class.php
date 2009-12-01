@@ -28,10 +28,10 @@ class ullColumnConfiguration
     $widgetAttributes       = array(),
     $options                = array(), //meta widget options
     /*
-     * Show a horizintal spacer row after the current column
-     * Used to organise edit views into sections
+     * Assign a field to a section
+     * The edit view renders a horizontal spacer foreach new section
      */
-    $showSpacerAfter        = false,
+    $section                = '',
     $injectIdentifier       = false,
     /*
      * Disable automatical rendering of a column in list/edit view
@@ -403,16 +403,16 @@ class ullColumnConfiguration
     return $this;
   }
 
-  public function setShowSpacerAfter($boolean)
+  public function setSection($section)
   {
-    $this->showSpacerAfter = (boolean) $boolean;
+    $this->section = $section;
 
     return $this;
   }
   
-  public function getShowSpacerAfter()
+  public function getSection()
   {
-    return $this->showSpacerAfter;    
+    return $this->section;    
   }
   
   public function setInjectIdentifier($boolean)

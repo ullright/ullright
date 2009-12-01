@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(52, new lime_output_color, $configuration);
+$t = new myTestCase(57, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -140,6 +140,30 @@ $t->diag('order()');
   $c->order($order);
   
   $t->is($c->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
+  
+  
+$t->diag('order() with sections');
+  $c['four'] = new UllColumnConfiguration;
+
+  $order = array(
+    'section_1' => array(
+      'four',
+      'three',
+    ),
+    'section_2' => array(
+      'two',
+    )
+  );
+  $c->order($order);
+  
+  $t->is($c->getKeys(), array('four', 'three', 'two', 'one'), 'Orders the collection correctly');
+  $t->is($c['four']->getSection(), 'section_1', 'Returns the correct section');
+  $t->is($c['three']->getSection(), 'section_1', 'Returns the correct section');
+  $t->is($c['two']->getSection(), 'section_2', 'Returns the correct section');
+  $t->is($c['one']->getSection(), '', 'Returns the correct section');
+  
+  unset($c['four']);
+  
 
 $t->diag('Countable');
   $t->is(count($c), 3 , 'count() returns the correct number');  
