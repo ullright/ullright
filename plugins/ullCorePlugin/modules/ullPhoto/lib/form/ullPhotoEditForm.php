@@ -34,6 +34,7 @@ class ullPhotoEditForm extends sfForm
     $columnConfig = new ullColumnConfiguration;
     $columnConfig
       ->setOption('entity_classes', array('UllUser'))
+      ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
       ->setValidatorOption('required', true)
     ;
