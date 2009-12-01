@@ -108,7 +108,7 @@ class BaseUllCloneUserActions extends BaseUllGeneratorActions
    */
   public function getUllFilterClassName()
   {
-    return 'ullTableToolFilterForm';
+    return 'ullFilterForm';
   }  
   
   

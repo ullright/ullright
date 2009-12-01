@@ -1,6 +1,6 @@
 <?php
 
-class ullUserFilterForm extends ullTableToolFilterForm
+class ullUserFilterForm extends ullFilterForm
 {
   public function configure()
   {

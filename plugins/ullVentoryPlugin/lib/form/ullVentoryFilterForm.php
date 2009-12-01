@@ -1,22 +1,20 @@
 <?php
 
-class ullVentoryFilterForm extends sfForm
+class ullVentoryFilterForm extends ullFilterForm
 {
   public function configure()
   {
-    $this->setWidgets(array(
-      'search'  => new sfWidgetFormInput(array(), array('size' => '14',
-                                                        //'onchange' => 'submit()', Commented
-                                                        //if you type in a keyword for search, you have no possibility to click the checkbox
-                                                        'title' => __('Searches for inventory number, item type, manufacturer, model, serial number and item comment', null, 'ullVentoryMessages'))),
-    ));
+    parent::configure();
     
-    $this->setValidators(array(
-      'search'   => new sfValidatorString(array('required' => false)),
-    ));
+    $this->getWidget('search')->setAttribute('size', 14);
+    $this->getWidget('search')->setAttribute('title', 
+      __('Searches for inventory number, item type, manufacturer, model, serial number and item comment', null, 'ullVentoryMessages'))
+    ;
+    
+//    $this->setValidators(array(
+//      'search'   => new sfValidatorString(array('required' => false)),
+//    ));
 
-    $this->getWidgetSchema()->setNameFormat('filter[%s]');
-    
     $c = new ullColumnConfiguration;
     $c
       ->setOption('entity_classes', array('UllVentoryStatusDummyUser', 'UllUser'))
@@ -29,9 +27,7 @@ class ullVentoryFilterForm extends sfForm
     $widget->addToFormAs('ull_entity_id');
     
     $this->widgetSchema->setLabels(array(
-      'search'        => __('Search', null, 'common'),
       'ull_entity_id' => __('Owner', null, 'common'),
     ));    
-    
   }
 }

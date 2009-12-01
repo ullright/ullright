@@ -10,11 +10,6 @@
  */
 class BaseUllTableToolActions extends BaseUllGeneratorActions
 {
-  
-  protected
-    $ullFilterClassName = 'ullTableToolFilterForm'
-  ;
-  
 
   /**
    * Everything here is executed before each action
@@ -172,7 +167,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    */
   public function getUllFilterClassName()
   {
-    return 'ullTableToolFilterForm';
+    return 'ullFilterForm';
   }  
     
   

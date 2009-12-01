@@ -56,7 +56,6 @@
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator' => $generator,
       'order'     => $order,
-//      'order_dir' => $order_dir,
   )); ?>
   
   <!-- data -->

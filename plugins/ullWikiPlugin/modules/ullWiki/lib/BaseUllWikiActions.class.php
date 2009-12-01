@@ -8,29 +8,29 @@
  * @version    SVN: $Id: actions.class.php 3335 2007-01-23 16:19:56Z fabien $
  */
 
-class BaseUllWikiActions extends ullsfActions
+class BaseUllWikiActions extends BaseUllGeneratorActions
 {
   
   /**
-   * Execute  before each action
+   * Everything here is executed before each action
    * 
-   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#ullpreExecute()
+   * @see plugins/ullCorePlugin/lib/BaseUllsfActions#preExecute()
    */
-  public function ullpreExecute()
+  public function preExecute()
   {
-    $defaultUri = $this->getModuleName() . '/list';
-    $this->getUriMemory()->setDefault($defaultUri);  
+    parent::preExecute();
     
     //Add ullWiki stylsheet for all actions
     $path =  '/ullWikiTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));    
   }  
+  
 	
   /**
    * Execute index action
    * 
    */
-  public function executeIndex() 
+  public function executeIndex(sfRequest $request) 
   {
     $this->form = new ullWikiFilterForm;
 
@@ -70,7 +70,7 @@ class BaseUllWikiActions extends ullsfActions
    * Execute Show action
    * 
    */
-  public function executeShow() 
+  public function executeShow(sfRequest $request) 
   {
     $this->getDocFromRequest();
     
@@ -95,7 +95,7 @@ class BaseUllWikiActions extends ullsfActions
    * Execute create action
    * 
    */
-  public function executeCreate() 
+  public function executeCreate(sfRequest $request) 
   {
     $this->forward('ullWiki', 'edit');
   }
@@ -104,7 +104,7 @@ class BaseUllWikiActions extends ullsfActions
    * Execute edit action
    * 
    */
-  public function executeEdit($request) 
+  public function executeEdit(sfRequest $request) 
   {
     $this->checkAccess('LoggedIn');
     
@@ -176,7 +176,7 @@ class BaseUllWikiActions extends ullsfActions
   /**
    * Execute delete action
    */
-  public function executeDelete() 
+  public function executeDelete(sfRequest $request) 
   {
     $this->checkPermission('ull_wiki_delete');
     
@@ -185,6 +185,18 @@ class BaseUllWikiActions extends ullsfActions
     
     $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }
+  
+
+  /**
+   * Configure the ullFilter class name
+   * 
+   * @return string
+   */
+  public function getUllFilterClassName()
+  {
+    return 'ullWikiFilterForm';
+  } 
+  
 
   /**
    * Create breadcrumbs for index action
@@ -255,71 +267,71 @@ class BaseUllWikiActions extends ullsfActions
     } 
   }
 
-  /**
-   * Parses filter request params and gets a collection of UllWiki docs
-   * 
-   */
-  protected function getFilterFromRequest()
-  {
-
-    $this->filter_form = new ullWikiFilterForm;
-    $this->filter_form->bind($this->getRequestParameter('filter'));
-
-    // build query
-    // Querying for records excludes deleted records.
-    $q = new Doctrine_Query();
-    $q->from('UllWiki x');
-
-    // search has to be the first "where" part, because it uses "or" 
-    if ($search = $this->filter_form->getValue('search'))
-    {
-      $cols = array('id', 'subject', 'duplicate_tags_for_search');
-      if ($this->filter_form->getValue('fulltext'))
-      {
-        $cols[] = 'body';
-      }
-      $q = ullGeneratorTools::doctrineSearch($q, $search, $cols);
-    }
-    
-    // TODO: (Klemens 2008-12-16) this should not be necessary,
-    //   because the soft delete behaviour handles this. But the
-    //   softdelete functionality needs the doctrine attribute
-    //   "use_dql_callbacks" enabled, which is not at the moment
-    //   because it has side effects and needs further testing
-    $q->addWhere('x.deleted = ?', false);
-    
-    $q = self::queryReadAccess($q);
-    
-    $this->order = $this->getRequestParameter('order', 'updated_at');
-    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
-    
-    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
-
-    switch ($this->order)
-    {
-      case 'creator_user_id':
-        $q->orderBy('x.Creator.display_name ' . $orderDir);
-        break;
-      case 'updator_user_id':
-        $q->orderBy('x.Updator.display_name ' . $orderDir);
-        break;
-      default:
-        $q->orderBy($this->order . ' ' . $orderDir);
-    }
-    
-//    printQuery($q->getQuery());
-//    var_dump($q->getParams());
-//    die;    
-    
-    $this->pager = new Doctrine_Pager(
-      $q, 
-      $this->getRequestParameter('page', 1),
-      sfConfig::get('app_pager_max_per_page')
-    );
-    $docs = $this->pager->execute();
-
-    return ($docs->count()) ? $docs : new UllWiki;
-  }
+//  /**
+//   * Parses filter request params and gets a collection of UllWiki docs
+//   * 
+//   */
+//  protected function getFilterFromRequest()
+//  {
+//
+//    $this->filter_form = new ullWikiFilterForm;
+//    $this->filter_form->bind($this->getRequestParameter('filter'));
+//
+//    // build query
+//    // Querying for records excludes deleted records.
+//    $q = new Doctrine_Query();
+//    $q->from('UllWiki x');
+//
+//    // search has to be the first "where" part, because it uses "or" 
+//    if ($search = $this->filter_form->getValue('search'))
+//    {
+//      $cols = array('id', 'subject', 'duplicate_tags_for_search');
+//      if ($this->filter_form->getValue('fulltext'))
+//      {
+//        $cols[] = 'body';
+//      }
+//      $q = ullGeneratorTools::doctrineSearch($q, $search, $cols);
+//    }
+//    
+//    // TODO: (Klemens 2008-12-16) this should not be necessary,
+//    //   because the soft delete behaviour handles this. But the
+//    //   softdelete functionality needs the doctrine attribute
+//    //   "use_dql_callbacks" enabled, which is not at the moment
+//    //   because it has side effects and needs further testing
+//    $q->addWhere('x.deleted = ?', false);
+//    
+//    $q = self::queryReadAccess($q);
+//    
+//    $this->order = $this->getRequestParameter('order', 'updated_at');
+//    $this->order_dir = $this->getRequestParameter('order_dir', 'desc');
+//    
+//    $orderDir = ($this->order_dir == 'desc') ? 'DESC' : 'ASC';
+//
+//    switch ($this->order)
+//    {
+//      case 'creator_user_id':
+//        $q->orderBy('x.Creator.display_name ' . $orderDir);
+//        break;
+//      case 'updator_user_id':
+//        $q->orderBy('x.Updator.display_name ' . $orderDir);
+//        break;
+//      default:
+//        $q->orderBy($this->order . ' ' . $orderDir);
+//    }
+//    
+////    printQuery($q->getQuery());
+////    var_dump($q->getParams());
+////    die;    
+//    
+//    $this->pager = new Doctrine_Pager(
+//      $q, 
+//      $this->getRequestParameter('page', 1),
+//      sfConfig::get('app_pager_max_per_page')
+//    );
+//    $docs = $this->pager->execute();
+//
+//    return ($docs->count()) ? $docs : new UllWiki;
+//  }
 
   /**
    * Gets UllWiki doc according to request param
@@ -348,6 +360,35 @@ class BaseUllWikiActions extends ullsfActions
       $this->doc = new UllWiki;
     }
   }
+  
+  
+  /** 
+   * Handle fulltext search
+   * 
+   * @return array
+   */
+  protected function getSearchColumnsForFilter()
+  {
+    $columns = $this->generator->getTableConfig()->getSearchColumnsAsArray();
+    
+    if ($this->filter_form->getValue('fulltext'))
+    {
+      $columns[] = 'body';
+    }  
+    
+    return $columns;
+  }  
+  
+  
+  public function modifyQueryForFilter()
+  {
+    $this->q->addWhere('deleted = ?', false);
+    
+    self::queryReadAccess($this->q->getDoctrineQuery());    
+  }
+  
+  
+  
   
   public static function queryReadAccess(Doctrine_Query $q)
   {

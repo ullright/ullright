@@ -686,8 +686,9 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
   );
 
   // convert [] options to array format
-  // TODO: What if we have two filter params? They have to be merged ?!?
-  /*
+  
+//  var_dump($array);
+  
   foreach ($array as $key => $value) 
   {
     if (preg_match('/([^\[]+)[\[]([^\]]+)[\]]/', $key, $matches)) 
@@ -695,11 +696,23 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
       unset($array[$key]);
       $key = $matches[1];
       $value = array($matches[2] => $value);
-      if (is_array())
-      $array[$key] = $value;
+      
+//      var_dump($key);
+//      var_dump($value);
+      
+      if (isset($array[$key]))
+      {
+        $array[$key] = array_merge($array[$key], $value);   
+      }
+      else
+      {
+        $array[$key] = $value;
+      }
     }  
   }
-  */
+  
+//  var_dump($array);
+//  die;
   
   foreach ($array as $key => $value) 
   {

@@ -1,6 +1,8 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
 
+<?php echo $ull_filter ?>
+
 <?php
   echo ull_form_tag('ullWiki/list', array(
       'class' => 'inline',
@@ -29,10 +31,9 @@
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>
   
-  <?php include_partial('ullTableTool/ullResultListHeaderDeprecated', array(
+  <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator' => $generator,
       'order'     => $order,
-      'order_dir' => $order_dir,
   )); ?>
   
   <!-- data -->

@@ -200,7 +200,7 @@ $b
   ->click('search_list')
   ->isRedirected()
   ->followRedirect()
-  ->checkResponseElement('ul.list_action_buttons input[value="2"]', true)
+  ->checkResponseElement('.ull_filter > ul > li', '/Search: 2/')
   ->checkResponseElement('tr > ' . $my_string_col_selector, 'Foo Bar More')
 ;
 

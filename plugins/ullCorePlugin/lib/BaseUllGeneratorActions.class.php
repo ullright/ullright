@@ -253,15 +253,15 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $filterClassName = $this->getUllFilterClassName();
 
     $this->filter_form = new $filterClassName;
-    $this->filter_form->bind($this->getRequestParameter('filter'));
+    $filterParams = $this->getRequest()->getParameter('filter');
+    $this->filter_form->bind($filterParams);
     
     $ull_filter = new ullFilter();
-    
-    if ($search = $this->filter_form->getValue('search'))
+  
+    if (isset($filterParams['search']) && ($search = $filterParams['search']))
     {      
       $this->q->addSearch($search, $this->getSearchColumnsForFilter());
-      // TODO: add filter for search. see #640
-//      $ull_filter->add('filter[search]', __('Search', null, 'common') . ': ' . $search);
+      $ull_filter->add('filter[search]', __('Search', null, 'common') . ': ' . $search);
     }
     
     if ($query = $this->getRequestParameter('query'))
@@ -309,8 +309,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyQueryForFilter();
     
-    //printQuery($this->q->getDoctrineQuery()->getSql());
-    //var_dump($this->q->getDoctrineQuery()->getParams());
+//    printQuery($this->q->getDoctrineQuery()->getSql());
+//    var_dump($this->q->getDoctrineQuery()->getParams());
 
     $this->pager = new Doctrine_Pager(
       $this->q->getDoctrineQuery(), 
