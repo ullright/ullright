@@ -117,6 +117,12 @@ class BaseUllPhotoActions extends ullsfActions
     $path = $this->getWorkingDirectory();
     $webPath = $this->getWebWorkingDirectory();
     
+    $this->cropAspectRatio = sfConfig::get('app_ull_photo_crop_aspect_ratio', '1:1');
+    if (!preg_match('/^(\d+):(\d+)$/',  $this->cropAspectRatio))
+    {
+      throw new RuntimeException('crop_aspect_ratio in app.yml must be of format \'x:y\', e.g. \'3:4\'');
+    }
+    
     $file = ullCoreTools::getFirstFileInDirectory($path, '/^edited_/');
     
     if (!$file)

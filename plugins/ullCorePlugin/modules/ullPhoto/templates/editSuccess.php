@@ -45,7 +45,7 @@ $(document).ready(function ()
   $("img#ull_photo").imgAreaSelect({ 
     handles: true,
     fadeSpeed: 200, 
-    //aspectRatio: "1:1",
+    aspectRatio: "' . $cropAspectRatio . '",
     //minHeight: 200,
     //minWidth: 200,
     onSelectChange: preview

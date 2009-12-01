@@ -62,6 +62,8 @@ all:
   ull_photo:
     upload_path:    /uploads/userPhotos
     # displayed height of the uploaded image before cropping 
-    display_height: 400
-    width:          200
-    height:         200
+    display_height:     400
+    width:              200
+    height:             200
+    crop_aspect_ratio:  1:1 #or 3:4, ...
+ 
