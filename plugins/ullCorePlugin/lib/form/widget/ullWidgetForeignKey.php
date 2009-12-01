@@ -81,17 +81,23 @@ class ullWidgetForeignKey extends ullWidget
 
     }
     
-//    if ($this->getOption('show_ull_entity_popup') == true && $object instanceof UllUser)
     if ($this->getOption('show_ull_entity_popup') == true)
     {
       $uri = 'ullUser/show?username=' . $primaryKey;
-//      $return = $return . link_to(image_tag('/ullCoreThemeNGPlugin/images/ull_user_16x16', array('class' => 'ull_user_popup_icon')), $uri, array(
+
+      $verticalSize = sfConfig::get('app_ull_user_user_popup_vertical_size', 720);
+      
+      if (!is_int($verticalSize))
+      {
+        throw new RuntimeException('user_popup_vertical_size in app.yml must be an integer.');
+      }
+      
       $return = link_to($return, $uri, array(
         'title' => __('Show business card', null, 'ullCoreMessages'),
         'onclick' => 'this.href="#";popup(
           "' . url_for($uri) . '",
           "Popup ' . $primaryKey . '",
-          "width=720,height=720,scrollbars=yes,resizable=yes"
+          "width=720,height=' . $verticalSize . ',scrollbars=yes,resizable=yes"
         );'
       )); 
     }    
