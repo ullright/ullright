@@ -252,6 +252,11 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         $users = Doctrine::getTable('UllUser')->findBySuperiorUllUserId($oldsup);
         foreach ($users as $user)
         {
+          if ($user->id == $newsup)
+          {
+            //prevent users from becoming their own superior
+            continue;
+          }
           $user->superior_ull_user_id = $newsup;
           $user->save();
           $count++;

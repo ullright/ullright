@@ -60,6 +60,11 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       }
     }
     
+    if ($hideChoices = $this->columnConfig->getOption('hide_choices'))
+    {
+      $choices = array_diff_key($choices, array_flip($hideChoices));
+    }
+    
     if ($this->columnConfig->getOption('show_search_box'))
     {
       $this->columnConfig->setWidgetOption('show_search_box', true);

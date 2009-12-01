@@ -124,6 +124,12 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       //let's override some accessors since we are editing
       $row->mapValue('overridePhotoAccessor', true);
       $row->mapValue('overrideContactDataAccessor', true);
+      
+      if ($row->exists())
+      {
+        $this->generator->getColumnsConfig()->offsetGet('superior_ull_user_id')
+          ->setOption('hide_choices', array($row->id));
+      }
     }
     
     $this->generator->buildForm($row);

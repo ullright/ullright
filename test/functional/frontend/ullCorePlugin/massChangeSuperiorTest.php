@@ -8,6 +8,12 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+//because a user is not allowed to be his own superior,
+//we need a third user for these tests
+$newUser = new UllUser();
+$newUser->save();
+$newUserId = $newUser->id;
+
 $b
   ->diag('login as testuser, call ullUser/massChangeSuperior')
   ->get('ullUser/massChangeSuperior')
@@ -73,7 +79,7 @@ $b
   ->get('ullUser/massChangeSuperior')
   ->isStatusCode(200)
   ->setField('fields[old_superior]', 1)
-  ->setField('fields[new_superior]', 2)
+  ->setField('fields[new_superior]', $newUserId)
   ->click('Save')
   ->isRedirected()
   ->followRedirect()
