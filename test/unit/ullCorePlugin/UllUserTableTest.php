@@ -119,23 +119,13 @@ $t->diag('hasPermission()');
     'Access allowed. Logged in as unprivileged user, and permission ull_foo_show is accessible by logged in users'
   );  
   
-  
-  
-  
-  
-  
-     
-      
-      
-      
-      
-      
+
 $t->begin('findChoices()');
   $t->is(
       UllUserTable::findChoices(),
       array(
-        1 => array('name' => 'Master Admin'),
-        2 => array('name' => 'Test User'),
+        1 => array('name' => 'Admin Master'),
+        2 => array('name' => 'User Test'),
       ),
       'returns the correct choices for UllUser'
   );

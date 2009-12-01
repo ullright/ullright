@@ -175,7 +175,7 @@ $b
   ->isRequestParameter('inventory_number', '1704')
   ->checkResponseElement('div.edit_container h3', 'Item of user: Master Admin')
   // owner
-  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
   //memory
   ->checkResponseElement($dgsMemory->getFullRowSelector(), 3)
 ;
@@ -193,7 +193,7 @@ $b
   ->checkResponseElement('div.edit_container h3', 'Item of user: Master Admin')
   ->checkResponseElement('input[id="fields_comment"][value="Paper-jam again!"]', true)
   // owner
-  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
   //memory
   ->checkResponseElement($dgsMemory->getFullRowSelector(), 3)
 ;
@@ -210,7 +210,7 @@ $b
   ->isRequestParameter('inventory_number', '1704')
   ->checkResponseElement('div.edit_container h3', 'Item of user: Master Admin')
   // owner
-  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Master Admin')  
+  ->checkResponseElement('#fields_memory_target_ull_entity_id > option[selected="selected"]', 'Admin Master')  
   //memory
   ->checkResponseElement($dgsMemory->getFullRowSelector(), 4)
 ;

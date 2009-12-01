@@ -42,10 +42,10 @@ $(document).ready(function()
 //]]>
 </script><select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
 <option value="" selected="selected"></option>
-<option value="3">Helpdesk Admin User</option>
-<option value="4">Helpdesk User</option>
-<option value="1">Master Admin</option>
-<option value="2">Test User</option>
+<option value="1">Admin Master</option>
+<option value="3">Admin User Helpdesk</option>
+<option value="4">User Helpdesk</option>
+<option value="2">User Test</option>
 </select></div>';
   $t->is($handler->render(), $reference, 'returns the correct html code');
   
@@ -66,7 +66,7 @@ $(document).ready(function()
 //]]>
 </script><select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
 <option value="" selected="selected"></option>
-<option value="2">Test User</option>
+<option value="2">User Test</option>
 </select></div>';
   $t->is($handler->render(), $reference, 'returns the correct html code');  
   
