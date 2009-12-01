@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+echo 'Refreshing and testing'
+
+svn update
+php symfony cache:clear
+php symfony doctrine:build-all-reload --application=frontend --no-confirmation -t;
+php symfony cache:clear
+php symfony test:all
