@@ -9,7 +9,7 @@
 <?php include_metas() ?>
 <?php include_title() ?>
 
-<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="shortcut icon" href="<?php echo '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 'Plugin' ?>/images/favicon.ico" type="image/vnd.microsoft.icon">
 
 <?php
   $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
