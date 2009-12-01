@@ -41,6 +41,12 @@
 
 <?php include_partial('ullTableTool/editTable', array('generator' => $generator)) ?>
 
+<table class="edit_table">
+<tbody>
+<tr class="edit_table_spacer_row"><td colspan="3"></td></tr>
+</tbody>
+</table>
+
 <?php include_partial('ullTableTool/editTable', array('generator' => $location_generator)) ?>
 
 </div>
