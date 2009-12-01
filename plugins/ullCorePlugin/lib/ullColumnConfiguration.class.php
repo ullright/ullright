@@ -30,6 +30,8 @@ class ullColumnConfiguration
     /*
      * Assign a field to a section
      * The edit view renders a horizontal spacer foreach new section
+     * 
+     * If set to null it is ignored and never initializes a new section
      */
     $section                = '',
     $injectIdentifier       = false,

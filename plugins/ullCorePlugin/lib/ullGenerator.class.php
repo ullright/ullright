@@ -358,13 +358,43 @@ abstract class ullGenerator extends ullGeneratorBase
   
   /**
    * Get a list of active columnConfigurations that are marked
-   * to be rendered automatically 
+   * to be rendered automatically
+   * 
+   *  If the form is allready built, we include form fields that 
+   *  have no columnConfiguration (e.g. 'password_again', etc)
    * 
    * @return array of columnConfigurations
    */
   public function getAutoRenderedColumns()
   {
-    return $this->columnsConfig->getAutoRenderedColumns();
+    $autoRenderedColumns = $this->columnsConfig->getAutoRenderedColumns();
+    
+    $columns = array();
+    
+    if ($this->isBuilt)
+    {
+      $formFields = $this->getForm()->getWidgetSchema()->getPositions();
+      
+      foreach($formFields as $formField)
+      {
+        // We want the autorendered fields
+        if (in_array($formField, array_keys($autoRenderedColumns)))
+        {
+          $columns[$formField] = $autoRenderedColumns[$formField];
+        }    
+        
+        // But we also want fields that have no column config
+        if (!in_array($formField, array_keys($this->getColumnsConfig()->getCollection())))
+        {
+          $columns[$formField] = new ullColumnConfiguration;
+          $columns[$formField]->setSection(null);
+        }
+      }      
+    }
+
+    //    var_dump($columns);
+    
+    return $columns;
   }
   
   

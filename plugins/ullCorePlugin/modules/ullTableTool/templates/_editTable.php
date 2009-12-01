@@ -6,7 +6,15 @@
 
 <?php foreach ($generator->getAutoRenderedColumns() as $column_name => $columns_config): ?>
   
-  <?php if ($old_section <> $columns_config->getSection() && !$is_first_time): ?>
+  <?php 
+    if (
+      // Detect new section
+      ($old_section <> $columns_config->getSection() && !$is_first_time) &&
+      
+      // Ignore sections when set to null
+      $columns_config->getSection() !== null
+    ):
+  ?>
     <tr class="edit_table_spacer_row"><td colspan="3"></td></tr>
   <?php endif?>
   
@@ -20,8 +28,11 @@
   <?php else: ?>
     <?php echo $generator->getForm()->offsetGet($column_name)->renderRow(); ?>
   <?php endif ?>
-  
-  <?php $old_section = $columns_config->getSection() ?>
+
+  <?php // Ignore sections when set to null ?>  
+  <?php if ($columns_config->getSection() !== null): ?>
+    <?php $old_section = $columns_config->getSection() ?>
+  <?php endif ?>
   
   <?php $is_first_time = ($is_first_time) ? false : false ?>
     

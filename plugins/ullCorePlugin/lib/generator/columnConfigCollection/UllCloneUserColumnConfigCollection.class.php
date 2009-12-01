@@ -30,12 +30,16 @@ class UllCloneUserColumnConfigCollection extends UllUserColumnConfigCollection
       ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
       ->setValidatorOption('required', true)
-      ->setShowSpacerAfter(true)
     ;
     
     $this->enable(array('parent_ull_user_id'));
 
-    $this->order(array('id', 'parent_ull_user_id'));
+    $this->order(array(
+      'sys' => array(
+        'id', 
+        'parent_ull_user_id',
+      ),
+    ));
   }
   
 }
