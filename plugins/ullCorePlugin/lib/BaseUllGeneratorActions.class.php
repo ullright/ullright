@@ -253,15 +253,16 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $filterClassName = $this->getUllFilterClassName();
 
     $this->filter_form = new $filterClassName;
+    
     $filterParams = $this->getRequest()->getParameter('filter');
     $this->filter_form->bind($filterParams);
     
-    $ull_filter = new ullFilter();
+    $this->ull_filter = new ullFilter();
   
     if (isset($filterParams['search']) && ($search = $filterParams['search']))
     {      
       $this->q->addSearch($search, $this->getSearchColumnsForFilter());
-      $ull_filter->add('filter[search]', __('Search', null, 'common') . ': ' . $search);
+      $this->ull_filter->add('filter[search]', __('Search', null, 'common') . ': ' . $search);
     }
     
     if ($query = $this->getRequestParameter('query'))
@@ -275,7 +276,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
           {
             $ullSearch->modifyQuery($this->q->getDoctrineQuery(), 'x');
              
-            $ull_filter->add(
+            $this->ull_filter->add(
               'query', __('Query', null, 'common') . ': ' . __('Custom', null, 'common')
             );
           }
@@ -285,10 +286,10 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     if (isset($this->named_queries))
     {
-      $this->named_queries->handleFilter($this->q, $ull_filter, $this->getRequest());
+      $this->named_queries->handleFilter($this->q, $this->ull_filter, $this->getRequest());
     }
 
-    $this->setVar('ull_filter', $ull_filter, true);
+    $this->setVar('ull_filter', $this->ull_filter, true);
 
     // ORDER
     if ($this->hasRequestParameter('order'))

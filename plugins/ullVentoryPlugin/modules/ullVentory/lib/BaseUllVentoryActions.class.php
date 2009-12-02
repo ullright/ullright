@@ -70,9 +70,6 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
 
     $this->docs = $this->getFilterFromRequest();
     
-    // Deactivated because it's confusing and not intuitive for the user why the 
-    //   list action is skipped. Furthermore it results in a loop when clicking
-    //   on the breadcrumb list link
     $this->redirectToEditIfSingleResult();
 
     $this->generator->buildForm($this->docs);
@@ -575,6 +572,8 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     {
       $this->q->addWhere('x.ull_entity_id = ?', $ullEntityId);
       $this->entity = Doctrine::getTable('UllEntity')->findOneById($ullEntityId);
+      
+      $this->ull_filter->add('filter[ull_entity_id]', __('Owner', null, 'common') . ': ' . $this->entity);
     }
     else
     {
