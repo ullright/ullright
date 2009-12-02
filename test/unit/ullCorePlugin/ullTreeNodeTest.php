@@ -92,7 +92,7 @@ $t->diag('toArray()');
     'subnodes' => array(
       0 => array(
         'data'      => 'subnode1',
-        'meta'      => array(),
+        'meta'      => array('leftmost' => true),
         'subnodes' => array(),
       ),
       1 => array(
@@ -102,7 +102,7 @@ $t->diag('toArray()');
       ),      
       2 => array(
         'data'      => 'subnode3',
-        'meta'      => array(),
+        'meta'      => array('rightmost' => true),
         'subnodes' => array(
         0 => array(
           'data'      => 'subsubnode1',

@@ -106,7 +106,7 @@ class PluginUllParentEntityTable extends UllRecordTable
   }
   
   
-  public static function getSubordinateTree(UllEntity $entity, $hydrate = true)
+  public static function getSubordinateTree2(UllEntity $entity, $hydrate = true)
   {
     $tree = array();
     
@@ -150,5 +150,22 @@ class PluginUllParentEntityTable extends UllRecordTable
 
    return $tree;     
   }
+  
+  
+  public static function getSubordinateTree(UllEntity $entity, $hydrate = true)
+  {
+    $node = new ullTreeNode(($hydrate) ? $entity : $entity->id);
+    
+    if ($subordinates = $entity->getSubordinates())
+    {
+      foreach ($subordinates as $subordinate)
+      {
+        $node->addSubnode(self::getSubordinateTree($subordinate, $hydrate));
+      }
+    }     
+    
+   return $node;     
+  }  
+  
   
 }

@@ -4,7 +4,7 @@ class ullTreeNode
 {
   protected 
     $data,
-    $meta,
+    $meta = array(),
     $subnodes = array()
   ;
   
@@ -39,6 +39,17 @@ class ullTreeNode
    */
   public function addSubnode(ullTreeNode $node)
   {
+    if (count($this->subnodes) == 1)
+    {
+      reset($this->subnodes)->setIsLeftMost(true);
+    }
+    
+    if (count($this->subnodes) >=1)
+    {
+      $node->setIsRightMost(true);
+      end($this->subnodes)->setIsRightMost(false);
+    }
+    
     $this->subnodes[] = $node;
     
     return $this;
@@ -75,7 +86,14 @@ class ullTreeNode
    */
   public function setMeta($key, $value)
   {
-    $this->meta[$key] = $value;
+    if ($value === false)
+    {
+      unset($this->meta[$key]);
+    }
+    else
+    {
+      $this->meta[$key] = $value;
+    }
     
     return $this;
   }

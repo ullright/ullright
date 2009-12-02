@@ -69,38 +69,36 @@ $t->diag('getSubordinateTree()');
 
 
   $t->is(
-    UllEntityTable::getSubordinateTree($admin, false),
+    UllEntityTable::getSubordinateTree($admin, false)->toArray(),
     array(
-      $admin->id => array(
-        'data'      => $admin->id,
-        'meta'      => array(),
-        'children'  => array(
-         $testUser2->id => array(
-            'data'      => $testUser2->id,
-            'meta'      => array(
-              'leftmost' => true,
-            ),         
-            'children'  => null,
-          ),      
-         $testUser3->id => array(
-            'data'      => $testUser3->id,
-            'meta'      => array(),         
-            'children'  => null,
-          ),
-          $testUser->id => array(
-            'data'      => $testUser->id,
-            'meta'      => array(
-              'rightmost' => true,
-            ), 
-            'children'  => array(
-              $poorGuy->id => array(
-                'data'      => $poorGuy->id,
-                'meta'      => array(),
-                'children'  => null,
-              ),
-            ),
-          ),                        
+      'data'      => $admin->id,
+      'meta'      => array(),
+      'subnodes'  => array(
+       array(
+          'data'      => $testUser2->id,
+          'meta'      => array(
+            'leftmost' => true,
+          ),         
+          'subnodes'  => array(),
+        ),      
+       array(
+          'data'      => $testUser3->id,
+          'meta'      => array(),
+          'subnodes'  => array(),
         ),
+        array(
+          'data'      => $testUser->id,
+          'meta'      => array(
+            'rightmost' => true,
+          ), 
+          'subnodes'  => array(
+            array(
+              'data'      => $poorGuy->id,
+              'meta'      => array(),
+              'subnodes'  => array(),
+            ),
+          ),
+        ),                        
       ),
     ),
     'Returns the correct tree'
