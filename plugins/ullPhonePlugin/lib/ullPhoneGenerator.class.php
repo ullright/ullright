@@ -37,6 +37,7 @@ class ullPhoneGenerator extends ullTableToolGenerator
     $this->columnsConfig['mobile_number']
       ->setLabel(__('Mobile', null, 'ullPhoneMessages'))
       ->setWidgetOption('nowrap', true)
+      ->setOption('show_local_short_form', true)
     ;
 
     // Create columnConfig for artificial "last_name_first" column

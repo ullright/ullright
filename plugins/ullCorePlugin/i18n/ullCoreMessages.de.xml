@@ -94,6 +94,10 @@
       <target>Erstelle Benutzer</target>
       </trans-unit>      
       
+      <trans-unit id="19">
+      <source>Format: +43 664 1235678</source>
+      <target>Format: +43 664 1235678</target>
+      </trans-unit> 
 
       <!-- table config -->
       <trans-unit id="20">

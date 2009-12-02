@@ -79,7 +79,7 @@
     ->with('response')->begin()
       ->checkElement($dgsList->getFullRowSelector(), 2) // number of rows
       ->checkElement($dgsList->get(2, 'name'), 'User Test')
-      ->checkElement($dgsList->get(2, 'mobile_number'), '+43 664 55556666')
+      ->checkElement($dgsList->get(2, 'mobile_number'), '0664 55556666')
     ->end()
     
     

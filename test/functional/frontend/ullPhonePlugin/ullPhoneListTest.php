@@ -34,7 +34,7 @@
     ->checkResponseElement($dgsList->get(1, 'email_link') . ' > a[href="mailto:admin@example.com"]')
     ->checkResponseElement($dgsList->get(2, 'name'), 'Bauer Jack')
     ->checkResponseElement($dgsList->get(2, 'phone_extension'), '')
-    ->checkResponseElement($dgsList->get(2, 'mobile_number'), '+43 1 789987')
+    ->checkResponseElement($dgsList->get(2, 'mobile_number'), '01 789987')
     ->checkResponseElement($dgsList->get(2, 'email_link') . ' > a[href="mailto:jack.bauer@example.com"]')
     ->checkResponseElement($dgsList->get(3, 'name'), 'User Test')
     ->checkResponseElement($dgsList->get(3, 'phone_extension'), '8888')
