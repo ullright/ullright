@@ -11,17 +11,18 @@ class PluginUllUserTable extends UllEntityTable
    * special handling for 'LoggedIn': returns true if the user is logged in
    *
    * @param mixed $group      group_id, group name or array of group ids/names (not mixed!)
-   * @param integer $user_id  
+   * @param integer $userId  
    * @return boolean
    */
-  public static function hasGroup($group, $user_id = null) 
+  public static function hasGroup($group, $userId = null, $checkMasterAdmin = true) 
   {
     // use session user_id as default entity
-    if ($user_id === null) {
-      $user_id = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    if ($userId === null) 
+    {
+      $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     }
-
-    if ($group == 'LoggedIn' && $user_id)
+    
+    if ($group == 'LoggedIn' && $userId)
     {
       return true;
     }
@@ -30,7 +31,7 @@ class PluginUllUserTable extends UllEntityTable
       $q = new Doctrine_Query;
       $q
         ->from('UllUser u, u.UllGroup g')
-        ->where('u.id = ?', $user_id)
+        ->where('u.id = ?', $userId)
       ;
   
       if (!is_array($group))
@@ -52,13 +53,24 @@ class PluginUllUserTable extends UllEntityTable
         return true;
       }
     }
+    
+    // prevent looping
+    if ($checkMasterAdmin === true)
+    {
+      // MasterAdmins are members of all groups
+      if (self::hasGroup('MasterAdmins', $userId, false))
+      {
+        return true;
+      }
+    }    
+
   }
 
   /**
    * check if a user has a certain permission
    * 
    * @param string $permission
-   * @param integer $user_id
+   * @param integer $userId
    * @return boolean
    */
   public static function hasPermission($permission, $userId = null) 
