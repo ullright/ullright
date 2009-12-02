@@ -129,7 +129,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     if (!UllUserTable::hasGroup('MasterAdmins') && !UllUserTable::hasGroup('UserAdmins'))
     {
       $this->generator->getColumnsConfig()->disableAllExcept(
-        sfConfig::get('app_ull_user_popup_public_columns', array(
+        sfConfig::get('app_ull_user_user_popup_public_columns', array(
           'last_name',
           'first_name',
           'email',
