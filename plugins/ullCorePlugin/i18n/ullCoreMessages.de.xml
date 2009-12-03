@@ -98,7 +98,7 @@
       <source>Format: +43 664 1235678</source>
       <target>Format: +43 664 1235678</target>
       </trans-unit> 
-
+      
       <!-- table config -->
       <trans-unit id="20">
         <source>Group memberships</source>
@@ -368,6 +368,13 @@ Gültige Dateitypen sind jpg und png.</target>
         <source>Last page</source>
         <target>Letzte Seite</target>
       </trans-unit>
+      
+      <!-- Miscellaneous -->
+      
+      <trans-unit id="1000">
+      <source>About</source>
+      <target>About</target>
+      </trans-unit>  
 
     </body>
   </file>

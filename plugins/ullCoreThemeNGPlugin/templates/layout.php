@@ -100,7 +100,18 @@
         / <?php echo ull_link_to('ull.at', 'http://www.ull.at', 'ull_js_observer_confirm=true link_external=true')?>
       </div>
       <div id="footer_links">
-        Powered by the enterprise 2.0 platform <?php echo ull_link_to('ullright', 'http://www.ullright.org', 'ull_js_observer_confirm=true link_external=true'); ?>
+        Powered by the enterprise 2.0 platform 
+        <?php echo ull_link_to(
+          'ullright', 
+          'http://www.ullright.org', 
+          'ull_js_observer_confirm=true link_external=true'
+        ) ?>
+        |
+        <?php echo ull_link_to(
+          __('About', null, 'ullCoreMessages'), 
+          'ullAdmin/about', 
+          'ull_js_observer_confirm=true'
+        ) ?>
       </div>
       <!-- <div class='clear'></div> --> 
     </div>  <!-- end of footer -->

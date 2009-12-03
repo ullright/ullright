@@ -7,7 +7,7 @@
  * @subpackage  config
  * @author      Your name here
  * @version     SVN: $Id$
- * @version     $Rev$
+ * @version     $Rev$ 
  */
 class ullCorePluginConfiguration extends sfPluginConfiguration
 {
