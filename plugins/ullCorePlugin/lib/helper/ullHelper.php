@@ -1183,3 +1183,44 @@ function link_to_google_maps($link, $searchString, $options)
 {
   return link_to($link, 'http://maps.google.com/maps?q=' . urlencode($searchString), $options);
 }
+
+/**
+ * Returns true if the Pager has more pages on the right end as displayed
+ * 
+ * @param $pager
+ * @param $sliding_range
+ * @return unknown_type
+ */
+function pager_has_more_right_pages($pager, $sliding_range)
+{
+  $right_pages = floor(($sliding_range - 1) / 2);
+  if (
+    (($pager->getPage() + $right_pages) < $pager->getLastPage()) 
+    && 
+    ($pager->getLastPage() > $sliding_range)
+   )
+  {
+    return true;
+  }
+}
+
+/**
+ * Returns true if the Pager has more pages on the left end as displayed
+ * 
+ * @param $pager
+ * @param $sliding_range
+ * @return unknown_type
+ */
+function pager_has_more_left_pages($pager, $sliding_range)
+{
+  $left_pages = floor($sliding_range / 2);
+  if (
+    (($pager->getPage() - $left_pages) > $pager->getFirstPage()) 
+    && 
+    ($pager->getLastPage() > $sliding_range)
+   )
+  {
+    return true;
+  }
+}
+    

@@ -47,6 +47,7 @@ all:
     
   pager:
     max_per_page:   30
+    sliding_range:  5
     
   sfDoctrineActAsTaggablePlugin:
     limit:          16

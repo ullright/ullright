@@ -346,6 +346,28 @@ Gültige Dateitypen sind jpg und png.</target>
         <source>Personnel number</source>
         <target>Personalnummer</target>
       </trans-unit>  
+      
+       <!--  Pager -->
+      
+      <trans-unit id="700">
+        <source>First page</source>
+        <target>Erste Seite</target>
+      </trans-unit>
+      
+      <trans-unit id="701">
+        <source>Previous page</source>
+        <target>Vorherige Seite</target>
+      </trans-unit>
+      
+      <trans-unit id="702">
+        <source>Next page</source>
+        <target>Nächste Seite</target>
+      </trans-unit>
+      
+      <trans-unit id="703">
+        <source>Last page</source>
+        <target>Letzte Seite</target>
+      </trans-unit>
 
     </body>
   </file>
