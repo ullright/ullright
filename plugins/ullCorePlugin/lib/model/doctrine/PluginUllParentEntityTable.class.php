@@ -152,15 +152,15 @@ class PluginUllParentEntityTable extends UllRecordTable
   }
   
   
-  public static function getSubordinateTree(UllEntity $entity, $hydrate = true)
+  public static function getSubordinateTree(UllEntity $entity, $depth = 999999999, $hydrate = true, $level = 1)
   {
     $node = new ullTreeNode(($hydrate) ? $entity : $entity->id);
     
-    if ($subordinates = $entity->getSubordinates())
+    if (($subordinates = $entity->getSubordinates()) && ($level < $depth))
     {
       foreach ($subordinates as $subordinate)
       {
-        $node->addSubnode(self::getSubordinateTree($subordinate, $hydrate));
+        $node->addSubnode(self::getSubordinateTree($subordinate, $depth, $hydrate, $level++));
       }
     }     
     

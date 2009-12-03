@@ -23,7 +23,7 @@ class BaseUllOrgchartActions extends ullsfActions
     $this->getUriMemory()->setDefault($defaultUri);
 
     //Add ullOrgchart stylsheet for all actions
-    $path = '/ullOrgchartTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
+    $path = '/ullPhoneTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
     $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
   }
 
@@ -49,10 +49,11 @@ class BaseUllOrgchartActions extends ullsfActions
 //    $this->checkPermission('ull_orgchart_list');
 
     $id = $request->getParameter('user_id', '1');
+    $depth = $request->getParameter('depth', '2');
     
     $entity = UllEntityTable::findById($id);
     
-    $this->setVar('tree', new ullTreeRenderer(UllEntityTable::getSubordinateTree($entity, false)), true);
+    $this->setVar('tree', new ullTreeRenderer(UllEntityTable::getSubordinateTree($entity, $depth)), true);
     
     $this->breadcrumbForList();
 

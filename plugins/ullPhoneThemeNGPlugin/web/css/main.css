@@ -54,3 +54,55 @@ a:visited {
   color: #777475;
   font-weight: bold;
 }
+
+
+
+/* orgchart */
+
+.ull_orgchart {
+  /* text-align: center; */
+  border: 1px solid red;
+  margin: 0 auto;
+  /* width: 3000px; */
+  whitespace: nowrap;
+}
+
+.ull_orgchart_box {
+  border: 1px solid black;
+  margin: 0 auto;
+  /* whitespace: nowrap; */
+}
+
+.ull_orgchart_superior {
+  width: 20em;
+  height: 8em; 
+}
+
+.ull_orgchart_subordinate {
+  width: 15em;
+  height: 5em; 
+}
+
+.ull_orgchart_spacer {
+  width: 15em;
+  height: 3em; 
+}
+
+.ull_orgchart_spacer_quarter {
+  width: 50%;
+  height: 50%; 
+}
+
+.ull_orgchart_spacer_right_bottom {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.ull_orgchart_spacer_bottom {
+  border-bottom: 1px solid black;
+}
+
+.ull_orgchart_spacer_right {
+  border-right: 1px solid black;
+}
+

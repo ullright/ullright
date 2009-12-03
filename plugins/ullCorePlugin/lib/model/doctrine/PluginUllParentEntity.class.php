@@ -94,14 +94,18 @@ abstract class PluginUllParentEntity extends BaseUllParentEntity
    * @param boolean $hydration
    * @return mixed
    */
-  public function getSubordinates($hydrationMode = null)
+  public function getSubordinates($onlyActive = true, $hydrationMode = null)
   {
-    $q =  new Doctrine_Query;
+    $q = new ullQuery('UllEntity');
     $q
-      ->from('UllEntity x')
-      ->where('x.superior_ull_user_id = ?', $this->id)
-      ->orderby('x.last_name, x.first_name')
+      ->addWhere('superior_ull_user_id = ?', $this->id)
+      ->addOrderby('last_name, first_name')
     ;
+    
+    if ($onlyActive)
+    {
+      $q->addWhere('UllUserStatus->is_active = ?', true);
+    }
     
     $result = $q->execute(null, $hydrationMode);
     

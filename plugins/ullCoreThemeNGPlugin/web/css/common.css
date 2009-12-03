@@ -174,3 +174,11 @@ a.link_new_window {
 	background-position: right center;
 	padding-right: 17px;
 }
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
