@@ -10,7 +10,7 @@
 
 class BaseUllWikiActions extends BaseUllGeneratorActions
 {
-  
+ 
   /**
    * Everything here is executed before each action
    * 
@@ -73,6 +73,8 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
   public function executeShow(sfRequest $request) 
   {
     $this->getDocFromRequest();
+    $this->appendToTitle($this->doc);
+    
     
     $accessType = $this->doc->checkAccess();
     $this->redirectToNoAccessUnless($accessType);    
@@ -112,6 +114,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
     
     if ($this->doc->exists())
     {
+      $this->appendToTitle($this->doc);
       $accessType = $this->doc->checkAccess();
       $this->redirectToNoAccessUnless($accessType);
     
@@ -433,7 +436,4 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
 
     return $q;
   }
-  
-  
-
 }

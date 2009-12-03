@@ -225,6 +225,11 @@
 
 <!-- Common index action phrases -->
 
+<trans-unit id="1001">
+<source>Index</source>
+<target>Startseite</target>
+</trans-unit>
+
 <trans-unit id="1002">
 <source>Full text</source>
 <target>Volltext</target>

@@ -25,6 +25,12 @@ abstract class BaseUllsfActions extends sfActions
     sfLoader::loadHelpers('ull');
 
     $this->uriMemory = new UriMemory();
+    
+    $this->getResponse()->setTitle(
+      $this->getModuleName() . 
+      ' - ' . 
+      __(ucfirst($this->getRequestParameter('action')), null, 'common')
+    );
 
     $this->ullpreExecute();
   }
@@ -264,6 +270,20 @@ abstract class BaseUllsfActions extends sfActions
       sfConfig::get('app_theme_package', 'NG') .
       'Plugin/templates/emptyLayout';
     $this->setLayout($layout);
+  }
+  
+  
+  /**
+   * Appends a string to default title
+   * 
+   * @param $string
+   * @return none
+   */
+  protected function appendToTitle($string)
+  {
+    $title = $this->getResponse()->getTitle();
+    $title .= ' - ' . $string;
+    $this->getResponse()->setTitle($title);
   }
   
   

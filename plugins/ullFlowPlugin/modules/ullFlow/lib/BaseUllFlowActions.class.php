@@ -49,6 +49,8 @@ class BaseUllFlowActions extends ullsfActions
     {
       $this->apps = Doctrine::getTable('UllFlowApp')->findAll();
     }
+    
+    $this->setTitle($this->app);
 
     $this->loadPopularTags();
     $this->loadNamedQueries();
@@ -81,6 +83,8 @@ class BaseUllFlowActions extends ullsfActions
     }
 
     $this->getAppfromRequest();
+    
+    $this->setTitle($this->app);
     
     $this->loadNamedQueries();
 
@@ -142,6 +146,8 @@ class BaseUllFlowActions extends ullsfActions
   public function executeEdit($request)
   {
     $this->getDocFromRequestOrCreate();
+    
+    $this->setTitle($this->doc->UllFlowApp, $this->doc);
     
     $accessType = $this->doc->checkAccess();
     $this->redirectToNoAccessUnless($accessType);
@@ -782,5 +788,26 @@ class BaseUllFlowActions extends ullsfActions
         $this->named_queries_custom->setBaseUriForExisting($this->named_queries_custom->getBaseUri() . '?app=' . $this->app->slug);
       }      
     }
+  }
+  
+  
+  /**
+   * Custom setTitle function for ullFlow
+   * 
+   * @param UllFlowApp $app
+   * @param UllFlowDoc $doc
+   * @return none
+   */
+  protected function setTitle($app = null, $doc = null)
+  {
+    $doc = ($doc) ? $doc : new UllFlowDoc;
+    
+    $this->getResponse()->setTitle(
+      $this->getModuleName() . 
+      (($app) ? ' - ' . $this->app : '') .
+      ' - ' . 
+      __(ucfirst($this->getRequestParameter('action')), null, 'common') . 
+      (($doc->exists()) ? ' - ' . $this->doc : '')
+    );  
   }
 }
