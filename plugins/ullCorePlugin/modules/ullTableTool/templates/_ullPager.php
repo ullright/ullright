@@ -1,6 +1,6 @@
 <?php
     // TODO: refactor into a component
-    $sliding_range = sfConfig::get('app_pager_sliding_range');
+    $sliding_range = sfConfig::get('app_pager_sliding_range', 5);
     $pager_range = $pager->getRange(
         'Sliding',
         array(
