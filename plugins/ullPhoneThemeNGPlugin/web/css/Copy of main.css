@@ -80,35 +80,102 @@ a:visited {
   white-space: normal;        /* exclude IE6 */
 }
 
+/*--- */
+
+.outer_foo {
+  border: 1px solid red;
+}
+
+.foo {
+  border-collapse: collapse;
+  /* border-spacing: 0; */
+  margin: 0;
+  padding: 0;
+}
+
+.foo td {
+  width: 5em;
+  height: 5em;
+  border-right: 1px solid blue; 
+  
+}
 
 .ull_orgchart {
+  
+  /* margin: 0 auto; */
 }
 
 .ull_orgchart > table
 {
   border-collapse: collapse;
+  border: .5em solid pink;
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
+.ull_orgchart tr {
+  padding: 0;
+  margin: 0;
+}
+
+.ull_orgchart td {
+  /* border: 1px green dotted; */
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+}
+
+.ull_orgchart div {
+  /* border: .1em solid white; */
+}
+   
 
 .ull_orgchart_box {
   border: .2em solid black !important;
-  width: 12em;
-  height: 6em;
-  padding: .5em;
+  width: 15em;
+  height: 5em;
 }
 
-
-.ull_orgchart_spacer_row {
-  height: 3em; 
+.ull_orgchart_boxes_row > td {
+  height: 5em;
 }
 
 .ull_orgchart_centered {
   margin: 0 auto;
 }
 
-.ull_orgchart_spacer_in_between {
+.ull_orgchart_float_left {
+  float: left;
+}
+
+.ull_orgchart_vertical_spacer {
+  height: 3em;
+}
+
+.ull_orgchart_spacer_half {
+  /* border: 1px red solid; */
+  width: 49.99%;
+  height: 100%;
+  float: left;
+}
+
+.ull_orgchart_spacer_in_between_top {
+  height: 2.6em; 
+}
+
+.ull_orgchart_spacer_in_between_bottom {
+  height: 2.0em; 
+}
+
+.ull_orgchart_spacer_quarter_top {
+  height: 50%;
   width: 3em;
+}
+
+.ull_orgchart_spacer_quarter_bottom {
+  height: 55%; 
+  
 }
 
 .ull_orgchart_spacer_quarter {
@@ -116,8 +183,9 @@ a:visited {
   height: 50%; 
 }
 
+
 .ull_orgchart_border_top {
-  border-top: .2em solid black !important;
+  border-top: .1em solid black !important;
 }
 
 .ull_orgchart_border_bottom {
@@ -133,10 +201,37 @@ a:visited {
 }
 
 
-.ull_orgchart_sub_superiors_spacer_row {
-  height: 3em;
+
+
+/* old */
+
+.ull_orgchart ul {
+ list-style-type: none;
+ white-space: nowrap;
+ margin: 0;
+ padding: 0;
+ text-align: center;
 }
 
-.ull_orgchart_sub_superiors_row > td {
-  padding: 0 2em;  
+.ull_orgchart ul {
+ margin: 0;
+ padding: 0;
 }
+
+.ull_orgchart_superior {
+  width: 20em;
+  height: 8em; 
+}
+
+.ull_orgchart_subordinate {
+  width: 15em;
+  height: 5em; 
+}
+
+.ull_orgchart_spacer {
+  height: 3em; 
+  
+}
+
+
+
