@@ -53,6 +53,8 @@ class BaseUllOrgchartActions extends ullsfActions
     
     $entity = UllEntityTable::findById($id);
     
+    $this->forward404Unless($entity);
+    
     $this->setVar('tree', new ullTreeRenderer(UllEntityTable::getSubordinateTree($entity, $depth)), true);
     
     $this->breadcrumbForList();
