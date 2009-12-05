@@ -20,7 +20,12 @@ class ullTreeRenderer
   
   public function render()
   {
-    return $this->doRendering($this->node);
+    $return = '';
+    $return .= '<ul>';
+    $return .= $this->doRendering($this->node);
+    $return .= '</ul>';
+    
+    return $return;
   }
   
   public function doRendering(ullTreeNode $node)
@@ -29,37 +34,41 @@ class ullTreeRenderer
     
 //    if ($node->hasSubnodes())
 //    {
-      $cssClass = 'ull_orgchart_superior';
+//      $cssClass = 'ull_orgchart_superior';
 //    }
 //    else
 //    {
 //      $cssClass = 'ull_orgchart_subordinate';
 //    }
 
-    if (!$node->isRightMost())
-    {
-      $cssClass .= ' inline-block';
-    }  
-      
-    $return .= ullTreeRenderer::renderBox($node->getData(), $cssClass);
+//    if (!$node->isRightMost())
+//    {
+//      $cssClass .= ' vodoo';
+//    }  
+    
+    
+    $return .= ullTreeRenderer::renderBox($node->getData());
+    
     
 //    $return .= ullTreeRenderer::renderSpacer('all');
     
     if ($node->hasSubnodes())
     {
+      $return .= '<li><ul>';
       foreach($node->getSubnodes() as $subnode)
       {
         $return .= $this->doRendering($subnode);        
       }
+      $return .= '</li></ul>';
     }
     
     return $return;
   }
   
   
-  public static function renderBox($content, $cssClass)
+  public static function renderBox($content, $cssClass = '')
   {
-    return '<div class="ull_orgchart_box ' . $cssClass . '">' . $content . '</div>'; 
+    return '<li class="ull_orgchart_box ' . $cssClass . '">' . $content . '</li>'; 
   }
   
   public static function renderSpacer($type)

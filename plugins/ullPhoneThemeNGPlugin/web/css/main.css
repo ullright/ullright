@@ -59,19 +59,63 @@ a:visited {
 
 /* orgchart */
 
+.parent {
+  border: .5em solid pink;
+  list-style-type: none;
+  white-space: nowrap;
+}
+
+.child {
+  border: .5em solid silver;
+  width: 20em;
+  height: 5em;
+  margin: .5em;
+  display: -moz-inline-stack; /* inline-block hack for FF2 */
+  display: inline-block;
+  zoom: 1;                    /* inline-block hack for IE6/7 */
+  *display: inline;           /* inline-block hack for IE6/7 */
+}
+
+.child[class] {
+  white-space: normal;        /* exclude IE6 */
+}
+
+/*--- */
+
 .ull_orgchart {
-  /* text-align: center; */
-  border: 1px solid red;
-  margin: 0 auto;
-  /* width: 3000px; */
-  whitespace: nowrap;
+  border: .5em solid pink;
+  /* margin: 0 auto; */
+}
+
+.ull_orgchart ul {
+ list-style-type: none;
+ white-space: nowrap;
+ margin: 0;
+ padding: 0;
+ text-align: center;
+}
+
+.ull_orgchart ul {
+ margin: 0;
+ padding: 0;
 }
 
 .ull_orgchart_box {
-  border: 1px solid black;
-  margin: 0 auto;
-  /* whitespace: nowrap; */
+  border: .5em solid silver;
+  width: 20em;
+  height: 5em;
+  margin: .5em;
+  display: -moz-inline-stack; /* inline-block hack for FF2 */
+  display: inline-block;
+  zoom: 1;                    /* inline-block hack for IE6/7 */
+  *display: inline;           /* inline-block hack for IE6/7 */
 }
+
+.ull_orgchart_box[class] {
+  white-space: normal;        /* exclude IE6 */
+}
+
+/* old */
 
 .ull_orgchart_superior {
   width: 20em;
