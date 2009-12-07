@@ -59,31 +59,6 @@ a:visited {
 
 /* orgchart */
 
-.parent {
-  border: .5em solid pink;
-  list-style-type: none;
-  white-space: nowrap;
-}
-
-.child {
-  border: .5em solid silver;
-  width: 20em;
-  height: 5em;
-  margin: .5em;
-  display: -moz-inline-stack; /* inline-block hack for FF2 */
-  display: inline-block;
-  zoom: 1;                    /* inline-block hack for IE6/7 */
-  *display: inline;           /* inline-block hack for IE6/7 */
-}
-
-.child[class] {
-  white-space: normal;        /* exclude IE6 */
-}
-
-
-.ull_orgchart {
-}
-
 .ull_orgchart > table
 {
   border-collapse: collapse;
@@ -94,6 +69,12 @@ a:visited {
 {
   margin: 0 auto;
   /* border-collapse: collapse; Doesn't work here - we loose some borders */
+}
+
+.ull_orgchart_up {
+  text-align: center;
+  font-size: 4em;
+  font-weight: bolder;
 }
 
 .ull_orgchart_box_head {
@@ -112,8 +93,33 @@ a:visited {
   padding: .5em;
 }
 
+.ull_orgchart_box_subordinate_placeholder {
+  width: 12em;
+  height: 6em;
+  margin: 0 auto;
+  padding: .5em;
+}
+
+.ull_orgchart_box_list {
+  margin: 0;
+  list-style: none; 
+}
+
+.ull_orgchart_box_list li {
+  margin: 0;
+  padding: 0;
+}
+
+.ull_orgchart_photo {
+  width: 5em;  
+}
+
 .ull_orgchart_spacer_row {
-  height: 3em; 
+  height: 2em; 
+}
+
+.ull_orgchart_spacer_row_thin {
+  height: 1em; 
 }
 
 .ull_orgchart_spacer_in_between {

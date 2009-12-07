@@ -16,7 +16,9 @@ class ullTreeNode
    */
   public function __construct($data)
   {
-    $this->data = $data;  
+    $this->data = $data;
+    
+    $this->setLevel(1);
   }
   
   
@@ -35,22 +37,35 @@ class ullTreeNode
    * Add a subnode
    * 
    * @param ullTreeNode $node
+   * @param string $meta        Don't add as subnode, but under the given meta key
    * @return self
    */
-  public function addSubnode(ullTreeNode $node)
+  public function addSubnode(ullTreeNode $node, $meta = null)
   {
-    if (count($this->subnodes) == 1)
+    $node->fixLevels($this->getLevel() + 1);
+    
+    if ($meta)
     {
-      reset($this->subnodes)->setIsLeftMost(true);
+      $storage = &$this->meta[$meta];
+    }
+    else
+    {
+      $storage = &$this->subnodes;
     }
     
-    if (count($this->subnodes) >=1)
+    if (count($storage) == 0)
     {
-      $node->setIsRightMost(true);
-      end($this->subnodes)->setIsRightMost(false);
+      $node->setIsFirst(true);
     }
     
-    $this->subnodes[] = $node;
+    $node->setIsLast(true);
+    
+    if (count($storage) >=1)
+    {
+      end($storage)->setIsLast(false);
+    }
+    
+    $storage[] = $node;
     
     return $this;
   }
@@ -59,22 +74,42 @@ class ullTreeNode
   /**
    * Get the subnodes
    * 
+   * @param string $meta        Use the given meta key 
    * @return array
    */
-  public function getSubnodes()
+  public function getSubnodes($meta = null)
   {
-    return $this->subnodes;
+    if ($meta)
+    {
+      $storage = &$this->meta[$meta];
+    }
+    else
+    {
+      $storage = &$this->subnodes;
+    }    
+    
+    return $storage;
   }
 
   
   /**
    * Check if the node has subnodes
    * 
+   * @param string $meta        Use the given meta key
    * @return boolean
    */
-  public function hasSubnodes()
+  public function hasSubnodes($meta = null)
   {
-    return (count($this->subnodes)) ? true : false;
+    if ($meta)
+    {
+      $storage = &$this->meta[$meta];
+    }
+    else
+    {
+      $storage = &$this->subnodes;
+    }
+    
+    return (count($storage)) ? true : false;
   }
   
   /**
@@ -130,28 +165,28 @@ class ullTreeNode
   
   
   /**
-   * Set if the current node is the leftmost one of a level
+   * Set if the current node is the first one of a level
    * 
    * @param boolean $boolean
    * @return $this
    */
-  public function setIsLeftMost($boolean)
+  public function setIsFirst($boolean)
   {
-    $this->setMeta('leftmost', (boolean) $boolean);
+    $this->setMeta('is_first', (boolean) $boolean);
     
     return $this;
   }
   
   
   /**
-   * Check if the current node is the leftmost one of a level
+   * Check if the current node is the first one of a level
    * @return unknown_type
    */
-  public function isLeftMost()
+  public function isFirst()
   {
-    if ($this->hasMeta('leftmost'))
+    if ($this->hasMeta('is_first'))
     {
-      return $this->getMeta('leftmost');
+      return $this->getMeta('is_first');
     }
     
     return false;
@@ -159,28 +194,28 @@ class ullTreeNode
   
   
   /**
-   * Set if the current node is the leftmost one of a level
+   * Set if the current node is the last one of a level
    * 
    * @param boolean $boolean
    * @return $this
    */
-  public function setIsRightMost($boolean)
+  public function setIsLast($boolean)
   {
-    $this->setMeta('rightmost', (boolean) $boolean);
+    $this->setMeta('is_last', (boolean) $boolean);
     
     return $this;
   }
   
   
   /**
-   * Check if the current node is the rightmost one of a level
+   * Check if the current node is the last one of a level
    * @return unknown_type
    */
-  public function isRightMost()
+  public function isLast()
   {
-    if ($this->hasMeta('rightmost'))
+    if ($this->hasMeta('is_last'))
     {
-      return $this->getMeta('rightmost');
+      return $this->getMeta('is_last');
     }
     
     return false;
@@ -196,8 +231,23 @@ class ullTreeNode
   {
     $array = array();
 
-    $array['data'] = $this->data;
-    $array['meta'] = $this->meta;
+    $array['data'] = (string) $this->data;
+    $array['meta'] = array();
+    // arrayize ullTreeNodes in the meta array
+    foreach ($this->meta as $key => $singleMeta)
+    {
+      if (is_array($singleMeta) && reset($singleMeta) instanceof ullTreeNode)
+      {
+        foreach($singleMeta as $nodeKey => $nodeValue)
+        {
+          $array['meta'][$key][$nodeKey] = $nodeValue->toArray();
+        }
+      }  
+      else
+      {
+        $array['meta'][$key] = $singleMeta;
+      }
+    }
     $array['subnodes'] = array();
     
     foreach ($this->subnodes as $subnode)
@@ -206,6 +256,54 @@ class ullTreeNode
     }
     
     return $array;
+  }
+
+  
+  /**
+   * Set the current level of recursion
+   * 
+   * @param $level
+   * @return self
+   */
+  public function setLevel($level)
+  {
+    $this->setMeta('level', $level);
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Returns the current level of recursion
+   * 
+   * @return integer
+   */
+  public function getLevel()
+  {
+    return $this->getMeta('level');
+  }
+  
+  
+  /**
+   * Recusivly fix the level of added items
+   * 
+   * @param integer $level
+   * @return none
+   */
+  public function fixLevels($level)
+  {
+//    var_dump((string) $this->getData());
+//    var_dump($level);
+    
+    $this->setLevel($level);
+
+    if ($this->hasSubnodes())
+    {
+      foreach ($this->getSubnodes() as $subnode)
+      {
+        $subnode->fixLevels($level + 1);   
+      }
+    }
   }
   
 }

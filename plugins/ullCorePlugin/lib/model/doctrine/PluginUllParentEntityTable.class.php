@@ -106,61 +106,33 @@ class PluginUllParentEntityTable extends UllRecordTable
   }
   
   
-  public static function getSubordinateTree2(UllEntity $entity, $hydrate = true)
-  {
-    $tree = array();
-    
-    $tree[$entity->id] = array(
-      'data'      => ($hydrate) ? $entity : $entity->id,
-      'meta'      => array(),
-      'children'  => null,
-    );
-    
-    if ($subordinates = $entity->getSubordinates())
-    {
-      $tree[$entity->id]['children'] = array();
-      $markAsLeftMost = null;
-      
-      if (count($subordinates) > 1)
-      {
-        $markAsLeftMost = true;
-      }
-      
-      foreach ($subordinates as $subordinate)
-      {
-//        var_dump('-----');
-//        var_dump(self::getSubordinateTree($subordinate, $hydrate));
-//        var_dump($tree[$entity->id]['children']);
-        $tree[$entity->id]['children'] += self::getSubordinateTree($subordinate, $hydrate);
-//        var_dump($tree[$entity->id]['children']); 
-
-        if ($markAsLeftMost)
-        {
-          $tree[$entity->id]['children'][$subordinate->id]['meta']['leftmost'] = true;
-          $markAsLeftMost = false;
-        }
-      }
-      
-      if (count($subordinates) > 1)
-      {
-        $tree[$entity->id]['children'][$subordinate->id]['meta']['rightmost'] = true;
-      }
-      
-    }     
-
-   return $tree;     
-  }
-  
-  
+  /**
+   * Build org-chart graph
+   * 
+   * @param UllEntity $entity
+   * @param integer $depth
+   * @param boolean $hydrate
+   * @param integer $level
+   * @return ullTreeNode
+   */  
   public static function getSubordinateTree(UllEntity $entity, $depth = 999999999, $hydrate = true, $level = 1)
   {
-    $node = new ullTreeNode(($hydrate) ? $entity : $entity->id);
+    $node = new ullTreeNodeOrgchart(($hydrate) ? $entity : $entity->id);
     
     if (($subordinates = $entity->getSubordinates()) && ($level < $depth))
     {
+      $level++;
+      
       foreach ($subordinates as $subordinate)
       {
-        $node->addSubnode(self::getSubordinateTree($subordinate, $depth, $hydrate, $level++));
+        if ($subordinate->isSuperior())
+        {
+          $node->addSubnode(self::getSubordinateTree($subordinate, $depth, $hydrate, $level));
+        }
+        else
+        {
+          $node->addSubordinate(self::getSubordinateTree($subordinate, $depth, $hydrate, $level));
+        }
       }
     }     
     

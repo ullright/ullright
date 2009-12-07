@@ -36,7 +36,10 @@ class ullWidgetPhoto extends ullWidget
       $photo =   '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .'Plugin/images/nobody.png';
     }
     
-    $return = '<img src="' . $photo . '" alt="User photo" />';    
+    $attributes['src'] = $photo;
+    $attributes['alt'] = 'User photo';
+    
+    $return = $this->renderTag('img', $attributes);
     
     if ($this->getOption('show_edit_link') == true)
     {

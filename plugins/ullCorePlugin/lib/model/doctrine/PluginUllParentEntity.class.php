@@ -111,5 +111,19 @@ abstract class PluginUllParentEntity extends BaseUllParentEntity
     
     return $result;
   }
+  
+  
+  /** 
+   * Check if the current entity is a superior
+   * 
+   * @param boolean $onlyActive
+   * @param mixed $hydrationMode
+   * @return boolean
+   */
+  public function isSuperior($onlyActive = true, $hydrationMode = null)
+  {
+    
+    return (boolean) $this->getSubordinates($onlyActive, Doctrine::HYDRATE_NONE);
+  }
 
 }
