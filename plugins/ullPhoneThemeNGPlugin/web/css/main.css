@@ -90,34 +90,43 @@ a:visited {
   width: 100%;
 }
 
+.ull_orgchart > table table
+{
+  margin: 0 auto;
+  /* border-collapse: collapse; Doesn't work here - we loose some borders */
+}
 
-.ull_orgchart_box {
+.ull_orgchart_box_head {
   border: .2em solid black !important;
-  width: 12em;
-  height: 6em;
+  width: 15em;
+  height: 8em;
+  margin: 0 auto;
   padding: .5em;
 }
 
+.ull_orgchart_box_subordinate {
+  border: .2em solid black !important;
+  width: 12em;
+  height: 6em;
+  margin: 0 auto;
+  padding: .5em;
+}
 
 .ull_orgchart_spacer_row {
   height: 3em; 
-}
-
-.ull_orgchart_centered {
-  margin: 0 auto;
 }
 
 .ull_orgchart_spacer_in_between {
   width: 3em;
 }
 
-.ull_orgchart_spacer_quarter {
-  width: 50%;
-  height: 50%; 
-}
-
 .ull_orgchart_border_top {
   border-top: .19em solid black !important;
+}
+
+.ull_orgchart_sub_superiors_row > td {
+  padding: 0 2em;
+  vertical-align: top;  
 }
 
 .ull_orgchart_border_bottom {
@@ -137,11 +146,3 @@ a:visited {
 }
 
 
-.ull_orgchart_sub_superiors_spacer_row {
-  height: 3em;
-}
-
-.ull_orgchart_sub_superiors_row > td {
-  padding: 0 2em;
-  vertical-align: top;  
-}
