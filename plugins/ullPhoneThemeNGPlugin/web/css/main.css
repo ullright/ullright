@@ -90,7 +90,7 @@ a:visited {
   width: 100%;
 }
 
-.ull_orgchart > table table
+.ull_orgchart table
 {
   margin: 0 auto;
   /* border-collapse: collapse; Doesn't work here - we loose some borders */
@@ -124,7 +124,7 @@ a:visited {
   border-top: .19em solid black !important;
 }
 
-.ull_orgchart_sub_superiors_row > td {
+.ull_orgchart_sub_superiors_row_td {
   padding: 0 2em;
   vertical-align: top;  
 }

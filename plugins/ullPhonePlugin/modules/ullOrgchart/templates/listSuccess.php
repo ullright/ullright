@@ -104,22 +104,22 @@
             </tr>
             
             <tr class='ull_orgchart_sub_superiors_row'>
-              <td colspan="2">
+              <td colspan="2" class='ull_orgchart_sub_superiors_row_td'>
                 <div class='ull_orgchart_box_head'>
                   Head of Marketing
                 </div>               
               </td>
-              <td colspan="2">
+              <td colspan="2" class='ull_orgchart_sub_superiors_row_td'>
                 <div class='ull_orgchart_box_head'>
                   Head of IT
                 </div>               
               </td>
-              <td colspan="2">
+              <td colspan="2" class='ull_orgchart_sub_superiors_row_td'>
                 <div class='ull_orgchart_box_head'>
                   Head of fools
                 </div>               
               </td>
-              <td colspan="2">
+              <td colspan="2" class='ull_orgchart_sub_superiors_row_td'>
               
                 <table cellpadding='0' cellspacing='0'>
                   <tbody>
@@ -200,7 +200,7 @@
                   </tbody>
                 </table>              
               </td>
-              <td colspan="2">
+              <td colspan="2" class='ull_orgchart_sub_superiors_row_td'>
                 <div class='ull_orgchart_box_head'>
                   Head of Oranges
                 </div>               
