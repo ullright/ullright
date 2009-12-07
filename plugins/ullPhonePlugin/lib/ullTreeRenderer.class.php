@@ -47,8 +47,8 @@ class ullTreeRenderer
     
     if ($node->getLevel() == 1 && $superior = $node->getData()->superior_ull_user_id)
     {
-      $return .= '<div class="ull_orgchart_up">' 
-        . ull_link_to('^', array('user_id' => $superior))
+      $return .= '<div class="ull_orgchart_arrow">' 
+        . ull_link_to('&uArr;', array('user_id' => $superior))
         . '</div>';
     }
     
@@ -244,6 +244,10 @@ class ullTreeRenderer
         else
         {
           $return .= $this->renderBoxSuperior($subnode->getData());
+          
+          $return .= '<div class="ull_orgchart_arrow">' 
+            . ull_link_to('&dArr;', array('user_id' => $subnode->getData()->id))
+            . '</div>';
         }
         
         $return .= '
