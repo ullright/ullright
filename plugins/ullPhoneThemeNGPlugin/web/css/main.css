@@ -117,11 +117,15 @@ a:visited {
 }
 
 .ull_orgchart_border_top {
-  border-top: .2em solid black !important;
+  border-top: .19em solid black !important;
 }
 
 .ull_orgchart_border_bottom {
-  border-bottom: .1em solid black!important ;
+  border-bottom: .19em solid black !important ;
+}
+
+.ull_orgchart_border_double_bottom {
+  border-bottom: .2em solid black !important ;
 }
 
 .ull_orgchart_border_right {
@@ -138,5 +142,6 @@ a:visited {
 }
 
 .ull_orgchart_sub_superiors_row > td {
-  padding: 0 2em;  
+  padding: 0 2em;
+  vertical-align: top;  
 }
