@@ -160,11 +160,6 @@ class ullTreeRenderer
             $return .= $this->renderSpacerRowThin();
           }          
         }  
-
-        if ($node->hasSubnodes())
-        {
-          $return .= $this->renderSpacerRow();
-        }
       }
       
       // single column mode
@@ -196,12 +191,17 @@ class ullTreeRenderer
           
           ';
           
-          if ($node->hasSubnodes() || !$subordinate->isLast())
+          if (!$subordinate->isLast())
           {
             $return .= $this->renderSpacerRowThin();
           }
         }
       }
+      
+      if ($node->hasSubnodes())
+      {
+        $return .= $this->renderSpacerRow();
+      }      
       
       $return .= '
           </table>
@@ -209,6 +209,8 @@ class ullTreeRenderer
       </tr> 
       ';      
     }
+    
+
       
     
     // Sub superiors
