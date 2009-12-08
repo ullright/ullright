@@ -7,7 +7,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 //sfLoader::loadHelpers('ull');
 //sfLoader::loadHelpers('I18N');
 
-$t = new lime_test(18, new lime_output_color);
+$t = new lime_test(21, new lime_output_color);
 
 
 $t->diag('__construct()');
@@ -55,26 +55,30 @@ $t->diag('hasMeta()');
   $t->is($node->hasMeta('invalid'), false, 'Returns true if meta data exist for a given key');
   
   
-$t->diag('isLeftMost()');
+$t->diag('isFirst()');
   $node = new ullTreeNode('testdata');
-  $t->is($node->isLeftMost(), false, 'Isn\'t a leftmost node');
-  $node->setIsLeftMost(true);
-  $t->is($node->isLeftMost(), true, 'Is a leftmost node');
+  $t->is($node->isFirst(), false, 'Isn\'t first node');
+  $node->setIsFirst(true);
+  $t->is($node->isFirst(), true, 'Is first node');
 
   
-$t->diag('isRightMost()');
+$t->diag('isLast()');
   $node = new ullTreeNode('testdata');
-  $t->is($node->isRightMost(), false, 'Isn\'t a rightmost node');
-  $node->setIsRightMost(true);
-  $t->is($node->isRightMost(), true, 'Is a rightmost node');
+  $t->is($node->isLast(), false, 'Isn\'t last node');
+  $node->setIsLast(true);
+  $t->is($node->isLast(), true, 'Is last node');
   
+  
+
   
 $t->diag('toArray()');
   $node = new ullTreeNode('topnode');
   
   $reference = array(
     'data'     => 'topnode',
-    'meta'     => array(),
+    'meta'     => array(
+      'level'   => 1,
+    ),
     'subnodes' => array(),
   );
   
@@ -88,25 +92,39 @@ $t->diag('toArray()');
   
   $reference = array(
     'data'     => 'topnode',
-    'meta'     => array(),
+    'meta'     => array(
+      'level'  => 1,
+    ),
     'subnodes' => array(
       0 => array(
         'data'      => 'subnode1',
-        'meta'      => array('leftmost' => true),
+        'meta'      => array(
+          'level'     => 2,
+          'is_first'  => true
+        ),
         'subnodes' => array(),
       ),
       1 => array(
         'data'      => 'subnode2',
-        'meta'      => array(),
+        'meta'      => array(
+          'level'   => 2,
+        ),
         'subnodes' => array(),
       ),      
       2 => array(
         'data'      => 'subnode3',
-        'meta'      => array('rightmost' => true),
+        'meta'      => array(
+          'level'   => 2,
+          'is_last' => true
+        ),
         'subnodes' => array(
         0 => array(
           'data'      => 'subsubnode1',
-          'meta'      => array(),
+          'meta'      => array(
+            'level'   => 3,
+            'is_first' => true, 
+            'is_last' => true
+          ),
           'subnodes' => array(),
           ),         
         ),
@@ -116,3 +134,10 @@ $t->diag('toArray()');
   
   $t->is($node->toArray(), $reference, 'Returns the correct array format for a nested node');
   
+  
+$t->diag('getLevel()');
+  $t->is($node->getLevel(), 1, 'Returns the correct level');  
+  $node->setLevel(99);
+  $t->is($node->getLevel(), 99, 'Returns the correct level');
+  $subnodes = $node->getSubnodes();
+  $t->is(reset($subnodes)->getLevel(), 2, 'Returns the correct level');  

@@ -72,31 +72,47 @@ $t->diag('getSubordinateTree()');
     UllEntityTable::getSubordinateTree($admin, 9999, false)->toArray(),
     array(
       'data'      => $admin->id,
-      'meta'      => array(),
-      'subnodes'  => array(
-       array(
-          'data'      => $testUser2->id,
-          'meta'      => array(
-            'leftmost' => true,
-          ),         
-          'subnodes'  => array(),
-        ),      
-       array(
-          'data'      => $testUser3->id,
-          'meta'      => array(),
-          'subnodes'  => array(),
+      'meta'      => array(
+        'level'         => 1,
+        'subordinates'  => array(
+          array(
+            'data'      => $testUser2->id,
+            'meta'      => array(
+              'level'    => 2,
+              'is_first' => true,
+            ),         
+            'subnodes'  => array(),
+          ),      
+          array(
+            'data'      => $testUser3->id,
+            'meta'      => array(
+              'level'    => 2,
+              'is_last' => true,
+            ),
+            'subnodes'  => array(),
+          ),    
         ),
+      ),
+      'subnodes'  => array(
         array(
           'data'      => $testUser->id,
           'meta'      => array(
-            'rightmost' => true,
+            'level'         => 2,
+            'subordinates'  => array(
+              array(
+                'data'      => $poorGuy->id,
+                'meta'      => array(
+                  'level'     => 2,
+                  'is_first'  => true, 
+                  'is_last'   => true,
+                ),
+                'subnodes'  => array(),
+              ),   
+            ),
+          'is_first'      => true,
+          'is_last'       => true,                    
           ), 
           'subnodes'  => array(
-            array(
-              'data'      => $poorGuy->id,
-              'meta'      => array(),
-              'subnodes'  => array(),
-            ),
           ),
         ),                        
       ),
@@ -107,24 +123,34 @@ $t->diag('getSubordinateTree()');
     UllEntityTable::getSubordinateTree($admin, 2, false)->toArray(),
     array(
       'data'      => $admin->id,
-      'meta'      => array(),
-      'subnodes'  => array(
-       array(
-          'data'      => $testUser2->id,
-          'meta'      => array(
-            'leftmost' => true,
-          ),         
-          'subnodes'  => array(),
-        ),      
-       array(
-          'data'      => $testUser3->id,
-          'meta'      => array(),
-          'subnodes'  => array(),
+      'meta'      => array(
+        'level'       => 1,
+        'subordinates' => array(
+          array(
+            'data'      => $testUser2->id,
+            'meta'      => array(
+              'level'     => 2,
+              'is_first'  => true,
+            ),         
+            'subnodes'  => array(),
+          ),      
+          array(
+            'data'      => $testUser3->id,
+            'meta'      => array(
+              'level'     => 2,
+              'is_last'   => true,
+            ),
+            'subnodes'  => array(),
+          ),    
         ),
+      ),
+      'subnodes'  => array(
         array(
           'data'      => $testUser->id,
           'meta'      => array(
-            'rightmost' => true,
+            'level'         => 2,
+            'is_first'      => true,
+            'is_last'       => true,
           ), 
           'subnodes'  => array(),
         ),                        
@@ -136,7 +162,9 @@ $t->diag('getSubordinateTree()');
     UllEntityTable::getSubordinateTree($admin, 1, false)->toArray(),
     array(
       'data'      => $admin->id,
-      'meta'      => array(),
+      'meta'      => array(
+        'level'     => 1,
+      ),
       'subnodes'  => array(),
     ),
     'Returns the correct tree for depth = 1'
