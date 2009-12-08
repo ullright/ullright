@@ -48,7 +48,11 @@ class ullTreeRenderer
     if ($node->getLevel() == 1 && $superior = $node->getData()->superior_ull_user_id)
     {
       $return .= '<div class="ull_orgchart_arrow">' 
-        . ull_link_to('&uArr;', array('user_id' => $superior))
+        . ull_link_to(
+            '&uArr;', 
+            array('user_id' => $superior),
+            array('title' => __('One level up', null, 'ullOrgchartMessages'))
+          )
         . '</div>';
     }
     
@@ -76,10 +80,10 @@ class ullTreeRenderer
       {
         $pairs = array();
         $pairNumber = 0;
-        $sum = count($node->getSubordinates());
+        $numOfSubordinates = count($node->getSubordinates());
         
         // special handling if only one result -> print on the right side
-        if ($sum == 1)
+        if ($numOfSubordinates == 1)
         {
           $subs = $node->getSubordinates();
           $pairs[]['even'] = reset($subs);
@@ -99,6 +103,7 @@ class ullTreeRenderer
             }  
           }
         }
+        $numOfPairs = count($pairs);
         
         foreach($pairs as $currentPairNumber => $pair)
         {
@@ -107,7 +112,7 @@ class ullTreeRenderer
               <td rowspan="2">
           ';
           
-          if ($sum == 1)
+          if ($numOfSubordinates == 1)
           {
             $return .= $this->renderBoxSubordinatePlaceholder();
           }
@@ -119,7 +124,6 @@ class ullTreeRenderer
           $return .= '                 
               </td>
               <td class="ull_orgchart_border_right ' . ((isset($pair['odd'])) ? 'ull_orgchart_border_double_bottom' : '') . '">
-                <!--  necessary to force width for single column subordinates -->
                 <div class="ull_orgchart_spacer_in_between">&nbsp;</div>
               </td>
               <td class="ull_orgchart_border_left ' . ((isset($pair['even'])) ? 'ull_orgchart_border_double_bottom' : '') . '">
@@ -142,16 +146,16 @@ class ullTreeRenderer
             </tr>        
             <tr>
               <td class="ull_orgchart_spacer_in_between ' 
-            . (($currentPairNumber != $pairNumber || $node->hasSubnodes()) ? 'ull_orgchart_border_right' : '') 
+            . (($currentPairNumber + 1 < $numOfPairs || $node->hasSubnodes()) ? 'ull_orgchart_border_right' : '') 
             . '">&nbsp;</td>
               <td class="ull_orgchart_spacer_in_between ' 
-            . (($currentPairNumber != $pairNumber || $node->hasSubnodes()) ? 'ull_orgchart_border_left' : '') 
+            . (($currentPairNumber + 1 < $numOfPairs || $node->hasSubnodes()) ? 'ull_orgchart_border_left' : '') 
             . '">&nbsp;</td>                
             </tr>           
           
           ';
-          
-          if ($currentPairNumber != $pairNumber)
+            
+          if ($currentPairNumber + 1 < $numOfPairs)
           {
             $return .= $this->renderSpacerRowThin();
           }          
@@ -246,7 +250,11 @@ class ullTreeRenderer
           $return .= $this->renderBoxSuperior($subnode->getData());
           
           $return .= '<div class="ull_orgchart_arrow">' 
-            . ull_link_to('&dArr;', array('user_id' => $subnode->getData()->id))
+            . ull_link_to(
+                '&dArr;', 
+                array('user_id' => $subnode->getData()->id),
+                array('title' => __('One level down', null, 'ullOrgchartMessages'))                
+              )
             . '</div>';
         }
         

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext"
+    date="2007-12-13T14:54:05Z">
+    <body>
+    
+      <trans-unit id="1">
+        <source>Number of displayed levels</source>
+        <target>Anzahl der angezeigten Ebenen</target>
+      </trans-unit>
+      
+      <trans-unit id="2">
+        <source>One level up</source>
+        <target>Eine Ebene hinauf</target>
+      </trans-unit>
+      
+      <trans-unit id="3">
+        <source>One level down</source>
+        <target>Eine Ebene hinunter</target>
+      </trans-unit>      
+      
+     
+    </body>
+  </file>
+</xliff>

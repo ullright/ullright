@@ -342,6 +342,7 @@ ul#breadcrumbs li.first {
  */
 ul.list_action_buttons {
   padding: .2em;
+  height: 2em;
 }
 
 ul.list_action_buttons li {

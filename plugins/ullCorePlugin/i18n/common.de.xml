@@ -80,9 +80,14 @@
 <target>Hochladen</target>
 </trans-unit>
 
-<trans-unit id="15">
+<trans-unit id="16">
 <source>Save and new</source>
 <target>Speichern und neu</target>
+</trans-unit>
+
+<trans-unit id="17">
+<source>Reset</source>
+<target>Zurücksetzten</target>
 </trans-unit>
 
 
@@ -342,6 +347,12 @@
 <source>Overview</source>
 <target>Übersicht</target>
 </trans-unit>
+
+<trans-unit id="2015">
+<source>All</source>
+<target>Alle</target>
+</trans-unit>
+
 
 <!-- common show action phrases -->
 
