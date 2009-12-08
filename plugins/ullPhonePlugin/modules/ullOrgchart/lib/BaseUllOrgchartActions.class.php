@@ -48,14 +48,16 @@ class BaseUllOrgchartActions extends ullsfActions
   {
     $this->checkPermission('ull_orgchart_list');
 
-    $id = $request->getParameter('user_id', 1);
+    $userId = $request->getParameter('user_id', sfConfig::get('app_ull_orgchart_ceo_user_id', 1));
     $depth = $request->getParameter('depth', 2);
     
-    $entity = UllEntityTable::findById($id);
+    $entity = UllEntityTable::findById($userId);
     
     $this->forward404Unless($entity);
     
     $treeData = UllEntityTable::getSubordinateTree($entity, $depth);
+    
+//    var_dump($treeData->toArray());die;
     
     $this->setVar('tree', new ullTreeRenderer($treeData), true);
     

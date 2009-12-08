@@ -42,6 +42,7 @@ UllUser:
     photo:              test_user.png
     is_photo_public:    false
     UllLocation:        new_york
+    UllDepartment:      design_department
     phone_extension:    2222
     alternative_phone_extension: 8888
     is_show_extension_in_phonebook: false
