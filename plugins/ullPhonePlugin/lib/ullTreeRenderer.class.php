@@ -65,7 +65,7 @@ class ullTreeRenderer
         
    
     // Subordinates
-    if ($node->hasSubordinates())
+    if ($node->hasSubordinates() || $node->hasSubnodes())
     {
       $return .= '
       <tr class="ull_orgchart_subordinates">
@@ -74,7 +74,10 @@ class ullTreeRenderer
       ';
       
       $return .= $this->renderSpacerRow();
+    }
       
+    if ($node->hasSubordinates())
+    {      
       // dual column mode
       if ($node->getLevel() == 1)
       {
@@ -201,8 +204,11 @@ class ullTreeRenderer
       if ($node->hasSubnodes())
       {
         $return .= $this->renderSpacerRow();
-      }      
-      
+      }
+    }
+
+    if ($node->hasSubordinates() || $node->hasSubnodes())    
+    {  
       $return .= '
           </table>
         </td>
