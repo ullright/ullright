@@ -61,7 +61,7 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     {
       $this->ull_reqpass_redirect();
     }
-
+    
     $this->breadcrumbForList();
     
     $this->generator = new ullVentoryGenerator();
@@ -69,6 +69,11 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     $this->named_queries = new ullNamedQueriesUllVentory;
 
     $this->docs = $this->getFilterFromRequest();
+    
+    if($this->entity)
+    {
+      $this->appendToTitle($this->entity);
+    }
     
     $this->redirectToEditIfSingleResult();
 
@@ -161,11 +166,19 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     {
       $this->getItemFromRequest();
       $this->entity = $this->doc->UllEntity;
+      $this->appendToTitle($this->entity);
+      $this->appendToTitle($this->doc);
     }
     else
     {
       $this->doc = new UllVentoryItem;
       $this->entity = $this->retrieveEntityFromRequest();
+      $this->getResponse()->setTitle(
+        $this->getModuleName() . 
+        ' - ' .
+        __('Create', null, 'common')
+      );
+      $this->appendToTitle($this->entity);
     }
     
     $this->generator = new ullVentoryGenerator($request->getParameter('type'));

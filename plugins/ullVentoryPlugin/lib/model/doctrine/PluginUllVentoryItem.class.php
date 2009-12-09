@@ -88,5 +88,19 @@ abstract class PluginUllVentoryItem extends BaseUllVentoryItem
     
     return $memory;
   }
+  
+  public function __toString()
+  {
+    return   
+      $this->UllVentoryItemModel->UllVentoryItemType->name . 
+      ' ' . 
+      $this->UllVentoryItemModel->UllVentoryItemManufacturer->name .
+      ' ' .
+      $this->UllVentoryItemModel->name .
+      ' (' .
+      $this->inventory_number .
+      ')'
+    ;
+  }
 
 }

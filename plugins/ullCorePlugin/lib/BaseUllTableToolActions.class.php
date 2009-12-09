@@ -50,10 +50,12 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    * @param sfWebRequest $request
    */
   public function executeList(sfRequest $request) 
-  {
+  {    
     $this->checkPermission($this->getPermissionName());
     
     parent::executeList($request);
+    
+    $this->setCommonTitle();
   }  
 
   
@@ -109,6 +111,9 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     $this->checkPermission($this->getPermissionName());
     
     parent::executeEdit($request);
+    
+    $this->setCommonTitle();
+    $this->appendToTitle($this->generator->getRow());
   }  
   
   
@@ -245,6 +250,17 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     }
     
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }
+  
+  protected function setCommonTitle()
+  {
+    $this->getResponse()->setTitle(
+      $this->getModuleName() . 
+      ' - ' . 
+      $this->generator->getTableConfig()->getName() .
+      ' - ' .
+      __(ucfirst($this->getRequestParameter('action')), null, 'common')
+    );
   }
   
 }

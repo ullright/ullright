@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(11, new lime_output_color, $configuration);
+$t = new myTestCase(12, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -35,3 +35,8 @@ $t->begin('toggleInventoryTaking()');
   $t->is(count($item->UllVentoryItemMemory), 6, 'Correct number of memories');
   $t->is($item->UllVentoryItemMemory[5]->comment, 'Audit for inventory taking "Summer 2009" withdrawn', 'Added memory with correct comment');
   $t->is($item->hasLatestInventoryTaking(), false, 'Was not verified for the latest Inventory taking');  
+
+$t->diag('__toString');
+
+  $item = Doctrine::getTable('UllVentoryItem')->findOneByInventoryNumber(1701);
+  $t->is((string) $item, 'Notebook Apple MacBook (1701)', '__toString returns the correct String');
