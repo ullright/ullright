@@ -17,7 +17,12 @@
       <trans-unit id="3">
         <source>One level down</source>
         <target>Eine Ebene hinunter</target>
-      </trans-unit>      
+      </trans-unit>
+      
+      <trans-unit id="4">
+        <source>Orgchart</source>
+        <target>Organigramm</target>
+      </trans-unit> 
       
      
     </body>

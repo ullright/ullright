@@ -5,12 +5,17 @@ class ullWidgetForeignKey extends ullWidget
   
   protected function configure($options = array(), $attributes = array())
   {
-    // render a input type hidden field in read mode
-    $this->addOption('render_additional_hidden_field', false);
-    
     $this->addRequiredOption('model');
     $this->addOption('method', '__toString');
+    // render a input type hidden field in read mode
+    $this->addOption('render_additional_hidden_field', false); 
+    // deprecated!  
     $this->addOption('show_ull_entity_popup', false);
+    $this->addOption('link_name_to_popup', false);
+    $this->addOption('link_icon_to_popup', false);
+    // Example: 'ullUser/edit?id=%d' 
+    // overrides 'link_name_to_popup'
+    $this->addOption('link_name_to_url', false);
     
     parent::configure($options, $attributes);
   }
@@ -49,8 +54,6 @@ class ullWidgetForeignKey extends ullWidget
         ->from($this->getOption('model') . ' x')
         ->where('x.' . implode(' = ? AND x.', (array) Doctrine::getTable($this->getOption('model'))->getIdentifier()) . ' = ?', $value)
         ->useResultCache(true)
-        //Test different settings
-        //->setResultCacheLifeSpan(1)
       ;
   
       $object = $q->fetchOne();
@@ -81,25 +84,52 @@ class ullWidgetForeignKey extends ullWidget
 
     }
     
-    if ($this->getOption('show_ull_entity_popup') == true)
+    // POPUP
+    if (
+      $this->getOption('show_ull_entity_popup') ||
+      $this->getOption('link_name_to_popup') ||
+      $this->getOption('link_icon_to_popup') ||
+      $this->getOption('link_name_to_url')
+    )
     {
-      $uri = 'ullUser/show?username=' . $primaryKey;
+      $popupUri = 'ullUser/show?username=' . $primaryKey;
 
       $verticalSize = sfConfig::get('app_ull_user_user_popup_vertical_size', 720);
       
       if (!is_int($verticalSize))
       {
-        throw new RuntimeException('user_popup_vertical_size in app.yml must be an integer.');
+        throw new UnexpectedValueException('user_popup_vertical_size in app.yml must be an integer.');
       }
       
-      $return = link_to($return, $uri, array(
-        'title' => __('Show business card', null, 'ullCoreMessages'),
-        'onclick' => 'this.href="#";popup(
-          "' . url_for($uri) . '",
-          "Popup ' . $primaryKey . '",
-          "width=720,height=' . $verticalSize . ',scrollbars=yes,resizable=yes"
-        );'
-      )); 
+      if ($url = $this->getOption('link_name_to_url'))
+      {
+        $return = link_to($return, sprintf($url, $primaryKey));
+      }
+      else
+      {
+        $return = link_to($return, $popupUri, array(
+          'title' => __('Show business card', null, 'ullCoreMessages'),
+          'onclick' => 'this.href="#";popup(
+            "' . url_for($popupUri) . '",
+            "Popup ' . $primaryKey . '",
+            "width=720,height=' . $verticalSize . ',scrollbars=yes,resizable=yes"
+          );'
+        ));
+      }
+
+      if ($this->getOption('link_icon_to_popup'))
+      {
+        $icon = '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
+           'Plugin/images/ull_user_16x16';
+        $return .= link_to(image_tag($icon, array('class' => 'ull_user_popup_icon')), $popupUri, array(
+          'title' => __('Show business card', null, 'ullCoreMessages'),
+          'onclick' => 'this.href="#";popup(
+            "' . url_for($popupUri) . '",
+            "Popup ' . $primaryKey . '",
+            "width=720,height=' . $verticalSize . ',scrollbars=yes,resizable=yes"
+          );'
+        ));        
+      }
     }    
     
     return $return;

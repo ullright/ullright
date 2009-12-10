@@ -4,7 +4,8 @@ class ullTreeRenderer
 {
   protected
     $node,
-    $widgetPhoto
+    $widgetPhoto,
+    $widgetEntity
   ;
   
  
@@ -13,6 +14,11 @@ class ullTreeRenderer
     $this->node = $node;
     
     $this->widgetPhoto = new ullWidgetPhoto();
+    $this->widgetEntity = new ullWidgetForeignKey(array(
+      'model' => 'UllEntity', 
+      'link_icon_to_popup' => true,
+      'link_name_to_url'     => 'ullOrgchart/list?user_id=%d',
+    ));
   }
   
   
@@ -298,7 +304,8 @@ class ullTreeRenderer
     ';
     $return .= $this->widgetPhoto->render(null, $entity->photo, array('class' => 'ull_orgchart_photo', 'align' => 'right'));
     $return .= '<ul class="ull_orgchart_box_list">';
-    $return .= '<li><em>' . ull_link_to($entity, array('user_id' => $entity->id)) . '</em></li>';
+//    $return .= '<li>' . ull_link_to($entity, array('user_id' => $entity->id)) . '</li>';
+    $return .= '<li><em>' . $this->widgetEntity->render(null, array('id' => $entity->id, 'value' => (string) $entity)) . '</em></li>';
     $return .= '<li>' . $entity->UllLocation . '</li>';
     $return .= '<li>' . $entity->UllDepartment . '</li>';
     $return .= '</ul>';

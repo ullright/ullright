@@ -37,6 +37,14 @@
       'ullPhone/list', __('Phone directory', null, 'ullPhoneMessages'),
       array());
   ?>
+  </li>
+  
+  <li id='nav_link_ull_orgchart'>
+  <?php
+  echo ull_navigation_link('/ullPhoneThemeNGPlugin/images/ull_orgchart_32x32',
+      'ullOrgchart/list', __('Orgchart', null, 'ullOrgchartMessages'),
+      array());
+  ?>
   </li>  
   
   <?php if (UllUserTable::hasGroup('MasterAdmins') || UllUserTable::hasGroup('UserAdmins')): ?>

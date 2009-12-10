@@ -86,7 +86,7 @@ a:visited {
   overflow: hidden;
 }
 
-.ull_orgchart_box_head img {
+.ull_orgchart_box_head img.ull_orgchart_photo {
   height: 8em;
 }
 
@@ -99,7 +99,7 @@ a:visited {
   overflow: hidden;
 }
 
-.ull_orgchart_box_subordinate img {
+.ull_orgchart_box_subordinate img.ull_orgchart_photo {
   height: 7em;
 }
 

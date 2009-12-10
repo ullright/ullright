@@ -156,6 +156,10 @@ ul.nav_top_links li:hover {
   border-color: #f3c100;
 }
 
+#nav_link_ull_orgchart:hover {
+  border-color: #f3c100;
+}
+
 #nav_link_admin:hover {
 	border-color: #777475;
 }
@@ -763,7 +767,7 @@ div#indicator {
 }
 
 img.ull_user_popup_icon {
-  margin-left: .5em;
+  margin-left: .3em;
   vertical-align: bottom;  
 }
 
