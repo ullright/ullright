@@ -60,10 +60,28 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       }
     }
     
+    //shall we hide some choices?
     if ($hideChoices = $this->columnConfig->getOption('hide_choices'))
     {
       $choices = array_diff_key($choices, array_flip($hideChoices));
     }
+    
+    //limit entries in length
+    $lengthLimit = sfConfig::get('app_ull_user_display_name_length_limit', 22);
+    foreach($choices as &$choice)
+    {
+      $oldName = $choice['name'];
+      if (strlen($oldName) > $lengthLimit)
+      {
+        $newName = substr($oldName, 0, $lengthLimit);
+        if (substr($newName, -1) == '-')
+        {
+          $newName = substr($newName, 0, -1);
+        }
+        $choice['name'] = $newName . '.';
+      }
+    }
+    
     
     if ($this->columnConfig->getOption('show_search_box'))
     {
