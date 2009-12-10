@@ -811,13 +811,5 @@ img.ull_user_popup_icon {
   .ull_filter_icon {
     display: none;
   }
-  
-  .location_header_cell {
-    border: 0.3em solid #adafb0;
-  }
-  
-  .location_header_map {
-    display: none;
-  }
 }
  

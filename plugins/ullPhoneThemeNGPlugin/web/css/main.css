@@ -170,4 +170,15 @@ a:visited {
     display: none;
   }
   
+  .location_header_cell {
+    border: 0.3em solid #adafb0;
+  }
+  
+  .location_header_map {
+    display: none;
+  }
+  
+  .col_email_header {
+    visibility: collapse; 
+  }
 }

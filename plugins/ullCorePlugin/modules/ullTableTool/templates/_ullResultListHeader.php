@@ -1,8 +1,23 @@
   <!-- header -->
+  
+  <?php
+    $renderIconHeader = !(isset($add_icon_th) && $add_icon_th == false) ? true : false;
+    //$columnCount = count($generator->getAutoRenderedLabels());
+    if ($renderIconHeader)
+    {
+      echo '<col class="col_icon_header" />';
+    }
+    
+    foreach ($generator->getAutoRenderedLabels() as $field_name => $label)
+    {
+      echo '<col class="col_' . $field_name . '_header" />';
+    }
+  ?>
+  
   <thead>
   <tr>  
     <?php
-      if (!(isset($add_icon_th) && $add_icon_th == false))
+      if ($renderIconHeader)
       {
         echo '<th class="color_dark_bg">&nbsp;</th>';
       }
