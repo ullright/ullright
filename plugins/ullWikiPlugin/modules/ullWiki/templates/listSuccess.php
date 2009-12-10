@@ -25,7 +25,7 @@
 </form>
 
 <?php include_partial('ullTableTool/ullPagerTop',
-        array('pager' => $pager)
+        array('pager' => $pager, 'paging' => $paging)
       ); ?>
 
 <?php if ($generator->getRow()->exists()): ?>

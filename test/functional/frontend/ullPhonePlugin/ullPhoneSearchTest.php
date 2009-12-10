@@ -30,7 +30,7 @@
     ->with('response')->begin()
       //there should be one location headers and one user
       ->checkElement($dgsList->getFullRowSelector(), 2) // number of rows
-      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'Wien Mollardgasse (WMO)   Map')
+      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'Wien Mollardgasse (WMO)  Map')
       ->checkElement($dgsList->get(2, 'name'), 'Admin Master')
       ->checkElement($dgsList->get(2, 'phone_extension'), '1111')
       ->checkElement($dgsList->get(2, 'mobile_number'), '')
@@ -44,7 +44,7 @@
     ->with('response')->begin()
       //there should be two location headers and two users
       ->checkElement($dgsList->getFullRowSelector(), 2) // number of rows
-      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'Wien Mollardgasse (WMO)   Map')
+      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'Wien Mollardgasse (WMO)  Map')
       ->checkElement($dgsList->get(2, 'name'), 'Admin Master')
       ->checkElement($dgsList->get(2, 'phone_extension'), '1111')
       ->checkElement($dgsList->get(2, 'mobile_number'), '')
@@ -66,7 +66,7 @@
     
     ->with('response')->begin()
       ->checkElement($dgsList->getFullRowSelector(), 2) // number of rows
-      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'New York 5th Ave (NYC)   Map')
+      ->checkElement($dgsListLocationHeader->get(1, 'location_name'), 'New York 5th Ave (NYC)  Map')
       ->checkElement($dgsList->get(2, 'name'), 'User Test')
       ->checkElement($dgsList->get(2, 'phone_extension'), '8888')
     ->end()

@@ -234,6 +234,9 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForEdit()
   {
+    //is this even called anymore?
+    //it looks exactly like the one in BaseUllGeneratorActions...
+    
     $breadcrumb_tree = new breadcrumbTree();
     $breadcrumb_tree->setEditFlag(true);
     $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');

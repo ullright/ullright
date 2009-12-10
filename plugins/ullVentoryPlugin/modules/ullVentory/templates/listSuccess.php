@@ -47,7 +47,7 @@
 <h3><?php if ($entity) { echo __('Items of', null, 'ullVentoryMessages') . ' ' . $entity; } ?></h3>
 
 <?php include_partial('ullTableTool/ullPagerTop',
-        array('pager' => $pager)
+        array('pager' => $pager, 'paging' => $paging)
       ); ?>
 
 <?php if ($generator->getRow()->exists()): ?>

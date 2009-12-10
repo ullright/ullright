@@ -117,6 +117,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->generator = $this->getEditGenerator();
     
     $row = $this->getRowFromRequestOrCreate();
+    $this->id = $row->id;
     
     //should this be in BaseUllUserActions instead?
     if (get_class($row) == 'UllUser')
