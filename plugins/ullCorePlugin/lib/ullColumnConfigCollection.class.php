@@ -234,7 +234,11 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       {
         if (isset($this->collection[$column]))
         {
-          $this->collection[$column]->setAccess('r');
+          // slug is editable for master admins
+          if (!($column == 'slug' && UllUserTable::hasGroup('MasterAdmins')))
+          {
+            $this->collection[$column]->setAccess('r');
+          }
         }
       }
       else
