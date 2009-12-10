@@ -20,16 +20,19 @@
       echo __('Not logged in', null, 'common') . '.';
     }
     
-    if ($pager->haveToPaginate()) {
-      //  $cursor = $pager->getFirstIndice();
-        echo __(
-          'Displaying results %1% to %2%'
-          , array (
-            '%1%' => $pager->getFirstIndice(),
-            '%2%' => $pager->getLastIndice()
-          )
-          , 'common'
-        ) . '.';
+    if ($paging == 'false')
+    {
+      echo '<span class="paging_hint">' . __(
+        ull_link_to('Enable paging', array('paging' => null)),
+        null, 'common'
+      ) . '</span>';
+    }
+    
+    if ($pager->haveToPaginate())
+    {
+      echo '<span class="paging_hint">' .
+        ull_link_to('Disable paging', array('paging' => 'false')) .
+        '</span>';
     }
   ?></div>
   

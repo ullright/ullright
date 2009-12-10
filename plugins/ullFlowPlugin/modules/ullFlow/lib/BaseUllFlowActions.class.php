@@ -652,10 +652,12 @@ class BaseUllFlowActions extends ullsfActions
 //        var_dump($q->getParams());
 //        die;
 
+    $this->paging = $this->getRequestParameter('paging');
+    
     $this->pager = new Doctrine_Pager(
     $q,
     $this->getRequestParameter('page', 1),
-    sfConfig::get('app_pager_max_per_page')
+    $this->paging == 'false' ? 5000 : sfConfig::get('app_pager_max_per_page', 30)
     );
     $docs = $this->pager->execute();
 

@@ -10,7 +10,7 @@
 ?>
   
 <tr>
-  <td class="color_light_bg" colspan="<?php echo $colspanNumber ?>">
+  <td class="color_light_bg location_header_cell" colspan="<?php echo $colspanNumber ?>">
     
     <div class="float_left location_header">
     <?php
@@ -33,9 +33,9 @@
         {
           $address = implode(' ', array($location['street'], $location['post_code'], $location['city']));
           echo
-            ' &nbsp; ' .
+            ' &nbsp;<span class="location_header_map">' .
             link_to_google_maps(__('Map', null, 'ullPhoneMessages'), $address, array('target' => '_blank')) .
-            '';
+            '</span>';
         }
         
         echo '</b><br />' .

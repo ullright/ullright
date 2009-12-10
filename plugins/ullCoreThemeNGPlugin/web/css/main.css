@@ -524,6 +524,7 @@ ul.tag-cloud li {
 }
 
 .pager_left {
+  padding-top: 0.4em;
 }
 
 .pager_right {
@@ -795,5 +796,28 @@ img.ull_user_popup_icon {
     display: none;
   }
   
+  .pager_left .paging_hint {
+    display: none;
+  }
+  
+  .list_table tr {
+    border-bottom: 0.1em solid #e1e2e2;
+  }
+  
+  .list_action_buttons {
+    display: none;
+  }
+  
+  .ull_filter_icon {
+    display: none;
+  }
+  
+  .location_header_cell {
+    border: 0.3em solid #adafb0;
+  }
+  
+  .location_header_map {
+    display: none;
+  }
 }
  

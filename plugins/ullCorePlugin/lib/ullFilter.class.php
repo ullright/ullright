@@ -58,7 +58,7 @@ class ullFilter
         $return .= '<li class="color_light_bg">';
         $return .= $filter;
         $return .= ' ';
-        $return .= ull_link_to(ull_image_tag('delete', array(), 12, 12), array($request_param => ''));
+        $return .= ull_link_to(ull_image_tag('delete', array(), 12, 12), array($request_param => ''), array('class' => 'ull_filter_icon'));
         $return .= '</li>'; 
       }
       $return .= '</ul>';
