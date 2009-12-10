@@ -347,6 +347,11 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Personalnummer</target>
       </trans-unit>  
       
+      <trans-unit id="606">
+        <source>Show user in orgchart</source>
+        <target>Im Organigramm anzeigen</target>
+      </trans-unit>  
+      
        <!--  Pager -->
       
       <trans-unit id="700">
