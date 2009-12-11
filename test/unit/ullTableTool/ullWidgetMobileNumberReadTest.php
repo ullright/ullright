@@ -2,7 +2,7 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
-#sfLoader::loadHelpers(array('ull'));
+sfLoader::loadHelpers(array('Escaping'));
 
 $t = new lime_test(4, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);
