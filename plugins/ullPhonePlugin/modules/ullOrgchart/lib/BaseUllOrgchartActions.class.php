@@ -62,6 +62,15 @@ class BaseUllOrgchartActions extends ullsfActions
     $this->setVar('tree', new ullTreeRenderer($treeData), true);
     
 //    $this->filter_form = new ullFilterForm;
+
+    $this->getResponse()->setTitle(
+      $this->getModuleName() . 
+      ' - ' . 
+      $entity->display_name .
+      ' (' .
+      $entity->UllDepartment->name .
+      ')'
+    );
     
     $this->breadcrumbForList();
 
