@@ -338,6 +338,9 @@ ul#breadcrumbs li.first {
   background: #E8E5A8;
 }
 
+.list_table_sum td {
+  border-top: .3em double black;
+}
 
 /*
  * ************************************************
