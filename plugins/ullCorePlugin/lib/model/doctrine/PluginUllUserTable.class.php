@@ -161,6 +161,7 @@ class PluginUllUserTable extends UllEntityTable
       {
         $result[$key]['attributes']['class'] = 'color_absent_bg_ull_entity_widget';
       } 
+      unset($result[$key]['UllUserStatus']);
     }
     
     return $result;

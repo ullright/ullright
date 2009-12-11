@@ -115,11 +115,13 @@ $t->diag('hasPermission()');
   
 
 $t->begin('findChoices()');
+  $admin = Doctrine::getTable('UllUser')->findOneByUserName('admin');
+  $test_user = Doctrine::getTable('UllUser')->findOneByUserName('test_user');
   $t->is(
       UllUserTable::findChoices(),
       array(
-        array('name' => 'Admin Master'),
-        array('name' => 'User Test'),
+        $admin->id => array('name' => 'Admin Master'),
+        $test_user->id => array('name' => 'User Test'),
       ),
       'returns the correct choices for UllUser'
   );

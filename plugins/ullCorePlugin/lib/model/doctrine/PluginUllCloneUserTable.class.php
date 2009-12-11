@@ -13,11 +13,11 @@ class PluginUllCloneUserTable extends UllEntityTable
   public static function findChoices()
   {
     $clones = Doctrine::getTable('UllCloneUser')->findAll();
-    $res = $clones->toArray();
-    foreach($res as $key => $value)
+    $result = array();
+    foreach($clones as $clone)
     {
-      $result[$key]['name'] = $value['last_name_first'];
-      $result[$key]['attributes']['class'] = 'color_clone_user_bg_ull_entity_widget';  
+      $result[$clone->id]['name'] = $clone->last_name_first;
+      $result[$clone->id]['attributes']['class'] = 'color_clone_user_bg_ull_entity_widget';  
     }
     
     return $result;
