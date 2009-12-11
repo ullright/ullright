@@ -329,6 +329,8 @@ UllUserStatus:
       notnull: true
     is_active:
       type: boolean
+    is_absent:
+      type: boolean
       
       
 # Users can be cloned to allow them to fulfill multiple functions in a company
