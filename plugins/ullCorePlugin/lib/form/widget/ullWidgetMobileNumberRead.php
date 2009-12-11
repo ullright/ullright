@@ -10,7 +10,7 @@ class ullWidgetMobileNumberRead extends ullWidget
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-   $id = null;
+    $id = null;
     
     if (is_array($value))
     {
@@ -25,8 +25,8 @@ class ullWidgetMobileNumberRead extends ullWidget
       $value = '0' . implode(' ', $parts);
     }
     
+    $value = $this->handleOptions($value);
+    
     return $value;
   }
 }
-
-?>
