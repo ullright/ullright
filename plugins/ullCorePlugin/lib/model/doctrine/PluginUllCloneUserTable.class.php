@@ -4,5 +4,23 @@
  */
 class PluginUllCloneUserTable extends UllEntityTable
 {
-
+  
+  /**
+   * Return choices for UllMetaWidgetEntity
+   * 
+   * @return array
+   */
+  public static function findChoices()
+  {
+    $clones = Doctrine::getTable('UllCloneUser')->findAll();
+    $res = $clones->toArray();
+    foreach($res as $key => $value)
+    {
+      $result[$key]['name'] = $value['last_name_first'];
+      $result[$key]['attributes']['class'] = 'color_clone_user_bg_ull_entity_widget';  
+    }
+    
+    return $result;
+  }  
+  
 }

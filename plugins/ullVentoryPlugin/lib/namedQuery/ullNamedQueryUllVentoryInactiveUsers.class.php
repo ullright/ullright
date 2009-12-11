@@ -17,7 +17,7 @@ class ullNamedQueryUllVentoryInactiveUsers extends ullNamedQuery
   
   public function modifyQuery($q)
   {
-    $q->addWhere('UllEntity->UllUserStatus->slug <> ?', 'active');
+    $q->addWhere('UllEntity->UllUserStatus->is_active = ?', false);
   }
   
 }

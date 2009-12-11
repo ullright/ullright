@@ -56,6 +56,7 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['superior_ull_user_id']
       ->setWidgetOption('add_empty', true)
       ->setOption('show_search_box', true)
+      ->setOption('entity_classes', array('UllUser', 'UllCloneUser'))
     ;
     
     $this['is_show_in_phonebook']

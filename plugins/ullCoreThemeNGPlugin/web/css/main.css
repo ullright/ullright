@@ -773,6 +773,23 @@ img.ull_user_popup_icon {
 
 /*
  * ************************************************
+ *  ullMetaWidgetUllEntityWidget
+ * ************************************************
+ */
+ 
+.color_inactiv_bg_ull_entity_widget {
+  background-color: #ffbab1;
+}
+
+.color_clone_user_bg_ull_entity_widget {
+  background-color: #d4e191;
+}
+
+.color_absent_bg_ull_entity_widget {
+  background-color: #c4e0ef;
+
+/*
+ * ************************************************
  *  Printout settings
  * ************************************************
  */

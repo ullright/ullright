@@ -4,12 +4,15 @@
  * Allows giving attributes for the choices
  * 
  * $choices = array(
- *  1 => array(
+ *  array(
  *    name = 'My first option'
  *    attributes = array(
  *      style = 'background-color: blue;'
  *    )
- *  )
+ *  ),
+ *  array(
+ *    ...
+ *  ),
  * );
  * 
  * Note: currently removes the support for optgroups

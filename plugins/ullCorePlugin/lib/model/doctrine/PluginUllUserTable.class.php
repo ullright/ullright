@@ -138,8 +138,8 @@ class PluginUllUserTable extends UllEntityTable
   {
     $q = new Doctrine_Query;
     $q
-      ->select('u.id, u.last_name_first as name')
-      ->from('UllUser u INDEXBY u.id')
+      ->select('u.id, u.last_name_first as name, us.is_active, us.is_absent')
+      ->from('UllUser u INDEXBY u.id, u.UllUserStatus us')
       ->orderBy('name')
     ;
     
@@ -152,7 +152,15 @@ class PluginUllUserTable extends UllEntityTable
     
     foreach($result as $key => $value)
     {
-      unset($result[$key]['id']);  
+      unset($result[$key]['id']);
+      if(!$result[$key]['UllUserStatus']['is_active'])
+      {
+        $result[$key]['attributes']['class'] = 'color_inactiv_bg_ull_entity_widget';
+      } 
+      if($result[$key]['UllUserStatus']['is_absent'])
+      {
+        $result[$key]['attributes']['class'] = 'color_absent_bg_ull_entity_widget';
+      } 
     }
     
     return $result;

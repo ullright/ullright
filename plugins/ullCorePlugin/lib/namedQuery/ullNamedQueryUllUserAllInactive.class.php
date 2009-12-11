@@ -17,7 +17,7 @@ class ullNamedQueryUllUserAllInactive extends ullNamedQuery
   
   public function modifyQuery($q)
   {
-    $q->addWhere('UllUserStatus->is_active IS NULL');
+    $q->addWhere('UllUserStatus->is_active = ?', false);
   }
   
 }
