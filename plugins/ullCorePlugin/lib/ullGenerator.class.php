@@ -263,7 +263,10 @@ abstract class ullGenerator extends ullGeneratorBase
         }
         
         //help
-        $this->forms[$key]->getWidgetSchema()->setHelp($columnName, $columnConfig->getHelp());
+        if ($columnConfig->getAccess() == 'w')
+        {
+          $this->forms[$key]->getWidgetSchema()->setHelp($columnName, $columnConfig->getHelp());
+        }
         
         $this->markMandatoryColumns($this->forms[$key], $columnName, $columnConfig);
       }
