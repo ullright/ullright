@@ -96,12 +96,17 @@ class ullVentoryForm extends ullGeneratorForm
    */
   protected function updateAttributes($values)
   {
+//    var_dump($values);die;
+    
     if (isset($values['attributes']))
     {
       foreach ($values['attributes'] as $attribute)
       {
         if ($attribute['value'])
         {
+          // convert e.g. booleans to string, since the database column is string
+          $attribute['value'] = (string) $attribute['value'];
+          
           //create
           if (!$attribute['id'])
           {
