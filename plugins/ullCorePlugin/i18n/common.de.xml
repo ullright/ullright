@@ -1063,6 +1063,16 @@
 <target>Keine Einträge gefunden</target>
 </trans-unit>
 
+<trans-unit id="25001">
+<source>Enable paging</source>
+<target>Blättern aktivieren</target>
+</trans-unit>
+
+<trans-unit id="25002">
+<source>Disable paging</source>
+<target>Alle anzeigen</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

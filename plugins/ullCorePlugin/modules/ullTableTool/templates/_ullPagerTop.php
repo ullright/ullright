@@ -23,7 +23,7 @@
     if ($paging == 'false')
     {
       echo '<span class="paging_hint">' . __(
-        ull_link_to('Enable paging', array('paging' => null)),
+        ull_link_to(__('Enable paging', null, 'common'), array('paging' => null)),
         null, 'common'
       ) . '</span>';
     }
@@ -31,7 +31,7 @@
     if ($pager->haveToPaginate())
     {
       echo '<span class="paging_hint">' .
-        ull_link_to('Disable paging', array('paging' => 'false')) .
+        ull_link_to(__('Disable paging', null, 'common'), array('paging' => 'false')) .
         '</span>';
     }
   ?></div>
