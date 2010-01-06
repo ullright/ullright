@@ -87,7 +87,7 @@ class ullCoreTools
   /**
    * Convert a human readable time to iso time
    * 
-   * Example: 1:20 -> 01:20:00
+   * Example: 1:2 -> 01:02:00
    * 
    * @param $time
    * @return string
@@ -98,9 +98,15 @@ class ullCoreTools
     $hour = $parts[0];
     $minute = $parts[1];
     $second = '00';
+    
     if (strlen($hour) == 1)
     {
       $hour = '0' . $hour;
+    }
+    
+    if (strlen($minute) == 1)
+    {
+      $minute = '0' . $minute;
     }
     
     return $hour . ':' . $minute . ':' . $second;
