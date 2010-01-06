@@ -13,8 +13,7 @@
  */
 
 class BaseUllUserActions extends BaseUllGeneratorActions
-{
-  
+{  
   /**
    * Executes list action
    *
@@ -489,7 +488,24 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       $this->user = Doctrine::getTable('UllEntity')->findOneByUsername($username);
     }
   }
-
+  
+  /**
+   * Toggles the 'hide sidebar' session variable and returns
+   * 0 if the sidebar is now hidden or 1 otherwise.
+   *
+   * This method usually gets called via AJAX from the sidebar script. 
+   */
+  public function executeToggleSidebar(sfRequest $request)
+  {
+    $hideSidebar = $this->getUser()->getAttribute('sidebar_hidden', false);
+    
+    $hideSidebar = !$hideSidebar;
+    
+    $this->getUser()->setAttribute('sidebar_hidden', $hideSidebar);
+    
+    return $this->renderText((int)$hideSidebar);
+  }
+  
   public function executeUserSearchAutocomplete(sfRequest $request)
   {
     $this->getResponse()->setContentType('application/json');
