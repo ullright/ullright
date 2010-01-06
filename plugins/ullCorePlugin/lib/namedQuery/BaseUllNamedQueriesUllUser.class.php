@@ -15,10 +15,10 @@ class BaseUllNamedQueriesUllUser extends ullNamedQueries
     $this
       ->setBaseUri('ullUser/list')
       ->setI18nCatalogue('ullCoreMessages')
+      ->add('ullNamedQueryUllUserAll')
       ->add('ullNamedQueryUllUserAllActive')
       ->add('ullNamedQueryUllUserAllInactive')
       ->add('ullNamedQueryUllUserModifiedToday')
-
     ;
   }
   
