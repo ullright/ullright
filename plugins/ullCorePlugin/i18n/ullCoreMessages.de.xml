@@ -297,6 +297,11 @@ Gültige Dateitypen sind jpg und png.</target>
       <trans-unit id="402">
         <source>All users modified today</source>
         <target>Alle heute veränderten Benutzer</target>
+      </trans-unit>
+      
+      <trans-unit id="403">
+        <source>All users</source>
+        <target>Alle Benutzer</target>
       </trans-unit>  
       
       
