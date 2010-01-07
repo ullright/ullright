@@ -12,6 +12,7 @@ class BaseUllProjectColumnConfigCollection extends ullColumnConfigCollection
     if ($this->isListAction())
     {
       $this['description']->disable();
+      $this['created_at']->enable();
     }
   }
 }
