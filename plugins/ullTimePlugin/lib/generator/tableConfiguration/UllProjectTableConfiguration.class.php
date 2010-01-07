@@ -14,7 +14,7 @@ class UllProjectTableConfiguration extends ullTableConfiguration
   protected function applyCustomSettings()
   {
     $this->setName(__('Projects', null, 'ullTimeMessages'));
-    $this->setSearchColumns(array('slug'));
+    $this->setSearchColumns(array('name', 'description'));
     $this->setOrderBy('slug');
   }
   

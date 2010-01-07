@@ -18,7 +18,7 @@
 <?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
 
 <div class="edit_container">
-<table class="edit_table">
+<table class="edit_table ull_time_edit_table_worktime">
   <thead>
     <tr class="color_dark_bg">
       <th class="color_dark_bg"> &nbsp; </th>
@@ -39,6 +39,20 @@
         <?php echo $generator->getForm()->offsetGet('end_work_at')->renderError() ?>
       </td>
     </tr>
+    
+  </tbody>
+</table>
+
+<table class="edit_table">
+  <thead>
+    <tr class="color_dark_bg">
+      <th class="color_dark_bg"> &nbsp; </th>
+      <th class="color_dark_bg"><?php echo __('Begin', null, 'common') ?></th>
+      <th class="color_dark_bg"><?php echo __('End', null, 'common') ?></th>
+    </tr>
+  </thead>
+
+  <tbody>
     <tr>
       <td class="label_column"><label><?php echo __('Break', null, 'ullTimeMessages')?> 1</label></td>
       <td>
