@@ -6,7 +6,7 @@
   <?php echo __('Please correct the following errors', null, 'common') ?>:
   <?php echo $generator->getForm()->renderGlobalErrors() ?>
   </div>  
-  <br /><br />
+  
 <?php endif; ?>
 
 <?php if ($generator->getRow()->exists()): ?>
@@ -16,7 +16,7 @@
 <?php echo form_tag('ullFlow/edit?app=' . $app->slug . ($doc->id ? '&doc=' . $doc->id : '')
   , 'id=edit_form'); ?>  
   
-<br />
+
 
 <div class="edit_container">
 <table class="edit_table">
@@ -30,7 +30,7 @@
 </table>
 
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
-  <div class='edit_action_buttons color_light_bg'>
+  <div class='edit_action_buttons color_light_bg clear_right'>
       <h3><?php echo __('Actions', null, 'common')?></h3>
       
       <div class='edit_action_buttons_left'>

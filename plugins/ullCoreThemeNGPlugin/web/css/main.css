@@ -471,7 +471,7 @@ ul.list_action_buttons li {
  */
 .form_error {
 	/* margin-left: 0.5em; */
-	margin: 0;
+	margin-bottom: 1em;
   padding: 0;
 	font-style: normal;
 	font-size: 1.1em;

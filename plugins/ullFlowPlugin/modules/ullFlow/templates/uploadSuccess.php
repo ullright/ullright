@@ -12,7 +12,7 @@
 
 <div class="ull_upload">
   <?php
-    echo '<h3>' . __('Manage files', null, 'common') . '</h3><br />';
+    echo '<h3>' . __('Manage files', null, 'common') . '</h3>';
   
     if ($value = $form->getDefault('value')) 
     {
@@ -47,7 +47,7 @@
 
   <div class='action_buttons_left'>
       <?php echo ull_button_to(__('Save and return to list', null, 'common'), 'ullFlow/edit?doc=' . $doc->id) ?>
-      <div class="clear"></div>
+      <div class="clear_right"></div>
   </div>
 
 </div>
