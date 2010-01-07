@@ -64,3 +64,11 @@ a:visited {
 #ull_time_list tr.weekend {
   background: #d0d0d0;
 }
+
+/**
+ * Edit Action
+ */
+ 
+.ull_time_edit_table_worktime {
+  margin-bottom: 2em;  
+}
