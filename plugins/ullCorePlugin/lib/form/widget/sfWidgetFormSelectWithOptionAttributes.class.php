@@ -3,14 +3,14 @@
 /**
  * Allows giving attributes for the choices
  * 
- * $choices = array(
- *  array(
- *    name = 'My first option'
- *    attributes = array(
- *      style = 'background-color: blue;'
+ * $options['choices'] = array(
+ *  $value => array(
+ *    'name' => 'My first option',
+ *    'attributes' => array(
+ *      'style' => 'background-color: blue;'
  *    )
  *  ),
- *  array(
+ *  $value => array(
  *    ...
  *  ),
  * );

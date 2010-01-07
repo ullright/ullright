@@ -4,7 +4,7 @@
  * ullMetaWidgetUllEntity
  *
  *
- * available options:
+ * available options given by columnConfig->getWidgetOption:
  * 'add_empty'  => boolean, true to include an empty entry
  * 'entity_classes'  => array, list of UllEntity classes to include in the option list
  * 'show_search_box' => boolean, show js search box to filter the select box entries (default = yes)

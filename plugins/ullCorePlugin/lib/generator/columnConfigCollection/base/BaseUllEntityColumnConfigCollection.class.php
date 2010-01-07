@@ -100,6 +100,9 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Separation date', null, 'ullCoreMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetDate')
     ;
+    $this['ull_user_status_id']
+      ->setMetaWidgetClassName('ullMetaWidgetUllUserStatus')
+    ;
     
     $this->order(array(
       'id',
