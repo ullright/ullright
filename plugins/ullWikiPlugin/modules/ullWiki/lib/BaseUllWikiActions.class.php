@@ -90,7 +90,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
 
     $this->breadcrumbForShow();
     
-    $this->user_widget = new ullWidgetForeignKey(array('model' => 'UllEntity', 'show_ull_entity_popup' => true));
+    $this->setVar('user_widget', new ullWidgetForeignKey(array('model' => 'UllEntity', 'show_ull_entity_popup' => true)), true);
   }
 
   /**
