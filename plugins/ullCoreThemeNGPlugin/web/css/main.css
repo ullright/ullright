@@ -437,7 +437,8 @@ ul.list_action_buttons li {
  
 .edit_action_buttons {
 	margin-top: 2em;
-  clear: both;
+  height: 100%;
+  overflow: hidden;
   background-color: #dad9d9;
   padding: .5em .7em .8em .7em;  
 }

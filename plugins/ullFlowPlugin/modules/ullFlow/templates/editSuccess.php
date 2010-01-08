@@ -30,7 +30,7 @@
 </table>
 
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
-  <div class='edit_action_buttons color_light_bg clear_right'>
+  <div class='edit_action_buttons color_light_bg'>
       <h3><?php echo __('Actions', null, 'common')?></h3>
       
       <div class='edit_action_buttons_left'>
@@ -112,7 +112,7 @@
       </ul>  
     </div>
   
-    <div class="clear"></div>  
+    <!-- <div class="clear"></div>  -->
  </div>
 <?php endif; ?>
 

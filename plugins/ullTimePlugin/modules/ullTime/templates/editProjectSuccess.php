@@ -102,7 +102,7 @@
   <div class='edit_action_buttons_right'>
   </div>
 
-  <div class="clear"></div>  
+  <!--<div class="clear"></div>  -->
   
 </div>
 </div>
