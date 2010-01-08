@@ -52,4 +52,15 @@ class ullMetaWidgetFloat extends ullMetaWidget
 
     return $numberFormat->format($value, ',##0.#');
   }
+  
+  /**
+   * Overriden because this meta widget represents
+   * numeric values
+   * 
+   * @return true
+   */
+  public static function isNumeric()
+  {
+    return true;
+  } 
 }

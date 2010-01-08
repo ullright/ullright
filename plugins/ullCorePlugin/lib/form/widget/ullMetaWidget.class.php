@@ -298,4 +298,15 @@ abstract class ullMetaWidget
     return $widget;
   }
   
+  /**
+   * Should return true if this widget represents numeric values
+   * (int, float, ...) or false otherwise
+   * Used e.g. for natural ordering instead of traditional ordering
+   *
+   * @return false
+   */
+  public static function isNumeric()
+  {
+    return false;
+  }
 }

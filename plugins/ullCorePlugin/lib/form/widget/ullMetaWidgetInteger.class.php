@@ -22,4 +22,15 @@ class ullMetaWidgetInteger extends ullMetaWidget
   {
     return 'range';
   }
+  
+  /**
+   * Overriden because this meta widget represents
+   * numeric values
+   * 
+   * @return true
+   */
+  public static function isNumeric()
+  {
+    return true;
+  }
 }

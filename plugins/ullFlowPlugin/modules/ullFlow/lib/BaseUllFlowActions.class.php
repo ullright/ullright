@@ -629,11 +629,25 @@ class BaseUllFlowActions extends ullsfActions
       // for virtual columns...
       else
       {
-        $order_cc_id = $this->app->findColumnConfigBySlug($column)->id;
+        $order_cc = $this->app->findColumnConfigBySlug($column);
         
-        $q->leftJoin('x.UllFlowValues ' . $column . ' WITH ' . $column . '.ull_flow_column_config_id=?', $order_cc_id);
+        $q->leftJoin('x.UllFlowValues ' . $column . ' WITH ' . $column . '.ull_flow_column_config_id=?', $order_cc->id);
         
-        $orderArray[$column] = $column . '.value';
+        $columnName = $column . '.value';
+        $columnClass = $order_cc->UllColumnType->class;
+        
+        //our virtual values are stored in a column of type 'text',
+        //so mysql applies common ordering rules.
+        //however, for number types (interger and float), we
+        //would like natural ordering
+        //the meta widget provides a static function
+        //'isNumeric' for this purpose
+        if (call_user_func(array($columnClass, 'isNumeric')))
+        {
+          $columnName = '(' . $columnName . ' + 0)';
+        }
+       
+        $orderArray[$column] = $columnName;
       }
     }
     
