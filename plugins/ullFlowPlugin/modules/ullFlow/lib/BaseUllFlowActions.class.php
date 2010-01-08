@@ -642,6 +642,8 @@ class BaseUllFlowActions extends ullsfActions
         //would like natural ordering
         //the meta widget provides a static function
         //'isNumeric' for this purpose
+        //
+        // "+0" casts the value to a numeric value 
         if (call_user_func(array($columnClass, 'isNumeric')))
         {
           $columnName = '(' . $columnName . ' + 0)';
