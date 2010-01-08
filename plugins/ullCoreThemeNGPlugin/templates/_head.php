@@ -25,6 +25,7 @@
 <?php use_javascript('/ullCorePlugin/js/jq/jquery.add_select_filter.js') ?>
 <?php use_javascript('/ullCorePlugin/js/jq/jquery.replace_time_duration_select.js') ?>
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
+<?php use_javascript('/ullCorePlugin/js/sidebar.js') ?>
 
 <?php use_stylesheet('/ullCorePlugin/css/jqui/ui.all.css', 'last', array('media' => 'all')) ?>
 

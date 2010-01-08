@@ -2,44 +2,67 @@
 
 <body>
 
+<?php $hideSidebar = $sf_user->getAttribute('sidebar_hidden', false); ?>
+
+
 <div id="container">
 
-	<div id="sidebar">
-
+  <div id="sidebar" <?php echo $hideSidebar ? 'class="invisible"' : '' ?>>
+    
     <div id="sidebar_logo">
-      <?php echo ull_link_to(
-                  image_tag(sfConfig::get('app_sidebar_logo', '/ullCoreThemeNGPlugin/images/logo_120'), 'alt="logo"')
-                , '@homepage'
-                , 'ull_js_observer_confirm=true'
-                ); ?> 
-    </div>   
-        
-		<div id="sidebar_content">
-		<?php //the sidebar content can be overridden
-        if (has_slot('sidebar'))
-        { 
-          include_slot('sidebar');
-        }
-        else
-		    {
-		      include_component('default', 'sidebar');
-		      $partialPath = sfConfig::get('sf_app_dir') . '/modules/myModule/templates/_custom_sidebar.php';
-          if (file_exists($partialPath))
-          {
-		        include_partial('myModule/custom_sidebar');
-          }
-        }
-     ?>
-		</div>
-		
-	</div> <!-- end of sidebar -->
-	
-	
-	<!-- Contains main navigation, content and footer -->
-	<div id="canvas">
-	
-    <div id="nav_top">
+    <?php echo ull_link_to(
+          image_tag(sfConfig::get('app_sidebar_logo',
+            '/ullCoreThemeNGPlugin/images/logo_120'), 'alt="logo"')
+            , '@homepage'
+            , 'ull_js_observer_confirm=true'
+          ); ?>
+    </div>
+   
+    <div id="sidebar_content">
+   
+    <?php
 
+          //the sidebar content can be overridden
+          if (has_slot('sidebar'))
+          { 
+            include_slot('sidebar');
+          }
+          else
+          {
+            include_component('default', 'sidebar');
+            $partialPath = sfConfig::get('sf_app_dir') . '/modules/myModule/templates/_custom_sidebar.php';
+            if (file_exists($partialPath))
+            {
+              include_partial('myModule/custom_sidebar');
+            }
+          }
+     ?>
+    </div>
+   
+   
+  </div> <!-- end of sidebar -->
+
+  <?php
+    //Use JS to render the sidebar tab
+    //This needs to be done here, because for the .before()
+    //to work the #sidebar-div has to be closed already.
+  ?>
+  <script type="text/javascript">
+    //<![CDATA[
+    $("#sidebar").before(
+      '<div id="sidebar_tab">' +
+      '<a href="" id="tab_button_in" class="ui-state-default ui-corner-all no_underline <?php echo $hideSidebar ? '' : 'invisible' ?>"><big>&rarr;</big></a>' +
+      '<a href="" id="tab_button_out" class="ui-state-default ui-corner-all no_underline <?php echo $hideSidebar ? 'invisible' : '' ?>"><big>&larr;</big></a>' +
+      '</div>'
+    );
+    //]]>
+  </script>
+  
+  <!-- Contains main navigation, content and footer -->
+  <div id="canvas" <?php echo $hideSidebar ? 'style="margin-left: 1em;"' : '' ?>>
+  
+    <div id="nav_top">
+  
       <div id='nav_links'>             
         <?php include_partial('myModule/navTopLinks'); ?>
       </div> 
@@ -116,10 +139,8 @@
       <!-- <div class='clear'></div> --> 
     </div>  <!-- end of footer -->
     
-    
   </div> <!-- end of canavas -->
-  
-  
+    
 </div> <!--  end of container -->
 
 </body>
