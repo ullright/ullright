@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Meta widget for times
+ * Example: Woke up at 6:50h
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
 class ullMetaWidgetTime extends ullMetaWidget
 {
   protected function addToForm()

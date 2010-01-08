@@ -1,13 +1,14 @@
 /**
  * Unobstrusivly replace a time duration input with select boxes
+ * 
+ * @param fragmentation   format of the minute select box. example:
+ *                        fragmentation = 15 results in a list 0,15,30,45 min
  */
-jQuery.fn.replaceTimeDurationSelect = function() 
+jQuery.fn.replaceTimeDurationSelect = function(fragmentation) 
 {
-  return this.each(function()
+  return this.each(function(foo)
   {
     $(this).hide();
-    
-    var minutesDivider = 15;
     
     var hoursId = this.id + '_hours';
     var minutesId = this.id + '_minutes';
@@ -22,7 +23,7 @@ jQuery.fn.replaceTimeDurationSelect = function()
     var hoursList = generateHoursList();
     generateOptions(hoursInput, hoursList);
 
-    var minutesList = generateMinutesList(15);
+    var minutesList = generateMinutesList(fragmentation);
     generateOptions(minutesInput, minutesList);
     
     hoursInput.attr("onchange","updateHour(this.value, document.getElementById('" + this.id + "'));");
