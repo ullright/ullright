@@ -93,7 +93,7 @@ $t->diag('buildFor() a class with a TableConfig');
 
   
 $t->diag('renderTaskCenterLink()');
-  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/TestTable"><img title="TestTable for automated testing" alt="Manage TestTableLabel" src="/ullCoreThemeNGPlugin/images/ull_admin_24x24.png" height="24" width="24" /></a></div><div><a title="TestTable for automated testing" href="/ullTableTool/list/table/TestTable">Manage TestTableLabel</a></div><div class="clear_left" />';
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/TestTable"><img title="TestTable for automated testing" alt="Manage TestTableLabel" src="/ullCoreThemeNGPlugin/images/ull_admin_24x24.png" height="24" width="24" /></a></div><div><a title="TestTable for automated testing" href="/ullTableTool/list/table/TestTable">Manage TestTableLabel</a></div><div class="clear_left"></div>';
   $t->is(ullTableConfiguration::renderTaskCenterLink('TestTable', 'ullCore', 'ull_admin_24x24'), $reference, 'Returns the correct HTML');  
   
   

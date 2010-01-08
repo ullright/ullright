@@ -187,19 +187,19 @@ $t->diag('ull_image_tag()');
     'returns the correct result for default ull_image_tag() params');
   
 $t->diag('ull_tc_task_link()');
-  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="Manage users" title="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Manage users" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />';
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="Manage users" title="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Manage users" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left"></div>';
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
                           'ullTableTool/list?table=UllUser', __('Manage users')),
     $reference,
     'returns the correct result');
   
-  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="User admin" title="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Manage users" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />';
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="User admin" title="Manage users" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Manage users" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left"></div>';
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
                           'ullTableTool/list?table=UllUser', __('Manage users'), array('alt' => 'User admin')),
     $reference,
     'returns the correct result when specifying an alt-tag');
     
-  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="User admin" title="Here you can play god" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Here you can play god" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left" />';
+  $reference = '<div class="float_left"><a href="/ullTableTool/list/table/UllUser"><img alt="User admin" title="Here you can play god" src="/ullCoreThemeNGPlugin/images/ull_admin_32x32.png" height="24" width="24" /></a></div><div><a title="Here you can play god" href="/ullTableTool/list/table/UllUser">Manage users</a></div><div class="clear_left"></div>';
   $t->is(ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_32x32',
                           'ullTableTool/list?table=UllUser', __('Manage users'), array('alt' => 'User admin', 'title' => 'Here you can play god')),
     $reference,
@@ -210,7 +210,7 @@ $t->diag('ull_tc_task_link()');
   sfContext::getInstance()->getRequest()->setParameter('app', 'trouble_ticket');
   sfContext::getInstance()->getRequest()->setParameter('action', 'index');
   
-  $reference = '<div class="float_left"><a href="/ullFlow/create/app/trouble_ticket"><img alt="Create" title="Create" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" height="24" width="24" /></a></div><div><a title="Create" href="/ullFlow/create/app/trouble_ticket">Create</a></div><div class="clear_left" />';
+  $reference = '<div class="float_left"><a href="/ullFlow/create/app/trouble_ticket"><img alt="Create" title="Create" src="/ullFlowThemeNGPlugin/images/ull_flow_32x32.png" height="24" width="24" /></a></div><div><a title="Create" href="/ullFlow/create/app/trouble_ticket">Create</a></div><div class="clear_left"></div>';
   $t->is(ull_tc_task_link('/ullFlowThemeNGPlugin/images/ull_flow_32x32',
             array('action' => 'create'), __('Create')),
     $reference,
