@@ -20,6 +20,12 @@ class ullValidatorTime extends sfValidatorString
   
   protected function doClean($value)
   {
+    //if a user wants to remove a time entry, the empty
+    //select value results in a string like 
+    //':30' or '3:' or even ':'.
+    //we need to correct this so the doctrine
+    //validator does not complain later on.
+    
     if (substr($value, 0, 1) == ':')
     {
       //case ':' => '0:0'
