@@ -265,7 +265,7 @@ function ull_tc_task_link($img_source, $internal_uri, $link_text, $options = arr
 	        '</div>' .
 	        '<div>' . 
           ull_link_to($link_text, $internal_uri, $link_options) . '</div>' .
-          '<div class="clear_left" />';
+          '<div class="clear_left"></div>';
 	
 	return $link;
 }
