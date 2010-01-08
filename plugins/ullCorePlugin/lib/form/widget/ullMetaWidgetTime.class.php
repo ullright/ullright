@@ -9,23 +9,30 @@
  */
 class ullMetaWidgetTime extends ullMetaWidget
 {
-  protected function addToForm()
+  protected
+    $readWidget = 'ullWidgetTimeRead',
+    $writeWidget = 'ullWidgetTimeWrite',
+    $validator = 'ullValidatorTime'
+  ;  
+  
+  protected function configureReadMode()
   {
-    if ($this->isWriteMode())
+    $this->columnConfig->removeWidgetOption('fragmentation');
+    $this->columnConfig->removeWidgetOption('show_select_box');
+    
+    $this->addWidget(new $this->readWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorPass());
+  }
+  
+  protected function configureWriteMode()
+  {
+    if ($this->columnConfig->getWidgetAttribute('size') == null)
     {
-      if ($this->columnConfig->getWidgetAttribute('size') == null)
-      {
-        $this->columnConfig->setWidgetAttribute('size', '5');
-      }
-    	
-    	$this->addWidget(new ullWidgetTimeWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));      
-      $this->addValidator(new ullValidatorTime($this->columnConfig->getValidatorOptions()));
+      $this->columnConfig->setWidgetAttribute('size', '5');
     }
-    else
-    {
-      $this->addWidget(new ullWidgetTimeRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-    	$this->addValidator(new sfValidatorPass());
-    } 
+  	
+  	$this->addWidget(new $this->writeWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));      
+    $this->addValidator(new $this->validator($this->columnConfig->getValidatorOptions()));
   }
   
   public function getSearchType()

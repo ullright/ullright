@@ -12,7 +12,6 @@
   <?php echo __('Please correct the following errors', null, 'common') ?>:
   <?php echo $edit_generator->getForm()->renderGlobalErrors() ?>
   </div>  
-  <br /><br />
 <?php endif; ?>
 
 
