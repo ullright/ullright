@@ -379,7 +379,8 @@ ul.list_action_buttons li {
 */
 .edit_table {
   background: #e9e9e9;
-  width: 100%;
+  width: 100%; 
+  *width: 99%;  /* hack IE6-7 to prevent dropping bellow the sidebar */
   border-spacing: 0;
 }
 
@@ -436,7 +437,7 @@ ul.list_action_buttons li {
  */
  
 .edit_action_buttons {
-	margin-top: 2em;
+  margin-top: 2em;
   height: 100%;   /* http://www.quirksmode.org/css/clearing.html */
   overflow: hidden;
   background-color: #dad9d9;
