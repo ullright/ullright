@@ -82,9 +82,11 @@
   
   </tbody>
   </table>
-<?php endif ?>
-
-<?php include_partial('ullTableTool/ullPagerBottom',
+  
+  <?php include_partial('ullTableTool/ullPagerBottom',
         array('pager' => $pager, 'paging' => $paging, 'logged_in' => $sf_user->hasAttribute('user_id'))
       ); ?> 
+<?php endif ?>
+
+
 
