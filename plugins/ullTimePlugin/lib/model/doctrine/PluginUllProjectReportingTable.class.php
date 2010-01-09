@@ -28,6 +28,12 @@ class PluginUllProjectReportingTable extends UllRecordTable
   }
   
 
+  /**
+   * Get the sum by date and user 
+   * @param string $date
+   * @param integer $userId
+   * @return mixed
+   */
   public static function findSumByDateAndUserId($date, $userId)
   {
     $q = new Doctrine_Query;
@@ -42,4 +48,40 @@ class PluginUllProjectReportingTable extends UllRecordTable
     
     return $result[0];
   }
+  
+  
+  /**
+   * Get a list of the most used projects in the last two weeks
+   * @return unknown_type
+   */
+  public static function findLatestTopProjects()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('COUNT(pr.ull_project_id) as num, pr.ull_project_id, t.name')
+      ->from('UllProjectReporting pr, pr.UllProject p, p.Translation t')
+      ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 2))
+      ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
+      ->groupBy('pr.ull_project_id')
+      ->orderBy('num DESC')
+// deactivated because it removes the correct "num" value !?!      
+//      ->limit(10)
+    ;
+    
+    // 0 = ull_project_id
+    // 1 = name
+    // 2 = num
+    $result = $q->execute(null, Doctrine::HYDRATE_NONE);
+    
+    $max = (count($result) > 10) ? 10 : count($result);   
+    
+    $return = array();
+    
+    for ($i = 0; $i < $max; $i++)
+    {
+      $return[$result[$i][0]] = $result[$i][1];
+    }
+    
+    return $return;
+  }    
 }
