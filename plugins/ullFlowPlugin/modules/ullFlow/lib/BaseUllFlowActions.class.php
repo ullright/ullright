@@ -636,14 +636,25 @@ class BaseUllFlowActions extends ullsfActions
         $columnName = $column . '.value';
         $columnClass = $order_cc->UllColumnType->class;
         
-        //our virtual values are stored in a column of type 'text',
-        //so mysql applies common ordering rules.
-        //however, for number types (interger and float), we
-        //would like natural ordering
-        //the meta widget provides a static function
-        //'isNumeric' for this purpose
+        // This is a fix to correctly order numeric values of the virtual columns
+        // The values of the virtual columns are stored stored as type 'text',
+        // therefore the database (mysql currently) doesn't order values in a 
+        // natural order. 
+        // Bad example:
+        //   1
+        //   10
+        //   2
+        // To fix this, we append "+0" to the order statement which casts 
+        // the data type to a numeric value and ensures correct ordering
         //
-        // "+0" casts the value to a numeric value 
+        // The meta widget provides a static function
+        // 'isNumeric' for this purpose
+        //
+        // Note: It would be cleaner to use the SQL function "convert()",
+        // as it is database agnostic, but this didn't work with Doctrine
+        // and further investigation is necessary
+        // Example: SELECT * FROM my_table ORDER BY CONVERT(INT,my_column) ASC
+        //
         if (call_user_func(array($columnClass, 'isNumeric')))
         {
           $columnName = '(' . $columnName . ' + 0)';
