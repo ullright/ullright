@@ -91,28 +91,33 @@
   </tbody>
 </table>
 
-<div class='edit_action_buttons color_light_bg'>
-  <h3><?php echo __('Actions', null, 'common')?></h3>
+<?php if ($generator->getDefaultAccess() == 'w'): ?>
+
+  <div class='edit_action_buttons color_light_bg'>
+    <h3><?php echo __('Actions', null, 'common')?></h3>
+    
+    <div class='edit_action_buttons_left'>
+      <ul>
+        <li>
+          <?php             
+            echo ull_submit_tag(
+              __('Save and return to list', null, 'common'),
+              array('name' => 'submit|action_slug=save_close')
+            );  
+          ?>       
+        </li>      
+      </ul>
+    </div>
   
-  <div class='edit_action_buttons_left'>
-    <ul>
-      <li>
-        <?php             
-          echo ull_submit_tag(
-            __('Save and return to list', null, 'common'),
-            array('name' => 'submit|action_slug=save_close')
-          );  
-        ?>       
-      </li>      
-    </ul>
+    <div class='edit_action_buttons_right'>
+    </div>
+  
+   <!-- <div class="clear"></div>  -->
+    
   </div>
 
-  <div class='edit_action_buttons_right'>
-  </div>
+<?php endif ?>
 
- <!-- <div class="clear"></div>  -->
-  
-</div>
 </div>
 </form>   
 
