@@ -1,5 +1,7 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 
+<?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+
 <h3>
   <?php echo __('Time report', null, 'ullTimeMessages')?>
   <?php echo $generator->getForm()->offsetGet('date')->render() ?> /

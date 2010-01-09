@@ -411,12 +411,21 @@ class BaseUllTimeActions extends ullsfActions
       return 'w';
     }
     
-    $lockingTimespanDays = sfConfig::get('app_ull_time_locking_timespan_days', 30);
+    $this->lockingTimespanDays = sfConfig::get('app_ull_time_locking_timespan_days', 30);
     
-    if ($this->doc->date > (date('Y-m-d', time() - $lockingTimespanDays * 24 * 60 * 60)))
+    if ($this->doc->date > (date('Y-m-d', time() - $this->lockingTimespanDays * 24 * 60 * 60)))
     {
       return 'w';
     }
+    
+    $this->getUser()->setFlash(
+      'message', 
+      __('Read only access. Entries are locked after %days% days. Please contact your superior if you need to edit your data.', 
+        array('%days%' => $this->lockingTimespanDays), 
+        'ullTimeMessages'
+      ),
+      false
+    );
     
     return 'r';
   } 

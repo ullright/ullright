@@ -1,6 +1,8 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
 <?php $list_generator = $sf_data->getRaw('list_generator') ?>
 
+<?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+
 <h3>
   <?php echo __('Project efforts', null, 'ullTimeMessages')?>
   <?php echo $edit_generator->getForm()->offsetGet('date')->render() ?> /
@@ -49,7 +51,7 @@
   </tbody>
   </table>
 <?php endif ?>
-
+  
 
 <?php if ($edit_generator->getDefaultAccess() == 'w'): ?>
 
@@ -111,7 +113,12 @@
     <!--<div class="clear"></div>  -->
     
   </div>
-<?php endif; // end of if edit_generator ?>  
+<?php else: // else of if edit_generator ?>  
+  
+  <?php echo __('No results found', null, 'common') ?>  
+  
+<?php endif; // end of if edit_generator ?>
+  
   
 </div>
 </form>   

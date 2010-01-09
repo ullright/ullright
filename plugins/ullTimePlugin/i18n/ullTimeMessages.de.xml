@@ -124,6 +124,13 @@
 <target>Periodenübersicht</target>
 </trans-unit>
 
+<trans-unit id="25">
+<source>Read only access. Entries are locked after %days% days. Please contact your superior if you need to edit your data.</source>
+<target>Sie haben nur lesenden Zugriff, da die Einträge nach %days% Tagen gesperrt werden. Bitte kontaktieren Sie Ihren Vorgesetzten bezüglich Änderungen.</target>
+</trans-unit>
+
+
+
     </body>
   </file>
 </xliff>
