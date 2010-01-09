@@ -98,4 +98,66 @@ UllTimePeriod:
         name:                   Oktober 2009
     from_date:                  '2009-10-01'
     to_date:                    '2009-10-31'
-    namespace:                  test    
+    namespace:                  test
+  ull_time_period_january_2010:
+    Translation:
+      en:
+        name:                   January 2010
+      de:
+        name:                   Jänner 2010
+    from_date:                  '2010-01-01'
+    to_date:                    '2010-01-31'
+    namespace:                  test
+    
+    
+UllPermission:
+  ull_permission_time_index:
+    slug:               ull_time_index
+    namespace:          ull_time
+  ull_permission_time_list:
+    slug:               ull_time_list
+    namespace:          ull_time    
+  ull_permission_time_edit:
+    slug:               ull_time_edit
+    namespace:          ull_time    
+  ull_permission_time_edit_project:
+    slug:               ull_time_edit_project
+    namespace:          ull_time      
+  ull_permission_time_delete_project:
+    slug:               ull_time_delete_project
+    namespace:          ull_time    
+  ull_permission_time_ignore_locking:
+    slug:               ull_time_ignore_locking
+    namespace:          ull_time
+    
+UllGroup:
+  ull_group_time_admins:
+    display_name:       TimeAdmins
+    namespace:          ull_time        
+      
+UllGroupPermission:
+  ull_group_permission_ull_time_1:
+    UllGroup:           ull_group_logged_in_users
+    UllPermission:      ull_permission_time_index
+    namespace:          ull_time
+  ull_group_permission_ull_time_2:
+    UllGroup:           ull_group_logged_in_users
+    UllPermission:      ull_permission_time_list
+    namespace:          ull_time    
+  ull_group_permission_ull_time_3:
+    UllGroup:           ull_group_logged_in_users
+    UllPermission:      ull_permission_time_edit
+    namespace:          ull_time    
+  ull_group_permission_ull_time_4:
+    UllGroup:           ull_group_logged_in_users
+    UllPermission:      ull_permission_time_edit_project
+    namespace:          ull_time    
+  ull_group_permission_ull_time_5:
+    UllGroup:           ull_group_logged_in_users
+    UllPermission:      ull_permission_time_delete_project
+    namespace:          ull_time    
+  ull_group_permission_ull_time_6:
+    UllGroup:           ull_group_time_admins
+    UllPermission:      ull_permission_time_ignore_locking
+    namespace:          ull_time    
+             

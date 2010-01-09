@@ -34,7 +34,7 @@ class BaseUllTimeActions extends ullsfActions
    */
   public function executeIndex() 
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_time_index');
 
     $this->breadcrumbForIndex();
     
@@ -50,7 +50,7 @@ class BaseUllTimeActions extends ullsfActions
    */
   public function executeList($request)
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_time_list');
     
     $this->getPeriodFromRequest();
     $this->getUserFromRequest();
@@ -99,11 +99,11 @@ class BaseUllTimeActions extends ullsfActions
    */
   public function executeEdit($request) 
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_time_edit');
     
     $this->getDocFromRequestOrCreate();
     
-    $this->generator = new ullTableToolGenerator('UllTimeReporting', 'w');
+    $this->generator = new ullTableToolGenerator('UllTimeReporting', $this->getLockingStatus());
     $this->generator->buildForm($this->doc);
     $this->addGlobalValidators();
     
@@ -144,14 +144,14 @@ class BaseUllTimeActions extends ullsfActions
    */
   public function executeEditProject($request) 
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_time_edit_project');
     
     $this->getProjectReportingFromRequestOrCreate();
     
     $this->list_generator = new ullTableToolGenerator('UllProjectReporting', 'r', 'list');
     $this->list_generator->buildForm($this->docs);
     
-    $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', 'w');
+    $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', $this->getLockingStatus());
     $this->edit_generator->buildForm($this->doc);
     
     $this->breadcrumbForEditProject();
@@ -189,9 +189,14 @@ class BaseUllTimeActions extends ullsfActions
    */
   public function executeDeleteProject($request)
   {
-    $this->checkAccess('LoggedIn');
+    $this->checkPermission('ull_time_delete_project'); 
+    
     $this->getProjectReportingFromRequestOrCreate();
+    
+    $this->forward404Unless($this->getLockingStatus() == 'w');
+    
     $this->doc->delete();
+    
     $this->redirect('ullTime/createProject?date=' . $request->getParameter('date') . '&username=' . $request->getParameter('username'));
   }
   
@@ -389,7 +394,31 @@ class BaseUllTimeActions extends ullsfActions
     {
       $this->breadcrumbTree->add(__('Create project effort', null, 'ullTimeMessages'));
     } 
-  }  
-  
+  }
 
+  
+  /**
+   * Set generator global access depending on the locking status.
+   * Normal users may only change data $lockingTimespanDays ago
+   * Older entries are displayed read-only
+   * 
+   * @return string
+   */
+  protected function getLockingStatus()
+  {
+    if (UllUserTable::hasPermission('ull_time_ignore_locking'))
+    {
+      return 'w';
+    }
+    
+    $lockingTimespanDays = sfConfig::get('app_ull_time_locking_timespan_days', 30);
+    
+    if ($this->doc->date > (date('Y-m-d', time() - $lockingTimespanDays * 24 * 60 * 60)))
+    {
+      return 'w';
+    }
+    
+    return 'r';
+  } 
+  
 }

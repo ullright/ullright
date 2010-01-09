@@ -86,7 +86,7 @@ class PluginUllUserTable extends UllEntityTable
     {
       return true;
     }        
-
+    
     // Check access by permission / group / user
     $q = new Doctrine_Query;
     $q
@@ -99,7 +99,7 @@ class PluginUllUserTable extends UllEntityTable
     {
       return true;
     }
-
+    
     // Check logged in access
     $q = new Doctrine_Query;
     $q
@@ -111,8 +111,8 @@ class PluginUllUserTable extends UllEntityTable
     if ($q->count() && $userId)
     {
       return true;
-    }       
-    
+    }
+
     // Check everyone access
     $q = new Doctrine_Query;
     $q
@@ -124,8 +124,7 @@ class PluginUllUserTable extends UllEntityTable
     if ($q->count())
     {
       return true;
-    }    
-    
+    }
 
   }  
   

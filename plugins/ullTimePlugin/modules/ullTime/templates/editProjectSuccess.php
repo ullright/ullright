@@ -31,13 +31,17 @@
   <?php foreach($list_generator->getForms() as $row => $form): ?>
     <?php $idAsArray = (array) $list_generator->getIdentifierUrlParamsAsArray($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
-      <td class='no_wrap'>          
-        <?php
-            echo ull_link_to(ull_image_tag('edit'), array('action' => 'editProject') + $idAsArray);
-            echo ull_link_to(ull_image_tag('delete'), array('action' => 'deleteProject') +$idAsArray,
-                'confirm=' . __('Are you sure?', null, 'common')); 
-        ?>
+      
+      <td class='no_wrap'>
+      <?php if ($edit_generator->getDefaultAccess() == 'w'): ?>          
+          <?php
+              echo ull_link_to(ull_image_tag('edit'), array('action' => 'editProject') + $idAsArray);
+              echo ull_link_to(ull_image_tag('delete'), array('action' => 'deleteProject') +$idAsArray,
+                  'confirm=' . __('Are you sure?', null, 'common')); 
+          ?>
+        <?php endif; ?>
       </td>
+      
       <?php echo $form ?>
     </tr>
   <?php endforeach; ?>
@@ -47,64 +51,68 @@
 <?php endif ?>
 
 
-<h3>
-  <?php if ($edit_generator->getRow()->exists()): ?>
-    <?php echo __('Edit project effort', null, 'ullTimeMessages')?>
-  <?php else: ?>
-    <?php echo __('Enter new project effort', null, 'ullTimeMessages')?>
-  <?php endif ?>
-</h3>
+<?php if ($edit_generator->getDefaultAccess() == 'w'): ?>
 
-
-<?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
-
-<div class="edit_container">
-<table class="edit_table">
-<tbody>
-
-<?php
-  foreach ($edit_generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
-  {
-    if (!in_array($column_name, array('ull_user_id', 'date')))
+  <h3>
+    <?php if ($edit_generator->getRow()->exists()): ?>
+      <?php echo __('Edit project effort', null, 'ullTimeMessages')?>
+    <?php else: ?>
+      <?php echo __('Enter new project effort', null, 'ullTimeMessages')?>
+    <?php endif ?>
+  </h3>
+  
+  
+  <?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
+  
+  <div class="edit_container">
+  <table class="edit_table">
+  <tbody>
+  
+  <?php
+    foreach ($edit_generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
     {
-      echo $edit_generator->getForm()->offsetGet($column_name)->renderRow();
+      if (!in_array($column_name, array('ull_user_id', 'date')))
+      {
+        echo $edit_generator->getForm()->offsetGet($column_name)->renderRow();
+      }
     }
-  }
-?>
-
-</tbody>
-</table>
-
-<div class='edit_action_buttons color_light_bg'>
-  <h3><?php echo __('Actions', null, 'common')?></h3>
+  ?>
   
-  <div class='edit_action_buttons_left'>
-    <ul>
-      <li>
-        <?php             
-          echo ull_submit_tag(
-            __('Save and create another entry', null, 'common'),
-            array('name' => 'submit|action_slug=save_new')
-          );  
-        ?>         
-      </li>
-      <li>
-        <?php             
-          echo ull_submit_tag(
-            __('Save and return to list', null, 'common'),
-            array('name' => 'submit|action_slug=save_close')
-          );  
-        ?>       
-      </li>      
-    </ul>
-  </div>
-
-  <div class='edit_action_buttons_right'>
-  </div>
-
-  <!--<div class="clear"></div>  -->
+  </tbody>
+  </table>
   
-</div>
+  <div class='edit_action_buttons color_light_bg'>
+    <h3><?php echo __('Actions', null, 'common')?></h3>
+    
+    <div class='edit_action_buttons_left'>
+      <ul>
+        <li>
+          <?php             
+            echo ull_submit_tag(
+              __('Save and create another entry', null, 'common'),
+              array('name' => 'submit|action_slug=save_new')
+            );  
+          ?>         
+        </li>
+        <li>
+          <?php             
+            echo ull_submit_tag(
+              __('Save and return to list', null, 'common'),
+              array('name' => 'submit|action_slug=save_close')
+            );  
+          ?>       
+        </li>      
+      </ul>
+    </div>
+  
+    <div class='edit_action_buttons_right'>
+    </div>
+  
+    <!--<div class="clear"></div>  -->
+    
+  </div>
+<?php endif; // end of if edit_generator ?>  
+  
 </div>
 </form>   
 

@@ -70,4 +70,9 @@ all:
     
   ull_orgchart:
     ceo_user_id:        1
+    
+  ull_time:
+    # How long can the user change his entered data in days?
+    # Example: 30 days means he can change data up to 30 days back from now
+    locking_timespan_days: 3
  
