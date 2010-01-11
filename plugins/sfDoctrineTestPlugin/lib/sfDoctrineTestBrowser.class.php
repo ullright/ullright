@@ -93,7 +93,9 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 		$result = parent::call($uri, $method, $parameters, $changeStack);
 		ob_end_clean();
 		
-		echo lime_colorizer::colorize(sprintf("> %s %s\n", $method, $uri), array('fg' => 'cyan'));
+		// Deactivated for compatibility with sf 1.3 lime
+		//echo lime_colorizer::colorize(sprintf("> %s %s\n", $method, $uri), array('fg' => 'cyan'));
+		echo sprintf("> %s %s\n", $method, $uri);
 		
 		return $result;
 	}
