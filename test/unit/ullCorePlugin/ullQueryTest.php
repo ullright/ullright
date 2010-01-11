@@ -4,6 +4,9 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 class myTestCase extends lime_test {}
 
+
+var_dump(get_class($configuration));
+
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');

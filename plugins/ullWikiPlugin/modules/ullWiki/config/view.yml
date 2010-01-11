@@ -13,7 +13,7 @@ default:
 
   javascripts:    []
 
-  has_layout:     on
+  has_layout:     true
   layout:         layout
 
 editSuccess:

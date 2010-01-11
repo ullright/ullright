@@ -1,26 +1,26 @@
 prod:
   .settings:
-    no_script_name:         on
-    logging_enabled:        off
+    no_script_name:         true
+    logging_enabled:        false
 
 dev:
   .settings:
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              on
-    cache:                  off
-    no_script_name:         off
-    etag:                   off
+    web_debug:              true
+    cache:                  false
+    no_script_name:         false
+    etag:                   false
 
 test:
   .settings:
     #error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    cache:                  off
-    web_debug:              off
+    cache:                  false
+    web_debug:              false
     # enabled to remove leading "symfony" script name from unit tests
     #   which use sfWebrequest-> url genereration    
-    no_script_name:         on
-    etag:                   off
+    no_script_name:         true
+    etag:                   false
 
 all:
   .settings:
@@ -49,7 +49,7 @@ all:
 #    # Optional features. Deactivating unused features boots performance a bit.
 #    use_database:           on        # Enable database manager. Set to off if you don't use a database.
 #    i18n:                   off       # Enable interface translation. Set to off if your application should not be translated.
-    i18n:                   on    
+    i18n:                   true    
 #    check_symfony_version:  off       # Enable check of symfony version for every request. Set to on to have symfony clear the cache automatically when the framework is upgraded. Set to off if you always clear the cache after an upgrade.
 #    compressed:             off       # Enable PHP response compression. Set to on to compress the outgoing HTML via the PHP handler.
 #    check_lock:             off       # Enable the application lock system triggered by the clear-cache and disable tasks. Set to on to have all requests to disabled applications redirected to the $sf_symfony_lib_dir/exception/data/unavailable.php page.
@@ -94,7 +94,7 @@ all:
 #    max_forwards:           5
 #
 #    # Logging
-#    logging_enabled:        on
+#    logging_enabled:        true
 #
 #    # i18n
 #    default_culture:        en        # Default user culture
