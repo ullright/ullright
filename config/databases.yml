@@ -1,6 +1,6 @@
 ### prod Environment
 prod:
-  doctrine:
+  ullright:
     class:          sfDoctrineDatabase
     param:
       dsn:          'mysql:host=localhost;dbname=ullright'
@@ -9,7 +9,7 @@ prod:
 
 ### dev Environment
 dev:
-  doctrine:
+  ullright:
     class:          sfDoctrineDatabase
     param:
       dsn:          'mysql:host=localhost;dbname=ullright'
@@ -18,7 +18,7 @@ dev:
       
 ### cli Environment
 cli:
-  doctrine:
+  ullright:
     class:          sfDoctrineDatabase
     param:
       dsn:          'mysql:host=localhost;dbname=ullright'
