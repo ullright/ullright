@@ -41,4 +41,4 @@ $t->diag('modifyQuery()');
   ;
   $namedQuery->modifyQuery($q);
   $expectedSql = 'SELECT t.id AS t__id, t.my_email AS t__my_email FROM test_table t WHERE t.my_useless_column = ?';
-  $t->is($q->getSql(), $expectedSql, 'correctly modifies the query');
+  $t->is($q->getSqlQuery(), $expectedSql, 'correctly modifies the query');

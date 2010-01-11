@@ -19,12 +19,12 @@ $query = new Doctrine_Query();
 $query
   ->from('UllUser u')
 ;
-$originalSql = $query->getSql();
+$originalSql = $query->getSqlQuery();
 
 $search = new ullSearch();
 $search->modifyQuery($query, 'u');
 
-$t->is($originalSql, $query->getSql(), 'empty ullSearch does not modify query - ok');
+$t->is($originalSql, $query->getSqlQuery(), 'empty ullSearch does not modify query - ok');
 
 //simple criterion
 $criterion = new ullSearchCompareExactCriterion();
@@ -102,13 +102,13 @@ $criterionGroups[] = $criterionGroup;
 $search->addCriterionGroups($criterionGroups);
 $search->modifyQuery($query, 'u');
 
-$t->like($query->getSql(), '/WHERE u.display_name LIKE \?/', 'simple criterion - SQL is correct');
-$t->like($query->getSql(), '/\(u.first_name LIKE \? AND u.first_name LIKE \?\)/', 'compare criterion - SQL is correct');
-$t->like($query->getSql(), '/\(NOT \(u.last_name LIKE \?\)\)/', 'simple criterion with NOT - SQL is correct');
-$t->like($query->getSql(), '/u.phone_extension between \? AND \?/', 'range criterion - SQL is correct');
-$t->like($query->getSql(), '/\(\(NOT \(u.fax_extension >= \?\)\) OR \(NOT \(u.fax_extension <= \?\)\)\)/', 'double range criterion with NOT - SQL is correct');
-$t->like($query->getSql(), '/u.is_show_extension_in_phonebook IS TRUE/', 'boolean criterion with NOT - SQL is correct');
-$t->like($query->getSql(), '/u.ull_location_id = ?/', 'foreign criterion with NOT - SQL is correct');
+$t->like($query->getSqlQuery(), '/WHERE u.display_name LIKE \?/', 'simple criterion - SQL is correct');
+$t->like($query->getSqlQuery(), '/\(u.first_name LIKE \? AND u.first_name LIKE \?\)/', 'compare criterion - SQL is correct');
+$t->like($query->getSqlQuery(), '/\(NOT \(u.last_name LIKE \?\)\)/', 'simple criterion with NOT - SQL is correct');
+$t->like($query->getSqlQuery(), '/u.phone_extension between \? AND \?/', 'range criterion - SQL is correct');
+$t->like($query->getSqlQuery(), '/\(\(NOT \(u.fax_extension >= \?\)\) OR \(NOT \(u.fax_extension <= \?\)\)\)/', 'double range criterion with NOT - SQL is correct');
+$t->like($query->getSqlQuery(), '/u.is_show_extension_in_phonebook IS TRUE/', 'boolean criterion with NOT - SQL is correct');
+$t->like($query->getSqlQuery(), '/u.ull_location_id = ?/', 'foreign criterion with NOT - SQL is correct');
 
 
 $t->diag('ullSearchTest - query class exception');

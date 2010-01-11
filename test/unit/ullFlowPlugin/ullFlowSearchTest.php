@@ -26,13 +26,13 @@ $query = new Doctrine_Query();
 $query
   ->from('UllFlowDoc x')
 ;
-$originalSql = $query->getSql();
+$originalSql = $query->getSqlQuery();
 
 $flowApp = Doctrine::getTable('UllFlowApp')->find(1);
 $search = new ullFlowSearch($flowApp);
 $search->modifyQuery($query, 'x');
 
-$t->is($originalSql, $query->getSql(), 'empty ullFlowSearch does not modify query - ok');
+$t->is($originalSql, $query->getSqlQuery(), 'empty ullFlowSearch does not modify query - ok');
 
 //double range criterion with NOT
 $criterion = new ullSearchRangeCriterion();
@@ -57,7 +57,7 @@ $search->modifyQuery($query, 'x');
 $expectedColumnConfigId = $flowApp->findColumnConfigBySlug('column_priority')->id;
 $paramArray = $query->getParams();
 
-$t->like($query->getSql(), '/LEFT JOIN ull_flow_value u2 ON u.id = u2.ull_flow_doc_id AND u2.ull_flow_column_config_id = \? ' .
+$t->like($query->getSqlQuery(), '/LEFT JOIN ull_flow_value u2 ON u.id = u2.ull_flow_doc_id AND u2.ull_flow_column_config_id = \? ' .
 'LEFT JOIN ull_flow_value u3 ON u.id = u3.ull_flow_doc_id AND u3.ull_flow_column_config_id = \? ' .
 'WHERE \(u2.value >= \? OR u3.value <= \?\)/', 'double range criterion with virtual columns - SQL is correct');
 

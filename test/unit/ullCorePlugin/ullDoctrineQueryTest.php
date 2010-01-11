@@ -22,7 +22,7 @@ $t->diag('common query');
   $q->orWhere('x.last_name = ?', 'admin');
   $q->andWhere('x.first_name = ?', 'user');
    
-  $t->is($q->getSql(), 'SELECT u.id AS u__id, u.first_name AS u__first_name, u.last_name AS u__last_name FROM ull_entity u ' .
+  $t->is($q->getSqlQuery(), 'SELECT u.id AS u__id, u.first_name AS u__first_name, u.last_name AS u__last_name FROM ull_entity u ' .
     'WHERE u.first_name = ? OR u.last_name = ? AND u.first_name = ? AND (u.type = \'user\')', 'returns correct SQL');
   
   //we have (x OR y AND z) here
@@ -47,7 +47,7 @@ $t->diag('ullDoctrineQuery');
   $q->closeParenthesis();
   $q->andWhere('x.first_name = ?', 'user');
   
-  $t->is($q->getSql(), 'SELECT u.id AS u__id, u.first_name AS u__first_name, u.last_name AS u__last_name FROM ull_entity u ' .
+  $t->is($q->getSqlQuery(), 'SELECT u.id AS u__id, u.first_name AS u__first_name, u.last_name AS u__last_name FROM ull_entity u ' .
     'WHERE ( u.first_name = ? OR u.last_name = ? ) AND u.first_name = ? AND (u.type = \'user\')', 'returns correct SQL');
   
   $t->isa_ok($q->execute(), 'Doctrine_Collection', 'Successfully executes the query');
@@ -67,7 +67,7 @@ $t->diag('ullDoctrineQuery');
   $q->wrapExistingWhereInParantheses();
   $q->andWhere('x.first_name = ?', 'user');
   
-  $t->is($q->getSql(), 'SELECT u.id AS u__id, u.first_name AS u__first_name, u.last_name AS u__last_name FROM ull_entity u ' .
+  $t->is($q->getSqlQuery(), 'SELECT u.id AS u__id, u.first_name AS u__first_name, u.last_name AS u__last_name FROM ull_entity u ' .
     'WHERE ( u.first_name = ? OR u.last_name = ? ) AND u.first_name = ? AND (u.type = \'user\')', 'returns correct SQL');
   
   $t->isa_ok($q->execute(), 'Doctrine_Collection', 'Successfully executes the query');

@@ -26,12 +26,12 @@ $query = new Doctrine_Query();
 $query
   ->from('UllVentoryItem x')
 ;
-$originalSql = $query->getSql();
+$originalSql = $query->getSqlQuery();
 
 $search = new ullVentorySearch();
 $search->modifyQuery($query, 'x');
 
-$t->is($originalSql, $query->getSql(), 'empty UllVentoryItem does not modify query - ok');
+$t->is($originalSql, $query->getSqlQuery(), 'empty UllVentoryItem does not modify query - ok');
 
 //double range criterion with NOT
 $criterion = new ullSearchRangeCriterion();
@@ -57,7 +57,7 @@ $displaySizeId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('d
 $wiredNetworkSpeedId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('wired_network_speed')->id;
 $paramArray = $query->getParams();
 
-$t->like($query->getSql(), '/LEFT JOIN ull_ventory_item_attribute_value u2 ON u.id = u2.ull_ventory_item_id '
+$t->like($query->getSqlQuery(), '/LEFT JOIN ull_ventory_item_attribute_value u2 ON u.id = u2.ull_ventory_item_id '
 . 'AND u2.ull_ventory_item_type_attribute_id IN '
 . '\(SELECT u4.id AS u4__id FROM ull_ventory_item_type_attribute u4 WHERE u4.ull_ventory_item_attribute_id = \?\) '
 . 'LEFT JOIN ull_ventory_item_attribute_value u3 ON u.id = u3.ull_ventory_item_id AND '

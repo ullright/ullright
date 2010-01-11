@@ -246,9 +246,9 @@ class ullQuery
    * 
    * @return string
    */
-  public function getSql()
+  public function getSqlQuery()
   {
-    return $this->q->getSql();
+    return $this->q->getSqlQuery();
   }
   
   /**
