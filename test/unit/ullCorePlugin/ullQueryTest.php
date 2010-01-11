@@ -167,16 +167,16 @@ $t->diag('addSearch()');
 //var_dump($q->execute()->toArray(false));
 
 
-$t->diag('Doctrine bug with UllUser and SELECT on >= 2 relations');  
+$t->diag('Doctrine 1.0 bug resolved with UllUser and SELECT on >= 2 relations');  
   
-// Uncaught exception 'Doctrine_Record_UnknownPropertyException' with message 'Unknown record property / related component "ull_department_id" on "UllUser"' in /var/www/ullright/plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Record/Filter/Standard.php:44
-//$q = new Doctrine_Query;
-//$q
-//  ->select('u.last_name, c.*, d.*')
-//  ->from('UllUser u, u.UllCompany c, u.UllDepartment d')
-//;
-//
-//$q->execute();
+// Threw an exception 'Doctrine_Record_UnknownPropertyException' with message 'Unknown record property / related component "ull_department_id" on "UllUser"' in /var/www/ullright/plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Record/Filter/Standard.php:44
+$q = new Doctrine_Query;
+$q
+  ->select('u.last_name, c.*, d.*')
+  ->from('UllUser u, u.UllCompany c, u.UllDepartment d')
+;
+
+$q->execute();
 
 
 
