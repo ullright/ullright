@@ -28,7 +28,7 @@ $b
   ->diag('set fields and save as scheduled update')
   ->setField('fields[username]', 'software_tester')
   ->setField('fields[email]', 'softwaretester@example.com')
-  ->setField('fields[scheduled_update_date]', '08/15/2037') //should be 'future' enough :)
+  ->setField('fields[scheduled_update_date]', '08/15/2036') //should be 'future' enough :)
   ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
@@ -63,7 +63,7 @@ $b
   ->isRequestParameter('id', $testUserId)
   ->checkResponseElement('input[id="fields_username"][value="test_user"]', true)
   ->checkResponseElement('input[id="fields_email"][value="test.user@example.com"]', true)
-  ->checkResponseElement('div#edit_future_versions', '/08\/15\/2037/')
+  ->checkResponseElement('div#edit_future_versions', '/08\/15\/2036/')
   ->checkResponseElement('div#edit_future_versions', '/software_tester/')
   ->checkResponseElement('div#edit_future_versions', '/softwaretester@example.com/')
 ;
@@ -93,7 +93,7 @@ $b
   ->isRequestParameter('id', $testUserId)
   ->checkResponseElement('input[id="fields_username"][value="test_user"]', true)
   ->checkResponseElement('input[id="fields_email"][value="st@example.com"]', true)
-  ->checkResponseElement('div#edit_future_versions', '/08\/15\/2037/')
+  ->checkResponseElement('div#edit_future_versions', '/08\/15\/2036/')
   ->checkResponseElement('div#edit_future_versions', '/software_tester/')
   ->checkResponseElement('div#edit_future_versions', '/softwaretester@example.com/')
 ;
@@ -119,10 +119,11 @@ $b
   ->diag('calling the ApplyScheduledUpdates task with now-option')
 ;
 
-$asut = new ApplyScheduledUpdatesTask(new sfEventDispatcher(), new sfFormatter());
-$asut->applyUpdates(array('now' => 'now',
-                          'application' => $app,
-                          'env' => 'test'));
+$applyUpdatesTask = new ApplyScheduledUpdatesTask($this->dispatcher, $this->formatter);
+$applyUpdatesTask->setConfiguration($this->configuration);
+$applyUpdatesTask->applyUpdates(array('now' => 'now',
+                        'application' => $app,
+                        'env' => 'test'));
 
 $b
   ->diag('reload test user, check if scheduled update was applied')
