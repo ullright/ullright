@@ -102,10 +102,10 @@ $criterionGroups[] = $criterionGroup;
 $search->addCriterionGroups($criterionGroups);
 $search->modifyQuery($query, 'u');
 
-$t->like($query->getSqlQuery(), '/WHERE u.display_name LIKE \?/', 'simple criterion - SQL is correct');
+$t->like($query->getSqlQuery(), '/WHERE \(u.display_name LIKE \?/', 'simple criterion - SQL is correct');
 $t->like($query->getSqlQuery(), '/\(u.first_name LIKE \? AND u.first_name LIKE \?\)/', 'compare criterion - SQL is correct');
 $t->like($query->getSqlQuery(), '/\(NOT \(u.last_name LIKE \?\)\)/', 'simple criterion with NOT - SQL is correct');
-$t->like($query->getSqlQuery(), '/u.phone_extension between \? AND \?/', 'range criterion - SQL is correct');
+$t->like($query->getSqlQuery(), '/u.phone_extension BETWEEN \? AND \?/', 'range criterion - SQL is correct');
 $t->like($query->getSqlQuery(), '/\(\(NOT \(u.fax_extension >= \?\)\) OR \(NOT \(u.fax_extension <= \?\)\)\)/', 'double range criterion with NOT - SQL is correct');
 $t->like($query->getSqlQuery(), '/u.is_show_extension_in_phonebook IS TRUE/', 'boolean criterion with NOT - SQL is correct');
 $t->like($query->getSqlQuery(), '/u.ull_location_id = ?/', 'foreign criterion with NOT - SQL is correct');

@@ -23,7 +23,7 @@ $t->diag('common query');
   $q->andWhere('x.first_name = ?', 'user');
    
   $t->is($q->getSqlQuery(), 'SELECT u.id AS u__id, u.first_name AS u__first_name, u.last_name AS u__last_name FROM ull_entity u ' .
-    'WHERE u.first_name = ? OR u.last_name = ? AND u.first_name = ? AND (u.type = \'user\')', 'returns correct SQL');
+    'WHERE (u.first_name = ? OR u.last_name = ? AND u.first_name = ? AND (u.type = \'user\'))', 'returns correct SQL');
   
   //we have (x OR y AND z) here
   //what if we want the OR to take precedence?
