@@ -40,5 +40,20 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     // disabled because ist has sideeffects which have to be investigated
     // $manager->setAttribute('use_dql_callbacks', true);
   }
+  
+  
+//  /** 
+//   * Remove symfony libs from ullCorePlugin/lib path
+//   * 
+//   * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/config/sfPluginConfiguration#filterAutoloadConfig($event, $config)
+//   */
+//  public function filterAutoloadConfig(sfEvent $event, array $config)
+//  {
+//    $config = parent::filterAutoloadConfig($event, $config);
+//    
+//    $config['autoload']['ullCorePlugin_lib']['exclude'][] = 'symfony';
+//    
+//    return $config;
+//  }
 
 }
