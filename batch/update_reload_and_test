@@ -4,6 +4,6 @@ echo 'Update, reload and testing'
 
 svn update
 php symfony cache:clear
-php symfony doctrine:build-all-reload --application=frontend --no-confirmation -t;
+php symfony doctrine:build --all --and-load --no-confirmation;
 php symfony cache:clear
 php symfony test:all
