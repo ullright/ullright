@@ -1,6 +1,7 @@
 <?php
 
-$sf_symfony_lib_dir = realpath(dirname(__FILE__) . '/../plugins/ullCorePlugin/lib/vendor/symfony/lib');
+//$sf_symfony_lib_dir = realpath(dirname(__FILE__) . '/../plugins/ullCorePlugin/lib/vendor/symfony/lib');
+$sf_symfony_lib_dir = realpath(dirname(__FILE__) . '/../lib/vendor/symfony/lib');
 
 require_once $sf_symfony_lib_dir .'/autoload/sfCoreAutoload.class.php';
 sfCoreAutoload::register();
