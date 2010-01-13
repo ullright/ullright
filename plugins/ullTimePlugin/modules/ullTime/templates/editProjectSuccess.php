@@ -108,9 +108,20 @@
     </div>
   
     <div class='edit_action_buttons_right'>
+    	<ul>
+        <li>
+          <?php  
+            echo ull_link_to(
+              __('Cancel', null, 'common') 
+              , '/ullTime/list'
+              , 'ull_js_observer_confirm=true'
+            );
+          ?>
+        </li>
+      </ul>
     </div>
   
-    <!--<div class="clear"></div>  -->
+    
     
   </div>
 <?php else: // else of if edit_generator ?>  
