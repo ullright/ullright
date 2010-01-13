@@ -69,8 +69,6 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['ull_user_id'] = $columnConfig;
     
-
-    
     $columnConfig = new ullColumnConfiguration('creator_user_id');
     $columnConfig->setLabel('Created by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
@@ -82,6 +80,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Created at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess(null);
+    $columnConfig->setValidatorOption('required', true);
     $this->columnsConfigMock['created_at'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updator_user_id');
@@ -97,6 +96,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Updated at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess(null);
+    $columnConfig->setValidatorOption('required', true);
     $this->columnsConfigMock['updated_at'] = $columnConfig;
   }      
 
