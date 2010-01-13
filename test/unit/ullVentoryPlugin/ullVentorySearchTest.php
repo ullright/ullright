@@ -35,7 +35,7 @@ $t->is($originalSql, $query->getSql(), 'empty UllVentoryItem does not modify que
 
 //double range criterion with NOT
 $criterion = new ullSearchRangeCriterion();
-$criterion->columnName = 'isVirtual.display_size';
+$criterion->columnName = 'isVirtual.display-size';
 $criterion->fromValue = 13;
 //we don't set TO here on purpose
 
@@ -43,7 +43,7 @@ $criterionGroup = new ullSearchCritierionGroup();
 $criterionGroup->subCriteria[] = $criterion;
 
 $criterion = new ullSearchRangeCriterion();
-$criterion->columnName = 'isVirtual.wired_network_speed';
+$criterion->columnName = 'isVirtual.wired-network-speed';
 //we don't set FROM here on purpose
 $criterion->toValue = 1000;
 
@@ -53,8 +53,8 @@ $criterionGroups = array($criterionGroup);
 $search->addCriterionGroups($criterionGroups);
 $search->modifyQuery($query, 'x');
 
-$displaySizeId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('display_size')->id;
-$wiredNetworkSpeedId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('wired_network_speed')->id;
+$displaySizeId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('display-size')->id;
+$wiredNetworkSpeedId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('wired-network-speed')->id;
 $paramArray = $query->getParams();
 
 $t->like($query->getSql(), '/LEFT JOIN ull_ventory_item_attribute_value u2 ON u.id = u2.ull_ventory_item_id '
