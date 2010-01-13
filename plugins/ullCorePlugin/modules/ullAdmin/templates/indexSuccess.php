@@ -28,6 +28,7 @@
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllDepartment', 'ullCore', 'ull_admin_24x24') ?></li>
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllJobTitle', 'ullCore', 'ull_admin_24x24') ?></li>
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEmploymentType', 'ullCore', 'ull_admin_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllUserStatus', 'ullCore', 'ull_admin_24x24') ?></li>
       </ul>
       
       <?php if($is_master_admin): ?>

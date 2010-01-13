@@ -842,6 +842,16 @@
 <target>Land</target>
 </trans-unit>
 
+<trans-unit id="18013">
+<source>Is absent</source>
+<target>Ist abwesend</target>
+</trans-unit>
+
+<trans-unit id="18014">
+<source>Is active</source>
+<target>Ist aktiv</target>
+</trans-unit>
+
 <trans-unit id="19001">
 <source>to</source>
 <target>bis</target>
