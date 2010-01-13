@@ -57,8 +57,9 @@ a:visited {
 /**
  * List action
  */
-#ull_time_list {
-  width: 780px;
+#ull_time_list td, #ull_time_list th {
+  /*width: 780px;*/
+  padding-right: 5em;
 }
 
 #ull_time_list tr.weekend {
