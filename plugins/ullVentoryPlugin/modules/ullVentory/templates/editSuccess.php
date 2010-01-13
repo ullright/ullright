@@ -6,13 +6,7 @@
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
-<?php if ($generator->getForm()->hasErrors()): ?>
-  <div class='form_error'>
-  <?php echo __('Please correct the following errors', null, 'common') ?>:
-  <?php echo $generator->getForm()->renderGlobalErrors() ?>
-  </div>  
-  <br /><br />
-<?php endif; ?>
+<?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
 
 <?php
