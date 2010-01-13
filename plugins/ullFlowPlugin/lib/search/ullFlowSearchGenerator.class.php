@@ -41,11 +41,15 @@ class ullFlowSearchGenerator extends ullSearchGenerator
     if ($columnConfig->getCustomAttribute('searchFormEntry')->isVirtual == true)
     {
       $virtualColumnConfig = $this->ullFlowApp->findColumnConfigBySlug($columnConfig->getCustomAttribute('searchFormEntry')->columnName);
-
+      
+      //workaround so we can access the column 'options'
+      $virtualColumnConfig->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, false); 
+      
       //taken from ullFlowGenerator
       $columnConfig->setLabel($virtualColumnConfig->label);
       $columnConfig->setMetaWidgetClassName($virtualColumnConfig->UllColumnType->class);
-      $columnConfig->setWidgetOptions(array_merge($columnConfig->getWidgetOptions(), sfToolkit::stringToArray($virtualColumnConfig->options)));
+      $columnConfig->setWidgetOptions(array_merge($columnConfig->getWidgetOptions(),
+        sfToolkit::stringToArray($virtualColumnConfig->options)));
       if ($virtualColumnConfig->default_value)
       {
         $columnConfig->setDefaultValue($virtualColumnConfig->default_value);

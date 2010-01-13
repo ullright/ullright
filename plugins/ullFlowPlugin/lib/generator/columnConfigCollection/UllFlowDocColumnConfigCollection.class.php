@@ -107,6 +107,9 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       // loop through columns
       foreach ($columns as $columnName => $column)
       {
+        //workaround so we can access the column 'options'
+        $column->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, false); 
+        
         // the subject column is taken from UllFlowDoc if no app is given,
         //   therefore we need to obmit it here to prevent duplicate
         if ($this->app || (!$this->app && !$column['is_subject']))
