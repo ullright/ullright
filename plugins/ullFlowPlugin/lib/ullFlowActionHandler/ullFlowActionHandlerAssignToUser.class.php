@@ -17,7 +17,7 @@ class ullFlowActionHandlerAssignToUser extends ullFlowActionHandler
       'ullMetaWidgetUllEntity', 
       'ull_flow_action_assign_to_user_ull_entity', 
       array_merge($this->options, array('add_empty' => true)), //widget options
-      array(), //widget attributes
+      array('isFlowActionHandler' => true), //widget attributes
       array('required' => false), //validator options
       $columnConfigOptions
     );
@@ -39,7 +39,16 @@ class ullFlowActionHandlerAssignToUser extends ullFlowActionHandler
   {
     $ullEntityId = $this->getForm()->getValue('ull_flow_action_assign_to_user_ull_entity');
     $ullEntity = Doctrine::getTable('UllEntity')->find($ullEntityId);
+    
+    //$formValues = $this->getForm()->getValues();
+    //unset($formValues['ull_flow_action_assign_to_user_ull_entity']);
+    //var_dump($this->getForm()->getValues());
+    
     return array('entity' => $ullEntity);    
   }
-  
+
+  public static function getFormFieldNames()
+  {
+    return array('ull_flow_action_assign_to_user_ull_entity');
+  }
 }
