@@ -36,7 +36,7 @@ $t->is($originalSql, $query->getSql(), 'empty ullFlowSearch does not modify quer
 
 //double range criterion with NOT
 $criterion = new ullSearchRangeCriterion();
-$criterion->columnName = 'isVirtual.column_priority';
+$criterion->columnName = 'isVirtual.my_priority';
 $criterion->fromValue = 2;
 //we don't set TO here on purpose
 
@@ -44,7 +44,7 @@ $criterionGroup = new ullSearchCritierionGroup();
 $criterionGroup->subCriteria[] = $criterion;
 
 $criterion = new ullSearchRangeCriterion();
-$criterion->columnName = 'isVirtual.column_priority';
+$criterion->columnName = 'isVirtual.my_priority';
 //we don't set FROM here on purpose
 $criterion->toValue = 3;
 
@@ -54,7 +54,7 @@ $criterionGroups = array($criterionGroup);
 $search->addCriterionGroups($criterionGroups);
 $search->modifyQuery($query, 'x');
 
-$expectedColumnConfigId = $flowApp->findColumnConfigBySlug('column_priority')->id;
+$expectedColumnConfigId = $flowApp->findColumnConfigBySlug('my_priority')->id;
 $paramArray = $query->getParams();
 
 $t->like($query->getSql(), '/LEFT JOIN ull_flow_value u2 ON u.id = u2.ull_flow_doc_id AND u2.ull_flow_column_config_id = \? ' .
