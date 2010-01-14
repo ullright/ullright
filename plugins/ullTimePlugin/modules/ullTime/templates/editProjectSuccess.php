@@ -9,15 +9,6 @@
   <?php echo $edit_generator->getForm()->offsetGet('ull_user_id')->render() ?>
 </h3>
 
-<?php if ($edit_generator->getForm()->hasErrors()): ?>
-  <div class='form_error'>
-  <?php echo __('Please correct the following errors', null, 'common') ?>:
-  <?php echo $edit_generator->getForm()->renderGlobalErrors() ?>
-  </div>  
-<?php endif; ?>
-
-
-
 <?php if ($list_generator->getRow()->exists()): ?>
   <table class='list_table' id='ull_time_edit_list'>
   
@@ -63,6 +54,7 @@
     <?php endif ?>
   </h3>
   
+  <?php include_partial('ullTableTool/globalError', array('form' => $edit_generator->getForm())) ?>
   
   <?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
   
@@ -112,8 +104,8 @@
         <li>
           <?php  
             echo ull_link_to(
-              __('Cancel', null, 'common') 
-              , '/ullTime/list'
+              __('Cancel and return to list', null, 'common') 
+              , $cancel_link
               , 'ull_js_observer_confirm=true'
             );
           ?>

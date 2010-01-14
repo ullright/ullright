@@ -1,5 +1,7 @@
 <?php echo $sf_data->getRaw('breadcrumbTree')->getHtml();?>
 
+<?php include_partial('ullTableTool/globalError', array('form' => $act_as_user_form)) ?>
+
 <div id="tc_wrapper">
   <div id="tc_header">
     <!-- add header here -->
@@ -8,14 +10,24 @@
     <div id="tc_tasks">
       <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/create', __('Timereporting for today', null, 'ullTimeMessages')) ?></li>
-        <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/createProject', __('Project timereporting for today', null, 'ullTimeMessages')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', array('action' => 'create'), __('Timereporting for today', null, 'ullTimeMessages')) ?></li>
+        <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', array('action' => 'createProject'), __('Project timereporting for today', null, 'ullTimeMessages')) ?></li>
       </ul>
+      
+      <?php if (UllUserTable::hasPermission('ull_time_act_as_user')): ?>
+        <h3><?php echo __('Act as user', null, 'ullTimeMessages') ?></h3>
+        <?php ?>
+        <?php echo form_tag('ullTime/index'); ?>
+        <ul class="tc_tasks">
+          <li><?php echo $act_as_user_form['ull_user_id']->render() ?><?php echo $act_as_user_form['ull_user_id']->renderError() ?></li>
+        </ul>
+        </form>
+      <?php endif ?>      
       
       <h3><?php echo __('Period overviews', null, 'ullTimeMessages') ?></h3>
       <ul class="tc_tasks">
         <?php foreach ($periods as $period): ?>
-          <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 'ullTime/list?period_slug=' . $period->slug, $period->name) ?></li>
+          <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', array('action' => 'list', 'period' => $period->slug), $period->name) ?></li>
         <?php endforeach ?>
       </ul>      
     </div>

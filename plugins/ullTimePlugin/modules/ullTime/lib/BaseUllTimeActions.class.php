@@ -32,9 +32,34 @@ class BaseUllTimeActions extends ullsfActions
    * Execute index action
    * 
    */
-  public function executeIndex() 
+  public function executeIndex($request) 
   {
     $this->checkPermission('ull_time_index');
+    
+    // clean potentially saved list view uri 
+    $this->getUriMemory()->delete('list');
+    
+    $this->act_as_user_form = new ullTimeActAsUserForm();
+    
+    if ($request->isMethod('post'))
+    {
+      $this->act_as_user_form->bind($request->getParameter('fields'));
+      
+      if ($this->act_as_user_form->isValid())
+      {
+        $username = UllUserTable::findUsernameById($this->act_as_user_form->getValue('ull_user_id'));
+        // TODO: why is the new url displayed with "?" and "=" instead of the
+        // usual symfony style with "/" ? 
+        $this->redirect('ullTime/index' . (($username) ? '?username=' . $username : ''));
+      }
+    }
+    else
+    {
+      if ($username = $request->getParameter('username'))
+      {
+        $this->act_as_user_form->setDefault('ull_user_id', UllUserTable::findIdByUsername($username));
+      }
+    }       
 
     $this->breadcrumbForIndex();
     
@@ -54,6 +79,8 @@ class BaseUllTimeActions extends ullsfActions
     
     $this->getPeriodFromRequest();
     $this->getUserFromRequest();
+    
+    $this->getUriMemory()->setUri();
     
     $this->dates = $this->period->getDateList();
     
@@ -156,11 +183,10 @@ class BaseUllTimeActions extends ullsfActions
     
     $this->breadcrumbForEditProject();
     
+    $this->cancel_link = $this->getUriMemory()->get('list');
+    
     if ($request->isMethod('post'))
     {
-//      var_dump($_REQUEST);
-//      var_dump($this->getRequest()->getParameterHolder()->getAll());
-//      die;
       if ($this->edit_generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
         if ($request->getParameter('action_slug') == 'save_new') 
@@ -178,6 +204,7 @@ class BaseUllTimeActions extends ullsfActions
 //        var_dump($this->generator->getForm()->getErrorSchema());
       }
     }
+      
 //    echo $this->generator->getForm()->debug();
   }
 
@@ -300,7 +327,7 @@ class BaseUllTimeActions extends ullsfActions
    */
   protected function getPeriodFromRequest()
   {
-    $slug = $this->getRequestParameter('period_slug');
+    $slug = $this->getRequestParameter('period');
     if (!$slug)
     {
       $slug = UllTimePeriodTable::findSlugByDate(date('Y-m-d'));

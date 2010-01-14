@@ -90,6 +90,11 @@
 <target>Zurücksetzten</target>
 </trans-unit>
 
+<trans-unit id="18">
+<source>Cancel and return to list</source>
+<target>Abbrechen und zurück zur Liste</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 
