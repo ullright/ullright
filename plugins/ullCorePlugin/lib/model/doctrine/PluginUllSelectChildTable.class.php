@@ -4,5 +4,26 @@
  */
 class PluginUllSelectChildTable extends UllRecordTable
 {
+  
+  /**
+   * find by slug
+   *
+   * @param string $slug
+   * @return mixed
+   */
+  public static function findBySlug($slug)
+  {
+    if (!is_string($slug))
+    {
+      throw new InvalidArgumentException('slug must be a string: ' . $slug);
+    }
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllSelectChild')
+      ->where('slug = ?', $slug)
+    ;
+    
+    return $q->execute()->getFirst();
+  }
 
 }
