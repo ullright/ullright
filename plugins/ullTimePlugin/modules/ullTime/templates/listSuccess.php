@@ -26,11 +26,11 @@
       <td><?php echo ull_link_to(
           __('Time reporting', null, 'ullTimeMessages'), 
           array('action' => 'create', 'date' => $day['date'], 'period' => null)) ?></td>
-      <td><?php echo $day['sum_time'] ?></td> 
+      <td class='ull_time_list_time_column'><?php echo $day['sum_time'] ?></td> 
       <td><?php echo ull_link_to(
           __('Project reporting', null, 'ullTimeMessages'), 
           array('action' => 'createProject', 'date' => $day['date'], 'period' => null)) ?></td>
-      <td><?php echo $day['sum_project'] ?></td>
+      <td class='ull_time_list_time_column'><?php echo $day['sum_project'] ?></td>
     </tr>    
   <?php endforeach ?>
   
