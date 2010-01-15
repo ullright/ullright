@@ -111,10 +111,20 @@ class ullWidgetForeignKey extends ullWidget
           'title' => __('Show business card', null, 'ullCoreMessages'),
           'onclick' => 'this.href="#";popup(
             "' . url_for($popupUri) . '",
-            "Popup ' . $primaryKey . '",
+            "Popup' . $primaryKey . '",
             "width=720,height=' . $verticalSize . ',scrollbars=yes,resizable=yes"
           );'
         ));
+        
+        
+       /* $return = link_to($return, $popupUri, array(
+          'title' => __('Show business card', null, 'ullCoreMessages'),
+          'onclick' => 'this.href="#";window.open(
+            "' . url_for($popupUri) . '",
+            "Popup' . $primaryKey . '",
+            "width=720,height=' . $verticalSize . '"
+          );'
+        ));*/
       }
 
       if ($this->getOption('link_icon_to_popup'))
