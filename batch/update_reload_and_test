@@ -2,8 +2,5 @@
 #
 echo 'Update, reload and testing'
 
-svn update
-php symfony cache:clear
-php symfony doctrine:build --all --and-load --no-confirmation;
-php symfony cache:clear
+batch/reload_and_test
 php symfony test:all
