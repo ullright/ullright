@@ -64,7 +64,8 @@ class ullFlowForm extends ullGeneratorForm
     
     parent::updateObject();
     
-    $this->setVirtualValues();
+    // Isn't nevessary anymore
+//    $this->setVirtualValues();
     $this->setAction();
     $this->setNext();
     $this->setMemory();
@@ -112,15 +113,15 @@ class ullFlowForm extends ullGeneratorForm
   {
     $values = $this->getValues();
     
-    $virtualColumns = $this->object->getVirtualColumnsAsArray();
+//    $virtualColumns = $this->object->getVirtualColumnsAsArray();
     
-    foreach ($virtualColumns as $column)
-    {
-      if (isset($values[$column])) 
-      {
-        $this->object->$column = $values[$column];
-      }
-    }
+//    foreach ($virtualColumns as $column)
+//    {
+//      if (isset($values[$column])) 
+//      {
+//        $this->object->$column = $values[$column];
+//      }
+//    }
   }
   
   /**

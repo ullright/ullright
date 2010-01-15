@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(56, new lime_output_color, $configuration);
+$t = new myTestCase(58, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -25,6 +25,17 @@ $t->diag('create');
   $doc->my_priority = 5;
   $doc->my_tags = 'footag';
   $doc->memory_comment = 'My fancy memory comment';
+  
+  try
+  {
+    $doc->invalid_column = 666;
+    $t->fail('Doesn\'t throw an exception for setting an invalid virtual column');
+  }
+  catch (Doctrine_Record_UnknownPropertyException $e)
+  {
+    $t->pass('Throw an exception for setting an invalid virtual column');
+  }  
+  
   $doc->save();
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(5);
@@ -39,6 +50,15 @@ $t->diag('create');
   $t->is($doc->my_date, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
   $t->is($doc->my_priority, 5, 'sets the correct virtual columns value');
   $t->is($doc->my_tags, 'footag', 'sets the correct virtual columns value');
+  try
+  {
+    $foo = $doc->invalid_column;
+    $t->fail('Doesn\'t throw an exception for getting an invalid virtual column');
+  }
+  catch (Doctrine_Record_UnknownPropertyException $e)
+  {
+    $t->pass('Throw an exception for getting an invalid virtual column');
+  }    
   $t->is($doc->memory_comment, 'My fancy memory comment', 'the current memory comment is accessable via $doc->memory_comment');  
   $t->is($doc->UllFlowMemories[0]->ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct memory step');
   $t->is($doc->UllFlowMemories[0]->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('create')->id, 'sets the first memories action correctly (create)');

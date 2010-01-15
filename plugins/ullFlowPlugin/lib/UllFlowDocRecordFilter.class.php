@@ -10,9 +10,6 @@
  */
 class UllFlowDocRecordFilter extends Doctrine_Record_Filter
 {
-  public function init()
-  {
-  }
 
   /**
    * Logic for setting a virtual ullFlow column
@@ -23,56 +20,34 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
    */
   public function filterSet(Doctrine_Record $record, $name, $value)
   {
-//    var_dump($record->toArray());
-//    var_dump($name);
-//    var_dump($value);
-    
-//    $q = new Doctrine_Query;
-//    $q
-//      ->from('UllFlowValue v, v.UllFlowColumnConfig c')
-//      ->where('v.ull_flow_doc_id = ?', $record->id)
-//      ->addWhere('c.slug = ?', $name)
-//    ;
-
-    $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($record->ull_flow_app_id, $name);
+    $cc = $this->validateAndGetColumnConfig($record, $name);
     
     $ullFlowValue = null;
     
-    
-
-    
-    if ($record->exists())
+    // try to get the ullFlowValue from the ullFlowDoc object graph
+    foreach ($record->UllFlowValues as $currentValue)
     {
-      $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($record->id, $name);
-    }
-
-    if ($ullFlowValue)
-    {
-                 
-      $ullFlowValue->value = $value;
-      $ullFlowValue->save();
-      // refresh values in parent record 
-      $record->refreshRelated('UllFlowValues');
-    }
-    else
-    {
-      // create new UllFlowValue objects
-      $flowValue = new ullFlowValue();
-      $flowValue->value = $value;
-      $flowValue->ull_flow_column_config_id = $cc->id;
-      
-      // WTF - why is this even necessary?
-      if ($record->exists())
+      if ($currentValue->UllFlowColumnConfig->slug == $name)
       {
-        $flowValue->ull_flow_doc_id = $record->id;
-        $flowValue->save();
-        $record->refreshRelated('UllFlowValues');
-      }
-      else
-      {
-         $record->UllFlowValues[] = $flowValue;
+        $ullFlowValue = $currentValue;
       }
     }
+    
+    // otherwise create a new ullFlowValue object
+    if ($ullFlowValue === null)
+    {
+      $ullFlowValue = new ullFlowValue();
+      $ullFlowValue->UllFlowColumnConfig = $cc;
+    }
+
+    $ullFlowValue->value = $value;
+    
+    // in case of a new ullFlow object add it to the ullFlowDoc object graph
+    if (!$ullFlowValue->exists())
+    {
+      $record->UllFlowValues[] = $ullFlowValue;
+    }
+    
     
     // also set the native "duplicate" columns of UllFlowDoc
     if ($cc->is_subject)
@@ -90,9 +65,10 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
       $record->setTags($value);
     }        
 
-    return true;
+    return $record;
   }
 
+  
   /**
    * Logic for getting a virtual ullFlow column
    *
@@ -102,7 +78,41 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
    */
   public function filterGet(Doctrine_Record $record, $name)
   {
-    return $record->getValueByColumn($name);
+    $cc = $this->validateAndGetColumnConfig($record, $name);
+    
+    // try to get the ullFlowValue from the ullFlowDoc object graph
+    foreach ($record->UllFlowValues as $currentValue)
+    {
+      if ($currentValue->UllFlowColumnConfig->slug == $name)
+      {
+        return $currentValue->value;
+      }
+    }
+  }
+  
+  
+  /**
+   * Check if the given virtual column exists and return the columnConfig
+   * 
+   * @param Doctrine_Record $record
+   * @param string $name
+   * @return ullColumnConfiguration
+   * @throws Doctrine_Record_UnknownPropertyException
+   */
+  protected function validateAndGetColumnConfig(Doctrine_Record $record, $name)
+  {
+    try
+    {
+      $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($record->ull_flow_app_id, $name);
+    }
+    catch (InvalidArgumentException $e)
+    {
+      throw new Doctrine_Record_UnknownPropertyException('Invalid virtual ullFlow column: ' . $name);
+      
+      return null;
+    }
+    
+    return $cc;
   }
   
 }

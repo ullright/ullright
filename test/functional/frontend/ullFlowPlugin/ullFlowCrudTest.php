@@ -98,6 +98,7 @@ $b
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', 5)
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 4) // number of memory entries
+  ->checkResponseElement($dgsEditTT->get('subject', 'value') . ' > input[value="This is my shiny little subject"]', true)
   ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 
   ->click('Save and return to list')

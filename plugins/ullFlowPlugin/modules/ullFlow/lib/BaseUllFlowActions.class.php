@@ -166,6 +166,7 @@ class BaseUllFlowActions extends ullsfActions
 
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
+        
         // notify post_save event
         $this->dispatcher->notify(new sfEvent($this, 'ull_flow.post_save', array(
           'doc'        => $this->doc
@@ -176,7 +177,7 @@ class BaseUllFlowActions extends ullsfActions
           $this->sendMails();
         }
 
-        // manage full page widgets
+        // manage full page widgets like attachements and wiki links
         if ($fullPageWidgetName = $request->getParameter('full_page_widget'))
         {
           $fullPageWidgetClass = 'ullFlowFullPageWidget' . sfInflector::classify($fullPageWidgetName);
