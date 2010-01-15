@@ -9,7 +9,6 @@ UllFlowApp:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true    
   columns:
     label:
       type: string(64)
@@ -101,7 +100,6 @@ UllFlowColumnConfig:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true         
   columns:
     ull_flow_app_id:
       type: integer
@@ -215,7 +213,6 @@ UllFlowAction:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true         
   columns:
     label:
       type: string(32)
@@ -253,7 +250,6 @@ UllFlowStep:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true            
   columns: 
     ull_flow_app_id:
       type: integer

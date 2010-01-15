@@ -252,7 +252,6 @@ UllEmploymentType:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true               
   columns:
     name:
       type: string(100)
@@ -322,7 +321,6 @@ UllUserStatus:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true               
   columns:
     name:
       type: string(50)
