@@ -110,16 +110,19 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	
 	private function colorizeTag($string)
 	{
-		return lime_colorizer::colorize($string, array('fg' => 'cyan'));
+	  return $string;
+//		return lime_colorizer::colorize($string, array('fg' => 'cyan'));
 	}
 	
 	private function colorizeAttribute($string)
 	{
-		$parts = explode('=', $string);
+//		$parts = explode('=', $string);
 		
-		return lime_colorizer::colorize($parts[0], array('fg' => 'magenta'))
-				. lime_colorizer::colorize('=', array('fg' => 'cyan'))
-				. lime_colorizer::colorize($parts[1], array('fg' => 'blue'));
+		return $string;
+		
+//		return lime_colorizer::colorize($parts[0], array('fg' => 'magenta'))
+//				. lime_colorizer::colorize('=', array('fg' => 'cyan'))
+//				. lime_colorizer::colorize($parts[1], array('fg' => 'blue'));
 	}
 	
 	public function colorize(array $strings)
