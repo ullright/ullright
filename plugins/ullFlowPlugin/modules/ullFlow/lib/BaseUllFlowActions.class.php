@@ -40,9 +40,10 @@ class BaseUllFlowActions extends ullsfActions
 
     $this->breadcrumbForIndex();
     
-    if ($this->app_slug = $this->getRequestParameter('app'))
+    $this->getAppfromRequest();
+    
+    if ($this->app)
     {
-      $this->app = UllFlowAppTable::findBySlug($this->app_slug);
       $this->breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
     }
     else
@@ -501,6 +502,14 @@ class BaseUllFlowActions extends ullsfActions
     if ($this->hasRequestParameter('app'))
     {
       $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+      if (!$this->app)
+      {
+        $this->forward404();
+      }
+    }
+    else
+    {
+      $this->app = null;
     }
   }
 

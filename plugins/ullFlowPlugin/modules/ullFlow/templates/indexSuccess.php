@@ -8,7 +8,7 @@
   <div id="tc_container">
     <div id="tc_tasks">
       <?php
-        if ($app_slug)
+        if ($app)
         {
           echo '<h3>' . __('Actions', null, 'common') . '</h3>';	
         }
@@ -19,7 +19,7 @@
       ?>
 
       <ul class="tc_tasks">
-			<?php if ($app_slug): ?>
+			<?php if ($app): ?>
 			
 			<li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/action_icons/create_24x24',
             array('action' => 'create'), __('Create %1%', array('%1%' => $app->doc_label)))
@@ -48,7 +48,7 @@
        
       <div class="tc_box_with_bottom_spacer color_light_bg">
            <?php
-              if ($app_slug)
+              if ($app->slug)
               {
                 echo ull_link_to(__('Advanced search', null, 'common'), 'ullFlow/search?app=' . $app->slug);
               }
@@ -63,7 +63,7 @@
       <div class="tc_search_tag_bottom color_light_bg">
         <?php
           sfLoader::loadHelpers(array('Tags'));
-          echo tag_cloud($tags_pop, 'ullFlow/list?filter[search]=%s' . ($app_slug ? '&app=' . $app_slug : ''));
+          echo tag_cloud($tags_pop, 'ullFlow/list?filter[search]=%s' . ($app->slug ? '&app=' . $app->slug : ''));
         ?>
       </div>
     </div>
