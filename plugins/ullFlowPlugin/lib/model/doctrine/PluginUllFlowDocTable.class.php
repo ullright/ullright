@@ -73,10 +73,6 @@ class PluginUllFlowDocTable extends UllRecordTable
       array($userId, $userId, $userId, $userId, $userId, '%_global_read', true)
     );
 
-//    printQuery($q->getQuery());
-//    var_dump($q->getParams());
-//    die('access');          
-    
     return $q;
 	}
 	

@@ -55,7 +55,6 @@ class ullGeneratorForm extends sfFormDoctrine
     //   with emtpy array *#!?$
     $this->setDefaults($defaults);
     $this->updateDefaultsFromObject();
-//    var_dump($this->getDefaults());die;
   }
 
   

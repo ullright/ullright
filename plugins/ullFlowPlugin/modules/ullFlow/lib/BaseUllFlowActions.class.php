@@ -502,6 +502,7 @@ class BaseUllFlowActions extends ullsfActions
     if ($this->hasRequestParameter('app'))
     {
       $this->app = UllFlowAppTable::findBySlug($this->getRequestParameter('app'));
+      
       if (!$this->app)
       {
         $this->forward404();
@@ -819,7 +820,7 @@ class BaseUllFlowActions extends ullsfActions
       $this->named_queries_custom = null;
     }
     
-    if ($this->app_slug)
+    if ($this->app)
     {
       $this->named_queries->setBaseUriForExisting($this->named_queries->getBaseUri() . '?app=' . $this->app->slug);
       if ($this->named_queries_custom)

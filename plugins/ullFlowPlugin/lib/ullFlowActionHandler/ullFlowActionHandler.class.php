@@ -85,8 +85,6 @@ abstract class ullFlowActionHandler
   {
     $memory = $this->form->getObject()->findPreviousNonStatusOnlyMemory();
     
-//    var_dump($memory->toArray());
-    
     return array(
       'entity' => $memory->AssignedToUllEntity, 
       'step' => $memory->UllFlowStep
@@ -101,18 +99,6 @@ abstract class ullFlowActionHandler
    */
   public function sendMail()
   {
-  }
-  
-  /**
-   * Intended to be overwritten by child classes in case of
-   * added form fields, since we need to remove them before
-   * further processing in ullFlowForm's updateObject().
-   * 
-   * @return none
-   */
-  public static function getFormFieldNames()
-  {
-    return array();
   }
 }
 

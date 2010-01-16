@@ -17,7 +17,6 @@ $troubleTicket = Doctrine::getTable('UllFlowApp')->findOneBySlug('trouble_ticket
 $troubleTicket->is_public = true;
 $troubleTicket->save();
 
-//die();
 
 $b
   ->diag('ullFlow Home')

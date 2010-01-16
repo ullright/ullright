@@ -15,6 +15,7 @@ test:
   .settings:
     #error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    logging_enabled:        false
     cache:                  false
     web_debug:              false
     # enabled to remove leading "symfony" script name from unit tests

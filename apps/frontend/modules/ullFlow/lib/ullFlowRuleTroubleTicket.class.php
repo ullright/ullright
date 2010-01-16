@@ -36,20 +36,33 @@ class ullFlowRuleTroubleTicket extends ullFlowRule
       $next['entity']  = $this->findGroup('Helpdesk');
     }
     
+//    $this->debug($next);die;
+    
     return $next;
   }
   
   
-//  protected function setParamsForCaller() 
-//  {
-//    
-//    $this->params['next_step'] = $this->getStepIdBySlug('question_for_caller ');
-//    
-//    if (!$value = $this->getFieldValue(3)) { // get caller field
-//      $value = $this->doc->getCreatorUserId(); // default to creator if no caller is set
-//    }
-//    $this->params['next_user'] = $value; 
-//    
-//  }
+  /**
+   * Debugging method for $next
+   * 
+   * @param unknown_type $next
+   * @return unknown_type
+   */
+  protected function debug($next)
+  {
+    foreach ($next as $key => $value)
+    {
+      var_dump('___' . $key);
+      if ($value instanceof Doctrine_Record)
+      {
+        var_dump(get_class($value));
+        var_dump($value->toArray());
+      }
+      else
+      {
+        var_dump($value); 
+      }
+    }
+  }
   
 }

@@ -26,9 +26,9 @@
            ?></li>
 
 			 <?php else:
-			   foreach ($apps as $app): ?>
-          <li><?php echo ull_tc_task_link($app->getIconPath(24, 24),
-            'ullFlow/index?app=' . $app->slug, $app->label) ?></li>
+			   foreach ($apps as $current_app): ?>
+          <li><?php echo ull_tc_task_link($current_app->getIconPath(24, 24),
+            'ullFlow/index?app=' . $current_app->slug, $current_app->label) ?></li>
         <?php endforeach; ?>
      <?php endif ?>
      </ul>
@@ -48,7 +48,7 @@
        
       <div class="tc_box_with_bottom_spacer color_light_bg">
            <?php
-              if ($app->slug)
+              if ($app)
               {
                 echo ull_link_to(__('Advanced search', null, 'common'), 'ullFlow/search?app=' . $app->slug);
               }
@@ -63,7 +63,7 @@
       <div class="tc_search_tag_bottom color_light_bg">
         <?php
           sfLoader::loadHelpers(array('Tags'));
-          echo tag_cloud($tags_pop, 'ullFlow/list?filter[search]=%s' . ($app->slug ? '&app=' . $app->slug : ''));
+          echo tag_cloud($tags_pop, 'ullFlow/list?filter[search]=%s' . (($app) ? '&app=' . $app->slug : ''));
         ?>
       </div>
     </div>
