@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(18, new lime_output_color);
+$t = new lime_test(19, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -60,3 +60,30 @@ $t->diag('appendParamsToUri()');
   $t->is(ullCoreTools::appendParamsToUri('ullUser/edit', 'id=2'), 'ullUser/edit?id=2', 'Creates the correct uri');
   $t->is(ullCoreTools::appendParamsToUri('ullTableTool/edit?table=UllLocation', 'id=2'), 'ullTableTool/edit?table=UllLocation&id=2', 'Creates the correct uri');
   
+  
+$t->diag('debugArrayWithDoctrineRecords()');
+
+  $user = new UllUser();
+  $user->display_name = 'Penny Parker';
+
+  $array = array(
+    'foo' => 'bar',
+    'baz' => array (
+      'number' => 123,
+      'normal_object' => new stdClass(),
+      'doctrine_record' => $user,
+    ),
+    'doctrine_record' => new UllGroup(),
+  );
+  
+  $reference = array(
+    'foo' => 'bar',
+    'baz' => array (
+      'number' => 123,
+      'normal_object' => 'Object "stdClass"',
+      'doctrine_record' => 'Object "UllUser" with __toString() value: "Penny Parker"',
+    ),
+    'doctrine_record' => 'Object "UllGroup"',
+  );
+  
+  $t->is(ullCoreTools::debugArrayWithDoctrineRecords($array), $reference, 'Returns the correct array');

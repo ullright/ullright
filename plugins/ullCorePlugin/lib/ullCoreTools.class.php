@@ -249,6 +249,55 @@ class ullCoreTools
     $separator = (strpos($uri, '?')) ? '&' : '?';
 
     return $uri . $separator . $params;
-  } 
+  }
+
+  
+  /**
+   * Function to debug arrays which contain Doctrine_Record objects
+   *  
+   * @param $array
+   * @param boolean $verbose
+   * @return array
+   */
+  public static function debugArrayWithDoctrineRecords($array, $verbose = false)
+  {
+    $return = array();
+    
+    foreach ($array as $key => $value)
+    {
+      if (is_object($value))
+      {
+        if ($verbose == true)
+        {
+          if ($value instanceof Doctrine_Record)
+          {
+            $value = $value->toArray();
+          }
+        }
+        else
+        {
+          $toString = null;
+          
+          if ($value instanceof Doctrine_Record && method_exists($value, '__toString'))
+          {
+            $toString = $value->__toString();
+          }
+          
+          $value = 'Object "' . get_class($value) . '"'  . (($toString) ? ' with __toString() value: "' . $toString . '"' : '');
+        }
+      }
+      
+      if (is_array($value))
+      {
+        $value = self::debugArrayWithDoctrineRecords($value);
+      }
+      
+      $return[$key] = $value;
+    }
+    
+    return $return;
+  }
+  
+  
 
 }
