@@ -385,7 +385,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
   
   public function modifyQueryForFilter()
   {
-    $this->q->addWhere('deleted = ?', false);
+    $this->q->addWhere('deleted_at IS NULL');
     
     self::queryReadAccess($this->q->getDoctrineQuery());    
   }
