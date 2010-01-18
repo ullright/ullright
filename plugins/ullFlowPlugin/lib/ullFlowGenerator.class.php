@@ -84,9 +84,6 @@ class ullFlowGenerator extends ullGenerator
     {
       foreach ($this->getRow()->UllFlowStep->UllFlowStepActions as $stepAction) 
       {
-        //workaround so we can access the column 'options' 
-        $stepAction->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, false); 
-        
         $ullFlowActionSlug = $stepAction->UllFlowAction->slug;
         $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowActionSlug);
         $this->ullFlowActionHandlers[$ullFlowActionSlug] = new $ullFlowActionHandlerName($this->getForm(), $stepAction->options);     

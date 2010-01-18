@@ -42,9 +42,6 @@ class ullFlowSearchGenerator extends ullSearchGenerator
     {
       $virtualColumnConfig = $this->ullFlowApp->findColumnConfigBySlug($columnConfig->getCustomAttribute('searchFormEntry')->columnName);
       
-      //workaround so we can access the column 'options'
-      $virtualColumnConfig->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, false); 
-      
       //taken from ullFlowGenerator
       $columnConfig->setLabel($virtualColumnConfig->label);
       $columnConfig->setMetaWidgetClassName($virtualColumnConfig->UllColumnType->class);

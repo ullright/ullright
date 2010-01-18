@@ -5,5 +5,13 @@
  */
 abstract class PluginUllFlowStepAction extends BaseUllFlowStepAction
 {
+  
+//  public function setUp()
+//  {
+//    parent::setUp();
+//    
+//    // 
+//    $this->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, false);
+//  }
 
 }

@@ -136,7 +136,10 @@ UllFlowColumnConfig:
     UllColumnType:
       foreignAlias: UllFlowColumnConfigs
       onDelete: CASCADE
-  # TODO: test unique: slug combined with UllFlowApp    
+  # TODO: test unique: slug combined with UllFlowApp
+  attributes:
+    # because "options" column collides with doctrine internal options
+    auto_accessor_override: false      
       
 UllFlowValue:
   package: ullFlowPlugin.lib.model.doctrine
@@ -284,4 +287,7 @@ UllFlowStepAction:
       onDelete: CASCADE
     UllFlowAction:
       foreignAlias: UllFlowStepActions
+  attributes:
+    # because "options" column collides with doctrine internal options
+    auto_accessor_override: false
       
