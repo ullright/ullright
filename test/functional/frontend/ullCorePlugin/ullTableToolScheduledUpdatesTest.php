@@ -1,6 +1,5 @@
 <?php
-
-$app = 'frontend';
+$app='frontend';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $b = new ullTestBrowser(null, null, array('configuration' => $configuration));
@@ -119,8 +118,7 @@ $b
   ->diag('calling the ApplyScheduledUpdates task with now-option')
 ;
 
-$applyUpdatesTask = new ApplyScheduledUpdatesTask($this->dispatcher, $this->formatter);
-$applyUpdatesTask->setConfiguration($this->configuration);
+$applyUpdatesTask = new ApplyScheduledUpdatesTask(new sfEventDispatcher(), new sfFormatter());
 $applyUpdatesTask->applyUpdates(array('now' => 'now',
                         'application' => $app,
                         'env' => 'test'));

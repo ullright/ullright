@@ -1,5 +1,5 @@
 <?php
-class ullVentoryItemSoftwareForm extends ullGeneratorForm
+class ullVentoryItemSoftwareGeneratorForm extends ullGeneratorForm
 {
 
   /**
