@@ -1,21 +1,12 @@
-<?php
+<?php 
+
 /**
- * TableConfiguration for UllLocation
+ * Empty class to be overridden by customer's class in app/...
  * 
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class UllLocationTableConfiguration extends ullTableConfiguration
+class UllLocationTableConfiguration extends BaseUllLocationTableConfiguration
 {
-  /**
-   * (non-PHPdoc)
-   * @see plugins/ullCorePlugin/lib/ullTableConfiguration#applyCustomSettings()
-   */
-  protected function applyCustomSettings()
-  {
-    $this->setName(__('Locations', null, 'ullCoreMessages'));
-    $this->setSearchColumns(array('name', 'short_name'));
-    $this->setOrderBy('name');
-  }
-  
+
 }

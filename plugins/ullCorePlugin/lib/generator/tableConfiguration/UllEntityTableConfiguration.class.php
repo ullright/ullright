@@ -1,26 +1,12 @@
-<?php
+<?php 
+
 /**
- * TableConfiguration for UllUser
+ * Empty class to be overridden by customer's class in app/...
  * 
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class UllEntityTableConfiguration extends ullTableConfiguration
+class UllEntityTableConfiguration extends BaseUllEntityTableConfiguration
 {
-  /**
-   * (non-PHPdoc)
-   * @see plugins/ullCorePlugin/lib/ullTableConfiguration#applyCustomSettings()
-   */
-  protected function applyCustomSettings()
-  {
-    $this
-      ->setName(__('Users', null, 'ullCoreMessages'))
-      ->setSearchColumns(array('display_name', 'username', 'email', 'UllLocation->name', 'UllDepartment->name'))
-      ->setOrderBy('last_name, first_name')
-      ->setListColumns(array('id', 'first_name', 'last_name', 'username', 'email', 'UllLocation->name', 'UllDepartment->name'))
-      // We don't need to set the foreign relation names here, because ullHumanizer does the job
-//      ->setForeignRelationName(__('User', null, 'ullCoreMessages'))
-    ;
-  }
-  
+
 }
