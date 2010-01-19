@@ -128,7 +128,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(148, new lime_output_color, $configuration);
+$t = new myTestCase(147, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -137,16 +137,6 @@ $tests = Doctrine::getTable('TestTable')->findAll();
 $t->initialize();
 
 $t->begin('__construct()');
-
-  try
-  {
-    new ullTableToolGenerator();
-    $t->fail('__construct() doesn\'t throw an exception if no model is given');
-  }
-  catch (Exception $e)
-  {
-    $t->pass('__construct() throws an exception if no model is given');
-  }
 
   try
   {

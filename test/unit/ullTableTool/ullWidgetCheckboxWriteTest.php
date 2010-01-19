@@ -22,4 +22,4 @@ $t->diag('->render()');
   //test a custom fix for a bug in sfWidgetFormInputCheckbox
   //@see http://trac.symfony-project.org/ticket/5244
   $reference = '<input name="foo" id="foo_hidden" type="hidden" /><input name="foo" id="foo" type="checkbox" />';  
-  $t->is($w->render('foo', ''), $reference, 'checkbox is unchecked for value \'\''');
+  $t->is($w->render('foo', ''), $reference, 'checkbox is unchecked for value \'\'');

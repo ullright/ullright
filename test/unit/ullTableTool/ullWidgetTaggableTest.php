@@ -17,4 +17,4 @@ $w = new ullWidgetTaggable;
 $t->begin('->render()');
 
   $t->ok(strstr($w->render('foo', 'tag1, tag2'), '<input type="text" name="foo" value="tag1, tag2" id="foo" />'), 'renders the correct input type=test tag');
-  var_dump($w->render('foo', 'tag1, tag2'));
+  
