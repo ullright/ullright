@@ -229,13 +229,14 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   protected function getSearchColumnsForFilter()
   {
-    return array(
+     return sfConfig::get('app_ull_user_phone_book_search_columns', array(
       'first_name',
       'last_name',
       'UllLocation->name',
       'UllLocation->short_name',
       'UllLocation->phone_base_no',
       'UllDepartment->name',
-    );
+      'UllJobTitle->name',
+    ));
   }
 }
