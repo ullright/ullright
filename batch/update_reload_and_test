@@ -2,5 +2,5 @@
 #
 echo 'Update, reload and testing'
 
+svn update
 batch/reload_and_test
-php symfony test:all
