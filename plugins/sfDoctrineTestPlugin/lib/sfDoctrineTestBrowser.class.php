@@ -95,7 +95,8 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 		
 		// Deactivated for compatibility with sf 1.3 lime
 		//echo lime_colorizer::colorize(sprintf("> %s %s\n", $method, $uri), array('fg' => 'cyan'));
-		echo sprintf("> %s %s\n", $method, $uri);
+		
+		self::$test->info(sprintf("> %s %s", $method, $uri));
 		
 		return $result;
 	}
