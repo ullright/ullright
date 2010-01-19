@@ -17,6 +17,7 @@ dev:
 all:
   theme_package:    NG
   sidebar_logo:     /ullCoreThemeNGPlugin/images/logo_120
+  override_css:     custom_override.css
   
   supported_languages: en,de
   
