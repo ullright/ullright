@@ -33,7 +33,9 @@
             $partialPath = sfConfig::get('sf_app_dir') . '/modules/myModule/templates/_custom_sidebar.php';
             if (file_exists($partialPath))
             {
+              echo '<div id="sidebar_custom">';
               include_partial('myModule/custom_sidebar');
+              echo '</div>';
             }
           }
      ?>

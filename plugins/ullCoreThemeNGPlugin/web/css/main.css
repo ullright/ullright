@@ -84,6 +84,27 @@ body {
   top: 45%;
 }
 
+.sidebar_section {
+  margin-bottom: 1em; 
+}
+
+#sidebar_content h3 {
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+}  
+
+ul.sidebar_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.sidebar_list li {
+  margin: 0;
+  padding: 0;
+}
+
 /*
  * ************************************************
  *  navigation
