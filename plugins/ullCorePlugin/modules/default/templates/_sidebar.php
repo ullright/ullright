@@ -1,7 +1,7 @@
 <div class="sidebar_section" id="sidebar_ull_phone">
 
   <?php if (isset($locations)): ?>
-    <h3><?php echo __('Phone book', null, 'ullPhoneMessages') ?>:</h3> 
+    <h3><?php echo __('Phone book', null, 'ullPhoneMessages') ?></h3> 
     <ul class="sidebar_list">
       <li><?php echo ull_link_to(__('Everyone', null, 'ullPhoneMessages'), 'ullPhone/list', 'ull_js_observer_confirm=true') ?></li>
       <li><?php echo ull_link_to(__('Sort by location', null, 'ullPhoneMessages'), 'ullPhone/list?locationView=true', 'ull_js_observer_confirm=true') ?></li>
@@ -32,7 +32,7 @@
 <div id="sidebar_default">
 
   <div class="sidebar_section" id="sidebar_create">
-    <h3><?php echo __('Create', null, 'common') ?>:</h3>
+    <h3><?php echo __('Create', null, 'common') ?></h3>
     <ul class="sidebar_list">
     <?php foreach ($flowApps as $app): ?>
       <li><?php echo ull_link_to($app->doc_label, 'ullFlow/create?app=' . $app->slug, 'ull_js_observer_confirm=true') ?></li>
@@ -41,7 +41,7 @@
   </div>
 
   <div class="sidebar_section" id="sidebar_create">
-    <h3><?php echo __('Links', null, 'common') ?>:</h3>
+    <h3><?php echo __('Links', null, 'common') ?></h3>
     <ul class="sidebar_list">
       <li><?php echo ull_link_to(__('My personal tasks', null, 'common'), 'ullFlow/list?query=to_me', 'ull_js_observer_confirm=true') ?></li>
       <li><?php echo ull_link_to(__('All my tasks', null, 'common'), 'ullFlow/list?query=to_me_or_my_groups', 'ull_js_observer_confirm=true') ?></li>
