@@ -38,6 +38,13 @@
       <?php echo $form ?>
     </tr>
   <?php endforeach; ?>
+
+  <?php if ($list_generator->getCalculateSums()): ?>
+    <tr class="list_table_sum">
+      <td></td>
+      <?php echo $list_generator->getSumForm() ?>
+    </tr>
+  <?php endif ?>
   
   </tbody>
   </table>

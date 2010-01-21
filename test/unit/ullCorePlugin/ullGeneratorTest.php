@@ -15,7 +15,7 @@ sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 sfContext::getInstance()->getRequest()->setParameter('action', 'list');
 
-$t = new myTestCase(10, new lime_output_color, $configuration);
+$t = new myTestCase(12, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -55,4 +55,9 @@ $t->diag('set/getAllowDelete()');
 $t->diag('set/getFormClassName()');
   $t->is($generator->getFormClassName(), 'ullGeneratorForm', 'Returns the correct Form');  
   $generator->setFormClassName('testTableForm');
-  $t->is($generator->getFormClassName(), 'testTableForm', 'Returns the correct Form');  
+  $t->is($generator->getFormClassName(), 'testTableForm', 'Returns the correct Form');
+
+$t->diag('set/getCalculateSums()');
+  $t->is($generator->getCalculateSums(), false, 'Returns false per default');  
+  $generator->setCalculateSums(true);
+  $t->is($generator->getCalculateSums(), true, 'Returns true');  

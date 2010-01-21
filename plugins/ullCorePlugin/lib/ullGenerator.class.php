@@ -2,7 +2,7 @@
 /**
  * This is the base class for all ullGenerators
  * 
- * The basic idea: for a given table/model we have a definitions on the 
+ * The basic idea: for a given table/model we have definitions on the 
  * table level (label, description, global access rights, etc) and on the
  * column level (label, description, access rights, mandatory, show_in_list, etc)
  * 
@@ -30,9 +30,17 @@ abstract class ullGenerator extends ullGeneratorBase
     /**
      * Provide delete functionality
      */
-    $allowDelete    = true
-    ;
-
+    $allowDelete    = true,
+    /**
+     * Config flag if we want to build sums
+     */
+    $calculateSums      = false,
+    /**
+     * Array of sums
+     */
+    $sums           = array(),
+    $sumForm        = null
+  ;
     
   /**
    * @see ullGeneratorBase::__construct()
@@ -269,12 +277,14 @@ abstract class ullGenerator extends ullGeneratorBase
         }
         
         $this->markMandatoryColumns($this->forms[$key], $columnName, $columnConfig);
+        
+        $this->calculateSum($columnName, $row);
       }
       
       $this->forms[$key]->updateDefaults();
     }
     
-    
+    $this->buildSumForm($cultures);
     
     $this->isBuilt = true;
   }
@@ -494,5 +504,102 @@ abstract class ullGenerator extends ullGeneratorBase
   {
     return $this->formClass;      
   }
+
+  /**
+   * Setter for config option if to build sums
+   * 
+   * @param boolean $boolean
+   * @return self
+   */
+  public function setCalculateSums($boolean)
+  {
+    $this->calculateSums = (boolean) $boolean;
+    
+    return $this;
+  }
   
+  /**
+   * Getter for config option if to build sums
+   * 
+   * @return boolean
+   */
+  public function getCalculateSums()
+  {
+    return $this->calculateSums;
+  }
+  
+  /**
+   * Get array of sums for the active columns
+   * 
+   * @return array
+   * @throws RuntimeException
+   */
+  public function getSums()
+  {
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
+    } 
+    return $this->sums;
+  }
+  
+  /**
+   * Get the sum form
+   * 
+   * @return sfForm
+   * @throws RuntimeException
+   */
+  public function getSumForm()
+  {
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
+    } 
+    return $this->sumForm;
+  }  
+  
+  /**
+   * Calculate the sum for a column
+   * 
+   * @param string $columnName
+   * @param Doctrine_Record $row
+   * @return none
+   */
+  protected function calculateSum($columnName, Doctrine_Record $row)
+  {
+    if ($this->getCalculateSums() && $this->columnsConfig[$columnName]->getCalculateSum())
+    {
+      if (isset($this->sums[$columnName]))
+      {
+        $this->sums[$columnName] += $row[$columnName];
+      }
+      else
+      {
+        $this->sums[$columnName] = $row[$columnName];
+      }
+    }    
+  }
+  
+  /**
+   * Build the sum form
+   * 
+   * @param array $cultures
+   * @return none
+   */
+  protected function buildSumForm($cultures)
+  {
+    if ($this->getCalculateSums())
+    {
+      $record = new $this->modelName;
+      $record->fromArray($this->sums);
+      $this->sumForm = new $this->formClass($record, $this->columnsConfig, $this->requestAction, $this->getDefaults(), $cultures);
+      
+      foreach ($this->getActiveColumns() as $columnName => $columnConfig)
+      {
+        $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
+        $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->sumForm);
+        $ullMetaWidget->addToFormAs($columnName);
+      }
+    }
+  }
 }

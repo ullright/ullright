@@ -176,6 +176,7 @@ class BaseUllTimeActions extends ullsfActions
     $this->getProjectReportingFromRequestOrCreate();
     
     $this->list_generator = new ullTableToolGenerator('UllProjectReporting', 'r', 'list');
+    $this->list_generator->setCalculateSums(true);
     $this->list_generator->buildForm($this->docs);
     
     $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', $this->getLockingStatus());
