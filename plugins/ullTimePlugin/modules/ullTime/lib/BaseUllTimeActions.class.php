@@ -9,7 +9,7 @@
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 
-class BaseUllTimeActions extends ullsfActions
+class BaseUllTimeActions extends BaseUllGeneratorActions
 {
  
   /**
@@ -32,7 +32,7 @@ class BaseUllTimeActions extends ullsfActions
    * Execute index action
    * 
    */
-  public function executeIndex($request) 
+  public function executeIndex(sfRequest $request) 
   {
     $this->checkPermission('ull_time_index');
     
@@ -73,7 +73,7 @@ class BaseUllTimeActions extends ullsfActions
    * @param $request
    * @return unknown_type
    */
-  public function executeList($request)
+  public function executeList(sfRequest $request)
   {
     $this->checkPermission('ull_time_list');
     
@@ -111,11 +111,26 @@ class BaseUllTimeActions extends ullsfActions
   }
   
   
+  public function executeReportProject(sfRequest $request)
+  {
+    $this->checkPermission('ull_time_report');
+    
+    $this->generator = new ullTimeReportGenerator();
+    $this->generator->setCalculateSums(true);
+
+    $rows = $this->getFilterFromRequest();
+
+    $this->generator->buildForm($rows);
+    
+    $this->setVar('generator', $this->generator, true);
+  }
+  
+  
   /**
    * Execute create action
    * 
    */  
-  public function executeCreate()
+  public function executeCreate(sfRequest $request)
   {
     $this->forward('ullTime', 'edit');
   }
@@ -124,7 +139,7 @@ class BaseUllTimeActions extends ullsfActions
    * Execute edit action
    * 
    */
-  public function executeEdit($request) 
+  public function executeEdit(sfRequest $request) 
   {
     $this->checkPermission('ull_time_edit');
     
@@ -159,7 +174,7 @@ class BaseUllTimeActions extends ullsfActions
    * Execute create action
    * 
    */
-  public function executeCreateProject() 
+  public function executeCreateProject(sfRequest $request) 
   {
     $this->forward('ullTime', 'editProject');
   } 
@@ -169,7 +184,7 @@ class BaseUllTimeActions extends ullsfActions
    * Execute edit action
    * 
    */
-  public function executeEditProject($request) 
+  public function executeEditProject(sfRequest $request) 
   {
     $this->checkPermission('ull_time_edit_project');
     
@@ -215,7 +230,7 @@ class BaseUllTimeActions extends ullsfActions
    * 
    * @return none
    */
-  public function executeDeleteProject($request)
+  public function executeDeleteProject(sfRequest $request)
   {
     $this->checkPermission('ull_time_delete_project'); 
     
@@ -458,4 +473,30 @@ class BaseUllTimeActions extends ullsfActions
     return 'r';
   } 
   
+  
+  /**
+   * Configure the ullFilter class name
+   * 
+   * @return string
+   */
+  public function getUllFilterClassName()
+  {
+    return 'ullFilterForm';
+  }  
+  
+  
+  /**
+   * Apply custom modifications to the query
+   *
+   * This function builds a query selecting UllUsers for the phone book;
+   * see inline comments for further details.
+   */
+  protected function modifyQueryForFilter()
+  {
+    $this->q->getDoctrineQuery()
+      ->addSelect('SUM(x.duration_seconds) as duration_seconds_sum')
+      ->addGroupBy('x.ull_project_id')
+    ;
+    
+  }
 }
