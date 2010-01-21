@@ -31,15 +31,15 @@
     ->checkResponseElement($dgsList->get(1, 'phone_extension'), '1111')
     ->checkResponseElement($dgsList->get(1, 'mobile_number'), '')
     ->checkResponseElement($dgsList->get(1, 'location'), 'Wien Mollardgasse')
-    ->checkResponseElement($dgsList->get(1, 'email_link') . ' > a[href="mailto:admin@example.com"]')
+    ->checkResponseElement($dgsList->get(1, 'email_link') . ' a[href="mailto:admin@example.com"]')
     ->checkResponseElement($dgsList->get(2, 'name'), 'Bauer Jack')
     ->checkResponseElement($dgsList->get(2, 'phone_extension'), '')
     ->checkResponseElement($dgsList->get(2, 'mobile_number'), '01 789987')
-    ->checkResponseElement($dgsList->get(2, 'email_link') . ' > a[href="mailto:jack.bauer@example.com"]')
+    ->checkResponseElement($dgsList->get(2, 'email_link') . ' a[href="mailto:jack.bauer@example.com"]')
     ->checkResponseElement($dgsList->get(3, 'name'), 'User Test')
     ->checkResponseElement($dgsList->get(3, 'phone_extension'), '8888')
     ->checkResponseElement($dgsList->get(3, 'location'), 'New York 5th Ave')
-    ->checkResponseElement($dgsList->get(3, 'email_link') . ' > a[href="mailto:test.user@example.com"]')
+    ->checkResponseElement($dgsList->get(3, 'email_link') . ' a[href="mailto:test.user@example.com"]')
   ;
   
   //we want almeida visible for the next test
@@ -68,7 +68,7 @@
     ->checkResponseElement($dgsListLocationHeader->get(4, 'location_name'), 'New York 5th Ave (NYC)  Map')
     ->checkResponseElement($dgsList->get(5, 'name'), 'User Test')
     ->checkResponseElement($dgsList->get(5, 'phone_extension'), '8888')
-    ->checkResponseElement($dgsList->get(5, 'email_link') . ' > a[href="mailto:test.user@example.com"]')
+    ->checkResponseElement($dgsList->get(5, 'email_link') . ' a[href="mailto:test.user@example.com"]')
     ->checkResponseElement($dgsListLocationHeader->get(6, 'location_name'), 'Wien Mollardgasse (WMO)  Map')
     ->checkResponseElement($dgsList->get(7, 'name'), 'Admin Master')
     ->checkResponseElement($dgsList->get(7, 'phone_extension'), '1111')

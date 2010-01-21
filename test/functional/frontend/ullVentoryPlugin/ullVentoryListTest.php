@@ -78,7 +78,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('filter[ull_entity_id]', $testUserId)
-  ->checkResponseElement('h3', 'Items of Test User')
+  ->checkResponseElement('#content h3', 'Items of Test User')
   ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
   ->checkResponseElement($dgsList->get(1, 'inventory_number'), '1702')
   ->checkResponseElement($dgsList->get(2, 'inventory_number'), '1701')
@@ -100,7 +100,7 @@ $b
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'createWithType')
   ->isRequestParameter('entity', 'test_user')
-  ->checkResponseElement('h3', 'Item of user: Test User')
+  ->checkResponseElement('#content h3', 'Item of user: Test User')
 ;  
   
 

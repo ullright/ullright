@@ -27,7 +27,7 @@ $b
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('table', 'TestTable')
-  ->checkResponseElement('h3', 'TestTableLabel')
+  ->checkResponseElement('#content h3', 'TestTableLabel')
   ->responseContains('TestTable for automated testing')
   ->checkResponseElement('body', '!/namespace|Namespace/')
   ->checkResponseElement('body', '!/useless|Useless/')
