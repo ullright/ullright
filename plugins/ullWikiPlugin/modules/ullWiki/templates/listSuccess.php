@@ -67,7 +67,8 @@
   
   </tbody>
   </table>
-  <?php include_partial('ullTableTool/ullPagerBottom',
-        array('pager' => $pager, 'paging' => $paging)
-      ); ?>
+
 <?php endif ?>
+
+<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?> 
+

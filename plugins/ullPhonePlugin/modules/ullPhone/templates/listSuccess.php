@@ -83,8 +83,6 @@
   </tbody>
   </table>
   
-<?php include_partial('ullTableTool/ullPagerBottom',
-      array('pager' => $pager)) ?>
       
 <?php else: ?>
   <?php if (($isLocationView) && isset($location)) : ?>
@@ -93,3 +91,5 @@
   </table>
   <?php endif ?>
 <?php endif?>
+
+<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?> 
