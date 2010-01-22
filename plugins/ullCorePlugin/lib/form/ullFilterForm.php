@@ -51,4 +51,23 @@ class ullFilterForm extends sfForm
   }
   
   
+  /**
+   * Manually sets a value
+   * 
+   * Be careful, since this method ignores the validation process
+   *
+   * @param string $field The name of the value required
+   * @param string $value 
+   * @return self
+   */
+  public function setValue($field, $value)
+  {
+    if ($this->isBound)
+    {
+      $this->values[$field] = $value;
+    }
+    
+    return $this;
+  }  
+  
 }

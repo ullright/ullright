@@ -115,6 +115,19 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_time_report');
     
+    if ($request->isMethod('post'))
+    {
+      $this->ull_reqpass_redirect();
+    }
+    
+    // Must be a string as request params come as strings
+    $request->setParameter('paging', 'false');
+    
+    if (!$request->getParameter('order'))
+    {
+      $request->setParameter('order', 'UllProject->name');
+    }
+    
     $this->generator = new ullTimeReportGenerator();
     $this->generator->setCalculateSums(true);
 
@@ -481,7 +494,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   public function getUllFilterClassName()
   {
-    return 'ullFilterForm';
+    return 'ullTimeProjectFilterForm';
   }  
   
   
@@ -493,10 +506,26 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   protected function modifyQueryForFilter()
   {
+    //filter per user
+    if ($ullUserId = $this->filter_form->getValue('ull_user_id'))
+    {
+      $this->q->addWhere('ull_user_id = ?', $ullUserId);
+      $this->user = Doctrine::getTable('UllEntity')->findOneById($ullUserId);
+      
+      $this->ull_filter->add('filter[ull_user_id]', __('User', null, 'common') . ': ' . $this->user);
+      
+      // both do not work
+//      $this->filter_form->setDefault('ull_user_id', null);
+//      $this->filter_form->setValue('ull_user_id', null);
+    }
+    else
+    {
+      $this->user = null;
+    }     
+    
     $this->q->getDoctrineQuery()
       ->addSelect('SUM(x.duration_seconds) as duration_seconds_sum')
       ->addGroupBy('x.ull_project_id')
     ;
-    
   }
 }

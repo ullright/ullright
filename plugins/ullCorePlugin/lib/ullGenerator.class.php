@@ -567,7 +567,7 @@ abstract class ullGenerator extends ullGeneratorBase
    */
   protected function calculateSum($columnName, Doctrine_Record $row)
   {
-    if ($this->getCalculateSums() && $this->columnsConfig[$columnName]->getCalculateSum())
+    if ($row->exists() && $this->getCalculateSums() && $this->columnsConfig[$columnName]->getCalculateSum())
     {
       if (isset($this->sums[$columnName]))
       {
@@ -588,7 +588,7 @@ abstract class ullGenerator extends ullGeneratorBase
    */
   protected function buildSumForm($cultures)
   {
-    if ($this->getCalculateSums())
+    if ($this->rows[0]->exists() && $this->getCalculateSums())
     {
       $record = new $this->modelName;
       $record->fromArray($this->sums);
@@ -599,6 +599,12 @@ abstract class ullGenerator extends ullGeneratorBase
         $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
         $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->sumForm);
         $ullMetaWidget->addToFormAs($columnName);
+        
+        // Set values for artificial columns
+        if ($columnConfig->getIsArtificial())
+        {
+          $this->sumForm->setDefault($columnName, $this->sums[$columnName]);   
+        }
       }
     }
   }

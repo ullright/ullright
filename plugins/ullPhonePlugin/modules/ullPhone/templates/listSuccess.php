@@ -8,8 +8,8 @@
 <?php //echo ull_form_tag(array('page' => '', 'filter' => array('search' => ''))) ?>
 
 <?php include_partial('ullTableTool/ullPagerTop',
-        array('pager' => $pager, 'paging' => $paging)
-      ); ?>
+    array('pager' => $pager, 'paging' => $paging)) ?>
+
 <?php // detect empty table_tool ?>
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>
@@ -83,9 +83,8 @@
   </tbody>
   </table>
   
-  <?php include_partial('ullTableTool/ullPagerBottom',
-        array('pager' => $pager)
-      ); ?>
+<?php include_partial('ullTableTool/ullPagerBottom',
+      array('pager' => $pager)) ?>
       
 <?php else: ?>
   <?php if (($isLocationView) && isset($location)) : ?>

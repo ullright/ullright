@@ -16,6 +16,7 @@ class UllProjectTableConfiguration extends ullTableConfiguration
     $this->setName(__('Projects', null, 'ullTimeMessages'));
     $this->setSearchColumns(array('name', 'description'));
     $this->setOrderBy('slug');
+    $this->setForeignRelationName(__('Project', null, 'ullTimeMessages'));
   }
   
 }

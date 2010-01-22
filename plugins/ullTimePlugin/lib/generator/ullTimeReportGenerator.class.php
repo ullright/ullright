@@ -6,7 +6,7 @@ class ullTimeReportGenerator extends ullTableToolGenerator
   public function __construct()
   {
      $columns = array(
-      'ull_project_id',
+      'UllProject->name',
       'duration_seconds_sum',
     );
     
@@ -47,6 +47,7 @@ class ullTimeReportGenerator extends ullTableToolGenerator
       ->setLabel(__('Duration', null, 'common'))
       ->setMetaWidgetClassName('ullMetaWidgetTimeDuration')
       ->setIsArtificial(true)
+      ->setCalculateSum(true)
     ;
     
     
