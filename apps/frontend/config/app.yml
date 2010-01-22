@@ -19,7 +19,7 @@ all:
   sidebar_logo:     /ullCoreThemeNGPlugin/images/logo_120
   override_css:     custom_override.css
   
-  supported_languages: en,de
+  supported_languages: [ 'en', 'de' ]
   
   error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
   error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'

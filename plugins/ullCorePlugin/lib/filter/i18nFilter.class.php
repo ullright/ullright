@@ -29,7 +29,7 @@ class i18nFilter extends sfFilter
         if (isset($browserCulture[0])) 
         {
           $browserLanguage = substr($browserCulture[0] ,0 ,2);
-          $supportedLanguages = explode(',', sfConfig::get('app_supported_languages'));
+          $supportedLanguages = sfConfig::get('app_supported_languages');
           if (in_array($browserLanguage, $supportedLanguages))
           {
             $user->setCulture($browserLanguage);
