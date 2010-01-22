@@ -1,5 +1,5 @@
 <?php
-$app = 'frontend';
+
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $b = new ullTestBrowser(null, null, array('configuration' => $configuration));
