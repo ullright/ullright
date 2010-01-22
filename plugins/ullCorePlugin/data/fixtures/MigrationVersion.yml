@@ -4,12 +4,9 @@
 #TODO: Create proper install script
 
 <?php
-  # Temp. deactivation until the Doctrine 1.2 migration system has been reviewed */
-  
   $dm = new Doctrine_Migration(sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR . 'migration' . DIRECTORY_SEPARATOR . 'doctrine');
   $conn = Doctrine_Manager::connection();
   #This forces the creation of the migration_version table
   $dm->getCurrentVersion();
   $conn->exec("INSERT INTO " . $dm->getTableName() . " VALUES(" . $dm->getLatestVersion() . ")");
- 
 ?>
