@@ -41,6 +41,17 @@ abstract class PluginUllCloneUser extends BaseUllCloneUser
 
   
   /**
+   * This record hook overrides the one from PluginUllUser,
+   * because we do not want to generate last_name_first.
+   *
+   */
+  public function preUpdate($event)
+  {
+  
+  }
+  
+  
+  /**
    * Note: some cloneUser specific methods are in PluginUllEntity
    * 
    */

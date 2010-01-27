@@ -14,13 +14,13 @@ $t->diag('findChoices()');
   $choices = UllGroupTable::findChoices();
 
   $t->is(
-      $choices[3],
+      $choices[4],
       array('name' => 'MasterAdmins', 'attributes' => array ('class' => 'color_light_bg_ull_core')),
       'returns the correct choices for UllGroup'
   );
   
   $t->is(
-      $choices[4],
+      $choices[5],
       array('name' => 'TestGroup', 'attributes' => array ('class' => 'color_light_bg_ull_core')),
       'returns the correct choices for UllGroup'
   );  

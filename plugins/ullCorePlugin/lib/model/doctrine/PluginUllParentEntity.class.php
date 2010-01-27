@@ -96,7 +96,7 @@ abstract class PluginUllParentEntity extends BaseUllParentEntity
    */
   public function getSubordinates($onlyActive = true, $hydrationMode = null)
   {
-    $q = new ullQuery('UllEntity');
+    $q = new ullQuery('UllUser');
     $q
       ->addWhere('superior_ull_user_id = ?', $this->id)
       ->addOrderby('last_name, first_name')

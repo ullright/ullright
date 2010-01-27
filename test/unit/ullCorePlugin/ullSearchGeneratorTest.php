@@ -27,7 +27,7 @@ $sfe->uuid = 3;
 $sfeArray[] = $sfe;
 
 $sfe = new ullSearchFormEntry();
-$sfe->columnName = 'is_show_mobile_number_in_phonebook';
+$sfe->columnName = 'is_show_extension_in_phonebook';
 $sfe->uuid = 4;
 $sfeArray[] = $sfe;
 
@@ -51,22 +51,22 @@ $sfeArray[] = $sfeWithRelations;
 $fieldNames = array('rangeFrom_0_5', 'rangeTo_0_5',
   'standard_0_6',
   'standard_0_0', 'standard_1_0',
-  'foreign_0_1',
   'boolean_0_4',
+  'foreign_0_1',
   'foreign_0_3',
   'foreign_0_7');
 $widgetClassNames = array('ullWidgetFormInput', 'ullWidgetFormInput',
   'sfWidgetFormInput',
   'sfWidgetFormInput', 'sfWidgetFormInput',
-  'ullWidgetFormDoctrineSelect',
   'sfWidgetFormSelect',
+  'ullWidgetFormDoctrineSelect',
   'sfWidgetFormSelectWithOptionAttributes',
   'sfWidgetFormI18nSelectCountry');
 $labels = array('ID', 'to:',
   'First name',
   'Last name', 'Last name',
+  'Show phone ext. in phone book',
   'Department',
-  'Show mobile number in phone book',
   'Status',
   'Created by - Location - Country');
 
@@ -78,7 +78,7 @@ $searchGenerator = new ullSearchGenerator(array_merge($searchConfig->getAllSearc
 $searchGenerator->reduce($sfeArray);
 
 $t->is($searchGenerator->getColumnLabel('ull_user_status_id'), 'Status', 'getColumnLabel ok');
-$t->is($searchGenerator->getColumnLabel('is_show_mobile_number_in_phonebook'), 'Show mobile number in phone book', 'getColumnLabel ok');
+$t->is($searchGenerator->getColumnLabel('is_show_extension_in_phonebook'), 'Show phone ext. in phone book', 'getColumnLabel ok');
 
 $searchGenerator->buildForm();
 
@@ -89,6 +89,7 @@ $t->diag('ullSearchGeneratorTest - fields');
 
 //+2 because multiple count of last_name is 2 and id is a range field
 $t->is(count($sfeArray) + 2, count($positions), 'result field count is ok');
+
 
 for ($i = 0; $i < count($positions); $i++)
 {
