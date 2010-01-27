@@ -132,26 +132,9 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   protected function modifyQueryForFilter()
   {
-    // _                    _
-    //| |                  | |
-    //| |__   _____   ____ | |  _
-    //|  _ \ (____ | / ___)| |_/ )
-    //| | | |/ ___ |( (___ |  _ (
-    //|_| |_|\_____| \____)|_| \_)
-    //
-    // why do we need to add this here?
-    //
-    // problem query like:
-    // ->from('UllUser u, u.UllLocation l, u.UllCompany c)
-    // ->select('u.last_name, l.name, c.name)
-    // will throw exception
-    // adding u.ull_location_id and u.ull_company_id does not help
-    //
-    // why does adding u.* resolve this?
-
     //the following select includes the mobile number, but overrides
     //the columns with an empty string if the matching boolean is false
-    $this->q->getDoctrineQuery()->addSelect('x.*, ' .
+    $this->q->getDoctrineQuery()->addSelect(
       'if(x.is_show_mobile_number_in_phonebook is not FALSE, x.mobile_number, \'\') as mobile_number'
     );
     
