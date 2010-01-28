@@ -841,15 +841,26 @@ img.ull_user_popup_icon {
 	
 	/* Otherwise all input tags are HUGE in Firefox (3.0.13) */
 	input, select, textarea {
-	 font-size: 1em;
+	  font-size: 1em;
 	}
   
+  /* a quick note:
+    jQuery (which we use for showing/hiding the sidebar) modifies the display-
+    attribute using inline styles. We use !important so the browser overrides
+    these styles with the ones here when printing 
+  */
+  
   #sidebar {
+    display: none !important;
+  }
+  
+  #sidebar_tab {
     display: none;
   }
   
   #canvas {
     margin-left: 0;
+    display: inline !important;
   }
   
   #nav_top {
