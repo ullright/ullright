@@ -180,7 +180,8 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForIndex()
   {
-    $this->breadcrumbTree = new ullPhoneBreadcrumbTree();
+    $breadcrumbTree = new ullPhoneBreadcrumbTree();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
   /**
@@ -189,8 +190,9 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForList()
   {
-    $this->breadcrumbTree = new ullPhoneBreadcrumbTree();
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullPhoneBreadcrumbTree();
+    $breadcrumbTree->addDefaultListEntry();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
   /**
@@ -212,13 +214,14 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
    */
   protected function getSearchColumnsForFilter()
   {
-    return array(
+     return sfConfig::get('app_ull_user_phone_book_search_columns', array(
       'first_name',
       'last_name',
       'UllLocation->name',
       'UllLocation->short_name',
       'UllLocation->phone_base_no',
       'UllDepartment->name',
-    );
+      'UllJobTitle->name',
+    ));
   }
 }

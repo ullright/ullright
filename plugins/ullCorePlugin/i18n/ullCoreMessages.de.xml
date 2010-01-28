@@ -176,6 +176,11 @@
       </trans-unit>
       
       
+      <trans-unit id="35">
+        <source>User status</source>
+        <target>Benutzer Status</target>
+      </trans-unit>
+      
       <!--  ullPhoto -->
       
       <trans-unit id="100">

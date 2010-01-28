@@ -299,7 +299,16 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
           ->setValidatorOption('max_length', $length)
         ;
       }
-    }  
+    }
+
+    if (in_array($type, array('integer', 'float')))
+    {
+      // Do not build sums for id columns (match "id" at the end)
+      if (!preg_match('/id$/', $columnName))
+      {
+        $columnConfig->setCalculateSum(true);
+      }
+    }
     
     if (isset($column['notnull']))
     {

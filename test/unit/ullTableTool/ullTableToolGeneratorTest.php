@@ -128,7 +128,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(147, new lime_output_color, $configuration);
+$t = new myTestCase(151, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -137,16 +137,6 @@ $tests = Doctrine::getTable('TestTable')->findAll();
 $t->initialize();
 
 $t->begin('__construct()');
-
-  try
-  {
-    new ullTableToolGenerator($tests);
-    $t->fail('__construct() doesn\'t throw an exception if an invalid model is given');
-  }
-  catch (Exception $e)
-  {
-    $t->pass('__construct() throws an exception if an invalid model is given');
-  }
   
   $tableTool = new ullTableToolGenerator('TestTable', 'w');
   $t->isa_ok($tableTool, 'ullTableToolGenerator', '__construct() returns the correct object');
@@ -183,21 +173,6 @@ $t->diag('getColumnConfig()');
     $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
     $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
   }
-  /*
-  // don't use foreach because it ignores the ordering of the fields  
-  for ($i = 0; $i < count($columnsConfig); $i++)
-  {
-    $columnConfig = current($columnsConfig);
-    $columnConfigMock = current($mocks);
-    next($columnsConfig);
-    next($mocks);
-
-    var_dump('BLUB');
-    var_dump($columnConfig);
-    
-    $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
-    $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
-  }*/
 
 $t->diag('getIdentifierUrlParams() without calling buildForm()');
   try
@@ -237,17 +212,24 @@ $t->diag('getForms()');
   $t->isa_ok($forms[0], 'ullTableToolForm', 'The first entry is a UllForm object');  
   $t->isa_ok($forms[1], 'ullTableToolForm', 'The second entry is a UllForm object');  
   
+$t->diag('getSums()');
+  $tableTool = new ullTableToolGenerator('TestTable', 'r');
+  $tableTool->buildForm($tests);
+  $t->is($tableTool->getSums(), array(), 'Returns empty array if calculateSums = false');
+  $tableTool->setCalculateSums(true);
+  $tableTool->buildForm($tests);
+  $t->is($tableTool->getSums(), array('my_select_box' => 2), 'Returns correct array');
+  
+$t->diag('getSumForm()');  
+  $sumForm = $tableTool->getSumForm();
+  $t->isa_ok($sumForm, 'ullTableToolForm', 'Returns the correct form object');
+  $t->is($sumForm['my_email']->render(), '', 'Renders nothing for a non-numeric field');
+  // This is stupid because it is a select box and no normal integer field
+  // Nevertheless, the sum is "2" and id "2" is "My first option"
+  $t->is($sumForm['my_select_box']->render(), 'My first option', 'Correctly enders a numeric field');
+  
 //TODO: build without rows?  
   
 //TODO: test access/enablement of fields
   
-// obsolote...  
-//$t->diag('orderQueryBy()');
-//  $q = new Doctrine_Query;
-//  $q->from('TestTable x');
-//  $generator = new UllTableToolGenerator('TestTable');
-//  $t->is(
-//    $generator->orderQueryBy($q, 'my_email, UllUser->username desc')->getQueryPart('orderby'), 
-//    'x.my_email asc, x.ulluser.username desc', 
-//    'Builds the correct orderBy query part'
-//  );   
+ 

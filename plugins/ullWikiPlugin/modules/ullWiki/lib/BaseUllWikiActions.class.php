@@ -207,8 +207,9 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForIndex() 
   {
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
+    $breadcrumbTree = new breadcrumbTree();
+    $breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
   /**
@@ -217,9 +218,10 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
    */  
   protected function breadcrumbForList() 
   {
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
-    $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
+    $breadcrumbTree = new breadcrumbTree();
+    $breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
+    $breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
 
   /**
@@ -228,22 +230,23 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
    */  
   protected function breadcrumbForShow() 
   {
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
+    $breadcrumbTree = new breadcrumbTree();
+    $breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
     
     // display result list link only when there is a referer containing 
     //  the list action 
     if ($referer = $this->getUriMemory()->get('list'))
     {
-      $this->breadcrumbTree->add(__('Result list', null, 'common'), $referer);
+      $breadcrumbTree->add(__('Result list', null, 'common'), $referer);
     }
     else
     {
-      $this->breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
+      $breadcrumbTree->add(__('Result list', null, 'common'), 'ullWiki/list');
     }
 
-    $this->breadcrumbTree->add(__('Show', null, 'common'));    
-    $this->breadcrumbTree->add($this->doc->subject);
+    $breadcrumbTree->add(__('Show', null, 'common'));    
+    $breadcrumbTree->add($this->doc->subject);
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
 
   /**
@@ -252,22 +255,24 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForEdit() 
   {
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
+    $breadcrumbTree = new breadcrumbTree();
+    $breadcrumbTree->setEditFlag(true);
+    $breadcrumbTree->add(__('Wiki') . ' ' . __('Home', null, 'common'), 'ullWiki/index');
 
     // display result list link only when there is a referer containing 
     //  the list action 
-    $this->breadcrumbTree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));
+    $breadcrumbTree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));
 
     if ($this->doc->exists()) 
     {
-      $this->breadcrumbTree->add(__('Edit', null, 'common'));
+      $breadcrumbTree->add(__('Edit', null, 'common'));
     } 
     else 
     {
-      $this->breadcrumbTree->add(__('Create', null, 'common'));
+      $breadcrumbTree->add(__('Create', null, 'common'));
     } 
+    
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
 //  /**

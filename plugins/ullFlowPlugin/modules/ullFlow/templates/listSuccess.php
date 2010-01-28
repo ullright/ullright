@@ -1,4 +1,4 @@
-<?php echo $breadcrumbTree->getHtml(ESC_RAW) ?>
+<?php echo $breadcrumb_tree ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
 
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
@@ -83,10 +83,8 @@
   </tbody>
   </table>
   
-  <?php include_partial('ullTableTool/ullPagerBottom',
-        array('pager' => $pager, 'paging' => $paging, 'logged_in' => $sf_user->hasAttribute('user_id'))
-      ); ?> 
 <?php endif ?>
 
+<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?> 
 
 

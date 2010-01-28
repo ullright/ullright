@@ -55,7 +55,6 @@ $search->modifyQuery($query, 'x');
 
 $displaySizeId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('display-size')->id;
 $wiredNetworkSpeedId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('wired-network-speed')->id;
-
 $paramArray = $query->getParams();
 $joinParamArray = $paramArray['join'];
 $whereParamArray = $paramArray['where'];

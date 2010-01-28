@@ -70,5 +70,26 @@ class PluginUllTimePeriodTable extends UllRecordTable
     return count($result) ? $result: null;
   }
   
+  
+  /**
+   * Find periods for one year in the future
+   * @param $date
+   * @return unknown_type
+   */
+  public static function findOneYearInFuture()
+  {
+    $date = date('Y-m-d');
+    
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllTimePeriod tp')
+      ->where('tp.from_date > ?', $date)
+      ->addWhere('tp.to_date < ?', date('Y-m-d', strtotime('+13 months')))
+      ->orderBy('tp.from_date DESC')
+    ;
+    
+    return $q->execute();
+  }  
+  
 }
   

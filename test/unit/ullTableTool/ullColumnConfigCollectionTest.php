@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(57, new lime_output_color, $configuration);
+$t = new myTestCase(61, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -54,6 +54,12 @@ $t->diag('buildFor() - applyDoctrineSettings for "ull_user_id"');
   $t->is($c['ull_user_id']->getMetaWidgetClassName(), 'ullMetaWidgetUllEntity', 'sets the correct metaWidget');
   $t->is($c['ull_user_id']->getOption('entity_classes'), array('UllUser'), 'sets the correct options');
   $t->is($c['ull_user_id']->getRelation(), array('model' => 'UllUser', 'foreign_id' => 'id'), 'returns the correct relation settings');
+  
+$t->diag('buildFor() - applyDoctrineSettings for sums');
+  $t->is($c['id']->getCalculateSum(), false, 'Do not build sums for "id" column');  
+  $t->is($c['ull_user_id']->getCalculateSum(), false, 'Do not build sums for columns ending with "id" column');
+  $t->is($c['my_email']->getCalculateSum(), false, 'Do not build sums for non-numeric columns');
+  $t->is($c['my_select_box']->getCalculateSum(), true, 'Build sums for numeric columns');
   
 $t->diag('buildFor() - Label');  
   $t->is($c['my_email']->getLabel(), 'My email', 'returns the correct humanized label for a label not in humanizer dictionary');

@@ -15,7 +15,7 @@ class BaseUllAdminActions extends ullsfActions
   {
     $this->checkAccess(array('MasterAdmins', 'UserAdmins'));
     
-    $this->breadcrumbTree = new ullAdminBreadcrumbTree;
+    $this->breadcrumbForIndex();
     
     $this->form = new ullUserFilterForm;
     
@@ -37,6 +37,12 @@ class BaseUllAdminActions extends ullsfActions
   {
     $breadcrumbTree = new ullAdminBreadcrumbTree;
     $breadcrumbTree->add(__('About', null, 'ullCoreMessages'));
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
+  }
+  
+  protected function breadcrumbForIndex()
+  {
+    $breadcrumbTree = new ullAdminBreadcrumbTree;
     $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 }

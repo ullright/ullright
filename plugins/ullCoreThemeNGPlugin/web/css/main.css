@@ -84,6 +84,27 @@ body {
   top: 45%;
 }
 
+.sidebar_section {
+  margin-bottom: 1em; 
+}
+
+#sidebar_content h3 {
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+}  
+
+ul.sidebar_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.sidebar_list li {
+  margin: 0;
+  padding: 0;
+}
+
 /*
  * ************************************************
  *  navigation
@@ -217,6 +238,7 @@ ul.nav_top_links li:hover {
 	padding: .4em 0;
 	font-size: 0.9em;
 	border-top: 2px solid #777475;
+	white-space:nowrap;
 	/* color: #777475; */
 }
 

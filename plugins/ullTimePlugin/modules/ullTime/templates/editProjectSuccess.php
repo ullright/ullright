@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 <?php $list_generator = $sf_data->getRaw('list_generator') ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
@@ -8,15 +8,6 @@
   <?php echo $edit_generator->getForm()->offsetGet('date')->render() ?> /
   <?php echo $edit_generator->getForm()->offsetGet('ull_user_id')->render() ?>
 </h3>
-
-<?php if ($edit_generator->getForm()->hasErrors()): ?>
-  <div class='form_error'>
-  <?php echo __('Please correct the following errors', null, 'common') ?>:
-  <?php echo $edit_generator->getForm()->renderGlobalErrors() ?>
-  </div>  
-<?php endif; ?>
-
-
 
 <?php if ($list_generator->getRow()->exists()): ?>
   <table class='list_table' id='ull_time_edit_list'>
@@ -47,6 +38,13 @@
       <?php echo $form ?>
     </tr>
   <?php endforeach; ?>
+
+  <?php if ($list_generator->getCalculateSums()): ?>
+    <tr class="list_table_sum">
+      <td></td>
+      <?php echo $list_generator->getSumForm() ?>
+    </tr>
+  <?php endif ?>
   
   </tbody>
   </table>
@@ -63,6 +61,7 @@
     <?php endif ?>
   </h3>
   
+  <?php include_partial('ullTableTool/globalError', array('form' => $edit_generator->getForm())) ?>
   
   <?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
   
@@ -108,9 +107,20 @@
     </div>
   
     <div class='edit_action_buttons_right'>
+    	<ul>
+        <li>
+          <?php  
+            echo ull_link_to(
+              __('Cancel and return to list', null, 'common') 
+              , $cancel_link
+              , 'ull_js_observer_confirm=true'
+            );
+          ?>
+        </li>
+      </ul>
     </div>
   
-    <!--<div class="clear"></div>  -->
+    
     
   </div>
 <?php else: // else of if edit_generator ?>  

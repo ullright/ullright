@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
 
 <?php echo $ull_filter ?>
@@ -67,7 +67,8 @@
   
   </tbody>
   </table>
-  <?php include_partial('ullTableTool/ullPagerBottom',
-        array('pager' => $pager, 'paging' => $paging)
-      ); ?>
+
 <?php endif ?>
+
+<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?> 
+

@@ -34,7 +34,7 @@ abstract class BaseUllsfActions extends sfActions
 
     $this->ullpreExecute();
   }
-
+  
   
   /**
    * Template function for child actions
@@ -44,6 +44,29 @@ abstract class BaseUllsfActions extends sfActions
   public function ullpreExecute()
   {
   }
+  
+  /**
+   * Add csv export functionality for list and report views
+   * 
+   * TODO: move to BaseUllGeneratorActions when ullFlow is refactored to use 
+   *   BaseUllGeneratorActions
+   * 
+   * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/action/sfAction#postExecute()
+   */
+  public function postExecute()
+  {
+    if (isset($this->generator) && $this->getRequestParameter('export_csv') == 'true')
+    {
+      $this->setLayout(false);
+      sfConfig::set('sf_web_debug', false);
+      $this->setTemplate(sfConfig::get('sf_plugins_dir') . 
+        '/ullCorePlugin/modules/ullTableTool/templates/exportAsCsv');
+//      $this->getResponse()->setContentType('application/vnd.ms-excel;charset=utf-8');
+      $this->getResponse()->setContentType('application/vnd.ms-excel');
+      $this->getResponse()->setHttpHeader('Content-Disposition',
+        'inline;filename=' . ullCoreTools::sluggify($this->getResponse()->getTitle()) . '.csv;');
+    } 
+  }  
 
   
   /**
@@ -229,16 +252,13 @@ abstract class BaseUllsfActions extends sfActions
   {
     $POST = get_magic_quotes_gpc() ? sfToolkit::stripslashesDeep($_POST) : $_POST;
 
-    if (isset($params['filter']))
+    if (isset($POST['filter']))
     {
-      foreach ($params['filter'] as $key => $value)
+      foreach ($POST['filter'] as $key => $value)
       {
-        if (isset($POST['filter'][$key]))
-        {
-          $params['filter'][$key] = $POST['filter'][$key];
-        }
+        $params['filter'][$key] = $POST['filter'][$key];
       }
-    }
+    }    
     
     return $params;
   }

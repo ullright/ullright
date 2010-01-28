@@ -4,7 +4,7 @@ class ullPhoneGenerator extends ullTableToolGenerator
 {
   public function __construct()
   {
-    $columns = sfConfig::get('app_ull_user_phone_book_columns', array(
+    $columns = sfConfig::get('app_ull_user_phone_book_show_columns', array(
       'last_name_first',
       'phone_extension',
       'mobile_number',

@@ -26,8 +26,9 @@ jQuery.fn.replaceTimeDurationSelect = function(fragmentation)
     var minutesList = generateMinutesList(fragmentation);
     generateOptions(minutesInput, minutesList);
     
-    hoursInput.attr("onchange","updateHour(this.value, document.getElementById('" + this.id + "'));");
-    minutesInput.attr("onchange","updateMinute(this.value, document.getElementById('" + this.id + "'));");
+    var id = this.id;
+    hoursInput.change(function(){updateHour(this.value, id)});
+    minutesInput.change(function(){updateMinute(this.value, id)});
     
     var parts = $(this).val().split(':');
     hoursInput.val(parts[0]);
@@ -94,7 +95,7 @@ function generateHoursList()
   {
     list.push(i);
   }
-  
+
   return list;
 }
 
@@ -105,8 +106,9 @@ function generateHoursList()
  * @param value
  * @param input
  */
-function updateHour(value, input) 
+function updateHour(value, id) 
 {
+  var input = document.getElementById(id);
   var time = input.value;
   
   if (!time)
@@ -119,7 +121,7 @@ function updateHour(value, input)
     
     time = value + ':' + parts[1];
   }
-  
+
   input.value = time;
 }  
 
@@ -130,10 +132,11 @@ function updateHour(value, input)
  * @param value
  * @param input
  */
-function updateMinute(value, input) 
+function updateMinute(value, id) 
 {
+  var input = document.getElementById(id);
   var time = input.value;
-  
+
   if (!time)
   {
     time = '0:' + value;
@@ -144,6 +147,6 @@ function updateMinute(value, input)
     
     time = parts[0] + ':' + value;
   }
-  
+
   input.value = time;
 }  

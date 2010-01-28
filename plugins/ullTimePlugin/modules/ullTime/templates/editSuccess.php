@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
@@ -8,13 +8,7 @@
   <?php echo $generator->getForm()->offsetGet('ull_user_id')->render() ?>
 </h3>
 
-<?php if ($generator->getForm()->hasErrors()): ?>
-  <div class='form_error'>
-  <?php echo __('Please correct the following errors', null, 'common') ?>:
-  <?php echo $generator->getForm()->renderGlobalErrors() ?>
-  </div>  
-<?php endif; ?>
-
+<?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
 <?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
 

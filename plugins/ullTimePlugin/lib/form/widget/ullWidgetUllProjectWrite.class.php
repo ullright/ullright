@@ -8,6 +8,16 @@
 class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineSelect 
 {
   
+  public function __construct($options = array(), $attributes = array())
+  {
+    $q = new Doctrine_Query;
+    $q->from('UllProject');
+    $q->where('is_active = ?', true);
+    
+    $options['query'] = $q;
+    parent::__construct($options, $attributes);
+  }
+  
   /**
    * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/widget/sfWidgetFormSelect#render()
    */

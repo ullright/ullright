@@ -576,9 +576,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForSearch()
   {
-    $this->breadcrumbTree = new breadcrumbTree();
-    $this->breadcrumbTree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-    $this->breadcrumbTree->add(__('Advanced search'), 'ullUser/search');
+    $breadcrumbTree = new breadcrumbTree();
+    $breadcrumbTree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $breadcrumbTree->add(__('Advanced search'), 'ullUser/search');
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
   
   /**

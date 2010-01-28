@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 
 <h3>
   <?php echo __('Overview', null, 'common')?> <?php echo $period->name ?> / <?php echo $user->display_name ?>
@@ -19,14 +19,21 @@
     <tr class="
       <?php echo ($odd) ? $odd = '' : $odd = 'odd' ?>
       <?php if ($day['weekend']): ?>
-        <?php echo 'weekend'; $odd = 'odd' ?>
+        <?php echo 'ull_time_weekend'; $odd = 'odd' ?>
       <?php endif ?>
+      <?php if ($day['date'] == date('Y-m-d')): ?>
+        <?php echo 'ull_time_today'?>
+      <?php endif?>
     ">
       <td><?php echo $day['humanized_date'] ?></td>
-      <td><?php echo link_to(__('Time reporting', null, 'ullTimeMessages'), 'ullTime/create?date=' . $day['date'] . '&username=' . $user->username) ?></td>
-      <td><?php echo $day['sum_time'] ?></td>
-      <td><?php echo link_to(__('Project reporting', null, 'ullTimeMessages'), 'ullTime/createProject?date=' . $day['date'] . '&username=' . $user->username) ?></td>
-      <td><?php echo $day['sum_project'] ?></td>
+      <td><?php echo ull_link_to(
+          __('Time reporting', null, 'ullTimeMessages'), 
+          array('action' => 'create', 'date' => $day['date'], 'period' => null)) ?></td>
+      <td class='ull_time_list_time_column'><?php echo $day['sum_time'] ?></td> 
+      <td><?php echo ull_link_to(
+          __('Project reporting', null, 'ullTimeMessages'), 
+          array('action' => 'createProject', 'date' => $day['date'], 'period' => null)) ?></td>
+      <td class='ull_time_list_time_column'><?php echo $day['sum_project'] ?></td>
     </tr>    
   <?php endforeach ?>
   

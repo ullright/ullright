@@ -62,6 +62,7 @@ class PluginUllProjectReportingTable extends UllRecordTable
       ->from('UllProjectReporting pr, pr.UllProject p, p.Translation t')
       ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 2))
       ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
+      ->addWhere('p.is_active = ?', true)
       ->groupBy('pr.ull_project_id')
       ->orderBy('num DESC')
 // deactivated because it removes the correct "num" value !?!      

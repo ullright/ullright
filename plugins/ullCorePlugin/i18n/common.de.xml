@@ -90,6 +90,11 @@
 <target>Zurücksetzten</target>
 </trans-unit>
 
+<trans-unit id="18">
+<source>Cancel and return to list</source>
+<target>Abbrechen und zurück zur Liste</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 
@@ -211,6 +216,16 @@
 <trans-unit id="124">
 <source>Photo</source>
 <target>Foto</target>
+</trans-unit>
+
+<trans-unit id="125">
+<source>Begindate</source>
+<target>Beginndatum</target>
+</trans-unit>
+
+<trans-unit id="126">
+<source>Enddate</source>
+<target>Enddatum</target>
 </trans-unit>
 
 
@@ -351,6 +366,11 @@
 <trans-unit id="2015">
 <source>All</source>
 <target>Alle</target>
+</trans-unit>
+
+<trans-unit id="2016">
+<source>Export as spreadsheet</source>
+<target>Als Tabelle herunterladen</target>
 </trans-unit>
 
 
@@ -840,6 +860,16 @@
 <trans-unit id="18012">
 <source>Country</source>
 <target>Land</target>
+</trans-unit>
+
+<trans-unit id="18013">
+<source>Is absent</source>
+<target>Ist abwesend</target>
+</trans-unit>
+
+<trans-unit id="18014">
+<source>Is active</source>
+<target>Ist aktiv</target>
 </trans-unit>
 
 <trans-unit id="19001">

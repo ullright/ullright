@@ -9,7 +9,7 @@
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
 
-class BaseUllTimeActions extends ullsfActions
+class BaseUllTimeActions extends BaseUllGeneratorActions
 {
  
   /**
@@ -32,13 +32,47 @@ class BaseUllTimeActions extends ullsfActions
    * Execute index action
    * 
    */
-  public function executeIndex() 
+  public function executeIndex(sfRequest $request) 
   {
     $this->checkPermission('ull_time_index');
+    
+    // clean potentially saved list view uri 
+    $this->getUriMemory()->delete('list');
+    
+    $this->act_as_user_form = new ullTimeActAsUserForm();
+    
+    if ($request->isMethod('post'))
+    {
+      $this->act_as_user_form->bind($request->getParameter('fields'));
+      
+      if ($this->act_as_user_form->isValid())
+      {
+        $username = UllUserTable::findUsernameById($this->act_as_user_form->getValue('ull_user_id'));
+        // TODO: why is the new url displayed with "?" and "=" instead of the
+        // usual symfony style with "/" ? 
+        $this->redirect('ullTime/index' . (($username) ? '?username=' . $username : ''));
+      }
+    }
+    else
+    {
+      if ($username = $request->getParameter('username'))
+      {
+        $this->act_as_user_form->setDefault('ull_user_id', UllUserTable::findIdByUsername($username));
+      }
+    }       
 
     $this->breadcrumbForIndex();
     
     $this->periods = UllTimePeriodTable::findCurrentAndPast();
+    
+    if (UllUserTable::hasPermission('ull_time_enter_future_periods'))
+    {
+      $futurePeriods = UllTimePeriodTable::findOneYearInFuture();
+      if (count($futurePeriods))
+      {
+        $this->future_periods = $futurePeriods;
+      }
+    }
   }
   
   
@@ -48,12 +82,14 @@ class BaseUllTimeActions extends ullsfActions
    * @param $request
    * @return unknown_type
    */
-  public function executeList($request)
+  public function executeList(sfRequest $request)
   {
     $this->checkPermission('ull_time_list');
     
     $this->getPeriodFromRequest();
     $this->getUserFromRequest();
+    
+    $this->getUriMemory()->setUri();
     
     $this->dates = $this->period->getDateList();
     
@@ -62,7 +98,7 @@ class BaseUllTimeActions extends ullsfActions
     
     foreach($this->dates as $date => $day)
     {
-      if ($date <= date('Y-m-d'))
+      if ($date <= date('Y-m-d') || UllUserTable::hasPermission('ull_time_enter_future_periods'))
       {
         $this->dates[$date]['humanized_date'] = $dateWidget->render(null, $date);
         
@@ -84,11 +120,43 @@ class BaseUllTimeActions extends ullsfActions
   }
   
   
+  public function executeReportProject(sfRequest $request)
+  {
+    $this->checkPermission('ull_time_report');
+    
+    $this->breadcrumbForReportProject();
+    
+    if ($request->isMethod('post'))
+    {
+      $this->ull_reqpass_redirect();
+    }
+    
+    // Must be a string as request params come as strings
+    $request->setParameter('paging', 'false');
+    
+    if (!$request->getParameter('order'))
+    {
+      $request->setParameter('order', 'UllProject->name');
+    }
+    
+    $this->report = $request->getParameter('report');
+    
+    $this->generator = new ullTimeReportGenerator($this->report);
+    $this->generator->setCalculateSums(true);
+
+    $rows = $this->getFilterFromRequest();
+
+    $this->generator->buildForm($rows);
+    
+    $this->setVar('generator', $this->generator, true);
+  }
+  
+  
   /**
    * Execute create action
    * 
    */  
-  public function executeCreate()
+  public function executeCreate(sfRequest $request)
   {
     $this->forward('ullTime', 'edit');
   }
@@ -97,7 +165,7 @@ class BaseUllTimeActions extends ullsfActions
    * Execute edit action
    * 
    */
-  public function executeEdit($request) 
+  public function executeEdit(sfRequest $request) 
   {
     $this->checkPermission('ull_time_edit');
     
@@ -132,7 +200,7 @@ class BaseUllTimeActions extends ullsfActions
    * Execute create action
    * 
    */
-  public function executeCreateProject() 
+  public function executeCreateProject(sfRequest $request) 
   {
     $this->forward('ullTime', 'editProject');
   } 
@@ -142,13 +210,14 @@ class BaseUllTimeActions extends ullsfActions
    * Execute edit action
    * 
    */
-  public function executeEditProject($request) 
+  public function executeEditProject(sfRequest $request) 
   {
     $this->checkPermission('ull_time_edit_project');
     
     $this->getProjectReportingFromRequestOrCreate();
     
     $this->list_generator = new ullTableToolGenerator('UllProjectReporting', 'r', 'list');
+    $this->list_generator->setCalculateSums(true);
     $this->list_generator->buildForm($this->docs);
     
     $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', $this->getLockingStatus());
@@ -156,11 +225,10 @@ class BaseUllTimeActions extends ullsfActions
     
     $this->breadcrumbForEditProject();
     
+    $this->cancel_link = $this->getUriMemory()->get('list');
+    
     if ($request->isMethod('post'))
     {
-//      var_dump($_REQUEST);
-//      var_dump($this->getRequest()->getParameterHolder()->getAll());
-//      die;
       if ($this->edit_generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
         if ($request->getParameter('action_slug') == 'save_new') 
@@ -178,6 +246,7 @@ class BaseUllTimeActions extends ullsfActions
 //        var_dump($this->generator->getForm()->getErrorSchema());
       }
     }
+      
 //    echo $this->generator->getForm()->debug();
   }
 
@@ -187,7 +256,7 @@ class BaseUllTimeActions extends ullsfActions
    * 
    * @return none
    */
-  public function executeDeleteProject($request)
+  public function executeDeleteProject(sfRequest $request)
   {
     $this->checkPermission('ull_time_delete_project'); 
     
@@ -300,7 +369,7 @@ class BaseUllTimeActions extends ullsfActions
    */
   protected function getPeriodFromRequest()
   {
-    $slug = $this->getRequestParameter('period_slug');
+    $slug = $this->getRequestParameter('period');
     if (!$slug)
     {
       $slug = UllTimePeriodTable::findSlugByDate(date('Y-m-d'));
@@ -341,7 +410,8 @@ class BaseUllTimeActions extends ullsfActions
    */
   protected function breadcrumbForIndex() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree();
+    $breadcrumbTree = new ullTimeBreadcrumbTree();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
   
   /**
@@ -350,10 +420,22 @@ class BaseUllTimeActions extends ullsfActions
    */  
   protected function breadcrumbForList() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree;
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->addDefaultListEntry();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
 
+  /**
+   * Create breadcrumbs for reportProject action
+   * 
+   */
+  protected function breadcrumbForReportProject() 
+  {
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->add(__('Reporting', null, 'ullTimeMessages'));
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
+  }   
+  
   
   /**
    * Create breadcrumbs for edit action
@@ -361,18 +443,20 @@ class BaseUllTimeActions extends ullsfActions
    */
   protected function breadcrumbForEdit() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree;
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->setEditFlag(true);
+    $breadcrumbTree->addDefaultListEntry();
 
     if ($this->doc->exists()) 
     {
-      $this->breadcrumbTree->add(__('Edit time report', null, 'ullTimeMessages'));
+      $breadcrumbTree->add(__('Edit time report', null, 'ullTimeMessages'));
     } 
     else 
     {
-      $this->breadcrumbTree->add(__('Create time report', null, 'ullTimeMessages'));
-    } 
+      $breadcrumbTree->add(__('Create time report', null, 'ullTimeMessages'));
+    }
+
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   } 
 
   
@@ -382,18 +466,20 @@ class BaseUllTimeActions extends ullsfActions
    */
   protected function breadcrumbForEditProject() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree;
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->setEditFlag(true);
+    $breadcrumbTree->addDefaultListEntry();
 
     if ($this->doc->exists()) 
     {
-      $this->breadcrumbTree->add(__('Edit project effort', null, 'ullTimeMessages'));
+      $breadcrumbTree->add(__('Edit project effort', null, 'ullTimeMessages'));
     } 
     else 
     {
-      $this->breadcrumbTree->add(__('Create project effort', null, 'ullTimeMessages'));
+      $breadcrumbTree->add(__('Create project effort', null, 'ullTimeMessages'));
     } 
+    
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
   
@@ -429,5 +515,97 @@ class BaseUllTimeActions extends ullsfActions
     
     return 'r';
   } 
+  
+  
+  /**
+   * Configure the ullFilter class name
+   * 
+   * @return string
+   */
+  public function getUllFilterClassName()
+  {
+    return 'ullTimeProjectFilterForm';
+  }  
+  
+  
+  /**
+   * Apply custom modifications to the query
+   *
+   * This function builds a query selecting UllUsers for the phone book;
+   * see inline comments for further details.
+   */
+  protected function modifyQueryForFilter()
+  {
+    
+    //filter per user
+    if ($ullUserId = $this->filter_form->getValue('ull_user_id'))
+    {
+      $this->q->addWhere('ull_user_id = ?', $ullUserId);
+      $this->user = Doctrine::getTable('UllEntity')->findOneById($ullUserId);
+      
+      $this->ull_filter->add('filter[ull_user_id]', __('User', null, 'common') . ': ' . $this->user);
+      
+      // both do not work
+//      $this->filter_form->setDefault('ull_user_id', null);
+//      $this->filter_form->setValue('ull_user_id', null);
+    }
+    else
+    {
+      $this->user = null;
+    }
+
+    //filter per project
+    if ($projectId = $this->filter_form->getValue('ull_project_id'))
+    {
+      $this->q->addWhere('ull_project_id = ?', $projectId);
+      $this->project = Doctrine::getTable('UllProject')->findOneById($projectId);
+      
+      $this->ull_filter->add('filter[ull_project_id]', __('Project', null, 'ullTimeMessages') . ': ' . $this->project);
+      
+      // both do not work
+//      $this->filter_form->setDefault('ull_user_id', null);
+//      $this->filter_form->setValue('ull_user_id', null);
+    }
+    else
+    {
+      $this->project = null;
+    }     
+
+    // filter per date
+    
+    // filter from date
+    $dateWidget = new ullWidgetDateRead();
+    if ($fromDate = $this->filter_form->getValue('from_date'))
+    {
+      $this->q->addWhere('date >= ?', $fromDate);
+      $this->ull_filter->add('filter[from_date]', __('Begindate', null, 'common') . ': ' . $dateWidget->render(null, $fromDate));
+    }
+    
+    // filter to date
+    if ($toDate = $this->filter_form->getValue('to_date'))
+    {
+      $this->q->addWhere('date <= ?', $toDate);
+      $this->ull_filter->add('filter[to_date]', __('Enddate', null, 'common') . ': ' . $dateWidget->render(null, $toDate));
+    }
+    
+    // Add artificial sum field
+    $this->q->getDoctrineQuery()
+      ->addSelect('SUM(x.duration_seconds) as duration_seconds_sum')
+    ;
+    switch ($this->report)
+    {
+      case 'by_project':      
+        $this->q->getDoctrineQuery()
+          ->addGroupBy('x.ull_project_id')
+        ;
+        break;
+        
+      case 'by_user':
+        $this->q->getDoctrineQuery()
+          ->addGroupBy('x.ull_user_id')
+        ;
+        break;
+    }        
+  }
   
 }

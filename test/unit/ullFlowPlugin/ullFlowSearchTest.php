@@ -56,6 +56,7 @@ $search->addCriterionGroups($criterionGroups);
 $search->modifyQuery($query, 'x');
 
 $expectedColumnConfigId = $flowApp->findColumnConfigBySlug('my_priority')->id;
+$paramArray = $query->getParams();
 
 $queryParamArray = $query->getParams();
 $joinParamArray = $queryParamArray['join'];

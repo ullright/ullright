@@ -30,6 +30,7 @@
 <?php use_stylesheet('/ullCorePlugin/css/jqui/ui.all.css', 'last', array('media' => 'all')) ?>
 
 <?php 
-  sfContext::getInstance()->getResponse()->addStylesheet('custom_override.css', 'last', array('media' => 'all'));
+  sfContext::getInstance()->getResponse()->addStylesheet(sfConfig::get('app_override_css', 'custom_override.css'), 'last', array('media' => 'all'));
 ?>
 </head>
+

@@ -43,7 +43,11 @@ class ullColumnConfiguration
     /*
      * True if the current column is no native database column.
      */
-    $isArtificial           = false
+    $isArtificial           = false,
+    /**
+     * Flag if we want to build a sum in list views
+     */
+    $calculateSum               = false
   ;
 
   /**
@@ -475,4 +479,28 @@ class ullColumnConfiguration
     return $this->isArtificial;
   }
     
+  
+  /**
+   * Build sum for list views?
+   * 
+   * @param boolean $boolean
+   * @return self
+   */
+  public function setCalculateSum($boolean)
+  {
+    $this->calculateSum = (boolean) $boolean;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get if we want to build sum
+   * 
+   * @return boolean
+   */
+  public function getCalculateSum()
+  {
+    return $this->calculateSum;
+  }  
 }

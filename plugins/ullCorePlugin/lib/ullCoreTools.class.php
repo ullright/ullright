@@ -298,6 +298,24 @@ class ullCoreTools
     return $return;
   }
   
-  
+  /**
+   * Prepares a value for export to csv format
+   * 
+   * @param string $string
+   * @return string
+   */
+  public static function prepareCsvColumn($string)
+  {
+    $string = html_entity_decode($string, ENT_QUOTES);
+    $string = strip_tags($string);
+    
+    if ($string && !is_numeric($string))
+    {
+      $string = str_replace('"', '\\"', $string);
+      $string = '"' . $string . '"';
+    }
+    
+    return $string;
+  }
 
 }

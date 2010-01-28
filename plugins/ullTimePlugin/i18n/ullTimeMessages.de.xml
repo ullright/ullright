@@ -129,6 +129,35 @@
 <target>Sie haben nur lesenden Zugriff, da die Einträge nach %days% Tagen gesperrt werden. Bitte kontaktieren Sie Ihren Vorgesetzten bezüglich Änderungen.</target>
 </trans-unit>
 
+<trans-unit id="26">
+<source>Act as user</source>
+<target>Als Benutzer eintragen</target>
+</trans-unit>
+
+<trans-unit id="27">
+<source>Project reports</source>
+<target>Projekt-Berichte</target>
+</trans-unit>
+
+<trans-unit id="28">
+<source>By project</source>
+<target>Nach Projekt</target>
+</trans-unit>
+
+<trans-unit id="29">
+<source>By user</source>
+<target>Nach Benutzer</target>
+</trans-unit>
+
+<trans-unit id="30">
+<source>Future periods</source>
+<target>Zukünftige Perioden</target>
+</trans-unit>
+
+<trans-unit id="31">
+<source>Show</source>
+<target>Einblenden</target>
+</trans-unit>
 
 
     </body>

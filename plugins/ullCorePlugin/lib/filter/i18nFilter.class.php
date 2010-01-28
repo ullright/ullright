@@ -29,14 +29,14 @@ class i18nFilter extends sfFilter
         if (isset($browserCulture[0])) 
         {
           $browserLanguage = substr($browserCulture[0] ,0 ,2);
-          $supportedLanguages = explode(',', sfConfig::get('app_supported_languages'));
+          $supportedLanguages = sfConfig::get('app_i18n_supported_languages', array('de', 'en'));
+
           if (in_array($browserLanguage, $supportedLanguages))
           {
             $user->setCulture($browserLanguage);
           }
         }
       }
-//      var_dump($user->getCulture());die;
       
       // load I18N helper to allow usage of __('') in any action
       sfLoader::loadHelpers('I18N');
@@ -47,5 +47,3 @@ class i18nFilter extends sfFilter
     
   }
 }
-
-?>

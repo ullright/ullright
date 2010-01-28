@@ -10,11 +10,16 @@ class ullWidgetEmail extends ullWidget
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if ($this->getOption('show_icon_only'))
+    if ($value)
     {
-      return $this->renderContentTag('a', ull_image_tag('mail'), array('href' => 'mailto:' . $value));
+      if ($this->getOption('show_icon_only'))
+      {
+        return '<div class="email_icon">' .
+          $this->renderContentTag('a', ull_image_tag('mail'), array('href' => 'mailto:' . $value)) .
+          '</div>';
+      }
+      
+      return $this->renderContentTag('a', $value, array('href' => 'mailto:' . $value));
     }
-    
-    return $this->renderContentTag('a', $value, array('href' => 'mailto:' . $value));
   }
 }

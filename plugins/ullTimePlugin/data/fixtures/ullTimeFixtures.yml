@@ -99,17 +99,17 @@ UllTimePeriod:
     from_date:                  '2009-10-01'
     to_date:                    '2009-10-31'
     namespace:                  test
-  ull_time_period_january_2010:
+  # dynamically add a period for the current month  
+  current_period:
     Translation:
       en:
-        name:                   January 2010
+        name:                   <?php echo strftime('%B %Y') . "\n" ?>
       de:
-        name:                   Jänner 2010
-    from_date:                  '2010-01-01'
-    to_date:                    '2010-01-31'
+        name:                   <?php echo strftime('%B %Y') . "\n" ?>
+    from_date:                  <?php echo "'" . date('Y-m' . '-01') . "'\n" ?>
+    to_date:                    <?php echo "'" . date('Y-m-t') . "'\n" ?>
     namespace:                  test
-    
-    
+
 UllPermission:
   ull_permission_time_index:
     slug:               ull_time_index
@@ -129,6 +129,15 @@ UllPermission:
   ull_permission_time_ignore_locking:
     slug:               ull_time_ignore_locking
     namespace:          ull_time
+  ull_permission_time_act_as_user:
+    slug:               ull_time_act_as_user
+    namespace:          ull_time        
+  ull_permission_time_report:
+    slug:               ull_time_report
+    namespace:          ull_time
+  ull_permission_time_enter_future_periods:
+    slug:               ull_time_enter_future_periods
+    namespace:          ull_time          
     
 UllGroup:
   ull_group_time_admins:
@@ -159,5 +168,16 @@ UllGroupPermission:
   ull_group_permission_ull_time_6:
     UllGroup:           ull_group_time_admins
     UllPermission:      ull_permission_time_ignore_locking
-    namespace:          ull_time    
-             
+    namespace:          ull_time
+  ull_group_permission_ull_time_7:
+    UllGroup:           ull_group_time_admins
+    UllPermission:      ull_permission_time_act_as_user
+    namespace:          ull_time         
+  ull_group_permission_ull_time_8:
+    UllGroup:           ull_group_time_admins
+    UllPermission:      ull_permission_time_report
+    namespace:          ull_time
+  ull_group_permission_ull_time_9:
+    UllGroup:           ull_group_time_admins
+    UllPermission:      ull_permission_time_enter_future_periods
+    namespace:          ull_time                    

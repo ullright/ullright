@@ -16,6 +16,9 @@ UllProject:
       notnull: true
     description:
       type: string(4000)
+    is_active:
+      type: boolean
+      default: true
 
 UllProjectReporting:
   package: ullTimePlugin.lib.model.doctrine

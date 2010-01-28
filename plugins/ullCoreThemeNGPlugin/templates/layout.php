@@ -33,7 +33,9 @@
             $partialPath = sfConfig::get('sf_app_dir') . '/modules/myModule/templates/_custom_sidebar.php';
             if (file_exists($partialPath))
             {
+              echo '<div id="sidebar_custom">';
               include_partial('myModule/custom_sidebar');
+              echo '</div>';
             }
           }
      ?>
@@ -71,17 +73,21 @@
       
         <div id="nav_langlinks">      
           <?php
-            $culture = $sf_user->getCulture();
-            $language = substr($culture,0,2);
-            if ($language <> 'en') 
+            if (count(sfConfig::get('app_i18n_supported_languages')) > 1)
             {
-              echo ull_link_to('English', 'ullUser/changeCulture?culture=en', 'ull_js_observer_confirm=true');
-            }
-            if ($language <> 'de') 
-            {
-              echo ull_link_to('Deutsch', 'ullUser/changeCulture?culture=de', 'ull_js_observer_confirm=true');
+              $culture = $sf_user->getCulture();
+              $language = substr($culture,0,2);
+              if ($language <> 'en') 
+              {
+                echo ull_link_to('English', 'ullUser/changeCulture?culture=en', 'ull_js_observer_confirm=true');
+              }
+              if ($language <> 'de') 
+              {
+                echo ull_link_to('Deutsch', 'ullUser/changeCulture?culture=de', 'ull_js_observer_confirm=true');
+              }
             }
           ?>
+          &nbsp;
         </div>   
         
         <!-- 

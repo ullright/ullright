@@ -480,7 +480,8 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForIndex() 
   {
-    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
   
@@ -490,8 +491,9 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
    */  
   protected function breadcrumbForList() 
   {
-    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $breadcrumbTree->addDefaultListEntry();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
   
   
@@ -501,9 +503,10 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
    */ 
   protected function breadcrumbForMassChangeOwner() 
   {
-    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
-    $this->breadcrumbTree->addDefaultListEntry();
-    $this->breadcrumbTree->add(__('Change owner', null, 'ullVentoryMessages'));
+    $breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree->add(__('Change owner', null, 'ullVentoryMessages'));
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
 
   
@@ -513,20 +516,21 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
    */  
   protected function breadcrumbForShow() 
   {
-    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();    
+    $breadcrumbTree = new ullVentoryBreadcrumbTree();    
     // display result list link only when there is a referer containing 
     //  the list action 
     if ($referer = $this->getUriMemory()->get('list'))
     {
-      $this->breadcrumbTree->add(__('Result list', null, 'common'), $referer);
+      $breadcrumbTree->add(__('Result list', null, 'common'), $referer);
     }
     else
     {
-      $this->breadcrumbTree->addDefaultListEntry();
+      $breadcrumbTree->addDefaultListEntry();
     }
 
-    $this->breadcrumbTree->add(__('Show', null, 'common'));    
-    $this->breadcrumbTree->add($this->doc->subject);
+    $breadcrumbTree->add(__('Show', null, 'common'));    
+    $breadcrumbTree->add($this->doc->subject);
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
 
   
@@ -536,8 +540,8 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForEdit() 
   {
-    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
-    $this->breadcrumbTree->setEditFlag(true);
+    $breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $breadcrumbTree->setEditFlag(true);
 
 //    var_dump($this->getUriMemory()->get('list'));die;
     
@@ -545,21 +549,23 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     //  the list action 
     if ($referer = $this->getUriMemory()->get('list'))
     {
-      $this->breadcrumbTree->add(__('Result list', null, 'common'), $referer);
+      $breadcrumbTree->add(__('Result list', null, 'common'), $referer);
     }
     else
     {
-      $this->breadcrumbTree->addDefaultListEntry();
+      $breadcrumbTree->addDefaultListEntry();
     }
 
     if (isset($this->doc) && $this->doc->exists()) 
     {
-      $this->breadcrumbTree->add(__('Edit', null, 'common'));
+      $breadcrumbTree->add(__('Edit', null, 'common'));
     } 
     else 
     {
-      $this->breadcrumbTree->add(__('Create', null, 'common'));
+      $breadcrumbTree->add(__('Create', null, 'common'));
     } 
+    
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
   
@@ -568,8 +574,9 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForSearch()
   {
-    $this->breadcrumbTree = new ullVentoryBreadcrumbTree();
-    $this->breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullVentory/search');
+    $breadcrumbTree = new ullVentoryBreadcrumbTree();
+    $breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullVentory/search');
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
   
   

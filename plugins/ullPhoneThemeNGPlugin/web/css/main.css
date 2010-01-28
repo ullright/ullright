@@ -55,6 +55,19 @@ a:visited {
   font-weight: bold;
 }
 
+.email_icon {
+  background: #f99900;
+  width: 15px;
+  height: 11px;
+}
+
+
+/* phone sidebar */
+
+
+#sidebar_ull_phone form {
+  margin-top: 1em; 
+}
 
 
 /* orgchart */

@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 
 <div id="tc_wrapper">
   <div id="tc_header">
@@ -28,6 +28,7 @@
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllDepartment', 'ullCore', 'ull_admin_24x24') ?></li>
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllJobTitle', 'ullCore', 'ull_admin_24x24') ?></li>
         <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEmploymentType', 'ullCore', 'ull_admin_24x24') ?></li>
+        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllUserStatus', 'ullCore', 'ull_admin_24x24') ?></li>
       </ul>
       
       <?php if($is_master_admin): ?>

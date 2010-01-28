@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 <h1><?php echo __('Advanced search', null, 'common') . ' - ' . __('User', null, 'common') ?></h1>
 
 <?php if ($searchForm->getGenerator()->getForm()->hasErrors()): ?>

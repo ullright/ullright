@@ -29,7 +29,6 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->getUriMemory()->setDefault($this->list_base_uri);
   }
   
-  
   /**
    * Executes index action
    *
@@ -251,11 +250,10 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   { 
     $this->q = $this->generator->createQuery();
     
-    $filterClassName = $this->getUllFilterClassName();
-
-    $this->filter_form = new $filterClassName;
+    $this->createFilterForm();
     
     $filterParams = $this->getRequest()->getParameter('filter');
+    
     $this->filter_form->bind($filterParams);
     
     $this->ull_filter = new ullFilter();
@@ -317,16 +315,39 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->paging = $this->getRequestParameter('paging');
     
     $this->pager = new Doctrine_Pager(
-      $this->q->getDoctrineQuery(), 
+      clone $this->q->getDoctrineQuery(), 
       $this->getRequestParameter('page', 1),
-      $this->paging == 'false' ? 5000 : sfConfig::get('app_pager_max_per_page', 30)
+      // request params come as strings
+      ($this->paging == 'false') ? 5000 : sfConfig::get('app_pager_max_per_page', 30)
     );
+    
     $rows = $this->pager->execute();
+    
+    // Completely discard the pager's query modifications because (as of sf1.2) 
+    //   it messes up queries using SUM() and group_by because it adds WHERE 
+    //   clauses for specific ids which produces wrong sums 
+    if ($this->paging == 'false' || $this->paging == false)
+    {
+      $rows = $this->q->execute();
+    }
     
     $modelName = $this->generator->getModelName();
     
     return ($rows->count()) ? $rows : new $modelName;
   }   
+  
+  
+  /**
+   * Create filter form
+   * 
+   * @return none
+   */
+  protected function createFilterForm()
+  {
+    $filterClassName = $this->getUllFilterClassName();
+    
+    $this->filter_form = new $filterClassName;    
+  }
    
   
   /**
