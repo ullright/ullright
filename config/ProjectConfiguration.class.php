@@ -11,11 +11,4 @@ class ProjectConfiguration extends sfProjectConfiguration
   {
     $this->enableAllPluginsExcept('sfPropelPlugin');
   }
-  
-  public function configureDoctrine(Doctrine_Manager $manager)
-  {
-    $cacheDriver = new Doctrine_Cache_Array();
-    $manager->setAttribute(Doctrine_Core::ATTR_RESULT_CACHE, $cacheDriver);
-    $manager->setAttribute(Doctrine::ATTR_RESULT_CACHE_LIFESPAN, 60 * 5);
-  }
 }
