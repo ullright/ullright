@@ -1,5 +1,6 @@
 # Parent entity
-# Includes all fields required by ullCore
+# Includes fields needed by all inheriting classes.
+# Direct children of this class: UllUser, UllGroup, Origin/Status Users.
 UllParentEntity:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
@@ -11,21 +12,58 @@ UllParentEntity:
       className:              %CLASS%Version
       enableFutureVersions:   true
   columns:
+    display_name:
+      type: string(64)
+    email:
+      type: string(64)
+    username:
+      type: string(64)
+      unique: true
+    ull_location_id:
+      type: integer
+  
+  relations:
+    UllLocation:
+      local: ull_location_id
+      foreign: id  
+  
+#  indexes:
+#    ull_parent_entity_display_name:
+#      fields: [display_name]
+            
+
+  attributes:
+    # don't export constraints. This is necessary because mysql 5 cannot delete
+    # rows with self-references
+    export: [ all, constraints ]
+
+
+# empty entity class to be overridden by custom Entity class
+# (in config/doctrine/schema.yml) to allow definition of additional userfields
+#UllEntity:
+#  package: ullCorePlugin.lib.model.doctrine
+#  inheritance:
+#    extends: UllParentEntity
+#    type: concrete
+
+
+# Direct children of this class: UllCloneUser
+UllUser:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllEntity
+    type: column_aggregation
+    keyValue: user
+  
+  columns:
     first_name:
       type: string(64)
     last_name:
       type: string(64)
-    display_name:
-      type: string(64)
-    last_name_first:
-      type: string(129)
-    username:
-      type: string(64)
-      unique: true
-    email:
-      type: string(64)
     password:
       type: string(40)
+    last_name_first:
+      type: string(129)
     sex:
       type: enum
       values: [null, m, f]
@@ -35,22 +73,6 @@ UllParentEntity:
       type: date
     separation_date:
       type: date
-    personnel_number:
-      type: string(20)
-    ull_employment_type_id:
-      type: integer
-    ull_job_title_id:
-      type: integer
-    ull_company_id:
-      type: integer
-    ull_department_id:
-      type: integer
-    cost_center:
-      type: string(64)
-    ull_location_id:
-      type: integer
-    superior_ull_user_id:
-      type: integer
     is_show_in_phonebook:
       type: boolean
       default: true
@@ -67,26 +89,39 @@ UllParentEntity:
       type: string(20)
     is_show_mobile_number_in_phonebook:
       type: boolean
+    personnel_number:
+      type: string(20)
+    ull_employment_type_id:
+      type: integer
+    ull_job_title_id:
+      type: integer
+    ull_company_id:
+      type: integer
+    ull_department_id:
+      type: integer
+    cost_center:
+      type: string(64)
+    superior_ull_user_id:
+      type: integer
     comment:
       type: string(4000)
     ull_user_status_id:
       type: integer
       notnull: true
-      default: 1        #active status
-    is_virtual_group:
-      type: boolean
-      default: false
-    # format: usually $username.png
+      default: 1        # equals active status
     photo:
-      type: string(255)
+      type: string(255) # format: usually $username.png
     is_photo_public:
       type: boolean
       default: true
-    # for clone users
-    parent_ull_user_id:
+    parent_ull_user_id: # for clone users
       type: integer
   
   relations:
+    UllGroup:
+      refClass: UllEntityGroup
+      foreignAlias: UllUsers
+      local: ull_entity_id
     Superior:
       class: UllUser
       local: superior_ull_user_id
@@ -107,50 +142,22 @@ UllParentEntity:
     UllDepartment:
       local: ull_department_id
       foreign: id
-    UllLocation:
-      local: ull_location_id
-      foreign: id  
     UllUserStatus:
       local: ull_user_status_id
       foreign: id
-
-
-#  indexes:
-#    ull_parent_entity_display_name:
-#      fields: [display_name]
-            
-
-  attributes:
-    # don't export constraints. This is necessary because mysql 5 cannot delete
-    # rows with self-references
-    export: [ all, constraints ]
-
-# empty entity class to be overridden by custom Entity class
-# (in config/doctrine/schema.yml) to allow definition of additional userfields
-#UllEntity:
-#  package: ullCorePlugin.lib.model.doctrine
-#  inheritance:
-#    extends: UllParentEntity
-#    type: concrete
-
-UllUser:
-  package: ullCorePlugin.lib.model.doctrine
-  inheritance:
-    extends: UllEntity
-    type: column_aggregation
-    keyValue: user
-  
-  relations:
-    UllGroup:
-      refClass: UllEntityGroup
-      foreignAlias: UllUsers
-      local: ull_entity_id
+      
 UllGroup:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllEntity
     type: column_aggregation
     keyValue: group
+  
+  columns:
+    is_virtual_group:
+      type: boolean
+      default: false
+  
   relations:
     UllUser:
       refClass: UllEntityGroup
@@ -252,7 +259,6 @@ UllEmploymentType:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true               
   columns:
     name:
       type: string(100)
@@ -322,7 +328,6 @@ UllUserStatus:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true               
   columns:
     name:
       type: string(50)
@@ -338,6 +343,6 @@ UllUserStatus:
 UllCloneUser:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
-    extends: UllEntity
+    extends: UllUser
     type: column_aggregation
     keyValue: clone_user

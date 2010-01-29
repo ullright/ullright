@@ -19,7 +19,7 @@ class ullVentorySoftwareGenerator extends ullTableToolGenerator
     
     parent::__construct($this->modelName, $defaultAccess, $requestAction);
     
-    $this->formClass = 'ullVentoryItemSoftwareForm';
+    $this->formClass = 'ullVentoryItemSoftwareGeneratorForm';
     
     $this->buildForm($this->itemSoftware);
   }  

@@ -105,8 +105,8 @@ $t->diag('addSelect()');
       'CONCAT(\'Write an email to \', my_email) as non_native_sql_column',
   ));
   $t->is(
-    $q->getSql(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' WHERE t2.lang = ? AND u3.lang = ?",
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' WHERE (t2.lang = ? AND u3.lang = ?)",
     'Returns the correct query'
   );
   
@@ -114,16 +114,16 @@ $t->diag('addSelect()');
 $t->diag('addOrderBy()');
   $q->addOrderBy('my_string, UllUser->UllEmploymentType->name desc, UllUser->UllLocation->name');
   $t->is(
-    $q->getSql(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? ORDER BY t2.my_string asc, u3.name desc, u5.name asc",
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ?) ORDER BY t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
   
 $t->diag('addOrderByPrefix()');
   $q->addOrderByPrefix('my_email, UllUser->UllLocation->short_name');
   $t->is(
-    $q->getSql(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
   
@@ -131,8 +131,8 @@ $t->diag('addWhere()');
   $q->addWhere('my_email = ?', 'foobar@example.com');
   $q->addWhere('UllUser->UllEmploymentType->name = ?', 'CEO');
   $t->is(
-    $q->getSql(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? AND t.my_email = ? AND u3.lang = ? AND u3.name = ? ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? AND t.my_email = ? AND u3.lang = ? AND u3.name = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
   
@@ -140,8 +140,8 @@ $t->diag('orWhere()');
   $q->orWhere('my_email = ?', 'barfoo@mpleexa.moc');
   $q->orWhere('UllUser->UllEmploymentType->name = ?', 'OEC');
   $t->is(
-    $q->getSql(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? AND t.my_email = ? AND u3.lang = ? AND u3.name = ? OR t.my_email = ? AND u3.lang = ? OR u3.name = ? ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? AND t.my_email = ? AND u3.lang = ? AND u3.name = ? OR t.my_email = ? AND u3.lang = ? OR u3.name = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
 
@@ -153,30 +153,30 @@ $t->diag('addSearch()');
   $q->addSearch('foobar', array('my_email', 'my_string', 'UllUser->username', 'UllUser->UllEmploymentType->name'));
   
   $t->is(
-    $q->getSql(),
-    "SELECT t.id AS t__id, u.id AS u__id, u2.id AS u2__id FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id WHERE t2.lang = ? AND u3.lang = ? AND (t.my_email LIKE ? OR t2.my_string LIKE ? OR u.username LIKE ? OR u3.name LIKE ?)",
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id, u.id AS u__id, u2.id AS u2__id FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id WHERE (t2.lang = ? AND u3.lang = ? AND (t.my_email LIKE ? OR t2.my_string LIKE ? OR u.username LIKE ? OR u3.name LIKE ?))",
     'Returns the correct query'
   );
   
   $t->isa_ok($q->execute(), 'Doctrine_Collection', 'Successfully executes the query');
   $t->ok(is_array($q->execute(null, Doctrine::HYDRATE_ARRAY)), 'Successfully executes the query in array hydration mode');
   
-//var_dump($q->getSql());
+//var_dump($q->getSqlQuery());
 //var_dump($q->getDoctrineQuery()->getParams());
 //var_dump($q->execute(null, Doctrine::HYDRATE_ARRAY));
 //var_dump($q->execute()->toArray(false));
 
 
-$t->diag('Doctrine bug with UllUser and SELECT on >= 2 relations');  
+$t->diag('Doctrine 1.0 bug resolved with UllUser and SELECT on >= 2 relations');  
   
-// Uncaught exception 'Doctrine_Record_UnknownPropertyException' with message 'Unknown record property / related component "ull_department_id" on "UllUser"' in /var/www/ullright/plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Record/Filter/Standard.php:44
-//$q = new Doctrine_Query;
-//$q
-//  ->select('u.last_name, c.*, d.*')
-//  ->from('UllUser u, u.UllCompany c, u.UllDepartment d')
-//;
-//
-//$q->execute();
+// Threw an exception 'Doctrine_Record_UnknownPropertyException' with message 'Unknown record property / related component "ull_department_id" on "UllUser"' in /var/www/ullright/plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Record/Filter/Standard.php:44
+$q = new Doctrine_Query;
+$q
+  ->select('u.last_name, c.*, d.*')
+  ->from('UllUser u, u.UllCompany c, u.UllDepartment d')
+;
+
+$q->execute();
 
 
 

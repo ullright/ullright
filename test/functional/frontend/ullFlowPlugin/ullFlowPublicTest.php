@@ -1,6 +1,5 @@
 <?php
 
-$app = 'frontend';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $b = new ullTestBrowser(null, null, array('configuration' => $configuration));
@@ -16,6 +15,7 @@ $dgsListTT = $b->getDgsUllFlowListTroubleTicket();
 $troubleTicket = Doctrine::getTable('UllFlowApp')->findOneBySlug('trouble_ticket');
 $troubleTicket->is_public = true;
 $troubleTicket->save();
+
 
 $b
   ->diag('ullFlow Home')

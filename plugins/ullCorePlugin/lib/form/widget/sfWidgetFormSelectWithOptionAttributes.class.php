@@ -131,5 +131,24 @@ $(document).ready(function()
     return $options;    
   }
   
-  
+  /**
+   * This method overrides the one in sfWidgetFormChoiceBase
+   * 
+   * We need to do this because in sf 1.3 additional support
+   * for translation was added, which does not handle nested
+   * arrays (more than one level) correctly.
+   * 
+   * @see lib/vendor/symfony/lib/widget/sfWidgetFormChoiceBase#getChoices()
+   */
+  public function getChoices()
+  {
+    $choices = $this->getOption('choices');
+
+    if ($choices instanceof sfCallable)
+    {
+      $choices = $choices->call();
+    }
+
+    return $choices;
+  }
 }

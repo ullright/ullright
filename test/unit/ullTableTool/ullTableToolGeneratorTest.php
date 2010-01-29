@@ -69,8 +69,6 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['ull_user_id'] = $columnConfig;
     
-
-    
     $columnConfig = new ullColumnConfiguration('creator_user_id');
     $columnConfig->setLabel('Created by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
@@ -82,6 +80,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Created at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess(null);
+    $columnConfig->setValidatorOption('required', true);
     $this->columnsConfigMock['created_at'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updator_user_id');
@@ -97,6 +96,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Updated at');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess(null);
+    $columnConfig->setValidatorOption('required', true);
     $this->columnsConfigMock['updated_at'] = $columnConfig;
   }      
 
@@ -128,7 +128,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(153, new lime_output_color, $configuration);
+$t = new myTestCase(151, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -137,26 +137,6 @@ $tests = Doctrine::getTable('TestTable')->findAll();
 $t->initialize();
 
 $t->begin('__construct()');
-
-  try
-  {
-    new ullTableToolGenerator();
-    $t->fail('__construct() doesn\'t throw an exception if no model is given');
-  }
-  catch (Exception $e)
-  {
-    $t->pass('__construct() throws an exception if no model is given');
-  }
-
-  try
-  {
-    new ullTableToolGenerator($tests);
-    $t->fail('__construct() doesn\'t throw an exception if an invalid model is given');
-  }
-  catch (Exception $e)
-  {
-    $t->pass('__construct() throws an exception if an invalid model is given');
-  }
   
   $tableTool = new ullTableToolGenerator('TestTable', 'w');
   $t->isa_ok($tableTool, 'ullTableToolGenerator', '__construct() returns the correct object');
@@ -193,21 +173,6 @@ $t->diag('getColumnConfig()');
     $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
     $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
   }
-  /*
-  // don't use foreach because it ignores the ordering of the fields  
-  for ($i = 0; $i < count($columnsConfig); $i++)
-  {
-    $columnConfig = current($columnsConfig);
-    $columnConfigMock = current($mocks);
-    next($columnsConfig);
-    next($mocks);
-
-    var_dump('BLUB');
-    var_dump($columnConfig);
-    
-    $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
-    $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
-  }*/
 
 $t->diag('getIdentifierUrlParams() without calling buildForm()');
   try
@@ -267,13 +232,4 @@ $t->diag('getSumForm()');
   
 //TODO: test access/enablement of fields
   
-// obsolote...  
-//$t->diag('orderQueryBy()');
-//  $q = new Doctrine_Query;
-//  $q->from('TestTable x');
-//  $generator = new UllTableToolGenerator('TestTable');
-//  $t->is(
-//    $generator->orderQueryBy($q, 'my_email, UllUser->username desc')->getQueryPart('orderby'), 
-//    'x.my_email asc, x.ulluser.username desc', 
-//    'Builds the correct orderBy query part'
-//  );   
+ 

@@ -1,6 +1,6 @@
 <?php use_javascript('/ullVentoryPlugin/js/editSuccess.js') ?>
 
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 
 <div class="edit_container">
 

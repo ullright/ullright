@@ -679,6 +679,9 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    * Disables the given columns
    * 
    * @param $array array of columnNames
+   * @param $withoutErrors boolean specifying if invalid column names
+   * (i.e. ones that are in $array but not in this column configuration
+   * collection) should result in errors or be silently discarded
    * @return none
    */
   public function disable($array, $withoutErrors = false)

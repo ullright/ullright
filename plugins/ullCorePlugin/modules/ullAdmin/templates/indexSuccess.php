@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 
 <div id="tc_wrapper">
   <div id="tc_header">

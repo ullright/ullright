@@ -2,8 +2,10 @@
 /**
  * sfForm for ullWiki
  *
+ * ullWiki*Doc*Form - "doc" to distinguish it form the generated UllWikiForm
+ *
  */
-class ullWikiForm extends ullGeneratorForm
+class ullWikiDocForm extends ullGeneratorForm
 {
 
   public function updateObject($values = null)

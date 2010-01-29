@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(18, new lime_output_color);
+$t = new lime_test(28, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -59,4 +59,44 @@ $t->diag('isoTimeToHumanTime()');
 $t->diag('appendParamsToUri()');
   $t->is(ullCoreTools::appendParamsToUri('ullUser/edit', 'id=2'), 'ullUser/edit?id=2', 'Creates the correct uri');
   $t->is(ullCoreTools::appendParamsToUri('ullTableTool/edit?table=UllLocation', 'id=2'), 'ullTableTool/edit?table=UllLocation&id=2', 'Creates the correct uri');
+  
+  
+$t->diag('debugArrayWithDoctrineRecords()');
+
+  $user = new UllUser();
+  $user->display_name = 'Penny Parker';
+
+  $array = array(
+    'foo' => 'bar',
+    'baz' => array (
+      'number' => 123,
+      'normal_object' => new stdClass(),
+      'doctrine_record' => $user,
+    ),
+    'doctrine_record' => new UllGroup(),
+  );
+  
+  $reference = array(
+    'foo' => 'bar',
+    'baz' => array (
+      'number' => 123,
+      'normal_object' => 'Object "stdClass"',
+      'doctrine_record' => 'Object "UllUser" with __toString() value: "Penny Parker"',
+    ),
+    'doctrine_record' => 'Object "UllGroup"',
+  );
+  
+  $t->is(ullCoreTools::debugArrayWithDoctrineRecords($array), $reference, 'Returns the correct array');
+  
+  
+$t->diag('prepareCsvColumn()');
+  $t->is(ullCoreTools::prepareCsvColumn(''), '', 'Returns the same value');
+  $t->is(ullCoreTools::prepareCsvColumn('49'), '49', 'Does not quotes a numeric value');  
+  $t->is(ullCoreTools::prepareCsvColumn('foo'), '"foo"', 'Quotes a normal string');
+  $t->is(ullCoreTools::prepareCsvColumn('He\'s on fire'), '"He\'s on fire"', 'Quotes a string containing single quotes');
+  $t->is(ullCoreTools::prepareCsvColumn('He is on "fire"'), '"He is on \\"fire\\""', 'Escapes double quotes');
+  $t->is(ullCoreTools::prepareCsvColumn('<div class="foo">bar</div>'), '"bar"', 'Strips tags');
+  $t->is(ullCoreTools::prepareCsvColumn('Am&uuml;sant'), '"' . utf8_decode('Amüsant') . '"', 'Decodes html entities');
+  $t->is(ullCoreTools::prepareCsvColumn('&gt;'), '">"', 'Decodes html entities');
+  $t->is(ullCoreTools::prepareCsvColumn('&#039;'), '"\'"', 'Decodes &#039; html entity');
   

@@ -2,7 +2,5 @@
 #
 echo 'Reload and testing'
 
-php symfony cache:clear
-php symfony doctrine:build-all-reload --application=frontend --no-confirmation -t;
-php symfony cache:clear
+batch/reload
 php symfony test:all

@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 <?php $list_generator = $sf_data->getRaw('list_generator') ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>

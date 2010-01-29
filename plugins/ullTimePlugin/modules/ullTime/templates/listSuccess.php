@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 
 <h3>
   <?php echo __('Overview', null, 'common')?> <?php echo $period->name ?> / <?php echo $user->display_name ?>
@@ -19,8 +19,11 @@
     <tr class="
       <?php echo ($odd) ? $odd = '' : $odd = 'odd' ?>
       <?php if ($day['weekend']): ?>
-        <?php echo 'weekend'; $odd = 'odd' ?>
+        <?php echo 'ull_time_weekend'; $odd = 'odd' ?>
       <?php endif ?>
+      <?php if ($day['date'] == date('Y-m-d')): ?>
+        <?php echo 'ull_time_today'?>
+      <?php endif?>
     ">
       <td><?php echo $day['humanized_date'] ?></td>
       <td><?php echo ull_link_to(

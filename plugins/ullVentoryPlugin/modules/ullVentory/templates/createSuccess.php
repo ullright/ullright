@@ -1,6 +1,6 @@
 <?php use_javascript('/ullVentoryPlugin/js/createSuccess.js') ?>
 
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree; ?>
 
 <?php if ($form->hasErrors()): ?>
   <div class='form_error'>

@@ -1,9 +1,5 @@
 <?php
-//php symfony test:all
-//php symfony test:functional frontend ullWiki
 
-
-$app = 'frontend';
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $b = new ullTestBrowser(null, null, array('configuration' => $configuration));

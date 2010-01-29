@@ -39,7 +39,15 @@ class ullFlowActionHandlerAssignToUser extends ullFlowActionHandler
   {
     $ullEntityId = $this->getForm()->getValue('ull_flow_action_assign_to_user_ull_entity');
     $ullEntity = Doctrine::getTable('UllEntity')->find($ullEntityId);
-    return array('entity' => $ullEntity);    
+    
+    if ($ullEntity)
+    {
+      return array('entity' => $ullEntity);
+    }
+    else
+    {
+      throw new InvalidArgumentException('Invalid ull_flow_action_assign_to_user_ull_entity given');
+    }    
   }
-  
+
 }

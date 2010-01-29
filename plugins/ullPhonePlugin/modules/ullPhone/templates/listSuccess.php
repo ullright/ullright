@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
 
 <?php //echo '<h3>Phone book</h3>' ?>

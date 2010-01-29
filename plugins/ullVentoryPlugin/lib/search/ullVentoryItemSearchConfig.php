@@ -91,7 +91,8 @@ class ullVentoryItemSearchConfig extends ullSearchConfig
     $sfeArray[] = $sfe;
     
     //all from ullEntity
-    $userBlacklist = array('id', 'namespace', 'password', 'is_virtual_group', 'type', 'version');
+    $userBlacklist = array('photo', 'namespace', 'password', 'is_virtual_group',
+      'type', 'version', 'last_name_first', 'parent_ull_user_id');
     $fieldNames = Doctrine::getTable('UllUser')->getFieldNames();
     foreach ($fieldNames as $key => $value)
     {

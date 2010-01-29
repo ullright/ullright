@@ -15,6 +15,3 @@ class ullsfActions extends BaseUllsfActions
 {
   
 }
-
-
-?>

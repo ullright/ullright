@@ -8,7 +8,7 @@ class UllWikiColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this->disable(array('read_counter', 'edit_counter', 'deleted', 'version', 'creator_user_id', 'created_at'));
+    $this->disable(array('read_counter', 'edit_counter', 'deleted_at', 'version', 'creator_user_id', 'created_at'));
     
     $this['updated_at']->setMetaWidgetClassName('ullMetaWidgetDate');
     

@@ -44,6 +44,9 @@ class ullFilterForm extends sfForm
         {
           unset($taintedValues[$key]);
         }
+        
+        // Necessary for dates
+        $taintedValues[$key] = html_entity_decode($taintedValue);
       }
     }
     
@@ -60,14 +63,15 @@ class ullFilterForm extends sfForm
    * @param string $value 
    * @return self
    */
-  public function setValue($field, $value)
-  {
-    if ($this->isBound)
-    {
-      $this->values[$field] = $value;
-    }
-    
-    return $this;
-  }  
-  
+   // tried to change a value after bind - does not work
+//  public function setValue($field, $value)
+//  {
+//    if ($this->isBound)
+//    {
+//      $this->values[$field] = $value;
+//    }
+//    
+//    return $this;
+//  }
+
 }

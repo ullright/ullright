@@ -9,7 +9,7 @@
  */
 
 // guess current application
-if (!isset($app))
+/*if (!isset($app))
 {
 	$traces = debug_backtrace();
 	$caller = $traces[0];
@@ -17,6 +17,10 @@ if (!isset($app))
 	$dirPieces = explode(DIRECTORY_SEPARATOR, dirname($caller['file']));
 	$app = array_pop($dirPieces);
 }
+*/
+
+//we only have one app
+$app = 'frontend'; 
 
 require_once dirname(__FILE__).'/../../config/ProjectConfiguration.class.php';
 $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', isset($debug) ? $debug : true);

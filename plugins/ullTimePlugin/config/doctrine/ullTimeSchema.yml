@@ -10,7 +10,6 @@ UllProject:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true         
   columns:
     name:
       type: string(128)
@@ -96,7 +95,6 @@ UllTimePeriod:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true         
   columns:
     name:
       type: string(128)

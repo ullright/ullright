@@ -26,12 +26,12 @@ $query = new Doctrine_Query();
 $query
   ->from('UllVentoryItem x')
 ;
-$originalSql = $query->getSql();
+$originalSql = $query->getSqlQuery();
 
 $search = new ullVentorySearch();
 $search->modifyQuery($query, 'x');
 
-$t->is($originalSql, $query->getSql(), 'empty UllVentoryItem does not modify query - ok');
+$t->is($originalSql, $query->getSqlQuery(), 'empty UllVentoryItem does not modify query - ok');
 
 //double range criterion with NOT
 $criterion = new ullSearchRangeCriterion();
@@ -56,16 +56,18 @@ $search->modifyQuery($query, 'x');
 $displaySizeId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('display-size')->id;
 $wiredNetworkSpeedId = Doctrine::getTable('UllVentoryItemAttribute')->findOneBySlug('wired-network-speed')->id;
 $paramArray = $query->getParams();
+$joinParamArray = $paramArray['join'];
+$whereParamArray = $paramArray['where'];
 
-$t->like($query->getSql(), '/LEFT JOIN ull_ventory_item_attribute_value u2 ON u.id = u2.ull_ventory_item_id '
-. 'AND u2.ull_ventory_item_type_attribute_id IN '
-. '\(SELECT u4.id AS u4__id FROM ull_ventory_item_type_attribute u4 WHERE u4.ull_ventory_item_attribute_id = \?\) '
+$t->like($query->getSqlQuery(), '/LEFT JOIN ull_ventory_item_attribute_value u2 ON u.id = u2.ull_ventory_item_id '
+. 'AND \(u2.ull_ventory_item_type_attribute_id IN '
+. '\(SELECT u4.id AS u4__id FROM ull_ventory_item_type_attribute u4 WHERE \(u4.ull_ventory_item_attribute_id = \?\)\)\) '
 . 'LEFT JOIN ull_ventory_item_attribute_value u3 ON u.id = u3.ull_ventory_item_id AND '
-. 'u3.ull_ventory_item_type_attribute_id IN '
-. '\(SELECT u5.id AS u5__id FROM ull_ventory_item_type_attribute u5 WHERE u5.ull_ventory_item_attribute_id = \?\) '
+. '\(u3.ull_ventory_item_type_attribute_id IN '
+. '\(SELECT u5.id AS u5__id FROM ull_ventory_item_type_attribute u5 WHERE \(u5.ull_ventory_item_attribute_id = \?\)\)\) '
 . 'WHERE \(u2.value >= \? OR u3.value <= \?\)/', 'double range criterion with item attributes - SQL is correct');
 
-$t->is($displaySizeId, $paramArray[0], 'column id correct');
-$t->is($wiredNetworkSpeedId, $paramArray[1], 'column id correct');
-$t->is(13, $paramArray[2], 'search range param 1 correct');
-$t->is(1000, $paramArray[3], 'search range param 2 correct');
+$t->is($displaySizeId, $joinParamArray[0], 'column id correct');
+$t->is($wiredNetworkSpeedId, $joinParamArray[1], 'column id correct');
+$t->is(13, $whereParamArray[0], 'search range param 1 correct');
+$t->is(1000, $whereParamArray[1], 'search range param 2 correct');

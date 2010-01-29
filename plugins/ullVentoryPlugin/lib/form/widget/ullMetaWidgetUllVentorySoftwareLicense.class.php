@@ -23,7 +23,7 @@ class ullMetaWidgetUllVentorySoftwareLicense extends ullMetaWidget
       ->orderBy('x.license_key')
     ;
     
-//    printQuery($q->getSql());
+//    printQuery($q->getSqlQuery());
 //    var_dump($q->getParams());
     
     $result = $q->execute();

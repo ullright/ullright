@@ -93,6 +93,13 @@ class UriMemory
       $uri = sfContext::getInstance()->getRequest()->getUri();
     }
     
+    // blacklist when exporting to csv
+    // TODO: refactor to ensure encapsulation
+    if (sfContext::getInstance()->getRequest()->hasParameter('export_csv'))
+    {
+      $overwrite = false;
+    }
+    
 
     // don't overwrite if the URI exists and overwriting is not allowed
     if (!($this->getUser()->hasAttribute($this->uriName) && !$overwrite))

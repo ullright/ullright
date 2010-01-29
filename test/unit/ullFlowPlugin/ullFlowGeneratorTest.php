@@ -6,8 +6,8 @@ class myTestCase extends sfDoctrineTestCase
 {
   protected $columnsConfigMock = array();
   
-    public function initialize() {
-    
+  public function initialize() 
+  {
     $columnConfig = new ullColumnConfiguration('my_subject');
     $columnConfig->setValidatorOptions(array('required' => true));
     $columnConfig->setLabel('My custom subject label');
@@ -57,7 +57,6 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetTaggable');
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['my_tags'] = $columnConfig;
-    
   } 
 
   public function getColumnsConfigMock()

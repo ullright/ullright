@@ -26,6 +26,7 @@ class PluginUllFlowAppTable extends Doctrine_Table
     return $q->execute()->getFirst();
   }
   
+  
   /**
    * Find by Id
    *

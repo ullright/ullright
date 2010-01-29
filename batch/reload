@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+echo 'Reloading'
+
+php symfony doctrine:build --all --and-load --no-confirmation;
+php symfony cache:clear
+

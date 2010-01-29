@@ -9,7 +9,6 @@ UllFlowApp:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true    
   columns:
     label:
       type: string(64)
@@ -101,7 +100,6 @@ UllFlowColumnConfig:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true         
   columns:
     ull_flow_app_id:
       type: integer
@@ -138,7 +136,10 @@ UllFlowColumnConfig:
     UllColumnType:
       foreignAlias: UllFlowColumnConfigs
       onDelete: CASCADE
-  # TODO: test unique: slug combined with UllFlowApp    
+  # TODO: test unique: slug combined with UllFlowApp
+  attributes:
+    # because "options" column collides with doctrine internal options
+    auto_accessor_override: false      
       
 UllFlowValue:
   package: ullFlowPlugin.lib.model.doctrine
@@ -215,7 +216,6 @@ UllFlowAction:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true         
   columns:
     label:
       type: string(32)
@@ -253,7 +253,6 @@ UllFlowStep:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true            
   columns: 
     ull_flow_app_id:
       type: integer
@@ -288,4 +287,7 @@ UllFlowStepAction:
       onDelete: CASCADE
     UllFlowAction:
       foreignAlias: UllFlowStepActions
+  attributes:
+    # because "options" column collides with doctrine internal options
+    auto_accessor_override: false
       

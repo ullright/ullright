@@ -2,13 +2,31 @@
 
 class ullTimeReportGenerator extends ullTableToolGenerator
 {
+  protected
+    $report = null
+  ;
   
-  public function __construct()
+  
+  public function __construct($report)
   {
-     $columns = array(
-      'UllProject->name',
-      'duration_seconds_sum',
-    );
+    $this->report = $report;
+
+    switch ($report)
+    {
+      case 'by_project':      
+        $columns = array(
+          'UllProject->name',
+          'duration_seconds_sum',
+        );
+        break;
+        
+      case 'by_user':
+        $columns = array(
+          'UllUser->display_name',
+          'duration_seconds_sum',
+        );
+        break;
+    }
     
     parent::__construct('UllProjectReporting', 'r', 'list', $columns);
   }  

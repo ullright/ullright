@@ -155,6 +155,6 @@ EOF;
     }
     //$conn->rollback();
     $conn->commit();
-    echo("ApplyScheduledUpdatesTask finished\n");
+    $this->log("ApplyScheduledUpdatesTask finished\n");
   }
 }

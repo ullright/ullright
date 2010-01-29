@@ -14,5 +14,6 @@ theme:
   class: themeFilter
 
 cache:     ~
-common:    ~
+common:
+  class: sfCommonFilter
 execution: ~

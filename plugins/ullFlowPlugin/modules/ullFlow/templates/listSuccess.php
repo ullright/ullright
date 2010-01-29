@@ -1,4 +1,4 @@
-<?php echo $breadcrumbTree->getHtml(ESC_RAW) ?>
+<?php echo $breadcrumb_tree ?>
 <?php $generator = $sf_data->getRaw('generator') ?>
 
 <?php echo $ull_filter->getHtml(ESC_RAW) ?>
@@ -9,7 +9,7 @@
 	<ul class='list_action_buttons color_light_bg'>
 	  
 	    <li>
-        <?php if (isset($app)): ?>
+        <?php if ($app): ?>
           <?php echo ull_button_to(__('Create', null, 'common'), 'ullFlow/create?app=' . $app->slug) ?>
         <?php endif ?>
       </li>

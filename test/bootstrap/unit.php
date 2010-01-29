@@ -2,7 +2,7 @@
 
 /*
  * This file is part of the symfony package.
- * (c) 2004-2006 Fabien Potencier <fabien.potencier@symfony-project.com>
+ * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
  * 
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,13 +10,25 @@
 
 $_test_dir = realpath(dirname(__FILE__).'/..');
 
-require_once(dirname(__FILE__).'/../../config/ProjectConfiguration.class.php');
+// configuration
+require_once dirname(__FILE__).'/../../config/ProjectConfiguration.class.php';
+
+// Introduced by sf1.3 upgrade. 
+// Deactivated and replaced with the call from sf1.2 because in the tests
+//   sfContext::createInstance() needs an sfApplicationConfiguration and not
+//   a ProjectConfiguration
+//
+//$configuration = ProjectConfiguration::hasActive() ? ProjectConfiguration::getActive() : new ProjectConfiguration(realpath($_test_dir.'/..'));
 $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'test', isset($debug) ? $debug : true);
 
-// deactivated by KU 2009-07-19 while playing around with sfLimeExtraPlugin
-// is it necessary at all?
-//include($configuration->getSymfonyLibDir().'/vendor/lime/lime.php');
+// autoloader
+$autoload = sfSimpleAutoload::getInstance(sfConfig::get('sf_cache_dir').'/project_autoload.cache');
+$autoload->loadConfiguration(sfFinder::type('file')->name('autoload.yml')->in(array(
+  sfConfig::get('sf_symfony_lib_dir').'/config/config',
+  sfConfig::get('sf_config_dir'),
+)));
+$autoload->register();
 
-// the following two params are necessary for unit tests which use sfWebController::genUrl()
-//sfConfig::set('sf_relative_url_root', '');
-//sfConfig::set('sf_no_script_name', true);
+// lime
+include $configuration->getSymfonyLibDir().'/vendor/lime/lime.php';
+

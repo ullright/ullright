@@ -10,7 +10,8 @@ class ullUserSearchConfig extends ullSearchConfig {
   public function __construct()
   {
     //a blacklist of columns we do not want the user to search for
-    $this->blacklist = array('photo', 'namespace', 'password', 'is_virtual_group', 'type', 'version');
+    $this->blacklist = array('photo', 'namespace', 'password', 'is_virtual_group',
+      'type', 'version', 'last_name_first', 'parent_ull_user_id');
   }
   
   /**
@@ -55,7 +56,7 @@ class ullUserSearchConfig extends ullSearchConfig {
     $sfe = new ullSearchFormEntry();
     $sfe->columnName = 'superior_ull_user_id';
     $sfeArray[] = $sfe;
-      
+
     return $sfeArray;
   }
 
@@ -83,7 +84,7 @@ class ullUserSearchConfig extends ullSearchConfig {
     $sfe->relations[] = 'UllEntityGroup';
     $sfe->columnName = 'ull_group_id';
     $sfeArray[] = $sfe;
-
+    
     return $sfeArray;
   }
 }

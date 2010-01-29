@@ -85,8 +85,6 @@ abstract class ullFlowActionHandler
   {
     $memory = $this->form->getObject()->findPreviousNonStatusOnlyMemory();
     
-//    var_dump($memory->toArray());
-    
     return array(
       'entity' => $memory->AssignedToUllEntity, 
       'step' => $memory->UllFlowStep
@@ -102,6 +100,5 @@ abstract class ullFlowActionHandler
   public function sendMail()
   {
   }
-  
 }
 

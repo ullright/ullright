@@ -23,7 +23,7 @@ all:
   error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
 
   i18n:  
-    supported_languages: [ 'en' ]
+    supported_languages: [ 'de', 'en' ]
   
   mailing:
     enable:         true

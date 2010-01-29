@@ -389,8 +389,9 @@ class BaseUllPhotoActions extends ullsfActions
    */
   protected function breadcrumbForIndex()
   {
-    $this->breadcrumbTree = new ullAdminBreadcrumbTree;
-    $this->breadcrumbTree->add(__('Upload user photos', null, 'ullCoreMessages'), 'ullPhoto/index');
+    $breadcrumbTree = new ullAdminBreadcrumbTree;
+    $breadcrumbTree->add(__('Upload user photos', null, 'ullCoreMessages'), 'ullPhoto/index');
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
   
   
@@ -400,8 +401,9 @@ class BaseUllPhotoActions extends ullsfActions
    */
   protected function breadcrumbForEdit()
   {
-    $this->breadcrumbTree = new ullAdminBreadcrumbTree;
-    $this->breadcrumbTree->add(__('Upload user photos', null, 'ullCoreMessages'), 'ullPhoto/index');
-    $this->breadcrumbTree->add(__('Edit', null, 'common'));
+    $breadcrumbTree = new ullAdminBreadcrumbTree;
+    $breadcrumbTree->add(__('Upload user photos', null, 'ullCoreMessages'), 'ullPhoto/index');
+    $breadcrumbTree->add(__('Edit', null, 'common'));
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
 }

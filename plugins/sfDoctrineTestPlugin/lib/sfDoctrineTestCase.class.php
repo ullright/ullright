@@ -56,8 +56,10 @@ class sfDoctrineTestCase extends lime_test
 	
 	/**
 	 * Resets the database connection and reloads the fixtures
+	 * 
+	 * Renamed because of name collision with sf1.3 lime
 	 */
-	public function reset()
+	public function reset1()
 	{
 	  // reset user_id, otherwise some records  will set creator,... to the current user_id
 	  $oldUserId = sfContext::getInstance()->getUser()->getAttribute('user_id');
@@ -94,7 +96,7 @@ class sfDoctrineTestCase extends lime_test
 	public function begin($message)
 	{
 		$this->diag($message);
-		$this->reset();
+		$this->reset1();
 	}
 	
 	/**

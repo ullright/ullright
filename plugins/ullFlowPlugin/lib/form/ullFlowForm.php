@@ -20,7 +20,6 @@ class ullFlowForm extends ullGeneratorForm
     
     // add meta data fields only for create/edit action
     //TODO: why here? why not in generator?
-    
     if ($this->requestAction == 'create' or $this->requestAction == 'edit')
     {
       $this->getWidgetSchema()->offsetSet('memory_comment', new sfWidgetFormInput(array(), array('size' => 50)));
@@ -28,16 +27,6 @@ class ullFlowForm extends ullGeneratorForm
     }    
   }
   
-//  
-//  /**
-//   * Configure the name of the model
-//   *
-//   * @return string
-//   */
-//  public function getModelName()
-//  {
-//    return 'UllFlowDoc';
-//  }
 
   /**
    * Query also the virtual columns for the default values
@@ -52,6 +41,7 @@ class ullFlowForm extends ullGeneratorForm
         $this->object->getVirtualValuesAsArray()));
   }
   
+  
   /**
    * Update also the virtual Columns
    *
@@ -62,36 +52,13 @@ class ullFlowForm extends ullGeneratorForm
   {
     parent::updateObject();
     
-//    var_dump($this->object->UllFlowAction->toArray());
-
-    $this->setVirtualValues();
     $this->setAction();
     $this->setNext();
     $this->setMemory();
-    
-//    var_dump($this->object->toArray());die;
-    
+
     return $this->object;
   }
   
-  /**
-   * adds the values of the virtual columns to the object
-   *
-   */
-  protected function setVirtualValues()
-  {
-    $values = $this->getValues();
-    
-    $virtualColumns = $this->object->getVirtualColumnsAsArray();
-    
-    foreach ($virtualColumns as $column)
-    {
-      if (isset($values[$column])) 
-      {
-        $this->object->$column = $values[$column];
-      }
-    }
-  }
   
   /**
    * parses the given ullFlow action from the submit_xxx request params
@@ -123,6 +90,7 @@ class ullFlowForm extends ullGeneratorForm
     }
   } 
     
+  
   /**
    * parses the app's rules and sets the next entity and step accordingly
    * 
@@ -133,13 +101,11 @@ class ullFlowForm extends ullGeneratorForm
   {
     if (!$this->ullFlowAction->is_status_only)
     {
-      // Step One: get information about "next" from ullFlowActionHandler
+      // Step One: try to get information about "next" from ullFlowActionHandler
       $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
       $handler = new $className($this);
       $next = $handler->getNext();
-      
-//      var_dump($next); die;
-      
+
       if (isset($next['entity'])) 
       {
         $this->object->UllEntity = $next['entity'];
@@ -153,10 +119,12 @@ class ullFlowForm extends ullGeneratorForm
       // Step Two: get information about "next" from rule script
       $className = 'ullFlowRule' . sfInflector::camelize($this->object->UllFlowApp->slug);
       $rule = new $className($this->object);
+      
       $next = $rule->getNext();
       
       if (isset($next['entity'])) 
       {
+        $next['entity']->comment = 'popo';
         $this->object->UllEntity = $next['entity'];
       }
       
@@ -167,6 +135,7 @@ class ullFlowForm extends ullGeneratorForm
     }
   }
 
+  
   /**
    * adds the memory data to the object
    *

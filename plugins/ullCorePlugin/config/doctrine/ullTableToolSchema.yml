@@ -23,7 +23,6 @@ UllSelect:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true
   columns:
     label:
       type: string(64)
@@ -39,7 +38,6 @@ UllSelectChild:
     Sluggable:
       unique: true
       fields: [label]
-      canUpdate: true      
   columns:
     ull_select_id:
       type: integer

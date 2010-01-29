@@ -23,8 +23,9 @@ class ullWidget extends sfWidgetForm
   
   
   /**
+   * ullWidgets can modifiy the object here
    * 
-   * TODO: what's the idea here ???
+   * Example: used for ullWidgetInformationUpdate
    *  
    * @param Doctrine_Record $object
    * @param unknown_type $values

@@ -1,6 +1,10 @@
-<?php //echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+
+<h3>
+  <?php echo __('Reporting', null, 'ullTimeMessages') ?>
+</h3>
 
 <?php include_partial('ullTableTool/globalError', array('form' => $filter_form)) ?>
 
@@ -14,9 +18,30 @@
 ?>
 
 <ul class='list_action_buttons color_light_bg'>
+    <?php if ($report == 'by_project'): ?>
+      <li>
+       <?php echo $filter_form['ull_user_id']->renderLabel() ?>    
+       <?php echo $filter_form['ull_user_id']->render() ?>
+       <?php echo $filter_form['ull_user_id']->renderError() ?>
+     </li>
+    <?php endif ?>
+    <?php if ($report == 'by_user'): ?>
     <li>
-     <?php echo $filter_form['ull_user_id']->renderLabel() ?>    
-     <?php echo $filter_form['ull_user_id']->render() ?>
+     <?php echo $filter_form['ull_project_id']->renderLabel() ?>    
+     <?php echo $filter_form['ull_project_id']->render() ?>
+     <?php echo $filter_form['ull_project_id']->renderError() ?>
+   </li>   
+   <?php endif ?>
+   <li>
+     <?php echo $filter_form['from_date']->renderLabel() ?>    
+     <?php echo $filter_form['from_date']->render() ?>
+     <?php echo $filter_form['from_date']->renderError() ?>
+   </li>   
+   <li>
+     <?php echo $filter_form['to_date']->renderLabel() ?>    
+     <?php echo $filter_form['to_date']->render() ?>
+     <?php echo $filter_form['to_date']->renderError() ?>
+     
      <?php echo submit_image_tag(ull_image_path('search'),
               array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) ?>
      
@@ -28,9 +53,13 @@
 </form>
 
 
-<?php include_partial('ullTableTool/ullPagerTop',
-    array('pager' => $pager, 'paging' => $paging)) ?>
+<?php include_partial('ullTableTool/ullPagerTop', array(
+  'pager' => $pager,
+  'paging' => $paging,
+  'disable_paging_hint' => true,
+)) ?>
 
+  
 
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>

@@ -29,7 +29,6 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->getUriMemory()->setDefault($this->list_base_uri);
   }
   
-  
   /**
    * Executes index action
    *
@@ -251,9 +250,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   { 
     $this->q = $this->generator->createQuery();
     
-    $filterClassName = $this->getUllFilterClassName();
-    
-    $this->filter_form = new $filterClassName;
+    $this->createFilterForm();
     
     $filterParams = $this->getRequest()->getParameter('filter');
     
@@ -312,7 +309,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyQueryForFilter();
     
-//    printQuery($this->q->getDoctrineQuery()->getSql());
+//    printQuery($this->q->getDoctrineQuery()->getSqlQuery());
 //    var_dump($this->q->getDoctrineQuery()->getParams());
 
     $this->paging = $this->getRequestParameter('paging');
@@ -338,6 +335,19 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     return ($rows->count()) ? $rows : new $modelName;
   }   
+  
+  
+  /**
+   * Create filter form
+   * 
+   * @return none
+   */
+  protected function createFilterForm()
+  {
+    $filterClassName = $this->getUllFilterClassName();
+    
+    $this->filter_form = new $filterClassName;    
+  }
    
   
   /**

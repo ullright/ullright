@@ -61,8 +61,12 @@ a:visited {
   padding-right: 5em;
 }
 
-#ull_time_list tr.weekend {
-  background: #d0d0d0;
+.ull_time_weekend {
+  background: #d0d0d0 !important;
+}
+
+.ull_time_today {
+  border: .2em dashed black;
 }
 
 .ull_time_list_time_column {

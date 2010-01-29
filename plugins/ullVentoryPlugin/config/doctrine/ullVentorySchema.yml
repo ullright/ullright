@@ -21,7 +21,6 @@ UllVentoryItemType:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true      
   columns:
     name:
       type: string(128)
@@ -90,7 +89,6 @@ UllVentoryItemAttribute:
     Sluggable:
       unique: true
       fields: [name]
-      canUpdate: true      
   columns:
     name:
       type: string(128)
@@ -103,6 +101,9 @@ UllVentoryItemAttribute:
       type: string(4000)
   relations:
     UllColumnType:
+  attributes:
+    # because "options" column collides with doctrine internal options
+    auto_accessor_override: false    
 
 #n:m Table defines attributes for item types
 UllVentoryItemTypeAttribute:

@@ -64,6 +64,15 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->breadcrumbForIndex();
     
     $this->periods = UllTimePeriodTable::findCurrentAndPast();
+    
+    if (UllUserTable::hasPermission('ull_time_enter_future_periods'))
+    {
+      $futurePeriods = UllTimePeriodTable::findOneYearInFuture();
+      if (count($futurePeriods))
+      {
+        $this->future_periods = $futurePeriods;
+      }
+    }
   }
   
   
@@ -89,7 +98,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     foreach($this->dates as $date => $day)
     {
-      if ($date <= date('Y-m-d'))
+      if ($date <= date('Y-m-d') || UllUserTable::hasPermission('ull_time_enter_future_periods'))
       {
         $this->dates[$date]['humanized_date'] = $dateWidget->render(null, $date);
         
@@ -115,6 +124,8 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_time_report');
     
+    $this->breadcrumbForReportProject();
+    
     if ($request->isMethod('post'))
     {
       $this->ull_reqpass_redirect();
@@ -128,7 +139,9 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       $request->setParameter('order', 'UllProject->name');
     }
     
-    $this->generator = new ullTimeReportGenerator();
+    $this->report = $request->getParameter('report');
+    
+    $this->generator = new ullTimeReportGenerator($this->report);
     $this->generator->setCalculateSums(true);
 
     $rows = $this->getFilterFromRequest();
@@ -397,7 +410,8 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForIndex() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree();
+    $breadcrumbTree = new ullTimeBreadcrumbTree();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
   
   /**
@@ -406,10 +420,22 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */  
   protected function breadcrumbForList() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree;
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->addDefaultListEntry();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
 
+  /**
+   * Create breadcrumbs for reportProject action
+   * 
+   */
+  protected function breadcrumbForReportProject() 
+  {
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->add(__('Reporting', null, 'ullTimeMessages'));
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
+  }   
+  
   
   /**
    * Create breadcrumbs for edit action
@@ -417,18 +443,20 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForEdit() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree;
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->setEditFlag(true);
+    $breadcrumbTree->addDefaultListEntry();
 
     if ($this->doc->exists()) 
     {
-      $this->breadcrumbTree->add(__('Edit time report', null, 'ullTimeMessages'));
+      $breadcrumbTree->add(__('Edit time report', null, 'ullTimeMessages'));
     } 
     else 
     {
-      $this->breadcrumbTree->add(__('Create time report', null, 'ullTimeMessages'));
-    } 
+      $breadcrumbTree->add(__('Create time report', null, 'ullTimeMessages'));
+    }
+
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   } 
 
   
@@ -438,18 +466,20 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForEditProject() 
   {
-    $this->breadcrumbTree = new ullTimeBreadcrumbTree;
-    $this->breadcrumbTree->setEditFlag(true);
-    $this->breadcrumbTree->addDefaultListEntry();
+    $breadcrumbTree = new ullTimeBreadcrumbTree;
+    $breadcrumbTree->setEditFlag(true);
+    $breadcrumbTree->addDefaultListEntry();
 
     if ($this->doc->exists()) 
     {
-      $this->breadcrumbTree->add(__('Edit project effort', null, 'ullTimeMessages'));
+      $breadcrumbTree->add(__('Edit project effort', null, 'ullTimeMessages'));
     } 
     else 
     {
-      $this->breadcrumbTree->add(__('Create project effort', null, 'ullTimeMessages'));
+      $breadcrumbTree->add(__('Create project effort', null, 'ullTimeMessages'));
     } 
+    
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
   
@@ -506,6 +536,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   protected function modifyQueryForFilter()
   {
+    
     //filter per user
     if ($ullUserId = $this->filter_form->getValue('ull_user_id'))
     {
@@ -521,11 +552,60 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     else
     {
       $this->user = null;
+    }
+
+    //filter per project
+    if ($projectId = $this->filter_form->getValue('ull_project_id'))
+    {
+      $this->q->addWhere('ull_project_id = ?', $projectId);
+      $this->project = Doctrine::getTable('UllProject')->findOneById($projectId);
+      
+      $this->ull_filter->add('filter[ull_project_id]', __('Project', null, 'ullTimeMessages') . ': ' . $this->project);
+      
+      // both do not work
+//      $this->filter_form->setDefault('ull_user_id', null);
+//      $this->filter_form->setValue('ull_user_id', null);
+    }
+    else
+    {
+      $this->project = null;
     }     
+
+    // filter per date
     
+    // filter from date
+    $dateWidget = new ullWidgetDateRead();
+    if ($fromDate = $this->filter_form->getValue('from_date'))
+    {
+      $this->q->addWhere('date >= ?', $fromDate);
+      $this->ull_filter->add('filter[from_date]', __('Begindate', null, 'common') . ': ' . $dateWidget->render(null, $fromDate));
+    }
+    
+    // filter to date
+    if ($toDate = $this->filter_form->getValue('to_date'))
+    {
+      $this->q->addWhere('date <= ?', $toDate);
+      $this->ull_filter->add('filter[to_date]', __('Enddate', null, 'common') . ': ' . $dateWidget->render(null, $toDate));
+    }
+    
+    // Add artificial sum field
     $this->q->getDoctrineQuery()
       ->addSelect('SUM(x.duration_seconds) as duration_seconds_sum')
-      ->addGroupBy('x.ull_project_id')
     ;
+    switch ($this->report)
+    {
+      case 'by_project':      
+        $this->q->getDoctrineQuery()
+          ->addGroupBy('x.ull_project_id')
+        ;
+        break;
+        
+      case 'by_user':
+        $this->q->getDoctrineQuery()
+          ->addGroupBy('x.ull_user_id')
+        ;
+        break;
+    }        
   }
+  
 }

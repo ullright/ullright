@@ -218,6 +218,16 @@
 <target>Foto</target>
 </trans-unit>
 
+<trans-unit id="125">
+<source>Begindate</source>
+<target>Beginndatum</target>
+</trans-unit>
+
+<trans-unit id="126">
+<source>Enddate</source>
+<target>Enddatum</target>
+</trans-unit>
+
 
 <!-- Questions -->
 
@@ -356,6 +366,11 @@
 <trans-unit id="2015">
 <source>All</source>
 <target>Alle</target>
+</trans-unit>
+
+<trans-unit id="2016">
+<source>Export as spreadsheet</source>
+<target>Als Tabelle herunterladen</target>
 </trans-unit>
 
 

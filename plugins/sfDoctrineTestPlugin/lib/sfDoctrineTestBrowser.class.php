@@ -49,7 +49,7 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	 */
 	public function resetDatabase()
 	{
-		self::$test->reset();
+		self::$test->reset1();
 
 		return $this;
 	}
@@ -93,7 +93,10 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 		$result = parent::call($uri, $method, $parameters, $changeStack);
 		ob_end_clean();
 		
-		echo lime_colorizer::colorize(sprintf("> %s %s\n", $method, $uri), array('fg' => 'cyan'));
+		// Deactivated for compatibility with sf 1.3 lime
+		//echo lime_colorizer::colorize(sprintf("> %s %s\n", $method, $uri), array('fg' => 'cyan'));
+		
+		self::$test->info(sprintf("> %s %s", $method, $uri));
 		
 		return $result;
 	}
@@ -108,16 +111,19 @@ class sfDoctrineTestBrowser extends sfTestBrowser
 	
 	private function colorizeTag($string)
 	{
-		return lime_colorizer::colorize($string, array('fg' => 'cyan'));
+	  return $string;
+//		return lime_colorizer::colorize($string, array('fg' => 'cyan'));
 	}
 	
 	private function colorizeAttribute($string)
 	{
-		$parts = explode('=', $string);
+//		$parts = explode('=', $string);
 		
-		return lime_colorizer::colorize($parts[0], array('fg' => 'magenta'))
-				. lime_colorizer::colorize('=', array('fg' => 'cyan'))
-				. lime_colorizer::colorize($parts[1], array('fg' => 'blue'));
+		return $string;
+		
+//		return lime_colorizer::colorize($parts[0], array('fg' => 'magenta'))
+//				. lime_colorizer::colorize('=', array('fg' => 'cyan'))
+//				. lime_colorizer::colorize($parts[1], array('fg' => 'blue'));
 	}
 	
 	public function colorize(array $strings)

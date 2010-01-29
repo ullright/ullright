@@ -5,6 +5,11 @@ class ullWidgetUllVentoryTaking extends ullWidget
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    if (!isset($attributes['href']))
+    {
+      $attributes['href'] = '/';
+    }
+    
     if ($value)
     {
       $title = __('Audited during latest inventory taking', null, 'ullVentoryMessages');

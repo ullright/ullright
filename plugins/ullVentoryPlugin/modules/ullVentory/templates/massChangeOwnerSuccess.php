@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml() ?>
+<?php echo $breadcrumb_tree ?>
 <h3><?php echo __('Change owner for all items belonging to', null, 'ullVentoryMessages') .
   ': ' . $oldEntityDisplayName ?></h3>
 <?php if ($form->hasErrors()): ?>

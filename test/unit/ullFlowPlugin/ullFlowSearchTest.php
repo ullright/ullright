@@ -26,13 +26,14 @@ $query = new Doctrine_Query();
 $query
   ->from('UllFlowDoc x')
 ;
-$originalSql = $query->getSql();
+$originalSql = $query->getSqlQuery();
 
 $flowApp = Doctrine::getTable('UllFlowApp')->find(1);
+
 $search = new ullFlowSearch($flowApp);
 $search->modifyQuery($query, 'x');
 
-$t->is($originalSql, $query->getSql(), 'empty ullFlowSearch does not modify query - ok');
+$t->is($originalSql, $query->getSqlQuery(), 'empty ullFlowSearch does not modify query - ok');
 
 //double range criterion with NOT
 $criterion = new ullSearchRangeCriterion();
@@ -57,11 +58,15 @@ $search->modifyQuery($query, 'x');
 $expectedColumnConfigId = $flowApp->findColumnConfigBySlug('my_priority')->id;
 $paramArray = $query->getParams();
 
-$t->like($query->getSql(), '/LEFT JOIN ull_flow_value u2 ON u.id = u2.ull_flow_doc_id AND u2.ull_flow_column_config_id = \? ' .
-'LEFT JOIN ull_flow_value u3 ON u.id = u3.ull_flow_doc_id AND u3.ull_flow_column_config_id = \? ' .
+$queryParamArray = $query->getParams();
+$joinParamArray = $queryParamArray['join'];
+$whereParamArray = $queryParamArray['where'];
+
+$t->like($query->getSqlQuery(), '/LEFT JOIN ull_flow_value u2 ON u.id = u2.ull_flow_doc_id AND \(u2.ull_flow_column_config_id = \?\) ' .
+'LEFT JOIN ull_flow_value u3 ON u.id = u3.ull_flow_doc_id AND \(u3.ull_flow_column_config_id = \?\) ' .
 'WHERE \(u2.value >= \? OR u3.value <= \?\)/', 'double range criterion with virtual columns - SQL is correct');
 
-$t->is($expectedColumnConfigId, $paramArray[0], 'column id correct');
-$t->is($expectedColumnConfigId, $paramArray[1], 'column id correct');
-$t->is(2, $paramArray[2], 'search range param 1 correct');
-$t->is(3, $paramArray[3], 'search range param 2 correct');
+$t->is($expectedColumnConfigId, $joinParamArray[0], 'column id correct');
+$t->is($expectedColumnConfigId, $joinParamArray[1], 'column id correct');
+$t->is(2, $whereParamArray[0], 'search range param 1 correct');
+$t->is(3, $whereParamArray[1], 'search range param 2 correct');

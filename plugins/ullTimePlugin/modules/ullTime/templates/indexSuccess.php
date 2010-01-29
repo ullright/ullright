@@ -1,4 +1,4 @@
-<?php echo $sf_data->getRaw('breadcrumbTree')->getHtml();?>
+<?php echo $breadcrumb_tree ?>
 
 <?php include_partial('ullTableTool/globalError', array('form' => $act_as_user_form)) ?>
 
@@ -24,9 +24,29 @@
         </form>
       <?php endif ?>      
       
+      
+      <?php if (isset($future_periods)): ?>
+        <h3><?php echo __('Future periods', null, 'ullTimeMessages') ?></h3>
+        <ul class="tc_tasks" id="ull_time_index_future_periods">
+          <?php foreach ($future_periods as $future_period): ?>
+            <li><?php echo ull_tc_task_link(
+              '/ullTimeThemeNGPlugin/images/action_icons/create_24x24', 
+              array('action' => 'list', 'period' => $future_period->slug), 
+              $future_period->name) ?></li>
+          <?php endforeach ?>
+        </ul>
+      <?php endif ?>              
+      
+      
       <h3><?php echo __('Period overviews', null, 'ullTimeMessages') ?></h3>
       <ul class="tc_tasks">
+        <?php $old_year = date('Y') ?>
         <?php foreach ($periods as $period): ?>
+          <?php $year = substr($period->from_date, 0, 4) ?>
+          <?php if ($year != $old_year): ?>
+            <li><h3><?php echo $year ?></h3></li>
+            <?php $old_year = $year; ?>
+          <?php endif ?>            
           <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', array('action' => 'list', 'period' => $period->slug), $period->name) ?></li>
         <?php endforeach ?>
       </ul>      
@@ -62,12 +82,21 @@
     </div>
     
     <div id="tc_queries">
-      <div class="tc_query_box color_light_bg">
-        <h3>
-         <?php echo __('Queries', null, 'common') ?>
-        </h3>
-        <?php //echo $named_queries->renderList(ESC_RAW) ?>
-      </div>
+    
+      <?php if (UllUserTable::hasPermission('ull_time_report')): ?>
+        <div class="tc_query_box color_light_bg">
+          <h3>
+           <?php echo __('Project reports', null, 'ullTimeMessages') ?>
+          </h3>
+          <?php //echo $named_queries->renderList(ESC_RAW) ?>
+          <ul>
+            <li><?php echo link_to(__('By project', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_project')?></li>
+            <li><?php echo link_to(__('By user', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_user')?></li>
+          </ul>
+        </div>
+      <?php endif ?>
+      
+      
       <!-- 
       <div class="tc_query_box color_light_bg">
         <h3>
@@ -84,3 +113,30 @@
      <!-- add footer here -->
   </div>
 </div>
+
+<?php echo javascript_tag('
+
+/*
+ * Hide the future periods and display a link instead
+ */
+$(document).ready(function() 
+{
+  $("#ull_time_index_future_periods#").children().hide();
+
+  $("#ull_time_index_future_periods#").prepend(
+    "<li id=\"ull_time_show_future_periods_message\"><a href=\"#\" onclick=\"showFuturePeriods(); return false;\">' . __('Show', null, 'ullTimeMessages') . '</a></li>"
+  );
+  
+});
+
+/*
+ * Unhide future periods
+ */ 
+function showFuturePeriods()
+{
+  $("#ull_time_index_future_periods").children().fadeIn(500);
+  document.getElementById("ull_time_show_future_periods_message").style.display = "none"; 
+}
+
+
+')?>
