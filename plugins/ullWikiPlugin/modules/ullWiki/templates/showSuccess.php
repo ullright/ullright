@@ -1,3 +1,13 @@
+<?php echo use_javascript('/ullCorePlugin/js/syntaxhighlighter/src/shCore.js')?>
+<?php echo use_javascript('/ullCorePlugin/js/syntaxhighlighter/scripts/shBrushPhp.js')?>
+<?php echo use_javascript('/ullCorePlugin/js/syntaxhighlighter/scripts/shBrushBash.js')?>
+<?php echo use_javascript('/ullCorePlugin/js/syntaxhighlighter/scripts/shBrushCss.js')?>
+<?php echo use_javascript('/ullCorePlugin/js/syntaxhighlighter/scripts/shBrushSql.js')?>
+<?php echo use_javascript('/ullCorePlugin/js/syntaxhighlighter/scripts/shBrushXml.js')?>
+<?php echo use_stylesheet('/ullCorePlugin/js/syntaxhighlighter/styles/shCore.css')?>
+<?php echo use_stylesheet('/ullCorePlugin/js/syntaxhighlighter/styles/shThemeDefault.css')?>
+
+
 <?php echo $breadcrumb_tree ?>
 <?php $user_widget = $sf_data->getRaw('user_widget') ?>
 
@@ -128,3 +138,5 @@ if (!function_exists('u_func')) {
         array('doc' => $doc, 'user_widget' => $user_widget)
       ); ?>
 </div>
+
+<?php echo javascript_tag('SyntaxHighlighter.all()') ?>

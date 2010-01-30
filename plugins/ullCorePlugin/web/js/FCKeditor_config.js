@@ -119,7 +119,7 @@ FCKConfig.ToolbarSets["Default"] = [
 */
 
 FCKConfig.ToolbarSets["Default"] = [
-        ['StrikeThrough','OrderedList','UnorderedList','-','Image','Link','Unlink','Anchor','-','Rule','Table','-','Undo','Redo','-','Find','Replace','-','RemoveFormat','Style', 'FontFormat','ShowBlocks','Source','About']
+  ['StrikeThrough','OrderedList','UnorderedList','-','Image','Link','Unlink','Anchor','-','Rule','Table','-','Undo','Redo','-','Find','Replace','-','RemoveFormat','Style', 'FontFormat','ShowBlocks','Source','SyntaxHighLight2','About']
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [
@@ -331,3 +331,8 @@ FCKConfig.SmileyWindowHeight	= 210 ;
 
 FCKConfig.BackgroundBlockerColor = '#ffffff' ;
 FCKConfig.BackgroundBlockerOpacity = 0.50 ;
+
+//Syntax highlighting plugin
+FCKConfig.Plugins.Add( 'syntaxhighlight2', 'en') ;
+FCKConfig.SyntaxHighlight2LangDefault = 'php' ;
+

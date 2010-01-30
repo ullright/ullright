@@ -136,3 +136,24 @@ a:visited {
   padding-bottom: 1em;
 }
 
+/*
+ * ************************************************
+ *  Syntax highlighter
+ * ************************************************
+ */
+
+/* Remove faulty min-height */
+.syntaxhighlighter {
+  min-height: 0 !important;
+}
+
+div.syntaxhighlighter {
+  border: 1px solid silver !important;
+  padding: 1em !important;
+  background-color: #eeeeee !important;
+  padding: .5em !important;
+  overflow: auto !important;
+  width: 98% !important;
+}
+
+  
