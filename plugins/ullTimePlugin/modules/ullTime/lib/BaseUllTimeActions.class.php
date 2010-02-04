@@ -91,30 +91,55 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     $this->getUriMemory()->setUri();
     
-    $this->dates = $this->period->getDateList();
     
-    $dateWidget = new ullWidgetDateRead(array('show_weekday' => true));
-    $timeDurationWidget = new ullWidgetTimeDurationRead();
+    //$rawDates is sorted by date, ascending, but we need descending
+    $rawDates = $this->period->getDateList();
+    krsort($rawDates);
     
-    foreach($this->dates as $date => $day)
+    $periodTable = array();
+    $calendarWeek = null;
+    $week = null;
+    
+    foreach($rawDates as $date => $day)
     {
       if ($date <= date('Y-m-d') || UllUserTable::hasPermission('ull_time_enter_future_periods'))
       {
-        $this->dates[$date]['humanized_date'] = $dateWidget->render(null, $date);
+        //check if we have a calendar week switch
+        if ($calendarWeek !== $day['calendarWeek'])
+        {
+          //if this is not the first switch of a month,
+          //save the created week in the period table
+          if ($week != null)
+          {
+            $periodTable[$calendarWeek] = $week;
+          }
+          
+          $calendarWeek = $day['calendarWeek'];
+
+          //create an empty week
+          $week = array();
+          $week['sum_project'] = 0;
+          $week['sum_time'] = 0;
+        }
+        
+        //update the week with its days and add sums
+        
+        $week['dates'][$date] = $day;
         
         $sumProject = UllProjectReportingTable::findSumByDateAndUserId($date, $this->user_id);  
-        $this->dates[$date]['sum_project'] = $timeDurationWidget->render(null, $sumProject);
+        $week['dates'][$date]['sum_project'] = $sumProject;
+        $week['sum_project'] += $sumProject;
         
         $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($date, $this->user_id);
-        $this->dates[$date]['sum_time'] = $timeDurationWidget->render(null, $sumTime);
-      }
-      else
-      {
-        unset($this->dates[$date]);
+        $week['dates'][$date]['sum_time'] = $sumTime; 
+        $week['sum_time'] += $sumTime;
       }
     }
     
-    rsort($this->dates);
+    //Let us not forget the last week
+    $periodTable[$calendarWeek] = $week;
+    
+    $this->setVar('periodTable', $periodTable);
     
     $this->breadcrumbForList();
   }

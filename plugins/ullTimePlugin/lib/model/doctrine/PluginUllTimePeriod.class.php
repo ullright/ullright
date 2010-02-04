@@ -33,8 +33,9 @@ abstract class PluginUllTimePeriod extends BaseUllTimePeriod
       $date = date('Y-m-d', $i);
       $weekday = date('w', $i);
       $weekend = (in_array($weekday, array(0,6))) ? true : false;
+      $calendarWeek = (int) date('W', $i); //cast to integer to remove leading 0
       
-      $return[$date] = array('date' => $date, 'weekend' => $weekend);
+      $return[$date] = array('date' => $date, 'weekend' => $weekend, 'calendarWeek' => $calendarWeek);
     }
     
     return $return;

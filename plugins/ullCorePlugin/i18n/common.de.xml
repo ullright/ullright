@@ -95,6 +95,11 @@
 <target>Abbrechen und zurück zur Liste</target>
 </trans-unit>
 
+<trans-unit id="19">
+<source>Week</source>
+<target>Woche</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 
