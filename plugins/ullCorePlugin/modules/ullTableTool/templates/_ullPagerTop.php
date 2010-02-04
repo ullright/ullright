@@ -35,8 +35,10 @@
         
   <?php endif ?>
   
-  <?php $list[] = ull_link_to(__('Export as spreadsheet', null, 'common'),
-    array('export_csv' => 'true'))?>
+  <?php if ($pager->getNumResults()): ?>
+    <?php $list[] = ull_link_to(__('Export as spreadsheet', null, 'common'),
+      array('export_csv' => 'true'))?>
+	<?php endif ?>
       
   <div class='pager_left'>
     <?php echo implode(' &nbsp;&nbsp; ', $list) ?>      
