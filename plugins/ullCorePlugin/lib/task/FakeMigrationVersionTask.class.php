@@ -52,7 +52,7 @@ EOF;
     
     $this->log('Current migration version is: ' . $dm->getCurrentVersion());
     
-    if ($arguments['version'])
+    if ($arguments['version'] !== null)
     {
       $this->log('Setting to: ' . $arguments['version']);
       $conn->exec("UPDATE " . $dm->getTableName() . " SET version = ?", array($arguments['version']));
