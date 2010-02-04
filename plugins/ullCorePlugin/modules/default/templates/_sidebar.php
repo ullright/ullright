@@ -10,7 +10,9 @@
       <?php endforeach ?>
     </ul>
 
-    <form action="<?php echo url_for('ullPhone/list?locationView=true') ?>" method="post">
+    <?php $phoneBookSearchShowHeaders = sfConfig::get('app_ull_user_phone_book_search_show_headers', true); ?>
+
+    <form action="<?php echo url_for('ullPhone/list?locationView=' . $phoneBookSearchShowHeaders) ?>" method="post">
       <?php echo $quickSearchForm['search']->render() ?>
       <?php echo submit_image_tag(ull_image_path('search', null, null, 'ullCore')) ?>
     </form>
