@@ -19,6 +19,7 @@ $newUser->first_name = 'Head';
 $newUser->last_name = 'Programmer of Modules';
 $newUser->username = 'head_programmer';
 $newUser->separation_date = '2002-02-02';
+$newUser->created_at = '2001-11-11 11:22:33';
 $newUser->save();
 
 $dgsUser = $browser->getDgsUllUserList();
@@ -139,6 +140,60 @@ $browser
     ->checkElement($dgsUser->get(2, 'first_name'), 'Head')
     ->checkElement($dgsUser->get(2, 'username'), 'head_programmer')
     ->checkElement($dgsUser->getFullRowSelector(), 2)
+  ->end()
+;
+
+//range search to - with timestamp
+$browser->diag('Range search - to - inclusion of boundary date with timestamp');
+
+//what is this test for?
+//we search from - to 11/11/2001, and we want to find
+//the head_programmer. Its created_at: 2001-11-11 11:22:33
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'columnSelect' => 'created_at',
+  ),
+  'addSubmit' => 'Add',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+  ->end()
+;
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'rangeFrom_0_9' => '',
+    'rangeTo_0_9' => '11/11/2001',
+  ),
+  'searchSubmit' => 'Search',
+))
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'search')
+  ->end()
+;
+
+$browser->followRedirect();
+
+$browser
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'list')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+    ->checkElement($dgsUser->get(1, 'first_name'), 'Head')
+    ->checkElement($dgsUser->get(1, 'username'), 'head_programmer')
+    ->checkElement($dgsUser->getFullRowSelector(), 1)
   ->end()
 ;
 

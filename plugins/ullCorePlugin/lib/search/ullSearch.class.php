@@ -138,7 +138,7 @@ class ullSearch
             {
               //from is not set, to is
               $queryOperator = ' <= ?';
-              $queryParameter[] = $subCriterion->toValue;
+              $queryParameter[] = $this->modifyRangeIfDate($subCriterion->toValue);
             }
             else
             {
@@ -153,7 +153,7 @@ class ullSearch
                 //from and to are set
                 $queryOperator = ' between ? and ?';
                 $queryParameter[] = $subCriterion->fromValue;
-                $queryParameter[] = $subCriterion->toValue;
+                $queryParameter[] = $this->modifyRangeIfDate($subCriterion->toValue);
               }
             }
 
@@ -180,6 +180,19 @@ class ullSearch
     //var_dump($q->getParams());
     
     return $q;
+  }
+  
+ 
+  /**
+   * Adds " 23:59:59" to a given value if it
+   * is a date (= parseable by strtotime).
+   * 
+   * @param $value a string
+   * @return string $value modified if it is a date
+   */ 
+  protected function modifyRangeIfDate($value)
+  {
+    return (strtotime($value) !== false) ? $value . ' 23:59:59' : $value;
   }
   
   //If needed, inheriting classes can override the following functions
