@@ -21,7 +21,7 @@ class FakeMigrationVersionTask extends sfBaseTask
     
 EOF;
 
-    $this->addArgument('version', sfCommandArgument::REQUIRED,
+    $this->addArgument('version', sfCommandArgument::OPTIONAL,
       'The doctrine migration version in the database');
     $this->addArgument('application', sfCommandArgument::OPTIONAL,
       'The application name', 'frontend');
@@ -50,9 +50,17 @@ EOF;
       $conn->exec("INSERT INTO " . $dm->getTableName() . " VALUES(0)");
     }
     
-    $this->logSection($this->name, 'Current migration version is: ' . $dm->getCurrentVersion() .
-              ', setting to: ' . $arguments['version']);
+    $this->log('Current migration version is: ' . $dm->getCurrentVersion());
     
-    $conn->exec("UPDATE " . $dm->getTableName() . " SET version = ?", array($arguments['version']));
+    if ($arguments['version'])
+    {
+      $this->log('Setting to: ' . $arguments['version']);
+      $conn->exec("UPDATE " . $dm->getTableName() . " SET version = ?", array($arguments['version']));
+    }
+    else
+    {
+      $this->log('Call it with argument "version" to manually set a version:');
+      $this->log(sprintf($this->getSynopsis(), 'php symfony'));
+    }
   }
 }
