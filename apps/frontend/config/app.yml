@@ -80,3 +80,8 @@ all:
     # Example: 30 days means he can change data up to 30 days back from now
     locking_timespan_days: 30
  
+  publish:
+    # Set the following options if you want to use the ullright:publish task
+    #server_name:    my-server.example.com
+    #user_name:      my_username
+    #target_dir:     /var/www/ullright_my_company 
