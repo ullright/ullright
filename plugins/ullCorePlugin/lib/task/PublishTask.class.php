@@ -45,13 +45,13 @@ EOF;
     
     $this->syncFiles($arguments, $options);
     
-    $this->executeRemoteSymfonyTask('doctrine:build-model');
+    $this->executeRemoteSymfonyTask('doctrine:build-model', true);
     
-    $this->executeRemoteSymfonyTask('cache:clear');
+    $this->executeRemoteSymfonyTask('cache:clear', true);
     
     $this->executeRemoteSymfonyTask('doctrine:migrate');
     
-    $this->executeRemoteSymfonyTask('project:permissions');
+    $this->executeRemoteSymfonyTask('project:permissions', true);
     
     $this->executeRemoteSymfonyTask('ullright:dump-database');
     
@@ -107,13 +107,20 @@ EOF;
    * @param string $command
    * @return string
    */
-  protected function executeRemoteCommand($cmd)
+  protected function executeRemoteCommand($cmd, $quiet = false)
   {
     $command = 'ssh ' .  $this->targetUserName . '@' . $this->targetServerName . 
-      ' "cd ' . $this->targetDir . '; ' . $cmd . '"'
+      ' "' .
+      'cd ' . $this->targetDir . '; ' . $cmd .
+      '"'
     ;
+
+    $output = $this->getFilesystem()->execute($command);
     
-    $this->log($this->getFilesystem()->execute($command));
+    if (!$quiet)
+    {
+      $this->log($output);
+    }
   }
   
   
@@ -123,13 +130,9 @@ EOF;
    * @param string $task
    * @return string
    */
-  protected function executeRemoteSymfonyTask($task)
+  protected function executeRemoteSymfonyTask($task, $quiet = false)
   {
-    $command = 'ssh ' .  $this->targetUserName . '@' . $this->targetServerName . 
-      ' "cd ' . $this->targetDir . '; php symfony ' . $task . '"'
-    ;
-    
-    $this->log($this->getFilesystem()->execute($command));
+    $this->executeRemoteCommand('php symfony ' . $task, $quiet);
   }  
   
   
