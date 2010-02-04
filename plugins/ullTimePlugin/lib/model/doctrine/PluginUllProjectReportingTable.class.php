@@ -64,7 +64,8 @@ class PluginUllProjectReportingTable extends UllRecordTable
       ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
       ->addWhere('p.is_active = ?', true)
       ->groupBy('pr.ull_project_id')
-      ->orderBy('num DESC')
+      //->orderBy('num DESC')
+      ->orderBy('t.name');
 // deactivated because it removes the correct "num" value !?!      
 //      ->limit(10)
     ;

@@ -11,8 +11,10 @@ class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineSelect
   public function __construct($options = array(), $attributes = array())
   {
     $q = new Doctrine_Query;
-    $q->from('UllProject');
-    $q->where('is_active = ?', true);
+    $q->from('UllProject p, p.Translation t');
+    $q->where('p.is_active = ?', true);
+    $q->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2));
+    $q->orderBy('t.name');
     
     $options['query'] = $q;
     parent::__construct($options, $attributes);
