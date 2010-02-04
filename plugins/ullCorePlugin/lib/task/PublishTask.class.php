@@ -10,7 +10,7 @@ class PublishTask extends ullBaseTask
     $targetDir = ''
   ;
 
-	protected function configure()
+  protected function configure()
   {
     $this->namespace        = 'ullright';
     $this->name             = 'publish';
