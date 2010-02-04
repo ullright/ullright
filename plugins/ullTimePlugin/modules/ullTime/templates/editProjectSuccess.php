@@ -9,17 +9,19 @@
   <?php echo $edit_generator->getForm()->offsetGet('ull_user_id')->render() ?>
 </h3>
 
-<?php if ($list_generator->getRow()->exists()): ?>
+<?php if ($list_generator->getRow()->exists()):?>
   <table class='list_table' id='ull_time_edit_list'>
   
-    <?php include_partial('ullTableTool/ullResultListHeader', array(
-      'generator' => $list_generator,
-      'order'     => 'created_at',
-      'order_dir' => 'ASC',
-  )); ?>
+      <?php include_partial('ullTableTool/ullResultListHeader', array(
+        'generator' => $list_generator,
+        'order'     => 'created_at',
+        'order_dir' => 'ASC',
+        )); 
+      ?>
   
   <!-- data -->
   <tbody>
+  
   <?php $odd = true; ?>
   <?php foreach($list_generator->getForms() as $row => $form): ?>
     <?php $idAsArray = (array) $list_generator->getIdentifierUrlParamsAsArray($row); ?>
@@ -40,14 +42,34 @@
   <?php endforeach; ?>
 
   <?php if ($list_generator->getCalculateSums()): ?>
-    <tr class="list_table_sum">
+    <tr class="list_table_sum bold">
+    	<td></td>
+      <td> <?php echo __('Total', null, 'common') ?></td>
+      <td><?php echo $list_generator->getSumForm()->offsetGet('duration_seconds') ?></td>
       <td></td>
-      <?php echo $list_generator->getSumForm() ?>
     </tr>
+  <?php endif ?>
+  
+  <?php if ($sum_time): ?>
+  	<tr>
+  		<td></td>
+  		<td><?php echo __('Work time', null, 'ullTimeMessages') ?></td>
+  		<td><?php echo $sum_time ?></td>
+  		<td></td>
+  	</tr>
+  	<tr class="list_table_diff">
+  		<td></td>
+  		<td><?php echo __('Differenz', null, 'common') ?></td>
+  		<td><?php echo $diff_time ?></td>
+  		<td></td>
+  	</tr>
   <?php endif ?>
   
   </tbody>
   </table>
+<?php endif ?>
+<?php if ($sum_time && !$list_generator->getRow()->exists()): ?>
+	<p><?php echo __('Work time', null, 'ullTimeMessages') ?> <?php echo $sum_time ?></p>
 <?php endif ?>
   
 

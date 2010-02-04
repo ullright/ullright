@@ -467,12 +467,15 @@
 <target>Link öffnet sich in einem neuen Fenster</target>
 </trans-unit>
 
-<trans-unit id="9004">
+<trans-unit id="9005">
 <source>or create</source>
 <target>oder neu erstellen</target>
 </trans-unit>
 
-
+<trans-unit id="9006">
+<source>Difference</source>
+<target>Differenz</target>
+</trans-unit>
 
 
 <!-- top navigation login -->

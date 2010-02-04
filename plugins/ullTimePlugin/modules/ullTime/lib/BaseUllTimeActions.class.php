@@ -82,7 +82,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    * @param $request
    * @return unknown_type
    */
-  public function executeList(sfRequest $request)
+public function executeList(sfRequest $request)
   {
     $this->checkPermission('ull_time_list');
     
@@ -247,6 +247,15 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', $this->getLockingStatus());
     $this->edit_generator->buildForm($this->doc);
+    
+    $timeSumWidget = new ullWidgetTimeDurationRead();
+    $timeDiffWidget = new ullWidgetTimeDurationRead();
+    
+    $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
+    $this->sum_time = $timeSumWidget->render(null, $sumTime);
+    
+    $sumProject = UllProjectReportingTable::findSumByDateAndUserId($request->getParameter('date'), $this->user_id);
+    $this->diff_time = $timeDiffWidget->render(null, ($sumTime-$sumProject));
     
     $this->breadcrumbForEditProject();
     

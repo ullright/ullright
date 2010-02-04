@@ -367,6 +367,9 @@ ul#breadcrumbs li.first {
 .list_table_sum td {
   border-top: .3em double black;
 }
+.list_table_diff td {
+  border-top: .1em solid black;
+}
 
 /*
  * ************************************************
@@ -721,6 +724,10 @@ div#indicator {
 
 .no_underline:hover {
   text-decoration: none;
+}
+
+.bold {
+	font-weight:bold;
 }
 
 /*
