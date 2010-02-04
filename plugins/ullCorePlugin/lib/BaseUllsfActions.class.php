@@ -62,9 +62,9 @@ abstract class BaseUllsfActions extends sfActions
       $this->setTemplate(sfConfig::get('sf_plugins_dir') . 
         '/ullCorePlugin/modules/ullTableTool/templates/exportAsCsv');
 //      $this->getResponse()->setContentType('application/vnd.ms-excel;charset=utf-8');
-      $this->getResponse()->setContentType('application/vnd.ms-excel');
+      $this->getResponse()->setContentType('application/csv');
       $this->getResponse()->setHttpHeader('Content-Disposition',
-        'inline;filename=' . ullCoreTools::sluggify($this->getResponse()->getTitle()) . '.csv;');
+        'attachment;filename=' . ullCoreTools::sluggify($this->getResponse()->getTitle()) . '.csv;');
     } 
   }  
 
