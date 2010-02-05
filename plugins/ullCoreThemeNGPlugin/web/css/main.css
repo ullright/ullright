@@ -849,11 +849,15 @@ img.ull_user_popup_icon {
  *  ullWidgetTime
  * ************************************************
  */
+
+span.ull_widget_time {
+  white-space: nowrap;
+}
  
-.ull_widget_time {
-	/*width: 4em;*/
-	text-align: right;
-} 
+table span.ull_widget_time {
+  display: block;
+  text-align: right;
+}
  
 .ull_widget_time_negative {
 	color: #ff0000;

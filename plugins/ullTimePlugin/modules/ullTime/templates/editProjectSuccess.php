@@ -70,7 +70,7 @@
   </table>
 <?php endif ?>
 <?php if ($sum_time && !$list_generator->getRow()->exists()): ?>
-	<p><?php echo __('Work time', null, 'ullTimeMessages') ?> <?php echo $timeDurationWidget->render(null, $sum_time); ?></p>
+	<p><?php echo __('Work time', null, 'ullTimeMessages') ?>: <?php echo $timeDurationWidget->render(null, $sum_time); ?></p>
 <?php endif ?>
   
 

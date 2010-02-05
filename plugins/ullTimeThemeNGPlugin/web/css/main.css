@@ -74,9 +74,10 @@ a:visited {
 }
 
 .ull_time_list_time_column {
-  text-align: right;
+  /* text-align: right; */
 }
 
+/* Make the time duration columns as thin as possible to make alignment to the right looking good */
 .col_duration_seconds_header, .col_period_list_time_total, .col_period_list_project_total {
 	width: 1em;
 }

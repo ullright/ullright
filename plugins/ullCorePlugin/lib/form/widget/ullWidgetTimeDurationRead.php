@@ -13,9 +13,9 @@ class ullWidgetTimeDurationRead extends ullWidget
 
     if ($value || (($value == 0) && isset($attributes['show_zero']) && $attributes['show_zero']))
     {
-      return '<div class="ull_widget_time' . $negativeClass . '">' . 
+      return '<span class="ull_widget_time' . $negativeClass . '">' . 
         ullCoreTools::timeToString($value) .
-        '</div>';
+        '</span>';
     }
     
 //    return date('g', $value) . '<sup style="vertical-align: text-top; font-size: .8em;">' . date('i', $value) . '</sup>';
