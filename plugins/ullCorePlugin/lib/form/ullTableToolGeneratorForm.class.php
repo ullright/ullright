@@ -12,6 +12,9 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
   protected function updateDefaultsFromObject()
   {
     //parent::updateDefaultsFromObject();
+    
+    //parent updateDefaultsFromObject begins here:
+    
     if ($this->isNew())
     {
       $this->setDefaults(array_merge($this->getObject()->toArray(false), $this->getDefaults()));
@@ -21,6 +24,19 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       //$this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->toArray(false)));
       $this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->getData()));
     }
+    
+     $defaults = $this->getDefaults();
+    foreach ($this->embeddedForms as $name => $form)
+    {
+      if ($form instanceof sfFormDoctrine)
+      {
+        $form->updateDefaultsFromObject();
+        $defaults[$name] = $form->getDefaults();
+      }
+    }
+    $this->setDefaults($defaults);
+
+    //parent updateDefaultsFromObject ends here:
     
     if ($this->isI18n()) 
     { 
