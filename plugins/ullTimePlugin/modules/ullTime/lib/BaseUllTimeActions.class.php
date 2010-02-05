@@ -248,14 +248,8 @@ public function executeList(sfRequest $request)
     $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', $this->getLockingStatus());
     $this->edit_generator->buildForm($this->doc);
     
-    $timeSumWidget = new ullWidgetTimeDurationRead();
-    $timeDiffWidget = new ullWidgetTimeDurationRead();
-    
-    $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
-    $this->sum_time = $timeSumWidget->render(null, $sumTime);
-    
-    $sumProject = UllProjectReportingTable::findSumByDateAndUserId($request->getParameter('date'), $this->user_id);
-    $this->diff_time = $timeDiffWidget->render(null, ($sumTime-$sumProject));
+    $this->sum_time = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
+    $this->diff_time = $this->sum_time - UllProjectReportingTable::findSumByDateAndUserId($request->getParameter('date'), $this->user_id);
     
     $this->breadcrumbForEditProject();
     

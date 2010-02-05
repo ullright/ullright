@@ -2,6 +2,7 @@
 <?php $list_generator = $sf_data->getRaw('list_generator') ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+<?php $timeDurationWidget = new ullWidgetTimeDurationRead(); ?>
 
 <h3>
   <?php echo __('Project efforts', null, 'ullTimeMessages')?>
@@ -54,13 +55,13 @@
   	<tr>
   		<td></td>
   		<td><?php echo __('Work time', null, 'ullTimeMessages') ?></td>
-  		<td><?php echo $sum_time ?></td>
+  		<td><?php echo $timeDurationWidget->render(null, ($sum_time)); ?></td>
   		<td></td>
   	</tr>
   	<tr class="list_table_diff">
   		<td></td>
   		<td><?php echo __('Differenz', null, 'common') ?></td>
-  		<td><?php echo $diff_time ?></td>
+  		<td><?php echo $timeDurationWidget->render(null, ($diff_time)); ?></td>
   		<td></td>
   	</tr>
   <?php endif ?>
@@ -69,7 +70,7 @@
   </table>
 <?php endif ?>
 <?php if ($sum_time && !$list_generator->getRow()->exists()): ?>
-	<p><?php echo __('Work time', null, 'ullTimeMessages') ?> <?php echo $sum_time ?></p>
+	<p><?php echo __('Work time', null, 'ullTimeMessages') ?> <?php echo $timeDurationWidget->render(null, ($sum_time)); ?></p>
 <?php endif ?>
   
 
