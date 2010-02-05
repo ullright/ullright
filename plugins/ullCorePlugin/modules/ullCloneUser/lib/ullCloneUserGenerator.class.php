@@ -12,7 +12,7 @@ class ullCloneUserGenerator extends ullTableToolGenerator
   public function configure()
   {
     $this->setAllowDelete(false);
-    $this->setFormClassName('ullCloneUserForm');
+    $this->setFormClassName('ullCloneUserGeneratorForm');
   }
   
 }
