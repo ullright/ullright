@@ -3,7 +3,7 @@
  * sfForm for the table tool
  *
  */
-class ullTableToolForm extends ullGeneratorForm
+class ullTableToolGeneratorForm extends ullGeneratorForm
 {  
   /**
    * Override getting the default values form the object
@@ -11,7 +11,16 @@ class ullTableToolForm extends ullGeneratorForm
    */
   protected function updateDefaultsFromObject()
   {
-    parent::updateDefaultsFromObject();
+    //parent::updateDefaultsFromObject();
+    if ($this->isNew())
+    {
+      $this->setDefaults(array_merge($this->getObject()->toArray(false), $this->getDefaults()));
+    }
+    else
+    {
+      //$this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->toArray(false)));
+      $this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->getData()));
+    }
     
     if ($this->isI18n()) 
     { 

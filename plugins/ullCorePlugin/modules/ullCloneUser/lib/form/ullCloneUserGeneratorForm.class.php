@@ -1,5 +1,5 @@
 <?php
-class ullCloneUserGeneratorForm extends ullTableToolForm
+class ullCloneUserGeneratorForm extends ullTableToolGeneratorForm
 {  
   /**
    * Override getting the default values form the object

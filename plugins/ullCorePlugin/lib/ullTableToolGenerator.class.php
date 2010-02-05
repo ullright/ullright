@@ -30,7 +30,7 @@ class ullTableToolGenerator extends ullGenerator
   {
     $this->handleDefaultAccessAndRequestAction($defaultAccess, $requestAction);
     
-    $this->formClass = 'ullTableToolForm';
+    $this->formClass = 'ullTableToolGeneratorForm';
     $this->modelName = $modelName;
     
     $this->validateConstructorParams($this->modelName);

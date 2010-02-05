@@ -203,14 +203,14 @@ $t->diag('getIdentifierValue()');
   
 $t->diag('getForm() with calling buildForm() prior');  
   $form = $tableTool->getForm();
-  $t->isa_ok($form, 'ullTableToolForm', 'getForm() returns a UllForm object');
+  $t->isa_ok($form, 'ullTableToolGeneratorForm', 'getForm() returns a UllForm object');
   
 $t->diag('getForms()');
   $forms = $tableTool->getForms();
   $t->is(is_array($forms), true, 'getForms() returns an array');
   $t->is(count($forms), 2, 'getForms returns the correct number of forms');
-  $t->isa_ok($forms[0], 'ullTableToolForm', 'The first entry is a UllForm object');  
-  $t->isa_ok($forms[1], 'ullTableToolForm', 'The second entry is a UllForm object');  
+  $t->isa_ok($forms[0], 'ullTableToolGeneratorForm', 'The first entry is a UllForm object');  
+  $t->isa_ok($forms[1], 'ullTableToolGeneratorForm', 'The second entry is a UllForm object');  
   
 $t->diag('getSums()');
   $tableTool = new ullTableToolGenerator('TestTable', 'r');
@@ -222,7 +222,7 @@ $t->diag('getSums()');
   
 $t->diag('getSumForm()');  
   $sumForm = $tableTool->getSumForm();
-  $t->isa_ok($sumForm, 'ullTableToolForm', 'Returns the correct form object');
+  $t->isa_ok($sumForm, 'ullTableToolGeneratorForm', 'Returns the correct form object');
   $t->is($sumForm['my_email']->render(), '', 'Renders nothing for a non-numeric field');
   // This is stupid because it is a select box and no normal integer field
   // Nevertheless, the sum is "2" and id "2" is "My first option"
