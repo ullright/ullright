@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(28, new lime_output_color);
+$t = new lime_test(32, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -44,6 +44,10 @@ $t->diag('timeToString()');
   $t->is(ullCoreTools::timeToString(60), '0:01', 'Returns the correct string');
   $t->is(ullCoreTools::timeToString(3600), '1:00', 'Returns the correct string');
   $t->is(ullCoreTools::timeToString(5400), '1:30', 'Returns the correct string');
+  $t->is(ullCoreTools::timeToString(-0), '0:00', 'Returns the correct string');
+  $t->is(ullCoreTools::timeToString(-60), '- 0:01', 'Returns the correct string');
+  $t->is(ullCoreTools::timeToString(-3600), '- 1:00', 'Returns the correct string');
+  $t->is(ullCoreTools::timeToString(-5400), '- 1:30', 'Returns the correct string');
   
 $t->diag('humanTimeToIsoTime()');
   $t->is(ullCoreTools::humanTimeToIsoTime('0:00'), '00:00:00', 'Returns the correct string');

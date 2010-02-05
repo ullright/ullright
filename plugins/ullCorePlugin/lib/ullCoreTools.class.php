@@ -62,6 +62,12 @@ class ullCoreTools
    */
   public static function timeToString($time)
   {
+    $return = '';
+    if($time < 0)
+    {
+      $return .= '- ';
+      $time = -$time;
+    }
     if ($time >= 3600)
     {
       $hours = floor($time / 3600);
@@ -78,7 +84,7 @@ class ullCoreTools
       $minutes = '0' . $minutes;
     }
     
-    $return = $hours . ':' . $minutes;
+    $return .= $hours . ':' . $minutes;
     
     return $return;
   }

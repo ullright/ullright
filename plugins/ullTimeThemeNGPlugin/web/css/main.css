@@ -58,7 +58,11 @@ a:visited {
  * List action
  */
 #ull_time_list td, #ull_time_list th {
-  padding-right: 5em;
+  /*padding-right: 5em; */
+}
+
+#ull_time_list {
+	width: 780px;
 }
 
 .ull_time_weekend {
@@ -71,6 +75,10 @@ a:visited {
 
 .ull_time_list_time_column {
   text-align: right;
+}
+
+.col_duration_seconds_header, .col_period_list_time_total, .col_period_list_project_total {
+	width: 1em;
 }
 
 /**

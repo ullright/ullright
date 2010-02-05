@@ -5,7 +5,13 @@
 </h3>
 
 <table class="list_table" id="ull_time_list">
-  
+
+	<col class="col_period_list_day"/>
+	<col class="col_period_list_time_reporting"/>
+	<col class="col_period_list_time_total"/>
+	<col class="col_period_list_project_reporting"/>
+	<col class="col_period_list_project_total"/>
+	
   <tr class="color_dark_bg">
     <th class="color_dark_bg"><?php echo __('Day', null, 'common') ?></th>
     <th class="color_dark_bg"><?php echo __('Time reporting', null, 'ullTimeMessages') ?></th>
