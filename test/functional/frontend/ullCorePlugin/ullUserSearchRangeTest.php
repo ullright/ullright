@@ -52,8 +52,8 @@ $browser
   ->call('/ullUser/search', 'POST', array (
   'fields' => 
   array (
-    'rangeTo_0_8' => '',
-    'rangeFrom_0_8' => '02/02/2002',
+    'rangeDateTo_0_8' => '',
+    'rangeDateFrom_0_8' => '02/02/2002',
     'columnSelect' => 'id',
   ),
   'searchSubmit' => 'Search',
@@ -115,8 +115,8 @@ $browser
   ->call('/ullUser/search', 'POST', array (
   'fields' => 
   array (
-    'rangeFrom_0_8' => '',
-    'rangeTo_0_8' => '02/02/2002',
+    'rangeDateFrom_0_8' => '',
+    'rangeDateTo_0_8' => '02/02/2002',
   ),
   'searchSubmit' => 'Search',
 ))
@@ -171,8 +171,8 @@ $browser
   ->call('/ullUser/search', 'POST', array (
   'fields' => 
   array (
-    'rangeFrom_0_9' => '',
-    'rangeTo_0_9' => '11/11/2001',
+    'rangeDateFrom_0_9' => '',
+    'rangeDateTo_0_9' => '11/11/2001',
   ),
   'searchSubmit' => 'Search',
 ))
@@ -225,8 +225,8 @@ $browser
   ->call('/ullUser/search', 'POST', array (
   'fields' => 
   array (
-    'rangeFrom_0_8' => '01/01/2002',
-    'rangeTo_0_8' => '01/01/2005',
+    'rangeDateFrom_0_8' => '01/01/2002',
+    'rangeDateTo_0_8' => '01/01/2005',
   ),
   'searchSubmit' => 'Search',
 ))
@@ -279,9 +279,9 @@ $browser
   ->call('/ullUser/search', 'POST', array (
   'fields' => 
   array (
-    'not_rangeFrom_0_8' => '',
-    'rangeFrom_0_8' => '01/01/2002',
-    'rangeTo_0_8' => '01/01/2005',
+    'not_rangeDateFrom_0_8' => '',
+    'rangeDateFrom_0_8' => '01/01/2002',
+    'rangeDateTo_0_8' => '01/01/2005',
   ),
   'searchSubmit' => 'Search',
 ))

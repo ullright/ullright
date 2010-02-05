@@ -53,6 +53,15 @@ class ullSearchRangeCriterion extends ullSearchCriterion
 }
 
 /**
+ * This search criterion represents a range search
+ * between two dates.
+ */
+class ullSearchDateRangeCriterion extends ullSearchRangeCriterion
+{
+  
+}
+
+/**
  * This search criterion represents a simple boolean
  * YES/NO search.
  */

@@ -23,6 +23,6 @@ class ullMetaWidgetDateTime extends ullMetaWidget
   
   public function getSearchType()
   {
-    return 'range';
+    return 'rangeDate';
   }
 }

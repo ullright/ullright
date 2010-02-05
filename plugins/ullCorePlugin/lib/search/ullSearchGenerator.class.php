@@ -244,11 +244,12 @@ class ullSearchGenerator extends ullGeneratorBase
         switch ($searchPrefix)
         {
           case 'range':
-            $ullMetaWidget->addToFormAs('rangeFrom_' . $enumeratedColumnName);
-            $this->form->getWidgetSchema()->setLabel('rangeFrom_' . $enumeratedColumnName, __($columnConfig->getLabel(), null, 'common'));
+          case 'rangeDate':
+            $ullMetaWidget->addToFormAs($searchPrefix . 'From_' . $enumeratedColumnName);
+            $this->form->getWidgetSchema()->setLabel($searchPrefix . 'From_' . $enumeratedColumnName, __($columnConfig->getLabel(), null, 'common'));
 
-            $ullMetaWidget->addToFormAs('rangeTo_' . $enumeratedColumnName);
-            $this->form->getWidgetSchema()->setLabel('rangeTo_' . $enumeratedColumnName, __('to', null, 'common') . ':');
+            $ullMetaWidget->addToFormAs($searchPrefix . 'To_' . $enumeratedColumnName);
+            $this->form->getWidgetSchema()->setLabel($searchPrefix . 'To_' . $enumeratedColumnName, __('to', null, 'common') . ':');
             break;
 
           case 'foreign':

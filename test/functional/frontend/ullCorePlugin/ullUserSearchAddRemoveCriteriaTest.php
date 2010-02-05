@@ -44,7 +44,6 @@ $browser
     ->checkElement('form#searchForm label[for="fields_standard_0_8"]', 'Last name')
     ->checkElement('form#searchForm label:contains("Last name")', 1)
     ->checkElement('form#searchForm label', 9)
-    // todo Auto-generated constructor stub
   ->end()
 ;
 
@@ -70,7 +69,6 @@ $browser
     ->checkElement('form#searchForm label', 10)
     ->checkElement('form#searchForm label:contains("Department")', true)
     ->checkElement('#fields_foreign_0_1', true)
-    // todo Auto-generated constructor stub
   ->end()
 ;
 
@@ -115,8 +113,8 @@ $browser
     ->checkElement('#fields_foreign_0_6', false)
     ->checkElement('form#searchForm label', 8)
     ->checkElement('form#searchForm label:contains("Job title")', false)
-    ->checkElement('#fields_rangeFrom_0_9', false)
-    ->checkElement('#fields_rangeTo_0_9', false)
+    ->checkElement('#fields_rangeDateFrom_0_9', false)
+    ->checkElement('#fields_rangeDateTo_0_9', false)
   ->end()
 ;
 
@@ -135,8 +133,8 @@ $browser
   ->end()
   ->with('response')->begin()
     ->isStatusCode(200)
-    ->checkElement('#fields_rangeFrom_0_9', true)
-    ->checkElement('#fields_rangeTo_0_9', true)
+    ->checkElement('#fields_rangeDateFrom_0_9', true)
+    ->checkElement('#fields_rangeDateTo_0_9', true)
     ->checkElement('form#searchForm label', 10)
     ->checkElement('form#searchForm label:contains("Deactivation date")', true)
   ->end()

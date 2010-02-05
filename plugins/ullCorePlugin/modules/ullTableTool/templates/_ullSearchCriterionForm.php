@@ -52,7 +52,8 @@
       echo $formField->render();
     }
 
-    if (strncmp($formField->getName(), 'rangeFrom', strlen('rangeFrom')) == 0)
+    if (strpos($formField->getName(), 'rangeFrom') === 0
+        || strpos($formField->getName(), 'rangeDateFrom') === 0)
     {
       $suppressNewRow = true;
     }

@@ -134,11 +134,13 @@ class ullSearch
             break;
 
           case 'ullSearchRangeCriterion':
+          case 'ullSearchDateRangeCriterion':
             if ($subCriterion->fromValue == null || $subCriterion->fromValue == '')
             {
               //from is not set, to is
               $queryOperator = ' <= ?';
-              $queryParameter[] = $this->modifyRangeIfDate($subCriterion->toValue);
+              $queryParameter[] = ($queryClass == 'ullSearchDateRangeCriterion') ?
+                $subCriterion->toValue . ' 23:59:59' : $subCriterion->toValue;
             }
             else
             {
@@ -153,13 +155,17 @@ class ullSearch
                 //from and to are set
                 $queryOperator = ' between ? and ?';
                 $queryParameter[] = $subCriterion->fromValue;
-                $queryParameter[] = $this->modifyRangeIfDate($subCriterion->toValue);
+                $queryParameter[] = ($queryClass == 'ullSearchDateRangeCriterion') ?
+                  $subCriterion->toValue . ' 23:59:59' : $subCriterion->toValue;
               }
             }
 
             $queryString .= $alias . '.' . $newColumnName . $queryOperator;
 
             break;
+          
+          default:
+            throw new RuntimeException("Invalid search criterion class.");
         }
 
         if ($subCriterion->isNot === true)
@@ -180,19 +186,6 @@ class ullSearch
     //var_dump($q->getParams());
     
     return $q;
-  }
-  
- 
-  /**
-   * Adds " 23:59:59" to a given value if it
-   * is a date (= parseable by strtotime).
-   * 
-   * @param $value a string
-   * @return string $value modified if it is a date
-   */ 
-  protected function modifyRangeIfDate($value)
-  {
-    return (strtotime($value) !== false) ? $value . ' 23:59:59' : $value;
   }
   
   //If needed, inheriting classes can override the following functions
