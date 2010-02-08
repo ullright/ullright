@@ -34,8 +34,33 @@ class ullQuery
     
     $this->q = new ullDoctrineQuery();
     $this->q->from($this->baseModel . ' x');
+    
+    $inheritanceKeyFields = $this->getInheritanceKeyField($this->baseModel);
+    if ($inheritanceKeyFields != null)
+    {
+      $this->addSelect($inheritanceKeyFields);
+    }
   }
   
+  /**
+   * Inspect the inheritance map of a model and
+   * retrieve keyFields, if any.
+   * @param unknown_type $modelName
+   * @return array keyFields, if there are none, null
+   */
+  private function getInheritanceKeyField($modelName)
+  {
+    $inheritanceMap = Doctrine::getTable($modelName)->getOption('inheritanceMap');
+    $inheritanceFieldKeys = array_keys($inheritanceMap);
+    if (count($inheritanceFieldKeys) > 0)
+    {
+      return $inheritanceFieldKeys;
+    }
+    else
+    {
+      return null;
+    } 
+  }
   
   /******************************************
    * Doctrine method equivalents
@@ -422,27 +447,47 @@ class ullQuery
    * @param array $relations
    * @return none
    */
-  public function addRelationsToQuery($alias = 'x', $relations = array())
+  public function addRelationsToQuery($alias = 'x', $relations = array(), $fromModel = null)
   {
     if (!count($relations))
     {
       $relations = $this->relations;
     }
     
+    if (!$fromModel)
+    {
+      $fromModel = $this->getBaseModel();
+    }    
+    
     foreach ($relations as $relation => $subRelations)
     {
       $newAlias = $alias . '_' . $this->relationStringToAlias($relation, false);
       
-      $from = $alias . '.' . $relation . ' '. $newAlias;
+      $from = $alias . '.' . $relation . ' ' . $newAlias;
       
       $fromParts = $this->q->getDqlPart('from');
+      
+      $doctrineRelation = Doctrine::getTable($fromModel)->getRelation($relation);
+      
       if (!in_array($from, $fromParts))
-      {
+      { 
         $this->q->addFrom($from);
+        
+        $inheritanceKeyFields = $this->getInheritanceKeyField($doctrineRelation->getClass());
+        
+        if ($inheritanceKeyFields != null)
+        {
+          $this->addSelect($inheritanceKeyFields);
+        }
+        
+        if ($doctrineRelation->getClass() == 'UllEntity')
+        {
+          $this->q->addSelect($newAlias . '.type');
+        }
       }
       
       // This is necessary for Doctrine joins:
-      $selectId = $alias . '.' . 'id';
+      $selectId = $alias . '.' . $doctrineRelation->getLocalColumnName();
       $selectParts = $this->q->getDqlPart('select');
       if (!in_array($selectId, $selectParts))
       {
@@ -451,7 +496,9 @@ class ullQuery
     
       if (count($subRelations))
       {
-        $this->addRelationsToQuery($newAlias, $subRelations);
+        $doctrineRelation = Doctrine::getTable($fromModel)->getRelation($relation);
+        
+        $this->addRelationsToQuery($newAlias, $subRelations, $doctrineRelation->getClass());
       }
     }
   }
