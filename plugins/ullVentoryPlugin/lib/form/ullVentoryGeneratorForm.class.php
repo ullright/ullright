@@ -3,10 +3,9 @@
  * sfForm for ullVentory
  *
  */
-class ullVentoryForm extends ullGeneratorForm
+class ullVentoryGeneratorForm extends ullGeneratorForm
 {
   
-
   /**
    * Handle item-type and item-model
    * 
@@ -288,7 +287,30 @@ class ullVentoryForm extends ullGeneratorForm
    */
   protected function updateDefaultsFromObject()
   {
-    parent::updateDefaultsFromObject();
+    //parent updateDefaultsFromObject()
+    
+    if ($this->isNew())
+    {
+      $this->setDefaults(array_merge($this->getObject()->toArray(false), $this->getDefaults()));
+    }
+    else
+    {
+      //$this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->toArray(false)));
+      $this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->getData()));
+    }
+    
+    $defaults = $this->getDefaults();
+    foreach ($this->embeddedForms as $name => $form)
+    {
+      if ($form instanceof sfFormDoctrine)
+      {
+        $form->updateDefaultsFromObject();
+        $defaults[$name] = $form->getDefaults();
+      }
+    }
+    $this->setDefaults($defaults);
+    
+    //end parent updateDefaultsFromObject()
     
     $defaults = $this->getDefaults();
 
@@ -297,6 +319,7 @@ class ullVentoryForm extends ullGeneratorForm
     $defaults['ull_ventory_item_type_id'] = $model->ull_ventory_item_type_id;
     $defaults['ull_ventory_item_manufacturer_id'] = $model->ull_ventory_item_manufacturer_id;
     // for the list view:
+    //var_dump($this->getObject()->getData());
     $defaults['ull_location_id'] = $this->getObject()->UllEntity->ull_location_id;
     $defaults['artificial_toggle_inventory_taking'] = $this->getObject()->hasLatestInventoryTaking();
     
