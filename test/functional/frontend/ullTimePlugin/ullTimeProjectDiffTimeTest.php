@@ -75,7 +75,7 @@ $b
 $b
   ->diag('list: check times')
   ->checkResponseElement('tr.list_table_sum > td > span.ull_widget_time', '2:55')
-  ->checkResponseElement('table#ull_time_edit_list > tbody > tr + tr + tr + tr > td + td + td > span', '5:00')
-  ->checkResponseElement('tr.list_table_diff > td > span.ull_widget_time', '2:05')
+  ->checkResponseElement('div#content > p > span', '5:00')
+  ->checkResponseElement('div#content > p > span + span', '2:05')
 ;
   
