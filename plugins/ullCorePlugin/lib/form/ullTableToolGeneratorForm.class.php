@@ -11,10 +11,10 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
    */
   protected function updateDefaultsFromObject()
   {
-    //parent::updateDefaultsFromObject();
+    parent::updateDefaultsFromObject();
     
     //parent updateDefaultsFromObject begins here:
-    
+    /*
     if ($this->isNew())
     {
       $this->setDefaults(array_merge($this->getObject()->toArray(false), $this->getDefaults()));
@@ -35,7 +35,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       }
     }
     $this->setDefaults($defaults);
-
+    */
     //parent updateDefaultsFromObject ends here:
     
     if ($this->isI18n()) 
