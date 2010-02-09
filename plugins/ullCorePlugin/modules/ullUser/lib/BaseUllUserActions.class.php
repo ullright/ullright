@@ -85,7 +85,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       $this->allow_edit = true;
     }
     
-    $this->generator = new ullTableToolGenerator('UllEntity', 'r');
+    $this->generator = new ullTableToolGenerator('UllUser', 'r');
     $this->handlePublicAccess();
     $this->getUserFromRequest();
     
