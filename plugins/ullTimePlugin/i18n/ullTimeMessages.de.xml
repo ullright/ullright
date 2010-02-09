@@ -159,6 +159,11 @@
 <target>Einblenden</target>
 </trans-unit>
 
+<trans-unit id="32">
+<source>Work time up to now would be</source>
+<target>Arbeitszeit wäre bis jetzt</target>
+</trans-unit>
+
 
     </body>
   </file>

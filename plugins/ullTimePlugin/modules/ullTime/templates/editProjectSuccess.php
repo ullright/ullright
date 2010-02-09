@@ -51,26 +51,22 @@
     </tr>
   <?php endif ?>
   
-  <?php if ($sum_time): ?>
-  	<tr>
-  		<td></td>
-  		<td><?php echo __('Work time', null, 'ullTimeMessages') ?></td>
-  		<td><?php echo $timeDurationWidget->render(null, $sum_time); ?></td>
-  		<td></td>
-  	</tr>
-  	<tr class="list_table_diff">
-  		<td></td>
-  		<td><?php echo __('Differenz', null, 'common') ?></td>
-  		<td><?php echo $timeDurationWidget->render(null, $diff_time, array('show_negative_red' => true, 'show_zero' => true)); ?></td>
-  		<td></td>
-  	</tr>
-  <?php endif ?>
-  
   </tbody>
   </table>
 <?php endif ?>
-<?php if ($sum_time && !$list_generator->getRow()->exists()): ?>
-	<p><?php echo __('Work time', null, 'ullTimeMessages') ?>: <?php echo $timeDurationWidget->render(null, $sum_time); ?></p>
+<?php if ($sum_time): ?>
+	<p>
+	<?php echo __('Work time', null, 'ullTimeMessages') ?>: <?php echo $timeDurationWidget->render(null, $sum_time); ?>
+	<?php if ($list_generator->getRow()->exists()):?>
+		<?php echo 
+			' (' . 
+		  __('Differenz', null, 'ullTimeMessages') . 
+		  ': ' . 
+		  $timeDurationWidget->render(null, $diff_time, array('show_negative_red' => true, 'show_zero' => true)) . 
+		  ')'
+		  ; ?>
+	<?php endif?>
+	</p>
 <?php endif ?>
   
 
