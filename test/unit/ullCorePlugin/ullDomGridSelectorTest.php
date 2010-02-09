@@ -27,7 +27,7 @@ $t->diag('__construct()');
       'body',
       'tags',
     ),
-    // old, depricated wasy
+    // old, deprecated wasy
     array(
       'label'     => 1,
       'value'     => 2,

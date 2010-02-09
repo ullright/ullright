@@ -1,10 +1,23 @@
 <?php
 
 /**
- *  
+ * ullDomGridSelector
+ * 
+ * This is a service class for functional tests. The aim is to make it easier
+ * to test list views with a html tables ("grid")
+ * 
+ * Once a ullDomGridSelector is construced with the necessary configuration, 
+ * arbitrary table cells can be accessed via row/column numbers or even better 
+ * an human readable row or column alias
+ * 
+ * The methods return css ("DOM") selectors for the desired part of the grid
+ * 
+ * See ullDomGridSelectorTest.class.php for examples
+ * 
+ * The class also works for unordered lists and similar semantic structures
+ * 
+ * 
  * @author Klemens Ullmann-Marx
- * @todo: allow giving row/column aliases as simple array ('id','name', ..)
- *
  */
 class ullDomGridSelector
 {
@@ -18,6 +31,42 @@ class ullDomGridSelector
     $headerColumnSelector
   ;
   
+  /**
+   * Constructor
+   * 
+   * @param string $baseSelector          The css selector for the whole table.
+   *  Example: "table#my_list > tbody"
+   *  
+   * @param string $rowSelector           Row selector - usually "tr"
+   * @param string $columnSelector        Column selector - usually "td"
+   * @param array $rowAliases             Array of row aliases
+   *  Example for a table of a user edit form:
+   *  array(
+   *    'first_name',
+   *    'last_name',
+   *    'password',
+   *    ...
+   *  )
+   *                               
+   * @param array $columnAliases          Array of column aliases
+   *  Example for a list table of a user
+   *  array(
+   *    'id',
+   *    'first_name',
+   *    'last_name',
+   *    'password',
+   *    ...
+   *    'created_at',
+   *    ...
+   *  )
+   *   
+   * @param string $headerBaseSelector    Selector for the table header
+   *  Example: "table#my_table > thead"
+   *  
+   * @param string $headerColumnSelector  Selector for a header column - usually "th"
+   * 
+   * @return none
+   */
   public function __construct(
     $baseSelector,
     $rowSelector,
@@ -76,6 +125,13 @@ class ullDomGridSelector
     }
   }    
   
+  /**
+   * Get a cell css selector by given row and column alias or number
+   * 
+   * @param mixed $row      Integer row number or row alias name
+   * @param mixed $column   Integer column number or row alias name
+   * @return string         Css selector
+   */
   public function get($row, $column = null)
   {
     if (!is_numeric($row))
