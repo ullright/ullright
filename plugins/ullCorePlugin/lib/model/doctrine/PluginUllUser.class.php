@@ -91,9 +91,9 @@ abstract class PluginUllUser extends BaseUllUser
     if ($this->_get('is_show_extension_in_phonebook') === false && !isset($this->overrideContactDataAccessor))
     {
       $alternativeExtension = $this->_get('alternative_phone_extension');
-      return !empty($alternativeExtension) ? $this->_get('alternative_phone_extension') : null;
+      return !empty($alternativeExtension) ? $alternativeExtension : null;
     }
-
+    
     return $this->_get('phone_extension');
   }
   
