@@ -8,19 +8,23 @@
     <?php echo $generator->getForm()->offsetGet('photo')->render() ?>
   </div>
   
-  <em><?php echo __('Actions', null, 'common') ?></em>
+  <?php if ($show_orgchart_link || $allow_edit): ?>
+    <em><?php echo __('Actions', null, 'common') ?></em>
+  <?php endif ?>
   
   <ul id="ull_user_popup_sidebar_list">
   
-    <li>
-      <?php 
-        echo ull_link_to(
-           __('Show user in orgchart', null, 'ullCoreMessages'), 
-          'ullOrgchart/list?user_id=' . (($user->isSuperior()) ?  $user->id : $user->superior_ull_user_id), 
-          array('link_new_window' => true)
-        ) 
-      ?>
-    </li>  
+    <?php if ($show_orgchart_link): ?>
+      <li>
+        <?php 
+          echo ull_link_to(
+             __('Show user in orgchart', null, 'ullCoreMessages'), 
+            'ullOrgchart/list?user_id=' . (($user->isSuperior()) ?  $user->id : $user->superior_ull_user_id), 
+            array('link_new_window' => true)
+          ) 
+        ?>
+      </li>  
+    <?php endif ?>
   
     <?php if ($allow_edit): ?>
   

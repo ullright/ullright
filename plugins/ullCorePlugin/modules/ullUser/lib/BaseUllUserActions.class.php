@@ -85,6 +85,14 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       $this->allow_edit = true;
     }
     
+    $this->show_orgchart_link = false;
+    {
+      if (UllUserTable::hasPermission('ull_orgchart_list'))
+      {
+        $this->show_orgchart_link = true;
+      }
+    }
+    
     $this->generator = new ullTableToolGenerator('UllUser', 'r');
     $this->handlePublicAccess();
     $this->getUserFromRequest();
