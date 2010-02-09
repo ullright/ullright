@@ -383,5 +383,35 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     
     return $s;
   }
+  
+  public function getDgsUllTimeEditList()
+  {
+    $s = new ullDomGridSelector('table#ull_time_edit_list > tbody', 'tr', 'td', array(),      
+      array(
+        'icon',
+        'project_name',
+        'duration',
+        'comment',
+       ),
+      'table > thead > tr', 'th'
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTimeList()
+  {
+    $s = new ullDomGridSelector('table#ull_time_list', 'tr', 'td', array(),      
+      array(
+        'day',
+        'time_reporting',
+        'time_total',
+        'project_reporting',
+        'project_total',
+       )
+    );
+    
+    return $s;
+  }
 }
 

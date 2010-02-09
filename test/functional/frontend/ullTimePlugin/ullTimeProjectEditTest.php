@@ -6,25 +6,30 @@ $b = new ullTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
+$dgsListEdit = $b->getDgsUllTimeEditList();
+$dgsList = $b->getDgsUllTimeList();
 
 
 $b
   ->diag('ullTime Home')
   ->get('ullAdmin/index')
-  ->loginAsAdmin()
+  ->loginAs()
   ->get('ullTime/index')
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTime')
-  ->isRequestParameter('action', 'index')
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'index')
+  ->end()
 ;  
 
 $b
   ->diag('index: go to Timereporting for today')
   ->click('Timereporting for today')
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTime')
-  ->isRequestParameter('action', 'create')
-  ->responseContains('Time report')
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'create')
+  ->end()
 ;
 
 $b
@@ -32,16 +37,19 @@ $b
   ->setField('fields[begin_work_at]','9:00')
   ->setField('fields[end_work_at]','14:00')
   ->click('Save and return to list')
-  ->isStatusCode(302)
   ->isRedirected()
   ->followRedirect()
-  ->isRequestParameter('module', 'ullTime')
-  ->isRequestParameter('action', 'list')
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'list')
+  ->end()
 ;
 
 $b
   ->diag('list: check correct working time')
-  ->checkResponseElement('td.ull_time_list_time_column > span.ull_widget_time', '5:00')
+  ->with('response')->begin()
+    ->checkElement($dgsList->get(2, 'time_total') ,'5:00')
+  ->end()
 ;
 
 $b
@@ -49,9 +57,10 @@ $b
   ->get('ullTime/index')
   ->click('Project timereporting for today')
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTime')
-  ->isRequestParameter('action', 'createProject')
-  ->responseContains('Project efforts')
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'createProject')
+  ->end()
 ;
 
 $b
@@ -59,23 +68,34 @@ $b
   ->setField('fields[ull_project_id]','1')
   ->setField('fields[duration_seconds]','1:45')
   ->click('Save and create another entry')
-  ->isStatusCode(302)
   ->isRedirected()
   ->followRedirect()
   ->setField('fields[ull_project_id]','2')
   ->setField('fields[duration_seconds]','1:10')
   ->click('Save and create another entry')
-  ->isStatusCode(302)
   ->isRedirected()
   ->followRedirect()
-  ->isRequestParameter('module', 'ullTime')
-  ->isRequestParameter('action', 'createProject')
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'createProject')
+  ->end()
 ;  
 
 $b
+  ->diag('create: check times')
+  ->with('response')->begin()
+    ->checkElement($dgsListEdit->getFullRowSelector(), 3)
+    ->checkElement($dgsListEdit->get(3, 'duration'), '2:55')
+    ->checkElement('p.ull_time_working_delta_time > span', '5:00')
+    ->checkElement('p.ull_time_working_delta_time > span + span', '2:05')
+  ->end()
+;
+  
+$b
   ->diag('list: check times')
-  ->checkResponseElement('tr.list_table_sum > td > span.ull_widget_time', '2:55')
-  ->checkResponseElement('div#content > p > span', '5:00')
-  ->checkResponseElement('div#content > p > span + span', '2:05')
+  ->with('response')-begin()
+    ->checkElement($dgsList->get(2, 'time_total'), '5:00')
+    ->checkElement($dgsList->get(2, 'project_total'), '2:55')
+  ->end()
 ;
   

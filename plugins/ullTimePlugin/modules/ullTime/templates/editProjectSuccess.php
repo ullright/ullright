@@ -55,7 +55,7 @@
   </table>
 <?php endif ?>
 <?php if ($sum_time): ?>
-	<p>
+	<p class="ull_time_working_delta_time">
 	<?php echo __('Work time', null, 'ullTimeMessages') ?>: <?php echo $timeDurationWidget->render(null, $sum_time); ?>
 	<?php if ($list_generator->getRow()->exists()):?>
 		<?php echo 
