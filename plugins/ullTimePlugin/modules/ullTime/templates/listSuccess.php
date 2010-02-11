@@ -109,11 +109,15 @@
  */
 $(document).ready(function() 
 {
-  $("tr.ull_time_list_future").hide();
+  // Check if we have future days at all
+  if ($("tr.ull_time_list_future").length > 0)
+  {
+    $("tr.ull_time_list_future").hide();
 
-  $("#ull_time_list tbody").prepend(
-    "<tr id=\"ull_time_show_future_days_message\"><td colspan=' . $colspan . '><a href=\"#\" onclick=\"showFutureDays(); return false;\">' . __('Show future days', null, 'ullTimeMessages') . '</a></td></tr>"
-  );
+    $("#ull_time_list tbody").prepend(
+      "<tr id=\"ull_time_show_future_days_message\"><td colspan=' . $colspan . '><a href=\"#\" onclick=\"showFutureDays(); return false;\">' . __('Show future days', null, 'ullTimeMessages') . '</a></td></tr>"
+    );
+  }
   
 });
 
