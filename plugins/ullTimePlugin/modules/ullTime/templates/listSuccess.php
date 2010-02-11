@@ -32,7 +32,7 @@
     <tr>
       <td colspan="<?php echo $colspan ?>">
       <?php       
-        echo '<b>' . __('Week', null, 'common'). ' ' . $calendarWeekKey . '</b>';
+        echo '<h4>' . __('Week', null, 'common'). ' ' . $calendarWeekKey . '</h4>';
       ?>
       </td>
     </tr>

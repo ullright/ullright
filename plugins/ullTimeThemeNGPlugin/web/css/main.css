@@ -73,8 +73,10 @@ a:visited {
   border: .2em dashed black;
 }
 
-.ull_time_list_time_column {
-  /* text-align: right; */
+#ull_time_list h4 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 /* Make the time duration columns as thin as possible to make alignment to the right looking good */
