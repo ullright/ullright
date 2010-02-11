@@ -31,9 +31,7 @@
   
     <tr>
       <td colspan="<?php echo $colspan ?>">
-      <?php       
-        echo '<h4>' . __('Week', null, 'common'). ' ' . $calendarWeekKey . '</h4>';
-      ?>
+      <h4><?php echo __('Week', null, 'common'). ' ' . $calendarWeekKey ?></h4>
       </td>
     </tr>
   
@@ -61,19 +59,37 @@
     <?php endforeach ?>
   
     <tr class="list_table_sum">
-      <td></td><td></td>
+      <td></td>
+      <td></td>
       <td>
-      <?php       
-        echo $timeDurationWidget->render(null, $calendarWeek['sum_time']);
-      ?>
-      </td><td></td>
+        <?php       
+          echo $timeDurationWidget->render(null, $calendarWeek['sum_time']);
+        ?>
+      </td>
+      <td></td>
       <td>
-      <?php       
-        echo $timeDurationWidget->render(null, $calendarWeek['sum_project']);
-      ?>
+        <?php       
+          echo $timeDurationWidget->render(null, $calendarWeek['sum_project']);
+        ?>
       </td>
     </tr>
   
   <?php endforeach ?>
+  
+  <!-- Totals -->
+  
+  <tr>
+    <td colspan="<?php echo $colspan ?>">
+    <h4><?php echo __('Grand total', null, 'common') ?></h4>
+    </td>
+  </tr>  
+
+  <tr class="list_table_sum">
+    <td></td>
+    <td></td>
+    <td><?php echo $timeDurationWidget->render(null, $totals['time']) ?></td>
+    <td></td>
+    <td><?php echo $timeDurationWidget->render(null, $totals['project']) ?></td>
+  </tr>  
   
 </table>

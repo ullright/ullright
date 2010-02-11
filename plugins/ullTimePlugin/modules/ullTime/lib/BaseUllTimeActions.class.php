@@ -91,55 +91,7 @@ public function executeList(sfRequest $request)
     
     $this->getUriMemory()->setUri();
     
-    
-    //$rawDates is sorted by date, ascending, but we need descending
-    $rawDates = $this->period->getDateList();
-    krsort($rawDates);
-    
-    $periodTable = array();
-    $calendarWeek = null;
-    $week = null;
-    
-    foreach($rawDates as $date => $day)
-    {
-      if ($date <= date('Y-m-d') || UllUserTable::hasPermission('ull_time_enter_future_periods'))
-      {
-        //check if we have a calendar week switch
-        if ($calendarWeek !== $day['calendarWeek'])
-        {
-          //if this is not the first switch of a month,
-          //save the created week in the period table
-          if ($week != null)
-          {
-            $periodTable[$calendarWeek] = $week;
-          }
-          
-          $calendarWeek = $day['calendarWeek'];
-
-          //create an empty week
-          $week = array();
-          $week['sum_project'] = 0;
-          $week['sum_time'] = 0;
-        }
-        
-        //update the week with its days and add sums
-        
-        $week['dates'][$date] = $day;
-        
-        $sumProject = UllProjectReportingTable::findSumByDateAndUserId($date, $this->user_id);  
-        $week['dates'][$date]['sum_project'] = $sumProject;
-        $week['sum_project'] += $sumProject;
-        
-        $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($date, $this->user_id);
-        $week['dates'][$date]['sum_time'] = $sumTime; 
-        $week['sum_time'] += $sumTime;
-      }
-    }
-    
-    //Let us not forget the last week
-    $periodTable[$calendarWeek] = $week;
-    
-    $this->setVar('periodTable', $periodTable);
+    $this->prepareListData();
     
     $this->breadcrumbForList();
   }
@@ -634,6 +586,67 @@ public function executeList(sfRequest $request)
         ;
         break;
     }        
+  }
+  
+  
+  /**
+   * Prepare data for the list (period overview)
+   * 
+   * @return none
+   */
+  protected function prepareListData()
+  {
+    //$rawDates is sorted by date, ascending, but we need descending
+    $rawDates = $this->period->getDateList();
+    krsort($rawDates);
+    
+    $periodTable = array();
+    $calendarWeek = null;
+    $week = null;
+    $this->totals = array('time' => 0, 'project' => 0);
+    
+    foreach($rawDates as $date => $day)
+    {
+      if ($date <= date('Y-m-d') || UllUserTable::hasPermission('ull_time_enter_future_periods'))
+      {
+        //check if we have a calendar week switch
+        if ($calendarWeek !== $day['calendarWeek'])
+        {
+          //if this is not the first switch of a month,
+          //save the created week in the period table
+          if ($week != null)
+          {
+            $periodTable[$calendarWeek] = $week;
+          }
+          
+          $calendarWeek = $day['calendarWeek'];
+
+          //create an empty week
+          $week = array();
+          $week['sum_project'] = 0;
+          $week['sum_time'] = 0;
+        }
+        
+        //update the week with its days and add sums
+        
+        $week['dates'][$date] = $day;
+
+        $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($date, $this->user_id);
+        $week['dates'][$date]['sum_time'] = $sumTime; 
+        $week['sum_time'] += $sumTime;
+        $this->totals['time'] += $sumTime;
+        
+        $sumProject = UllProjectReportingTable::findSumByDateAndUserId($date, $this->user_id);  
+        $week['dates'][$date]['sum_project'] = $sumProject;
+        $week['sum_project'] += $sumProject;
+        $this->totals['project'] += $sumProject;
+      }
+    }
+    
+    //Let us not forget the last week
+    $periodTable[$calendarWeek] = $week;
+    
+    $this->setVar('periodTable', $periodTable);    
   }
   
 }

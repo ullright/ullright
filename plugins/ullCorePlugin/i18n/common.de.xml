@@ -233,6 +233,11 @@
 <target>Enddatum</target>
 </trans-unit>
 
+<trans-unit id="127">
+<source>Grand total</source>
+<target>Gesamtsumme</target>
+</trans-unit>
+
 
 <!-- Questions -->
 
