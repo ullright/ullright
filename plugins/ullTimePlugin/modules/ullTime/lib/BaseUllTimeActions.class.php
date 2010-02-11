@@ -625,7 +625,7 @@ public function executeList(sfRequest $request)
           $week = array();
           $week['sum_project'] = 0;
           $week['sum_time'] = 0;
-          $week['future'] = false;
+          $week['future'] = true;
         }
         
         //update the week with its days and add sums
@@ -646,11 +646,11 @@ public function executeList(sfRequest $request)
         if ($date > date('Y-m-d'))
         {
           $week['dates'][$date]['future'] = true;
-          $week['future'] = true;
         }
         else
         {
           $week['dates'][$date]['future'] = false;
+          $week['future'] = false;
         }
       }
     }
