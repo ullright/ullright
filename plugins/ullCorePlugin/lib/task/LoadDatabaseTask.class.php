@@ -45,7 +45,7 @@ EOF;
     
     $command = 'bunzip2 < ' . 
       sfConfig::get('sf_data_dir') . '/sql/' . $this->dbName . $this->dumpExtension . 
-      ' | mysql -u ' . $this->dbUsername . ' --password=' . $this->dbPassword . 
+      ' | mysql -u ' . $this->dbUsername . ' --password=\'' . $this->dbPassword . '\'' . 
       ' ' . $this->dbName
     ;
     

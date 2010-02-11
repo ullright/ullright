@@ -40,7 +40,7 @@ EOF;
     $this->logSection($this->name, 'Dumping database into data/sql/');
     
     $command = 'mysqldump -u ' . $this->dbUsername . 
-      ' --password=' . $this->dbPassword . 
+      ' --password=\'' . $this->dbPassword . '\'' . 
       ' ' . $this->dbName . ' | bzip2 > ' .  
       sfConfig::get('sf_data_dir') . '/sql/' . $this->dbName . '.mysql.dump.bz2'
     ;
