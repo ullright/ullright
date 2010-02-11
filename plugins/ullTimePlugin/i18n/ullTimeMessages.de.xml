@@ -164,6 +164,11 @@
 <target>Arbeitszeit wäre bis jetzt</target>
 </trans-unit>
 
+<trans-unit id="33">
+<source>Show future days</source>
+<target>Zukünftige Tage einblenden</target>
+</trans-unit>
+
 
     </body>
   </file>

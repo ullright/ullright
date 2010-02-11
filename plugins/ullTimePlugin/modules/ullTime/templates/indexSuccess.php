@@ -138,5 +138,4 @@ function showFuturePeriods()
   document.getElementById("ull_time_show_future_periods_message").style.display = "none"; 
 }
 
-
 ')?>
