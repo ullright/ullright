@@ -89,6 +89,7 @@ UllUser:
       type: string(20)
     is_show_mobile_number_in_phonebook:
       type: boolean
+      default: true
     personnel_number:
       type: string(20)
     ull_employment_type_id:
