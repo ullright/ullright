@@ -586,7 +586,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   {
     $breadcrumbTree = new breadcrumbTree();
     $breadcrumbTree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-    $breadcrumbTree->add(__('Advanced search'), 'ullUser/search');
+    $breadcrumbTree->add(__('Advanced search', null, 'common'), 'ullUser/search');
     $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
   
