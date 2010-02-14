@@ -286,6 +286,16 @@ class ullQuery
     return $this->q->execute($params, $hydrationMode);
   }  
     
+  /**
+   * Return number of results
+   * 
+   * @return integer
+   */
+  public function count($params = array())
+  {
+    return $this->q->count($params);
+  }    
+      
   
   
   /******************************************
