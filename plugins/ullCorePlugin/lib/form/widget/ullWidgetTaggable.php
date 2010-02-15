@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Taggable widget
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
 class ullWidgetTaggable extends ullWidget
 {
   
@@ -20,5 +26,3 @@ class ullWidgetTaggable extends ullWidget
   }
 
 }
-
-?>
