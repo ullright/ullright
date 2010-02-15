@@ -82,7 +82,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    * @param $request
    * @return unknown_type
    */
-public function executeList(sfRequest $request)
+  public function executeList(sfRequest $request)
   {
     $this->checkPermission('ull_time_list');
     
@@ -97,6 +97,11 @@ public function executeList(sfRequest $request)
   }
   
   
+  /**
+   * Execute reporting for project efforts
+   * @param $request
+   * @return unknown_type
+   */
   public function executeReportProject(sfRequest $request)
   {
     $this->checkPermission('ull_time_report');
@@ -188,7 +193,7 @@ public function executeList(sfRequest $request)
 
   
   /**
-   * Execute edit action
+   * Execute edit project effort action
    * 
    */
   public function executeEditProject(sfRequest $request) 
