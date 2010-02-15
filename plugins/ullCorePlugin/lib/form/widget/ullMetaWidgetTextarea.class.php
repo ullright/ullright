@@ -9,6 +9,9 @@ class ullMetaWidgetTextarea extends ullMetaWidgetString
   
   protected function configureReadMode()
   {
+    $this->columnConfig->removeWidgetOption('rows');
+    $this->columnConfig->removeWidgetOption('cols');
+    
     $this->addWidget(new ullWidgetTextarea($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorPass());  
   }
