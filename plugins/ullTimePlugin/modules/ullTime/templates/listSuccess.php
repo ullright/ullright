@@ -69,13 +69,13 @@
         <td></td>
         <td>
           <?php       
-            echo $timeDurationWidget->render(null, $calendarWeek['sum_time']);
+            echo $timeDurationWidget->render(null, $calendarWeek['sum_time'], array('show_zero' => true));
           ?>
         </td>
         <td></td>
         <td>
           <?php       
-            echo $timeDurationWidget->render(null, $calendarWeek['sum_project']);
+            echo $timeDurationWidget->render(null, $calendarWeek['sum_project'], array('show_zero' => true));
           ?>
         </td>
       </tr>
@@ -93,9 +93,9 @@
     <tr class="list_table_sum">
       <td></td>
       <td></td>
-      <td><?php echo $timeDurationWidget->render(null, $totals['time']) ?></td>
+      <td><?php echo $timeDurationWidget->render(null, $totals['time'], array('show_zero' => true)) ?></td>
       <td></td>
-      <td><?php echo $timeDurationWidget->render(null, $totals['project']) ?></td>
+      <td><?php echo $timeDurationWidget->render(null, $totals['project'], array('show_zero' => true)) ?></td>
     </tr> 
      
   </tbody>
