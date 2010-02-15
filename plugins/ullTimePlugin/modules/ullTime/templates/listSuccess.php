@@ -27,6 +27,7 @@
       $odd = true;
       $colspan = 5;
       $timeDurationWidget = new ullWidgetTimeDurationRead();
+      $timeDurationWidgetWithZero = new ullWidgetTimeDurationRead(array('show_zero' => 1));
       $dateWidget = new ullWidgetDateRead(array('show_weekday' => true));
     ?>
     
@@ -69,13 +70,13 @@
         <td></td>
         <td>
           <?php       
-            echo $timeDurationWidget->render(null, $calendarWeek['sum_time'], array('show_zero' => true));
+            echo $timeDurationWidgetWithZero->render(null, $calendarWeek['sum_time']);
           ?>
         </td>
         <td></td>
         <td>
           <?php       
-            echo $timeDurationWidget->render(null, $calendarWeek['sum_project'], array('show_zero' => true));
+            echo $timeDurationWidgetWithZero->render(null, $calendarWeek['sum_project']);
           ?>
         </td>
       </tr>
@@ -93,9 +94,9 @@
     <tr class="list_table_sum">
       <td></td>
       <td></td>
-      <td><?php echo $timeDurationWidget->render(null, $totals['time'], array('show_zero' => true)) ?></td>
+      <td><?php echo $timeDurationWidgetWithZero->render(null, $totals['time']) ?></td>
       <td></td>
-      <td><?php echo $timeDurationWidget->render(null, $totals['project'], array('show_zero' => true)) ?></td>
+      <td><?php echo $timeDurationWidgetWithZero->render(null, $totals['project']) ?></td>
     </tr> 
      
   </tbody>

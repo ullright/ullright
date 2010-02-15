@@ -2,6 +2,7 @@
 <?php $list_generator = $sf_data->getRaw('list_generator') ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+<?php $timeDurationWidgetWithOptions = new ullWidgetTimeDurationRead(array('show_negative_red' => true, 'show_zero' => true)); ?>
 <?php $timeDurationWidget = new ullWidgetTimeDurationRead(); ?>
 
 <h3>
@@ -56,13 +57,13 @@
 <?php endif ?>
 <?php if ($sum_time): ?>
 	<p class="ull_time_working_delta_time">
-	<?php echo __('Work time', null, 'ullTimeMessages') ?>: <?php echo $timeDurationWidget->render(null, $sum_time); ?>
+	<?php echo __('Work time', null, 'ullTimeMessages') ?>: <?php echo $timeDurationWidgetWithOptions->render(null, $sum_time); ?>
 	<?php if ($list_generator->getRow()->exists()):?>
 		<?php echo 
 			' (' . 
 		  __('Differenz', null, 'ullTimeMessages') . 
 		  ': ' . 
-		  $timeDurationWidget->render(null, $diff_time, array('show_negative_red' => true, 'show_zero' => true)) . 
+		  $timeDurationWidgetWithOptions->render(null, $diff_time, array('show_negative_red' => true, 'show_zero' => true)) . 
 		  ')'
 		  ; ?>
 	<?php endif?>

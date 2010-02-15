@@ -2,16 +2,22 @@
 
 class ullWidgetTimeDurationRead extends ullWidget
 {
+  public function __construct($options = array(), $attributes = array())
+  {
+    $this->addOption('show_zero');
+    $this->addOption('show_negative_red');
+    parent::__construct($options, $attributes);
+  }
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     $negativeClass = '';
-    if ($value <0 && isset($attributes['show_negative_red']) && $attributes['show_negative_red'])
+    if ($value < 0 && $this->getOption('show_negative_red'))
     {
       $negativeClass = ' ull_widget_time_negative';
     }
 
-    if ($value || (($value == 0) && isset($attributes['show_zero']) && $attributes['show_zero']))
+    if ($value || (($value == 0) && $this->getOption('show_zero')))
     {
       return '<span class="ull_widget_time' . $negativeClass . '">' . 
         ullCoreTools::timeToString($value) .
