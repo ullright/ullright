@@ -25,15 +25,20 @@ class ullQuery
   /**
    * Constructor
    * 
-   * @param string $baseModel
+   * @param string $baseModel   Class name of the base model
+   * @param string $indexBy     Column name for Doctrine's indexBy feature
+   *                            Currently only baseModel columns are supported
    * @return none
    */
-  public function __construct($baseModel)
+  public function __construct($baseModel, $indexBy = null)
   {
     $this->baseModel = $baseModel;
     
     $this->q = new ullDoctrineQuery();
-    $this->q->from($this->baseModel . ' x');
+    
+    $from = $this->baseModel . ' x';
+    $from .= ($indexBy) ? (' INDEXBY ' . $indexBy) : '';
+    $this->q->from($from);
     
     $inheritanceKeyFields = $this->getInheritanceKeyField($this->baseModel);
     if ($inheritanceKeyFields != null)
@@ -267,6 +272,22 @@ class ullQuery
   
   
   /**
+   * Add a group by part
+   * 
+   * @param string $groupby
+   * @return self
+   */
+  public function addGroupBy($groupby)
+  {
+    $col = $this->relationStringToDoctrineQueryColumn($groupby);
+    
+    $this->q->addGroupBy($col);
+    
+    return $this;
+  }  
+  
+  
+  /**
    * Return query sql
    * 
    * @return string
@@ -276,8 +297,9 @@ class ullQuery
     return $this->q->getSqlQuery();
   }
   
+  
   /**
-   * Return query sql
+   * Execute query
    * 
    * @return Doctrine_Collection
    */
@@ -285,7 +307,8 @@ class ullQuery
   {
     return $this->q->execute($params, $hydrationMode);
   }  
-    
+
+  
   /**
    * Return number of results
    * 
@@ -295,6 +318,13 @@ class ullQuery
   {
     return $this->q->count($params);
   }    
+  
+  //TODO: add a indexBy($column) method.
+  //@see  http://www.doctrine-project.org/documentation/manual/1_2/pl/dql-doctrine-query-language:indexby-keyword
+  //It should work this way: 
+  //  In ullQuery we have no addFrom, since this is handled automatically
+  //  $q->indexBy('slug')
+  //  
       
   
   
