@@ -367,8 +367,13 @@ ul#breadcrumbs li.first {
 .list_table_sum td {
   border-top: .3em double black;
 }
+
 .list_table_diff td {
   border-top: .1em solid black;
+}
+
+.list_table_group_header h4 {
+  margin-top: 1em; 
 }
 
 /*

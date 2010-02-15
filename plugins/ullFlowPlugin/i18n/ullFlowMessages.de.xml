@@ -119,6 +119,11 @@
         <source>All entries</source>
         <target>Alle Einträge</target>
       </trans-unit>
+      
+      <trans-unit id="105">
+        <source>Assignment overview</source>
+        <target>Zuweisungsübersicht</target>
+      </trans-unit>      
 
       <!-- table config -->
       <trans-unit id="200">

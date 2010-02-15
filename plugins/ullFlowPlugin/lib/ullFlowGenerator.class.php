@@ -15,7 +15,7 @@ class ullFlowGenerator extends ullGenerator
    * @param UllFlowApp $app
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct($app = null, $defaultAccess = 'r')
+  public function __construct($app = null, $defaultAccess = 'r', $requestAction = null)
   {
     if ($app)
     {
@@ -27,7 +27,7 @@ class ullFlowGenerator extends ullGenerator
       $this->app = $app;
     }
     
-    parent::__construct($defaultAccess);
+    parent::__construct($defaultAccess, $requestAction);
   }    
   
   /**

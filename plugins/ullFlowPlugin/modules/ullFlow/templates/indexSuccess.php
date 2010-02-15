@@ -74,6 +74,12 @@
          <?php echo __('Queries', null, 'common') ?>
         </h3>
         <?php echo $named_queries->renderList(ESC_RAW) ?>
+        <ul>
+          <li>
+            <?php echo link_to(__('Assignment overview', null, 'ullFlowMessages'), 'ullFlow/assignmentOverview') ?>
+          </li>
+        </ul>
+        
       </div>
       <?php if ($named_queries_custom): ?>
         <div class="tc_query_box color_light_bg">

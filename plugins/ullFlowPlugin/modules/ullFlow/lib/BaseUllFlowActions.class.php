@@ -419,6 +419,42 @@ class BaseUllFlowActions extends ullsfActions
       }
     }
   }
+  
+  
+  /**
+   * Execute list action
+   *
+   * @param sfRequest $request
+   */
+  public function executeAssignmentOverview($request)
+  {
+    $this->getAppfromRequest();
+    
+//    $this->app->list_columns = 'assigned_to_ull_entity_id, created_at';
+    
+    $this->setTitle($this->app);
+    
+    $this->loadNamedQueries();
+
+    $this->generator = new ullFlowAssignmentGenerator($this->app, 'r', 'list');
+
+    $q = new Doctrine_Query;
+    $q->select('x.*, v.*, cc.slug, a.*');
+    $q->from('UllFlowDoc x, x.UllFlowValues v, v.UllFlowColumnConfig cc, x.UllFlowApp a');
+    $q = UllFlowDocTable::queryAccess($q, $this->app);
+    $q->addWhere('x.UllFlowAction.slug = ?', 'assign_to_user');
+    $q->addOrderBy('x.UllEntity.last_name_first ASC');
+    $q->addOrderBy('x.priority ASC');
+    $q->addOrderBy('x.created_at DESC');
+    
+    $docs = $q->execute();
+
+    $this->generator->buildForm($docs);
+
+    $this->getUriMemory()->setUri('list');
+
+    $this->breadcrumbForAssignmentOverview();
+  }  
 
 
   /**
@@ -484,6 +520,24 @@ class BaseUllFlowActions extends ullsfActions
     
     $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
+  
+  /**
+   * Handle breadcrumbs
+   *
+   */
+  protected function breadcrumbForAssignmentOverview()
+  {
+    $breadcrumbTree = new breadcrumbTree();
+    $breadcrumbTree->add(__('Workflow') . ' ' . __('Home', null, 'common'), 'ullFlow/index');
+    if ($this->app)
+    {
+      $breadcrumbTree->add($this->app->label, 'ullFlow/index?app=' . $this->app->slug);
+    }
+    
+    $breadcrumbTree->add(__('Assignment overview', null, 'ullFlowMessages'));
+    
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
+  }  
 
   protected function breadcrumbForEdit()
   {
@@ -697,7 +751,7 @@ class BaseUllFlowActions extends ullsfActions
       $q->addOrderBy('x.created_at DESC');
     }
 
-//        printQuery($q->getQuery());
+//        printQuery($q->getSqlQuery());
 //        var_dump($q->getParams());
 //        die;
 
