@@ -840,6 +840,7 @@ class BaseUllFlowActions extends ullsfActions
   {
     $q = new Doctrine_Query;
     $q->from('Tagging tg, tg.Tag t, tg.UllFlowDoc x');
+    $q->addWhere('x.UllFlowAction.is_in_resultlist = ?', true);
     $q = UllFlowDocTable::queryAccess($q, $this->app);
     $this->tags_pop = TagTable::getPopulars($q, array('model' => 'UllFlowDoc', 'limit' => sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100)));
   }
