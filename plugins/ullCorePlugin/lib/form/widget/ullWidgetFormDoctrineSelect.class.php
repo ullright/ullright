@@ -48,14 +48,24 @@ $(document).ready(function()
       ');      
     }
 
-    //retrieve choices and sort them
-    $choices = $this->getOption('choices')->call();
-    natsort($choices);
-    $this->setOption('choices', $choices);
-    
     $return .= parent::render($name, $value, $attributes, $errors);
     
     return $return;
   }  
+  
+  
+  /**
+   * Natsort the choices
+   *
+   * @return array An array of choices
+   */
+  public function getChoices()
+  {
+    $choices = parent::getChoices();
+    
+    natsort($choices);
+
+    return $choices;
+  }
   
 }
