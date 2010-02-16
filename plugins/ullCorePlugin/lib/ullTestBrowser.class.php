@@ -401,7 +401,22 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   
   public function getDgsUllTimeList()
   {
-    $s = new ullDomGridSelector('table#ull_time_list', 'tr', 'td', array(),      
+    $s = new ullDomGridSelector('table#ull_time_list > tbody', 'tr', 'td', array(),      
+      array(
+        'day',
+        'time_reporting',
+        'time_total',
+        'project_reporting',
+        'project_total',
+       )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTimeListTimeForToday()
+  {
+    $s = new ullDomGridSelector('table#ull_time_list > tbody', 'tr.ull_time_today', 'td', array(),      
       array(
         'day',
         'time_reporting',
