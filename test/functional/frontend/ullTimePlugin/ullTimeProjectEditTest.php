@@ -89,6 +89,7 @@ $b
     ->checkElement($dgsListEdit->get(3, 'duration'), '2:55')
     ->checkElement('p.ull_time_working_delta_time > span', '5:00')
     ->checkElement('p.ull_time_working_delta_time > span + span', '2:05')
+    ->checkElement('input[id="fields_duration_seconds"][value="2:05"]')
   ->end()
 ;
   
