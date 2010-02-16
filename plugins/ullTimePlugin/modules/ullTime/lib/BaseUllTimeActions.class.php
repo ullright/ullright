@@ -151,6 +151,11 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_time_edit');
     
+    //ull_url_for() uses reqpassing, we have to remove the form fields
+    //here to fix #948. Why is this workaround necessary? Do we
+    //even need reqpassing here?
+    $this->form_uri = ull_url_for(array('fields' => null));
+    
     $this->getDocFromRequestOrCreate();
     
     $this->generator = new ullTableToolGenerator('UllTimeReporting', $this->getLockingStatus());
@@ -199,6 +204,9 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   public function executeEditProject(sfRequest $request) 
   {
     $this->checkPermission('ull_time_edit_project');
+    
+    //See executeEdit above why we do this (#948)
+    $this->form_uri = ull_url_for(array('fields' => null));
     
     $this->getProjectReportingFromRequestOrCreate();
     

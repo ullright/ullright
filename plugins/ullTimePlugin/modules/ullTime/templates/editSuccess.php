@@ -10,7 +10,7 @@
 
 <?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
-<?php echo form_tag(ull_url_for(), array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
+<?php echo form_tag($form_uri, array('id' => 'ull_time_form', 'name' => 'edit_form')) ?>
 
 <div class="edit_container">
 <table class="edit_table ull_time_edit_table_worktime">
