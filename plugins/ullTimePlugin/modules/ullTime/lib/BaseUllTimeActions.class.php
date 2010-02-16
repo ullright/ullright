@@ -672,7 +672,6 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     //Let us not forget the last week
     $periodTable[$calendarWeek] = $week;
     
-    $this->setVar('periodTable', $periodTable);    
+    $this->period_table = $periodTable;    
   }
-  
 }

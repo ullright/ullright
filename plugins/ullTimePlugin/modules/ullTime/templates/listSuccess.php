@@ -26,20 +26,20 @@
     <?php
       $odd = true;
       $colspan = 5;
-      $timeDurationWidget = new ullWidgetTimeDurationRead();
-      $timeDurationWidgetWithZero = new ullWidgetTimeDurationRead(array('show_zero' => 1));
-      $dateWidget = new ullWidgetDateRead(array('show_weekday' => true));
+      $time_duration_widget = new ullWidgetTimeDurationRead();
+      $time_duration_widget_with_zero = new ullWidgetTimeDurationRead(array('show_zero' => 1));
+      $date_widget = new ullWidgetDateRead(array('show_weekday' => true));
     ?>
     
-    <?php foreach ($periodTable as $calendarWeekKey => $calendarWeek): ?>
+    <?php foreach ($period_table as $calendar_week_key => $calendar_week): ?>
     
-      <tr <?php echo ($calendarWeek['future']) ? 'class="ull_time_list_future"' : '' ?>>
+      <tr <?php echo ($calendar_week['future']) ? 'class="ull_time_list_future"' : '' ?>>
         <td colspan="<?php echo $colspan ?>">
-        <h4><?php echo __('Week', null, 'common'). ' ' . $calendarWeekKey ?></h4>
+        <h4><?php echo __('Week', null, 'common'). ' ' . $calendar_week_key ?></h4>
         </td>
       </tr>
     
-      <?php foreach ($calendarWeek['dates'] as $date => $day): ?>
+      <?php foreach ($calendar_week['dates'] as $date => $day): ?>
           
         <tr class="
           <?php echo ($odd) ? $odd = '' : $odd = 'odd' ?>
@@ -53,30 +53,30 @@
             <?php echo 'ull_time_list_future'?>
           <?php endif?>        
         ">
-          <td><?php echo $dateWidget->render(null, $day['date']) ?></td>
+          <td><?php echo $date_widget->render(null, $day['date']) ?></td>
           <td><?php echo ull_link_to(
               __('Time reporting', null, 'ullTimeMessages'), 
               array('action' => 'create', 'date' => $day['date'], 'period' => null)) ?></td>
-          <td class='ull_time_list_time_column'><?php echo $timeDurationWidget->render(null, $day['sum_time']) ?></td> 
+          <td class='ull_time_list_time_column'><?php echo $time_duration_widget->render(null, $day['sum_time']) ?></td> 
           <td><?php echo ull_link_to(
               __('Project reporting', null, 'ullTimeMessages'), 
               array('action' => 'createProject', 'date' => $day['date'], 'period' => null)) ?></td>
-          <td class='ull_time_list_time_column'><?php echo $timeDurationWidget->render(null, $day['sum_project']) ?></td>
+          <td class='ull_time_list_time_column'><?php echo $time_duration_widget->render(null, $day['sum_project']) ?></td>
         </tr>    
       <?php endforeach ?>
     
-      <tr class="list_table_sum<?php echo ($calendarWeek['future']) ? ' ull_time_list_future' : '' ?>">
+      <tr class="list_table_sum<?php echo ($calendar_week['future']) ? ' ull_time_list_future' : '' ?>">
         <td></td>
         <td></td>
         <td>
           <?php       
-            echo $timeDurationWidgetWithZero->render(null, $calendarWeek['sum_time']);
+            echo $time_duration_widget_with_zero->render(null, $calendar_week['sum_time']);
           ?>
         </td>
         <td></td>
         <td>
           <?php       
-            echo $timeDurationWidgetWithZero->render(null, $calendarWeek['sum_project']);
+            echo $time_duration_widget_with_zero->render(null, $calendar_week['sum_project']);
           ?>
         </td>
       </tr>
@@ -94,9 +94,9 @@
     <tr class="list_table_sum">
       <td></td>
       <td></td>
-      <td><?php echo $timeDurationWidgetWithZero->render(null, $totals['time']) ?></td>
+      <td><?php echo $time_duration_widget_with_zero->render(null, $totals['time']) ?></td>
       <td></td>
-      <td><?php echo $timeDurationWidgetWithZero->render(null, $totals['project']) ?></td>
+      <td><?php echo $time_duration_widget_with_zero->render(null, $totals['project']) ?></td>
     </tr> 
      
   </tbody>
