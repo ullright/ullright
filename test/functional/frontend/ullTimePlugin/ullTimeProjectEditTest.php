@@ -8,6 +8,7 @@ $b->setFixturesPath($path);
 $b->resetDatabase();
 $dgsListEdit = $b->getDgsUllTimeEditList();
 $dgsList = $b->getDgsUllTimeList();
+$dgsListToday = $b->getDgsUllTimeListTimeForToday();
 
 
 $b
@@ -48,7 +49,7 @@ $b
 $b
   ->diag('list: check correct working time')
   ->with('response')->begin()
-    ->checkElement($dgsList->get(2, 'time_total') ,'5:00')
+    ->checkElement($dgsListToday->get(1, 'time_total') ,'5:00')
   ->end()
 ;
 
@@ -93,9 +94,15 @@ $b
   
 $b
   ->diag('list: check times')
-  ->with('response')-begin()
-    ->checkElement($dgsList->get(2, 'time_total'), '5:00')
-    ->checkElement($dgsList->get(2, 'project_total'), '2:55')
+  ->click('Cancel and return to list')
+  ->isStatusCode(200)
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'list')
+  ->end()
+  ->with('response')->begin()
+    ->checkElement($dgsListToday->get(1, 'time_total'), '5:00')
+    ->checkElement($dgsListToday->get(1, 'project_total'), '2:55')
   ->end()
 ;
   
