@@ -3,7 +3,9 @@ UllEntity:
   inheritance:
     extends: UllRecord
     type: concrete
-  abstract: true
+  # Not possible at the moment. No "UllEntity" is ever saved to the database - 
+  #   only subclasses, but still the UllEntity class is activly used
+  #abstract: true
   actAs:
     SuperVersionable: #first two parameters are SuperVersionable defaults
       versionColumn:          version
