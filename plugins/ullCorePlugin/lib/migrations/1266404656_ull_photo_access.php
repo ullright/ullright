@@ -1,6 +1,6 @@
 <?php
 
-class UllPhoneAccess extends Doctrine_Migration_Base
+class UllPhotoAccess extends Doctrine_Migration_Base
 {
   public function up()
   {
@@ -10,8 +10,8 @@ class UllPhoneAccess extends Doctrine_Migration_Base
   public function postUp()
   {
     $p = new UllPermission;
-    $p->slug = 'ull_phone';
-    $p->namespace = 'ullPhone';
+    $p->slug = 'ull_photo';
+    $p->namespace = 'ullPhoto';
     $p->save();    
     
     $gp = new UllGroupPermission;
@@ -22,7 +22,7 @@ class UllPhoneAccess extends Doctrine_Migration_Base
     $gp->ull_group_id = $row['id'];
     
     $gp->UllPermission = $p;
-    $gp->namespace = 'ullPhone';
+    $gp->namespace = 'ullPhoto';
     $gp->save(); 
   }
 
