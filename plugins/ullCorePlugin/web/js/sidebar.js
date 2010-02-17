@@ -9,8 +9,9 @@
   {
     $("#tab_button_out").click(function ()
     {
-      $.get(toggleUrl);
-      
+      //Cache needs to be disabled for IE
+      $.ajax({ url: toggleUrl, cache: false });
+
       $("div#sidebar").hide('slide', null, sidebarFadeTime, function()
       {
         $("div#canvas").animate( { marginLeft: sidebarHiddenMargin }, sidebarFadeTime);
@@ -26,7 +27,7 @@
 
     $("#tab_button_in").click(function ()
     {
-      $.get(toggleUrl);
+      $.ajax({ url: toggleUrl, cache: false });
       
       $("div#canvas").animate( { marginLeft: sidebarVisibleMargin }, sidebarFadeTime, 'linear', function()
       {
