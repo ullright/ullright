@@ -15,11 +15,16 @@ class UriMemory
 {
   
   protected
+    $homeURI = '@homepage',
     $defaultURI = '@homepage',
     $module,
     $action,
     $uriName,
-    $user
+    $user,
+    // uris containing these entries may never be used (for setReferer() at the moment)
+    $blacklist = array(
+      'ullUser/show'
+    )
   ;
     
   /**
@@ -66,7 +71,18 @@ class UriMemory
     
     if ($this->getUser()->hasAttribute($this->uriName))
     {
-      return $this->getUser()->getAttribute($this->uriName);
+      $uri = $this->getUser()->getAttribute($this->uriName);
+      
+      // check blacklist
+      foreach ($this->blacklist as $blacked)
+      {
+        if (strstr($uri, $blacked))
+        {
+          return $this->homeURI;
+        } 
+      }
+      
+      return $uri;
     }
     else
     {
