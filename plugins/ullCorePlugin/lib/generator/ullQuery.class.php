@@ -517,7 +517,10 @@ class ullQuery
         
         if ($inheritanceKeyFields != null)
         {
-          $this->addSelect($inheritanceKeyFields);
+          foreach($inheritanceKeyFields as $keyField)
+          {
+            $this->q->addSelect($newAlias . '.' . $keyField);
+          }
         }
         
         if ($doctrineRelation->getClass() == 'UllEntity')
