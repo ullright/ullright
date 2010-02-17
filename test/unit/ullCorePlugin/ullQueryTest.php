@@ -2,18 +2,18 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
-class myTestCase extends lime_test {}
+class myTestCase extends sfDoctrineTestCase {}
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(20, new lime_output_color, $configuration);
-//$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
-//$t->setFixturesPath($path);
+$t = new myTestCase(21, new lime_output_color, $configuration);
+$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$t->setFixturesPath($path);
 
 
-$t->diag('__construct()');
+$t->begin('__construct()');
   $q = new ullQuery('TestTable');
   
   
@@ -169,14 +169,18 @@ $t->diag('addSearch()');
 
 $t->diag('Doctrine 1.0 bug resolved with UllUser and SELECT on >= 2 relations');  
   
-// Threw an exception 'Doctrine_Record_UnknownPropertyException' with message 'Unknown record property / related component "ull_department_id" on "UllUser"' in /var/www/ullright/plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Record/Filter/Standard.php:44
-$q = new Doctrine_Query;
-$q
-  ->select('u.last_name, c.*, d.*')
-  ->from('UllUser u, u.UllCompany c, u.UllDepartment d')
-;
-
-$q->execute();
+  // Threw an exception 'Doctrine_Record_UnknownPropertyException' with message 'Unknown record property / related component "ull_department_id" on "UllUser"' in /var/www/ullright/plugins/ullCorePlugin/lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Record/Filter/Standard.php:44
+  $q = new Doctrine_Query;
+  $q
+    ->select('u.last_name, c.*, d.*')
+    ->from('UllUser u, u.UllCompany c, u.UllDepartment d')
+  ;
+  
+  $q->execute();
+  
+$t->diag('count()');
+  $q = new ullQuery('TestTable');
+  $t->is($q->count(), 2, 'Returns the correct number of results');
 
 
 
