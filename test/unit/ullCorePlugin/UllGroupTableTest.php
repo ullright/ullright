@@ -10,7 +10,7 @@ $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
 
-$t->diag('findChoices()');
+$t->begin('findChoices()');
   $choices = UllGroupTable::findChoices();
 
   $t->is(
