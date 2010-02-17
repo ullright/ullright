@@ -339,14 +339,14 @@ class ullTableToolGenerator extends ullGenerator
     if ($this->isVersionable() && $this->enableFutureVersions == true)
     {
       $tomorrow = mktime(0, 0, 0, date("m"), date("d")+1, date("y"));
-
+      
       if ($this->isCreateOrEditAction())
       {
         $this->columnsConfig->create('scheduled_update_date')
           ->setLabel('Scheduled update date')
           ->setMetaWidgetClassName('ullMetaWidgetDate')
           ->setValidatorOption('required', false) //must be set, as default = true
-          ->setValidatorOption('min', $tomorrow)
+          ->setValidatorOption('min', date('c', $tomorrow))
           ->setValidatorOption('date_format_range_error', ull_date_pattern(false, true)) //no time display
           ->setAutoRender(false)
         ;
