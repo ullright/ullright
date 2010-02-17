@@ -1,11 +1,9 @@
-# Parent entity
-# Includes fields needed by all inheriting classes.
-# Direct children of this class: UllUser, UllGroup, Origin/Status Users.
-UllParentEntity:
+UllEntity:
   package: ullCorePlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
     type: concrete
+  abstract: true
   actAs:
     SuperVersionable: #first two parameters are SuperVersionable defaults
       versionColumn:          version
@@ -27,25 +25,10 @@ UllParentEntity:
       local: ull_location_id
       foreign: id  
   
-#  indexes:
-#    ull_parent_entity_display_name:
-#      fields: [display_name]
-            
-
   attributes:
     # don't export constraints. This is necessary because mysql 5 cannot delete
     # rows with self-references
     export: [ all, constraints ]
-
-
-# empty entity class to be overridden by custom Entity class
-# (in config/doctrine/schema.yml) to allow definition of additional userfields
-#UllEntity:
-#  package: ullCorePlugin.lib.model.doctrine
-#  inheritance:
-#    extends: UllParentEntity
-#    type: concrete
-
 
 # Direct children of this class: UllCloneUser
 UllUser:

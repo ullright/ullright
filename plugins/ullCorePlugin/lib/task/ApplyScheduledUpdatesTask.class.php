@@ -10,8 +10,7 @@ class ApplyScheduledUpdatesTask extends sfBaseTask
       'scheduled_update_date',
       'done_at');
 
-  protected $ignoreTables =
-    array('UllParentEntity');
+  protected $ignoreTables = array();
     
   protected function configure()
   {
