@@ -34,7 +34,7 @@ abstract class ullBaseTask extends sfBaseTask
     
     if (file_exists($fullPath))
     {
-      $command = 'svn delete ' . $fullPath;
+      $command = 'svn --force delete ' . $fullPath;
       $this->log($this->getFilesystem()->execute($command));
     }
     else
