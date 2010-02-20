@@ -32,8 +32,15 @@ abstract class ullBaseTask extends sfBaseTask
   {
     $fullPath = sfConfig::get('sf_root_dir') . '/' . $path;
     
-    $command = 'svn delete ' . $fullPath;
-    $this->log($this->getFilesystem()->execute($command));
+    if (file_exists($fullPath))
+    {
+      $command = 'svn delete ' . $fullPath;
+      $this->log($this->getFilesystem()->execute($command));
+    }
+    else
+    {
+      $this->logBlock('File not found: ' . $fullPath, 'INFO');
+    }
   } 
 
     /**
@@ -61,6 +68,73 @@ abstract class ullBaseTask extends sfBaseTask
     {
       $this->askConfirmation('This task is gonna svn delete some files. Are you sure you want to continue?');
     }
+  }
+  
+  protected function deleteModelClasses($modelName, $pluginName = null)
+  {
+    $this->logSection($this->name, 'Deleting model classes');
+    $path = 'lib/model/doctrine/' .
+    (($pluginName) ? $pluginName . '/' : '');
+
+    $currentPath = $path . 'base/Base' . $modelName . '.class.php'; 
+    $this->svnDelete($currentPath);    
+    
+    $currentPath = $path . $modelName . '.class.php'; 
+    $this->svnDelete($currentPath);
+
+    $currentPath = $path . $modelName . 'Table.class.php'; 
+    $this->svnDelete($currentPath);
+    
+    
+    $this->logSection($this->name, 'Deleting form classes');
+    $path = 'lib/form/doctrine/' .
+      (($pluginName) ? $pluginName . '/' : '');
+
+    $currentPath = $path . 'base/Base' . $modelName . 'Form.class.php'; 
+    $this->svnDelete($currentPath);      
+      
+    $currentPath = $path . $modelName . 'Form.class.php'; 
+    $this->svnDelete($currentPath);
+
+    
+    $this->logSection($this->name, 'Deleting filter form classes');
+    $path = 'lib/filter/doctrine/' .
+      (($pluginName) ? $pluginName . '/' : '');
+
+    $currentPath = $path . 'base/Base' . $modelName . 'FormFilter.class.php'; 
+    $this->svnDelete($currentPath);      
+      
+    $currentPath = $path . $modelName . 'FormFilter.class.php'; 
+    $this->svnDelete($currentPath);
+    
+
+    // check for versionable behaviour
+    $path = 'lib/form/doctrine/' .
+      (($pluginName) ? $pluginName . '/' : '');
+    $currentPath = $path . 'base/Base' . $modelName . 'VersionForm.class.php';
+    
+    if (file_exists($currentPath))
+    {
+      $this->logSection($this->name, 'Deleting versionable behavior filter and form classes');
+      $this->svnDelete($currentPath);
+      
+      $currentPath = $path . $modelName . 'VersionForm.class.php'; 
+      $this->svnDelete($currentPath);  
+      
+      $path = 'lib/filter/doctrine/' .
+        (($pluginName) ? $pluginName . '/' : '');
+  
+      $currentPath = $path . 'base/Base' . $modelName . 'VersionFormFilter.class.php'; 
+      $this->svnDelete($currentPath);      
+        
+      $currentPath = $path . $modelName . 'VersionFormFilter.class.php'; 
+      $this->svnDelete($currentPath);      
+    }
+    
+    
+    
+    
+    //TODO: also non-generated plugin models?
   }
 
 }
