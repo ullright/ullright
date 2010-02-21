@@ -442,6 +442,10 @@ class BaseUllFlowActions extends ullsfActions
     $q->select('x.*, v.*, cc.slug, a.*');
     $q->from('UllFlowDoc x, x.UllFlowValues v, v.UllFlowColumnConfig cc, x.UllFlowApp a');
     $q = UllFlowDocTable::queryAccess($q, $this->app);
+    if ($this->app)
+    {
+      $q->addWhere('x.ull_flow_app_id = ?', $this->app->id);
+    }
     $q->addWhere('x.UllFlowAction.slug = ?', 'assign_to_user');
     $q->addOrderBy('x.UllEntity.last_name_first ASC');
     $q->addOrderBy('x.priority ASC');

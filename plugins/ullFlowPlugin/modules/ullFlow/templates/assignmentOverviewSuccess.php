@@ -64,6 +64,9 @@
   </tbody>
   </table>
   
+<?php else: ?>  
+  <?php echo __('No results found', null, 'common') ?>
+  
 <?php endif ?>
 
 

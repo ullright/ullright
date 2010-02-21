@@ -76,7 +76,8 @@
         <?php echo $named_queries->renderList(ESC_RAW) ?>
         <ul>
           <li>
-            <?php echo link_to(__('Assignment overview', null, 'ullFlowMessages'), 'ullFlow/assignmentOverview') ?>
+            <?php echo link_to(__('Assignment overview', null, 'ullFlowMessages'), 
+              'ullFlow/assignmentOverview' . (($app) ? '?app=' . $app->slug : '')) ?>
           </li>
         </ul>
         
