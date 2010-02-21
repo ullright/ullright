@@ -33,6 +33,7 @@ EOF;
     
     //TODO: add "only-generated" option
     //TODO: handle plugin model files which lay in the plugin itself
+    //TODO: for the dev environment: we cannot always assume using svn e.g. for the svn:externaled generated model files
     
   }
 
