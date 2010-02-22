@@ -1,0 +1,63 @@
+<?php
+
+class ullFlowRuleChangeRequest extends ullFlowRule 
+{
+   
+  public function getNext() 
+  {
+    $next = array();
+    
+    if ($this->isStep('change_request_creator')) 
+    {
+      if ($this->isAction('send'))
+      {
+        $next['step']    = $this->findStep('change_request_approval');
+        $next['entity']  = $this->findGroup('Change Request Approver');
+      } 
+    }
+    
+    elseif ($this->isStep('change_request_approval')) 
+    {
+      if ($this->isAction('approve'))
+      {
+        $next['step']    = $this->findStep('change_request_dispatching');
+        $next['entity']  = $this->findGroup('Change Management');
+      } 
+    }    
+     
+    elseif ($this->isStep('change_request_dispatching')) 
+    {
+      if ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('change_request_change_manager');
+      } 
+      elseif ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('change_request_closed');
+      }
+    }
+      
+    elseif ($this->isStep('change_request_change_manager')) 
+    {
+      if ($this->isAction('return')) 
+      {
+        $next['step']    = $this->findStep('change_request_dispatching');
+        $next['entity']  = $this->findGroup('Change Management');
+      }         
+      elseif ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('change_request_closed');
+      }
+            
+    }  
+      
+    elseif ($this->isStep('change_request_closed')) 
+    {
+      $next['step']    = $this->findStep('change_request_dispatching');
+      $next['entity']  = $this->findGroup('Change Management');
+    }
+    
+    return $next;
+  }
+  
+}

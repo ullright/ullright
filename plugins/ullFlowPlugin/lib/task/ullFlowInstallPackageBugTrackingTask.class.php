@@ -6,7 +6,7 @@ class ullFlowInstallPackageBugTrackingTask extends ullBaseTask
   protected function configure()
   {
     $this->namespace        = 'ull_flow';
-    $this->name             = 'install-package_bug_tracking';
+    $this->name             = 'install-package-bug_tracking';
     $this->briefDescription = 'Creates a bug tracking workflow';
     $this->detailedDescription = <<<EOF
     The [{$this->name} task|INFO] creates all database entires for
