@@ -1,0 +1,68 @@
+<?php
+
+/** 
+ * User select box with additional links to user popup and inventory
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
+class ullWidgetCaller extends sfWidgetFormSelectWithOptionAttributes
+{
+
+  public function render($name, $value = null, $attributes = array(), $errors = array())
+  {
+    $return = parent::render($name, $value, $attributes, $errors);
+
+    if (!$this->getAttribute('name'))
+    {
+      $this->setAttribute('name', $name);
+    }
+    
+    $this->setAttributes($this->fixFormId($this->getAttributes()));
+    
+    $id = $this->getAttribute('id');
+    
+    $user = Doctrine::getTable('UllUser')->find($value);
+    
+    $return .= ' &nbsp; ';
+    $return .= link_to_function('Userinfo'
+      , "caller_user_link(\"$id\")"      
+    );
+    
+    $verticalSize = sfConfig::get('app_ull_user_user_popup_vertical_size', 720);
+    
+    if (!is_int($verticalSize))
+    {
+      throw new UnexpectedValueException('user_popup_vertical_size in app.yml must be an integer.');
+    }
+    
+    $return .= javascript_tag('
+      function caller_user_link(id) {
+        var value = document.getElementById(id).value;
+        var link = "' . url_for('ullUser/show') . '/" + value;
+        var w=window.open(link,"User Popup","width=720,height=' . $verticalSize . '");
+        w.focus();
+      }
+    ');
+    
+    $return .= ' &nbsp; ';
+    
+    $return .= link_to_function('Inventur'
+      , "caller_inv_link(\"$id\")"      
+    );
+    
+    
+    
+    $return .= javascript_tag('
+      function caller_inv_link(id) {
+        var value = document.getElementById(id).value;
+        var link = "' . url_for('ullVentory/list') . '/filter[ull_entity_id]/" + value;
+        var w=window.open(link, "Inv Popup");
+        w.focus();
+      }
+    ');  
+    
+    return $return;
+  }
+
+}
