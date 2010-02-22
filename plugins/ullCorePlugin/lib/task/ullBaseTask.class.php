@@ -3,6 +3,10 @@
 abstract class ullBaseTask extends sfBaseTask
 {
   
+  protected
+    $recordNamespace = 'test'
+  ;
+  
   /**
    * Gets a sfConfig option and check's that it is set
    * 
@@ -20,6 +24,24 @@ abstract class ullBaseTask extends sfBaseTask
     {
       throw new InvalidArgumentException('Required sfConfig option not set: ' . $option);
     }
+  }
+  
+  
+  /**
+   * Initialize database connection
+   * 
+   * @param array $arguments
+   * @param array $options
+   * @return none
+   */
+  protected function initializeDatabaseConnection($arguments = array(), $options = array())
+  {
+    $this->logSection($this->name, 'Initializing database connection');
+    
+    $configuration = ProjectConfiguration::getApplicationConfiguration(
+    $arguments['application'], $arguments['env'], true);
+    
+    $databaseManager = new sfDatabaseManager($configuration);
   }
   
   
@@ -135,6 +157,56 @@ abstract class ullBaseTask extends sfBaseTask
     
     
     //TODO: also non-generated plugin models?
+  }
+
+  
+  /**
+   * Set a default namespace which is used for all new UllRecord Doctrine_Records
+   * created by the createRecord() method
+   * 
+   * @param string $name
+   * @return self
+   */
+  protected function setRecordNamespace($name)
+  {
+    $this->recordNamespace = $name;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get the default namespace name for UllRecord Doctrine_RecordsS
+   * 
+   * @return string
+   */
+  protected function getRecordNamespace()
+  {
+    return $this->recordNamespace;
+  }
+  
+  
+  /**
+   * Create an UllRecord Doctrine_Record with support for namespace
+   * 
+   * By default the namespace set by setRecordNamespace() is used
+   * 
+   * @param string $name
+   * @param string $namespace
+   * @return unknown_type
+   */
+  protected function createRecord($name, $namespace = null)
+  {
+    $object = new $name;
+    
+    if ($namespace === null)
+    {
+      $namespace = $this->getRecordNamespace();
+    }
+
+    $object['namespace'] = $namespace;
+
+    return $object;
   }
 
 }

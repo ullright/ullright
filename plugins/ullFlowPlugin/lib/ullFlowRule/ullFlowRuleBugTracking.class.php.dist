@@ -1,0 +1,62 @@
+<?php
+
+class ullFlowRuleBugTracking extends ullFlowRule 
+{
+   
+  public function getNext() 
+  {
+    $next = array();
+    
+    if ($this->isStep('bug_tracking_creator')) 
+    {
+      if ($this->isAction('send'))
+      {
+        $next['step']    = $this->findStep('bug_tracking_dispatching');
+        $next['entity']  = $this->findGroup('Bug Reporting Dispatcher');
+      } 
+      elseif ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('bug_tracking_development');
+      }
+    }
+     
+    elseif ($this->isStep('bug_tracking_dispatching')) 
+    {
+      if ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('bug_tracking_development');
+      } 
+      elseif ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('bug_tracking_closed');
+      }
+    }
+      
+    elseif ($this->isStep('bug_tracking_development')) 
+    {
+      if ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('bug_tracking_development');
+      }
+      elseif ($this->isAction('return') || $this->isAction('reject')) 
+      {
+        $next['step']    = $this->findStep('bug_tracking_dispatching');
+        $next['entity']  = $this->findGroup('Bug Reporting Dispatcher');
+      }         
+      elseif ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('bug_tracking_closed');
+      }
+            
+    }  
+      
+    elseif ($this->isStep('bug_tracking_closed')) 
+    {
+      $next['step']    = $this->findStep('bug_tracking_dispatching');
+      $next['entity']  = $this->findGroup('Bug Reporting Dispatcher');
+    }
+    
+    return $next;
+  }
+  
+}
