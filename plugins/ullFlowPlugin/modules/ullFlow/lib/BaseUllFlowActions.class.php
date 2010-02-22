@@ -45,7 +45,7 @@ class BaseUllFlowActions extends ullsfActions
     }
     else
     {
-      $this->apps = Doctrine::getTable('UllFlowApp')->findAll();
+      $this->apps = UllFlowAppTable::findAllOrderByName();
     }
     
     $this->breadcrumbForIndex();

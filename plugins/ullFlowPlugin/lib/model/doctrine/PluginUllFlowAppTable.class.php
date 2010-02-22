@@ -44,5 +44,28 @@ class PluginUllFlowAppTable extends Doctrine_Table
     
     return $q->execute()->getFirst();
   }
+  
+  
+  /**
+   * Find all apps ordered by name
+   * 
+   * @return Doctrine_Collection
+   */
+  public static function findAllOrderByName() 
+  {
+    $q = new UllQuery('UllFlowApp');
+    $q
+      ->addSelect('Translation->label')
+      ->addSelect('Translation->doc_label')
+      ->addSelect('slug')
+      ->addOrderBy('Translation->label')
+      ->addWhere('Translation->lang = ?', 
+        substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
+    ;
+      
+    $result = $q->execute();
+
+    return $result;
+  }
 
 }

@@ -36,7 +36,7 @@
   <div class="sidebar_section" id="sidebar_create">
     <h3><?php echo __('Create', null, 'common') ?></h3>
     <ul class="sidebar_list">
-    <?php foreach ($flowApps as $app): ?>
+    <?php foreach ($flow_apps as $app): ?>
       <li><?php echo ull_link_to($app->doc_label, 'ullFlow/create?app=' . $app->slug, 'ull_js_observer_confirm=true') ?></li>
     <?php endforeach ?>
     </ul>

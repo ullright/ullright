@@ -3,7 +3,7 @@
 class BaseUllSidebarComponents extends sfComponents
 {
   public function executeSidebar(sfRequest $request) {
-    $this->flowApps = Doctrine::getTable('UllFlowApp')->findAll();
+    $this->flow_apps = UllFlowAppTable::findAllOrderByName();
 
     if ($request->getParameter('module') == 'ullPhone')
     {
