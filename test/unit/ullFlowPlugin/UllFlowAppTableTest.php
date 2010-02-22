@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(4, new lime_output_color, $configuration);
+$t = new myTestCase(7, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -32,3 +32,12 @@ $t->begin('findBySlug()');
   
   $t->isa_ok($app, 'UllFlowApp', 'returns the correct object');
   $t->is($app->label, 'Trouble ticket tool', 'return the correct label');
+  
+  
+$t->diag('findAllOrderByLabel');
+
+  $apps = UllFlowAppTable::findAllOrderByName();
+
+  $t->is(count($apps), 2, 'Returns the correct number of results');
+  $t->is($apps[0]['slug'], 'todo', 'Returns the correct result at the correct position');
+  $t->is($apps[1]['slug'], 'trouble_ticket', 'Returns the correct result at the correct position');
