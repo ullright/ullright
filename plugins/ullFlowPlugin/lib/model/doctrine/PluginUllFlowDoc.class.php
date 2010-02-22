@@ -287,6 +287,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     ;
     
     $rs = $q->execute();
+    
     if (isset($rs[1]))
     {
       return $rs[1];
@@ -405,13 +406,17 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    * 
    * sets the action to create
    * removes the comment to avoid duplication
+   * Sets the creator as assigned to
+   * Sets the step to the startstep
    *
    */
   protected function createFirstMemory()
   {
     $i = $this->createMemory();
     $this->UllFlowMemories[$i]->UllFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug('create');
-    $this->UllFlowMemories[$i]->comment = '';        
+    $this->UllFlowMemories[$i]->comment = '';
+    $this->UllFlowMemories[$i]->assigned_to_ull_entity_id = $this->getUserId();
+    $this->UllFlowMemories[$i]->ull_flow_step_id = $this->UllFlowApp->findStartStep()->id;
   }
   
   
