@@ -19,6 +19,7 @@
       <th class="color_dark_bg"><?php echo __('Total', null, 'common') ?></th>
       <th class="color_dark_bg"><?php echo __('Project reporting', null, 'ullTimeMessages') ?></th>
       <th class="color_dark_bg"><?php echo __('Total', null, 'common') ?></th>
+      <th class="color_dark_bg"><?php echo __('Difference', null, 'ullTimeMessages')?></th>
     </tr>
   </thead>
  
@@ -62,6 +63,7 @@
               __('Project reporting', null, 'ullTimeMessages'), 
               array('action' => 'createProject', 'date' => $day['date'], 'period' => null)) ?></td>
           <td class='ull_time_list_time_column'><?php echo $time_duration_widget->render(null, $day['sum_project']) ?></td>
+          <td class='ull_time_list_time_column'><?php echo $time_duration_widget->render(null, $day['sum_delta']) ?></td>
         </tr>    
       <?php endforeach ?>
     
@@ -77,6 +79,11 @@
         <td>
           <?php       
             echo $time_duration_widget_with_zero->render(null, $calendar_week['sum_project']);
+          ?>
+        </td>
+        <td>
+          <?php       
+            echo $time_duration_widget_with_zero->render(null, $calendar_week['sum_delta']);
           ?>
         </td>
       </tr>

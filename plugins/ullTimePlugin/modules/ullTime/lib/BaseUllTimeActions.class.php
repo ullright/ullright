@@ -625,7 +625,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $periodTable = array();
     $calendarWeek = null;
     $week = null;
-    $this->totals = array('time' => 0, 'project' => 0);
+    $this->totals = array('time' => 0, 'project' => 0, 'delta' => 0);
     
     foreach($rawDates as $date => $day)
     {
@@ -647,6 +647,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
           $week = array();
           $week['sum_project'] = 0;
           $week['sum_time'] = 0;
+          $week['sum_delta'] = 0;
           $week['future'] = true;
         }
         
@@ -663,6 +664,11 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
         $week['dates'][$date]['sum_project'] = $sumProject;
         $week['sum_project'] += $sumProject;
         $this->totals['project'] += $sumProject;
+        
+        $sumDelta = $sumTime - $sumProject;
+        $week['dates'][$date]['sum_delta'] = $sumDelta;
+        $week['sum_delta'] += $sumDelta;
+        $this->totals['project'] += $sumDelta;
         
         // mark future dates
         if ($date > date('Y-m-d'))
