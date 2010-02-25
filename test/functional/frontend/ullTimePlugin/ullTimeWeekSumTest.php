@@ -10,6 +10,13 @@ $dgsList = $b->getDgsUllTimeList();
 $dgsListEdit = $b->getDgsUllTimeEditList();
 
 
+// TODO: rename to PeriodOverviewTest
+// TODO: manual fixtures
+
+/*
+ * For a simpler test we use fixed dates.
+ * We act as admin to ignore the locking (Not allowed to edit older entries)
+ */
 $b
   ->diag('ullTime Home')
   ->get('ullAdmin/index')
@@ -21,6 +28,8 @@ $b
     ->isParameter('action', 'index')
   ->end()
 ;  
+
+// TODO: select period -> click on date
 
 $b
   ->diag('index: go to Timereporting for 2009-10-27')
@@ -39,7 +48,8 @@ $b
   ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
-  ->get('ullTime/list/period/october-2009/username/admin')
+  ->dumpDie()
+  // TODO: Remove
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'list')
@@ -65,7 +75,7 @@ $b
 
 $b
   ->diag('create: enter two new project efforts')
-  ->setField('fields[ull_project_id]','1')
+  ->setField('fields[ull_project_id]', Doctrine::getTable('UllProject')->findBySlug('introduce-ullright')->id)
   ->setField('fields[duration_seconds]','1:45')
   ->click('Save and create another entry')
   ->isRedirected()
@@ -176,3 +186,5 @@ $b
     ->checkElement($dgsList->get(7, 'project_total') . '> span', '5:20')
   ->end()
 ;  
+
+//TODO: total sum
