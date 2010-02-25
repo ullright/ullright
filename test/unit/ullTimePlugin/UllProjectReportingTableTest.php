@@ -21,5 +21,5 @@ $t->begin('findByDateAndUserId()');
 
   
 $t->diag('findSumByDateAndUserId()');
-  $t->is(UllProjectReportingTable::findSumByDateAndUserId('2009-09-17', $user->id), 18000, 'returns the correct sum');
+  $t->is(UllProjectReportingTable::findSumByDateAndUserId('2009-09-17', $user->id), 14400, 'returns the correct sum');
   
