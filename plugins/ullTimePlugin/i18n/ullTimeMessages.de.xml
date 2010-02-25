@@ -169,6 +169,11 @@
 <target>Zukünftige Tage einblenden</target>
 </trans-unit>
 
+<trans-unit id="33">
+<source>Difference</source>
+<target>Differenz</target>
+</trans-unit>
+
 
     </body>
   </file>

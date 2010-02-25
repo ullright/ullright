@@ -61,7 +61,7 @@
 	<?php if ($list_generator->getRow()->exists()):?>
 		<?php echo 
 			' (' . 
-		  __('Differenz', null, 'ullTimeMessages') . 
+		  __('Difference', null, 'ullTimeMessages') . 
 		  ': ' . 
 		  $timeDurationWidgetWithOptions->render(null, $diff_time, array('show_negative_red' => true, 'show_zero' => true)) . 
 		  ')'

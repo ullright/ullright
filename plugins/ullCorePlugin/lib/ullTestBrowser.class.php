@@ -428,5 +428,17 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     
     return $s;
   }
+  
+  public function getDgsUllTimeListReportProject()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),      
+      array(
+        'project',
+        'duration',
+       )
+    );
+    
+    return $s;
+  }
 }
 

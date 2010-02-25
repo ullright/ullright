@@ -45,7 +45,7 @@ UllProjectReporting:
     UllUser:                    test_user
     date:                       '2009-09-17'
     UllProject:                 meeting_room_furniture
-    duration_seconds:           9000
+    duration_seconds:           5400
     comment:                    Browsed catalogues
     namespace:                  test
 
