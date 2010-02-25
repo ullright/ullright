@@ -8,6 +8,9 @@ $b->setFixturesPath($path);
 $b->resetDatabase();
 $dgsList = $b->getDgsUllTimeListReportProject();
 
+//Test-Imports: introduce-ullright: 5400 (1:30) + 3600 (1:00) = 9000 (2:30)
+//              meeting-room-furniture: 5400 (1:30)
+
 //The entering of project timereporting is tested in other functional tests
 $newProjectReport = new UllProjectReporting();
 $newProjectReport->UllUser = Doctrine::getTable('UllUser')->findOneByUserName('test_user');
@@ -75,6 +78,53 @@ $b
     ->checkElement($dgsList->get(2, 'project') ,'Meeting room furniture')
     ->checkElement($dgsList->get(2, 'duration') ,'8:55')    //7:25 + Testdaten (1:30)
     ->checkElement($dgsList->get(3, 'duration') ,'21:20')   
+  ->end()
+;
+
+$b
+  ->get('ullTime/index')
+  ->isStatusCode(200)
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'index')
+  ->end()
+;  
+
+$b
+  ->diag('index: go to Project reports')
+  ->click('By user')
+  ->isStatusCode(200)
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'reportProject')
+  ->end()
+;
+
+$b
+  ->diag('list: check correct times')
+  ->with('response')->begin()
+    ->checkElement($dgsList->get(1, 'project') ,'Test User')
+    ->checkElement($dgsList->get(1, 'duration') ,'21:20')
+  ->end()
+;
+
+$b
+  ->diag('list: check correct times by projects')
+  ->setField('filter[ull_project_id]','1')
+  ->click('search_list')
+  ->isRedirected()
+  ->followRedirect()
+  ->with('response')->begin()
+    ->checkElement($dgsList->get(1, 'project') ,'Test User')
+    ->checkElement($dgsList->get(1, 'duration') ,'12:25')   //9:55 + Testdaten (2:30)
+  ->end()
+  ->setField('filter[ull_project_id]','2')
+  ->click('search_list')
+  ->isRedirected()
+  ->followRedirect()
+  ->with('response')->begin()
+    ->checkElement($dgsList->get(1, 'project') ,'Test User')
+    ->checkElement($dgsList->get(1, 'duration') ,'8:55')    //7:25 + Testdaten (1:30)   
   ->end()
 ;
 
