@@ -48,7 +48,6 @@ $b
   ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
-  ->dumpDie()
   // TODO: Remove
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
