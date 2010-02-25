@@ -24,7 +24,10 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setHelp(__('If unchecked, the photo will be visible in administrative areas only.', null, 'ullCoreMessages'))
     ;
     
-    $this['password']->setMetaWidgetClassName('ullMetaWidgetPassword');
+    $this['password']
+      ->setMetaWidgetClassName('ullMetaWidgetPassword')
+      ->setWidgetAttribute('autocomplete', 'off')
+    ;
     $this['email']
       ->setMetaWidgetClassName('ullMetaWidgetEmail')      
     ;
