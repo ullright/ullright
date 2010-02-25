@@ -47,6 +47,7 @@
     <ul class="sidebar_list">
       <li><?php echo ull_link_to(__('My personal tasks', null, 'common'), 'ullFlow/list?query=to_me&order=priority&order_dir=asc', 'ull_js_observer_confirm=true') ?></li>
       <li><?php echo ull_link_to(__('All my tasks', null, 'common'), 'ullFlow/list?query=to_me_or_my_groups&order=priority&order_dir=asc', 'ull_js_observer_confirm=true') ?></li>
+      <li><?php echo ull_link_to(__('Assignment overview', null, 'ullFlowMessages'), 'ullFlow/assignmentOverview', 'ull_js_observer_confirm=true') ?></li>
     </ul>
   </div>
   
