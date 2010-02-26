@@ -11,6 +11,7 @@
 	<col class="col_period_list_time_total"/>
 	<col class="col_period_list_project_reporting"/>
 	<col class="col_period_list_project_total"/>
+  <col class="col_period_list_delta"/>
   
 	<thead>
     <tr class="color_dark_bg">

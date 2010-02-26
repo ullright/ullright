@@ -80,7 +80,7 @@ a:visited {
 }
 
 /* Make the time duration columns as thin as possible to make alignment to the right looking good */
-.col_duration_seconds_header, .col_period_list_time_total, .col_period_list_project_total {
+.col_duration_seconds_header, .col_period_list_time_total, .col_period_list_project_total, .col_period_list_delta {
 	width: 1em;
 }
 
