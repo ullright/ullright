@@ -7,7 +7,6 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 $dgsListEdit = $b->getDgsUllTimeEditList();
-$dgsList = $b->getDgsUllTimeList();
 $dgsListToday = $b->getDgsUllTimeListTimeForToday();
 
 
@@ -38,29 +37,20 @@ $b
 $b
   ->diag('create: enter begin and end time, then click on save')
   ->setField('fields[begin_work_at]','9:00')
-  ->setField('fields[end_work_at]','14:00')
-  // TODO: add one break
+  ->setField('fields[end_work_at]','14:30')
+  ->setField('fields[begin_break1_at]','12:00')
+  ->setField('fields[end_break1_at]','12:30')
   ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
-
 ;
 
 $b
-  ->diag('list: check correct working time')
+  ->diag('list: go to project efforts')
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'list')
-  ->end()  
-  ->with('response')->begin()
-    ->checkElement($dgsListToday->get(1, 'time_total') ,'5:00')
-  ->end()
-;
-
-$b
-  ->diag('enter project efforts for today')
-  // TODO: check if on overview 
-  // We assume, that the first link is for "today"
+  ->end() 
   ->click('Project reporting')
   ->isStatusCode(200)
   ->with('request')->begin()
@@ -92,10 +82,6 @@ $b
   ->with('response')->begin()
     ->checkElement($dgsListEdit->getFullRowSelector(), 3)
     ->checkElement($dgsListEdit->get(3, 'duration'), '2:55')
-    //TODO: only basic testing here
-//    ->checkElement('p.ull_time_working_delta_time > span', '5:00')
-//    ->checkElement('p.ull_time_working_delta_time > span + span', '2:05')
-//    ->checkElement('input[id="fields_duration_seconds"][value="2:05"]')
   ->end()
 ;
   
