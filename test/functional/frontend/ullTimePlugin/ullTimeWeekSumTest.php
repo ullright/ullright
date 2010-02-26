@@ -11,7 +11,7 @@ $dgsListEdit = $b->getDgsUllTimeEditList();
 
 
 // TODO: rename to PeriodOverviewTest
-// TODO: manual fixtures
+// TODO: use manual fixtures
 
 /*
  * For a simpler test we use fixed dates.
@@ -33,11 +33,12 @@ $b
 
 $b
   ->diag('index: go to Timereporting for 2009-10-27')
-  ->get('ullTime/create/username/admin/date/2009-10-27')
+  ->get('ullTime/create/date/2009-10-27')
   ->isStatusCode(200)
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'create')
+    ->isParameter('date', '2009-10-27')
   ->end()
 ;
 
@@ -48,19 +49,22 @@ $b
   ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()
-  // TODO: Remove
-  ->with('request')->begin()
-    ->isParameter('module', 'ullTime')
-    ->isParameter('action', 'list')
-  ->end()
 ;
 
 $b
   ->diag('list: check correct working time')
+  // call the period manually because we don't have a referer
+  ->get('ullTime/list/period/october-2009')
+  ->with('request')->begin()
+    ->isParameter('module', 'ullTime')
+    ->isParameter('action', 'list')
+    ->isParameter('period', 'october-2009')
+  ->end()  
   ->with('response')->begin()
     ->checkElement($dgsList->get(5, 'time_total'), '5:00')
   ->end()
 ;
+
 
 $b
   ->diag('index: go to Project timereporting for 2009-10-27')
@@ -74,9 +78,10 @@ $b
 
 $b
   ->diag('create: enter two new project efforts')
-  ->setField('fields[ull_project_id]', Doctrine::getTable('UllProject')->findBySlug('introduce-ullright')->id)
+  ->setField('fields[ull_project_id]', Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id)
   ->setField('fields[duration_seconds]','1:45')
   ->click('Save and create another entry')
+  
   ->isRedirected()
   ->followRedirect()
   ->setField('fields[ull_project_id]','2')

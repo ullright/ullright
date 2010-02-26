@@ -57,14 +57,11 @@ $b
   ->end()
 ;
 
-// Go back to index, because it's hard to find the right link for today on
-// the period overview page
 $b
-  ->diag('index: go to Project timereporting for today')
-//  ->get('ullTime/index')
-  // check if on overview 
-  // click project effort
-  ->click('Project timereporting for today')
+  ->diag('enter project efforts for today')
+  // TODO: check if on overview 
+  // We assume, that the first link is for "today"
+  ->click('Project reporting')
   ->isStatusCode(200)
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
