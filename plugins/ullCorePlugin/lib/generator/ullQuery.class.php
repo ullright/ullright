@@ -4,7 +4,7 @@
  * ullQuery is a wrapper for ullDoctrineQuery (which in turn extends from Doctrine_Query).
  * It allows giving related columns in the ull-relation syntax relative to a given base model.
  * 
- * Example for ullVentoryItem: 'UllUser->username' selects the username of an item's owner
+ * Example for the base class ullVentoryItem: 'UllUser->username' selects the username of an item's owner
  * 
  * It automatically adds the necessary "from" clauses (=joins) and it administrates
  * a dictionary for relation aliases to re-use already created relations.
@@ -36,41 +36,28 @@ class ullQuery
     
     $this->q = new ullDoctrineQuery();
     
-    $from = $this->baseModel . ' x';
-    $from .= ($indexBy) ? (' INDEXBY ' . $indexBy) : '';
-    $this->q->from($from);
+    $doctrineFromString = $this->baseModel . ' x';
+    $doctrineFromString .= ($indexBy) ? (' INDEXBY ' . $indexBy) : '';
+    $this->q->from($doctrineFromString);
     
+    // add discriminator column for base model
     $inheritanceKeyFields = $this->getInheritanceKeyField($this->baseModel);
     if ($inheritanceKeyFields != null)
     {
       $this->addSelect($inheritanceKeyFields);
     }
+    
+    // add indexby column
+    if ($indexBy)
+    {
+      $this->addSelect($indexBy);
+    }
   }
   
-  /**
-   * Inspect the inheritance map of a model and
-   * retrieve keyFields, if any.
-   * @param unknown_type $modelName
-   * @return array keyFields, if there are none, null
-   */
-  private function getInheritanceKeyField($modelName)
-  {
-    $inheritanceMap = Doctrine::getTable($modelName)->getOption('inheritanceMap');
-    $inheritanceFieldKeys = array_keys($inheritanceMap);
-    if (count($inheritanceFieldKeys) > 0)
-    {
-      return $inheritanceFieldKeys;
-    }
-    else
-    {
-      return null;
-    } 
-  }
   
   /******************************************
    * Doctrine method equivalents
    ******************************************/
-  
   
   /**
    * Add SELECT columns
@@ -129,37 +116,6 @@ class ullQuery
   public function orWhere($where, $params = array())
   {
     $this->handleWhere($where, $params, true);
-    
-    return $this;
-  }
-  
-  /**
-   * Internal function which handles adding where clauses to
-   * the query; supports AND and OR.
-   * 
-   * @param $where the where term to add
-   * @param $params
-   * @param $coordinatorIsOr true if OR, false if AND
-   * @return self
-   */
-  protected function handleWhere($where, $params = array(), $coordinatorIsOr)
-  {
-    preg_match('/^([a-z>_-])+/i', $where, $matches);
-    $search = $matches[0];
-    $replace = $this->relationStringToDoctrineQueryColumn($search);
-
-    $where = str_replace($search, $replace, $where);
-    
-    if ($coordinatorIsOr)
-    {
-      $this->q->orWhere($where, $params);
-    }
-    else
-    {
-      $this->q->addWhere($where, $params);
-    }
-    
-    $this->addRelationsToQuery();
     
     return $this;
   }
@@ -286,6 +242,19 @@ class ullQuery
     return $this;
   }  
   
+  /**
+   * SQL limit funtion
+   * 
+   * @param int $limit
+   * @return self
+   */
+  public function limit($limit)
+  {
+    $this->q->limit($limit);
+    
+    return $this;
+  }
+  
   
   /**
    * Return query sql
@@ -318,14 +287,6 @@ class ullQuery
   {
     return $this->q->count($params);
   }    
-  
-  //TODO: add a indexBy($column) method.
-  //@see  http://www.doctrine-project.org/documentation/manual/1_2/pl/dql-doctrine-query-language:indexby-keyword
-  //It should work this way: 
-  //  In ullQuery we have no addFrom, since this is handled automatically
-  //  $q->indexBy('slug')
-  //  
-      
   
   
   /******************************************
@@ -390,7 +351,7 @@ class ullQuery
    * 
    * Also registeres the necessary relations
    * 
-   * Example for TestTable: 'UllUser->username'
+   * Example for base model TestTable: 'UllUser->username'
    * Returns 'x.ulluser.username' and adds the relation to UllUser
    * 
    * @param string $column
@@ -481,38 +442,59 @@ class ullQuery
 
   
   /**
-   * Add the internally collected relations to the query
+   * Adds the internally collected relations to the query
    * 
-   * @param string $alias
-   * @param array $relations
+   * @param string $alias     Doctrine base alias
+   * @param array $relations  Tree of relations relative to the base model 
+   * Example:
+   * 
+   * array(2) {
+   *  ["UllLocation"]=>
+   *  array(1) {
+   *    ["Translation"]=>
+   *    array(0) {
+   *    }
+   *  }
+   * ["UllJobTitle"]=>
+   *  array(0) {
+   *  }
+   *}
+   * @param $baseModel        Class name of the base model
+   * 
    * @return none
    */
-  public function addRelationsToQuery($alias = 'x', $relations = array(), $fromModel = null)
+  public function addRelationsToQuery($alias = 'x', $relations = null, $baseModel = null)
   {
-    if (!count($relations))
+    if ($relations === null)
     {
       $relations = $this->relations;
     }
     
-    if (!$fromModel)
+    if (!is_array($relations))
     {
-      $fromModel = $this->getBaseModel();
-    }    
+      throw new InvalidArgumentException('parameter "relations" must be an array');
+    }
     
+    if (!$baseModel)
+    {
+      $baseModel = $this->getBaseModel();
+    }
+
     foreach ($relations as $relation => $subRelations)
     {
       $newAlias = $alias . '_' . $this->relationStringToAlias($relation, false);
       
-      $from = $alias . '.' . $relation . ' ' . $newAlias;
+      $doctrineFromString = $alias . '.' . $relation . ' ' . $newAlias;
       
       $fromParts = $this->q->getDqlPart('from');
       
-      $doctrineRelation = Doctrine::getTable($fromModel)->getRelation($relation);
+      $doctrineRelation = Doctrine::getTable($baseModel)->getRelation($relation);
       
-      if (!in_array($from, $fromParts))
+      if (!in_array($doctrineFromString, $fromParts))
       { 
-        $this->q->addFrom($from);
+        $this->q->addFrom($doctrineFromString);
         
+        // add discriminator column
         $inheritanceKeyFields = $this->getInheritanceKeyField($doctrineRelation->getClass());
         
         if ($inheritanceKeyFields != null)
@@ -523,28 +505,93 @@ class ullQuery
           }
         }
         
+        // Hardcoded workaround for UllUser because we can't detect the discriminator column for the parent entity
         if ($doctrineRelation->getClass() == 'UllEntity')
         {
           $this->q->addSelect($newAlias . '.type');
         }
       }
       
-      // This is necessary for Doctrine joins:
-      $selectId = $alias . '.' . $doctrineRelation->getLocalColumnName();
-      $selectParts = $this->q->getDqlPart('select');
-      if (!in_array($selectId, $selectParts))
+      // Select the local identifiers. This is necessary for Doctrine joins:
+      $identifiers = Doctrine::getTable($baseModel)->getIdentifier();
+
+      if (!is_array($identifiers))
       {
-        $this->q->addSelect($selectId);
+        $identifiers = array($identifiers);
+      }
+      
+      foreach ($identifiers as $identifier)
+      {
+        $selectId = $alias . '.' .  $identifier;
+        
+        $selectParts = $this->q->getDqlPart('select');
+        if (!in_array($selectId, $selectParts))
+        {
+          $this->q->addSelect($selectId);
+        }
       }
     
+      // Call the method recursivly for subrelations
       if (count($subRelations))
       {
-        $doctrineRelation = Doctrine::getTable($fromModel)->getRelation($relation);
-        
         $this->addRelationsToQuery($newAlias, $subRelations, $doctrineRelation->getClass());
       }
     }
   }
+  
+  
+  /**
+   * Inspect the inheritance map of a model and
+   * retrieve keyFields, if any.
+   * 
+   * @param unknown_type $modelName
+   * @return array keyFields, if there are none, null
+   */
+  protected function getInheritanceKeyField($modelName)
+  {
+    $inheritanceMap = Doctrine::getTable($modelName)->getOption('inheritanceMap');
+    $inheritanceFieldKeys = array_keys($inheritanceMap);
+    if (count($inheritanceFieldKeys) > 0)
+    {
+      return $inheritanceFieldKeys;
+    }
+    else
+    {
+      return null;
+    } 
+  }  
+  
+  
+  /**
+   * Internal function which handles adding where clauses to
+   * the query; supports AND and OR.
+   * 
+   * @param $where the where term to add
+   * @param $params
+   * @param $coordinatorIsOr true if OR, false if AND
+   * @return self
+   */
+  protected function handleWhere($where, $params = array(), $coordinatorIsOr)
+  {
+    preg_match('/^([a-z>_-])+/i', $where, $matches);
+    $search = $matches[0];
+    $replace = $this->relationStringToDoctrineQueryColumn($search);
+
+    $where = str_replace($search, $replace, $where);
+    
+    if ($coordinatorIsOr)
+    {
+      $this->q->orWhere($where, $params);
+    }
+    else
+    {
+      $this->q->addWhere($where, $params);
+    }
+    
+    $this->addRelationsToQuery();
+    
+    return $this;
+  }  
   
   
   /**
