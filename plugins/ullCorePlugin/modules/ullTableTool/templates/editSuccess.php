@@ -110,7 +110,7 @@
       echo '<table class="edit_table"><tbody>';
       echo ($fg[$i]->hasColumns()) ? $fg[$i]->getForm() : '<tr><td>' . __('No changes') . '</td></tr>';
       echo '</tbody></table>';
-      echo '</div><br />';
+      echo '</div>';
     }
   ?>
   </div>
@@ -140,7 +140,7 @@
       echo '<table class="edit_table"><tbody>';
       echo ($hg[$i - 1]->hasColumns()) ? $hg[$i - 1]->getForm() : '<tr><td>' . __('No changes') . '</td></tr>';
       echo '</tbody></table>';
-      echo '</div><br />';
+      echo '</div>';
     }
   ?>
   </div>

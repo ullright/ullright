@@ -455,8 +455,16 @@ ul.list_action_buttons li {
   margin-top: 4em;
 }
 
+#edit_versions .edit_container {
+  margin-bottom: 1em;
+}
+
 #edit_future_versions {
   margin-top: 4em;
+}
+
+#edit_future_versions .edit_container {
+  margin-bottom: 1em;
 }
 
 
