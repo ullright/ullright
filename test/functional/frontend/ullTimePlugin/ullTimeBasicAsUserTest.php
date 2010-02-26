@@ -96,6 +96,7 @@ $b
   ->with('response')->begin()
     ->checkElement($dgsListToday->get(1, 'time_total'), '5:00')
     ->checkElement($dgsListToday->get(1, 'project_total'), '2:55')
+    ->checkElement($dgsListToday->get(1, 'delta'), '2:05')
   ->end()
 ;
   

@@ -408,6 +408,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'time_total',
         'project_reporting',
         'project_total',
+        'delta',
        )
     );
     
@@ -423,6 +424,23 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'time_total',
         'project_reporting',
         'project_total',
+        'delta',
+       )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTimeListTableSum()
+  {
+    $s = new ullDomGridSelector('table#ull_time_list > tbody', 'tr.list_table_sum', 'td', array(),      
+      array(
+        'day',
+        'time_reporting',
+        'time_total',
+        'project_reporting',
+        'project_total',
+        'delta',
        )
     );
     

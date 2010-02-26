@@ -110,7 +110,7 @@ $b
 
 $b
   ->diag('list: check correct times by projects')
-  ->setField('filter[ull_project_id]','1')
+  ->setField('filter[ull_project_id]', Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id)
   ->click('search_list')
   ->isRedirected()
   ->followRedirect()
@@ -118,7 +118,7 @@ $b
     ->checkElement($dgsList->get(1, 'project') ,'Test User')
     ->checkElement($dgsList->get(1, 'duration') ,'12:25')   //9:55 + Testdaten (2:30)
   ->end()
-  ->setField('filter[ull_project_id]','2')
+  ->setField('filter[ull_project_id]', Doctrine::getTable('UllProject')->findOneBySlug('meeting-room-furniture')->id)
   ->click('search_list')
   ->isRedirected()
   ->followRedirect()

@@ -668,7 +668,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
         $sumDelta = $sumTime - $sumProject;
         $week['dates'][$date]['sum_delta'] = $sumDelta;
         $week['sum_delta'] += $sumDelta;
-        $this->totals['project'] += $sumDelta;
+        $this->totals['delta'] += $sumDelta;
         
         // mark future dates
         if ($date > date('Y-m-d'))

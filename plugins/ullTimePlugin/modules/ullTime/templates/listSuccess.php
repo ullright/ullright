@@ -98,12 +98,13 @@
       </td>
     </tr>  
   
-    <tr class="list_table_sum">
+    <tr class="list_table_sum list_table_total_sum">
       <td></td>
       <td></td>
       <td><?php echo $time_duration_widget_with_zero->render(null, $totals['time']) ?></td>
       <td></td>
       <td><?php echo $time_duration_widget_with_zero->render(null, $totals['project']) ?></td>
+      <td><?php echo $time_duration_widget_with_zero->render(null, $totals['delta']) ?></td>
     </tr> 
      
   </tbody>
