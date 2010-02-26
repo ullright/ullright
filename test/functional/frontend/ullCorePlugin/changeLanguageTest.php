@@ -28,8 +28,4 @@ $b
   ->isRequestParameter('module', 'myModule')
   ->isRequestParameter('action', 'index')
   ->responseContains('Log in')
-//	->responseContains('!/error/')
-//	->checkResponseElement('body', '!/error|Error|ERROR/')
 ;
-
-//print $b->getResponse()->getContent();

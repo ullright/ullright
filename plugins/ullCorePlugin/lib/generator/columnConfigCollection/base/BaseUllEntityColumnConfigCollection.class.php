@@ -26,8 +26,10 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     
     $this['password']
       ->setMetaWidgetClassName('ullMetaWidgetPassword')
+      ->setWidgetOption('render_pseudo_password', true)
       ->setWidgetAttribute('autocomplete', 'off')
     ;
+    
     $this['email']
       ->setMetaWidgetClassName('ullMetaWidgetEmail')      
     ;

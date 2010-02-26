@@ -11,12 +11,11 @@ $testUserId = Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id;
 
 $b
   ->diag('login as admin and view test user')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->loginAsAdmin()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->isRequestParameter('id', $testUserId)
   ->responseContains('ullAdmin')
   ->responseContains('test_user')
@@ -32,16 +31,15 @@ $b
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('table', 'UllUser')
   ->checkResponseElement('body', '!/software_tester/')
   ->checkResponseElement('body', '!/softwaretester@example.com/')
 ;
 
 $b
   ->diag('save a second scheduled update')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->isStatusCode(200)
   ->setField('fields[username]', 'software_tester2')
   ->setField('fields[email]', 'softwaretester2@example.com')
@@ -54,11 +52,10 @@ $b
 
 $b
   ->diag('view test user again, check scheduled update')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->isRequestParameter('id', $testUserId)
   ->checkResponseElement('input[id="fields_username"][value="test_user"]', true)
   ->checkResponseElement('input[id="fields_email"][value="test.user@example.com"]', true)
@@ -75,20 +72,18 @@ $b
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('table', 'UllUser')
   ->checkResponseElement('body', '!/software_tester/')
   ->checkResponseElement('body', '/st@example.com/')
 ;
 
 $b
   ->diag('view test user again, check fields again')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->isRequestParameter('id', $testUserId)
   ->checkResponseElement('input[id="fields_username"][value="test_user"]', true)
   ->checkResponseElement('input[id="fields_email"][value="st@example.com"]', true)
@@ -99,19 +94,17 @@ $b
 
 $b
   ->diag('delete second scheduled update')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->isRequestParameter('id', $testUserId)
   ->click('Delete', array(), array('position' => 2))
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
 ;
 
 $b
@@ -125,11 +118,10 @@ $applyUpdatesTask->applyUpdates(array('now' => 'now',
 
 $b
   ->diag('reload test user, check if scheduled update was applied')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->isRequestParameter('id', $testUserId)
   ->checkResponseElement('input[id="fields_username"][value="software_tester"]', true)
   ->checkResponseElement('input[id="fields_email"][value="softwaretester@example.com"]', true)

@@ -10,6 +10,13 @@ class ullMetaWidgetPassword extends ullMetaWidget
     $dispatcher
   ;
 
+  /**
+   * Connect to form.update_object event
+   * 
+   * @param $columnConfig
+   * @param sfForm $form
+   * @return none
+   */
   public function __construct($columnConfig, sfForm $form)
   {
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
@@ -20,17 +27,33 @@ class ullMetaWidgetPassword extends ullMetaWidget
   }
 
   
+  /**
+   * Handle unchanged and empty (=removal) of password
+   * 
+   * @param sfEvent $event
+   * @param array $values
+   * @return array
+   */
   public static function listenToUpdateObjectEvent(sfEvent $event, $values)
   {
-    if (isset($values['password']) && $values['password'] == '')
+    // ******** means no password change
+    if (isset($values['password']) && $values['password'] == '********')
     {
       unset($values['password']);
     }
+    
+    if (isset($values['password']) && $values['password'] == '')
+    {
+      $values['password'] = null;
+    }    
 
     return $values;
   }
 
-  
+  /**
+   * (non-PHPdoc)
+   * @see plugins/ullCorePlugin/lib/form/widget/ullMetaWidget#configureReadMode()
+   */
   protected function configureReadMode()
   {
     $this->columnConfig->setWidgetAttribute('maxlength', null);
@@ -38,11 +61,14 @@ class ullMetaWidgetPassword extends ullMetaWidget
     $this->addValidator(new sfValidatorPass());    
   }
   
-  
+  /**
+   * (non-PHPdoc)
+   * @see plugins/ullCorePlugin/lib/form/widget/ullMetaWidget#configureWriteMode()
+   */
   protected function configureWriteMode()
   {
     // 1st password field
-    $widget = new sfWidgetFormInputPassword(
+    $widget = new ullWidgetPasswordWrite(
       $this->columnConfig->getWidgetOptions(), 
       $this->columnConfig->getWidgetAttributes()
     );

@@ -18,7 +18,8 @@ class ullValidatorPassword extends sfValidatorString
   {
     $validatedValue = parent::doClean($value);
 
-    if ($validatedValue != '')
+    // '********' means no changed password
+    if ($validatedValue != '' && $validatedValue != '********')
     {
       $validatedValue = md5($validatedValue);
     }

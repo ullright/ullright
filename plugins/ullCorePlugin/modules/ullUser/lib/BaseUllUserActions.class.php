@@ -121,6 +121,11 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->checkAccess(array('MasterAdmins', 'UserAdmins'));
     
     parent::executeEdit($request);
+    
+    if ($password = $this->generator->getForm()->getDefault('password'))
+    {
+      $this->generator->getForm()->setDefault('password_confirmation', '********');
+    }
 
     $this->setTableToolTemplate('edit');
   }  

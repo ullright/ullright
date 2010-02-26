@@ -12,14 +12,15 @@ $testUserId = Doctrine::getTable('UllUser')->findOneByUsername('test_user')->id;
 
 $b
   ->diag('login as admin')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->loginAsAdmin()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->isRequestParameter('id', $testUserId)
   ->responseContains('ullAdmin')
+  ->checkResponseElement('input[id="fields_password"][value="********"]', true)
+  ->checkResponseElement('input[id="fields_password_confirmation"][value="********"]', true)
 ;
 
 $b
@@ -30,9 +31,8 @@ $b
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('table', 'UllUser')
   ->responseContains('TestMaster')
 ;
 
@@ -48,12 +48,11 @@ $b
 $b
   ->diag('login as admin again')
   ->click('Log out')
-  ->get('ullTableTool/edit/table/UllUser/id/' . $testUserId)
+  ->get('ullUser/edit/id/' . $testUserId)
   ->loginAsAdmin()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->isRequestParameter('id', $testUserId)
   ->responseContains('ullAdmin')
 ;
@@ -64,9 +63,8 @@ $b
   ->setField('fields[password_confirmation]', 'ssapwen')
   ->click('Save and return to list')
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('table', 'UllUser')
   ->responseContains('Please enter the same password twice')
 ;
 
@@ -78,9 +76,8 @@ $b
   ->isRedirected()
   ->followRedirect()
   ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullTableTool')
+  ->isRequestParameter('module', 'ullUser')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('table', 'UllUser')
 ;
 
 $b
@@ -89,4 +86,21 @@ $b
   ->get('ullAdmin/index')
   ->loginAs('test_master', 'newpass')
 ;
+
+$b
+  ->diag('test removal of password')
+  ->click('Log out')
+  ->get('ullUser/edit/id/' . $testUserId)
+  ->loginAsAdmin()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullUser')
+  ->isRequestParameter('action', 'edit')
+  ->isRequestParameter('id', $testUserId)
+  ->responseContains('ullAdmin')
+  ->setField('fields[password]', '')
+  ->setField('fields[password_confirmation]', '')
+  ->click('Save and return to list')
+;
+
+$b->test()->is(Doctrine::getTable('UllUser')->findOneByUsername('test_master')->password, null, 'Password is now null');
 
