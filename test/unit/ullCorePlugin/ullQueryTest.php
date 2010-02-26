@@ -17,22 +17,6 @@ $t->begin('__construct()');
   $q = new ullQuery('TestTable');
 
   
-$t->begin('__construct() with INDEXBY | Also tests limit()');
-  $q = new ullQuery('UllUserStatus', 'slug');
-  $q->addSelect('is_absent');
-  $q->limit(1);
-  $t->is(
-    $q->getSqlQuery(),
-    "SELECT u.id AS u__id, u.slug AS u__slug, u.is_absent AS u__is_absent FROM ull_user_status u LIMIT 1",
-    'Created the correct SQL query'
-  );
-  $t->is(
-    $q->execute(array(), DOCTRINE::HYDRATE_ARRAY), 
-    array('active' => array('id' => 1, 'slug' => 'active', 'is_absent' => false)), 
-    'Returns an indexed by array'
-  );
-  
-  
 $t->diag('getBaseModel()');
   $t->is($q->getBaseModel(), 'TestTable', 'Returns the correct base model');
 
@@ -201,6 +185,21 @@ $t->diag('addGroupBy()');
     "SELECT COUNT(*) AS u__0 FROM ull_user_status u GROUP BY u.is_absent",
     'Returns the correct query'
   );
+  
+$t->diag('__construct() with INDEXBY | Also tests limit()');
+  $q = new ullQuery('UllUserStatus', 'slug');
+  $q->addSelect('is_absent');
+  $q->limit(1);
+  $t->is(
+    $q->getSqlQuery(),
+    "SELECT u.id AS u__id, u.slug AS u__slug, u.is_absent AS u__is_absent FROM ull_user_status u LIMIT 1",
+    'Created the correct SQL query'
+  );
+  $t->is(
+    $q->execute(array(), DOCTRINE::HYDRATE_ARRAY), 
+    array('active' => array('id' => 1, 'slug' => 'active', 'is_absent' => false)), 
+    'Returns an indexed by array'
+  );  
   
 
 $t->diag('Doctrine 1.0 bug resolved with UllUser and SELECT on >= 2 relations');  
