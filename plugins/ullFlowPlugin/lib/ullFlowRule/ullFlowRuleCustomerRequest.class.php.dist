@@ -1,0 +1,62 @@
+<?php
+
+class ullFlowRuleCustomerRequest extends ullFlowRule 
+{
+   
+  public function getNext() 
+  {
+    $next = array();
+    
+    if ($this->isStep('customer_request_creator')) 
+    {
+      if ($this->isAction('send'))
+      {
+        $next['step']    = $this->findStep('customer_request_dispatching');
+        $next['entity']  = $this->findGroup('Customer Request Dispatcher');
+      } 
+      elseif ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('customer_request_person_responsible');
+      }
+    }
+     
+    elseif ($this->isStep('customer_request_dispatching')) 
+    {
+      if ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('customer_request_person_responsible');
+      } 
+      elseif ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('customer_request_closed');
+      }
+    }
+      
+    elseif ($this->isStep('customer_request_person_responsible')) 
+    {
+      if ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('customer_request_person_responsible');
+      }
+      elseif ($this->isAction('return') || $this->isAction('reject')) 
+      {
+        $next['step']    = $this->findStep('customer_request_dispatching');
+        $next['entity']  = $this->findGroup('Customer Request Dispatcher');
+      }         
+      elseif ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('customer_request_closed');
+      }
+            
+    }  
+      
+    elseif ($this->isStep('customer_request_closed')) 
+    {
+      $next['step']    = $this->findStep('customer_request_dispatching');
+      $next['entity']  = $this->findGroup('Customer Request Dispatcher');
+    }
+    
+    return $next;
+  }
+  
+}
