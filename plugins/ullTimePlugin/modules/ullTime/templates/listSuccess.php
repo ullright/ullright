@@ -27,7 +27,7 @@
   <tbody>
     <?php
       $odd = true;
-      $colspan = 5;
+      $colspan = 6;
       $time_duration_widget = new ullWidgetTimeDurationRead();
       $time_duration_widget_with_zero = new ullWidgetTimeDurationRead(array('show_zero' => 1));
       $date_widget = new ullWidgetDateRead(array('show_weekday' => true));
