@@ -62,9 +62,12 @@ class ullWidget extends sfWidgetForm
    */  
   protected function handleSuffixOption($value)
   {
-    $suffix = $this->getOption('suffix');
-    $value = esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
-    
+    if ($suffix = $this->getOption('suffix'))
+    {
+      // removed esc_entities because it makes trouble for mailing
+//      $value = esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
+      $value = $value . ' ' . $suffix;
+    }
     return $value;
   }
   
