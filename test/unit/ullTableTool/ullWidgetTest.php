@@ -15,8 +15,11 @@ $t->diag('__construct()');
   
 $t->diag('->render()');  
   $t->is($w->render('foo', 'bar'), 'bar', 'renders the widget as HTML');
-  $t->is($w->render('foo', 'Schüßel'), 'Sch&uuml;&szlig;el', 'correctly escapes umlauts');
-  $t->is($w->render('foo', 'Welcome to <i>Italy</i>'), 'Welcome to &lt;i&gt;Italy&lt;/i&gt;', 'escapes html entities');
+  // Do NOT encode html entities
+//  $t->is($w->render('foo', 'Schüßel'), 'Sch&uuml;&szlig;el', 'correctly escapes umlauts');
+//  $t->is($w->render('foo', 'Welcome to <i>Italy</i>'), 'Welcome to &lt;i&gt;Italy&lt;/i&gt;', 'escapes html entities');
+  $t->is($w->render('foo', 'Schüßel'), 'Schüßel', 'Does not html entity decode umlauts');
+  $t->is($w->render('foo', 'Welcome to <i>Italy</i>'), 'Welcome to <i>Italy</i>', 'Does not html entity tags (e.g. "<" chars)');  
 
 $t->diag('nowrap option');
   $w = new ullWidget(array('nowrap' => true));
