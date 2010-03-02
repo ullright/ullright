@@ -51,9 +51,6 @@ $newProjectReport->date = '2009-10-28';
 $newProjectReport->duration_seconds = 4200; //01:10
 $newProjectReport->save();
 
-// TODO: rename to PeriodOverviewTest
-// TODO: use manual fixtures
-
 /*
  * For a simpler test we use fixed dates.
  * We act as admin to ignore the locking (Not allowed to edit older entries)
