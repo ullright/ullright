@@ -33,5 +33,5 @@ $t->diag('for write access:');
   $t->isa_ok($widget, 'ullMetaWidgetLink', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
   $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormInput', 'returns the correct widget for write access');
-  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorString', 'returns the correct validator for write access');
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'ullValidatorPurifiedString', 'returns the correct validator for write access');
   

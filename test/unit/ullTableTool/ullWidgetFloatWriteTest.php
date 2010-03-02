@@ -9,12 +9,12 @@ sfLoader::loadHelpers(array('Escaping', 'I18N'));
 $w = new ullWidgetFloatWrite();
 
 $t->diag('->render() with default culture');
-$reference = '<input type="text" name="foo" value="-423,342.64" id="foo" /> ';
+$reference = '<input type="text" name="foo" value="-423,342.64" id="foo" />';
 $t->is($w->render('foo', '-423342.64'), $reference, '->render() renders correctly.');
 
 
 $instance->getUser()->setCulture("de");
 
 $t->diag('->render() with \'de\' culture');
-$reference = '<input type="text" name="foo" value="-423.342,64" id="foo" /> ';
+$reference = '<input type="text" name="foo" value="-423.342,64" id="foo" />';
 $t->is($w->render('foo', '-423342.64'), $reference, '->render() renders correctly.');

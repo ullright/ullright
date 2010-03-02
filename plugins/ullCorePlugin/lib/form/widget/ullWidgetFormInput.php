@@ -11,6 +11,8 @@ class ullWidgetFormInput extends sfWidgetFormInput
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     $suffix = $this->getOption('suffix');
-    return parent::render($name, $value, $attributes, $errors) . ' ' . $suffix;
+
+    $result = parent::render($name, $value, $attributes, $errors);
+    return $result . (!empty($suffix) ? ' ' . $suffix : '');
   }
 }

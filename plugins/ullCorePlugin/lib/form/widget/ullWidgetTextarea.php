@@ -12,7 +12,9 @@ class ullWidgetTextarea extends ullWidget
     
     if ($value)
     {
-      $value = nl2br($value);
+      //escape the string (to prevent injection of js, etc.)
+      //and convert newlines to br tags
+      $value = nl2br(esc_entities($value));
     }
     else
     {
