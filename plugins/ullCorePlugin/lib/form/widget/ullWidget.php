@@ -48,6 +48,8 @@ class ullWidget extends sfWidgetForm
   {
     $value = $this->handleSuffixOption($value);
     
+    $value = esc_entities($value);
+    
     $value = $this->handleNowrapOption($value);
     
     return $value;
@@ -64,10 +66,9 @@ class ullWidget extends sfWidgetForm
   {
     if ($suffix = $this->getOption('suffix'))
     {
-      // removed esc_entities because it makes trouble for mailing
-//      $value = esc_entities(($suffix) ? $value . ' ' . $suffix : $value);
       $value = $value . ' ' . $suffix;
     }
+    
     return $value;
   }
   

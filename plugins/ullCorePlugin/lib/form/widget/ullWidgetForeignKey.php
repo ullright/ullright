@@ -84,6 +84,8 @@ class ullWidgetForeignKey extends ullWidget
 
     }
     
+    $return = esc_entities($return);
+    
     // POPUP
     if (
       $this->getOption('show_ull_entity_popup') ||

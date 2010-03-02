@@ -154,7 +154,6 @@ $b
   ->isStatusCode(200)    
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  // TODO: fails at the moment. We have to look into the escaping issue (See wiki)
   ->checkResponseElement($dgsListTT->get(1, 'subject') . ' > b > a > i', false)
 ;
 
