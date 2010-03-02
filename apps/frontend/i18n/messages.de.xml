@@ -62,6 +62,11 @@
 <target>Falls das Problem weiter auftritt, kontaktieren Sie bitte it.department@example.de.</target>
 </trans-unit>
 
+<trans-unit id="12">
+<source>Contains invalid characters.</source>
+<target>Enthält ungültige Zeichen.</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
