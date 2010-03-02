@@ -162,9 +162,23 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->generator->buildForm($this->doc);
     $this->addGlobalValidators();
     
-    $this->sum_time = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
-    $this->is_today = ($request->getParameter('date') == date("Y-m-d",time()));
+    //$this->sum_time = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
+    //$this->is_today = ($request->getParameter('date') == date("Y-m-d",time()));
+    $this->break_1_duration = $this->doc->getBreakDuration(1);
+    $this->break_2_duration = $this->doc->getBreakDuration(2);
+    $this->break_3_duration = $this->doc->getBreakDuration(3);
     $this->up_to_now = strtotime(date("H:i",time())) - strtotime($this->doc->begin_work_at) - $this->doc->total_break_seconds;
+    
+    $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
+    if (($request->getParameter('date') != date("Y-m-d",time())) || !$this->doc->begin_work_at)
+    {
+      $this->up_to_now = 0;
+    }
+    
+    if($sumTime > 0)
+    {
+      $this->up_to_now = $sumTime;
+    }
     
     $this->breadcrumbForEdit();
     

@@ -1,6 +1,7 @@
 <?php echo $breadcrumb_tree ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+<?php $timeDurationWidget = new ullWidgetTimeDurationRead(); ?>
 
 <h3>
   <?php echo __('Time report', null, 'ullTimeMessages')?>
@@ -14,11 +15,18 @@
 
 <div class="edit_container">
 <table class="edit_table ull_time_edit_table_worktime">
+
+	<col class="col_edit_list_name"/>
+	<col class="col_edit_list_begin"/>
+	<col class="col_edit_list_end"/>
+	<col class="col_edit_list_sum"/>
+	
   <thead>
     <tr class="color_dark_bg">
       <th class="color_dark_bg"> &nbsp; </th>
       <th class="color_dark_bg"><?php echo __('Begin', null, 'common') ?></th>
       <th class="color_dark_bg"><?php echo __('End', null, 'common') ?></th>
+      <th class="color_dark_bg"><?php echo __('Total', null, 'common') ?></th>
     </tr>
   </thead>
 
@@ -33,17 +41,28 @@
         <?php echo $generator->getForm()->offsetGet('end_work_at')->render() ?>
         <?php echo $generator->getForm()->offsetGet('end_work_at')->renderError() ?>
       </td>
+      <td>
+        <?php echo $timeDurationWidget->render(null, $up_to_now); ?>
+      </td>
     </tr>
     
   </tbody>
 </table>
 
+
 <table class="edit_table">
+	
+	<col class="col_edit_list_name"/>
+	<col class="col_edit_list_begin"/>
+	<col class="col_edit_list_end"/>
+	<col class="col_edit_list_sum"/>
+	
   <thead>
     <tr class="color_dark_bg">
       <th class="color_dark_bg"> &nbsp; </th>
       <th class="color_dark_bg"><?php echo __('Begin', null, 'common') ?></th>
       <th class="color_dark_bg"><?php echo __('End', null, 'common') ?></th>
+      <th class="color_dark_bg"><?php echo __('Total', null, 'common') ?></th>
     </tr>
   </thead>
 
@@ -58,6 +77,9 @@
         <?php echo $generator->getForm()->offsetGet('end_break1_at')->render() ?>
         <?php echo $generator->getForm()->offsetGet('end_break1_at')->renderError() ?>
       </td>
+      <td>
+        <?php echo $timeDurationWidget->render(null, $break_1_duration); ?>
+      </td>
     </tr>   
     <tr>
       <td class="label_column"><label><?php echo __('Break', null, 'ullTimeMessages')?> 2</label></td>
@@ -69,6 +91,9 @@
         <?php echo $generator->getForm()->offsetGet('end_break2_at')->render() ?>
         <?php echo $generator->getForm()->offsetGet('end_break2_at')->renderError() ?>
       </td>
+      <td>
+        <?php echo $timeDurationWidget->render(null, $break_2_duration); ?>
+      </td>
     </tr>       
     <tr>
       <td class="label_column"><label><?php echo __('Break', null, 'ullTimeMessages')?> 3</label></td>
@@ -79,6 +104,9 @@
       <td>
         <?php echo $generator->getForm()->offsetGet('end_break3_at')->render() ?>
         <?php echo $generator->getForm()->offsetGet('end_break3_at')->renderError() ?>
+      </td>
+      <td>
+        <?php echo $timeDurationWidget->render(null, $break_3_duration); ?>
       </td>
     </tr>      
     
