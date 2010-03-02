@@ -6,6 +6,7 @@ class ullWidget extends sfWidgetForm
   {
     $this->addOption('suffix');
     $this->addOption('nowrap');
+    
     parent::__construct($options, $attributes);
   }
   
@@ -17,7 +18,7 @@ class ullWidget extends sfWidgetForm
     }
     
     $value = $this->handleOptions($value);
-
+    
     return (string) $value;
   }
   

@@ -68,13 +68,13 @@ class ullWidgetForeignKey extends ullWidget
   
       try
       {
-        $return .= $object->$method();
+        $return .= esc_entities($object->$method());
       }
       catch (Exception $e)
       {
         // This is necessary for translated columns. Why?
         $object = Doctrine::getTable($this->getOption('model'))->find($value);
-        $return .= $object->$method();
+        $return .= esc_entities($object->$method());
       }
       
       if ($this->getOption('show_ull_entity_popup'))
@@ -83,8 +83,6 @@ class ullWidgetForeignKey extends ullWidget
       }
 
     }
-    
-    $return = esc_entities($return);
     
     // POPUP
     if (
