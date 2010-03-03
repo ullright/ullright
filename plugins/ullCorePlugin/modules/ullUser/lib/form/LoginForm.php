@@ -1,4 +1,3 @@
-
 <?php
 
 class LoginForm extends sfForm
