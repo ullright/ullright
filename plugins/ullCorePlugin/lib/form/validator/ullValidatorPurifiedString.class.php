@@ -1,7 +1,8 @@
 <?php
 
 /**
- *
+ *  This validator checks a string for any kind of
+ *  HTML tags or stray angle brackets.
  */
 class ullValidatorPurifiedString extends sfValidatorString
 {
