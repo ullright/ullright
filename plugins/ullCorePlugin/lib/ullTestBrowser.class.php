@@ -458,5 +458,43 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     
     return $s;
   }
+  
+  public function getDgsUllTableToolList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(), array());
+    
+    return $s;
+  }
+  
+public function getDgsUllTableToolUllLocationList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(), 
+      array(
+        'edit_delete',
+        'name',
+        'short_name',
+        'city',
+        'country'
+      )
+    );
+    
+    return $s;
+  }
+
+  public function getDgsUllTableToolUserStatusList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name_translation_en',
+        'is_active',
+        'is_absent'
+      )
+    );
+    
+    return $s;
+  }
 }
+
+
 
