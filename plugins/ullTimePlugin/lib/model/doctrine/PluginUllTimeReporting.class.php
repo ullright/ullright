@@ -37,7 +37,13 @@ abstract class PluginUllTimeReporting extends BaseUllTimeReporting
       $this->total_work_seconds = strtotime($this->end_work_at) - strtotime($this->begin_work_at) - $this->total_break_seconds;
     }
   }
-
+  
+  /**
+   * calculate break times in seconds
+   *
+   * @param $breakNum e.g. 1 for break1
+   * @return break duration in seconds
+   */
   public function getBreakDuration($breakNum)
   {
     $beginField = 'begin_break' . $breakNum . '_at';
