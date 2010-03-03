@@ -1,3 +1,4 @@
+
 <?php
 
 class LoginForm extends sfForm
@@ -24,10 +25,9 @@ class LoginForm extends sfForm
     
     $this->setValidators(array(
         'username' => new sfValidatorString(
-            array('min_length' => 4), 
+            array(), 
             array(
               'required'    => 'Your username is required!',
-              'min_length'  => 'Username must be 4 or more characters',
             )),
         'password' => new sfValidatorString(
             array(),
