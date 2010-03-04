@@ -6,6 +6,8 @@
 
 <div class="edit_container">
 
+<?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+
 <?php include_partial('ullTableTool/editTable', array('generator' => $generator)) ?>
 
 <div class='edit_action_buttons color_light_bg'>

@@ -543,8 +543,6 @@ class BaseUllVentoryActions extends BaseUllGeneratorActions
     $breadcrumbTree = new ullVentoryBreadcrumbTree();
     $breadcrumbTree->setEditFlag(true);
 
-//    var_dump($this->getUriMemory()->get('list'));die;
-    
     // display result list link only when there is a referer containing 
     //  the list action 
     if ($referer = $this->getUriMemory()->get('list'))

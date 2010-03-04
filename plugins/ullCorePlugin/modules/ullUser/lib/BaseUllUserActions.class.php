@@ -26,6 +26,8 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
     
     parent::executeList($request);
+    
+    $this->redirectToEditIfSingleResult();
 
     $this->setTableToolTemplate('list');
   }  
@@ -547,6 +549,24 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     return $this->renderText(json_encode($users));
   }  
   
+  
+  /**
+   * Shortcut: redirect directly to edit action if we have a single result
+   * 
+   * @return none
+   */
+  protected function redirectToEditIfSingleResult()
+  {
+    if (count($this->docs) == 1 && $this->getRequestParameter('single_redirect', 'true') == 'true')
+    {
+      $this->getUser()->setFlash('message', __(
+        'Redirected from the result list because there was only a single result. Click on "result list" in the breadcrumb navigation above to return to the list view.', 
+        null, 'common'));
+      $this->getUriMemory()->append('single_redirect=false');
+      $this->redirect('ullUser/edit?id=' . $this->docs[0]->id);
+    }
+  }  
+  
   /**
    * Handles breadcrumb for list action
    */
@@ -570,7 +590,19 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $breadcrumb_tree->setEditFlag(true);
     $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('Users', null, 'ullCoreMessages'));
-    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullUser/list');  
+    
+    // display result list link only when there is a referer containing 
+    //  the list action 
+    if ($referer = $this->getUriMemory()->get('list'))
+    {
+      $breadcrumb_tree->add(__('Result list', null, 'common'), $referer);
+    }
+    else
+    {
+      $breadcrumb_tree->addDefaultListEntry();
+    }    
+    
+//    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullUser/list');  
     if ($this->id) 
     {
       $breadcrumb_tree->add(__('Edit', null, 'common'));

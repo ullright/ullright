@@ -63,9 +63,9 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->generator = $this->getListGenerator();
     
-    $rows = $this->getFilterFromRequest();
+    $this->docs = $this->getFilterFromRequest();
     
-    $this->generator->buildForm($rows);
+    $this->generator->buildForm($this->docs);
     
     $this->setVar('generator', $this->generator, true);
     
