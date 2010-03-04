@@ -464,12 +464,12 @@ UllUserStatus:
     is_absent:  false
     namespace:  test
   separated_status:
-    slug:       separated
+    slug:       inactive
     Translation:
       en:
-        name:   Separated
+        name:   Inactive
       de:
-        name:   Ausgetreten
+        name:   Inaktiv
     is_active:  false
     is_absent:  false
     namespace:  test
