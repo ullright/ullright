@@ -26,7 +26,8 @@
     ?>
     <li>
      <?php echo $filter_form['search']->renderLabel() ?>    
-     <?php echo $filter_form['search']->render(array('value' => '')) ?>
+     <?php echo $filter_form['search']->render() ?>
+     <?php // render no value echo $filter_form['search']->render(array('value' => '')) ?>
     </li>
 
     <li>
