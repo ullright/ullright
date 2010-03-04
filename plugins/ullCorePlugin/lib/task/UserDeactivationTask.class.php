@@ -31,7 +31,7 @@ EOF;
     
     $q
       ->update('UllUser u')
-      ->set('u.ull_user_status_id', '?', Doctrine::getTable('UllUserStatus')->findOneBySlug('separated')->id)
+      ->set('u.ull_user_status_id', '?', Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive')->id)
       ->where('u.deactivation_date <= ?', date('Y-m-d'))
       ->orWhere('u.separation_date <= ?', date('Y-m-d'))
       ->wrapExistingWhereInParantheses()
