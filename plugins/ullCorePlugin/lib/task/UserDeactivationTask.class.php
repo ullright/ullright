@@ -34,6 +34,8 @@ EOF;
   {
     $this->initializeDatabaseConnection($arguments, $options);
     
+    $inactiveId = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive')->id;
+    
     $q = new ullDoctrineQuery;
     
     $q
@@ -41,6 +43,7 @@ EOF;
       ->where('u.deactivation_date <= ?', date('Y-m-d'))
       ->orWhere('u.separation_date <= ?', date('Y-m-d'))
       ->wrapExistingWhereInParantheses()
+      ->addWhere('u.ull_user_status_id <> ?', $inactiveId)
     ;
     
     $users = $q->execute();
@@ -50,7 +53,7 @@ EOF;
     foreach ($users as $user)
     {
       $this->log('Deactivating '. $user->display_name);
-      $user['ull_user_status_id'] = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive')->id;
+      $user['ull_user_status_id'] = $inactiveId;
       $user->save();
     }    
   }
