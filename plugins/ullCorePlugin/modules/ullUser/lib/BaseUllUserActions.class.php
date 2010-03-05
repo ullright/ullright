@@ -71,6 +71,19 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     //the following select includes phone and fax extensions, but overrides
     //the columns with a dash if the matching boolean is false
     $this->q->getDoctrineQuery()->addSelect('x.*,');
+    
+    //filter per entity
+    if ($id = $this->filter_form->getValue('id'))
+    {
+      $this->q->addWhere('x.id = ?', $id);
+      $this->user = Doctrine::getTable('UllUser')->findOneById($id);
+      
+      $this->ull_filter->add('filter[id]', __('Owner', null, 'common') . ': ' . $this->user);
+    }
+    else
+    {
+      $this->user = null;
+    }       
   }
     
   

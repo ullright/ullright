@@ -80,8 +80,8 @@
     </div>
     
     <div id="tc_search">
-      <div class="tc_box color_medium_bg">
-        <?php echo form_tag('ullUser/list'); ?>
+      <?php echo form_tag('ullUser/list'); ?>
+        <div class="tc_box color_medium_bg">
         <table>
           <tr>
             <td>
@@ -99,15 +99,22 @@
             </td>
           </tr>
           </table>
-        </form>      
-      </div>
-      <div class="tc_box_with_bottom_spacer color_light_bg">
-        <?php echo ull_link_to(__('Advanced search', null, 'common'), 'ullUser/search') ?>
-      </div>
+              
+        </div>
+        <div class="tc_box_with_bottom_spacer color_light_bg">
+          <?php echo ull_link_to(__('Advanced search', null, 'common'), 'ullUser/search') ?>
+        </div>
+        
+        <div class="tc_box_with_bottom_spacer color_medium_bg">
+          <?php echo $form['id']->renderLabel() ?><br />
+          <?php echo $form['id']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
+        </div>      
+      
       <!-- 
       <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
       <div class="tc_search_tag_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
       -->
+      </form>
     </div>
     
     <div id="tc_queries">

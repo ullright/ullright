@@ -940,6 +940,11 @@
 <target>Aktualisierer</target>
 </trans-unit>
 
+<trans-unit id="20002">
+<source>User selection</source>
+<target>Benutzerauswahl</target>
+</trans-unit>
+
 
 <trans-unit id="20007">
 <source>Ull flow app</source>
