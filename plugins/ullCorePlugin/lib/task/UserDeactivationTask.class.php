@@ -25,21 +25,34 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+    // Delegated to a public method to allow testing
+    $this->deactivateUsers($arguments, $options);
+  }
+  
+  
+  public function deactivateUsers($arguments = array(), $options = array())
+  {
     $this->initializeDatabaseConnection($arguments, $options);
     
     $q = new ullDoctrineQuery;
     
     $q
-      ->update('UllUser u')
-      ->set('u.ull_user_status_id', '?', Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive')->id)
+      ->from('UllUser u')
       ->where('u.deactivation_date <= ?', date('Y-m-d'))
       ->orWhere('u.separation_date <= ?', date('Y-m-d'))
       ->wrapExistingWhereInParantheses()
     ;
     
-    $num = $q->execute();
+    $users = $q->execute();
     
-    $this->log("Deactivated {$num} users");
+    $this->logSection($this->name, 'Deactivating ' . count($users) . ' users');
+    
+    foreach ($users as $user)
+    {
+      $this->log('Deactivating '. $user->display_name);
+      $user['ull_user_status_id'] = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive')->id;
+      $user->save();
+    }    
   }
   
 }

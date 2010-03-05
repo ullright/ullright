@@ -15,14 +15,14 @@ $t->setFixturesPath($path);
 
 $app = 'frontend';
 
-$t->begin('execute()');
+$t->begin('deactivateUsers()');
 
   $q = new UllQuery('UllUser');
   $q->addWhere('UllUserStatus->is_active = ?', false);
   $t->is($q->count(), 0, 'We have no deactivated user');
 
   $task = new UserDeactivationTask(new sfEventDispatcher(), new sfFormatter());
-  $task->execute(array('application' => $app, 'env' => 'test'));
+  $task->deactivateUsers(array('application' => $app, 'env' => 'test'));
   
   $q = new UllQuery('UllUser');
   $q->addWhere('UllUserStatus->is_active = ?', false);
@@ -34,7 +34,7 @@ $t->begin('execute()');
   $user->save();
   
   $task = new UserDeactivationTask(new sfEventDispatcher(), new sfFormatter());
-  $task->execute(array('application' => $app, 'env' => 'test'));  
+  $task->deactivateUsers(array('application' => $app, 'env' => 'test'));  
 
   $q = new UllQuery('UllUser');
   $q->addWhere('UllUserStatus->is_active = ?', false);
@@ -45,7 +45,7 @@ $t->begin('execute()');
   $user->save();
   
   $task = new UserDeactivationTask(new sfEventDispatcher(), new sfFormatter());
-  $task->execute(array('application' => $app, 'env' => 'test'));
+  $task->deactivateUsers(array('application' => $app, 'env' => 'test'));
   
   $q = new UllQuery('UllUser');
   $q->addWhere('UllUserStatus->is_active = ?', false);  

@@ -66,6 +66,26 @@ $browser
     ->isParameter('module', 'ullUser')
     ->isParameter('action', 'list')
   ->end()
+  
+  // redirect to edit if single result
+  ->with('response')->begin()
+    ->isRedirected()
+    ->isStatusCode(302)
+  ->end()
+  ->followRedirect()
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'edit')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+  ->end()
+  ->click('Result list')
+  
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'list')
+  ->end()  
   ->with('response')->begin()
     ->isStatusCode(200)
     ->checkElement($dgsUser->get(1, 'last_name'), 'Programmer of Modules')
@@ -129,6 +149,26 @@ $browser
 $browser->followRedirect();
 
 $browser
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'list')
+  ->end()
+  
+  // redirect to edit if single result
+  ->with('response')->begin()
+    ->isRedirected()
+    ->isStatusCode(302)
+  ->end()
+  ->followRedirect()
+  ->with('request')->begin()
+    ->isParameter('module', 'ullUser')
+    ->isParameter('action', 'edit')
+  ->end()
+  ->with('response')->begin()
+    ->isStatusCode(200)
+  ->end()
+  ->click('Result list')  
+  
   ->with('request')->begin()
     ->isParameter('module', 'ullUser')
     ->isParameter('action', 'list')
