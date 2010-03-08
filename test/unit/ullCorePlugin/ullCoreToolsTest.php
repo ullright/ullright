@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(32, new lime_output_color);
+$t = new lime_test(36, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -103,4 +103,53 @@ $t->diag('prepareCsvColumn()');
   $t->is(ullCoreTools::prepareCsvColumn('Am&uuml;sant'), '"' . utf8_decode('Amüsant') . '"', 'Decodes html entities');
   $t->is(ullCoreTools::prepareCsvColumn('&gt;'), '">"', 'Decodes html entities');
   $t->is(ullCoreTools::prepareCsvColumn('&#039;'), '"\'"', 'Decodes &#039; html entity');
+
+ 
+$t->diag('walkDirectory()');
+
+  //define a test callback
+  function walkDirectoryCallbackTest($path, $file, $param)
+  {
+    $param[] = $file;
+    return false;
+  }
+  
+  //create temp directory with random name, add some files
+  $filesystem = new sfFilesystem();
+  $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR .
+    'ullCoreTest' . mt_rand(10000, 99999) . DIRECTORY_SEPARATOR;
+  $tempFiles = array($tempPath . 'temp.jPg', $tempPath . 'temp.jpeg', $tempPath . 'temp');
+   
+  $filesystem->mkdirs($tempPath);
+  $filesystem->touch($tempFiles);
+  
+  //just walk the directory and see if every file gets handled
+  $handledFiles = array();
+  $cleared = ullCoreTools::walkDirectory($tempPath, 'walkDirectoryCallbackTest', &$handledFiles);
+  $t->is_deeply($cleared, array(), 'Returns empty array');
+  $t->is_deeply($handledFiles, array('temp', 'temp.jpeg', 'temp.jPg'), 'Returns handles files');
+
+$t->diag('deleteFileIfNotExtension');
+
+  $cleared = ullCoreTools::walkDirectory($tempPath, 'ullCoreTools::deleteFileIfNotExtension', array('jpg'));
+  $t->is_deeply($cleared, array('temp', 'temp.jpeg'), 'Returns correct array of cleaned files');
+  
+$t->diag('deleteFileIfNotFromType');
+  //copy valid test image to temp dir
+  $resourceFileName = 'ullCoreToolsTest_resource.png';
+  $resourcePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . $resourceFileName;
+  $filesystem->copy($resourcePath, $tempPath . DIRECTORY_SEPARATOR . $resourceFileName);
+  
+  //recreate invalid test files
+  $filesystem->touch($tempFiles);
+  
+  $cleared = ullCoreTools::walkDirectory($tempPath, 'ullCoreTools::deleteFileIfNotFromType', array('PNG'));
+  $t->is_deeply($cleared, array('temp', 'temp.jpeg', 'temp.jPg'), 'Returns correct array of cleaned files');
+  
+  //clean up (because that is the polite thing to do!)
+  
+  //if the above method did not unlink files correctly,
+  //we get a warning here, which is good
+  $filesystem->remove(array($tempPath . $resourceFileName));
+  $filesystem->remove($tempPath);
   

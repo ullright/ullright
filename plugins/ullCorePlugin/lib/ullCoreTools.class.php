@@ -170,7 +170,7 @@ class ullCoreTools
         if (!in_array($file, $ignoreList))
         {
           //should we check beforehand with is_callable?
-          if (call_user_func($callback, $path, $file, $callbackParam))
+          if (call_user_func_array($callback, array($path, $file, &$callbackParam)))
           {
             $cleared[] = $file; 
           }
