@@ -140,44 +140,96 @@ class ullCoreTools
     return $hour . ':' . $minute;
   }
   
-  
   /**
-   * Deletes all files in the given directory which don't have the given extenstions
+   * Enumerates all files in a given directory and passes
+   * them to a custom callback function.
+   * If the callback returns true, the file gets added to an
+   * array, which this function returns.
    * 
-   * @param $path
-   * @param $extensionsToKeep
-   * @return array or null
+   * @param $path the directory to walk
+   * @param function $callback the callback function to call for each file
+   * @param $callbackParam one callback parameter if needed
+   * @return array of file paths for which the callback returned true
    */
-  public static function clearDirectoryByFileExtension($path, $extensionsToKeep = array())
+  public static function walkDirectory($path, $callback, $callbackParam = array())
   {    
     if (!is_dir($path))
     {
       throw new InvalidArgumentException('Directory not found: ' . $path);
     }
     
-    
     $ignoreList = array('.', '..');
-
+    
     $cleared = array();
     
     $files = scandir($path);
 
     foreach ($files as $file)
     {
-      $parts = explode('.', $file);
       {
-        if (
-          !in_array($file, $ignoreList) 
-          && !in_array($parts[count($parts) - 1], $extensionsToKeep)
-        )
+        if (!in_array($file, $ignoreList))
         {
-          unlink($path . '/' . $file);
-          $cleared[] = $file; 
+          //should we check beforehand with is_callable?
+          if (call_user_func($callback, $path, $file, $callbackParam))
+          {
+            $cleared[] = $file; 
+          }
         }
       }
     }
     
-    return count($cleared) ? $cleared : false;
+    return $cleared;
+  }
+  
+  /**
+   * Deletes a file in the given directory if its extension is
+   * not in the extensionsToKeep-array.
+   *
+   * @param $path The directory
+   * @param $file The file name
+   * @param $extensionsToKeep array of extensions
+   * @return true if the file was deleted, false otherwise
+   */
+  public static function deleteFileIfNotExtension($path, $file, $extensionsToKeep = array())
+  {
+    $extension = pathinfo($file, PATHINFO_EXTENSION);
+    
+    if (!in_array(strtolower($extension), array_map('strtolower', $extensionsToKeep)))
+    {
+      unlink($path . DIRECTORY_SEPARATOR . $file);
+      return true;
+    }
+
+    return false;
+  }
+  
+  /**
+   * Deletes a file in the given directory if it is not a
+   * valid image file or if its type is not contained
+   * in the typesToKeep-array.
+   *
+   * @param $path The directory
+   * @param $file The file name
+   * @param $typesToKeep array of types
+   * @return true if the file was deleted, false otherwise
+   */
+  public static function deleteFileIfNotFromType($path, $file, $typesToKeep = array())
+  {
+    try {
+      $image = new Imagick($path . DIRECTORY_SEPARATOR . $file);
+
+      if (!in_array($image->getImageFormat(), $typesToKeep))
+      {
+        throw new UnexpectedValueException();
+      }
+    }
+    catch (Exception $e)
+    {
+      unlink($path . DIRECTORY_SEPARATOR . $file);
+      return true;
+    }
+    
+    return false;
   }
   
   

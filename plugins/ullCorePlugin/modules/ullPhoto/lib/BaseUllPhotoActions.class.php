@@ -72,9 +72,15 @@ class BaseUllPhotoActions extends ullsfActions
           $file->save($fullPath);         
         }
         
-        $cleared = ullCoreTools::clearDirectoryByFileExtension($path, array('jpg', 'png'));
+        //delete files which do not have allowed extensions
+        $allowedFileExtensions = array('jpg', 'jpeg', 'png');
+        $cleared = ullCoreTools::walkDirectory($path, 'ullCoreTools::deleteFileIfNotExtension', $allowedFileExtensions);
         
-        if ($cleared !== false)
+        //delete files which are not valid image files or not of allowed type
+        $allowedImageTypes = array('JPEG', 'PNG'); 
+        $cleared += ullCoreTools::walkDirectory($path, 'ullCoreTools::deleteFileIfNotFromType', $allowedImageTypes);
+        
+        if (count($cleared) > 0)
         {
           $this->getUser()->setFlash('cleared', 
             __('Ignored some files with invalid types', null, 'common') . ': ' . implode(',', $cleared));
