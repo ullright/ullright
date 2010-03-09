@@ -23,6 +23,10 @@ class ullWidgetTimeDurationRead extends ullWidget
         ullCoreTools::timeToString($value) .
         '</span>';
     }
+    else
+    {
+      return '';
+    }
     
 //    return date('g', $value) . '<sup style="vertical-align: text-top; font-size: .8em;">' . date('i', $value) . '</sup>';
   }
