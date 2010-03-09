@@ -112,7 +112,12 @@
       <trans-unit id="22">
         <source>Enter effort</source>
         <target>Aufwände erfassen</target>
-      </trans-unit>      
+      </trans-unit>    
+      
+      <trans-unit id="23">
+        <source>Is project column?</source>
+        <target>Ist Projekt-Spalte?</target>
+      </trans-unit>        
 
 
       <!-- Queries -->
