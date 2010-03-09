@@ -11,7 +11,7 @@ sfContext::createInstance($configuration);
 
 sfLoader::loadHelpers('Url');
 
-$t = new myTestCase(4, new lime_output_color, $configuration);
+$t = new myTestCase(5, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -47,5 +47,6 @@ $t->diag('getComment()');
   $report->linked_id = 1;
   
   $t->is($report['comment'], '<a href="' . url_for('ullFlow/edit?doc=1') . '">Trouble ticket "My first trouble ticket"</a>', 'Returns the correct comment for a linked UllFlowDoc entry');
+  $t->is($report['raw_comment'], '', 'Returns empty string for a linked UllFlowDoc entry with option raw = true');
 
   

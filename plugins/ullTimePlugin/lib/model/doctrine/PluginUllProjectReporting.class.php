@@ -24,6 +24,8 @@ abstract class PluginUllProjectReporting extends BaseUllProjectReporting
    * 
    * @return string
    */
+  
+  // An argument with the value true is given per default. Why?
   public function getComment()
   {
     if ($this->linked_id)
@@ -38,5 +40,16 @@ abstract class PluginUllProjectReporting extends BaseUllProjectReporting
     
     return $this->_get('comment');
   }
+
+  
+  /**
+   * Get the raw comment
+   * 
+   * @return string
+   */
+  public function getRawComment()
+  {
+    return $this->_get('comment');
+  }  
 
 }

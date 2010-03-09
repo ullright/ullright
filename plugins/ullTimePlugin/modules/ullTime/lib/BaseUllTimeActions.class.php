@@ -237,7 +237,11 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     }
     
     $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', $this->getLockingStatus());
+    
+    $this->disableCommentForLinkedProjectEfforts();
+    
     $this->edit_generator->buildForm($this->doc);
+
     
     $this->breadcrumbForEditProject();
     
@@ -283,6 +287,20 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->doc->delete();
     
     $this->redirect('ullTime/createProject?date=' . $request->getParameter('date') . '&username=' . $request->getParameter('username'));
+  }
+  
+  
+  /**
+   * Disable the "comment" field for linked project efforts
+   * 
+   * @return none
+   */
+  protected function disableCommentForLinkedProjectEfforts()
+  {
+    if ($this->doc->linked_model)
+    {
+      $this->edit_generator->getColumnsConfig()->offsetGet('comment')->disable();
+    }    
   }
   
   
