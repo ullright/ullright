@@ -34,9 +34,13 @@ class ullFlowDocSearchConfig extends ullSearchConfig
   {
     $sfeArray = array();
 
+//    $sfe = new ullSearchFormEntry();
+//    $sfe->columnName = "assigned_to_ull_entity_id";
+//    $sfeArray[] = $sfe;
+    
     $sfe = new ullSearchFormEntry();
-    $sfe->columnName = "assigned_to_ull_entity_id";
-    $sfeArray[] = $sfe;
+    $sfe->columnName = "ull_project_id";
+    $sfeArray[] = $sfe;    
     
     $sfe = new ullSearchFormEntry();
     $sfe->columnName = "creator_user_id";

@@ -36,6 +36,10 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Workflow', null, 'ullFlowMessages'))
     ;
     
+    $this['ull_project_id']
+      ->setLabel(__('Project', null, 'ullTimeMessages'))
+    ;    
+    
     if ($this->isListAction())
     {
       if (!$this->app)
