@@ -27,6 +27,9 @@ class ullFlowForm extends ullGeneratorForm
       
       $this->getWidgetSchema()->offsetSet('duration_seconds', new ullWidgetTimeDurationWrite());
       $this->getValidatorSchema()->offsetSet('duration_seconds', new ullValidatorTimeDuration(array('required' => false)));
+      
+      $this->getWidgetSchema()->offsetSet('effort_date', new ullWidgetDateWrite(array(), array('size' => 10)));
+      $this->getValidatorSchema()->offsetSet('effort_date', new sfValidatorDate(array('required' => false)));
     }    
   }
   
@@ -42,6 +45,11 @@ class ullFlowForm extends ullGeneratorForm
     
     $this->setDefaults(array_merge($this->getDefaults(), 
         $this->object->getVirtualValuesAsArray()));
+        
+    if (!$this->getDefault('effort_date'))
+    {
+      $this->setDefault('effort_date', date('Y-m-d')); 
+    }        
   }
   
   

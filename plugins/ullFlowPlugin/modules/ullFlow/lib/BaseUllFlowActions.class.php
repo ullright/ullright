@@ -172,7 +172,7 @@ class BaseUllFlowActions extends ullsfActions
           'doc'        => $this->doc
         )));
         
-        $this->saveEffortDuration();
+        $this->saveEffort();
 
         if (!$this->isStatusOnlyRequestAction())
         {
@@ -929,18 +929,19 @@ class BaseUllFlowActions extends ullsfActions
    * 
    * @return none
    */
-  protected function saveEffortDuration()
+  protected function saveEffort()
   {
     $memory = $this->doc->findLatestMemory();
     $projectId = $this->doc->ull_project_id;
     $duration = $this->generator->getForm()->getValue('duration_seconds');
+    $date = $this->generator->getForm()->getValue('effort_date');
     
     if ($duration && $projectId)
     {
       $reporting = new UllProjectReporting;
       $reporting->ull_project_id = $projectId;
       $reporting->ull_user_id = sfContext::getInstance()->getUser()->getAttribute('user_id');
-      $reporting->date = date('Y-m-d');
+      $reporting->date = $date;
       $reporting->duration_seconds = $duration;
       $reporting->linked_model = 'UllFlowMemory';
       $reporting->linked_id = $memory->id;
