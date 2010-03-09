@@ -184,6 +184,16 @@
 <target>Standard</target>
 </trans-unit>
 
+<trans-unit id="37">
+<source>My projects</source>
+<target>Meine Projekte</target>
+</trans-unit>
+
+<trans-unit id="38">
+<source>Routine projects</source>
+<target>Routine Projekte</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

@@ -25,13 +25,10 @@ class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineSelect
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $return = '<div style="float: left;">';
-    
+    $return = '<div id="ull_time_project_quicklink">';
     $return .= parent::render($name, $value, $attributes, $errors);
+    $return .= '<div>';
     
-    $return .= '</div>';
-    $return .= '<div style="float: left;">';
-        
     if (!$this->getAttribute('name'))
     {
       $this->setAttribute('name', $name);
@@ -39,19 +36,42 @@ class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineSelect
     
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     $id = $this->getAttribute('id');
+
     
+    
+    // top projects
+    $return .= '<div id="ull_time_project_quicklink_top" class="ull_time_project_quicklink_list">';
+    $return .= '<h4>' . __('My projects', null, 'ullTimeMessages') . '</h4>'; 
     $projects = UllProjectReportingTable::findLatestTopProjects();
     
-    $return .= '<ul style="margin-top: 0; margin-bottom: 0; margin-left: 2em;">';
+    $return .= '<ul>';
     
     foreach ($projects as $projectId => $projectName)
     {
-      $return .= '  <li style="margin-bottom: .2em;">';
+      $return .= '  <li>';
       $return .= link_to_function($projectName, 'getElementById("' . $id . '").value=' . $projectId);
       $return .= "  </li>\n";  
     }
     $return .= "</ul>\n";
-    $return .= '</div>';
+    $return .= "</div>";
+    
+    
+    // routine projects
+    $return .= '<div id="ull_time_project_quicklink_routine" class="ull_time_project_quicklink_list">';
+    $return .= '<h4>' . __('Routine projects', null, 'ullTimeMessages') . '</h4>';    
+    
+    $projects = UllProjectReportingTable::findLatestRoutineProjects();
+    
+    $return .= '<ul>';
+    
+    foreach ($projects as $projectId => $projectName)
+    {
+      $return .= '  <li>';
+      $return .= link_to_function($projectName, 'getElementById("' . $id . '").value=' . $projectId);
+      $return .= "  </li>\n";  
+    }
+    $return .= "</ul>\n";
+    $return .= "</div>";
     
     return $return;
   }  

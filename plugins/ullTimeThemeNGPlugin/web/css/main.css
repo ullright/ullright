@@ -91,3 +91,30 @@ a:visited {
 .ull_time_edit_table_worktime {
   margin-bottom: 2em;  
 }
+
+.ull_time_project_quicklink_list h4 {
+  font-size: 1em;
+  margin: 0;
+  margin-top: .5em;
+}
+
+.ull_time_project_quicklink_list ul{
+  margin: 0;
+  margin-top: .5em;
+  padding: 0; 
+}
+
+.ull_time_project_quicklink_list ul li {
+  margin-bottom: .2em;
+}
+
+#ull_time_project_quicklink_top {
+  float: left;
+  margin-right: 2em;
+}
+
+#ull_time_project_quicklink_routine {
+  float: left;
+}
+
+

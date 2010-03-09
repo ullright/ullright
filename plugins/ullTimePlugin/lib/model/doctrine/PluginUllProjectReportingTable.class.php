@@ -63,6 +63,8 @@ class PluginUllProjectReportingTable extends UllRecordTable
       ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 2))
       ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
       ->addWhere('p.is_active = ?', true)
+      ->addWhere('p.is_routine IS NULL')
+      ->addWhere('pr.creator_user_id = ?', sfContext::getInstance()->getUser()->getAttribute('user_id'))
       ->groupBy('pr.ull_project_id')
       //->orderBy('num DESC')
       ->orderBy('t.name');
@@ -85,5 +87,47 @@ class PluginUllProjectReportingTable extends UllRecordTable
     }
     
     return $return;
-  }    
+  }
+  
+  
+  
+  /**
+   * Get a list of the most used routine projects
+   * @return unknown_type
+   */
+  public static function findLatestRoutineProjects()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('COUNT(pr.ull_project_id) as num, pr.ull_project_id, t.name')
+      ->from('UllProjectReporting pr, pr.UllProject p, p.Translation t')
+      ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 2))
+      ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
+      ->addWhere('p.is_active = ?', true)
+      ->addWhere('p.is_routine = ?', true)
+      ->addWhere('pr.creator_user_id = ?', sfContext::getInstance()->getUser()->getAttribute('user_id'))
+      ->groupBy('pr.ull_project_id')
+      //->orderBy('num DESC')
+      ->orderBy('t.name');
+// deactivated because it removes the correct "num" value !?!      
+//      ->limit(10)
+    ;
+    
+    // 0 = ull_project_id
+    // 1 = name
+    // 2 = num
+    $result = $q->execute(null, Doctrine::HYDRATE_NONE);
+    
+    $max = (count($result) > 10) ? 10 : count($result);   
+    
+    $return = array();
+    
+    for ($i = 0; $i < $max; $i++)
+    {
+      $return[$result[$i][0]] = $result[$i][1];
+    }
+    
+    return $return;
+  }  
+
 }
