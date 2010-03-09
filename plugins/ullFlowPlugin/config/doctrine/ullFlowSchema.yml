@@ -196,8 +196,6 @@ UllFlowMemory:
     creator_ull_entity_id:
       type: integer
       notnull: true
-    durations_seconds:
-      type: integer      
   relations:
     UllFlowDoc:
       foreignAlias: UllFlowMemories
