@@ -8,8 +8,21 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
 
   protected
     $memoryComment = '',
+    $memoryDuration = 0,
     $memoryAction = null
   ;
+  
+  
+  /**
+   * String representation
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->UllFlowApp->doc_label . ' "'. $this->subject . '"';
+  }
+  
   
   // TODO: give UllFlowApp in the constructor to force check if 
   //  a virtual column exists?
@@ -86,7 +99,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   {
     return $this->memoryComment;
   }
-
+  
   /**
    * Sets a custom UllFlowMemory action.
    * 
@@ -241,6 +254,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     }
   }
 
+  
   /**
    * Get the latest saved non status-only memory
    * for the current doc
@@ -261,10 +275,34 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     ;
     
     $memory = $q->execute()->getFirst();
-//    var_dump($memory->toArray());die;
 
     return $memory;
   }
+  
+  
+  /**
+   * Get the latest memory
+   * for the current doc
+   *
+   * @return UllFlowMemory
+   */
+  public function findLatestMemory() 
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllFlowMemory m')
+      ->where('m.ull_flow_doc_id = ?', $this->id)
+      ->orderBy('m.created_at DESC')
+      // add order by id to order correctly memories created at exactly the same time
+      ->addOrderBy('m.id DESC')
+    ;
+    
+    $memory = $q->execute()->getFirst();
+
+    return $memory;
+  }
+    
   
   /**
    * Get the previous (latest minus 1) saved non status-only memory
@@ -367,7 +405,18 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     {
       return true;
     }
-  }    
+  }
+
+  
+  /**
+   * Returns the URI to the edit action of the current model
+   * 
+   * @return string A symfony URI
+   */
+  public function getEditUri()
+  {
+    return 'ullFlow/edit?doc=' . $this->id;
+  }  
   
   
   /**
@@ -419,5 +468,6 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->UllFlowMemories[$i]->ull_flow_step_id = $this->UllFlowApp->findStartStep()->id;
   }
   
+
   
 }

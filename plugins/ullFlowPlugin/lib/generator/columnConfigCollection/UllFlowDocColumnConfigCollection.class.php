@@ -128,6 +128,11 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
           {
             $this[$columnName]->setDefaultValue($column->default_value);
           }
+          
+//          if ($column->UllColumnType->class == 'UllProject')
+//          {
+//            $this[$columnName]->setRelation
+//          }
         }
       }
     }    

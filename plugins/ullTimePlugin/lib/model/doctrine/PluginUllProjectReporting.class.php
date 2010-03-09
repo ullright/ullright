@@ -18,4 +18,25 @@ abstract class PluginUllProjectReporting extends BaseUllProjectReporting
     $this->week = date('YW', strtotime($this->date)); 
   }
 
+  
+  /**
+   * Get string representation for linked models
+   * 
+   * @return string
+   */
+  public function getComment()
+  {
+    if ($this->linked_id)
+    {
+      $model = Doctrine::getTable($this->linked_model)->findOneById($this->linked_id);
+      
+      $return = '<a href="' . url_for($model->getEditUri()) . '">' .
+        $model . '</a>';
+        
+      return $return;
+    }
+    
+    return $this->_get('comment');
+  }
+
 }

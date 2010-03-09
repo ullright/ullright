@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(58, new lime_output_color, $configuration);
+$t = new myTestCase(63, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -24,6 +24,7 @@ $t->diag('create');
   $doc->my_date = '2008-08-08 08:08:08';
   $doc->my_priority = 5;
   $doc->my_tags = 'footag';
+  $doc->my_project = 2;
   $doc->memory_comment = 'My fancy memory comment';
   
   try
@@ -42,6 +43,7 @@ $t->diag('create');
 
   $t->is($doc->subject, 'My fancy subject', 'sets the native subject duplicate correctly');
   $t->is($doc->priority, 5, 'sets native priority duplicate correctly');
+  $t->is($doc->ull_project_id, 2, 'sets native ull_project_id duplicate correctly');
   $t->is($doc->duplicate_tags_for_search, 'footag', 'sets the native tagging duplicate correctly');
   $t->is($doc->ull_flow_action_id, Doctrine::getTable('UllFlowAction')->findOneBySlug('save_close')->id, 'sets the action correctly (default)');
   $t->is($doc->assigned_to_ull_entity_id, 1, 'sets the default assigned_to_ull_entity_id correctly');
@@ -49,6 +51,7 @@ $t->diag('create');
   $t->is($doc->my_subject, 'My fancy subject', 'sets the correct virtual columns value');
   $t->is($doc->my_date, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
   $t->is($doc->my_priority, 5, 'sets the correct virtual columns value');
+  $t->is($doc->my_project, 2, 'sets the correct virtual columns value');
   $t->is($doc->my_tags, 'footag', 'sets the correct virtual columns value');
   try
   {
@@ -126,6 +129,10 @@ $t->diag('do workflow action (assign)');
 $t->diag('findLatestNonStatusOnlyMemory()');
 
   $t->is($doc->findLatestNonStatusOnlyMemory()->id, $doc->UllFlowMemories[4]->id, 'finds the correct latest non status-only memory');  
+  
+$t->diag('findLatestMemory()');
+
+  $t->is($doc->findLatestMemory()->id, $doc->UllFlowMemories[4]->id, 'finds the correct latest memory');  
  
 $t->diag('findPreviousNonStatusOnlyMemory()');
 
@@ -150,6 +157,7 @@ $t->begin('getVirtualValuesAsArray()');
     'my_email'    => 'quasimodo@ull.at',
     'my_upload'   => 'Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41',
     'my_wiki_link' => '1',
+    'my_project'  => 1,
     'my_tags'     => 'ull_flow_tag1, ull_flow_tag2',
   );
   
@@ -166,6 +174,7 @@ $t->diag('getVirtualColumnsAsArray()');
     'my_priority',
     'my_upload',
     'my_wiki_link',
+    'my_project',
     'my_tags',
   );
   $t->is($columns, $reference, 'returns the correct values');    
@@ -210,4 +219,14 @@ $t->diag('checkDeleteAccess()');
   
   $t->loginAs('helpdesk_user');
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
-  $t->ok(!$doc->checkDeleteAccess(), 'disallows access for someone else');  
+  $t->ok(!$doc->checkDeleteAccess(), 'disallows access for someone else');
+
+  
+$t->diag('__toString()');
+  $doc = Doctrine::getTable('UllFlowDoc')->find(1);
+  $t->is((string) $doc, 'Trouble ticket "My first trouble ticket"', 'Returns the correct value when casted to string');
+
+  
+$t->diag('getEditUri()');
+  $doc = Doctrine::getTable('UllFlowDoc')->find(1);
+  $t->is($doc->getEditUri(), 'ullFlow/edit?doc=1', 'Returns the correct uri for edit');

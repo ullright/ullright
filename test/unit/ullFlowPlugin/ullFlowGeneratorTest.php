@@ -53,6 +53,14 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['my_wiki_link'] = $columnConfig;
     
+    $columnConfig = new ullColumnConfiguration('my_project');
+    $columnConfig->setWidgetOptions(array('add_empty' => 1, 'model' => 'UllProject'));
+    $columnConfig->setValidatorOptions(array('required' => true));
+    $columnConfig->setLabel('Project');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllProject');
+    $columnConfig->setIsInList(false);
+    $this->columnsConfigMock['my_project'] = $columnConfig;    
+    
     $columnConfig = new ullColumnConfiguration('my_tags');
     $columnConfig->setLabel('Tags');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetTaggable');
@@ -89,7 +97,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(104, new lime_output_color, $configuration);
+$t = new myTestCase(115, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -116,7 +124,7 @@ $t->diag('getColumnConfig()');
   $t->isa_ok($columnsConfig, 'UllFlowDocColumnConfigCollection',
     'columnsConfig is an UllFlowDocColumnConfigCollection');
   
-  $t->is(count($columnsConfig), 22, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 24, 'columnsConfig has the correct number of columns');
   
   //we really should take ordering into account here...
   $mocks = $t->getColumnsConfigMock();
@@ -156,7 +164,7 @@ $t->diag('buildListOfUllFlowActionHandlers()');
 
   $generator->buildListOfUllFlowActionHandlers();
   
-  $t->is(count($generator->getForm()->getFormFieldSchema()), 10, 'The form now contains one more field from the action handler');
+  $t->is(count($generator->getForm()->getFormFieldSchema()), 12, 'The form now contains one more field from the action handler');
 
   
 $t->diag('getListOfUllFlowActionHandlers()');

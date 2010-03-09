@@ -208,6 +208,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'priority',
         'attachments',
         'wiki_links',
+        'project',
         'tags',
       ),      
       array(

@@ -6,4 +6,24 @@
 abstract class PluginUllFlowMemory extends BaseUllFlowMemory
 {
 
+  /**
+   * String representation
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->UllFlowDoc->UllFlowApp->doc_label . ' "'. $this->UllFlowDoc->subject . '"';
+  }  
+  
+  
+  /**
+   * Returns the URI to the edit action of the current model
+   * 
+   * @return string A symfony URI
+   */
+  public function getEditUri()
+  {
+    return 'ullFlow/edit?doc=' . $this->ull_flow_doc_id;
+  }    
 }

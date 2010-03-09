@@ -169,11 +169,20 @@
 <target>Zukünftige Tage einblenden</target>
 </trans-unit>
 
-<trans-unit id="33">
+<trans-unit id="34">
 <source>Difference</source>
 <target>Differenz</target>
 </trans-unit>
 
+<trans-unit id="35">
+<source>Routine</source>
+<target>Routine</target>
+</trans-unit>
+
+<trans-unit id="36">
+<source>Default</source>
+<target>Standard</target>
+</trans-unit>
 
     </body>
   </file>

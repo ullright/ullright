@@ -58,6 +58,10 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
     {
       $record->priority = $value;
     }
+    if ($cc->is_project)
+    {
+      $record->ull_project_id = $value;
+    }    
     if ($cc->is_tagging)
     {
       $record->duplicate_tags_for_search = $value;

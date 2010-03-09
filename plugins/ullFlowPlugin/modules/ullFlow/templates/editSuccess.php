@@ -35,14 +35,26 @@
       
       <div class='edit_action_buttons_left'>
       
-      <?php if (count($generator->getListOfUllFlowActionHandlers())) : // $step_actions and ?>
+      <?php if (count($generator->getListOfUllFlowActionHandlers())): ?>
         
-        <label for="fields_memory_comment">
-          <?php echo __('Comment for this action') . ':'; ?>
-        </label><br />
-        <?php echo $generator->getForm()->offsetGet('memory_comment')->render() ?>
-        <?php echo $generator->getForm()->offsetGet('memory_comment')->renderError() ?>
+        <p>
+          <label for="fields_memory_comment">
+            <?php echo __('Comment for this action') . ':'; ?>
+          </label><br />
+          <?php echo $generator->getForm()->offsetGet('memory_comment')->render() ?>
+          <?php echo $generator->getForm()->offsetGet('memory_comment')->renderError() ?>
+        </p>
         
+        <?php if ($app['enter_effort']): ?>
+          <p>
+            <label for="fields_duration_seconds">
+              <?php echo __('Effort', null, 'ullFlowMessages') . ':'; ?>
+            </label>
+            <?php echo $generator->getForm()->offsetGet('duration_seconds')->render() ?>
+            <?php echo $generator->getForm()->offsetGet('duration_seconds')->renderError() ?>
+            <dfn><?php echo __('Hours : minutes', null, 'ullFlowMessages') ?></dfn>
+          </p>        
+        <?php endif ?>
         
         <ul>
           <?php

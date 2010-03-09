@@ -32,7 +32,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement($dgsEditTT->getFullRowSelector(), 8) // number of displayed fields
+  ->checkResponseElement($dgsEditTT->getFullRowSelector(), 9) // number of displayed fields
   ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' > select > option[selected="selected"]', 'Normal')
   ->checkResponseElement('ul.tag-cloud a ', 'ull_flow_tag1')
   ->checkResponseElement('body', '!/Progress/')
@@ -54,12 +54,14 @@ $b
   ->checkResponseElement($dgsEditTT->get('subject', 'error') . ' > ul > li', 'Required.')
   ->checkResponseElement($dgsEditTT->get('email', 'error') . ' > ul > li', 'Invalid.')
   ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' select > option[selected="selected"]', 'High')
+  ->checkResponseElement($dgsEditTT->get('project', 'error') . ' > ul > li', 'Required.')
   ->setField('fields[my_subject]', 'This is my original shiny little subject')
   ->setField('fields[my_date]', "2001-01-01 12:12:12")    
   ->setField('fields[my_email]', 'bender@ull.at')
+  ->setField('fields[my_project]', 1)
 ;
   
-$b->diag('check values and click "save_close"')  
+$b->diag('check values and click "save_only"')  
   ->click('Save only')
   ->isRedirected()
   ->followRedirect()
@@ -148,6 +150,7 @@ $b
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
   ->setField('fields[my_subject]', 'tag: <i>italy</i>')
+  ->setField('fields[my_project]', 1)
   ->click('Save and return to list')
   ->isRedirected()
   ->followRedirect()  

@@ -98,6 +98,22 @@
         <source>Is tagging column?</source>
         <target>Ist Tagging-Spalte?</target>
       </trans-unit>
+      
+      <trans-unit id="20">
+        <source>Effort</source>
+        <target>Aufwand</target>
+      </trans-unit>
+
+      <trans-unit id="21">
+        <source>Hours : minutes</source>
+        <target>Stunden : Minuten</target>
+      </trans-unit>
+      
+      <trans-unit id="22">
+        <source>Enter effort</source>
+        <target>Aufwände erfassen</target>
+      </trans-unit>      
+
 
       <!-- Queries -->
       <trans-unit id="101">
@@ -124,6 +140,8 @@
         <source>Assignment overview</source>
         <target>Zuweisungsübersicht</target>
       </trans-unit>      
+
+
 
       <!-- table config -->
       <trans-unit id="200">

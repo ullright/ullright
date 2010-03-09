@@ -9,7 +9,12 @@ class BaseUllProjectReportingColumnConfigCollection extends ullColumnConfigColle
    */
   protected function applyCustomSettings()
   {
-    $this['id']->disable();
+    $this->disable(array(
+      'id',
+      'linked_model',
+      'linked_id',
+    ));
+    
     if ($this->isListAction())
     {
       $this['ull_user_id']->disable();

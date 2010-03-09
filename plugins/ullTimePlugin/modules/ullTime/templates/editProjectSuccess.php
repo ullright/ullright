@@ -39,7 +39,17 @@
         <?php endif; ?>
       </td>
       
-      <?php echo $form ?>
+      <?php // special handling for comment -> decode for usable link ?>
+      <?php foreach ($list_generator->getAutoRenderedColumns() as $column_name => $column_config): ?>
+        <td>
+          <?php if ($column_name == 'comment'): ?>
+            <?php echo html_entity_decode($form[$column_name], ENT_QUOTES, 'UTF-8') ?>
+          <?php else: ?>
+            <?php echo $form[$column_name] ?>
+          <?php endif ?>
+        </td>
+      <?php endforeach ?>
+      
     </tr>
   <?php endforeach; ?>
 

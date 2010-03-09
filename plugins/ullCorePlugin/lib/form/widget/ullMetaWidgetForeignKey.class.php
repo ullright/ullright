@@ -10,11 +10,11 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
 {
   protected function configure()
   {
-    $relation = $this->columnConfig->getRelation();
     if (!$this->columnConfig->getWidgetOption('model'))
     {
+      $relation = $this->columnConfig->getRelation();
       $this->columnConfig->setWidgetOption('model', $relation['model']);
-    }
+    }    
   }
     
   protected function configureWriteMode()
@@ -46,13 +46,22 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
   /**
    * Parse options
    * 
+   * Only for write mode
+   * 
    * @return unknown_type
    */
   protected function parseOptions()
   {
-    $validatorOptions = $this->columnConfig->getValidatorOptions();
-    $relation = $this->columnConfig->getRelation();
-    $this->columnConfig->setValidatorOption('model', $relation['model']);
+    if ($this->columnConfig->getWidgetOption('model'))
+    {
+      $this->columnConfig->setValidatorOption('model', $this->columnConfig->getWidgetOption('model'));
+    }
+    else
+    {
+      $relation = $this->columnConfig->getRelation();
+      $this->columnConfig->setValidatorOption('model', $relation['model']);
+    }
+    
     
     // the dropdown field can't be mandatory in case of allowCreate
     if ($this->columnConfig->getAllowCreate() == true)

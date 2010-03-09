@@ -31,6 +31,7 @@ $b
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('app', 'trouble_ticket')
   ->setField('fields[my_subject]', 'Urgently use ullright')
+  ->setField('fields[my_project]', 1)
   ->click('Send')
   ->isRedirected()
   ->followRedirect()

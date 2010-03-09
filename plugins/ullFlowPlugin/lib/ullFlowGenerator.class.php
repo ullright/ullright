@@ -69,6 +69,8 @@ class ullFlowGenerator extends ullGenerator
   {   
     $this->columnsConfig = UllFlowDocColumnConfigCollection::build(
         $this->app, $this->defaultAccess, $this->requestAction);
+        
+//    var_dump(ullCoreTools::debugArrayWithDoctrineRecords($this->columnsConfig, true));die;
   }
   
   /**

@@ -24,6 +24,9 @@ class ullFlowForm extends ullGeneratorForm
     {
       $this->getWidgetSchema()->offsetSet('memory_comment', new sfWidgetFormInput(array(), array('size' => 50)));
       $this->getValidatorSchema()->offsetSet('memory_comment', new sfValidatorString(array('required' => false)));
+      
+      $this->getWidgetSchema()->offsetSet('duration_seconds', new ullWidgetTimeDurationWrite());
+      $this->getValidatorSchema()->offsetSet('duration_seconds', new ullValidatorTimeDuration(array('required' => false)));
     }    
   }
   

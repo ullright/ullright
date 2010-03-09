@@ -12,7 +12,7 @@
 <?php $user_widget = $sf_data->getRaw('user_widget') ?>
 
 <div id="ull_flow_edit_header">
-	<h1><?php echo $doc->UllFlowApp->doc_label ?> "<?php echo $doc ?>"</h1>
+	<h1><?php echo $doc ?></h1>
 	<div id="ull_flow_edit_header_list_container">
 		<ul class="ull_flow_edit_header_list">
 		  <li>

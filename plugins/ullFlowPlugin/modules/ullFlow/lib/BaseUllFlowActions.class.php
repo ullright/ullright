@@ -171,6 +171,8 @@ class BaseUllFlowActions extends ullsfActions
         $this->dispatcher->notify(new sfEvent($this, 'ull_flow.post_save', array(
           'doc'        => $this->doc
         )));
+        
+        $this->saveEffortDuration();
 
         if (!$this->isStatusOnlyRequestAction())
         {
@@ -920,4 +922,29 @@ class BaseUllFlowActions extends ullsfActions
       (($doc->exists()) ? ' - ' . $this->doc : '')
     );  
   }
+  
+  
+  /**
+   * Save effort in ullTime's UllProjectReporting
+   * 
+   * @return none
+   */
+  protected function saveEffortDuration()
+  {
+    $memory = $this->doc->findLatestMemory();
+    $projectId = $this->doc->ull_project_id;
+    $duration = $this->generator->getForm()->getValue('duration_seconds');
+    
+    if ($duration && $projectId)
+    {
+      $reporting = new UllProjectReporting;
+      $reporting->ull_project_id = $projectId;
+      $reporting->ull_user_id = sfContext::getInstance()->getUser()->getAttribute('user_id');
+      $reporting->date = date('Y-m-d');
+      $reporting->duration_seconds = $duration;
+      $reporting->linked_model = 'UllFlowMemory';
+      $reporting->linked_id = $memory->id;
+      $reporting->save(); 
+    }   
+  }  
 }

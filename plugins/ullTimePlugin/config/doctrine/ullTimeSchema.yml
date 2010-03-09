@@ -19,6 +19,12 @@ UllProject:
     is_active:
       type: boolean
       default: true
+    is_routine:
+      type: boolean
+    #is_default:
+    #  type: boolean
+    #  unique: true      
+      
 
 UllProjectReporting:
   package: ullTimePlugin.lib.model.doctrine
@@ -41,6 +47,10 @@ UllProjectReporting:
     comment:
       type: string(4000)
     week:
+      type: integer
+    linked_model:
+      type: string(128)
+    linked_id:
       type: integer
   relations:
     UllUser:

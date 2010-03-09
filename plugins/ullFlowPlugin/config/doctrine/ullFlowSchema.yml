@@ -19,6 +19,8 @@ UllFlowApp:
       type: string(255)
     is_public:
       type: boolean
+    enter_effort:
+      type: boolean
   relations:
     UllPermission:
       refClass: UllFlowAppPermission
@@ -70,6 +72,8 @@ UllFlowDoc:
     #this is used to set the record always dirty, even when only virtual columns are changed.    
     dirty:
       type: integer
+    ull_project_id:
+      type: integer
   relations:
     UllFlowApp:
       foreignAlias: UllFlowDocs
@@ -88,6 +92,7 @@ UllFlowDoc:
       foreign: taggable_id
       foreignType: one
       type: many
+    UllProject:
       
 UllFlowColumnConfig:
   package: ullFlowPlugin.lib.model.doctrine
@@ -127,6 +132,9 @@ UllFlowColumnConfig:
     is_tagging:
       type: boolean
       default: false
+    is_project:
+      type: boolean
+      default: false      
     default_value:
       type: string(255)      
   relations:
@@ -187,7 +195,9 @@ UllFlowMemory:
       type: string(255)
     creator_ull_entity_id:
       type: integer
-      notnull: true      
+      notnull: true
+    durations_seconds:
+      type: integer      
   relations:
     UllFlowDoc:
       foreignAlias: UllFlowMemories
