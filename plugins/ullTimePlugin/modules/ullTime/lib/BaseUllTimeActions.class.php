@@ -125,10 +125,13 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     $this->generator = new ullTimeReportGenerator($this->report);
     $this->generator->setCalculateSums(true);
-
+    
     $rows = $this->getFilterFromRequest();
 
     $this->generator->buildForm($rows);
+    
+//    var_dump($this->generator->getForm()->debug());
+//    var_dump($this->generator->getColumnsConfig());
     
     $this->setVar('generator', $this->generator, true);
   }

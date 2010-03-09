@@ -37,29 +37,8 @@ class ullTimeReportGenerator extends ullTableToolGenerator
   }
 
   
-//  protected function customizeTableConfig()
-//  {
-//    // Override default orderby
-//    $this->tableConfig->setOrderBy('last_name_first');
-//  }   
-//  
-//  
   protected function customizeColumnsConfig()
   {
-//    $this->columnsConfig['email']
-//      ->setWidgetOption('show_icon_only', true)
-//      ->setLabel(' ')
-//    ;
-//    $this->columnsConfig['phone_extension']
-//      ->setLabel(__('Ext.', null, 'ullPhoneMessages'))
-//    ;        
-//    $this->columnsConfig['mobile_number']
-//      ->setLabel(__('Mobile', null, 'ullPhoneMessages'))
-//      ->setWidgetOption('nowrap', true)
-//      ->setOption('show_local_short_form', true)
-//    ;
-
-    // Create columnConfig for artificial "last_name_first" column
     $this->getColumnsConfig()
       ->create('duration_seconds_sum')
       ->setLabel(__('Duration', null, 'common'))
@@ -68,14 +47,32 @@ class ullTimeReportGenerator extends ullTableToolGenerator
       ->setCalculateSum(true)
     ;
     
+  }
+ 
+  protected function customizeRelationColumns()
+  {
+    switch ($this->report)
+    {
+      case 'by_project':      
+        $url = urldecode(ull_url_for(array('report' => 'by_user', 'filter[ull_project_id]' => '%d')));
+        
+        $this->getColumnsConfig()->offsetGet('UllProject->name')
+          ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
+          ->setWidgetOption('link_name_to_url', $url)
+        ;
+        break;
+        
+      case 'by_user':
+        $url = urldecode(ull_url_for(array('report' => 'by_project', 'filter[ull_user_id]' => '%d')));
+        
+        $this->getColumnsConfig()->offsetGet('UllUser->display_name')
+          ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
+          ->setWidgetOption('link_name_to_url', $url)
+          ->setWidgetOption('link_icon_to_popup', true)
+        ;
+        break;
+    }    
     
   }
-//
-//  
-//  protected function customizeRelationColumns()
-//  {
-//    $this->columnsConfig['UllLocation->name']
-//      ->setWidgetOption('nowrap', true)
-//    ;
-//  }  
+  
 }
