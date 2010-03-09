@@ -164,7 +164,7 @@ $t->diag('buildListOfUllFlowActionHandlers()');
 
   $generator->buildListOfUllFlowActionHandlers();
   
-  $t->is(count($generator->getForm()->getFormFieldSchema()), 12, 'The form now contains one more field from the action handler');
+  $t->is(count($generator->getForm()->getFormFieldSchema()), 13, 'The form now contains one more field from the action handler');
 
   
 $t->diag('getListOfUllFlowActionHandlers()');
