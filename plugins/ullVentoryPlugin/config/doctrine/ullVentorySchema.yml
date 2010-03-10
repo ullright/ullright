@@ -46,9 +46,7 @@ UllVentoryItemModel:
       notnull: true
   relations:
     UllVentoryItemManufacturer:
-      onDelete: CASCADE
     UllVentoryItemType:
-      onDelete: CASCADE
 
 # Inventory items - the main table    
 UllVentoryItem:
@@ -73,9 +71,7 @@ UllVentoryItem:
       notnull: true
   relations:
     UllVentoryItemModel:
-      onDelete: CASCADE
     UllEntity:
-      onDelete: CASCADE
 
 # Item attributes
 UllVentoryItemAttribute:
@@ -308,5 +304,4 @@ UllVentorySoftwareLicense:
     comment:
       type: string(4000)    
   relations:
-    UllVentorySoftware:
-      onDelete: CASCADE   
+    UllVentorySoftware:   
