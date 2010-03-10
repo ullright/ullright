@@ -104,7 +104,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   public function executeReportProject(sfRequest $request)
   {
-    $this->checkPermission('ull_time_report');
+//    $this->checkPermission('ull_time_report');
     
     $this->breadcrumbForReportProject();
     
@@ -642,7 +642,11 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
           ->addGroupBy('x.ull_user_id')
         ;
         break;
-    }        
+    }    
+
+    
+    //access check
+    $this->q = UllProjectReportingTable::queryAccess($this->q);
   }
   
   

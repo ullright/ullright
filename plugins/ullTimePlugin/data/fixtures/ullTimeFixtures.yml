@@ -24,8 +24,7 @@ UllProject:
 #  echo "    name: blabla$i\n";
 #}
 #?>
-    
-    
+
 UllProjectReporting:
   ull_project_reporting_1:
     UllUser:                    test_user

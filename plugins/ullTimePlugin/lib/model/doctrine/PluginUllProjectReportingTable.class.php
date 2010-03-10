@@ -129,5 +129,40 @@ class PluginUllProjectReportingTable extends UllRecordTable
     
     return $return;
   }  
+  
+  
+  /**
+   * Adds access checks to the query
+   * 
+   * @param ullQuery $q
+   * @return ullQuery
+   */
+  public static function queryAccess(ullQuery $q)
+  {
+    // masteradmin
+    if (UllUserTable::hasGroup('MasterAdmins'))
+    {
+      return $q;
+    }
+    
+    // check for 'ull_time_report' permission
+    if (UllUserTable::hasPermission('ull_time_report'))
+    {
+      return $q;
+    }
+    
+    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    
+    // my own efforts
+    $q->addWhere('ull_user_id = ?', $userId);
+    $q->getDoctrineQuery()->openParenthesisBeforeLastPart();
+    
+    // project manager
+    $q->orWhere('UllProject->UllProjectManager->ull_user_id = ?', $userId);
+    $q->getDoctrineQuery()->closeParenthesis();
+    
+    return $q;
+
+  }  
 
 }

@@ -25,7 +25,23 @@ UllProject:
     #  type: boolean
     #  unique: true      
       
-      
+
+UllProjectManager:
+  package: ullTimePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_user_id:
+      type: integer
+      notnull: true
+    ull_project_id:
+      type: integer
+      notnull: true
+  relations:
+    UllUser:
+    UllProject:
+      onDelete: CASCADE       
          
 
 UllProjectReporting:

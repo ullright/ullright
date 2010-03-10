@@ -194,6 +194,11 @@
 <target>Routine Projekte</target>
 </trans-unit>
 
+<trans-unit id="39">
+<source>Project Managers</source>
+<target>Projektmanager</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

@@ -83,18 +83,15 @@
     
     <div id="tc_queries">
     
-      <?php if (UllUserTable::hasPermission('ull_time_report')): ?>
-        <div class="tc_query_box color_light_bg">
-          <h3>
-           <?php echo __('Project reports', null, 'ullTimeMessages') ?>
-          </h3>
-          <?php //echo $named_queries->renderList(ESC_RAW) ?>
-          <ul>
-            <li><?php echo link_to(__('By project', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_project')?></li>
-            <li><?php echo link_to(__('By user', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_user')?></li>
-          </ul>
-        </div>
-      <?php endif ?>
+      <div class="tc_query_box color_light_bg">
+        <h3>
+         <?php echo __('Project reports', null, 'ullTimeMessages') ?>
+        </h3>
+        <ul>
+          <li><?php echo link_to(__('By project', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_project')?></li>
+          <li><?php echo link_to(__('By user', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_user')?></li>
+        </ul>
+      </div>
       
       
       <!-- 
