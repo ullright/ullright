@@ -25,6 +25,8 @@ UllProject:
     #  type: boolean
     #  unique: true      
       
+      
+         
 
 UllProjectReporting:
   package: ullTimePlugin.lib.model.doctrine
