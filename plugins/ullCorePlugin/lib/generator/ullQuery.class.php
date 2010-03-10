@@ -266,6 +266,16 @@ class ullQuery
     return $this->q->getSqlQuery();
   }
   
+  /**
+   * Return query params
+   * 
+   * @return array
+   */
+  public function getParams()
+  {
+    return $this->q->getParams();
+  }  
+  
   
   /**
    * Execute query
