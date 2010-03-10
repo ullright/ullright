@@ -82,17 +82,30 @@ EOF;
       }
 
       //... and iterate through it
-      $i = 0;
+      $i = 0; $errors = 0;
       foreach ($foreignKeys as $tableName => $foreignKeyDefinitions)    {
         foreach ($foreignKeyDefinitions as $foreignKeyDefinition) {
-          $connection->export->createForeignKey($tableName, $foreignKeyDefinition);
-          $i++;
+          try
+          {
+            $connection->export->createForeignKey($tableName, $foreignKeyDefinition);
+            $i++;
+          }
+          catch (Exception $e)
+          {
+            $this->logBlock(array('Error while creating foreign key for table: ' . $tableName,
+              'Tried to create the following definition:', var_export($foreignKeyDefinition, true)), ERROR);
+            $errors++;
+          }
         }
       }
 
       $this->logSection($this->name, 'Recreated ' . $i . ' foreign keys from model');
-      $this->logSection($this->name, 'Finished');
+      if ($errors > 0)
+      {
+        $this->logSection($this->name, 'Failed to create ' . $errors . ' foreign key(s)', null, ERROR);
+      }
       
+      $this->logSection($this->name, 'Finished');
       return;
     }
 
