@@ -149,22 +149,12 @@ class ullDomGridSelector
     }    
     
     $return = $this->baseSelector;
-    
-    $array = array();
-    for($i = 1; $i <= $row; $i++)
-    {
-      $array[] = $this->rowSelector;
-    }
-    $return .= ' > ' . implode(' + ', $array);
+  
+    $return .= ' > ' . $this->rowSelector . ':nth-child('. $row .')';
     
     if ($this->getColumnSelector())
     {
-      $array = array();
-      for($i = 1; $i <= $column; $i++)
-      {
-        $array[] = $this->columnSelector;
-      }
-      $return .= ' > ' . implode(' + ', $array);
+      $return .= ' > ' . $this->columnSelector . ':nth-child('. $column .')';
     }    
       
     return $return;
@@ -178,14 +168,8 @@ class ullDomGridSelector
     }    
     
     $return = $this->headerBaseSelector;
-    
-    $array = array();
-    for($i = 1; $i <= $column; $i++)
-    {
-      $array[] = $this->headerColumnSelector;
-    }
-    $return .= ' > ' . implode(' + ', $array);
-      
+    $return .= ' > ' . $this->headerColumnSelector . ':nth-child('. $column .')';
+          
     return $return;
   }  
     

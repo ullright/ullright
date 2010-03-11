@@ -16,6 +16,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
   protected $editValues;
   protected $rowCount;
   protected $dgsList;
+  protected $order;
   
   /**
    * 
@@ -27,8 +28,9 @@ class ullTableToolTestBrowser extends ullTestBrowser
    * @param $rowCount count of initial rows
    * @param $dgsList DomGridSelector function name for the list view
    * @param $configuration configuration-param from the bootstrap file
+   * @param $order to order the table by a specific column
    */
-  public function __construct($table, $label, $link, $createValues, $editValues, $rowCount, $dgsList, $configuration)
+  public function __construct($table, $label, $link, $createValues, $editValues, $rowCount, $dgsList, $configuration, $order = null)
   {
     $this->table = $table;
     $this->label = $label;
@@ -37,6 +39,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
     $this->editValues = $editValues;
     $this->rowCount = $rowCount;
     $this->dgsList = call_user_func(array($this, $dgsList));
+    $this->order = $order;
 
     parent::__construct(null, null, array('configuration' => $configuration));
   }
@@ -99,6 +102,11 @@ class ullTableToolTestBrowser extends ullTestBrowser
       ->followRedirect()
     ;
     
+    if($this->order)
+    {
+      $this->get('/ullTableTool/list/table/' . $this->table . '/order/' . $this->order . '%3Aasc');
+    }
+    
     $this
       ->diag('list: check new entry')
       ->with('request')->begin()   
@@ -114,7 +122,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
       {
         if (strstr($value[1], 'Checkbox_'))   //to check a checkbox
         {
-          $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img[alt="'.$value[1].'"]', true);
+          $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img.' . strtolower($value[1]), true);
         }
         else
         {
@@ -169,7 +177,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
       {
        if (strstr($value[1], 'Checkbox_'))
         {
-          $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img[alt="'.$value[1].'"]', true);
+          $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img.' . strtolower($value[1]), true);
         }
         else
         {
@@ -191,48 +199,5 @@ class ullTableToolTestBrowser extends ullTestBrowser
         ->checkElement($this->dgsList->getFullRowSelector(), $this->rowCount)
       ->end()
     ;
-
-    /*
-    $b
-      ->diag('edit')
-      ->click($dgsList->get(1,1) . ' > a')
-      ->isStatusCode(200)   
-      ->with('request')->begin()   
-        ->isParameter('module', 'ullTableTool')
-        ->isParameter('action', 'edit')
-        ->isParameter('table', 'UllLocation')
-      ->end() 
-      ->setField('fields[name]', 'AAA Zweiter Test')
-      ->setField('fields[city]', 'Stadt2')
-      ->click('Save and return to list')
-      ->isRedirected()
-      ->followRedirect()
-    ;
-    
-    $b
-      ->diag('list: check edited entry')
-      ->with('request')->begin()   
-        ->isParameter('module', 'ullTableTool')
-        ->isParameter('action', 'list')
-        ->isParameter('table', 'UllLocation')
-      ->end() 
-      ->with('response')->begin()   
-        ->checkElement($dgsList->get(1,2), 'AAA Zweiter Test')
-        ->checkElement($dgsList->get(1,4), 'Stadt2')
-        ->checkElement($dgsList->getFullRowSelector(), 3)
-      ->end()
-    ;
-    
-    $b
-      ->diag('list: delete entry')
-      ->click($dgsList->get(1,1) . ' > a + a')
-      ->isRedirected()
-      ->followRedirect()
-      ->with('response')->begin()   
-        ->checkElement($dgsList->get(1,2), 'New York 5th Ave')
-        ->checkElement($dgsList->get(2,4), 'Wien')
-        ->checkElement($dgsList->getFullRowSelector(), 2)
-      ->end()
-    ; */
   }
 }

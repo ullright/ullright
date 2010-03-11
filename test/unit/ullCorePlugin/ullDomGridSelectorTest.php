@@ -77,9 +77,9 @@ $t->diag('getFullHeaderColumnSelector()');
   
 $t->diag('get()');
 
-  $t->is($s1->get(1, 1), 'table > tbody > tr > td', 'returns the correct result for 1,1');
-  $t->is($s1->get(2, 1), 'table > tbody > tr + tr > td', 'returns the correct result for 2,1');
-  $t->is($s1->get(1, 2), 'table > tbody > tr > td + td', 'returns the correct result for 1,2');
+  $t->is($s1->get(1, 1), 'table > tbody > tr:nth-child(1) > td:nth-child(1)', 'returns the correct result for 1,1');
+  $t->is($s1->get(2, 1), 'table > tbody > tr:nth-child(2) > td:nth-child(1)', 'returns the correct result for 2,1');
+  $t->is($s1->get(1, 2), 'table > tbody > tr:nth-child(1) > td:nth-child(2)', 'returns the correct result for 1,2');
   try
   {
     $s1->get('foobar', 1);
@@ -98,11 +98,11 @@ $t->diag('get()');
   {
     $t->pass('throws an exception for an undefined column alias');
   }  
-  $t->is($s1->get('subject', 'label'), 'table > tbody > tr > td', 'returns the correct result');  
-  $t->is($s1->get('body', 'label'), 'table > tbody > tr + tr > td', 'returns the correct result');
-  $t->is($s1->get('subject', 'value'), 'table > tbody > tr > td + td', 'returns the correct result');  
+  $t->is($s1->get('subject', 'label'), 'table > tbody > tr:nth-child(1) > td:nth-child(1)', 'returns the correct result');  
+  $t->is($s1->get('body', 'label'), 'table > tbody > tr:nth-child(2) > td:nth-child(1)', 'returns the correct result');
+  $t->is($s1->get('subject', 'value'), 'table > tbody > tr:nth-child(1) > td:nth-child(2)', 'returns the correct result');  
 
-  $t->is($s2->get(1), 'ul#memory > li', 'returns the correct result for a given row (int)');
+  $t->is($s2->get(1), 'ul#memory > li:nth-child(1)', 'returns the correct result for a given row (int)');
   try
   {
     $s2->get(1, 1);
@@ -112,14 +112,14 @@ $t->diag('get()');
   {
     $t->pass('throws an exception for a given column, when no column selector is set');
   }
-  $t->is($s2->get(2), 'ul#memory > li + li', 'returns the correct result for row 2');
-  $t->is($s2->get('created'), 'ul#memory > li', 'returns the correct result for a given row (alias)');
-  $t->is($s2->get('status'), 'ul#memory > li + li', 'returns the correct result for a given row (alias)');
+  $t->is($s2->get(2), 'ul#memory > li:nth-child(2)', 'returns the correct result for row 2');
+  $t->is($s2->get('created'), 'ul#memory > li:nth-child(1)', 'returns the correct result for a given row (alias)');
+  $t->is($s2->get('status'), 'ul#memory > li:nth-child(2)', 'returns the correct result for a given row (alias)');
 
   
 $t->diag('getHeader()');
-  $t->is($s1->getHeader(1),'table > thead > tr > th', 'returns the correct result for 1');   
-  $t->is($s1->getHeader(2),'table > thead > tr > th + th', 'returns the correct result for 2');
-  $t->is($s1->getHeader('label'),'table > thead > tr > th', 'returns the correct result for "label"');
-  $t->is($s1->getHeader('value'),'table > thead > tr > th + th', 'returns the correct result for "value"');
+  $t->is($s1->getHeader(1),'table > thead > tr > th:nth-child(1)', 'returns the correct result for 1');   
+  $t->is($s1->getHeader(2),'table > thead > tr > th:nth-child(2)', 'returns the correct result for 2');
+  $t->is($s1->getHeader('label'),'table > thead > tr > th:nth-child(1)', 'returns the correct result for "label"');
+  $t->is($s1->getHeader('value'),'table > thead > tr > th:nth-child(2)', 'returns the correct result for "value"');
 

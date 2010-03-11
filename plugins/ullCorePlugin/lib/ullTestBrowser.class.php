@@ -495,6 +495,68 @@ public function getDgsUllTableToolUllLocationList()
     
     return $s;
   }
+  
+  public function getDgsUllTableToolDepartmentList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name',
+        'short_name'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllSelectChildList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'label_translation_en',
+        'ull_select_id',
+      	'sequence'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllFlowColumnConfig()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'label_translation_en',
+        'ull_flow_app_id',
+      	'sequence',
+        'ull_column_type_id',
+        'options',
+        'is_enabled',
+        'is_mandatory',
+        'is_subject',
+        'is_priority',
+        'is_tagging',
+        'default_value'
+      )
+    );
+    
+    return $s;
+  }
+  
+public function getDgsUllTableToolUllCompanyList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name',
+        'short_name'
+      )
+    );
+    
+    return $s;
+  }
 }
 
 

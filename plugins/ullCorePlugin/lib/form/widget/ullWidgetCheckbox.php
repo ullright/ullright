@@ -12,9 +12,7 @@ class ullWidgetCheckbox extends ullWidget
       $image = 'checkbox_checked';
     }
 
-    return ull_image_tag($image, array(), 9, 9, 'ullCore');
+    return ull_image_tag($image, array('class' => $image), 9, 9, 'ullCore');
   }
 
 }
-
-?>
