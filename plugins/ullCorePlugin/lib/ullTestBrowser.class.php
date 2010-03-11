@@ -538,6 +538,7 @@ public function getDgsUllTableToolUllLocationList()
         'is_subject',
         'is_priority',
         'is_tagging',
+        'is_project',
         'default_value'
       )
     );
