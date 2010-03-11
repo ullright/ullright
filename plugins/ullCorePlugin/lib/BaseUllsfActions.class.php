@@ -161,6 +161,8 @@ abstract class BaseUllsfActions extends sfActions
       
       $params = _ull_reqpass_initialize($params);
       
+      $params = $this->transformDates($params);
+      
       $url = _ull_reqpass_build_url($params);
 
       /*
@@ -306,6 +308,37 @@ abstract class BaseUllsfActions extends sfActions
     $this->getResponse()->setTitle($title);
   }
   
+  
+  /**
+   * Transform i18n dates into iso date
+   * 
+   * Works only for params with "date" in the name
+   * 
+   * @param array $params
+   * @return array
+   */
+  protected function transformDates(array $params)
+  {
+    foreach($params as $name => $value)
+    {
+      if (is_array($value))
+      {
+        $value = $this->transformDates($value);  
+      }
+      else
+      {
+        if (strstr($name, 'date'))
+        {
+          $value = html_entity_decode(urldecode($value));
+          $validator = new sfValidatorDate();
+          $value = $validator->clean($value);
+        }   
+      }
+      $params[$name] = $value;
+    }
+
+    return $params;
+  }
   
  
 }
