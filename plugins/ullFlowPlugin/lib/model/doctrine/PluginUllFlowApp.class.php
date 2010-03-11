@@ -13,7 +13,7 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
    */
   public function __toString()
   {
-    return $this->label;
+    return (string) $this->label;
   }
   
   /**

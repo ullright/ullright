@@ -546,13 +546,37 @@ public function getDgsUllTableToolUllLocationList()
     return $s;
   }
   
-public function getDgsUllTableToolUllCompanyList()
+  public function getDgsUllTableToolUllCompanyList()
   {
     $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
       array(
         'edit_delete',      
         'name',
         'short_name'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllJobTitleList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllEmploymentTypesList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name_translation_en'
       )
     );
     
