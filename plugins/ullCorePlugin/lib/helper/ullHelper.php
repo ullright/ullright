@@ -686,9 +686,6 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
   );
 
   // convert [] options to array format
-  
-//  var_dump($array);
-  
   foreach ($array as $key => $value) 
   {
     if (preg_match('/([^\[]+)[\[]([^\]]+)[\]]/', $key, $matches)) 
@@ -696,9 +693,6 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
       unset($array[$key]);
       $key = $matches[1];
       $value = array($matches[2] => $value);
-      
-//      var_dump($key);
-//      var_dump($value);
       
       if (isset($array[$key]))
       {
@@ -711,8 +705,6 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
     }  
   }
   
-//  var_dump($array);
-//  die;
   
   foreach ($array as $key => $value) 
   {
