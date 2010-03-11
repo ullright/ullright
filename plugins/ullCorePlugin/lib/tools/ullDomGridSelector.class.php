@@ -173,7 +173,7 @@ class ullDomGridSelector
     return $return;
   }  
     
-  protected function getRowAlias($alias)
+  public function getRowAlias($alias)
   {
     if (!isset($this->rowAliases[$alias]))
     {
@@ -183,7 +183,7 @@ class ullDomGridSelector
     return $this->rowAliases[$alias];
   }
   
-  protected function getColumnAlias($alias)
+  public function getColumnAlias($alias)
   {
     if (!isset($this->columnAliases[$alias]))
     {

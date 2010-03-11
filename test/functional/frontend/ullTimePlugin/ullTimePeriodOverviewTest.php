@@ -82,14 +82,14 @@ $b
   ->with('response')->begin()
     ->checkElement($dgsList->get(4, 'time_total') . ' > span', '5:30')
     ->checkElement($dgsList->get(5, 'time_total') . ' > span', '5:00')
-    ->checkElement($dgsListSum->get(1, 'time_total') . ' > span', '10:30')
-    ->checkElement($dgsList->get(4, 'project_total') . '> span', '2:35')
-    ->checkElement($dgsList->get(5, 'project_total') . '> span', '5:00')
-    ->checkElement($dgsListSum->get(1, 'project_total') . '> span', '7:35')
-    ->checkElement($dgsList->get(4, 'delta') . '> span', '2:55')
+    ->checkElement('tr.list_table_sum > td:nth-child(' . $dgsList->getColumnAlias('time_total') . ') > span', '10:30')
+    ->checkElement($dgsList->get(4, 'project_total') . ' > span', '2:35')
+    ->checkElement($dgsList->get(5, 'project_total') . ' > span', '5:00')
+    ->checkElement('tr.list_table_sum > td:nth-child(' . $dgsList->getColumnAlias('project_total') . ') > span', '7:35')
+        ->checkElement($dgsList->get(4, 'delta') . ' > span', '2:55')
     ->checkElement($dgsList->get(5, 'delta'), '')
-    ->checkElement($dgsListSum->get(1, 'delta') . '> span', '2:55')
-  ->end()
+    ->checkElement('tr.list_table_sum > td:nth-child(' . $dgsList->getColumnAlias('delta') . ') > span', '2:55')
+      ->end()
 ;  
 
 $b

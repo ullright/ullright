@@ -7,7 +7,7 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 $dgsListEdit = $b->getDgsUllTimeEditList();
-$dgsListToday = $b->getDgsUllTimeListTimeForToday();
+$dgsList = $b->getDgsUllTimeList();
 
 
 /* A very basic workflow as a normal user */
@@ -93,10 +93,11 @@ $b
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'list')
   ->end()
+  //->dumpDie()
   ->with('response')->begin()
-    ->checkElement($dgsListToday->get(1, 'time_total'), '5:00')
-    ->checkElement($dgsListToday->get(1, 'project_total'), '2:55')
-    ->checkElement($dgsListToday->get(1, 'delta'), '2:05')
+    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('time_total') . ')', '5:00')
+    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('project_total') . ')', '2:55')
+    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('delta') . ')', '2:05')
   ->end()
 ;
   
