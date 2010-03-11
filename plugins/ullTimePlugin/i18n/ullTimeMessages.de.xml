@@ -199,6 +199,16 @@
 <target>Projektmanager</target>
 </trans-unit>
 
+<trans-unit id="40">
+<source>Time reporting for today</source>
+<target>Zeiterfassung für heute</target>
+</trans-unit>
+
+<trans-unit id="41">
+<source>Project reporting for today</source>
+<target>Projektaufwände für heute</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
