@@ -40,6 +40,7 @@ abstract class BaseUllsfActions extends sfActions
    * Template function for child actions
    *
    * @return none
+   * @deprecated
    */
   public function ullpreExecute()
   {
