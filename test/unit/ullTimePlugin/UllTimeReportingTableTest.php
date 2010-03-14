@@ -13,9 +13,8 @@ $t = new myTestCase(3, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$user = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
-
 $t->begin('findTotalWorkSecondsByDateAndUserId()');
+  $user = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
   $t->is(UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId('2009-09-17', $user->id), 20700, 'returns the correct sum');
   
 $t->diag('findByDateAndUserId()');
