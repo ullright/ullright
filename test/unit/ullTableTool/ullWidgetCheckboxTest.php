@@ -12,8 +12,8 @@ $w = new ullWidgetCheckbox();
 
 // ->render()
 $t->diag('->render()');
-$t->is($w->render('foo', 1), '<img alt="Checkbox_checked" title="Checkbox_checked" src="/ullCoreThemeNGPlugin/images/action_icons/checkbox_checked_9x9.png" />', '->render() renders the widget as HTML');
-$t->is($w->render('foo', 0), '<img alt="Checkbox_unchecked" title="Checkbox_unchecked" src="/ullCoreThemeNGPlugin/images/action_icons/checkbox_unchecked_9x9.png" />', '->render() renders the widget as HTML');
+$t->is($w->render('foo', 1), '<img alt="Checkbox_checked" title="Checkbox_checked" class="checkbox_checked" src="/ullCoreThemeNGPlugin/images/action_icons/checkbox_checked_9x9.png" />', '->render() renders the widget as HTML');
+$t->is($w->render('foo', 0), '<img alt="Checkbox_unchecked" title="Checkbox_unchecked" class="checkbox_unchecked" src="/ullCoreThemeNGPlugin/images/action_icons/checkbox_unchecked_9x9.png" />', '->render() renders the widget as HTML');
 
 
 //foreach ($context->getEventDispatcher()->getListeners('request.filter_parameters') as $key => $value)
