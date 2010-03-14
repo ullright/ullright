@@ -13,9 +13,9 @@ $t = new myTestCase(3, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$user = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
-
 $t->begin('findByDateAndUserId()');
+  $user = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
+
   $t->is(count(UllProjectReportingTable::findByDateAndUserId('2009-09-17', 666)), 0, 'returns no entry for an invalid userId');
   $t->is(UllProjectReportingTable::findByDateAndUserId('2009-09-17', $user->id)->getFirst()->comment, 'Server hardware setup', 'returns the correct row');
 
