@@ -114,9 +114,9 @@ $b
     ->isParameter('action', 'list')
   ->end()
   ->with('response')->begin()
-    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('time_total') . ')', '8:00')
-    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('project_total') . ')', '3:00')
-    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('delta') . ')', '5:00')
+    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsListToday->getColumnAlias('time_total') . ')', '8:00')
+    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsListToday->getColumnAlias('project_total') . ')', '3:00')
+    ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsListToday->getColumnAlias('delta') . ')', '5:00')
   ->end()
 ;
   
