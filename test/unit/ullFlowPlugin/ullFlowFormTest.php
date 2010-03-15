@@ -14,6 +14,7 @@ sfLoader::loadHelpers('ull');
 require(sfConfig::get('sf_apps_dir') . '/frontend/modules/ullFlow/lib/ullFlowRuleTroubleTicket.class.php');
 
 $t = new myTestCase(11, new lime_output_color, $configuration);
+$t->setMode('yml_fixtures');
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 

@@ -18,6 +18,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 
 $t = new myTestCase(8, new lime_output_color, $configuration);
+$t->setMode('yml_fixtures');
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
