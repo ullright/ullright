@@ -2,7 +2,7 @@
   <?php echo 
         __('Logged in as', null, 'common')
       . ' '
-      . $username
+      . ull_link_entity_popup($username, $sf_user->getAttribute('user_id'))
       . ' - '
   ; ?>
   <?php echo ull_link_to(__('Log out', null, 'common'), 'ullUser/logout', 'ull_js_observer_confirm=true') ?>              
