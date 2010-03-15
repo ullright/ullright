@@ -93,7 +93,7 @@ EOF;
         if ($arguments['now'] != 'now')
         {
           $q
-            ->andWhere('CURRENT_DATE() > scheduled_update_date')
+            ->andWhere('CURRENT_DATE() >= scheduled_update_date')
           ;
         }
         $q
