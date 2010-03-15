@@ -1215,4 +1215,64 @@ function pager_has_more_left_pages($pager, $sliding_range)
     return true;
   }
 }
-    
+
+/**
+ * Retrieves the entity popup vertical size from configuration
+ * 
+ * @return the configured vertical size or 720 if not set
+ */
+function ull_entity_popup_height()
+{
+  $verticalSize = sfConfig::get('app_ull_user_user_popup_vertical_size', 720);
+
+  if (!is_int($verticalSize))
+  {
+    throw new UnexpectedValueException('user_popup_vertical_size in app.yml must be an integer.');
+  }
+  
+  return $verticalSize;
+}
+
+/**
+ * Links a string to the ull entity popup for the specified id
+ * 
+ * @param unknown_type $value the string to wrap the link around
+ * @param unknown_type $entityId id of the entity the popup should show
+ * @return unknown_type the linked value
+ */
+function ull_link_entity_popup($value, $entityId)
+{
+  $popupUri = 'ullUser/show?username=' . $entityId;
+
+  return link_to($value, $popupUri, array(
+        'title' => __('Show business card', null, 'ullCoreMessages'),
+        'onclick' => 'this.href="#";popup(
+          "' . url_for($popupUri) . '",
+          "Popup' . $entityId . '",
+          "width=720,height=' . ull_entity_popup_height() . ',scrollbars=yes,resizable=yes"
+        );'
+        ));
+}
+
+/**
+ * Returns an icon link to the ull entity popup for the specified id
+ * 
+ * @param unknown_type $entityId id of the entity the popup should show
+ * @return unknown_type the icon link
+ */
+function ull_link_entity_icon_popup($entityId)
+{
+  $popupUri = 'ullUser/show?username=' . $entityId;
+  
+  $icon = '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
+           'Plugin/images/ull_user_16x16';
+  
+  return link_to(image_tag($icon, array('class' => 'ull_user_popup_icon')), $popupUri, array(
+        'title' => __('Show business card', null, 'ullCoreMessages'),
+        'onclick' => 'this.href="#";popup(
+          "' . url_for($popupUri) . '",
+          "Popup ' . $entityId . '",
+          "width=720,height=' . ull_entity_popup_height() . ',scrollbars=yes,resizable=yes"
+        );'
+        ));
+}

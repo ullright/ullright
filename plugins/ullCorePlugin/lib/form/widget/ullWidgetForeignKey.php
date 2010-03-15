@@ -92,53 +92,18 @@ class ullWidgetForeignKey extends ullWidget
       $this->getOption('link_name_to_url')
     )
     {
-      $popupUri = 'ullUser/show?username=' . $primaryKey;
-
-      $verticalSize = sfConfig::get('app_ull_user_user_popup_vertical_size', 720);
-      
-      if (!is_int($verticalSize))
-      {
-        throw new UnexpectedValueException('user_popup_vertical_size in app.yml must be an integer.');
-      }
-      
       if ($url = $this->getOption('link_name_to_url'))
       {
         $return = link_to($return, sprintf($url, $primaryKey));
       }
       else
       {
-        $return = link_to($return, $popupUri, array(
-          'title' => __('Show business card', null, 'ullCoreMessages'),
-          'onclick' => 'this.href="#";popup(
-            "' . url_for($popupUri) . '",
-            "Popup' . $primaryKey . '",
-            "width=720,height=' . $verticalSize . ',scrollbars=yes,resizable=yes"
-          );'
-        ));
-        
-        
-       /* $return = link_to($return, $popupUri, array(
-          'title' => __('Show business card', null, 'ullCoreMessages'),
-          'onclick' => 'this.href="#";window.open(
-            "' . url_for($popupUri) . '",
-            "Popup' . $primaryKey . '",
-            "width=720,height=' . $verticalSize . '"
-          );'
-        ));*/
+        $return = ull_link_entity_popup($return, $primaryKey);
       }
 
       if ($this->getOption('link_icon_to_popup'))
       {
-        $icon = '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
-           'Plugin/images/ull_user_16x16';
-        $return .= link_to(image_tag($icon, array('class' => 'ull_user_popup_icon')), $popupUri, array(
-          'title' => __('Show business card', null, 'ullCoreMessages'),
-          'onclick' => 'this.href="#";popup(
-            "' . url_for($popupUri) . '",
-            "Popup ' . $primaryKey . '",
-            "width=720,height=' . $verticalSize . ',scrollbars=yes,resizable=yes"
-          );'
-        ));        
+        $return .= ull_link_entity_icon_popup($primaryKey);
       }
     }    
     
