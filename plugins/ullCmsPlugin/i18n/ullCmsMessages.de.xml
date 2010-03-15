@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+<trans-unit id="1">
+<source>Pages</source>
+<target>Seiten</target>
+</trans-unit>
+
+<trans-unit id="2">
+<source>Navigation</source>
+<target>Navigation</target>
+</trans-unit>
+
+<trans-unit id="3">
+<source>In navigation</source>
+<target>In Navigation</target>
+</trans-unit>
+
+    </body>
+  </file>
+</xliff>

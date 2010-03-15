@@ -1,0 +1,112 @@
+UllNavigationItem:
+  main_navigation:
+    Translation:
+      en:
+        name:               Main navigation
+      de:
+        name:               Hauptnavigation
+  home:
+    Translation:
+      en:
+        name:               Home
+      de:
+        name:               Startseite
+    Parent:                 main_navigation
+  about_us:
+    Translation:
+      en:
+        name:               About us
+      de:
+        name:               Über uns
+    Parent:                 main_navigation
+  team:
+    Translation:
+      en:
+        name:               Team
+      de:
+        name:               Team
+    Parent:                 about_us
+  location:
+    Translation:
+      en:
+        name:               Location
+      de:
+        name:               Standort
+    Parent:                 about_us        
+  contact:
+    Translation:
+      en:
+        name:               Contact
+      de:
+        name:               Kontakt        
+    Parent:                 main_navigation
+  footer_navigation:
+    Translation:
+      en:
+        name:               Footer
+      de:
+        name:               Fußzeile    
+  legal:
+    Translation:
+      en:
+        name:               Legal
+      de:
+        name:               Impressum        
+    Parent:                 footer_navigation  
+    
+UllPage:
+  home:
+    Translation:
+      en:
+        title:              Homepage
+        body:               '<h1>Welcome</h1>to ullright cms'
+      de:
+        title:              Startseite            
+        body:               '<h1>Willkommen</h1>beim ullright cms'
+    UllNavigationItem:      home
+  about_us:
+    Translation:
+      en:
+        title:              About us
+        body:               '<em>We deliver the best webapps since 1877</em>'
+      de:
+        title:              Über uns            
+        body:               '<em>Wir entwicklen die besten Webanwendungen seit 1877</em>'
+    UllNavigationItem:      home   
+  team:
+    Translation:
+      en:
+        title:              Team
+        body:               '<ul><li>Boss</li><li>Employee</li></ul>'
+      de:
+        title:              Team            
+        body:               '<ul><li>Chef</li><li>Mitarbeiter</li></ul>'
+    UllNavigationItem:      about_us
+  location:
+    Translation:
+      en:
+        title:              Location
+        body:               '<a href="http://maps.google.com">Google maps</a>'
+      de:
+        title:              Location            
+        body:               '<a href="http://maps.google.com">Google Karten</a>'
+    UllNavigationItem:      about_us         
+  contact:
+    Translation:
+      en:
+        title:              Contact
+        body:               '<a href="mailto:office@example.com">Email</a>'
+      de:
+        title:              Über uns            
+        body:               '<a href="mailto:office@example.com">E-Mail</a>'
+    UllNavigationItem:      home   
+  legal:
+    Translation:
+      en:
+        title:              Legal
+        body:               '<cite>According to the laws of...</cite>'
+      de:
+        title:              Impressum            
+        body:               '<cite>Nach dem Gesetz der...</cite>'
+    UllNavigationItem:      footer_navigation         
+      
