@@ -1,0 +1,48 @@
+# Navigation items
+UllNavigationItem:
+  package: ullCmsPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name] 
+    Sluggable:
+      unique: true
+      fields: [name]
+  columns:
+    name:
+      type: string(128)
+      notnull: true
+    parent_ull_navigation_item_id:
+      type: integer
+  relations:      
+    Parent:
+      class: UllNavigationItem
+      local: parent_ull_navigation_item_id
+      foreign: id       
+
+# Content pages
+UllPage:
+  package: ullCmsPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [title, body] 
+    Sluggable:
+      unique: true
+      fields: [title]
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    body:
+      type: string(4000)
+      notnull: true
+    ull_navigation_item_id:
+      type: integer
+      notnull: true
+  relations:
+    UllNavigationItem:
