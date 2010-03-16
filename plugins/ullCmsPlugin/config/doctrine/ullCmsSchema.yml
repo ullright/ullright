@@ -46,3 +46,33 @@ UllPage:
       notnull: true
   relations:
     UllNavigationItem:
+    
+# Frontpage news entries
+UllNews:
+  package: ullCmsPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [title, abstract]
+    Sluggable:
+      unique: true
+      fields: [title]
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    abstract:
+      type: string(4000)
+      notnull: true
+    link_name:
+      type: string(255)
+    link_url:
+      type: string(255)
+    image_upload:
+      type: string(255)
+    activation_date:
+      type: date
+    deactivation_date:
+      type: date
