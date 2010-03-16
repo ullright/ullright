@@ -29,8 +29,9 @@ class ullTableToolTestBrowser extends ullTestBrowser
    * @param $dgsList DomGridSelector function name for the list view
    * @param $configuration configuration-param from the bootstrap file
    * @param $order to order the table by a specific column
+   * @param $asc if true, order from A to Z; false otherwise
    */
-  public function __construct($table, $label, $link, $createValues, $editValues, $rowCount, $dgsList, $configuration, $order = null)
+  public function __construct($table, $label, $link, $createValues, $editValues, $rowCount, $dgsList, $configuration, $order = null, $asc = true)
   {
     $this->table = $table;
     $this->label = $label;
@@ -39,7 +40,10 @@ class ullTableToolTestBrowser extends ullTestBrowser
     $this->editValues = $editValues;
     $this->rowCount = $rowCount;
     $this->dgsList = call_user_func(array($this, $dgsList));
-    $this->order = $order;
+    if ($order)
+    {
+      $this->order = $order . ($asc ? '%3Aasc' : '%3Adesc');
+    }
 
     parent::__construct(null, null, array('configuration' => $configuration));
   }
@@ -99,12 +103,13 @@ class ullTableToolTestBrowser extends ullTestBrowser
     $this 
       ->click('Save and return to list')
       ->isRedirected()
+      //->dumpDie()
       ->followRedirect()
     ;
     
     if($this->order)
     {
-      $this->get('/ullTableTool/list/table/' . $this->table . '/order/' . $this->order . '%3Aasc');
+      $this->get('/ullTableTool/list/table/' . $this->table . '/order/' . $this->order);
     }
     
     $this

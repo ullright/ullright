@@ -582,6 +582,56 @@ public function getDgsUllTableToolUllLocationList()
     
     return $s;
   }
+  
+  public function getDgsUllTableToolUllSelectList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'label_translation_en'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllGroupList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'display_name',
+        'email'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllEntityGroupList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'ull_entity_id',
+        'ull_group_id'
+      )
+    );
+    
+    return $s;
+  }
+  public function getDgsUllTableToolUllGroupPermissionList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'ull_group_id',
+        'ull_permission_id'
+      )
+    );
+    
+    return $s;
+  }
 }
 
 
