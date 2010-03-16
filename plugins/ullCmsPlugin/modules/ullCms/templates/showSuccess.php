@@ -10,11 +10,15 @@
         </ul>
       </li>
     </ul>
+    
+    <?php echo $sidebar_navigation ?>
+    
   </div>
 </div>
 
 <?php end_slot() ?>
 
+<?php echo $main_navigation ?>
 
 <h3><?php echo $doc->title ?></h3>
 

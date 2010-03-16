@@ -29,6 +29,17 @@ class ullCoreTools
   }
   
   /**
+   * Create a valid html id
+   * 
+   * @param string $string
+   * @return string
+   */
+  public static function htmlId($string)
+  {
+    return str_replace('-', '_', self::sluggify($string));
+  }
+  
+  /**
    * Orders the top level of an associative array by a given array
    * Keys which are not defined by $order remain unchanged at the end of return array
    * See ullCoreToolsTest.php for examples
@@ -375,5 +386,17 @@ class ullCoreTools
     
     return $string;
   }
+  
+  
+  /**
+   * Shortcut method. Provides the  current culture mainly for addWhere statements of i18n tables
+   * 
+   * @return string
+   */
+  public static function getSfCulture()
+  {
+    
+    return substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2);    
+  }  
 
 }

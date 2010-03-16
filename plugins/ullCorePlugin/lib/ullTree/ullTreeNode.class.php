@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Represents a tree of objects composed of nodes
+ * 
+ * Each node has a data payload,
+ * customizeable meta data,
+ * and possibly child nodes
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
 class ullTreeNode
 {
   protected 

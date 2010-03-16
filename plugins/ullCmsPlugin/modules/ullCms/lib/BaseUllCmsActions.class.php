@@ -50,6 +50,12 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   public function executeShow(sfRequest $request)
   {
     $this->doc = $this->getRoute()->getObject();
+
+    $navigation = UllNavigationItemTable::getNavigationTree('main-navigation', $this->doc->slug, 2);
+    $this->setVar('main_navigation', new ullTreeNavigationRenderer($navigation), true);
+    
+    $navigation = UllNavigationItemTable::getNavigationTree('about-us', $this->doc->slug);
+    $this->setVar('sidebar_navigation', new ullTreeNavigationRenderer($navigation), true);
   }
   
   /**

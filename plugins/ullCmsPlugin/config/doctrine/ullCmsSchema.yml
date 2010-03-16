@@ -39,7 +39,7 @@ UllPage:
       type: string(255)
       notnull: true
     body:
-      type: string(4000)
+      type: clob
       notnull: true
     ull_navigation_item_id:
       type: integer
