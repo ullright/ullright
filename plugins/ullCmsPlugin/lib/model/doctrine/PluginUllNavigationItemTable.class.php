@@ -24,6 +24,53 @@ class PluginUllNavigationItemTable extends UllRecordTable
   
   
   /**
+   * Get a sub part of a navigation
+   * 
+   * This is used e.g. to render the sidebar navigation for an abritrary deep
+   * nested sub item.
+   * 
+   * Example:
+   * main_navigation
+   *   -> about_us
+   *      -> team
+   *      -> contact
+   *      
+   * getSubNavigationFor('main_navigation', 'team') returns team(=active), contact 
+   * 
+   * @param unknown_type $parentSlug
+   * @param unknown_type $currentSlug
+   * @param unknown_type $depth
+   * @return unknown_type
+   */
+  public static function getSubNavigationFor($parentSlug, $currentSlug, $depth = 999999999)
+  {
+    $slug = self::findLevel2ItemSlugForParentSlug($parentSlug, $currentSlug);
+    
+    return self::getNavigationTree($slug, $currentSlug, $depth);
+  }
+  
+  public static function findLevel2ItemSlugForParentSlug($parentSlug, $currentSlug)
+  {
+//        var_dump($parentSlug);
+//    var_dump($currentSlug);
+    
+    $item = Doctrine::getTable('UllNavigationItem')->findOneBySlug($currentSlug);
+    
+//    var_dump($item->toArray());
+//    var_dump($item->Parent->toArray());
+    
+    if ($item->Parent->slug == $parentSlug)
+    {
+      return $item->slug;
+    }
+    else
+    {
+      return self::findLevel2ItemSlugForParentSlug($parentSlug, $item->Parent->slug);
+    }
+  }
+  
+  
+  /**
    * Build navigation item tree
    *
    * @param UllEntity $entity
