@@ -43,6 +43,14 @@
           <li><?php //echo ullTableConfiguration::renderTaskCenterLink('UllColumnType', 'ullCore', 'ull_admin_24x24', __('Manage field types (ullMetaWidgets)')) ?></li>
         </ul> 
         //-->
+        
+        <h3><?php echo __('Timereporting', null, 'ullTimeMessages') ?></h3>
+        <ul class="tc_tasks">
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProject', 'ullTime', 'ull_time_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProjectManager', 'ullTime', 'ull_time_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllTimePeriod', 'ullTime', 'ull_time_24x24') ?></li>
+        </ul>        
+        
         <h3><?php echo __('Workflow') ?></h3>
         <ul class="tc_tasks">
   	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowApp', 'ullFlow', 'ull_flow_24x24') ?></li>
@@ -70,12 +78,7 @@
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryStatusDummyUser', 'ullVentory', 'ull_ventory_24x24') ?></li>
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryTaking', 'ullVentory', 'ull_ventory_24x24') ?></li>
         </ul>
-        <h3><?php echo __('Timereporting', null, 'ullTimeMessages') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProject', 'ullTime', 'ull_time_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProjectManager', 'ullTime', 'ull_time_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllTimePeriod', 'ullTime', 'ull_time_24x24') ?></li>
-        </ul>
+
          
       <?php endif ?>          
     </div>
