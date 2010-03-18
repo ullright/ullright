@@ -94,6 +94,7 @@ class ullTimeReportGenerator extends ullTableToolGenerator
             'report' => 'details', 
             'filter[ull_user_id]' => $this->filterParams['ull_user_id'],
             'filter[ull_project_id]' => '%d',
+            'order' => '',
           )));
         }
         else
@@ -114,6 +115,7 @@ class ullTimeReportGenerator extends ullTableToolGenerator
             'report' => 'details', 
             'filter[ull_project_id]' => $this->filterParams['ull_project_id'],
             'filter[ull_user_id]' => '%d',
+            'order' => '',
           )));
         }
         else

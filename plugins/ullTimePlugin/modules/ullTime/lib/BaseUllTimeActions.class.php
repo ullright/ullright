@@ -116,12 +116,23 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     // Must be a string as request params come as strings
     $request->setParameter('paging', 'false');
     
+    $this->report = $request->getParameter('report');
+    
     if (!$request->getParameter('order'))
     {
-      $request->setParameter('order', 'UllProject->name');
+      switch ($this->report)
+      {
+        case 'details':
+          $request->setParameter('order', 'date');
+          break;
+        
+        default:
+          $request->setParameter('order', 'UllProject->name');
+      }
+      
     }
     
-    $this->report = $request->getParameter('report');
+    
     
     $this->generator = new ullTimeReportGenerator($this->report, $request->getParameter('filter'));
     $this->generator->setCalculateSums(true);
