@@ -254,6 +254,12 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $filterParams = $this->getRequest()->getParameter('filter');
     
+    // What if another variable name than "generator" is used?
+    if (isset($this->generator))
+    {
+      $filterParams = $this->generator->setFilterFormDefaults($filterParams);
+    }
+    
     $this->filter_form->bind($filterParams);
     
     $this->ull_filter = new ullFilter();
@@ -262,6 +268,11 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     {      
       $this->q->addSearch($search, $this->getSearchColumnsForFilter());
       $this->ull_filter->add('filter[search]', __('Search', null, 'common') . ': ' . $search);
+    }
+    
+    if (isset($this->generator))
+    {
+      $this->generator->addFilter($this->q, $this->ull_filter);
     }
     
     if ($query = $this->getRequestParameter('query'))
@@ -344,9 +355,16 @@ abstract class BaseUllGeneratorActions extends ullsfActions
    */
   protected function createFilterForm()
   {
-    $filterClassName = $this->getUllFilterClassName();
-    
-    $this->filter_form = new $filterClassName;    
+    // legacy
+    if ($filterClassName = $this->getUllFilterClassName())
+    {
+      $this->filter_form = new $filterClassName;    
+    }
+    else
+    {
+      $this->filter_form = $this->generator->getFilterForm();
+    }
+  
   }
    
   

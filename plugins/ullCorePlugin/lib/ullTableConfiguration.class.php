@@ -84,7 +84,12 @@ class ullTableConfiguration
      * ) 
      *  
      */
-    $foreignRelationNames = array()
+    $foreignRelationNames = array(),
+    
+    /**
+     * Configures for which columns filter inputs are displayed
+     */
+    $filterColumns = array()
   ;
   
   
@@ -333,6 +338,36 @@ class ullTableConfiguration
   public function getSearchColumnsAsArray()
   {
     return $this->searchColumns;
+  }  
+  
+  /**
+   * Sets filter columns and default values
+   * 
+   * list of columns for which we want filters
+   * 
+   * Example: array('user_name' => null, 'is_active' => 'checked') 
+   * 
+   * Supports relation columns as well, but they must be set as list columns as well
+   * 
+   * @param array $filterColumns
+   * @return self
+   */
+  public function setFilterColumns(array $filterColumns)
+  {
+    $this->filterColumns = $filterColumns;
+  
+    return $this;
+  }
+  
+  
+  /**
+   * Get filter columns
+   * 
+   * @return array
+   */
+  public function getFilterColumns()
+  {
+    return $this->filterColumns;
   }  
   
   

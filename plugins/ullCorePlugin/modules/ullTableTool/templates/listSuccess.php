@@ -9,11 +9,11 @@
 
 <ul class='list_action_buttons color_light_bg'>
   
-  <li><?php echo ull_button_to(__('Create', null, 'common'), $create_base_uri); ?></li>                
+  <li><?php echo ull_button_to(__('Create', null, 'common'), $create_base_uri); ?></li>
+  
+  <?php echo $filter_form ?>                
   
   <li>
-    <?php echo $filter_form['search']->renderLabel() ?>: 
-    <?php echo $filter_form['search']->render() ?>
     <?php echo submit_image_tag(ull_image_path('search', 16, 16, 'ullCore'),
               array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) ?>
   </li> 

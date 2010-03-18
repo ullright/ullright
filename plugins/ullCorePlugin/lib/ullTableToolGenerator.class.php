@@ -14,7 +14,15 @@ class ullTableToolGenerator extends ullGenerator
     /**
      * A list of columns in the format Relation.fieldName
      */
-    $columns = array()
+    $columns = array(),
+    /**
+     * Don't append the column name to the label for this "identifiers"
+     */
+    $relationLabelBlacklist = array(
+      'name',
+      'label',
+      'display_name',
+    )
   ;
   
   
@@ -59,6 +67,8 @@ class ullTableToolGenerator extends ullGenerator
     }
     
     $this->buildColumnsConfig();
+    
+    $this->buildFilterForm();
     
     $this->configure();
   }
@@ -305,6 +315,7 @@ class ullTableToolGenerator extends ullGenerator
           $finalModel = ullGeneratorTools::getFinalModelFromRelations($this->modelName, $relations);
           
 //          var_dump($relations);
+//          var_dump($this->modelName);
 //          var_dump($field);
 //          var_dump($finalModel);          
           
@@ -313,10 +324,18 @@ class ullTableToolGenerator extends ullGenerator
 //          var_dump($relationColumnsConfig);
           
           $this->columnsConfig[$column] = $relationColumnsConfig[$field];
+          
+          $label = ullGeneratorTools::buildRelationsLabel($this->modelName, $relations);
+          
+          if (!in_array($field, $this->relationLabelBlacklist))
+          {
+            $label .= ' ' .$this->columnsConfig[$column]->getLabel();
+          }
+          
           $this->columnsConfig[$column]
             ->setColumnName($column)
             ->setAccess($this->getDefaultAccess())
-            ->setLabel(ullGeneratorTools::buildRelationsLabel($this->modelName, $relations))
+            ->setLabel($label)
           ;          
         }
       }
@@ -555,5 +574,6 @@ class ullTableToolGenerator extends ullGenerator
     
     return $q; 
   }
-
-}
+  
+} 
+  

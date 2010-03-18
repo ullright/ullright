@@ -1,0 +1,70 @@
+/*
+ * ************************************************
+ *  ullCms styles
+ * ************************************************
+ */
+ 
+ /* Overridden css: ullCore / main.css - formats */
+
+.color_light_bg {
+  background: #edcadb;
+}
+
+.color_light_bg_ull_ventory {
+  background: #edcadb;
+}
+
+.color_medium_bg {
+  background: #d796b6;
+}
+
+.color_dark_bg {
+  background: #a84181;
+}
+
+.edit_container {
+  max-width: 780px;
+}
+
+.list_table tbody tr:hover {
+  background: #edcadb !important;  
+}
+
+/* Overridden css: ullCore / taskcenter.css - formats */
+ 
+#tc_wrapper a:visited {
+  color: #a84181;
+}
+
+/* Overridden css: ullCore / common.css - formats */
+ 
+a {
+  color: #a84181;
+}
+
+a:visited {
+  color: #a84181;
+}
+
+/* End of overridden css */
+
+
+#ull_time_edit_list {
+  width: 780px;
+  margin-bottom: 1em;
+}
+
+
+/**
+ * sidebar
+ */
+
+#sidebar_ull_cms ul:first {
+  margin-left: 0;
+}
+
+#sidebar_ull_cms ul {
+  border: 1px solid red;
+  margin-left: 1em;
+}
+ 

@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers(array('I18N', 'ull'));
 
-$t = new myTestCase(32, new lime_output_color, $configuration);
+$t = new myTestCase(33, new lime_output_color, $configuration);
 
 class TestTableWithoutTableConfiguration extends sfDoctrineRecord
 {
@@ -142,3 +142,7 @@ $t->diag('set/getEditColumns()');
   {
     $t->pass('Setting an invalid relation column throws an exception');
   }   
+
+$t->diag('set/getFilterColumns()');
+  $config->setFilterColumns(array('user_name', 'email'));
+  $t->is($config->getFilterColumns(), array('user_name', 'email'), 'Returns the correct filter columns');   

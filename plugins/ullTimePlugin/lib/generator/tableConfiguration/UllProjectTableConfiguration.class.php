@@ -17,6 +17,10 @@ class UllProjectTableConfiguration extends ullTableConfiguration
     $this->setSearchColumns(array('name', 'description'));
     $this->setOrderBy('slug');
     $this->setForeignRelationName(__('Project', null, 'ullTimeMessages'));
+    $this->setFilterColumns(array(
+      'is_active' => 'checked', 
+      'is_routine' => null,
+    ));
   }
   
 }

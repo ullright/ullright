@@ -74,4 +74,84 @@ class ullFilterForm extends sfForm
 //    return $this;
 //  }
 
+  /**
+   * Outputs human readable information of an sfForm for debbugging purposes 
+   * because var_dump($sfForm) is unreadable.
+   * 
+   * Work in progress.
+   * 
+   * @return none
+   */
+  public function debug()
+  {
+    $output = array();
+    
+    $output['generic_info'] = array('num_of_fields' => count($this->getFormFieldSchema()));
+    
+    foreach($this->getFormFieldSchema() as $key => $value)
+    {
+      $widgetData = array();
+      $widget = $value->getWidget(); 
+
+      $widgetData['label'] = $widget->getLabel();
+      $widgetData['class'] = get_class($widget);
+      $widgetData['default'] = $this->getDefault($key);
+      
+      if ($widget instanceof sfWidgetFormDoctrineSelect)
+      {
+        $choices = $widget->getOption('choices');
+        if ($choices instanceof sfCallable)
+        {
+          $widgetData['choices'] = $choices->call();
+        }  
+        else
+        {
+          $widgetData['choices'] = ($choices);
+        }
+      }
+      
+      $validatorData = array();            
+      $validator = $this->getValidator($key);
+
+      $validatorData['class'] = get_class($validator);
+      
+      if ($validator instanceof sfValidatorChoice)
+      {
+        $choices = $validator->getOption('choices');
+        if ($choices instanceof sfCallable)
+        {
+          $validatorData['choices'] = $choices->call();
+        }  
+        else
+        {
+          $validatorData['choices'] = $choices;
+        }
+      }
+      
+      $output[$key] = array(
+        'widget' => $widgetData,
+        'validator' => $validatorData
+      );      
+    }
+
+    var_dump($output);
+  }  
+  
+  /**
+   *  Allow to set a Value
+   *  
+   * @param $field
+   * @param $value
+   * @return unknown_type
+   */
+  public function setValue($field, $value)
+  {
+    if ($this->isBound)
+    {
+      $this->values[$field] = $value;
+    }
+    
+    return $this;
+  }
+  
 }

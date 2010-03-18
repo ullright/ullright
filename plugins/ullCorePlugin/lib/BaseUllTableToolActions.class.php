@@ -172,7 +172,9 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    */
   public function getUllFilterClassName()
   {
-    return 'ullFilterForm';
+    // moved to ullGenerator
+    
+    return null;
   }  
     
   

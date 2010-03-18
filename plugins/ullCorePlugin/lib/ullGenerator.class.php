@@ -39,7 +39,9 @@ abstract class ullGenerator extends ullGeneratorBase
      * Array of sums
      */
     $sums           = array(),
-    $sumForm        = null
+    $sumForm        = null,
+    $filterFormClass = 'ullFilterForm',
+    $filterForm     = null
   ;
     
   /**
@@ -52,6 +54,8 @@ abstract class ullGenerator extends ullGeneratorBase
     $this->buildTableConfig();
     
     $this->buildColumnsConfig();
+    
+    $this->buildFilterForm();
     
     $this->configure();
   }
@@ -215,6 +219,146 @@ abstract class ullGenerator extends ullGeneratorBase
    *
    */
   abstract protected function buildColumnsConfig();
+  
+  
+  /**
+   * Initializes the filter form
+   * 
+   * @return none
+   */
+  public function buildFilterForm()
+  {
+    // only for list mode
+    if ($this->defaultAccess == 'w')
+    {
+      return;
+    }
+    
+    $this->filterForm = new $this->filterFormClass;
+
+    // legacy check    
+    if (!method_exists($this->tableConfig, 'getFilterColumns'))
+    {
+      return;
+    }
+    
+    $filterColumns = $this->tableConfig->getFilterColumns();
+    
+    foreach ($filterColumns as $filterColumn => $defaultValue)
+    {
+      
+      
+      $columnConfig = clone $this->columnsConfig[$filterColumn];
+      $columnConfig->setAccess('s');
+      
+      $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
+      $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->filterForm);
+      $ullMetaWidget->addToFormAs($filterColumn);
+      
+      $this->filterForm->getWidgetSchema()->setLabel($filterColumn, $columnConfig->getLabel());
+      
+      $this->filterForm->setDefault($filterColumn, $defaultValue);
+    }
+    
+//    $this->filterForm->debug();
+  }
+  
+  
+  /**
+   * Gets the filter form
+   * 
+   * @return ullFilterForm
+   */
+  public function getFilterForm()
+  {
+    return $this->filterForm;
+  }
+  
+  
+  /**
+   * Sets the defaults for the filter form.
+   * 
+   * The sfForm defaults are only used when a form is not bound
+   * Since the filter form is always bound, we simulate defaults
+   * by injecting them into the request params before binding
+   * the form.
+   * 
+   * A default is only set when the appropriate param is not given via request
+   * 
+   * @param array $filterParams
+   * @return array
+   */
+  public function setFilterFormDefaults($filterParams)
+  {
+    // legacy check
+    if (!method_exists($this->tableConfig, 'getFilterColumns'))
+    {
+      return;
+    }
+    
+    $defaults = $this->filterForm->getDefaults();
+    
+//    var_dump($defaults);
+//    var_dump($filterParams);
+    
+    foreach($defaults as $fieldName => $value)
+    {
+      if ($value)
+      {
+        if ( ! (isset($filterParams[$fieldName]) && $filterParams))
+        {
+          $filterParams[$fieldName] = $value;
+        }
+      }
+    }
+    
+    return $filterParams;
+  }  
+  
+  
+  /**
+   * Applies the filter settings to the query and adds a "filter" tag when
+   * approriate
+   * 
+   * @param ullQuery $q
+   * @param ullFilter $ullFilter
+   * @return none
+   */
+  public function addFilter(ullQuery $q, ullFilter $ullFilter)
+  {
+    $filterColumns = $this->tableConfig->getFilterColumns();
+    
+    foreach ($filterColumns as $filterColumn => $defaultValue)
+    {
+      $value = $this->filterForm->getValue($filterColumn);
+      
+      if ($value)
+      {
+        $columnConfig = clone $this->columnsConfig[$filterColumn];
+        $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
+        $ullMetaWidget = new $ullMetaWidgetClassName($columnConfig, $this->filterForm);
+        $searchType = $ullMetaWidget->getSearchType();
+        
+        if ($searchType == 'boolean')
+        {
+          if ($value == 'checked')
+          {
+            $q->addWhere($filterColumn . ' = ?', true);
+          }          
+          elseif ($value == 'unchecked')
+          {
+            $q->addWhere($filterColumn . ' = ?', false);
+          }
+        }
+        else
+        {
+          $q->addWhere($filterColumn . ' = ?', $value);
+          $ullFilter->add('filter[' . $filterColumn . ']', $this->filterForm->getWidgetSchema()->getLabel($filterColumn) . ': ' . $value);
+        }
+      }
+    }
+  }
+    
  
   /**
    * builds the form
