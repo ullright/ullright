@@ -209,6 +209,16 @@
 <target>Projektaufwände für heute</target>
 </trans-unit>
 
+<trans-unit id="42">
+<source>My team</source>
+<target>Mein Team</target>
+</trans-unit>
+
+<trans-unit id="43">
+<source>Details</source>
+<target>Details</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

@@ -88,8 +88,9 @@
          <?php echo __('Project reports', null, 'ullTimeMessages') ?>
         </h3>
         <ul>
-          <li><?php echo link_to(__('By project', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_project')?></li>
-          <li><?php echo link_to(__('By user', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_user')?></li>
+          <li><?php echo link_to(__('My projects', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_project')?></li>
+          <li><?php echo link_to(__('My team', null, 'ullTimeMessages'), 'ullTime/reportProject?report=by_user')?></li>
+          <!-- <li><?php // echo link_to(__('Details', null, 'ullTimeMessages'), 'ullTime/reportProject?report=details')?></li>  -->
         </ul>
       </div>
       

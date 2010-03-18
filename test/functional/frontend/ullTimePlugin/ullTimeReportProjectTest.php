@@ -62,7 +62,7 @@ $b
 
 $b
   ->diag('index: go to Project reports')
-  ->click('By project')
+  ->click('My projects')
   ->isStatusCode(200)
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
@@ -92,7 +92,7 @@ $b
 
 $b
   ->diag('index: go to Project reports')
-  ->click('By user')
+  ->click('My team')
   ->isStatusCode(200)
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')

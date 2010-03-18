@@ -123,11 +123,11 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     $this->report = $request->getParameter('report');
     
-    $this->generator = new ullTimeReportGenerator($this->report);
+    $this->generator = new ullTimeReportGenerator($this->report, $request->getParameter('filter'));
     $this->generator->setCalculateSums(true);
     
     $rows = $this->getFilterFromRequest();
-
+    
     $this->generator->buildForm($rows);
     
 //    var_dump($this->generator->getForm()->debug());
@@ -582,7 +582,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       
       $this->ull_filter->add('filter[ull_user_id]', __('User', null, 'common') . ': ' . $this->user);
       
-      // both do not work
+      // both do not work because the form is already bound
 //      $this->filter_form->setDefault('ull_user_id', null);
 //      $this->filter_form->setValue('ull_user_id', null);
     }
@@ -625,10 +625,14 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       $this->ull_filter->add('filter[to_date]', __('Enddate', null, 'common') . ': ' . $dateWidget->render(null, $toDate));
     }
     
-    // Add artificial sum field
-    $this->q->getDoctrineQuery()
-      ->addSelect('SUM(x.duration_seconds) as duration_seconds_sum')
-    ;
+    if ($this->report != 'details')
+    {
+      // Add artificial sum field
+      $this->q->getDoctrineQuery()
+        ->addSelect('SUM(x.duration_seconds) as duration_seconds_sum')
+      ;
+    }
+    
     switch ($this->report)
     {
       case 'by_project':      

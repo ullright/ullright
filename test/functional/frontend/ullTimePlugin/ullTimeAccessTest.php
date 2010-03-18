@@ -88,7 +88,7 @@ $newProjectReport->save();
 
 $b
   ->get('ullTime/index')
-  ->click('By project')
+  ->click('My projects')
   ->isStatusCode(200)
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')

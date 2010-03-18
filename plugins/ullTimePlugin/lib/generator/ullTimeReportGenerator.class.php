@@ -3,13 +3,15 @@
 class ullTimeReportGenerator extends ullTableToolGenerator
 {
   protected
-    $report = null
+    $report = null,
+    $filterParams = array()
   ;
   
   
-  public function __construct($report)
+  public function __construct($report, $filterParams)
   {
     $this->report = $report;
+    $this->filterParams = $filterParams;
 
     switch ($report)
     {
@@ -26,6 +28,25 @@ class ullTimeReportGenerator extends ullTableToolGenerator
           'duration_seconds_sum',
         );
         break;
+        
+      case 'details':
+        $columns = array(
+          'date',
+          'duration_seconds',
+          'comment'
+        );
+        
+        if (!isset($filterParams['ull_project_id']))
+        {
+          array_unshift($columns, 'UllProject->name');
+        }
+        
+        if (!isset($filterParams['ull_user_id']))
+        {
+          array_unshift($columns, 'UllUser->display_name');
+        }
+        
+        break;        
     }
     
     parent::__construct('UllProjectReporting', 'r', 'list', $columns);
@@ -51,10 +72,34 @@ class ullTimeReportGenerator extends ullTableToolGenerator
  
   protected function customizeRelationColumns()
   {
+//    $url = null;
+//    
+//    // Intelligently forward to the details report if both project and user are selected
+//    if (isset($this->filterParams['ull_project_id']) && isset($this->filterParams['ull_user_id']))
+//    {
+//      $url = urldecode(ull_url_for(array(
+//        'report' => 'details', 
+//        'filter[ull_project_id]' => $this->filterParams['ull_project_id'],
+//        'filter[ull_user_id]' => $this->filterParams['ull_user_id'],
+//      )));
+//    }
+
+    
     switch ($this->report)
     {
-      case 'by_project':      
-        $url = urldecode(ull_url_for(array('report' => 'by_user', 'filter[ull_project_id]' => '%d')));
+      case 'by_project':
+        if (isset($this->filterParams['ull_user_id']))
+        {
+          $url = urldecode(ull_url_for(array(
+            'report' => 'details', 
+            'filter[ull_user_id]' => $this->filterParams['ull_user_id'],
+            'filter[ull_project_id]' => '%d',
+          )));
+        }
+        else
+        {
+          $url = urldecode(ull_url_for(array('report' => 'by_user', 'filter[ull_project_id]' => '%d')));
+        }
         
         $this->getColumnsConfig()->offsetGet('UllProject->name')
           ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
@@ -63,7 +108,19 @@ class ullTimeReportGenerator extends ullTableToolGenerator
         break;
         
       case 'by_user':
-        $url = urldecode(ull_url_for(array('report' => 'by_project', 'filter[ull_user_id]' => '%d')));
+        if (isset($this->filterParams['ull_project_id']))
+        {
+          $url = urldecode(ull_url_for(array(
+            'report' => 'details', 
+            'filter[ull_project_id]' => $this->filterParams['ull_project_id'],
+            'filter[ull_user_id]' => '%d',
+          )));
+        }
+        else
+        {
+          $url = urldecode(ull_url_for(array('report' => 'by_project', 'filter[ull_user_id]' => '%d')));
+        }
+        
         
         $this->getColumnsConfig()->offsetGet('UllUser->display_name')
           ->setMetaWidgetClassName('ullMetaWidgetForeignKey')

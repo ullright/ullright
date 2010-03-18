@@ -18,14 +18,14 @@
 ?>
 
 <ul class='list_action_buttons color_light_bg'>
-    <?php if ($report == 'by_project'): ?>
+    <?php if ($report != 'by_user'): ?>
       <li>
        <?php echo $filter_form['ull_user_id']->renderLabel() ?>    
        <?php echo $filter_form['ull_user_id']->render() ?>
        <?php echo $filter_form['ull_user_id']->renderError() ?>
      </li>
     <?php endif ?>
-    <?php if ($report == 'by_user'): ?>
+    <?php if ($report != 'by_project'): ?>
     <li>
      <?php echo $filter_form['ull_project_id']->renderLabel() ?>    
      <?php echo $filter_form['ull_project_id']->render() ?>
@@ -74,9 +74,17 @@
   <tbody>
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
+  
     <?php $idAsArray = (array) $generator->getIdentifierUrlParamsAsArray($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
-      <?php echo $form ?>
+        <?php // special handling for comment -> decode for usable link ?>
+      <?php foreach ($generator->getAutoRenderedColumns() as $column_name => $column_config): ?>
+        <?php if ($column_name == 'comment'): ?>
+            <td><?php echo html_entity_decode($form[$column_name], ENT_QUOTES, 'UTF-8') ?></td>
+          <?php else: ?>
+            <td><?php echo $form[$column_name] ?></td>
+          <?php endif ?>
+      <?php endforeach ?>
     </tr>
   <?php endforeach; ?>
 
