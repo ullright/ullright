@@ -1,3 +1,0 @@
-all:
-  .settings:
-    rich_text_fck_js_dir:    ullWikiPlugin/js/fckeditor

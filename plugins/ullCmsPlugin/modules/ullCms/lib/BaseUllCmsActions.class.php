@@ -75,6 +75,22 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     return new ullCmsGenerator('r', 'list', $this->columns);
   }  
   
+  
+  /**
+   * Executes edit action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeEdit(sfRequest $request) 
+  {
+    parent::executeEdit($request);
+    
+    $this->getResponse()->addJavascript('/ullCorePlugin/js/fckeditor/fckeditor.js');
+
+    $this->setTableToolTemplate('edit');
+  }   
+  
+  
   /**
    * Define generator for edit action
    * 

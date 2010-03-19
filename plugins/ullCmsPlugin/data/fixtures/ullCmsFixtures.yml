@@ -5,13 +5,6 @@ UllNavigationItem:
         name:               Main navigation
       de:
         name:               Hauptnavigation
-  home:
-    Translation:
-      en:
-        name:               Home
-      de:
-        name:               Startseite
-    Parent:                 main_navigation
   about_us:
     Translation:
       en:
@@ -19,40 +12,12 @@ UllNavigationItem:
       de:
         name:               Über uns
     Parent:                 main_navigation
-  team:
-    Translation:
-      en:
-        name:               Team
-      de:
-        name:               Team
-    Parent:                 about_us
-  location:
-    Translation:
-      en:
-        name:               Location
-      de:
-        name:               Standort
-    Parent:                 about_us        
-  contact:
-    Translation:
-      en:
-        name:               Contact
-      de:
-        name:               Kontakt        
-    Parent:                 main_navigation
   footer_navigation:
     Translation:
       en:
         name:               Footer
       de:
         name:               Fußzeile    
-  legal:
-    Translation:
-      en:
-        name:               Legal
-      de:
-        name:               Impressum        
-    Parent:                 footer_navigation  
     
 UllPage:
   home:
@@ -63,7 +28,7 @@ UllPage:
       de:
         title:              Startseite            
         body:               '<h1>Willkommen</h1>beim ullright cms'
-    UllNavigationItem:      home
+    UllNavigationItem:      main_navigation
   about_us:
     Translation:
       en:
@@ -72,7 +37,7 @@ UllPage:
       de:
         title:              Über uns            
         body:               '<em>Wir entwicklen die besten Webanwendungen seit 1877</em>'
-    UllNavigationItem:      home   
+    UllNavigationItem:      main_navigation   
   team:
     Translation:
       en:
@@ -88,7 +53,7 @@ UllPage:
         title:              Location
         body:               '<a href="http://maps.google.com">Google maps</a>'
       de:
-        title:              Location            
+        title:              Standort            
         body:               '<a href="http://maps.google.com">Google Karten</a>'
     UllNavigationItem:      about_us         
   contact:
@@ -97,9 +62,9 @@ UllPage:
         title:              Contact
         body:               '<a href="mailto:office@example.com">Email</a>'
       de:
-        title:              Über uns            
+        title:              Kontakt            
         body:               '<a href="mailto:office@example.com">E-Mail</a>'
-    UllNavigationItem:      home   
+    UllNavigationItem:      main_navigation   
   legal:
     Translation:
       en:

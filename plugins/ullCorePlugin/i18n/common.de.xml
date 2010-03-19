@@ -238,6 +238,16 @@
 <target>Gesamtsumme</target>
 </trans-unit>
 
+<trans-unit id="128">
+<source>Title</source>
+<target>Titel</target>
+</trans-unit>
+
+<trans-unit id="129">
+<source>Body</source>
+<target>Text</target>
+</trans-unit>
+
 
 <!-- Questions -->
 

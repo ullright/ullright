@@ -2,6 +2,7 @@
 #
 # upgrade script for fckeditor used in ullWikiPlugin
 # klemens.ullmann@ull.at 2008-05-28
+# klemens.ullmann-marx@ull.at 2010-03-19
 #
 
 DATE=`date +%Y-%m-%d-%H-%M-%S`
@@ -22,9 +23,12 @@ fi
 
 echo Downloading fckeditor and extracting...
 
-cd plugins/ullWikiPlugin/web/js
+cd plugins/ullCorePlugin/web/js
 svn mv fckeditor fckeditor.${DATE}.bkp
 wget $1
+exit
+
+
 FILES=`find -name FCKeditor*.tar.gz`
 
 for f in $FILES; do

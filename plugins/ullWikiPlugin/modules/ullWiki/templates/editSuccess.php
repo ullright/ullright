@@ -98,7 +98,6 @@
 
 </form>
 
-<?php
-  echo ull_js_observer("ull_wiki_form");
-//  ullCoreTools::printR($ull_form);
-?>
+<?php echo ull_js_observer("ull_wiki_form") ?>
+
+<?php use_javascript('/ullCorePlugin/js/fckeditor/fckeditor.js') ?>

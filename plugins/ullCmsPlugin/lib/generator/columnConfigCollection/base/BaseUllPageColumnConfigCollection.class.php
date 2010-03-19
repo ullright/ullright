@@ -9,6 +9,14 @@ class BaseUllPageColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
+    $this['ull_navigation_item_id']
+      ->setLabel(__('In navigation', null, 'ullCmsMessages'))
+    ;
+    
+    $this['body']
+      ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
+    ;
+    
     if ($this->isListAction())
     {
 //      $this->disable(array(

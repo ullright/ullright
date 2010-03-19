@@ -12,5 +12,6 @@
  */
 abstract class PluginUllPage extends BaseUllPage
 {
-
+  
+  
 }

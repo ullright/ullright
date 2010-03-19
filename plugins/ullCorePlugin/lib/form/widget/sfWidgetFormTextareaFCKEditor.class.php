@@ -37,10 +37,10 @@ class sfWidgetFormTextareaFCKEditor extends sfWidgetFormTextarea
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addOption('width', '');
-    $this->addOption('height', '');
-    $this->addOption('BasePath', '');
-    $this->addOption('CustomConfigurationsPath', '');
+    $this->addOption('width', '100%');
+    $this->addOption('height', '200');
+    $this->addOption('BasePath', '/fckeditor/');
+    $this->addOption('CustomConfigurationsPath', '/fckconfig.js');
   }
 
   /**
@@ -57,7 +57,7 @@ class sfWidgetFormTextareaFCKEditor extends sfWidgetFormTextarea
   {
     //cols and rows are only specified for XHTML compliancy
   	$textarea = parent::renderContentTag('textarea', $value, array_merge(
-        array('name' => $name, 'rows' => '1', 'cols' => '1'), $attributes));
+        array('name' => $name, 'rows' => '8', 'cols' => '80'), $attributes));
   	
     $js = sprintf(<<<EOF
 <script type="text/javascript">
@@ -83,12 +83,12 @@ function FCKeditor_OnComplete(editorInstance)
 EOF
     ,
       $name,
-      $this->getOption('width')                     ? $this->getOption('width')                    : '100%',
-      $this->getOption('height')                    ? $this->getOption('height')                   : '200',
-      $this->getOption('BasePath')                  ? $this->getOption('BasePath')                 : '/fckeditor/',
-      $this->getOption('CustomConfigurationsPath')  ? $this->getOption('CustomConfigurationsPath') : '/fckconfig.js'
+      $this->getOption('width'),
+      $this->getOption('height'),
+      $this->getOption('BasePath'),
+      $this->getOption('CustomConfigurationsPath')
     );
 
-    return $textarea.$js;
+    return $textarea . $js;
   }
 }

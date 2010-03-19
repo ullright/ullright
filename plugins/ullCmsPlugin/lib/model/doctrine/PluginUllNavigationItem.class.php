@@ -13,6 +13,40 @@
 abstract class PluginUllNavigationItem extends BaseUllNavigationItem
 {
   
+  public function __toString()
+  {
+    return (string) $this->getFullPathName();
+  }
+
+  public function getFullPathName($parent = null)
+  {
+    return implode(' - ', $this->buildFullPathName($parent));
+  }    
+  
+  public function buildFullPathName($object = null)
+  {
+    if ($object === null)
+    {
+      $object = $this;
+    }
+    
+    $return = array();
+    
+//    var_dump($object->slug);
+//    var_dump($object->Parent->exists());
+    
+    if ($object->Parent->exists())
+    {
+      $return = array_merge($this->buildFullPathName($object->Parent), $return);
+    }
+    
+    $return[] = $object->name;
+    
+    return $return;
+  }
+  
+
+  
   /**
    * Get the sub items for current item
    *
