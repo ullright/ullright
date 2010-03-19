@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# upgrade script for fckeditor used in ullWikiPlugin
+# Upgrade script for fckeditor used in ullWikiPlugin and others
 # klemens.ullmann@ull.at 2008-05-28
 # klemens.ullmann-marx@ull.at 2010-03-19
 #
@@ -19,29 +19,31 @@ then
   exit 1
 fi
 
+cd plugins/ullCorePlugin/web/js
 
+echo Removing old fckeditor
+svn rm fckeditor 
+svn commit -m "fckeditor update part I"
 
 echo Downloading fckeditor and extracting...
-
-cd plugins/ullCorePlugin/web/js
-svn mv fckeditor fckeditor.${DATE}.bkp
 wget $1
-exit
-
-
-FILES=`find -name FCKeditor*.tar.gz`
-
-for f in $FILES; do
-  tar -xvzf $f
-  rm $f
-done
+tar -xvzf FCKeditor*.tar.gz
+rm FCKeditor*.tar.gz
 
 echo Removing unnecessary files...
 chmod u+w * -R
-find . -name '_*' -exec rm -rf {} \;
+find ./fckeditor -name '_*' -exec rm -rf {} \;
 
+echo Restoring config symlinks and svn adding new files
+rm fckeditor/editor/filemanager/connectors/php/config.php
+svn add fckeditor
+ln -s ../../../../../config.php fckeditor/editor/filemanager/connectors/php/config.php
+svn add fckeditor/editor/filemanager/connectors/php/config.php
 
+echo Commiting...
+svn commit -m "fckeditor update part II"
 
+cd ../../../../
 
 
 
