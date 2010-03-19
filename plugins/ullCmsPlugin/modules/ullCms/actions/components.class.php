@@ -8,4 +8,10 @@ class ullCmsComponents extends sfComponents
     $this->setVar('main_navigation', new ullTreeNavigationRenderer($navigation), true);    
   }
   
+  public function executeFooterNavigation()
+  {
+    $navigation = UllNavigationItemTable::getNavigationTree('footer', '', 2);
+    $this->setVar('footer_navigation', new ullTreeNavigationRenderer($navigation), true);    
+  }
+  
 }
