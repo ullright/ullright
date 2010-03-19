@@ -399,4 +399,17 @@ class ullCoreTools
     return substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2);    
   }  
 
+  /**
+   * Check if a module is enabled
+   * 
+   * @param string $name
+   * @return boolean
+   */
+  public static function isModuleEnabled($name)
+  {
+    if (in_array($name, sfConfig::get('sf_enabled_modules')))
+    {
+      return true;
+    }
+  }
 }
