@@ -39,6 +39,8 @@ rm fckeditor/editor/filemanager/connectors/php/config.php
 svn add fckeditor
 ln -s ../../../../../config.php fckeditor/editor/filemanager/connectors/php/config.php
 svn add fckeditor/editor/filemanager/connectors/php/config.php
+ln -s ../../../fckeditor_plugin_syntaxhighlight2 fckeditor/editor/plugins/syntaxhighlight2
+svn add fckeditor/editor/plugins/syntaxhighlight2
 
 echo Commiting...
 svn commit -m "fckeditor update part II"
