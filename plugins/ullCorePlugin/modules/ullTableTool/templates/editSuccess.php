@@ -60,7 +60,7 @@
       <li>
     <?php if ($generator->getRow()->exists()): ?>    
           <?php 
-            if ($generator->getAllowDelete())
+            if ($generator->getAllowDelete() && isset($table_name))
             {
 	            echo link_to(
 	              __('Delete', null, 'common')

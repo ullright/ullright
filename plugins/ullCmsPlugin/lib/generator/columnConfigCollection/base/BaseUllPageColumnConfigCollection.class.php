@@ -15,6 +15,7 @@ class BaseUllPageColumnConfigCollection extends ullColumnConfigCollection
     
     $this['body']
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
+      ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')
     ;
     
     if ($this->isListAction())

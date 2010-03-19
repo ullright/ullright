@@ -58,16 +58,20 @@ class sfWidgetFormTextareaFCKEditor extends sfWidgetFormTextarea
     //cols and rows are only specified for XHTML compliancy
   	$textarea = parent::renderContentTag('textarea', $value, array_merge(
         array('name' => $name, 'rows' => '8', 'cols' => '80'), $attributes));
+        
+    if (!$this->getAttribute('name'))
+    {
+      $this->setAttribute('name', $name);
+    }
+    $this->setAttributes($this->fixFormId($this->getAttributes()));
+    $id = $this->getAttribute('id');        
   	
     $js = sprintf(<<<EOF
 <script type="text/javascript">
-window.onload = function()
-{
   var oFCKeditor = new FCKeditor( '%s' , '%s', '%s');
   oFCKeditor.BasePath = "%s" ;
   oFCKeditor.Config["CustomConfigurationsPath"] = "%s";
   oFCKeditor.ReplaceTextarea();
-}
 
 //without this, IsDirty() returns true in the
 //wiki->create view, which causes the js observer
@@ -82,7 +86,7 @@ function FCKeditor_OnComplete(editorInstance)
 </script>
 EOF
     ,
-      $name,
+      $id,
       $this->getOption('width'),
       $this->getOption('height'),
       $this->getOption('BasePath'),
