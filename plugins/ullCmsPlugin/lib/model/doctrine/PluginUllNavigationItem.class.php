@@ -45,7 +45,6 @@ abstract class PluginUllNavigationItem extends BaseUllNavigationItem
     return $return;
   }
   
-
   
   /**
    * Get the sub items for current item

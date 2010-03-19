@@ -9,10 +9,9 @@ class BaseUllNavigationItemColumnConfigCollection extends ullColumnConfigCollect
    */
   protected function applyCustomSettings()
   {
-    if ($this->isListAction())
-    {
-      
-    }
+    $this['parent_ull_navigation_item_id']
+      ->setLabel(__('In navigation', null, 'ullCmsMessages'))
+    ;
     
   }
 }
