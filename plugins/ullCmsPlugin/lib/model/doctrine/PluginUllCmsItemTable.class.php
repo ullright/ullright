@@ -1,10 +1,10 @@
 <?php
 /**
  */
-class PluginUllNavigationItemTable extends UllRecordTable
+class PluginUllCmsItemTable extends UllRecordTable
 {
   
-  /**
+ /**
    * Get the navigation tree for a given navigation item
    * 
    * @param $parentSlug       Give me the navigaiton item for 
@@ -15,7 +15,7 @@ class PluginUllNavigationItemTable extends UllRecordTable
    */
   public static function getNavigationTree($parentSlug, $currentSlug = null, $depth = 999999999)
   {
-    $item = Doctrine::getTable('UllNavigationItem')->findOneBySlug($parentSlug);
+    $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($parentSlug);
     
     $tree = self::getSubTree($item, $currentSlug, $depth);
     
@@ -49,12 +49,20 @@ class PluginUllNavigationItemTable extends UllRecordTable
     return self::getNavigationTree($slug, $currentSlug, $depth);
   }
   
+  
+  /**
+   * Does the actual work for getSubNavigationFor() method
+   * 
+   * @param $parentSlug
+   * @param $currentSlug
+   * @return unknown_type
+   */
   public static function findLevel2ItemSlugForParentSlug($parentSlug, $currentSlug)
   {
 //        var_dump($parentSlug);
 //    var_dump($currentSlug);
     
-    $item = Doctrine::getTable('UllNavigationItem')->findOneBySlug($currentSlug);
+    $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($currentSlug);
     
 //    var_dump($item->toArray());
 //    var_dump($item->Parent->toArray());
@@ -71,15 +79,16 @@ class PluginUllNavigationItemTable extends UllRecordTable
   
   
   /**
-   * Build navigation item tree
-   *
-   * @param UllEntity $entity
-   * @param integer $depth
-   * @param boolean $hydrate
-   * @param integer $level
+   * Build a navigation items tree
+   * 
+   * @param UllCmsItem $item
+   * @param $currentSlug
+   * @param $depth
+   * @param $hydrate
+   * @param $level
    * @return ullTreeNode
    */
-  public static function getSubTree(UllNavigationItem $item, $currentSlug = null, $depth = 999999999, $hydrate = true, $level = 1)
+  public static function getSubTree(UllCmsItem $item, $currentSlug = null, $depth = 999999999, $hydrate = true, $level = 1)
   {
     $node = new ullTreeNode(($hydrate) ? $item : $item->slug);
     
@@ -102,6 +111,6 @@ class PluginUllNavigationItemTable extends UllRecordTable
       }
     }
     return $node;
-  }  
+  }      
 
 }

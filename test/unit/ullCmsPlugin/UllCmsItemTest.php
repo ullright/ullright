@@ -15,8 +15,8 @@ $t->setFixturesPath($path);
 
 $t->begin('getNavigationArray');
 
-  $item = Doctrine::getTable('UllNavigationItem')->findOneBySlug('main-navigation');
+  $item = Doctrine::getTable('UllCmsItem')->findOneBySlug('main-menu');
   
-  $t->is(count($item->getSubs()), 3, 'Returns the correct number of subs');
+  $t->is(count($item->getSubs()), 5, 'Returns the correct number of subs');
 
   

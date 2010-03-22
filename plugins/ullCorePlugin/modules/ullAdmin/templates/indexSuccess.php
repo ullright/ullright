@@ -48,7 +48,7 @@
           <h3><?php echo __('Content Mangement', null, 'ullCmsMessages') ?></h3>
           <ul class="tc_tasks">
             <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_admin_24x24', 'ullCms/list', __('Manage', null, 'common') . ' ' . __('Pages', null, 'ullCmsMessages')) ?></li>
-            <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNavigationItem', 'ullCore', 'ull_admin_24x24') ?></li>
+            <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllCmsMenuItem', 'ullCore', 'ull_admin_24x24') ?></li>
           </ul> 
         <?php endif?>
         

@@ -1,25 +1,34 @@
-UllNavigationItem:
-  main_navigation:
+UllCmsMenuItem:
+  main_menu:
     Translation:
       en:
-        name:               Main navigation
+        name:               Main menu
       de:
-        name:               Hauptnavigation
-  about_us:
+        name:               Hauptmenü
+  wiki:
     Translation:
       en:
-        name:               About us
+        name:               Wiki
       de:
-        name:               Über uns
-    Parent:                 main_navigation
-  footer_navigation:
+        name:               Wiki
+    link:                   ullWiki/list
+    Parent:                 main_menu
+  courses_advanced:
+    Translation:
+      en:
+        name:               Advanced courses
+      de:
+        name:               Advanced Kurse
+    Parent:                 courses            
+  footer_menu:
     Translation:
       en:
         name:               Footer
       de:
         name:               Fußzeile    
+ 
     
-UllPage:
+UllCmsPage:
   home:
     Translation:
       en:
@@ -28,7 +37,8 @@ UllPage:
       de:
         title:              Startseite            
         body:               '<h1>Willkommen</h1>beim ullright cms'
-    UllNavigationItem:      main_navigation
+    allow_sub_items:        false
+    Parent:                 main_menu
   about_us:
     Translation:
       en:
@@ -37,7 +47,7 @@ UllPage:
       de:
         title:              Über uns            
         body:               '<em>Wir entwicklen die besten Webanwendungen seit 1877</em>'
-    UllNavigationItem:      main_navigation   
+    Parent:                 main_menu   
   team:
     Translation:
       en:
@@ -46,7 +56,8 @@ UllPage:
       de:
         title:              Team            
         body:               '<ul><li>Chef</li><li>Mitarbeiter</li></ul>'
-    UllNavigationItem:      about_us
+    allow_sub_items:        false
+    Parent:                 about_us
   location:
     Translation:
       en:
@@ -55,7 +66,8 @@ UllPage:
       de:
         title:              Standort            
         body:               '<a href="http://maps.google.com">Google Karten</a>'
-    UllNavigationItem:      about_us         
+    allow_sub_items:        false
+    Parent:                 about_us         
   contact:
     Translation:
       en:
@@ -64,7 +76,26 @@ UllPage:
       de:
         title:              Kontakt            
         body:               '<a href="mailto:office@example.com">E-Mail</a>'
-    UllNavigationItem:      main_navigation   
+    allow_sub_items:        false
+    Parent:                 main_menu
+  courses:
+    Translation:
+      en:
+        title:              Courses
+        body:               '<h1>Courses</h1>We have interesting courses...'
+      de:
+        title:              Kurse            
+        body:               '<h1>Kurse</h1>Wir bieten interessante Kurse...'
+    Parent:                 main_menu
+  advanced_course_1:
+    Translation:
+      en:
+        title:              Advanced course 1
+        body:               'For skilled...'
+      de:
+        title:              Advanced Kurs 1            
+        body:               'Für Fortgeschrittene'
+    Parent:                 courses_advanced      
   legal:
     Translation:
       en:
@@ -73,7 +104,9 @@ UllPage:
       de:
         title:              Impressum            
         body:               '<cite>Nach dem Gesetz der...</cite>'
-    UllNavigationItem:      footer_navigation       
+    allow_sub_items:        false
+    Parent:                 footer_menu       
+
     
 UllNews:
   first_news:
@@ -89,6 +122,4 @@ UllNews:
     link_name:             Route 123
     link_url:              orf.at
     activation_date:       '2010-03-14'
-    deactivation_date:     '2010-04-20'
-    
-      
+    deactivation_date:     '2010-04-20'  

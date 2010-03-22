@@ -6,7 +6,7 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class UllNavigationItemColumnConfigCollection extends BaseUllNavigationItemColumnConfigCollection
+class UllCmsMenuItemColumnConfigCollection extends BaseUllCmsMenuItemColumnConfigCollection
 {
 
 }

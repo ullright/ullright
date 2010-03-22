@@ -1,6 +1,6 @@
 <?php 
 
-class BaseUllPageColumnConfigCollection extends ullColumnConfigCollection
+class BaseUllCmsPageColumnConfigCollection extends ullColumnConfigCollection
 {
 
   /**
@@ -9,7 +9,11 @@ class BaseUllPageColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this['ull_navigation_item_id']
+    $this->disable(array(
+      'link'
+    ));
+    
+    $this['parent_ull_cms_item_id']
       ->setLabel(__('In navigation', null, 'ullCmsMessages'))
     ;
     

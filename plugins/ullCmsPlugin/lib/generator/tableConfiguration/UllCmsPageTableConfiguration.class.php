@@ -5,7 +5,7 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class UllPageTableConfiguration extends ullTableConfiguration
+class UllCmsPageTableConfiguration extends ullTableConfiguration
 {
   /**
    * (non-PHPdoc)
@@ -15,8 +15,8 @@ class UllPageTableConfiguration extends ullTableConfiguration
   {
     $this->setName(__('Pages', null, 'ullCmsMessages'));
     $this->setSearchColumns(array('title'));
-    $this->setOrderBy('UllNavigationItem->name, title');
-    $this->setListColumns(array('title', 'UllNavigationItem->name', 'Updator->display_name', 'updated_at'));
+    $this->setOrderBy('Parent->name, title');
+    $this->setListColumns(array('title', 'parent_ull_cms_item_id', 'Updator->display_name', 'updated_at'));
 //    $this->setForeignRelationName(__('In navigation', null, 'ullCmsMessages'));
   }
   

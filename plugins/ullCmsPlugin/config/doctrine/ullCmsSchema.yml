@@ -1,51 +1,65 @@
-# Navigation items
-UllNavigationItem:
+# Common base for menu items and pages
+UllCmsItem:
   package: ullCmsPlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
     type: concrete
   actAs:
     I18n:
-      fields: [name] 
+      fields: [name, title, body] 
     Sluggable:
       unique: true
       fields: [name]
   columns:
     name:
       type: string(128)
-      notnull: true
-    parent_ull_navigation_item_id:
+      notnull: true  
+    parent_ull_cms_item_id:
       type: integer
-  relations:      
-    Parent:
-      class: UllNavigationItem
-      local: parent_ull_navigation_item_id
-      foreign: id       
-
-# Content pages
-UllPage:
-  package: ullCmsPlugin.lib.model.doctrine
-  inheritance:
-    extends: UllRecord
-    type: concrete
-  actAs:
-    I18n:
-      fields: [title, body] 
-    Sluggable:
-      unique: true
-      fields: [title]
-  columns:
+    allow_sub_items:
+      type: boolean
+      default: true
+    sequence:
+      integer
+      
+    # Child columns are defined here, because mixing parent and child translations
+    # (i18n behavior) does not work
+      
+    # menu_item columns
+    link:
+      type: string(128)
+      
+    # page columns
     title:
       type: string(255)
       notnull: true
     body:
       type: clob
       notnull: true
-    ull_navigation_item_id:
-      type: integer
-      notnull: true
-  relations:
-    UllNavigationItem:
+  relations:      
+    Parent:
+      class: UllCmsItem
+      local: parent_ull_cms_item_id
+      foreign: id
+  
+
+# Menu items
+UllCmsMenuItem:
+  package: ullCmsPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllCmsItem
+    type: column_aggregation
+    keyValue: menu_item
+
+
+# Content pages
+UllCmsPage:
+  package: ullCmsPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllCmsItem
+    type: column_aggregation
+    keyValue: page
+
     
 # Frontpage news entries
 UllNews:

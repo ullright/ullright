@@ -6,7 +6,7 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class UllPageColumnConfigCollection extends BaseUllPageColumnConfigCollection
+class UllCmsPageColumnConfigCollection extends BaseUllCmsPageColumnConfigCollection
 {
 
 }
