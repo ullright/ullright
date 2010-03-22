@@ -876,7 +876,22 @@ table span.ull_widget_time {
  
 .ull_widget_time_negative {
 	color: #ff0000;
-} 
+}
+
+
+/*
+ * ************************************************
+ *  ullWidgetColorRead
+ * ************************************************
+ */
+ 
+.color-widget-read {
+  padding: 5px 15px;
+  border: 1px black solid;
+  font-family: monospace;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
  
 /*
  * ************************************************
