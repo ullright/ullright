@@ -13,6 +13,7 @@ UllCmsMenuItem:
         name:               Wiki
     link:                   ullWiki/list
     Parent:                 main_menu
+    sequence:               100
   courses_advanced:
     Translation:
       en:
@@ -25,7 +26,7 @@ UllCmsMenuItem:
       en:
         name:               Footer
       de:
-        name:               Fußzeile    
+        name:               Fußzeile  
  
     
 UllCmsPage:
@@ -37,8 +38,9 @@ UllCmsPage:
       de:
         title:              Startseite            
         body:               '<h1>Willkommen</h1>beim ullright cms'
-    allow_sub_items:        false
+    #allow_sub_items:        false
     Parent:                 main_menu
+    sequence:               10
   about_us:
     Translation:
       en:
@@ -47,7 +49,8 @@ UllCmsPage:
       de:
         title:              Über uns            
         body:               '<em>Wir entwicklen die besten Webanwendungen seit 1877</em>'
-    Parent:                 main_menu   
+    Parent:                 main_menu
+    sequence:               20   
   team:
     Translation:
       en:
@@ -56,7 +59,7 @@ UllCmsPage:
       de:
         title:              Team            
         body:               '<ul><li>Chef</li><li>Mitarbeiter</li></ul>'
-    allow_sub_items:        false
+    #allow_sub_items:        false
     Parent:                 about_us
   location:
     Translation:
@@ -66,7 +69,7 @@ UllCmsPage:
       de:
         title:              Standort            
         body:               '<a href="http://maps.google.com">Google Karten</a>'
-    allow_sub_items:        false
+    #allow_sub_items:        false
     Parent:                 about_us         
   contact:
     Translation:
@@ -76,8 +79,9 @@ UllCmsPage:
       de:
         title:              Kontakt            
         body:               '<a href="mailto:office@example.com">E-Mail</a>'
-    allow_sub_items:        false
+    #allow_sub_items:        false
     Parent:                 main_menu
+    sequence:               90
   courses:
     Translation:
       en:
@@ -87,6 +91,7 @@ UllCmsPage:
         title:              Kurse            
         body:               '<h1>Kurse</h1>Wir bieten interessante Kurse...'
     Parent:                 main_menu
+    sequence:               50
   advanced_course_1:
     Translation:
       en:
@@ -104,7 +109,7 @@ UllCmsPage:
       de:
         title:              Impressum            
         body:               '<cite>Nach dem Gesetz der...</cite>'
-    allow_sub_items:        false
+    #allow_sub_items:        false
     Parent:                 footer_menu       
 
     

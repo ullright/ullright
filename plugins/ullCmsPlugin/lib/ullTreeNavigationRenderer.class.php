@@ -1,6 +1,6 @@
 <?php
 
-class ullTreeNavigationRenderer
+class ullTreeMenuRenderer
 {
   protected
     $node
@@ -33,16 +33,31 @@ class ullTreeNavigationRenderer
   {
     $return = '';
     
-    $return .= '<ul class="ull_navigation_' . ullCoreTools::htmlId($node->getData()->slug) . '">' . "\n";
+    $return .= '<ul class="ull_menu_' . ullCoreTools::htmlId($node->getData()->slug) . '">' . "\n";
     
     if ($node->hasSubnodes())
     {
       foreach ($node->getSubnodes() as $subNode)
       { 
-        $return .= '<li ' . (($subNode->hasMeta('is_current')) ? 'class="ull_navigation_is_current"' : '') . '>';
-        $return .= '<a href="' . url_for('ull_cms_show', $subNode->getData()) . '">';
+        $return .= '<li ' . (($subNode->hasMeta('is_current')) ? 'class="ull_menu_is_current"' : '') . '>';
+        
+        $uri = null;
+        
+        if ($subNode->getData()->type == 'page')
+        {
+          $uri = url_for('ull_cms_show', $subNode->getData());
+        }
+        else
+        {
+          $uri = url_for($subNode->getData()->link);
+        }
+        
+        $return .= ($uri) ? '<a href="' . $uri . '">' : '';
+        
         $return .= $subNode->getData()->name;
-        $return .= '</a>';
+        
+        $return .= ($uri) ? '</a>' : '';
+        
         if ($subNode->hasSubnodes())
         {
           $return .= "\n" . $this->doRendering($subNode) . "\n";

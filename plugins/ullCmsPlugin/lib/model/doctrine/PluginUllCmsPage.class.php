@@ -20,13 +20,27 @@ abstract class PluginUllCmsPage extends BaseUllCmsPage
    */
   public function preSave($event)
   {
-    foreach($this->Translation as $culture => $translation)
+    foreach($this->Translation as $lang => $translation)
     {
-      if (!$translation->name)
+      if (!$this->Translation[$lang]->name)
       {
-        $translation->name = $translation->title;
+        $this->Translation[$lang]->name = $this->Translation[$lang]->title;
       }
-    }
+    }    
+    
+//    var_dump('PluginUllCmsPage');
+//    var_dump(get_class($this));
+//    
+//    // Create menu name if none given
+//    foreach($this->Translation as $lang => $translation)
+//    {
+//      if (!$this->Translation[$lang]->name)
+//      {
+//        $this->Translation[$lang]->name = $this->Translation[$lang]->title;
+//      }
+//    }
+//    
+    parent::preSave($event);
   }
   
   

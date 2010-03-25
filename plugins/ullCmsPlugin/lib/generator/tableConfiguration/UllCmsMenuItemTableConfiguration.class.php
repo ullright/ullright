@@ -5,7 +5,7 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class UllCmsMenuItemTableConfiguration extends ullTableConfiguration
+class UllCmsMenuItemTableConfiguration extends UllCmsItemTableConfiguration
 {
   /**
    * (non-PHPdoc)
@@ -13,11 +13,13 @@ class UllCmsMenuItemTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setName(__('Navigation', null, 'ullCmsMessages'));
+    parent::applyCustomSettings();
+    
+    $this->setName(__('Menu entries', null, 'ullCmsMessages'));
     $this->setSearchColumns(array('name'));
-    $this->setOrderBy('parent_ull_cms_item_id, name');
-    $this->setListColumns(array('name', 'parent_ull_cms_item_id'));
-    $this->setForeignRelationName(__('In navigation', null, 'ullCmsMessages'));
+    $this->setOrderBy('full_path, sequence');
+    $this->setListColumns(array('full_path'));
+//    $this->setFilterColumns(array('allow_sub_items' => 'checked'));
   }
   
 }

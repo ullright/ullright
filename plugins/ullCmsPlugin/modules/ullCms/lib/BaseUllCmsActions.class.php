@@ -51,7 +51,10 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   {
     $this->doc = $this->getRoute()->getObject();
     
-    $this->loadNavigations();
+    $menu = UllCmsItemTable::getMenuTree('main-menu', $this->doc->slug, 2);
+    $this->setVar('main_menu', new ullTreeMenuRenderer($menu), true);    
+    
+    $this->loadMenus();
   }
   
   /**
@@ -101,10 +104,15 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     return new ullCmsGenerator('w');
   }
 
-  protected function loadNavigations()
+  /**
+   * Load menues
+   * 
+   * @return unknown_type
+   */
+  protected function loadMenus()
   {
-    $navigation = UllNavigationItemTable::getSubNavigationFor('main-navigation', $this->doc->slug);
-    $this->setVar('sidebar_navigation', new ullTreeNavigationRenderer($navigation), true);    
+    $menu = UllCmsItemTable::getSubMenuFor('main-menu', $this->doc->slug);
+    $this->setVar('sidebar_menu', new ullTreeMenuRenderer($menu), true);    
   }
   
 }

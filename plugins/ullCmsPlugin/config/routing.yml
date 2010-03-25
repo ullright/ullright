@@ -2,7 +2,7 @@
 ull_cms_show:
   url:     /ullCms/show/:slug
   class:   sfDoctrineRoute
-  options: { model: UllPage, type: object }
+  options: { model: UllCmsPage, type: object }
   param:   { module: ullCms, action: show }
   requirements:
     sf_method: [get]

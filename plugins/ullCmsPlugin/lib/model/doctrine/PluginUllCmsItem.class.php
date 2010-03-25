@@ -20,7 +20,36 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
    */
   public function __toString()
   {
-    return (string) $this->getFullPathName();
+    return $this->full_path;
+  }
+  
+  
+  /**
+   * 
+   * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#preSave($event)
+   */
+  public function preSave($event)
+  {
+    // Create menu name if none given
+    // This applies only to UllCmsPage children
+//    foreach($this->Translation as $lang => $translation)
+//    {
+//      if (!$this->Translation[$lang]->name)
+//      {
+//        $this->Translation[$lang]->name = $this->Translation[$lang]->title;
+//      }
+//    }
+    
+    
+    // Create the full path cache
+    // e.g. "Main navigation - About us - Team"
+    // Improves performance and allows proper ordering in list views
+    foreach ($this->Translation as $lang => $translation)
+    {
+      $this->Translation[$lang]->full_path = $this->getFullPathName($this, $lang);
+    }
+
+    parent::preSave($event);
   }
 
   
@@ -30,9 +59,9 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
    * @param $parent
    * @return string
    */
-  public function getFullPathName($parent = null)
+  public function getFullPathName($parent = null, $lang = null)
   {
-    return implode(' - ', $this->buildFullPathName($parent));
+    return implode(' - ', $this->buildFullPathName($parent, $lang));
   }    
   
   
@@ -42,7 +71,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
    * @param unknown_type $object
    * @return array
    */
-  public function buildFullPathName($object = null)
+  public function buildFullPathName($object = null, $lang = null)
   {
     if ($object === null)
     {
@@ -51,18 +80,31 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     
     $return = array();
     
-    if ($object->Parent->exists())
+    if ($object->hasReference('Parent'))
     {
-      $return = array_merge($this->buildFullPathName($object->Parent), $return);
+      $return = array_merge($this->buildFullPathName($object->Parent, $lang), $return);
     }
-    
+
     // We have to refetch the Translations for pages. Why?
     if (!$object->name)
     {
+      // Necessary for fixture loading
+      if (!$object->exists())
+      {
+        $object->save();
+      }
       $object->refreshRelated('Translation');
     }
-    
-    $return[] = $object->name;
+
+    if ($lang)
+    {
+      $return[] = $object->Translation[$lang]->name;
+    }
+    else
+    {
+      $return[] = $object->name;
+    }
+      
     
     return $return;
   }
@@ -80,7 +122,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     $q
       ->addSelect(array('slug', 'name'))
       ->addWhere('parent_ull_cms_item_id = ?', $this->id)
-      ->addOrderby('name')
+      ->addOrderby('sequence, name')
     ;
   
     $result = $q->execute(null, $hydrationMode);

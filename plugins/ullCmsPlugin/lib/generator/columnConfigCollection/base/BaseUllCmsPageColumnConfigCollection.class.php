@@ -1,6 +1,6 @@
 <?php 
 
-class BaseUllCmsPageColumnConfigCollection extends ullColumnConfigCollection
+class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollection
 {
 
   /**
@@ -9,27 +9,29 @@ class BaseUllCmsPageColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
+    parent::applyCustomSettings();
+    
     $this->disable(array(
-      'link'
+      'link',
     ));
     
     $this['parent_ull_cms_item_id']
-      ->setLabel(__('In navigation', null, 'ullCmsMessages'))
+      ->setLabel(__('Higher menu entry', null, 'ullCmsMessages'))
     ;
     
     $this['body']
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
       ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')
     ;
-    
-    if ($this->isListAction())
-    {
-//      $this->disable(array(
-//        'body',
-//        'ull_navigation_item_id'
-//      ));
-      
-    }
+
+    $this->order(array(
+      'id',
+      'title',
+      'body',
+      'name',
+      'parent_ull_cms_item_id',
+      'sequence',
+    ));
     
   }
 }

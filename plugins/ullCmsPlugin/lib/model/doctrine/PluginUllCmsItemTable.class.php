@@ -5,15 +5,15 @@ class PluginUllCmsItemTable extends UllRecordTable
 {
   
  /**
-   * Get the navigation tree for a given navigation item
+   * Get the menu tree for a given navigation item
    * 
-   * @param $parentSlug       Give me the navigaiton item for 
+   * @param $parentSlug       Give me the menu item for 
    * @param $currentSlug      Mark the current page
    * @param $depth
    * 
    * @return ullTreeNode
    */
-  public static function getNavigationTree($parentSlug, $currentSlug = null, $depth = 999999999)
+  public static function getMenuTree($parentSlug, $currentSlug = null, $depth = 999999999)
   {
     $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($parentSlug);
     
@@ -24,34 +24,34 @@ class PluginUllCmsItemTable extends UllRecordTable
   
   
   /**
-   * Get a sub part of a navigation
+   * Get a sub part of a menu
    * 
-   * This is used e.g. to render the sidebar navigation for an abritrary deep
+   * This is used e.g. to render the sidebar menu for an abritrary deep
    * nested sub item.
    * 
    * Example:
-   * main_navigation
+   * main_menu
    *   -> about_us
    *      -> team
    *      -> contact
    *      
-   * getSubNavigationFor('main_navigation', 'team') returns team(=active), contact 
+   * getSubMenuFor('main_menu', 'team') returns team(=active), contact 
    * 
    * @param unknown_type $parentSlug
    * @param unknown_type $currentSlug
    * @param unknown_type $depth
    * @return unknown_type
    */
-  public static function getSubNavigationFor($parentSlug, $currentSlug, $depth = 999999999)
+  public static function getSubMenuFor($parentSlug, $currentSlug, $depth = 999999999)
   {
     $slug = self::findLevel2ItemSlugForParentSlug($parentSlug, $currentSlug);
     
-    return self::getNavigationTree($slug, $currentSlug, $depth);
+    return self::getMenuTree($slug, $currentSlug, $depth);
   }
   
   
   /**
-   * Does the actual work for getSubNavigationFor() method
+   * Does the actual work for getSubMenuFor() method
    * 
    * @param $parentSlug
    * @param $currentSlug
@@ -59,13 +59,7 @@ class PluginUllCmsItemTable extends UllRecordTable
    */
   public static function findLevel2ItemSlugForParentSlug($parentSlug, $currentSlug)
   {
-//        var_dump($parentSlug);
-//    var_dump($currentSlug);
-    
     $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($currentSlug);
-    
-//    var_dump($item->toArray());
-//    var_dump($item->Parent->toArray());
     
     if ($item->Parent->slug == $parentSlug)
     {
@@ -79,7 +73,7 @@ class PluginUllCmsItemTable extends UllRecordTable
   
   
   /**
-   * Build a navigation items tree
+   * Build a menu items tree
    * 
    * @param UllCmsItem $item
    * @param $currentSlug

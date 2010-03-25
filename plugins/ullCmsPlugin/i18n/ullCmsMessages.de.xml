@@ -18,6 +18,31 @@
 <target>In Navigation</target>
 </trans-unit>
 
+<trans-unit id="4">
+<source>Menu entry</source>
+<target>Menüeintrag</target>
+</trans-unit>
+
+<trans-unit id="5">
+<source>Higher menu entry</source>
+<target>Übergeordneter Menüeintrag</target>
+</trans-unit>
+
+<trans-unit id="6">
+<source>Higher</source>
+<target>Übergeordneter</target>
+</trans-unit>
+
+<trans-unit id="7">
+<source>Menues</source>
+<target>Menüs</target>
+</trans-unit>
+
+<trans-unit id="8">
+<source>Menu entries</source>
+<target>Menüeinträge</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

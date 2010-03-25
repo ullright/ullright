@@ -6,7 +6,7 @@ UllCmsItem:
     type: concrete
   actAs:
     I18n:
-      fields: [name, title, body] 
+      fields: [name, title, body, full_path] 
     Sluggable:
       unique: true
       fields: [name]
@@ -16,9 +16,14 @@ UllCmsItem:
       notnull: true  
     parent_ull_cms_item_id:
       type: integer
-    allow_sub_items:
-      type: boolean
-      default: true
+    #allow_sub_items:
+    #  type: boolean
+    #  default: true
+    # Caches the full path to a navigation item. E.g. "Main navigation - About us - Team"
+    # Improves performance and allows proper ordering in list views
+    full_path:
+      type: string(255)
+      notnull: true
     sequence:
       integer
       
