@@ -10,12 +10,6 @@
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_user_24x24', 'ullUser/create', __('Create user', null, 'ullCoreMessages')) ?></li>
       </ul>
-      <h3><?php echo __('Climbing routes', null, 'ullClimbingRouteDBMessages') ?></h3>
-      <ul class="tc_tasks">      
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllClimbingRoute', 'ullCore', 'ull_admin_24x24') ?></li>
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllClimbingRouteColor', 'ullCore', 'ull_admin_24x24') ?></li>
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllBookingResource', 'ullCore', 'ull_admin_24x24') ?></li>
-      </ul>
       <h3><?php echo __('User and Groups') ?></h3>
       <ul class="tc_tasks">      
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_clone_user_24x24', 'ullCloneUser/list', __('Manage', null, 'common') . ' ' . __('Clone users', null, 'ullCoreMessages')) ?></li>
@@ -67,13 +61,13 @@
         
         <h3><?php echo __('Workflow') ?></h3>
         <ul class="tc_tasks">
-  	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowApp', 'ullFlow', 'ull_flow_24x24') ?></li>
-  	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAppPermission', 'ullFlow', 'ull_flow_24x24') ?></li>
-  	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowColumnConfig', 'ullFlow', 'ull_flow_24x24') ?></li>
-  	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStep', 'ullFlow', 'ull_flow_24x24') ?></li>
-  	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStepAction', 'ullFlow', 'ull_flow_24x24') ?></li>
-  	      <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAction', 'ullFlow', 'ull_flow_24x24') ?></li>  
-  	    </ul>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowApp', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAppPermission', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowColumnConfig', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStep', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStepAction', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAction', 'ullFlow', 'ull_flow_24x24') ?></li>  
+        </ul>
         <h3><?php echo __('Wiki') ?></h3>
         <ul class="tc_tasks">
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevel', 'ullWiki', 'ull_wiki_24x24') ?></li>
