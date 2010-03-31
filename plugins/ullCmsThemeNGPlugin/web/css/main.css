@@ -1,3 +1,34 @@
+<<<<<<< .mine
+/*
+ * ************************************************
+ *  ullCms styles
+ * ************************************************
+ */
+ 
+ /* ullNews module */
+
+.ull_news_image {
+  float: left;
+  position: relative;
+  width: 15em;
+  height: 100%;
+  border: 1px dashed silver;
+}
+
+.ull_news_content {
+	border: 1px dashed silver;
+	margin: 0.0em;
+	margin-left: 16.5em;
+}
+
+.ull_news_entry {
+	margin-top: 1em;
+  border: 1px dashed silver;
+}
+
+.ull_news_content div {
+  margin: 0.5em;
+}=======
 /*
  * ************************************************
  *  ullCms styles
@@ -66,4 +97,4 @@ a:visited {
 #sidebar_ull_cms ul {
   margin-left: 1em;
 }
- 
+s

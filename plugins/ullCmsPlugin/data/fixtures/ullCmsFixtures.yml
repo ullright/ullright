@@ -116,15 +116,15 @@ UllCmsPage:
 UllNews:
   first_news:
     title:                  First News
-    abstract:               Willkommen. Dies ist unser erster News-Eintrag
+    abstract:               Welcome. This is our first news entry
     link_name:              Foo-Link
-    link_url:               orf.at
+    link_url:               http://orf.at
     activation_date:       '2010-03-12'
     deactivation_date:     '2010-04-20'
   neue_route:
-    title:                 Neue Route
-    abstract:              Seit heute (14.03.2010) gibt es eine neue Route zu klettern. Viel Erfolg
+    title:                 New Route
+    abstract:              Since today (2010-03-14) we have a now route. Have fun
     link_name:             Route 123
-    link_url:              orf.at
+    link_url:              http://orf.at
     activation_date:       '2010-03-14'
     deactivation_date:     '2010-04-20'  

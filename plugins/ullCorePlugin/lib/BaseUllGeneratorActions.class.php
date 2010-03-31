@@ -114,7 +114,6 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   public function executeEdit(sfRequest $request)
   {
     $this->generator = $this->getEditGenerator();
-    
     $row = $this->getRowFromRequestOrCreate();
     $this->id = $row->id;
     
@@ -140,7 +139,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
-      if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id))))
+      if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id)), $this->getRequest()->getFiles('fields')))
       {
         // save only
         if ($request->getParameter('action_slug') == 'save_only') 

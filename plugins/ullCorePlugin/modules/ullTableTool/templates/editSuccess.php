@@ -2,7 +2,7 @@
 
 <?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
-<?php echo form_tag($form_uri, array('id' => 'ull_tabletool_form')) ?>
+<?php echo form_tag($form_uri, array('multipart' => 'true', 'id' => 'ull_tabletool_form')) ?>
 
 <div class="edit_container">
 

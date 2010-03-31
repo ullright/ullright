@@ -39,7 +39,19 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
     parent::executeList($request);
 
     $this->setTableToolTemplate('list');
-  }   
+  }
+  
+public function executeEdit(sfRequest $request) 
+  {
+    parent::executeEdit($request);
+
+    $this->setTableToolTemplate('edit');
+  }
+
+  public function executeNewsList(sfRequest $request)
+  {
+    $this->newsEntries = Doctrine::getTable('UllNews')->findActiveNews();
+  }
   
   /**
    * Configure the ullFilter class name
