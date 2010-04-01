@@ -5,40 +5,47 @@
  */
 abstract class PluginUllTimePeriod extends BaseUllTimePeriod
 {
-  
-  /**
-   * Returns a list of dates for the current time period
-   * 
-   * Format:
-   * 
-   * array(
-   *  '2009-09-01' => array(
-   *    'date'    => '2009-09-01',
-   *    'weekend' => 'false'
-   *    ),
-   *  '2009-09-02' => array(
-   *    'date'    => '2009-09-02',
-   *    'weekend' => 'false'
-   *    ),
-   *  ...
-   * )
-   *  
-   * @return array
-   */
-  public function getDateList()
-  {
-    $return = array();
-    for($i = strtotime($this->from_date); $i <= strtotime($this->to_date); $i += 60 * 60 * 24)
-    {
-      $date = date('Y-m-d', $i);
-      $weekday = date('w', $i);
-      $weekend = (in_array($weekday, array(0,6))) ? true : false;
-      $calendarWeek = (int) date('W', $i); //cast to integer to remove leading 0
-      
-      $return[$date] = array('date' => $date, 'weekend' => $weekend, 'calendarWeek' => $calendarWeek);
-    }
-    
-    return $return;
-  }
 
+	/**
+	 * Returns a list of dates for the current time period
+	 *
+	 * Format:
+	 *
+	 * array(
+	 *  '2009-09-01' => array(
+	 *    'date'    => '2009-09-01',
+	 *    'weekend' => 'false'
+	 *    ),
+	 *  '2009-09-02' => array(
+	 *    'date'    => '2009-09-02',
+	 *    'weekend' => 'false'
+	 *    ),
+	 *  ...
+	 * )
+	 *
+	 * @return array
+	 */
+	public function getDateList()
+	{
+		$return = array();
+
+		$begin = new DateTime($this->from_date);
+		//end seems to be exclusive, adding a second to make this inclusive
+		$end = new DateTime($this->to_date . ' 00:00:01');
+		//'P1D' stands for 'period one day'
+		$interval = new DateInterval('P1D');
+		$period = new DatePeriod($begin, $interval, $end);
+
+		foreach ($period as $day)
+		{
+			$date = $day->format("Y-m-d");
+			$weekday = $day->format('w');
+			$weekend = (in_array($weekday, array(0,6))) ? true : false;
+			$calendarWeek = (int) $day->format('W'); //cast to integer to remove leading 0
+
+			$return[$date] = array('date' => $date, 'weekend' => $weekend, 'calendarWeek' => $calendarWeek);
+		}
+
+		return $return;
+	}
 }
