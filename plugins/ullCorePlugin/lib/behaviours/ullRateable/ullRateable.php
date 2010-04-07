@@ -23,12 +23,19 @@ class ullRateable extends Doctrine_Template
 
   public function setUserRating($rating = 3)
   {
-    if (!is_int($rating) || $rating < 1 || $rating > $this->getOption('max_rating'))
+    if (!is_int($rating) || $rating < 1 || $rating > $this->_plugin->getOption('max_rating'))
     {
       throw new InvalidArgumentException(
-        'Rating must be an integer between 1 and ' . $this->getOption('max_rating'));
+        'Rating must be an integer between 1 and ' . $this->_plugin->getOption('max_rating'));
     }
 
-    return $this->_plugin->setUserRating($this->getInvoker(), 2, $rating);
+    if ($userId = sfContext::getInstance()->getUser()->getAttribute('user_id'))
+    {
+      return $this->_plugin->setUserRating($this->getInvoker(), $userId, $rating);
+    }
+    else
+    {
+      throw new UnexpectedValueException('A rating can only be given by a logged in user');
+    }
   }
 }
