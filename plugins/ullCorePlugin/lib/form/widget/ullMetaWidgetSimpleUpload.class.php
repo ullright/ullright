@@ -1,8 +1,8 @@
 <?php
 /**
- * ullMetaWidgetPassword
+ * ullMetaWidgetSimpleUpload
  *
- * Used for passwords
+ * Used for uploads for ullTableTool module
  */
 class ullMetaWidgetSimpleUpload extends ullMetaWidget
 {

@@ -53,6 +53,13 @@ public function executeEdit(sfRequest $request)
     $this->newsEntries = Doctrine::getTable('UllNews')->findActiveNews();
   }
   
+  public function executeNewsListFeed(sfRequest $request)
+  {
+    $this->getResponse()->setContentType('text/xml');
+    $this->setLayout(false);
+    $this->newsEntries = Doctrine::getTable('UllNews')->findActiveNews();
+  }
+  
   /**
    * Configure the ullFilter class name
    * 

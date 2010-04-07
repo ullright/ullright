@@ -1,3 +1,6 @@
+<link rel="alternate" type="application/atom+xml" title="Latest Jobs"
+  href="<?php echo url_for('/ullNews/newsListFeed', true) ?>" />
+
 <h3>
   <?php echo __('News', null, 'common')?>
 </h3>
@@ -15,4 +18,10 @@
       </div>
     </div>
   <?php endforeach ?>
+  <ul></ul>
+  <li class="feed">
+  <a href="<?php echo url_for('/ullNews/newsListFeed') ?>">Full feed</a>
+</li>
+</ul>
+
 </div>
