@@ -23,7 +23,8 @@ class ullRateable extends Doctrine_Template
 
   public function setUserRating($rating = 3)
   {
-    if (!is_int($rating) || $rating < 1 || $rating > $this->_plugin->getOption('max_rating'))
+    $rating = intval($rating);
+    if ($rating < 1 || $rating > $this->_plugin->getOption('max_rating'))
     {
       throw new InvalidArgumentException(
         'Rating must be an integer between 1 and ' . $this->_plugin->getOption('max_rating'));
