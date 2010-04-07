@@ -2,16 +2,16 @@
 class ullCmsComponents extends sfComponents
 {
   
-  public function executeMainNavigation()
+  public function executeMainMenu()
   {
-    $navigation = UllNavigationItemTable::getNavigationTree('main-navigation', '', 2);
-    $this->setVar('main_navigation', new ullTreeNavigationRenderer($navigation), true);    
+    $navigation = UllCmsItemTable::getMenuTree('main-menu', '', 2);
+    $this->setVar('main_menu', new ullTreeMenuRenderer($navigation), true);    
   }
   
-  public function executeFooterNavigation()
+  public function executeFooterMenu()
   {
-    $navigation = UllNavigationItemTable::getNavigationTree('footer', '', 2);
-    $this->setVar('footer_navigation', new ullTreeNavigationRenderer($navigation), true);    
+    $navigation = UllCmsItemTable::getMenuTree('footer', '', 2);
+    $this->setVar('footer_menu', new ullTreeMenuRenderer($navigation), true);    
   }
   
 }
