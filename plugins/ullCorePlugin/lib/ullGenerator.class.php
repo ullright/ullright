@@ -246,8 +246,6 @@ abstract class ullGenerator extends ullGeneratorBase
     
     foreach ($filterColumns as $filterColumn => $defaultValue)
     {
-      
-      
       $columnConfig = clone $this->columnsConfig[$filterColumn];
       $columnConfig->setAccess('s');
       

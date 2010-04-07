@@ -355,7 +355,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   protected function createFilterForm()
   {
     // legacy
-    if ($filterClassName = $this->getUllFilterClassName())
+    if (method_exists($this, 'getUllFilterClassName') && $filterClassName = $this->getUllFilterClassName())
     {
       $this->filter_form = new $filterClassName;    
     }
@@ -389,14 +389,6 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     return true;
   }
   
-  
-  /**
-   * Configure the ullFilter class name
-   * 
-   * @return string
-   */
-  abstract public function getUllFilterClassName();
-
   
   /** 
    * Get array of columns for the quicksearch

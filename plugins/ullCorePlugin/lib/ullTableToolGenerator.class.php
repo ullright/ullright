@@ -16,7 +16,7 @@ class ullTableToolGenerator extends ullGenerator
      */
     $columns = array(),
     /**
-     * Don't append the column name to the label for this "identifiers"
+     * Don't append the column name to the label for these "identifiers"
      */
     $relationLabelBlacklist = array(
       'name',

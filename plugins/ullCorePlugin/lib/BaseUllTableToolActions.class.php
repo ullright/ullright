@@ -164,20 +164,6 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     parent::executeDeleteFutureVersion($request);
   }    
   
-  
-  /**
-   * Configure the ullFilter class name
-   * 
-   * @return string
-   */
-  public function getUllFilterClassName()
-  {
-    // moved to ullGenerator
-    
-    return null;
-  }  
-    
-  
   /**
    * Gets a table object according to request param
    *

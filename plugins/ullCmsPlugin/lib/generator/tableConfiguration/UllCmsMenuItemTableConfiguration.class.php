@@ -18,7 +18,7 @@ class UllCmsMenuItemTableConfiguration extends UllCmsItemTableConfiguration
     $this->setName(__('Menu entries', null, 'ullCmsMessages'));
     $this->setSearchColumns(array('name'));
     $this->setOrderBy('full_path, sequence');
-    $this->setListColumns(array('full_path'));
+    $this->setListColumns(array('full_path', 'is_active'));
 //    $this->setFilterColumns(array('allow_sub_items' => 'checked'));
   }
   

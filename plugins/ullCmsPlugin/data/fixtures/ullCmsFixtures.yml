@@ -26,7 +26,16 @@ UllCmsMenuItem:
       en:
         name:               Footer
       de:
-        name:               Fußzeile  
+        name:               Fußzeile
+  inactive_entry:
+    Translation:
+      en:
+        name:               Inactive Entry
+      de:                   
+        name:               Inaktiver Eintrag
+    Parent:                 main_menu
+    is_active:              false
+        
  
     
 UllCmsPage:

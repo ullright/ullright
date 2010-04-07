@@ -20,7 +20,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
    */
   public function __toString()
   {
-    return $this->full_path;
+    return (string) $this->full_path;
   }
   
   
@@ -122,6 +122,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     $q
       ->addSelect(array('slug', 'name'))
       ->addWhere('parent_ull_cms_item_id = ?', $this->id)
+      ->addWhere('is_active = ?', true)
       ->addOrderby('sequence, name')
     ;
   

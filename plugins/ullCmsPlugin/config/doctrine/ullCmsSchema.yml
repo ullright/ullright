@@ -16,6 +16,9 @@ UllCmsItem:
       notnull: true  
     parent_ull_cms_item_id:
       type: integer
+    is_active:
+      type: boolean
+      default: true
     #allow_sub_items:
     #  type: boolean
     #  default: true
