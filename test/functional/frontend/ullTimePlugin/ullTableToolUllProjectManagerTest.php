@@ -3,7 +3,7 @@
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
 $createValues = array(
-	'ull_project_id' => array(Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id, 'Introduce ullright'),
+	'ull_project_id' => array(Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id, 'Introduce ullright'),  
 	'ull_user_id' => array(Doctrine::getTable('UllUser')->findOneByUserName('test_user')->id, 'Test User')
 );
 $editValues = array(
