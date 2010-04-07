@@ -21,6 +21,18 @@ class ullRateable extends Doctrine_Template
     return $this->_plugin->getAvgRating($this->getInvoker());
   }
 
+  public function getUserRating()
+  {
+    if ($userId = sfContext::getInstance()->getUser()->getAttribute('user_id'))
+    {
+      return $this->_plugin->getUserRating($this->getInvoker(), $userId);
+    }
+    else
+    {
+      return null;
+    }
+  }
+  
   public function setUserRating($rating = 3)
   {
     $rating = intval($rating);

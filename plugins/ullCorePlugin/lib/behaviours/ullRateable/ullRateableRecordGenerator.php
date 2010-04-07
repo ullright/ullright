@@ -43,6 +43,19 @@ class ullRateableRecordGenerator extends Doctrine_Record_Generator
     return $result['average_rating'];
   }
 
+  public function getUserRating(Doctrine_Record $invoker, $ull_user_id)
+  {
+    $q = Doctrine_Query::create()
+      ->select('ratings.rating')
+      ->from($this->getOption('className') . ' as ratings')
+      ->where('ratings.id = ?', $invoker->id)
+      ->andWhere('ratings.voter_ull_user_id = ?', $ull_user_id)
+    ;
+    
+    $result = $q->fetchOne();
+    return $result['rating'];
+  }
+  
   public function setUserRating(Doctrine_Record $invoker, $ull_user_id, $rating)
   {
     $className = $this->getOption('className');

@@ -8,13 +8,15 @@ class ullRateableRecordFilter extends Doctrine_Record_Filter
 
   public function filterGet(Doctrine_Record $record, $name)
   {
-    if ($name == 'average_rating')
+    if ($name == 'rating_average')
     {
       return $record->getAvgRating();
     }
-    else
+    if ($name == 'rating_user')
     {
-      throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $name, get_class($record)));
+      return $record->getUserRating();
     }
+    
+    throw new Doctrine_Record_UnknownPropertyException(sprintf('Unknown record property / related component "%s" on "%s"', $name, get_class($record)));
   }
 }
