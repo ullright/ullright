@@ -620,6 +620,7 @@ public function getDgsUllTableToolUllLocationList()
     
     return $s;
   }
+
   public function getDgsUllTableToolUllGroupPermissionList()
   {
     $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
@@ -627,6 +628,47 @@ public function getDgsUllTableToolUllLocationList()
         'edit_delete',      
         'ull_group_id',
         'ull_permission_id'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllProjectList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name_translation_en',
+        'description_translation_en',
+      	'is_active',
+      	'is_routine'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllProjectManagerList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'ull_project_id',
+        'ull_user_id'
+      )
+    );
+    
+    return $s;
+  }
+public function getDgsUllTableToolUllTimePeriodList()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name_translation_en',
+        'from_date',
+        'to_date'
       )
     );
     
