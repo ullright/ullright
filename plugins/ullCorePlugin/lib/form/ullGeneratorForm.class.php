@@ -122,11 +122,7 @@ class ullGeneratorForm extends sfFormDoctrine
    */
   public function updateDefaults()
   {
-//    var_dump($this->getObject()->toArray());die;
-    
     $defaults = $this->getDefaults();
-    
-//    var_dump($defaults);die;
     
     foreach($this->getWidgetSchema()->getPositions() as $fieldName)
     {
@@ -150,12 +146,10 @@ class ullGeneratorForm extends sfFormDoctrine
         // Handle translated columns
         if ($this->columnsConfig[$fieldName]->getTranslated())
         {
-//          var_dump($fieldName);
           $relations = ullGeneratorTools::relationStringToArray($fieldName);
           $columnName = array_pop($relations);
           $relations = array_merge($relations, array('Translation', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2), $columnName));
           $column = ullGeneratorTools::relationArrayToString($relations);
-//          var_dump($fieldName);die;
         }
         else
         {
@@ -164,13 +158,8 @@ class ullGeneratorForm extends sfFormDoctrine
         // We use '@' to supress notice when a field is empty.
         // Maybe there is a cleaner solution?        
         $eval = '$value = @$this->getObject()->' . $column . ';';
-//        var_dump($eval);die;
         eval($eval);
-        
-//        var_dump($value);
-//        var_dump($id);
-        
-        
+
         $defaults[$fieldName] = array('value' => $value, 'id' => $id);
       }
       
@@ -180,14 +169,27 @@ class ullGeneratorForm extends sfFormDoctrine
         && $this->columnsConfig[$fieldName]->getInjectIdentifier()
       )
       {
-        // In case of no results we don't have artifical columns
-        //   in the defaults
         if (isset($defaults[$fieldName]))
         {
           $defaults[$fieldName] = array(
             'value' => $defaults[$fieldName], 
             'id' => $this->getObject()->id
           );
+        }
+      }
+      
+      //let's see if we can provide some default values
+      //for artificial columns
+      //e.g. the ullRateable behavior provides some calculated columns 
+      if ($this->columnsConfig[$fieldName]->getIsArtificial())
+      {
+        try
+        {
+          $defaults[$fieldName] = $this->getObject()->get($fieldName);
+        }
+        catch (Doctrine_Record_UnknownPropertyException $e)
+        {
+          //ignore, the field will have to do without a default value
         }
       }
     }
