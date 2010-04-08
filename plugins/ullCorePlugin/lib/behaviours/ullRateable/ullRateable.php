@@ -21,6 +21,11 @@ class ullRateable extends Doctrine_Template
     return $this->_plugin->getAvgRating($this->getInvoker());
   }
 
+  public function getRoundedAvgRating($precision = 1)
+  {
+    return round($this->getAvgRating(), $precision);
+  }
+  
   public function getUserRating()
   {
     if ($userId = sfContext::getInstance()->getUser()->getAttribute('user_id'))
@@ -33,15 +38,21 @@ class ullRateable extends Doctrine_Template
     }
   }
   
-  public function setUserRating($rating = 3)
+  public function setUserRating($rating)
   {
-    $rating = intval($rating);
-    if ($rating < 1 || $rating > $this->_plugin->getOption('max_rating'))
+    //if rating is null, we remove the rating
+    //if not, we try to parse a valid integer
+    
+    if ($rating != null)
     {
-      throw new InvalidArgumentException(
-        'Rating must be an integer between 1 and ' . $this->_plugin->getOption('max_rating'));
+      $rating = intval($rating);
+      if ($rating < 1 || $rating > $this->_plugin->getOption('max_rating'))
+      {
+        throw new InvalidArgumentException(
+          'Rating must be an integer between 1 and ' . $this->_plugin->getOption('max_rating'));
+      }
     }
-
+    
     if ($userId = sfContext::getInstance()->getUser()->getAttribute('user_id'))
     {
       return $this->_plugin->setUserRating($this->getInvoker(), $userId, $rating);

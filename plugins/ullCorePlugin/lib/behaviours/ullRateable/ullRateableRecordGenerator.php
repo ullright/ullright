@@ -61,11 +61,27 @@ class ullRateableRecordGenerator extends Doctrine_Record_Generator
     $className = $this->getOption('className');
     $ratingObject = new $className();
 
-    $ratingObject['rating'] = $rating;
     $ratingObject['voter_ull_user_id'] = $ull_user_id;
     $ratingObject['id'] = $invoker->id;
 
-    $ratingObject->replace();
+    if ($rating)
+    {
+      $ratingObject['rating'] = $rating;
+      $ratingObject->replace();
+    }
+    else
+    {
+      //why doesn't this work?
+      //$ratingObject->delete();
+      
+      $q = Doctrine_Query::create()
+        ->delete($this->getOption('className') . ' as ratings')
+        ->where('ratings.id = ?', $invoker->id)
+        ->andWhere('ratings.voter_ull_user_id = ?', $ull_user_id)
+      ;
+      
+      $q->execute();
+    }
 
     return true;
   }
