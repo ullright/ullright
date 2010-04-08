@@ -181,7 +181,8 @@ class ullGeneratorForm extends sfFormDoctrine
       //let's see if we can provide some default values
       //for artificial columns
       //e.g. the ullRateable behavior provides some calculated columns 
-      if ($this->columnsConfig[$fieldName]->getIsArtificial())
+      if (isset($this->columnsConfig[$fieldName]) &&
+                $this->columnsConfig[$fieldName]->getIsArtificial())
       {
         try
         {
