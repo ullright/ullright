@@ -126,14 +126,9 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       }
     }
 
-    return parent::updateObject();
+    $object =  parent::updateObject();
     
-//    $this->object->fromArray($values);
-//    
-//    var_dump($values);
-//    var_dump($this->object->toArray(false));die;
-//    
-//    return $this->object;
+    return $object;
   }
 
 }

@@ -685,6 +685,21 @@ ul.tag-cloud li {
 	border-bottom: 4px solid #5ed23a;
 }
 
+/*
+ * ************************************************
+ *  simple upload widget
+ * ************************************************
+ */
+
+.ull_widget_simple_upload_write_image {
+	margin-bottom: 1em;
+}
+
+.ull_widget_simple_upload_write_image img {
+	max-width: 250px;
+	max-height: 250px;
+}
+
 
 /*
  * ************************************************

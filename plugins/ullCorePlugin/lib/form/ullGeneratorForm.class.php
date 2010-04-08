@@ -214,7 +214,7 @@ class ullGeneratorForm extends sfFormDoctrine
     }
     
     $this->removeUnusedFields(); 
-  	
+    
   	$widgets = $this->getWidgetSchema()->getFields();
     foreach ($widgets as $fieldName => $widget)
     {
@@ -308,6 +308,8 @@ class ullGeneratorForm extends sfFormDoctrine
    */
   protected function removeUnusedFields()
   {
+    $postFields = array_merge($this->getTaintedValues(), $this->taintedFiles);
+    
     foreach ($this->getValues() as $key => $value)
     {
       if ($key == 'Translation')
@@ -315,7 +317,7 @@ class ullGeneratorForm extends sfFormDoctrine
         continue;
       }
       
-      if (!array_key_exists($key, $this->getTaintedValues()))
+      if (!array_key_exists($key, $postFields))
       {
         unset($this->values[$key]);
       }

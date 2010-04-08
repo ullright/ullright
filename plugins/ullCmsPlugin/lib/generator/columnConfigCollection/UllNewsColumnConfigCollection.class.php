@@ -8,7 +8,8 @@ class UllNewsColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this['image_upload']->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
+    $this['image_upload']
+      ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
       ->setValidatorOption('required', false);
     
     if ($this->isListAction())

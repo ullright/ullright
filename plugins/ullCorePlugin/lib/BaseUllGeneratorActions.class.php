@@ -139,7 +139,14 @@ abstract class BaseUllGeneratorActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
-      if ($this->generator->getForm()->bindAndSave(array_merge($request->getParameter('fields'), array('id' => $row->id)), $this->getRequest()->getFiles('fields')))
+//      var_dump($request->getParameterHolder()->getAll());
+//      var_dump($this->getRequest()->getFiles());
+//      die;
+      
+      if ($this->generator->getForm()->bindAndSave(
+        array_merge($request->getParameter('fields'), array('id' => $row->id)), 
+        $this->getRequest()->getFiles('fields')
+      ))
       {
         // save only
         if ($request->getParameter('action_slug') == 'save_only') 

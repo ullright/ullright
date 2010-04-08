@@ -226,7 +226,8 @@ class ullCoreTools
    */
   public static function deleteFileIfNotFromType($path, $file, $typesToKeep = array())
   {
-    try {
+    try 
+    {
       $image = new Imagick($path . DIRECTORY_SEPARATOR . $file);
 
       if (!in_array($image->getImageFormat(), $typesToKeep))
@@ -243,6 +244,43 @@ class ullCoreTools
     return false;
   }
   
+  /**
+   * Checks if a file is an image
+   * 
+   * @param string $path					
+   * @param optional string $file	filename. If empty $path is expected to be a full path including the filename
+   * @param optional array $validTypes			Default = web images
+   * @return boolean
+   */
+  
+  public static function isValidImage($path, $file = null, $validTypes = null)
+  {
+    if ($file) 
+    {
+      $path = $path . DIRECTORY_SEPARATOR . $file;
+    }
+    
+    if ($validTypes === null)
+    {
+      $validTypes = array('JPEG', 'PNG', 'GIF');
+    }
+    
+    try 
+    {
+      $image = new Imagick($path);
+      
+      if (!in_array($image->getImageFormat(), $validTypes))
+      {
+        throw new UnexpectedValueException();
+      }
+    }
+    catch (Exception $e)
+    {      
+      return false;
+    }
+    
+    return true;
+  }
   
   /**
    * Check whether a directory is empty

@@ -6,58 +6,26 @@
  */
 class ullMetaWidgetSimpleUpload extends ullMetaWidget
 {
-  protected
-    $dispatcher
-  ;
+  protected $path;
 
-  /**
-   * Connect to form.update_object event
-   * 
-   * @param $columnConfig
-   * @param sfForm $form
-   * @return none
-   */
-  public function __construct($columnConfig, sfForm $form)
-  {
-    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
-
-    $this->dispatcher->connect('form.update_object', array('ullMetaWidgetSimpleUpload', 'listenToUpdateObjectEvent'));
-
-    parent::__construct($columnConfig, $form);
-  }
-  
   protected function configure()
   {
-    $upload_path = $this->columnConfig->getOption('upload_path');
-    $filetypes = $this->columnConfig->getOption('filetypes');
     $this->columnConfig->removeValidatorOption('max_length');
 
-    if (!$upload_path)
+    if (!$this->columnConfig->getValidatorOption('path'))
     {
-      $upload_path = 'tableTool/ullNews';
-      // TODO: make upload_path dynamic
+      $uploadPath = sfConfig::get('sf_upload_dir') . '/tableTool/' . get_class($this->getForm()->getObject());
+      $this->columnConfig->setValidatorOption('path', $uploadPath);
     }
-    $this->columnConfig->setValidatorOption('path', $upload_path);
+    $this->path = $this->columnConfig->getValidatorOption('path');
     
-    if ($filetypes)
+    if (!$this->columnConfig->getValidatorOption('mime_types'))
     {
-      $this->columnConfig->setValidatorOption('filetypes', $filetypes);
+      $this->columnConfig->setValidatorOption('mime_types', 'web_images');
     }
   }
 
   
-  /**
-   * Handle unchanged and empty (=removal) of password
-   * 
-   * @param sfEvent $event
-   * @param array $values
-   * @return array
-   */
-  public static function listenToUpdateObjectEvent(sfEvent $event, $values)
-  {
-    //$values['image_upload']->save('web/images/tableTool/ullNews/slug.jpg');
-  }
-
   /**
    * (non-PHPdoc)
    * @see plugins/ullCorePlugin/lib/form/widget/ullMetaWidget#configureReadMode()
@@ -74,7 +42,10 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
    */
   protected function configureWriteMode()
   {
-   $this->addWidget(new ullWidgetSimpleUpload($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+   $this->addWidget(new ullWidgetSimpleUploadWrite(
+     array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
+     $this->columnConfig->getWidgetAttributes()
+   ));
    $this->addValidator(new sfValidatorFile($this->columnConfig->getValidatorOptions()));
    
   }

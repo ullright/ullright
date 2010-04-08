@@ -41,11 +41,30 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
     $this->setTableToolTemplate('list');
   }
   
-public function executeEdit(sfRequest $request) 
+  public function executeEdit(sfRequest $request) 
   {
     parent::executeEdit($request);
 
     $this->setTableToolTemplate('edit');
+  }
+  
+  public function executeShow(sfRequest $request) 
+  {
+  if (!$this->hasRequestParameter('slug') and !$this->hasRequestParameter('id'))
+    {
+      throw new InvalidArgumentException('At least one of the "slug" or "id" parameters have to be given');
+    }
+
+    if ($docId = $this->getRequestParameter('slug'))
+    {
+      $this->doc = Doctrine::getTable('UllNews')->findOneBySlug($docId);
+      $this->forward404Unless($this->doc);
+    }
+    elseif ($docId = $this->getRequestParameter('id'))
+    {
+      $this->doc = Doctrine::getTable('UllNews')->findOneById($docId);
+      $this->forward404Unless($this->doc);
+    }
   }
 
   public function executeNewsList(sfRequest $request)
