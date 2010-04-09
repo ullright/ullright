@@ -28,7 +28,7 @@ UllCmsItem:
       type: string(255)
       notnull: true
     sequence:
-      integer
+      type: integer
       
     # Child columns are defined here, because mixing parent and child translations
     # (i18n behavior) does not work
