@@ -2,6 +2,19 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$b = new ullTableToolTestBrowser(
+	'UllFlowColumnConfig', 
+	'Columns', 
+	'Manage Columns', 
+  12, 
+  'getDgsUllTableToolUllFlowColumnConfig', 
+  $configuration,
+  'label'
+);
+$path = dirname(__FILE__);
+$b->setFixturesPath($path);
+$b->resetDatabase();
+
 $createValues = array(
 	'label_translation_en' => 'Test', 
 	'ull_flow_app_id' => array('2', 'Todo list'),
@@ -30,20 +43,8 @@ $editValues = array(
   'default_value' => 'foo'
 );
 
-$b = new ullTableToolTestBrowser(
-	'UllFlowColumnConfig', 
-	'Columns', 
-	'Manage Columns', 
-  $createValues, 
-  $editValues, 
-  12, 
-  'getDgsUllTableToolUllFlowColumnConfig', 
-  $configuration,
-  'label'
-);
-$path = dirname(__FILE__);
-$b->setFixturesPath($path);
-$b->resetDatabase();
+$b->setCreateValues($createValues);
+$b->setEditValues($editValues);
 $b->executeTest();
 
 

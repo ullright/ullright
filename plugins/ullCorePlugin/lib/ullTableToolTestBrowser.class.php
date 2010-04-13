@@ -23,21 +23,18 @@ class ullTableToolTestBrowser extends ullTestBrowser
    * @param $table table name, e.g. UllLocation
    * @param $label
    * @param $link name of the link on the admin page
-   * @param $createValues array of values for the create process
-   * @param $editValues array of values for the edit process
+
    * @param $rowCount count of initial rows
    * @param $dgsList DomGridSelector function name for the list view
    * @param $configuration configuration-param from the bootstrap file
    * @param $order to order the table by a specific column
    * @param $asc if true, order from A to Z; false otherwise
    */
-  public function __construct($table, $label, $link, $createValues, $editValues, $rowCount, $dgsList, $configuration, $order = null, $asc = true)
+  public function __construct($table, $label, $link, $rowCount, $dgsList, $configuration, $order = null, $asc = true)
   {
     $this->table = $table;
     $this->label = $label;
     $this->link = $link;
-    $this->createValues = $createValues;
-    $this->editValues = $editValues;
     $this->rowCount = $rowCount;
     $this->dgsList = call_user_func(array($this, $dgsList));
     if ($order)
@@ -46,6 +43,26 @@ class ullTableToolTestBrowser extends ullTestBrowser
     }
 
     parent::__construct(null, null, array('configuration' => $configuration));
+  }
+  
+  /**
+   * sets the values for the first test part
+   * 
+   * @param array $createValues
+   */
+  public function setCreateValues($createValues)
+  {
+    $this->createValues = $createValues;
+  }
+  
+/**
+   * sets the values for the second part of the test
+   * 
+   * @param array $editValues
+   */
+  public function setEditValues($editValues)
+  {
+    $this->editValues = $editValues;
   }
   
   /**

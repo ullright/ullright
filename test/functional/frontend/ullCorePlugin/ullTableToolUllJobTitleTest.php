@@ -2,15 +2,10 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
-$createValues = array('name' => 'Foo');
-$editValues = array('name' => 'Bar');
-
 $b = new ullTableToolTestBrowser(
 	'UllJobTitle', 
 	'Job titles', 
 	'Manage Job titles', 
-  $createValues, 
-  $editValues, 
   2, 
   'getDgsUllTableToolUllJobTitleList', 
   $configuration
@@ -18,6 +13,12 @@ $b = new ullTableToolTestBrowser(
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
+
+$createValues = array('name' => 'Foo');
+$editValues = array('name' => 'Bar');
+
+$b->setCreateValues($createValues);
+$b->setEditValues($editValues);
 $b->executeTest();
 
 
