@@ -36,6 +36,8 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
    */
   public function executeList(sfRequest $request) 
   {
+    $this->checkPermission('ull_news_list');
+    
     parent::executeList($request);
 
     $this->setTableToolTemplate('list');
@@ -43,12 +45,14 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   
   public function executeEdit(sfRequest $request) 
   {
+    $this->checkPermission('ull_news_edit');
+    
     parent::executeEdit($request);
 
     $this->setTableToolTemplate('edit');
   }
   
-  public function executeShow(sfRequest $request) 
+ /* public function executeShow(sfRequest $request) 
   {
   if (!$this->hasRequestParameter('slug') and !$this->hasRequestParameter('id'))
     {
@@ -65,15 +69,19 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
       $this->doc = Doctrine::getTable('UllNews')->findOneById($docId);
       $this->forward404Unless($this->doc);
     }
-  }
+  }*/
 
   public function executeNewsList(sfRequest $request)
   {
+    $this->checkPermission('ull_news_newsList');
+    
     $this->newsEntries = Doctrine::getTable('UllNews')->findActiveNews();
   }
   
   public function executeNewsListFeed(sfRequest $request)
   {
+    $this->checkPermission('ull_news_newsList');
+    
     $this->getResponse()->setContentType('text/xml');
     $this->setLayout(false);
     $this->newsEntries = Doctrine::getTable('UllNews')->findLatestActiveNews();

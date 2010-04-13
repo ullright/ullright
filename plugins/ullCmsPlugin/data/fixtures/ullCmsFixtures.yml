@@ -137,3 +137,35 @@ UllNews:
     link_url:              http://orf.at
     activation_date:       '2010-03-14'
     deactivation_date:     '2010-04-20'  
+   
+    
+UllPermission:
+  ull_permission_news_list:
+    slug:               ull_news_list
+    namespace:          ull_news    
+  ull_permission_news_edit:
+    slug:               ull_news_edit
+    namespace:          ull_news    
+  ull_permission_news_newsList:
+    slug:               ull_news_newsList
+    namespace:          ull_news      
+         
+    
+UllGroup:
+  ull_group_cms_admins:
+    display_name:       cmsAdmins
+    namespace:          ull_cms        
+      
+UllGroupPermission:
+  ull_group_permission_ull_news_1:
+    UllGroup:           ull_group_cms_admins
+    UllPermission:      ull_permission_news_list
+    namespace:          ull_news    
+  ull_group_permission_ull_news_2:
+    UllGroup:           ull_group_cms_admins
+    UllPermission:      ull_permission_news_edit
+    namespace:          ull_news    
+  ull_group_permission_ull_news_3:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_news_newsList
+    namespace:          ull_news    
