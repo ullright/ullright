@@ -9,7 +9,8 @@
 <?php include_metas() ?>
 <?php include_title() ?>
 
-<link rel="shortcut icon" href="<?php echo '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 'Plugin' ?>/images/favicon.ico" type="image/vnd.microsoft.icon" />
+<?php $favicon_uri = sfConfig::get('app_override_favicon', '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 'Plugin/images/favicon.ico') ?>
+<link rel="shortcut icon" href="<?php echo $favicon_uri ?>" type="image/vnd.microsoft.icon" />
 
 <?php
   $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
