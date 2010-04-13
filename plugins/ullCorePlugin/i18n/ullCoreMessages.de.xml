@@ -360,6 +360,11 @@ Gültige Dateitypen sind jpg und png.</target>
       <trans-unit id="606">
         <source>Show user in orgchart</source>
         <target>Im Organigramm anzeigen</target>
+      </trans-unit>
+      
+      <trans-unit id="607">
+        <source>Show in orgchart</source>
+        <target>Im Organigramm anzeigen</target>
       </trans-unit>  
       
        <!--  Pager -->

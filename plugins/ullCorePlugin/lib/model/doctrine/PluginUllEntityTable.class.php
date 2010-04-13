@@ -117,7 +117,7 @@ class PluginUllEntityTable extends UllRecordTable
   {
     $node = new ullTreeNodeOrgchart(($hydrate) ? $entity : $entity->id);
 
-    if (($subordinates = $entity->getSubordinates()) && ($level < $depth))
+    if (($subordinates = $entity->getSubordinates(true, true)) && ($level < $depth))
     {
       $level++;
 

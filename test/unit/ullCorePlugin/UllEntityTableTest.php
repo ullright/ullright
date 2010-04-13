@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(9, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(10, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -159,7 +159,7 @@ $t->diag('getSubordinateTree()');
     'Returns the correct tree for depth = 2'
   );   
   $t->is(
-    UllEntityTable::getSubordinateTree($admin, 1, false)->toArray(),
+    UllEntityTable::getSubordinateTree($admin,1, false)->toArray(),
     array(
       'data'      => $admin->id,
       'meta'      => array(
@@ -168,4 +168,19 @@ $t->diag('getSubordinateTree()');
       'subnodes'  => array(),
     ),
     'Returns the correct tree for depth = 1'
+  );   
+  
+  
+  $poorGuy->is_show_in_orgchart = false;
+  $poorGuy->save();
+  $t->is(
+    UllEntityTable::getSubordinateTree($testUser, 9999, false)->toArray(),
+    array(
+      'data'      => $testUser->id,
+      'meta'      => array(
+        'level'     => 1,
+      ),
+      'subnodes'  => array(),
+    ),
+    'Returns the correct tree for test_user with a subordinate which should not be shown in the orgchart'
   );   

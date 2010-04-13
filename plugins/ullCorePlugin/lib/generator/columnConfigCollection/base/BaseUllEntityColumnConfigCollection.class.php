@@ -70,6 +70,10 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'be listed in the phone book.', null, 'ullCoreMessages'))
     ;
     
+    $this['is_show_in_orgchart']
+      ->setLabel(__('Show in orgchart', null, 'ullCoreMessages'))
+    ;    
+    
     $this['phone_extension']->setLabel(__('Phone extension', null, 'ullCoreMessages'));
     $this['alternative_phone_extension']->setLabel(__('Alternative phone extension', null, 'ullCoreMessages'));
     $this['is_show_extension_in_phonebook']
@@ -131,6 +135,7 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'cost_center',
         'ull_job_title_id',
         'superior_ull_user_id',
+        'is_show_in_orgchart',
       ),
       'phone_book' => array(
         'is_show_in_phonebook',

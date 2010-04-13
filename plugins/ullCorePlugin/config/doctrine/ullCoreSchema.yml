@@ -61,6 +61,9 @@ UllUser:
     is_show_in_phonebook:
       type: boolean
       default: true
+    is_show_in_orgchart:
+      type: boolean
+      default: true      
     phone_extension:
       type: integer(20)
     alternative_phone_extension:

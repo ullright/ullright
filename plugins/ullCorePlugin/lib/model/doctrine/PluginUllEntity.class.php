@@ -97,10 +97,13 @@ abstract class PluginUllEntity extends BaseUllEntity
     /**
      * Get the subordinates for the current entity
      *
+     * @param boolean $onlyActive             Get only active users (default = true)
+     * @param boolean $onlyForOrgchart        Get only users having an enabled
+     *                                          is_show_in_orgchart flag (default = false)
      * @param boolean $hydration
      * @return mixed
      */
-    public function getSubordinates($onlyActive = true, $hydrationMode = null)
+    public function getSubordinates($onlyActive = true, $onlyForOrgchart = false, $hydrationMode = null)
     {
       $q = new ullQuery('UllUser');
       $q
@@ -112,7 +115,12 @@ abstract class PluginUllEntity extends BaseUllEntity
       {
         $q->addWhere('UllUserStatus->is_active = ?', true);
       }
-
+      
+      if ($onlyForOrgchart)
+      {
+        $q->addWhere('is_show_in_orgchart = ?', true);
+      }
+      
       $result = $q->execute(null, $hydrationMode);
 
       return $result;
@@ -128,6 +136,6 @@ abstract class PluginUllEntity extends BaseUllEntity
      */
     public function isSuperior($onlyActive = true, $hydrationMode = null)
     {
-      return (boolean) $this->getSubordinates($onlyActive, Doctrine::HYDRATE_NONE);
+      return (boolean) $this->getSubordinates($onlyActive, false, Doctrine::HYDRATE_NONE);
     }
   }
