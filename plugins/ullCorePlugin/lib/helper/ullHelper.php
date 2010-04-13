@@ -1133,6 +1133,7 @@ function printQuery($query) {
     $out = str_ireplace(" from ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:blue; font-weight:bold;'>from</span> ", $out);
     $out = str_ireplace(" where ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:green; font-weight:bold;'>where</span> ", $out);
     $out = str_ireplace(" order ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:purple; font-weight:bold;'>order</span> ", $out);
+    $out = str_ireplace(" group by ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:orange; font-weight:bold;'>group by</span> ", $out);
     $out = str_ireplace(",", ",<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ", $out);
     //$out = str_ireplace(" and ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; and ", $out);
     //$out = str_ireplace(" or ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; or ", $out);
