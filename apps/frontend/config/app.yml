@@ -18,9 +18,10 @@ all:
   theme_package:    NG
   sidebar_logo:     /ullCoreThemeNGPlugin/images/logo_120
   override_css:     custom_override.css
+
+  # Enable to specify a custom favicon. Per default the theme's favicon is used.
   #override_favicon: /images/favicon.ico
-  #override_layout:  layout_my_company
-  
+
   #Enable to use a custom layout located in apps/frontend/templates/my_layout.php
   #override_layout: my_layout
   
