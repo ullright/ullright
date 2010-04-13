@@ -28,9 +28,12 @@
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 <?php use_javascript('/ullCorePlugin/js/sidebar.js') ?>
 <?php use_javascript('/ullCorePlugin/js/colorpicker.js') ?>
+<?php use_javascript('/ullCorePlugin/js/star-rating/jquery.rating.pack.js') ?>
+<?php use_javascript('/ullCorePlugin/js/star-rating/jquery.MetaData.js') ?>
 
 <?php use_stylesheet('/ullCorePlugin/css/jqui/ui.all.css', 'last', array('media' => 'all')) ?>
 <?php use_stylesheet('/ullCorePlugin/css/colorpicker.css', 'last', array('media' => 'all')) ?>
+<?php use_stylesheet('/ullCorePlugin/css/star-rating/star-rating.css', 'last', array('media' => 'all')) ?>
 
 <?php if ($overrideCss = sfConfig::get('app_override_css')): ?>
   <?php sfContext::getInstance()->getResponse()->addStylesheet($overrideCss, 'last', array('media' => 'all')) ?>
