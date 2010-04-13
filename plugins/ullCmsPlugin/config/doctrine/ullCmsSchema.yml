@@ -94,7 +94,9 @@ UllNews:
       type: string(255)
     image_upload:
       type: string(255)
+      notnull: true
     activation_date:
       type: date
+      notnull: true
     deactivation_date:
       type: date

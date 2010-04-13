@@ -76,7 +76,7 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   {
     $this->getResponse()->setContentType('text/xml');
     $this->setLayout(false);
-    $this->newsEntries = Doctrine::getTable('UllNews')->findActiveNews();
+    $this->newsEntries = Doctrine::getTable('UllNews')->findLatestActiveNews();
   }
   
   /**

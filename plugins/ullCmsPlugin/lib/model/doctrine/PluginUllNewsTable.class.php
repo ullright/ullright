@@ -9,15 +9,7 @@ class PluginUllNewsTable extends UllRecordTable
    */
   public static function findActiveNews()
   {
-    $date = date('Y-m-d');
-    $q = new Doctrine_Query;
-    $q
-      ->from('UllNews news')
-      ->where('news.activation_date <= ?', $date)
-      ->addWhere('news.deactivation_date > ?', $date)
-      ->orderBy('news.activation_date desc')
-    ;
-
+    $q = PluginUllNewsTable::activeNewsSql();
     $result = $q->execute();
     
     return $result;
@@ -25,16 +17,7 @@ class PluginUllNewsTable extends UllRecordTable
   
   public static function findLatestNews()
   {
-    $date = date('Y-m-d');
-    $q = new Doctrine_Query;
-    $q
-      ->from('UllNews news')
-      ->where('news.activation_date <= ?', $date)
-      ->addWhere('news.deactivation_date > ?', $date)
-      ->orderBy('news.activation_date desc')
-      ->limit(1)
-    ;
-
+    $q = PluginUllNewsTable::activeNewsSql();
     $result = $q->fetchOne();
     
     return $result;
@@ -42,18 +25,23 @@ class PluginUllNewsTable extends UllRecordTable
   
   public static function findLatestActiveNews()
   {
+    $q = PluginUllNewsTable::activeNewsSql();
+    $q->limit(10);
+    $result = $q->execute();
+    
+    return $result;
+  }
+  
+  private static function activeNewsSql(){
     $date = date('Y-m-d');
     $q = new Doctrine_Query;
     $q
       ->from('UllNews news')
       ->where('news.activation_date <= ?', $date)
-      ->addWhere('news.deactivation_date > ?', $date)
+      ->addWhere('(news.deactivation_date > ? OR news.deactivation_date is NULL)', $date)
       ->orderBy('news.activation_date desc')
-      ->limit(10)
     ;
-
-    $result = $q->fetchOne();
     
-    return $result;
+    return $q;
   }
 }

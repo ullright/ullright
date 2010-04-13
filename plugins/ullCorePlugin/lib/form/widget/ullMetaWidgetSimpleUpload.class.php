@@ -8,6 +8,7 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
 {
   protected $path;
 
+  
   protected function configure()
   {
     $this->columnConfig->removeValidatorOption('max_length');
