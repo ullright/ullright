@@ -25,6 +25,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     $this->list_base_uri    = $this->getModuleName() . '/list' . $tableParam;
     $this->create_base_uri  = $this->getModuleName() . '/create' . $tableParam;
     $this->edit_base_uri    = $this->getModuleName() . '/edit' . $tableParam;
+    $this->show_base_uri    = $this->getModuleName() . '/show' . $tableParam;
     $this->delete_base_uri  = $this->getModuleName() . '/delete' . $tableParam;
     $this->delete_future_version_base_uri = $this->getModuleName() . '/deleteFutureVersion' . $tableParam;
     

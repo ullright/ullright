@@ -23,6 +23,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->list_base_uri    = $this->getModuleName() . '/list';
     $this->create_base_uri  = $this->getModuleName() . '/create';
     $this->edit_base_uri    = $this->getModuleName() . '/edit';
+    $this->show_base_uri    = $this->getModuleName() . '/show';
     $this->delete_base_uri  = $this->getModuleName() . '/delete';
     $this->delete_future_version_base_uri = $this->getModuleName() . '/deleteFutureVersion';
     
@@ -326,8 +327,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyQueryForFilter();
     
-//    printQuery($this->q->getSqlQuery());
-//    var_dump($this->q->getParams());
+    //printQuery($this->q->getSqlQuery());
+    //var_dump($this->q->getParams());
 
     $this->paging = $this->getRequestParameter('paging', 'true');
     
