@@ -17,10 +17,18 @@ class ullWidgetSimpleUploadWrite extends ullWidgetFormInput
     
     $return = '';
     
-    if (ullCoreTools::isValidImage($this->getOption('path'), $value) && $value !== null)
+    if ($value !== null)
     {
       $path = str_replace(sfConfig::get('sf_web_dir'), '', $this->getOption('path'));
-      $return .= '<div class="ull_widget_simple_upload_write_image"><img src="' . $path . '/' . $value . '" /></div>';
+      
+      if (ullCoreTools::isValidImage($this->getOption('path'), $value))
+      {
+        $return .= '<div class="ull_widget_simple_upload_write_image"><img src="' . $path . '/' . $value . '" /></div>';
+      }
+      else
+      {
+        $return .= '<p>'. ull_link_to($value, $path . '/' . $value) .'</p>';
+      }
     }
     $return .= $widget->render($name, $value, $attributes, $errors);
    
