@@ -1,7 +1,7 @@
 <?php
 class ullWidgetRatingRead extends ullWidget
 {
- public function __construct($options = array(), $attributes = array())
+  public function __construct($options = array(), $attributes = array())
   {
     //push this option into superclass?
     $this->addOption('add_random_identifier', true);
@@ -20,7 +20,8 @@ class ullWidgetRatingRead extends ullWidget
     $checkedStar = $roundedAvg / 0.5;
     
     $name = ($name) ? $name : 'avg_rating';
-    $this->setAttribute('name', $this->getOption('add_random_identifier') ? $name . '_' . uniqid() : $name);
+    $name = $this->getOption('add_random_identifier') ? $name . '_' . uniqid() : $name;
+    $this->setAttribute('name', $name);
 
     $attributeArray = array(
       'class' => 'star {split:2}',
@@ -39,6 +40,20 @@ class ullWidgetRatingRead extends ullWidget
         $html .= $this->renderTag('input', $attributeArray);
       }
     }
+    
+    //this addition waits for the document to load
+    //and sets the currently rendering rating stars
+    //to read only - why we even need this, is a mystery :)
+    //but without this, we experience some browser
+    //reloading-strangeness
+    
+    $html .= <<<EOF
+    <script type="text/javascript">
+      $(function(){
+        $("input[name='$name']").rating('readOnly', true);
+      });
+    </script>
+EOF;
 
     return $html;
   }

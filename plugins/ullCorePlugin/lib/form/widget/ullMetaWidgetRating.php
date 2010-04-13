@@ -4,7 +4,8 @@ class ullMetaWidgetRating extends ullMetaWidget
 {
   protected function configureWriteMode()
   {
-    $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addWidget(new ullWidgetRatingWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    //needs a validator
     $this->addValidator(new sfValidatorPass($this->columnConfig->getValidatorOptions()));
   }
   
