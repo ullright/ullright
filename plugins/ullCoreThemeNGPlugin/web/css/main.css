@@ -907,6 +907,16 @@ table span.ull_widget_time {
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
 }
+
+/*
+ * ************************************************
+ *  IE PNG Fix (http://www.twinhelix.com/css/iepngfix/demo/)
+ * ************************************************
+ */
+ 
+img, div, a, input { 
+  behavior: url(/ullCorePlugin/css/ie_png_fix/iepngfix.htc); 
+}
  
 /*
  * ************************************************
