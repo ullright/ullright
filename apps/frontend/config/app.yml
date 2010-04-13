@@ -85,6 +85,12 @@ all:
     # How long can the user change his entered data in days?
     # Example: 30 days means he can change data up to 30 days back from now
     locking_timespan_days: 30
+    
+  ull_news:
+    rss_title:              'Example RSS-Feed'
+    rss_author:             'Author'
+    rss_logo:               'http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png'
+    rss_number_of_entries:  10
  
   publish:
     # Set the following options if you want to use the ullright:publish task

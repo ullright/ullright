@@ -9,7 +9,7 @@ class PluginUllNewsTable extends UllRecordTable
    */
   public static function findActiveNews()
   {
-    $q = PluginUllNewsTable::activeNewsSql();
+    $q = PluginUllNewsTable::queryActiveNews();
     $result = $q->execute();
     
     return $result;
@@ -17,7 +17,7 @@ class PluginUllNewsTable extends UllRecordTable
   
   public static function findLatestNews()
   {
-    $q = PluginUllNewsTable::activeNewsSql();
+    $q = PluginUllNewsTable::queryActiveNews();
     $result = $q->fetchOne();
     
     return $result;
@@ -25,14 +25,14 @@ class PluginUllNewsTable extends UllRecordTable
   
   public static function findLatestActiveNews()
   {
-    $q = PluginUllNewsTable::activeNewsSql();
-    $q->limit(10);
+    $q = PluginUllNewsTable::queryActiveNews();
+    $q->limit(sfConfig::get('app_ull_news_rss_number_of_entries'));
     $result = $q->execute();
     
     return $result;
   }
   
-  private static function activeNewsSql(){
+  protected static function queryActiveNews(){
     $date = date('Y-m-d');
     $q = new Doctrine_Query;
     $q
