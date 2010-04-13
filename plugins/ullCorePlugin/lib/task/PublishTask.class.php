@@ -45,6 +45,8 @@ EOF;
     
     $this->syncFiles($arguments, $options);
     
+    $this->executeRemoteSymfonyTask('cache:clear', true);
+    
     $this->executeRemoteSymfonyTask('doctrine:build --model --forms --filters', true);
     
     $this->executeRemoteSymfonyTask('cache:clear', true);
