@@ -163,21 +163,6 @@ class ullGeneratorForm extends sfFormDoctrine
         $defaults[$fieldName] = array('value' => $value, 'id' => $id);
       }
       
-      // inject identifier
-      if (
-        isset($this->columnsConfig[$fieldName]) 
-        && $this->columnsConfig[$fieldName]->getInjectIdentifier()
-      )
-      {
-        if (isset($defaults[$fieldName]))
-        {
-          $defaults[$fieldName] = array(
-            'value' => $defaults[$fieldName], 
-            'id' => $this->getObject()->id
-          );
-        }
-      }
-      
       //let's see if we can provide some default values
       //for artificial columns
       //e.g. the ullRateable behavior provides some calculated columns 
@@ -191,6 +176,21 @@ class ullGeneratorForm extends sfFormDoctrine
         catch (Doctrine_Record_UnknownPropertyException $e)
         {
           //ignore, the field will have to do without a default value
+        }
+      }
+      
+      // inject identifier
+      if (
+        isset($this->columnsConfig[$fieldName]) 
+        && $this->columnsConfig[$fieldName]->getInjectIdentifier()
+      )
+      {
+        if (array_key_exists($fieldName, $defaults))
+        {
+          $defaults[$fieldName] = array(
+            'value' => $defaults[$fieldName], 
+            'id' => $this->getObject()->id
+          );
         }
       }
     }
