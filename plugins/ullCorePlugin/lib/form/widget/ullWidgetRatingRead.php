@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * This widget renders a static star-select ratings bar.
+ * 
+ * The 'add_random_identifier' option specifies whether
+ * a randomly generated string should be added to the
+ * name attribute (necessary when displaying multiple
+ * bars on the same page)
+ */
 class ullWidgetRatingRead extends ullWidget
 {
   public function __construct($options = array(), $attributes = array())
