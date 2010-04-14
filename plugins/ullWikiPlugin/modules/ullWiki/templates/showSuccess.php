@@ -9,6 +9,7 @@
 
 
 <?php echo $breadcrumb_tree ?>
+
 <?php $user_widget = $sf_data->getRaw('user_widget') ?>
 
 <?php if ($has_no_write_access): ?>

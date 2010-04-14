@@ -54,6 +54,7 @@ body {
 }
 
 
+
 /*
  * ************************************************
  *  sidebar
@@ -497,6 +498,11 @@ ul.list_action_buttons li {
   padding: .5em .7em .8em .7em;  
 }
 
+.edit_action_buttons h3 {
+  margin-top: 0;
+  font-size: 1.3em;
+}
+
 .edit_action_buttons ul {
   margin: 0;
   padding: 0;
@@ -771,6 +777,11 @@ div#indicator {
 
 .bold {
 	font-weight:bold;
+}
+
+/* Do not display a top margin for a first element, eg. first headline */
+.first {
+  margin-top: 0;  
 }
 
 /*

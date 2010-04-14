@@ -27,6 +27,6 @@
     <h1><?php echo $doc->getSubject() ?></h1>
   </div>
 
-  <div class='clear_right'></div> <!-- to force the parent-box to enclose the floating divs -->
+  <!-- <div class='clear_right'></div>  --><!-- to force the parent-box to enclose the floating divs -->
 
 </div> <!-- end of ull_wiki_header-->
