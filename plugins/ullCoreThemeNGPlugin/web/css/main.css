@@ -66,6 +66,18 @@ body {
 	width: 12em;
 }
 
+#sidebar_content a {
+  color: gray;
+}
+
+#sidebar_content a:hover {
+  color: gray;
+}
+
+#sidebar_content a:visited {
+  color: gray;
+}
+
 #sidebar_logo {
 	padding-top: .7em;
   padding-bottom: 1.6em;
@@ -115,6 +127,7 @@ ul.sidebar_list li {
 	text-align: left;
 	/* the following workaround: only for ff 2.0 ? */
 	/* border: 1px solid white; /* workaround for firefox (displaying top margin otherwise) */
+	margin-bottom: 1em;
 }
 
 #nav_top a {
@@ -412,7 +425,7 @@ ul.list_action_buttons li {
 .edit_table {
   background: #e9e9e9;
   width: 100%; 
-  *width: 99%;  /* hack for IE 6-7 to prevent dropping below the sidebar */
+  *width: 99%; /* hack for IE 6-7 to prevent dropping below the sidebar */
   border-spacing: 0;
 }
 

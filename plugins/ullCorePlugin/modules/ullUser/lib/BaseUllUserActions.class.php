@@ -386,7 +386,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       
       if ($request->getParameter('option') == 'noaccess')
       {
-        $this->msg = __('Please login to verify access');
+        $this->getUser()->setFlash('message',  __('Please login to verify access'));
         $uri = $this->getUriMemory()->getAndDelete('noaccess', 'ullUser');
         $this->getUriMemory()->setUri('login', 'ullUser', true, $uri); 
       }
@@ -430,7 +430,9 @@ class BaseUllUserActions extends BaseUllGeneratorActions
           {
             if (!($user->UllUserStatus->getIsActive()))
             {
-              $this->msg = __('This user account is marked as inactive, please contact your administrator.');
+              $this->getUser()->setFlash('message', 
+                __('This user account is marked as inactive, please contact your administrator.'));
+                
               return;
             }
             else
@@ -462,7 +464,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         }
       }
 
-      $this->msg = __('Login failed. Please try again:');
+      $this->getUser()->setFlash('message',  __('Login failed. Please try again:'));
     }
   }
 

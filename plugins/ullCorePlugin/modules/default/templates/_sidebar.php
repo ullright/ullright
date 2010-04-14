@@ -42,7 +42,7 @@
     </ul>
   </div>
 
-  <div class="sidebar_section" id="sidebar_create">
+  <div class="sidebar_section" id="sidebar_links">
     <h3><?php echo __('Links', null, 'common') ?></h3>
     <ul class="sidebar_list">
       <li><?php echo ull_link_to(__('My personal tasks', null, 'common'), 'ullFlow/list?query=to_me&order=priority&order_dir=asc', 'ull_js_observer_confirm=true') ?></li>

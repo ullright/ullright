@@ -118,29 +118,18 @@ a:visited {
 	color: #585858;
 }
 
-#sidebar_content a {
-  color: gray;
-}
-
-#sidebar_content a:hover {
-  color: gray;
-}
-
-#sidebar_content a:visited {
-  color: gray;
-}
-
-h1,h2,h3,h4 {
-	margin-top: 0;
-	margin-left: 0;
-	margin-right: 0;
-	margin-bottom: 0.5em;
-	color: #000000;
-}
-
 p {
   margin-bottom: 1em;
-}	
+} 
+
+
+h1, h2, h3, h4 {
+	margin-top: 2em;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 1em;
+	color: black;
+}
 
 h1 {
 	font-size: 1.5em;
@@ -156,6 +145,23 @@ h3 {
 
 h4 {
 	font-size: 1.2em;
+}
+
+
+/* Do not display top margin for the first headline */
+h1:first-child, h2:first-child, h3:first-child, h4:first-child {
+  margin-top: 0;
+}
+
+/* Advanced CSS3 selector for very new browsers (Q2 2010) */
+/* Used to select the first h1 in the following example:
+  <div>
+    <div>foo</div>
+    <h1>bar</h1>
+  </div>
+*/
+h1:first-of-type, h2:first-of-type, h3:first-of-type, h4:first-of-type {
+  margin-top: 0;
 }
 
 small {

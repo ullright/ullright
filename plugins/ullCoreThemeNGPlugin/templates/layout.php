@@ -110,15 +110,7 @@
      
      
     <div id="content">
-      <div id="ajax_indicator" style="display:none;">
-        <?php echo image_tag('/ullCoreThemeNGPlugin/images/indicator.gif') ?>
-      </div>
-    
-      <?php //var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll()) ?>
-      <?php //@var_dump($_SERVER['HTTP_REFERER']) ?>
-      
       <?php echo $sf_data->getRaw('sf_content') ?>
-      <?php //phpinfo() ?>
     </div> <!-- end of content -->
      
      
