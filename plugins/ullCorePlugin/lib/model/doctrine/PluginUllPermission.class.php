@@ -13,7 +13,7 @@ abstract class PluginUllPermission extends BaseUllPermission
    */
   public function __toString()
   {
-    return $this->slug;
+    return (string) $this->slug;
   }  
 
 }
