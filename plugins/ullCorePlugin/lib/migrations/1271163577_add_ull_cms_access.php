@@ -9,7 +9,7 @@ class AddUllCmsAccess extends Doctrine_Migration_Base
   public function postUp()
   {
     $cmsAdmins = new UllGroup();
-    $cmsAdmins->display_name = 'cmsAdmin';
+    $cmsAdmins->display_name = 'CmsAdmins';
     $cmsAdmins->namespace = 'ull_cms';
     $cmsAdmins->save();
     
