@@ -404,12 +404,14 @@ abstract class ullGenerator extends ullGeneratorBase
             $ullMetaWidget->addToFormAs($translationColumnName);
             $label = $columnConfig->getLabel() . ' ' . strtoupper($culture);
             $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
+            $this->markMandatoryColumn($this->forms[$key], $translationColumnName, $columnConfig);
           }
         }
         else
         {
           $ullMetaWidget->addToFormAs($columnName);
           $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig->getLabel(), null, 'common'));
+          $this->markMandatoryColumn($this->forms[$key], $columnName, $columnConfig);
         }
         
         //help
@@ -417,9 +419,6 @@ abstract class ullGenerator extends ullGeneratorBase
         {
           $this->forms[$key]->getWidgetSchema()->setHelp($columnName, $columnConfig->getHelp());
         }
-        
-        $this->markMandatoryColumns($this->forms[$key], $columnName, $columnConfig);
-        
         $this->calculateSum($columnName, $row);
       }
       
@@ -609,7 +608,7 @@ abstract class ullGenerator extends ullGeneratorBase
    * @param $columnConfig
    * @return none
    */
-  protected function markMandatoryColumns(sfForm $form, $columnName, ullColumnConfiguration  $columnConfig)
+  protected function markMandatoryColumn(sfForm $form, $columnName, ullColumnConfiguration  $columnConfig)
   {
     if ($columnConfig->getAccess() == 'w' && $form->offsetExists($columnName))
     {
