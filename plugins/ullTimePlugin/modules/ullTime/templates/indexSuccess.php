@@ -53,7 +53,7 @@
     </div>
     
     <div id="tc_search">
-    
+      &nbsp;
     <!-- 
     <?php //echo ull_form_tag(array('action' => 'list')); ?>
       <div class="tc_box color_medium_bg">
