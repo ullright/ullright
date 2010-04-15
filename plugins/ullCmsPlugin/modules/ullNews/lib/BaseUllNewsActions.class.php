@@ -43,6 +43,7 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
     $this->setTableToolTemplate('list');
   }
   
+  
   public function executeEdit(sfRequest $request) 
   {
     $this->checkPermission('ull_news_edit');

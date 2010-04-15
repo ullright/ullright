@@ -8,6 +8,10 @@
 <target>Beispiel RSS-Feed</target>
 </trans-unit>
 
+<trans-unit id="2">
+<source>News entries</source>
+<target>News Einträge</target>
+</trans-unit>
 
     </body>
   </file>
