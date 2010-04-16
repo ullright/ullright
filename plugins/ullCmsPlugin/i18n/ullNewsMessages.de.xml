@@ -13,6 +13,41 @@
 <target>News Einträge</target>
 </trans-unit>
 
+
+<!-- labels -->
+
+<trans-unit id="20">
+<source>Abstract</source>
+<target>Text</target>
+</trans-unit>
+
+<trans-unit id="21">
+<source>Image upload</source>
+<target>Bild hochladen</target>
+</trans-unit>
+
+<trans-unit id="22">
+<source>Activation date</source>
+<target>Aktivierungsdatum</target>
+</trans-unit>
+
+<trans-unit id="23">
+<source>Deactivation date</source>
+<target>Deaktivierungsdatum</target>
+</trans-unit>
+
+<trans-unit id="24">
+<source>Link name</source>
+<target>Link Name</target>
+</trans-unit>
+
+
+<trans-unit id="25">
+<source>Link URL</source>
+<target>Link Adresse</target>
+</trans-unit>
+
+
     </body>
   </file>
 </xliff>

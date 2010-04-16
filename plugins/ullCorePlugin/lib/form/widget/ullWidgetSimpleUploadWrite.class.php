@@ -15,24 +15,9 @@ class ullWidgetSimpleUploadWrite extends ullWidgetFormInput
       'label' => __('Photo', null, 'common'),
     ));
     
-    $return = '';
-    
-    if ($value !== null)
-    {
-      $path = str_replace(sfConfig::get('sf_web_dir'), '', $this->getOption('path'));
-      
-      if (ullCoreTools::isValidImage($this->getOption('path'), $value))
-      {
-        $return .= '<div class="ull_widget_simple_upload_write_image"><img src="' . $path . '/' . $value . '" /></div>';
-      }
-      else
-      {
-        $return .= '<p>'. ull_link_to($value, $path . '/' . $value) .'</p>';
-      }
-    }
-    $return .= $widget->render($name, $value, $attributes, $errors);
-   
-    return $return;
+    return 
+      ullWidgetSimpleUploadRead::renderFile($value, $this->getOption('path')) .
+      $widget->render($name, $value, $attributes, $errors);
   }
 }
 

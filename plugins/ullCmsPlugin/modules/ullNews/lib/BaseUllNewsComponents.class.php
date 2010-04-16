@@ -15,6 +15,12 @@ class BaseUllNewsComponents extends sfComponents
 
   public function executeNewsList(sfRequest $request)
   {
-    $this->newsEntries = Doctrine::getTable('UllNews')->findActiveNews();
+    $this->generator = new ullTableToolGenerator('UllNews', 'r', 'list', array('image_upload', 'activation_date', 'title', 'abstract', 'link_name', 'link_url'));
+    
+    $this->docs = Doctrine::getTable('UllNews')->findActiveNews();
+    
+    $this->generator->buildForm($this->docs);
+    
+    $this->setVar('generator', $this->generator, true);
   }
 }

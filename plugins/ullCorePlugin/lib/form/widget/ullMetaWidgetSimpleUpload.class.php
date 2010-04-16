@@ -25,6 +25,7 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
       $this->columnConfig->setValidatorOption('mime_types', 'web_images');
     }
   }
+  
 
   
   /**
@@ -33,7 +34,10 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
    */
   protected function configureReadMode()
   {
-    $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addWidget(new ullWidgetSimpleUploadRead(
+     array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
+     $this->columnConfig->getWidgetAttributes()
+    ));
     $this->addValidator(new sfValidatorPass());    
   }
   
@@ -43,11 +47,11 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
    */
   protected function configureWriteMode()
   {
-   $this->addWidget(new ullWidgetSimpleUploadWrite(
-     array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
-     $this->columnConfig->getWidgetAttributes()
-   ));
-   $this->addValidator(new sfValidatorFile($this->columnConfig->getValidatorOptions()));
+    $this->addWidget(new ullWidgetSimpleUploadWrite(
+      array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
+      $this->columnConfig->getWidgetAttributes()
+    ));
+    $this->addValidator(new sfValidatorFile($this->columnConfig->getValidatorOptions()));
    
   }
 }
