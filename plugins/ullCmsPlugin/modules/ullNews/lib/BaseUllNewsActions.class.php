@@ -75,8 +75,6 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   public function executeNewsList(sfRequest $request)
   {
     $this->checkPermission('ull_news_newsList');
-    
-    $this->newsEntries = Doctrine::getTable('UllNews')->findActiveNews();
   }
   
   public function executeNewsListFeed(sfRequest $request)
