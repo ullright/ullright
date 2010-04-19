@@ -20,7 +20,9 @@ class ullCommentForm extends sfForm
     $this->setValidators(array(
       //this value should be retrieved from ullCommentable,
       //since it's configurable there
-      'comment_text' => new sfValidatorString(array('max_length' => 4000)),
+      'comment_text' => new sfValidatorString(
+        array('max_length' => 1000),
+        array('max_length' => 'Your input is too long (%max_length% characters max)'))
     ));
     
     $this->getWidgetSchema()->setNameFormat('fields[%s]');

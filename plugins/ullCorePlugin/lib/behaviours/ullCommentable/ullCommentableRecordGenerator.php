@@ -10,7 +10,7 @@ class ullCommentableRecordGenerator extends Doctrine_Record_Generator
 {
   protected $_options = array(
     'className' => '%CLASS%Commentable',
-    'max_comment_size'  => 4000,
+    'max_comment_size'  => 1000,
 
     //we need the following two set
     'generateFiles' => false,
