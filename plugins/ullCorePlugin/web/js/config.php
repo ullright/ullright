@@ -38,7 +38,18 @@ $Config['UserFilesPath'] = '/uploads/assets/' ;
 // user files directory. Useful if you are using a virtual directory, symbolic
 // link or alias. Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
 // Attention: The above 'UserFilesPath' must point to the same directory.
-$Config['UserFilesAbsolutePath'] = '' ;
+
+// Calculate the path for ullright
+$path = realpath(
+    dirname(__FILE__) . 
+    DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . 
+    DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . 
+    DIRECTORY_SEPARATOR . 'web' . 
+    DIRECTORY_SEPARATOR . 'uploads' . 
+    DIRECTORY_SEPARATOR . 'assets'
+  ) . DIRECTORY_SEPARATOR;
+  
+$Config['UserFilesAbsolutePath'] = $path;
 
 // Due to security issues with Apache modules, it is recommended to leave the
 // following setting enabled.
