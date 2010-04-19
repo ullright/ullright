@@ -117,7 +117,10 @@ UllPermission:
     namespace:          ullCore    
   ull_permission_ull_employment_type:
     slug:               ull_tabletool_ull_employment_type
-    namespace:          ullCore    
+    namespace:          ullCore
+  ull_commentable_revoke_comments:
+    slug:               ull_commentable_revoke_comments
+    namespace:          ullCore  
     
 UllEntityGroup:
   ull_entity_group_1:
