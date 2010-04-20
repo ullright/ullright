@@ -26,7 +26,7 @@ class PluginUllNewsTable extends UllRecordTable
   public static function findLatestActiveNews()
   {
     $q = PluginUllNewsTable::queryActiveNews();
-    $q->limit(sfConfig::get('app_ull_news_rss_number_of_entries'));
+    $q->limit(sfConfig::get('app_ull_news_rss_number_of_entries', 999));
     $result = $q->execute();
     
     return $result;
