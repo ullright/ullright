@@ -1,5 +1,4 @@
-<link rel="alternate" type="application/atom+xml" title="Latest Jobs"
-  href="<?php echo url_for('/ullNews/newsListFeed', true) ?>" />
+<?php include_partial('ullNews/rssFeed') ?>
 <div>
 <h3>
   <?php echo __('News', null, 'common')?>
