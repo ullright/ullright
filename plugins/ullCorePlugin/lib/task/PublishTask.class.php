@@ -54,10 +54,6 @@ EOF;
     $this->executeRemoteSymfonyTask('doctrine:migrate');
     
     $this->executeRemoteSymfonyTask('project:permissions', true);
-    
-    $this->executeRemoteSymfonyTask('ullright:dump-database');
-    
-    $this->downloadProductionDump($arguments, $options);
   }
   
   
@@ -136,18 +132,6 @@ EOF;
   {
     $this->executeRemoteCommand('php symfony ' . $task, $quiet);
   }  
-  
-  
-  protected function downloadProductionDump($arguments = array(), $options = array())
-  {
-    $command = 'scp ' . $this->targetUserName . '@' . $this->targetServerName .
-      ':' . $this->targetDir . '/data/sql/' . $this->dbName . '.mysql.dump.bz2' .
-      ' ' . sfConfig::get('sf_data_dir') . '/sql/' . $this->dbName . '.production.mysql.dump.bz2'
-    ;
-    
-    $this->log($this->getFilesystem()->execute($command));
-  }
-  
   
 }
 
