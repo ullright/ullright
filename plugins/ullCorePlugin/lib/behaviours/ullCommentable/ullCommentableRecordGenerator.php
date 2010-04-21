@@ -86,8 +86,12 @@ class ullCommentableRecordGenerator extends Doctrine_Record_Generator
    */
   public function getComments(Doctrine_Record $invoker)
   {
+    //we retrieve the Commenter because it is very likely
+    //that information is going to be accessed anyway 
     $q = Doctrine_Query::create()
+      ->select('comments.*, commenter.*')
       ->from($this->getOption('className') . ' as comments')
+      ->leftJoin('comments.Commenter as commenter')
       ->where('comments.' . $this->getRelationLocalKey() . ' = ?', $invoker->id)
       ->orderBy('comments.posted_date desc')
     ;

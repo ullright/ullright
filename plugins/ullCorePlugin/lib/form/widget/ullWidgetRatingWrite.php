@@ -40,7 +40,7 @@ class ullWidgetRatingWrite extends ullWidget
     }
     
     //TODO: make this configureable, add translation
-    $ratingTitles = array('Very poor', 'Poor', 'Average', 'Good', 'I like!');
+    $ratingTitles = array('Not recommendable', 'Needs to be improved', 'Moderate', 'Good', 'Very good');
     $starNumber = 'star' . $votedObjectId;
     $html = '';
     
@@ -48,7 +48,7 @@ class ullWidgetRatingWrite extends ullWidget
     for($i = 1; $i <= 5; $i++)
     {
       $inputTag = '<input class="star" type="radio" name="' . $starNumber .
-        '" value="' . $i . '" title="' . $ratingTitles[$i - 1] . '" ';
+        '" value="' . $i . '" title="' . __($ratingTitles[$i - 1], null, 'ullCoreMessages') . '" ';
 
       if ($i == $value)
       {

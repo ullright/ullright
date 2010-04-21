@@ -394,7 +394,86 @@ Gültige Dateitypen sind jpg und png.</target>
       <trans-unit id="1000">
       <source>About</source>
       <target>About</target>
-      </trans-unit>  
+      </trans-unit>
+      
+      <!--  ullRateable -->
+      
+      <trans-unit id="2000">
+        <source>Average rating</source>
+        <target>Bewertungsdurchschnitt</target>
+      </trans-unit>
+      
+      <trans-unit id="2001">
+        <source>Not recommendable</source>
+        <target>Nicht empfehlenswert</target>
+      </trans-unit>
+      
+      <trans-unit id="2002">
+        <source>Needs to be improved</source>
+        <target>Verbesserungswürdig</target>
+      </trans-unit>
+      
+      <trans-unit id="2003">
+        <source>Moderate</source>
+        <target>Mittelmäßig</target>
+      </trans-unit>
+      
+      <trans-unit id="2004">
+        <source>Good</source>
+        <target>Gut</target>
+      </trans-unit>
+      
+      <trans-unit id="2005">
+        <source>Very good</source>
+        <target>Sehr gut</target>
+      </trans-unit>
+
+      <!-- ullCommentable -->
+      
+      <trans-unit id="2006">
+        <source>Comments</source>
+        <target>Kommentare</target>
+      </trans-unit>
+
+      <trans-unit id="2007">
+        <source>Your comment</source>
+        <target>Ihr Kommentar</target>
+      </trans-unit>
+
+      <trans-unit id="2008">
+        <source>Submit comment</source>
+        <target>Kommentar abschicken</target>
+      </trans-unit>
+      
+      <trans-unit id="2009">
+        <source>Please wait while we store your comment ...</source>
+        <target>Bitte warten, während Ihr Kommentar verarbeitet wird ...</target>
+      </trans-unit>
+      
+      <trans-unit id="2010">
+        <source>Thanks for submitting a comment!</source>
+        <target>Danke für Ihr Kommentar!</target>
+      </trans-unit>
+      
+      <trans-unit id="2010">
+        <source>Sorry, your comment is too short or too long.</source>
+        <target>Ihr Kommentar ist zu kurz oder zu lange.</target>
+      </trans-unit>
+
+      <trans-unit id="2011">
+        <source>delete comment</source>
+        <target>Kommentar löschen</target>
+      </trans-unit>
+
+      <trans-unit id="2011">
+        <source>This comment was deleted by its author.</source>
+        <target>Dieser Kommentar wurde von seinem Autor gelöscht.</target>
+      </trans-unit>
+      
+      <trans-unit id="2011">
+        <source>This comment was deleted by an administrator.</source>
+        <target>Dieser Kommentar wurde von einem Administrator gelöscht.</target>
+      </trans-unit>
 
     </body>
   </file>
