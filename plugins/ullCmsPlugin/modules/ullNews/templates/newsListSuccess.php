@@ -1,4 +1,4 @@
-<?php include_partial('ullNews/rssFeed') ?>
+<?php include_component('ullNews', 'rssFeed') ?>
 <div>
 <h3>
   <?php echo __('News', null, 'common')?>

@@ -17,11 +17,11 @@
 		<link href="<?php echo url_for('@homepage', true) ?>"/>
   	<id>urn:uuid:<?php echo sha1($newsEntry['slug'] . $newsEntry['created_at'] . $uuid) ?></id>
   	<updated><?php echo gmstrftime('%Y-%m-%dT%H:%M:%SZ', Doctrine::getTable('UllNews')->findOneBySlug($newsEntry['slug'])->getDateTimeObject('activation_date')->format('U')) ?></updated>
-    <summary type="html">
-      <?php echo $newsEntry['abstract'] ?>
-    <?php if ($newsEntry['link_name'] && $newsEntry['link_url']): ?>
-       <?php echo link_to($newsEntry['link_name'], $newsEntry['link_url'], array('absolute' => true)) ?> 
-    <?php endif ?>
+    <summary type="html"><![CDATA[
+      <p><?php echo nl2br($newsEntry['abstract']) ?></p>
+      <?php if ($newsEntry['link_name'] && $newsEntry['link_url']): ?>
+        <p><?php echo link_to($newsEntry['link_name'], $newsEntry['link_url'], array('absolute' => true)) ?></p> 
+    <?php endif ?> ]]>
     </summary>
   </entry>
   <?php endforeach ?>

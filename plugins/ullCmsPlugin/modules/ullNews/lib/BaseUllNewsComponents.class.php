@@ -23,4 +23,9 @@ class BaseUllNewsComponents extends sfComponents
     
     $this->setVar('generator', $this->generator, true);
   }
+  
+  public function executeRssFeed(sfRequest $request)
+  {
+    $this->lang = $this->getUser()->getCulture();
+  }
 }

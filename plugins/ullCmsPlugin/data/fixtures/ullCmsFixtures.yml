@@ -124,19 +124,27 @@ UllCmsPage:
     
 UllNews:
   first_news:
-    title:                  First News
-    abstract:               Welcome. This is our first news entry
+    Translation:
+      en:
+        title:              First news
+        abstract:           Welcome. This is our first news entry
+      de:
+        title:              Erster News-Eintrag
+        abstract:           Wilkommen. Das sind unsere ersten News
     link_name:              Foo-Link
     link_url:               http://orf.at
     activation_date:       '2010-03-12'
-    deactivation_date:     '2010-04-20'
   neue_route:
-    title:                 New Route
-    abstract:              Since today (2010-03-14) we have a now route. Have fun
+    Translation:
+      en:
+        title:             Second entry
+        abstract:          Since today (2010-03-14) we have a second entry. Have fun
+      de:
+        title:             Zweiter Eintrag
+        abstract:          Seit heute (14.3.2010) haben wir einen zweiten Eintrag. Viel Spaß
     link_name:             Route 123
     link_url:              http://orf.at
     activation_date:       '2010-03-14'
-    deactivation_date:     '2010-04-20'  
    
     
 UllPermission:

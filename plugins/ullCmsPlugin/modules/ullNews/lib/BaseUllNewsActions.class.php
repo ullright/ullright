@@ -81,6 +81,11 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_news_newsList');
     
+    $this->lang = $request->getParameter('lang', sfConfig::get('sf_default_culture'));
+    if (!in_array($this->lang, sfConfig::get('app_i18n_supported_languages'))) {
+      $this->redirect404('Invalid language: ' . $this->lang);
+    }   
+    $this->getUser()->setCulture($this->lang);
     $this->getResponse()->setContentType('text/xml');
     $this->setLayout(false);
     $this->newsEntries = Doctrine::getTable('UllNews')->findLatestActiveNews();
