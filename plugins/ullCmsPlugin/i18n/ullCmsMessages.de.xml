@@ -43,6 +43,11 @@
 <target>Menüeinträge</target>
 </trans-unit>
 
+<trans-unit id="9">
+<source>CMS pages</source>
+<target>CMS Seiten</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
