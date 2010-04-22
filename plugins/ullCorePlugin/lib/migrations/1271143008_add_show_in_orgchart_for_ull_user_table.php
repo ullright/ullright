@@ -1,6 +1,6 @@
 <?php
 
-class AddShowInOrgchartForUllUser extends Doctrine_Migration_Base
+class AddShowInOrgchartForUllUserTable extends Doctrine_Migration_Base
 {
   
   protected $tableNames = array(

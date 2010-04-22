@@ -77,7 +77,7 @@ UllNews:
     type: concrete
   actAs:
     I18n:
-      fields: [title, abstract]
+      fields: [title, abstract, link_name]
     Sluggable:
       unique: true
       fields: [title]
@@ -94,7 +94,6 @@ UllNews:
       type: string(255)
     image_upload:
       type: string(255)
-      notnull: true
     activation_date:
       type: date
       notnull: true
