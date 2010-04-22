@@ -34,7 +34,9 @@
           ?>
         </li>
         
-        <?php include_partial('ullTableTool/editActionButtons', array('buttons' => $edit_action_buttons)) ?>        
+        <?php if (isset($edit_action_buttons)): ?>
+          <?php  include_partial('ullTableTool/editActionButtons', array('buttons' => $edit_action_buttons)) ?>
+        <?php endif ?>        
     </ul>
   </div>
 
