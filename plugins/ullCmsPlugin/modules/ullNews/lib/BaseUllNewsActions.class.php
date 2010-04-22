@@ -48,6 +48,8 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_news_edit');
     
+    $this->registerEditActionButton(new ullGeneratorEditActionButtonNewsSaveAndShow($this));
+    
     parent::executeEdit($request);
 
     $this->setTableToolTemplate('edit');

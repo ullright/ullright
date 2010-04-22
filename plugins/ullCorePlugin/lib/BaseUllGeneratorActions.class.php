@@ -10,6 +10,9 @@
  */
 abstract class BaseUllGeneratorActions extends ullsfActions
 {
+  protected 
+    $edit_action_buttons_store = array()
+  ;
   
   /**
    * Everything here is executed before each action
@@ -149,6 +152,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
         $this->getRequest()->getFiles('fields')
       ))
       {
+        $this->processEditActionButtons();
+        
         // save only
         if ($request->getParameter('action_slug') == 'save_only') 
         {
@@ -520,6 +525,36 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   protected function setTableToolTemplate($name)
   {
     $this->setTemplate(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/modules/ullTableTool/templates/' . $name);    
-  }  
+  }
+
+  
+  /**
+   * Registers an ullGeneratorEditActionButton
+   * 
+   * @param ullGeneratorEditActionButton $button
+   * @return none
+   */
+  protected function registerEditActionButton(ullGeneratorEditActionButton $button)
+  {
+    $this->edit_action_buttons_store[] = $button;
+    
+    $this->setVar('edit_action_buttons', $this->edit_action_buttons_store, true);
+  }
+  
+  
+  /**
+   * Executes the logic of the edit actions buttons after binding the form
+   * @return none
+   */
+  protected function processEditActionButtons()
+  {
+    if (count($this->edit_action_buttons_store))
+    {
+      foreach($this->edit_action_buttons_store as $button)
+      {
+        $button->executePostFormBindAndSave();
+      }
+    }  
+  }
   
 }

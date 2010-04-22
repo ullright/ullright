@@ -22,6 +22,8 @@ class BaseUllNewsComponents extends sfComponents
     $this->generator->buildForm($this->docs);
     
     $this->setVar('generator', $this->generator, true);
+    
+    $this->allow_edit = UllUserTable::hasPermission('ull_news_edit');
   }
   
   public function executeRssFeed(sfRequest $request)

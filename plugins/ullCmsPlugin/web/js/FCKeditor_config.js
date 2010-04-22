@@ -164,7 +164,7 @@ FCKConfig.FontColors = '000000,993300,333300,003300,003366,000080,333399,333333,
 
 /* FCKConfig.FontFormats	= 'p;h1;h2;h3;h4;h5;h6;pre;address;div' ; */
 /* FCKConfig.FontFormats = 'p;pre;code;h1;h2;h3;h4' ; */
-FCKConfig.FontFormats = 'p;h1';
+FCKConfig.FontFormats = 'p;h2';
 FCKConfig.FontNames		= 'Arial;Comic Sans MS;Courier New;Tahoma;Times New Roman;Verdana' ;
 FCKConfig.FontSizes		= 'smaller;larger;xx-small;x-small;small;medium;large;x-large;xx-large' ;
 

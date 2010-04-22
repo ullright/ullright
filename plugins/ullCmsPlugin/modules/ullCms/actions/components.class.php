@@ -10,7 +10,7 @@ class ullCmsComponents extends sfComponents
   
   public function executeFooterMenu()
   {
-    $navigation = UllCmsItemTable::getMenuTree('footer', '', 2);
+    $navigation = UllCmsItemTable::getMenuTree('footer-menu', '', 2);
     $this->setVar('footer_menu', new ullTreeMenuRenderer($navigation), true);    
   }
   

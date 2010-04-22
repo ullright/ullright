@@ -32,7 +32,9 @@
               array('name' => 'submit|action_slug=save_close')
             );  
           ?>
-        </li>        
+        </li>
+        
+        <?php include_partial('ullTableTool/editActionButtons', array('buttons' => $edit_action_buttons)) ?>        
     </ul>
   </div>
 
