@@ -57,6 +57,8 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     
     $this->doc = $this->getRoute()->getObject();
     
+    $this->getResponse()->setTitle($this->doc->title);
+    
     $this->loadMenus();
     
     $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');
