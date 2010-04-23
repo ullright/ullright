@@ -53,6 +53,8 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_cms_show');
     
+    $this->forward404Unless($this->getRoute() instanceof sfDoctrineRoute);
+    
     $this->doc = $this->getRoute()->getObject();
     
     $this->loadMenus();
