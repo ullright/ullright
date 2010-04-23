@@ -48,6 +48,11 @@
 <target>CMS Seiten</target>
 </trans-unit>
 
+<trans-unit id="10">
+<source>Menu title</source>
+<target>Menütitel</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

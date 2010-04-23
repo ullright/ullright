@@ -13,6 +13,10 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
       'full_path', 'type'
     ));
     
+    $this['name']
+      ->setLabel(__('Menu title', null, 'ullCmsMessages'))
+    ;
+    
     $this['full_path']
       ->setLabel(__('Menu entry', null, 'ullCmsMessages'))
     ;
