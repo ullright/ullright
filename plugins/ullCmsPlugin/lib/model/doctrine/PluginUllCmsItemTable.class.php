@@ -46,7 +46,16 @@ class PluginUllCmsItemTable extends UllRecordTable
   {
     $slug = self::findLevel2ItemSlugForParentSlug($parentSlug, $currentSlug);
     
-    return self::getMenuTree($slug, $currentSlug, $depth);
+    if ($slug)
+    {
+      return self::getMenuTree($slug, $currentSlug, $depth);
+    }
+    // Workaround to display no sub menu for an entry in an invalid menu
+    // Example: for page "legal" from the footer menu
+    else
+    {
+      return new ullTreeNode(new UllCmsItem);
+    }
   }
   
   
@@ -65,6 +74,10 @@ class PluginUllCmsItemTable extends UllRecordTable
     {
       return $item->slug;
     }
+    elseif ($item->Parent->slug === null)
+    {
+      return null;
+    }    
     else
     {
       return self::findLevel2ItemSlugForParentSlug($parentSlug, $item->Parent->slug);
