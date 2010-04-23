@@ -36,6 +36,8 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
    */
   public function executeList(sfRequest $request) 
   {
+    $this->checkPermission('ull_cms_list');
+    
     parent::executeList($request);
 
     $this->setTableToolTemplate('list');
@@ -49,12 +51,13 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
    */
   public function executeShow(sfRequest $request)
   {
+    $this->checkPermission('ull_cms_show');
+    
     $this->doc = $this->getRoute()->getObject();
     
-    $menu = UllCmsItemTable::getMenuTree('main-menu', $this->doc->slug, 2);
-    $this->setVar('main_menu', new ullTreeMenuRenderer($menu), true);    
-    
     $this->loadMenus();
+    
+    $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');
   }
   
   /**
@@ -86,6 +89,10 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
    */
   public function executeEdit(sfRequest $request) 
   {
+    $this->checkPermission('ull_cms_edit');
+    
+    $this->registerEditActionButton(new ullGeneratorEditActionButtonCmsSaveAndShow($this));
+    
     parent::executeEdit($request);
     
     $this->getResponse()->addJavascript('/ullCorePlugin/js/fckeditor/fckeditor.js');
@@ -115,7 +122,19 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->setVar('sidebar_menu', new ullTreeMenuRenderer($menu), true);    
   }
   
-    /**
+  /**
+   * Execute delete action
+   * 
+   * @see BaseUllGeneratorActions#executeDelete($request)
+   */
+  public function executeDelete(sfRequest $request)
+  {
+    $this->checkPermission('ull_cms_delete');
+    
+    parent::executeDelete();
+  }  
+  
+  /**
    * Handles breadcrumb for list action
    */
   protected function breadcrumbForList()

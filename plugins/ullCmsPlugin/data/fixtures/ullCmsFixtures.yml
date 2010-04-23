@@ -150,15 +150,31 @@ UllNews:
    
     
 UllPermission:
+  ull_permission_cms_list:
+    slug:               ull_cms_list
+    namespace:          ull_cms
+  ull_permission_cms_show:
+    slug:               ull_cms_show
+    namespace:          ull_cms          
+  ull_permission_cms_edit:
+    slug:               ull_cms_edit
+    namespace:          ull_cms    
+  ull_permission_cms_delete:
+    slug:               ull_cms_delete
+    namespace:          ull_cms
+    
   ull_permission_news_list:
     slug:               ull_news_list
     namespace:          ull_news    
   ull_permission_news_edit:
     slug:               ull_news_edit
     namespace:          ull_news    
+  ull_permission_news_delete:
+    slug:               ull_news_delete
+    namespace:          ull_news
   ull_permission_news_newsList:
     slug:               ull_news_newsList
-    namespace:          ull_news      
+    namespace:          ull_news             
          
     
 UllGroup:
@@ -167,6 +183,23 @@ UllGroup:
     namespace:          ull_cms        
       
 UllGroupPermission:
+  ull_group_permission_ull_cms_1:
+    UllGroup:           ull_group_cms_admins
+    UllPermission:      ull_permission_cms_list
+    namespace:          ull_cms
+  ull_group_permission_ull_cms_2:
+    UllGroup:           ull_group_cms_admins
+    UllPermission:      ull_permission_cms_show
+    namespace:          ull_cms            
+  ull_group_permission_ull_cms_3:
+    UllGroup:           ull_group_cms_admins
+    UllPermission:      ull_permission_cms_edit
+    namespace:          ull_cms
+  ull_group_permission_ull_cms_4:
+    UllGroup:           ull_group_cms_admins
+    UllPermission:      ull_permission_cms_delete
+    namespace:          ull_cms    
+
   ull_group_permission_ull_news_1:
     UllGroup:           ull_group_cms_admins
     UllPermission:      ull_permission_news_list
@@ -174,8 +207,12 @@ UllGroupPermission:
   ull_group_permission_ull_news_2:
     UllGroup:           ull_group_cms_admins
     UllPermission:      ull_permission_news_edit
-    namespace:          ull_news    
+    namespace:          ull_news
   ull_group_permission_ull_news_3:
+    UllGroup:           ull_group_cms_admins
+    UllPermission:      ull_permission_news_delete
+    namespace:          ull_news            
+  ull_group_permission_ull_news_4:
     UllGroup:           ull_group_everyone
     UllPermission:      ull_permission_news_newsList
     namespace:          ull_news    

@@ -170,4 +170,16 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
   }  
   
+  
+  /**
+   * Execute delete action
+   * 
+   * @see BaseUllGeneratorActions#executeDelete($request)
+   */
+  public function executeDelete(sfRequest $request)
+  {
+    $this->checkPermission('ull_news_delete');
+    
+    parent::executeDelete();
+  }
 }
