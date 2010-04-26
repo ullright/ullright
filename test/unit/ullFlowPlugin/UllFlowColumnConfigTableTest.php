@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(4, new lime_output_color, $configuration);
+$t = new myTestCase(6, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -37,4 +37,10 @@ $t->begin('findByAppIdAndSlug()');
   {
     $t->pass('throws an exception for a invalid slug');
   }
+  
+$t->diag('findSubjectColumnSlug()');
+  $t->is(UllFlowColumnConfigTable::findSubjectColumnSlug(1), 'my_subject', 'Returns the correct slug');  
+  
+$t->diag('findPriorityColumnSlug()');
+  $t->is(UllFlowColumnConfigTable::findPriorityColumnSlug(1), 'my_priority', 'Returns the correct slug');  
   

@@ -23,5 +23,51 @@ class PluginUllFlowColumnConfigTable extends UllRecordTable
     
     return $result;
   }
+  
+  
+  /**
+   * Find the subject column slug for a given UllFlowApp->id
+   * 
+   * @param unknown_type $ullFlowAppId
+   * @return string
+   */
+  public static function findSubjectColumnSlug($ullFlowAppId)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->select('cc.slug')
+      ->from('UllFlowColumnConfig cc')
+      ->where('cc.ull_flow_app_id = ?',  $ullFlowAppId)
+      ->addWhere('cc.is_subject = ?', true)
+    ;
+    
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0];
+  }  
+  
+  
+  /**
+   * Find the priority column slug for a given UllFlowApp->id
+   * 
+   * @param unknown_type $ullFlowAppId
+   * @return string
+   */
+  public static function findPriorityColumnSlug($ullFlowAppId)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->select('cc.slug')
+      ->from('UllFlowColumnConfig cc')
+      ->where('cc.ull_flow_app_id = ?',  $ullFlowAppId)
+      ->addWhere('cc.is_priority = ?', true)
+    ;
+    
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0];
+  }   
 
 }
