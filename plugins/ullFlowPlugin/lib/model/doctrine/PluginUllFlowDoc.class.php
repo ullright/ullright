@@ -472,35 +472,38 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    * 
    * @see lib/model/doctrine/ullFlowPlugin/base/BaseUllFlowDoc#setSubject()
    */
-  public function setSubject($value)
-  {
-    $slug = UllFlowColumnConfigTable::findSubjectColumnSlug($this->UllFlowApp->id);
-    
-    $this->subject = $value;
-    
-    // Update the virtusl column only if not yet set 
-    if ($this->$slug != $value)
-    {
-      $this->$slug = $value;
-    }
-  }
+  
+    // Deactivated because of many side effects
+//  public function setSubject($value)
+//  {
+//    $slug = UllFlowColumnConfigTable::findSubjectColumnSlug($this->UllFlowApp->id);
+//    
+//    $this->subject = $value;
+//    
+//    // Update the virtual column only if not yet set and a UllFlowApp->id exists
+//    if ($slug && $this->$slug != $value)
+//    {
+//      $this->$slug = $value;
+//    }
+//  }
   
   /**
    * Also set the column priority
    * 
    * @see lib/model/doctrine/ullFlowPlugin/base/BaseUllFlowDoc#setSubject()
    */
-  public function setPriority($value)
-  {
-    $slug = UllFlowColumnConfigTable::findPriorityColumnSlug($this->UllFlowApp->id);
-    
-    $this->priority = $value;
-    
-    // Update the virtual column only if not yet set 
-    if ($this->$slug != $value)
-    {
-      $this->$slug = $value;
-    }
-  }  
+    // Deactivated because of many side effects
+//  public function setPriority($value)
+//  {
+//    $slug = UllFlowColumnConfigTable::findPriorityColumnSlug($this->UllFlowApp->id);
+//    
+//    $this->priority = $value;
+//    
+//    // Update the virtual column only if not yet set 
+//    if ($slug && $this->$slug != $value)
+//    {
+//      $this->$slug = $value;
+//    }
+//  }  
   
 }
