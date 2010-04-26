@@ -100,7 +100,7 @@ EOF;
       Doctrine::getTable('UllColumnType')->findOneByLabel('Priority');
     $columnConfigPriority['default_value'] = 3;
     $columnConfigPriority['is_priority'] = true;
-    $columnConfigPriority['slug'] = 'bug_tracking_priority';
+    $columnConfigPriority['slug'] = 'customer_request_priority';
     $columnConfigPriority->save();    
 
     $columnConfigComment = $this->createRecord('UllFlowColumnConfig');
