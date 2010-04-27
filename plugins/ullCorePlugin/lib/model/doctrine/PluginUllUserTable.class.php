@@ -22,9 +22,9 @@ class PluginUllUserTable extends UllEntityTable
       $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     }
     
-    if ($group == 'LoggedIn' && $userId)
+    if ($group == 'LoggedIn')
     {
-      return true;
+      return ($userId) ? true : false;
     }
     else
     {
