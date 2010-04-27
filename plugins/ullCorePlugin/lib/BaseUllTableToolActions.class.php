@@ -80,6 +80,51 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     $this->forward($this->getModuleName(), 'edit');
   }
 
+  /**
+   * Handles a state-change request for a flag for
+   * the currently logged-in user. This requires a
+   * model to adopt the ullFlaggable behavior.
+   * 
+   * Needs four parameters:
+   * table - the model
+   * id - the record id
+   * flag - the flag name
+   * value - 'true' => true, otherwise false; null is valid
+   * 
+   * @param sfRequest $request
+   * @return string view rendered by sfView:NONE
+   */
+  public function executeSetUserFlag(sfRequest $request)
+  {
+    //parse model
+    //(done by preExecute() into $this->table_name)
+    
+    //parse record id
+    $recordId = $request->getParameter('id');
+    $record = ($recordId) ? Doctrine::getTable($this->table_name)->findOneById($recordId) : false;
+    $this->forward404If(!$record, 'Record id not specified or invalid');
+    
+    //TODO: include check here if model adopts UllFlaggable behavior
+    //should not be a problem if it does not (hasFlag call simply fails),
+    //but should be done anyway
+    
+    //parse flag name
+    $flagName = $request->getParameter('flag');
+    $this->forward404If(!$record->hasFlag($flagName), 'Flag not specified or invalid');
+    
+    //parse flag value (null is ok, will remove the flag)
+    $flagValue = $request->getParameter('value');
+    if ($flagValue !== null)
+    {
+      $flagValue = ($flagValue == 'true') ? true : false;
+    }
+        
+    //set flag for currently logged in user
+    $record->setFlag($flagName, $flagValue);
+    
+    return sfView::NONE;
+  }
+  
   
   /**
    * Executes create action
