@@ -22,6 +22,7 @@ UllCmsMenuItem:
         name:               Advanced Kurse
     Parent:                 courses            
   footer_menu:
+    slug:                   footer-menu
     Translation:
       en:
         name:               Footer
