@@ -16,6 +16,10 @@ class PluginUllCmsItemTable extends UllRecordTable
   public static function getMenuTree($parentSlug, $currentSlug = null, $depth = 999999999)
   {
     $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($parentSlug);
+    if (!$item)
+    {
+      throw new InvalidArgumentException("$parentSlug is not a valid ullCmsItem slug");
+    }
     
     $tree = self::getSubTree($item, $currentSlug, $depth);
     
