@@ -16,7 +16,7 @@ class ullWidgetSimpleUploadWrite extends ullWidgetFormInput
     ));
     
     return 
-      ullWidgetSimpleUploadRead::renderFile($value, $this->getOption('path')) .
+      ullWidgetSimpleUploadRead::renderFile($value, $this->getOption('path'), $this->getAttribute('alt')) .
       $widget->render($name, $value, $attributes, $errors);
   }
 }

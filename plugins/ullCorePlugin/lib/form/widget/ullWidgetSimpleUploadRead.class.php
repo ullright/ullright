@@ -15,11 +15,18 @@ class ullWidgetSimpleUploadRead extends ullWidget
       //'label' => __('Photo', null, 'common'),
     //));
     
-    
-    return self::renderFile($value, $this->getOption('path'));
+    return self::renderFile($value, $this->getOption('path'), $this->getAttribute('alt'));
   }
   
-  public static function renderFile($value, $path)
+  /**
+   * Renders a file. An image will be rendered with an image-tag. Other content gets a link to the source
+   * 
+   * @param string $value
+   * @param string $path
+   * @param string $alt
+   * @return string
+   */
+  public static function renderFile($value, $path, $alt = 'image')
   {
     $return = '';
     
@@ -29,7 +36,7 @@ class ullWidgetSimpleUploadRead extends ullWidget
       
       if (ullCoreTools::isValidImage($path, $value))
       {
-        $return .= '<div class="ull_widget_simple_upload_write_image"><img src="' . $filePath . '/' . $value . '" /></div>';
+        $return .= '<div class="ull_widget_simple_upload_write_image"><img src="' . $filePath . '/' . $value . '" alt="' . $alt . '"/></div>';
       }
       else
       {

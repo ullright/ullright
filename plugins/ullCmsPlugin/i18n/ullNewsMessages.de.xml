@@ -19,6 +19,11 @@
 <target>News</target>
 </trans-unit>
 
+<trans-unit id="4">
+<source>News image</source>
+<target>News-Bild</target>
+</trans-unit>
+
 
 <!-- labels -->
 
