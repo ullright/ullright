@@ -63,20 +63,26 @@ abstract class PluginUllUser extends BaseUllUser
    */
   public function postSave($event)
   {
-    $ullUserStatusInactive = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
-
     if (
       $this->entry_date > date('y-m-d') 
-      && $this->UllUserStatus != $ullUserStatusInactive   // prevent looping 
+      && $this->UllUserStatus->slug != 'inactive'   // prevent looping 
       && !$this->hasMappedValue('scheduled_update_date')  // prevent looping for superversionable behaviour
     )
     {
-      $this->UllUserStatus = $ullUserStatusInactive;
-      $this->save();
       
-      $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('active');
-      $this->mapValue('scheduled_update_date', $this->entry_date);
-      $this->save();
+      $ullUserStatusInactive = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
+
+      // Special handling for dev fixture loading: we don't have UllUserStatus
+      // objects yet in the database, so skip the whole functionality
+      if ($ullUserStatusInactive)
+      {
+        $this->UllUserStatus = $ullUserStatusInactive;
+        $this->save();
+        
+        $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('active');
+        $this->mapValue('scheduled_update_date', $this->entry_date);
+        $this->save();
+      }
     }  
   }
   
