@@ -53,6 +53,33 @@ abstract class PluginUllUser extends BaseUllUser
     $this->display_name = $firstName . ' ' . $lastName;
   }
   
+  
+  /**
+   * Check for a future entry date.
+   * 
+   * If so, deactivate the user for the moment, and schedule the activation for the entry date
+   * 
+   * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#postSave($event)
+   */
+  public function postSave($event)
+  {
+    $ullUserStatusInactive = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
+
+    if (
+      $this->entry_date > date('y-m-d') 
+      && $this->UllUserStatus != $ullUserStatusInactive   // prevent looping 
+      && !$this->hasMappedValue('scheduled_update_date')  // prevent looping for superversionable behaviour
+    )
+    {
+      $this->UllUserStatus = $ullUserStatusInactive;
+      $this->save();
+      
+      $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('active');
+      $this->mapValue('scheduled_update_date', $this->entry_date);
+      $this->save();
+    }  
+  }
+  
   /**
    * get User's Shortname
    *
