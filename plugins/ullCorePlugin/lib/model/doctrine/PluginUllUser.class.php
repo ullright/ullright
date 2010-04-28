@@ -64,7 +64,7 @@ abstract class PluginUllUser extends BaseUllUser
   public function postSave($event)
   {
     if (
-      $this->entry_date > date('y-m-d') 
+      $this->entry_date > date('Y-m-d') 
       && $this->UllUserStatus->slug != 'inactive'   // prevent looping 
       && !$this->hasMappedValue('scheduled_update_date')  // prevent looping for superversionable behaviour
     )
