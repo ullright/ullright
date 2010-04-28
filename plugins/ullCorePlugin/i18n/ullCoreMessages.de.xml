@@ -474,6 +474,13 @@ Gültige Dateitypen sind jpg und png.</target>
         <source>This comment was deleted by an administrator.</source>
         <target>Dieser Kommentar wurde von einem Administrator gelöscht.</target>
       </trans-unit>
+      
+      <!-- Misc -->
+      
+      <trans-unit id="2200">
+        <source>Cleared</source>
+        <target>Erledigt</target>
+      </trans-unit>
 
     </body>
   </file>
