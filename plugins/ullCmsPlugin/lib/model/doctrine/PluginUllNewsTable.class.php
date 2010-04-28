@@ -5,7 +5,7 @@ class PluginUllNewsTable extends UllRecordTable
 {
   /**
    * Get a list of all active news
-   * @return unknown
+   * @return array
    */
   public static function findActiveNews()
   {
@@ -15,6 +15,11 @@ class PluginUllNewsTable extends UllRecordTable
     return $result;
   }
   
+  
+  /**
+   * Get the latest news entry (only one)
+   * @return array
+   */
   public static function findLatestNews()
   {
     $q = PluginUllNewsTable::queryActiveNews();
@@ -23,6 +28,11 @@ class PluginUllNewsTable extends UllRecordTable
     return $result;
   }
   
+  
+  /**
+   * Get a list of the latest active news
+   * @return array
+   */
   public static function findLatestActiveNews()
   {
     $q = PluginUllNewsTable::queryActiveNews();
@@ -32,6 +42,11 @@ class PluginUllNewsTable extends UllRecordTable
     return $result;
   }
   
+  
+  /**
+   * Creates a Doctrine_Query for active news
+   * @return Doctrine_Query
+   */
   protected static function queryActiveNews(){
     $date = date('Y-m-d');
     $q = new Doctrine_Query;
