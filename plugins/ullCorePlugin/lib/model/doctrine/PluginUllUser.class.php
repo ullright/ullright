@@ -61,30 +61,33 @@ abstract class PluginUllUser extends BaseUllUser
    * 
    * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#postSave($event)
    */
-  public function postSave($event)
-  {
-    if (
-      $this->entry_date > date('Y-m-d') 
-      && $this->UllUserStatus->slug != 'inactive'   // prevent looping 
-      && !$this->hasMappedValue('scheduled_update_date')  // prevent looping for superversionable behaviour
-    )
-    {
-      
-      $ullUserStatusInactive = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
-
-      // Special handling for dev fixture loading: we don't have UllUserStatus
-      // objects yet in the database, so skip the whole functionality
-      if ($ullUserStatusInactive)
-      {
-        $this->UllUserStatus = $ullUserStatusInactive;
-        $this->save();
-        
-        $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('active');
-        $this->mapValue('scheduled_update_date', $this->entry_date);
-        $this->save();
-      }
-    }  
-  }
+  
+  // an issue with editing the entry_date must be fixed before activating
+  
+//  public function postSave($event)
+//  {
+//    if (
+//      $this->entry_date > date('Y-m-d') 
+//      && $this->UllUserStatus->slug != 'inactive'   // prevent looping 
+//      && !$this->hasMappedValue('scheduled_update_date')  // prevent looping for superversionable behaviour
+//    )
+//    {
+//      
+//      $ullUserStatusInactive = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
+//
+//      // Special handling for dev fixture loading: we don't have UllUserStatus
+//      // objects yet in the database, so skip the whole functionality
+//      if ($ullUserStatusInactive)
+//      {
+//        $this->UllUserStatus = $ullUserStatusInactive;
+//        $this->save();
+//        
+//        $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('active');
+//        $this->mapValue('scheduled_update_date', $this->entry_date);
+//        $this->save();
+//      }
+//    }  
+//  }
   
   /**
    * get User's Shortname
