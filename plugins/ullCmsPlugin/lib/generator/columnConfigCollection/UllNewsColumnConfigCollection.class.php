@@ -11,7 +11,9 @@ class UllNewsColumnConfigCollection extends ullColumnConfigCollection
     $this['abstract']->setLabel(__('Abstract', null, 'ullNewsMessages'));
     
     $this['link_name']->setLabel(__('Link name', null, 'ullNewsMessages'));
-    $this['link_url']->setLabel(__('Link URL', null, 'ullNewsMessages'));
+    $this['link_url']
+      ->setMetaWidgetClassName('ullMetaWidgetNewsLink')
+      ->setLabel(__('Link URL', null, 'ullNewsMessages'));
     
     $this['image_upload']
       ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')

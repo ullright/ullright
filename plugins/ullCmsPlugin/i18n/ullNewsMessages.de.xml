@@ -24,6 +24,16 @@
 <target>News-Bild</target>
 </trans-unit>
 
+<trans-unit id="5">
+<source>Select a CMS page</source>
+<target>Wählen Sie eine CMS-Seite</target>
+</trans-unit>
+
+<trans-unit id="6">
+<source>or enter an internet address (URL). Example:</source>
+<target>oder geben Sie eine Internet-Adresse (URL) ein. Beispiel:</target>
+</trans-unit>
+
 
 <!-- labels -->
 
