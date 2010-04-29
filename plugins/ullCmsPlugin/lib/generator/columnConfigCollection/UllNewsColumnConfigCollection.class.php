@@ -18,7 +18,8 @@ class UllNewsColumnConfigCollection extends ullColumnConfigCollection
     $this['image_upload']
       ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
       ->setLabel(__('Image upload', null, 'ullNewsMessages'))
-      ->setWidgetAttribute('alt', __('News image', null, 'ullNewsMessages'));
+      ->setWidgetAttribute('alt', __('News image', null, 'ullNewsMessages'))
+      ->setValidatorOption('imageWidth', 140);
       
     $this['activation_date']
       ->setDefaultValue(date('Y-m-d'))

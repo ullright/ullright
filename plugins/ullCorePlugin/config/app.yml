@@ -15,3 +15,6 @@ all:
     # This line can be overridden by the user's app.yml
     # to use a specific search configuration class
     search_class: ullUserSearchConfig
+    
+  sfImageTransformPlugin:
+    default_adapter:   ImageMagick

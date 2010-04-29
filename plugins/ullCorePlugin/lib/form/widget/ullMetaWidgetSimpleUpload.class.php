@@ -24,6 +24,14 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
     {
       $this->columnConfig->setValidatorOption('mime_types', 'web_images');
     }
+    if (!$this->columnConfig->getValidatorOption('imageWidth'))
+    {
+      $this->columnConfig->setValidatorOption('imageWidth', 1000);
+    }
+  if (!$this->columnConfig->getValidatorOption('imageHeight'))
+    {
+      $this->columnConfig->setValidatorOption('imageHeight', 1000);
+    }
   }
   
 
@@ -51,7 +59,7 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
       array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
       $this->columnConfig->getWidgetAttributes()
     ));
-    $this->addValidator(new sfValidatorFile($this->columnConfig->getValidatorOptions()));
+    $this->addValidator(new ullValidatorFile($this->columnConfig->getValidatorOptions()));
    
   }
 }
