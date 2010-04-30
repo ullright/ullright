@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(61, new lime_output_color, $configuration);
+$t = new myTestCase(65, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -169,6 +169,18 @@ $t->diag('order() with sections');
   $t->is($c['one']->getSection(), '', 'Returns the correct section');
   
   unset($c['four']);
+  
+$t->diag('order() removes section when none given');
+  $order = array(
+    'one',
+    'two',
+  );
+  $c->order($order);
+  $t->is($c->getKeys(), array('one', 'two', 'three'), 'Orders the collection correctly');
+  $t->is($c['one']->getSection(), null, 'Correctly removes the section');
+  $t->is($c['two']->getSection(), null, 'Correctly removes the section');
+  $t->is($c['three']->getSection(), 'section_1', 'Correctly leaves a unspecified element unchanged');
+  
   
 
 $t->diag('Countable');
