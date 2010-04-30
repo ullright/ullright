@@ -147,6 +147,38 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   
   
   /**
+   * Executes registration of new users action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeRegister(sfRequest $request) 
+  {
+    
+    parent::executeEdit($request);
+    
+    $columnsConfig = $this->generator->getColumnsConfig();
+    
+    $columns = array(
+      'first_name',
+      'last_name',
+      'email',
+      'username',
+      'password',
+    );
+    
+    $columnsConfig->disableAllExcept($columns);
+    $columnsConfig->order($columns);
+    
+    if ($password = $this->generator->getForm()->getDefault('password'))
+    {
+      $this->generator->getForm()->setDefault('password_confirmation', '********');
+    }
+
+    $this->setTableToolTemplate('edit');
+  }    
+  
+  
+  /**
    * Disable columns which should not be seen by unpriviledged users
    * 
    * @return none

@@ -631,6 +631,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       }
       else
       {
+        $this->collection[$sectionOrField]->setSection(null);
         $plainArray[] = $sectionOrField;
       }
     }
