@@ -5,17 +5,22 @@ jQuery.fn.addSelectFilter = function()
 {
   return this.each(function()
   {
-    var filterId= this.id + '_filter';
+    var originalFilterId = this.id;
+    var filterId = originalFilterId + '_filter';
     var filter = $('<input type="text" id="' + filterId + '" size="1" title="Filter dropdown" />');
     
     $(this).before(filter);
     filter.after(" ");
   
-    filter.attr("onkeyup","doFiltering(this.value, document.getElementById('" + this.id + "'));");
+    //does not work in ie8
+    //filter.attr("onkeyup","doFiltering(this.value, document.getElementById('" + this.id + "'));");
     
-    // doesnt work: triggers immediatly
-    //filter.keyup(alert('x'));
+    //instead we use the official jquery event 
+    filter.keyup(function()
+    {
+      doFiltering(this.value, document.getElementById(originalFilterId));
     });
+  });
 };
 
 filterCache = new Array();
