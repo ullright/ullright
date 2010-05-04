@@ -430,4 +430,26 @@ class ullGeneratorForm extends sfFormDoctrine
     return $this->columnsConfig;
   }
 
+  
+  /** 
+   * Mark mandatory fields with a *
+   * 
+   */
+  public function markMandatoryFields()
+  {
+    foreach ($this->getWidgetSchema()->getFields() as $field => $widget)
+    {
+      if (
+        $this->getValidator($field)->getOption('required') === true
+        && !($widget instanceof ullWidget) // read-only mode
+      )
+      {
+        $this->getWidgetSchema()->setLabel($field,
+           $this->getWidgetSchema()->getLabel($field) . ' *'
+        );        
+      } 
+    }   
+  } 
+ 
+
 }

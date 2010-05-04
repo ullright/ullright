@@ -607,6 +607,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    *    field_4, 
    *  );
    *
+   * When giving no section in the array, the section is cleared.
    * 
    * From ullCoreTools::orderArrayByArray:
    * Orders the top level of an associative array by a given array
@@ -636,7 +637,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       }
     }
     
-    $this->collection = ullCoreTools::orderArrayByArray($this->collection, $plainArray);    
+    $this->collection = ullCoreTools::orderArrayByArray($this->collection, $plainArray);
   }
   
   
@@ -747,6 +748,15 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   }
   
   
+  public function setIsRequired(array $array)
+  {
+    foreach ($array as $field)
+    {
+      $this->collection[$field]->setIsRequired(true);  
+    }  
+  }
+  
+  
   // ArrayAccess methods
   
   public function offsetExists($offset)
@@ -817,6 +827,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   public function count()
   {
     return count($this->collection);
-  }  
+  }
+
   
 }

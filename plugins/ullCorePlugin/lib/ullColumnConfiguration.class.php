@@ -503,4 +503,27 @@ class ullColumnConfiguration
   {
     return $this->calculateSum;
   }  
+  
+  
+  /**
+   * Set required flag
+   * @param boolean $boolean
+   */
+  public function setIsRequired($boolean)
+  {
+    $this->setValidatorOption('required', (boolean) $boolean);
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get required flag
+   * @param $boolean
+   */
+  public function getIsRequired()
+  {
+    return (boolean) $this->getValidatorOption('required');
+  }
+  
 }

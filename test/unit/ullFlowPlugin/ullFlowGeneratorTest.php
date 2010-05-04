@@ -98,6 +98,7 @@ sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
 $t = new myTestCase(115, new lime_output_color, $configuration);
+$t->setMode('yml_fixtures');
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 

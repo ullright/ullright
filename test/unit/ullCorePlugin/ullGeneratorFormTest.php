@@ -9,7 +9,7 @@ class myTestCase extends lime_test
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(3, new lime_output_color, $configuration);
+$t = new myTestCase(6, new lime_output_color, $configuration);
 
 $t->diag('__construct()');
 
@@ -22,6 +22,24 @@ $t->diag('__construct()');
   $form = new ullGeneratorForm(new TestTable, $columnsConfig);
   $t->is($form->getWidgetSchema()->getFormFormatterName(), 'ullList', 'The form uses the "ullList" formatter for list actions');
 
+$t->diag('Mark mandatory fields');
+  $form->getWidgetSchema()->offsetSet('one', new sfWidgetFormInput());
+  $form->getWidgetSchema()->setLabel('one', 'One');
+  $form->getValidatorSchema()->offsetSet('one', new sfValidatorString(array('required' => false)));
+  
+  $form->getWidgetSchema()->offsetSet('two', new sfWidgetFormDate());
+  $form->getWidgetSchema()->setLabel('two', 'Two');
+  $form->getValidatorSchema()->offsetSet('two', new sfValidatorDate(array('required' => true)));
+  
+  $form->getWidgetSchema()->offsetSet('three', new ullWidget());
+  $form->getWidgetSchema()->setLabel('three', 'Three');
+  $form->getValidatorSchema()->offsetSet('three', new sfValidatorPass(array('required' => true)));  
+  
+  $form->markMandatoryFields();
+  
+  $t->is($form->getWidgetSchema()->getLabel('one'), 'One', 'Correctly leaves a non required fields as it was');
+  $t->is($form->getWidgetSchema()->getLabel('two'), 'Two *', 'Correctly marks a required field');
+  $t->is($form->getWidgetSchema()->getLabel('three'), 'Three', 'Correctly leaves a field as it was, when it is a ullWidget and therefore readonly');
   
 //$t->diag('removeUnusedValues()');
 //

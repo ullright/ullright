@@ -4,7 +4,7 @@
  * 
  * The basic idea: for a given table/model we have definitions on the 
  * table level (label, description, global access rights, etc) and on the
- * column level (label, description, access rights, mandatory, show_in_list, etc)
+ * column level (label, description, access rights, required, show_in_list, etc)
  * 
  * Furthermore we define a highlevel "type" of field foreach column.
  * The ullMetaWidgets are used for that purpose. They configure a widget for
@@ -404,14 +404,12 @@ abstract class ullGenerator extends ullGeneratorBase
             $ullMetaWidget->addToFormAs($translationColumnName);
             $label = $columnConfig->getLabel() . ' ' . strtoupper($culture);
             $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
-            $this->markMandatoryColumn($this->forms[$key], $translationColumnName, $columnConfig);
           }
         }
         else
         {
           $ullMetaWidget->addToFormAs($columnName);
           $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig->getLabel(), null, 'common'));
-          $this->markMandatoryColumn($this->forms[$key], $columnName, $columnConfig);
         }
         
         //help
@@ -423,6 +421,7 @@ abstract class ullGenerator extends ullGeneratorBase
       }
       
       $this->forms[$key]->updateDefaults();
+      $this->forms[$key]->markMandatoryFields();
     }
     
     $this->buildSumForm($cultures);
@@ -598,27 +597,6 @@ abstract class ullGenerator extends ullGeneratorBase
         return true;
       }
      }
-  }
-  
-  /**
-   * mark the label of mandatory fields with an asterix "*"
-   * 
-   * @param $form
-   * @param $columnName
-   * @param $columnConfig
-   * @return none
-   */
-  protected function markMandatoryColumn(sfForm $form, $columnName, ullColumnConfiguration  $columnConfig)
-  {
-    if ($columnConfig->getAccess() == 'w' && $form->offsetExists($columnName))
-    {
-      $label = $form->getWidgetSchema()->getLabel($columnName);
-      $validatorOptions = $columnConfig->getValidatorOptions();
-      if ($validatorOptions["required"] === true)
-      {
-        $form->getWidgetSchema()->setLabel($columnName, $label . ' *');  
-      }
-    }
   }
   
   

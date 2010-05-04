@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(13, new lime_output_color, $configuration);
+$t = new myTestCase(15, new lime_output_color, $configuration);
 
 $cc = new ullColumnConfiguration;
 $cc->setAccess('r');
@@ -47,3 +47,9 @@ $t->diag('set/getCalculateSum()');
   $t->is($cc->getCalculateSum(), false, 'false per default');
   $cc->setCalculateSum(true);
   $t->is($cc->getCalculateSum(), true, 'true when set');  
+  
+$t->diag('set/getIsRequired()');
+  $t->is($cc->getIsRequired(), false, 'false per default');
+  $cc->setIsRequired(true);
+  $t->is($cc->getIsRequired(), true, 'true when set');
+    

@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$t = new myTestCase(65, new lime_output_color, $configuration);
+$t = new myTestCase(68, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -170,6 +170,7 @@ $t->diag('order() with sections');
   
   unset($c['four']);
   
+  
 $t->diag('order() removes section when none given');
   $order = array(
     'one',
@@ -216,3 +217,13 @@ $t->diag('getAutoRenderedColumns');
 $t->diag('getDatabaseColumns');
   $c['one']->setIsArtificial(true);
   $t->is(array_keys($c->getDatabaseColumns()), array('two', 'four'), 'returns the correct columns');  
+  
+$t->diag('setIsRequired()');  
+  $c = new ullColumnConfigCollection('TestTable');
+  $c['one'] = new UllColumnConfiguration;
+  $c['two'] = new UllColumnConfiguration;
+  $c['three'] = new UllColumnConfiguration; 
+  $c->setIsRequired(array('one', 'three'));
+  $t->is($c['one']->getIsRequired(), true, 'Returns true for a required field'); 
+  $t->is($c['two']->getIsRequired(), false, 'Returns false for a non-required field');
+  $t->is($c['three']->getIsRequired(), true, 'Returns true for a required field');
