@@ -100,14 +100,17 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['entry_date']
       ->setLabel(__('Entry date', null, 'ullCoreMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetDate')
+      ->setHelp(__('Users are automatically activated on the entry day', null, 'ullCoreMessages'))
     ;
     $this['deactivation_date']
       ->setLabel(__('Deactivation date', null, 'ullCoreMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetDate')
+      ->setHelp(__('Optional date if a user should be deactivated before the separation date. Example: exemption', null, 'ullCoreMessages'))
     ;
     $this['separation_date']
       ->setLabel(__('Separation date', null, 'ullCoreMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetDate')
+      ->setHelp(__('Users are automatically deactivated after the separation day ends', null, 'ullCoreMessages'))
     ;
     $this['ull_user_status_id']
       ->setMetaWidgetClassName('ullMetaWidgetUllUserStatus')

@@ -181,6 +181,21 @@
         <target>Benutzer Status</target>
       </trans-unit>
       
+      <trans-unit id="36">
+        <source>Users are automatically activated on the entry day</source>
+        <target>Benutzer werden automatisch am Tag des Eintritts aktiviert</target>
+      </trans-unit>
+      
+      <trans-unit id="37">
+        <source>Optional date if a user should be deactivated before the separation date. Example: exemption</source>
+        <target>Optionales Datum für den Fall, dass ein Benutzer vor dem Austrittsdatum deaktiviert werden soll. Beispiel: Freistellung</target>
+      </trans-unit>
+      
+      <trans-unit id="38">
+        <source>Users are automatically deactivated after the separation day ends</source>
+        <target>Benutzer werden automatisch nach Ablauf des Austrittstages deaktiviert</target>
+      </trans-unit>                  
+      
       <!--  ullPhoto -->
       
       <trans-unit id="100">

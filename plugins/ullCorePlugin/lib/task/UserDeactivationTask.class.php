@@ -40,7 +40,7 @@ EOF;
     
     $q
       ->from('UllUser u')
-      ->where('u.deactivation_date < ?', date('Y-m-d'))
+      ->where('u.deactivation_date <= ?', date('Y-m-d'))
       ->orWhere('u.separation_date < ?', date('Y-m-d'))
       ->wrapExistingWhereInParantheses()
       ->addWhere('u.ull_user_status_id <> ?', $inactiveId)
