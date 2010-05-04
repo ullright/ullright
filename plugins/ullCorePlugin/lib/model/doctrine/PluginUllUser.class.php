@@ -61,33 +61,49 @@ abstract class PluginUllUser extends BaseUllUser
    * 
    * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#postSave($event)
    */
-  
-  // an issue with editing the entry_date must be fixed before activating
-  
-//  public function postSave($event)
-//  {
-//    if (
-//      $this->entry_date > date('Y-m-d') 
-//      && $this->UllUserStatus->slug != 'inactive'   // prevent looping 
-//      && !$this->hasMappedValue('scheduled_update_date')  // prevent looping for superversionable behaviour
-//    )
-//    {
-//      
-//      $ullUserStatusInactive = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
-//
-//      // Special handling for dev fixture loading: we don't have UllUserStatus
-//      // objects yet in the database, so skip the whole functionality
-//      if ($ullUserStatusInactive)
-//      {
-//        $this->UllUserStatus = $ullUserStatusInactive;
-//        $this->save();
-//        
-//        $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('active');
-//        $this->mapValue('scheduled_update_date', $this->entry_date);
-//        $this->save();
-//      }
-//    }  
-//  }
+  public function preSave($event)
+  {
+    if
+    (
+      $this->entry_date > date('Y-m-d') //future entry date?
+      && $this->UllUserStatus->slug != 'inactive'   // prevent looping
+      && !$this->hasMappedValue('scheduled_update_date')  // prevent looping for SuperVersionable behaviour
+    )
+    {
+      $ullUserStatusInactive = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
+
+      // Special handling for dev fixture loading: we don't have UllUserStatus
+      // objects yet in the database, so skip the whole functionality
+      if ($ullUserStatusInactive)
+      {
+        //set the user status to inactive and save the record
+        //this has the following two (necessary!) side effects:
+        //
+        // - if it is a new record, it gets inserted
+        //   (SuperVersionable does only act on update, not insert)
+        //
+        // - the scheduled update we create later on will
+        //   reference this new version, not the old (unmodified) one
+        $this->UllUserStatus = $ullUserStatusInactive;
+        $this->save();
+
+        //cause a scheduled update which will set the user to active
+        $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('active');
+        $this->mapValue('scheduled_update_date', $this->entry_date);
+        $this->save();
+
+        //someone might continue working with the record
+        //reset values to what they should be (i.e., are
+        //'now' => an inactive user record)
+        $this->UllUserStatus = $ullUserStatusInactive;
+        $this->mapValue('scheduled_update_date', null);
+
+        //skip the actual save operation, since we already
+        //handled it above
+        $event->skipOperation();
+      }
+    }
+  }
   
   /**
    * get User's Shortname
