@@ -9,4 +9,11 @@
   #This forces the creation of the migration_version table
   $dm->getCurrentVersion();
   $conn->exec("INSERT INTO " . $dm->getTableName() . " VALUES(" . $dm->getLatestVersion() . ")");
+  
+  
+  $dm = new Custom_Doctrine_Migration(sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR . 'migration' . DIRECTORY_SEPARATOR . 'custom');
+  $conn = Doctrine_Manager::connection();
+  #This forces the creation of the migration_version table
+  $dm->getCurrentVersion();
+  $conn->exec("INSERT INTO " . $dm->getTableName() . " VALUES(" . $dm->getLatestVersion() . ")");
 ?>
