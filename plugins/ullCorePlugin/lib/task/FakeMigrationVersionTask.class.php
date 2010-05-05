@@ -23,6 +23,8 @@ EOF;
 
     $this->addArgument('version', sfCommandArgument::OPTIONAL,
       'The doctrine migration version in the database');
+    $this->addArgument('custom', sfCommandArgument::OPTIONAL,
+      'Set the custom migration version instead of the regular one');
     $this->addArgument('application', sfCommandArgument::OPTIONAL,
       'The application name', 'frontend');
     $this->addArgument('env', sfCommandArgument::OPTIONAL,
@@ -37,7 +39,15 @@ EOF;
 
     $databaseManager = new sfDatabaseManager($configuration);
     
-    $dm = new Doctrine_Migration();
+    if ($arguments['custom'] == 'custom')
+    {
+      $dm = new Custom_Doctrine_Migration();
+    }
+    else
+    {
+      $dm = new Doctrine_Migration();
+    }
+    
     $conn = Doctrine_Manager::connection();
     
     try {
