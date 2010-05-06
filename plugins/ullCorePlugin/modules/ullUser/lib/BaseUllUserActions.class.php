@@ -110,7 +110,13 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     
     $this->generator = new ullTableToolGenerator('UllUser', 'r');
     $this->handlePublicAccess();
-    $this->getUserFromRequest();
+    $this->getUserFromRequestOrCreate();
+    
+    // Allow only existing users;
+    if (!$this->user->exists())
+    {
+      $this->forward404();
+    }    
     
     $this->generator->buildForm($this->user);
     
@@ -137,6 +143,8 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     
     parent::executeEdit($request);
     
+//    var_dump($this->generator->getColumnsConfig());die;
+    
     if ($password = $this->generator->getForm()->getDefault('password'))
     {
       $this->generator->getForm()->setDefault('password_confirmation', '********');
@@ -147,35 +155,125 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   
   
   /**
-   * Executes registration of new users action
+   * Executes registration of new users 
    *
    * @param sfWebRequest $request
    */
   public function executeRegister(sfRequest $request) 
   {
+    // Check if registration is enabled
+    if (!sfConfig::get('app_ull_user_enable_registration', false))
+    {
+      $this->forward404();
+    }    
     
-    parent::executeEdit($request);
+    $this->logoutIfLoggedIn();
+
+    $this->getUserFromRequestOrCreate();
+
+    // we don't allow editing here
+    if ($this->user->exists())
+    {
+      $this->forward404();
+    }
     
-    $columnsConfig = $this->generator->getColumnsConfig();
+    $this->handleEditAccount($request);
     
-    $columns = array(
-      'first_name',
-      'last_name',
-      'email',
-      'username',
-      'password',
-    );
+    if ($request->isMethod('post'))
+    {
+//      var_dump($request->getParameterHolder()->getAll());
+//      var_dump($this->getRequest()->getFiles());
+//      die;      
+      
+      if ($this->generator->getForm()->bindAndSave(
+        array_merge($request->getParameter('fields'), array('id' => $this->user->id)), 
+        $this->getRequest()->getFiles('fields')
+      ))
+      {
+        $this->getUser()->setAttribute('user_id', $this->generator->getRow()->id);
+        
+        $this->sendRegistrationEmail();
+        
+        $this->redirect('ullUser/registered');
+      }
+    }      
+  }    
+  
+  
+  /**
+   * Executes registration of new users action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeRegistered(sfRequest $request)
+  {
+      
+  } 
+  
+  
+  /**
+   * Executes the edit my account action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeEditAccount(sfRequest $request)
+  {
+    $this->getUserFromRequestOrCreate();
     
-    $columnsConfig->disableAllExcept($columns);
-    $columnsConfig->order($columns);
+    if (!$this->user->isLoggedIn())
+    {
+      $this->forward404();
+    }
+    
+    // Do not allow creation of new users here
+    if (!$this->user->exists())
+    {
+      $this->forward404();
+    }
+    
+    $this->handleEditAccount($request);
+    
+    if ($request->isMethod('post'))
+    {
+//      var_dump($request->getParameterHolder()->getAll());
+//      var_dump($this->getRequest()->getFiles());
+//      die;      
+      
+      if ($this->generator->getForm()->bindAndSave(
+        array_merge($request->getParameter('fields'), array('id' => $this->user->id)), 
+        $this->getRequest()->getFiles('fields')
+      ))
+      {
+        $this->getUser()->setFlash('message', __('Your changes have been saved', null, 'common'));
+      }
+    }     
+  }
+  
+  
+  /**
+   * Common functionality for registering / account editing
+   *  
+   * @param sfRequest $request
+   */
+  protected function handleEditAccount(sfRequest $request)
+  {
+    $this->generator = $this->getEditGenerator();
+
+    $this->adjustColumnConfigForEditAccount();
+    
+    $this->generator->buildForm($this->user);
     
     if ($password = $this->generator->getForm()->getDefault('password'))
     {
       $this->generator->getForm()->setDefault('password_confirmation', '********');
-    }
+    }        
+    
+//    $this->generator->getForm()->debug();die;
+    
+    $this->setVar('generator', $this->generator, true);  
 
-    $this->setTableToolTemplate('edit');
-  }    
+    $this->setVar('form_uri', $this->getEditFormUri(), true);
+  }
   
   
   /**
@@ -536,18 +634,30 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    * Get user by username from request
    * @return none
    */
-  protected function getUserFromRequest()
+  protected function getUserFromRequestOrCreate()
   {
     $username = $this->getRequestParameter('username');
     
-    // also allow the id for bc compatibility
-    if (is_numeric($username))
-    {     
-      $this->user = Doctrine::getTable('UllEntity')->find($username);
+    if ($username)
+    {
+      // also allow the id for bc compatibility
+      if (is_numeric($username))
+      {     
+        $this->user = Doctrine::getTable('UllEntity')->find($username);
+      }
+      else
+      {
+        $this->user = Doctrine::getTable('UllEntity')->findOneByUsername($username);
+      }
+      
+      if (!$this->user)
+      {
+        $this->forward404();
+      }
     }
     else
     {
-      $this->user = Doctrine::getTable('UllEntity')->findOneByUsername($username);
+      $this->user = new UllUser;
     }
   }
   
@@ -683,5 +793,133 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $breadcrumb_tree->add(__('Superior mass change'));
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-  }  
+  }
+
+  
+  /**
+   * Logout if logged in
+   */
+  protected function logoutIfLoggedIn()
+  {
+    if ($this->getUser()->getAttribute('user_id'))
+    {
+      $this->getUser()->setAttribute('user_id', null);
+    }   
+  }
+  
+  /**
+   * Send registration email
+   */
+  protected function sendRegistrationEmail()
+  {
+    $object = $this->generator->getRow();
+    $name = $object->first_name . ' ' . $object->last_name;
+    
+    $mail = new ullsfMail();
+
+//    $mail->setSender(
+//      sfConfig::get('app_ull_user_registration_sender_name', 'No reply')  ,
+//      sfConfig::get('app_ull_user_registration_sender_address', 'noreply@example.com')
+//    );
+    $mail->addAddress(
+      $object->email, 
+      $name
+    );
+    $mail->setSubject(__('Your registration data', null, 'ullCoreMessages'));
+    
+    $mail->setBody(__('Hello %name%,
+
+Here\'s your registration data for %home_url%
+    
+Username: %username%
+Password: %password%
+
+You can edit your profile at %edit_account_url%
+', array(
+  '%name%'              => $name,
+  '%home_url%'          => url_for('@homepage', true),
+  '%username%'          => $object->username,
+  '%password%'          => $_POST['fields']['password'],
+  '%edit_account_url%'  => url_for('ullUser/editAccount?username=' . $object->username, true),
+    ), 'ullCoreMessages'));
+    
+    $mail->send();
+  }
+  
+  
+  /**
+   * Adjusts the columns configuration for the edit account action
+   *  
+   */
+  protected function adjustColumnConfigForEditAccount()
+  {
+    $columnsConfig = $this->generator->getColumnsConfig();
+    
+    $showColumns = sfConfig::get('app_ull_user_account_show_columns',array(
+      'first_name',
+      'last_name',
+      'email',
+      'password',    
+    ));
+
+    $columnsConfig->disableAllExcept($showColumns);
+    $columnsConfig->order($showColumns);
+    foreach ($showColumns as $column)
+    {
+      $columnsConfig[$column]->setAccess('r');
+    }
+    
+    if (!$this->user->exists())
+    {
+      $editColumns = sfConfig::get('app_ull_user_account_create_columns',array(
+        'first_name',
+        'last_name',
+        'email',
+        'username',
+        'password',    
+      ));
+    }
+    else
+    {
+      $editColumns = sfConfig::get('app_ull_user_account_edit_columns',array(
+        'first_name',
+        'last_name',
+        'email',
+        'password',    
+      ));
+    }
+    
+    foreach ($editColumns as $column)
+    {
+      $columnsConfig[$column]->setAccess('w');
+    }    
+    
+    $columnsConfig->setIsRequired(sfConfig::get('app_ull_user_account_required_columns',array(
+      'first_name',
+      'last_name',
+      'email',
+      'username',
+      'password',    
+    )));
+    
+
+    $columnsConfig['id']
+      ->setAccess('r')
+      ->setAutoRender(false)
+    ;
+    
+    $columnsConfig['email']
+      ->setHelp(__('A valid email address is important for functions like sending you a new password in case you forgot yours', null, 'ullCoreMessages') . '.')
+    ;
+
+    // Passwort needs to be retained during creation
+    if (!$this->user->exists())
+    {
+      $columnsConfig['password']
+        ->setWidgetOption('render_pseudo_password', false)
+        ->setWidgetOption('always_render_empty', false)
+      ;
+    }
+ 
+  }
 }

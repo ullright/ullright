@@ -395,7 +395,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $username = $this->getRequestParameter('username');
     if (!$username)
     {
-      $username = UllUserTable::getLoggedInUsername();
+      $username = UllUserTable::findLoggedInUsername();
       $this->getRequest()->setParameter('username', $username);
     }
     

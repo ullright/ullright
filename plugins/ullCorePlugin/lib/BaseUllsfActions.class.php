@@ -221,21 +221,6 @@ abstract class BaseUllsfActions extends sfActions
   
   
   /**
-   * Get the username of the currently logged in user
-   * 
-   * @return string
-   */
-  protected function getLoggedInUsername()
-  {
-    $userId = $this->getUser()->getAttribute('user_id');
-    if ($userId)
-    {
-      return UllUserTable::findUsernameById($userId);
-    } 
-  }
-  
-  
-  /**
    * We have to prioritize POST request values for the (search) filters
    * 
    * Usecase: 

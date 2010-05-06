@@ -29,7 +29,7 @@ $b
 	->isStatusCode(200)
   ->isRequestParameter('module', 'myModule')
   ->isRequestParameter('action', 'index')
-  ->responseContains('Logged in as ' . ull_link_entity_popup('admin', 1))
+  ->responseContains('Logged in as    ' . ull_link_entity_popup('admin', 1))
   ->click('Log out')  
   ->isRedirected()
   ->followRedirect()

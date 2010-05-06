@@ -149,10 +149,27 @@ abstract class PluginUllUser extends BaseUllUser
     return $this->_get('phone_extension');
   }
   
- public function getMobileNumber()
+  public function getMobileNumber()
   {
     //overrideContactDataAccessor is a mapped value
     return ($this->_get('is_show_mobile_number_in_phonebook') === false && !isset($this->overrideContactDataAccessor))
       ? null : $this->_get('mobile_number');
   }
+  
+  /**
+   * Check wether the user is currently logged in
+   * 
+   * @return boolean
+   */
+  public function isLoggedIn()
+  {
+    if ($this->id === sfContext::getInstance()->getUser()->getAttribute('user_id'))
+    {
+      return true;
+    }
+    
+    return false;
+  } 
+  
+  
 }

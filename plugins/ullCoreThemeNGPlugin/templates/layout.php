@@ -71,23 +71,14 @@
       
       <div id="nav_syslinks_container">
       
-        <div id="nav_langlinks">      
-          <?php
-            if (count(sfConfig::get('app_i18n_supported_languages')) > 1)
-            {
-              $culture = $sf_user->getCulture();
-              $language = substr($culture,0,2);
-              if ($language <> 'en') 
-              {
-                echo ull_link_to('English', 'ullUser/changeCulture?culture=en', 'ull_js_observer_confirm=true');
-              }
-              if ($language <> 'de') 
-              {
-                echo ull_link_to('Deutsch', 'ullUser/changeCulture?culture=de', 'ull_js_observer_confirm=true');
-              }
-            }
-          ?>
-          &nbsp;
+        <div id="nav_syslinks">
+          <ul class="nav_syslinks_list">
+          
+            <?php include_component('ullUser', 'headerSyslinkMyAccount'); ?>
+            
+            <?php include_component('ullUser', 'headerSyslinkLanguageSelectionGermanEnglish'); ?>
+            
+          </ul>
         </div>   
         
         <!-- 
@@ -97,7 +88,9 @@
         -->
           
         <div id="nav_loginbox">
-          <?php include_component('ullUser', 'headerLogin'); ?>
+          <ul class="nav_syslinks_list">
+            <?php include_component('ullUser', 'headerLogin'); ?>
+          </ul>
         </div>        
         
       </div> <!-- end of nav_syslinks_container -->

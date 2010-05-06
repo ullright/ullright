@@ -270,10 +270,13 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Dieses Foto überspringen</target>
       </trans-unit>
       
-       <trans-unit id="114">
+      <trans-unit id="114">
         <source>Upload user photos</source>
         <target>Benutzer-Fotos hochladen</target>
-      </trans-unit>   
+      </trans-unit>
+      
+
+      
       
       
       <!--  UllEntityTypes -->
@@ -496,7 +499,71 @@ Gültige Dateitypen sind jpg und png.</target>
         <source>Cleared</source>
         <target>Erledigt</target>
       </trans-unit>
+      
+      
+      <!-- Registration -->
+      
+      <trans-unit id="3113">
+        <source>A valid email address is important for functions like sending you a new password in case you forgot yours</source>
+        <target>Eine gültige E-Mail Adresse ist für viele Funktionen wichtig. Beispiel: Ihnen ein neues Passwort zusenden wenn Sie Ihres vergessen haben</target>
+      </trans-unit>  
+      
+      <trans-unit id="3114">
+        <source>Register</source>
+        <target>Registrieren</target>
+      </trans-unit>  
+      
+      <trans-unit id="3115">
+        <source>Please enter your data to register</source>
+        <target>Bitte geben Sie Ihre Daten für die Registrierung ein</target>
+      </trans-unit>
 
+      <trans-unit id="3116">
+        <source>You have been logged in and a message containing your account data has been sent to your email address</source>
+        <target>Sie wurden angemeldet und Ihre Zugangsdaten wurden Ihnen per E-Mail gesendet</target>
+      </trans-unit>
+      
+      <trans-unit id="3117">
+        <source>Thank you for your registration</source>
+        <target>Danke für Ihre Registrierung</target>
+      </trans-unit>
+      
+      <trans-unit id="3118">
+        <source>Your registration data</source>
+        <target>Ihre Registrierungs-Daten</target>
+      </trans-unit>      
+      
+      <trans-unit id="3119">
+        <source>Hello %name%,
+
+Here's your registration data for %home_url%
+    
+Username: %username%
+Password: %password%
+
+You can edit your account at %edit_account_url%
+</source>
+        <target>Hallo %name%,
+
+Hier sind Ihre Registrierungs-Daten für %home_url%
+    
+Benutzername: %username%
+Passwort: %password%
+
+Sie können Ihr Konto unter %edit_account_url% bearbeiten.
+</target>
+      </trans-unit>    
+          
+      <trans-unit id="3120">
+        <source>Edit your account data</source>
+        <target>Bearbeiten Sie Ihre Kontodaten</target>
+      </trans-unit>
+      
+      <trans-unit id="3121">
+        <source>My account</source>
+        <target>Mein Konto</target>
+      </trans-unit> 
+      
     </body>
   </file>
 </xliff>

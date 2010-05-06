@@ -2,23 +2,25 @@
 
 class BaseUllUserComponents extends sfComponents
 {
-  /**
-   * Checks if there's a user logged in,
-   * if yes, retrieves and saves the username.
-   */
+
+  public function executeHeaderSyslinkMyAccount() 
+  {
+    $this->username = UllUserTable::findLoggedInUsername();
+  }
+  
+  
+  public function executeHeaderSyslinkLanguageSelectionGermanEnglish()
+  {
+    if (count(sfConfig::get('app_i18n_supported_languages')) > 1)
+    {
+      $this->language = substr($this->getUser()->getCulture(), 0, 2);
+    }
+  }
+  
+  
   public function executeHeaderLogin() 
   {
-    $this->username = null;
-    
-    if ($logged_in_user_id = $this->getUser()->getAttribute('user_id'))
-    {
-      $user = Doctrine::getTable('UllUser')->find($logged_in_user_id);
-      
-      if ($user !== null)
-      {
-        $this->username = $user->username;
-      }
-    }
+    $this->username = UllUserTable::findLoggedInUsername();
   }
   
 }

@@ -208,10 +208,32 @@ ul.nav_top_links li:hover {
   margin-top: 0;
 }
 
-#nav_langlinks {
+#nav_syslinks {
   color: #777777;
   text-align: right;
   margin-top: 0.2em;
+}
+
+
+ul.nav_syslinks_list {
+  list-style-type: none;
+  margin: 0;
+}
+
+ul.nav_syslinks_list li {
+  display: inline;
+  padding: 0 .5em 0 .7em;
+  margin: 0;
+  border-left: 1px solid grey;
+}
+
+ul.nav_syslinks_list li:first-child {
+  display: inline;
+  border: none;
+}
+
+ul.nav_syslinks_list li:last-child {
+  padding-right: 0;
 }
 
 #nav_searchbox {

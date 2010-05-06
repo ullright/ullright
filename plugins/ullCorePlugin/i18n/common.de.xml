@@ -429,6 +429,10 @@
 <target>Weitergeleitet von der Ergebnisliste, da es nur ein einziges Ergebnis gab. Klicken Sie oben in der Brotkrumen-Navigationsleiste auf "Ergebnisliste" um zur Listenansicht zurückzukehren.</target>
 </trans-unit>
 
+<trans-unit id="4005">
+<source>Your changes have been saved</source>
+<target>Ihre Änderungen wurden gespeichert</target>
+</trans-unit>
 
 
 <!-- common validation phrases -->

@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(20, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(24, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -113,6 +113,8 @@ $t->diag('hasPermission()');
     'Access allowed. Logged in as unprivileged user, and permission ull_foo_show is accessible by logged in users'
   );  
   
+  $t->logout();
+  
 
 $t->begin('findChoices()');
   $admin = Doctrine::getTable('UllUser')->findOneByUserName('admin');
@@ -134,4 +136,16 @@ $t->diag('findUsernameById()');
   
 $t->diag('findIdByUsername()');
   $t->is(UllUserTable::findIdByUsername('foobar'), false, 'returns false for an invalid username');  
-  $t->is(UllUserTable::findIdByUsername('test_user'), 2, 'returns the correct username');  
+  $t->is(UllUserTable::findIdByUsername('test_user'), 2, 'returns the correct username');
+
+$t->diag('findLoggedInUser()');
+  $t->is(UllUserTable::findLoggedInUser(), false, 'Returns false when nobody is logged in');
+  $t->loginAs('test_user');
+  $t->is(UllUserTable::findLoggedInUser()->username, 'test_user', 'Returns the correct user object when logged in');
+  $t->logout();
+  
+$t->diag('findLoggedInUsername()');
+  $t->is(UllUserTable::findLoggedInUsername(), false, 'Returns false when nobody is logged in');
+  $t->loginAs('test_user');
+  $t->is(UllUserTable::findLoggedInUsername(), 'test_user', 'Returns the correct user object when logged in');
+  $t->logout();  

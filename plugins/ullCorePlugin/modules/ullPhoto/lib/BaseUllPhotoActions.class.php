@@ -278,9 +278,6 @@ class BaseUllPhotoActions extends ullsfActions
     }
   }
   
-  
-  
-  
   /**
    * Get the working directory for the currently logged in user
    * @return unknown_type
@@ -290,7 +287,7 @@ class BaseUllPhotoActions extends ullsfActions
     $path = sfConfig::get('sf_web_dir') . 
       sfConfig::get('app_ull_photo_upload_path', '/uploads/userPhotos') 
       . '/temp/' 
-      . $this->getLoggedInUsername()
+      . UllUserTable::findLoggedInUsername()
     ;
     
     return $path;
