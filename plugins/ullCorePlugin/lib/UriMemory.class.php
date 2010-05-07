@@ -23,7 +23,8 @@ class UriMemory
     $user,
     // uris containing these entries may never be used (for setReferer() at the moment)
     $blacklist = array(
-      'ullUser/show'
+      'ullUser/show',
+      'ullUser/signUp',
     )
   ;
     
