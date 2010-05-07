@@ -594,7 +594,7 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       
       <trans-unit id="3203">
         <source>Reset password</source>
-        <target>Passwort zurückstellen</target>
+        <target>Passwort zurücksetzen</target>
       </trans-unit> 
       
       <trans-unit id="3204">

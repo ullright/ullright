@@ -18,8 +18,18 @@
     <div class='edit_action_buttons_left'>
       <?php echo submit_tag(__('Log in')); ?>
     </div>
+    <div class='edit_action_buttons_right'>
+      <?php  
+        if(sfConfig::get('app_ull_user_enable_reset_password', false))
+        {
+          echo ull_link_to(
+            __('Reset password', null, 'ullCoreMessages'),
+             'ullUser/resetPassword'
+          ); 
+        }
+        ?>
+    </div>
   </div>
-  
 </div>
  
 </form>
