@@ -201,6 +201,43 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   
   
   /**
+   * Executes resetting password
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeResetPassword(sfRequest $request) 
+  {
+    // Check if password resetting is enabled
+    if (!sfConfig::get('app_ull_user_enable_reset_password', false))
+    {
+      $this->forward404();
+    }    
+    
+    $resetPasswordData = $request->getParameter('resetPassword');
+    $this->form = new ResetPasswordForm();
+
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($resetPasswordData);
+      
+      if ($this->form->isValid())
+      {
+        $username = $this->form->getValue('username');
+        $newPassword = rand(1000,9999);
+        $user = Doctrine::getTable('UllUser')->findOneByUsername($username);
+        $user['password'] = md5($newPassword);
+        $user->save();
+        
+        $this->sendResetPasswordEmail($user, $newPassword);
+        
+        $this->getUser()->setFlash('message',  __('Your new password has been sent to your email address', null, 'ullCoreMessages'));
+        $this->redirect('ullUser/login');
+      }
+    }
+  }    
+  
+  
+  /**
    * Executes registration of new users action
    *
    * @param sfWebRequest $request
@@ -842,6 +879,45 @@ You can edit your account at %edit_account_url%
   '%username%'          => $object->username,
   '%password%'          => $_POST['fields']['password'],
   '%edit_account_url%'  => url_for('ullUser/editAccount?username=' . $object->username, true),
+    ), 'ullCoreMessages'));
+    
+    $mail->send();
+  }
+  
+  
+/**
+   * Send email for reset password
+   */
+  protected function sendResetPasswordEmail($user, $password)
+  {
+    $name = $user->first_name . ' ' . $user->last_name;
+    
+    $mail = new ullsfMail();
+
+    $mail->setSender(
+      sfConfig::get('app_ull_user_reset_password_sender_name', 'No reply')  ,
+      sfConfig::get('app_ull_user_reset_password_sender_address', 'noreply@example.com')
+    );
+    $mail->addAddress(
+      $user->email, 
+      $name
+    );
+    $mail->setSubject(__('Your new password', null, 'ullCoreMessages'));
+    
+    $mail->setBody(__('Hello %name%,
+
+Here\'s your new password for %home_url%
+    
+Username: %username%
+Password: %password%
+
+You can edit your account at %edit_account_url%
+', array(
+  '%name%'              => $name,
+  '%home_url%'          => url_for('@homepage', true),
+  '%username%'          => $user->username,
+  '%password%'          => $password,
+  '%edit_account_url%'  => url_for('ullUser/editAccount?username=' . $user->username, true),
     ), 'ullCoreMessages'));
     
     $mail->send();

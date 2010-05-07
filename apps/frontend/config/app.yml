@@ -72,6 +72,9 @@ all:
     enable_sign_up:                         true
     sign_up_sender_name:                    No reply
     sign_up_sender_address:                 noreply@example.com
+    enable_reset_password:                  true
+    reset_password_sender_name:             No reply
+    reset_password_sender_address:          noreply@example.com
     # create = for sign up
     account_create_columns:                 [ 'first_name', 'last_name', 'sex', 'email', 'username', 'password' ]
     account_edit_columns:                   [ 'first_name', 'last_name', 'sex', 'email', 'password' ]

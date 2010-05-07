@@ -564,6 +564,53 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <target>Mein Konto</target>
       </trans-unit> 
       
+       <!-- Reset password -->
+      
+      <trans-unit id="3201">
+        <source>'Hello %name%,
+
+Here\'s your new password for %home_url%
+    
+Username: %username%
+Password: %password%
+
+You can edit your account at %edit_account_url%
+</source>
+        <target>Hallo %name%,
+
+Hier ist Ihr neues Passwort für %home_url%
+    
+Benutzername: %username%
+Passwort: %password%
+
+Sie können Ihr Konto unter %edit_account_url% bearbeiten.
+</target>
+      </trans-unit>    
+          
+      <trans-unit id="3202">
+        <source>Your new password</source>
+        <target>Ihr neues Passwort</target>
+      </trans-unit>
+      
+      <trans-unit id="3203">
+        <source>Reset password</source>
+        <target>Passwort zurückstellen</target>
+      </trans-unit> 
+      
+      <trans-unit id="3204">
+        <source>New password</source>
+        <target>Neues Passwort</target>
+      </trans-unit> 
+      
+      <trans-unit id="3204">
+        <source>Your new password has been sent to your email address</source>
+        <target>Ihr neues Passwort Ihnen per E-Mail zugesandt</target>
+      </trans-unit>
+      
+      <trans-unit id="3205">
+        <source>Username does not exist</source>
+        <target>Benutzername existiert nicht</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
