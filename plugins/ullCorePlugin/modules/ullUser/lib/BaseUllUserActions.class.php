@@ -855,9 +855,9 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     
     $mail = new ullsfMail();
 
-    $mail->setSender(
-      sfConfig::get('app_ull_user_sign_up_sender_name', 'No reply')  ,
-      sfConfig::get('app_ull_user_sign_up_sender_address', 'noreply@example.com')
+    $mail->setFrom(
+      sfConfig::get('app_ull_user_sign_up_sender_address', 'noreply@example.com'),
+      sfConfig::get('app_ull_user_sign_up_sender_name', 'No reply')
     );
     $mail->addAddress(
       $object->email, 
@@ -894,9 +894,9 @@ You can edit your account at %edit_account_url%
     
     $mail = new ullsfMail();
 
-    $mail->setSender(
-      sfConfig::get('app_ull_user_reset_password_sender_name', 'No reply')  ,
-      sfConfig::get('app_ull_user_reset_password_sender_address', 'noreply@example.com')
+    $mail->setFrom(
+      sfConfig::get('app_ull_user_reset_password_sender_address', 'noreply@example.com'),
+      sfConfig::get('app_ull_user_reset_password_sender_name', 'No reply')
     );
     $mail->addAddress(
       $user->email, 
