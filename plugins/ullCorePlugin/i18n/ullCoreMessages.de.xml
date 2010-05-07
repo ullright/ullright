@@ -509,12 +509,12 @@ Gültige Dateitypen sind jpg und png.</target>
       </trans-unit>  
       
       <trans-unit id="3114">
-        <source>Register</source>
+        <source>Sign up</source>
         <target>Registrieren</target>
       </trans-unit>  
       
       <trans-unit id="3115">
-        <source>Please enter your data to register</source>
+        <source>Please enter your data to sign up</source>
         <target>Bitte geben Sie Ihre Daten für die Registrierung ein</target>
       </trans-unit>
 
@@ -524,19 +524,19 @@ Gültige Dateitypen sind jpg und png.</target>
       </trans-unit>
       
       <trans-unit id="3117">
-        <source>Thank you for your registration</source>
+        <source>Thank you for signing up</source>
         <target>Danke für Ihre Registrierung</target>
       </trans-unit>
       
       <trans-unit id="3118">
-        <source>Your registration data</source>
-        <target>Ihre Registrierungs-Daten</target>
+        <source>Your account data</source>
+        <target>Ihre Konto-Daten</target>
       </trans-unit>      
       
       <trans-unit id="3119">
         <source>Hello %name%,
 
-Here's your registration data for %home_url%
+Here's your acount data for %home_url%
     
 Username: %username%
 Password: %password%

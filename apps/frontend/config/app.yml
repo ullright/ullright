@@ -69,10 +69,10 @@ all:
     phone_book_search_show_headers:         true
     user_popup_public_columns:              [ 'last_name', 'first_name', 'email', 'photo', 'type', 'ull_company_id', 'ull_department_id', 'ull_job_title_id', 'superior_ull_user_id', 'phone_extension', 'fax_extension', 'mobile_number', 'ull_user_status_id' ]
     user_popup_vertical_size:               720 #pixel
-    enable_registration:                     true
-    registration_sender_name:               No reply
-    registration_sender_address:            noreply@example.com
-    # create = for Registration
+    enable_sign_up:                         true
+    sign_up_sender_name:                    No reply
+    sign_up_sender_address:                 noreply@example.com
+    # create = for sign up
     account_create_columns:                 [ 'first_name', 'last_name', 'sex', 'email', 'username', 'password' ]
     account_edit_columns:                   [ 'first_name', 'last_name', 'sex', 'email', 'password' ]
     account_required_columns:               [ 'first_name', 'last_name', 'email', 'username', 'password' ]

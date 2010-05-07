@@ -1,10 +1,10 @@
 <?php //echo $breadcrumb_tree ?>
 
-<h2><?php echo __('Please enter your data to register', null, 'ullCoreMessages') ?></h2>
+<h2><?php echo __('Please enter your data to sign up', null, 'ullCoreMessages') ?></h2>
 
 <?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
-<?php echo form_tag('ullUser/register', array('multipart' => 'true', 'id' => 'ull_tabletool_form')) ?>
+<?php echo form_tag('ullUser/signUp', array('multipart' => 'true', 'id' => 'ull_tabletool_form')) ?>
 
 <div class="edit_container">
 
@@ -20,8 +20,8 @@
         <li>
           <?php             
             echo ull_submit_tag(
-              __('Register', null, 'ullCoreMessages'),
-              array('name' => 'submit|action_slug=register')
+              __('Sign up', null, 'ullCoreMessages'),
+              array('name' => 'submit|action_slug=sign_up')
             );  
           ?>
         </li>

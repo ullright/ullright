@@ -159,10 +159,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    *
    * @param sfWebRequest $request
    */
-  public function executeRegister(sfRequest $request) 
+  public function executeSignUp(sfRequest $request) 
   {
     // Check if registration is enabled
-    if (!sfConfig::get('app_ull_user_enable_registration', false))
+    if (!sfConfig::get('app_ull_user_enable_sign_up', false))
     {
       $this->forward404();
     }    
@@ -192,9 +192,9 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       {
         $this->getUser()->setAttribute('user_id', $this->generator->getRow()->id);
         
-        $this->sendRegistrationEmail();
+        $this->sendSignUpEmail();
         
-        $this->redirect('ullUser/registered');
+        $this->redirect('ullUser/signedUp');
       }
     }      
   }    
@@ -205,7 +205,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    *
    * @param sfWebRequest $request
    */
-  public function executeRegistered(sfRequest $request)
+  public function executeSignedUp(sfRequest $request)
   {
       
   } 
@@ -807,34 +807,35 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     }   
   }
   
+  
   /**
    * Send registration email
    */
-  protected function sendRegistrationEmail()
+  protected function sendSignUpEmail()
   {
     $object = $this->generator->getRow();
     $name = $object->first_name . ' ' . $object->last_name;
     
     $mail = new ullsfMail();
 
-//    $mail->setSender(
-//      sfConfig::get('app_ull_user_registration_sender_name', 'No reply')  ,
-//      sfConfig::get('app_ull_user_registration_sender_address', 'noreply@example.com')
-//    );
+    $mail->setSender(
+      sfConfig::get('app_ull_user_sign_up_sender_name', 'No reply')  ,
+      sfConfig::get('app_ull_user_sign_up_sender_address', 'noreply@example.com')
+    );
     $mail->addAddress(
       $object->email, 
       $name
     );
-    $mail->setSubject(__('Your registration data', null, 'ullCoreMessages'));
+    $mail->setSubject(__('Your account data', null, 'ullCoreMessages'));
     
     $mail->setBody(__('Hello %name%,
 
-Here\'s your registration data for %home_url%
+Here\'s your account data for %home_url%
     
 Username: %username%
 Password: %password%
 
-You can edit your profile at %edit_account_url%
+You can edit your account at %edit_account_url%
 ', array(
   '%name%'              => $name,
   '%home_url%'          => url_for('@homepage', true),
