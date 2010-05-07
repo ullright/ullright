@@ -567,14 +567,14 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
        <!-- Reset password -->
       
       <trans-unit id="3201">
-        <source>'Hello %name%,
+        <source>Hello %name%,
 
-Here\'s your new password for %home_url%
+Here's your new password for %home_url%
     
 Username: %username%
 Password: %password%
 
-You can edit your account at %edit_account_url%
+Please change your password at %edit_account_url%
 </source>
         <target>Hallo %name%,
 
@@ -583,7 +583,7 @@ Hier ist Ihr neues Passwort für %home_url%
 Benutzername: %username%
 Passwort: %password%
 
-Sie können Ihr Konto unter %edit_account_url% bearbeiten.
+Bitte ändern Sie Ihr Passwort unter %edit_account_url%
 </target>
       </trans-unit>    
           

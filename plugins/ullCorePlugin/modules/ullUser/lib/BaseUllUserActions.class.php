@@ -911,7 +911,7 @@ Here\'s your new password for %home_url%
 Username: %username%
 Password: %password%
 
-You can edit your account at %edit_account_url%
+Please change your password at %edit_account_url%
 ', array(
   '%name%'              => $name,
   '%home_url%'          => url_for('@homepage', true),
