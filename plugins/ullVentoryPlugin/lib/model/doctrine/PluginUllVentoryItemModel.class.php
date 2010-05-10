@@ -13,7 +13,7 @@ abstract class PluginUllVentoryItemModel extends BaseUllVentoryItemModel
    */
   public function __toString()
   {
-    return $this->name;
+    return (string) $this->name;
   }
 
 }

@@ -11,6 +11,6 @@ abstract class PluginUllVentoryStatusDummyUser extends BaseUllVentoryStatusDummy
     $culture = sfDoctrineRecord::getDefaultCulture();
     $return = $this->Translation->$culture->display_name;
     //this executes a query each time, cache this?
-    return $return;
+    return (string) $return;
   }
 }
