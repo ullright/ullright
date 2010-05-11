@@ -661,7 +661,8 @@ public function getDgsUllTableToolUllLocationList()
     
     return $s;
   }
-public function getDgsUllTableToolUllTimePeriodList()
+  
+  public function getDgsUllTableToolUllTimePeriodList()
   {
     $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
       array(
@@ -669,6 +670,141 @@ public function getDgsUllTableToolUllTimePeriodList()
         'name_translation_en',
         'from_date',
         'to_date'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryItemTypes()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'name_translation_en',
+        'has_software',
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryItemManufacturer()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'name',
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryItemModel()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'name',
+        'ull_ventory_item_manufacturer_id',
+        'ull_ventory_item_type_id'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryItemAttribute()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'name_translation_en',
+        'ull_column_type_id',
+        'options'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryItemTypeAttribute()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'ull_ventory_item_type_id',
+        'ull_ventory_item_attribute_id',
+        'is_mandatory',
+        'is_presetable'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentorySoftware()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'name',
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentorySoftwareLicense()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'ull_ventory_software_id',
+        'license_key',
+        'quantity',
+        'supplier',
+        'delivery_date',
+        'comment',
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryOriginDummyUser()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'display_name_translation_en',
+        'username'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryStatusDummyUser()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'display_name_translation_en',
+        'username'
+      )
+    );
+    
+    return $s;
+  }
+  
+  public function getDgsUllTableToolUllVentoryTaking()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'name'
       )
     );
     
