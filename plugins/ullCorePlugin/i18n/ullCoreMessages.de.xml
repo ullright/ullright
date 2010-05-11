@@ -536,7 +536,7 @@ Gültige Dateitypen sind jpg und png.</target>
       <trans-unit id="3119">
         <source>Hello %name%,
 
-Here's your acount data for %home_url%
+Here's your account data for %home_url%
     
 Username: %username%
 Password: %password%

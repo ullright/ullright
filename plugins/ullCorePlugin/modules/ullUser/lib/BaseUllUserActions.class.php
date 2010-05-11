@@ -161,7 +161,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeSignUp(sfRequest $request) 
   {
-    // Check if registration is enabled
+    // Check if sign up functionality is enabled
     if (!sfConfig::get('app_ull_user_enable_sign_up', false))
     {
       $this->forward404();
@@ -295,8 +295,9 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   protected function handleEditAccount(sfRequest $request)
   {
     $this->generator = $this->getEditGenerator();
-
-    $this->adjustColumnConfigForEditAccount();
+    
+    $columnsConfig = $this->generator->getColumnsConfig();
+    $columnsConfig->adjustColumnConfigForEditAccount($this->user);
     
     $this->generator->buildForm($this->user);
     
@@ -924,79 +925,5 @@ Please change your password at %edit_account_url%
   }
   
   
-  /**
-   * Adjusts the columns configuration for the edit account action
-   *  
-   */
-  protected function adjustColumnConfigForEditAccount()
-  {
-    $columnsConfig = $this->generator->getColumnsConfig();
-    
-    $showColumns = sfConfig::get('app_ull_user_account_show_columns',array(
-      'first_name',
-      'last_name',
-      'email',
-      'password',    
-    ));
 
-    $columnsConfig->disableAllExcept($showColumns);
-    $columnsConfig->order($showColumns);
-    foreach ($showColumns as $column)
-    {
-      $columnsConfig[$column]->setAccess('r');
-    }
-    
-    if (!$this->user->exists())
-    {
-      $editColumns = sfConfig::get('app_ull_user_account_create_columns',array(
-        'first_name',
-        'last_name',
-        'email',
-        'username',
-        'password',    
-      ));
-    }
-    else
-    {
-      $editColumns = sfConfig::get('app_ull_user_account_edit_columns',array(
-        'first_name',
-        'last_name',
-        'email',
-        'password',    
-      ));
-    }
-    
-    foreach ($editColumns as $column)
-    {
-      $columnsConfig[$column]->setAccess('w');
-    }    
-    
-    $columnsConfig->setIsRequired(sfConfig::get('app_ull_user_account_required_columns',array(
-      'first_name',
-      'last_name',
-      'email',
-      'username',
-      'password',    
-    )));
-    
-
-    $columnsConfig['id']
-      ->setAccess('r')
-      ->setAutoRender(false)
-    ;
-    
-    $columnsConfig['email']
-      ->setHelp(__('A valid email address is important for functions like sending you a new password in case you forgot yours', null, 'ullCoreMessages') . '.')
-    ;
-
-    // Passwort needs to be retained during creation
-    if (!$this->user->exists())
-    {
-      $columnsConfig['password']
-        ->setWidgetOption('render_pseudo_password', false)
-        ->setWidgetOption('always_render_empty', false)
-      ;
-    }
- 
-  }
 }
