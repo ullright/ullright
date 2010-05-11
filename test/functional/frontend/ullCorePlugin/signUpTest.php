@@ -58,7 +58,7 @@ $b
     ->checkElement('input[id="fields_first_name"][value="PJ"]')
     ->checkElement('input[id="fields_last_name"][value="Harvey"]')
     ->checkElement('input[id="fields_email"][value="pj@example.com"]')
-    ->checkElement('tr:nth-child(5) td:nth-child(2)', 'pj')
+    ->checkElement('tr:nth-child(4) td:nth-child(2)', 'pj')
     ->checkElement('input[id="fields_password"][value="********"]')
     ->checkElement('input[id="fields_password_confirmation"][value="********"]')
   ->end()

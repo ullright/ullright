@@ -30,6 +30,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       'first_name',
       'last_name',
       'email',
+      'username',
       'password',    
     );
     $this->disableAllExcept($showColumns);
