@@ -13,7 +13,7 @@ class ullWidgetColorRead extends ullWidget
     }
     
     //TODO: Check $value for malicious code?
-    return '<div style="text-align: center;"><span class="color-widget-read" style="background-color: #' . $value . ';">'
+    return '<div style="text-align: center;"><span class="color_widget_read" style="background-color: #' . $value . ';">'
     . $value . '</span></div>';
   }
 }

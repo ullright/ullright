@@ -946,7 +946,7 @@ table span.ull_widget_time {
  * ************************************************
  */
  
-.color-widget-read {
+.color_widget_read {
   padding: 5px 15px;
   border: 1px black solid;
   font-family: monospace;
