@@ -17,12 +17,12 @@ class ullMetaWidgetMobileNumber extends ullMetaWidgetString
     $this->addValidator(new sfValidatorPass());
   }
   
-protected function configureWriteMode()
-  {
-    $this->addWidget(new sfWidgetFormInput(
-      $this->columnConfig->getWidgetOptions(), 
-      $this->columnConfig->getWidgetAttributes()
-    ));
-    $this->addValidator(new ullValidatorMobileNumber($this->columnConfig->getValidatorOptions()));
+  protected function configureWriteMode()
+    {
+      $this->addWidget(new sfWidgetFormInput(
+        $this->columnConfig->getWidgetOptions(), 
+        $this->columnConfig->getWidgetAttributes()
+      ));
+      $this->addValidator(new ullValidatorMobileNumber($this->columnConfig->getValidatorOptions()));
+    }
   }
-}

@@ -4,14 +4,14 @@
  * ullValidatorMobileNumber validates a string as a mobile number,
  * and performs cleanup. See unit tests for examples.
  */
-class ullValidatorMobileNumber extends sfValidatorRegex
+class ullValidatorPhoneNumber extends sfValidatorRegex
 {
 
   protected function configure($options = array(), $messages = array())
   {
     parent::configure($options, $messages);
 
-    $this->setOption('pattern', '/^([+])([0-9]+)([ ])([0-9]+)([ ])([0-9]+)$/i');
+    $this->setOption('pattern', '/^([+]|[00])([0-9]+)([ |-|\/])([0-9]+)([ |-|\/])([0-9]+)$/i');
   }
 
   protected function doClean($value)
@@ -26,8 +26,17 @@ class ullValidatorMobileNumber extends sfValidatorRegex
       $value = '+' . substr($value, 2);
     }
 
-    $parts = explode(' ', $value);
-    $value = array_shift($parts) . ' ' . array_shift($parts) . ' ' . implode('', $parts);
+    $parts = preg_split("/[\s-\/]/", $value);
+    if(count($parts) == 2)
+    {
+      $value = sfConfig::get('app_ull_user_phone_country_code') . ' ';
+      $parts[0] = substr($parts[0], 1);
+    }
+    else
+    {
+      $value = array_shift($parts) . ' ';
+    }
+    $value .= array_shift($parts) . ' ' . implode('', $parts);
 
     $validatedValue = parent::doClean($value);
 
