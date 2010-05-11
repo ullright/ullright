@@ -611,6 +611,16 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <source>Username does not exist</source>
         <target>Benutzername existiert nicht</target>
       </trans-unit>
+      
+      <trans-unit id="3206">
+        <source>I forgot my password</source>
+        <target>Ich habe mein Passwort vergessen</target>
+      </trans-unit>
+      
+      <trans-unit id="3207">
+        <source>No account yet? Click here to sign up</source>
+        <target>Noch kein Konto? Hier registrieren</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

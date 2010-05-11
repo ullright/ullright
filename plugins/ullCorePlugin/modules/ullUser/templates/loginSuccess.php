@@ -19,15 +19,24 @@
       <?php echo submit_tag(__('Log in')); ?>
     </div>
     <div class='edit_action_buttons_right'>
-      <?php  
+      <ul>
+      <?php
+        if(sfConfig::get('app_ull_user_enable_sign_up', false))
+        {
+          echo '<li>' . ull_link_to(
+            __('No account yet? Click here to sign up', null, 'ullCoreMessages'),
+             'ullUser/signUp'
+          ) . '</li>'; 
+        }  
         if(sfConfig::get('app_ull_user_enable_reset_password', false))
         {
-          echo ull_link_to(
-            __('Reset password', null, 'ullCoreMessages'),
+          echo '<li>' . ull_link_to(
+            __('I forgot my password', null, 'ullCoreMessages'),
              'ullUser/resetPassword'
-          ); 
+          ) . '<li>'; 
         }
-        ?>
+      ?>
+      </ul>
     </div>
   </div>
 </div>
