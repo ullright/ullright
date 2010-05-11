@@ -1186,7 +1186,7 @@ function link_to_google_maps($link, $searchString, $options)
  */
 function ull_url_for_google_qrcode($content, $size = '120x120')
 {
-  return 'http://chart.apis.google.com/chart?cht=qr&chs=' . $size . '&chl=' . urlencode($content) . '&chld=H';
+  return 'http://chart.apis.google.com/chart?cht=qr&chs=' . $size . '&chl=' . urlencode($content) . '&chld=Q';
 }
 
 /**
