@@ -13,13 +13,4 @@ class ullMetaWidgetPhoneNumber extends ullMetaWidgetInteger
     $this->addWidget(new ullWidgetPhoneNumber($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorPass());
   }
-  
-  protected function configureWriteMode()
-  {
-    $this->addWidget(new sfWidgetFormInput(
-      $this->columnConfig->getWidgetOptions(), 
-      $this->columnConfig->getWidgetAttributes()
-    ));
-    $this->addValidator(new ullValidatorPhoneNumber($this->columnConfig->getValidatorOptions()));
-  }
 }
