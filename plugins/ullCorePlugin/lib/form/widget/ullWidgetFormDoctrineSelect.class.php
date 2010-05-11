@@ -63,7 +63,10 @@ $(document).ready(function()
   {
     $choices = parent::getChoices();
     
-    natsort($choices);
+    if (!$this->getOption('order_by'))
+    {
+      natsort($choices);
+    }
 
     return $choices;
   }
