@@ -282,6 +282,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       ))
       {
         $this->getUser()->setFlash('message', __('Your changes have been saved', null, 'common'));
+        $this->redirect($request->getUri());
       }
     }     
   }

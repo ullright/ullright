@@ -11,10 +11,6 @@ class ullWidgetSimpleUploadRead extends ullWidget
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    //$widget = new sfWidgetForm(array(
-      //'label' => __('Photo', null, 'common'),
-    //));
-    
     return self::renderFile($value, $this->getOption('path'), $this->getAttribute('alt'));
   }
   
@@ -28,6 +24,11 @@ class ullWidgetSimpleUploadRead extends ullWidget
    */
   public static function renderFile($value, $path, $alt = 'image')
   {
+    if (is_array($value))
+    {
+      $value = $value['value'];
+    }
+    
     $return = '';
     
     if ($value != null)

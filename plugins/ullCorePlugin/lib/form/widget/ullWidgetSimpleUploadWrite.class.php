@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetSimpleUploadWrite extends ullWidgetFormInput
+class ullWidgetSimpleUploadWrite extends sfWidgetFormInputFile
 {
   
   public function __construct($options = array(), $attributes = array())
@@ -11,13 +11,13 @@ class ullWidgetSimpleUploadWrite extends ullWidgetFormInput
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $widget = new sfWidgetFormInputFile(array(
-      'label' => __('Photo', null, 'common'),
-    ));
+    $return = '';
     
-    return 
-      ullWidgetSimpleUploadRead::renderFile($value, $this->getOption('path'), $this->getAttribute('alt')) .
-      $widget->render($name, $value, $attributes, $errors);
+    $return .= ullWidgetSimpleUploadRead::renderFile($value, $this->getOption('path'), $this->getAttribute('alt'));
+    
+    $return .= parent::render($name, $value, $attributes, $errors);
+    
+    return $return;
   }
 }
 
