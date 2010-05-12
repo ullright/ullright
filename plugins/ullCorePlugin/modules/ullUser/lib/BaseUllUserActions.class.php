@@ -255,8 +255,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeEditAccount(sfRequest $request)
   {
-    $this->getUserFromRequestOrCreate();
+    $this->checkLoggedIn();
     
+    $this->getUserFromRequestOrCreate();
+
     if (!$this->user->isLoggedIn())
     {
       $this->forward404();

@@ -1,4 +1,4 @@
-<h2><?php echo __('Reset password', null, 'ullCoreMessages') ?></h2>
+<h2><?php echo __('Please enter your username', null, 'ullCoreMessages') ?></h2>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
@@ -15,7 +15,7 @@
   
   <div class='edit_action_buttons color_light_bg'>
     <div class='edit_action_buttons_left'>
-      <?php echo submit_tag(__('Reset password', null, 'ullCoreMessages')); ?>
+      <?php echo submit_tag(__('Send me a new password', null, 'ullCoreMessages')); ?>
     </div>
   </div>
   

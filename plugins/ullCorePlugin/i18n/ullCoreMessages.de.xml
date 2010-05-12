@@ -99,6 +99,18 @@
       <target>Format: +43 664 1235678</target>
       </trans-unit> 
       
+      <trans-unit id="20">
+      <source>Phone number</source>
+      <target>Telefonnummer</target>
+      </trans-unit> 
+      
+      <trans-unit id="21">
+      <source>Format: +43 789 123456 (Country code, area code, local number)</source>
+      <target>Format: +43 789 123456 (Länderkennzahl, Ortsnetzkennzahl, Teilnehmerrufnummer)</target>
+      </trans-unit>
+      
+      
+      
       <!-- table config -->
       <trans-unit id="20">
         <source>Group memberships</source>
@@ -593,8 +605,8 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       </trans-unit>
       
       <trans-unit id="3203">
-        <source>Reset password</source>
-        <target>Passwort zurücksetzen</target>
+        <source>Please enter your username</source>
+        <target>Bitte geben Sie Ihren Benutzernamen ein</target>
       </trans-unit> 
       
       <trans-unit id="3204">
@@ -604,7 +616,7 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       
       <trans-unit id="3204">
         <source>Your new password has been sent to your email address</source>
-        <target>Ihr neues Passwort Ihnen per E-Mail zugesandt</target>
+        <target>Ihr neues Passwort wurde Ihnen per E-Mail zugesandt</target>
       </trans-unit>
       
       <trans-unit id="3205">
@@ -618,9 +630,14 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       </trans-unit>
       
       <trans-unit id="3207">
-        <source>No account yet? Click here to sign up</source>
-        <target>Noch kein Konto? Hier registrieren</target>
+        <source>No account yet? Click here to sign up!</source>
+        <target>Noch kein Konto? Hier registrieren!</target>
       </trans-unit>
+      
+      <trans-unit id="3208">
+        <source>Send me a new password</source>
+        <target>Neues Passwort zusenden</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

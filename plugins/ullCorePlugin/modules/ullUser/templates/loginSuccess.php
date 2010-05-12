@@ -24,7 +24,7 @@
         if(sfConfig::get('app_ull_user_enable_sign_up', false))
         {
           echo '<li>' . ull_link_to(
-            __('No account yet? Click here to sign up', null, 'ullCoreMessages'),
+            __('No account yet? Click here to sign up!', null, 'ullCoreMessages'),
              'ullUser/signUp'
           ) . '</li>'; 
         }  
