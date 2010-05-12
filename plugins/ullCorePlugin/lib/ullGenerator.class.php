@@ -160,6 +160,16 @@ abstract class ullGenerator extends ullGeneratorBase
     return $this->rows[0];
   }
   
+  public function getSpecificRow($row = 0)
+  {
+    if (!$this->isBuilt)
+    {
+      throw new RuntimeException('You have to call buildForm() first');
+    } 
+        
+    return $this->rows[$row];
+  }
+  
   /**
    * get Lables of the form fields
    *
