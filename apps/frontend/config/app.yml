@@ -68,6 +68,8 @@ all:
     phone_book_search_columns:              [ 'first_name', 'last_name', 'UllLocation->name', 'UllLocation->short_name', 'UllLocation->phone_base_no', 'UllDepartment->name', 'UllJobTitle->name' ]
     phone_book_search_show_headers:         true
     phone_country_code:                     '+43'
+    
+    enable_user_popup:                      true
     user_popup_public_columns:              [ 'last_name', 'first_name', 'email', 'photo', 'type', 'ull_company_id', 'ull_department_id', 'ull_job_title_id', 'superior_ull_user_id', 'phone_extension', 'fax_extension', 'mobile_number', 'ull_user_status_id' ]
     user_popup_vertical_size:               720 #pixel
     

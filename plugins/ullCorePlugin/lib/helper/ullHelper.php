@@ -1257,16 +1257,24 @@ function ull_entity_popup_height()
  */
 function ull_link_entity_popup($value, $entityId)
 {
-  $popupUri = 'ullUser/show?username=' . $entityId;
-
-  return link_to($value, $popupUri, array(
-        'title' => __('Show business card', null, 'ullCoreMessages'),
-        'onclick' => 'this.href="#";popup(
-          "' . url_for($popupUri) . '",
-          "Popup' . $entityId . '",
-          "width=720,height=' . ull_entity_popup_height() . ',scrollbars=yes,resizable=yes"
-        );'
-        ));
+  
+  if (sfConfig::get('app_ull_user_enable_user_popup', true))
+  {
+    $popupUri = 'ullUser/show?username=' . $entityId;
+  
+    return link_to($value, $popupUri, array(
+          'title' => __('Show business card', null, 'ullCoreMessages'),
+          'onclick' => 'this.href="#";popup(
+            "' . url_for($popupUri) . '",
+            "Popup' . $entityId . '",
+            "width=720,height=' . ull_entity_popup_height() . ',scrollbars=yes,resizable=yes"
+          );'
+          ));
+  }
+  else
+  {
+    return $value;
+  }
 }
 
 /**
@@ -1277,17 +1285,20 @@ function ull_link_entity_popup($value, $entityId)
  */
 function ull_link_entity_icon_popup($entityId)
 {
-  $popupUri = 'ullUser/show?username=' . $entityId;
-  
-  $icon = '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
-           'Plugin/images/ull_user_16x16';
-  
-  return link_to(image_tag($icon, array('class' => 'ull_user_popup_icon')), $popupUri, array(
-        'title' => __('Show business card', null, 'ullCoreMessages'),
-        'onclick' => 'this.href="#";popup(
-          "' . url_for($popupUri) . '",
-          "Popup ' . $entityId . '",
-          "width=720,height=' . ull_entity_popup_height() . ',scrollbars=yes,resizable=yes"
-        );'
-        ));
+  if (sfConfig::get('app_ull_user_enable_user_popup', true))
+  {  
+    $popupUri = 'ullUser/show?username=' . $entityId;
+    
+    $icon = '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
+             'Plugin/images/ull_user_16x16';
+    
+    return link_to(image_tag($icon, array('class' => 'ull_user_popup_icon')), $popupUri, array(
+          'title' => __('Show business card', null, 'ullCoreMessages'),
+          'onclick' => 'this.href="#";popup(
+            "' . url_for($popupUri) . '",
+            "Popup ' . $entityId . '",
+            "width=720,height=' . ull_entity_popup_height() . ',scrollbars=yes,resizable=yes"
+          );'
+          ));
+  }
 }
