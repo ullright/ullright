@@ -1,6 +1,6 @@
 <?php
 
-class ullMetaWidgetMobileNumber extends ullMetaWidgetString
+class ullMetaWidgetFullPhoneNumber extends ullMetaWidgetString
 {
 
   protected function configureReadMode()
