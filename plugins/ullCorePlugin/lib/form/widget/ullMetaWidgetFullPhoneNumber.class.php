@@ -10,7 +10,7 @@ class ullMetaWidgetFullPhoneNumber extends ullMetaWidgetString
       $this->columnConfig->setWidgetOption('show_local_short_form', true);
     }
     
-    $this->addWidget(new ullWidgetMobileNumberRead(
+    $this->addWidget(new ullWidgetFullPhoneNumberRead(
       $this->columnConfig->getWidgetOptions(), 
       $this->columnConfig->getWidgetAttributes()
     ));
