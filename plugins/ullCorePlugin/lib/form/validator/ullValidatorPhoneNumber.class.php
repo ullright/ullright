@@ -11,7 +11,7 @@ class ullValidatorPhoneNumber extends sfValidatorRegex
   {
     parent::configure($options, $messages);
 
-    $this->setOption('pattern', '/^([+]|[00])([0-9]+)[ |-|\/]([0-9]+)[ |-|\/]([0-9]+)$/i');
+    $this->setOption('pattern', '/^([+]|[00])([0-9]+)([ |-|\/])([0-9]+)([ |-|\/])([0-9]+)$/i');
   }
 
   protected function doClean($value)
