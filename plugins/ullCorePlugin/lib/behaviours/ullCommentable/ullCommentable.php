@@ -60,7 +60,7 @@ class ullCommentable extends Doctrine_Template
    * table object
    * 
    * @param string $commentId the id of the comment which should be deleted
-   * @return string the id of the object which the comment was refering to, false in case of error
+   * @return string the the object which the comment was refering to, false in case of error
    */
   public function revokeCommentByIdTableProxy($commentId)
   {
@@ -86,7 +86,7 @@ class ullCommentable extends Doctrine_Template
       $comment['comment'] = $revokeMessage;
       $comment->save();
         
-      return $comment['CommentOn']['id'];
+      return $comment['CommentOn'];
     }
     
     return false;
