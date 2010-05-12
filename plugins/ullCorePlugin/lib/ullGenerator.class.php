@@ -160,6 +160,12 @@ abstract class ullGenerator extends ullGeneratorBase
     return $this->rows[0];
   }
   
+  /**
+   * Get the specified row
+   * 
+   * @param $row the row index
+   * @return Doctrine_Record
+   */
   public function getSpecificRow($row = 0)
   {
     if (!$this->isBuilt)
