@@ -142,7 +142,7 @@ abstract class ullMetaWidget
       $widget = new sfWidgetFormInputHidden();
     }
 
-    $widget = $this->handleAddEmpty($widget);
+    $widget = $this->handleAddEmptyForWidget($widget);
     
     $this->form->getWidgetSchema()->offsetSet($columnName, $widget);
   }
@@ -187,14 +187,7 @@ abstract class ullMetaWidget
       }
     }
     
-    
-    // why isn't it necesarry to add "empty" also to the validators?
-    
-//    if ($widget instanceof sfWidgetFormDoctrineSelect && $this->getColumnConfig()->getAccess() == 's')
-//    {
-//      $widget->setOption('add_empty', true); 
-//    }    
-    
+    $validator = $this->handleAddEmptyForValidator($validator);
     
     $this->form->getValidatorSchema()->offsetSet($columnName, $validator);
   }
@@ -262,13 +255,14 @@ abstract class ullMetaWidget
     }
   }
   
+  
   /**
    * Forces a empty entry for select boxes in search mode
    * 
    * @param $widget
    * @return sfWidgetForm
    */
-  protected function handleAddEmpty(sfWidgetForm $widget)
+  protected function handleAddEmptyforWidget(sfWidgetForm $widget)
   {
     if ($this->getColumnConfig()->getAccess() == 's')
     {
@@ -285,11 +279,27 @@ abstract class ullMetaWidget
         //   so we check if the choices are an array (sfCallable for Doctrine)
         if (is_array($choices = $widget->getOption('choices')))
         {
-          if (!in_array('', $choices))
+//          var_dump($choices);
+          
+          // First remove an existing "empty" entry
+          if (in_array('', array_keys($choices)))
           {
-            //don't use array_merge here, would reindex the array
-            $choices = array('' => '') + $choices;
+            unset($choices['']);
           }
+          
+          // Then add an empty entiry with value "_all_" instead
+          // We need to set a value for "empty" because otherwise
+          // reqpassing would remove the value
+          $label = __('All', null, 'common');
+          
+          // Emulate choices structure of sfWidgetFormSelectWithOptionAttributes
+          if (is_array(reset($choices)))
+          {
+            $label = array('name' => $label);
+          }
+          
+          //don't use array_merge here, it would reindex the array
+          $choices = array('_all_' => $label) + $choices;
           
           $widget->setOption('choices', $choices);
         }
@@ -297,6 +307,36 @@ abstract class ullMetaWidget
     }
     return $widget;
   }
+  
+  /**
+   * Forces a empty entry for select boxes in search mode
+   * 
+   * @param sfValidatorBase $validator
+   * @return sfValidatorBase
+   */
+  protected function handleAddEmptyForValidator(sfValidatorBase $validator)
+  {  
+    // why isn't it necesarry to add "empty" also to the validators?
+    
+//    if ($widget instanceof sfWidgetFormDoctrineSelect && $this->getColumnConfig()->getAccess() == 's')
+//    {
+//      $widget->setOption('add_empty', true); 
+//    }
+    if ($this->getColumnConfig()->getAccess() == 's')
+    {
+      if ($validator instanceof sfValidatorChoice)
+      {
+        $choices = $validator->getOption('choices');
+        
+        $choices[] = '_all_';
+        
+        $validator->setOption('choices', $choices);
+      }
+    }
+    
+    return $validator;
+  }    
+  
   
   /**
    * Should return true if this widget represents numeric values

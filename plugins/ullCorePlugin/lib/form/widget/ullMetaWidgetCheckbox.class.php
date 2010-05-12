@@ -20,7 +20,8 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
   
   protected function configureSearchMode()
   {
-    $choices = array('any' => '', 'checked' => __('Yes', null, 'common'), 'unchecked' => __('No', null, 'common'));
+    // _all_ is used because we cannot use null (or empty string) because it is removed by reqpass
+    $choices = array('_all_' => __('All', null, 'common'), 'checked' => __('Yes', null, 'common'), 'unchecked' => __('No', null, 'common'));
     $this->addWidget(new sfWidgetFormSelect(array_merge(array('choices' => $choices),
           $this->columnConfig->getWidgetOptions()), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorChoice(array_merge(array('choices' => array_keys($choices)),

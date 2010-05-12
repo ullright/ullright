@@ -683,6 +683,8 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
     'commit',       // we don't want the submit buttons...
     'x',            // image submit buttons coordinates
     'y',            // image submit buttons coordinates
+    'commit_x',     // image submit buttons coordinates
+    'commit_y',     // image submit buttons coordinates
   );
 
   // convert [] options to array format

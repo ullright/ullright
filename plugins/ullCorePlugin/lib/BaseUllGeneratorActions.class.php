@@ -274,6 +274,11 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->filter_form->bind($filterParams);
     
+    if (!$this->filter_form->isValid())
+    {
+      throw new RuntimeException('Filter from validation error');
+    }
+    
     $this->ull_filter = new ullFilter();
   
     if (isset($filterParams['search']) && ($search = $filterParams['search']))
@@ -367,11 +372,12 @@ abstract class BaseUllGeneratorActions extends ullsfActions
    */
   protected function createFilterForm()
   {
-    // legacy
+    // legacy (manual hard coded filter form)
     if (method_exists($this, 'getUllFilterClassName') && $filterClassName = $this->getUllFilterClassName())
     {
       $this->filter_form = new $filterClassName;    
     }
+    // Use generic filter mechanism
     else
     {
       $this->filter_form = $this->generator->getFilterForm();

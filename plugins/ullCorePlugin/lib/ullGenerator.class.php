@@ -288,16 +288,13 @@ abstract class ullGenerator extends ullGeneratorBase
    */
   public function setFilterFormDefaults($filterParams)
   {
-    // legacy check
+    // legacy check (manual filter forms)
     if (!method_exists($this->tableConfig, 'getFilterColumns'))
     {
       return;
     }
     
     $defaults = $this->filterForm->getDefaults();
-    
-//    var_dump($defaults);
-//    var_dump($filterParams);
     
     foreach($defaults as $fieldName => $value)
     {
@@ -330,7 +327,8 @@ abstract class ullGenerator extends ullGeneratorBase
     {
       $value = $this->filterForm->getValue($filterColumn);
       
-      if ($value)
+      // ignore the manual "null" value (select boxes "empty" etc)
+      if ($value != '_all_')
       {
         $columnConfig = clone $this->columnsConfig[$filterColumn];
         $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
