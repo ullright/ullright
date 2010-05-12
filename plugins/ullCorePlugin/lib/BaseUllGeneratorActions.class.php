@@ -272,6 +272,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       $filterParams = $this->generator->setFilterFormDefaults($filterParams);
     }
     
+//    $this->filter_form->debug();
+    
     $this->filter_form->bind($filterParams);
     
     if (!$this->filter_form->isValid())

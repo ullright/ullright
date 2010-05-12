@@ -279,8 +279,6 @@ abstract class ullMetaWidget
         //   so we check if the choices are an array (sfCallable for Doctrine)
         if (is_array($choices = $widget->getOption('choices')))
         {
-//          var_dump($choices);
-          
           // First remove an existing "empty" entry
           if (in_array('', array_keys($choices)))
           {
@@ -290,7 +288,11 @@ abstract class ullMetaWidget
           // Then add an empty entiry with value "_all_" instead
           // We need to set a value for "empty" because otherwise
           // reqpassing would remove the value
-          $label = __('All', null, 'common');
+          
+          // TODO refactor non-generic filterForms first to ensure the
+          // same behavior for all search forms
+//          $label = __('All', null, 'common'); 
+          $label = '';
           
           // Emulate choices structure of sfWidgetFormSelectWithOptionAttributes
           if (is_array(reset($choices)))

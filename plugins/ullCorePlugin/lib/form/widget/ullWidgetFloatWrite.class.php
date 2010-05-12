@@ -4,7 +4,8 @@ class ullWidgetFloatWrite extends ullWidgetFormInput
 {
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if (!(get_class($errors) === 'sfValidatorError') && ($value != ''))
+    //TODO: why is $errors expected to be an object?  (throws an error in ullWidgetFloatWriteTest
+    if (!(@get_class($errors) === 'sfValidatorError') && ($value != ''))
     {
       $value = ullMetaWidgetFloat::formatNumber($value);
     }
