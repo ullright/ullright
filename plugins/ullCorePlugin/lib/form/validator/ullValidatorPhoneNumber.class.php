@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ullValidatorMobileNumber validates a string as a mobile number,
+ * ullValidatorPhoneNumber validates a string as a phone number,
  * and performs cleanup. See unit tests for examples.
  */
 class ullValidatorPhoneNumber extends sfValidatorRegex
@@ -11,7 +11,7 @@ class ullValidatorPhoneNumber extends sfValidatorRegex
   {
     parent::configure($options, $messages);
 
-    $this->setOption('pattern', '/^([+]|[00])([0-9]+)([ |-|\/])([0-9]+)([ |-|\/])([0-9]+)$/i');
+    $this->setOption('pattern', '/^([+]|[00])([0-9]+)[ |-|\/]([0-9]+)[ |-|\/]([0-9]+)$/i');
   }
 
   protected function doClean($value)
@@ -20,14 +20,15 @@ class ullValidatorPhoneNumber extends sfValidatorRegex
     $value = str_replace('(', '', $value);
     $value = str_replace(')', '', $value);
     $value = str_replace('/', ' ', $value);
+    $value = str_replace('-', ' ', $value);
 
     if (substr($value, 0, 2) == '00')
     {
       $value = '+' . substr($value, 2);
     }
 
-    $parts = preg_split("/[\s-\/]/", $value);
-    if(count($parts) == 2)
+    $parts = explode(' ', $value);
+    if(substr($value, 0, 1) != '+')
     {
       $value = sfConfig::get('app_ull_user_phone_country_code') . ' ';
       $parts[0] = substr($parts[0], 1);
