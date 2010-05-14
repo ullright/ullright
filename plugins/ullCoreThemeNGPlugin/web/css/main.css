@@ -482,8 +482,8 @@ ul.list_action_buttons li {
   background: #e3f5fd;
 }
 
-.edit_table_spacer_row > td {
-  background: #b3ce00 !important;
+.edit_table_spacer_row td {
+  background-color: #b3ce00;
   border-top: 1em #E9E9E9 solid; 
   border-bottom: 1em #E9E9E9 solid;
   padding: .2em;
@@ -1019,5 +1019,10 @@ img, div {
   .ull_filter_icon {
     display: none;
   }
+  
+  .no_print {
+    display: none;
+  }
+  
 }
  

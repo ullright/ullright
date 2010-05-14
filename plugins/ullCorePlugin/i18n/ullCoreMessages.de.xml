@@ -108,7 +108,11 @@
       <source>Format: +43 789 123456 (Country code, area code, local number)</source>
       <target>Format: +43 789 123456 (Länderkennzahl, Ortsnetzkennzahl, Teilnehmerrufnummer)</target>
       </trans-unit>
-      
+
+      <trans-unit id="22">
+      <source>Day of birth</source>
+      <target>Geburtsdatum</target>
+      </trans-unit>       
       
       
       <!-- table config -->
