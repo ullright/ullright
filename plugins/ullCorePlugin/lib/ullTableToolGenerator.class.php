@@ -260,6 +260,10 @@ class ullTableToolGenerator extends ullGenerator
    * 
    * This is the place to create artifical columns
    * 
+   * TODO: fix - Attention: settings here can be 
+   * overwritten by the relation handling.
+   * Use customizeRelationColumns() instead
+   * 
    * @return none
    */
   protected function customizeColumnsConfig()
