@@ -35,7 +35,8 @@
         
   <?php endif ?>
   
-  <?php if ($pager->getNumResults()): ?>
+  <?php $enable_export = (!isset($enable_export) ? true : $enable_export)?>
+  <?php if ($pager->getNumResults() && $enable_export) : ?>
     <?php $list[] = ull_link_to(__('Export as spreadsheet', null, 'common'),
       array('export_csv' => 'true'))?>
 	<?php endif ?>
