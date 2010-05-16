@@ -344,7 +344,7 @@ abstract class ullGenerator extends ullGeneratorBase
       $value = $this->filterForm->getValue($filterColumn);
       
       // ignore the manual "null" value (select boxes "empty" etc)
-      if ($value != '_all_')
+      if ($value && $value != '_all_')
       {
         $columnConfig = clone $this->columnsConfig[$filterColumn];
         $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
