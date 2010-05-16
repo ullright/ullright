@@ -521,7 +521,7 @@ Gültige Dateitypen sind jpg und png.</target>
       
       <trans-unit id="3113">
         <source>A valid email address is important for functions like sending you a new password in case you forgot yours</source>
-        <target>Eine gültige E-Mail Adresse ist für viele Funktionen wichtig. Beispiel: Ihnen ein neues Passwort zusenden wenn Sie Ihres vergessen haben</target>
+        <target>Eine gültige E-Mail Adresse ist für viele Funktionen wichtig. Beispiel: Ihnen ein neues Passwort zusenden wenn Sie Ihres einmal vergessen sollten</target>
       </trans-unit>  
       
       <trans-unit id="3114">
