@@ -77,6 +77,8 @@ all:
     sign_up_sender_name:                    No reply
     sign_up_sender_address:                 noreply@example.com
     
+    enable_my_account:                      true
+    
     enable_reset_password:                  true
     reset_password_sender_name:             No reply
     reset_password_sender_address:          noreply@example.com
