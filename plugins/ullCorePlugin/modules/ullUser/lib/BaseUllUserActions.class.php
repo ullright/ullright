@@ -192,6 +192,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       {
         $this->getUser()->setAttribute('user_id', $this->generator->getRow()->id);
         
+        $this->dispatcher->notify(new sfEvent($this, 'ull_user.post_sign_in', array(
+          'user'        => $this->generator->getRow(),
+        )));
+        
         $this->sendSignUpEmail();
         
         $this->redirect('ullUser/signedUp');
