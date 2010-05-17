@@ -437,6 +437,11 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Bewertungsdurchschnitt</target>
       </trans-unit>
       
+      <trans-unit id="2000">
+        <source>Rating</source>
+        <target>Bewertung</target>
+      </trans-unit>      
+      
       <trans-unit id="2001">
         <source>Not recommendable</source>
         <target>Nicht empfehlenswert</target>
