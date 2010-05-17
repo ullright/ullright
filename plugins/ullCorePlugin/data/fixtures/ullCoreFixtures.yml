@@ -430,7 +430,7 @@ UllEmploymentType:
       en:
         name:   Employee
       de:
-        name:   Angstellter
+        name:   Angestellter
     slug:       employee
     namespace:  ullCore
   freelancer_et:
