@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Base class for all read-only widgets
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
 class ullWidget extends sfWidgetForm
 {
   public function __construct($options = array(), $attributes = array())

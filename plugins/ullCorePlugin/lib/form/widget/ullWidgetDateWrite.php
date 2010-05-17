@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetDateWrite extends ullWidget
+class ullWidgetDateWrite extends sfWidgetForm
 {
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
