@@ -334,6 +334,8 @@ abstract class ullMetaWidget
         
         $validator->setOption('choices', $choices);
       }
+      
+      $validator->setOption('required', false);
     }
     
     return $validator;

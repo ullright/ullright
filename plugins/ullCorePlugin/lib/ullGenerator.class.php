@@ -272,6 +272,14 @@ abstract class ullGenerator extends ullGeneratorBase
       $this->filterForm->getWidgetSchema()->setLabel($filterColumn, $columnConfig->getLabel());
       
       $this->filterForm->setDefault($filterColumn, $defaultValue);
+      
+      $widget = $this->filterForm->getWidgetSchema()->offsetGet($filterColumn);
+      
+      // auto submit select boxes
+      if ($widget instanceof sfWidgetFormSelect)
+      {
+        $widget->setAttribute('onchange', 'submit();');
+      }
     }
     
 //    $this->filterForm->debug();
@@ -365,7 +373,20 @@ abstract class ullGenerator extends ullGeneratorBase
         else
         {
           $q->addWhere($filterColumn . ' = ?', $value);
-          $ullFilter->add('filter[' . $filterColumn . ']', $this->filterForm->getWidgetSchema()->getLabel($filterColumn) . ': ' . $value);
+          
+          // Parse the value using the appropriate read widget
+          sfLoader::loadHelpers(array('Escaping')); // required by some widgets
+          $tempForm = new sfForm();
+          $readColumnsConfig = $this->getColumnsConfig()->offsetGet($filterColumn);
+          $readColumnsConfig->setAccess('r');
+          $metaWidgetReadClassName = $readColumnsConfig->getMetaWidgetClassName();
+          $metaWidgetRead = new $metaWidgetReadClassName($readColumnsConfig, $tempForm);
+          $metaWidgetRead->addToFormAs($filterColumn);
+          $tempForm->setDefault($filterColumn, $value);
+          
+          $outputValue = $tempForm->offsetGet($filterColumn)->render();
+          
+          $ullFilter->add('filter[' . $filterColumn . ']', $this->filterForm->getWidgetSchema()->getLabel($filterColumn) . ': ' . $outputValue);
         }
       }
     }
