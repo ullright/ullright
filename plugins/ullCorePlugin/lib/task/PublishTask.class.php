@@ -53,6 +53,8 @@ EOF;
     
     $this->executeRemoteSymfonyTask('doctrine:migrate');
     
+    $this->executeRemoteSymfonyTask('ullright:custom-migrate');
+    
     $this->executeRemoteSymfonyTask('project:permissions', true);
   }
   
