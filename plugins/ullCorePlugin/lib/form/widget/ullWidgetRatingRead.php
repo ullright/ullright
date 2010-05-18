@@ -21,7 +21,7 @@ class ullWidgetRatingRead extends ullWidget
   {
     if (empty($value))
     {
-      return __('Not yet rated', null, 'ullCoreMessages');
+      return '<small>' . __('No ratings yet', null, 'ullCoreMessages') . '</small>';
     }
     
     $html = '';

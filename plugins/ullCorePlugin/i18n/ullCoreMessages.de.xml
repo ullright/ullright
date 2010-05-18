@@ -466,6 +466,11 @@ Gültige Dateitypen sind jpg und png.</target>
         <source>Very good</source>
         <target>Sehr gut</target>
       </trans-unit>
+      
+      <trans-unit id="2006">
+        <source>No ratings yet</source>
+        <target>Noch keine Bewertungen</target>
+      </trans-unit>
 
       <!-- ullCommentable -->
       
