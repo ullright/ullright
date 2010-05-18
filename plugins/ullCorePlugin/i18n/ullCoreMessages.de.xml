@@ -519,6 +519,12 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Dieser Kommentar wurde von einem Administrator gelöscht.</target>
       </trans-unit>
       
+      <trans-unit id="2012">
+        <source>No comments yet.</source>
+        <target>Noch keine Kommentare abgegeben.</target>
+      </trans-unit>
+      
+      
       <!-- Misc -->
       
       <trans-unit id="2200">
