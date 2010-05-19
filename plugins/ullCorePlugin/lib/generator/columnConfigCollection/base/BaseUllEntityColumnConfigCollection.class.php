@@ -84,8 +84,9 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
     $this['fax_extension']->setLabel(__('Fax extension', null, 'ullCoreMessages'));
     $this['mobile_number']
       ->setLabel(__('Mobile number', null, 'ullCoreMessages'))
-      ->setMetaWidgetClassName('ullMetaWidgetMobileNumber')
-      ->setHelp(__('Format: +43 664 1235678', null, 'ullCoreMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+      ->setHelp(__('Format: +43 664 1234567', null, 'ullCoreMessages'))
+      ->setOption('default_country_code', '+43')
     ;
     $this['is_show_mobile_number_in_phonebook']
       ->setLabel(__('Show mobile number in phone book', null, 'ullCoreMessages'))

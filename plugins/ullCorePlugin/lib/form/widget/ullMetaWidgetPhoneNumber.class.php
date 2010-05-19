@@ -1,6 +1,13 @@
 <?php
 
-class ullMetaWidgetFullPhoneNumber extends ullMetaWidgetString
+/**
+ *  ullMetaWidgetPhoneNumber
+ * 
+ *  This widget is user for phone numbers (incl. mobile numbers)
+ *  Option show_local_short_form don't display the country code in the read mode
+ *  Option default_country_code added a default value to add a number without the country code
+ */
+class ullMetaWidgetPhoneNumber extends ullMetaWidgetString
 {
 
   protected function configureReadMode()
@@ -10,7 +17,7 @@ class ullMetaWidgetFullPhoneNumber extends ullMetaWidgetString
       $this->columnConfig->setWidgetOption('show_local_short_form', true);
     }
     
-    $this->addWidget(new ullWidgetFullPhoneNumberRead(
+    $this->addWidget(new ullWidgetPhoneNumberRead(
       $this->columnConfig->getWidgetOptions(), 
       $this->columnConfig->getWidgetAttributes()
     ));
@@ -19,6 +26,13 @@ class ullMetaWidgetFullPhoneNumber extends ullMetaWidgetString
   
   protected function configureWriteMode()
     {
+      if ($this->columnConfig->getOption('default_country_code'))
+      {
+        $this->columnConfig->setValidatorOption(
+          'default_country_code', 
+          $this->columnConfig->getOption('default_country_code')
+        );
+      }
       $this->addWidget(new sfWidgetFormInput(
         $this->columnConfig->getWidgetOptions(), 
         $this->columnConfig->getWidgetAttributes()

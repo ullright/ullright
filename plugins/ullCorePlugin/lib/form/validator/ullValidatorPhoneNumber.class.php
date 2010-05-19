@@ -9,9 +9,11 @@ class ullValidatorPhoneNumber extends sfValidatorRegex
 
   protected function configure($options = array(), $messages = array())
   {
+    $this->addOption('default_country_code');
     parent::configure($options, $messages);
+    
+     $this->setOption('pattern', '/^([+]|[00])([0-9]+)([ |-|\/])([0-9]+)([ |-|\/])([0-9]+)$/i');
 
-    $this->setOption('pattern', '/^([+]|[00])([0-9]+)([ |-|\/])([0-9]+)([ |-|\/])([0-9]+)$/i');
   }
 
   protected function doClean($value)
@@ -28,9 +30,9 @@ class ullValidatorPhoneNumber extends sfValidatorRegex
     }
 
     $parts = explode(' ', $value);
-    if(substr($value, 0, 1) != '+')
+    if((substr($value, 0, 1) != '+') && $this->getOption('default_country_code'))
     {
-      $value = sfConfig::get('app_ull_user_phone_country_code') . ' ';
+      $value = $this->getOption('default_country_code') . ' ';
       $parts[0] = substr($parts[0], 1);
     }
     else

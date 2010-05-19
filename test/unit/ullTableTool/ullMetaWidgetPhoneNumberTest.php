@@ -11,12 +11,12 @@ $columnConfig = new ullColumnConfiguration();
 
 $t->diag('for read access:');
   $columnConfig->setAccess('r');
-  $widget = new ullMetaWidgetMobileNumber($columnConfig, $form);
-  $t->isa_ok($widget, 'ullMetaWidgetMobileNumber', '__construct() returns the correct object');
+  $widget = new ullMetaWidgetPhoneNumber($columnConfig, $form);
+  $t->isa_ok($widget, 'ullMetaWidgetPhoneNumber', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
   $t->isa_ok(
     $form->getWidgetSchema()->offsetGet('my_field'), 
-    'ullWidgetMobileNumberRead', 
+    'ullWidgetPhoneNumberRead', 
     'Returns the correct widget for read access'
   );
   $t->isa_ok(
@@ -27,8 +27,8 @@ $t->diag('for read access:');
 
 $t->diag('for write access:');
   $columnConfig->setAccess('w');
-  $widget = new ullMetaWidgetMobileNumber($columnConfig, $form);
-  $t->isa_ok($widget, 'ullMetaWidgetMobileNumber', '__construct() returns the correct object');
+  $widget = new ullMetaWidgetPhoneNumber($columnConfig, $form);
+  $t->isa_ok($widget, 'ullMetaWidgetPhoneNumber', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
   $t->isa_ok(
     $form->getWidgetSchema()->offsetGet('my_field'), 
@@ -37,7 +37,7 @@ $t->diag('for write access:');
   );
   $t->isa_ok(
     $form->getValidatorSchema()->offsetGet('my_field'), 
-    'ullValidatorMobileNumber', 
+    'ullValidatorPhoneNumber', 
     'returns the correct validator for write access'
   );
   

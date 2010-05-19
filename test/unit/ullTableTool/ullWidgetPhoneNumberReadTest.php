@@ -8,7 +8,7 @@ $t = new lime_test(4, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);
 sfLoader::loadHelpers('I18N');
 
-$w = new ullWidgetMobileNumberRead();
+$w = new ullWidgetPhoneNumberRead();
 
 $t->diag('render()');
   $t->is(
@@ -21,7 +21,7 @@ $t->diag('render()');
     '',  
     'Returns the correct value.'
   );
-  $w = new ullWidgetMobileNumberRead(array('show_local_short_form' => true));
+  $w = new ullWidgetPhoneNumberRead(array('show_local_short_form' => true));
   $t->is(
     $w->render('my_field_name', '+43 664 1235678'), 
     '0664 1235678',  

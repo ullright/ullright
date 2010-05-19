@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetFullPhoneNumberRead extends ullWidget
+class ullWidgetPhoneNumberRead extends ullWidget
 {
   public function __construct($options = array(), $attributes = array())
   {
