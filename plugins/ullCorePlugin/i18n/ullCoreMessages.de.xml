@@ -571,7 +571,6 @@ Gültige Dateitypen sind jpg und png.</target>
 Here's your account data for %home_url%
     
 Username: %username%
-Password: %password%
 
 You can edit your account at %edit_account_url%
 </source>
@@ -580,7 +579,6 @@ You can edit your account at %edit_account_url%
 Hier sind Ihre Registrierungs-Daten für %home_url%
     
 Benutzername: %username%
-Passwort: %password%
 
 Sie können Ihr Konto unter %edit_account_url% bearbeiten.
 </target>

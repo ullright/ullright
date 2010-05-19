@@ -887,7 +887,6 @@ class BaseUllUserActions extends BaseUllGeneratorActions
 Here\'s your account data for %home_url%
     
 Username: %username%
-Password: %password%
 
 You can edit your account at %edit_account_url%
 ', array(
