@@ -222,9 +222,15 @@ class PluginUllUserTable extends UllEntityTable
     {
       return $user->username;
     }
+    
+    return false;
   }
   
-  
+  /**
+   * Get the currently logged in user
+   * 
+   * @return mixed
+   */
   public static function findLoggedInUser()
   {
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
