@@ -3,8 +3,8 @@
 /**
  * ullMetaWidgetPhoneExtension
  * 
- *  This widget is user for phone extensions
- *  Option show_base_number added the base phone number to the extension
+ *  This widget is used for phone extensions
+ *  Option show_base_number adds the base phone number to the extension
  */
 class ullMetaWidgetPhoneExtension extends ullMetaWidgetInteger
 {

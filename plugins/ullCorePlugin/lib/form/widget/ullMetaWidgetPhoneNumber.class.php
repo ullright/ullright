@@ -5,7 +5,7 @@
  * 
  *  This widget is user for phone numbers (incl. mobile numbers)
  *  Option show_local_short_form don't display the country code in the read mode
- *  Option default_country_code added a default value to add a number without the country code
+ *  Option default_country_code adds a default value to allow a number without the country code
  */
 class ullMetaWidgetPhoneNumber extends ullMetaWidgetString
 {

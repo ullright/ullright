@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *  ullMetaWidgetCountry
+ *  
+ *  This widget is used for country selection
+ *  Option show_only_german_countries shows only AT, DE, LI, CH
+ *
+ */
 class ullMetaWidgetCountry extends ullMetaWidget
 {
   protected function addToForm()
@@ -7,9 +14,13 @@ class ullMetaWidgetCountry extends ullMetaWidget
     if ($this->isWriteMode())
     {
       $culture = sfContext::getInstance()->getUser()->getCulture();
+      $countries = null;
       
-      $countries = array('AT', 'DE', 'LI', 'CH');
-            
+      if($this->columnConfig->getOption('show_only_german_countries'))
+      {
+        $countries = array('AT', 'DE', 'LI', 'CH');
+      }
+
       $this->addWidget(new sfWidgetFormI18nSelectCountry(array('culture' => $culture, 'countries' => $countries)));
       //sfValidatorI18nChoiceCountry doesn't support max_length
       $this->columnConfig->removeValidatorOption('max_length');

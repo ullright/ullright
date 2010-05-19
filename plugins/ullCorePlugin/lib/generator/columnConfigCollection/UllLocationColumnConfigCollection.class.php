@@ -8,7 +8,10 @@ class UllLocationColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this['country']->setMetaWidgetClassName('ullMetaWidgetCountry');
+    $this['country']
+      ->setMetaWidgetClassName('ullMetaWidgetCountry')
+      ->setOption('show_only_german_countries', true)
+    ;
     
     if ($this->isListAction())
     {
