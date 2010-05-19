@@ -184,12 +184,12 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       $this['first_name']->setAutoRender(false);
       
       $this['phone_extension']
-        ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+        ->setMetaWidgetClassName('ullMetaWidgetPhoneExtension')
         ->setOption('show_base_number', true)
         ->setInjectIdentifier(true)
       ;
       $this['fax_extension']
-        ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+        ->setMetaWidgetClassName('ullMetaWidgetPhoneExtension')
         ->setOption('show_base_number', true)
         ->setInjectIdentifier(true)
       ;
