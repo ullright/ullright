@@ -462,6 +462,11 @@
 <target>Ungültig. Die Beginnzeit muss vor der Endzeit liegen</target>
 </trans-unit>
 
+<trans-unit id="5006">
+<source>The username is given away. Please choose another one</source>
+<target>Dieser Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen</target>
+</trans-unit>
+
 
 
 <!--  miscellaneous -->

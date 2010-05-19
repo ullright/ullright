@@ -308,6 +308,15 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     
     $this->generator->buildForm($this->user);
     
+    
+    foreach ($this->generator->getForm()->getValidatorSchema()->getPostValidator()->getValidators() as $validator)
+    {
+      if ($validator instanceof sfValidatorDoctrineUnique)
+      {
+        $validator->setMessage('invalid', __('The username is given away. Please choose another one', null, 'common'));
+      }
+    }
+    
     if ($password = $this->generator->getForm()->getDefault('password'))
     {
       $this->generator->getForm()->setDefault('password_confirmation', '********');
