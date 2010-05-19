@@ -31,7 +31,7 @@
 <?php use_javascript('/ullCorePlugin/js/star-rating/jquery.rating.pack.js') ?>
 <?php use_javascript('/ullCorePlugin/js/star-rating/jquery.MetaData.js') ?>
 
-<?php use_stylesheet('/ullCorePlugin/css/jqui/ui.all.css', 'last', array('media' => 'all')) ?>
+<?php use_stylesheet('/ullCorePlugin/css/jqui/jquery-ui.css', 'last', array('media' => 'all')) ?>
 <?php use_stylesheet('/ullCorePlugin/css/colorpicker.css', 'last', array('media' => 'all')) ?>
 <?php use_stylesheet('/ullCorePlugin/css/star-rating/star-rating.css', 'last', array('media' => 'all')) ?>
 
