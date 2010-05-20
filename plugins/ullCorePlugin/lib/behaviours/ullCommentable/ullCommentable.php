@@ -71,7 +71,7 @@ class ullCommentable extends Doctrine_Template
     {
       if ($userId == $comment['commenter_ull_user_id'])
       {
-        $revokeMessage = __('This comment was deleted by its author.', null, 'ullCoreMessages');
+        $revokeMessage = __('This comment was deleted by the user.', null, 'ullCoreMessages');
         
       }
       else if (UllUserTable::hasPermission('ull_commentable_revoke_comments'))

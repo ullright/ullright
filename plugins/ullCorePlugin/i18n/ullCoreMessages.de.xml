@@ -510,13 +510,13 @@ Gültige Dateitypen sind jpg und png.</target>
       </trans-unit>
 
       <trans-unit id="2011">
-        <source>This comment was deleted by its author.</source>
-        <target>Dieser Kommentar wurde von seinem Autor gelöscht.</target>
+        <source>This comment was deleted by the user.</source>
+        <target>Dieser Kommentar wurde vom Benutzer enfernt.</target>
       </trans-unit>
       
       <trans-unit id="2011">
         <source>This comment was deleted by an administrator.</source>
-        <target>Dieser Kommentar wurde von einem Administrator gelöscht.</target>
+        <target>Dieser Kommentar wurde von einem Administrator entfernt.</target>
       </trans-unit>
       
       <trans-unit id="2012">
