@@ -618,6 +618,11 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <source>Allowed filetypes: jpg, gif, png. By uploading a file you certify that you have the right to distribute this picture and that it does not violate the Terms of Service</source>
         <target>Erlaubte Formate: jpg, gif, png. Durch das Hochladen einer Datei bestätigst du, dass du das Recht hast, dieses Bild zu veröffentlichen und es nicht gegen die Allgemeine Geschäftsbedingungen  verstößt.</target>  
       </trans-unit>
+
+      <trans-unit id="3123">
+        <source>Print registration form</source>
+        <target>Registrierungsformular drucken</target>
+      </trans-unit>
       
        <!-- Reset password -->
       
@@ -657,27 +662,27 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <target>Neues Passwort</target>
       </trans-unit> 
       
-      <trans-unit id="3204">
+      <trans-unit id="3205">
         <source>Your new password has been sent to your email address</source>
         <target>Ihr neues Passwort wurde Ihnen per E-Mail zugesandt</target>
       </trans-unit>
       
-      <trans-unit id="3205">
+      <trans-unit id="3206">
         <source>Username does not exist</source>
         <target>Benutzername existiert nicht</target>
       </trans-unit>
       
-      <trans-unit id="3206">
+      <trans-unit id="3207">
         <source>I forgot my password</source>
         <target>Ich habe mein Passwort vergessen</target>
       </trans-unit>
       
-      <trans-unit id="3207">
+      <trans-unit id="3208">
         <source>No account yet? Click here to sign up!</source>
         <target>Noch kein Konto? Hier registrieren!</target>
       </trans-unit>
       
-      <trans-unit id="3208">
+      <trans-unit id="3209">
         <source>Send me a new password</source>
         <target>Neues Passwort zusenden</target>
       </trans-unit>      
