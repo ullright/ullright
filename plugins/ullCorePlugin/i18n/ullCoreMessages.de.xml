@@ -524,6 +524,26 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Noch keine Kommentare abgegeben.</target>
       </trans-unit>
       
+      <trans-unit id="2013">
+        <source>My rating</source>
+        <target>Meine Bewertung</target>
+      </trans-unit>      
+      
+      <trans-unit id="2014">
+        <source>My comment</source>
+        <target>Mein Kommentar</target>
+      </trans-unit>      
+
+      <trans-unit id="2015">
+        <source>You're not logged in</source>
+        <target>Sie sind nicht angemeldet</target>
+      </trans-unit> 
+      
+      <trans-unit id="2016">
+        <source>Click here to login</source>
+        <target>Klicken Sie hier um sich anzumelden</target>
+      </trans-unit> 
+      
       
       <!-- Misc -->
       

@@ -10,7 +10,10 @@ class ullCommentForm extends sfForm
   public function configure()
   {
     $this->setWidgets(array(
-      'comment_text'   => new sfWidgetFormTextarea(),
+      'comment_text'   => new sfWidgetFormTextarea(array(), array(
+        'cols'  => 50,
+        'rows'  => 6,
+      )),
     ));
     
     $this->getWidgetSchema()->setLabels(

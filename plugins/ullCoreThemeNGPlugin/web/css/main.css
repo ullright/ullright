@@ -904,6 +904,27 @@ img.ull_user_popup_icon {
 
 /*
  * ************************************************
+ *  Commentable behavior
+ * ************************************************
+ */
+
+.comment {
+  margin-bottom: 2.5em;
+}
+
+.comment_author {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: .5em;
+}
+
+.comment_body {
+  background-color: #e1e2e2;  
+  padding: 1em;
+}
+
+/*
+ * ************************************************
  *  ullMetaWidgetUllEntityWidget
  * ************************************************
  */
