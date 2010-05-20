@@ -908,6 +908,10 @@ img.ull_user_popup_icon {
  * ************************************************
  */
 
+#comments {
+  margin-top: 3em;
+}
+
 .comment {
   margin-bottom: 2.5em;
 }
