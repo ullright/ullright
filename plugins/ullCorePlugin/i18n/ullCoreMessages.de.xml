@@ -552,6 +552,11 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Erledigt</target>
       </trans-unit>
       
+      <trans-unit id="2201">
+        <source>Your account is inactive</source>
+        <target>Sie wurden dauerhaft abgemeldet</target>
+      </trans-unit>
+      
       
       <!-- Registration -->
       
