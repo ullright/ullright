@@ -61,7 +61,7 @@ class ullWidgetRatingWrite extends ullWidget
     //This element's purpose is to display the rating titles
     $html .= '<span id="' . $starNumber . '-hover" style="margin: 0 0 0 20px;">&nbsp;</span>';
 
-    $urlToCall = $this->getOption('url_to_call_on_select');
+    $urlToCall = url_for($this->getOption('url_to_call_on_select'));
     $averageInputName = $this->getOption('average_input_name');
     
     //This block of javascript enables submitting of selected ratings
@@ -97,11 +97,11 @@ class ullWidgetRatingWrite extends ullWidget
         
         callback: function(value, link)
         {
-          var url = "$urlToCall$votedObjectId/";
+          var url = "$urlToCall/id/$votedObjectId";
 
           if (value != '') //remove the rating
           {
-            url = url + "rating/" + value; 
+            url = url + "/rating/" + value; 
           }
 
           $.ajax({
