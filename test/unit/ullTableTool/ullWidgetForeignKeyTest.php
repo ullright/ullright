@@ -32,7 +32,7 @@ $t->diag('show entity popup');
   
    $t->is($widget->render('foo', $testUser['id']),
     '<a title="Show business card" onclick="this.href=&quot;#&quot;;popup(
-          &quot;/ullUser/show/' . $testUser['id'] . '&quot;,
-          &quot;Popup' . $testUser['id'] . '&quot;,
-          &quot;width=720,height=720,scrollbars=yes,resizable=yes&quot;
-        );" href="/ullUser/show/' . $testUser['id'] . '">Test &lt;big&gt;User&lt;/big&gt;</a>');
+            &quot;/ullUser/show/' . $testUser['id'] . '&quot;,
+            &quot;Popup' . $testUser['id'] . '&quot;,
+            &quot;width=720,height=720,scrollbars=yes,resizable=yes&quot;
+          );" href="/ullUser/show/' . $testUser['id'] . '">Test &lt;big&gt;User&lt;/big&gt;</a>');
