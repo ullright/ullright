@@ -307,15 +307,8 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $columnsConfig->adjustColumnConfigForEditAccount($this->user);
     
     $this->generator->buildForm($this->user);
-    
-    
-    foreach ($this->generator->getForm()->getValidatorSchema()->getPostValidator()->getValidators() as $validator)
-    {
-      if ($validator instanceof sfValidatorDoctrineUnique)
-      {
-        $validator->setMessage('invalid', __('The username is given away. Please choose another one', null, 'common'));
-      }
-    }
+
+    $this->addDuplicateUsernameErrorMessage();
     
     if ($password = $this->generator->getForm()->getDefault('password'))
     {
@@ -327,6 +320,39 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->setVar('generator', $this->generator, true);  
 
     $this->setVar('form_uri', $this->getEditFormUri(), true);
+  }
+  
+  
+  /**
+   * Add a better error message for a duplicate username
+   * 
+   * Actual the code here is a bit fuzzy, as we haven't found a way
+   * to specificly access the "unique" validator for the username
+   */
+  protected function addDuplicateUsernameErrorMessage()
+  {
+    $postValidator = $this->generator->getForm()->getValidatorSchema()->getPostValidator();
+
+    // If a getValidators() method exist we assume we have multiple post
+    // validators
+    if (method_exists($postValidator, 'getValidators'))
+    {
+      $validators = $postValidator->getValidators();
+    }
+    else
+    {
+      $validators[] = $postValidator;  
+    }
+    
+    // Find the "unique" validator
+    // TODO: be more specific in case we have multiple unique validators
+    foreach ($validators as $validator)
+    {
+      if ($validator instanceof sfValidatorDoctrineUnique)
+      {
+        $validator->setMessage('invalid', __('The username is given away. Please choose another one', null, 'common'));
+      }
+    }    
   }
   
   
