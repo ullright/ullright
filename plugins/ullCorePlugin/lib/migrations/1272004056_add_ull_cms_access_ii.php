@@ -8,10 +8,14 @@ class AddUllCmsAccessIi extends Doctrine_Migration_Base
   
   public function postUp()
   {
+    // Correct migration confusion
+    $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+    $result = $dbh->query("UPDATE ull_entity SET display_name='CmsAdmins' WHERE type='group' AND display_name = 'cmsAdmin'");
+    
     $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
     $result = $dbh->query("SELECT id FROM ull_entity WHERE type='group' AND display_name = 'CmsAdmins'");
     $row = $result->fetch(PDO::FETCH_ASSOC);
-
+    
     $p = new UllPermission;
     $p->slug = 'ull_cms_list';
     $p->namespace = 'ull_cms';
