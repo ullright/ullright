@@ -144,3 +144,5 @@ function showFutureDays()
 
 <?php //use_javascripts_for_form($filter_form) ?>
 <?php //use_stylesheets_for_form($filter_form) ?>
+<?php //use_javascripts_for_form($generator->getForm()) ?>
+<?php //use_stylesheets_for_form($generator->getForm()) ?>
