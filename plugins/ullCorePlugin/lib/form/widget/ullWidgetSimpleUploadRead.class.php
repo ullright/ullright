@@ -37,7 +37,7 @@ class ullWidgetSimpleUploadRead extends ullWidget
       
       if (ullCoreTools::isValidImage($path, $value))
       {
-        $return .= '<div class="ull_widget_simple_upload_write_image"><img src="' . $filePath . '/' . $value . '" alt="' . $alt . '"/></div>';
+        $return .= '<img src="' . $filePath . '/' . $value . '" alt="' . $alt . '" class="ull_widget_simple_upload_image" />';
       }
       else
       {
