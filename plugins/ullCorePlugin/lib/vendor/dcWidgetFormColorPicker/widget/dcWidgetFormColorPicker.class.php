@@ -24,7 +24,9 @@ class dcWidgetFormColorPicker extends sfWidgetFormInput
    */
   public function getStylesheets()
   {
-    return array('/dcWidgetColorPickerPlugin/css/colorpicker.css' => 'screen');
+//    return array('/dcWidgetColorPickerPlugin/css/colorpicker.css' => 'screen');
+    // temp: see: http://www.ullright.org/ullFlow/edit/doc/1122
+    return array('/ullCorePlugin/css/colorpicker.css' => 'screen');
   }
 
   /**
@@ -34,7 +36,9 @@ class dcWidgetFormColorPicker extends sfWidgetFormInput
    */
   public function getJavascripts()
   {
-    return array('/dcWidgetColorPickerPlugin/js/colorpicker.js');
+//    return array('/dcWidgetColorPickerPlugin/js/colorpicker.js');
+    // temp: see: http://www.ullright.org/ullFlow/edit/doc/1122
+    return array('/ullCorePlugin/js/colorpicker.js');
   }
 
  public function render($name, $value = null, $attributes = array(), $errors = array())

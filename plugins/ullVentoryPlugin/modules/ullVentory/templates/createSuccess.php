@@ -1,5 +1,3 @@
-<?php use_javascript('/ullVentoryPlugin/js/createSuccess.js') ?>
-
 <?php echo $breadcrumb_tree; ?>
 
 <?php if ($form->hasErrors()): ?>
@@ -34,3 +32,5 @@
 
 </form>
 
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
+<?php use_javascript('/ullVentoryPlugin/js/createSuccess.js') ?>

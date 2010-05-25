@@ -21,19 +21,6 @@
 <?php include_slot('html_head') ?>
 <!-- end of html head slot -->
 
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js', 'first') ?>
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-ui-min.js', 'first') ?>
-<?php use_javascript('/ullCorePlugin/js/jq/jquery.add_select_filter.js') ?>
-<?php use_javascript('/ullCorePlugin/js/jq/jquery.replace_time_duration_select.js') ?>
-<?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
-<?php use_javascript('/ullCorePlugin/js/sidebar.js') ?>
-<?php use_javascript('/ullCorePlugin/js/colorpicker.js') ?>
-<?php use_javascript('/ullCorePlugin/js/star-rating/jquery.rating.pack.js') ?>
-<?php use_javascript('/ullCorePlugin/js/star-rating/jquery.MetaData.js') ?>
-
-<?php use_stylesheet('/ullCorePlugin/css/jqui/jquery-ui.css', 'last', array('media' => 'all')) ?>
-<?php use_stylesheet('/ullCorePlugin/css/colorpicker.css', 'last', array('media' => 'all')) ?>
-<?php use_stylesheet('/ullCorePlugin/css/star-rating/star-rating.css', 'last', array('media' => 'all')) ?>
 
 <?php if ($overrideCss = sfConfig::get('app_override_css')): ?>
   <?php sfContext::getInstance()->getResponse()->addStylesheet($overrideCss, 'last', array('media' => 'all')) ?>

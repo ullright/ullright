@@ -4,6 +4,9 @@
 
 <?php $hideSidebar = $sf_user->getAttribute('sidebar_hidden', false); ?>
 
+<?php //temp: refactor into sidebar component ?>
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js')?>
+<?php use_javascript('/ullCorePlugin/js/sidebar.js')?>
 
 <div id="container">
 

@@ -66,4 +66,35 @@ EOF;
 
     return $html;
   }
+  
+  /**
+   * Gets the JavaScript paths associated with the widget.
+   *
+   * @return array An array of JavaScript paths
+   */
+  public function getJavaScripts()
+  {
+    return array(
+      '/ullCorePlugin/js/jq/jquery-min.js', 
+      '/ullCorePlugin/js/star-rating/jquery.rating.pack.js',
+      '/ullCorePlugin/js/star-rating/jquery.MetaData.js',
+    );   
+  }
+  
+  /**
+   * Gets the stylesheet paths associated with the widget.
+   *
+   * The array keys are files and values are the media names (separated by a ,):
+   *
+   *   array('/path/to/file.css' => 'all', '/another/file.css' => 'screen,print')
+   *
+   * @return array An array of stylesheet paths
+   */  
+  public function getStylesheets()
+  {
+    return array(
+      '/ullCorePlugin/css/star-rating/star-rating.css' => 'all'
+    );  
+  }
+  
 }

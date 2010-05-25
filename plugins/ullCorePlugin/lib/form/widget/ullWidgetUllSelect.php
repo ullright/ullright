@@ -30,5 +30,3 @@ class ullWidgetUllSelect extends sfWidgetForm
   }
 
 }
-
-?>

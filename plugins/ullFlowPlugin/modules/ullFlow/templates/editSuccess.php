@@ -185,7 +185,7 @@
 
 </form>
 
-<?php
-  echo ull_js_observer("edit_form");
-//  ullCoreTools::printR($ull_form);
-?>   
+<?php echo ull_js_observer("edit_form") ?>   
+
+<?php use_javascripts_for_form($generator->getForm()) ?>
+<?php use_stylesheets_for_form($generator->getForm()) ?>

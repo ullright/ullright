@@ -20,5 +20,3 @@ class ullWidgetUllFlowActionRead extends ullWidget
   }
 
 }
-
-?>

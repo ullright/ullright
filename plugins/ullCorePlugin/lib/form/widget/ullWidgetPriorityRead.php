@@ -15,5 +15,3 @@ class ullWidgetPriorityRead extends ullWidget
   	}
   }
 }
-
-?>

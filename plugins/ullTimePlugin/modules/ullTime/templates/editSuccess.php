@@ -143,6 +143,7 @@
 </div>
 </form>   
 
-<?php 
-  echo ull_js_observer("ull_time_form");
-?>  
+<?php echo ull_js_observer("ull_time_form") ?>  
+
+<?php use_javascripts_for_form($generator->getForm()) ?>
+<?php use_stylesheets_for_form($generator->getForm()) ?>

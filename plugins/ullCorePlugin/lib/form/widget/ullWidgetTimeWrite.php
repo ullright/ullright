@@ -53,4 +53,17 @@ $(document).ready(function()
           
     return $return;
   } 
+  
+  /**
+   * Gets the JavaScript paths associated with the widget.
+   *
+   * @return array An array of JavaScript paths
+   */
+  public function getJavaScripts()
+  {
+    return array(
+      '/ullCorePlugin/js/jq/jquery-min.js', 
+      '/ullCorePlugin/js/jq/jquery.replace_time_duration_select.js',
+    );   
+  }  
 }

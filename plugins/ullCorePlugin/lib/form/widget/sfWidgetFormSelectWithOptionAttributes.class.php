@@ -151,4 +151,18 @@ $(document).ready(function()
 
     return $choices;
   }
+  
+  /**
+   * Gets the JavaScript paths associated with the widget.
+   *
+   * @return array An array of JavaScript paths
+   */
+  public function getJavaScripts()
+  {
+    return array(
+      '/ullCorePlugin/js/jq/jquery-min.js',
+      '/ullCorePlugin/js/jq/jquery.add_select_filter.js', 
+    );   
+  }
+  
 }

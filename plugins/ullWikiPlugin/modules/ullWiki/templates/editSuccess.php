@@ -100,4 +100,5 @@
 
 <?php echo ull_js_observer("ull_wiki_form") ?>
 
-<?php use_javascript('/ullCorePlugin/js/fckeditor/fckeditor.js') ?>
+<?php use_javascripts_for_form($generator->getForm()) ?>
+<?php use_stylesheets_for_form($generator->getForm()) ?>

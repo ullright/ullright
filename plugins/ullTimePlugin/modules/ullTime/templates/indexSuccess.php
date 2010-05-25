@@ -136,4 +136,7 @@ function showFuturePeriods()
   document.getElementById("ull_time_show_future_periods_message").style.display = "none"; 
 }
 
-')?>
+') ?>
+
+<?php use_javascripts_for_form($act_as_user_form) ?>
+<?php use_stylesheets_for_form($act_as_user_form) ?>

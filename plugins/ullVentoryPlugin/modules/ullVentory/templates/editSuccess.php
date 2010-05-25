@@ -1,5 +1,3 @@
-<?php use_javascript('/ullVentoryPlugin/js/editSuccess.js') ?>
-
 <?php echo $breadcrumb_tree ?>
 
 <div class="edit_container">
@@ -342,6 +340,10 @@
 
 </form>
 
-<?php
-  echo ull_js_observer("ull_ventory_form");
-?>
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
+<?php use_javascript('/ullVentoryPlugin/js/editSuccess.js') ?>
+
+<?php echo ull_js_observer("ull_ventory_form") ?>
+
+<?php use_javascripts_for_form($generator->getForm()) ?>
+<?php use_stylesheets_for_form($generator->getForm()) ?>

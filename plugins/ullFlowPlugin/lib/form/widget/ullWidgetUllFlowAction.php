@@ -64,5 +64,3 @@ class ullWidgetUllFlowAction extends sfWidgetFormSelect
   }  
   
 }
-
-?>

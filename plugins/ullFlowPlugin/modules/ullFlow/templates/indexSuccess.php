@@ -1,4 +1,3 @@
-
 <?php echo $breadcrumb_tree ?>
 
 <div id="tc_wrapper">
@@ -70,7 +69,8 @@
     
     <div id="tc_queries">
       <div class="tc_query_box color_light_bg">
-        <h3>
+        <h3><?php use_javascripts_for_form($form) ?>
+<?php use_stylesheets_for_form($form) ?>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
         <?php echo $named_queries->renderList(ESC_RAW) ?>
@@ -96,3 +96,6 @@
      <!-- add footer here -->
   </div>
 </div>
+
+<?php use_javascripts_for_form($form) ?>
+<?php use_stylesheets_for_form($form) ?>

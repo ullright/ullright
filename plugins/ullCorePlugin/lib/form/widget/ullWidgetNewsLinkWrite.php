@@ -53,34 +53,5 @@ class ullWidgetNewsLinkWrite extends sfWidgetFormInput
     $return .= parent::render($name, $value, $attributes, $errors);
     
     return $return;
-    
-    /*if (!$this->getAttribute('name'))
-    {
-      $this->setAttribute('name', $name);
-    }
-    $this->setAttributes($this->fixFormId($this->getAttributes()));
-    $id = $this->getAttribute('id');
-    
-    $return = '';
-    
-    // replace time input field with js select boxes?
-    if ($this->getOption('show_select_boxes'))
-    {
-      $return .= javascript_tag('
-$(document).ready(function()
-{
-  $("#' . $id . '").replaceTimeDurationSelect(' . $this->getOption('fragmentation') . ');
-});
-      ');
-    }
-    
-    if ($value && !$errors)
-    {
-      $value = ullCoreTools::isoTimeToHumanTime($value);
-    }
-    
-    $return .= parent::render($name, $value, $attributes, $errors);
-          
-    return $return;*/
   } 
 }

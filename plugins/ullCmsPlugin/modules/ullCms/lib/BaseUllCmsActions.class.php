@@ -99,8 +99,6 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     
     parent::executeEdit($request);
     
-    $this->getResponse()->addJavascript('/ullCorePlugin/js/fckeditor/fckeditor.js');
-
     $this->setTableToolTemplate('edit');
   }   
   

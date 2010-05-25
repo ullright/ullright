@@ -92,4 +92,7 @@
   <?php endif ?>
 <?php endif?>
 
-<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?> 
+<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?>
+
+<?php //use_javascripts_for_form($filter_form) ?>
+<?php //use_stylesheets_for_form($filter_form) ?> 
