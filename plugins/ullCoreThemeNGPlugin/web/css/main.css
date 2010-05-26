@@ -981,6 +981,16 @@ table span.ull_widget_time {
 
 /*
  * ************************************************
+ *  ullWidgetRatingRead
+ * ************************************************
+ */
+ 
+.rating_widget_read {
+  width: 80px;  /* 5 x 16px stars */
+}
+
+/*
+ * ************************************************
  *  IE PNG Fix (http://www.twinhelix.com/css/iepngfix/demo/)
  * ************************************************
  */

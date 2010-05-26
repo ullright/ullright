@@ -27,7 +27,7 @@ class ullWidgetRatingRead extends ullWidget
     $codeForFullStar = '<div class="star-rating star-rating-readonly star-rating-on" style="width: 16px; "><a></a></div>';
     $codeForHalfStar = '<div class="star-rating star-rating-readonly star-rating-on" style="width: 8px; "><a style="margin-right: -8px; "></a></div>';
 
-    $html = '<div class="no_wrap">';
+    $html = '<div class="rating_widget_read">';
 
     //round the ratings value to 0.5
     //3.23 => 3 stars
