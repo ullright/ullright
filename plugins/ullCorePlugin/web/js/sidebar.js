@@ -1,3 +1,10 @@
+/**
+ * Hideable sidebar code
+ * 
+ * Registers click handlers to #tab_button_out and #tab_button_in,
+ * which animate the hiding and showing of the sidebar div.
+ */
+
   var buttonFadeTime = 700;
   var sidebarFadeTime = 500;
   var sidebarHiddenMargin = "1em";
