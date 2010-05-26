@@ -13,6 +13,8 @@ class ullTestBrowser extends sfDoctrineTestBrowser
   public function loginAs($user = 'test_user', $password = 'test')
   {
     $this
+      ->isRedirected()
+      ->followRedirect()
       ->responseContains('Log in')
       ->post('/ullUser/login', array('login' => array('username' => $user, 'password' => $password, 'login_request' => true)))
       ->isRedirected()

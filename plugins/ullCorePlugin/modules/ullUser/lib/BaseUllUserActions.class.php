@@ -599,7 +599,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   {
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());
-    
+
     $this->performCookieCheck($request);
 
     $this->form = new LoginForm();
@@ -626,10 +626,6 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         $uri = $this->getUriMemory()->getAndDelete('noaccess', 'ullUser');
         $this->getUriMemory()->setUri('login', 'ullUser', true, $uri); 
       }
-      else
-      {
-        $this->getUriMemory()->setReferer(null, null, false);
-      }
       
       return sfView::SUCCESS;
     }
@@ -655,7 +651,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
 
         // Find user by username
         $user = Doctrine::getTable('UllUser')->findOneByUsername($username);
-
+        
         if ($user)
         {
           //        echo md5($password) . ' - ' . $user->password;
@@ -695,6 +691,8 @@ class BaseUllUserActions extends BaseUllGeneratorActions
               // Use UriMemory and redirect to the source URI 
               else
               {
+                var_dump($this->getUriMemory()->get());
+                
                 $this->redirect($this->getUriMemory()->getAndDelete()); 
               }
 	          }
@@ -1017,6 +1015,9 @@ Please change your password at %edit_account_url%
       if (!$request->getParameter('cookie_check'))
       {
         $this->getResponse()->setCookie('cookie_check', 1);
+        
+        // Save current referer
+        $this->getUriMemory()->setReferer(null, null, false);
         
         $this->ull_redirect(array('cookie_check' => 'true'));
       }
