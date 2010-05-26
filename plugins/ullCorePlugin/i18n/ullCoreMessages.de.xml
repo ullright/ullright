@@ -690,7 +690,21 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       <trans-unit id="3209">
         <source>Send me a new password</source>
         <target>Neues Passwort zusenden</target>
-      </trans-unit>      
+      </trans-unit>  
+      
+      
+      <!-- login Form -->
+          
+      <trans-unit id="3401">
+        <source>To use this site, please activate cookies in your browser.</source>
+        <target>Zum Benutzen der Seite bitte die Cookies im Browser aktivieren.</target>
+      </trans-unit>  
+      
+      <trans-unit id="3402">
+        <source>JavaScript recommended for improved user experience.</source>
+        <target>Für verbesserte Usability wird die Verwendung von JavaScript empfohlen.</target>
+      </trans-unit> 
+      
     </body>
   </file>
 </xliff>

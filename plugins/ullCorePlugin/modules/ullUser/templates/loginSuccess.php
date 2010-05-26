@@ -1,9 +1,15 @@
 <h2><?php echo __('Log in', null, 'common') ?></h2>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+<noscript>
+  <div class="flash">
+    <?php echo __('JavaScript recommended for improved user experience.', null, 'ullCoreMessages')?>
+  </div>
+</noscript>
 
+<?php if ($renderForm): ?> 
 <?php echo form_tag('ullUser/login') ?>
-  
+ 
 <div class="edit_container">
   <table class="edit_table">
     <tbody>
@@ -39,10 +45,11 @@
       </ul>
     </div>
   </div>
+  
 </div>
  
 </form>
-
+<?php endif ?>
 
 <?php use_javascripts_for_form($form) ?>
 <?php use_stylesheets_for_form($form) ?>

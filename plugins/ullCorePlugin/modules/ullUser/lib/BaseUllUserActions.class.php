@@ -599,6 +599,26 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   {
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());
+
+    if($request->getParameter('cookie_check') != 'checked')
+    {
+      $this->getResponse()->setCookie('cookie_check', 1);
+      $this->redirect('ullUser/login?cookie_check=checked');
+    }
+    
+    else
+    {
+      if ($this->getRequest()->getCookie('cookie_check') != 1)
+      {
+        $this->getUser()->setFlash('message', 
+                __('To use this site, please activate cookies in your browser.', null, 'ullCoreMessages'));
+        $this->renderForm = false;
+      }
+      else
+      {
+        $this->renderForm = true;
+      }
+    }
     
     $loginData = $request->getParameter('login');
     $this->form = new LoginForm();
