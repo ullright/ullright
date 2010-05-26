@@ -701,13 +701,13 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       <!-- login Form -->
           
       <trans-unit id="3401">
-        <source>To use this site, please activate cookies in your browser.</source>
-        <target>Zum Benutzen der Seite bitte die Cookies im Browser aktivieren.</target>
+        <source>Login not possible. Please activate cookies in your browser.</source>
+        <target>Anmeldung nicht möglich. Bitte aktivieren Sie Cookies in Ihrem Webbrowser.</target>
       </trans-unit>  
       
       <trans-unit id="3402">
-        <source>JavaScript recommended for improved user experience.</source>
-        <target>Für verbesserte Usability wird die Verwendung von JavaScript empfohlen.</target>
+        <source>No javascript support detected. Please enable javascript in your browser for improved user experience.</source>
+        <target>Keine Javascript-Unterstützung gefunden. Bitte aktivieren Sie Javascript in Ihrem Webbrowser für eine benutzerfreundlichere Bedienung.</target>
       </trans-unit> 
       
     </body>

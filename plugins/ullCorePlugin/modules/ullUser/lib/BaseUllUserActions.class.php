@@ -599,31 +599,18 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   {
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());
-
-    $this->render_form = true;
     
-    if (!$request->isMethod('post'))
-    {
-      if ($request->getParameter('cookie_check') != 'true')
-      {
-        $this->getResponse()->setCookie('cookie_check', 1);
-        $this->redirect('ullUser/login?cookie_check=true');
-      }
-      else
-      {
-        if ($this->getRequest()->getCookie('cookie_check') != 1)
-        {
-          $this->getUser()->setFlash('message', 
-          __('To use this site, please activate cookies in your browser.', null, 'ullCoreMessages'));
-          $this->render_form = false;
-        }
-      }
-    }
-   
-    $loginData = $request->getParameter('login');
+    $this->performCookieCheck($request);
+
     $this->form = new LoginForm();
     
-    //check context
+    $loginData = $request->getParameter('login');
+    
+    // Check context. The actual submission of the login data is marked by the
+    // parameter "login_request". Usually this context check is performed by
+    // checking for GET or POST method. This is not possible here because of
+    // the functionality to prevent data loss of form submissions in case the
+    // session timed out
     if (!isset($loginData['login_request']))
     {
       // Stores POST values of the last request to prevent data loss when the session timed out
@@ -632,6 +619,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         $this->form->setDefault('original_request_params', urlencode(serialize($this->getRequest()->getParameterHolder()->getAll())));
       }
       
+      // Handle forwarded request by an access check action
       if ($request->getParameter('option') == 'noaccess')
       {
         $this->getUser()->setFlash('message',  __('Please login to verify access'));
@@ -645,9 +633,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       
       return sfView::SUCCESS;
     }
+    
+    // Normal login form submission functionality
     else
     {
-//      var_dump(sfContext::getInstance()->getUser()->getAttributeHolder()->getAll());die;
       $this->form->bind($loginData);
 
       if ($this->form->isValid())
@@ -657,16 +646,17 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         $password = $this->form->getValue('password');
         $jsCheck = $this->form->getValue('js_check');
 
-        //user has javascript enabled?
+        // remember javascript support
         $this->getUser()->setAttribute('has_javascript', false);
         if ($jsCheck == 1) 
         {
           $this->getUser()->setAttribute('has_javascript', true);
         }
 
+        // Find user by username
         $user = Doctrine::getTable('UllUser')->findOneByUsername($username);
 
-        if ($user !== false)
+        if ($user)
         {
           //        echo md5($password) . ' - ' . $user->password;
 
@@ -745,6 +735,17 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       $request->setParameter('option', 'noaccess');
       $this->forward('ullUser', 'login');
     }
+  }
+  
+  
+  /**
+   * Display error msg in case of disabled cookies
+   * 
+   * @param sfRequest $request
+   */
+  public function executeNoCookies(sfRequest $request)
+  {
+    $this->message = __('Login not possible. Please activate cookies in your browser.', null, 'ullCoreMessages');
   }
   
   
@@ -1004,5 +1005,31 @@ Please change your password at %edit_account_url%
   }
   
   
+  /**
+   * Perform cookie check upon login
+   * @param sfRequest $request
+   */
+  protected function performCookieCheck(sfRequest $request)
+  {
+    if ($request->isMethod('get'))
+    {
+      // initialize cookie check
+      if (!$request->getParameter('cookie_check'))
+      {
+        $this->getResponse()->setCookie('cookie_check', 1);
+        
+        $this->ull_redirect(array('cookie_check' => 'true'));
+      }
+      
+      // perform cookie check
+      else
+      {
+        if (!$this->getRequest()->getCookie('cookie_check'))
+        {
+          $this->redirect('ullUser/noCookies');
+        }
+      }
+    }    
+  }
 
 }

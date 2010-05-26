@@ -326,5 +326,26 @@ abstract class BaseUllsfActions extends sfActions
     return $params;
   }
   
+  
+  /**
+   * Enhancement of redirect() method.
+   * Allows giving "reqpass" style array with params to be overwritten
+   * 
+   * @param string or array $url
+   */
+  protected function ull_redirect($url)
+  {
+    if (is_array($url)) 
+    {
+      $params = _ull_reqpass_initialize($url);
+      
+      $params['module'] = $this->getModuleName(); 
+      $params['action'] = $this->getActionName();
+      
+      $url = _ull_reqpass_build_url($params);
+    }    
+    
+    $this->redirect($url);
+  }
  
 }
