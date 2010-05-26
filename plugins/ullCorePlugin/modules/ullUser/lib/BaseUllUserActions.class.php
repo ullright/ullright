@@ -600,26 +600,26 @@ class BaseUllUserActions extends BaseUllGeneratorActions
 //    var_dump($this->getUser()->getAttributeHolder()->getAll());
 //    var_dump($this->getRequest()->getParameterHolder()->getAll());
 
-    if($request->getParameter('cookie_check') != 'checked')
-    {
-      $this->getResponse()->setCookie('cookie_check', 1);
-      $this->redirect('ullUser/login?cookie_check=checked');
-    }
+    $this->render_form = true;
     
-    else
+    if (!$request->isMethod('post'))
     {
-      if ($this->getRequest()->getCookie('cookie_check') != 1)
+      if ($request->getParameter('cookie_check') != 'true')
       {
-        $this->getUser()->setFlash('message', 
-                __('To use this site, please activate cookies in your browser.', null, 'ullCoreMessages'));
-        $this->renderForm = false;
+        $this->getResponse()->setCookie('cookie_check', 1);
+        $this->redirect('ullUser/login?cookie_check=true');
       }
       else
       {
-        $this->renderForm = true;
+        if ($this->getRequest()->getCookie('cookie_check') != 1)
+        {
+          $this->getUser()->setFlash('message', 
+          __('To use this site, please activate cookies in your browser.', null, 'ullCoreMessages'));
+          $this->render_form = false;
+        }
       }
     }
-    
+   
     $loginData = $request->getParameter('login');
     $this->form = new LoginForm();
     

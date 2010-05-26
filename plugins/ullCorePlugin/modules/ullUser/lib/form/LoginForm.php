@@ -5,12 +5,12 @@ class LoginForm extends sfForm
   public function configure()
   {
     $this->setWidgets(array(
-      'username'  => new sfWidgetFormInput,
-      'password'  => new sfWidgetFormInputPassword,
+      'username'  => new sfWidgetFormInput(),
+      'password'  => new sfWidgetFormInputPassword(),
       'js_check'  => new sfWidgetFormInputHidden(),
       // Stores POST values of the last request to prevent data loss when the session timed out
       'original_request_params' => new sfWidgetFormInputHidden(),
-      // Distinguished between request to the login input and the login procedure itself
+      // Distinguishes between request to the login input and the login procedure itself
       'login_request' => new sfWidgetFormInputHidden(),
     ));
     
