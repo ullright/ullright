@@ -39,7 +39,8 @@ class ullWidgetRatingWrite extends ullWidget
       throw new InvalidArgumentException('$value must be an array, use id injection');
     }
     
-    //TODO: make this configureable, add translation
+    //TODO: make this configureable
+    //translation happens below
     $ratingTitles = array('Not recommendable', 'Needs to be improved', 'Moderate', 'Good', 'Very good');
     $starNumber = 'star' . $votedObjectId;
     $html = '';
