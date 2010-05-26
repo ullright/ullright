@@ -57,6 +57,15 @@ EOF;
     $customMigrationsPath = substr($config['migrations_path'], 0, -8);
     $customMigrationsPath .= 'custom';
     
+    if (!file_exists($customMigrationsPath))
+    {
+       $this->logBlock(array(
+        'The custom migration directory does not exist:', '', $customMigrationsPath),
+        'ERROR_LARGE');
+       
+       return;
+    }
+    
     $migration = new Custom_Doctrine_Migration($customMigrationsPath);
     $from = $migration->getCurrentVersion();
 
