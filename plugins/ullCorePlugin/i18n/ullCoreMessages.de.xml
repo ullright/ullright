@@ -472,6 +472,11 @@ Gültige Dateitypen sind jpg und png.</target>
         <target>Unbewertet</target>
       </trans-unit>
 
+      <trans-unit id="2007">
+        <source>Remove rating</source>
+        <target>Bewertung entfernen</target>
+      </trans-unit>
+
       <!-- ullCommentable -->
       
       <trans-unit id="2006">

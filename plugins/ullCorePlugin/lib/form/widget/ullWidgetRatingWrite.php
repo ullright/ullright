@@ -8,6 +8,12 @@
  * The 'average_input_name' option specifies the name of
  * this control.
  * 
+ * Note: This functionality is disabled for now, since
+ * we changed the read widget to just display images and not
+ * use javascript, so this code here would need some changes.
+ * Also, when rated objects have a larger amount of given
+ * ratings a single new vote does not change the average considerably.
+ * 
  * The 'url_to_call_on_select' option specifies the URL
  * which gets called on submit. The id of the object which
  * is voted on is added.
@@ -48,7 +54,8 @@ class ullWidgetRatingWrite extends ullWidget
     //TODO: add support for different star count
     for($i = 1; $i <= 5; $i++)
     {
-      $inputTag = '<input class="star" type="radio" name="' . $starNumber .
+      $inputTag = '<input class="star {cancelValue:0, cancel:\'' . __('Remove rating', null, 'ullCoreMessages') .
+        '\'}" type="radio" name="' . $starNumber .
         '" value="' . $i . '" title="' . __($ratingTitles[$i - 1], null, 'ullCoreMessages') . '" ';
 
       if ($i == $value)
@@ -71,6 +78,7 @@ class ullWidgetRatingWrite extends ullWidget
     $html .= <<<EOF
     <script type="text/javascript">
 
+    /*
     var updateAvgStars_$votedObjectId = function(data)
     {
       //todo: add some integrity checks and see if we
@@ -80,6 +88,7 @@ class ullWidgetRatingWrite extends ullWidget
       $("input[name='$averageInputName']").rating('select', checkedStar - 1);
       $("input[name='$averageInputName']").rating('readOnly', true);
     }
+    */
 
     $("input[name='$starNumber']").rating(
       {
@@ -108,7 +117,7 @@ class ullWidgetRatingWrite extends ullWidget
           $.ajax({
             url: url,
             cache: false,
-            success: updateAvgStars_$votedObjectId
+            //success: updateAvgStars_$votedObjectId
           });
         }
     });

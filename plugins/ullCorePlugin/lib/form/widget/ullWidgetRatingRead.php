@@ -2,7 +2,7 @@
 
 /**
  * This widget renders a static star-select ratings bar.
- * 
+ *
  * The 'add_random_identifier' option specifies whether
  * a randomly generated string should be added to the
  * name attribute (necessary when displaying multiple
@@ -12,75 +12,47 @@ class ullWidgetRatingRead extends ullWidget
 {
   public function __construct($options = array(), $attributes = array())
   {
-    //push this option into superclass?
-    $this->addOption('add_random_identifier', true);
     parent::__construct($options, $attributes);
   }
-  
+
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     if (empty($value))
     {
       return '<small>' . __('No ratings yet', null, 'ullCoreMessages') . '</small>';
     }
-    
-    $html = '';
-    $roundedAvg = round($value, 1);
-    $checkedStar = $roundedAvg / 0.5;
-    
-    $name = ($name) ? $name : 'avg_rating';
-    $name = $this->getOption('add_random_identifier') ? $name . '_' . uniqid() : $name;
-    $this->setAttribute('name', $name);
 
-    $attributeArray = array(
-      'class' => 'star {split:2}',
-      'type' => 'radio',
-      'disabled' => 'disabled'
-    );
-    
-    for($i = 1; $i <= 10; $i++)
+    //html code for full and half star
+    //the a-element is mandatory for correct rendering!
+    $codeForFullStar = '<div class="star-rating star-rating-readonly star-rating-on" style="width: 16px; "><a></a></div>';
+    $codeForHalfStar = '<div class="star-rating star-rating-readonly star-rating-on" style="width: 8px; "><a style="margin-right: -8px; "></a></div>';
+
+    $html = '<div class="no_wrap">';
+
+    //round the ratings value to 0.5
+    //3.23 => 3 stars
+    //3.39 => 3.5 stars
+    //3.71 => 3.5 stars
+    //3.79 => 4 stars
+    $starCount = round($value / 0.5) * 0.5;
+
+    //add full stars
+    for(; $starCount >= 1; $starCount--)
     {
-      if ($i == $checkedStar)
-      {
-        $html .= $this->renderTag('input', $attributeArray + array('checked' => 'checked'));
-      }
-      else
-      {
-        $html .= $this->renderTag('input', $attributeArray);
-      }
+      $html .= $codeForFullStar;
     }
-    
-    //this addition waits for the document to load
-    //and sets the currently rendering rating stars
-    //to read only - why we even need this, is a mystery :)
-    //but without this, we experience some browser
-    //reloading-strangeness
-    
-    $html .= <<<EOF
-    <script type="text/javascript">
-      $(function(){
-        $("input[name='$name']").rating('readOnly', true);
-      });
-    </script>
-EOF;
+
+    //add another half star if necessary
+    if ($starCount > 0)
+    {
+      $html .= $codeForHalfStar;
+    }
+
+    $html .= "</div>";
 
     return $html;
   }
-  
-  /**
-   * Gets the JavaScript paths associated with the widget.
-   *
-   * @return array An array of JavaScript paths
-   */
-  public function getJavaScripts()
-  {
-    return array(
-      '/ullCorePlugin/js/jq/jquery-min.js', 
-      '/ullCorePlugin/js/star-rating/jquery.rating.pack.js',
-      '/ullCorePlugin/js/star-rating/jquery.MetaData.js',
-    );   
-  }
-  
+
   /**
    * Gets the stylesheet paths associated with the widget.
    *
@@ -89,12 +61,12 @@ EOF;
    *   array('/path/to/file.css' => 'all', '/another/file.css' => 'screen,print')
    *
    * @return array An array of stylesheet paths
-   */  
+   */
   public function getStylesheets()
   {
     return array(
       '/ullCorePlugin/css/star-rating/star-rating.css' => 'all'
-    );  
+      );
   }
-  
+
 }

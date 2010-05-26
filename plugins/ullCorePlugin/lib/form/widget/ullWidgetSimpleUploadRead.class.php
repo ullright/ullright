@@ -41,7 +41,7 @@ class ullWidgetSimpleUploadRead extends ullWidget
       }
       else
       {
-        $return .= '<p>'. ull_link_to($value, $filePath . '/' . $value) .'</p>';
+        $return .= ull_link_to($value, $filePath . '/' . $value);
       }
     }
     
