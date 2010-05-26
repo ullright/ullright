@@ -13,7 +13,6 @@
   $b
     ->info('Telephone directory list')
     ->get('ullPhone/list')
-    ->loginAsAdmin()
     ->isStatusCode(200)
     ->isRequestParameter('module', 'ullPhone')
     ->isRequestParameter('action', 'list')

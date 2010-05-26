@@ -13,7 +13,6 @@
   $b
     ->info('Log in')
     ->get('ullPhone/list')
-    ->loginAsAdmin()
     ->isStatusCode(200)
   
     ->info('Search for \'admin\'')

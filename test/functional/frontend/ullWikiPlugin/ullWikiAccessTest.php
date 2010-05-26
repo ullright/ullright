@@ -40,18 +40,24 @@ $b
 $b
   ->diag('show: check access to a restricted document')
   ->get('ullWiki/show/docid/2')
+  ->isRedirected()
+  ->followRedirect()
   ->responseContains('Log in')
 ;
 
 $b
   ->diag('create - not logged in -> display login')
   ->get('ullWiki/create')
+  ->isRedirected()
+  ->followRedirect()
   ->responseContains('Log in')
 ;
 
 $b
   ->diag('edit - not logged in -> display login')
   ->get('ullWiki/edit/docid/1')
+  ->isRedirected()
+  ->followRedirect()
   ->responseContains('Log in')
 ;
 
