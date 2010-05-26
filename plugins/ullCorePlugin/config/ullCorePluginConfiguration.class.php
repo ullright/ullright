@@ -43,6 +43,8 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     // $manager->setAttribute('use_dql_callbacks', true);
     
     $this->createHTMLPurifierCache();
+    
+//    $this->detectMobileDevice();
   }
 
   /**
@@ -66,4 +68,22 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     
     sfConfig::add(array('htmlpurifier_cache_dir' => $purifierCachePath));
   }
+  
+  protected function detectMobileDevice()
+  {
+    $this->dispatcher->connect('request.filter_parameters', array($this, 'filterRequestParameters'));
+  }
+  
+  public function filterRequestParameters(sfEvent $event, $parameters)
+  {
+    $request = $event->getSubject();
+ 
+    if (preg_match('#Mobile/.+Safari#i', $request->getHttpHeader('User-Agent')))
+    {
+      $request->setRequestFormat('mobile');
+    }
+ 
+    return $parameters;
+  }
+  
 }
