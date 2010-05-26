@@ -29,6 +29,17 @@
   </div>
 
   <div class='edit_action_buttons_right'>
+    <ul>
+      <li>
+        <?php             
+          echo link_to(
+            __('Set your status to inactive permanently', null, 'common'), 
+            'ullUser/setInactive', 
+            array('confirm' => __('Are you sure you want to set your status to inactive permanently?', null, 'common'))
+          );  
+        ?>
+      </li>
+    </ul>
   </div>
 
   <div class="clear"></div>  

@@ -105,6 +105,11 @@
 <target>Drucken</target>
 </trans-unit>
 
+<trans-unit id="21">
+<source>Set your status to inactive permanently</source>
+<target>Dauerhaft abmelden</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 
@@ -264,6 +269,11 @@
 <trans-unit id="202">
 <source>You will lose unsaved changes! Are you sure?</source>
 <target>Ungespeicherte &#xC4;nderungen werden verlorengehen! Sind Sie sicher?</target>
+</trans-unit>
+
+<trans-unit id="203">
+<source>Are you sure you want to set your status to inactive permanently?</source>
+<target>Sind Sie sicher, dass Sie sich dauerhaft abmelden wollen?</target>
 </trans-unit>
 
 

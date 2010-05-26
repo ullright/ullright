@@ -293,6 +293,24 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     }     
   }
   
+  /**
+   * Sets the status of a user to inactive
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeSetInactive(sfRequest $request)
+  {
+    $inactiveUser = UllUserTable::findLoggedInUser();
+    if(isset($inactiveUser))
+      $inactiveUser['ull_user_status_id'] = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive')->id;
+      $inactiveUser->save();
+      
+      $this->logoutIfLoggedIn(); 
+      
+      $this->getUser()->setFlash('message',  __('Your account is inactive', null, 'ullCoreMessages'));
+      $this->redirect('ullUser/login');
+  } 
+  
   
   /**
    * Common functionality for registering / account editing
