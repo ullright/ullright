@@ -149,8 +149,6 @@
         </li>
       </ul>
     </div>
-  
-    
     
   </div>
 <?php else: // else of if edit_generator ?>  
@@ -165,5 +163,7 @@
 
 <?php echo ull_js_observer("ull_time_form") ?>  
 
-<?php use_javascripts_for_form($generator->getForm()) ?>
-<?php use_stylesheets_for_form($generator->getForm()) ?>
+<?php use_javascripts_for_form($list_generator->getForm()) ?>
+<?php use_stylesheets_for_form($list_generator->getForm()) ?>
+<?php use_javascripts_for_form($edit_generator->getForm()) ?>
+<?php use_stylesheets_for_form($edit_generator->getForm()) ?>
