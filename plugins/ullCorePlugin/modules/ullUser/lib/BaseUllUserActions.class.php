@@ -691,8 +691,6 @@ class BaseUllUserActions extends BaseUllGeneratorActions
               // Use UriMemory and redirect to the source URI 
               else
               {
-                var_dump($this->getUriMemory()->get());
-                
                 $this->redirect($this->getUriMemory()->getAndDelete()); 
               }
 	          }
