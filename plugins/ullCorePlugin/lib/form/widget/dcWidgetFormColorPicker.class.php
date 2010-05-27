@@ -5,6 +5,8 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ * 
+ * 2010-05-27 Klemens Ullmann-Marx: Adjusted js and css paths for ullright
  */
 
 /**
@@ -25,7 +27,6 @@ class dcWidgetFormColorPicker extends sfWidgetFormInput
   public function getStylesheets()
   {
 //    return array('/dcWidgetColorPickerPlugin/css/colorpicker.css' => 'screen');
-    // temp: see: http://www.ullright.org/ullFlow/edit/doc/1122
     return array('/ullCorePlugin/css/colorpicker.css' => 'screen');
   }
 
@@ -37,13 +38,15 @@ class dcWidgetFormColorPicker extends sfWidgetFormInput
   public function getJavascripts()
   {
 //    return array('/dcWidgetColorPickerPlugin/js/colorpicker.js');
-    // temp: see: http://www.ullright.org/ullFlow/edit/doc/1122
-    return array('/ullCorePlugin/js/colorpicker.js');
+    return array(
+      '/ullCorePlugin/js/jq/jquery-min.js',
+      '/ullCorePlugin/js/colorpicker.js',
+    );
   }
 
  public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    use_helper("jQuery");
+//    use_helper("jQuery");
 
     $attributes['style'] = "width: 4em;";
     $html = parent::render($name, $value, $attributes, $errors);
