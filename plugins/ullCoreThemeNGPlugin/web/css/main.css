@@ -753,6 +753,14 @@ ul.tag-cloud li {
 	max-height: 250px;
 }
 
+.ull_widget_simple_upload_image {
+}
+
+.ull_widget_simple_upload_image_input {
+	display:block;
+	margin-top: 1em;
+}
+
 
 /*
  * ************************************************

@@ -23,7 +23,7 @@ class ullWidgetNewsLinkWrite extends sfWidgetFormInput
     $select = '<option value="" selected="selected"></option>';
     foreach ($pages as $page)
     {
-      $select .= '<option value="ullCms/show?slug=' . $page['slug'] . '">' . $page['full_path'] . '</option>\n';
+      $select .= '<option value="ullCms/show?slug=' . $page['slug'] . '">' . $page['full_path'] . '</option>';
     }
     
     $return = javascript_tag('$(document).ready(function()
