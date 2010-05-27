@@ -12,7 +12,8 @@ $t->diag('__construct()');
   $w = new ullWidgetDateWrite(array(
     'year_range' => '1950:+10',
     'min_date' => '-3y +2d',
-    'max_date' => 'new Date(1636236342)'));
+    'max_date' => 'new Date(733755250000)',
+    'default_date' => '-28y'));
   $t->isa_ok($w, 'ullWidgetDateWrite', 'returns the correct object');
   
 	$t->diag('->render()');
@@ -23,10 +24,7 @@ $t->diag('__construct()');
     $(function() {
      $("#foo").datepicker({
         changeYear: true,
-        yearRange: \'1950:+10\',
-        minDate: \'-3y +2d\',
-        maxDate: \'new Date(1636236342)\',
-        changeMonth: true,
+        yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
         firstDay: 1,
         showOn: \'button\',
      });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
@@ -44,10 +42,7 @@ $t->diag('__construct()');
     $(function() {
      $("#foo").datepicker({
         changeYear: true,
-        yearRange: \'1950:+10\',
-        minDate: \'-3y +2d\',
-        maxDate: \'new Date(1636236342)\',
-        changeMonth: true,
+        yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
         firstDay: 1,
         showOn: \'button\',
      });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
