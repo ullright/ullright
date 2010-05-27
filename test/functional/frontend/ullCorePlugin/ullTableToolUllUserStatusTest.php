@@ -2,12 +2,21 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name_translation_en',
+        'is_active',
+        'is_absent'
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllUserStatus', 
 	'User status', 
 	'Manage User status', 
   5, 
-  'getDgsUllTableToolUserStatusList', 
+  $s, 
   $configuration
 );
 $path = dirname(__FILE__);

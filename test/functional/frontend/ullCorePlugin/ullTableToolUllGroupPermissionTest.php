@@ -2,12 +2,20 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'ull_group_id',
+        'ull_permission_id'
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllGroupPermission', 
 	'Group permissions', 
 	'Manage Group permissions', 
   10, 
-  'getDgsUllTableToolUllGroupPermissionList', 
+  $s, 
   $configuration,
   'created_at',
   false

@@ -2,12 +2,20 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'label_translation_en'
+      )
+    );
+
+
 $b = new ullTableToolTestBrowser(
 	'UllSelect', 
 	'Select boxes', 
 	'Manage Select boxes', 
   2, 
-  'getDgsUllTableToolUllSelectList', 
+  $s, 
   $configuration,
   'label'
 );

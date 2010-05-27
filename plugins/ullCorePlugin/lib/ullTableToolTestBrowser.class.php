@@ -36,7 +36,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
     $this->label = $label;
     $this->link = $link;
     $this->rowCount = $rowCount;
-    $this->dgsList = call_user_func(array($this, $dgsList));
+    $this->dgsList = $dgsList;
     if ($order)
     {
       $this->order = $order . ($asc ? '%3Aasc' : '%3Adesc');

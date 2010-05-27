@@ -2,12 +2,21 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name_translation_en',
+        'from_date',
+        'to_date'
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllTimePeriod', 
 	'Periods', 
 	'Manage Periods', 
   4, 
-  'getDgsUllTableToolUllTimePeriodList', 
+  $s, 
   $configuration,
   'name'
 );

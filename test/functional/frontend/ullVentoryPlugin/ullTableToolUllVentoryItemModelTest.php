@@ -2,12 +2,21 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'name',
+        'ull_ventory_item_manufacturer_id',
+        'ull_ventory_item_type_id'
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllVentoryItemModel', 
 	'Item models', 
 	'Manage Item models', 
   2, 
-  'getDgsUllTableToolUllVentoryItemModel', 
+  $s, 
   $configuration,
   'name'
 );

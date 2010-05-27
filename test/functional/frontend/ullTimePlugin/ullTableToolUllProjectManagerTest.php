@@ -2,14 +2,20 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
-
+$s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'ull_project_id',
+        'ull_user_id'
+      )
+    );
 
 $b = new ullTableToolTestBrowser(
 	'UllProjectManager', 
 	'Project Managers', 
 	'Manage Project Managers', 
   0, 
-  'getDgsUllTableToolUllProjectManagerList', 
+  $s, 
   $configuration,
   'created_at',
   false

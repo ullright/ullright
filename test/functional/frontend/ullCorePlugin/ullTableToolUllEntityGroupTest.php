@@ -2,12 +2,20 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'ull_entity_id',
+        'ull_group_id'
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllEntityGroup', 
 	'Group memberships', 
 	'Manage Group memberships', 
   3, 
-  'getDgsUllTableToolUllEntityGroupList', 
+  $selector, 
   $configuration,
   'created_at',
   false

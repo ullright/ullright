@@ -2,12 +2,24 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete', 
+        'ull_ventory_software_id',
+        'license_key',
+        'quantity',
+        'supplier',
+        'delivery_date',
+        'comment',
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllVentorySoftwareLicense', 
 	'Software licenses', 
 	'Manage Software licenses', 
   2, 
-  'getDgsUllTableToolUllVentorySoftwareLicense', 
+  $s, 
   $configuration,
   'license_key'
 );

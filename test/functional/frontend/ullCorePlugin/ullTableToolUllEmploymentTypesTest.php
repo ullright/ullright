@@ -2,12 +2,19 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'name_translation_en'
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllEmploymentType', 
 	'Employment types', 
 	'Manage Employment types', 
   4, 
-  'getDgsUllTableToolUllEmploymentTypesList', 
+  $selector, 
   $configuration,
   'name'
 );
