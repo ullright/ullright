@@ -418,7 +418,7 @@ class ullCoreTools
     
     if ($string && !is_numeric($string))
     {
-      $string = str_replace('"', '\\"', $string);
+      $string = str_replace('"', '""', $string);
       $string = '"' . $string . '"';
     }
     
