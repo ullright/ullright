@@ -98,7 +98,7 @@ $t->diag('prepareCsvColumn()');
   $t->is(ullCoreTools::prepareCsvColumn('49'), '49', 'Does not quotes a numeric value');  
   $t->is(ullCoreTools::prepareCsvColumn('foo'), '"foo"', 'Quotes a normal string');
   $t->is(ullCoreTools::prepareCsvColumn('He\'s on fire'), '"He\'s on fire"', 'Quotes a string containing single quotes');
-  $t->is(ullCoreTools::prepareCsvColumn('He is on "fire"'), '"He is on \\"fire\\""', 'Escapes double quotes');
+  $t->is(ullCoreTools::prepareCsvColumn('He is on "fire"'), '"He is on ""fire"""', 'Escapes double quotes');
   $t->is(ullCoreTools::prepareCsvColumn('<div class="foo">bar</div>'), '"bar"', 'Strips tags');
   $t->is(ullCoreTools::prepareCsvColumn('Am&uuml;sant'), '"' . utf8_decode('Amüsant') . '"', 'Decodes html entities');
   $t->is(ullCoreTools::prepareCsvColumn('&gt;'), '">"', 'Decodes html entities');
