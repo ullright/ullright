@@ -9,7 +9,10 @@ $t = new lime_test(3, new lime_output_color(), $configuration);
 $instance = sfContext::createInstance($configuration);
 
 $t->diag('__construct()');
-  $w = new ullWidgetDateWrite();
+  $w = new ullWidgetDateWrite(array(
+    'year_range' => '1950:+10',
+    'min_date' => '-3y +2d',
+    'max_date' => 'new Date(1636236342)'));
   $t->isa_ok($w, 'ullWidgetDateWrite', 'returns the correct object');
   
 	$t->diag('->render()');
@@ -20,6 +23,9 @@ $t->diag('__construct()');
     $(function() {
      $("#foo").datepicker({
         changeYear: true,
+        yearRange: \'1950:+10\',
+        minDate: \'-3y +2d\',
+        maxDate: \'new Date(1636236342)\',
         changeMonth: true,
         firstDay: 1,
         showOn: \'button\',
@@ -38,6 +44,9 @@ $t->diag('__construct()');
     $(function() {
      $("#foo").datepicker({
         changeYear: true,
+        yearRange: \'1950:+10\',
+        minDate: \'-3y +2d\',
+        maxDate: \'new Date(1636236342)\',
         changeMonth: true,
         firstDay: 1,
         showOn: \'button\',

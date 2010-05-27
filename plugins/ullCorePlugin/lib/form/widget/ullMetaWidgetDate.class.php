@@ -20,6 +20,10 @@ class ullMetaWidgetDate extends ullMetaWidget
       $this->columnConfig->setWidgetOption('show_weekday', true);
     }
     
+    $this->columnConfig->removeWidgetOption('year_range');
+    $this->columnConfig->removeWidgetOption('min_date');
+    $this->columnConfig->removeWidgetOption('max_date');
+    
     $this->addWidget(new ullWidgetDateRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorPass());
   }

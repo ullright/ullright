@@ -1,8 +1,37 @@
 <?php
 
+/**
+ * This widget renders a JS-datepicker provided by jQuery UI
+ * 
+ * Options:
+ * 
+ * 'year_range' specifies the range of years selectable:
+ * '-nn:+nn'   - relative to today's year
+ * 'c-nn:c+nn' - relative to the currently selected year
+ * 'nnnn:nnnn' - absolute
+ * 'nnnn:-nn'  - combinations are allowed
+ * The default is c-10:c+10.
+ * 
+ * 'min_date' specifies the minimum selectable date:
+ * 'max_date' specifies the maximum selectable date:
+ * '-3y -2m' - string of periods from today (minus 3 years and 2 months)
+ * any JS Date object (constructed from multiple values, milliseconds, ...)
+ * The default for both is null (= not set).
+ * 
+ *
+ * At the moment, this widget only supports English and German
+ */
 class ullWidgetDateWrite extends sfWidgetForm
 {
-
+  public function __construct($options = array(), $attributes = array())
+  {
+    //10 years +/- to currently selected date
+    $this->addOption('year_range', 'c-10:c+10');
+    $this->addOption('max_date');
+    $this->addOption('min_date');
+    parent::__construct($options, $attributes);
+  }
+  
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     if (!$this->getAttribute('name'))
@@ -15,12 +44,17 @@ class ullWidgetDateWrite extends sfWidgetForm
 
     $curdate = strtotime($value);
     $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . '));';
+
+    //showAnim: \'\', ?
     
     $return = '
     <script type="text/javascript">
     $(function() {
      $("#' . $id . '").datepicker({
         changeYear: true,
+        yearRange: \'' . $this->getOption('year_range') . '\',
+        minDate: \'' . $this->getOption('min_date') . '\',
+        maxDate: \'' . $this->getOption('max_date') . '\',
         changeMonth: true,
         firstDay: 1,
         showOn: \'button\',
