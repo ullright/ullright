@@ -118,6 +118,18 @@ ul.sidebar_list li {
   padding: 0;
 }
 
+.sidebar_round_button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6;
+  font-weight: normal;
+  color: #555555;
+}
+
+
 /*
  * ************************************************
  *  navigation

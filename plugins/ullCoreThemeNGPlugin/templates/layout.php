@@ -6,6 +6,7 @@
 
 <?php //temp: refactor into sidebar component ?>
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js')?>
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-ui-min.js')?>
 <?php use_javascript('/ullCorePlugin/js/sidebar.js')?>
 
 <div id="container">
@@ -51,13 +52,15 @@
     //Use JS to render the sidebar tab
     //This needs to be done here, because for the .before()
     //to work the #sidebar-div has to be closed already.
+    //note: should also work elsewhere if we execute it after
+    //the DOM has loaded
   ?>
   <script type="text/javascript">
     //<![CDATA[
     $("#sidebar").before(
       '<div id="sidebar_tab">' +
-      '<a href="" id="tab_button_in" class="ui-state-default ui-corner-all no_underline <?php echo $hideSidebar ? '' : 'invisible' ?>"><big>&rarr;</big></a>' +
-      '<a href="" id="tab_button_out" class="ui-state-default ui-corner-all no_underline <?php echo $hideSidebar ? 'invisible' : '' ?>"><big>&larr;</big></a>' +
+      '<a href="" id="tab_button_in" class="sidebar_round_button no_underline <?php echo $hideSidebar ? '' : 'invisible' ?>"><big>&rarr;</big></a>' +
+      '<a href="" id="tab_button_out" class="sidebar_round_button no_underline <?php echo $hideSidebar ? 'invisible' : '' ?>"><big>&larr;</big></a>' +
       '</div>'
     );
     //]]>
