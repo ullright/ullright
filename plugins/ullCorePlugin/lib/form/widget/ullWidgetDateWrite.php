@@ -15,11 +15,17 @@
  * 'min_date' specifies the minimum selectable date:
  * 'max_date' specifies the maximum selectable date:
  * '-3y -2m' - string of periods from today (minus 3 years and 2 months)
- * any JS Date object (constructed from multiple values, milliseconds, ...)
+ * 'new Date(...)' a JS Date (constructed from multiple values, milliseconds, ...)
  * The default for both is null (= not set).
  * 
+ * 'default_date' sets the date which is selected in the datepicker by default.
+ * If this option is not set, the current date is used.
+ * An example where this option makes sense is the 'birthday' field.
+ * Format is same as for min_date and max_date.
+ * Important note: This option will only take effect if the widget
+ * does not receive a value (i.e empty fields, create actions, ...)
  *
- * At the moment, this widget only supports English and German
+ * At the moment, this widget only supports English and German.
  */
 class ullWidgetDateWrite extends sfWidgetForm
 {
@@ -29,6 +35,7 @@ class ullWidgetDateWrite extends sfWidgetForm
     $this->addOption('year_range', 'c-10:c+10');
     $this->addOption('max_date');
     $this->addOption('min_date');
+    $this->addOption('default_date');
     parent::__construct($options, $attributes);
   }
   
@@ -42,20 +49,41 @@ class ullWidgetDateWrite extends sfWidgetForm
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     $id = $this->getAttribute('id');
 
+    //we need to fix min, max and default dates in
+    //case of 'new Date()...', where surrounding ' are
+    //not allowed
+    //and then we generate our datepicker options
+    $datepickerOptions = '';
+    $varNames = array('min_date' => 'minDate',
+                      'max_date' => 'maxDate',
+                      'default_date' => 'defaultDate');
+    foreach($varNames as $optionName => $varName)
+    {
+      $option = $this->getOption($optionName);
+      if ($option != null)
+      {
+        //make this string/object detection more reliable?
+        if (!(strpos($option, 'new Date(') === 0))
+        {
+          $option =  '\'' . $option . '\'';
+        }
+        $datepickerOptions .= $varName . ': ' . $option . ', ';
+      }
+    }
+    
+    //did the widget receive a value? if not, use empty string (= today)
     $curdate = strtotime($value);
     $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . '));';
-
-    //showAnim: \'\', ?
-    
+            
+    //showAnim: \'\', for firefox ?
     $return = '
     <script type="text/javascript">
     $(function() {
      $("#' . $id . '").datepicker({
         changeYear: true,
-        yearRange: \'' . $this->getOption('year_range') . '\',
-        minDate: \'' . $this->getOption('min_date') . '\',
-        maxDate: \'' . $this->getOption('max_date') . '\',
-        changeMonth: true,
+        yearRange: \'' . $this->getOption('year_range') . '\',' .
+        $datepickerOptions .
+       'changeMonth: true,
         firstDay: 1,
         showOn: \'button\',
      });' . 
