@@ -16,16 +16,23 @@ class PluginUllUserTable extends UllEntityTable
    */
   public static function hasGroup($group, $userId = null, $checkMasterAdmin = true) 
   {
-    // use session user_id as default entity
+    // use session user_id as default user
     if ($userId === null) 
     {
       $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    }
+    
+    // We don't need to check for anything if nobody's logged in
+    if (!$userId)
+    {
+      return false;
     }
     
     if ($group == 'LoggedIn')
     {
       return ($userId) ? true : false;
     }
+    
     else
     {
       $q = new Doctrine_Query;
