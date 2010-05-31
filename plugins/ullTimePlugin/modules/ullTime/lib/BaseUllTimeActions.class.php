@@ -21,10 +21,8 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   {
     $defaultUri = $this->getModuleName() . '/list';
     $this->getUriMemory()->setDefault($defaultUri);  
-    
-    //Add ullTime stylsheet for all actions
-    $path =  '/ullTimeTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+
+    $this->addModuleStylesheet();
   }  
   
   
