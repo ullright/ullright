@@ -90,7 +90,7 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
   {
     $request = $event->getSubject();
  
-    if (preg_match('#Mobile/.+Safari#i', $request->getHttpHeader('User-Agent')))
+    if (preg_match('#Mobile#i', $request->getHttpHeader('User-Agent')))
     {
       $request->setRequestFormat('mobile');
     }

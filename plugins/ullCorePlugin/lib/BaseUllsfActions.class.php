@@ -355,5 +355,22 @@ abstract class BaseUllsfActions extends sfActions
         'attachment;filename=' . ullCoreTools::sluggify($this->getResponse()->getTitle()) . '.csv;');
     }     
   }
+  
+  
+  /**
+   * Add stylesheet for the current module
+   * Usually called in the preExecute() method
+   */
+  protected function addModuleStylesheet()
+  {
+    $path =  '/' . $this->getModuleName() .
+      'Theme' . 
+      sfConfig::get('app_theme_package', 'NG') . 
+      'Plugin/css/main' .
+      (($this->getRequest()->getRequestFormat()) ? '.' . $this->getRequest()->getRequestFormat() : '') .
+      '.css'
+    ;
+    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));      
+  }
  
 }

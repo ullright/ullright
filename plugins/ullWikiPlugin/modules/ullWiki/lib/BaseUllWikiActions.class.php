@@ -20,9 +20,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
   {
     parent::preExecute();
     
-    //Add ullWiki stylsheet for all actions
-    $path =  '/ullWikiTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));    
+    $this->addModuleStylesheet();  
   }  
   
 	
