@@ -4,6 +4,31 @@
  
 /*
  * ************************************************
+ *  Theme-plugins should at least override the
+ *  following format definitions.
+ * ************************************************
+ */
+
+.color_light_bg {
+  background: #e1e2e2;
+}
+
+.color_medium_bg {
+  background: #adafb0;
+}
+
+.color_dark_bg {
+  background: #adafb0;
+}
+
+
+/* default grey for all modules */
+.color_light_bg_ull_core {
+  background: #e1e2e2;
+} 
+ 
+/*
+ * ************************************************
  *  breadcrumbs
  * ************************************************
  */
