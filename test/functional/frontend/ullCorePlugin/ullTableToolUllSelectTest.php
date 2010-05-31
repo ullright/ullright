@@ -17,7 +17,7 @@ $b = new ullTableToolTestBrowser(
   2, 
   $s, 
   $configuration,
-  'label'
+  array('order' => 'label')
 );
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);

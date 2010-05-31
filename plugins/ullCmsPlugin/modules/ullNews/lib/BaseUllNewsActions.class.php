@@ -182,4 +182,14 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
     
     parent::executeDelete();
   }
+  
+  /**
+   * Define generator for delete action
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
+   */
+  protected function getDeleteGenerator()
+  {
+    return new ullNewsGenerator('r', 'list', $this->columns);
+  } 
 }

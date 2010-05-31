@@ -21,7 +21,7 @@ $b = new ullTableToolTestBrowser(
   2, 
   $s, 
   $configuration,
-  'license_key'
+  array('order' => 'license_key')
 );
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);

@@ -491,6 +491,21 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     
     return $s;
   }
+  
+  public function getDgsEditDeleteButton()
+  {
+    $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'title_translation_en',
+        'parent_ull_cms_item_id',
+        'is_active'
+      )
+    );
+    
+    return $s;
+  }
+  
 }
 
 

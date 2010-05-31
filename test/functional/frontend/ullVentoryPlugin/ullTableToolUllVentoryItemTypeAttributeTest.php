@@ -19,8 +19,7 @@ $b = new ullTableToolTestBrowser(
   5, 
   $s, 
   $configuration,
-  'created_at',
-  'desc'
+  array('order' => 'created_at', 'desc' => true)
 );
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);

@@ -16,7 +16,9 @@ class ullTableToolTestBrowser extends ullTestBrowser
   protected $editValues;
   protected $rowCount;
   protected $dgsList;
+  protected $options;
   protected $order;
+  protected $module = "ullTableTool";
   
   /**
    * 
@@ -27,19 +29,19 @@ class ullTableToolTestBrowser extends ullTestBrowser
    * @param $rowCount count of initial rows
    * @param $dgsList DomGridSelector function name for the list view
    * @param $configuration configuration-param from the bootstrap file
-   * @param $order to order the table by a specific column
-   * @param $asc if true, order from A to Z; false otherwise
+   * @param $options possible options: order, asc, no_delete;
    */
-  public function __construct($table, $label, $link, $rowCount, $dgsList, $configuration, $order = null, $asc = true)
+  public function __construct($table, $label, $link, $rowCount, $dgsList, $configuration, $options = array())
   {
     $this->table = $table;
     $this->label = $label;
     $this->link = $link;
     $this->rowCount = $rowCount;
     $this->dgsList = $dgsList;
-    if ($order)
+    $this->options = $options;
+    if (isset($options['order']))
     {
-      $this->order = $order . ($asc ? '%3Aasc' : '%3Adesc');
+      $this->order = $options['order'] . (isset($options['desc']) ? '%3Adesc' : '%3Aasc');
     }
 
     parent::__construct(null, null, array('configuration' => $configuration));
@@ -80,13 +82,19 @@ class ullTableToolTestBrowser extends ullTestBrowser
         ->isParameter('action', 'index')
       ->end()
     ;
-    
     $this
       ->diag('list: '. $this->label)
       ->click($this->link)
-      ->isStatusCode(200)   
+      ->isStatusCode(200)
+    ;
+    if ($this->getRequest()->getParameter('module') != "ullTableTool")
+    {
+      $this->module = $this->table;
+      $this->table = '';
+    }
+    $this   
       ->with('request')->begin()   
-        ->isParameter('module', 'ullTableTool')
+        ->isParameter('module', $this->module)
         ->isParameter('action', 'list')
         ->isParameter('table', $this->table)
       ->end() 
@@ -101,7 +109,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
       ->click('Create')
       ->isStatusCode(200)   
       ->with('request')->begin()   
-        ->isParameter('module', 'ullTableTool')
+        ->isParameter('module', $this->module)
         ->isParameter('action', 'create')
         ->isParameter('table', $this->table)
       ->end()
@@ -120,19 +128,25 @@ class ullTableToolTestBrowser extends ullTestBrowser
     $this 
       ->click('Save and return to list')
       ->isRedirected()
-      //->dumpDie()
+    //  ->dumpDie()
       ->followRedirect()
     ;
     
     if($this->order)
     {
-      $this->get('/ullTableTool/list/table/' . $this->table . '/order/' . $this->order);
+      $getUrl = '/' . $this->module . '/list';
+      if($this->table != '')
+      {
+        $getUrl .= '/table/' .$this->table;
+      }
+      $getUrl .= '/order/' . $this->order;
+      $this->get($getUrl);
     }
     
     $this
       ->diag('list: check new entry')
       ->with('request')->begin()   
-        ->isParameter('module', 'ullTableTool')
+        ->isParameter('module', $this->module)
         ->isParameter('action', 'list')
         ->isParameter('table', $this->table)
       ->end()
@@ -142,13 +156,16 @@ class ullTableToolTestBrowser extends ullTestBrowser
     {
       if (is_array($value))  //for checkboxes or selects. They have different values for setting a field and check it
       {
-        if (strstr($value[1], 'Checkbox_'))   //to check a checkbox
+        if($value[1]) //don't check the field if the value is false
         {
-          $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img.' . strtolower($value[1]), true);
-        }
-        else
-        {
-          $this->with('response')->checkElement($this->dgsList->get(1,$name), $value[1]);
+          if (strstr($value[1], 'Checkbox_'))   //to check a checkbox
+          {
+            $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img.' . strtolower($value[1]), true);
+          }
+          else
+          {
+            $this->with('response')->checkElement($this->dgsList->get(1,$name), $value[1]);
+          }
         }
       }
       else
@@ -162,7 +179,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
       ->click($this->dgsList->get(1,'edit_delete') . ' > a')
       ->isStatusCode(200)   
       ->with('request')->begin()   
-        ->isParameter('module', 'ullTableTool')
+        ->isParameter('module', $this->module)
         ->isParameter('action', 'edit')
         ->isParameter('table', $this->table)
       ->end()
@@ -187,7 +204,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
     $this
       ->diag('list: check edited entry')
       ->with('request')->begin()   
-        ->isParameter('module', 'ullTableTool')
+        ->isParameter('module', $this->module)
         ->isParameter('action', 'list')
         ->isParameter('table', $this->table)
       ->end()
@@ -197,13 +214,16 @@ class ullTableToolTestBrowser extends ullTestBrowser
     {
       if (is_array($value))
       {
-       if (strstr($value[1], 'Checkbox_'))
+        if($value[1]) //don't check the field if the value is false
         {
-          $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img.' . strtolower($value[1]), true);
-        }
-        else
-        {
-          $this->with('response')->checkElement($this->dgsList->get(1,$name), $value[1]);
+          if (strstr($value[1], 'Checkbox_'))
+          {
+            $this->with('response')->checkElement($this->dgsList->get(1,$name) .' > img.' . strtolower($value[1]), true);
+          }
+          else
+          {
+            $this->with('response')->checkElement($this->dgsList->get(1,$name), $value[1]);
+          }
         }
       }
       else
@@ -212,14 +232,17 @@ class ullTableToolTestBrowser extends ullTestBrowser
       }
     }
     
-    $this
-      ->diag('list: delete entry')
-      ->click($this->dgsList->get(1,'edit_delete') . ' > a + a')
-      ->isRedirected()
-      ->followRedirect()
-      ->with('response')->begin()   
-        ->checkElement($this->dgsList->getFullRowSelector(), $this->rowCount)
-      ->end()
-    ;
+    if(isset($options['no_delete']))
+    {
+      $this
+        ->diag('list: delete entry')
+        ->click($this->dgsList->get(1,'edit_delete') . ' > a + a')
+        ->isRedirected()
+        ->followRedirect()
+        ->with('response')->begin()   
+          ->checkElement($this->dgsList->getFullRowSelector(), $this->rowCount)
+        ->end()
+      ;
+    }
   }
 }

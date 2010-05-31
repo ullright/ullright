@@ -2,14 +2,32 @@
 
 include dirname(__FILE__) . '/../../../bootstrap/functional.php';
 
+$selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
+      array(
+        'edit_delete',      
+        'label_translation_en',
+        'ull_flow_app_id',
+        'sequence',
+        'ull_column_type_id',
+        'options',
+        'is_enabled',
+        'is_mandatory',
+        'is_subject',
+        'is_priority',
+        'is_tagging',
+        'is_project',
+        'default_value'
+      )
+    );
+
 $b = new ullTableToolTestBrowser(
 	'UllFlowColumnConfig', 
 	'Columns', 
 	'Manage Columns', 
   12, 
-  'getDgsUllTableToolUllFlowColumnConfig', 
+  $selector, 
   $configuration,
-  'label'
+  array('order' => 'label')
 );
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);

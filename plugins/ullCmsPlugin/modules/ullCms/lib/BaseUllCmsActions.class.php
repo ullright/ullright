@@ -133,8 +133,18 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_cms_delete');
     
-    parent::executeDelete();
+    parent::executeDelete($request);
   }  
+  
+  /**
+   * Define generator for delete action
+   * 
+   * @see BaseUllGeneratorActions#getDeleteGenerator()
+   */
+  protected function getDeleteGenerator()
+  {
+    return new ullCmsGenerator('r', 'list', $this->columns);
+  } 
   
   /**
    * Handles breadcrumb for list action

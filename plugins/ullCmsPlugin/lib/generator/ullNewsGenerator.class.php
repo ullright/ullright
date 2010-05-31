@@ -9,9 +9,9 @@ class ullNewsGenerator extends ullTableToolGenerator
   }
   
   
-//  public function configure()
-//  {
-//    $this->setAllowDelete(false);
-//  }
+  public function configure()
+  {
+    $this->setAllowDelete(false);
+  }
   
 }
