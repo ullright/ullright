@@ -1,6 +1,6 @@
-<div class="sidebar_section" id="sidebar_ull_phone">
-
-  <?php if (isset($locations)): ?>
+<?php if (isset($locations)): ?>
+  <div class="sidebar_section" id="sidebar_ull_phone">
+  
     <h3><?php echo __('Phone book', null, 'ullPhoneMessages') ?></h3> 
     <ul class="sidebar_list">
       <li><?php echo ull_link_to(__('Everyone', null, 'ullPhoneMessages'), 'ullPhone/list', 'ull_js_observer_confirm=true') ?></li>
@@ -21,14 +21,14 @@ $(document).ready(function() {
   $("#filter_search").focus();
 });
 '); ?>
-  <?php endif ?>
-  
+
   <?php   
     //uncomment this for autocompletion support
     //use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js');
   ?>  
   
-</div>
+</div>  
+<?php endif ?>
 
 
 <?php
