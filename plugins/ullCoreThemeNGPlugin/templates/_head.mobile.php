@@ -18,6 +18,7 @@
 
 
 <?php if ($overrideCss = sfConfig::get('app_override_css')): ?>
+  <?php $overrideCss = str_replace('.css', '.mobile.css', $overrideCss)?>
   <?php sfContext::getInstance()->getResponse()->addStylesheet($overrideCss, 'last', array('media' => 'all')) ?>
 <?php endif ?>
 </head>
