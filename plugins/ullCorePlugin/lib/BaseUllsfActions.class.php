@@ -56,19 +56,9 @@ abstract class BaseUllsfActions extends sfActions
    */
   public function postExecute()
   {
-    if (isset($this->generator) && $this->getRequestParameter('export_csv') == 'true')
-    {
-      $this->setLayout(false);
-      sfConfig::set('sf_web_debug', false);
-      $this->setTemplate(sfConfig::get('sf_plugins_dir') . 
-        '/ullCorePlugin/modules/ullTableTool/templates/exportAsCsv');
-//      $this->getResponse()->setContentType('application/vnd.ms-excel;charset=utf-8');
-      $this->getResponse()->setContentType('application/csv');
-      $this->getResponse()->setHttpHeader('Content-Disposition',
-        'attachment;filename=' . ullCoreTools::sluggify($this->getResponse()->getTitle()) . '.csv;');
-    } 
+    $this->handleCsvExport();
   }  
-
+  
   
   /**
    * access check (group based)
@@ -346,6 +336,24 @@ abstract class BaseUllsfActions extends sfActions
     }    
     
     $this->redirect($url);
+  }
+  
+  
+  /**
+   * Prepare output for CSV export
+   */
+  protected function handleCsvExport()
+  {
+    if (isset($this->generator) && $this->getRequestParameter('export_csv') == 'true')
+    {
+      $this->setLayout(false);
+      sfConfig::set('sf_web_debug', false);
+      $this->setTemplate(sfConfig::get('sf_plugins_dir') . 
+        '/ullCorePlugin/modules/ullTableTool/templates/exportAsCsv');
+      $this->getResponse()->setContentType('application/csv');
+      $this->getResponse()->setHttpHeader('Content-Disposition',
+        'attachment;filename=' . ullCoreTools::sluggify($this->getResponse()->getTitle()) . '.csv;');
+    }     
   }
  
 }

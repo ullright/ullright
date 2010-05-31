@@ -259,4 +259,47 @@ class PluginUllUserTable extends UllEntityTable
     return $result;   
   }
   
+  public static function isActiveByUserId($userId)
+  {
+    if (!$userId)
+    {
+      return false;
+    }
+    
+    // symfony performance test. Firing up Doctrine seems to take 500msecs
+    
+//    $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+//    $result = $dbh->query("
+//      SELECT COUNT(*) as count
+//      FROM ull_entity u
+//      LEFT JOIN ull_user_status s ON (u.ull_user_status_id = s.id)
+//      WHERE 
+//        type='user' 
+//        AND u.id=$userId
+//        AND s.is_active=1
+//    ");
+//    $row = $result->fetch(PDO::FETCH_ASSOC);
+//
+//    if ($row['count'])
+//    {
+//      return true;
+//    }
+    
+    $q = new Doctrine_Query();
+    $q
+      ->from('UllUser u, u.UllUserStatus s')
+      ->where('u.id = ?', $userId)
+      ->addWhere('s.is_active = ?', true)
+      ->useResultCache(true)
+    ;
+    
+    if ($q->count())
+    {
+      return true;
+    }
+
+    return false;
+  }
+  
+  
 }

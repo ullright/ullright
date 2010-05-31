@@ -1,4 +1,4 @@
-<?php require_once(dirname(__FILE__) . '/_head.php') ?>
+<?php require('_head.php') ?>
 
 <body>
 

@@ -44,7 +44,7 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     
     $this->createHTMLPurifierCache();
     
-//    $this->detectMobileDevice();
+    $this->detectMobileDevice();
   }
 
   /**
@@ -69,11 +69,23 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     sfConfig::add(array('htmlpurifier_cache_dir' => $purifierCachePath));
   }
   
+  /**
+   * Connect to request.filter_parameters event and set request format in case
+   * of surfing with a mobile device (smartphone)
+   */
   protected function detectMobileDevice()
   {
     $this->dispatcher->connect('request.filter_parameters', array($this, 'filterRequestParameters'));
   }
   
+  
+  /**
+   * Set request format in case
+   * of surfing with a mobile device (smartphone)
+   * 
+   * @param sfEvent $event
+   * @param unknown_type $parameters
+   */
   public function filterRequestParameters(sfEvent $event, $parameters)
   {
     $request = $event->getSubject();

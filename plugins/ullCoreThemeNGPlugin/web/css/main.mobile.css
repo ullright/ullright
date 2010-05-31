@@ -1,0 +1,99 @@
+/*
+ * Layout styles for mobile layout
+ */
+
+@import "common.css";
+@import "multi_format.css";
+@import "taskcenter.css";
+
+
+/*
+ * ************************************************
+ *  Theme-plugins should at least override the
+ *  following format definitions.
+ * ************************************************
+ */
+
+
+/*
+ * ************************************************
+ *  navigation
+ * ************************************************
+ */
+ 
+#nav_top a {
+  color: #585858;	
+}
+
+#nav_top a:visited {
+  color: #585858; 
+}
+
+#nav_logo {
+  float: left;
+}
+ 
+#nav_syslinks_container {
+  float: right;	
+}
+
+ul.nav_syslinks_list {
+  list-style-type: none;
+  margin: 0;
+  display: inline;
+}
+
+ul.nav_syslinks_list li {
+  display: inline;
+  padding: 0 .5em 0 .7em;
+  margin: 0;
+  border-left: 1px solid grey;
+  line-height: 1.5em;
+  white-space: nowrap;
+}
+
+ul.nav_syslinks_list li:first-child {
+  display: inline;
+  border: none;
+}
+
+
+#nav_links {
+	margin-top: .5em;
+	background: #e1e2e2;
+	padding: .5em;
+}
+
+ul.nav_top_links {
+  list-style-type: none;
+  margin: 0;
+}
+
+ul.nav_top_links li {
+  display: inline;
+  padding: 0 .5em 0 .7em;
+  margin: 0;
+  border-left: 1px solid grey;
+  line-height: 1.5em;
+  white-space: nowrap;
+}
+
+ul.nav_top_links li:first-child {
+  display: inline;
+  border: none;
+  padding-left: 0;
+}
+
+
+/*
+ * ************************************************
+ *  footer
+ * ************************************************
+ */
+ 
+#footer {
+	margin-top: 3em;
+	background: #e1e2e2;
+	padding: .5em;
+	line-height: 1.5em;
+} 

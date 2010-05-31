@@ -96,6 +96,7 @@ ul.tc_tasks li img {
 .tc_search_tag_bottom {
 	border: 0px;
 	padding-bottom: .5em;
+	margin-bottom: 1.5em;
 }
 
 /*  Queries
@@ -108,7 +109,7 @@ ul.tc_tasks li img {
 
 .tc_query_box {
 	border: 0px;
-	margin-bottom: 10px;
+	margin-bottom: 1.5em;
 	padding: .5em;
 }
 

@@ -143,6 +143,9 @@ abstract class sfView
 
     // include view configuration
     $this->configure();
+    
+    // Custom ullright path
+    $this->enableFallbackForMobileRequestFormat();
 
     return true;
   }
@@ -585,5 +588,29 @@ abstract class sfView
     }
 
     return $event->getReturnValue();
+  }
+  
+  
+  /**
+   * Custom ullright path
+   * 
+   * In case of "mobile" request format try to fall back to the normal
+   * html template in case there is no special "mobile" template 
+   */
+  protected function enableFallbackForMobileRequestFormat()
+  {
+    // At this point we have no directory yet in case of a non-existing
+    // mobile template. Try again for the none-mobile template ("html")
+    if (!$this->directory)
+    {
+      $this->setDirectory($this->context->getConfiguration()->getTemplateDir($this->moduleName, str_replace('.mobile', '', $this->getTemplate())));
+    }    
+    
+    // Fallback to non-mobile template
+    if ($this->context->getRequest()->getRequestFormat() == 'mobile' 
+      &&!file_exists($this->directory . DIRECTORY_SEPARATOR . $this->template))
+    {
+      $this->template = str_replace('.mobile', '', $this->template);  
+    }   
   }
 }

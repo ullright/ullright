@@ -10,7 +10,7 @@
 <link rel="shortcut icon" href="<?php echo $favicon_uri ?>" type="image/vnd.microsoft.icon" />
 
 <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
-  'Plugin/css/main.css', 'first', array('media' => 'all')) ?>
+  'Plugin/css/main.mobile.css', 'first', array('media' => 'all')) ?>
 
 <!-- html head slot -->
 <?php include_slot('html_head') ?>
