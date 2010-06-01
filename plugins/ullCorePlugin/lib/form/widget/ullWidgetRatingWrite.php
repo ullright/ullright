@@ -136,8 +136,8 @@ EOF;
   {
     return array(
       '/ullCorePlugin/js/jq/jquery-min.js', 
-      '/ullCorePlugin/js/star-rating/jquery.rating.pack.js',
-      '/ullCorePlugin/js/star-rating/jquery.MetaData.js',
+      '/ullCorePlugin/js/jq/jquery.rating.pack.js',
+      '/ullCorePlugin/js/jq/jquery.MetaData.js',
     );   
   }
   
