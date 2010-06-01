@@ -88,6 +88,12 @@ class PluginUllUserTable extends UllEntityTable
       $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     }
     
+    // We don't need to check for anything if nobody's logged in
+    if (!$userId)
+    {
+      return false;
+    }    
+    
     // MasterAdmins have all permissions
     if (self::hasGroup('MasterAdmins', $userId))
     {
