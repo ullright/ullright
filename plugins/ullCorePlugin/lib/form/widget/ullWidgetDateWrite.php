@@ -11,12 +11,20 @@
  * 'nnnn:nnnn' - absolute
  * 'nnnn:-nn'  - combinations are allowed
  * The default is c-10:c+10.
+ * Note: This does not limit the date, it only influences the
+ * list of selectable years. Use min_ and max_date for
+ * restricting user input.
  * 
- * 'min_date' specifies the minimum selectable date:
- * 'max_date' specifies the maximum selectable date:
+ * 'min_date' specifies the minimum allowed/selectable date:
+ * 'max_date' specifies the maximum allowed/selectable date:
  * '-3y -2m' - string of periods from today (minus 3 years and 2 months)
  * 'new Date(...)' a JS Date (constructed from multiple values, milliseconds, ...)
  * The default for both is null (= not set).
+ * Note: If possible, do not set these options directly; rather
+ * give them to the ullMetaWidgetDate, since doing that would also
+ * add appropriate validators. However, that will only work if you
+ * specify a format which can be parsed by the datepicker and by
+ * php's strotime, e.g. '-10y'.
  * 
  * 'default_date' sets the date which is selected in the datepicker by default.
  * If this option is not set, the current date is used.
@@ -70,11 +78,22 @@ class ullWidgetDateWrite extends sfWidgetForm
         $datepickerOptions .= $varName . ': ' . $option . ', ';
       }
     }
-    
-    //did the widget receive a value? if not, use empty string (= today)
+
     $curdate = strtotime($value);
-    $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . '));';
-            
+    
+    //if this is a postback with invalid input, set
+    //the dateline to empty
+    if (!empty($errors))
+    {
+      $dateline = '';
+    }
+    else
+    {
+      //did the widget receive a value? if not, use empty string (= today)
+      $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . '));';
+    }
+    
+    
     //showAnim: \'\', for firefox ?
     $return = '
     <script type="text/javascript">
