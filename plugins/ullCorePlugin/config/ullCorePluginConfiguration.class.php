@@ -68,7 +68,7 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     
     sfConfig::add(array('htmlpurifier_cache_dir' => $purifierCachePath));
   }
-  
+        
   /**
    * Connect to request.filter_parameters event and set request format in case
    * of surfing with a mobile device (smartphone)
@@ -89,7 +89,7 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
   public function filterRequestParameters(sfEvent $event, $parameters)
   {
     $request = $event->getSubject();
- 
+    
     if (preg_match('#Mobile#i', $request->getHttpHeader('User-Agent')))
     {
       $request->setRequestFormat('mobile');

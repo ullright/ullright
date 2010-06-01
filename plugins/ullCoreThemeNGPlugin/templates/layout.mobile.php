@@ -38,6 +38,9 @@
       <?php echo $sf_data->getRaw('sf_content') ?>
     </div> <!-- end of content -->
      
+    <div id="sidebar">
+      <?php include_partial('default/sidebar_inclusion') ?>
+    </div> 
      
     <div id="footer">
       <div id="footer_copyright">
