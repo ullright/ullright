@@ -9,6 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 }
 
 sfContext::createInstance($configuration);
+sfLoader::loadHelpers(array('ull'));
 
 /*
  * Note that this test is only responsible for the additions the

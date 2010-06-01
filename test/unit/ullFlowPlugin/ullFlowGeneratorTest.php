@@ -95,7 +95,7 @@ class myTestCase extends sfDoctrineTestCase
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers('I18N');
+sfLoader::loadHelpers(array('I18N', 'ull'));
 
 $t = new myTestCase(115, new lime_output_color, $configuration);
 $t->setMode('yml_fixtures');
