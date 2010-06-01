@@ -2,16 +2,9 @@
 
 <body>
 
-<?php $hideSidebar = $sf_user->getAttribute('sidebar_hidden', false); ?>
-
-<?php //temp: refactor into sidebar component ?>
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js')?>
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-ui-min.js')?>
-<?php use_javascript('/ullCorePlugin/js/sidebar.js')?>
-
 <div id="container">
 
-  <div id="sidebar" <?php echo $hideSidebar ? 'class="invisible"' : '' ?>>
+  <div id="sidebar">
     
     <div id="sidebar_logo">
     <?php echo ull_link_to(
@@ -25,27 +18,9 @@
     <?php include_partial('default/sidebar_inclusion') ?>
    
   </div> <!-- end of sidebar -->
-
-  <?php
-    //Use JS to render the sidebar tab
-    //This needs to be done here, because for the .before()
-    //to work the #sidebar-div has to be closed already.
-    //note: should also work elsewhere if we execute it after
-    //the DOM has loaded
-  ?>
-  <script type="text/javascript">
-    //<![CDATA[
-    $("#sidebar").before(
-      '<div id="sidebar_tab">' +
-      '<a href="" id="tab_button_in" class="sidebar_round_button no_underline <?php echo $hideSidebar ? '' : 'invisible' ?>"><big>&rarr;</big></a>' +
-      '<a href="" id="tab_button_out" class="sidebar_round_button no_underline <?php echo $hideSidebar ? 'invisible' : '' ?>"><big>&larr;</big></a>' +
-      '</div>'
-    );
-    //]]>
-  </script>
   
   <!-- Contains main navigation, content and footer -->
-  <div id="canvas" <?php echo $hideSidebar ? 'style="margin-left: 1em;"' : '' ?>>
+  <div id="canvas">
   
     <div id="nav_top">
   
@@ -117,6 +92,10 @@
   </div> <!-- end of canavas -->
     
 </div> <!--  end of container -->
+
+<?php if (sfConfig::get('app_sidebar_toggle', false) == true) : ?>
+  <?php include_partial('default/sidebar_toggle') ?>
+<?php endif; ?>
 
 </body>
 
