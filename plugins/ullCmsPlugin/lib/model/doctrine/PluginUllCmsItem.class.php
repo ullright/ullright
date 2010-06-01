@@ -120,14 +120,14 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
   {
     $q = new ullQuery('UllCmsItem');
     $q
-      ->addSelect(array('slug', 'name'))
+      ->addSelect(array('name', '*'))
       ->addWhere('parent_ull_cms_item_id = ?', $this->id)
       ->addWhere('is_active = ?', true)
       ->addOrderby('sequence, name')
     ;
   
     $result = $q->execute(null, $hydrationMode);
-  
+
     return $result;
   }    
   

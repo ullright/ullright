@@ -10,6 +10,7 @@ class PluginUllNewsTable extends UllRecordTable
   public static function findActiveNews()
   {
     $q = PluginUllNewsTable::queryActiveNews();
+    
     $result = $q->execute();
     
     return $result;
@@ -23,6 +24,7 @@ class PluginUllNewsTable extends UllRecordTable
   public static function findLatestNews()
   {
     $q = PluginUllNewsTable::queryActiveNews();
+    
     $result = $q->fetchOne();
     
     return $result;
@@ -47,11 +49,12 @@ class PluginUllNewsTable extends UllRecordTable
    * Creates a Doctrine_Query for active news
    * @return Doctrine_Query
    */
-  protected static function queryActiveNews(){
+  protected static function queryActiveNews()
+  {
     $date = date('Y-m-d');
     $q = new Doctrine_Query;
     $q
-      ->from('UllNews news')
+      ->from('UllNews news, news.Translation t')
       ->where('news.activation_date <= ?', $date)
       ->addWhere('(news.deactivation_date > ? OR news.deactivation_date is NULL)', $date)
       ->orderBy('news.activation_date desc')
