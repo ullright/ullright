@@ -11,7 +11,7 @@
         array('module' => 'ullCms', 'action' => 'edit', 'id' => $doc->id));
     ?>              
   <?php endif ?>
-  <?php echo $doc->title ?>
+  <?php echo $title ?>
 </h1>
 
-<?php echo $doc->getBody(ESC_RAW) ?> 
+<?php echo $body ?> 

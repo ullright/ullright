@@ -57,6 +57,9 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     
     $this->doc = $this->getRoute()->getObject();
     
+    $this->setVar('title', $this->doc->title);
+    $this->setVar('body', $this->doc->body, true);
+    
     $this->getResponse()->setTitle($this->doc->title);
     
     $this->loadMenus();
