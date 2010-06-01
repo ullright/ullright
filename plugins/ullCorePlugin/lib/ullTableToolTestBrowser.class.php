@@ -107,6 +107,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
     $this
       ->diag('create new entry')
       ->click('Create')
+     // ->dumpDie()
       ->isStatusCode(200)   
       ->with('request')->begin()   
         ->isParameter('module', $this->module)
