@@ -67,6 +67,11 @@
 <target>Enthält ungültige Zeichen.</target>
 </trans-unit>
 
+<trans-unit id="13">
+<source>The date must be before %max%.</source>
+<target>Das Datum muss vor dem %max% liegen.</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
