@@ -171,5 +171,26 @@ abstract class PluginUllUser extends BaseUllUser
     return false;
   } 
   
+
+  /**
+   * Check if the user is active
+   * 
+   * @return boolean
+   */
+  public function isActive()
+  {
+    return (boolean) $this->UllUserStatus->is_active;
+  }
+  
+  
+  /**
+   * Sets a user inactive
+   * 
+   * You have to manually save the record afterwards
+   */
+  public function setInactive()
+  {
+    $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
+  }
   
 }

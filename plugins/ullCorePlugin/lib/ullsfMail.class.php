@@ -312,16 +312,12 @@ class ullsfMail extends sfMail
   {
     $return = array();
     
-    if ($entity->type == 'group' && !$entity->email) 
+    // if no group email -> get list of users and send to their email addresses
+    if ($entity instanceof UllGroup && !$entity->email) 
     {
-      // if no group email -> get list of users and send to their email addresses
-      $userGroups = Doctrine::getTable('UllEntityGroup')->findByUllGroupId($entity->id);
-      
-      foreach ($userGroups as $userGroup) 
+      foreach ($entity->UllUser as $user) 
       {
-        $user = Doctrine::getTable('UllUser')->findOneById($userGroup->ull_entity_id);
-        
-        if ($email = $user->email) 
+        if (($email = $user->email) && $user->isActive()) 
         {
           $return[] = array('email' => $email, 'name' => (string) $user);
         }

@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(4, new lime_output_color, $configuration);
+$t = new myTestCase(6, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -27,3 +27,9 @@ $t->diag('isLoggedIn()');
   $t->is($user->isLoggedIn(), false, 'Testuser is currently logged in');
   
   $t->logout();
+  
+$t->diag('set/isInactive()');
+
+  $t->is($user->isActive(), true, 'User is active');
+  $user->setInactive();
+  $t->is($user->isActive(), false, 'User is now inactive');

@@ -21,21 +21,31 @@ $t->begin('__construct');
 
 $t->diag('addAddress()');
 
-  $entity = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
-  $mail->addAddress($entity);
+  $user = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
+  $mail->addAddress($user);
   $reference = array('test.user@example.com' => 'Test User');
   $t->is($mail->getAddresses(), $reference, 'sets the correct to: address for a UllUser');
   
   $mail = new ullsfMail();
-  $entity = Doctrine::getTable('UllGroup')->findOneByDisplayName('MasterAdmins');
-  $mail->addAddress($entity);
-  $reference = array('admin@example.com' => 'Master Admin');
-  $t->is($mail->getAddresses(), $reference, 'sets the correct to: address for a UllGroup without a group email address');
+  $group = Doctrine::getTable('UllGroup')->findOneByDisplayName('TestGroup');
+  $mail->addAddress($group);
+  $reference = array('test.group@example.com' => 'TestGroup');
+  $t->is($mail->getAddresses(), $reference, 'sets the correct to: address for a UllGroup with a group email address');
 
   $mail = new ullsfMail();
-  $entity = Doctrine::getTable('UllGroup')->findOneByDisplayName('TestGroup');
-  $mail->addAddress($entity);
-  $reference = array('test.group@example.com' => 'TestGroup');
-  $t->is($mail->getAddresses(), $reference, 'sets the correct to: address for a UllGroup with a group email address');  
-
+  $group = Doctrine::getTable('UllGroup')->findOneByDisplayName('MasterAdmins');
+  
+  // Add an inactive user to the group
+  $inactiveUser = new UllUser;
+  $inactiveUser->display_name = "Foo Long";
+  $inactiveUser->email = "foo@example.com";
+  $inactiveUser->username = "foolong";
+  $inactiveUser->setInactive();
+  $inactiveUser->save();
+  $group->UllUser[] = $inactiveUser;
+  $group->save();    
+  
+  $mail->addAddress($group);
+  $reference = array('admin@example.com' => 'Master Admin');
+  $t->is($mail->getAddresses(), $reference, 'sets the correct to: addresses for a UllGroup without a group email address while ignoring inactive users.');  
   
