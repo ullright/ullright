@@ -6,13 +6,22 @@
 @import "multi_format.css";
 @import "taskcenter.css";
 
-
 /*
  * ************************************************
- *  Theme-plugins should at least override the
- *  following format definitions.
+ *  global stuff
  * ************************************************
  */
+
+body {
+  margin: .2em;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+
 
 
 /*
