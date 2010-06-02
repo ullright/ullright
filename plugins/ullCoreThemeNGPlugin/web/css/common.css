@@ -122,6 +122,9 @@ p {
   margin-bottom: 1em;
 } 
 
+.paragraph {
+  padding: 1em 0;
+}
 
 h1, h2, h3, h4 {
 	color: black;

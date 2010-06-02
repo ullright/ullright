@@ -17,7 +17,7 @@ class ullCommentForm extends sfForm
     ));
     
     $this->getWidgetSchema()->setLabels(
-      array('comment_text' => __('Your comment', null, 'ullCoreMessages'))
+      array('comment_text' => __('My comment', null, 'ullCoreMessages'))
     );
 
     $this->setValidators(array(
@@ -27,6 +27,10 @@ class ullCommentForm extends sfForm
         array('max_length' => 1000),
         array('max_length' => 'Your input is too long (%max_length% characters max)'))
     ));
+    
+    //if ullCommentForm is used in conjunction with other forms,
+    //we have to allow extra form fields
+    $this->getValidatorSchema()->setOption('allow_extra_fields', true);
     
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
   }
