@@ -21,7 +21,7 @@ $t->begin('getNavigationArray');
   $t->is(count($item->getSubs()), 5, 'Returns the correct number of subs');
 
   
-$t->diag('Create/update full_path cache');
+$t->begin('Create/update full_path cache');
 
   $page = new UllCmsPage();
   $page->Translation['en']->title = 'foo';
