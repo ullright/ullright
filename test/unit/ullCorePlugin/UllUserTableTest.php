@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(24, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(26, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -62,26 +62,32 @@ $t->begin('hasGroup()');
       , true
       , 'MasterAdmins are members of all groups'
       );
+  $t->logout();
       
       
 $t->diag('hasPermission()');
   $t->is(
+        UllUserTable::hasPermission('invalidPermission')
+      , false
+      , 'Returns false if not logged in and for an invalid permission'
+      );
+  $t->is(
         UllUserTable::hasPermission('testPermission', 2)
       , true
-      , 'returns true for a given permission and user_id'
+      , 'Returns true for a given permission and user_id'
       );
   $t->is(
         UllUserTable::hasPermission('invalidPermission', 2)
       , false
-      , 'returns false for an invalid permission'
+      , 'Returns false for an invalid permission'
       );
   $t->is(
         UllUserTable::hasPermission('invalidPermission', 1)
       , true
-      , 'returns true for any permission for MasterAdmin'
+      , 'Returns true for any permission for MasterAdmin'
       );
+
       
-  $t->logout();
   $permission = new UllPermission;
   $permission->slug = 'ull_foo_show';
   $permission->save();
@@ -95,6 +101,14 @@ $t->diag('hasPermission()');
     true,
     'Access allowed. Not logged in, but permission ull_foo_show is accessible by everyone'
   );
+  
+  $t->loginAs('test_user');
+  $t->is(
+    UllUserTable::hasPermission('ull_foo_show'),
+    true,
+    'Access allowed. "Everyone" includes logged in users'
+  );  
+  $t->logout();
   
   $groupPermission->UllGroup = Doctrine::getTable('UllGroup')->findOneByDisplayName('Logged in users');
   $groupPermission->save();

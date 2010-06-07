@@ -88,26 +88,26 @@ class PluginUllUserTable extends UllEntityTable
       $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     }
     
-    if (!$userId)
+    // Check everyone access
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllGroupPermission gp, gp.UllPermission p, gp.UllGroup g')
+      ->addWhere('p.slug = ?', $permission)
+      ->addWhere('g.display_name = ?', 'Everyone')      
+    ;
+    
+    if ($q->count())
     {
-      // Check everyone access
-      $q = new Doctrine_Query;
-      $q
-        ->from('UllGroupPermission gp, gp.UllPermission p, gp.UllGroup g')
-        ->addWhere('p.slug = ?', $permission)
-        ->addWhere('g.display_name = ?', 'Everyone')      
-      ;
-      
-      if ($q->count())
-      {
-        return true;
-      }
-      // Skip the other checks in case nobody's logged in 
-      else
+      return true;
+    }
+    else
+    {
+      // Skip the other checks in case nobody's logged in
+      if ($userId === null)
       {
         return false;
-      }      
-    }
+      } 
+    }     
     
     // Check access by permission / group / user
     $q = new Doctrine_Query;
