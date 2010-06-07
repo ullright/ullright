@@ -634,6 +634,18 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <target>Registrierungsformular drucken</target>
       </trans-unit>
       
+      <trans-unit id="3124">
+        <source>Terms and conditions</source>
+        <target>AGB</target>
+      </trans-unit>
+      
+      <trans-unit id="3125">
+        <source>I hereby accept the terms and conditions.</source>
+        <target>Ich akzeptiere hiermit die allgemeinen Geschäftsbedingungen.</target>
+      </trans-unit>
+      
+      
+      
        <!-- Reset password -->
       
       <trans-unit id="3201">

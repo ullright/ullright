@@ -10,6 +10,6 @@
 <?php if (sfConfig::get('app_ull_user_enable_my_account', false) && $username): ?>
   <li>
     <?php echo link_to(__('My account', null, 'ullCoreMessages'), 
-      'ullUser/editAccount?username=' . $username) ?>
+      'ullUser/editAccount') ?>
   </li>
 <?php endif ?>

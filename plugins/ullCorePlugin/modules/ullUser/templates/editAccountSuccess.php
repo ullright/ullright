@@ -4,7 +4,7 @@
 
 <?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
-<?php echo form_tag('ullUser/editAccount?username=' . $user->username, array('multipart' => 'true', 'id' => 'ull_tabletool_form')) ?>
+<?php echo form_tag('ullUser/editAccount', array('multipart' => 'true', 'id' => 'ull_tabletool_form')) ?>
 
 <div class="edit_container">
 

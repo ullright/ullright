@@ -167,15 +167,12 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       $this->forward404();
     }    
     
-    $this->logoutIfLoggedIn();
-
-    $this->getUserFromRequestOrCreate();
-
-    // we don't allow editing here
-    if ($this->user->exists())
+    if (UllUserTable::hasGroup('Logged In'))
     {
-      $this->forward404();
+      $this->redirect('ullUser/editAccount');
     }
+
+    $this->user = new UllUser;
     
     $this->handleEditAccount($request);
     
@@ -261,18 +258,9 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   {
     $this->checkLoggedIn();
     
-    $this->getUserFromRequestOrCreate();
-
-    if (!$this->user->isLoggedIn())
-    {
-      $this->forward404();
-    }
+    $this->user = UllUserTable::findLoggedInUser();
     
-    // Do not allow creation of new users here
-    if (!$this->user->exists())
-    {
-      $this->forward404();
-    }
+    $this->forward404Unless($this->user);
     
     $this->handleEditAccount($request);
     
@@ -955,7 +943,7 @@ You can edit your account at %edit_account_url%
   '%home_url%'          => url_for('@homepage', true),
   '%username%'          => $object->username,
   '%password%'          => $_POST['fields']['password'],
-  '%edit_account_url%'  => url_for('ullUser/editAccount?username=' . $object->username, true),
+  '%edit_account_url%'  => url_for('ullUser/editAccount', true),
     ), 'ullCoreMessages'));
     
     $mail->send();
@@ -994,7 +982,7 @@ Please change your password at %edit_account_url%
   '%home_url%'          => url_for('@homepage', true),
   '%username%'          => $user->username,
   '%password%'          => $password,
-  '%edit_account_url%'  => url_for('ullUser/editAccount?username=' . $user->username, true),
+  '%edit_account_url%'  => url_for('ullUser/editAccount', true),
     ), 'ullCoreMessages'));
     
     $mail->send();
