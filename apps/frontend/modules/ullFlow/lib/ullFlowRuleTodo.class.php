@@ -14,8 +14,11 @@ class ullFlowRuleTodo extends ullFlowRule
 
     elseif ($this->isStep('todo_open')) 
     {
-      $next['step']    = $this->findStep('todo_closed');
-    }    
+      if ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('todo_closed');
+      }
+    } 
     
     elseif ($this->isStep('todo_closed')) 
     {
