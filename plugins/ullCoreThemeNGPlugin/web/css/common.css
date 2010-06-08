@@ -174,3 +174,7 @@ a.link_new_window {
 .inline-block {
   display: inline-block;
 }
+
+.js_mandatory {
+  display: none;
+}
