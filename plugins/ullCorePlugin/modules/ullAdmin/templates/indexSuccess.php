@@ -135,22 +135,18 @@
         <h3>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
-        <ul>
-          <li>
-            <?php echo $named_queries ?>
-          </li>
-        </ul>
+        <?php echo $named_queries ?>
       </div>
-      <!-- 
-      <div class="tc_query_box color_light_bg">
-        <h3>
-         <?php echo __('Individual queries', null, 'common') ?>
-        </h3>
-        <ul>
-          <li><?php echo 'tba' ?></li>
-        </ul>
-      </div>
-      --> 
+      
+      <?php if ($named_queries_custom): ?> 
+        <div class="tc_query_box color_light_bg">
+          <h3>
+           <?php echo __('Individual queries', null, 'common') ?>
+          </h3>
+          <?php echo $named_queries_custom ?>
+        </div>
+      <?php endif ?>
+       
     </div>
   </div>
   <div id="tc_footer">

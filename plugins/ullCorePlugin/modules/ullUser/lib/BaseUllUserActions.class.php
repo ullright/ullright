@@ -23,9 +23,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   {
     $this->checkAccess(array('MasterAdmins', 'UserAdmins'));
     
-    $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
+    $this->loadNamedQueries();
     
     parent::executeList($request);
+    
     
     $this->redirectToEditIfSingleResult();
 
@@ -1018,5 +1019,24 @@ Please change your password at %edit_account_url%
       }
     }    
   }
+  
+  /**
+   * Load named queries for index and list action
+   * 
+   * @return none
+   */
+  protected function loadNamedQueries()
+  {
+    $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
+    
+    if (class_exists('ullNamedQueriesUllUserCustom'))
+    {
+      $this->setVar('named_queries_custom', new ullNamedQueriesUllUserCustom(), true);
+    }
+    else
+    {
+      $this->named_queries_custom = null;
+    }
+  }  
 
 }

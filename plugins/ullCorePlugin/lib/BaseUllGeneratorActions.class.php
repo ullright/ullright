@@ -313,9 +313,18 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       }
     }
     
-    if (isset($this->named_queries))
+      //namedQueries may not have the correct filter, but
+    //namedQueriesCustom should.
+    try
     {
       $this->named_queries->handleFilter($this->q, $this->ull_filter, $this->getRequest());
+    }
+    catch (InvalidArgumentException $e)
+    {
+      if ($this->named_queries_custom)
+      {
+        $this->named_queries_custom->handleFilter($this->q, $this->ull_filter, $this->getRequest());
+      }
     }
 
     $this->setVar('ull_filter', $this->ull_filter, true);

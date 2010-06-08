@@ -19,7 +19,7 @@ class BaseUllAdminActions extends ullsfActions
     
     $this->form = new ullUserFilterForm;
     
-    $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
+    $this->loadNamedQueries();
     
     $this->is_master_admin = UllUserTable::hasGroup('Masteradmins');
   }
@@ -45,4 +45,23 @@ class BaseUllAdminActions extends ullsfActions
     $breadcrumbTree = new ullAdminBreadcrumbTree;
     $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
+  
+  /**
+   * Load named queries for index and list action
+   * 
+   * @return none
+   */
+  protected function loadNamedQueries()
+  {
+    $this->setVar('named_queries', new ullNamedQueriesUllUser, true);
+    
+    if (class_exists('ullNamedQueriesUllUserCustom'))
+    {
+      $this->setVar('named_queries_custom', new ullNamedQueriesUllUserCustom(), true);
+    }
+    else
+    {
+      $this->named_queries_custom = null;
+    }
+  }  
 }

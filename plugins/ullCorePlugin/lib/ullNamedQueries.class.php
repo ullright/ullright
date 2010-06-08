@@ -175,4 +175,5 @@ abstract class ullNamedQueries extends ullNamedQueryCommon
   {
     return (string) $this->renderList();
   }
+  
 }

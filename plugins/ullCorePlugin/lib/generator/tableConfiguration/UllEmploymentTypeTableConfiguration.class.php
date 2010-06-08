@@ -18,6 +18,7 @@ class UllEmploymentTypeTableConfiguration extends ullTableConfiguration
     $this->setName(__('Employment types', null, 'ullCoreMessages'));
     $this->setSearchColumns(array('id'));
     $this->setOrderBy('id');
+    $this->setForeignRelationName(__('Employment type', null, 'ullCoreMessages'));
   }
   
 }
