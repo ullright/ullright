@@ -48,10 +48,16 @@
     }
     else
     {
-      echo '&nbsp;' . '&nbsp;' . $formField->renderLabel() . '&nbsp;';
+      echo '&nbsp;<small>' . __('to', null, 'common') . '</small><br />';
       echo $formField->render();
     }
-
+    
+    if ($formField->hasError())
+    {
+      echo '<br />';
+      echo $formField->renderError();
+    }
+    
     if (strpos($formField->getName(), 'rangeFrom') === 0
         || strpos($formField->getName(), 'rangeDateFrom') === 0)
     {
@@ -61,28 +67,6 @@
     {
       echo '</td></tr>';
       $suppressNewRow = false;
-    }
-
-    if ($errorSave != null)
-    {
-      echo '<td>';
-      echo $errorSave;
-      echo '</td>';
-      $errorSave = null;
-    }
-    
-    if ($formField->hasError() || $errorSave != null)
-    {
-      if ($suppressNewRow)
-      {
-        $errorSave = $formField->renderError();
-      }
-      else
-      {
-        echo '<td>';
-        echo $formField->renderError();
-        echo '</td>';
-      }
     }
   }
 

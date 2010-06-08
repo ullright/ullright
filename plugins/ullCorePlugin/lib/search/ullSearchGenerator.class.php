@@ -249,7 +249,6 @@ class ullSearchGenerator extends ullGeneratorBase
             $this->form->getWidgetSchema()->setLabel($searchPrefix . 'From_' . $enumeratedColumnName, __($columnConfig->getLabel(), null, 'common'));
 
             $ullMetaWidget->addToFormAs($searchPrefix . 'To_' . $enumeratedColumnName);
-            $this->form->getWidgetSchema()->setLabel($searchPrefix . 'To_' . $enumeratedColumnName, __('to', null, 'common') . ':');
             break;
 
           case 'foreign':
