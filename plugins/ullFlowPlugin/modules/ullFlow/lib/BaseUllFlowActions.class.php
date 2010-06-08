@@ -392,6 +392,7 @@ class BaseUllFlowActions extends ullsfActions
     $this->breadcrumbForSearch();
     $searchConfig = ullSearchConfig::loadSearchConfig('ullFlowDoc', $this->app);
 
+    $fieldParameter = ullSearchActionHelper::removeReqpassHelperString($request->getParameter('fields'));
     $doRebind = ullSearchActionHelper::handleAddOrRemoveCriterionButtons($request, $this->getUser());
 
     $searchGenerator = new ullFlowSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName, $this->app);
@@ -403,7 +404,7 @@ class BaseUllFlowActions extends ullsfActions
     $isSubmit = ($request->isMethod('post') && $this->getRequestParameter('searchSubmit'));
     if (isset($doRebind) || $isSubmit)
     {
-      $this->searchForm->getGenerator()->getForm()->bind($request->getParameter('fields'));
+      $this->searchForm->getGenerator()->getForm()->bind($fieldParameter);
 
       if ($isSubmit && $this->searchForm->getGenerator()->getForm()->isValid())
       {

@@ -156,4 +156,38 @@ class ullSearchActionHelper
     return false;
   }
 
+  /**
+   * Helper function which removes _all_ from array values
+   * 
+   * @param array $fields
+   * @return array the modified array
+   */
+  public static function removeReqpassHelperString($fields)
+  {
+    //a recent change in the way we handle empty entries in widgets
+    //('' was replaced with '_all_' for reqpass-compatibility)
+    //forces us to replace this string here, because some validators
+    //(namely sfValidatorDoctrineChoice) do not support the _all_
+    //addition
+    if ($fields != null)
+    {
+      array_walk($fields, 'ullSearchActionHelper::removeAllStringFromValue');
+    }
+    
+    return $fields;
+  }
+  
+  /**
+   * Helper function which replaces a string with '' if
+   * it originally was '_all_'.
+   * 
+   * Usually used in conjunction with array_walk.
+   * 
+   * @param String &$item a string
+   * @return string '' if $item is '_all_' or $item otherwise
+   */
+  protected static function removeAllStringFromValue(&$item)
+  {
+    $item = ($item == '_all_') ? '' : $item;
+  }
 }

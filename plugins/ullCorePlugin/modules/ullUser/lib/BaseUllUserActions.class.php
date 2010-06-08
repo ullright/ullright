@@ -553,6 +553,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->breadcrumbForSearch();
     $searchConfig = ullSearchConfig::loadSearchConfig('ullUser');
 
+    $fieldParameter = ullSearchActionHelper::removeReqpassHelperString($request->getParameter('fields'));
     $doRebind = ullSearchActionHelper::handleAddOrRemoveCriterionButtons($request, $this->getUser());
 
     $searchGenerator = new ullSearchGenerator($searchConfig->getAllSearchableColumns(), $this->modelName);
@@ -564,7 +565,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $isSubmit = ($request->isMethod('post') && $this->getRequestParameter('searchSubmit'));
     if (isset($doRebind) || $isSubmit)
     {
-      $this->searchForm->getGenerator()->getForm()->bind($request->getParameter('fields'));
+      $this->searchForm->getGenerator()->getForm()->bind($fieldParameter);
 
       if ($isSubmit && $this->searchForm->getGenerator()->getForm()->isValid())
       {

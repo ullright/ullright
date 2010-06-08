@@ -285,7 +285,7 @@ abstract class ullMetaWidget
             unset($choices['']);
           }
           
-          // Then add an empty entiry with value "_all_" instead
+          // Then add an empty entry with value "_all_" instead
           // We need to set a value for "empty" because otherwise
           // reqpassing would remove the value
           

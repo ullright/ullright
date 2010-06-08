@@ -77,7 +77,7 @@ class ullSearchFormEntryHelper
           break;
 
         case 'boolean':
-          if ($fieldValue == '_all_')
+          if ($fieldValue == '')
           {
             unset($fields[$fieldKey]);
             continue 2;
