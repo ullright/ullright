@@ -135,7 +135,7 @@ $browser
     ->isStatusCode(200)
     ->checkElement('#fields_rangeDateFrom_0_9', true)
     ->checkElement('#fields_rangeDateTo_0_9', true)
-    ->checkElement('form#searchForm label', 10)
+    ->checkElement('form#searchForm label', 9)
     ->checkElement('form#searchForm label:contains("Deactivation date")', true)
   ->end()
 ;
@@ -157,7 +157,7 @@ $browser
     ->isStatusCode(200)
     ->checkElement('#fields_standard_0_8', true)
     ->checkElement('#fields_standard_1_8', false)
-    ->checkElement('form#searchForm label', 9)
+    ->checkElement('form#searchForm label', 8)
     ->checkElement('form#searchForm label:contains("Last name")', 1)
 
   ->end()

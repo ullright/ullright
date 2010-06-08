@@ -62,7 +62,7 @@ $widgetClassNames = array('ullWidgetFormInput', 'ullWidgetFormInput',
   'ullWidgetFormDoctrineSelect',
   'sfWidgetFormSelectWithOptionAttributes',
   'sfWidgetFormI18nSelectCountry');
-$labels = array('ID', 'to:',
+$labels = array('ID', 'RangeTo 0 5',
   'First name',
   'Last name', 'Last name',
   'Show phone ext. in phone book',
