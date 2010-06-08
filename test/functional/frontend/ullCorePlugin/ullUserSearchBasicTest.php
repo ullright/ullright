@@ -329,3 +329,25 @@ $browser
     ->checkElement($dgsUser->getFullRowSelector(), 3)
   ->end()
 ;
+
+//reset search
+$browser->navigateToSearch();
+$browser->resetSearch();
+
+//Check new _all_ value for reqpass-compatibility
+$browser->diag('Check for _all_ replacement');
+
+$browser
+  ->call('/ullUser/search', 'POST', array (
+  'fields' => 
+  array (
+    'columnSelect' => 'is_show_in_phonebook',
+    'foreign_0_3' => '_all_',
+  ),
+  'addSubmit' => 'Add',
+))
+  ->with('response')->begin()
+    ->isStatusCode(200)
+    ->checkElement('div[class$="form_error"]', false)
+  ->end()
+;
