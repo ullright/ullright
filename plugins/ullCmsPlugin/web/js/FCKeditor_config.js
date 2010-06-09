@@ -119,8 +119,9 @@ FCKConfig.ToolbarSets["Default"] = [
 */
 
 FCKConfig.ToolbarSets["Default"] = [
-  ['OrderedList','UnorderedList','-','Image','Link','Unlink','-','Undo','Redo','-','RemoveFormat','Style', 'FontFormat','ShowBlocks','Source','About']
+  ['OrderedList','UnorderedList','-','Image','Link','Unlink','Anchor','-','Undo','Redo','-','RemoveFormat','Style', 'FontFormat','Table','ShowBlocks','Source','About']
 ] ;
+
 
 FCKConfig.ToolbarSets["Basic"] = [
 	['Bold','Italic','-','OrderedList','UnorderedList','-','Link','Unlink','-','About']
