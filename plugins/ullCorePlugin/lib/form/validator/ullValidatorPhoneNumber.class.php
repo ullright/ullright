@@ -33,13 +33,12 @@ class ullValidatorPhoneNumber extends sfValidatorRegex
     if((substr($value, 0, 1) != '+') && $this->getOption('default_country_code'))
     {
       $value = $this->getOption('default_country_code') . ' ';
-      $parts[0] = substr($parts[0], 1);
     }
     else
     {
       $value = array_shift($parts) . ' ';
     }
-    $value .= array_shift($parts) . ' ' . implode('', $parts);
+    $value .= ltrim(array_shift($parts), '0') . ' ' . implode('', $parts);
 
     $validatedValue = parent::doClean($value);
 
