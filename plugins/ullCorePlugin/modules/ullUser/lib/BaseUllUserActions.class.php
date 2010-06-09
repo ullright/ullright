@@ -231,7 +231,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         $user->save();
         
         $this->sendResetPasswordEmail($user, $newPassword);
-        
+
         $this->getUser()->setFlash('message',  __('Your new password has been sent to your email address', null, 'ullCoreMessages'));
         $this->redirect('ullUser/login');
       }
@@ -1004,6 +1004,8 @@ Please change your password at %edit_account_url%
       {
         $this->getResponse()->setCookie('cookie_check', 1);
         
+        //pass down an optional flash message
+        $this->getUser()->setFlash('message', $this->getUser()->getFlash('message'));
         // Save current referer
         $this->getUriMemory()->setReferer(null, null, false);
         
