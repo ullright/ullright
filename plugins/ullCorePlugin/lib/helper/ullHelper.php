@@ -54,8 +54,10 @@ function ull_date_pattern($zeroPadding = true, $php_format = false, $showWeekday
 function ull_format_date($date = null, $zeroPadding = true, $showWeekday = false) 
 {
   if ($date == null)
+  {
     $date = time();
-
+  }
+    
   return format_datetime($date, ull_date_pattern($zeroPadding, false, $showWeekday));
 }
 
@@ -68,12 +70,15 @@ function ull_format_date($date = null, $zeroPadding = true, $showWeekday = false
  * @return string date        formated date like "4.12.2007 13:45h" for "de"
  */
   
-function ull_format_datetime($date = null, $zeroPadding = true) 
+function ull_format_datetime($date = null, $zeroPadding = true, $showSeconds = true) 
 {
   if ($date == null)
+  {
     $date = time();
-  
-  return format_datetime($date, ull_date_pattern($zeroPadding) . ' HH:mm:ss');
+  }
+    
+  $timePattern = ($showSeconds) ? 'HH:mm:ss' : 'HH:mm';
+  return format_datetime($date, ull_date_pattern($zeroPadding) . ' ' . $timePattern);
 }
 
 function ull_image_path($type, $width = null, $height = null, $plugin = null)
