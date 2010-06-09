@@ -15,6 +15,10 @@ class ullMetaWidgetUllUserStatus extends ullMetaWidgetForeignKey
     $this->columnConfig->setWidgetOption('choices', $this->findChoices());
     $this->columnConfig->removeWidgetOption('model');
     $this->addWidget(new sfWidgetFormSelectWithOptionAttributes($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    
+    //this has to be set, always.
+    //see #1147 for details
+    $this->columnConfig->setValidatorOption('model', 'UllUserStatus');
     $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     
     $this->handleAllowCreate();
