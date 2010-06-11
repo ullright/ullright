@@ -1205,9 +1205,9 @@ function ull_url_for_google_qrcode($content, $size = '120x120')
  * @param unknown_type $height default is 70
  * @return unknown_type the url to Google
  */
-function ull_url_for_barcode($content, $width = '300', $height = '70')
+function ull_url_for_barcode($content, $width = 250, $height = 70)
 {
-  return 'http://www.barcodesinc.com/generator/image.php?code=' . $content . '&style=198&type=C39&width=' . $width . '&height' . $height . '&xres=2&font=100';
+  return 'http://www.barcodesinc.com/generator/image.php?code=' . $content . '&style=198&type=C39&width=' . $width . '&height=' . $height . '&xres=2&font=100';
 }
 
 /**

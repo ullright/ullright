@@ -24,7 +24,13 @@ class ullMetaWidgetFCKEditor extends ullMetaWidget
     }
     else
     {
-      $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      // ullWidgets takes no widget options
+      foreach ($this->columnConfig->getWidgetOptions() as $option => $value)
+      {
+        $this->columnConfig->removeWidgetOption($option);
+      }
+      
+      $this->addWidget(new ullWidgetFCKEditorRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 
