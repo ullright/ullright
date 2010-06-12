@@ -356,6 +356,10 @@ ul.tag-cloud li {
   margin-bottom: .3em;
 }
 
+#pager_bottom {
+  margin-top: .5em;
+}
+
 .pager_left {
   padding-top: 0.4em;
 }

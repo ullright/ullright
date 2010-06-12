@@ -1,14 +1,14 @@
 <?php if ($pager->getNumResults()): ?>
 
-  <div class='pager'>
+  <div class="pager" id="pager_bottom">
   
-    <div class='pager_right'>
+    <div class="pager_right">
       <?php include_partial('ullTableTool/ullPager',
               array('pager' => $pager)
             ); ?>  
     </div>
   
-    <div class='pager_left'>
+    <div class="pager_left">
       <?php echo __(
           'Displaying results %1% to %2%'
             , array (
@@ -20,7 +20,7 @@
       ?>
     </div>
     
-    <div class='clear'></div>
+    <div class="clear"></div>
     
   </div>
 

@@ -110,6 +110,11 @@
 <target>Konto deaktivieren</target>
 </trans-unit>
 
+<trans-unit id="22">
+<source>Update</source>
+<target>Aktualisieren</target>
+</trans-unit>
+
 
 <!-- Common Field Names -->
 

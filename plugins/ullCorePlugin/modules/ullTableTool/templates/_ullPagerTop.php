@@ -1,8 +1,8 @@
 <?php if (!isset($disable_paging_hint)): $disable_paging_hint = false; endif ?>
 
-<div class='pager'>
+<div class="pager" id="pager_top">
 
-  <div class='pager_right'>
+  <div class="pager_right">
     <?php include_partial('ullTableTool/ullPager',
             array('pager' => $pager)); ?>  
   </div>
@@ -41,7 +41,7 @@
       array('export_csv' => 'true'))?>
 	<?php endif ?>
       
-  <div class='pager_left'>
+  <div class="pager_left">
     <?php echo implode(' &nbsp;&nbsp; ', $list) ?>      
   </div>
   
