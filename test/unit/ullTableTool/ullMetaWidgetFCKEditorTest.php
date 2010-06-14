@@ -24,7 +24,7 @@ $t->diag('for read access:');
   $widget = new ullMetaWidgetFCKEditor($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetFCKEditor', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
-  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidget', 'returns the correct widget for read access');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetFCKEditorRead', 'returns the correct widget for read access');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorPass', 'returns the correct validator for read access');
 
 $t->diag('for write access:');
