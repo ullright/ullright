@@ -59,8 +59,8 @@ class ullCommentableRecordGenerator extends Doctrine_Record_Generator
    * There is a separate (autoIncrement) id column;
    * a foreign key ullUser column; one that refers the
    * object which was commented on; in addition there
-   * are columns for the comment's text and the date of
-   * creation
+   * are columns for the comment's text, the date of
+   * creation and a deleted flag
    */
   public function setTableDefinition()
   {
@@ -71,6 +71,7 @@ class ullCommentableRecordGenerator extends Doctrine_Record_Generator
     $this->hasColumn($this->getRelationLocalKey(), 'integer', 8, array('notnull' => true));
     $this->hasColumn('commenter_ull_user_id', 'integer', 8, array('notnull' => true));
     $this->hasColumn('posted_date', 'timestamp', null, array('notnull' => true));
+    $this->hasColumn('deleted_status', 'string', 5, array('notnull' => true));
     $this->hasColumn('comment', 'string', $this->getOption('max_comment_size'), array('notnull' => true));
     
     //this also results in an additional foreign key (the commenter_ull_user_id column)
@@ -115,6 +116,7 @@ class ullCommentableRecordGenerator extends Doctrine_Record_Generator
     $comment[$this->getRelationLocalKey()] = $invoker->id;
     $comment['commenter_ull_user_id'] = $ullUserId;
     $comment['posted_date'] = date('c');
+    $comment['deleted_status'] = 'no'; //meaning not deleted
     $comment['comment'] = $commentText;
 
     $comment->save();

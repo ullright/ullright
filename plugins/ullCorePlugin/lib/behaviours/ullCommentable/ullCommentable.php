@@ -31,12 +31,30 @@ class ullCommentable extends Doctrine_Template
 
   /**
    * Retrieves all comments, sorted by date, descending
+   * Pays respect to the deleted flag and changes
+   * messages accordingly
    *
    * @return Doctrine_Collection the comments
    */
   public function getCommentFeed()
   {
-    return $this->_plugin->getComments($this->getInvoker());
+    $comments = $this->_plugin->getComments($this->getInvoker());
+    
+    foreach ($comments as $comment)
+    {
+      switch ($comment['deleted_status'])
+      {
+        case 'user':
+          $comment['comment'] = __('This comment was deleted by the user.', null, 'ullCoreMessages');
+          break;
+          
+        case 'admin':
+          $comment['comment'] = __('This comment was deleted by an administrator.', null, 'ullCoreMessages');
+          break;
+      }
+    }
+    
+    return $comments;
   }
 
   /**
@@ -71,19 +89,18 @@ class ullCommentable extends Doctrine_Template
     {
       if ($userId == $comment['commenter_ull_user_id'])
       {
-        $revokeMessage = __('This comment was deleted by the user.', null, 'ullCoreMessages');
-        
+        $deletedStatus = 'user';
       }
       else if (UllUserTable::hasPermission('ull_commentable_revoke_comments'))
       {
-        $revokeMessage = __('This comment was deleted by an administrator.', null, 'ullCoreMessages');
+        $deletedStatus = 'admin';
       }
       else
       {
         return false;
       }
       
-      $comment['comment'] = $revokeMessage;
+      $comment['deleted_status'] = $deletedStatus;
       $comment->save();
         
       return $comment['CommentOn'];
