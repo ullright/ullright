@@ -12,7 +12,7 @@ class AddUllFlowIsActive extends Doctrine_Migration_Base
   public function postUp()
   {
     $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
-    $dbh->exec("UPDATE ull_flow_app SET is_active=1 where is_active=0");
+    $dbh->exec("UPDATE ull_flow_app SET is_active=1");
   }
 
     public function down()
