@@ -27,13 +27,13 @@ $t->diag('__construct()');
         yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
         firstDay: 1,
         showOn: \'button\',
-     });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
+     });$("#foo").datepicker("setDate", new Date("'. date('Y-m-d', $now) . '"));});
     
     foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
     
-    </script><input name="foo" id="foo" type="text" value="' . date('c', $now) . '" />';
+    </script><input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />';
   
-  $t->is($w->render('foo', date('c', $now)), $expected);
+  $t->is($w->render('foo', date('Y-m-d', $now)), $expected);
   
   $instance->getUser()->setCulture("de");
   
@@ -45,7 +45,7 @@ $t->diag('__construct()');
         yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
         firstDay: 1,
         showOn: \'button\',
-     });$("#foo").datepicker("setDate", new Date('. ($now * 1000) . '));});
+     });$("#foo").datepicker("setDate", new Date("'. date('Y-m-d', $now) . '"));});
     
     foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
     
@@ -67,6 +67,6 @@ $t->diag('__construct()');
             dayStatus: \'Setze DD als ersten Wochentag\', dateStatus: \'Wähle D, M d\',
             initStatus: \'Wähle ein Datum\', isRTL: false};
             $.datepicker.setDefaults($.datepicker.regional[\'de\']);</script>';
-  $expected .= '<input name="foo" id="foo" type="text" value="' . date('c', $now) . '" />';
+  $expected .= '<input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />';
   
-  $t->is($w->render('foo', date('c', $now)), $expected);
+  $t->is($w->render('foo', date('Y-m-d', $now)), $expected);
