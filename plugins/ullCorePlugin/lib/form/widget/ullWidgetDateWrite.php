@@ -79,6 +79,9 @@ class ullWidgetDateWrite extends sfWidgetForm
       }
     }
 
+    //use this value with care:
+    //strtotime pays respect to the timezone set at the server,
+    //but e.g. new Date(ms) does not
     $curdate = strtotime($value);
     
     //if this is a postback with invalid input, set
@@ -90,7 +93,7 @@ class ullWidgetDateWrite extends sfWidgetForm
     else
     {
       //did the widget receive a value? if not, use empty string (= today)
-      $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date('. ($curdate * 1000) . '));';
+      $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date("' . $value . '"));';
     }
     
     
