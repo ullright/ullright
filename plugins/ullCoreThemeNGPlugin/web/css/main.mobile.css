@@ -21,6 +21,9 @@ img {
 	height: auto;
 }
 
+textarea {
+	width: 100%;
+}
 
 
 
@@ -150,3 +153,15 @@ ul.nav_top_links li:first-child {
 	padding: .5em;
 	line-height: 1.5em;
 } 
+
+/*
+ * ************************************************
+ *  edit
+ * ************************************************
+ */
+ 
+.edit_container {
+  width: 100%;
+  max-width: none;
+}
+ 
