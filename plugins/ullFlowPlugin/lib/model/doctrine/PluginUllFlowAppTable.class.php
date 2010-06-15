@@ -47,7 +47,7 @@ class PluginUllFlowAppTable extends Doctrine_Table
   
   
   /**
-   * Find all apps ordered by name
+   * Find all active apps ordered by name
    * 
    * @return Doctrine_Collection
    */
@@ -61,6 +61,7 @@ class PluginUllFlowAppTable extends Doctrine_Table
       ->addOrderBy('Translation->label')
       ->addWhere('Translation->lang = ?', 
         substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
+      ->addWhere('is_active = 1') 
     ;
       
     $result = $q->execute();

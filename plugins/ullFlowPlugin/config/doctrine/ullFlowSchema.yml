@@ -21,6 +21,9 @@ UllFlowApp:
       type: boolean
     enter_effort:
       type: boolean
+    is_active:
+      type: boolean
+      default: true
   relations:
     UllPermission:
       refClass: UllFlowAppPermission
