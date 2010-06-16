@@ -44,85 +44,87 @@ class ullWidgetDateWrite extends sfWidgetForm
     $this->addOption('max_date');
     $this->addOption('min_date');
     $this->addOption('default_date');
+    $this->addOption('enable_date_picker', true);
     parent::__construct($options, $attributes);
   }
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if (!$this->getAttribute('name'))
-    {
-      $this->setAttribute('name', $name);
-    }
-    
-    $this->setAttributes($this->fixFormId($this->getAttributes()));
-    $id = $this->getAttribute('id');
-
-    //we need to fix min, max and default dates in
-    //case of 'new Date()...', where surrounding ' are
-    //not allowed
-    //and then we generate our datepicker options
-    $datepickerOptions = '';
-    $varNames = array('min_date' => 'minDate',
-                      'max_date' => 'maxDate',
-                      'default_date' => 'defaultDate');
-    foreach($varNames as $optionName => $varName)
-    {
-      $option = $this->getOption($optionName);
-      if ($option != null)
+    if($this->getOption('enable_date_picker')){
+      if (!$this->getAttribute('name'))
       {
-        //make this string/object detection more reliable?
-        if (!(strpos($option, 'new Date(') === 0))
-        {
-          $option =  '\'' . $option . '\'';
-        }
-        $datepickerOptions .= $varName . ': ' . $option . ', ';
+        $this->setAttribute('name', $name);
       }
-    }
-
-    //use this value with care:
-    //strtotime pays respect to the timezone set at the server,
-    //but e.g. new Date(ms) does not
-    $curdate = strtotime($value);
-    
-    //if this is a postback with invalid input, set
-    //the dateline to empty
-    if (!empty($errors))
-    {
-      $dateline = '';
-    }
-    else
-    {
-      //did the widget receive a value? if not, use empty string (= today)
-      $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date("' . $value . '"));';
-    }
-    
-    
-    //showAnim: \'\', for firefox ?
-    $return = '
-    <script type="text/javascript">
-    $(function() {
-     $("#' . $id . '").datepicker({
-        changeYear: true,
-        yearRange: \'' . $this->getOption('year_range') . '\',' .
-        $datepickerOptions .
-       'changeMonth: true,
-        firstDay: 1,
-        showOn: \'button\',
-     });' . 
-     $dateline .
-    '});
-    
-    ' . $id . '_initial_date = \'' . (($curdate == 0) ? '' : ull_format_date($value, true)) . '\';
-    
-    </script>';
-
-    $culture = sfContext::getInstance()->getUser()->getCulture();
-    $culture_parts = explode('_', $culture);
-    $language = $culture_parts[0];
-
-    switch ($language)
-    {
-      case 'de':
+      
+      $this->setAttributes($this->fixFormId($this->getAttributes()));
+      $id = $this->getAttribute('id');
+  
+      //we need to fix min, max and default dates in
+      //case of 'new Date()...', where surrounding ' are
+      //not allowed
+      //and then we generate our datepicker options
+      $datepickerOptions = '';
+      $varNames = array('min_date' => 'minDate',
+                        'max_date' => 'maxDate',
+                        'default_date' => 'defaultDate');
+      foreach($varNames as $optionName => $varName)
+      {
+        $option = $this->getOption($optionName);
+        if ($option != null)
+        {
+          //make this string/object detection more reliable?
+          if (!(strpos($option, 'new Date(') === 0))
+          {
+            $option =  '\'' . $option . '\'';
+          }
+          $datepickerOptions .= $varName . ': ' . $option . ', ';
+        }
+      }
+  
+      //use this value with care:
+      //strtotime pays respect to the timezone set at the server,
+      //but e.g. new Date(ms) does not
+      $curdate = strtotime($value);
+      
+      //if this is a postback with invalid input, set
+      //the dateline to empty
+      if (!empty($errors))
+      {
+        $dateline = '';
+      }
+      else
+      {
+        //did the widget receive a value? if not, use empty string (= today)
+        $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date("' . $value . '"));';
+      }
+      
+      
+      //showAnim: \'\', for firefox ?
+      $return = '
+      <script type="text/javascript">
+      $(function() {
+       $("#' . $id . '").datepicker({
+          changeYear: true,
+          yearRange: \'' . $this->getOption('year_range') . '\',' .
+          $datepickerOptions .
+         'changeMonth: true,
+          firstDay: 1,
+          showOn: \'button\',
+       });' . 
+       $dateline .
+      '});
+      
+      ' . $id . '_initial_date = \'' . (($curdate == 0) ? '' : ull_format_date($value, true)) . '\';
+      
+      </script>';
+  
+      $culture = sfContext::getInstance()->getUser()->getCulture();
+      $culture_parts = explode('_', $culture);
+      $language = $culture_parts[0];
+  
+      switch ($language)
+      {
+        case 'de':
         $return .= '<script type="text/javascript">' .
         '$.datepicker.regional[\'de\']' . <<<EOF
  = {clearText: 'löschen', clearStatus: 'aktuelles Datum löschen',
@@ -146,15 +148,21 @@ class ullWidgetDateWrite extends sfWidgetForm
 EOF
              . '$.datepicker.setDefaults($.datepicker.regional[\'de\']);'
              . '</script>';
-             break;
- 
-      default: 
+               break;
+   
+        default: 
+      }
+  
+      $return .= $this->renderTag('input',
+        array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
+            
+      return $return;
     }
-
-    $return .= $this->renderTag('input',
-      array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
-          
-    return $return;
+    else
+    {
+      return $this->renderTag('input',
+        array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
+    }
   }
   
   /**
