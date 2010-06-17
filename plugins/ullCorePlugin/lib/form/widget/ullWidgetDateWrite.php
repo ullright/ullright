@@ -109,7 +109,7 @@ class ullWidgetDateWrite extends sfWidgetForm
           $datepickerOptions .
          'changeMonth: true,
           firstDay: 1,
-          showOn: \'button\',
+          showOn: \'button\'
        });' . 
        $dateline .
       '});
