@@ -343,9 +343,30 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       {
         $order = 'id';
       }
-      
     }
     
+    //natural ordering
+    //disabled for now, because of incompatabilities with the pager
+    /*
+    $orderArray = ullGeneratorTools::arrayizeOrderBy($order);
+    $databaseColumns = $this->generator->getDatabaseColumns();
+    foreach ($orderArray as $key => $orderBy)
+    {
+      //this should always be true, shouldn't it?
+      if (isset($databaseColumns[$orderBy['column']]))
+      {
+        if ($databaseColumns[$orderBy['column']]->getNaturalOrdering())
+        {
+          //adding '+ 0' to the column name causes MySQL to use natural sort
+          //SQL's convert() function would be database agnostic, but Doctrine
+          //does not support using it (see: BaseUllFlowActions)
+          $orderArray[$key]['column'] = '(x.' . $orderBy['column'] . ' + 0)';
+        }
+      }
+    }
+    */
+    
+    //$this->q->addOrderBy($orderArray);
     $this->q->addOrderBy($order);
     $this->setVar('order', $order, true);
     
@@ -364,6 +385,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     );
     
     $rows = $this->pager->execute();
+    
+    //printQuery($this->pager->getQuery());
     
     // Completely discard the pager's query modifications because (as of sf1.2) 
     //   it messes up queries using SUM() and group_by because it adds WHERE 

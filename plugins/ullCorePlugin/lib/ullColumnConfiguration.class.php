@@ -14,6 +14,7 @@ class ullColumnConfiguration
     $isInList               = true,    // deprecated, since column config collections can configure for different actions
     $widgetOptions          = array(), //'options' in ull_column_config table
     $defaultValue,
+    $naturalOrdering        = false,
     
     //from model
     $unique                 = false, 
@@ -166,6 +167,18 @@ class ullColumnConfiguration
     }
   }
 
+  public function getNaturalOrdering()
+  {
+    return $this->naturalOrdering;
+  }
+
+  public function setNaturalOrdering($naturalOrdering)
+  {
+    $this->naturalOrdering = (boolean) $naturalOrdering;
+    
+    return $this;
+  }
+  
   public function getIsInList()
   {
     return $this->isInList;

@@ -180,16 +180,17 @@ class ullQuery
     return $this->addOrderBy($orderPrefix, true);
   }
   
-  
   /**
    * Add ORDER BY
    * 
-   * @param string $orderBy the ORDER BY query part to add
+   * @param string $orderBy the ORDER BY query part to add, can also be an array already transformed
+   *    by ullGeneratorTools::arrayizeOrderBy
    * @param boolean $addAsPrefix if true, adds $orderBy in front of the existing query part
    * @return self
    */
   public function addOrderBy($orderBy, $addAsPrefix = false)
   {
+    //if $orderBy is already an array, nothing will change
     $orderByArray = ullGeneratorTools::arrayizeOrderBy($orderBy);
     
     //if we are adding prefixes, we need to invert
