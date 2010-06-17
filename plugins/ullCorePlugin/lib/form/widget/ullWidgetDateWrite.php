@@ -20,11 +20,6 @@
  * '-3y -2m' - string of periods from today (minus 3 years and 2 months)
  * 'new Date(...)' a JS Date (constructed from multiple values, milliseconds, ...)
  * The default for both is null (= not set).
- * Note: If possible, do not set these options directly; rather
- * give them to the ullMetaWidgetDate, since doing that would also
- * add appropriate validators. However, that will only work if you
- * specify a format which can be parsed by the datepicker and by
- * php's strotime, e.g. '-10y'.
  * 
  * 'default_date' sets the date which is selected in the datepicker by default.
  * If this option is not set, the current date is used.
@@ -83,8 +78,13 @@ class ullWidgetDateWrite extends sfWidgetForm
   
       //use this value with care:
       //strtotime pays respect to the timezone set at the server,
-      //but e.g. new Date(ms) does not
+      //but e.g. new Date(ms) does not,
+      //so we correct with the offset to UTC
+      //(we could probably do this more simple directly with DateTime)
       $curdate = strtotime($value);
+      //since 5.2.0
+      $dateTime = new DateTime();
+      $utcTime = $curdate + $dateTime->getOffset();
       
       //if this is a postback with invalid input, set
       //the dateline to empty
@@ -95,7 +95,7 @@ class ullWidgetDateWrite extends sfWidgetForm
       else
       {
         //did the widget receive a value? if not, use empty string (= today)
-        $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date("' . $value . '"));';
+        $dateline = ($curdate == 0) ? '' : '$("#' . $id . '").datepicker("setDate", new Date(' . ($utcTime * 1000) . '));';
       }
       
       
