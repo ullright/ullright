@@ -346,8 +346,6 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     }
     
     //natural ordering
-    //disabled for now, because of incompatabilities with the pager
-    /*
     $orderArray = ullGeneratorTools::arrayizeOrderBy($order);
     $databaseColumns = $this->generator->getDatabaseColumns();
     foreach ($orderArray as $key => $orderBy)
@@ -355,19 +353,17 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       //this should always be true, shouldn't it?
       if (isset($databaseColumns[$orderBy['column']]))
       {
+        // Check if we want natural ordering
         if ($databaseColumns[$orderBy['column']]->getNaturalOrdering())
         {
-          //adding '+ 0' to the column name causes MySQL to use natural sort
-          //SQL's convert() function would be database agnostic, but Doctrine
-          //does not support using it (see: BaseUllFlowActions)
-          $orderArray[$key]['column'] = '(x.' . $orderBy['column'] . ' + 0)';
+          // The trick is, to order by the lenght of the string first, 
+          // then the normal order. TODO: Perhaps mysql only
+          $orderArray[$key]['column'] = 'LENGTH('. $orderBy['column'] . '), ' . $orderBy['column'];
         }
       }
     }
-    */
     
-    //$this->q->addOrderBy($orderArray);
-    $this->q->addOrderBy($order);
+    $this->q->addOrderBy($orderArray);
     $this->setVar('order', $order, true);
     
     $this->modifyQueryForFilter();
