@@ -122,7 +122,15 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     //set flag for currently logged in user
     $record->setFlag($flagName, $flagValue);
     
-    return sfView::NONE;
+    if ($request->isXmlHttpRequest())
+    {
+      return sfView::NONE;
+    }
+    else
+    {
+      $referer = $request->getReferer();
+      $this->redirect($referer ? $referer : 'homepage');
+    }
   }
   
   

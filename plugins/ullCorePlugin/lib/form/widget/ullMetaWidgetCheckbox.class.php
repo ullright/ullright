@@ -8,7 +8,18 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
 {
   protected function configureReadMode()
   {
-    $this->addWidget(new ullWidgetCheckbox($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $ajaxConfiguration = $this->getColumnConfig()->getOption('configure_for_ajax');
+    if (is_array($ajaxConfiguration))
+    {
+      $this->addWidget(new ullWidgetAjaxCheckbox(
+        array_merge($this->columnConfig->getWidgetOptions(), $ajaxConfiguration),
+        $this->columnConfig->getWidgetAttributes())
+      );
+    }
+    else
+    {
+      $this->addWidget(new ullWidgetCheckbox($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    }
     $this->addValidator(new sfValidatorPass());     
   }
   
