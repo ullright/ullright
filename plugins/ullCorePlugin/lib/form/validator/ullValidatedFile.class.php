@@ -37,12 +37,14 @@ class ullValidatedFile extends sfValidatedFile
     if (ullCoreTools::isValidImage($this->getTempName()))
     {
       try{
-        $image = new sfImage($this->getTempName(), 'image/png');
+        $image = new sfImage($this->getTempName(), 'image/jpg');
         $this->resizePhoto($image);
         $image->save();
       }
       catch (Exception $e)
       {
+        var_dump($e);
+        die;
       }
     }
     return parent::save($file, $fileMode, $create, $dirMode);
@@ -62,7 +64,7 @@ class ullValidatedFile extends sfValidatedFile
     if ($img->getWidth() > $maxWidth || $img->getHeight() > $maxHeight)
     {
       // always comply to the max size
-      if ($img->getWidth() > $img->getHeight())
+      if (($img->getWidth() / $maxWidth) > ($img->getHeight() / $maxHeight))
       {
         $img->resize($maxWidth, 0);
       }
