@@ -20,8 +20,6 @@ class BaseUllNewsColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Image upload', null, 'ullNewsMessages'))
       ->setWidgetAttribute('alt', __('News image', null, 'ullNewsMessages'))
       ->setValidatorOption('imageWidth', 140)
-      ->setOption('allow_delete', true)
-      ->setOption('delete_label', __('Delete image', null, 'ullNewsMessages'))
     ;  
       
     $this['activation_date']
