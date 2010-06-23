@@ -263,6 +263,11 @@
 <target>Text</target>
 </trans-unit>
 
+<trans-unit id="130">
+<source>Delete file</source>
+<target>Lösche Datei</target>
+</trans-unit>
+
 
 <!-- Questions -->
 

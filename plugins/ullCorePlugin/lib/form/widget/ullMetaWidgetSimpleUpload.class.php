@@ -8,6 +8,52 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
 {
   protected $path;
 
+  /**
+   * Connect to form.update_object event
+   * 
+   * @param $columnConfig
+   * @param sfForm $form
+   * @return none
+   */
+  public function __construct($columnConfig, sfForm $form)
+  {
+    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
+
+    $this->dispatcher->connect('form.update_object', array('ullMetaWidgetSimpleUpload', 'listenToUpdateObjectEvent'));
+
+    parent::__construct($columnConfig, $form);
+  }
+  
+  /**
+   * deletes a file
+   * 
+   * @param sfEvent $event
+   * @param array $values
+   * @return array
+   */
+  public static function listenToUpdateObjectEvent(sfEvent $event, $values)
+  {
+    $object = $event->getSubject()->getObject();
+    
+    foreach ($values as $key => $value)
+    {
+      if (strstr($key, 'simple_upload_delete_')){
+        if($value == true){
+          $field = str_replace('simple_upload_delete_', '', $key);
+          
+          $validatorOptions = $event->getSubject()->getColumnsConfig()->offsetGet($field)->getValidatorOptions();
+          
+          unlink($validatorOptions['path'] . '/' . $object[$field]);
+          
+          $object[$field] = null;
+          $object->save();
+        }
+      }
+    }
+    
+    return $values;
+  }
+  
   
   protected function configure()
   {
@@ -28,13 +74,12 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
     {
       $this->columnConfig->setValidatorOption('imageWidth', 1000);
     }
-  if (!$this->columnConfig->getValidatorOption('imageHeight'))
+    if (!$this->columnConfig->getValidatorOption('imageHeight'))
     {
       $this->columnConfig->setValidatorOption('imageHeight', 1000);
     }
-  }
-  
 
+  }
   
   /**
    * (non-PHPdoc)
@@ -60,6 +105,23 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
       $this->columnConfig->getWidgetAttributes()
     ));
     $this->addValidator(new ullValidatorFile($this->columnConfig->getValidatorOptions()));
-   
+    
+    if($this->columnConfig->getOption('allow_delete')) 
+    {
+      $simpleUploadDeleteFieldName = 'simple_upload_delete_' . $this->columnConfig->getColumnName();
+      
+      $simpleUploadDeleteWidget = new ullWidgetCheckboxWrite();
+      $simpleUploadDeleteWidget->setLabel($this->columnConfig->getOption('delete_label'));
+      
+      $this->addWidget(
+        $simpleUploadDeleteWidget, 
+        $simpleUploadDeleteFieldName
+      );
+      
+      $this->addValidator(
+        new sfValidatorBoolean(),
+        $simpleUploadDeleteFieldName
+      );
+    }
   }
 }

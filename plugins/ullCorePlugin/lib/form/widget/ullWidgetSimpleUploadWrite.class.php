@@ -15,6 +15,8 @@ class ullWidgetSimpleUploadWrite extends sfWidgetFormInputFile
     
     $return .= ullWidgetSimpleUploadRead::renderFile($value, $this->getOption('path'), $this->getAttribute('alt'));
     
+
+    
     $return .= parent::render(
       $name, 
       $value, 

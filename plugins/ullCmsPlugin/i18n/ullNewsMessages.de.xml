@@ -68,6 +68,11 @@
 <target>Link Adresse</target>
 </trans-unit>
 
+<trans-unit id="25">
+<source>Delete image</source>
+<target>Bild löschen</target>
+</trans-unit>
+
 
     </body>
   </file>
