@@ -69,6 +69,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->docs = $this->getFilterFromRequest();
     
+    $this->modifyGeneratorBeforeBuildForm();
+    
     $this->generator->buildForm($this->docs);
     
     $this->setVar('generator', $this->generator, true);
@@ -78,6 +80,15 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->breadcrumbForList();
   }
 
+  
+  /**
+   * Template method to modify the generator before buildForm() is called
+   */
+  protected function modifyGeneratorBeforeBuildForm()
+  {
+    
+  }
+  
   
   /**
    * Template method to construct and configure an ullGenerator
@@ -134,6 +145,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
           ->setOption('hide_choices', array($row->id));
       }
     }
+    
+    $this->modifyGeneratorBeforeBuildForm();
     
     $this->generator->buildForm($row);
     
@@ -494,6 +507,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     foreach ($identifiers as $identifier)
     {
       $value = $this->getRequestParameter($identifier);
+      
       if ($value)
       {
         $hasIdentifier = true;      
@@ -503,7 +517,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
 
     if ($hasIdentifier)
     {
-      $row = $q->execute()->getFirst();
+      $row = $q->fetchOne();
       $this->forward404Unless($row);
       
       return $row;
