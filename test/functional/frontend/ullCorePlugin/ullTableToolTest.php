@@ -136,9 +136,8 @@ $b
 ;
 
 
-/* 
-  somehow this test doesn't work anymore. it works in "real life" though...
-  
+//check for the problem described in PluginUllRecord's preSave function
+//(record is treated as unmodified when only i18n columns were modified)
 $b
   ->diag('check if created_at is not equal to updated_at')
   ->get('ullTableTool/edit/table/TestTable/id/1')
@@ -148,7 +147,7 @@ $updated_at = $b->getResponseDomCssSelector()->matchSingle('tr + tr + tr + tr + 
 $b->
   test()->isnt($created_at, $updated_at, 'The edited_at date is different than the created_at date: ' . $created_at . ' vs ' . $updated_at)
 ;
-*/
+
 
 $b
   ->diag('edit - test checkbox')
