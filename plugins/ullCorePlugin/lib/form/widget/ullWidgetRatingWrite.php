@@ -20,8 +20,14 @@
  * e.g. /ullClimbingRouteDB/rating/id/ would be valid, and
  * might be transformed to /ullClimbingRouteDB/rating/id/2/rating/4
  * 
- * JS is required, this widget does not degrade gracefully.
+ * This widget degrades gracefully. By default, a simple list
+ * with ratings options is displayed, which is replaced via JS
+ * with the real rating bar. This requires the handling function
+ * to handle both XML requests and normal ones.
+ * 
  * Id injection is required.
+ * TODO: add support for different star count
+ * TODO: make the rating options configureable
  */
 class ullWidgetRatingWrite extends ullWidget
 {
@@ -45,17 +51,31 @@ class ullWidgetRatingWrite extends ullWidget
       throw new InvalidArgumentException('$value must be an array, use id injection');
     }
     
-    //TODO: make this configureable
-    //translation happens below
-    $ratingTitles = array('Not recommendable', 'Needs to be improved', 'Moderate', 'Good', 'Very good');
+    //handle options and create some names
+    $averageInputName = $this->getOption('average_input_name');
+    $urlToCall = url_for($this->getOption('url_to_call_on_select'));
     $starNumber = 'star' . $votedObjectId;
-    $html = '';
+    $ratingURL = $urlToCall . '/id/' . $votedObjectId;
+    $ratingTitles = array('Not recommendable', 'Needs to be improved', 'Moderate', 'Good', 'Very good');
     
-    //TODO: add support for different star count
+    //create non-javascript 'el cheapo' rating list
+    $html = '<div id="' . $starNumber . '">';
+    $html .=  ($value) ? __($ratingTitles[$value - 1], null, 'ullCoreMessages') .
+      ' (<a href="' . $ratingURL . '">Entfernen</a>)' : 'Noch nicht bewertet';
+    $html .= '<ul>';
+    for($i = 5; $i >= 1; $i--)
+    {
+      $html .= '<li><a href="' . $ratingURL . '/rating/' . $i . '">' .
+        __($ratingTitles[$i - 1], null, 'ullCoreMessages') . '</a></li>';
+    }
+    $html .= '</ul></div>';
+    
+    //now create the code for the 'real' JS bar
+    $ratingBarHTML = '';
     for($i = 1; $i <= 5; $i++)
     {
-      $inputTag = '<input class="star {cancelValue:0, cancel:\'' . __('Remove rating', null, 'ullCoreMessages') .
-        '\'}" type="radio" name="' . $starNumber .
+      $inputTag = '<input class="star {cancelValue:0, cancel:"' . __('Remove rating', null, 'ullCoreMessages') .
+        '"}" type="radio" name="' . $starNumber .
         '" value="' . $i . '" title="' . __($ratingTitles[$i - 1], null, 'ullCoreMessages') . '" ';
 
       if ($i == $value)
@@ -63,33 +83,20 @@ class ullWidgetRatingWrite extends ullWidget
         $inputTag .= 'checked="checked" ';
       }
 
-      $html .= $inputTag . '/>';
+      $ratingBarHTML .= $inputTag . '/>';
     }
     
     //This element's purpose is to display the rating titles
-    $html .= '<span id="' . $starNumber . '-hover" style="margin: 0 0 0 20px;">&nbsp;</span>';
-
-    $urlToCall = url_for($this->getOption('url_to_call_on_select'));
-    $averageInputName = $this->getOption('average_input_name');
-    
-    //This block of javascript enables submitting of selected ratings
-    //via ajax and the updating of a static bar (usually the average rating)
-    //TODO: Make the updating of the static bar optional (if average_input_name is null?)
+    $ratingBarHTML .= '<span id="' . $starNumber . '-hover" style="margin: 0 0 0 20px;">&nbsp;</span>';
+  
+    //Now build the JS necessary for replacing the static list
+    //with the real bar and add its AJAX functionality
     $html .= <<<EOF
     <script type="text/javascript">
+    //<![CDATA[
 
-    /*
-    var updateAvgStars_$votedObjectId = function(data)
-    {
-      //todo: add some integrity checks and see if we
-      //can update the stars without this readOnly workaround
-      var checkedStar = (data * 2);
-      $("input[name='$averageInputName']").rating('readOnly', false);
-      $("input[name='$averageInputName']").rating('select', checkedStar - 1);
-      $("input[name='$averageInputName']").rating('readOnly', true);
-    }
-    */
-
+    $("#$starNumber").replaceWith('$ratingBarHTML');
+    
     $("input[name='$starNumber']").rating(
       {
         focus: function(value, link)
@@ -117,10 +124,10 @@ class ullWidgetRatingWrite extends ullWidget
           $.ajax({
             url: url,
             cache: false,
-            //success: updateAvgStars_$votedObjectId
           });
         }
     });
+  //]]>
   </script>
 EOF;
 

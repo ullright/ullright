@@ -129,7 +129,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     else
     {
       $referer = $request->getReferer();
-      $this->redirect($referer ? $referer : 'homepage');
+      $this->redirect($referer ? $referer : '@homepage');
     }
   }
   
