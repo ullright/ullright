@@ -17,39 +17,41 @@ $t->diag('__construct()');
   $t->isa_ok($w, 'ullWidgetDateWrite', 'returns the correct object');
   
 	$t->diag('->render()');
-	$now = time();  
+	$now = time();
+	$dateTime = new DateTime();
+  $utcNow = strtotime(date('Y-m-d', $now)) + $dateTime->getOffset();
 	
   $expected = '
-    <script type="text/javascript">
-    $(function() {
-     $("#foo").datepicker({
-        changeYear: true,
-        yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
-        firstDay: 1,
-        showOn: \'button\',
-     });$("#foo").datepicker("setDate", new Date("'. date('Y-m-d', $now) . '"));});
-    
-    foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
-    
-    </script><input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />';
+      <script type="text/javascript">
+      $(function() {
+       $("#foo").datepicker({
+          changeYear: true,
+          yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
+          firstDay: 1,
+          showOn: \'button\'
+       });$("#foo").datepicker("setDate", new Date('. ($utcNow * 1000) . '));});
+      
+      foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
+      
+      </script><input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />';
   
   $t->is($w->render('foo', date('Y-m-d', $now)), $expected);
   
   $instance->getUser()->setCulture("de");
   
   $expected = '
-    <script type="text/javascript">
-    $(function() {
-     $("#foo").datepicker({
-        changeYear: true,
-        yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
-        firstDay: 1,
-        showOn: \'button\',
-     });$("#foo").datepicker("setDate", new Date("'. date('Y-m-d', $now) . '"));});
-    
-    foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
-    
-    </script><script type="text/javascript">$.datepicker.regional[\'de\'] = {clearText: \'löschen\', clearStatus: \'aktuelles Datum löschen\',
+      <script type="text/javascript">
+      $(function() {
+       $("#foo").datepicker({
+          changeYear: true,
+          yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
+          firstDay: 1,
+          showOn: \'button\'
+       });$("#foo").datepicker("setDate", new Date('. ($utcNow * 1000) . '));});
+      
+      foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
+      
+      </script><script type="text/javascript">$.datepicker.regional[\'de\'] = {clearText: \'löschen\', clearStatus: \'aktuelles Datum löschen\',
             closeText: \'schließen\', closeStatus: \'ohne Änderungen schließen\',
             prevText: \'&#x3c;zurück\', prevStatus: \'letzten Monat zeigen\',
             nextText: \'Vor&#x3e;\', nextStatus: \'nächsten Monat zeigen\',
