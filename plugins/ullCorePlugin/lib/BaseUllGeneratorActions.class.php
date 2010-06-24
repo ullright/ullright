@@ -381,8 +381,9 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyQueryForFilter();
     
-    //printQuery($this->q->getSqlQuery());
-    //var_dump($this->q->getParams());
+//    printQuery($this->q->getSqlQuery());
+//    var_dump($this->q->getParams());
+//    die;
 
     $this->paging = $this->getRequestParameter('paging', 'true');
     
