@@ -116,21 +116,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     $this->report = $request->getParameter('report');
     
-    if (!$request->getParameter('order'))
-    {
-      switch ($this->report)
-      {
-        case 'details':
-          $request->setParameter('order', 'date');
-          break;
-        
-        default:
-          $request->setParameter('order', 'UllProject->name');
-      }
-      
-    }
-    
-    
+    $this->handleReportProjectDefaultOrder($request);
     
     $this->generator = new ullTimeReportGenerator($this->report, $request->getParameter('filter'));
     $this->generator->setCalculateSums(true);
@@ -660,6 +646,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     //access check
     $this->q = UllProjectReportingTable::queryAccess($this->q);
+    
   }
   
   
@@ -739,5 +726,26 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $periodTable[$calendarWeek] = $week;
     
     $this->period_table = $periodTable;    
+  }
+  
+  
+  /**
+   * Handle default order for reportProject action
+   * 
+   */
+  protected function handleReportProjectDefaultOrder(sfRequest $request)
+  {
+    if (!$request->getParameter('order'))
+    {
+      switch ($this->report)
+      {
+        case 'details':
+          $request->setParameter('order', 'date');
+          break;
+          
+        default:
+          $request->setParameter('order', 'UllProject->name');
+      }
+    }    
   }
 }
