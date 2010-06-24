@@ -413,15 +413,31 @@ class ullCoreTools
    */
   public static function prepareCsvColumn($string)
   {
+    if(strpos($string, 'type="checkbox"'))
+    {
+      if(strpos($string, 'checked="checked"'))
+      {
+        $string = 'ok';
+      }
+      else
+      {
+        $string = '';
+      }
+    }
+    
     $string = html_entity_decode($string, ENT_QUOTES);
     $string = strip_tags($string);
+    
+    //delete &nbsp; character
+    $string = str_replace("\xA0", '', $string);
+    $string = trim($string);
     
     if ($string && !is_numeric($string))
     {
       $string = str_replace('"', '""', $string);
       $string = '"' . $string . '"';
     }
-    
+   
     return $string;
   }
   
