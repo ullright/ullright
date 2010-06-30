@@ -14,7 +14,7 @@ class UllFlowStepActionTableConfiguration extends ullTableConfiguration
   protected function applyCustomSettings()
   {
     $this->setName(__('Actions for Steps', null, 'ullFlowMessages'));
-    $this->setSearchColumns(array('sequence'));
+    $this->setSearchColumns(array('sequence', 'UllFlowStep->label', 'UllFlowStep->UllFlowApp->label'));
     $this->setOrderBy('sequence');
   }
   
