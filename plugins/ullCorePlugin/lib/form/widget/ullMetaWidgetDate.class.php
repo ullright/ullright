@@ -1,5 +1,28 @@
 <?php
 
+/**
+ * This meta widget represents a date.
+ * That includes year/month/date, but no time components (hour/minute/second).
+ * 
+ * In write mode, ullWidgetDateWrite supports rendering a JS datepicker and
+ * multiple options for handling allowed date ranges, validation, ...
+ * 
+ * In both read and write modes the user's culture is respected. At the
+ * moment, only 'de' receives special handling, every other culture is
+ * treated neutrally.
+ * 
+ * Important note: In write mode, the date-limiting options use different
+ * syntax for the widget and the validator. The first uses jQuery's
+ * datepicker syntax, the second one PHP's strttime.
+ * 
+ * Example column configuration:
+ *  ->setWidgetOption('min_date', '-80y')
+ *  ->setWidgetOption('max_date', '0')
+ *  ->setValidatorOption('min', strtotime('-80 years midnight'))
+ *  ->setValidatorOption('max', strtotime('today'))
+ *  
+ *  See the ullWidgetDateWrite for detailed option documentation.
+ */
 class ullMetaWidgetDate extends ullMetaWidget
 {
   protected function configureWriteMode()
@@ -13,7 +36,7 @@ class ullMetaWidgetDate extends ullMetaWidget
     $fixedValidatorOptions = array('date_format_range_error' => ull_date_pattern(true, true));
     
     $this->addWidget(new ullWidgetDateWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-    $this->addValidator(new sfValidatorDate(array_merge($fixedValidatorOptions, $this->columnConfig->getValidatorOptions())));
+    $this->addValidator(new ullValidatorDate(array_merge($fixedValidatorOptions, $this->columnConfig->getValidatorOptions())));
   }
 
   protected function configureReadMode()

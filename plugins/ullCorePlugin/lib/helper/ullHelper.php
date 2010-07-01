@@ -8,6 +8,47 @@
 
 sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url'));
 
+/**
+ * Parses a numeric string representing a human date,
+ * e.g. 18051980 => 18.05.1980. This is culture sensitive and
+ * supports 'de', every other culture results in English
+ * date parsing.
+ * 
+ * The input string has to be exactly 6 or 8 characters long.
+ *
+ * Important note: Uses strptime, which is not available on
+ * Windows systems! PHP 5.3.0 would provide alternatives.
+ *
+ * TODO: Update to PHP 5.3.0 when applicable
+ *
+ * @param string $numericString string to parse, must be numeric
+ * @return array return value of strptime, false in case of error
+ */
+function ull_parse_date_without_separators($numericString)
+{
+  $length = strlen($numericString);
+  if ($length != 6 && $length != 8)
+  {
+    return false;  
+  }
+  
+  $culture = sfContext::getInstance()->getUser()->getCulture();
+  $culture_parts = explode('_', $culture);
+  $language = $culture_parts[0];
+
+  switch ($language)
+  {
+    case 'de':
+      $format = '%d%m%' . (($length == 8) ? 'Y' : 'y');
+      break;
+
+    default:
+      //English pattern
+      $format = '%' . (($length == 8) ? 'Y' : 'y') . '%m%d';
+  }
+
+  return strptime($numericString, $format);
+}
 
 function ull_date_pattern($zeroPadding = true, $php_format = false, $showWeekday = false)
 {
@@ -50,7 +91,6 @@ function ull_date_pattern($zeroPadding = true, $php_format = false, $showWeekday
  * @param string date         iso date like "2007-12-04 13:45:10"
  * @return string date        formated date like "4.12.2007" for "de"
  */
-
 function ull_format_date($date = null, $zeroPadding = true, $showWeekday = false) 
 {
   if ($date == null)
@@ -69,7 +109,6 @@ function ull_format_date($date = null, $zeroPadding = true, $showWeekday = false
  * @param string date         iso date like "2007-12-04 13:45:10"
  * @return string date        formated date like "4.12.2007 13:45h" for "de"
  */
-  
 function ull_format_datetime($date = null, $zeroPadding = true, $showSeconds = true) 
 {
   if ($date == null)
