@@ -91,16 +91,24 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     $request = $event->getSubject();
     
     /*
-     * Mobile: Android, iphone
+     * Serve mobile version for user agents containing:
+     * 
+     * Mobile: Android, Apple iPhone
      * Jasmine: Samsung
      * Symbian: Nokia
      * NetFront: Sony Ericsson
      * BlackBerry: BlackBerry
      * Opera Mini: Opera for mobile devices
      * 
+     * 
+     * Exclude from matching:
+     * 
+     * iPad: Apple iPad
+     * 
      */
-    
-    if (preg_match('#Mobile|Jasmine|Symbian|NetFront|BlackBerry|Opera Mini#i', $request->getHttpHeader('User-Agent')))
+    if (preg_match(
+      '#^(?!.*iPad).*(Mobile|Jasmine|Symbian|NetFront|BlackBerry|Opera Mini).*$#i',
+      $request->getHttpHeader('User-Agent')))
     {
       $request->setRequestFormat('mobile');
     }
