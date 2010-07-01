@@ -15,7 +15,9 @@
       $columns_config->getSection() !== null
     ):
   ?>
-    <tr class="edit_table_spacer_row"><td colspan="3"></td></tr>
+    <tr class="edit_table_spacer_row">
+      <td colspan="3"></td>
+    </tr>
   <?php endif?>
   
   <?php // Handle translated column ?>
@@ -40,3 +42,9 @@
 
 </tbody>
 </table>
+
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
+
+<?php echo javascript_tag('
+  $("table.edit_table :input:visible:enabled:first").focus();
+')?>
