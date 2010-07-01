@@ -225,6 +225,32 @@ abstract class ullGenerator extends ullGeneratorBase
   }
   
   /**
+  * Returns the same labels as getAutoRenderedLabels() but instead
+  * of a simple column => label array it returns the column names
+  * with subarrays containing the label and the default order
+  * direction.
+  * 
+  * Used by the result list header to provide a descending default
+  * ordering, e.g. for a ratings-column.
+  * 
+  * @return column_name array of arrays with label and defaultOrderDirection
+  */
+  public function getAutoRenderedLabelsWithDefaultOrder()
+  {
+    $labelsWithDefaultOrder = array();
+    $labels = $this->getAutoRenderedLabels();
+    foreach ($labels as $labelKey => $labelValue)
+    {
+      $labelsWithDefaultOrder[$labelKey]['label'] = $labelValue;
+      $defaultOrderDirection = (isset($this->columnsConfig[$labelKey])) ?
+        $this->columnsConfig[$labelKey]->getDefaultOrderDirection() : null;
+      $labelsWithDefaultOrder[$labelKey]['defaultOrderDirection'] = $defaultOrderDirection;
+    }
+    
+    return $labelsWithDefaultOrder;
+  }
+  
+  /**
    * builds the table config
    *
    */

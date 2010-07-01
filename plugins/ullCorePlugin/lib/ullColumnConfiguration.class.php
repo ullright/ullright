@@ -15,6 +15,7 @@ class ullColumnConfiguration
     $widgetOptions          = array(), //'options' in ull_column_config table
     $defaultValue,
     $naturalOrdering        = false,
+    $defaultOrderDirection  = 'asc', //default to ascending order
     
     //from model
     $unique                 = false, 
@@ -175,6 +176,25 @@ class ullColumnConfiguration
   public function setNaturalOrdering($naturalOrdering)
   {
     $this->naturalOrdering = (boolean) $naturalOrdering;
+    
+    return $this;
+  }
+  
+  public function getDefaultOrderDirection()
+  {
+    return $this->defaultOrderDirection;
+  }
+
+  public function setDefaultOrderDirection($defaultOrderDirection)
+  {
+    if ($defaultOrderDirection == 'asc' || $defaultOrderDirection == 'desc')
+    {
+      $this->defaultOrderDirection = $defaultOrderDirection;
+    }
+    else
+    {
+      throw new InvalidArgumentException("defaultOrderDirection must be either 'asc' or 'desc'");
+    }  
     
     return $this;
   }

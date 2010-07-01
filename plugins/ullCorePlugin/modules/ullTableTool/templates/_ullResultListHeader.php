@@ -22,12 +22,11 @@
         echo '<th class="color_dark_bg">&nbsp;</th>';
       }
     
-      foreach ($generator->getAutoRenderedLabels() as $field_name => $label): ?>
+      foreach ($generator->getAutoRenderedLabelsWithDefaultOrder() as $field_name => $field): ?>
       
       <th class="color_dark_bg">
         <?php 
         $order = $sf_data->getRaw('order');
-//        var_dump(ullGeneratorTools::arrayizeOrderBy($order));
         $order_array = ullGeneratorTools::arrayizeOrderBy($order);
         $order_first_column = reset($order_array);
         
@@ -39,11 +38,11 @@
         else 
         {
           $arrow = '';
-          $dir = 'asc'; // always default to 'asc' order for a new column
+          $dir = $field['defaultOrderDirection']; //the column config provides the default order direction
         }
         
         echo ull_link_to(
-          $label . $arrow
+          $field['label'] . $arrow
           , array(
               'order' => UllGeneratorTools::convertOrderByFromQueryToUri($field_name . ' ' . $dir)
             )
