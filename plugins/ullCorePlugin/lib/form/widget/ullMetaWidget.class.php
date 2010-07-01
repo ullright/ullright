@@ -176,14 +176,13 @@ abstract class ullMetaWidget
         )
       ));
 
+      // handle "required" - don't set it for the primary key of a new object 
+      if ($columnName == 'id' && !$this->getForm()->getObject()->exists())
+      {
+        $validator->setOption('required', false);
+      }
       // Deactivated by KU 2010-07-01 - Sometimes we want a unique check without
-      // requiring an input
-      
-//      // handle "required" - don't set it for the primary key of a new object 
-//      if ($columnName == 'id' && !$this->getForm()->getObject()->exists())
-//      {
-//        $validator->setOption('required', false);
-//      }
+      // requiring an input      
 //      else
 //      {
 //        $validator->setOption('required', true);
