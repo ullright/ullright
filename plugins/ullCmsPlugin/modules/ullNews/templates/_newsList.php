@@ -5,7 +5,6 @@
       <?php $link_options = array();?>
       <?php if (substr($form['link_url']->render(), 0, 7) == 'http://')
             {
-              echo $form['link_url']->render();
               $link_options = array('link_new_window' => true, 'link_external' => true);
             } 
       ?>
