@@ -3,17 +3,17 @@
     <?php foreach ($generator->getForms() as $row => $form): ?>
      
       <?php $link_options = array();?>
-      <?php if (substr($form['link_url']->render(), 0, 7) == 'http://')
-            {
-              $link_options = array('link_new_window' => true, 'link_external' => true);
-            } 
-      ?>
+      <?php $image_link_options = array();?>
+      <?php if (substr($form['link_url']->render(), 0, 7) == 'http://'): ?>
+        <?php $link_options = array('link_new_window' => true, 'link_external' => true) ?>
+        <?php $image_link_options = array('target' => '_blank') ?>
+      <?php endif ?>
       
       <div class="ull_news_entry">
         <div class="ull_news_image">
           <?php if ($form['link_url']->render() && $form['image_upload']->render()): ?>
             <?php echo ull_link_to($form['image_upload']->render(), 
-              $form['link_url']->render(), $link_options) ?>
+              $form['link_url']->render(), $image_link_options) ?>
           <?php else: ?>
             <?php echo $form['image_upload']->render() ?>
           <?php endif ?>
