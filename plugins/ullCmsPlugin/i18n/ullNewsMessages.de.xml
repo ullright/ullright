@@ -78,6 +78,10 @@
 <target>News-Eintrag erstellen</target>
 </trans-unit>
 
+<trans-unit id="28">
+<source>Save and create news entry</source>
+<target>Speichern und News-Eintrag erstellen</target>
+</trans-unit>
 
     </body>
   </file>

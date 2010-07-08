@@ -192,4 +192,15 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   {
     return new ullNewsGenerator('r', 'list', $this->columns);
   } 
+  
+  /**
+   * Template method to modify the generator before buildForm() is called
+   */
+  protected function modifyGeneratorBeforeBuildForm($object)
+  {
+    if($cmsSlug = $this->getRequest()->getParameter('cmsSlug'))
+    {
+      $object['link_url'] = 'ullCms/show?slug=' . $cmsSlug;
+    }
+  }
 }

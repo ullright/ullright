@@ -99,6 +99,7 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_cms_edit');
     
     $this->registerEditActionButton(new ullGeneratorEditActionButtonCmsSaveAndShow($this));
+    $this->registerEditActionButton(new ullGeneratorEditActionButtonCmsSaveAndCreateNews($this));
     
     parent::executeEdit($request);
     

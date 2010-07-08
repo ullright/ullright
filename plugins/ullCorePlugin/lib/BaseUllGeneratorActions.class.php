@@ -69,7 +69,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->docs = $this->getFilterFromRequest();
     
-    $this->modifyGeneratorBeforeBuildForm();
+    $this->modifyGeneratorBeforeBuildForm(null);
     
     $this->generator->buildForm($this->docs);
     
@@ -84,7 +84,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   /**
    * Template method to modify the generator before buildForm() is called
    */
-  protected function modifyGeneratorBeforeBuildForm()
+  protected function modifyGeneratorBeforeBuildForm($object)
   {
     
   }
@@ -146,7 +146,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       }
     }
     
-    $this->modifyGeneratorBeforeBuildForm();
+    $this->modifyGeneratorBeforeBuildForm($row);
     
     $this->generator->buildForm($row);
     
