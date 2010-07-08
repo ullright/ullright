@@ -1,4 +1,13 @@
 <div class="ull_news">
+  <?php if ($allow_edit): ?>
+    <?php
+      echo ull_button_to(
+        __('Create news entry'), 
+        'ullNews/create', 
+        array('id' => 'ull_news_create_news')
+      );
+    ?>              
+  <?php endif ?>
   <?php if ($generator->getRow()->exists()): ?>
     <?php foreach ($generator->getForms() as $row => $form): ?>
      
