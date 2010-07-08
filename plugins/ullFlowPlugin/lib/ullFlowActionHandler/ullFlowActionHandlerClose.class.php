@@ -13,4 +13,12 @@ class ullFlowActionHandlerClose extends ullFlowActionHandler
     return $return;
   }
   
+  /**
+   * Always assign the doc to the creator when closed
+   */
+  public function getNext()
+  {
+    return array('entity' => $this->getForm()->getObject()->Creator);
+  }  
+  
 }
