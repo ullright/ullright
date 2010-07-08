@@ -38,7 +38,7 @@
           echo '<li>' . ull_link_to(
             __('I forgot my password', null, 'ullCoreMessages'),
              'ullUser/resetPassword'
-          ) . '<li>'; 
+          ) . '</li>'; 
         }
       ?>
       </ul>
