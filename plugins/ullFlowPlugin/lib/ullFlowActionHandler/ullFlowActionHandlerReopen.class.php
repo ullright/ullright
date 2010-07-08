@@ -14,4 +14,11 @@ class ullFlowActionHandlerReopen extends ullFlowActionHandler
     return $return;
   }
   
+  /**
+   * Reopen assigns the doc to the previous entity and step before beeing closed
+   */
+  public function getNext()
+  {
+    return $this->getNextFromPreviousStep();
+  }    
 }
