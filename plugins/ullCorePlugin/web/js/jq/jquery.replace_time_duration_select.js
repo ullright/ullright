@@ -4,10 +4,13 @@
  * @param fragmentation   format of the minute select box. example:
  *                        fragmentation = 15 results in a list 0,15,30,45 min
  */
-jQuery.fn.replaceTimeDurationSelect = function(fragmentation) 
+jQuery.fn.replaceTimeDurationSelect = function(fragmentation, startHour, endHour) 
 {
   return this.each(function(foo)
   {
+    startHour = (startHour) ? startHour : 0;
+    endHour = (endHour) ? endHour : 23;
+    
     $(this).hide();
     
     var hoursId = this.id + '_hours';
@@ -20,7 +23,7 @@ jQuery.fn.replaceTimeDurationSelect = function(fragmentation)
     $(this).after(hoursInput);
     hoursInput.after(" : ");
     
-    var hoursList = generateHoursList();
+    var hoursList = generateHoursList(startHour, endHour);
     generateOptions(hoursInput, hoursList);
 
     var minutesList = generateMinutesList(fragmentation);
@@ -88,10 +91,10 @@ function generateMinutesList(fragmentation)
  * 
  * @return array
  */
-function generateHoursList()
+function generateHoursList(start, end)
 {
   var list = new Array();
-  for (var i = 0; i < 24; i++)
+  for (var i = start; i <= end; i++)
   {
     list.push(i);
   }

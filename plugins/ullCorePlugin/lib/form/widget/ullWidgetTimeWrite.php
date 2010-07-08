@@ -16,6 +16,10 @@ class ullWidgetTimeWrite extends sfWidgetFormInput
     
     // configure the minute format. e.g. fragmentation = 15min results in list 0, 15, 30, 45 min. 
     $this->addOption('fragmentation', 15);
+    
+    // enable start and end hours, both inclusive 
+    $this->addOption('startHour', 0);
+    $this->addOption('endHour', 23);
   }
     
   /**
@@ -39,7 +43,8 @@ class ullWidgetTimeWrite extends sfWidgetFormInput
       $return .= javascript_tag('
 $(document).ready(function()
 {
-  $("#' . $id . '").replaceTimeDurationSelect(' . $this->getOption('fragmentation') . ');
+  $("#' . $id . '").replaceTimeDurationSelect(' . $this->getOption('fragmentation') .
+      ', ' . $this->getOption('startHour') . ', ' . $this->getOption('endHour') . ');
 });
       ');
     }
