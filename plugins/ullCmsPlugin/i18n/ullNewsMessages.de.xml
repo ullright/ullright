@@ -68,9 +68,14 @@
 <target>Link Adresse</target>
 </trans-unit>
 
-<trans-unit id="25">
+<trans-unit id="26">
 <source>Delete image</source>
 <target>Bild löschen</target>
+</trans-unit>
+
+<trans-unit id="27">
+<source>Create news entry</source>
+<target>News-Eintrag erstellen</target>
 </trans-unit>
 
 

@@ -2,7 +2,7 @@
   <?php if ($allow_edit): ?>
     <?php
       echo ull_button_to(
-        __('Create news entry'), 
+        __('Create news entry', null, 'ullNewsMessages'), 
         'ullNews/create', 
         array('id' => 'ull_news_create_news')
       );
