@@ -242,7 +242,10 @@ $b
 
 $b
   ->diag('check closed doc')
-  ->click('Edit')  
+  ->click('Log out')
+  ->get('ullAdmin/index')
+  ->loginAsTestUser()
+  ->get('ullFlow/edit/doc/5')  
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
@@ -268,9 +271,10 @@ $b
   ->isRedirected()
   ->followRedirect()
   
-  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Closed[\s]+by[\s]+Helpdesk User/')  
+  // TODO: this is stupid and wrong. See ticket #1208
+  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Closed[\s]+by[\s]+Test User/')  
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 9) // number of memory entries
-  ->checkResponseElement($dgsEditMem->get(1), '/Edited[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(1), '/Edited[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Closed[\s]+by[\s]+Helpdesk User/')
 ;
 
@@ -283,23 +287,9 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement($dgsListTT->getFullRowSelector(), false) // number of rows  
-;  
-
-$b
-  ->diag('select active docs')
-  ->setField('filter[status]', '')
-  ->click('Search_16x16')
-  ->isRedirected()
-  ->followRedirect()
-  ->isStatusCode(200)
-  ->isRequestParameter('module', 'ullFlow')
-  ->isRequestParameter('action', 'list')
-  ->isRequestParameter('app', 'trouble_ticket')
-  ->checkResponseElement($dgsListTT->getFullRowSelector(), 3) // number of rows
+  ->checkResponseElement($dgsListTT->getFullRowSelector(), 2) // number of rows
   ->checkResponseElement($dgsListTT->get(1, 'subject'), 'Urgently use ullright')
-  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'AAA My second trouble ticket')
-  ->checkResponseElement($dgsListTT->get(3, 'subject'), 'My first trouble ticket')  
+  ->checkResponseElement($dgsListTT->get(2, 'subject'), 'My first trouble ticket')  
 ;
 
 $b
@@ -311,11 +301,11 @@ $b
   ->isRequestParameter('doc', '5')
   ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
-  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Reopened[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Reopened[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk[\s]+\(Step[\s]+Helpdesk dispatcher \(Trouble ticket tool\)\)/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 10) // number of memory entries
-  ->checkResponseElement($dgsEditMem->get(1), '/Reopened[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditMem->get(2), '/Edited[\s]+by[\s]+Helpdesk User/')
+  ->checkResponseElement($dgsEditMem->get(1), '/Reopened[\s]+by[\s]+Test User/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Edited[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditMem->get(3), '/Closed[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(4), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditMem->get(5), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')

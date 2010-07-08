@@ -32,8 +32,7 @@ class ullFlowRuleTroubleTicket extends ullFlowRule
       
     elseif ($this->isStep('trouble_ticket_closed')) 
     {
-      $next['step']    = $this->findStep('trouble_ticket_dispatcher');
-      $next['entity']  = $this->findGroup('Helpdesk');
+      // no action because it is handled automatically by ullFlowAction reopen
     }
     
 //    $this->debug($next);die;
