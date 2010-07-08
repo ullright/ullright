@@ -33,7 +33,7 @@ class ullTreeMenuRenderer
   {
     $return = '';
     
-    $return .= '<ul class="ull_menu_' . ullCoreTools::htmlId($node->getData()->slug) . '">' . "\n";
+    //$return .= '<ul class="ull_menu_' . ullCoreTools::htmlId($node->getData()->slug) . '">' . "\n";
     
     if ($node->hasSubnodes())
     {
@@ -66,7 +66,7 @@ class ullTreeMenuRenderer
       }        
     }
     
-    $return .= '</ul>' . "\n";
+    //$return .= '</ul>' . "\n";
       
     return $return;
   }
