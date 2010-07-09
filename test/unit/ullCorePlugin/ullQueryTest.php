@@ -87,7 +87,7 @@ $t->diag('addRelationsToQuery()');
       0 => 'TestTable x',
       1 => 'x.UllUser x_ulluser',
       2 => 'x_ulluser.UllUserStatus x_ulluser_ulluserstatus',
-      3 => 'x_ulluser_ulluserstatus.Translation x_ulluser_ulluserstatus_translation',
+      3 => 'x_ulluser_ulluserstatus.Translation x_ulluser_ulluserstatus_translation WITH x_ulluser_ulluserstatus_translation.lang = "en"',
       4 => 'x_ulluser.UllJobTitle x_ulluser_ulljobtitle',
       5 => 'x.Creator x_creator',
     ),
@@ -106,7 +106,7 @@ $t->diag('addSelect()');
   ));
   $t->is(
     $q->getSqlQuery(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' WHERE (t2.lang = ? AND u3.lang = ?)",
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id AND (t2.lang = \"en\") LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id AND (u3.lang = \"en\") LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user'",
     'Returns the correct query'
   );
   
@@ -115,7 +115,7 @@ $t->diag('addOrderBy()');
   $q->addOrderBy('my_string, UllUser->UllEmploymentType->name desc, UllUser->UllLocation->name');
   $t->is(
     $q->getSqlQuery(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ?) ORDER BY t2.my_string asc, u3.name desc, u5.name asc",
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id AND (t2.lang = \"en\") LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id AND (u3.lang = \"en\") LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id ORDER BY t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
 
@@ -124,7 +124,7 @@ $t->diag('addOrderByPrefix()');
   $q->addOrderByPrefix('my_email, UllUser->UllLocation->short_name');
   $t->is(
     $q->getSqlQuery(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id AND (t2.lang = \"en\") LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id AND (u3.lang = \"en\") LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
 
@@ -134,7 +134,7 @@ $t->diag('addWhere()');
   $q->addWhere('UllUser->UllEmploymentType->name = ?', 'CEO');
   $t->is(
     $q->getSqlQuery(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? AND t.my_email = ? AND u3.lang = ? AND u3.name = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id AND (t2.lang = \"en\") LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id AND (u3.lang = \"en\") LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t.my_email = ? AND u3.name = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
   
@@ -143,7 +143,7 @@ $t->diag('orWhere()');
   $q->orWhere('UllUser->UllEmploymentType->name = ?', 'OEC');
   $t->is(
     $q->getSqlQuery(),
-    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t2.lang = ? AND u3.lang = ? AND t2.lang = ? AND u3.lang = ? AND t.my_email = ? AND u3.lang = ? AND u3.name = ? OR t.my_email = ? AND u3.lang = ? OR u3.name = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
+    "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id AND (t2.lang = \"en\") LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id AND (u3.lang = \"en\") LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id WHERE (t.my_email = ? AND u3.name = ? OR t.my_email = ? OR u3.name = ?) ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
 
@@ -157,7 +157,7 @@ $t->diag('addSearch()');
   
   $t->is(
     $q->getSqlQuery(),
-    "SELECT t.id AS t__id, u.id AS u__id, u.type AS u__type, u2.id AS u2__id FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id WHERE (t2.lang = ? AND u3.lang = ? AND (t.my_email LIKE ? OR t2.my_string LIKE ? OR u.username LIKE ? OR u3.name LIKE ?))",
+    "SELECT t.id AS t__id, u.id AS u__id, u.type AS u__type, u2.id AS u2__id FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id AND (t2.lang = \"en\") LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id AND (u3.lang = \"en\") WHERE (t.my_email LIKE ? OR t2.my_string LIKE ? OR u.username LIKE ? OR u3.name LIKE ?)",
     'Returns the correct query'
   );
   

@@ -28,14 +28,13 @@ $createValues = array(
   'title_translation_en' => 'Test page', 
   'body_translation_en' => array('Test body', false),
   'name_translation_en' => array('Test name', false),
-  'parent_ull_cms_item_id' => array(Doctrine::getTable('UllCmsItem')->findOneBySlug('homepage')->id, 'Main menu - Homepage'),
   'is_active' => array(true, 'Checkbox_checked')
 );
 $editValues = array(
   'title_translation_en' => 'Next Page', 
   'body_translation_en' => array('Test body', false),
   'name_translation_en' => array('Next name', false),
-  'parent_ull_cms_item_id' => array(Doctrine::getTable('UllCmsItem')->findOneBySlug('contact')->id, 'Main menu - Contact'),
+  'parent_ull_cms_item_id' => array(Doctrine::getTable('UllCmsItem')->findOneBySlug('homepage')->id, 'Main menu - Homepage'),
   'is_active' => array(false, 'Checkbox_unchecked')
 );
 

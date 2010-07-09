@@ -370,7 +370,6 @@ class ullQuery
    */
   protected function relationStringToDoctrineQueryColumn($column)
   {
-    $translated = false;
     $finalModel = $this->baseModel;
     $finalColumn = $column;
     $relations = array();
@@ -400,8 +399,6 @@ class ullQuery
           
           return $column;
         }
-        
-        $translated = true;
       }
       else
       {
@@ -415,11 +412,6 @@ class ullQuery
     
     $alias = $this->relationStringToAlias(ullGeneratorTools::relationArrayToString($relations));
     
-    if ($translated)
-    {
-      $this->q->addWhere($alias . '.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2));
-    }      
-        
     return $alias . '.' . $finalColumn;
   }
   
@@ -496,6 +488,23 @@ class ullQuery
       $newAlias = $alias . '_' . $this->relationStringToAlias($relation, false);
       
       $doctrineFromString = $alias . '.' . $relation . ' ' . $newAlias;
+      
+      //Add culture as conditional-join instead of where-clause to prevent missing
+      // rows in the following scenario:
+      // Basemodel with a optional relation to a second model which has translated columns
+      // Using "WHERE" instead of a conditional join resulted in missing rows in case
+      // a Basemodel row had no relation to the second model.
+      // Reason: the 'WHERE SecondModel.Translation = "en"' part kicked out the row 
+      if ($relation == 'Translation')
+      {
+        $doctrineFromString .= 
+          ' WITH ' . 
+          $newAlias . 
+          '.lang = "' . 
+          substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2) .
+          '"'
+        ;
+      }
       
       $fromParts = $this->q->getDqlPart('from');
       
