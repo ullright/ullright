@@ -345,8 +345,15 @@ img, div {
     display: none;
   }
   
-  .list_table tr {
-    border-bottom: 0.1em solid #e1e2e2;
+  th {
+    border-top: 1px double black;
+    border-bottom: 1px double black;
+  }
+  
+  td {
+    border-bottom: 1px dotted grey;
+    padding-top: .1em !important;
+    padding-bottom: .1em !important;
   }
   
   .list_action_buttons {
