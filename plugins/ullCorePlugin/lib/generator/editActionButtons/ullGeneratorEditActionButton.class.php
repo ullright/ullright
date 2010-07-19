@@ -45,8 +45,10 @@ abstract class ullGeneratorEditActionButton
 
   /**
    * To choose the side on witch the button will be rendered
+   * @return true if the button is a primary action
    */
-  public function isPrimary(){
+  public function isPrimary()
+  {
     return (boolean) $this->isPrimary;
   }
   
