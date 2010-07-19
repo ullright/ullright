@@ -1,0 +1,45 @@
+UllBookingResource:
+  booking_resource_one:
+    Translation:
+      en:
+        name:    'Bouldering room'
+      de:
+        name:    'Boulderraum'
+    is_bookable: true
+  
+  booking_resource_two:
+    Translation:
+      en:
+        name:    'Gallery sector'
+      de:
+        name:    'Sektor Galerie'
+    is_bookable: true
+
+  booking_resource_three:
+    Translation:
+      en:
+        name:    'Temple'
+      de:
+        name:    'Tempel'
+    is_bookable: false
+    
+    
+UllBooking:
+  booking_one:
+    UllBookingResource: booking_resource_two
+    name: 'Booking one'
+    start: '2010-07-10 10:00:00'
+    end: '2010-07-10 14:00:00'
+    
+  booking_two:
+    UllBookingResource: booking_resource_one
+    name: 'Second test booking'
+    start: '2010-07-10 10:00:00'
+    end: '2010-07-10 14:00:00'
+    
+  booking_three:
+    UllBookingResource: booking_resource_two
+    name: 'Test booking #3'
+    start: '2010-07-10 14:00:00'
+    end: '2010-07-10 17:00:00'
+ 

@@ -1,0 +1,36 @@
+UllBookingResource:
+  package: ullBookingPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+  columns:
+    name: # e.g. 'Room 2'
+      type: string(100)
+    is_bookable:
+      type: boolean
+
+UllBooking:
+  package: ullBookingPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    start:
+      type: datetime
+      notnull: true
+    end:
+      type: datetime
+      notnull: true
+    ull_booking_resource_id: # FK to UllBookingResource
+      type: integer
+      notnull: true
+    booking_group_name:
+      type: string(23) #uniqid() with more entropy
+    name:
+      type: string(50)
+      notnull: true
+  relations:
+    UllBookingResource:

@@ -1,0 +1,280 @@
+<?php
+
+/**
+ * ullBooking actions.
+ *
+ * @package    ullright
+ * @subpackage ullBooking
+ */
+
+class BaseUllBookingActions extends BaseUllGeneratorActions
+{
+  public function preExecute()
+  {
+    parent::preExecute();
+
+    $this->addModuleStylesheet();
+
+    $this->getResponse()->setTitle(__('Booking schedule', null, 'ullBookingMessages'));
+  }
+
+  /**
+   * Executes index action -> links to the schedule action
+   */
+  public function executeIndex(sfRequest $request)
+  {
+    $this->checkPermission('ull_booking_index');
+
+    //instead, redirect to schedule
+    $this->redirect('booking_schedule');
+  }
+
+  /**
+   * Main page for the booking system, displays a graphical schedule
+   * of all booking resources. Assumes 15 minutes intervals.
+   * 
+   * Also provides links to create and delete new bookings.
+   */
+  public function executeSchedule(sfRequest $request)
+  {
+    $this->checkPermission('ull_booking_schedule');
+
+    $this->date_select_form = new UllScheduleSelectForm();
+    
+    //no check for post action here, could be previous/next links
+    if ($request->hasParameter('fields'))
+    {
+      $this->date_select_form->bind($request->getParameter('fields'));
+
+      if ($this->date_select_form->isValid())
+      {
+        $date = $this->date_select_form->getValue('date');
+      }
+    }
+
+    //no date selected? assume current date
+    $this->date = (isset($date)) ? strtotime($date) : time();
+    $this->previous_day = date('Y-m-d', strtotime('yesterday', $this->date));
+    $this->next_day = date('Y-m-d', strtotime('tomorrow', $this->date));
+
+    //calculate schedule cells - structure looks like this:
+    //array with booking resource ids as keys
+    //  subarray with
+    //    24 hours/4*15 minutes = 96 cells with 0-95 as keys
+    //    name key with translated booking resource name
+    $this->cell_status = array();
+
+    //retrieve all booking resources
+    $bookingResources = Doctrine_Core::getTable('UllBookingResource')->findBookableResources();
+    foreach ($bookingResources as $bookingResource)
+    {
+      //store the booking resource name for the schedule legend
+      $this->cell_status[$bookingResource['id']]['name'] = $bookingResource['name'];
+    }
+
+    //retrieve all bookings for the chosen day for bookable resources
+    $bookings = UllBookingTable::findBookingsByDay($this->date, array_keys($this->cell_status));
+    $this->booking_info_list = array();
+    
+    foreach ($bookings as $booking)
+    {
+      //is the start date of this booking equal to the current date?
+      //most likely, but not in case of bookings spanning multiple days
+      if (date('Y-m-d', strtotime($booking['start'])) == date('Y-m-d', $this->date))
+      {
+        //parse hours (0-23)
+        $startHour = date('G', strtotime($booking['start']));
+        //parse minutes (0-59)
+        $startMinute = date('i', strtotime($booking['start']));
+
+        //as soon as the beginning of a quarter hour is transcended
+        //the cell gets marked (e.g. 16:01 means occupation until 16:15)
+        $startIndex = $startHour * 4 + ceil($startMinute / 15);
+      }
+      else
+      {
+        //booking actually starts before the day we are currently displaying
+        $startIndex = 0;
+      }
+
+      //now we handle the end date the same way as the start date above
+      if (date('Y-m-d', strtotime($booking['end'])) == date('Y-m-d', $this->date))
+      {
+        $endHour = date('G', strtotime($booking['end']));
+        $endMinute = date('i', strtotime($booking['end']));
+        $endIndex = $endHour * 4 + ceil($endMinute / 15);
+      }
+      else
+      {
+        $endIndex = 96; //following loop is <, not <=, so this is ok
+      }
+
+      for ($i = $startIndex; $i < $endIndex; $i++)
+      {
+        $cellStatus = array(
+          'bookingName' => $booking['name'],
+          'cellType' => ($i == $startIndex) ? 'open' : (($i == $endIndex - 1) ? 'close' : 'normal'),
+        );
+        $this->cell_status[$booking['ull_booking_resource_id']][$i] = $cellStatus;
+      }
+      
+      //fill an array with information about the displayed bookings
+      $this->booking_info_list[$booking['id']] = array(
+          'name' => $booking['name'],
+          'bookingGroupName' => $booking['booking_group_name'],
+          'bookingGroupCount' => $booking['booking_group_count'],
+          'resourceName' => $this->cell_status[$booking['ull_booking_resource_id']]['name'],
+          'range' => $booking->formatDateRange(),
+        );
+    }
+    
+    //reindex array, makes it easier to iterate in the view
+    $this->cell_status = array_values($this->cell_status);
+    $this->number_booking_resources = count($this->cell_status);
+  }
+
+  /**
+   * Persists a new booking, supporting the creation of multiple
+   * bookings at once (= recurring bookings).
+   * 
+   * Also see UllBookingCreateForm and UllBookingAdvancedCreateForm.
+   * The first one includes common options like date, time and duration
+   * The second one includes advanced option, e.g. recurrence period
+   */
+  public function executeCreate(sfRequest $request)
+  {
+    $this->checkPermission('ull_booking_create');
+
+    //did the user submit a simple or recurring booking?
+    $this->is_simple = ($request->getParameter('booking_type') == 'advanced') ? false : true;
+    //the displayed form is always the advanced form (including recurring options)
+    //but for JS-enabled clients those advanced options are hidden
+    $this->form = new UllBookingAdvancedCreateForm();
+
+    if ($request->isMethod('post'))
+    {
+      //we do not want to validate advanced options if the user submitted
+      //from a simple form -> chose validation form accordingly
+      $this->validationForm = ($this->is_simple) ? new UllBookingCreateForm() : new UllBookingAdvancedCreateForm();
+      $this->validationForm->bind($request->getParameter('fields'));
+
+      if ($this->validationForm->isValid())
+      {
+        //transform input data into a booking object
+        //add duration field to start time
+        $booking = new UllBooking();
+        $booking->name = $this->validationForm->getValue('name');
+        $startTimestamp = strtotime($this->validationForm->getValue('date')) + $this->validationForm->getValue('time');
+        $booking->start = date('Y-m-d H:i:s', $startTimestamp);
+        $booking->end = date('Y-m-d H:i:s', $startTimestamp + $this->validationForm->getValue('duration'));
+        $booking->ull_booking_resource_id = $this->validationForm->getValue('booking_resource');
+
+        try
+        {
+          //do we have to persist a single booking or multiple ones?
+          if ($this->is_simple || $this->validationForm->getValue('recurring') == 'n')
+          {
+            $booking->save();
+          }
+          else
+          {
+            //subtract one from the repeat count, since
+            //the original booking also counts
+            //TODO: make it absolutely clear to the user that
+            //the number he puts into the 'repeats' field
+            //indicates -total- count of bookings
+            //OR: assume otherwise, and remove the -1.
+            ullRecurringBooking::createRecurringBooking($booking,
+              $this->validationForm->getValue('recurring'),
+              ($this->validationForm->getValue('repeats') - 1));
+          }
+          
+          //if reservation was successful, redirect to the schedule view
+          //for the date of the (first) booking
+          $this->redirect(url_for('booking_schedule',
+            array('fields[date]' => $this->validationForm->getValue('date'))));
+        }
+        catch (ullOverlappingBookingException $e)
+        {
+          //one or more bookings were unsuccessful, retrieve
+          //the list of bookings which caused them to fail
+          //and put them into an array for the view
+          $this->overlappingBookings = array();
+          foreach($e->getOverlappingBookings() as $overlappingBooking)
+          {
+            $this->overlappingBookings[] = $overlappingBooking['name'] . ' - ' . $overlappingBooking->formatDateRange();
+          }
+          
+          //form data was valid, but booking was not successful
+          //rebind the form so we do not lose the original input
+          $this->form->bind($request->getParameter('fields'));
+        }
+      }
+      else
+      {
+        //we could put this line and the same one above at the end
+        //of the function since all other branches seem to
+        //redirect anyway
+        $this->form->bind($request->getParameter('fields'));
+      }
+    }
+  }
+  
+  /**
+   * Handles deletion of a booking (optionally for an entire
+   * booking group) and redirects to the referring schedule.
+   */
+  public function executeDelete(sfRequest $request)
+  {
+    $this->checkPermission('ull_booking_delete');
+    
+    //if groupName is set, delete the whole group of bookings
+    //otherwise delete a single booking specified by id
+    
+    $groupName = $request->getParameter('groupName');
+    $bookingId = $request->getParameter('id');
+    if (!$groupName && !$bookingId)
+    {
+      throw new InvalidArgumentException("The 'groupName' or the 'id' parameter has to be set");
+    }
+    
+    $fieldName = ($groupName) ? 'booking_group_name' : 'id';
+    $fieldValue = ($groupName) ? $groupName : $bookingId;
+   
+    $q = new Doctrine_Query();
+    $q
+      ->delete('UllBooking b')
+      ->where('b.' . $fieldName . ' = ?', $fieldValue);
+    ;
+    $q->execute();
+    
+    //redirect to referer
+    $referer = $request->getReferer();
+    $this->redirect($referer ? $referer : 'booking_schedule');
+  }
+  
+  /**
+   * Renders all bookings belonging to a given group name
+   * using the partial 'ullBooking/listGroupBookings',
+   * if the request is an AJAX call. Renders sfView:NONE
+   * otherwise.
+   */
+  public function executeListGroupBookings(sfRequest $request)
+  {
+    $this->checkPermission('ull_booking_schedule');
+    
+    $this->redirectUnless($groupName = $request->getParameter('groupName'), 'booking_schedule');
+    $this->redirectUnless($id = $request->getParameter('id'), 'booking_schedule');
+    
+    if ($request->isXmlHttpRequest() || true)
+    {
+      $bookings = UllBookingTable::findGroupBookings($groupName);
+      $params = array('bookings' => $bookings, 'id' => $id);
+      return $this->renderPartial('ullBooking/listGroupBookings', $params);
+    }
+    else
+    {
+      return sfView::NONE;
+    }
+  }
+}
