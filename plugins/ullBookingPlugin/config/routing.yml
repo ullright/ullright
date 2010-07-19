@@ -1,0 +1,27 @@
+booking_resources_list:
+  url:     /booking/resources
+  param:   { module: ullTableTool, action: list, table: ullBookingResource }
+
+booking_resources_edit:
+  url:     /booking/resource/edit/:id
+  param:   { module: ullTableTool, action: edit, table: ullBookingResource }
+  requirements:
+    id: \d+
+
+booking_schedule:
+  url:     /bookings/*
+  param:   { module: ullBooking, action: schedule }
+    
+booking_create:
+  url:     /booking/create
+  param:   { module: ullBooking, action: create }
+
+booking_delete:
+  url:     /booking/delete
+  param:   { module: ullBooking, action: delete }
+
+booking_group_list:
+  url:     /booking/group/list/:groupName/:id
+  param:   { module: ullBooking, action: listGroupBookings }
+  requirements:
+    id: \d+
