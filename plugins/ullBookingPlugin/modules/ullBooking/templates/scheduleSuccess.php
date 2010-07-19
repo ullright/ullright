@@ -122,19 +122,27 @@
               $(document).ready(function(){
                 //make the link unclickable -> alternative would be to not use a link
                 $('#booking_popup_link_<?php echo $booking_id ?>').click(function() { return false; });
-                
+
+                var loadForId<?php echo $booking_id ?> = true;
                 $('#booking_popup_link_<?php echo $booking_id ?>').hover(function()
                   {
-                    //caches by default
-                    $(this).next("div").load('<?php echo url_for('booking_group_list',
-                      array('groupName' => $info_entry['bookingGroupName'], 'id' => $booking_id)); ?>');
+                    if (loadForId<?php echo $booking_id ?>)
+                    {
+                      $(this).next("div").load('<?php echo url_for('booking_group_list',
+                        array('groupName' => $info_entry['bookingGroupName'], 'id' => $booking_id)); ?>',
+                        function()
+                        {
+                          loadForId<?php echo $booking_id ?> = false;
+                          //$('#booking_popup_<?php echo $booking_id ?>').stop(true, true).fadeIn();
+                          positionPopup($('#booking_popup_<?php echo $booking_id ?>'),
+                              $('#booking_popup_link_<?php echo $booking_id ?>'));
+                        });
+                    }
 
-                    //'stop' prevents rendering problems with repeated hovering                   
+                    //the 'stop' call prevents rendering problems with repeated hovering                   
                     $(this).next("div").stop(true, true).fadeIn();
-                      $('#booking_popup_<?php echo $booking_id ?>').position({
-                        of: $('#booking_popup_link_<?php echo $booking_id ?>'),
-                        my: 'left top', at: 'left bottom', offset: '4px'
-                      });
+                    positionPopup($('#booking_popup_<?php echo $booking_id ?>'),
+                      $('#booking_popup_link_<?php echo $booking_id ?>'));
                   },
                   function()
                   {
@@ -170,6 +178,12 @@
 
 <script type="text/javascript">
 //<![CDATA[
+function positionPopup(control, parent)
+{
+  control.position({ of: parent, my: 'left center',
+    at: 'right center', offset: '30 0', collision: 'fit' });
+}
+
 $(document).ready(function()
 {
   $(document).ready(function()
