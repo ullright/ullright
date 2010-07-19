@@ -266,7 +266,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     $this->redirectUnless($groupName = $request->getParameter('groupName'), 'booking_schedule');
     $this->redirectUnless($id = $request->getParameter('id'), 'booking_schedule');
     
-    if ($request->isXmlHttpRequest() || true)
+    if ($request->isXmlHttpRequest())
     {
       $bookings = UllBookingTable::findGroupBookings($groupName);
       $params = array('bookings' => $bookings, 'id' => $id);

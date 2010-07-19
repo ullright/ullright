@@ -35,7 +35,7 @@ class UllBookingAdvancedCreateForm extends UllBookingCreateForm
   {
     if ($values['recurring'] != 'n')
     {
-      $repeatValidator = new sfValidatorInteger(array('min' => 1, 'max' => 10));
+      $repeatValidator = new sfValidatorInteger(array('min' => 2, 'max' => 52));
       try
       {
         $repeatValidator->clean($values['repeats']);
