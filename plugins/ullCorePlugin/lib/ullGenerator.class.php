@@ -463,7 +463,11 @@ abstract class ullGenerator extends ullGeneratorBase
           {
             $translationColumnName = $columnName . '_translation_' . $culture;
             $ullMetaWidget->addToFormAs($translationColumnName);
-            $label = $columnConfig->getLabel() . ' ' . strtoupper($culture);
+            $label = $columnConfig->getLabel();
+            if (count($cultures) > 1)
+            {
+              $label .= ' ' . strtoupper($culture);
+            }
             $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
           }
         }
