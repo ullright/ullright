@@ -9,7 +9,11 @@
 abstract class ullGeneratorEditActionButton
 {
   protected
-    $action
+    $action, 
+    
+    // primary = main action on the left side, otherwise render as secondory
+    // action on the right side
+    $isPrimary = true    
   ;
 
   /**
@@ -18,9 +22,10 @@ abstract class ullGeneratorEditActionButton
    * @param sfRequest $request
    * @return none
    */
-  public function __construct(sfAction $action)
+  public function __construct(sfAction $action, $isPrimary = true)
   {
     $this->action = $action;
+    $this->isPrimary = (boolean) $isPrimary;
   }
   
   /**
@@ -36,5 +41,13 @@ abstract class ullGeneratorEditActionButton
    * @return unknown_type
    */
   abstract public function executePostFormBindAndSave();
+  
+
+  /**
+   * To choose the side on witch the button will be rendered
+   */
+  public function isPrimary(){
+    return (boolean) $isPrimary;
+  }
   
 }

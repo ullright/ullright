@@ -2,7 +2,7 @@
 
 <?php if (isset($buttons) && count($buttons)): ?>
   <?php foreach ($buttons as $button): ?>
-    <?php if ($button->isPrimary()):?>      
+    <?php if (!$button->isPrimary()):?>      
         <li>
           <?php echo $button->render() ?>
         </li>

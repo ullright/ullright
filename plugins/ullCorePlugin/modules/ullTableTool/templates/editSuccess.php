@@ -75,6 +75,10 @@
           ?> &nbsp; 
         <?php endif; ?>
       </li>
+      
+      <?php if (isset($edit_action_buttons)): ?>
+          <?php  include_partial('ullTableTool/editActionButtonsRight', array('buttons' => $edit_action_buttons)) ?>
+        <?php endif ?>
     </ul>
   </div>
 

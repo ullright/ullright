@@ -16,7 +16,7 @@ class ullGeneratorEditActionButtonCmsSaveAndCreateNews extends ullGeneratorEditA
    */
   public function render()
   {
-    return ull_submit_tag(
+    return ull_link_to(
       __('Save and create news entry', null, 'ullNewsMessages'),
       array('name' => 'submit|action_slug=save_create_news')
     );      
@@ -33,6 +33,11 @@ class ullGeneratorEditActionButtonCmsSaveAndCreateNews extends ullGeneratorEditA
     {
       $this->action->redirect('ullNews/create?cmsSlug=' . $this->action->generator->getRow()->slug);
     }   
+  }
+  
+  public function isLeftButton()
+  {
+    return false;
   }
   
 }
