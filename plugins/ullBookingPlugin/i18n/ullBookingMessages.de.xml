@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit id="1">
+        <source>Bookable</source>
+        <target>Buchbar</target>
+      </trans-unit>
+
+      <trans-unit id="2">
+        <source>Display schedule for date</source>
+        <target>Zeitplan für dieses Datum anzeigen</target>
+      </trans-unit>
+
+      <trans-unit id="3">
+        <source>Legend</source>
+        <target>Legende</target>
+      </trans-unit>
+
+      <trans-unit id="4">
+        <source>Select date</source>
+        <target>Datum auswählen</target>
+      </trans-unit>
+
+      <trans-unit id="5">
+        <source>Create new booking</source>
+        <target>Neue Buchung anlegen</target>
+      </trans-unit>
+
+      <trans-unit id="6">
+        <source>Recurring booking - there are %count% reservations in this group.</source>
+        <target>Periodische Buchung - diese Gruppe hat %count% einzelne Buchungen.</target>
+      </trans-unit>
+
+      <trans-unit id="8">
+        <source>Delete this single booking</source>
+        <target>Diese Einzelbuchung löschen</target>
+      </trans-unit>
+
+      <trans-unit id="9">
+        <source>Delete only this booking</source>
+        <target>Nur diese eine Buchung löschen</target>
+      </trans-unit>
+
+      <trans-unit id="10">
+        <source>Delete entire group</source>
+        <target>Die ganze Buchungsgruppe löschen</target>
+      </trans-unit>
+
+      <trans-unit id="11">
+        <source>or</source>
+        <target>oder</target>
+      </trans-unit>
+
+      <trans-unit id="12">
+        <source>Resource</source>
+        <target>Ressource</target>
+      </trans-unit>
+
+      <trans-unit id="13">
+        <source>Show advanced options</source>
+        <target>Erweiterte Optionen anzeigen</target>
+      </trans-unit>
+
+      <trans-unit id="14">
+        <source>Recurrence period</source>
+        <target>Periode</target>
+      </trans-unit>
+
+      <trans-unit id="15">
+        <source>Repeats</source>
+        <target>Wiederholungen</target>
+      </trans-unit>
+
+      <trans-unit id="16">
+        <source>Not recurring</source>
+        <target>Einzelbuchung</target>
+      </trans-unit>
+
+      <trans-unit id="17">
+        <source>Daily</source>
+        <target>Täglich</target>
+      </trans-unit>
+
+      <trans-unit id="18">
+        <source>Weekly</source>
+        <target>Wöchentlich</target>
+      </trans-unit>
+      
+      <trans-unit id="19">
+        <source>The resource you selected is already reserved during the following time periods:</source>
+        <target>Die ausgewählte Ressource ist während den folgenden Zeitperioden bereits reserviert:</target>
+      </trans-unit>
+      
+      <trans-unit id="20">
+        <source>Could not save a booking with the dates you selected.</source>
+        <target>Eine neue Buchung für die gewählten Daten konnte nicht erstellt werden.</target>
+      </trans-unit>
+      
+      <trans-unit id="21">
+        <source>Overlapping bookings!</source>
+        <target>Überbuchung!</target>
+      </trans-unit>
+      
+      <trans-unit id="22">
+        <source>Loading</source>
+        <target>Wird geladen</target>
+      </trans-unit>
+      
+      <trans-unit id="23">
+        <source>Show all bookings in this group</source>
+        <target>Alle Buchungen dieser Gruppe anzeigen</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
