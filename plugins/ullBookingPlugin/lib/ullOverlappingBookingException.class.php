@@ -1,4 +1,9 @@
 <?php
+/**
+ * This exception wraps overlapping bookings, and
+ * is thrown e.g. by ullRecurringBooking and
+ * PluginUllBooking in case of a failed reservation.
+ */
 class ullOverlappingBookingException extends DomainException
 {
   protected $overlappingBookings;
@@ -14,9 +19,8 @@ class ullOverlappingBookingException extends DomainException
     return $this->overlappingBookings;
   }
   
-  public function setOverlappingBookings($overlappingBookings)
+  protected function setOverlappingBookings($overlappingBookings)
   {
     $this->overlappingBookings = $overlappingBookings;
   }
-  
 }
