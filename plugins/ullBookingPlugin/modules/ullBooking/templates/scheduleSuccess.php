@@ -156,13 +156,15 @@
             <?php if (UllUserTable::hasPermission('ull_booking_delete')) : ?> 
               <?php 
                 $deleteLinks = link_to(__((($isGroup) ? 'Delete only this booking' :
-                  'Delete this single booking'), null, 'ullBookingMessages'), 'booking_delete', array('id' => $booking_id));
+                  'Delete this single booking'), null, 'ullBookingMessages'), 'booking_delete',
+                  array('id' => $booking_id, 'viewDate' => $date));
               
                 if ($isGroup)
                 {
                   $deleteLinks .= ' ' . __('or', null, 'ullBookingMessages') . ' ' .
                     link_to(__('Delete entire group', null, 'ullBookingMessages'),
-                    'booking_delete', array('groupName' => $info_entry['bookingGroupName']));
+                    'booking_delete', array('groupName' => $info_entry['bookingGroupName'],
+                    'viewDate' => $date));
                 }
                 
                 echo $deleteLinks;

@@ -222,7 +222,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
   
   /**
    * Handles deletion of a booking (optionally for an entire
-   * booking group) and redirects to the referring schedule.
+   * booking group) and redirects back to the schedule.
    */
   public function executeDelete(sfRequest $request)
   {
@@ -233,9 +233,10 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     
     $groupName = $request->getParameter('groupName');
     $bookingId = $request->getParameter('id');
-    if (!$groupName && !$bookingId)
+    $viewDate = $request->getParameter('viewDate');
+    if ((!$groupName && !$bookingId) || !$viewDate)
     {
-      throw new InvalidArgumentException("The 'groupName' or the 'id' parameter has to be set");
+      throw new InvalidArgumentException("The 'viewDate' and either 'groupName' or 'id' parameter have to be set");
     }
     
     $fieldName = ($groupName) ? 'booking_group_name' : 'id';
@@ -248,9 +249,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     ;
     $q->execute();
     
-    //redirect to referer
-    $referer = $request->getReferer();
-    $this->redirect($referer ? $referer : 'booking_schedule');
+    $this->redirect(url_for('booking_schedule', array('fields[date]' => date('Y-m-d', $viewDate))));
   }
   
   /**
