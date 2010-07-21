@@ -38,6 +38,11 @@ class ullRecurringBooking
    */
   protected static function buildRecurringBookings(UllBooking $originalBooking, $recurrencePeriod, $repeats)
   {
+    //TODO: after building all bookings we should check them for overlaps
+    //e.g. daily repeating an original booking spanning multiple days would
+    //cause this function to return overlapping bookings
+    //we should throw an invalidargumentexception in this case
+    
     $recurrenceString = self::parseRecurrencePeriod($recurrencePeriod);
 
     $bookings = array();
