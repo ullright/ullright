@@ -46,7 +46,7 @@ abstract class PluginUllBooking extends BaseUllBooking
       $q
         ->from('UllBooking b')
         //overlapping date range?
-        ->where('? <= b.end AND b.start <= ?', array($this->start, $this->end))
+        ->where('? < b.end AND b.start < ?', array($this->start, $this->end))
         //only check for desired booking resource
         ->andWhere('b.ull_booking_resource_id = ?', $this->ull_booking_resource_id)
       ;
@@ -63,9 +63,9 @@ abstract class PluginUllBooking extends BaseUllBooking
         throw new ullOverlappingBookingException($results);
       }
       
-      //if this is a recurring booking, the
-      //group name is already set, but not for
-      //single bookings
+      //if this is a recurring booking or an
+      //existing booking, the group name is
+      //already set, but not for single bookings
       if (empty($this->booking_group_name))
       {
         $this->setNewBookingGroup();
