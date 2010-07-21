@@ -111,6 +111,11 @@
         <source>Show all bookings in this group</source>
         <target>Alle Buchungen dieser Gruppe anzeigen</target>
       </trans-unit>
+      
+      <trans-unit id="24">
+        <source>Could not save changes to the booking.</source>
+        <target>Die Buchungsänderung wurde nicht gespeichert.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

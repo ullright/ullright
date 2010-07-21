@@ -16,6 +16,10 @@ booking_create:
   url:     /booking/create
   param:   { module: ullBooking, action: create }
 
+booking_edit:
+  url:     /booking/edit/*
+  param:   { module: ullBooking, action: edit }
+
 booking_delete:
   url:     /booking/delete
   param:   { module: ullBooking, action: delete }

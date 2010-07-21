@@ -190,7 +190,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
           }
           
           //if reservation was successful, redirect to the schedule view
-          //for the date of the (first) booking
+          //of the date of the (first) booking
           $this->redirect(url_for('booking_schedule',
             array('fields[date]' => $this->validationForm->getValue('date'))));
         }
@@ -250,6 +250,100 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     $q->execute();
     
     $this->redirect(url_for('booking_schedule', array('fields[date]' => date('Y-m-d', $viewDate))));
+  }
+  
+  public function executeEdit(sfRequest $request)
+  {
+    $this->checkPermission('ull_booking_edit');
+    
+    $groupName = $request->getParameter('groupName');
+    $singleId = $request->getParameter('singleId');
+    if (!$groupName && !$singleId)
+    {
+      throw new InvalidArgumentException("The 'groupName' or 'singleId' parameter has to be set");
+    }
+    
+    $isGroupEdit = ($groupName) ? true : false;
+    
+    if ($isGroupEdit)
+    {
+      $this->redirectUnless(count($bookings = Doctrine::getTable('UllBooking')
+        ->findByBookingGroupName($groupName)), 'booking_schedule');
+      $booking = $bookings[0];
+      $this->group_name = $groupName;
+    }
+    else
+    {
+      $this->redirectUnless($booking = Doctrine::getTable('UllBooking')->find($singleId), 'booking_schedule');
+      $this->single_id = $singleId; 
+    }
+    
+    $this->form = new UllBookingCreateForm();
+    
+    //parse existing booking data
+    $defaults = array(
+      'date' => date('Y-m-d', strtotime($booking['start'])),
+      'name' => $booking['name'],
+      'time' => date('H:i', strtotime($booking['start'])),
+      'duration' => ullCoreTools::timeToString(strtotime($booking['end']) - strtotime($booking['start'])),
+      'booking_resource' => $booking['ull_booking_resource_id']);
+    
+    $this->form->setDefaults($defaults);
+    
+    if ($isGroupEdit)
+    {
+      //if we are editing multiple bookings, disable the date field
+      unset ($this->form['date']);
+    }
+    
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getParameter('fields'));
+
+      if ($this->form->isValid())
+      {
+        try
+        {
+          if ($isGroupEdit)
+          {
+            foreach ($bookings as $booking)
+            {
+              $booking['name'] = $this->form->getValue('name');
+              $booking['ull_booking_resource_id'] = $this->form->getValue('booking_resource');
+              $booking['start'] = date('Y-m-d', strtotime($booking['start'])) . ' ' .
+                ullCoreTools::timeToString($this->form->getValue('time'));
+              $booking['end'] = date('Y-m-d H:i:s', strtotime($booking['start']) + $this->form->getValue('duration'));
+            }
+            UllBookingTable::saveMultipleBookings($bookings);
+          }
+          else
+          {
+            $booking['name'] = $this->form->getValue('name');
+            $booking['ull_booking_resource_id'] = $this->form->getValue('booking_resource');
+            $startTimestamp = strtotime($this->form->getValue('date')) + $this->form->getValue('time');
+            $booking['start'] = date('Y-m-d H:i:s', $startTimestamp);
+            $booking['end'] = date('Y-m-d H:i:s', $startTimestamp + $this->form->getValue('duration'));
+            
+            $booking->save();
+          }
+          
+          //redirect to the schedule view of the date of the booking
+          $this->redirect(url_for('booking_schedule',
+            array('fields[date]' => $this->form->getValue('date'))));
+        }
+        catch (ullOverlappingBookingException $e)
+        {
+          //one or more bookings were unsuccessful, retrieve
+          //the list of bookings which caused them to fail
+          //and put them into an array for the view
+          $this->overlappingBookings = array();
+          foreach($e->getOverlappingBookings() as $overlappingBooking)
+          {
+            $this->overlappingBookings[] = $overlappingBooking['name'] . ' - ' . $overlappingBooking->formatDateRange();
+          }
+        }
+      }
+    }
   }
   
   /**
