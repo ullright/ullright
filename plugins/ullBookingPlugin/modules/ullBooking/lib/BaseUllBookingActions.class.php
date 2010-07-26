@@ -252,6 +252,10 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     $this->redirect(url_for('booking_schedule', array('fields[date]' => date('Y-m-d', $viewDate))));
   }
   
+  /**
+   * Handles editing of single and group bookings,
+   * redirects to schedule
+   */
   public function executeEdit(sfRequest $request)
   {
     $this->checkPermission('ull_booking_edit');

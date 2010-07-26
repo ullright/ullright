@@ -38,7 +38,7 @@
       </trans-unit>
 
       <trans-unit id="9">
-        <source>Delete only this booking</source>
+        <source>Delete this booking only</source>
         <target>Nur diese eine Buchung löschen</target>
       </trans-unit>
 
@@ -115,6 +115,21 @@
       <trans-unit id="24">
         <source>Could not save changes to the booking.</source>
         <target>Die Buchungsänderung wurde nicht gespeichert.</target>
+      </trans-unit>
+      
+      <trans-unit id="25">
+        <source>Edit this single booking</source>
+        <target>Diese Einzelbuchung editieren</target>
+      </trans-unit>
+
+      <trans-unit id="26">
+        <source>Edit this booking only</source>
+        <target>Nur diese eine Buchung editieren</target>
+      </trans-unit>
+
+      <trans-unit id="27">
+        <source>Edit entire group</source>
+        <target>Die ganze Buchungsgruppe editieren</target>
       </trans-unit>
     </body>
   </file>

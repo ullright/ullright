@@ -69,7 +69,7 @@
     </div>
   </div>
   
-  <!-- info section (select date, legend, create, info/delete) -->
+  <!-- info section (select date, legend, create, info/delete/edit) -->
   <div id="booking_schedule_info">
     <h2><?php echo __('Select date', null, 'ullBookingMessages'); ?></h2>
     <form id="booking_schedule_select_form" action="<?php echo url_for('booking_schedule') ?>" method="post">
@@ -94,7 +94,7 @@
       <?php echo link_to(__('Create new booking', null, 'ullBookingMessages'), 'booking_create'); ?>
     <?php endif; ?>
     
-    <!-- info/delete -->
+    <!-- info (delete, edit) -->
     <?php if (count($booking_info_list) > 0) : ?> 
       <h3><?php echo ('Info'); ?></h3>
       <ul id="booking_delete_list">
@@ -153,9 +153,11 @@
               </script>
             <?php endif; ?>
             
+            <!-- delete -->
+            
             <?php if (UllUserTable::hasPermission('ull_booking_delete')) : ?> 
               <?php 
-                $deleteLinks = link_to(__((($isGroup) ? 'Delete only this booking' :
+                $deleteLinks = link_to(__((($isGroup) ? 'Delete this booking only' :
                   'Delete this single booking'), null, 'ullBookingMessages'), 'booking_delete',
                   array('id' => $booking_id, 'viewDate' => $date));
               
@@ -168,6 +170,27 @@
                 }
                 
                 echo $deleteLinks;
+              ?>
+            <?php endif; ?>
+            
+            <br />
+            
+            <!-- edit -->
+            
+            <?php if (UllUserTable::hasPermission('ull_booking_edit')) : ?> 
+              <?php 
+                $editLinks = link_to(__((($isGroup) ? 'Edit this booking only' :
+                  'Edit this single booking'), null, 'ullBookingMessages'), 'booking_edit',
+                  array('singleId' => $booking_id));
+              
+                if ($isGroup)
+                {
+                  $editLinks .= ' ' . __('or', null, 'ullBookingMessages') . ' ' .
+                    link_to(__('Edit entire group', null, 'ullBookingMessages'),
+                    'booking_edit', array('groupName' => $info_entry['bookingGroupName']));
+                }
+                
+                echo $editLinks;;
               ?>
             <?php endif; ?>
           </li>
