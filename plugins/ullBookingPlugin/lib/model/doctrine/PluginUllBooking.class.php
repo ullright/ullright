@@ -15,17 +15,35 @@ abstract class PluginUllBooking extends BaseUllBooking
    * secure booking, meaning transactional checking for overlapping
    * dates.
    * 
+   * The ids specified in $idWhitelist are exempt from this collision
+   * check. This functionality is needed for editing multiple bookings
+   * at once and should be used with care!
+   * 
    * Throws:
    * DomainException - if the end date is before the start date
    * ullOverlappingBookingException - if the desired date range
    *  is not avilable, i.e. already booked. This exception wraps
    *  the bookings which caused the exception to be thrown
    *  
+   *  @param Doctrine_Connection $conn
+   *  @param array $idWhitelist list of bookings ids to exempt from overlap check
+   *  
    *  @return ullBooking $this
    */
-  public function save(Doctrine_Connection $conn = null)
+  public function save(Doctrine_Connection $conn = null, $idWhitelist = array())
   {
     $conn = ($conn) ? $conn : Doctrine_Manager::connection();
+    
+    if (!is_array($idWhitelist))
+    {
+      throw new InvalidArgumentException('id whitelist has to be an array');
+    }
+    
+    //if this booking is not a new one, add its own id to the whitelist
+    if ($this->exists())
+    {
+      $idWhitelist[] = $this->id;
+    }
     
     //put booking range overlap check and record save into
     //a transaction with highest isolation level to
@@ -51,10 +69,10 @@ abstract class PluginUllBooking extends BaseUllBooking
         ->andWhere('b.ull_booking_resource_id = ?', $this->ull_booking_resource_id)
       ;
       
-      //do not check our own booking
-      if ($this->exists())
+      //exempt whitelisted ids from overlap check
+      if (count($idWhitelist) > 0)
       {
-        $q->addWhere('b.id != ?', $this->id);
+        $q->andWhereNotIn('b.id', $idWhitelist);
       }
       
       $results = $q->execute();

@@ -306,12 +306,6 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
         {
           if ($isGroupEdit)
           {
-            //TODO: handle special case:
-            //e.g. daily event. beginning 9:00
-            //change that to 23:45 with long duration -> end 9:45 next day
-            //we get overlapping exceptions caused by bookings from our group!
-            //solution: in a booking's save() we exempt its id, we need to do that
-            //for all ids of the booking group we're updating
             foreach ($bookings as $booking)
             {
               $booking['name'] = $this->form->getValue('name');

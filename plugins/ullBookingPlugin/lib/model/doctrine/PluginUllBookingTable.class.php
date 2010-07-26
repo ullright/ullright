@@ -81,7 +81,8 @@ class PluginUllBookingTable extends UllRecordTable
   public static function saveMultipleBookings($bookings)
   {
     $overlappingBookings = new Doctrine_Collection('UllBooking');
-
+    $idWhitelist = array();
+    
     //put separate bookings into a transaction
     //with highest isolation level to prevent overbooking
     $conn = Doctrine_Manager::connection();
@@ -89,17 +90,34 @@ class PluginUllBookingTable extends UllRecordTable
     $transaction = $conn->transaction;
     $transaction->setIsolation('SERIALIZABLE');
 
+    //build a complete whitelist of booking ids, we do this
+    //because we need to exclude these ids from the overlap
+    //check - which happens in UllBooking->save() - for a
+    //special case like this one:
+    //assume a daily event, beginning 9:00
+    //change that to 23:45, with a duration of 10 hours
+    //-> new end date would be 9:45 next day, which overlaps
+    //with next day's old booking -> overlapping exceptions caused
+    //by existing bookings from the same group
+           
+    foreach ($bookings as $booking)
+    {
+      if ($booking->exists())
+      {
+        $idWhitelist[] = $booking->id;
+      }
+    }
+    
     //note that each booking is in a separate try-block:
     //even if one fails, the other ones will still
     //try to persist - we do this because in case
     //of overlapping date ranges we want to return ALL
     //dates which fail, not just the first one
-
     for ($i = 0; $i < count($bookings); $i++)
     {
       try
       {
-        $bookings[$i]->save();
+        $bookings[$i]->save($conn, $idWhitelist);
       }
       catch (ullOverlappingBookingException $e)
       {
