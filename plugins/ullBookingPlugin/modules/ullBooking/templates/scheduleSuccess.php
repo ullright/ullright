@@ -1,12 +1,7 @@
 <div id="booking_schedule">
-  
-  <?php //TODO: put 'opening hours' into configuration ?>
-  <?php $startDisplay = 9; ?>
-  <?php $endDisplay = 22; ?>
-  
-  <!-- table/cell section -->
+
+  <!-- table and cell grid section -->
   <div id="booking_schedule_content">
-    
     <!-- big date/day of week header -->
     <div class="booking_schedule_day_header">
       <h2><?php echo link_to('&larr;', 'booking_schedule', array('fields[date]' => $previous_day)) . ' ' .
@@ -15,58 +10,7 @@
       <h3><?php echo format_datetime($date, 'EEEE');?></h3>
     </div>
     
-    
-    <div id="booking_schedule_cells">  
-      
-      <!-- header row with characters for resources -->
-      <div class="booking_schedule_row">
-        <span class="booking_schedule_time_cell booking_schedule_cell">
-        </span>
-        <?php for ($i = 0; $i < $number_booking_resources; $i++) : ?>
-          <span class="booking_schedule_header_cell booking_schedule_cell">
-            <?php echo chr($i + ord('A')); ?>
-          </span>
-        <?php endfor; ?>
-      </div>
-      
-      <!-- data rows -->
-      <?php for ($i = $startDisplay * 4; $i < $endDisplay * 4; $i++) : ?>
-        <div class="booking_schedule_row">
-          <!-- time cell -->
-          <?php
-            $hours = (int)($i / 4);
-            $minutes = $i % 4 * 15;
-            $time = (($hours) ? $hours : '00') . ':' . (($minutes) ? $minutes : '00');
-          ?>
-          <span class="booking_schedule_time_cell booking_schedule_cell"><?php echo $time; ?></span>
-          
-          <!-- data cell (free/occupied) -->
-          <?php for ($j = 0; $j < $number_booking_resources; $j++) : ?>
-          
-            <?php $occupied = (isset($cell_status[$j][$i])) ? true : false; ?>
-            <?php
-              $cell_classes  = 'booking_schedule_cell booking_schedule_cell_';
-              $cell_classes .= ($occupied) ? 'occupied booking_schedule_cell_' .
-                $cell_status[$j][$i]['cellType'] : 'free';
-            ?>
-            <span class="<?php echo $cell_classes; ?>"
-              <?php echo ($occupied) ? 'title="' . $cell_status[$j][$i]['bookingName'] . '"' : ''; ?>>
-            </span> 
-          <?php endfor; ?>
-        </div>
-      <?php endfor; ?>
-      
-      <!-- one additional row with only a single time cell -->
-      <div class="booking_schedule_row">
-        <?php
-          //TODO: put all this time calculation stuff into action/helper, it's the same as above
-          $hours = (int)($i / 4);
-          $minutes = $i % 4 * 15;
-          $time = (($hours) ? $hours : '00') . ':' . (($minutes) ? $minutes : '00');
-        ?>
-        <span class="booking_schedule_time_cell booking_schedule_cell"><?php echo $time; ?></span>
-      </div>
-    </div>
+    <?php include_partial('scheduleGrid', array('cell_status' => $cell_status)); ?>
   </div>
   
   <!-- info section (select date, legend, create, info/delete/edit) -->
@@ -81,7 +25,7 @@
     <!-- legend -->
     <h3><?php echo __('Legend', null, 'ullBookingMessages'); ?></h3>
     <table id="booking_schedule_legend">
-      <?php for ($i = 0; $i < $number_booking_resources; $i++) : ?>
+      <?php for ($i = 0; $i < count($cell_status); $i++) : ?>
         <tr>
           <td class="booking_schedule_legend_char"><?php echo chr($i + ord('A')); ?></td><td>&ndash;</td><td><?php echo $cell_status[$i]['name']; ?></td>
         </tr>

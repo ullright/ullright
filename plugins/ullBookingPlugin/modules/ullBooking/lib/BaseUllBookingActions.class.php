@@ -130,7 +130,6 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     
     //reindex array, makes it easier to iterate in the view
     $this->cell_status = array_values($this->cell_status);
-    $this->number_booking_resources = count($this->cell_status);
   }
 
   /**
