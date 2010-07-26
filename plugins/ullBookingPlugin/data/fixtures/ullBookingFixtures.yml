@@ -42,4 +42,48 @@ UllBooking:
     name: 'Test booking #3'
     start: '2010-07-10 14:00:00'
     end: '2010-07-10 17:00:00'
- 
+
+    
+UllGroup:
+  ull_group_booking_admins:
+    display_name:       BookingAdmins
+    namespace:          ull_booking  
+
+UllPermission:
+  ull_permission_booking_index:
+    slug:               ull_booking_index
+    namespace:          ull_booking
+  ull_permission_booking_schedule:
+    slug:               ull_booking_schedule
+    namespace:          ull_booking
+  ull_permission_booking_create:
+    slug:               ull_booking_create
+    namespace:          ull_booking
+  ull_permission_booking_edit:
+    slug:               ull_booking_edit
+    namespace:          ull_booking
+  ull_permission_booking_delete:
+    slug:               ull_booking_delete
+    namespace:          ull_booking        
+         
+UllGroupPermission:
+  ull_group_permission_ull_booking_index:
+    UllGroup:           ull_group_booking_admins
+    UllPermission:      ull_permission_booking_index
+    namespace:          ull_booking
+  ull_group_permission_ull_booking_schedule:
+    UllGroup:           ull_group_booking_admins
+    UllPermission:      ull_permission_booking_schedule
+    namespace:          ull_booking
+  ull_group_permission_ull_booking_create:
+    UllGroup:           ull_group_booking_admins
+    UllPermission:      ull_permission_booking_create
+    namespace:          ull_booking
+  ull_group_permission_ull_booking_edit:
+    UllGroup:           ull_group_booking_admins
+    UllPermission:      ull_permission_booking_edit
+    namespace:          ull_booking
+  ull_group_permission_ull_booking_delete:
+    UllGroup:           ull_group_booking_admins
+    UllPermission:      ull_permission_booking_delete
+    namespace:          ull_booking
