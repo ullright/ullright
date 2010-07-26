@@ -466,4 +466,52 @@ class ullCoreTools
       return true;
     }
   }
+  
+  /**
+   * Returns a list of hour:minute strings; the starting
+   * hour, ending hour and interval size parameters can
+   * be specified.
+   * 
+   * e.g. fromHour = 4, endHour = 6 and interval = 30
+   * would return this array: [4:00, 4:30, 5:00, 5:30, 6:00]
+   * 
+   * If endHour is 24, the last element of the array
+   * gets fixed to '0:00' instead of '24:00'
+   * 
+   * @param int $fromHour the starting hour
+   * @param int $endHour the ending hour
+   * @param int $interval the interval in minutes, must evenly divide 60
+   * @return array a list of time stamps
+   */
+  public static function getTimeIntervalList($fromHour, $endHour, $interval)
+  {
+    $divider = 60 / $interval;
+    if (!is_int($divider))
+    {
+      throw new InvalidArgumentException("Interval '" . $interval . "' does not evenly divide 60");
+    }
+    
+    if ($fromHour < 0)
+    {
+      throw new InvalidArgumentException('fromHour must not be negative');
+    }
+    
+    if ($endHour <= $fromHour || $endHour > 24)
+    {
+      throw new InvalidArgumentException('endHour is invalid (<= fromHour or > 24)');
+    }
+    
+    $intervals = array();
+    
+    for ($i = $fromHour * $divider; $i <= $endHour * $divider; $i++)
+    {
+      $hours = (int)($i / $divider);
+      $minutes = $i % $divider * $interval;
+      $intervals[] = (($hours) ? $hours : '00') . ':' . (($minutes) ? $minutes : '00');
+    }
+    
+    $intervals[] = (($lastElement = array_pop($intervals)) == '24:00') ? '0:00' : $lastElement;
+    
+    return $intervals;
+  }
 }
