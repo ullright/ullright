@@ -10,7 +10,8 @@
       <h3><?php echo format_datetime($date, 'EEEE');?></h3>
     </div>
     
-    <?php include_partial('scheduleGrid', array('cell_status' => $cell_status)); ?>
+    <?php include_partial('scheduleGrid',
+      array('start_hour' => $start_hour, 'end_hour' => $end_hour, 'cell_status' => $cell_status)); ?>
   </div>
   
   <!-- info section (select date, legend, create, info/delete/edit) -->

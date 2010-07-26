@@ -1,9 +1,5 @@
 <div id="booking_schedule_cells">  
 
-  <?php //TODO: put 'opening hours' into configuration ?>
-  <?php $startHour = 9; ?>
-  <?php $endHour = 22; ?>
- 
   <!-- header row with characters for resources -->
   <div class="booking_schedule_row">
     <span class="booking_schedule_time_cell booking_schedule_cell"></span>
@@ -15,8 +11,8 @@
   </div>
   
   <!-- data rows -->
-  <?php $intervals = ullCoreTools::getTimeIntervalList($startHour, $endHour, 15); ?>
-  <?php $indexOffset = $startHour * (60 / 15); ?>
+  <?php $intervals = ullCoreTools::getTimeIntervalList($start_hour, $end_hour, 15); ?>
+  <?php $indexOffset = $start_hour * (60 / 15); ?>
   
   <?php
     //last time interval is rendered later on

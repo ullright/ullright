@@ -130,6 +130,10 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     
     //reindex array, makes it easier to iterate in the view
     $this->cell_status = array_values($this->cell_status);
+    
+    //read start/end hours from config
+    $this->start_hour = sfConfig::get('app_ull_booking_schedule_start_hour', 9);
+    $this->end_hour = sfConfig::get('app_ull_booking_schedule_end_hour', 22);
   }
 
   /**
