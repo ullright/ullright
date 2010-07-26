@@ -13,9 +13,14 @@ class ullRecurringBooking
    * booking is persisted or none at all.
    *
    * Throws ullOverlappingBookingException if at least one of the
-   * bookings was not successful due to overlapping date ranges.
+   * bookings was not successful due to overlapping date ranges
+   * defined by existing bookings.
    * This exception wraps the bookings which caused it to occur.
    *
+   * Throws InvalidArgumentException if the combination of booking
+   * duration and recurrence period would cause the creation of new
+   * overlapping bookings.
+   * 
    * @param UllBooking $originalBooking - the 'starting' booking
    * @param string $recurrencePeriod - 'w' for weekly or 'd' for daily
    * @param int $repeats the number of times the reservation will repeat
@@ -30,6 +35,9 @@ class ullRecurringBooking
   /**
    * Builds an array of bookings starting from a given
    * booking, a recurrence period and a repeat count.
+   * 
+   * If the combination of booking duration and recurrence period would
+   * cause overlapping bookings, an InvalidArgumentException is thrown.
    *
    * @param UllBooking $originalBooking - the 'starting' booking
    * @param string $recurrencePeriod - 'w' for weekly or 'd' for daily
@@ -37,12 +45,7 @@ class ullRecurringBooking
    * @return array containing the new bookings, booking[0] is $originalBooking
    */
   protected static function buildRecurringBookings(UllBooking $originalBooking, $recurrencePeriod, $repeats)
-  {
-    //TODO: after building all bookings we should check them for overlaps
-    //e.g. daily repeating an original booking spanning multiple days would
-    //cause this function to return overlapping bookings
-    //we should throw an invalidargumentexception in this case
-    
+  { 
     $recurrenceString = self::parseRecurrencePeriod($recurrencePeriod);
 
     $bookings = array();
@@ -63,7 +66,16 @@ class ullRecurringBooking
 
       $booking->start = date('c', $startDate);
       $booking->end = date('c', $endDate);
-
+      
+      //Check the booking we just built and the one before for collisions
+      //why? e.g. a daily repeating booking spanning multiple days
+      //would cause this function to return overlapping bookings
+      if (strtotime($bookings[$i - 1]->end) > $startDate)
+      {
+        throw new InvalidArgumentException(
+          'Combination of booking duration and recurrence period would result in overlapping bookings');
+      }
+      
       $bookings[] = $booking;
     }
 
