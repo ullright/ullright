@@ -6,18 +6,37 @@ class myTestCase extends sfDoctrineTestCase
 {
 }
 
-$t = new myTestCase(32, new lime_output_color, $configuration);
+$t = new myTestCase(33, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$t->begin('createRecurringBooking() with invalid recurrence period');
+//test invalid combination of duration and recurrence period
+$t->begin('createRecurringBooking() with invalid combination of duration and recurrence period');
 
   $booking = new UllBooking();
   $booking->name = 'TestBooking';
+  $booking->ull_booking_resource_id = 2;
+  $booking->start = '2020-12-20 10:00:00';
+  $booking->end = '2020-12-21 10:00:01';
+  
+  try
+  {
+    //daily repeating the booking would cause overlapping bookings
+    ullRecurringBooking::createRecurringBooking($booking, 'd', 3);
+    $t->fail('Invalid combination of duration and recurrence period NOT caught');
+  }
+  catch (InvalidArgumentException $e)
+  {
+    $t->pass('Invalid combination of duration and recurrence period caught');
+  }
+
+  
+//test invalid recurrent period parameter
+$t->diag('createRecurringBooking() with invalid recurrence period');
+
   $booking->start = '2020-12-20 06:15:00';
   $booking->end = '2020-12-21 03:30:00';
-  $booking->ull_booking_resource_id = 2;
-
+ 
   try
   {
     //'b' is not valid ('w' and 'd' is)
@@ -28,9 +47,10 @@ $t->begin('createRecurringBooking() with invalid recurrence period');
   {
     $t->pass('Invalid recurrence period caught');
   }
-
-  //simple recurring booking test
-  $t->diag('createRecurringBooking() simple');
+ 
+  
+//simple recurring booking test
+$t->diag('createRecurringBooking() simple');
   
   //three weekly repeats starting in december => test month and year calculations
   ullRecurringBooking::createRecurringBooking($booking, 'w', 3);
@@ -60,8 +80,8 @@ $t->begin('createRecurringBooking() with invalid recurrence period');
     $t->is($bookings[$i]->booking_group_name, $groupName, 'created correct booking');
   }
   
-  //recurring booking collision test
-  $t->diag('createRecurringBooking() with collisions');
+//recurring booking collision test
+$t->diag('createRecurringBooking() with collisions');
   
   $booking = new UllBooking();
   $booking->name = 'TestBookingCollision';
