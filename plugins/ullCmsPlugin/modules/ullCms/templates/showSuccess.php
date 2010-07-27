@@ -1,7 +1,5 @@
 <?php slot('sidebar') ?>
-  <ul id="sidebar_ull_cms">
-    <?php echo $sidebar_menu ?>
-  </ul>
+  <?php echo $sidebar_menu ?>
 <?php end_slot() ?>
 
 <h1>
