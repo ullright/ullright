@@ -1,10 +1,10 @@
 booking_resources_list:
   url:     /booking/resources
-  param:   { module: ullTableTool, action: list, table: ullBookingResource }
+  param:   { module: ullTableTool, action: list, table: UllBookingResource }
 
 booking_resources_edit:
   url:     /booking/resource/edit/:id
-  param:   { module: ullTableTool, action: edit, table: ullBookingResource }
+  param:   { module: ullTableTool, action: edit, table: UllBookingResource }
   requirements:
     id: \d+
 
