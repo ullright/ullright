@@ -64,29 +64,29 @@
   </div>
 <?php endif; ?>
 
+<?php //deactivated for now because we decided to always show advanced options ?>
+<?php if (false) : //if ($is_simple) : ?>
 <script type="text/javascript">
 //<![CDATA[
 $(document).ready(function()
-  {
-    if (<?php echo $is_simple; ?>)
-    {
-      $('.advanced_booking_field').hide();
-      $('.js_mandatory').show();
+{
+  $('.advanced_booking_field').hide();
+  $('.js_mandatory').show();
   
-      $("#show_advanced_link").click(function()
-      {
-        $('#simple_create_button').hide();
-        $("#show_advanced_link_row").fadeOut(function()
-        {
-          $('.advanced_booking_field').fadeIn();
-        });
+  $("#show_advanced_link").click(function()
+  {
+    $('#simple_create_button').hide();
+    $("#show_advanced_link_row").fadeOut(function()
+    {
+      $('.advanced_booking_field').fadeIn();
+    });
         
-        return false;
-      });
-    }
+    return false;
   });
+});
 //]]>  
 </script>
+<?php endif; ?>
 
 <?php use_javascripts_for_form($form); ?>
 <?php use_stylesheets_for_form($form); ?>
