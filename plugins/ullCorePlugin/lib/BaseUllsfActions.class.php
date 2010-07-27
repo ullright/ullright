@@ -155,7 +155,6 @@ abstract class BaseUllsfActions extends sfActions
       $params = $this->transformDates($params);
       
       $url = _ull_reqpass_build_url($params);
-
       /*
        $ullSearch = $this->getUser()->getFlash('ullSearch');
        if ($ullSearch != NULL)
@@ -169,6 +168,10 @@ abstract class BaseUllsfActions extends sfActions
     // TODO: usecase for this section?
     else
     {
+      //disabled for now, because we actually have no idea
+      //why this is here :)
+      
+      /*
       // decode params encoded by ull_sf_url_encode()
       $params = $this->getRequest()->getParameterHolder()->getAll();
       //      ullCoreTools::printR($params);
@@ -177,9 +180,10 @@ abstract class BaseUllsfActions extends sfActions
       {
         $this->getRequest()->setParameter($key, ull_sf_url_decode($value));
       }
-
+      
       //      $params = $this->getRequest()->getParameterHolder()->getAll();
       //      ullCoreTools::printR($params);
+      */
     }
   }
 
