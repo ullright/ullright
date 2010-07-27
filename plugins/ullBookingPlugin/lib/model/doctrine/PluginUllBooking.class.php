@@ -117,7 +117,9 @@ abstract class PluginUllBooking extends BaseUllBooking
   
   /**
    * Formats the range of time this booking occupies
-   * into a string.
+   * into a string. If the booking stretches over
+   * multiple days the output is complete, otherwise
+   * the date is only included once.
    * 
    * @return string the formatted range
    */
@@ -126,12 +128,43 @@ abstract class PluginUllBooking extends BaseUllBooking
     //format the date different if it does not occupy multiple days
     if (date('Y-m-d', strtotime($this->start)) == date('Y-m-d', strtotime($this->end)))
     {
-      return ull_format_datetime($this->start, $zeroPadding, false) . ' - ' . date('H:i', strtotime($this->end));
+      return ull_format_datetime($this->start, $zeroPadding, false) .
+        ' - ' . date('H:i', strtotime($this->end));
     } 
     else
     {
-      return ull_format_datetime($this->start, $zeroPadding, false) .
-        ' - ' . ull_format_datetime($this->end, $zeroPadding, false);
+      return $this->formatCompleteDateRange($zeroPadding);
     }
+  }
+  
+  /**
+   * Formats the range of time this booking occupies
+   * into a string. If it does not stretch over multiple
+   * days the date itself is omitted, e.g. possible
+   * output would be 10:00 - 14:00.
+   * 
+   * @return string the formatted range
+   */
+  public function formatDateRangeTimeOnly($zeroPadding = false)
+  {
+    //format the date different if it does not occupy multiple days
+    if (date('Y-m-d', strtotime($this->start)) == date('Y-m-d', strtotime($this->end)))
+    {
+      return date('H:i', strtotime($this->start)) . ' - ' . date('H:i', strtotime($this->end));
+    } 
+    else
+    {
+      return $this->formatCompleteDateRange($zeroPadding);
+    }
+  }
+  
+  /**
+   * Internal helper function which outputs the range
+   * of this booking with complete date and time.
+   */
+  protected function formatCompleteDateRange($zeroPadding = false)
+  {
+    return ull_format_datetime($this->start, $zeroPadding, false) .
+        ' - ' . ull_format_datetime($this->end, $zeroPadding, false);
   }
 }

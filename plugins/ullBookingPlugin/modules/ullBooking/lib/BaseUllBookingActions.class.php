@@ -112,7 +112,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
           'bookingGroupName' => $booking['booking_group_name'],
           'bookingGroupCount' => $booking['booking_group_count'],
           'resourceName' => $this->cell_status[$booking['ull_booking_resource_id']]['name'],
-          'range' => $booking->formatDateRange(),
+          'range' => $booking->formatDateRangeTimeOnly(),
         );
     }
     
