@@ -38,7 +38,8 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
   public function executeSchedule(sfRequest $request)
   {
     $this->checkPermission('ull_booking_schedule');
-
+    $this->ull_reqpass_redirect();
+    
     $this->date_select_form = new UllScheduleSelectForm();
     
     //no check for post action here, could be previous/next links
@@ -54,6 +55,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
 
     //no date selected? assume current date
     $this->date = (isset($date)) ? strtotime($date) : time();
+    $this->date_select_form->setDefault('date', date('Y-m-d', $this->date));
     $this->previous_day = date('Y-m-d', strtotime('yesterday', $this->date));
     $this->next_day = date('Y-m-d', strtotime('tomorrow', $this->date));
 
