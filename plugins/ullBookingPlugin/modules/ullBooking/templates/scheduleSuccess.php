@@ -4,10 +4,12 @@
   <div id="booking_schedule_content">
     <!-- big date/day of week header -->
     <div class="booking_schedule_day_header">
-      <h2><?php echo link_to('&larr;', 'booking_schedule', array('fields[date]' => $previous_day)) . ' ' .
-        ull_format_date($date, false) . ' ' .
-        link_to('&rarr;', 'booking_schedule', array('fields[date]' => $next_day)); ?></h2>
-      <h3><?php echo format_datetime($date, 'EEEE');?></h3>
+      <h2>
+        <?php echo link_to('&larr;', 'booking_schedule', array('fields[date]' => $previous_day)) ?>
+        <?php echo format_datetime($date, 'EEEE') ?>
+        <?php echo ull_format_date($date, false) ?>
+        <?php echo link_to('&rarr;', 'booking_schedule', array('fields[date]' => $next_day)) ?>
+      </h2>
     </div>
     
     <?php include_partial('scheduleGrid',
@@ -41,7 +43,7 @@
     
     <!-- info (delete, edit) -->
     <?php if (count($booking_info_list) > 0) : ?> 
-      <h3><?php echo ('Info'); ?></h3>
+      <h3><?php echo __('Bookings', null, 'ullBookingMessages') ?></h3>
       <ul id="booking_delete_list">
         <?php foreach ($booking_info_list as $booking_id => $info_entry) : ?>
           <li>
