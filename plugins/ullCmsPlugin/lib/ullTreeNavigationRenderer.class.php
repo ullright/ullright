@@ -46,7 +46,7 @@ class ullTreeMenuRenderer
   {
     $return = '';
     
-    if ($this->renderUlTag || $this->node->getLevel() >= 2)
+    if ($this->renderUlTag || $node->getLevel() >= 2)
     {
       $return .= '<ul class="ull_menu_' . ullCoreTools::htmlId($node->getData()->slug) . '">' . "\n";
     }
@@ -82,7 +82,7 @@ class ullTreeMenuRenderer
       }        
     }
     
-    if ($this->renderUlTag || $this->node->getLevel() >= 2)
+    if ($this->renderUlTag || $node->getLevel() >= 2)
     {
       $return .= '</ul>' . "\n";
     }
