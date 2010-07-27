@@ -58,57 +58,45 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     $this->next_day = date('Y-m-d', strtotime('tomorrow', $this->date));
 
     //calculate schedule cells - structure looks like this:
-    //array with booking resource ids as keys
+    //array with booking resource ids as keys (will be reindexed later on)
     //  subarray with
     //    24 hours/4*15 minutes = 96 cells with 0-95 as keys
     //    name key with translated booking resource name
     $this->cell_status = array();
 
-    //retrieve all booking resources
+    //retrieve all booking resources and store their (translated) names for the schedule legend
     $bookingResources = Doctrine_Core::getTable('UllBookingResource')->findBookableResources();
     foreach ($bookingResources as $bookingResource)
     {
-      //store the booking resource name for the schedule legend
       $this->cell_status[$bookingResource['id']]['name'] = $bookingResource['name'];
     }
 
-    //retrieve all bookings for the chosen day for bookable resources
+    //retrieve all bookings for the chosen day, only for bookable resources
     $bookings = UllBookingTable::findBookingsByDay($this->date, array_keys($this->cell_status));
     $this->booking_info_list = array();
     
     foreach ($bookings as $booking)
     {
-      //is the start date of this booking equal to the current date?
-      //most likely, but not in case of bookings spanning multiple days
-      if (date('Y-m-d', strtotime($booking['start'])) == date('Y-m-d', $this->date))
+      foreach(array('start', 'end') as $index)
       {
-        //parse hours (0-23)
-        $startHour = date('G', strtotime($booking['start']));
-        //parse minutes (0-59)
-        $startMinute = date('i', strtotime($booking['start']));
-
-        //as soon as the beginning of a quarter hour is transcended
-        //the cell gets marked (e.g. 16:01 means occupation until 16:15)
-        $startIndex = $startHour * 4 + ceil($startMinute / 15);
+        //is the start/end date of this booking equal to the current date?
+        //most likely, but not in case of a booking spanning multiple days
+        if (date('Y-m-d', strtotime($booking[$index])) == date('Y-m-d', $this->date))
+        {
+          $hour = date('G', strtotime($booking[$index]));   //parse hours (0-23)
+          $minute = date('i', strtotime($booking[$index])); //parse minutes (0-59)
+  
+          //as soon as the beginning of a quarter hour is transcended
+          //the cell gets marked (e.g. 16:01 means occupation until 16:15)
+          ${$index . 'Index'} = $hour * 4 + ceil($minute / 15);
+        }
+        else //booking actually starts/ends before/after the day we are currently displaying
+        {
+          ${$index . 'Index'} = ($index == 'start') ? 0 : 96;
+        }
       }
-      else
-      {
-        //booking actually starts before the day we are currently displaying
-        $startIndex = 0;
-      }
-
-      //now we handle the end date the same way as the start date above
-      if (date('Y-m-d', strtotime($booking['end'])) == date('Y-m-d', $this->date))
-      {
-        $endHour = date('G', strtotime($booking['end']));
-        $endMinute = date('i', strtotime($booking['end']));
-        $endIndex = $endHour * 4 + ceil($endMinute / 15);
-      }
-      else
-      {
-        $endIndex = 96; //following loop is <, not <=, so this is ok
-      }
-
+      
+      //store cell status and in case of occupied cells the booking name
       for ($i = $startIndex; $i < $endIndex; $i++)
       {
         $cellStatus = array(
@@ -130,7 +118,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     
     //reindex array, makes it easier to iterate in the view
     $this->cell_status = array_values($this->cell_status);
-    
+
     //read start/end hours from config
     $this->start_hour = sfConfig::get('app_ull_booking_schedule_start_hour', 9);
     $this->end_hour = sfConfig::get('app_ull_booking_schedule_end_hour', 22);
