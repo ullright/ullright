@@ -45,7 +45,8 @@ class ullWidgetDateWrite extends sfWidgetForm
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if($this->getOption('enable_date_picker')){
+    if ($this->getOption('enable_date_picker'))
+    {
       if (!$this->getAttribute('name'))
       {
         $this->setAttribute('name', $name);
