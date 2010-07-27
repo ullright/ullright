@@ -121,16 +121,21 @@ abstract class PluginUllBooking extends BaseUllBooking
    * multiple days the output is complete, otherwise
    * the date is only included once.
    * 
+   * @param boolean $zeroPadding if true, dates are formatted with leading zeros
+   * @param boolean $showWeekday if true, the weekday of the booking is appended
+   *                               (ignored for multiple-day bookings)
+   * 
    * @return string the formatted range
    */
-  public function formatDateRange($zeroPadding = false)
+  public function formatDateRange($zeroPadding = false, $showWeekday = false)
   {
     //format the date different if it does not occupy multiple days
     if (date('Y-m-d', strtotime($this->start)) == date('Y-m-d', strtotime($this->end)))
     {
+      $weekDay = ($showWeekday) ? ' - ' . format_datetime($this->start, 'EEEE') : '';
       return ull_format_datetime($this->start, $zeroPadding, false) .
-        ' - ' . date('H:i', strtotime($this->end));
-    } 
+        ' - ' . date('H:i', strtotime($this->end)) . $weekDay;
+    }
     else
     {
       return $this->formatCompleteDateRange($zeroPadding);
