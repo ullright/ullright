@@ -131,6 +131,16 @@
         <source>Edit entire group</source>
         <target>Die ganze Buchungsgruppe editieren</target>
       </trans-unit>
+      
+      <trans-unit id="28">
+        <source>Edit single booking</source>
+        <target>Einzelbuchung editieren</target>
+      </trans-unit>
+      
+      <trans-unit id="29">
+        <source>Edit group booking</source>
+        <target>Buchungsgruppe editieren</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
