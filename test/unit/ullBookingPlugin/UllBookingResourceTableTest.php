@@ -10,6 +10,9 @@ $t = new myTestCase(3, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
+// create context since it is required for i18n support
+sfContext::createInstance($configuration);
+
 $t->begin('findBookableResources()');
   $resources = Doctrine::getTable('UllBookingResource')->findBookableResources();
   $shouldBe = array(1 => 'Bouldering room', 2 => 'Gallery sector');
