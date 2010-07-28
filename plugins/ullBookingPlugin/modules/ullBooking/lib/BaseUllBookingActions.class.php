@@ -150,7 +150,11 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     //the displayed form is always the advanced form (including recurring options)
     //but for JS-enabled clients those advanced options are hidden
     $this->form = new UllBookingAdvancedCreateForm();
-
+    
+    //if the withData param is a valid date, set it, otherwise use the current date
+    $withDate = $request->getParameter('withDate');
+    $this->form->setDefault('date', (strtotime($withDate)) ? $withDate : date('Y-m-d'));
+    
     if ($request->isMethod('post'))
     {
       //we do not want to validate advanced options if the user submitted

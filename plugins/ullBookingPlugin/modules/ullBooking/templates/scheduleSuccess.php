@@ -36,7 +36,8 @@
     <!-- create -->
     <?php if (UllUserTable::hasPermission('ull_booking_create')) : ?> 
       <h3><?php echo __('Create', null, 'common'); ?></h3>
-      <?php echo link_to(__('Create new booking', null, 'ullBookingMessages'), 'booking_create'); ?>
+      <?php echo link_to(__('Create new booking', null, 'ullBookingMessages'),
+        'booking_create', array('withDate' => date('Y-m-d', $date))); ?>
     <?php endif; ?>
     
     <!-- info (delete, edit) -->
