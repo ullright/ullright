@@ -16,14 +16,14 @@
           </td>
         </tr>
     <?php endforeach; ?>
-    <tr>
-      <td>
-        <?php
-          echo ull_submit_tag(__('Save', null, 'common'));
-        ?>
-        </td>
-      </tr>
+
     </table>
+    <div class="edit_action_buttons">
+      <h3><?php echo __('Actions', null, 'common'); ?></h3>
+      <?php
+        echo ull_submit_tag(__('Save', null, 'common'));
+      ?>
+    </div>
   </form>
 </div>
 

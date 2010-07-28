@@ -33,9 +33,10 @@
         </a>
       </td>
     </tr>
-    <tr>
-      <td>
-        <?php
+    </table>
+    <div class="edit_action_buttons">
+      <h3><?php echo __('Actions', null, 'common'); ?></h3>
+      <?php
           echo ull_submit_tag(__('Save', null, 'common'),
             array('name' => 'submit|booking_type=simple', 'id' => 'simple_create_button', 'class' => 'js_mandatory'));
         ?>
@@ -43,10 +44,7 @@
           echo ull_submit_tag(__('Save', null, 'common'),
             array('name' => 'submit|booking_type=advanced', 'class' => 'advanced_booking_field '));
         ?>
-        </td>
-      </tr>
-    <tr><td></td></tr>
-    </table>
+    </div>
   </form>
 </div>
 
