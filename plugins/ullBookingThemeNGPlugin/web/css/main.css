@@ -109,3 +109,14 @@ and the ones between (normal)
   -webkit-border-radius: 7px 7px;
   -moz-border-radius: 7px 7px;
 }
+
+#booking_delete_confirmation_yes {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+#booking_delete_confirmation_yes a {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2em;
+}
