@@ -146,6 +146,16 @@
         <source>Minimum booking duration is 15 minutes.</source>
         <target>Die kleinstmögliche Buchungsdauer ist 15 Minuten.</target>
       </trans-unit>
+      
+      <trans-unit id="31">
+        <source>Delete confirmation</source>
+        <target>Löschung bestätigen</target>
+      </trans-unit>
+      
+      <trans-unit id="32">
+        <source>Please confirm the booking deletion.</source>
+        <target>Bitte bestätigen Sie den Löschvorgang.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

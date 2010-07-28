@@ -220,13 +220,13 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
   /**
    * Handles deletion of a booking (optionally for an entire
    * booking group) and redirects back to the schedule.
+   * 
+   * Asks for confirmation if the 'confirm' parameter is
+   * not set to true.
    */
   public function executeDelete(sfRequest $request)
   {
     $this->checkPermission('ull_booking_delete');
-    
-    //if groupName is set, delete the whole group of bookings
-    //otherwise delete a single booking specified by id
     
     $groupName = $request->getParameter('groupName');
     $bookingId = $request->getParameter('id');
@@ -236,6 +236,24 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
       throw new InvalidArgumentException("The 'viewDate' and either 'groupName' or 'id' parameter have to be set");
     }
     
+    //build the referring url, needed for the confirmation dialog
+    $this->referer_url = url_for('booking_schedule',
+      array('fields[date]' => date('Y-m-d', $viewDate)));
+    
+    $confirmation = (boolean) $request->getParameter('confirm', false);
+    if (!$confirmation)
+    {
+      $confirmParams = $request->getParameterHolder()->getAll();
+      $confirmParams['confirm'] = true;
+      unset($confirmParams['action']);
+      $this->setVar('confirm_url', url_for('booking_delete', $confirmParams), true);
+      
+      return 'Confirmation'; //render a confirmation dialog
+    }
+
+    //if groupName is set, delete the whole group of bookings
+    //otherwise delete a single booking specified by id
+
     $fieldName = ($groupName) ? 'booking_group_name' : 'id';
     $fieldValue = ($groupName) ? $groupName : $bookingId;
    
@@ -246,7 +264,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     ;
     $q->execute();
     
-    $this->redirect(url_for('booking_schedule', array('fields[date]' => date('Y-m-d', $viewDate))));
+    $this->redirect($this->referer_url);
   }
   
   /**
