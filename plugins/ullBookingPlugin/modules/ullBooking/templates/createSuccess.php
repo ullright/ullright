@@ -1,9 +1,9 @@
-<div id="booking_create">
+<div id="booking_create" class="edit_container">
   <h2><?php echo __('Create new booking', null, 'ullBookingMessages'); ?></h2>
 
   <?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
   <form id="booking_create_form" action="<?php echo url_for('booking_create') ?>" method="post">
-    <table>
+    <table class="edit_table" >
     <?php foreach(array('date', 'name', 'time', 'end', 'booking_resource') as $field_name) : ?>
       <tr>
         <td class="label_column">
@@ -45,6 +45,7 @@
         ?>
         </td>
       </tr>
+    <tr><td></td></tr>
     </table>
   </form>
 </div>

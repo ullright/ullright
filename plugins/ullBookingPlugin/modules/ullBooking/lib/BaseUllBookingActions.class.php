@@ -38,7 +38,14 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
   public function executeSchedule(sfRequest $request)
   {
     $this->checkPermission('ull_booking_schedule');
-    $this->ull_reqpass_redirect();
+    try
+    {
+      $this->ull_reqpass_redirect();
+    }
+    catch (sfValidatorError $e)
+    {
+      //the date is invalid, swallow error
+    }
     
     $this->date_select_form = new UllScheduleSelectForm();
     
@@ -137,7 +144,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
   public function executeCreate(sfRequest $request)
   {
     $this->checkPermission('ull_booking_create');
-
+    
     //did the user submit a simple or recurring booking?
     $this->is_simple = ($request->getParameter('booking_type') == 'advanced') ? false : true;
     //the displayed form is always the advanced form (including recurring options)
