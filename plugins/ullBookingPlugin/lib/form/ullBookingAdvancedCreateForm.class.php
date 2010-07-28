@@ -23,7 +23,7 @@ class UllBookingAdvancedCreateForm extends UllBookingCreateForm
     $this->setValidator('recurring', new sfValidatorChoice(array('choices' => array_keys($recurringChoices))));
     $this->setValidator('repeats', new sfValidatorPass());
 
-    $this->validatorSchema->setPostValidator(
+    $this->mergePostValidator(
       new sfValidatorCallback(array('callback' => array($this, 'validateRepeats')))
     );
   

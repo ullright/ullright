@@ -157,11 +157,15 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
         //add duration field to start time
         $booking = new UllBooking();
         $booking->name = $this->validationForm->getValue('name');
+        $booking->ull_booking_resource_id = $this->validationForm->getValue('booking_resource');
         $startTimestamp = strtotime($this->validationForm->getValue('date')) + $this->validationForm->getValue('time');
         $booking->start = date('Y-m-d H:i:s', $startTimestamp);
-        $booking->end = date('Y-m-d H:i:s', $startTimestamp + $this->validationForm->getValue('duration'));
-        $booking->ull_booking_resource_id = $this->validationForm->getValue('booking_resource');
-
+        //old version for duration
+        //$booking->end = date('Y-m-d H:i:s', $startTimestamp + $this->validationForm->getValue('duration'));
+        //new version for end
+        $endTimestamp = strtotime($this->validationForm->getValue('date')) + $this->validationForm->getValue('end');
+        $booking->end = date('Y-m-d H:i:s', $endTimestamp);
+        
         try
         {
           //do we have to persist a single booking or multiple ones?
@@ -282,7 +286,8 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
       'date' => date('Y-m-d', strtotime($booking['start'])),
       'name' => $booking['name'],
       'time' => date('H:i', strtotime($booking['start'])),
-      'duration' => ullCoreTools::timeToString(strtotime($booking['end']) - strtotime($booking['start'])),
+      'end'  => date('H:i', strtotime($booking['end'])),
+      //'duration' => ullCoreTools::timeToString(strtotime($booking['end']) - strtotime($booking['start'])),
       'booking_resource' => $booking['ull_booking_resource_id']);
     
     $this->form->setDefaults($defaults);
@@ -309,7 +314,9 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
               $booking['ull_booking_resource_id'] = $this->form->getValue('booking_resource');
               $booking['start'] = date('Y-m-d', strtotime($booking['start'])) . ' ' .
                 ullCoreTools::timeToString($this->form->getValue('time'));
-              $booking['end'] = date('Y-m-d H:i:s', strtotime($booking['start']) + $this->form->getValue('duration'));
+              $booking['end'] = date('Y-m-d', strtotime($booking['end'])) . ' ' .
+                ullCoreTools::timeToString($this->form->getValue('end'));
+              //$booking['end'] = date('Y-m-d H:i:s', strtotime($booking['start']) + $this->form->getValue('duration'));
             }
             UllBookingTable::saveMultipleBookings($bookings);
           }
@@ -319,8 +326,9 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
             $booking['ull_booking_resource_id'] = $this->form->getValue('booking_resource');
             $startTimestamp = strtotime($this->form->getValue('date')) + $this->form->getValue('time');
             $booking['start'] = date('Y-m-d H:i:s', $startTimestamp);
-            $booking['end'] = date('Y-m-d H:i:s', $startTimestamp + $this->form->getValue('duration'));
-            
+            //$booking['end'] = date('Y-m-d H:i:s', $startTimestamp + $this->form->getValue('duration'));
+            $endTimestamp = strtotime($this->form->getValue('date')) + $this->form->getValue('end');
+            $booking['end'] = date('Y-m-d H:i:s', $endTimestamp);
             $booking->save();
           }
           

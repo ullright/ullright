@@ -141,6 +141,11 @@
         <source>Edit group booking</source>
         <target>Buchungsgruppe editieren</target>
       </trans-unit>
+      
+      <trans-unit id="30">
+        <source>Minimum booking duration is 15 minutes.</source>
+        <target>Die kleinstmögliche Buchungsdauer ist 15 Minuten.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -4,7 +4,7 @@
   <?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
   <form id="booking_create_form" action="<?php echo url_for('booking_create') ?>" method="post">
     <table>
-    <?php foreach(array('date', 'name', 'time', 'duration', 'booking_resource') as $field_name) : ?>
+    <?php foreach(array('date', 'name', 'time', 'end', 'booking_resource') as $field_name) : ?>
       <tr>
         <td class="label_column">
           <?php echo $form[$field_name]->renderLabel() ?>
