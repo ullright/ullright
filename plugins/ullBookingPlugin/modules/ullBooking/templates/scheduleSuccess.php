@@ -7,24 +7,22 @@
       <h2>
         <?php echo link_to('&larr;', 'booking_schedule', array('fields[date]' => $previous_day)) ?>
         <?php echo format_datetime($date, 'EEEE') ?>
-        <?php echo ull_format_date($date, false) ?>
         <?php echo link_to('&rarr;', 'booking_schedule', array('fields[date]' => $next_day)) ?>
       </h2>
+      
+      <form id="booking_schedule_select_form" action="<?php echo url_for('booking_schedule') ?>" method="post">
+        <?php echo $date_select_form['date']->render(); ?>
+        <?php echo submit_tag(__('Display schedule for date', null, 'ullBookingMessages')); ?>
+      </form>
+      <?php echo $date_select_form['date']->renderError(); ?>
     </div>
     
     <?php include_partial('scheduleGrid',
       array('start_hour' => $start_hour, 'end_hour' => $end_hour, 'cell_status' => $cell_status)); ?>
   </div>
   
-  <!-- info section (select date, legend, create, info/delete/edit) -->
+  <!-- info section (legend, create, info/delete/edit) -->
   <div id="booking_schedule_info">
-    <h2><?php echo __('Select date', null, 'ullBookingMessages'); ?></h2>
-    <form id="booking_schedule_select_form" action="<?php echo url_for('booking_schedule') ?>" method="post">
-      <?php echo $date_select_form['date']->render(); ?>
-      <?php echo $date_select_form['date']->renderError(); ?>
-      <?php echo submit_tag(__('Display schedule for date', null, 'ullBookingMessages')); ?>
-    </form>
-    
     <!-- legend -->
     <h3><?php echo __('Legend', null, 'ullBookingMessages'); ?></h3>
     <table id="booking_schedule_legend">
