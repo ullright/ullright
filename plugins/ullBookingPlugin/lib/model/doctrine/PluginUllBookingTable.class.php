@@ -15,6 +15,8 @@ class PluginUllBookingTable extends UllRecordTable
    * field which contains the total number of bookings
    * in case the booking belongs to a group.
    * 
+   * The results are ordered by start date.
+   * 
    * @param $timestamp - the numerical timestamp representing a day
    * @param @bookingResourceIds - if not null, filter by these booking resource ids
    * @return Doctrine_Collection - all bookings which overlap with the day $timestamp falls into
@@ -38,6 +40,7 @@ class PluginUllBookingTable extends UllRecordTable
       //if the date range is e.g. 1.1.2010 00:00:00 - 2.1.2010 00:00:00
       //an event beginning 2.1.2010 00:00:00 should not be retrieved
       ->where('? <= b.end AND b.start < ?', array($startOfDay, $endOfDay))
+      ->orderBy('b.start')
     ;
     
     if (is_array($bookingResourceIds) && count($bookingResourceIds) > 0)
