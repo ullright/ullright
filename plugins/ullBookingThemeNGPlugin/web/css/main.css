@@ -1,10 +1,16 @@
+#booking_schedule_select_form
+{
+  margin-top: -0.6em;
+  margin-bottom: 0.3em;
+}
 
-.booking_schedule_day_header {
+#booking_schedule_select_form #fields_date {
+  max-width: 5.7em;
   text-align: center;
 }
 
-.booking_schedule_day_header h3 {
-  margin-top: -0.6em; 
+.booking_schedule_day_header {
+  text-align: center;
 }
 
 #booking_schedule_content {
