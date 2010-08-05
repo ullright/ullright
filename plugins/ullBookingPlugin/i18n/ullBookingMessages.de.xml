@@ -133,14 +133,19 @@
       </trans-unit>
       
       <trans-unit id="28">
+        <source>Bookings</source>
+        <target>Buchungen</target>
+      </trans-unit>      
+      
+      <trans-unit id="29">
         <source>Edit single booking</source>
         <target>Einzelbuchung editieren</target>
       </trans-unit>
       
-      <trans-unit id="29">
+      <trans-unit id="30">
         <source>Edit group booking</source>
         <target>Buchungsgruppe editieren</target>
-      </trans-unit>
+      </trans-unit>      
       
       <trans-unit id="30">
         <source>Minimum booking duration is 15 minutes.</source>
