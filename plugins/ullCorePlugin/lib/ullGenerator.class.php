@@ -469,19 +469,26 @@ abstract class ullGenerator extends ullGeneratorBase
               $label .= ' ' . strtoupper($culture);
             }
             $this->forms[$key]->getWidgetSchema()->setLabel($translationColumnName, $label);
+            
+            // help
+            if ($columnConfig->getAccess() == 'w')
+            {
+              $this->forms[$key]->getWidgetSchema()->setHelp($translationColumnName, $columnConfig->getHelp());
+            }            
           }
         }
         else
         {
           $ullMetaWidget->addToFormAs($columnName);
           $this->forms[$key]->getWidgetSchema()->setLabel($columnName, __($columnConfig->getLabel(), null, 'common'));
+          
+          // help
+          if ($columnConfig->getAccess() == 'w')
+          {
+            $this->forms[$key]->getWidgetSchema()->setHelp($columnName, $columnConfig->getHelp());
+          }
         }
         
-        //help
-        if ($columnConfig->getAccess() == 'w')
-        {
-          $this->forms[$key]->getWidgetSchema()->setHelp($columnName, $columnConfig->getHelp());
-        }
         $this->calculateSum($columnName, $row);
       }
       
