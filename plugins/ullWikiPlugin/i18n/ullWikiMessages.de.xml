@@ -20,6 +20,11 @@
         <source>Access rights</source>
         <target>Zugriffsrechte</target>
       </trans-unit>
+      
+      <trans-unit id="12">
+        <source>Is outdated</source>
+        <target>Ist veraltert</target>
+      </trans-unit>
 
     </body>
   </file>

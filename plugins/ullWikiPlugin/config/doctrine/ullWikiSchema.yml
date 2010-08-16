@@ -21,7 +21,10 @@ UllWiki:
       type: clob
     ull_wiki_access_level_id:
       type: integer
-      notnull: true  
+      notnull: true
+    is_outdated:
+        type: boolean
+        default: false  
   relations:
     Tagging:
       local: id

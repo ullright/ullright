@@ -28,6 +28,10 @@
             <td><?php echo $form['fulltext']->renderLabel() ?></td>
 		        <td><?php echo $form['fulltext']->render() ?></td>
 		      </tr>
+		      <tr>
+            <td><?php echo $form['outdated']->renderLabel() ?></td>
+            <td><?php echo $form['outdated']->render() ?></td>
+          </tr>
 		      </table>
 		      </form>
           <?php echo javascript_tag('document.getElementById("filter_search").focus();'); ?>

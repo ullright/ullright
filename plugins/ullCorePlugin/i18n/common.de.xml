@@ -345,6 +345,11 @@
 <target>Einige Dateien wurden wegen ungültiger Dateitypen ignoriert</target>
 </trans-unit>
 
+<trans-unit id="1012">
+<source>Include outdated</source>
+<target>Inkl. veralterte Einträge</target>
+</trans-unit>
+
 
 <!-- Common list action phrases-->
 

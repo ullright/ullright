@@ -390,6 +390,11 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
   {
     $this->q->addWhere('deleted_at IS NULL');
     
+    if(!$this->filter_form->getValue('outdated'))
+    {
+      $this->q->addWhere('is_outdated = false');
+    }
+    
     self::queryReadAccess($this->q->getDoctrineQuery());    
   }
   

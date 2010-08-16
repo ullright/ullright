@@ -307,7 +307,8 @@ abstract class BaseUllsfActions extends sfActions
       }
       else
       {
-        if (strstr($name, 'date'))
+        //TODO: This way of dedecting dates is dangerous and error prone
+        if (strstr($name, '_date'))
         {
           $value = html_entity_decode(urldecode($value));
           $validator = new sfValidatorDate();
