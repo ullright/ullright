@@ -103,7 +103,9 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     
     parent::executeEdit($request);
     
-    $this->setTableToolTemplate('edit');
+    $this->cultures = ullGenerator::getDefaultCultures();
+    
+    //$this->setTableToolTemplate('edit');
   }   
   
   
