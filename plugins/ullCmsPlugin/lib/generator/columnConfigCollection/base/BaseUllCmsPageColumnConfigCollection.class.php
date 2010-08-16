@@ -15,6 +15,10 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       'link',
     ));
     
+    $this['name']
+      ->setHelp(__('By default the page title is used here. Change it if you want e.g. a shorter title in the menu', null, 'ullCmsMessages'))
+    ;
+    
     $this['parent_ull_cms_item_id']
       ->setLabel(__('Higher menu entry', null, 'ullCmsMessages'))
     ;
@@ -23,7 +27,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
       ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')
     ;
-
+      
     $this->order(array(
       'id',
       'title',

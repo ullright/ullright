@@ -53,6 +53,13 @@
 <target>Menütitel</target>
 </trans-unit>
 
+<trans-unit id="11">
+<source>By default the page title is used here. Change it if you want e.g. a shorter title in the menu</source>
+<target>Automatisch wird hier der Titel der Seite verwendet. Überschreiben Sie ihn hier um z.B. einen kürzern Titel im Menü anzuzeigen</target>
+</trans-unit>
+
+
+
     </body>
   </file>
 </xliff>
