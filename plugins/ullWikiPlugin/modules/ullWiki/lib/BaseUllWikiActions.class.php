@@ -455,6 +455,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
     $q = new Doctrine_Query;
     $q->from('Tagging tg, tg.Tag t, tg.UllWiki x');
     $q->addWhere('x.is_outdated = ?', false);
+    $q->limit(sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100));
     //$q = UllWikiTable::queryAccess($q, $this->app);
     $this->tags_pop = TagTable::getPopulars($q, array('model' => 'UllWiki'));
     $this->tagurl = str_replace('%25', '%', ull_url_for(array('action' => 'list', 'filter[search]' => '%s')));
