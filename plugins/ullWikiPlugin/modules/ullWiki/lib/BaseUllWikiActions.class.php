@@ -34,6 +34,8 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
 
     // allow ullwiki to be used as a plugin (e.g. ullFlow to ullForms interface)
     $this->return_var = $this->getRequestParameter('return_var');
+    
+    $this->loadPopularTags();
 
     $this->breadcrumbForIndex();
   }
@@ -443,5 +445,18 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
     $q->addWhere($where, $values);
 
     return $q;
+  }
+  
+  /**
+   * Query popular tags for the index action
+   */
+  protected function loadPopularTags()
+  {
+    $q = new Doctrine_Query;
+    $q->from('Tagging tg, tg.Tag t, tg.UllWiki x');
+    $q->addWhere('x.is_outdated = ?', false);
+    //$q = UllWikiTable::queryAccess($q, $this->app);
+    $this->tags_pop = TagTable::getPopulars($q, array('model' => 'UllWiki'));
+    $this->tagurl = str_replace('%25', '%', ull_url_for(array('action' => 'list', 'filter[search]' => '%s')));
   }
 }

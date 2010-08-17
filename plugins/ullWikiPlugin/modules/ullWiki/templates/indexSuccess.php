@@ -42,10 +42,8 @@
       <div class="tc_search_tag_top color_medium_bg"><h3><?php echo __('By popular tags', null, 'common') ?></h3></div>
       <div class="tc_search_tag_bottom color_light_bg">
         <?php
-          $tags_pop = TagTable::getPopulars(null, array('model' => 'UllWiki'));
           sfLoader::loadHelpers(array('Tags'));
           //prev: ullWiki/list?filter[search]=%s
-          $tagurl = str_replace('%25', '%', ull_url_for(array('action' => 'list', 'filter[search]' => '%s')));
           echo tag_cloud($tags_pop, $tagurl);
         ?>      
       </div>
