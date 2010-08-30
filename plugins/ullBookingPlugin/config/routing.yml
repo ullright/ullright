@@ -8,9 +8,15 @@ booking_resources_edit:
   requirements:
     id: \d+
 
+booking_weekly_schedule:
+  url:     /bookings/weekly/*
+  param:   { module: ullBooking, action: weeklySchedule }  
+
 booking_schedule:
   url:     /bookings/*
   param:   { module: ullBooking, action: schedule }
+  
+
     
 booking_create:
   url:     /booking/create/*

@@ -29,6 +29,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     $this->redirect('booking_schedule');
   }
 
+  
   /**
    * Main page for the booking system, displays a graphical schedule
    * of all booking resources. Assumes 15 minutes intervals.
@@ -38,6 +39,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
   public function executeSchedule(sfRequest $request)
   {
     $this->checkPermission('ull_booking_schedule');
+    
     try
     {
       $this->ull_reqpass_redirect();
@@ -66,22 +68,94 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     $this->previous_day = date('Y-m-d', strtotime('yesterday', $this->date));
     $this->next_day = date('Y-m-d', strtotime('tomorrow', $this->date));
 
+    $this->cell_status = $this->buildCellStatus($this->date);
+    
+//    var_dump($this->cell_status);die;
+  }
+  
+  
+  /**
+   * Weekly overview for admins
+   */
+  public function executeWeeklySchedule(sfRequest $request)
+  {
+    $this->checkPermission('ull_booking_weekly_schedule');
+    
+    try
+    {
+      $this->ull_reqpass_redirect();
+    }
+    catch (sfValidatorError $e)
+    {
+      //the date is invalid, swallow error
+    }
+    
+    $this->date_select_form = new UllScheduleSelectForm();
+    
+    //no check for post action here, could be previous/next links
+    if ($request->hasParameter('fields'))
+    {
+      $this->date_select_form->bind($request->getParameter('fields'));
+
+      if ($this->date_select_form->isValid())
+      {
+        $date = $this->date_select_form->getValue('date');
+      }
+    }
+
+    //no date selected? assume current date
+    $date = (isset($date)) ? strtotime($date) : time();
+
+    
+    // get first day of week
+    $this->year = date('Y', $date);
+    $this->week = date('W', $date);
+    $this->date = strtotime($this->year . 'W' . $this->week, $date);
+    
+    $this->date_select_form->setDefault('date', date('Y-m-d', $this->date));
+    $this->previous_week = date('Y-m-d', strtotime('-1 week', $this->date));
+    $this->next_week = date('Y-m-d', strtotime('+1 week', $this->date));
+
+    // create schedule for a week
+    $this->weekdays = array();
+    for ($i = 0; $i < 7; $i++) 
+    {
+      $stamp = strtotime('+' . $i . ' days', $this->date);
+      $this->weekdays[$stamp] = $this->buildCellStatus($stamp);
+    }
+    
+  }  
+  
+  
+  /**
+   * Gather data for schedule grid
+   * 
+   * @param unknown_type $date
+   * @return multitype:
+   */
+  protected function buildCellStatus($date)
+  {
     //calculate schedule cells - structure looks like this:
     //array with booking resource ids as keys (will be reindexed later on)
     //  subarray with
     //    24 hours/4*15 minutes = 96 cells with 0-95 as keys
     //    name key with translated booking resource name
-    $this->cell_status = array();
+    $cellStatus = array();
 
     //retrieve all booking resources and store their (translated) names for the schedule legend
-    $bookingResources = Doctrine_Core::getTable('UllBookingResource')->findBookableResources();
+    $bookingResources = Doctrine::getTable('UllBookingResource')->findBookableResources();
+    
     foreach ($bookingResources as $bookingResource)
     {
-      $this->cell_status[$bookingResource['id']]['name'] = $bookingResource['name'];
+      $cellStatus[$bookingResource['id']]['name'] = $bookingResource['name'];
     }
 
     //retrieve all bookings for the chosen day, only for bookable resources
-    $bookings = UllBookingTable::findBookingsByDay($this->date, array_keys($this->cell_status));
+    $bookings = UllBookingTable::findBookingsByDay($date, array_keys($cellStatus));
+    
+//    var_dump($bookings->toArray());
+    
+    
     $this->booking_info_list = array();
     
     foreach ($bookings as $booking)
@@ -90,7 +164,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
       {
         //is the start/end date of this booking equal to the current date?
         //most likely, but not in case of a booking spanning multiple days
-        if (date('Y-m-d', strtotime($booking[$index])) == date('Y-m-d', $this->date))
+        if (date('Y-m-d', strtotime($booking[$index])) == date('Y-m-d', $date))
         {
           $hour = date('G', strtotime($booking[$index]));   //parse hours (0-23)
           $minute = date('i', strtotime($booking[$index])); //parse minutes (0-59)
@@ -108,11 +182,11 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
       //store cell status and in case of occupied cells the booking name
       for ($i = $startIndex; $i < $endIndex; $i++)
       {
-        $cellStatus = array(
+        $currentCellStatus = array(
           'bookingName' => $booking['name'],
           'cellType' => ($i == $startIndex) ? 'open' : (($i == $endIndex - 1) ? 'close' : 'normal'),
         );
-        $this->cell_status[$booking['ull_booking_resource_id']][$i] = $cellStatus;
+        $cellStatus[$booking['ull_booking_resource_id']][$i] = $currentCellStatus;
       }
       
       //fill an array with information about the displayed bookings
@@ -120,18 +194,15 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
           'name' => $booking['name'],
           'bookingGroupName' => $booking['booking_group_name'],
           'bookingGroupCount' => $booking['booking_group_count'],
-          'resourceName' => $this->cell_status[$booking['ull_booking_resource_id']]['name'],
+          'resourceName' => $cellStatus[$booking['ull_booking_resource_id']]['name'],
           'range' => $booking->formatDateRangeTimeOnly(),
         );
     }
     
     //reindex array, makes it easier to iterate in the view
-    $this->cell_status = array_values($this->cell_status);
-
-    //read start/end hours from config
-    $this->start_hour = sfConfig::get('app_ull_booking_schedule_start_hour', 9);
-    $this->end_hour = sfConfig::get('app_ull_booking_schedule_end_hour', 22);
-  }
+    return array_values($cellStatus);    
+  }  
+  
 
   /**
    * Persists a new booking, supporting the creation of multiple
