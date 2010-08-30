@@ -33,7 +33,13 @@ class UllBookingAdvancedCreateForm extends UllBookingCreateForm
 
   public function validateRepeats($validator, $values)
   {
-    if ($values['recurring'] != 'n')
+    $isRecurring = ($values['recurring'] != 'n') ? true : false;
+    
+    //update label to reflect mandatory status
+    $this->getWidgetSchema()->setLabel(
+      'repeats', __('Repeats', null, 'ullBookingMessages') . ($isRecurring ? ' *' : ''));
+    
+    if ($isRecurring)
     {
       $repeatValidator = new sfValidatorInteger(array('min' => 2, 'max' => 52));
       try

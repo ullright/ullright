@@ -23,12 +23,12 @@ class UllBookingCreateForm extends sfForm
     
     $this->getWidgetSchema()->setLabels(
       array(
-        'date'              => __('Date', null, 'common'),
-        'name'              => __('Name', null, 'common'),
-        'time'              => __('Start', null, 'common'),
-        'end'               => __('Ende', null, 'common'),
+        'date'              => __('Date', null, 'common') . ' *',
+        'name'              => __('Name', null, 'common') . ' *',
+        'time'              => __('Start', null, 'common') . ' *',
+        'end'               => __('Ende', null, 'common') . ' *',
         //'duration'          => __('Duration', null, 'common'),
-        'booking_resource'  => __('Resource', null, 'ullBookingMessages'),
+        'booking_resource'  => __('Resource', null, 'ullBookingMessages') . ' *',
       ));
 
     $this->setValidators(array(

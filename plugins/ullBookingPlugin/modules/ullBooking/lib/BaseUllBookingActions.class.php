@@ -359,9 +359,10 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     
     $groupName = $request->getParameter('groupName');
     $singleId = $request->getParameter('singleId');
-    if (!$groupName && !$singleId)
+    $viewDate = $request->getParameter('viewDate');
+    if ((!$groupName && !$singleId) || !$viewDate)
     {
-      throw new InvalidArgumentException("The 'groupName' or 'singleId' parameter has to be set");
+      throw new InvalidArgumentException("The 'viewDate' and either 'groupName' or 'singleId' parameter have to be set");
     }
     
     $isGroupEdit = ($groupName) ? true : false;
@@ -379,6 +380,9 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
       $this->single_id = $singleId; 
     }
     
+    $this->form_url = url_for('booking_edit', array('viewDate' => $viewDate)
+      + (($isGroupEdit) ? array('groupName' => $groupName) : array('singleId' => $singleId)));
+      
     $this->form = new UllBookingCreateForm();
     
     //parse existing booking data
@@ -395,7 +399,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
     if ($isGroupEdit)
     {
       //if we are editing multiple bookings, disable the date field
-      unset ($this->form['date']);
+      unset($this->form['date']);
     }
     
     if ($request->isMethod('post'))
@@ -434,7 +438,7 @@ class BaseUllBookingActions extends BaseUllGeneratorActions
           
           //redirect to the schedule view of the date of the booking
           $this->redirect(url_for('booking_schedule',
-            array('fields[date]' => $this->form->getValue('date'))));
+            array('fields[date]' => date('Y-m-d', $viewDate))));
         }
         catch (ullOverlappingBookingException $e)
         {

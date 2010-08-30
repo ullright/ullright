@@ -132,13 +132,14 @@
               <?php 
                 $editLinks = link_to(__((($isGroup) ? 'Edit this booking only' :
                   'Edit this single booking'), null, 'ullBookingMessages'), 'booking_edit',
-                  array('singleId' => $booking_id));
+                  array('singleId' => $booking_id, 'viewDate' => $date));
               
                 if ($isGroup)
                 {
                   $editLinks .= ' ' . __('or', null, 'ullBookingMessages') . ' ' .
                     link_to(__('Edit entire group', null, 'ullBookingMessages'),
-                    'booking_edit', array('groupName' => $info_entry['bookingGroupName']));
+                    'booking_edit', array('groupName' => $info_entry['bookingGroupName'],
+                    'viewDate' => $date));
                 }
                 
                 echo $editLinks;;

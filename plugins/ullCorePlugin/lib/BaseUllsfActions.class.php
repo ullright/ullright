@@ -307,7 +307,7 @@ abstract class BaseUllsfActions extends sfActions
       }
       else
       {
-        //TODO: This way of dedecting dates is dangerous and error prone
+        //TODO: This way of detecting dates is dangerous and error prone
         if ($name == 'date' || strstr($name, '_date'))
         {
           $value = html_entity_decode(urldecode($value));

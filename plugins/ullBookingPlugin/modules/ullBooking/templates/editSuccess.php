@@ -1,9 +1,7 @@
 <div id="booking_edit" class="edit_container">
   <h2><?php echo __('Edit ' . (isset($group_name) ? 'group' : 'single') . ' booking', null, 'ullBookingMessages'); ?></h2>
-
   <?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
-  <?php $routeParam = (isset($group_name)) ? array('groupName' => $group_name) : array('singleId' => $single_id); ?>
-  <form id="booking_edit_form" action="<?php echo url_for('booking_edit', $routeParam); ?>" method="post">
+  <form id="booking_edit_form" action="<?php echo $form_url; ?>" method="post">
     <table class="edit_table">
     <?php foreach ($form as $form_field) : ?>
       <tr>

@@ -29,7 +29,7 @@
 
       <trans-unit id="6">
         <source>Recurring booking - there are %count% reservations in this group.</source>
-        <target>Periodische Buchung - diese Gruppe hat %count% einzelne Buchungen.</target>
+        <target>Diese Buchung wiederholt sich %count% Mal.</target>
       </trans-unit>
 
       <trans-unit id="8">
