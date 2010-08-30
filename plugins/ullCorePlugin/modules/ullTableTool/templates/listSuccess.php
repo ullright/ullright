@@ -3,6 +3,8 @@
 <h3><?php echo $generator->getTableConfig()->getName() ?></h3>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
+<?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
+
 <?php echo $ull_filter ?>
 
 <?php echo ull_form_tag(array('page' => '', 'filter' => array('search' => ''))) ?>

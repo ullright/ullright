@@ -210,7 +210,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     if ($this->generator->getRow()->exists())
     {
-     $uri = ullCoreTools::appendParamsToUri($uri, $this->generator->getIdentifierUrlParams(0));
+      $uri = ullCoreTools::appendParamsToUri($uri, $this->generator->getIdentifierUrlParams(0));
     }
     
     return $uri;
@@ -227,8 +227,18 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->redirectToNoAccessUnless($this->generator->getAllowDelete());
     
-    $row = $this->getRowFromRequest();   
-    $row->delete();
+    $row = $this->getRowFromRequest();
+
+    try
+    {
+      $row->delete();
+    }
+    catch (Doctrine_Connection_Exception $e)
+    {
+      $this->getUser()->setFlash('message',
+        __('Deletion was unsuccessful. There is at least one other record ' .
+          ' which depends on this item.', null, 'common'));
+    }
     
     $this->redirect($this->getUriMemory()->getAndDelete('list'));
   }  
