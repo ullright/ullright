@@ -161,6 +161,11 @@
         <source>Please confirm the booking deletion.</source>
         <target>Bitte bestätigen Sie den Löschvorgang.</target>
       </trans-unit>
+      
+      <trans-unit id="33">
+        <source>Weekly overview</source>
+        <target>Wochenansicht</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>

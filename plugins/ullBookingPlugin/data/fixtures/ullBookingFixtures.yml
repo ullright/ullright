@@ -56,6 +56,9 @@ UllPermission:
   ull_permission_booking_schedule:
     slug:               ull_booking_schedule
     namespace:          ull_booking
+  ull_permission_ull_booking_weekly_schedule:
+    slug:               ull_booking_weekly_schedule
+    namespace:          ull_booking    
   ull_permission_booking_create:
     slug:               ull_booking_create
     namespace:          ull_booking
@@ -75,6 +78,10 @@ UllGroupPermission:
     UllGroup:           ull_group_booking_admins
     UllPermission:      ull_permission_booking_schedule
     namespace:          ull_booking
+  ull_group_permission_ull_booking_weekly_schedule:
+    UllGroup:           ull_group_booking_admins
+    UllPermission:      ull_permission_ull_booking_weekly_schedule
+    namespace:          ull_booking    
   ull_group_permission_ull_booking_create:
     UllGroup:           ull_group_booking_admins
     UllPermission:      ull_permission_booking_create

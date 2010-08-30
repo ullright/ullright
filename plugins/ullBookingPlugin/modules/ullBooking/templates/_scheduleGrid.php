@@ -1,4 +1,4 @@
-<div id="booking_schedule_cells">  
+<div class="booking_schedule_cells">  
 
   <!-- header row with characters for resources -->
   <div class="booking_schedule_row">

@@ -10,6 +10,9 @@ $t = new myTestCase(33, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
+// create context since it is required by fixBehaviorFields() in ullRecurringBooking
+sfContext::createInstance($configuration);
+
 //test invalid combination of duration and recurrence period
 $t->begin('createRecurringBooking() with invalid combination of duration and recurrence period');
 

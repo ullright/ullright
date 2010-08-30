@@ -17,8 +17,7 @@
       <?php echo $date_select_form['date']->renderError(); ?>
     </div>
     
-    <?php include_partial('scheduleGrid',
-      array('start_hour' => $start_hour, 'end_hour' => $end_hour, 'cell_status' => $cell_status)); ?>
+    <?php include_component('ullBooking', 'scheduleGrid', array('cell_status' => $cell_status)) ?>
   </div>
   
   <!-- info section (legend, create, info/delete/edit) -->
@@ -32,6 +31,12 @@
         </tr>
       <?php endfor; ?>
     </table>
+    
+    <?php if (UllUserTable::hasPermission('ull_booking_weekly_schedule')) : ?>
+      <h3>Ansichten</h3>
+      <?php echo link_to(__('Weekly overview', null, 'ullBookingMessages'), 
+        '/bookings/weekly/fields[date]/' . date('Y-m-d', $date)) ?>
+    <?php endif ?>
     
     <!-- create -->
     <?php if (UllUserTable::hasPermission('ull_booking_create')) : ?> 
