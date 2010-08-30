@@ -58,8 +58,15 @@ class ullRecurringBooking
     for ($i = 1; $i <= $repeats; $i++)
     {
       //clone the original booking and adapt start and end dates
+      //bug #1246: there is a problem in combination with behaviors:
+      //newly copy()ied records have their Timestampeable/Personable
+      //columns set as modified to Doctrine_Null, which fails for
+      //Timestampable (and is wrong anyway)
+      //we fix this by setting the fields manually, which is at best
+      //an ugly workaround
       $booking = $originalBooking->copy();
-
+      self::fixBehaviorFields($booking);
+      
       //add one unit of the recurrence period
       $startDate = strtotime('+1 ' . $recurrenceString, $startDate);
       $endDate = strtotime('+1 ' . $recurrenceString, $endDate);
@@ -82,6 +89,20 @@ class ullRecurringBooking
     return $bookings;
   }
 
+  /**
+   * Fixes bug #1246, see buildRecurringBookings() above
+   * @param $booking the ullBooking to fix
+   */
+  protected static function fixBehaviorFields(UllBooking $booking)
+  {
+    $booking->created_at = date('c');
+    $booking->updated_at = date('c');
+
+    //userId is allowed to be null
+    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    $booking->creator_user_id = $booking->updator_user_id = $userId;
+  }
+  
   /**
    * Converts single characters into matching recurrence
    * periods compatible with strtotime.

@@ -89,11 +89,11 @@ abstract class PluginUllBooking extends BaseUllBooking
         $this->setNewBookingGroup();
       }
       
-      parent::save($conn);
-
+      $result = parent::save($conn);
+      
       $conn->commit();
       
-      return $this;
+      return $result;
     }
     catch (Exception $e)
     {
