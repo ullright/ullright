@@ -380,8 +380,9 @@ abstract class BaseUllGeneratorActions extends ullsfActions
         if ($databaseColumns[$orderBy['column']]->getNaturalOrdering())
         {
           // The trick is, to order by the lenght of the string first, 
-          // then the normal order. TODO: Perhaps mysql only
-          $orderArray[$key]['column'] = 'LENGTH('. $orderBy['column'] . '), ' . $orderBy['column'];
+          // then the normal order. LENGTH function is provided by Doctrine.
+          $additionalLengthOrder = 'LENGTH('. $orderBy['column'] . ') ' . $orderBy['direction'];
+          $orderArray[$key]['column'] = $additionalLengthOrder . ', ' . $orderBy['column'];
         }
       }
     }
