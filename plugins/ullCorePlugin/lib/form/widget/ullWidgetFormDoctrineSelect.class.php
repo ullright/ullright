@@ -55,7 +55,7 @@ $(document).ready(function()
   
   
   /**
-   * Natsort the choices
+   * Sort the choices in a natural way
    *
    * @return array An array of choices
    */
@@ -65,7 +65,7 @@ $(document).ready(function()
     
     if (!$this->getOption('order_by'))
     {
-      natsort($choices);
+      natcasesort($choices);
     }
 
     return $choices;

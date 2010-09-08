@@ -17,6 +17,7 @@ class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineSelect
     $q->orderBy('t.name');
     
     $options['query'] = $q;
+    
     parent::__construct($options, $attributes);
   }
   
