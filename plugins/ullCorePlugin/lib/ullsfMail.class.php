@@ -22,7 +22,9 @@ class ullsfMail extends sfMail
     $reroute_flag = true,
     $reroute_to = array(),
     $reroute_cc = array(),
-    $reroute_bcc = array()
+    $reroute_bcc = array(),
+    $exclude_bcc = false,
+    $slug           
   ;
   
   /**
@@ -31,9 +33,11 @@ class ullsfMail extends sfMail
    * Initialisation / set defaults
    * 
    * Turn of dev-env rerouting functionality for the production environment
+   * 
+   * @param string $slug is an optional slug for sending module/action (e.g. ull_user_signed_up)
    *
    */
-  public function __construct() 
+  public function __construct($slug = null) 
   {
     parent::__construct();
     
@@ -42,13 +46,13 @@ class ullsfMail extends sfMail
     $this->setHostname(sfConfig::get('app_mailing_smtp_hostname'));
     $this->setUsername(sfConfig::get('app_mailing_smtp_username'));
     $this->setPassword(sfConfig::get('app_mailing_smtp_password'));
+    $this->slug = $slug;
     
     // reroute mails except in the production environment
     if (!sfConfig::get('app_mailing_reroute', true)) 
     {      
       $this->reroute_flag = false;
     }
-    
   }
   
   /**
@@ -218,21 +222,21 @@ class ullsfMail extends sfMail
   }
   
   /**
-   * prepares for sending
+   * Hook for custom logic which is executed before sending the mail
    * 
-   * normally empty -> used for testing
+   * @deprecated prepareForSending should be used and extended from now on
    *
    */
   public function prepare() {}
   
+  
   /**
-   * send email
-   *
+   * Prepare for sending
+   * 
+   * @return none
    */
-  public function send() 
+  public function prepareForSending() 
   {
-    $this->prepare();
-    
     // generally disable mailing for certain environments
     if (!sfConfig::get('app_mailing_enable', false))
     {
@@ -262,11 +266,24 @@ class ullsfMail extends sfMail
     else 
     {
       // send copy to debugger's email if configured
-      if (sfConfig::get('app_mailing_send_debug_cc', false)) 
+      if (sfConfig::get('app_mailing_send_debug_cc', false) && !$this->isInDebugCcExcludeList()) 
       {
-        $this->mailer->AddBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
+        $this->addBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
       }
-    }
+    }    
+    
+  }
+  
+  
+  /**
+   * send email
+   *
+   */
+  public function send() 
+  {
+    $this->prepare();
+    
+    $this->prepareForSending();
     
     // check for 'to' addresses
     if ($this->hasAddresses()) 
@@ -332,6 +349,18 @@ class ullsfMail extends sfMail
     }
 
     return $return;
+  }
+  
+  /**
+   * Checks if the slug is in the debug cc exlude list.
+   * 
+   * @return boolean
+   */
+  protected function isInDebugCcExcludeList()
+  {
+    $bccExcludeList = sfConfig::get('app_mailing_debug_cc_exclude_list', array());
+    
+    return in_array($this->slug, $bccExcludeList);
   }
   
 }
