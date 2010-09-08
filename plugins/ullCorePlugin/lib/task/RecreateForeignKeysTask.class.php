@@ -83,8 +83,10 @@ EOF;
 
       //... and iterate through it
       $i = 0; $errors = 0;
-      foreach ($foreignKeys as $tableName => $foreignKeyDefinitions)    {
-        foreach ($foreignKeyDefinitions as $foreignKeyDefinition) {
+      foreach ($foreignKeys as $tableName => $foreignKeyDefinitions)
+      {
+        foreach ($foreignKeyDefinitions as $foreignKeyDefinition)
+        {
           try
           {
             $connection->export->createForeignKey($tableName, $foreignKeyDefinition);
