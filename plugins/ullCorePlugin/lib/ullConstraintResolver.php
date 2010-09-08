@@ -4,6 +4,10 @@
  * Helps in resolving constraints for Doctrine records.
  * Can be used to retrieve a list of all records blocking
  * the deletion of a specific record.
+ * 
+ * Note: This class relies on Doctrine's relation system.
+ * If Doctrine messes up relation handling (it happens ...)
+ * returned results might be incorrect.
  */
 class ullConstraintResolver
 {
@@ -43,7 +47,7 @@ class ullConstraintResolver
       {
         //found a foreign key relation, retrieve related records
         $constrainingRecords = $relation->fetchRelatedFor($record);
-
+        
         //do we have related records?
         if (count($constrainingRecords) == 0)
         {
