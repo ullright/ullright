@@ -209,11 +209,11 @@ UllFlowMemory:
       foreignAlias: UllFlowMemories
     AssignedToUllEntity:
       class: UllEntity
-      foreignAlias: UllFlowMemories
+      foreignAlias: UllFlowMemoriesAssigner
       local: assigned_to_ull_entity_id
     CreatorUllEntity:
       class: UllEntity    
-      foreignAlias: UllFlowMemories
+      foreignAlias: UllFlowMemoriesCreator
       local: creator_ull_entity_id            
 
 UllFlowAction:
