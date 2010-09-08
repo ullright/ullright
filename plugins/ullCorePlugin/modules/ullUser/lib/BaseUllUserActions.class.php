@@ -921,7 +921,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $object = $this->generator->getRow();
     $name = $object->first_name . ' ' . $object->last_name;
     
-    $mail = new ullsfMail();
+    $mail = new ullsfMail('ull_user_signed_up');
 
     $mail->setFrom(
       sfConfig::get('app_ull_user_sign_up_sender_address', 'noreply@example.com'),
