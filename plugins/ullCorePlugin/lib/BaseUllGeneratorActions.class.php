@@ -235,13 +235,28 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     }
     catch (Doctrine_Connection_Exception $e)
     {
-      $this->getUser()->setFlash('message',
-        __('Deletion was unsuccessful. There is at least one other record ' .
-          ' which depends on this item.', null, 'common'));
+      //was the exception caused by constraints?
+      //$e->getPortableMessage() == 'constraint violation'
+      if ($e->getPortableCode() == -3)
+      {
+        $constrainingLabels = ullConstraintResolver::findConstrainingRecords($row);
+        natsort($constrainingLabels);
+        
+        $this->getUser()->setFlash('message',
+          __('Deletion was unsuccessful.', null, 'common') .
+          '<br />' .
+          __('There are others items which depend on this record:', null, 'common') .
+            '<br /><br />' .  implode('<br />', $constrainingLabels));
+      }
+      else
+      {
+        //not our business
+        throw $e;
+      }
     }
     
     $this->redirect($this->getUriMemory()->getAndDelete('list'));
-  }  
+  }
 
   
   /**

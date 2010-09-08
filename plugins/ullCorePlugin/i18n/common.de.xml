@@ -1170,6 +1170,16 @@
 <target>Alle anzeigen</target>
 </trans-unit>
 
+<trans-unit id="26000">
+<source>Deletion was unsuccessful.</source>
+<target>Der Löschvorgang war nicht erfolgreich.</target>
+</trans-unit>
+
+<trans-unit id="26001">
+<source>There are others items which depend on this record:</source>
+<target>Die folgenden Datensätze sind von dem zu löschenden abhängig:</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
