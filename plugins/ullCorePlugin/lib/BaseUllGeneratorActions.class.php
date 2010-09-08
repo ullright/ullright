@@ -240,7 +240,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       if ($e->getPortableCode() == -3)
       {
         $constrainingLabels = ullConstraintResolver::findConstrainingRecords($row);
-        natsort($constrainingLabels);
+        natcasesort($constrainingLabels);
         
         $this->getUser()->setFlash('message',
           __('Deletion was unsuccessful.', null, 'common') .
