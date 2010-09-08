@@ -67,7 +67,7 @@
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator'   => $generator,
       'order'       => $order,
-      'add_icon_th' => false,
+      'add_icon_th' => $showEditAction,
   )); ?>
   
   <!-- data -->
@@ -78,6 +78,15 @@
     <?php $idAsArray = (array) $generator->getIdentifierUrlParamsAsArray($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
         <?php // special handling for comment -> decode for usable link ?>
+      <?php if ($showEditAction) : ?>
+        <td class='no_wrap'>
+          <?php
+           $object = $generator->getSpecificRow($row);
+           echo ull_link_to(ull_image_tag('edit'), array('action' => 'editProject',
+            'id' => $idAsArray['id'], 'date' => $object['date'], 'username' => $user['username']));
+          ?>
+      <?php endif; ?>
+      </td>
       <?php foreach ($generator->getAutoRenderedColumns() as $column_name => $column_config): ?>
         <?php if ($column_name == 'comment'): ?>
             <td><?php echo html_entity_decode($form[$column_name], ENT_QUOTES, 'UTF-8') ?></td>
@@ -90,6 +99,7 @@
 
   <?php if ($generator->getCalculateSums()): ?>
     <tr class="list_table_sum">
+      <?php echo ($showEditAction) ? '<td></td>' : ''; //fix double line display ?>
       <?php echo $generator->getSumForm() ?>
     </tr>
   <?php endif ?>
