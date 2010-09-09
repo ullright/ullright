@@ -173,7 +173,7 @@ UllGroupPermission:
     UllPermission:      ull_permission_time_act_as_user
     namespace:          ull_time         
   ull_group_permission_ull_time_8:
-    UllGroup:           ull_group_time_admins
+    UllGroup:           ull_group_logged_in_users
     UllPermission:      ull_permission_time_report
     namespace:          ull_time
   ull_group_permission_ull_time_9:

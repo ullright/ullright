@@ -145,11 +145,11 @@ class PluginUllProjectReportingTable extends UllRecordTable
       return $q;
     }
     
-    // check for 'ull_time_report' permission
-    if (UllUserTable::hasPermission('ull_time_report'))
-    {
-      return $q;
-    }
+//    // check for 'ull_time_report' permission
+//    if (UllUserTable::hasPermission('ull_time_report'))
+//    {
+//      return $q;
+//    }
     
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     

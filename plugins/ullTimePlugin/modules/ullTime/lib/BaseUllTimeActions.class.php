@@ -102,7 +102,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   public function executeReportProject(sfRequest $request)
   {
-//    $this->checkPermission('ull_time_report');
+    $this->checkPermission('ull_time_report');
     
     $this->breadcrumbForReportProject();
     
@@ -111,7 +111,12 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       $this->ull_reqpass_redirect();
     }
     
-    // "false" must be a string as request params come as strings
+    //save uri so that the user gets returned to this list
+    //instead of the defautl overview if he chooses to edit
+    //a specific project report
+    $this->getUriMemory()->setUri('list');
+    
+    //"false" must be a string as request params come as strings
     $request->setParameter('paging', 'false');
     
     $this->report = $request->getParameter('report');
