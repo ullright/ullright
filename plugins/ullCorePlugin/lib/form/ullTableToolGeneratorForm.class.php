@@ -126,7 +126,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       }
     }
 
-    $object =  parent::updateObject();
+    $object = parent::updateObject();
     
     return $object;
   }

@@ -134,6 +134,9 @@ UllPermission:
   ull_permission_time_report:
     slug:               ull_time_report
     namespace:          ull_time
+  ull_permission_time_report_all:
+    slug:               ull_time_report_all
+    namespace:          ull_time
   ull_permission_time_enter_future_periods:
     slug:               ull_time_enter_future_periods
     namespace:          ull_time          
@@ -179,4 +182,8 @@ UllGroupPermission:
   ull_group_permission_ull_time_9:
     UllGroup:           ull_group_time_admins
     UllPermission:      ull_permission_time_enter_future_periods
+    namespace:          ull_time
+  ull_group_permission_ull_time_10:
+    UllGroup:           ull_group_time_admins
+    UllPermission:      ull_permission_time_report_all
     namespace:          ull_time                    

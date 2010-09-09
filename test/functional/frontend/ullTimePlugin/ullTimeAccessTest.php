@@ -130,3 +130,21 @@ $b
   ->end()
 ;
 
+//now promote test_user to TimeAdmin (access to every report)
+$groupMembership = new UllEntityGroup();
+$groupMembership->UllUser = Doctrine::getTable('UllUser')->findOneByUserName('test_user');
+$groupMembership->UllGroup = Doctrine::getTable('UllGroup')->findOneByDisplayName('TimeAdmins');
+$groupMembership->save();
+
+$b
+  ->get('ullTime/reportProject/report/by_project')
+  ->with('response')->begin()
+    ->checkElement($dgsList->getFullRowSelector(), 3) // 2 + sum row
+    ->checkElement($dgsList->get(1, 'project') ,'Introduce ullright')
+    ->checkElement($dgsList->get(1, 'duration') ,'3:30') // 2:30 for test_user, 1:00 for admin
+    ->checkElement($dgsList->get(2, 'project') ,'Meeting room furniture')
+    ->checkElement($dgsList->get(2, 'duration') ,'2:00') // 1:30 for test_user, 0:30 for admin
+    ->checkElement($dgsList->get(3, 'duration') ,'5:30') //sum
+  ->end()
+;
+
