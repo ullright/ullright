@@ -670,6 +670,18 @@ img.ull_user_popup_icon {
 
 /*
  * ************************************************
+ *  ullWidgetFormSelect (and other select boxes)
+ * ************************************************
+ */
+ 
+input.ull_widget_select_filter {
+	background-image: url(/ullCoreThemeNGPlugin/images/action_icons/search_16x16_light.png);
+	background-repeat: no-repeat;
+	background-position: right;
+}  
+
+/*
+ * ************************************************
  *  ullMetaWidgetUllEntityWidget
  * ************************************************
  */
