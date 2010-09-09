@@ -240,7 +240,7 @@ class ullsfMail extends sfMail
     // generally disable mailing for certain environments
     if (!sfConfig::get('app_mailing_enable', false))
     {
-      return true;
+      return false;
     }
     
     if ($this->reroute_flag) 
@@ -270,8 +270,9 @@ class ullsfMail extends sfMail
       {
         $this->addBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
       }
-    }    
+    }
     
+    return true;
   }
   
   
@@ -283,10 +284,9 @@ class ullsfMail extends sfMail
   {
     $this->prepare();
     
-    $this->prepareForSending();
+    $shouldSend = $this->prepareForSending();
     
-    // check for 'to' addresses
-    if ($this->hasAddresses()) 
+    if ($shouldSend && $this->hasAddresses()) 
     {
       if (!$this->mailer->Send())
       {
