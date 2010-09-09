@@ -82,6 +82,19 @@ $b
 ;
 
 $b
+  ->diag('list: search box')
+  ->setField('filter[search]', 'furniture')
+  ->click('search_list')
+  ->isRedirected()
+  ->followRedirect()
+  ->with('response')->begin()
+    ->checkElement($dgsList->get(1, 'project') ,'Meeting room furniture')
+    ->checkElement($dgsList->get(1, 'duration') ,'8:55')    //7:25 + Testdaten (1:30)
+    ->checkElement($dgsList->get(2, 'duration') ,'8:55')   
+  ->end()
+;
+
+$b
   ->get('ullTime/index')
   ->isStatusCode(200)
   ->with('request')->begin()
