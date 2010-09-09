@@ -852,6 +852,11 @@
 <target>Anzeigename</target>
 </trans-unit>
 
+<trans-unit id="17018">
+<source>Email address</source>
+<target>E-Mail Adresse</target>
+</trans-unit>
+
 <!-- labels -->
 
 <trans-unit id="18000">

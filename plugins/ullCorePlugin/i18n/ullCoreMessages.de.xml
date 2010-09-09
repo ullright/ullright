@@ -709,6 +709,15 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <target>Neues Passwort zusenden</target>
       </trans-unit>  
       
+      <trans-unit id="3210">
+        <source>Please enter your username and email address</source>
+        <target>Bitte geben Sie Ihren Benutzernamen und Ihre E-Mail Adresse ein</target>
+      </trans-unit>
+      
+      <trans-unit id="3211">
+        <source>Invalid username and email address</source>
+        <target>Ungültiger Benutzername und E-Mail Adresse</target>
+      </trans-unit>
       
       <!-- login Form -->
           
