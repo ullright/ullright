@@ -225,15 +225,24 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       if ($this->form->isValid())
       {
         $username = $this->form->getValue('username');
-        $newPassword = rand(1000,9999);
+        $email = $this->form->getValue('email');
         $user = Doctrine::getTable('UllUser')->findOneByUsername($username);
-        $user['password'] = md5($newPassword);
-        $user->save();
-        
-        $this->sendResetPasswordEmail($user, $newPassword);
-
-        $this->getUser()->setFlash('message',  __('Your new password has been sent to your email address', null, 'ullCoreMessages'));
-        $this->redirect('ullUser/login');
+        if (!$user || ($user['email'] != $email))
+        {
+          $this->getUser()->setFlash('message', __('Invalid username and email address', null, 'ullCoreMessages'));
+          $this->redirect($request->getUri());
+        }
+        else
+        {
+          $newPassword = rand(1000,9999);
+          $user['password'] = md5($newPassword);
+          $user->save();
+          
+          $this->sendResetPasswordEmail($user, $newPassword);
+  
+          $this->getUser()->setFlash('message',  __('Your new password has been sent to your email address', null, 'ullCoreMessages'));
+          $this->redirect('ullUser/login');
+        }
       }
     }
   }    

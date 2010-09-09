@@ -6,6 +6,7 @@ class ResetPasswordForm extends sfForm
   {
     $this->setWidgets(array(
       'username'  => new sfWidgetFormInput,
+      'email'    => new sfWidgetFormInput
     ));
     
     $this->widgetSchema->setNameFormat('resetPassword[%s]');
@@ -13,14 +14,20 @@ class ResetPasswordForm extends sfForm
   
     $this->widgetSchema->setLabels(array(
       'username'    => __('Username', null, 'common'),
+      'email'    => __('Email address', null, 'common')
     ));
     
     $this->setValidators(array(
-        'username' => new ullValidatorUsername(
+        'username' => new sfValidatorPass(
             array(), 
             array(
               'required'    => 'Your username is required!',
             )),
+         'email' => new sfValidatorEmail(
+            array(), 
+            array(
+              'required'    => 'Your e-mail is required!',
+            ))
     ));
   }
 }

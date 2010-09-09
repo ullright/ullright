@@ -1,4 +1,4 @@
-<h2><?php echo __('Please enter your username', null, 'ullCoreMessages') ?></h2>
+<h2><?php echo __('Please enter your username and email address', null, 'ullCoreMessages') ?></h2>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
