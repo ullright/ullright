@@ -111,7 +111,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       $this->ull_reqpass_redirect();
     }
     
-    // Must be a string as request params come as strings
+    // "false" must be a string as request params come as strings
     $request->setParameter('paging', 'false');
     
     $this->report = $request->getParameter('report');

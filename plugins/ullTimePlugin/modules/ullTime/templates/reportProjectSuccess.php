@@ -20,17 +20,22 @@
 <ul class='list_action_buttons color_light_bg'>
     <?php if ($report != 'by_user'): ?>
       <li>
-       <?php echo $filter_form['ull_user_id']->renderLabel() ?>    
-       <?php echo $filter_form['ull_user_id']->render() ?>
-       <?php echo $filter_form['ull_user_id']->renderError() ?>
-     </li>
+        <?php echo $filter_form['search']->renderLabel() ?>    
+        <?php echo $filter_form['search']->render() ?>
+        <?php echo $filter_form['search']->renderError() ?>
+      </li>
+      <li>
+        <?php echo $filter_form['ull_user_id']->renderLabel() ?>    
+        <?php echo $filter_form['ull_user_id']->render() ?>
+        <?php echo $filter_form['ull_user_id']->renderError() ?>
+      </li>
     <?php endif ?>
     <?php if ($report != 'by_project'): ?>
-    <li>
-     <?php echo $filter_form['ull_project_id']->renderLabel() ?>    
-     <?php echo $filter_form['ull_project_id']->render() ?>
-     <?php echo $filter_form['ull_project_id']->renderError() ?>
-   </li>   
+      <li>
+        <?php echo $filter_form['ull_project_id']->renderLabel() ?>    
+        <?php echo $filter_form['ull_project_id']->render() ?>
+        <?php echo $filter_form['ull_project_id']->renderError() ?>
+     </li>   
    <?php endif ?>
    <li>
      <?php echo $filter_form['from_date']->renderLabel() ?>    
