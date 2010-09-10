@@ -675,9 +675,11 @@ img.ull_user_popup_icon {
  */
  
 input.ull_widget_select_filter {
+	padding-right: 18px;
 	background-image: url(/ullCoreThemeNGPlugin/images/action_icons/search_16x16_light.png);
 	background-repeat: no-repeat;
 	background-position: right;
+	background-position: 95% 60%;
 }  
 
 /*
