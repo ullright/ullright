@@ -31,7 +31,7 @@
       </table>
     </div>
     
-    <div class="clear"></div>
+    <div class="clear_left"></div>
     
     <div id="booking_schedule_days">
 
@@ -59,6 +59,8 @@
       
   </div>
 </div>
+
+<div class="clear_left"></div>
 
 <script type="text/javascript">
 //<![CDATA[
