@@ -1185,6 +1185,21 @@
 <target>Die folgenden Datensätze sind von dem zu löschenden abhängig:</target>
 </trans-unit>
 
+<trans-unit id="26002">
+<source>The date must be %max% or earlier.</source>
+<target>Das Datum muss am %max% oder früher liegen.</target>
+</trans-unit>
+
+<trans-unit id="26003">
+<source>The date must be %min% or later.</source>
+<target>Das Datum muss am %min% oder später liegen.</target>
+</trans-unit>
+
+<trans-unit id="26004">
+<source>Recurring until</source>
+<target>Wiederholen bis</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

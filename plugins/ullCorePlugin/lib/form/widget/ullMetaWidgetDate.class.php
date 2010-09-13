@@ -34,6 +34,10 @@ class ullMetaWidgetDate extends ullMetaWidget
 
     //since we are the ullMetaWidgetDate, we can assume error display without time
     $fixedValidatorOptions = array('date_format_range_error' => ull_date_pattern(true, true));
+    if ($this->columnConfig->getOption('use_inclusive_error_messages'))
+    {
+      $fixedValidatorOptions['use_inclusive_error_messages'] = true;
+    }
     
     $this->addWidget(new ullWidgetDateWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new ullValidatorDate(array_merge($fixedValidatorOptions, $this->columnConfig->getValidatorOptions())));

@@ -206,19 +206,28 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
   /**
    * Execute create action
-   * 
    */
   public function executeCreateProject(sfRequest $request) 
   {
-    $this->forward('ullTime', 'editProject');
-  } 
-
+    //previously we just forwarded to editProject,
+    //but now that we have create-only fields (recurring
+    //until) we need that information in the action
+    $this->handleProjectEffort($request);
+    $this->setTemplate('editProject');
+  }
   
   /**
-   * Execute edit project effort action
-   * 
+   * Execute edit action
    */
   public function executeEditProject(sfRequest $request) 
+  {
+    $this->handleProjectEffort($request);
+  } 
+
+  /**
+   * Handles create and edit for project efforts
+   */
+  protected function handleProjectEffort(sfRequest $request)
   {
     $this->checkPermission('ull_time_edit_project');
     
@@ -238,13 +247,13 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     {
       $this->doc->setDurationSeconds($this->diff_time);
     }
-    
-    $this->edit_generator = new ullTableToolGenerator('UllProjectReporting', $this->getLockingStatus());
+
+    $this->edit_generator =
+      new ullTimeProjectEffortGenerator($this->getLockingStatus(),$this->date);
     
     $this->disableCommentForLinkedProjectEfforts();
     
     $this->edit_generator->buildForm($this->doc);
-
     
     $this->breadcrumbForEditProject();
     
@@ -252,8 +261,34 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     if ($request->isMethod('post'))
     {
-      if ($this->edit_generator->getForm()->bindAndSave($request->getParameter('fields')))
+      $this->edit_generator->getForm()->bind($request->getParameter('fields'));  
+      if ($this->edit_generator->getForm()->isValid())
       {
+        //save original record ...
+        $this->edit_generator->getForm()->save();
+        //... but also check if the recurring option was set
+        $recurringUntil = $this->edit_generator->getForm()->getValue('recurring_until');
+        
+        if (!empty($recurringUntil))
+        {
+          $period = new UllTimePeriod();
+          $period['from_date'] = $this->date;
+          $period['to_date'] = $recurringUntil;
+          $dayList = $period->getDateList();
+          //remove first element because it was already saved above
+          array_shift($dayList);
+          foreach ($dayList as $day)
+          {
+            //only add new efforts for weekdays
+            if (!$day['weekend'])
+            {
+              $clonedDoc = $this->doc->copy();
+              $clonedDoc['date'] = $day['date'];
+              $clonedDoc->save();
+            }
+          }
+        }
+        
         if ($request->getParameter('action_slug') == 'save_new') 
         {
           $this->redirect('ullTime/createProject?date=' . $request->getParameter('date') . '&username=' . $request->getParameter('username'));
@@ -264,13 +299,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
           $this->redirect($this->getUriMemory()->getAndDelete('list'));
         }
       }
-      else
-      {
-//        var_dump($this->generator->getForm()->getErrorSchema());
-      }
     }
-      
-//    echo $this->generator->getForm()->debug();
   }
 
 

@@ -9,9 +9,36 @@
  * Note: Relies on ull_parse_date_without_separators which uses
  * a function not available on Windows systems. PHP 5.3.0
  * would provide alternatives.
+ * 
+ * Also adds support for 'inclusive' error messages, e.g.
+ * 'max or earlier' instead of 'before max'. Set use_inclusive_error_messages
+ * to true if this behavior is desired.
  */
 class ullValidatorDate extends sfValidatorDate
 {
+  /**
+   * Returns a new ullValidatorDate instance.
+   *
+   * @param array $options validator options
+   * @param array $messages validator messages
+   * @param boolean 
+   */
+  public function __construct($options = array(), $messages = array())
+  {
+    $this->addOption('use_inclusive_error_messages', false);
+    
+    parent::__construct($options, $messages);
+    
+    if (!empty($options['use_inclusive_error_messages']))
+    {
+      unset($options['use_inclusive_error_messages']);
+      //instead of:
+      //$this->addMessage('max', 'The date must be before %max%.');
+      //$this->addMessage('min', 'The date must be after %min%.');
+      $this->setMessage('max', __('The date must be %max% or earlier.', null, 'common'));
+      $this->setMessage('min', __('The date must be %min% or later.', null, 'common'));
+    }
+  }
   
   /**
    * Overrides the handling of numerical values when checking

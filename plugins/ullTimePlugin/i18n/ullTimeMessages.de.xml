@@ -219,6 +219,11 @@
 <target>Details</target>
 </trans-unit>
 
+<trans-unit id="44">
+<source>Repeat the new effort daily until this date (working days only)</source>
+<target>Den Aufwand bis zu diesem Datum täglich wiederholen (nur an Werktagen)</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
