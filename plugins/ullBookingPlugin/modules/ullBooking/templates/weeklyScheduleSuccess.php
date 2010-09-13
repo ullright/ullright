@@ -31,6 +31,8 @@
       </table>
     </div>
     
+    <div class="clear"></div>
+    
     <div id="booking_schedule_days">
 
       <?php foreach ($weekdays as $current_date => $weekday): ?>
