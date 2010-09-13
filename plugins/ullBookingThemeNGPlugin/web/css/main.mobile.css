@@ -1,0 +1,13 @@
+@import "multi_format.css";
+
+/* move booking management options from the right
+   to the bottom of the grid view and remove
+   separating border */
+
+#booking_schedule_content {
+  border-right: none;
+}
+
+#booking_schedule_info {
+  clear: left;
+}

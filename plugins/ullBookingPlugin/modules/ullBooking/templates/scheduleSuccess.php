@@ -153,6 +153,8 @@
  
 </div>
 
+<div class="clear"></div>
+
 <script type="text/javascript">
 //<![CDATA[
 function positionPopup(control, parent)

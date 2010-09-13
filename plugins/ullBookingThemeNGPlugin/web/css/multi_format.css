@@ -1,0 +1,163 @@
+#booking_schedule_select_form
+{
+  margin-top: -0.6em;
+  margin-bottom: 0.3em;
+}
+
+#booking_schedule_select_form #fields_date {
+  max-width: 5.7em;
+  text-align: center;
+}
+
+.booking_schedule_day {
+  float:left;
+}
+
+.booking_schedule_day_header {
+  text-align: center;
+}
+
+#booking_schedule_content {
+  float: left;
+  padding-left: 2em;
+  padding-right: 3em;
+  margin-right: 3em;
+  border-right: 2px dashed lightgrey;
+  min-width: 250px;  
+}
+
+#booking_schedule_info {
+  float: left;
+}
+
+.booking_schedule_cell {
+  float: left;
+  width: 1em;
+  height: 1em;
+  padding: 1px;
+  margin: 1px;
+}
+
+.booking_schedule_header_cell {
+  text-align: center;
+  /* invisible border for correct spacing */
+  /* note: has to be adapted if bg-color changes! */
+  border: 1px #fff solid;
+}
+
+.booking_schedule_time_cell {
+  font-size: 0.8em;
+  text-align: center;
+  width: 3em;
+  padding-bottom: 0.45em;
+  margin-top: -0.8em;
+}
+
+/*
+cells can be occupied (red)
+and free (green)
+*/
+
+.booking_schedule_cell_occupied {
+  border: 1px #c4c4c4 solid;
+  background-color: #ff7a7a;
+}
+
+.booking_schedule_cell_free {
+  border: 1px #c4c4c4 solid;
+  background-color: #89ef78;
+}
+
+/*
+for occupied cells, there are three states:
+first cell of a booking (open)
+last cell of a booking (close)
+and the ones between (normal)
+*/
+
+.booking_schedule_cell_open {
+  border-color: black black #ff7a7a black;
+}
+
+.booking_schedule_cell_normal {
+  border-color: #ff7a7a black;
+}
+
+.booking_schedule_cell_close {
+  border-color: #ff7a7a black black black;
+}
+
+.booking_schedule_row {
+  clear: left;
+}
+
+#booking_schedule_legend tr td {
+  padding: 0 0.2em;
+}
+
+.booking_schedule_legend_char {
+  font-family: monospace;
+  font-size: 1.1em;
+}
+
+#booking_delete_list {
+  list-style-type: none;
+}
+
+#booking_delete_list li {
+  padding: 0 0 0.5em 0;
+  margin-left: 0;
+}
+
+.booking_popup {
+  display: none;
+  position: absolute;
+  left: 0; /* needs to be set to prevent rendering errors */
+  top: 0;
+  border: 1px black solid;
+  background-color: #ffecd0;
+  padding: 0.7em 0.7em;
+  -webkit-border-radius: 7px 7px;
+  -moz-border-radius: 7px 7px;
+}
+
+#booking_delete_confirmation_yes {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+#booking_delete_confirmation_yes a {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+
+/* weekly schedule */
+
+#booking_weekly_schedule #booking_schedule_content {
+  border: none;
+}
+
+#booking_schedule_days {
+  clear: right;
+}
+
+#booking_weekly_schedule .booking_schedule_day_header {
+  float: left;
+  min-width: 250px;
+}
+
+#booking_weekly_schedule #booking_schedule_info {
+  float: right;
+}
+
+#booking_weekly_schedule .booking_schedule_day .booking_schedule_day_header
+{
+  margin-bottom: .6em;
+  min-width: 0;
+}
+
+.booking_schedule_day h3 {
+  margin-bottom: .1em;
+}
