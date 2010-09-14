@@ -30,7 +30,8 @@ class ullTimeProjectEffortGenerator extends ullTableToolGenerator
    */
   protected function customizeColumnsConfig()
   {
-    if ($this->isAction('createProject'))
+    if ($this->isAction('createProject')
+      && UllUserTable::hasPermission('ull_time_enter_future_periods'))
     {
       $this->getColumnsConfig()->create('recurring_until')
         ->setLabel(__('Recurring until', null, 'common'))

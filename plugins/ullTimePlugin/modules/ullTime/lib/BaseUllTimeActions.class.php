@@ -161,7 +161,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     $this->getDocFromRequestOrCreate();
     
-    $this->generator = new ullTableToolGenerator('UllTimeReporting', $this->getLockingStatus());
+    $this->generator = new ullTableToolGenerator('UllTimeReporting', $this->getAccessForEdit());
     $this->generator->buildForm($this->doc);
     $this->addGlobalValidators();
     
@@ -248,8 +248,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       $this->doc->setDurationSeconds($this->diff_time);
     }
 
-    $this->edit_generator =
-      new ullTimeProjectEffortGenerator($this->getLockingStatus(),$this->date);
+    $this->edit_generator = new ullTimeProjectEffortGenerator($this->getAccessForEdit(), $this->date);
     
     $this->disableCommentForLinkedProjectEfforts();
     
@@ -548,6 +547,26 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
 
+  /**
+   * Get generator access. Handles future dates depending on the matching
+   * access right and further calls the locking handling (see getLockingStatus())
+   * 
+   * @return string
+   */
+  protected function getAccessForEdit()
+  {
+    if ($this->date <= date('Y-m-d') || UllUserTable::hasPermission('ull_time_enter_future_periods'))
+    {
+      return $this->getLockingStatus();
+    }
+    else
+    {
+      $this->getUser()->setFlash('message', 
+        __('Read only access. Date is in the future. Please contact your superior if you need to edit this data.',
+        null, 'ullTimeMessages'), false);
+      return 'r';
+    }
+  }
   
   /**
    * Set generator global access depending on the locking status.
@@ -702,57 +721,54 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     
     foreach($rawDates as $date => $day)
     {
-      if ($date <= date('Y-m-d') || UllUserTable::hasPermission('ull_time_enter_future_periods'))
+      //check if we have a calendar week switch
+      if ($calendarWeek !== $day['calendarWeek'])
       {
-        //check if we have a calendar week switch
-        if ($calendarWeek !== $day['calendarWeek'])
+        //if this is not the first switch of a month,
+        //save the created week in the period table
+        if ($week != null)
         {
-          //if this is not the first switch of a month,
-          //save the created week in the period table
-          if ($week != null)
-          {
-            $periodTable[$calendarWeek] = $week;
-          }
-          
-          $calendarWeek = $day['calendarWeek'];
+          $periodTable[$calendarWeek] = $week;
+        }
+        
+        $calendarWeek = $day['calendarWeek'];
 
-          //create an empty week
-          $week = array();
-          $week['sum_project'] = 0;
-          $week['sum_time'] = 0;
-          $week['sum_delta'] = 0;
-          $week['future'] = true;
-        }
-        
-        //update the week with its days and add sums
-        
-        $week['dates'][$date] = $day;
+        //create an empty week
+        $week = array();
+        $week['sum_project'] = 0;
+        $week['sum_time'] = 0;
+        $week['sum_delta'] = 0;
+        $week['future'] = true;
+      }
+      
+      //update the week with its days and add sums
+      
+      $week['dates'][$date] = $day;
 
-        $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($date, $this->user_id);
-        $week['dates'][$date]['sum_time'] = $sumTime; 
-        $week['sum_time'] += $sumTime;
-        $this->totals['time'] += $sumTime;
-        
-        $sumProject = UllProjectReportingTable::findSumByDateAndUserId($date, $this->user_id);  
-        $week['dates'][$date]['sum_project'] = $sumProject;
-        $week['sum_project'] += $sumProject;
-        $this->totals['project'] += $sumProject;
-        
-        $sumDelta = $sumTime - $sumProject;
-        $week['dates'][$date]['sum_delta'] = $sumDelta;
-        $week['sum_delta'] += $sumDelta;
-        $this->totals['delta'] += $sumDelta;
-        
-        // mark future dates
-        if ($date > date('Y-m-d'))
-        {
-          $week['dates'][$date]['future'] = true;
-        }
-        else
-        {
-          $week['dates'][$date]['future'] = false;
-          $week['future'] = false;
-        }
+      $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($date, $this->user_id);
+      $week['dates'][$date]['sum_time'] = $sumTime; 
+      $week['sum_time'] += $sumTime;
+      $this->totals['time'] += $sumTime;
+      
+      $sumProject = UllProjectReportingTable::findSumByDateAndUserId($date, $this->user_id);  
+      $week['dates'][$date]['sum_project'] = $sumProject;
+      $week['sum_project'] += $sumProject;
+      $this->totals['project'] += $sumProject;
+      
+      $sumDelta = $sumTime - $sumProject;
+      $week['dates'][$date]['sum_delta'] = $sumDelta;
+      $week['sum_delta'] += $sumDelta;
+      $this->totals['delta'] += $sumDelta;
+      
+      // mark future dates
+      if ($date > date('Y-m-d'))
+      {
+        $week['dates'][$date]['future'] = true;
+      }
+      else
+      {
+        $week['dates'][$date]['future'] = false;
+        $week['future'] = false;
       }
     }
     

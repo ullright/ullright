@@ -224,6 +224,11 @@
 <target>Den Aufwand bis zu diesem Datum täglich wiederholen (nur an Werktagen)</target>
 </trans-unit>
 
+<trans-unit id="45">
+<source>Read only access. Date is in the future. Please contact your superior if you need to edit this data.</source>
+<target>Sie haben nur lesenden Zugriff, da das Datum in der Zukunft liegt. Bitte kontaktieren Sie Ihren Vorgesetzten bezüglich Änderungen.</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

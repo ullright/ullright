@@ -151,10 +151,9 @@
     </div>
     
   </div>
-<?php else: // else of if edit_generator ?>  
   
-  <?php echo __('No results found', null, 'common') ?>  
-  
+<?php elseif (!$list_generator->getRow()->exists()) : // else of if edit_generator ?>  
+  <?php echo __('No results found', null, 'common') . '.'; ?>
 <?php endif; // end of if edit_generator ?>
   
   
