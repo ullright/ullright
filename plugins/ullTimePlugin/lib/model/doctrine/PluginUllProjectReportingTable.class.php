@@ -154,7 +154,8 @@ class PluginUllProjectReportingTable extends UllRecordTable
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
     
     // Perform conditional join to prevent distinct ull_project_reporting results
-    $q->getDoctrineQuery()->leftJoin('x_ullproject.UllProjectManager pm WITH pm.ull_user_id = ' . $userId);
+    $q->getDoctrineQuery()->leftJoin('x.UllProject pr');
+    $q->getDoctrineQuery()->leftJoin('pr.UllProjectManager pm WITH pm.ull_user_id = ?', $userId);
     
     // my own efforts
     $q->addWhere('ull_user_id = ?', $userId);
