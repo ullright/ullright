@@ -50,8 +50,12 @@ $b
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'list')
-  ->end() 
-  ->click('Project reporting')
+  ->end()
+  //we cannot simply click the first "project reporting", it might
+  //be in the future (where we don't have edit rights) => select the
+  //first project reporting link which is NOT in the future
+  ->click('tr.ull_time_today > td:nth-child('
+    . $dgsList->getColumnAlias('project_reporting') . ') > a')
   ->isStatusCode(200)
   ->with('request')->begin()
     ->isParameter('module', 'ullTime')
@@ -93,7 +97,6 @@ $b
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'list')
   ->end()
-  //->dumpDie()
   ->with('response')->begin()
     ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('time_total') . ')', '5:00')
     ->checkElement('tr.ull_time_today > td:nth-child(' . $dgsList->getColumnAlias('project_total') . ')', '2:55')

@@ -124,7 +124,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->handleReportProjectDefaultOrder($request);
     
     $filterParams = $request->getParameter('filter');
-    $this->showEditAction = ($this->report == 'details') ? true : false;
+    $this->show_edit_action = ($this->report == 'details') ? true : false;
     
     $this->generator = new ullTimeReportGenerator($this->report, $filterParams);
     $this->generator->setCalculateSums(true);

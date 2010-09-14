@@ -72,7 +72,7 @@
   <?php include_partial('ullTableTool/ullResultListHeader', array(
       'generator'   => $generator,
       'order'       => $order,
-      'add_icon_th' => $showEditAction,
+      'add_icon_th' => $show_edit_action,
   )); ?>
   
   <!-- data -->
@@ -83,7 +83,7 @@
     <?php $idAsArray = (array) $generator->getIdentifierUrlParamsAsArray($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
         <?php // special handling for comment -> decode for usable link ?>
-      <?php if ($showEditAction) : ?>
+      <?php if ($show_edit_action) : ?>
         <td class='no_wrap'>
           <?php
            $object = $generator->getSpecificRow($row);
@@ -104,7 +104,7 @@
 
   <?php if ($generator->getCalculateSums()): ?>
     <tr class="list_table_sum">
-      <?php echo ($showEditAction) ? '<td></td>' : ''; //fix double line display ?>
+      <?php echo ($show_edit_action) ? '<td></td>' : ''; //fix double line display ?>
       <?php echo $generator->getSumForm() ?>
     </tr>
   <?php endif ?>
