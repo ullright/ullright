@@ -7,7 +7,7 @@ jQuery.fn.addSelectFilter = function()
   {
     var originalFilterId = this.id;
     var filterId = originalFilterId + '_filter';
-    var filter = $('<input type="text" id="' + filterId + '" size="3" title="Filter" class="ull_widget_select_filter" />');
+    var filter = $('<input type="text" id="' + filterId + '" size="1" title="Filter" class="ull_widget_select_filter" />');
     
     $(this).before(filter);
     filter.after(" ");
