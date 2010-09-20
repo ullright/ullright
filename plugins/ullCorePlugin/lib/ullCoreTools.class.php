@@ -143,9 +143,9 @@ class ullCoreTools
     $parts = explode(':', $time);
     $hour = $parts[0];
     $minute = $parts[1];    
-    if (substr($hour,0,1) == 0)
+    if (substr($hour, 0, 1) === '0' && strlen($hour) > 1)
     {
-      $hour = substr($hour,1,1);
+      $hour = substr($hour, 1, 1);
     }
     
     return $hour . ':' . $minute;

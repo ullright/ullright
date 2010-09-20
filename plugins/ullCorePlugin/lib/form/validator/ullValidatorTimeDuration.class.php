@@ -16,6 +16,22 @@ class ullValidatorTimeDuration extends sfValidatorInteger
   
   protected function doClean($value)
   {
+    //if the user wants to remove a value, allow it
+    //without this, empty fields result in zero, not null
+    if ($value == ':')
+    {
+			//handle this immediately to prevent vacuous message
+			//from parent validator
+      if ($this->options['required'])
+      {
+        throw new sfValidatorError($this, 'required');
+      }
+      else
+      {
+        return null;
+      }
+    }
+    
     $value = str_replace(',', '.', $value);
     
     if (strstr($value, ':'))

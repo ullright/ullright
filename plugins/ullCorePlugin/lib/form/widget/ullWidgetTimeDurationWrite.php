@@ -46,7 +46,11 @@ $(document).ready(function()
     
     if ($value && !$errors)
     {
-      $value = ullCoreTools::timeToString($value);
+			//if validation for a form fails, this widget might
+			//encounter various formats: numeric (input normalized to seconds)
+			//but also unnormalized strings (e.g. '3:40')
+      $value = (is_numeric($value)) ? ullCoreTools::timeToString($value)
+        : ullCoreTools::isoTimeToHumanTime($value);
     }
     
     $return .= parent::render($name, $value, $attributes, $errors);
