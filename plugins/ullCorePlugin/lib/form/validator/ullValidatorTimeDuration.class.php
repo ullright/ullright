@@ -20,8 +20,8 @@ class ullValidatorTimeDuration extends sfValidatorInteger
     //without this, empty fields result in zero, not null
     if ($value == ':')
     {
-			//handle this immediately to prevent vacuous message
-			//from parent validator
+      //handle this immediately to prevent vacuous message
+      //from parent validator
       if ($this->options['required'])
       {
         throw new sfValidatorError($this, 'required');
