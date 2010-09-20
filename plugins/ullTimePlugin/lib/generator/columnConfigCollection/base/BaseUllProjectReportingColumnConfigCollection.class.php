@@ -33,7 +33,8 @@ class BaseUllProjectReportingColumnConfigCollection extends ullColumnConfigColle
     ;
     $this['duration_seconds']
       ->setMetaWidgetClassName('ullMetaWidgetTimeDuration')
-      ->setLabel(__('Duration', null, 'common'));
+      ->setLabel(__('Duration', null, 'common'))
+      ->setValidatorOption('allow_zero_duration', false)
     ;
     $this['comment']
       ->setMetaWidgetClassName('ullMetaWidgetString')

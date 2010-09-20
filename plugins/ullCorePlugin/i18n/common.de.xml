@@ -1200,6 +1200,11 @@
 <target>Wiederholen bis</target>
 </trans-unit>
 
+<trans-unit id="26005">
+<source>Duration must not be zero.</source>
+<target>Dauer darf nicht Null sein.</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

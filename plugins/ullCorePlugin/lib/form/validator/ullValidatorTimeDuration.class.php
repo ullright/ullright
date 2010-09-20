@@ -13,6 +13,21 @@
  */
 class ullValidatorTimeDuration extends sfValidatorInteger
 {
+  /**
+   * Returns a new ullValidatorTimeDuration instance.
+
+   * @param array $options validator options
+   * @param array $messages validator messages
+   */
+  public function __construct($options = array(), $messages = array())
+  {
+    $this->addMessage('zero_duration_not_allowed',
+      __('Duration must not be zero.', null, 'common'));
+    
+    $this->addOption('allow_zero_duration', true);
+    
+    parent::__construct($options, $messages);
+  } 
   
   protected function doClean($value)
   {
@@ -48,6 +63,14 @@ class ullValidatorTimeDuration extends sfValidatorInteger
       $value = $value * 3600;
     }
 
-    return parent::doClean($value);
+    $value = parent::doClean($value);
+    if ($value !== 0 || $this->getOption('allow_zero_duration'))
+    {
+      return $value;
+    }
+    else
+    {
+      throw new sfValidatorError($this, 'zero_duration_not_allowed');
+    }
   }
 }
