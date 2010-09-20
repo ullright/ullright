@@ -718,6 +718,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $calendarWeek = null;
     $week = null;
     $this->totals = array('time' => 0, 'project' => 0, 'delta' => 0);
+    $this->all_days_are_future = true;
     
     foreach($rawDates as $date => $day)
     {
@@ -769,6 +770,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       {
         $week['dates'][$date]['future'] = false;
         $week['future'] = false;
+        $this->all_days_are_future = false;
       }
     }
     
