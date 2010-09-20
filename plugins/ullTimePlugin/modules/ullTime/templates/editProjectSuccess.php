@@ -7,8 +7,10 @@
 
 <h3>
   <?php echo __('Project efforts', null, 'ullTimeMessages')?>
-  <?php echo $edit_generator->getForm()->offsetGet('date')->render() ?> /
-  <?php echo $edit_generator->getForm()->offsetGet('ull_user_id')->render() ?>
+  <?php echo ull_format_date($date); ?> /
+  <?php $userWidget = new ullWidgetForeignKey(
+    array('show_ull_entity_popup' => true, 'model' => 'UllEntity'));
+    echo $userWidget->render('ull_user_id', $user_id); ?>
 </h3>
 
 <?php if ($list_generator->getRow()->exists()):?>

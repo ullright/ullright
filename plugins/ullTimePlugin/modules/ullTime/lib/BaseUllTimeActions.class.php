@@ -249,11 +249,9 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     }
 
     $this->edit_generator = new ullTimeProjectEffortGenerator($this->getAccessForEdit(), $this->date);
-    
     $this->disableCommentForLinkedProjectEfforts();
-    
     $this->edit_generator->buildForm($this->doc);
-    
+     
     $this->breadcrumbForEditProject();
     
     $this->cancel_link = $this->getUriMemory()->get('list');
