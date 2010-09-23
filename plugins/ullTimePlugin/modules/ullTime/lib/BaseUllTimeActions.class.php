@@ -255,6 +255,8 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->breadcrumbForEditProject();
     
     $this->cancel_link = $this->getUriMemory()->get('list');
+    $this->setVar('user_widget', new ullWidgetForeignKey(
+      array('show_ull_entity_popup' => true, 'model' => 'UllEntity')), true);
     
     if ($request->isMethod('post'))
     {
