@@ -24,18 +24,18 @@
                   type: "POST",  
                   url: "' . url_for($form_uri) . '",  
                   data: $("#ull_tabletool_form").serialize(), 
-                  success: function(data) {  
-                    if (json = jQuery.parseJSON(data)) {
-                      
+                  success: function(data) {
+                    // A json response means ok
+                    try {
+                      var json = jQuery.parseJSON(data);
                       // save overlay edit id
                       window.overlayId = json.id;
                       // trigger save on close event
                       window.overlaySaveOnClose = true;
                       $("a[rel]").overlay().close();
-                      $
-                      
                     }
-                    else {
+                    // Otherwise we have a validation error
+                    catch (e) {
                       var wrap = $("a[rel]").overlay().getOverlay().find(".overlayContentWrap");
                       wrap.html(data);
                       wrap.scrollTop(0);

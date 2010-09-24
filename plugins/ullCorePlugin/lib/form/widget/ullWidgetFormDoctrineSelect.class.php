@@ -129,7 +129,7 @@ $(document).ready(function()
     
 $(function() {
 
-  /* Documentation @http://flowplayer.org/tools/overlay/index.html */
+  /* Overlay documentation @see http://flowplayer.org/tools/overlay/index.html */
   $("a[rel]").overlay({
 
     fixed: false,
