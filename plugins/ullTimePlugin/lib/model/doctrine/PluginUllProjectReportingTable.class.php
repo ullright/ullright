@@ -58,12 +58,14 @@ class PluginUllProjectReportingTable extends UllRecordTable
   {
     $q = new Doctrine_Query;
     $q
+      // for debugging .. wont work normally
+//      ->select('COUNT(pr.ull_project_id) as num, pr.ull_project_id, t.name, p.id, t.id')
       ->select('COUNT(pr.ull_project_id) as num, pr.ull_project_id, t.name')
       ->from('UllProjectReporting pr, pr.UllProject p, p.Translation t')
-      ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 2))
+      ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 8))
       ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
       ->addWhere('p.is_active = ?', true)
-      ->addWhere('p.is_routine IS NULL')
+      ->addWhere('p.is_routine = ?', false)
       ->addWhere('pr.creator_user_id = ?', sfContext::getInstance()->getUser()->getAttribute('user_id'))
       ->groupBy('pr.ull_project_id')
       //->orderBy('num DESC')
@@ -75,7 +77,12 @@ class PluginUllProjectReportingTable extends UllRecordTable
     // 0 = ull_project_id
     // 1 = name
     // 2 = num
-    $result = $q->execute(null, Doctrine::HYDRATE_NONE);
+//    printQuery($q->getSqlQuery());
+//    var_dump($q->getParams());
+    
+    $result = $q->execute(array(), Doctrine::HYDRATE_NONE);
+    
+//    var_dump($result);
     
     $max = (count($result) > 10) ? 10 : count($result);   
     
@@ -101,7 +108,7 @@ class PluginUllProjectReportingTable extends UllRecordTable
     $q
       ->select('COUNT(pr.ull_project_id) as num, pr.ull_project_id, t.name')
       ->from('UllProjectReporting pr, pr.UllProject p, p.Translation t')
-      ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 2))
+      ->where('pr.created_at > ?', date('Y-m-d', time() - 60 * 60 * 24 * 7 * 8))
       ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
       ->addWhere('p.is_active = ?', true)
       ->addWhere('p.is_routine = ?', true)

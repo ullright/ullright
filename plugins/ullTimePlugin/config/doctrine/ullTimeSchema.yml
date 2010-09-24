@@ -21,6 +21,7 @@ UllProject:
       default: true
     is_routine:
       type: boolean
+      default: false
     #is_default:
     #  type: boolean
     #  unique: true      
