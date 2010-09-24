@@ -77,6 +77,15 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
     {
       $this->columnConfig->setWidgetOption('show_search_box', false);
     }        
+    
+    if ($this->columnConfig->getOption('enable_inline_adding'))
+    {
+      $this->columnConfig->setWidgetOption('enable_inline_adding', true);
+    }
+    else
+    {
+      $this->columnConfig->setWidgetOption('enable_inline_adding', false);
+    }       
   }
   
   
@@ -92,6 +101,7 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
       $this->columnConfig->removeWidgetOption('model');
       $this->columnConfig->removeWidgetOption('query');
       $this->columnConfig->removeWidgetOption('show_search_box');
+      $this->columnConfig->removeWidgetOption('enable_inline_adding');
       $this->columnConfig->removeValidatorOption('model');
       $createColumnName = $this->columnName . '_create';
       $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()), $createColumnName);

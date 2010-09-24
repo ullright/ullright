@@ -54,9 +54,11 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   {    
     $this->checkPermission($this->getPermissionName());
     
-    parent::executeList($request);
+    $return = parent::executeList($request);
     
     $this->setCommonTitle();
+    
+    return $return;
   }  
 
   
@@ -164,10 +166,12 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   {
     $this->checkPermission($this->getPermissionName());
     
-    parent::executeEdit($request);
+    $return = parent::executeEdit($request);
     
     $this->setCommonTitle();
     $this->appendToTitle($this->generator->getRow());
+    
+    return $return;
   }  
   
   

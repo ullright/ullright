@@ -212,8 +212,11 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     //previously we just forwarded to editProject,
     //but now that we have create-only fields (recurring
     //until) we need that information in the action
-    $this->handleProjectEffort($request);
+    $return = $this->handleProjectEffort($request);
+    
     $this->setTemplate('editProject');
+    
+    return $return;
   }
   
   /**
@@ -221,7 +224,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
    */
   public function executeEditProject(sfRequest $request) 
   {
-    $this->handleProjectEffort($request);
+    return $this->handleProjectEffort($request);
   } 
 
   /**
@@ -299,6 +302,20 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
         }
       }
     }
+
+    /**
+     * Render only a given form field for ajax requests
+     */
+    if ($request->isXmlHttpRequest())
+    {
+      $field = $request->getParameter('field');
+      
+      $field = str_replace('fields[', '', $field);
+      $field = str_replace(']', '', $field);
+      
+      return $this->renderText($this->edit_generator->getForm()->offsetGet($field)->render());
+    }
+    
   }
 
 

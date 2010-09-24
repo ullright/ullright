@@ -14,6 +14,7 @@ class ullMetaWidgetUllUserStatus extends ullMetaWidgetForeignKey
     
     $this->columnConfig->setWidgetOption('choices', $this->findChoices());
     $this->columnConfig->removeWidgetOption('model');
+    $this->columnConfig->removeWidgetOption('enable_inline_adding');
     $this->addWidget(new sfWidgetFormSelectWithOptionAttributes($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     
     //this has to be set, always.

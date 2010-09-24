@@ -128,6 +128,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
    */
   public function executeEdit(sfRequest $request)
   {
+    $this->is_ajax = $this->getRequest()->isXmlHttpRequest();
+    
     $this->generator = $this->getEditGenerator();
     $row = $this->getRowFromRequestOrCreate();
     $this->id = $row->id;
@@ -165,6 +167,13 @@ abstract class BaseUllGeneratorActions extends ullsfActions
         $this->getRequest()->getFiles('fields')
       ))
       {
+        /* For ajax inline editing */
+        if ($this->is_ajax)
+        {
+          // Everything's fine, no validation error occured
+          return $this->renderText(json_encode(array('id' => $row->id))); 
+        }
+        
         $this->processEditActionButtons();
         
         // save only

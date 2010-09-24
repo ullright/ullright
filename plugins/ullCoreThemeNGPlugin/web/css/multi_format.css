@@ -742,6 +742,62 @@ table span.ull_widget_time {
  
 .rating_widget_read {
   width: 80px;  /* 5 x 16px stars */
+} 
+ 
+/*
+ * ************************************************
+ *  inline select box editing
+ * ************************************************
+ */
+ 
+.ull_widget_form_doctrine_select {
+  font-size: large;
+  line-height: 100%;
+  font-weight: bold;	
 }
 
- 
+
+/* the overlayed element */
+.overlay {
+  
+  /* must be initially hidden */
+  display: none;
+  
+  /* place overlay on top of other elements */
+  z-index: 10000;
+  
+  /* styling */
+  background-color: white;
+  width: 780px;  
+  height: 75%;
+  min-height: 320px;
+  padding: 10px;
+  
+  /* CSS3 styling for latest browsers */
+  -moz-box-shadow: 0 0 90px 5px black;
+  -webkit-box-shadow: 0 0 90px black;
+  
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+/* Overlay content */
+.overlayContentWrap {
+  overflow-y: auto;
+  height: 100%;
+  min-height: 311px;
+}
+
+
+/* close button positioned on upper right corner */
+.overlay .close {
+  background-image: url(/ullCorePlugin/images/jquery.tools/close.png);
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
+}
+
+
