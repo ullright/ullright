@@ -13,6 +13,15 @@ $dgsListSum = $b->getDgsUllTimeListTableSum();
 $testDate = date('Y-m-d', strtotime('next friday'));
 //to: tuesday after that friday
 $testDateRecurring = date('Y-m-d', strtotime('next tuesday', strtotime('next friday')));
+//these dates could be in the future, in that case, we need a time period
+if (UllTimePeriodTable::findSlugByDate($testDate) === null)
+{
+  $period = new UllTimePeriod();
+  $period->name = 'next_month';
+  $period->from_date = $testDate;
+  $period->to_date = $testDateRecurring;
+  $period->save();
+}
 
 $testUserId = Doctrine::getTable('UllUser')->findOneByUserName('test_user')->id;
 $projectId = Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id;
