@@ -12,7 +12,17 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
   protected function updateDefaultsFromObject()
   {
     parent::updateDefaultsFromObject();
-    
+
+    //iterate all column configs and load defaults for
+    //many to many relationships
+    foreach ($this->columnsConfig as $columnName => $columnConfig)
+    {
+      if ($columnConfig->getMetaWidgetClassName() == 'ullMetaWidgetManyToMany')
+      {
+        $this->setDefault($columnName, $this->object->$columnName->getPrimaryKeys());
+      }
+    } 
+
     //parent updateDefaultsFromObject begins here:
     /*
     if ($this->isNew())
@@ -37,6 +47,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
     $this->setDefaults($defaults);
     */
     //parent updateDefaultsFromObject ends here:
+    
     
     if ($this->isI18n()) 
     { 
@@ -81,10 +92,6 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       $values = $this->values;
     }
 
-//      var_dump($values);die;
-    
-//    var_dump(sfContext::getInstance()->getEventDispatcher()->getListeners('form.update_object'));die;
-    
     $values = sfContext::getInstance()->getEventDispatcher()->filter(
         new sfEvent($this, 'form.update_object'), $values
     )->getReturnValue();
@@ -114,7 +121,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
 //        $values[$fieldName] = null;
 //      }
     }
-    
+
     $this->values = $values;
     
     if ($this->object->getTable()->hasTemplate('Doctrine_Template_SuperVersionable'))
@@ -122,13 +129,78 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       if (isset($this->values['scheduled_update_date']))
       {
         $this->object->mapValue('scheduled_update_date', $this->values['scheduled_update_date']);
-      	unset($this->values['scheduled_update_date']);
+        unset($this->values['scheduled_update_date']);
       }
     }
-
+    
     $object = parent::updateObject();
     
     return $object;
   }
+  
+  /**
+   * Override parent's doSave() to provide support for many
+   * to many relationships (also see saveManyToMany()).
+   */
+  protected function doSave($connection = null)
+  {
+    //iterate all column configs and call saveManyToMany
+    //which handles updating of many to many association
+    //tables
+    foreach ($this->columnsConfig as $columnName => $columnConfig)
+    {
+      if ($columnConfig->getMetaWidgetClassName() == 'ullMetaWidgetManyToMany')
+      {
+        $this->saveManyToMany($columnName, $connection);
+      }
+    } 
 
+    parent::doSave($connection);
+  }
+
+
+  /**
+   * Handles updating of association tables for a given many to many
+   * relationship. Note: This was mostly copied from generated
+   * symfony form code and then adapted for general use.
+   *
+   * @param string $columnName the name of the many to many relationship
+   */
+  protected function saveManyToMany($columnName, $connection = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema[$columnName]))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if ($connection === null)
+    {
+      $connection = $this->getConnection();
+    }
+
+    $existing = $this->object->$columnName->getPrimaryKeys();
+    $values = $this->getValue($columnName);
+    if (!is_array($values))
+    {
+      $values = array();
+    }
+
+    $unlink = array_diff($existing, $values);
+    if (count($unlink))
+    {
+      $this->object->unlink($columnName, array_values($unlink));
+    }
+
+    $link = array_diff($values, $existing);
+    if (count($link))
+    {
+      $this->object->link($columnName, array_values($link));
+    }
+  }
 }

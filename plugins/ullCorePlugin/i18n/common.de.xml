@@ -1205,6 +1205,11 @@
 <target>Dauer darf nicht Null sein.</target>
 </trans-unit>
 
+<trans-unit id="26006">
+<source>Please select ...</source>
+<target>Bitte auswählen ... </target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

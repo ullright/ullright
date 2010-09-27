@@ -22,11 +22,16 @@ UllProject:
     is_routine:
       type: boolean
       default: false
+  relations:
+    Managers:
+      class: UllEntity #should be UllUser -> problems when importing fixtures during testing
+      refClass: UllProjectManager
+      local: ull_project_id
+      foreign: ull_user_id
     #is_default:
     #  type: boolean
     #  unique: true      
       
-
 UllProjectManager:
   package: ullTimePlugin.lib.model.doctrine
   inheritance:
@@ -42,9 +47,8 @@ UllProjectManager:
   relations:
     UllUser:
     UllProject:
-      onDelete: CASCADE       
+      onDelete: CASCADE
          
-
 UllProjectReporting:
   package: ullTimePlugin.lib.model.doctrine
   inheritance:

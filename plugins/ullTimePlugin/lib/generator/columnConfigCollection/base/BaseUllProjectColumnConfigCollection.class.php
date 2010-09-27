@@ -16,6 +16,13 @@ class BaseUllProjectColumnConfigCollection extends ullColumnConfigCollection
     
     $this['is_routine']->setLabel(__('Routine', null, 'ullTimeMessages'));
     
-    //$this['is_default']->setLabel(__('Default', null, 'ullTimeMessages'));      
+    if ($this->isCreateOrEditAction())
+    {
+      $this->create('Managers')
+        ->setMetaWidgetClassName('ullMetaWidgetManyToMany')
+        ->setWidgetOption('model', 'UllUser')
+        ->setValidatorOption('model', 'UllUser')
+      ;
+    }    
   }
 }
