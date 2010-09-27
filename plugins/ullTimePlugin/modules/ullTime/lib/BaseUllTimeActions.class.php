@@ -257,7 +257,12 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
      
     $this->breadcrumbForEditProject();
     
-    $this->cancel_link = $this->getUriMemory()->get('list');
+    //if there is no saved list url available, use the default one but
+    //append the name of the period which the date being edited belongs to
+    $cancelLinkParams = ($this->getUriMemory()->has('list')) ? '' :
+      '?period=' . UllTimePeriodTable::findSlugByDate($this->date);
+    $this->cancel_link = $this->getUriMemory()->get('list') . $cancelLinkParams;
+    
     $this->setVar('user_widget', new ullWidgetForeignKey(
       array('show_ull_entity_popup' => true, 'model' => 'UllEntity')), true);
     
