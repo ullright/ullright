@@ -801,3 +801,17 @@ table span.ull_widget_time {
 }
 
 
+/*
+ * ************************************************
+ *  many to many widget
+ * ************************************************
+ */
+ 
+.ui-multiselect-checkboxes li label {
+  padding-left: 10px !important;
+  
+} 
+ 
+.ui-multiselect-checkboxes li input {
+	left: -4px !important;
+}

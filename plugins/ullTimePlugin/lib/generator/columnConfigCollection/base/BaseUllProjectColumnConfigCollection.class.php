@@ -23,6 +23,16 @@ class BaseUllProjectColumnConfigCollection extends ullColumnConfigCollection
         ->setWidgetOption('model', 'UllUser')
         ->setValidatorOption('model', 'UllUser')
       ;
-    }    
+      
+      $this->order(array(
+        'name',
+        'description',
+        'is_active',
+        'is_routine',
+        'Managers'
+      ));      
+    }
+
+
   }
 }

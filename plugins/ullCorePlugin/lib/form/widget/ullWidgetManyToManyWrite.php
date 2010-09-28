@@ -19,9 +19,9 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
   protected function configure($options = array(), $attributes = array())
   {
     $this->addOption('config',
-      "{ minWidth : 275,
+      "{ minWidth : 400,
          header : ' ',
-         selectedList: 2,
+         selectedList: 5,
          noneSelectedText : '" . __('Please select ...', null, 'common') . "' }");
     $this->addOption('filter_config',
       "{  /*placeholder : 'Filter ...',*/
