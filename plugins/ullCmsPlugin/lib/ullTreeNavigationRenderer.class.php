@@ -38,6 +38,8 @@ class ullTreeMenuRenderer
 
     $return .= $this->doRendering($this->node);
     
+    $return .= $this->renderMenuExpandJavascript($this->node->getData()->slug);
+    
     return $return;
   }
   
@@ -69,9 +71,9 @@ class ullTreeMenuRenderer
           $uri = url_for($subNode->getData()->link);
         }
         
-        $return .= ($uri) ? '<a href="' . $uri . '">' : '';
+        $return .= ($uri) ? '<a href="' . $uri . '" class="ull_menu_entry_' . ullCoreTools::htmlId($subNode->getData()->slug) . '">' : '<a href="#" class="ull_menu_non_clickable">';
         $return .= $subNode->getData()->name;
-        $return .= ($uri) ? '</a>' : '';
+        $return .= '</a>';
         
         if ($subNode->hasSubnodes())
         {
@@ -87,6 +89,67 @@ class ullTreeMenuRenderer
       $return .= '</ul>' . "\n";
     }
       
+    return $return;
+  }
+  
+  /**
+   * Render javascript code to hide/expand menu levels
+   * 
+   * @param string $menuRootSlug Slug of the root element. E.g. "main-menu"
+   * @return string
+   */
+  protected function renderMenuExpandJavascript($menuRootSlug)
+  {
+    $menuRootSlug = ullCoreTools::htmlId($menuRootSlug);
+    $pageSlug = ullCoreTools::htmlId(sfContext::getInstance()->getRequest()->getParameter('slug'));
+    
+    // Supply a config option like the following in app.yml to enable hiding/expanding
+    $expandUpToLevel = sfConfig::get('app_ull_cms_' . $menuRootSlug . '_expand_up_to_level');
+    
+    if (!$expandUpToLevel)
+    {
+      return '';
+    }
+
+    $depthSelector = '';
+    while ($expandUpToLevel--)
+    {
+      $depthSelector .= ' ul';
+    }
+    
+    $return = javascript_tag('
+// hide all entries except the number of configured levels
+$("ul.ull_menu_' . $menuRootSlug . $depthSelector . '").hide();  
+
+// make non-pages (menu only entries) clickable
+$("ul.ull_menu_' . $menuRootSlug . ' a[href=\'#\']").each(function(index) {
+
+  $(this).click(function () {
+    // hide all entries except the number of configured levels
+    $("ul.ull_menu_' . $menuRootSlug . $depthSelector . '").hide();
+    // show the current entries\' parents
+    $(this).parents("ul").show();
+    // show the current entry\'s children
+    $(this).next().show();
+  });
+
+});
+
+');
+    
+    // Render only if a cms page is shown
+    if ($pageSlug)
+    {
+      $return .= javascript_tag('
+// show sub entries for selected page
+$("ul.ull_menu_' . $pageSlug . '").show();
+
+// show current tree up to the root
+$(".ull_menu_entry_' . $pageSlug . '").parents("ul").show();
+
+');
+    }
+
     return $return;
   }
 
