@@ -55,6 +55,13 @@ EOF
     );
   }
 
+  protected static $javaScripts = array(
+    '/ullCorePlugin/js/jq/jquery-min.js',
+    '/ullCorePlugin/js/jq/jquery-ui-min.js',
+    '/ullCorePlugin/js/jq/jquery.multiselect-min.js',
+    '/ullCorePlugin/js/jq/jquery.multiselect.filter.js'
+  );
+  
   /**
    * Gets the JavaScript paths associated with the widget.
    *
@@ -62,14 +69,17 @@ EOF
    */
   public function getJavaScripts()
   {
-    return array(
-      '/ullCorePlugin/js/jq/jquery-min.js',
-      '/ullCorePlugin/js/jq/jquery-ui-min.js',
-      '/ullCorePlugin/js/jq/jquery.multiselect-min.js',
-      '/ullCorePlugin/js/jq/jquery.multiselect.filter.js'
-      );
+    return self::$javaScripts;
   }
 
+  /**
+   * Same as getJavaScripts(), but static.
+   */
+  public static function getJavaScriptsStatic()
+  {
+    return self::$javaScripts;
+  }
+  
   /**
    * Gets the stylesheet paths associated with the widget.
    *
@@ -80,6 +90,15 @@ EOF
    * @return array An array of stylesheet paths
    */
   public function getStylesheets()
+  {
+    return array(
+      '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
+      '/ullCorePlugin/css/jquery.multiselect.css' => 'all',
+      '/ullCorePlugin/css/jquery.multiselect.filter.css' => 'all'
+      );
+  }
+  
+  public static function getStylesheetsStatic()
   {
     return array(
       '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',

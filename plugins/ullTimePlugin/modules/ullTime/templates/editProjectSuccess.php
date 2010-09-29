@@ -166,3 +166,5 @@
 <?php use_stylesheets_for_form($list_generator->getForm()) ?>
 <?php use_javascripts_for_form($edit_generator->getForm()) ?>
 <?php use_stylesheets_for_form($edit_generator->getForm()) ?>
+<?php use_javascripts_for_widget('ullWidgetManyToManyWrite') ?>
+<?php use_stylesheets_for_widget('ullWidgetManyToManyWrite') ?>
