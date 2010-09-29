@@ -464,6 +464,11 @@
 <target>Ihre Änderungen wurden gespeichert</target>
 </trans-unit>
 
+<trans-unit id="4006">
+<source>Please select an entry from the list first</source>
+<target>Bitte wählen Sie zuerst einen Eintrag aus der Liste</target>
+</trans-unit>
+
 
 <!-- common validation phrases -->
 

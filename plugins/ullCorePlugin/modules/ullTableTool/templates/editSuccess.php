@@ -32,11 +32,11 @@
                       window.overlayId = json.id;
                       // trigger save on close event
                       window.overlaySaveOnClose = true;
-                      $("a[rel]").overlay().close();
+                      $("#overlay").overlay().close();
                     }
                     // Otherwise we have a validation error
                     catch (e) {
-                      var wrap = $("a[rel]").overlay().getOverlay().find(".overlayContentWrap");
+                      var wrap = $("#overlay").overlay().getOverlay().find(".overlayContentWrap");
                       wrap.html(data);
                       wrap.scrollTop(0);
                     }  

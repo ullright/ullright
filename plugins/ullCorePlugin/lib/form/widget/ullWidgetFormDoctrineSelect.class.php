@@ -24,6 +24,7 @@ class ullWidgetFormDoctrineSelect extends sfWidgetFormDoctrineSelect
     
     $this->addOption('show_search_box', false);
     $this->addOption('enable_inline_adding', false);
+    $this->addOption('enable_inline_editing', false);
   }  
 
   /**
@@ -46,6 +47,8 @@ class ullWidgetFormDoctrineSelect extends sfWidgetFormDoctrineSelect
     $return .= parent::render($name, $value, $attributes, $errors);
     
     $return .= $this->renderInlineAdding($id, $name);
+    
+    //$return .= $this->renderInlineEditing($id, $name);
     
     return $return;
   }  
@@ -119,32 +122,69 @@ $(document).ready(function()
     
     if ($this->getOption('enable_inline_adding') == true)
     {
-      $return .= ' <span class="ull_widget_form_doctrine_select">' .
-        link_to('+', 'ullTableTool/create?table=' . $this->getOption('model'), array('rel'  => '#overlay')) . 
-        '</span>';
+      // add
+      $return .= ' <span class="ull_widget_form_doctrine_select">';
+      $return .= link_to_function(
+        '+', 
+        'ullOverlay("create")' 
+      ); 
+      $return .= '</span>';
+      
+      // edit
+      $return .= ' <span class="ull_widget_form_doctrine_select">';
+      $return .= link_to_function(
+          ull_image_tag('edit'),
+          'ullOverlay("edit")'
+        );
+      $return .= '</span>';      
         
-      $return .= '<div class="overlay" id="overlay"> <div class="overlayContentWrap"></div> </div>';
+      // overlay content
+      $return .= '<div class="overlay" id="overlay">';
+      $return .= '  <div class="overlayContentWrap"></div>';
+      $return .= '</div>';
   
       $return .= javascript_tag('
-    
-$(function() {
 
-  /* Overlay documentation @see http://flowplayer.org/tools/overlay/index.html */
-  $("a[rel]").overlay({
+function ullOverlay(action) {
+
+
+  if (action == "create") {
+    var url = "' . url_for('ullTableTool/create?table=' . $this->getOption('model')) . '";
+    
+  } else if (action == "edit") {
+    var optionId = $("#' . $id . '").val();
+    
+    if (!optionId) {
+      alert("' . __('Please select an entry from the list first', null, 'common') . '.");
+      return false;
+    }
+      
+    var url = "' . url_for('ullTableTool/edit?table=' . $this->getOption('model')) . 
+      '/id/" + optionId;
+      
+  } else {
+    throw new exception ("Invalid action given");
+  }
+  
+  /* alert(url); */
+  
+  $("#overlay").overlay({
 
     fixed: false,
     mask: {
       color: "#666666",
-      loadSpeed: 200,
-      opacity: 0.9
+      loadSpeed: 1000,
+      opacity: 0.7
     },
+    load: true,
 
     onBeforeLoad: function() {
+    
       // grab wrapper element inside content
       var wrap = this.getOverlay().find(".overlayContentWrap");
 
       // load the page specified in the trigger
-      wrap.load(this.getTrigger().attr("href"));
+      wrap.load(url);
     },
     
     onClose: function () {
@@ -162,9 +202,8 @@ $(function() {
       }
     } 
 
-  });
-});
-
+  });  
+}
 ');
     }    
     
