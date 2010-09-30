@@ -1,6 +1,8 @@
 <?php require('_head.mobile.php') ?>
 
-<body>
+<body class="<?php 
+  echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();
+?>">
 
 <div id="container">
 
