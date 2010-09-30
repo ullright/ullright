@@ -676,7 +676,7 @@ function use_javascripts_for_widget($widgetClass)
   }
   
   $response = sfContext::getInstance()->getResponse();
-  foreach ($widgetClass::getJavaScriptsStatic() as $file)
+  foreach (call_user_func(array($widgetClass, 'getJavaScriptsStatic')) as $file)
   {
     $response->addJavascript($file);
   }
@@ -750,7 +750,7 @@ function use_stylesheets_for_widget($widgetClass)
   
   $response = sfContext::getInstance()->getResponse();
   
-  foreach ($widgetClass::getStylesheetsStatic() as $file => $media)
+  foreach (call_user_func(array($widgetClass, 'getStylesheetsStatic')) as $file => $media)
   {
     $response->addStylesheet($file, '', array('media' => $media));
   }
