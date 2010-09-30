@@ -18,27 +18,27 @@ $t->begin('render()');
 
   $menu = UllCmsItemTable::getMenuTree('main-menu', 'about-us');
 
-  $reference = '<li><a href="/ullCms/show/homepage">Homepage</a></li>
-<li class="ull_menu_is_current"><a href="/ullCms/show/about-us">About us</a>
+  $reference = '<li><a href="/ullCms/show/homepage" class="ull_menu_entry_homepage">Homepage</a></li>
+<li class="ull_menu_is_current"><a href="/ullCms/show/about-us" class="ull_menu_entry_about_us">About us</a>
 <ul class="ull_menu_about_us">
-<li><a href="/ullCms/show/location">Location</a></li>
-<li><a href="/ullCms/show/team">Team</a></li>
+<li><a href="/ullCms/show/location" class="ull_menu_entry_location">Location</a></li>
+<li><a href="/ullCms/show/team" class="ull_menu_entry_team">Team</a></li>
 </ul>
 
 </li>
-<li><a href="/ullCms/show/courses">Courses</a>
+<li><a href="/ullCms/show/courses" class="ull_menu_entry_courses">Courses</a>
 <ul class="ull_menu_courses">
-<li>Advanced courses
+<li><a href="#" class="ull_menu_non_clickable">Advanced courses</a>
 <ul class="ull_menu_advanced_courses">
-<li><a href="/ullCms/show/advanced-course-1">Advanced course 1</a></li>
+<li><a href="/ullCms/show/advanced-course-1" class="ull_menu_entry_advanced_course_1">Advanced course 1</a></li>
 </ul>
 
 </li>
 </ul>
 
 </li>
-<li><a href="/ullCms/show/contact">Contact</a></li>
-<li><a href="/ullWiki/list">Wiki</a></li>
+<li><a href="/ullCms/show/contact" class="ull_menu_entry_contact">Contact</a></li>
+<li><a href="/ullWiki/list" class="ull_menu_entry_wiki">Wiki</a></li>
 ';
 
   $html = (string) new ullTreeMenuRenderer($menu, false);
