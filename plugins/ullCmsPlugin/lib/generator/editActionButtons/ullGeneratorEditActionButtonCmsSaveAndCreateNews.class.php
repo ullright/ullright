@@ -16,9 +16,9 @@ class ullGeneratorEditActionButtonCmsSaveAndCreateNews extends ullGeneratorEditA
    */
   public function render()
   {
-    return ull_link_to(
+    return ull_submit_tag(
       __('Save and create news entry', null, 'ullNewsMessages'),
-      array('name' => 'submit|action_slug=save_create_news')
+      array('name' => 'submit|action_slug=save_create_news', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
     );      
   }
   
