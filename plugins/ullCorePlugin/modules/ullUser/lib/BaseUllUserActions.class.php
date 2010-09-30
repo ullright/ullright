@@ -128,6 +128,8 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->location_generator->getForm()->getWidgetSchema()->setLabel('name', __('Location', null, 'common'));
     
     $this->setVar('location_generator', $this->location_generator, true);
+    
+    $this->org_chart_link_user_id = (($this->user->isSuperior()) ?  $this->user->id : ($this->user->superior_ull_user_id) ? $this->user->superior_ull_user_id : $this->user->id);
 
     $this->setEmptyLayout();
   }  

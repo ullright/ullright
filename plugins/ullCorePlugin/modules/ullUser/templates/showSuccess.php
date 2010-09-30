@@ -19,7 +19,7 @@
         <?php 
           echo ull_link_to(
              __('Show user in orgchart', null, 'ullCoreMessages'), 
-            'ullOrgchart/list?user_id=' . (($user->isSuperior()) ?  $user->id : $user->superior_ull_user_id), 
+            'ullOrgchart/list?user_id=' . $org_chart_link_user_id, 
             array('link_new_window' => true)
           ) 
         ?>
