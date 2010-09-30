@@ -2,6 +2,8 @@
 
 <div class="edit_container">
 
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js', 'first') ?>
+<?php use_javascript('/ullCorePlugin/js/jq/jquery.add_select_filter.js') ?>
 <?php use_javascript('/ullCorePlugin/js/jq/jquery.imgareaselect.pack.js') ?>
 <?php use_stylesheet('/ullCorePlugin/css/jquery.imgareaselect/imgareaselect-default.css')?>
 
@@ -154,5 +156,3 @@ function preview(img, selection) {
 
 </div>
 
-<?php use_javascripts_for_form($generator->getForm()) ?>
-<?php use_stylesheets_for_form($generator->getForm()) ?>
