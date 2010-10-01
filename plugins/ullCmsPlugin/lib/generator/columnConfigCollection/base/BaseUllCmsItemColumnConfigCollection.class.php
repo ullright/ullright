@@ -22,8 +22,10 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
     ;
     
     $this['parent_ull_cms_item_id']
+      ->setMetaWidgetClassName('ullMetaWidgetCmsParentItem')
       ->setLabel(__('Higher menu entry', null, 'ullCmsMessages'))
       ->setWidgetOption('add_empty', true)
+      
     ;
     
   }

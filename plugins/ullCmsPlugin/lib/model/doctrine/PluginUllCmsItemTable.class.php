@@ -123,4 +123,30 @@ class PluginUllCmsItemTable extends UllRecordTable
     }
     return $node;
   }  
+  
+  /**
+   * Get an array of top node slugs
+   * 
+   * @return array
+   */
+  public static function getTopNodeSlugs()
+  {
+    $q = new ullQuery('UllCmsItem');
+    $q
+      ->addSelect('slug')
+      ->addWhere('parent_ull_cms_item_id IS NULL')
+      ->addOrderBy('name')
+    ; 
+    
+    $results = $q->execute(array(), Doctrine::HYDRATE_NONE);
+    
+    $return = array();
+    
+    foreach($results as $result)
+    {
+      $return[] = $result[0];
+    }
+    
+    return $return;
+  }
 }
