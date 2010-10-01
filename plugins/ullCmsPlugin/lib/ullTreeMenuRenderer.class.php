@@ -130,7 +130,7 @@ $("ul.ull_menu_' . $menuRootSlug . ' a[href=\'#\']").each(function(index) {
     // show the current entries\' parents
     $(this).parents("ul").show();
     // show the current entry\'s children
-    $(this).next().show();
+    $(this).next().fadeIn(500);
   });
 
 });
