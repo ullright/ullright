@@ -65,6 +65,8 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->loadMenus();
     
     $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');
+    
+    $this->loadCustomTemplate();
   }
   
   /**
@@ -197,5 +199,27 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
   } 
+  
+  
+  /**
+   * Look for a custom page-specific template 
+   * 
+   * Put the tempalte in apps/frontend/modules/ullCms/templates/
+   * and name it $slugSuccess.php
+   *
+   */
+  protected function loadCustomTemplate()
+  {
+    $filename = sfConfig::get('sf_app_dir') . DIRECTORY_SEPARATOR . 
+      'modules'. DIRECTORY_SEPARATOR . 
+      'ullCms' . DIRECTORY_SEPARATOR .
+      'templates' . DIRECTORY_SEPARATOR .
+      $this->doc->slug; 
+
+    if (file_exists($filename . 'Success.php'))
+    {
+      $this->setTemplate($filename);
+    }
+  }
   
 }

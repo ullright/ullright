@@ -12,4 +12,6 @@
   <?php echo $title ?>
 </h1>
 
-<?php echo $body ?> 
+<?php echo $body ?>
+
+<?php include_slot('ull_cms_additional_body') ?> 
