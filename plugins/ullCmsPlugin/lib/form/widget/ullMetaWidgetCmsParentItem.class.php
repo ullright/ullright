@@ -16,7 +16,7 @@ class ullMetaWidgetCmsParentItem extends ullMetaWidgetForeignKey
     
     $choices = array();
     
-    foreach(UllCmsItemTable::getTopNodeSlugs() as $slug)
+    foreach(UllCmsItemTable::getRootNodeSlugs() as $slug)
     {
       $navigation = UllCmsItemTable::getMenuTree($slug);
       $renderer = new ullTreeMenuSelectRenderer($navigation);

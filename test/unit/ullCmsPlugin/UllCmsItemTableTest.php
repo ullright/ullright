@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(8, new lime_output_color, $configuration);
+$t = new myTestCase(9, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -25,4 +25,8 @@ $t->begin('getMenuTree()');
   $t->is(next($menu)->getData()->slug, 'contact', 'Returns the correct data for the fourth entry');
   $t->is(end($menu)->getData()->slug, 'wiki', 'Returns the correct data for the last entry');
   $t->is(end($menu)->hasMeta('is_current'), false, 'Returns the correct data for the last entry');
+  
+$t->begin('getRootNodeSlugs()');
+
+  $t->is(UllCmsItemTable::getRootNodeSlugs(), array('footer-menu', 'main-menu'), 'Returns the correct slugs');
   

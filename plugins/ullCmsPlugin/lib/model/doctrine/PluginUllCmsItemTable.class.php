@@ -124,12 +124,13 @@ class PluginUllCmsItemTable extends UllRecordTable
     return $node;
   }  
   
+  
   /**
-   * Get an array of top node slugs
+   * Get an array of root node slugs
    * 
    * @return array
    */
-  public static function getTopNodeSlugs()
+  public static function getRootNodeSlugs()
   {
     $q = new ullQuery('UllCmsItem');
     $q
