@@ -161,35 +161,20 @@ class BaseUllFlowActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
-
       $this->generator->setUllFlowActionHandler($request->getParameter('action_slug'));
 
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
-        
         // notify post_save event
         $this->dispatcher->notify(new sfEvent($this, 'ull_flow.post_save', array(
           'doc'        => $this->doc
         )));
         
         $this->saveEffort();
-
-        if (!$this->isStatusOnlyRequestAction())
-        {
-          $this->sendMails();
-        }
-
-        // manage full page widgets like attachements and wiki links
-        if ($fullPageWidgetName = $request->getParameter('full_page_widget'))
-        {
-          $fullPageWidgetClass = 'ullFlowFullPageWidget' . sfInflector::classify($fullPageWidgetName);
-
-          if (class_exists($fullPageWidgetClass))
-          {
-            $fullPageWidget = new $fullPageWidgetClass($this->doc, $request->getParameter('full_page_widget_column'));
-            $this->redirect($fullPageWidget->getInternalUri());
-          }
-        }
+        
+        $this->sendMails();
+          
+        $this->handleFullPageWidgets($request);
 
         // referer handling
         if ($request->getParameter('action_slug') == 'save_only')
@@ -202,6 +187,27 @@ class BaseUllFlowActions extends ullsfActions
     }
 
     $this->breadcrumbForEdit();
+  }
+  
+  
+  /**
+   * Handle full page widgets
+   * (e.g. attachements, wiki links)
+   * 
+   * @param sfRequest $request
+   */
+  protected function handleFullPageWidgets(sfRequest $request)
+  {
+    if ($fullPageWidgetName = $request->getParameter('full_page_widget'))
+    {
+      $fullPageWidgetClass = 'ullFlowFullPageWidget' . sfInflector::classify($fullPageWidgetName);
+
+      if (class_exists($fullPageWidgetClass))
+      {
+        $fullPageWidget = new $fullPageWidgetClass($this->doc, $request->getParameter('full_page_widget_column'));
+        $this->redirect($fullPageWidget->getInternalUri());
+      }
+    }    
   }
 
   /**
@@ -824,20 +830,22 @@ class BaseUllFlowActions extends ullsfActions
    */
   protected function sendMails()
   {
-    if ($this->doc->UllFlowAction->is_notify_next)
+    if (!$this->isStatusOnlyRequestAction())
     {
-      $mail = new ullFlowMailNotifyNext($this->doc);
-      $mail->send();
+      if ($this->doc->UllFlowAction->is_notify_next)
+      {
+        $mail = new ullFlowMailNotifyNext($this->doc);
+        $mail->send();
+      }
+  
+      if ($this->doc->UllFlowAction->is_notify_creator)
+      {
+        $mail = new ullFlowMailNotifyCreator($this->doc);
+        $mail->send();
+      }
+  
+      $this->generator->getUllFlowActionHandler()->sendMail();
     }
-
-    if ($this->doc->UllFlowAction->is_notify_creator)
-    {
-      $mail = new ullFlowMailNotifyCreator($this->doc);
-      $mail->send();
-    }
-
-    $this->generator->getUllFlowActionHandler()->sendMail();
-
   }
 
   /**

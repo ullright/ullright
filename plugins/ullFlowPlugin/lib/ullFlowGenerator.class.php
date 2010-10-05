@@ -92,7 +92,7 @@ class ullFlowGenerator extends ullGenerator
       }
     }
     
-    //master admin always allow assign to
+    //Always allow the master admin to perform "assign to" action
     if (UllUserTable::hasGroup('MasterAdmins') &&
       !in_array('assign_to_user', $this->ullFlowActionHandlers))
     {
