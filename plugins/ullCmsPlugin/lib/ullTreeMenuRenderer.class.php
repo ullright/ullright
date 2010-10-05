@@ -71,7 +71,7 @@ class ullTreeMenuRenderer
           $uri = url_for($subNode->getData()->link);
         }
         
-        $return .= ($uri) ? '<a href="' . $uri . '" class="ull_menu_entry_' . ullCoreTools::htmlId($subNode->getData()->slug) . '">' : '<a href="#" class="ull_menu_non_clickable">';
+        $return .= ($uri) ? '<a href="' . $uri . '" class="ull_menu_entry_' . ullCoreTools::htmlId($subNode->getData()->slug) . '">' : '<a href="#" class="ull_menu_non_clickable" onclick="return false;">';
         $return .= $subNode->getData()->name;
         $return .= '</a>';
         
@@ -125,12 +125,19 @@ $("ul.ull_menu_' . $menuRootSlug . $depthSelector . '").hide();
 $("ul.ull_menu_' . $menuRootSlug . ' a[href=\'#\']").each(function(index) {
 
   $(this).click(function () {
-    // hide all entries except the number of configured levels
-    $("ul.ull_menu_' . $menuRootSlug . $depthSelector . '").hide();
-    // show the current entries\' parents
-    $(this).parents("ul").show();
-    // show the current entry\'s children
-    $(this).next().fadeIn(500);
+    if ($(this).next().is(":visible"))
+    {
+      $(this).next().fadeOut(500);
+    }
+    else
+    {
+      // hide all entries except the number of configured levels
+      $("ul.ull_menu_' . $menuRootSlug . $depthSelector . '").hide();
+      // show the current entries\' parents
+      $(this).parents("ul").show();
+      // show the current entry\'s children
+      $(this).next().fadeIn(500);
+    }
   });
 
 });
