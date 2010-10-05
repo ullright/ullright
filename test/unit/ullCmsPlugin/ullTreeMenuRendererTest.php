@@ -28,7 +28,7 @@ $t->begin('render()');
 </li>
 <li><a href="/ullCms/show/courses" class="ull_menu_entry_courses">Courses</a>
 <ul class="ull_menu_courses">
-<li><a href="#" class="ull_menu_non_clickable">Advanced courses</a>
+<li><a href="#" class="ull_menu_non_clickable" onclick="return false;">Advanced courses</a>
 <ul class="ull_menu_advanced_courses">
 <li><a href="/ullCms/show/advanced-course-1" class="ull_menu_entry_advanced_course_1">Advanced course 1</a></li>
 </ul>
