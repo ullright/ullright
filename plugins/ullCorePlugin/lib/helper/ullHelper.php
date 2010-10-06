@@ -1361,3 +1361,43 @@ function ull_link_entity_icon_popup($entityId)
           ));
   }
 }
+
+/**
+ * Adds stylesheets for the given widget class to the response object.
+ *
+ * @param string $widgetClass class name of a widget 
+ */
+function use_stylesheets_for_widget($widgetClass)
+{
+  if (!method_exists($widgetClass, 'getStylesheetsStatic'))
+  {
+    throw new InvalidArgumentException('Invalid widget class');
+  }
+  
+  $response = sfContext::getInstance()->getResponse();
+  
+  foreach (call_user_func(array($widgetClass, 'getStylesheetsStatic')) as $file => $media)
+  {
+    $response->addStylesheet($file, '', array('media' => $media));
+  }
+}
+
+/**
+ * Adds javascripts for a specific widget to the response object.
+ *
+ * @param string $widgetClass class name of a widget
+ */
+function use_javascripts_for_widget($widgetClass)
+{
+  if (!method_exists($widgetClass, 'getStylesheetsStatic'))
+  {
+    throw new InvalidArgumentException('Invalid widget class');
+  }
+  
+  $response = sfContext::getInstance()->getResponse();
+  foreach (call_user_func(array($widgetClass, 'getJavaScriptsStatic')) as $file)
+  {
+    $response->addJavascript($file);
+  }
+}
+
