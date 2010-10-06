@@ -30,7 +30,7 @@ class BaseUllProjectReportingColumnConfigCollection extends ullColumnConfigColle
       ->setLabel(__('Project', null, 'ullTimeMessages'))
       ->setWidgetOption('add_empty', true)
       ->setOption('show_search_box', true)
-      ->setOption('enable_inline_adding', true)
+      ->setOption('enable_inline_editing', true)
     ;
     $this['duration_seconds']
       ->setMetaWidgetClassName('ullMetaWidgetTimeDuration')

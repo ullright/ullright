@@ -23,7 +23,6 @@ class ullWidgetFormDoctrineSelect extends sfWidgetFormDoctrineSelect
     parent::configure($options, $attributes);
     
     $this->addOption('show_search_box', false);
-    $this->addOption('enable_inline_adding', false);
     $this->addOption('enable_inline_editing', false);
   }  
 
@@ -46,9 +45,7 @@ class ullWidgetFormDoctrineSelect extends sfWidgetFormDoctrineSelect
 
     $return .= parent::render($name, $value, $attributes, $errors);
     
-    $return .= $this->renderInlineAdding($id, $name);
-    
-    //$return .= $this->renderInlineEditing($id, $name);
+    $return .= $this->renderInlineEditing($id, $name);
     
     return $return;
   }  
@@ -110,17 +107,17 @@ $(document).ready(function()
   
   
   /**
-   * Renders javascripts for inline addition of select box entries
+   * Renders javascripts for inline editing/adding of select box entries
    * 
    * @param string $id
    * @param string $name
    * @return string
    */
-  protected function renderInlineAdding($id, $name)
+  protected function renderInlineEditing($id, $name)
   {
     $return = '';
     
-    if ($this->getOption('enable_inline_adding') == true)
+    if ($this->getOption('enable_inline_editing') == true)
     {
       // add
       $return .= ' <span class="ull_widget_form_doctrine_select">';
@@ -147,6 +144,7 @@ $(document).ready(function()
 
 function ullOverlay(action) {
 
+  /* @see: http://flowplayer.org/tools/overlay/index.html */
 
   if (action == "create") {
     var url = "' . url_for('ullTableTool/create?table=' . $this->getOption('model')) . '";
@@ -166,43 +164,59 @@ function ullOverlay(action) {
     throw new exception ("Invalid action given");
   }
   
-  /* alert(url); */
+  // grab wrapper element inside content
+  var wrap = $("#overlay").find(".overlayContentWrap");
+
+  // load the page specified in the trigger
+  wrap.load(url, function (response, status, xhr) {
   
-  $("#overlay").overlay({
-
-    fixed: false,
-    mask: {
-      color: "#666666",
-      loadSpeed: 1000,
-      opacity: 0.7
-    },
-    load: true,
-
-    onBeforeLoad: function() {
-    
-      // grab wrapper element inside content
-      var wrap = this.getOverlay().find(".overlayContentWrap");
-
-      // load the page specified in the trigger
-      wrap.load(url);
-    },
-    
-    onClose: function () {
-      // check trigger if we want to ajax save the form on close
-      if (window.overlaySaveOnClose == true) {
-        $.ajax({  
-          url: "' . ull_url_for(array('field' => $name)) . '",  
-          /* The ajax call returns the updated widget as html and we replace the old one */
-          success: function(data) {  
-            $("#' . $id . '").parent().replaceWith(data);
-            // Select added entry
-            $("#' . $id . '").val(window.overlayId);
-          }  
-        });
-      }
+    if (status == "error") {
+      alert("Sorry, an error occured. Please try again! (" + xhr.status + " " + xhr.statusText + ")");
     } 
-
-  });  
+    
+    if (!wrap.html())
+    {
+      alert("Sorry, an error occured. Please try again! (Load failure)");
+    }
+  
+    $("#overlay").overlay({
+  
+      fixed: false,
+      mask: {
+        color: "#666666",
+        loadSpeed: 1000,
+        opacity: 0.7
+      },
+      load: true,
+  
+      onClose: function () {
+      
+        // check trigger if we want to ajax save the form on close
+        if (window.overlaySaveOnClose == true) {
+          $.ajax({  
+            url: "' . ull_url_for(array('field' => $name)) . '",  
+            timeout: 5000,
+            /* The ajax call returns the updated widget as html and we replace the old one */
+            success: function(data) {  
+              $("#' . $id . '").parent().replaceWith(data);
+              // Select added entry
+              $("#' . $id . '").val(window.overlayId);
+            },
+            error: function(msg){
+              alert("Sorry, an error occured. Please try again! (" + msg + ")");
+            }
+            
+          });
+        }
+      } 
+  
+    }).load();  
+    
+    $(this).scrollTop(0);
+  
+  });
+  
+  
 }
 ');
     }    
