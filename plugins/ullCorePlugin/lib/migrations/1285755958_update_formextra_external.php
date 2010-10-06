@@ -9,7 +9,15 @@ class UpdateFormExtraExternal extends Doctrine_Migration_Base
     $fs = new sfFilesystem();
     
     $command = "svn propget svn:externals $pluginPath";
-    $output = $fs->execute($command);
+    try
+    {
+      $output = $fs->execute($command);
+    }
+    catch (RuntimeException $e)
+    {
+      //command not found? just return so that the migration won't throw the error
+      return;
+    }
     $lines = preg_split('/[' . PHP_EOL . ']+/', $output[0]); //0 is stdout
 
     foreach ($lines as &$line)
@@ -23,7 +31,15 @@ class UpdateFormExtraExternal extends Doctrine_Migration_Base
     $newProperties = implode($lines, PHP_EOL);
   
     $command = "svn propset svn:externals \"$newProperties\" $pluginPath";
-    $output = $fs->execute($command);
+    try
+    {
+      $fs->execute($command);
+    }
+    catch (RuntimeException $e)
+    {
+      //command not found? just return so that the migration won't throw the error
+      return;
+    }
   }
 
   public function down()
