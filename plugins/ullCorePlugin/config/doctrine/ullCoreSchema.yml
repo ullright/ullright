@@ -105,6 +105,12 @@ UllUser:
       default: true
     parent_ull_user_id: # for clone users
       type: integer
+    is_assistant:
+      type: boolean
+      default: false
+    is_superior:
+      type: boolean
+      default: false
   
   relations:
     UllGroup:

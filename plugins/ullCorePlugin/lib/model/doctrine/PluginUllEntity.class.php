@@ -136,6 +136,10 @@ abstract class PluginUllEntity extends BaseUllEntity
      */
     public function isSuperior($onlyActive = true, $hydrationMode = null)
     {
-      return (boolean) $this->getSubordinates($onlyActive, false, Doctrine::HYDRATE_NONE);
+      return (boolean) (
+        $this['is_superior'] 
+        || 
+        $this->getSubordinates($onlyActive, false, Doctrine::HYDRATE_NONE)
+      );
     }
   }

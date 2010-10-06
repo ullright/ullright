@@ -210,7 +210,17 @@
       <trans-unit id="38">
         <source>Users are automatically deactivated after the separation day ends</source>
         <target>Benutzer werden automatisch nach Ablauf des Austrittstages deaktiviert</target>
-      </trans-unit>                  
+      </trans-unit>         
+      
+      <trans-unit id="39">
+        <source>Is superior</source>
+        <target>Ist Vorgesetzter</target>
+      </trans-unit>
+      
+      <trans-unit id="40">
+        <source>Is assistant</source>
+        <target>Ist Assistent</target>
+      </trans-unit>          
       
       <!--  ullPhoto -->
       

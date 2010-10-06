@@ -67,6 +67,10 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('entity_classes', array('UllUser', 'UllCloneUser'))
     ;
     
+    $this['is_assistant']->setLabel(__('Is assistant', null, 'ullCoreMessages'));
+    
+    $this['is_superior']->setLabel(__('Is superior', null, 'ullCoreMessages'));
+    
     $this['is_show_in_phonebook']
       ->setLabel(__('Show in phone book', null, 'ullCoreMessages'))
       ->setHelp(__('If unchecked, none of the user\'s contact data will ' .
@@ -142,6 +146,8 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'cost_center',
         'ull_job_title_id',
         'superior_ull_user_id',
+        'is_superior',
+        'is_assistant',
         'is_show_in_orgchart',
       ),
       'phone_book' => array(
