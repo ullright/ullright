@@ -1,0 +1,12 @@
+UllPermission:
+  ull_permission_orgchart_list:
+    slug:               ull_orgchart_list
+    namespace:          ull_orgchart
+      
+UllGroupPermission:
+  ull_group_permission_ull_orgchart_1:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_orgchart_list
+    namespace:          ull_orgchart
+
+     
