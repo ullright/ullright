@@ -42,10 +42,11 @@ class ullTimeProjectEffortGenerator extends ullTableToolGenerator
         ->setValidatorOption('min', strtotime('+1 day', strtotime($this->effortDate)))
         ->setValidatorOption('max', strtotime('+6 weeks', strtotime($this->effortDate)))
         ->setHelp(__('Repeat the new effort daily until this date (working days only)', null, 'ullTimeMessages'))
+        ->setWidgetAttribute('class', 'advanced_form_field')
         ->setAutoRender(false)
       ;
       
-      $this->getColumnsConfig()->orderBottom(array('recurring_until', 'comment'));
+      $this->getColumnsConfig()->orderBottom(array('comment', 'recurring_until'));
     }
   }
 }

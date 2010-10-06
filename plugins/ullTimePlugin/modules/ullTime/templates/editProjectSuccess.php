@@ -160,7 +160,17 @@
 </div>
 </form>   
 
-<?php echo ull_js_observer("ull_time_form") ?>  
+<?php
+  //TODO: automate loading and calling
+  use_javascript('/ullCorePlugin/js/formHideAdvancedOptions.js')
+?>
+<script type="text/javascript">
+//<![CDATA[
+  formHideAdvancedOptions('<?php echo __('Show advanced options', null, 'common'); ?>');
+//]]>
+</script>
+
+<?php echo ull_js_observer("ull_time_form") ?>
 
 <?php use_javascripts_for_form($list_generator->getForm()) ?>
 <?php use_stylesheets_for_form($list_generator->getForm()) ?>
