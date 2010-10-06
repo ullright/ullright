@@ -1215,6 +1215,11 @@
 <target>Bitte auswählen ... </target>
 </trans-unit>
 
+<trans-unit id="26007">
+<source>Show advanced options</source>
+<target>Erweiterte Optionen anzeigen</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
