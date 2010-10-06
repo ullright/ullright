@@ -1364,6 +1364,9 @@ function ull_link_entity_icon_popup($entityId)
 
 /**
  * Adds stylesheets for the given widget class to the response object.
+ * Note: The widget will most likely need some modification!
+ * It must have a static method named getStylesheetsStatic().
+ * The default method (getStylesheets) is not static.
  *
  * @param string $widgetClass class name of a widget 
  */
@@ -1384,12 +1387,15 @@ function use_stylesheets_for_widget($widgetClass)
 
 /**
  * Adds javascripts for a specific widget to the response object.
+ * Note: The widget will most likely need some modification!
+ * It must have a static method named getJavaScriptsStatic().
+ * The default method (getJavaScripts) is not static.
  *
  * @param string $widgetClass class name of a widget
  */
 function use_javascripts_for_widget($widgetClass)
 {
-  if (!method_exists($widgetClass, 'getStylesheetsStatic'))
+  if (!method_exists($widgetClass, 'getJavaScriptsStatic'))
   {
     throw new InvalidArgumentException('Invalid widget class');
   }
