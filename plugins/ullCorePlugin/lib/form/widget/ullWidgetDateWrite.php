@@ -52,12 +52,9 @@ class ullWidgetDateWrite extends sfWidgetForm
         $this->setAttribute('name', $name);
       }
       
-      //fix - in id
       $this->setAttributes($this->fixFormId($this->getAttributes()));
       $id = $this->getAttribute('id');
-      $id = ullCoreTools::htmlId($id);
-      $this->setAttribute('id', $id);
-
+  
       //we need to fix min, max and default dates in
       //case of 'new Date()...', where surrounding ' are
       //not allowed
@@ -118,7 +115,7 @@ class ullWidgetDateWrite extends sfWidgetForm
        $dateline .
       '});
       
-      var ' . $id . '_initial_date = \'' . (($curdate == 0) ? '' : ull_format_date($value, true)) . '\';
+      ' . $id . '_initial_date = \'' . (($curdate == 0) ? '' : ull_format_date($value, true)) . '\';
       
       </script>';
   
@@ -158,14 +155,14 @@ EOF
       }
   
       $return .= $this->renderTag('input',
-        array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $this->getAttributes()));
+        array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
             
       return $return;
     }
     else
     {
       return $this->renderTag('input',
-        array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $this->getAttributes()));
+        array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
     }
   }
   
