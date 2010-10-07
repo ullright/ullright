@@ -3,6 +3,8 @@
 /**
  * Custom ullTreeNode for ullOrgchart
  * 
+ * Adds support for subordinates and assistants
+ * 
  * @author klemens.ullmann-marx@ull.at
  *
  */

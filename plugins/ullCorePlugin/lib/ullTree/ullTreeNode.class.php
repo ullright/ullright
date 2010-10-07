@@ -3,9 +3,9 @@
 /**
  * Represents a tree of objects composed of nodes
  * 
- * Each node has a data payload,
- * customizeable meta data,
- * and possibly child nodes
+ * Each node has a data payload $data,
+ * customizeable meta data $meta,
+ * and possibly child nodes $subnodes
  * 
  * @author klemens.ullmann-marx@ull.at
  *
@@ -21,7 +21,7 @@ class ullTreeNode
   /**
    * Constructor
    * 
-   * @param mixed $data
+   * @param mixed $data Payload of the node
    * @return none
    */
   public function __construct($data)
@@ -45,6 +45,11 @@ class ullTreeNode
   
   /**
    * Add a subnode
+   * 
+   * Normally a given node is attached as a normal leaf/subnode
+   * 
+   * Using the optional $meta parameter the node is stored in the meta data
+   * storage instead under the given key
    * 
    * @param ullTreeNode $node
    * @param string $meta        Don't add as subnode, but under the given meta key
@@ -84,6 +89,11 @@ class ullTreeNode
   /**
    * Get the subnodes
    * 
+   * Normally returns the existing subnodes/leafes
+   * 
+   * Using the optional $meta parameter the node stored in the meta data
+   * storage under the given key is returned 
+   * 
    * @param string $meta        Use the given meta key 
    * @return array
    */
@@ -104,6 +114,11 @@ class ullTreeNode
   
   /**
    * Check if the node has subnodes
+   * 
+   * Normally checks the existing subnodes/leafes
+   * 
+   * Using the optional $meta parameter it looks for nodes stored in the meta data
+   * storage under the given key  
    * 
    * @param string $meta        Use the given meta key
    * @return boolean
@@ -302,9 +317,6 @@ class ullTreeNode
    */
   public function fixLevels($level)
   {
-//    var_dump((string) $this->getData());
-//    var_dump($level);
-    
     $this->setLevel($level);
 
     if ($this->hasSubnodes())
