@@ -267,7 +267,7 @@ ul.nav_syslinks_list li:last-child {
 	font-size: 0.9em;
 	border-top: 2px solid #777475;
 	white-space:nowrap;
-	/* color: #777475; */
+	height: 1.5em;
 }
 
 #footer a {
