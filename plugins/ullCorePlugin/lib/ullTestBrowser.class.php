@@ -156,6 +156,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'app',
         'subject',
         'priority',
+        'due_date',
         'created_by',
         'created_at'
       ),
@@ -174,6 +175,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
         'id',
         'subject',
         'priority',
+        'due_date',
         'assigned_to',
         'created_at'
       ),
@@ -190,6 +192,8 @@ class ullTestBrowser extends sfDoctrineTestBrowser
       array(
         'actions',
         'subject',
+        'priority',
+        'due_date',
         'created_by',
         'created_at'
       ),

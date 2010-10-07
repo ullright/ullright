@@ -7,6 +7,7 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
     $defaultListColumns = array(
       'subject',
       'priority',
+      'due_date',
       'creator_user_id',
       'created_at',
     )
@@ -62,6 +63,11 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       $this['priority']
         ->setLabel(__('Priority', null, 'common'))
         ->setMetaWidgetClassName('ullMetaWidgetPriority')
+      ;
+      
+      $this['due_date']
+        ->setLabel(__('Due date', null, 'common'))
+        ->setMetaWidgetClassName('ullMetaWidgetDate')
       ;
 
       $this['ull_flow_action_id']

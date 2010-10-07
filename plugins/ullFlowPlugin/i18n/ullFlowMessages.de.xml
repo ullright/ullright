@@ -118,8 +118,12 @@
         <source>Is project column?</source>
         <target>Ist Projekt-Spalte?</target>
       </trans-unit>        
-
-
+      
+      <trans-unit id="24">
+        <source>Is due date column?</source>
+        <target>Ist Fälligkeitsdatum-Spalte?</target>
+      </trans-unit>
+      
       <!-- Queries -->
       <trans-unit id="101">
         <source>Entries assigned to me</source>

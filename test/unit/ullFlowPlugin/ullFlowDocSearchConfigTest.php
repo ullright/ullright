@@ -16,10 +16,10 @@ $t->is(count($searchConfig->getAllSearchableColumns()), $expectedFieldCount, 'bl
 
 $t->diag('ullFlowDocSearchConfig - default fields');
 
-$expectedFields = array('ull_project_id', 'priority', 'creator_user_id', 'updator_user_id');
+$expectedFields = array('ull_project_id', 'priority', 'due_date', 'creator_user_id', 'updator_user_id');
 
 $defaultSfe = $searchConfig->getDefaultSearchColumns();
-$t->is(count($defaultSfe), 4, 'default field count ok');
+$t->is(count($defaultSfe), 5, 'default field count ok');
 
 foreach ($defaultSfe as $sfe)
 {

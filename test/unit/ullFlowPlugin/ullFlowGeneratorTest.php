@@ -22,11 +22,11 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['my_information_update'] = $columnConfig;
     
-    $columnConfig = new ullColumnConfiguration('my_date');
-    $columnConfig->setLabel('Date');
-    $columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
-    $columnConfig->setIsInList(false);
-    $this->columnsConfigMock['my_date'] = $columnConfig;
+    //$columnConfig = new ullColumnConfiguration('my_date');
+    //$columnConfig->setLabel('Date');
+    //$columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
+    //$columnConfig->setIsInList(false);
+    //$this->columnsConfigMock['my_date'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_email');
     $columnConfig->setLabel('Your email address');
@@ -59,7 +59,13 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Project');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllProject');
     $columnConfig->setIsInList(false);
-    $this->columnsConfigMock['my_project'] = $columnConfig;    
+    $this->columnsConfigMock['my_project'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_due_date');
+    $columnConfig->setLabel('Due date');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
+    $columnConfig->setIsInList(true);
+    $this->columnsConfigMock['my_due_date'] = $columnConfig;    
     
     $columnConfig = new ullColumnConfiguration('my_tags');
     $columnConfig->setLabel('Tags');
@@ -125,7 +131,7 @@ $t->diag('getColumnConfig()');
   $t->isa_ok($columnsConfig, 'UllFlowDocColumnConfigCollection',
     'columnsConfig is an UllFlowDocColumnConfigCollection');
   
-  $t->is(count($columnsConfig), 24, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 25, 'columnsConfig has the correct number of columns');
   
   //we really should take ordering into account here...
   $mocks = $t->getColumnsConfigMock();

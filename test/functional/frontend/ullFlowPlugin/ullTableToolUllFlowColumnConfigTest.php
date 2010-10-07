@@ -16,6 +16,7 @@ $selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array
         'is_priority',
         'is_tagging',
         'is_project',
+        'is_due_date',
         'default_value'
       )
     );
@@ -44,6 +45,7 @@ $createValues = array(
   'is_subject' => array(true, 'Checkbox_checked'),
   'is_priority' => array(true, 'Checkbox_checked'),
   'is_project' => array(true, 'Checkbox_checked'),
+  'is_due_date' => array(true, 'Checkbox_checked'),
   'default_value' => 'foo'
 );
 
@@ -58,6 +60,7 @@ $editValues = array(
   'is_subject' => array(true, 'Checkbox_checked'),
   'is_priority' => array(false, 'Checkbox_unchecked'),
   'is_project' => array(false, 'Checkbox_unchecked'),
+  'is_due_date' => array(false, 'Checkbox_unchecked'),
   'default_value' => 'foo'
 );
 

@@ -79,10 +79,11 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement($dgsListTT->getFullHeaderColumnSelector(), 6) // number of columns
+  ->checkResponseElement($dgsListTT->getFullHeaderColumnSelector(), 7) // number of columns
   ->checkResponseElement($dgsListTT->getHeader('id') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/id/order_dir/asc"]', 'ID')  
   ->checkResponseElement($dgsListTT->getHeader('subject') . ' > a[href*="/ullFlow/list/app/trouble_ticket/order/subject/order_dir/asc"]', 'Subject')
   ->checkResponseElement($dgsListTT->getHeader('priority') . ' > a', 'Priority')
+  ->checkResponseElement($dgsListTT->getHeader('due_date') . ' > a', 'Due date')
   ->checkResponseElement($dgsListTT->getHeader('assigned_to') . ' > a', 'Assigned to')
   // wtf happens here with unicode?
   ->checkResponseElement($dgsListTT->getHeader('created_at') . ' > a', 'Created at ↑')  

@@ -21,7 +21,7 @@ $t->begin('__construct');
 $t->diag('create');
   $doc->ull_flow_app_id = 1;
   $doc->my_subject = 'My fancy subject';
-  $doc->my_date = '2008-08-08 08:08:08';
+  $doc->my_due_date = '2008-08-08 08:08:08';
   $doc->my_priority = 5;
   $doc->my_tags = 'footag';
   $doc->my_project = 2;
@@ -49,7 +49,7 @@ $t->diag('create');
   $t->is($doc->assigned_to_ull_entity_id, 1, 'sets the default assigned_to_ull_entity_id correctly');
   $t->is($doc->assigned_to_ull_flow_step_id, $doc->UllFlowApp->findStartStep()->id, 'sets the correct start step');  
   $t->is($doc->my_subject, 'My fancy subject', 'sets the correct virtual columns value');
-  $t->is($doc->my_date, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
+  $t->is($doc->my_due_date, '2008-08-08 08:08:08', 'sets the correct virtual columns value');
   $t->is($doc->my_priority, 5, 'sets the correct virtual columns value');
   $t->is($doc->my_project, 2, 'sets the correct virtual columns value');
   $t->is($doc->my_tags, 'footag', 'sets the correct virtual columns value');
@@ -153,7 +153,7 @@ $t->begin('getVirtualValuesAsArray()');
   $reference = array(
     'my_subject'  => 'My first trouble ticket',
     'my_information_update' =>  'blub macht da fisch :)',
-    'my_date'     => '2011-11-11',
+    'my_due_date'     => '2010-10-20',
     'my_email'    => 'quasimodo@ull.at',
     'my_upload'   => 'Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41',
     'my_wiki_link' => '1',
@@ -169,12 +169,12 @@ $t->diag('getVirtualColumnsAsArray()');
   $reference = array(
     'my_information_update',
     'my_subject',    
-    'my_date',
     'my_email',
     'my_priority',
     'my_upload',
     'my_wiki_link',
     'my_project',
+    'my_due_date',
     'my_tags',
   );
   $t->is($columns, $reference, 'returns the correct values');    

@@ -40,6 +40,10 @@ class ullFlowDocSearchConfig extends ullSearchConfig
     
     $sfe = new ullSearchFormEntry();
     $sfe->columnName = "ull_project_id";
+    $sfeArray[] = $sfe;
+    
+    $sfe = new ullSearchFormEntry();
+    $sfe->columnName = "due_date";
     $sfeArray[] = $sfe;    
     
     $sfe = new ullSearchFormEntry();
@@ -110,7 +114,9 @@ class ullFlowDocSearchConfig extends ullSearchConfig
           foreach ($sfeArray as $sfeKey => $sfe)
           {
             if ((($sfe->columnName == 'priority') && ($sfe->isVirtual == false)) ||
-                (($sfe->columnName == 'subject') && ($sfe->isVirtual == false)))
+                (($sfe->columnName == 'subject') && ($sfe->isVirtual == false)) ||
+                (($sfe->columnName == 'ull_project_id') && ($sfe->isVirtual == false)) ||
+                (($sfe->columnName == 'due_date') && ($sfe->isVirtual == false)))
             {
               unset($sfeArray[$sfeKey]);
             }

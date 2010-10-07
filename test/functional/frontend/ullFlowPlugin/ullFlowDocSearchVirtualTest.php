@@ -57,6 +57,7 @@ $browser
 ;
 //we need to add the last name field
 //no checks here because the addremovecriteria test does them anyway
+$browser->diag('add field');
 $browser
   ->call('/ullFlow/search/app/trouble_ticket', 'POST', array (
   'fields' => 
@@ -75,11 +76,12 @@ $browser
   ->end()
 ;
 
+$browser->diag('standard search');
 $browser
   ->call('/ullFlow/search/app/trouble_ticket', 'POST', array (
   'fields' => 
   array (
-    'standard_0_4' => 'searchString', //ignore case testing!
+    'standard_0_5' => 'searchString', //ignore case testing!
   ),
   'searchSubmit' => 'Search',
   'app' => 'trouble_ticket',

@@ -74,7 +74,7 @@ UllFlowApp:
         doc_label:  Trouble Ticket
     slug: trouble_ticket
     namespace:      test
-    list_columns:   id,subject,priority,assigned_to_ull_entity_id,created_at
+    list_columns:   id,subject,priority,due_date,assigned_to_ull_entity_id,created_at
     #is_public:      true
     enter_effort:   true
   ull_flow_app_todo:
@@ -100,6 +100,7 @@ UllFlowDoc:
   ull_flow_doc_trouble_ticket1:
     UllFlowApp:     ull_flow_app_trouble_ticket    
     subject:        My first trouble ticket
+    due_date:       '2010-10-20'
     UllFlowAction:  ull_flow_action_create
     UllEntity:      admin_user
     UllFlowStep:    ull_flow_step_doc_trouble_ticket_creator
@@ -166,17 +167,17 @@ UllFlowColumnConfig:
     options:        disablePurification=true
     namespace:      test
     
-  ull_flow_column_config_trouble_ticket_date:
-    Translation:
-      en:
-        label:      Date
-      de:
-        label:      Datum
-    UllFlowApp:     ull_flow_app_trouble_ticket
-    slug:           my_date
-    sequence:       2000
-    UllColumnType:  date
-    namespace:      test
+#  ull_flow_column_config_trouble_ticket_date:
+#    Translation:
+#      en:
+#        label:      Date
+#      de:
+#        label:      Datum
+#    UllFlowApp:     ull_flow_app_trouble_ticket
+#    slug:           my_date
+#    sequence:       2000
+#    UllColumnType:  date
+#    namespace:      test
     
   ull_flow_column_config_trouble_ticket_email:
     Translation:
@@ -240,6 +241,19 @@ UllFlowColumnConfig:
     sequence:       6500
     UllColumnType:  ull_project
     options:        add_empty=true model=UllProject
+    namespace:      test
+    
+  ull_flow_column_config_trouble_ticket_due_date:
+    Translation:
+      en:
+        label:      Due date
+      de:
+        label:      Fälligkeitsdatum
+    UllFlowApp:     ull_flow_app_trouble_ticket
+    slug:           my_due_date
+    is_due_date:    true
+    sequence:       1750
+    UllColumnType:  date
     namespace:      test    
     
   ull_flow_column_config_trouble_ticket_column_tags:
@@ -310,11 +324,11 @@ UllFlowValue:
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_information_update
     value:          blub macht da fisch :)
     namespace:      test
-  ull_flow_value_doc_trouble_ticket1_date:
-    UllFlowDoc:     ull_flow_doc_trouble_ticket1
-    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_date
-    value:          '2011-11-11'
-    namespace:      test
+#  ull_flow_value_doc_trouble_ticket1_date:
+#    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+#    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_date
+#    value:          '2011-11-11'
+#    namespace:      test
   ull_flow_value_doc_trouble_ticket1_email:
     UllFlowDoc:     ull_flow_doc_trouble_ticket1
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_email
@@ -334,7 +348,12 @@ UllFlowValue:
     UllFlowDoc:     ull_flow_doc_trouble_ticket1
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_project
     value:          1   
-    namespace:      test      
+    namespace:      test
+  ull_flow_value_doc_trouble_ticket1_due_date:
+    UllFlowDoc:     ull_flow_doc_trouble_ticket1
+    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_due_date
+    value:          '2010-10-20'   
+    namespace:      test         
   ull_flow_value_doc_trouble_ticket1_column_tags:
     UllFlowDoc:     ull_flow_doc_trouble_ticket1
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_column_tags
@@ -346,11 +365,11 @@ UllFlowValue:
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_subject
     value:          AAA My second trouble ticket
     namespace:      test
-  ull_flow_value_doc_trouble_ticket2_date:
-    UllFlowDoc:     ull_flow_doc_trouble_ticket2
-    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_date
-    value:          '2012-12-12'
-    namespace:      test
+#  ull_flow_value_doc_trouble_ticket2_date:
+#    UllFlowDoc:     ull_flow_doc_trouble_ticket2
+#    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_date
+#    value:          '2012-12-12'
+#    namespace:      test
   ull_flow_value_doc_trouble_ticket2_email:
     UllFlowDoc:     ull_flow_doc_trouble_ticket2
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_email

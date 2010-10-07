@@ -77,6 +77,8 @@ UllFlowDoc:
       type: integer
     ull_project_id:
       type: integer
+    due_date:
+      type: datetime
   relations:
     UllFlowApp:
       foreignAlias: UllFlowDocs
@@ -137,7 +139,10 @@ UllFlowColumnConfig:
       default: false
     is_project:
       type: boolean
-      default: false      
+      default: false
+    is_due_date:
+      type: boolean
+      default: false     
     default_value:
       type: string(255)      
   relations:

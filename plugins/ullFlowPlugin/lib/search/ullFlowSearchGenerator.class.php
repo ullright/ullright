@@ -56,9 +56,18 @@ class ullFlowSearchGenerator extends ullSearchGenerator
     }
     
     //manually handle the all-searching priority widget
-    if (($columnConfig->getLabel() == 'Priority') && ($columnConfig->getMetaWidgetClassName() == 'ullMetaWidgetInteger'))
+    if (($columnConfig->getColumnName() == 'priority') &&
+      ($columnConfig->getMetaWidgetClassName() == 'ullMetaWidgetInteger'))
     {
       $columnConfig->setMetaWidgetClassName('ullMetaWidgetPriority');
+      return $columnConfig;
+    }
+    
+    //do the same for the all-searching due date widget
+    if (($columnConfig->getColumnName() == 'due_date') &&
+      ($columnConfig->getMetaWidgetClassName() == 'ullMetaWidgetString'))
+    {
+      $columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
       return $columnConfig;
     }
     

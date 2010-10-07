@@ -13,5 +13,6 @@ class UllFlowColumnConfigColumnConfigCollection extends ullColumnConfigCollectio
     $this['is_priority']->setLabel(__('Is priority column?', null, 'ullFlowMessages'));
     $this['is_tagging']->setLabel(__('Is tagging column?', null, 'ullFlowMessages'));
     $this['is_project']->setLabel(__('Is project column?', null, 'ullFlowMessages'));
+    $this['is_due_date']->setLabel(__('Is due date column?', null, 'ullFlowMessages'));
   }
 }

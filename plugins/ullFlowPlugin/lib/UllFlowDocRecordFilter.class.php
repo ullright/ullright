@@ -61,6 +61,10 @@ class UllFlowDocRecordFilter extends Doctrine_Record_Filter
     if ($cc->is_project)
     {
       $record->ull_project_id = $value;
+    }
+    if ($cc->is_due_date)
+    {
+      $record->due_date = $value;
     }    
     if ($cc->is_tagging)
     {

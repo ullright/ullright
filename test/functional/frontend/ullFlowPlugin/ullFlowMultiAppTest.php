@@ -34,7 +34,7 @@ $b
   
 $b
   ->diag('list - column headers')
-  ->checkResponseElement($dgsList->getFullHeaderColumnSelector(), 6) // number of columns
+  ->checkResponseElement($dgsList->getFullHeaderColumnSelector(), 7) // number of columns
   ->checkResponseElement($dgsList->getHeader('app') . ' > a[href*="/ullFlow/list/order/ull_flow_app_id/order_dir/asc"]', 'WF.')
   ->checkResponseElement($dgsList->getHeader('subject') . ' > a[href*="/ullFlow/list/order/subject/order_dir/asc"]', 'Subject')
   ->checkResponseElement($dgsList->getHeader('created_by') . ' > a', 'Created by')

@@ -1220,6 +1220,11 @@
 <target>Erweiterte Optionen anzeigen</target>
 </trans-unit>
 
+<trans-unit id="26008">
+<source>Due date</source>
+<target>Fälligkeitsdatum</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
