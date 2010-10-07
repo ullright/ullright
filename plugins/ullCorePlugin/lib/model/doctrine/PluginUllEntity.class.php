@@ -142,4 +142,14 @@ abstract class PluginUllEntity extends BaseUllEntity
         $this->getSubordinates($onlyActive, false, Doctrine::HYDRATE_NONE)
       );
     }
+    
+    /**
+     * Check if the current entity is a assistant
+     *
+     * @return boolean
+     */
+    public function isAssistant()
+    {
+      return (boolean) $this['is_assistant']; 
+    }
   }

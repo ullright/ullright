@@ -129,6 +129,10 @@ class PluginUllEntityTable extends UllRecordTable
           // Sub-superiors are added as normal leafes/subtrees
           $node->addSubnode(self::getSubordinateTree($subordinate, $depth, $hydrate, $level));
         }
+        elseif ($subordinate->isAssistant())
+        {
+           $node->addAssistant(self::getSubordinateTree($subordinate, $depth, $hydrate, $level));
+        }
         else
         {
           // Special handling for subordinates - they are attached in a separate "container" 

@@ -45,4 +45,37 @@ class ullTreeNodeOrgchart extends ullTreeNode
     return $this->hasSubnodes('subordinates');
   }
   
+  /**
+   * Add a Assistant
+   * 
+   * @param ullTreeNode $node
+   * @return self
+   */
+  public function addAssistant(ullTreeNode $node)
+  {
+    $this->addSubnode($node, 'assistants');
+    
+    return $this;
+  }
+  
+  /**
+   * Get Assistants
+   * 
+   * @return array
+   */
+  public function getAssistants()
+  {
+    return $this->getSubnodes('assistants');
+  } 
+  
+  
+  /** 
+   * Check if we have Assistants
+   * 
+   * @return boolean
+   */
+  public function hasAssistants()
+  {
+    return $this->hasSubnodes('assistants');
+  }
 }

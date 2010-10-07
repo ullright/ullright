@@ -59,7 +59,7 @@ class BaseUllOrgchartActions extends ullsfActions
     
 //    var_dump($treeData->toArray());die;
     
-    $this->setVar('tree', new ullTreeRenderer($treeData), true);
+    $this->setVar('tree', new ullOrgchartTreeRenderer($treeData), true);
     
 //    $this->filter_form = new ullFilterForm;
 

@@ -1,6 +1,6 @@
 <?php
 
-class ullTreeRenderer
+class ullOrgchartTreeRenderer
 {
   protected
     $node,
@@ -68,6 +68,158 @@ class ullTreeRenderer
         </td>
       </tr>
     ';
+    
+    
+    
+    //Assistant
+    if ($node->hasAssistants())
+    { 
+      $return .= '
+      <tr class="ull_orgchart_assistants">
+        <td>
+          <table cellpadding="0" cellspacing="0">      
+      ';
+      
+      $return .= $this->renderSpacerRow();
+      
+      // dual column mode
+      if ($node->getLevel() == 1)
+      {
+        $pairs = array();
+        $pairNumber = 0;
+        $numOfAssistants = count($node->getAssistants());
+        
+        // special handling if only one result -> print on the right side
+        if ($numOfAssistants == 1)
+        {
+          $subs = $node->getAssistants();
+          $pairs[]['even'] = reset($subs);
+        }
+        else
+        {
+          foreach($node->getAssistants() as $assistant)
+          {
+            if (isset($pairs[$pairNumber]['odd']))
+            {
+              $pairs[$pairNumber]['even'] = $assistant;
+              $pairNumber++;
+            }
+            else
+            {
+              $pairs[$pairNumber]['odd'] = $assistant;
+            }  
+          }
+        }
+        $numOfPairs = count($pairs);
+        
+        foreach($pairs as $currentPairNumber => $pair)
+        {
+          $return .= '
+            <tr class="ull_orgchart_boxes_row">
+              <td rowspan="2">
+          ';
+          
+          if ($numOfAssistants == 1)
+          {
+            $return .= $this->renderBoxAssistantPlaceholder();
+          }
+          else
+          {
+            $return .= $this->renderBoxAssistant($pair['odd']->getData());
+          }
+          
+          $return .= '                 
+              </td>
+              <td class="ull_orgchart_border_right ' . ((isset($pair['odd'])) ? 'ull_orgchart_border_double_bottom' : '') . '">
+                <div class="ull_orgchart_spacer_in_between">&nbsp;</div>
+              </td>
+              <td class="ull_orgchart_border_left ' . ((isset($pair['even'])) ? 'ull_orgchart_border_double_bottom' : '') . '">
+                <div class="ull_orgchart_spacer_in_between">&nbsp;</div>
+              </td>                
+              <td rowspan="2">
+          ';
+          
+          if (isset($pair['even']))
+          {
+            $return .= $this->renderBoxAssistant($pair['even']->getData());
+          }
+          else
+          {
+            $return .= '&nbsp;';
+          }
+
+          $return .= '
+              </td>
+            </tr>        
+            <tr>
+              <td class="ull_orgchart_spacer_in_between ' 
+            . (($currentPairNumber + 1 < $numOfPairs || $node->hasSubordinates() || $node->hasSubnodes()) ? 'ull_orgchart_border_right' : '') 
+            . '">&nbsp;</td>
+              <td class="ull_orgchart_spacer_in_between ' 
+            . (($currentPairNumber + 1 < $numOfPairs || $node->hasSubordinates() || $node->hasSubnodes()) ? 'ull_orgchart_border_left' : '') 
+            . '">&nbsp;</td>                
+            </tr>           
+          
+          ';
+            
+          if ($currentPairNumber + 1 < $numOfPairs)
+          {
+            $return .= $this->renderSpacerRowThin();
+          }          
+        }  
+      }
+      
+      // single column mode
+      else
+      {
+        foreach($node->getAssistants() as $assistant)
+        {
+          $return .= '
+              <tr class="ull_orgchart_boxes_row">
+                <td rowspan="2">
+                  &nbsp;
+                </td>
+                <td class="ull_orgchart_border_right">
+                  <div class="ull_orgchart_spacer_in_between">&nbsp;</div>
+                </td>
+                <td class="ull_orgchart_border_left ull_orgchart_border_double_bottom">
+                  <div class="ull_orgchart_spacer_in_between">&nbsp;</div>
+                </td>                
+                <td rowspan="2">
+          ';
+          $return .= $this->renderBoxAssistant($assistant->getData());
+          $return .= '
+                </td>
+              </tr>        
+              <tr>
+                <td class="ull_orgchart_spacer_in_between ' . (($node->hasSubordinates() || $node->hasSubnodes() || !$assistant->isLast()) ? 'ull_orgchart_border_right' : '') . '">&nbsp;</td>
+                <td class="ull_orgchart_spacer_in_between ' . (($node->hasSubordinates() || $node->hasSubnodes() || !$assistant->isLast()) ? 'ull_orgchart_border_left' : '') . '">&nbsp;</td>                
+              </tr>          
+          
+          ';
+          
+          if (!$assistant->isLast())
+          {
+            $return .= $this->renderSpacerRowThin();
+          }
+        }
+      }
+      
+      if ($node->hasSubordinates())
+      {
+        $return .= $this->renderSpacerRowThin();
+      }
+      
+      
+      $return .= '
+          </table>
+        </td>
+      </tr> 
+      ';     
+    }
+    
+    
+    
         
    
     // Subordinates
@@ -255,7 +407,7 @@ class ullTreeRenderer
         $return .= '
               <td colspan="2" class="ull_orgchart_sub_superiors_row_td">
         ';
-        if ($subnode->hasSubnodes() || $subnode->hasSubordinates())
+        if ($subnode->hasSubnodes() || $subnode->hasSubordinates() || $subnode->hasAssistants())
         {
           $return .= $this->doRendering($subnode);
         }
@@ -342,6 +494,16 @@ class ullTreeRenderer
     return $return;    
   }  
   
+  public function renderBoxAssistant(UllEntity $entity)
+  {
+    return $this->renderBox($entity, 'ull_orgchart_box_assistant');
+  }
+  
+  
+  public function renderBoxAssistantPlaceholder()
+  {
+    return $this->renderBoxSubordinatePlaceholder();   
+  }  
   
   public function renderSpacerRow($cssClass = 'ull_orgchart_spacer_row')
   {
@@ -360,7 +522,8 @@ class ullTreeRenderer
     return $this->renderSpacerRow('ull_orgchart_spacer_row_thin');
   }
   
-  
-  
-  
+  public function renderSpacerRowBroad()
+  {
+    return $this->renderSpacerRow('ull_orgchart_spacer_row_broad');
+  }
 }

@@ -91,7 +91,11 @@ a:visited {
 }
 
 .ull_orgchart_box_head {
-  border: .1em solid black !important;
+  border: 3px solid black;
+  -moz-border-radius:8px 8px 8px 8px;
+  -moz-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 8px 8px 8px 8px;
   width: 18em;
   height: 8em;
   margin: 0 auto;
@@ -104,7 +108,11 @@ a:visited {
 }
 
 .ull_orgchart_box_subordinate {
-  border: .1em solid black !important;
+  border: 3px solid black;
+  -moz-border-radius:8px 8px 8px 8px;
+  -moz-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 8px 8px 8px 8px;
   width: 16em;
   height: 7em;
   margin: 0 auto;
@@ -116,7 +124,25 @@ a:visited {
   height: 7em;
 }
 
+.ull_orgchart_box_assistant {
+  border: 3px solid black;
+  -moz-border-radius:30px 30px 30px 30px;
+  -moz-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 30px 30px 30px 30px;
+  width: 16em;
+  height: 7em;
+  margin: 0 auto;
+  padding: .5em;
+  overflow: hidden;
+}
+
+.ull_orgchart_box_assistant img.ull_orgchart_photo {
+  height: 7em;
+}
+
 .ull_orgchart_box_subordinate_placeholder {
+	border: 3px solid transparent;
   width: 16em;
   height: 7em;
   margin: 0 auto;
@@ -139,6 +165,10 @@ a:visited {
 
 .ull_orgchart_spacer_row_thin {
   height: 1em; 
+}
+
+.ull_orgchart_spacer_row_broad {
+  height: 5em; 
 }
 
 .ull_orgchart_spacer_in_between {
