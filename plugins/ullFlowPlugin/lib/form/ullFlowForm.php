@@ -63,6 +63,7 @@ class ullFlowForm extends ullGeneratorForm
   {
     parent::updateObject();
     
+    $this->setSubject();    
     $this->setAction();
     $this->setNext();
     $this->setMemory();
@@ -70,6 +71,34 @@ class ullFlowForm extends ullGeneratorForm
     return $this->object;
   }
   
+  
+  /**
+   * Make sure that the native UllFlowDoc subject column is a string
+   * 
+   * We achive this by rendering the read-mode widget of virtual subject column 
+   */
+  protected function setSubject()
+  {
+    sfLoader::loadHelpers('Escaping');
+    
+    $slug = UllFlowColumnConfigTable::findSubjectColumnSlug($this->object->UllFlowApp->id);
+    $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($this->object->UllFlowApp->id, $slug);
+    $columnType = $cc->UllColumnType->class;
+    
+    $ccMock = new ullColumnConfiguration();
+    $ccMock->setAccess('r');
+    
+    $formMock = new sfForm();
+    
+    $metaWidgetMock = new $columnType($ccMock, $formMock);
+    $metaWidgetMock->addToFormAs('subject');
+    
+    $formMock->setDefault('subject', $this->object['subject']);
+
+    $subjectAsString = strip_tags($formMock['subject']->render());
+
+    $this->object['subject'] = $subjectAsString;
+  }
   
   /**
    * parses the given ullFlow action from the submit_xxx request params
