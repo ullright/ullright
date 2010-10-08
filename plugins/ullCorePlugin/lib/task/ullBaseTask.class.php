@@ -4,7 +4,12 @@ abstract class ullBaseTask extends sfBaseTask
 {
   
   protected
-    $recordNamespace = 'test'
+    $recordNamespace = 'test',
+    
+    $camelcase_name = '',
+    $underscore_name = '',
+    $humanized_name = '',
+    $hyphen_name = ''    
   ;
   
   /**
