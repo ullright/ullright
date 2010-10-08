@@ -16,6 +16,8 @@ class ullMetaWidgetCaller extends ullMetaWidgetUllEntity
   protected function configureWriteMode()
   {
     $this->columnConfig->setOption('show_search_box', true);
+    $this->columnConfig->setOption('add_empty', true);
+    $this->columnConfig->setOption('entity_classes', array('UllUser'));
     
     parent::configureWriteMode();
   }
