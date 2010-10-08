@@ -286,7 +286,11 @@ UllColumnType:
   ull_project:
     class:        ullMetaWidgetUllProject
     label:        UllProject
-    namespace:    ullCore          
+    namespace:    ullCore
+  caller:
+    class:        ullMetaWidgetCaller
+    label:        Caller
+    namespace:    ullCore               
   
 UllSelect:
   ull_select_test:
