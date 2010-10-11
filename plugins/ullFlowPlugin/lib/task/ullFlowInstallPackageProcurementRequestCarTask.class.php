@@ -1,20 +1,20 @@
 <?php
 
-class ullFlowInstallPackageOnboardingProcurementCarTask extends ullBaseTask
+class ullFlowInstallPackageProcurementRequestCarTask extends ullBaseTask
 {
   
   
   protected function configure()
   {
-    $this->camelcase_name = 'OnboardingProcurementCar';
-    $this->short_name = 'OnboardProcCar'; // <= 32 chars
+    $this->camelcase_name = 'ProcurementRequestCar';
+    $this->short_name = 'ProcurementCar'; // <= 32 chars
     $this->underscore_name = sfInflector::underscore($this->camelcase_name);
     $this->humanized_name = sfInflector::humanize($this->underscore_name);
     $this->hyphen_name = ullCoreTools::htmlId($this->underscore_name);
     
     $this->namespace        = 'ull_flow';
     $this->name             = 'install-package-' . $this->hyphen_name;
-    $this->briefDescription = 'Creates a ' . $this->humanized_name . ' request workflow';
+    $this->briefDescription = 'Creates a ' . $this->humanized_name . ' workflow';
     $this->detailedDescription = <<<EOF
     The [{$this->name} task|INFO] creates all database entires for
     a ullFlow workflow
@@ -45,10 +45,10 @@ EOF;
     
     //app
     $app = $this->createRecord('UllFlowApp');
-    $app['Translation']['en']['label'] = 'Onboarding - Procurement - Car';
-    $app['Translation']['en']['doc_label'] = 'Onboarding - Procurement - Car';
-    $app['Translation']['de']['label'] = 'Onboarding - Einkauf - Auto';
-    $app['Translation']['de']['doc_label'] = 'Onboarding - Einkauf - Auto';    
+    $app['Translation']['en']['label'] = 'Procurement Request Car';
+    $app['Translation']['en']['doc_label'] = 'Procurement Request Car';
+    $app['Translation']['de']['label'] = 'Einkaufsanforderung Auto';
+    $app['Translation']['de']['doc_label'] = 'Einkaufsanforderung Auto';    
 //    $app['list_columns'] = 
 //      'id,subject,customer_request_contact_name,priority,customer_request_due_date,assigned_to_ull_entity_id';
     $app['slug'] = $this->underscore_name;
@@ -69,8 +69,8 @@ EOF;
     $columnConfig->save();
     
     $select = new UllSelect();
-    $select['Translation']['en']['label'] = "Type";
-    $select['Translation']['de']['label'] = "Typ";
+    $select['Translation']['en']['label'] = "Car type";
+    $select['Translation']['de']['label'] = "Autotyp";
     $select['slug'] = $this->underscore_name . '_type';
     $select['UllSelectChildren'][0]['Translation']['en']['label'] = "";
     $select['UllSelectChildren'][0]['Translation']['de']['label'] = "";
