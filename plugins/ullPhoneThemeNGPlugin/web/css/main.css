@@ -74,14 +74,13 @@ a:visited {
 
 .ull_orgchart > table
 {
-  border-collapse: collapse;
   width: 100%;
 }
 
 .ull_orgchart table
 {
   margin: 0 auto;
-  /* border-collapse: collapse; Doesn't work here - we loose some borders */
+  border-collapse: collapse;
 }
 
 .ull_orgchart_arrow {
@@ -126,14 +125,14 @@ a:visited {
 
 .ull_orgchart_box_assistant {
   border: 3px solid black;
-  -moz-border-radius:30px 30px 30px 30px;
+  -moz-border-radius:55px 55px 55px 55px;
   -moz-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
-  border-radius: 30px 30px 30px 30px;
+  border-radius: 55px 55px 55px 55px;
   width: 16em;
   height: 7em;
   margin: 0 auto;
-  padding: .5em;
+  padding: 0.5em 2em;
   overflow: hidden;
 }
 
@@ -142,11 +141,24 @@ a:visited {
 }
 
 .ull_orgchart_box_subordinate_placeholder {
-	border: 3px solid transparent;
+	border: 3px solid white;
   width: 16em;
   height: 7em;
   margin: 0 auto;
   padding: .5em;
+}
+
+.ull_orgchart_box_assistant_placeholder {
+  border: 3px solid white;
+  -moz-border-radius:55px 55px 55px 55px;
+  -moz-box-shadow: 3px 3px 15px white;
+  box-shadow: 3px 3px 15px white;
+  border-radius: 55px 55px 55px 55px;
+  width: 16em;
+  height: 7em;
+  margin: 0 auto;
+  padding: 0.5em 2em;
+  overflow: hidden;
 }
 
 .ull_orgchart_box_list {
@@ -175,6 +187,10 @@ a:visited {
   width: 3em;
 }
 
+.ull_orgchart_assistants .ull_orgchart_spacer_in_between {
+  width: 1.5em;
+}
+
 .ull_orgchart_border_top {
   border-top: .19em solid black !important;
 }
@@ -193,11 +209,27 @@ a:visited {
 }
 
 .ull_orgchart_border_right {
-  border-right: .1em solid black !important;
+  border-right: .2em solid black !important;
 }
 
 .ull_orgchart_border_left {
-  border-left: .1em solid black !important;
+  border-left: .2em solid black !important;
+}
+
+.ull_orgchart_boxes_row {
+  height: 4.25em;
+}
+
+.ull_orgchart_boxes_second_row {
+  height: 4.25em;
+}
+
+.ull_orgchart_sub_superiors .ull_orgchart_border_right {
+  width: 10.7em;
+}
+
+.ull_orgchart_sub_superiors .ull_orgchart_border_left {
+  width: 10.7em;
 }
 
 

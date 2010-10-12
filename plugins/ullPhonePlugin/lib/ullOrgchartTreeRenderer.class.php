@@ -151,7 +151,7 @@ class ullOrgchartTreeRenderer
           $return .= '
               </td>
             </tr>        
-            <tr>
+            <tr class="ull_orgchart_boxes_second_row">
               <td class="ull_orgchart_spacer_in_between ' 
             . (($currentPairNumber + 1 < $numOfPairs || $node->hasSubordinates() || $node->hasSubnodes()) ? 'ull_orgchart_border_right' : '') 
             . '">&nbsp;</td>
@@ -191,7 +191,7 @@ class ullOrgchartTreeRenderer
           $return .= '
                 </td>
               </tr>        
-              <tr>
+              <tr class="ull_orgchart_boxes_second_row">
                 <td class="ull_orgchart_spacer_in_between ' . (($node->hasSubordinates() || $node->hasSubnodes() || !$assistant->isLast()) ? 'ull_orgchart_border_right' : '') . '">&nbsp;</td>
                 <td class="ull_orgchart_spacer_in_between ' . (($node->hasSubordinates() || $node->hasSubnodes() || !$assistant->isLast()) ? 'ull_orgchart_border_left' : '') . '">&nbsp;</td>                
               </tr>          
@@ -305,7 +305,7 @@ class ullOrgchartTreeRenderer
           $return .= '
               </td>
             </tr>        
-            <tr>
+            <tr class="ull_orgchart_boxes_second_row">
               <td class="ull_orgchart_spacer_in_between ' 
             . (($currentPairNumber + 1 < $numOfPairs || $node->hasSubnodes()) ? 'ull_orgchart_border_right' : '') 
             . '">&nbsp;</td>
@@ -345,7 +345,7 @@ class ullOrgchartTreeRenderer
           $return .= '
                 </td>
               </tr>        
-              <tr>
+              <tr class="ull_orgchart_boxes_second_row">
                 <td class="ull_orgchart_spacer_in_between ' . (($node->hasSubnodes() || !$subordinate->isLast()) ? 'ull_orgchart_border_right' : '') . '">&nbsp;</td>
                 <td class="ull_orgchart_spacer_in_between ' . (($node->hasSubnodes() || !$subordinate->isLast()) ? 'ull_orgchart_border_left' : '') . '">&nbsp;</td>                
               </tr>          
@@ -502,7 +502,15 @@ class ullOrgchartTreeRenderer
   
   public function renderBoxAssistantPlaceholder()
   {
-    return $this->renderBoxSubordinatePlaceholder();   
+    $return = '';
+    $return .= '
+          <div class="ull_orgchart_box_assistant_placeholder">
+    ';
+    $return .= '          
+          </div>
+    '; 
+    
+    return $return;   
   }  
   
   public function renderSpacerRow($cssClass = 'ull_orgchart_spacer_row')
