@@ -1,13 +1,13 @@
 <?php
 
-class ullFlowInstallPackageProcurementRequestCarTask extends ullBaseTask
+class ullFlowInstallPackageProcurementRequestMobileTask extends ullBaseTask
 {
   
   
   protected function configure()
   {
-    $this->camelcase_name = 'ProcurementRequestCar';
-    $this->short_name = 'ProcurementCar'; // <= 32 chars
+    $this->camelcase_name = 'ProcurementRequestMobile';
+    $this->short_name = 'ProcurementMobile'; // <= 32 chars
     $this->underscore_name = sfInflector::underscore($this->camelcase_name);
     $this->humanized_name = sfInflector::humanize($this->underscore_name);
     $this->hyphen_name = ullCoreTools::htmlId($this->underscore_name);
@@ -37,18 +37,18 @@ EOF;
     
     $this->setRecordNamespace('ull_flow_' . $this->short_name);
     
-    //groups
-    $groupDispatcher = $this->createRecord('UllGroup');
-    $groupDispatcher['display_name'] = 'Procurement Clerks';
-    $groupDispatcher->save();
+//    //groups
+//    $groupDispatcher = $this->createRecord('UllGroup');
+//    $groupDispatcher['display_name'] = 'Procurement Clerks';
+//    $groupDispatcher->save();
     
     
     //app
     $app = $this->createRecord('UllFlowApp');
-    $app['Translation']['en']['label'] = 'Procurement Request Car';
-    $app['Translation']['en']['doc_label'] = 'Procurement Request Car';
-    $app['Translation']['de']['label'] = 'Einkaufsanforderung Auto';
-    $app['Translation']['de']['doc_label'] = 'Einkaufsanforderung Auto';    
+    $app['Translation']['en']['label'] = 'Procurement Request Mobile';
+    $app['Translation']['en']['doc_label'] = 'Procurement Request Mobile';
+    $app['Translation']['de']['label'] = 'Einkaufsanforderung Handy';
+    $app['Translation']['de']['doc_label'] = 'Einkaufsanforderung Handy';    
 //    $app['list_columns'] = 
 //      'id,subject,customer_request_contact_name,priority,customer_request_due_date,assigned_to_ull_entity_id';
     $app['slug'] = $this->underscore_name;
@@ -69,22 +69,22 @@ EOF;
     $columnConfig->save();
     
     $select = new UllSelect();
-    $select['Translation']['en']['label'] = "Car type";
-    $select['Translation']['de']['label'] = "Autotyp";
+    $select['Translation']['en']['label'] = "Mobile type";
+    $select['Translation']['de']['label'] = "Handytyp";
     $select['slug'] = $this->underscore_name . '_type';
     $select['UllSelectChildren'][0]['Translation']['en']['label'] = "";
     $select['UllSelectChildren'][0]['Translation']['de']['label'] = "";
-    $select['UllSelectChildren'][1]['Translation']['en']['label'] = "Skoda Fabia Kombi";
-    $select['UllSelectChildren'][1]['Translation']['de']['label'] = "Skoda Fabia Kombi";
-    $select['UllSelectChildren'][2]['Translation']['en']['label'] = "Golf Plus";
-    $select['UllSelectChildren'][2]['Translation']['de']['label'] = "Golf Plus";
-    $select['UllSelectChildren'][3]['Translation']['en']['label'] = "Audi A4";
-    $select['UllSelectChildren'][3]['Translation']['de']['label'] = "Audi A4";        
+    $select['UllSelectChildren'][1]['Translation']['en']['label'] = "Basic";
+    $select['UllSelectChildren'][1]['Translation']['de']['label'] = "Basismodell";
+    $select['UllSelectChildren'][2]['Translation']['en']['label'] = "Advanced";
+    $select['UllSelectChildren'][2]['Translation']['de']['label'] = "Standardmodell";
+    $select['UllSelectChildren'][3]['Translation']['en']['label'] = "Smartphone";
+    $select['UllSelectChildren'][3]['Translation']['de']['label'] = "Smartphone";        
     $select->save();
     
     $columnConfig = $this->createRecord('UllFlowColumnConfig');
-    $columnConfig['Translation']['en']['label'] = 'Car type';
-    $columnConfig['Translation']['de']['label'] = 'Autotyp';
+    $columnConfig['Translation']['en']['label'] = $select['Translation']['en']['label'];
+    $columnConfig['Translation']['de']['label'] = $select['Translation']['de']['label'];
     $columnConfig['UllFlowApp'] = $app;
     $columnConfig['sequence'] = 2000;
     $columnConfig['UllColumnType'] = 
@@ -95,22 +95,22 @@ EOF;
     $columnConfig->save();
     
     $select = new UllSelect();
-    $select['Translation']['en']['label'] = "Extras";
-    $select['Translation']['de']['label'] = "Extras";
+    $select['Translation']['en']['label'] = "Contract";
+    $select['Translation']['de']['label'] = "Vertrag";
     $select['slug'] = $this->underscore_name . '_extras';
     $select['UllSelectChildren'][0]['Translation']['en']['label'] = "";
     $select['UllSelectChildren'][0]['Translation']['de']['label'] = "";    
-    $select['UllSelectChildren'][1]['Translation']['en']['label'] = "Cruise control";
-    $select['UllSelectChildren'][1]['Translation']['de']['label'] = "Tempomat";
-    $select['UllSelectChildren'][2]['Translation']['en']['label'] = "Seat heating";
-    $select['UllSelectChildren'][2]['Translation']['de']['label'] = "Sitzheizung";
-    $select['UllSelectChildren'][3]['Translation']['en']['label'] = "Navigaton device";
-    $select['UllSelectChildren'][3]['Translation']['de']['label'] = "Navigationsgerät";        
+    $select['UllSelectChildren'][1]['Translation']['en']['label'] = "Without private calls";
+    $select['UllSelectChildren'][1]['Translation']['de']['label'] = "Ohne Privatgespräche";
+    $select['UllSelectChildren'][2]['Translation']['en']['label'] = "Including private calls";
+    $select['UllSelectChildren'][2]['Translation']['de']['label'] = "Mit Privatgesprächen";
+    $select['UllSelectChildren'][3]['Translation']['en']['label'] = "All inclusive";
+    $select['UllSelectChildren'][3]['Translation']['de']['label'] = "All inclusive";        
     $select->save();
     
     $columnConfig = $this->createRecord('UllFlowColumnConfig');
-    $columnConfig['Translation']['en']['label'] = 'Extras';
-    $columnConfig['Translation']['de']['label'] = 'Extras';
+    $columnConfig['Translation']['en']['label'] = $select['Translation']['en']['label'];
+    $columnConfig['Translation']['de']['label'] = $select['Translation']['de']['label'];
     $columnConfig['UllFlowApp'] = $app;
     $columnConfig['sequence'] = 3000;
     $columnConfig['UllColumnType'] = 
