@@ -85,8 +85,15 @@ a:visited {
 
 .ull_orgchart_arrow {
   text-align: center;
-  font-size: 2.5em;
+  font-size: 3.2em;
   font-weight: bolder;
+  margin-bottom: 0.32em;
+  margin-top: 0.15em;
+}
+
+.ull_orgchart_arrow a:hover {
+  text-decoration: none;
+  border: solid thin;
 }
 
 .ull_orgchart_box_head {

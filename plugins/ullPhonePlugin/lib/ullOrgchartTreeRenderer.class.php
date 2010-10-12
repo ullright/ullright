@@ -55,7 +55,7 @@ class ullOrgchartTreeRenderer
     {
       $return .= '<div class="ull_orgchart_arrow">' 
         . ull_link_to(
-            '&uArr;', 
+            '&uarr;', 
             array('user_id' => $superior),
             array('title' => __('One level up', null, 'ullOrgchartMessages'))
           )
@@ -417,7 +417,7 @@ class ullOrgchartTreeRenderer
           
           $return .= '<div class="ull_orgchart_arrow">' 
             . ull_link_to(
-                '&dArr;', 
+                '&darr;', 
                 array('user_id' => $subnode->getData()->id),
                 array('title' => __('One level down', null, 'ullOrgchartMessages'))                
               )
