@@ -1,6 +1,6 @@
 <?php
 
-class DumpModelToYaml extends ullBaseTask
+class DumpModelToYamlTask extends ullBaseTask
 {
 
   protected
