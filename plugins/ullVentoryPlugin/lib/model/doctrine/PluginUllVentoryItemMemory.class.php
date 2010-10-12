@@ -8,6 +8,8 @@ abstract class PluginUllVentoryItemMemory extends BaseUllVentoryItemMemory
   
   public function getComment()
   {
+    sfLoader::loadHelpers(array('I18N'));
+    
     $originalComment = parent::_get('comment');
 
     if (strstr($originalComment, 'Inventory taking withdrawn: '))
