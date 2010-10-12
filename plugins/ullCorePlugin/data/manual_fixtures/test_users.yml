@@ -981,11 +981,11 @@ UllUser:
     UllCompany: UllCompany_1
     UllDepartment: UllDepartment_11
     cost_center: '4711'
-    Superior: UllUser_44
+    Superior: UllUser_31
     comment: ''
     photo: null
     is_photo_public: true
-    is_assistant: false
+    is_assistant: true
     is_superior: false
     is_virtual_group: false
   UllUser_55:
@@ -1086,11 +1086,11 @@ UllUser:
     UllCompany: UllCompany_2
     UllDepartment: UllDepartment_1
     cost_center: ''
-    Superior: UllUser_55
+    Superior: UllUser_61
     comment: ''
     photo: LOberndorfer.jpg
     is_photo_public: true
-    is_assistant: false
+    is_assistant: true
     is_superior: false
     is_virtual_group: false
   UllUser_58:
@@ -1121,11 +1121,11 @@ UllUser:
     UllCompany: UllCompany_2
     UllDepartment: UllDepartment_1
     cost_center: ''
-    Superior: UllUser_55
+    Superior: UllUser_31
     comment: ''
     photo: FPaischer.jpg
     is_photo_public: true
-    is_assistant: false
+    is_assistant: true
     is_superior: false
     is_virtual_group: false
   UllUser_59:
