@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-sfLoader::loadHelpers('Url');
+sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
 
 $t = new myTestCase(5, new lime_output_color, $configuration);
 $path = dirname(__FILE__);

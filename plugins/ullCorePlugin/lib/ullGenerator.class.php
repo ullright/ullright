@@ -401,7 +401,7 @@ abstract class ullGenerator extends ullGeneratorBase
           $q->addWhere($filterColumn . ' = ?', $value);
           
           // Parse the value using the appropriate read widget
-          sfLoader::loadHelpers(array('Escaping')); // required by some widgets
+          sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping')); // required by some widgets
           $tempForm = new sfForm();
           $readColumnsConfig = $this->getColumnsConfig()->offsetGet($filterColumn);
           $readColumnsConfig->setAccess('r');

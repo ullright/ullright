@@ -18,7 +18,7 @@
     if (sfConfig::has('app_error_500_text'))
     {
       $errorPagesText = __(sfConfig::get('app_error_500_text')); 
-      sfLoader::loadHelpers(array('Text'));
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Text'));
       echo auto_link_text($errorPagesText);
     }
     else

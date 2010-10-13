@@ -7,7 +7,7 @@ class myTestCase extends sfDoctrineTestCase
 }
 
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers(array('I18N', 'ull'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N', 'ull'));
 
 $t = new myTestCase(33, new lime_output_color, $configuration);
 

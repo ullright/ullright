@@ -3,7 +3,7 @@
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers(array('I18N', 'ull'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N', 'ull'));
 
 $t = new lime_test(6, new lime_output_color);
 

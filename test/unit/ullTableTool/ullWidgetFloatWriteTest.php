@@ -4,7 +4,7 @@ require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
 $t = new lime_test(2, new lime_output_color(), $configuration);
 $instance = sfContext::createInstance($configuration);
-sfLoader::loadHelpers(array('Escaping', 'I18N'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping', 'I18N'));
 
 $w = new ullWidgetFloatWrite();
 

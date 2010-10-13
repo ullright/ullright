@@ -2,8 +2,8 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
-sfLoader::loadHelpers(array('Escaping'));
-//sfLoader::loadHelpers('I18N');
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping'));
+//sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 $t = new lime_test(5, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);

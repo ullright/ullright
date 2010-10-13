@@ -20,7 +20,7 @@
  * @version    SVN: $Id: ObjectDoctrineAdminHelper.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 
-sfLoader::loadHelpers(array('ObjectAdmin'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('ObjectAdmin'));
 
 /**
  * object_doctrine_admin_double_list

@@ -6,7 +6,7 @@
 
 //use_helper('Form');
 
-sfLoader::loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Date', 'Form', 'Javascript', 'Tag', 'Url'));
 
 /**
  * Parses a numeric string representing a human date,

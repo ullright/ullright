@@ -40,7 +40,7 @@ EOF;
 	$this->logSection($this->name, 'Getting new config files from ullright repository');
 	$this->svnExport('config/ProjectConfiguration.class.php');
 	
-//		sfLoader::loadHelpers('Partial');
+//		sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
 //
 //		$configuration = ProjectConfiguration::getApplicationConfiguration(
 //		$arguments['application'], $arguments['env'], true);

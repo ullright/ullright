@@ -22,7 +22,7 @@ abstract class BaseUllsfActions extends sfActions
    */
   public function preExecute()
   {
-    sfLoader::loadHelpers('ull');
+    sfContext::getInstance()->getConfiguration()->loadHelpers('ull');
 
     $this->uriMemory = new UriMemory();
     

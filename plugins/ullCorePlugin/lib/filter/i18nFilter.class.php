@@ -39,7 +39,7 @@ class i18nFilter extends sfFilter
       }
       
       // load I18N helper to allow usage of __('') in any action
-      sfLoader::loadHelpers('I18N');
+      sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
     }
     
     // Execute next filter

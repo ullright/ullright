@@ -16,7 +16,7 @@ class ullWidgetTaggable extends ullWidget
 
     $tags_pop = TagTable::getPopulars();
 
-    sfLoader::loadHelpers(array('Tags', 'I18N', 'ull'));
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Tags', 'I18N', 'ull'));
     $html .= '<br />' . __('Popular tags', null, 'common') . ':';
     $id = $this->generateId($name);
     $html .= tag_cloud($tags_pop, 'addTag("%s","' . $id . '")', array('link_function' => 'link_to_function'));

@@ -2,7 +2,7 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
-sfLoader::loadHelpers(array('Text', 'Tag', 'Escaping'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('Text', 'Tag', 'Escaping'));
 
 $t = new lime_test(5, new lime_output_color(), $configuration);
 

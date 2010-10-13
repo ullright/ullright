@@ -6,7 +6,7 @@ class myTestCase extends sfDoctrineTestCase {}
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers(array('Url', 'Tag', 'Escaping', 'I18N', 'ull'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Tag', 'Escaping', 'I18N', 'ull'));
 
 $t = new myTestCase(2, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';

@@ -47,7 +47,7 @@ class ullFieldHandlerInformationUpdate extends ullFieldHandler
     
 //    ullCoreTools::printR($options);
     
-    sfLoader::loadHelpers(array('Helper', 'Tag', 'Object'));
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Helper', 'Tag', 'Object'));
     
     $value = $object->$method();
     

@@ -2,11 +2,11 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
-sfLoader::loadHelpers(array('Text', 'Tag'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('Text', 'Tag'));
 
 $t = new lime_test(1, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers('I18N');
+sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 $w = new ullWidgetInformationUpdateWrite();
 // ->render()

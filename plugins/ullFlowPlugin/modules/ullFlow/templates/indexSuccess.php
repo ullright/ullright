@@ -61,7 +61,7 @@
       <div class="tc_search_tag_top color_medium_bg"><h3><?php echo __('By popular tags', null, 'common') ?></h3></div>
       <div class="tc_search_tag_bottom color_light_bg">
         <?php
-          sfLoader::loadHelpers(array('Tags'));
+          sfContext::getInstance()->getConfiguration()->loadHelpers(array('Tags'));
           echo tag_cloud($tags_pop, 'ullFlow/list?filter[search]=%s' . (($app) ? '&app=' . $app->slug : ''));
         ?>
       </div>

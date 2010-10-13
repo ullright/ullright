@@ -12,7 +12,7 @@ class myGenerator extends ullGenerator
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers('I18N');
+sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 sfContext::getInstance()->getRequest()->setParameter('action', 'list');
 
 $t = new myTestCase(12, new lime_output_color, $configuration);

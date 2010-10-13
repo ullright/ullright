@@ -17,7 +17,7 @@ class myTestCase extends lime_test
 $t = new myTestCase(6, new lime_output_color, $configuration);
 
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers(array('ull'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull'));
 
 $columnConfig = $t->getColumnConfig();
 

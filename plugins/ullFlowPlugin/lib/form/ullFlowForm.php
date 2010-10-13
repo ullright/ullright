@@ -79,7 +79,7 @@ class ullFlowForm extends ullGeneratorForm
    */
   protected function setSubject()
   {
-    sfLoader::loadHelpers('Escaping');
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Escaping');
     
     $slug = UllFlowColumnConfigTable::findSubjectColumnSlug($this->object->UllFlowApp->id);
     $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($this->object->UllFlowApp->id, $slug);

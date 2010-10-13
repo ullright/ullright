@@ -8,7 +8,7 @@ class myTestCase extends lime_test
 }
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers('I18N');
+sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 $t = new lime_test(4, new lime_output_color);
 

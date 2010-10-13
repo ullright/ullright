@@ -8,8 +8,8 @@ class myTestCase extends sfDoctrineTestCase
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers('I18N');
-sfLoader::loadHelpers('ull');
+sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+sfContext::getInstance()->getConfiguration()->loadHelpers('ull');
 // manually require rule file, since it isn't found by the unit test
 require(sfConfig::get('sf_apps_dir') . '/frontend/modules/ullFlow/lib/ullFlowRuleTroubleTicket.class.php');
 

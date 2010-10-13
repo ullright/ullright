@@ -39,7 +39,7 @@ EOF;
     $arguments['application'], $arguments['env'], true);
     $databaseManager = new sfDatabaseManager($configuration);
     
-    sfLoader::loadHelpers(array('ull'));
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull'));
     
     if (!$options['end-date'])
     {
