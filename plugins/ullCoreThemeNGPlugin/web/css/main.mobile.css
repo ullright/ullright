@@ -41,8 +41,9 @@ textarea {
   color: #585858; 
 }
 
-#nav_logo {
-  float: left;
+
+#nav_logo img {
+  width: 100px;
 }
  
 #nav_syslinks_container {

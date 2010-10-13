@@ -12,9 +12,15 @@
   
     <div id="nav_top">
     
-<!--      <div id="nav_logo">-->
-        <?php echo link_to(image_tag('/ullCoreThemeNGPlugin/images/logo_75'), '@homepage') ?>
-<!--      </div>-->
+      <span id="nav_logo">
+        <?php //echo link_to(image_tag('/ullCoreThemeNGPlugin/images/logo_75'), '@homepage') ?>
+          <?php echo ull_link_to(
+        image_tag(sfConfig::get('app_sidebar_logo',
+          '/ullCoreThemeNGPlugin/images/logo_120'), 'alt="logo"')
+          , '@homepage'
+          , 'ull_js_observer_confirm=true'
+        ); ?>
+      </span>
   
 <!--      <div id="nav_syslinks_container">-->
       
