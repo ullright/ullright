@@ -320,7 +320,12 @@ class ullOrgchartTreeRenderer
           {
             $return .= $this->renderSpacerRowThin();
           }          
-        }  
+        } 
+
+        if ($node->hasSubnodes())
+        {
+          $return .= $this->renderSpacerRow();
+        }
       }
       
       // single column mode
@@ -357,11 +362,29 @@ class ullOrgchartTreeRenderer
             $return .= $this->renderSpacerRowThin();
           }
         }
-      }
+        
+        if ($node->hasSubnodes())
+        {
+          $return .= '
+          
+            <tr class="ull_orgchart_spacer_row">
+              <td>&nbsp;</td>
+              <td class="ull_orgchart_border_right">&nbsp;</td>
+                
+              <td colspan="2">
+                <div class="ull_orgchart_single_row_sub_superior_border">&nbsp;</div>
+                <!--<table cellpadding="0" cellspacing="0">
+                  <tbody>
+                    <tr class="ull_orgchart_spacer_row">
+                      <td class="ull_orgchart_single_row_sub_superior_border">&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table> -->
+               </td>  
+            </tr> ';
+        }
       
-      if ($node->hasSubnodes())
-      {
-        $return .= $this->renderSpacerRow();
       }
     }
 
