@@ -38,12 +38,16 @@ UllDepartment:
     short_name: SA
   UllDepartment_11:
     namespace: testUsers
-    name: Marketing/Sales
+    name: Marketing
     short_name: MA
   UllDepartment_12:
     namespace: testUsers
     name: Finance
-    short_name: FA    
+    short_name: FA
+  UllDepartment_13:
+    namespace: testUsers
+    name: Marketing & Sales
+    short_name: M&S        
 UllLocation:
   UllLocation_1:
     namespace: testUsers
@@ -786,7 +790,7 @@ UllUser:
     photo: 019.jpg
     is_photo_public: true
     is_assistant: false
-    is_superior: false
+    is_superior: true
     is_virtual_group: false
   UllUser_50:
     namespace: testUsers
@@ -1522,3 +1526,13 @@ UllUser:
     is_assistant: false
     is_superior: true
     is_virtual_group: false
+    
+UllCloneUser:
+  UllCloneUser_1:
+    Superior: UllUser_31
+    Parent: UllUser_49
+    UllDepartment: UllDepartment_11
+
+    
+  
+  
