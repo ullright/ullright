@@ -41,7 +41,12 @@
       <trans-unit id="8">
         <source>Ext.</source>
         <target>DW</target>
-      </trans-unit>        
+      </trans-unit>  
+      
+      <trans-unit id="9">
+        <source>Department view</source>
+        <target>Abteilungsansicht</target>
+      </trans-unit>      
       
     </body>
   </file>

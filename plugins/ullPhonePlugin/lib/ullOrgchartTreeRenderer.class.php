@@ -16,8 +16,7 @@ class ullOrgchartTreeRenderer
     $this->widgetPhoto = new ullWidgetPhoto();
     $this->widgetEntity = new ullWidgetForeignKey(array(
       'model' => 'UllEntity', 
-      'link_icon_to_popup' => true,
-      'link_name_to_url'     => 'ullOrgchart/list?user_id=%d',
+      'show_ull_entity_popup' => true
     ));
   }
   
@@ -209,6 +208,16 @@ class ullOrgchartTreeRenderer
       {
         $return .= $this->renderSpacerRowThin();
       }
+      // if there is a single sub superior in single mode, extend the plump line
+      else
+      {
+        $return .= $this->renderSpacerRow();
+        
+        if (($node->getLevel() != 1) && (count($node->getSubnodes()) == 1) )
+        {
+            $return .= $this->renderSpacerRowThin();
+        }
+      }
       
       
       $return .= '
@@ -218,13 +227,11 @@ class ullOrgchartTreeRenderer
       ';     
     }
     
-    
-    
-        
    
     // Subordinates
-    if ($node->hasSubordinates() || $node->hasSubnodes())
-    {
+      
+    if ($node->hasSubordinates())
+    {     
       $return .= '
       <tr class="ull_orgchart_subordinates">
         <td>
@@ -232,10 +239,7 @@ class ullOrgchartTreeRenderer
       ';
       
       $return .= $this->renderSpacerRow();
-    }
       
-    if ($node->hasSubordinates())
-    {      
       // dual column mode
       if ($node->getLevel() == 1)
       {
@@ -366,37 +370,15 @@ class ullOrgchartTreeRenderer
         if ($node->hasSubnodes())
         {
           $return .= $this->renderSpacerRow();
-          if ((($node->getLevel() != 1) && (count($node->getSubnodes()) == 1) ))
+          
+          // if there is a single sub superior, extend the plump line
+          if (count($node->getSubnodes()) == 1)
           {
             $return .= $this->renderSpacerRowThin();
           }
-          /*$return .= '
-          
-            <tr class="ull_orgchart_spacer_row">
-              <td>&nbsp;</td>
-              <td class="ull_orgchart_border_right">&nbsp;</td>
-                
-              <td colspan="2">';
-          $return .= '
-                <div class="ull_orgchart_single_row_sub_superior_border">&nbsp;</div>
-                <!--<table cellpadding="0" cellspacing="0">
-                  <tbody>
-                    <tr class="ull_orgchart_spacer_row">
-                      <td class="ull_orgchart_single_row_sub_superior_border">&nbsp;</td>
-                      <td>&nbsp;</td>
-                    </tr>
-                  </tbody>
-                </table> -->';
-          $return .= '      
-               </td>  
-            </tr> ';*/
         }
       
-      }
-    }
-
-    if ($node->hasSubordinates() || $node->hasSubnodes())    
-    {  
+      } 
       $return .= '
           </table>
         </td>
@@ -404,19 +386,37 @@ class ullOrgchartTreeRenderer
       ';      
     }
     
-
-      
     
     // Sub superiors
     if ($node->hasSubnodes())
     {
+      // render a space row, if there isn't any sub ordinate or assistant
+      if (!$node->hasSubordinates() && !$node->hasAssistants())
+      {
+        $return .= '
+          <tr class="ull_orgchart_subordinates">
+            <td>
+              <table cellpadding="0" cellspacing="0">      
+          ';
+        $return .= $this->renderSpacerRow();
+        $return .= '
+              </table>
+            </td>
+          </tr> 
+          ';  
+      }
+      
       $return .= '
       <tr class="ull_orgchart_sub_superiors">
         <td>
           <table cellpadding="0" cellspacing="0">';
-             
+      
+      // render a centered plump line, if on the first level 
+      //  or have sub superior siblings       
       if (!(($node->getLevel() != 1) && (count($node->getSubnodes()) == 1) ))
       {
+        
+        
         $return .= '
               <tr class="ull_orgchart_spacer_row">
         ';
@@ -495,6 +495,11 @@ class ullOrgchartTreeRenderer
     $return .= '<li><em>' . $this->widgetEntity->render(null, array('id' => $entity->id, 'value' => (string) $entity)) . '</em></li>';
     $return .= '<li>' . $entity->UllLocation . '</li>';
     $return .= '<li>' . $entity->UllDepartment . '</li>';
+    if ($entity->hasSubordinates())
+    {
+      $return .= '<li>&nbsp;</li>';
+      $return .= '<li>(' . ull_link_to(__('Department view', null, 'ullPhoneMessages'), array('ullOrgchart/list', 'user_id' => $entity->id, 'depth' => '2')) . ')</li>';
+    }
     $return .= '</ul>';
     $return .= '          
           </div>

@@ -128,6 +128,18 @@ abstract class PluginUllEntity extends BaseUllEntity
 
 
     /**
+     * Check if the current entity is a superior with sub ordinates
+     *
+     * @param boolean $onlyActive
+     * @param mixed $hydrationMode
+     * @return boolean
+     */
+    public function hasSubordinates($onlyActive = true, $hydrationMode = null)
+    {
+      return (boolean) $this->getSubordinates($onlyActive, false, Doctrine::HYDRATE_NONE);
+    }
+    
+/**
      * Check if the current entity is a superior
      *
      * @param boolean $onlyActive
