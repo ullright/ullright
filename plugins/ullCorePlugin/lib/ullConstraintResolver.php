@@ -13,15 +13,19 @@ class ullConstraintResolver
 {
   /**
    * Returns delete constraining records for a specific Doctrine_Record.
-   * The given array of labels will contain a list of all records which
-   * would prevent deletion of the given record.
+   * The given array of labels/records will contain a list of all records
+   * which would prevent deletion of the given record.
    * 
    * Status: experimental =)
    * 
    * @param $record any Doctrine_Record
    * @param $constrainingLabels an array of labels, passed by reference; will be created if null
+   * @param $mode 'label' if text should be returned, 'records' for records
+   * 
+   * @return array of labels or records which constrain deletion of original record
    */
-  public static function findConstrainingRecords(Doctrine_Record $record, array &$constrainingLabels = null)
+  public static function findConstrainingRecords(Doctrine_Record $record,
+    array &$constrainingLabels = null, $mode = 'label')
   {
     if (!$constrainingLabels)
     {
@@ -105,12 +109,19 @@ class ullConstraintResolver
         {
           if (!$isCascading)
           {
-            $constrainingLabels[] = $constrainingRecord->getTable()->getComponentName() .
+            if ($mode == 'label')
+            {
+              $constrainingLabels[] = $constrainingRecord->getTable()->getComponentName() .
               ' (ID: ' . $constrainingRecord->id . ')';
+            }
+            else //has to be 'records'
+            {
+              $constrainingLabels[] = $constrainingRecord;
+            }
           }
           //call this function recursively to find constraining records for
           //this constraining record 
-          self::findConstrainingRecords($constrainingRecord, $constrainingLabels);
+          self::findConstrainingRecords($constrainingRecord, $constrainingLabels, $mode);
         }
       }
     }
