@@ -38,8 +38,12 @@ UllDepartment:
     short_name: SA
   UllDepartment_11:
     namespace: testUsers
-    name: Marketing
+    name: Marketing/Sales
     short_name: MA
+  UllDepartment_12:
+    namespace: testUsers
+    name: Finance
+    short_name: FA    
 UllLocation:
   UllLocation_1:
     namespace: testUsers
@@ -153,19 +157,20 @@ UllJobTitle:
   UllJobTitle_23:
     namespace: testUsers
     name: 'Procurement Executive'
+  UllJobTitle_24:
+    namespace: testUsers
+    name: 'Assistent der Geschäftsleitung'    
 UllUser:
   UllUser_31:
     namespace: testUsers
-    display_name: 'Michael Achatz'
-    email: michael.achatz@example.com
-    username: machatz
+    email: veronika.aufreiter@example.com
+    username: VAufreiter
     UllLocation: UllLocation_1
     type: user
-    first_name: Michael
-    last_name: Achatz
+    first_name: Veronika
+    last_name: Aufreiter
     password: null
-    last_name_first: 'Achatz Michael'
-    sex: m
+    sex: w
     entry_date: null
     deactivation_date: null
     separation_date: null
@@ -183,37 +188,7 @@ UllUser:
     UllDepartment: UllDepartment_4
     cost_center: null
     comment: ''
-    photo: machatz.jpg
-    is_photo_public: true
-    is_assistant: false
-    is_superior: false
-    is_virtual_group: false
-  UllUser_32:
-    namespace: testUsers
-    display_name: 'Patrick Böck'
-    email: mail@patrickboeck.org
-    username: patrick
-    type: user
-    first_name: Patrick
-    last_name: Böck
-    password: c27f72b4af3998a57d99ac36ca9fa671
-    last_name_first: 'Böck Patrick'
-    sex: m
-    entry_date: null
-    deactivation_date: null
-    separation_date: null
-    is_show_in_phonebook: false
-    is_show_in_orgchart: true
-    phone_extension: null
-    alternative_phone_extension: null
-    is_show_extension_in_phonebook: false
-    fax_extension: null
-    mobile_number: null
-    is_show_mobile_number_in_phonebook: false
-    personnel_number: null
-    cost_center: null
-    comment: ''
-    photo: null
+    photo: 001.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -248,7 +223,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_31
     comment: ''
-    photo: Sbachinger.jpg
+    photo: 002.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -283,7 +258,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_33
     comment: ''
-    photo: tdallinger.jpg
+    photo: 003.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -318,7 +293,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_33
     comment: ''
-    photo: MEcker.jpg
+    photo: 004.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -353,7 +328,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_33
     comment: ''
-    photo: ERabhan.jpg
+    photo: 005.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -388,7 +363,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_33
     comment: ''
-    photo: MSalfinger.jpg
+    photo: 006.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -423,7 +398,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_33
     comment: ''
-    photo: athalinger.jpg
+    photo: 007.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -456,9 +431,9 @@ UllUser:
     UllCompany: UllCompany_1
     UllDepartment: UllDepartment_6
     cost_center: null
-    Superior: UllUser_31
+    Superior: UllUser_71
     comment: ''
-    photo: NObermayer.jpg
+    photo: 009.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -493,7 +468,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_39
     comment: ''
-    photo: KPairhuber.jpg
+    photo: 010.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -528,7 +503,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_39
     comment: ''
-    photo: Snelböck.jpg
+    photo: 011.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -563,7 +538,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_39
     comment: ''
-    photo: CMader.jpg
+    photo: 012.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -598,7 +573,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_39
     comment: ''
-    photo: AFaisthuber.jpg
+    photo: 013.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -631,9 +606,9 @@ UllUser:
     UllCompany: UllCompany_1
     UllDepartment: UllDepartment_7
     cost_center: null
-    Superior: UllUser_31
+    Superior: UllUser_71
     comment: ''
-    photo: DLachmayr.jpg
+    photo: 014.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -668,7 +643,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_44
     comment: ''
-    photo: PKaliwoda.jpg
+    photo: 015.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -703,7 +678,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_44
     comment: ''
-    photo: DJäger.jpg
+    photo: 016.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -738,7 +713,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_44
     comment: ''
-    photo: MIglseder.jpg
+    photo: 017.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -773,7 +748,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_44
     comment: ''
-    photo: CHaas.jpg
+    photo: 018.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -808,7 +783,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_31
     comment: ''
-    photo: SUnterregelsberger.jpg
+    photo: 019.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -843,7 +818,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_49
     comment: ''
-    photo: BVetter.jpg
+    photo: 020.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -878,7 +853,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_49
     comment: ''
-    photo: JWagner.jpg
+    photo: 021.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -913,7 +888,7 @@ UllUser:
     cost_center: null
     Superior: UllUser_49
     comment: ''
-    photo: SZauner.jpg
+    photo: 022.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -948,46 +923,12 @@ UllUser:
     cost_center: null
     Superior: UllUser_49
     comment: ''
-    photo: LAckerl.jpg
+    photo: 023.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
     is_virtual_group: false
-  UllUser_54:
-    namespace: testUsers
-    display_name: 'Gottfried Ullmann'
-    email: gottfried@ull.at
-    username: GU
-    UllLocation: UllLocation_1
-    type: user
-    first_name: Gottfried
-    last_name: Ullmann
-    password: 30531a35cc61a56dc5b23717afeae6c6
-    last_name_first: 'Ullmann Gottfried'
-    sex: m
-    entry_date: null
-    deactivation_date: null
-    separation_date: null
-    is_show_in_phonebook: true
-    is_show_in_orgchart: true
-    phone_extension: null
-    alternative_phone_extension: null
-    is_show_extension_in_phonebook: true
-    fax_extension: null
-    mobile_number: null
-    is_show_mobile_number_in_phonebook: false
-    personnel_number: ''
-    UllJobTitle: UllJobTitle_4
-    UllCompany: UllCompany_1
-    UllDepartment: UllDepartment_11
-    cost_center: '4711'
-    Superior: UllUser_31
-    comment: ''
-    photo: null
-    is_photo_public: true
-    is_assistant: true
-    is_superior: false
-    is_virtual_group: false
+
   UllUser_55:
     namespace: testUsers
     display_name: 'Paul Mair'
@@ -1018,7 +959,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_31
     comment: ''
-    photo: PMair.jpg
+    photo: 024.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1053,7 +994,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_55
     comment: ''
-    photo: LNeumueller.jpg
+    photo: 025.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1088,7 +1029,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_61
     comment: ''
-    photo: LOberndorfer.jpg
+    photo: 026.jpg
     is_photo_public: true
     is_assistant: true
     is_superior: false
@@ -1117,13 +1058,13 @@ UllUser:
     mobile_number: null
     is_show_mobile_number_in_phonebook: false
     personnel_number: ''
-    UllJobTitle: UllJobTitle_14
+    UllJobTitle: UllJobTitle_24
     UllCompany: UllCompany_2
-    UllDepartment: UllDepartment_1
+    UllDepartment: UllDepartment_4
     cost_center: ''
     Superior: UllUser_31
     comment: ''
-    photo: FPaischer.jpg
+    photo: 027.jpg
     is_photo_public: true
     is_assistant: true
     is_superior: false
@@ -1158,7 +1099,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_55
     comment: ''
-    photo: ERathmaier.jpg
+    photo: 028.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1193,7 +1134,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_55
     comment: ''
-    photo: JSattelberger.jpg
+    photo: 029.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1226,9 +1167,9 @@ UllUser:
     UllCompany: UllCompany_1
     UllDepartment: UllDepartment_9
     cost_center: ''
-    Superior: UllUser_31
+    Superior: UllUser_49
     comment: ''
-    photo: SHackl.jpg
+    photo: 030.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1263,7 +1204,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_61
     comment: ''
-    photo: JJoerg.jpg
+    photo: 032.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1298,7 +1239,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_61
     comment: ''
-    photo: SGaubinger.jpg
+    photo: 032.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1333,7 +1274,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_61
     comment: ''
-    photo: SFalkner.jpg
+    photo: 033.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1368,7 +1309,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_61
     comment: ''
-    photo: SImler.jpg
+    photo: 034.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1401,9 +1342,9 @@ UllUser:
     UllCompany: UllCompany_1
     UllDepartment: UllDepartment_3
     cost_center: ''
-    Superior: UllUser_31
+    Superior: UllUser_71
     comment: ''
-    photo: CHabensicht.jpg
+    photo: 035.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1438,7 +1379,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_66
     comment: ''
-    photo: KJanous.jpg
+    photo: 036.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1473,7 +1414,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_66
     comment: ''
-    photo: Mkaltenboeck.jpg
+    photo: 037.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1508,7 +1449,7 @@ UllUser:
     cost_center: ''
     Superior: UllUser_66
     comment: ''
-    photo: ALang.jpg
+    photo: 0368.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
@@ -1543,8 +1484,41 @@ UllUser:
     cost_center: ''
     Superior: UllUser_66
     comment: ''
-    photo: SMitberger.jpg
+    photo: 039.jpg
     is_photo_public: true
     is_assistant: false
     is_superior: false
+    is_virtual_group: false
+  UllUser_71:
+    namespace: testUsers
+    email: peter.gruber@example.com
+    username: PGruber
+    UllLocation: UllLocation_4
+    type: user
+    first_name: Peter
+    last_name: Gruber
+    password: 098f6bcd4621d373cade4e832627b4f6
+    sex: m
+    entry_date: null
+    deactivation_date: null
+    separation_date: null
+    is_show_in_phonebook: true
+    is_show_in_orgchart: true
+    phone_extension: '2000'
+    alternative_phone_extension: null
+    is_show_extension_in_phonebook: true
+    fax_extension: null
+    mobile_number: null
+    is_show_mobile_number_in_phonebook: false
+    personnel_number: ''
+    UllJobTitle: UllJobTitle_23
+    UllCompany: UllCompany_1
+    UllDepartment: UllDepartment_12
+    cost_center: ''
+    Superior: UllUser_31
+    comment: ''
+    photo: 040.jpg
+    is_photo_public: true
+    is_assistant: false
+    is_superior: true
     is_virtual_group: false
