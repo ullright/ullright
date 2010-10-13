@@ -365,13 +365,19 @@ class ullOrgchartTreeRenderer
         
         if ($node->hasSubnodes())
         {
-          $return .= '
+          $return .= $this->renderSpacerRow();
+          if ((($node->getLevel() != 1) && (count($node->getSubnodes()) == 1) ))
+          {
+            $return .= $this->renderSpacerRowThin();
+          }
+          /*$return .= '
           
             <tr class="ull_orgchart_spacer_row">
               <td>&nbsp;</td>
               <td class="ull_orgchart_border_right">&nbsp;</td>
                 
-              <td colspan="2">
+              <td colspan="2">';
+          $return .= '
                 <div class="ull_orgchart_single_row_sub_superior_border">&nbsp;</div>
                 <!--<table cellpadding="0" cellspacing="0">
                   <tbody>
@@ -380,9 +386,10 @@ class ullOrgchartTreeRenderer
                       <td>&nbsp;</td>
                     </tr>
                   </tbody>
-                </table> -->
+                </table> -->';
+          $return .= '      
                </td>  
-            </tr> ';
+            </tr> ';*/
         }
       
       }
@@ -406,22 +413,27 @@ class ullOrgchartTreeRenderer
       $return .= '
       <tr class="ull_orgchart_sub_superiors">
         <td>
-          <table cellpadding="0" cellspacing="0">       
-
-            <tr class="ull_orgchart_spacer_row">
-      ';
-      
-      foreach($node->getSubnodes() as $subnode)
+          <table cellpadding="0" cellspacing="0">';
+             
+      if (!(($node->getLevel() != 1) && (count($node->getSubnodes()) == 1) ))
       {
         $return .= '
-              <td class="ull_orgchart_border_right ' . ((!$subnode->isFirst()) ? 'ull_orgchart_border_top' : '') . '">&nbsp;</td>
-              <td class="ull_orgchart_border_left ' . ((!$subnode->isLast()) ? 'ull_orgchart_border_top' : '') . '">&nbsp;</td>
-        ';        
+              <tr class="ull_orgchart_spacer_row">
+        ';
+        
+        foreach($node->getSubnodes() as $subnode)
+        {
+          $return .= '
+                <td class="ull_orgchart_border_right ' . ((!$subnode->isFirst()) ? 'ull_orgchart_border_top' : '') . '">&nbsp;</td>
+                <td class="ull_orgchart_border_left ' . ((!$subnode->isLast()) ? 'ull_orgchart_border_top' : '') . '">&nbsp;</td>
+          ';        
+        }
+        
+        $return .= '
+              </tr>';
       }
-      
-      $return .= '
-            </tr>
             
+      $return .= '
             <tr class="ull_orgchart_sub_superiors_row">
       ';
       

@@ -101,6 +101,7 @@ a:visited {
   -moz-border-radius:8px 8px 8px 8px;
   -moz-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
   border-radius: 8px 8px 8px 8px;
   width: 20em;
   height: 9em;
@@ -118,6 +119,7 @@ a:visited {
   -moz-border-radius:8px 8px 8px 8px;
   -moz-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
   border-radius: 8px 8px 8px 8px;
   width: 16em;
   height: 7em;
@@ -137,7 +139,8 @@ a:visited {
   -moz-border-radius:65px;
   -moz-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
-  border-radius: 60px;
+  -webkit-box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 65px;
   width: 13.6em;
   height: 7em;
   margin: 0 auto;
@@ -159,14 +162,10 @@ a:visited {
 
 .ull_orgchart_box_assistant_placeholder {
   border: 3px solid white;
-  -moz-border-radius:55px 55px 55px 55px;
-  -moz-box-shadow: 3px 3px 15px white;
-  box-shadow: 3px 3px 15px white;
-  border-radius: 55px 55px 55px 55px;
-  width: 16em;
+  width: 13.6em;
   height: 7em;
   margin: 0 auto;
-  padding: 0.5em;
+  padding: 1.7em;
   overflow: hidden;
 }
 
