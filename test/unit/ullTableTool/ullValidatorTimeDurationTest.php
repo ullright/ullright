@@ -2,10 +2,11 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
+$instance = sfContext::createInstance($configuration);
+
 sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
 
 $t = new lime_test(11, new lime_output_color(), $configuration);
-$instance = sfContext::createInstance($configuration);
 
 $v = new ullValidatorTimeDuration;
 

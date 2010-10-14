@@ -2,6 +2,7 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
+sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping'));
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 

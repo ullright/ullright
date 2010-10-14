@@ -2,13 +2,12 @@
 
 include dirname(__FILE__) . '/../../bootstrap/unit.php';
 
+sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 class myTestCase extends sfDoctrineTestCase
 {
 }
-
-sfContext::createInstance($configuration);
 
 /*
  * Note that this test is only responsible for the additions the

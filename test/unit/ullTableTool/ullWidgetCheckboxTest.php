@@ -2,11 +2,10 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
-sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull'));
-sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+$context = sfContext::createInstance($configuration);
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull', 'I18N'));
 
 $t = new lime_test(2, new lime_output_color(), $configuration);
-$context = sfContext::createInstance($configuration);
 
 $w = new ullWidgetCheckbox();
 
