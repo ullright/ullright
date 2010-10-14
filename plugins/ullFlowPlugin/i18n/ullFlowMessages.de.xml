@@ -121,7 +121,7 @@
       
       <trans-unit id="24">
         <source>Is due date column?</source>
-        <target>Ist Fälligkeitsdatum-Spalte?</target>
+        <target>Ist Fällig am-Spalte?</target>
       </trans-unit>
       
       <!-- Queries -->

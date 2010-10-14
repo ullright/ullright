@@ -1222,7 +1222,7 @@
 
 <trans-unit id="26008">
 <source>Due date</source>
-<target>Fälligkeitsdatum</target>
+<target>Fällig am</target>
 </trans-unit>
 
 </body>

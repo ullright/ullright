@@ -248,7 +248,7 @@ UllFlowColumnConfig:
       en:
         label:      Due date
       de:
-        label:      Fälligkeitsdatum
+        label:      Fällig am
     UllFlowApp:     ull_flow_app_trouble_ticket
     slug:           my_due_date
     is_due_date:    true
