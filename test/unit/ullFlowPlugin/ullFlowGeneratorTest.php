@@ -131,7 +131,7 @@ $t->diag('getColumnConfig()');
   $t->isa_ok($columnsConfig, 'UllFlowDocColumnConfigCollection',
     'columnsConfig is an UllFlowDocColumnConfigCollection');
   
-  $t->is(count($columnsConfig), 25, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 28, 'columnsConfig has the correct number of columns');
   
   //we really should take ordering into account here...
   $mocks = $t->getColumnsConfigMock();
