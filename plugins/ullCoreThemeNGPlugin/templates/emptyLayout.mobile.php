@@ -1,4 +1,4 @@
-<?php require_once(dirname(__FILE__) . '/_head.php') ?>
+<?php require('_head.mobile.php') ?>
 
 <body class="<?php 
   echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();
