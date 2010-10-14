@@ -5,6 +5,35 @@
 class PluginUllFlowDocTable extends UllRecordTable
 {
   /**
+   * Returns ullFlowDocs in danger of expiration. The
+   * 'danger interval* is given in days.
+   * 
+   * @param int $daysBefore danger interval
+   * @return Doctrine_Collection ullFlowDocs in danger of expiration
+   */
+  public static function findExpiringDueDateDocs($daysBefore = 2)
+  {
+    $q = new Doctrine_Query();
+    $q
+      ->from('UllFlowDoc d')
+      //so mysql only it hurts kittens
+      ->where('d.due_date < Date_ADD(Now(), INTERVAL ? DAY)', $daysBefore)
+    ;
+    
+    return $q->execute();
+  }
+
+  /**
+   * Retrieves all expired (due date < now) ullFlowDocs.
+   * 
+   * @return Doctrine_Collection expired ullFlowDocs 
+   */
+  public static function findExpiredDueDateDocs()
+  {
+    return self::findExpiringDueDateDocs(0);
+  }
+  
+  /**
    * adds access checks to the query
    * 
    * @param Doctrine_Query $q

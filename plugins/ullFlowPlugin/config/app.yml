@@ -11,3 +11,13 @@ all:
     # This line can be overridden by the user's app.yml
     # to use a specific search configuration class
     search_class: ullFlowDocSearchConfig
+    
+    # ullFlowDocs can have a due date. If this parameter
+    # is set to a positive integer, reminder emails
+    # are sent out <x> days before expiration.
+    # If this parameter is set to 0, the reminder mailing
+    # functionality is disabled (Note: this has no influence
+    # on expiration mails, those are independent).
+    # If this paramter is not set or < 0, 2 is assumed.
+    due_date_reminder_period: 3
+    
