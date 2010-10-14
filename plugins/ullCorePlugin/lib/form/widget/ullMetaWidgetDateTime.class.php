@@ -8,11 +8,14 @@ class ullMetaWidgetDateTime extends ullMetaWidget
     {
       if ($this->columnConfig->getWidgetAttribute('size') == null)
       {
-        $this->columnConfig->setWidgetAttribute('size', '30');
+        $this->columnConfig->setWidgetAttribute('size', '10');
       }
-    	
-    	$this->addWidget(new ullWidgetDateWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));      
-      $this->addValidator(new sfValidatorDate($this->columnConfig->getValidatorOptions()));
+
+      //add fake_timestamp option to validator to create "date 00:00:00" values
+      $fixedValidatorOptions = array('fake_timestamp' => true);
+      
+      $this->addWidget(new ullWidgetDateWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addValidator(new ullValidatorDate(array_merge($fixedValidatorOptions, $this->columnConfig->getValidatorOptions())));
     }
     else
     {

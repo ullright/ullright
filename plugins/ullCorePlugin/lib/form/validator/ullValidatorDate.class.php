@@ -26,6 +26,7 @@ class ullValidatorDate extends sfValidatorDate
   public function __construct($options = array(), $messages = array())
   {
     $this->addOption('use_inclusive_error_messages', false);
+    $this->addOption('fake_timestamp', false);
     
     parent::__construct($options, $messages);
     
@@ -64,7 +65,8 @@ class ullValidatorDate extends sfValidatorDate
       {
         //PHP 5.3.0 would provide better functions
         $timestamp = mktime(0, 0, 0, 1, $date['tm_yday'] + 1, $date['tm_year'] + 1900);
-        return date($this->getOption('date_output'), $timestamp);
+        $return = date($this->getOption('date_output'), $timestamp);
+        return ($this->getOption('fake_timestamp') === true) ? $return . ' 00:00:00' : $return;
       }
       else
       {
@@ -72,6 +74,7 @@ class ullValidatorDate extends sfValidatorDate
       }
     }
     
-    return parent::doClean($value);
+    $return = parent::doClean($value);
+    return ($this->getOption('fake_timestamp') === true) ? $return . ' 00:00:00' : $return;
   }
 }
