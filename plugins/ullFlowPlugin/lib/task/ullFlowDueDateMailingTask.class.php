@@ -5,7 +5,7 @@ class DueDateMailingTask extends ullBaseTask
   protected function configure()
   {
     $this->namespace        = 'ull_flow';
-    $this->name             = 'dueDate-mailing';
+    $this->name             = 'due_date-mailing';
     $this->briefDescription = 'Sends mails regarding due date expiration';
     $this->detailedDescription = <<<EOF
     The [{$this->name} task|INFO] sends mail to users regarding tickets
