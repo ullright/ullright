@@ -100,7 +100,7 @@ UllFlowDoc:
   ull_flow_doc_trouble_ticket1:
     UllFlowApp:     ull_flow_app_trouble_ticket    
     subject:        My first trouble ticket
-    due_date:       '2010-10-20'
+    due_date:       '2010-09-20'
     UllFlowAction:  ull_flow_action_create
     UllEntity:      admin_user
     UllFlowStep:    ull_flow_step_doc_trouble_ticket_creator
@@ -253,7 +253,7 @@ UllFlowColumnConfig:
     slug:           my_due_date
     is_due_date:    true
     sequence:       1750
-    UllColumnType:  date
+    UllColumnType:  datetime
     namespace:      test    
     
   ull_flow_column_config_trouble_ticket_column_tags:
@@ -352,7 +352,7 @@ UllFlowValue:
   ull_flow_value_doc_trouble_ticket1_due_date:
     UllFlowDoc:     ull_flow_doc_trouble_ticket1
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_due_date
-    value:          '2010-10-20'   
+    value:          '2010-09-20'   
     namespace:      test         
   ull_flow_value_doc_trouble_ticket1_column_tags:
     UllFlowDoc:     ull_flow_doc_trouble_ticket1

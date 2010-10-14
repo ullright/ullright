@@ -45,7 +45,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    * 
    * always makes the UllFlowDoc record dirty (=modified)
    * this is necessary, because often only the virtual columns change, but not
-   * the navtive columns.
+   * the native columns.
    *
    * @param unknown_type $event
    */
@@ -75,9 +75,40 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */  
   public function preUpdate($event)
   {
-    $this->createMemory();   
+    $this->createMemory();
+    $this->handleModifiedDueDate($event);
   }
-
+  
+  /**
+   * Checks for a modified due date and resets mail notification fields.
+   * @param Doctrine_Event $event
+   */
+  protected function handleModifiedDueDate($event)
+  {
+    //check if due date was modified
+    $modifiedOldValues = $event->getInvoker()->getModified(true);
+    if (isset($modifiedOldValues['due_date']))
+    {
+      $newDueDate = strtotime($event->getInvoker()->get('due_date'));
+      
+      //safety check (due_date virtual column could be 'date' instead of 'datetime')
+      if (strtotime($modifiedOldValues['due_date']) == $newDueDate)
+      {
+        return;
+      }      
+      
+      //check if due date was moved beyond current date
+      //if true, reset mail notification fields
+      if ($newDueDate > time())
+      {
+        foreach(array('owner_due_reminder_sent',
+          'owner_due_expiration_sent', 'creator_due_expiration_sent') as $fieldName)
+        {
+          $event->getInvoker()->set($fieldName, false);
+        }
+      }
+    }
+  }
   
   /**
    * transparently set the UllFlowMemory comment

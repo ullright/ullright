@@ -79,6 +79,15 @@ UllFlowDoc:
       type: integer
     due_date:
       type: datetime
+    owner_due_reminder_sent:
+      type: boolean
+      default: false
+    owner_due_expiration_sent:
+      type: boolean
+      default: false
+    creator_due_expiration_sent:
+      type: boolean
+      default: false
   relations:
     UllFlowApp:
       foreignAlias: UllFlowDocs
