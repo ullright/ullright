@@ -166,3 +166,12 @@ ul.nav_top_links li:first-child {
   max-width: none;
 }
  
+/*
+ * ************************************************
+ *  edit
+ * ************************************************
+ */
+ 
+#ull_user_popup_sidebar {
+  float: none;
+} 

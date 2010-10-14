@@ -498,7 +498,7 @@ class ullOrgchartTreeRenderer
     if ($entity->hasSubordinates())
     {
       $return .= '<li>&nbsp;</li>';
-      $return .= '<li>(' . ull_link_to(__('Department view', null, 'ullPhoneMessages'), array('ullOrgchart/list', 'user_id' => $entity->id, 'depth' => '2')) . ')</li>';
+      $return .= '<li>' . ull_link_to(__('Department view', null, 'ullPhoneMessages'), array('ullOrgchart/list', 'user_id' => $entity->id, 'depth' => '2')) . '</li>';
     }
     $return .= '</ul>';
     $return .= '          

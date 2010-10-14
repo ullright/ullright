@@ -1,6 +1,40 @@
 <?php
 
-class ullFlowRuleProcurementRequestBusinessCard extends ullFlowRuleProcurementRequestCar 
+class ullFlowRuleProcurementRequestMobile extends ullFlowRule 
 {
    
+  public function getNext() 
+  {
+    $next = array();
+    
+    if ($this->isStep('procurement_request_mobile_creator')) 
+    {
+      if ($this->isAction('send'))
+      {
+        $next['step']    = $this->findStep('procurement_request_mobile_clerk');
+        $next['entity']  = $this->findGroup('Procurement Clerks');
+      } 
+    }
+     
+    elseif ($this->isStep('procurement_request_mobile_clerk')) 
+    {
+      if ($this->isAction('assign_to_user'))
+      {
+        $next['step'] = $this->findStep('procurement_request_mobile_clerk');
+      } 
+      elseif ($this->isAction('close')) 
+      {
+        $next['step'] = $this->findStep('procurement_request_mobile_closed');
+      }
+    }
+      
+    elseif ($this->isStep('procurement_request_mobile_closed')) 
+    {
+      $next['step']    = $this->findStep('procurement_request_mobile_clerk');
+      $next['entity']  = $this->findGroup('Procurement Clerks');
+    }
+    
+    return $next;
+  }
+  
 }
