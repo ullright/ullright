@@ -5,6 +5,7 @@ class ullWidgetPhoneExtensionRead extends ullWidget
   public function __construct($options = array(), $attributes = array())
   {
     $this->addOption('show_base_number');
+    $this->addOption('click_to_dial', true);
     parent::__construct($options, $attributes);
   }
 
@@ -23,6 +24,12 @@ class ullWidgetPhoneExtensionRead extends ullWidget
       $user = Doctrine::getTable('UllEntity')->findOneById($id);
       $value = $user->UllLocation->phone_base_no . ' <em>' . $value . '<em>';
     }
+    
+    if ($this->getOption('click_to_dial') && $value)
+    {
+      $rawNumber = str_replace(' ', '', $value);
+      $value = '<a href="tel:' . $rawNumber . '">' . $value . '</a>';
+    }     
     
     return $value;
   }
