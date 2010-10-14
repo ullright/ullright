@@ -46,6 +46,7 @@ class ullsfMail extends sfMail
     $this->setHostname(sfConfig::get('app_mailing_smtp_hostname'));
     $this->setUsername(sfConfig::get('app_mailing_smtp_username'));
     $this->setPassword(sfConfig::get('app_mailing_smtp_password'));
+    $this->setPort(sfConfig::get('app_mailing_smtp_port', 25));
     $this->slug = $slug;
     
     // reroute mails except in the production environment
