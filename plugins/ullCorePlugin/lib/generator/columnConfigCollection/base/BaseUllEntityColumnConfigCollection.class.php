@@ -187,6 +187,9 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
         'is_show_in_phonebook',
         'personnel_number',
         'is_show_in_orgchart',
+        'is_superior',
+        'is_assistant',
+        
       ));
       
       $this['photo']->setAutoRender(false);
