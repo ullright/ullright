@@ -27,7 +27,7 @@ class ullWidgetPhoneExtensionRead extends ullWidget
     
     if ($this->getOption('click_to_dial') && $value)
     {
-      $rawNumber = str_replace(' ', '', $value);
+      $rawNumber = strip_tags(str_replace(' ', '', $value));
       $value = '<a href="tel:' . $rawNumber . '">' . $value . '</a>';
     }     
     
