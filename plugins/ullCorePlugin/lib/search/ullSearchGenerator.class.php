@@ -245,6 +245,7 @@ class ullSearchGenerator extends ullGeneratorBase
         {
           case 'range':
           case 'rangeDate':
+          case 'rangeDateTime':
             $ullMetaWidget->addToFormAs($searchPrefix . 'From_' . $enumeratedColumnName);
             $this->form->getWidgetSchema()->setLabel($searchPrefix . 'From_' . $enumeratedColumnName, __($columnConfig->getLabel(), null, 'common'));
 

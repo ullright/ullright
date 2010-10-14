@@ -59,7 +59,8 @@
     }
     
     if (strpos($formField->getName(), 'rangeFrom') === 0
-        || strpos($formField->getName(), 'rangeDateFrom') === 0)
+        || strpos($formField->getName(), 'rangeDateFrom') === 0
+        || strpos($formField->getName(), 'rangeDateTimeFrom') === 0)
     {
       $suppressNewRow = true;
     }

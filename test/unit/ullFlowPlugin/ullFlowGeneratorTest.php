@@ -63,7 +63,7 @@ class myTestCase extends sfDoctrineTestCase
     
     $columnConfig = new ullColumnConfiguration('my_due_date');
     $columnConfig->setLabel('Due date');
-    $columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setIsInList(true);
     $this->columnsConfigMock['my_due_date'] = $columnConfig;    
     

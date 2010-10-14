@@ -171,8 +171,8 @@ $browser
   ->call('/ullUser/search', 'POST', array (
   'fields' => 
   array (
-    'rangeDateFrom_0_9' => '',
-    'rangeDateTo_0_9' => '11/11/2001',
+    'rangeDateTimeFrom_0_9' => '',
+    'rangeDateTimeTo_0_9' => '11/11/2001',
   ),
   'searchSubmit' => 'Search',
 ))

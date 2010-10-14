@@ -59,6 +59,7 @@ class ullSearchFormEntryHelper
       {
         case 'rangeFrom':
         case 'rangeDateFrom':
+        case 'rangeDateTimeFrom':
           if (($fieldValue == null || $fieldValue == '') &&
           ($fields[$fieldKeys[$i + 1]] == null || $fields[$fieldKeys[$i + 1]] == ''))
           {
@@ -66,8 +67,9 @@ class ullSearchFormEntryHelper
             continue 2;
           }
 
-          $tempCriterion = ($typeString == 'rangeFrom') ?
-            new ullSearchRangeCriterion() : new ullSearchDateRangeCriterion();
+          $tempCriterion = ($typeString == 'rangeFrom') ? new ullSearchRangeCriterion()
+            : (($typeString == 'rangeDateFrom') ? new ullSearchDateRangeCriterion()
+            : new ullSearchDateTimeRangeCriterion());
           $tempCriterion->columnName = $searchFieldColumn;
           $tempCriterion->fromValue = $fieldValue;
           $tempCriterion->toValue = $fields[$fieldKeys[$i + 1]];

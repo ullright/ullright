@@ -153,7 +153,7 @@ $t->begin('getVirtualValuesAsArray()');
   $reference = array(
     'my_subject'  => 'My first trouble ticket',
     'my_information_update' =>  'blub macht da fisch :)',
-    'my_due_date'     => '2010-10-20',
+    'my_due_date'     => '2010-09-20',
     'my_email'    => 'quasimodo@ull.at',
     'my_upload'   => 'Icons.zip;/uploads/ullFlow/bug_tracking/215/2008-11-13-09-37-41_Icons.zip;application/zip;1;2008-11-13 09:37:41',
     'my_wiki_link' => '1',

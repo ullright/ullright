@@ -135,12 +135,16 @@ class ullSearch
 
           case 'ullSearchRangeCriterion':
           case 'ullSearchDateRangeCriterion':
+          case 'ullSearchDateTimeRangeCriterion':
             if ($subCriterion->fromValue == null || $subCriterion->fromValue == '')
             {
               //from is not set, to is
               $queryOperator = ' <= ?';
+              //since we don't have a real date time widget, cut off
+              //the faked 00:00:00 and replace it
               $queryParameter[] = ($queryClass == 'ullSearchDateRangeCriterion') ?
-                $subCriterion->toValue . ' 23:59:59' : $subCriterion->toValue;
+                $subCriterion->toValue . ' 23:59:59' : (($queryClass == 'ullSearchDateTimeRangeCriterion') ?
+                substr($subCriterion->toValue, 0, -8) . '23:59:59' : $subCriterion->toValue);
             }
             else
             {
@@ -155,8 +159,11 @@ class ullSearch
                 //from and to are set
                 $queryOperator = ' between ? and ?';
                 $queryParameter[] = $subCriterion->fromValue;
+                //since we don't have a real date time widget, cut off
+                //the faked 00:00:00 and replace it
                 $queryParameter[] = ($queryClass == 'ullSearchDateRangeCriterion') ?
-                  $subCriterion->toValue . ' 23:59:59' : $subCriterion->toValue;
+                  $subCriterion->toValue . ' 23:59:59' : (($queryClass == 'ullSearchDateTimeRangeCriterion') ?
+                  substr($subCriterion->toValue, 0, -8) . '23:59:59' : $subCriterion->toValue);
               }
             }
 
