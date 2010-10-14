@@ -74,7 +74,7 @@ EOF;
     $select['slug'] = $this->underscore_name . '_type';
     $select['UllSelectChildren'][0]['Translation']['en']['label'] = "";
     $select['UllSelectChildren'][0]['Translation']['de']['label'] = "";
-    $select['UllSelectChildren'][1]['Translation']['en']['label'] = "Norma";
+    $select['UllSelectChildren'][1]['Translation']['en']['label'] = "Normal";
     $select['UllSelectChildren'][1]['Translation']['de']['label'] = "Normal";
     $select['UllSelectChildren'][2]['Translation']['en']['label'] = "Hand made paper";
     $select['UllSelectChildren'][2]['Translation']['de']['label'] = "Büttenpapier";
