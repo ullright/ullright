@@ -1,3 +1,5 @@
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
+
 <?php require('_head.php') ?>
 
 <body class="<?php 
