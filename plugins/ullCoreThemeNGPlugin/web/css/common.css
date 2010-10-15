@@ -192,3 +192,8 @@ a.link_new_window {
 .js_mandatory {
   display: none;
 }
+
+.shadow {
+  -moz-box-shadow: 5px 5px 20px #888888;
+  -webkit-box-shadow: #888888 5px 5px 20px;  	
+}
