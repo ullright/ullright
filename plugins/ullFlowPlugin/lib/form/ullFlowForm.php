@@ -95,8 +95,9 @@ class ullFlowForm extends ullGeneratorForm
     
     $formMock->setDefault('subject', $this->object['subject']);
 
-    $subjectAsString = strip_tags($formMock['subject']->render());
-
+    // TODO: check why this is htmlentity escaped!
+    $subjectAsString = ullCoreTools::esc_decode(strip_tags($formMock['subject']->render()));
+    
     $this->object['subject'] = $subjectAsString;
   }
   

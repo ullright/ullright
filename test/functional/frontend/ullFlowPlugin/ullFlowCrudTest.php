@@ -160,6 +160,33 @@ $b
   ->checkResponseElement($dgsListTT->get(1, 'subject') . ' > b > a > i', false)
 ;
 
+$b
+  // We had an issue with widget output esacping here...
+  ->diag('Test subject toString() with special chars (e.g. german umlauts)')
+  ->get('ullFlow/list/app/trouble_ticket')
+  ->click('Create')
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'create')
+  ->isRequestParameter('app', 'trouble_ticket')
+  ->setField('fields[my_subject]', 'Beste Grüße!')
+  ->setField('fields[my_project]', 1)
+  ->click('Save only')
+  ->isRedirected()
+  ->followRedirect()
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'edit')  
+  ->checkResponseElement('#ull_flow_edit_header > h1', 'Trouble ticket "Beste Grüße!"')
+  ->click('Save and return to list')
+  ->isRedirected()
+  ->followRedirect()  
+  ->isStatusCode(200)    
+  ->isRequestParameter('module', 'ullFlow')
+  ->isRequestParameter('action', 'list')
+  ->checkResponseElement($dgsListTT->get(1, 'subject') . ' > b > a', 'Beste Grüße!')
+;
+
 
 $b->resetDatabase();
 $b
