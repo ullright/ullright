@@ -425,6 +425,7 @@ class ullCoreTools
       }
     }
     
+    // We want latin here, not UTF-8
     $string = html_entity_decode($string, ENT_QUOTES);
     $string = strip_tags($string);
     
@@ -514,4 +515,17 @@ class ullCoreTools
     
     return $intervals;
   }
+  
+  
+  /**
+   * Counterpart to symfony's esc_entities() from the escaping helper
+   * 
+   * @param string $value
+   * @return string
+   */
+  public static function esc_decode($value)
+  {
+    return html_entity_decode($value, ENT_QUOTES, sfConfig::get('sf_charset'));
+  }
+  
 }

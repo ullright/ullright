@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(36, new lime_output_color);
+$t = new lime_test(41, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -153,3 +153,10 @@ $t->diag('deleteFileIfNotFromType');
   $filesystem->remove(array($tempPath . $resourceFileName));
   $filesystem->remove($tempPath);
   
+  
+$t->diag('esc_decode()');
+  $t->is(ullCoreTools::esc_decode(''), '', 'Correctly retains an empty string');  
+  $t->is(ullCoreTools::esc_decode('foo bar'), 'foo bar', 'Correctly retains an normal string');
+  $t->is(ullCoreTools::esc_decode('Grüße'), 'Grüße', 'Correctly retains an string with german umlauts');
+  $t->is(ullCoreTools::esc_decode('Gr&uuml;&szlig;e'), 'Grüße', 'Correctly decodes html umlaut entities with the correct charset');
+  $t->is(ullCoreTools::esc_decode('&lt;br /&gt;'), '<br />', 'Correctly decodes a tag');

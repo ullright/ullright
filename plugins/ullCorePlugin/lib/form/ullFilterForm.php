@@ -46,7 +46,7 @@ class ullFilterForm extends sfForm
         }
         
         // Necessary for dates
-        $taintedValues[$key] = html_entity_decode($taintedValue);
+        $taintedValues[$key] = ullCoreTools::esc_decode($taintedValue);
       }
     }
     

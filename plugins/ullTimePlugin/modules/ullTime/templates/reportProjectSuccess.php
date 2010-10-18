@@ -94,7 +94,7 @@
       </td>
       <?php foreach ($generator->getAutoRenderedColumns() as $column_name => $column_config): ?>
         <?php if ($column_name == 'comment'): ?>
-            <td><?php echo html_entity_decode($form[$column_name], ENT_QUOTES, 'UTF-8') ?></td>
+            <td><?php echo ullCoreTools::esc_decode($form[$column_name]) ?></td>
           <?php else: ?>
             <td><?php echo $form[$column_name] ?></td>
           <?php endif ?>

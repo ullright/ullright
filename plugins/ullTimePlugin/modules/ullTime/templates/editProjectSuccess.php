@@ -43,7 +43,7 @@
       <?php foreach ($list_generator->getAutoRenderedColumns() as $column_name => $column_config): ?>
         <td>
           <?php if ($column_name == 'comment'): ?>
-            <?php echo html_entity_decode($form[$column_name], ENT_QUOTES, 'UTF-8') ?>
+            <?php echo ullCoreTools::esc_decode($form[$column_name]) ?>
           <?php else: ?>
             <?php echo $form[$column_name] ?>
           <?php endif ?>

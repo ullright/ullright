@@ -36,7 +36,7 @@
   <?php
     $body = $sf_data->getRaw('doc')->body;
   
-    $body = html_entity_decode($body, ENT_QUOTES, 'UTF-8');  
+    $body = ullCoreTools::esc_decode($body);  
   
     $body = auto_link_text($body, $link = 'all', array(
         'class'  => 'link_new_window',
