@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+<!-- Translation file for custom translations -->
+
+<!-- Usage: 
+
+  In the template: <?php echo __('Apple', null, 'custom') ?>
+  
+  Translation example:
+  
+  <trans-unit id="1">
+	 <source>Apple</source>
+  	<target>Apfel</target>
+	</trans-unit>
+  
+-->
+
+    </body>
+  </file>
+</xliff>

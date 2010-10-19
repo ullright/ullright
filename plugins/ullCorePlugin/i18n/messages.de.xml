@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+<!-- 
+  Normally this is the place for custom translations.
+  Unfortunately symfony expects some translations, e.g. for built-in form
+  errors to be here. Therefore this file is delivered by the ullCore plugin
+  and not customer-editable.
+  
+  Custom translations use the "custom" dictionary
+-->  
+
+<trans-unit id="1">
+<source>Tickets assigned to group IT-Helpdesk</source>
+<target>Tickets die an Gruppe IT-Helpdesk zugewiesen sind</target>
+</trans-unit>
+
+<trans-unit id="2">
+<source>Send to IT-Helpdesk</source>
+<target>Sende an IT-Helpdesk</target>
+</trans-unit>
+
+<trans-unit id="3">
+<source>Send to caller</source>
+<target>Sende an Anrufer</target>
+</trans-unit>
+
+<trans-unit id="4">
+<source>Required.</source>
+<target>Pflichtfeld</target>
+</trans-unit>
+
+<trans-unit id="5">
+<source>Invalid.</source>
+<target>Ungültig.</target>
+</trans-unit>
+
+<trans-unit id="6">
+<source>"%value%" is not an integer.</source>
+<target>"%value%" ist keine Ganzzahl.</target>
+</trans-unit>
+
+<trans-unit id="7">
+<source>The date must be after %min%.</source>
+<target>Das Datum muss nach dem %min% liegen.</target>
+</trans-unit>
+
+<trans-unit id="8">
+<source>An object with the same "%column%" already exist.</source>
+<target>Dieser Wert muss eindeutig sein, ist aber bereits vergeben.</target>
+</trans-unit>
+
+<trans-unit id="9">
+<source>"%value%" has too many decimal places (%max_decimals% max).</source>
+<target>"%value%" besitzt zuviele Nachkommastellen (max. %max_decimals%).</target>
+</trans-unit>
+
+<trans-unit id="10">
+<source>If you need further assistance, please do not hesitate to contact helpdesk@example.com.</source>
+<target>Falls Sie weitere Hilfe benötigen, kontaktieren Sie bitte helpdesk@example.de.</target>
+</trans-unit>
+
+<trans-unit id="11">
+<source>If the problem persists, please do not hesitate to contact it.department@example.com.</source>
+<target>Falls das Problem weiter auftritt, kontaktieren Sie bitte it.department@example.de.</target>
+</trans-unit>
+
+<trans-unit id="12">
+<source>Contains invalid characters.</source>
+<target>Enthält ungültige Zeichen.</target>
+</trans-unit>
+
+<trans-unit id="13">
+<source>The date must be before %max%.</source>
+<target>Das Datum muss vor dem %max% liegen.</target>
+</trans-unit>
+
+    </body>
+  </file>
+</xliff>
