@@ -51,6 +51,7 @@ kbd {
 	background-image: url(/ullCoreThemeNGPlugin/images/cmd_dollar.png);
 	background-repeat: no-repeat;
 	background-position: 1em center;
+	line-height: 2em;
 }
 
 kbd a,kbd a:visited {
