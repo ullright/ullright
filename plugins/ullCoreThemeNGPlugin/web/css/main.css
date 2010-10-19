@@ -145,6 +145,11 @@ ul.nav_top_links li {
 	min-width: 6em;
 }
 
+/* last-child is not supported by ie < 9 */
+ul.nav_top_links li:last-child {
+  margin: 0;
+}
+
 ul.nav_top_links li:hover {
 	border-bottom: 5px solid #777475;
 }
