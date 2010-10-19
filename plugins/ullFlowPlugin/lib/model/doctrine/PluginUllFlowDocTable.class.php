@@ -5,32 +5,43 @@
 class PluginUllFlowDocTable extends UllRecordTable
 {
   /**
-   * Returns ullFlowDocs in danger of expiration. The
-   * 'danger interval* is given in days.
+   * Returns ullFlowDocs in danger of due date expiration. The
+   * 'danger interval' is given in days, i.e. all ullFlowDocs with
+   * a due date before [today + x days] are returned.
    * 
    * @param int $daysBefore danger interval
    * @return Doctrine_Collection ullFlowDocs in danger of expiration
    */
-  public static function findExpiringDueDateDocs($daysBefore = 2)
+  public static function findDueDateDangerDocs($daysBefore = 2)
   {
+    if (!is_numeric($daysBefore))
+    {
+      throw new InvalidArgumentException('daysBefore must be numeric');
+    }
+    
+    //use 'today' because we want docs to be overdue
+    //at the end of their due date (e.g. a due date of
+    //"2010-10-10" means notify at "2010-10-11 00:00:00")
+    $dateThreshold = strtotime('+' . $daysBefore . ' day', strtotime('today'));
+    
     $q = new Doctrine_Query();
     $q
       ->from('UllFlowDoc d')
       //so mysql only it hurts kittens
-      ->where('d.due_date < Date_ADD(Now(), INTERVAL ? DAY)', $daysBefore)
+      ->where('d.due_date < ?', date('Y-m-d', $dateThreshold))
     ;
     
     return $q->execute();
   }
 
   /**
-   * Retrieves all expired (due date < now) ullFlowDocs.
+   * Retrieves all overdue (due date < now) ullFlowDocs.
    * 
    * @return Doctrine_Collection expired ullFlowDocs 
    */
-  public static function findExpiredDueDateDocs()
+  public static function findOverdueDocs()
   {
-    return self::findExpiringDueDateDocs(0);
+    return self::findDueDateDangerDocs(0);
   }
   
   /**

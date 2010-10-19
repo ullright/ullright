@@ -6,10 +6,10 @@ class DueDateMailingTask extends ullBaseTask
   {
     $this->namespace        = 'ull_flow';
     $this->name             = 'due_date-mailing';
-    $this->briefDescription = 'Sends mails regarding due date expiration';
+    $this->briefDescription = 'Sends mails regarding due dates (reminders and overdue notifications)';
     $this->detailedDescription = <<<EOF
     The [{$this->name} task|INFO] sends mail to users regarding tickets
-    which have expired due dates or are in danger of expiration
+    which are overdue or are in danger of due date expiration
     
     Call it with:
 
@@ -44,18 +44,17 @@ EOF;
     }
   
     $ownerReminderMailCount = 0;
-    $creatorExpirationMailCount = 0;
-    $ownerExpirationMailCount = 0;
+    $ownerOverdueMailCount = 0;
 
     //send reminder mails
     //only send them if the functionality is enabled, i.e. not 0
     if ($reminderDays > 0)
     {
       $this->logSection('dueDate-mailing', "Reminder period is $reminderDays days");
-      $expiringDocs = UllFlowDocTable::findExpiringDueDateDocs($reminderDays);
-      $this->logSection('ullFlowDocs', 'Found ' . count($expiringDocs) . ' docs in reminder period');
+      $dangerDocs = UllFlowDocTable::findDueDateDangerDocs($reminderDays);
+      $this->logSection('ullFlowDocs', 'Found ' . count($dangerDocs) . ' docs in reminder period');
 
-      foreach ($expiringDocs as $doc)
+      foreach ($dangerDocs as $doc)
       {
         //send reminder mail to ticket owner
         if (!$doc['owner_due_reminder_sent'] === true)
@@ -73,36 +72,24 @@ EOF;
       $this->logSection('dueDate-mailing', 'Reminder period is zero, not sending reminder mails');
     }
 
-    $expiredDocs = UllFlowDocTable::findExpiredDueDateDocs();
-    $this->logSection('ullFlowDocs', 'Found ' . count($expiredDocs) . ' expired docs');
+    $overdueDocs = UllFlowDocTable::findOverdueDocs();
+    $this->logSection('ullFlowDocs', 'Found ' . count($overdueDocs) . ' overdue docs');
     
-    //send expiration mails
-    foreach ($expiredDocs as $doc)
+    //send overdue notification mails
+    foreach ($overdueDocs as $doc)
     {
-      //send mail to creator (checks for "creator = user" case itself)
-      //if not done already
-      if (!$doc['creator_due_expiration_sent'] === true)
-      {
-        $mail = new ullFlowMailDueDateExpiredCreator($doc);
-        $mail->send();
-        $doc['creator_due_expiration_sent'] = true;
-        $doc->save();
-        $creatorExpirationMailCount++;
-      }
-
-      //do the same for the ticket owner
+      //send mail to owner (creator receives a CC)
       if (!$doc['owner_due_expiration_sent'] === true)
       {
-        $mail = new ullFlowMailDueDateExpiredOwner($doc);
+        $mail = new ullFlowMailDueDateOverdueOwnerAndCreator($doc);
         $mail->send();
         $doc['owner_due_expiration_sent'] = true;
         $doc->save();
-        $ownerExpirationMailCount++;
+        $ownerOverdueMailCount++;
       }
     }
     
     $this->logSection('Summary', "Sent $ownerReminderMailCount reminder mails to owners");
-    $this->logSection('Summary', "Sent $ownerExpirationMailCount expiration mails to owners");
-    $this->logSection('Summary', "Sent $creatorExpirationMailCount expiration mails to creators");
+    $this->logSection('Summary', "Sent $ownerOverdueMailCount overdue mails to owners (and creators)");
   }
 }

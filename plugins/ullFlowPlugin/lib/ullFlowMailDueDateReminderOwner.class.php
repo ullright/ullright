@@ -30,7 +30,7 @@ class ullFlowMailDueDateReminderOwner extends ullFlowMail
     $this->setSubject($subject);      
     
     $comment = 'A ' . $this->doc->UllFlowApp->doc_label . ' which is assigned to you ("' . $this->doc->subject .
-      '") is due to expire on ' . ull_format_date($this->dueDate) . '.';
+      '") is due on ' . ull_format_date($this->dueDate) . '.';
     
     $this->setBody(
       __('Hello') . ' ' . $this->doc->UllEntity . ",\n"
