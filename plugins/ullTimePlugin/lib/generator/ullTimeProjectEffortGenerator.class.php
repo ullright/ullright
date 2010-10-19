@@ -10,7 +10,7 @@ class ullTimeProjectEffortGenerator extends ullTableToolGenerator
 {
   //date of a project effort, needed for recurring functionality
   protected $effortDate;
-  
+
   /**
    * Constructs a new ullTimeProjectEffortGenerator instance and
    * sets internal form class name.
@@ -48,5 +48,25 @@ class ullTimeProjectEffortGenerator extends ullTableToolGenerator
       
       $this->getColumnsConfig()->orderBottom(array('comment', 'recurring_until'));
     }
+    
+    if ($this->isAction('editProject'))
+    {
+      $this->getColumnsConfig()->offsetGet('date')
+        ->setAccess('w')
+        ->setWidgetAttribute('class', 'advanced_form_field')
+      ;
+      
+      if (!UllUserTable::hasPermission('ull_time_enter_future_periods'))
+      {
+        $this->getColumnsConfig()->offsetGet('date')
+          ->setOption('use_inclusive_error_messages', true)
+          ->setWidgetOption('max_date', ull_format_date(strtotime('today')))
+          ->setValidatorOption('max', strtotime('today'))
+          ->setHelp(__('If you need to enter a future date, please contact your superior', null, 'ullTimeMessages'))
+        ;
+      }
+      
+      $this->getColumnsConfig()->orderBottom(array('date'));
+    } 
   }
 }

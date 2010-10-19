@@ -229,6 +229,11 @@
 <target>Sie haben nur lesenden Zugriff, da das Datum in der Zukunft liegt. Bitte kontaktieren Sie Ihren Vorgesetzten bezüglich Änderungen.</target>
 </trans-unit>
 
+<trans-unit id="46">
+<source>If you need to enter a future date, please contact your superior</source>
+<target>Falls Sie ein zukünftiges Datum eingeben wollen kontaktieren Sie bitte Ihren Vorgesetzten</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
