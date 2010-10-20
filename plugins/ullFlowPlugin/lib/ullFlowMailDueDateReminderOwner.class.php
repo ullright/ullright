@@ -25,20 +25,21 @@ class ullFlowMailDueDateReminderOwner extends ullFlowMail
       . ' "'
       . $this->doc->subject
       . '" '
-      . __('is due on %1%', array('%1%' => ull_format_date($this->dueDate)))
+      . __('is due on %1%', array('%1%' => ull_format_date($this->dueDate)), 'ullFlowMessages')
     ;
     $this->setSubject($subject);      
     
-    $comment = 'A ' . $this->doc->UllFlowApp->doc_label . ' which is assigned to you ("' . $this->doc->subject .
-      '") is due on ' . ull_format_date($this->dueDate) . '.';
+    $comment = __('A %1% which is assigned to you ("%2%") is due on %3%.',
+      array('%1%' => $this->doc->UllFlowApp->doc_label, '%2%' => $this->doc->subject,
+      '%3%' => ull_format_date($this->dueDate)), 'ullFlowMessages');
     
     $this->setBody(
-      __('Hello') . ' ' . $this->doc->UllEntity . ",\n"
+      __('Hello', null, 'ullFlowMessages') . ' ' . $this->doc->UllEntity . ",\n"
       . "\n"
       . $comment
       . "\n"
       . "\n"
-      . __('Kind regards') . ",\n"
+      . __('Kind regards', null, 'ullFlowMessages') . ",\n"
       . $this->user . "\n"
       . "\n"
       . $this->getEditLink() . "\n"

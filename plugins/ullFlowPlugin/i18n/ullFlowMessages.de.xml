@@ -177,6 +177,42 @@
         <source>Actions</source>
         <target>Aktionen</target>
       </trans-unit>
+      
+      <trans-unit id="204">
+        <source>A %1% which is assigned to you ("%2%") is due on %3%.</source>
+        <target>%1% "%2%" ist Ihnen zugewiesen und wird am %3% fällig.</target>
+      </trans-unit>
+      
+      <trans-unit id="205">
+        <source>is due on %1%</source>
+        <target>wird fällig am %1%</target>
+      </trans-unit>
+      
+      <trans-unit id="206">
+        <source>is overdue</source>
+        <target>ist überfällig</target>
+      </trans-unit>
+      
+      <trans-unit id="207">
+        <source>A %1% which is assigned to you ("%2%") is past its due date.</source>
+        <target>%1% "%2%" ist Ihnen zugewiesen und ist überfällig.</target>
+      </trans-unit>
+      
+      <trans-unit id="208">
+        <source>The creator of the overdue %1% has received a copy of this message.</source>
+        <!-- Translation is missing the document type because of article problem -->
+        <target>Der Ersteller des Dokuments hat eine Kopie dieser Nachricht erhalten.</target>
+      </trans-unit>
+      
+      <trans-unit id="209">
+        <source>Hello</source>
+        <target>Hallo</target>
+      </trans-unit>
+      
+      <trans-unit id="210">
+        <source>Kind regards</source>
+        <target>Mit freundlichen Grüßen</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

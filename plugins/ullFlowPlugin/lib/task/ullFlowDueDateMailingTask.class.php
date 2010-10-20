@@ -35,8 +35,15 @@ EOF;
     sfContext::createInstance($configuration);
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull', 'I18N'));
 
+    //read default culture from config and set it
+    //so that mails are sent out in the correct language
+    //TODO: Mails should decide for themselves based on recipients set language
+    $defaultCulture = sfConfig::get('sf_default_culture', 'en');
+    sfContext::getInstance()->getUser()->setCulture($defaultCulture);
+    //sfContext::getInstance()->getUser()->setCulture('de');
+    
     //read reminder period from config, set to 2 if invalid
-    $reminderDays = (int)sfConfig::get('app_ullFlowDoc_due_date_reminder_period', 2);
+    $reminderDays = (int)sfConfig::get('app_ull_flow_due_date_reminder_period', 2);
     
     if ($reminderDays < 0)
     {
@@ -71,7 +78,7 @@ EOF;
     {
       $this->logSection('dueDate-mailing', 'Reminder period is zero, not sending reminder mails');
     }
-
+    
     $overdueDocs = UllFlowDocTable::findOverdueDocs();
     $this->logSection('ullFlowDocs', 'Found ' . count($overdueDocs) . ' overdue docs');
     

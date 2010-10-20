@@ -18,25 +18,26 @@ class ullFlowMailDueDateOverdueOwnerAndCreator extends ullFlowMail
       . ' "'
       . $this->doc->subject
       . '" '
-      . __('is overdue')
+      . __('is overdue', null, 'ullFlowMessages')
     ;
     $this->setSubject($subject);      
     
-    $comment = 'A ' . $this->doc->UllFlowApp->doc_label . ' which is assigned to you ("' .
-      $this->doc->subject . '") is past its due date.';
+    $comment = __('A %1% which is assigned to you ("%2%") is past its due date.',
+      array('%1%' => $this->doc->UllFlowApp->doc_label, '%2%' => $this->doc->subject),
+      'ullFlowMessages');
     
-    $creatorNote = 'The creator of the overdue ' . $this->doc->UllFlowApp->doc_label .
-    	' has received a copy of this message.';
+    $creatorNote = __('The creator of the overdue %1% has received a copy of this message.',
+      array('%1%' => $this->doc->UllFlowApp->doc_label), 'ullFlowMessages');
     
     $this->setBody(
-      __('Hello') . ' ' . $this->doc->UllEntity . ",\n"
+      __('Hello', null, 'ullFlowMessages') . ' ' . $this->doc->UllEntity . ",\n"
       . "\n"
       . $comment
       . "\n"
       . $creatorNote
       . "\n"
       . "\n"
-      . __('Kind regards') . ",\n"
+      . __('Kind regards', null, 'ullFlowMessages') . ",\n"
       . $this->user . "\n"
       . "\n"
       . $this->getEditLink() . "\n"
