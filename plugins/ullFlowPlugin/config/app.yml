@@ -12,12 +12,3 @@ all:
     # to use a specific search configuration class
     search_class: ullFlowDocSearchConfig
     
-    # ullFlowDocs can have a due date. If this parameter
-    # is set to a positive integer, reminder emails
-    # are sent out <x> days before the due date expires.
-    # If this parameter is set to 0, the reminder mailing
-    # functionality is disabled (Note: this has no influence
-    # on overdue notification mails, those are independent).
-    # If this parameter is not set or < 0, 2 is assumed.
-    due_date_reminder_period: 3
-    

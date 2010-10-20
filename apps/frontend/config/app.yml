@@ -105,6 +105,16 @@ all:
     rss_logo:               'http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png'
     rss_number_of_entries:  10
  
+  ull_flow: 
+    # ullFlowDocs can have a due date. If this parameter
+    # is set to a positive integer, reminder emails
+    # are sent out <x> days before the due date expires.
+    # If this parameter is set to 0, the reminder mailing
+    # functionality is disabled (Note: this has no influence
+    # on overdue notification mails, those are independent).
+    # If this parameter is not set or < 0, 2 is assumed.
+    due_date_reminder_period: 3
+ 
   publish:
     # Set the following options if you want to use the ullright:publish task
     #server_name:    my-server.example.com
