@@ -26,6 +26,7 @@ class sfProjectConfiguration
     $pluginPaths           = array(),
     $overriddenPluginPaths = array(),
     $pluginConfigurations  = array(),
+    $testedPlugins        = array(),
     $pluginsLoaded         = false;
 
   static protected
@@ -424,11 +425,11 @@ class sfProjectConfiguration
 
     $this->pluginPaths[$subPath] = array();
     $pluginPaths = $this->getPluginPaths();
-    foreach ($pluginPaths as $pluginPath)
+    foreach ($pluginPaths as $plugin => $pluginPath)
     {
       if (is_dir($pluginPath.$subPath))
       {
-        $this->pluginPaths[$subPath][] = $pluginPath.$subPath;
+        $this->pluginPaths[$subPath][$plugin] = $pluginPath.$subPath;
       }
     }
 
@@ -453,7 +454,7 @@ class sfProjectConfiguration
       {
         if (isset($pluginPaths[$plugin]))
         {
-          $this->pluginPaths[''][] = $pluginPaths[$plugin];
+          $this->pluginPaths[''][$plugin] = $pluginPaths[$plugin];
         }
         else
         {
@@ -632,4 +633,29 @@ class sfProjectConfiguration
 
     return $event->getReturnValue();
   }
+  
+  /**
+   * Enables unit and functional tests for the given plugin(s).
+   * 
+   * The first parameter can either be a single plugin name or an array of
+   * plugin names.
+   * 
+   * @param mixed $plugins
+   */
+  public function enablePluginTests($plugins)
+  {
+    $this->testedPlugins = (array)$plugins;
+  }
+  
+  /**
+   * Returns the names of the plugins for which unit and functional tests are
+   * enabled.
+   * 
+   * @return array
+   */
+  public function getTestedPlugins()
+  {
+    return $this->testedPlugins;
+  }
+  
 }

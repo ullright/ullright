@@ -26,6 +26,8 @@ class sfTestAllTask extends sfTestBaseTask
     $this->addOptions(array(
       new sfCommandOption('only-failed', 'f', sfCommandOption::PARAMETER_NONE, 'Only run tests that failed last time'),
       new sfCommandOption('xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The file name for the JUnit compatible XML log file'),
+      new sfCommandOption('no-plugins', null, sfCommandOption::PARAMETER_NONE, 'Do not run tests in the plugins'),
+      new sfCommandOption('plugin', null, sfCommandOption::PARAMETER_REQUIRED, 'Only run tests in a specific plugin'),      
     ));
 
     $this->aliases = array('test-all');
@@ -39,6 +41,18 @@ The [test:all|INFO] task launches all unit and functional tests:
   [./symfony test:all|INFO]
 
 The task launches all tests found in [test/|COMMENT].
+
+Don't execute any plugin tests at all with the --no-plugins option:
+
+  [./symfony test:all --no-plugins|INFO]
+
+Execute only the tests of one plugin:
+
+  [./symfony test:all --plugin=myPlugin|INFO]
+
+Note: this works for ALL plugins, even those not defined in the ProjectConfiguration class:
+
+  [./symfony test:all --plugin=my3rdPartyPlugin|INFO]
 
 If some tests fail, you can use the [--trace|COMMENT] option to have more
 information about the failures:
@@ -101,7 +115,7 @@ EOF;
     {
       // filter and register all tests
       $finder = sfFinder::type('file')->follow_link()->name('*Test.php');
-      $h->register($this->filterTestFiles($finder->in($h->base_dir), $arguments, $options));
+      $h->register($this->filterTestFiles($finder->in($this->getBaseDirs($options)), $arguments, $options));
     }
 
     $ret = $h->run() ? 0 : 1;

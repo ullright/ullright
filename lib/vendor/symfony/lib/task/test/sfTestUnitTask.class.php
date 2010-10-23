@@ -29,6 +29,8 @@ class sfTestUnitTask extends sfTestBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The file name for the JUnit compatible XML log file'),
+      new sfCommandOption('no-plugins', null, sfCommandOption::PARAMETER_NONE, 'Do not run tests in the plugins'),
+      new sfCommandOption('plugin', null, sfCommandOption::PARAMETER_REQUIRED, 'Only run tests in a specific plugin'),      
     ));
 
     $this->aliases = array('test-unit');
@@ -46,7 +48,7 @@ The task launches all tests found in [test/unit|COMMENT].
 If some tests fail, you can use the [--trace|COMMENT] option to have more
 information about the failures:
 
-    [./symfony test:unit -t|INFO]
+  [./symfony test:unit -t|INFO]
 
 You can launch unit tests for a specific name:
 
@@ -55,6 +57,14 @@ You can launch unit tests for a specific name:
 You can also launch unit tests for several names:
 
   [./symfony test:unit strtolower strtoupper|INFO]
+  
+Don't execute any plugin tests at all with the --no-plugins option:
+
+  [./symfony test:unit --no-plugins|INFO]
+  
+Execute the unit tasks for a single plugin:
+
+  [./symfony test:unit --plugin=myPlugin|INFO]
 
 The task can output a JUnit compatible XML log file with the [--xml|COMMENT]
 options:
@@ -75,7 +85,7 @@ EOF;
       foreach ($arguments['name'] as $name)
       {
         $finder = sfFinder::type('file')->follow_link()->name(basename($name).'Test.php');
-        $files = array_merge($files, $finder->in(sfConfig::get('sf_test_dir').'/unit/'.dirname($name)));
+        $files = array_merge($files, $finder->in($this->getBaseDirs($options, 'unit')));
       }
 
       if($allFiles = $this->filterTestFiles($files, $arguments, $options))
@@ -103,7 +113,7 @@ EOF;
 
       // filter and register unit tests
       $finder = sfFinder::type('file')->follow_link()->name('*Test.php');
-      $h->register($this->filterTestFiles($finder->in($h->base_dir), $arguments, $options));
+      $h->register($this->filterTestFiles($finder->in($this->getBaseDirs($options, 'unit')), $arguments, $options));
 
       $ret = $h->run() ? 0 : 1;
 
