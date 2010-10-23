@@ -1,0 +1,341 @@
+Index: lib/config/sfProjectConfiguration.class.php
+===================================================================
+--- lib/config/sfProjectConfiguration.class.php	(revision 2324)
++++ lib/config/sfProjectConfiguration.class.php	(working copy)
+@@ -26,6 +26,7 @@
+     $pluginPaths           = array(),
+     $overriddenPluginPaths = array(),
+     $pluginConfigurations  = array(),
++    $testedPlugins        = array(),
+     $pluginsLoaded         = false;
+ 
+   static protected
+@@ -424,11 +425,11 @@
+ 
+     $this->pluginPaths[$subPath] = array();
+     $pluginPaths = $this->getPluginPaths();
+-    foreach ($pluginPaths as $pluginPath)
++    foreach ($pluginPaths as $plugin => $pluginPath)
+     {
+       if (is_dir($pluginPath.$subPath))
+       {
+-        $this->pluginPaths[$subPath][] = $pluginPath.$subPath;
++        $this->pluginPaths[$subPath][$plugin] = $pluginPath.$subPath;
+       }
+     }
+ 
+@@ -453,7 +454,7 @@
+       {
+         if (isset($pluginPaths[$plugin]))
+         {
+-          $this->pluginPaths[''][] = $pluginPaths[$plugin];
++          $this->pluginPaths[''][$plugin] = $pluginPaths[$plugin];
+         }
+         else
+         {
+@@ -632,4 +633,29 @@
+ 
+     return $event->getReturnValue();
+   }
++  
++  /**
++   * Enables unit and functional tests for the given plugin(s).
++   * 
++   * The first parameter can either be a single plugin name or an array of
++   * plugin names.
++   * 
++   * @param mixed $plugins
++   */
++  public function enablePluginTests($plugins)
++  {
++    $this->testedPlugins = (array)$plugins;
++  }
++  
++  /**
++   * Returns the names of the plugins for which unit and functional tests are
++   * enabled.
++   * 
++   * @return array
++   */
++  public function getTestedPlugins()
++  {
++    return $this->testedPlugins;
++  }
++  
+ }
+\ No newline at end of file
+Index: lib/task/test/sfTestAllTask.class.php
+===================================================================
+--- lib/task/test/sfTestAllTask.class.php	(revision 2324)
++++ lib/task/test/sfTestAllTask.class.php	(working copy)
+@@ -26,6 +26,8 @@
+     $this->addOptions(array(
+       new sfCommandOption('only-failed', 'f', sfCommandOption::PARAMETER_NONE, 'Only run tests that failed last time'),
+       new sfCommandOption('xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The file name for the JUnit compatible XML log file'),
++      new sfCommandOption('no-plugins', null, sfCommandOption::PARAMETER_NONE, 'Do not run tests in the plugins'),
++      new sfCommandOption('plugin', null, sfCommandOption::PARAMETER_REQUIRED, 'Only run tests in a specific plugin'),      
+     ));
+ 
+     $this->aliases = array('test-all');
+@@ -40,6 +42,18 @@
+ 
+ The task launches all tests found in [test/|COMMENT].
+ 
++Don't execute any plugin tests at all with the --no-plugins option:
++
++  [./symfony test:all --no-plugins|INFO]
++
++Execute only the tests of one plugin:
++
++  [./symfony test:all --plugin=myPlugin|INFO]
++
++Note: this works for ALL plugins, even those not defined in the ProjectConfiguration class:
++
++  [./symfony test:all --plugin=my3rdPartyPlugin|INFO]
++
+ If some tests fail, you can use the [--trace|COMMENT] option to have more
+ information about the failures:
+ 
+@@ -101,7 +115,7 @@
+     {
+       // filter and register all tests
+       $finder = sfFinder::type('file')->follow_link()->name('*Test.php');
+-      $h->register($this->filterTestFiles($finder->in($h->base_dir), $arguments, $options));
++      $h->register($this->filterTestFiles($finder->in($this->getBaseDirs($options)), $arguments, $options));
+     }
+ 
+     $ret = $h->run() ? 0 : 1;
+Index: lib/task/test/sfTestBaseTask.class.php
+===================================================================
+--- lib/task/test/sfTestBaseTask.class.php	(revision 2324)
++++ lib/task/test/sfTestBaseTask.class.php	(working copy)
+@@ -3,6 +3,7 @@
+ /*
+  * This file is part of the symfony package.
+  * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
++ * (c) Bernhard Schussek <bschussek@gmail.com> 
+  * 
+  * For the full copyright and license information, please view the LICENSE
+  * file that was distributed with this source code.
+@@ -35,4 +36,90 @@
+ 
+     return $event->getReturnValue();
+   }
++  
++  /**
++   * Returns the test base directories of the project and plugins.
++   * 
++   * If the option 'no-plugins' is set, only the project test directory is
++   * returned. If the option plugin is set, only the test directory of this
++   * plugin is returned. Otherwise all test directories of the project and
++   * all plugins, for which testing is enabled, are returned.
++   * 
++   * Optionally you can specify a subdirectory, which will be appended to
++   * all paths.
++   * 
++   * @param array $options
++   * @param string $subDirectory
++   * @return array
++   */
++  protected function getBaseDirs(array $options, $subDirectory='')
++  {
++    $baseDirs = array();
++    
++    if ($subDirectory)
++    {
++      $subDirectory = DIRECTORY_SEPARATOR . $subDirectory;
++    }
++
++    if ($options['plugin'])
++    {
++      // test a single plugin
++      foreach ($this->getPluginPaths(false) as $plugin => $path)
++      {
++        if ($options['plugin'] == $plugin)
++        {
++          $baseDirs[] = $path . $subDirectory;
++        }
++      }
++    }
++    else
++    {
++      // test the project
++      $baseDirs[] = sfConfig::get('sf_test_dir') . $subDirectory;
++        
++      // test all plugins
++      if (!$options['no-plugins'])
++      {
++        foreach ($this->getPluginPaths() as $plugin => $path)
++        {
++          $baseDirs[] = $path . $subDirectory;
++        }
++      }
++    }
++    
++    return $baseDirs;
++  }
++  
++  /**
++   * Returns the paths of all plugins for which testing is enabled.
++   * 
++   * @param bool $enabledOnly Specifies whether only enabled plugins should be
++   *        returned
++   * @return array
++   */
++  private function getPluginPaths($enabledOnly=true)
++  {
++    $pluginPaths = $this->configuration->getPluginPaths();
++    
++    if ($enabledOnly)
++    {
++      $enabledPlugins = $this->configuration->getTestedPlugins();
++    
++      foreach ($pluginPaths as $plugin => &$path)
++      {
++        if (!in_array($plugin, $enabledPlugins))
++        {
++          unset($pluginPaths[$plugin]);
++        }
++      }
++    }
++    
++    foreach ($pluginPaths as &$path)
++    {
++      $path .= DIRECTORY_SEPARATOR.'test';
++    }
++    
++    return $pluginPaths;
++  }
++  
+ }
+Index: lib/task/test/sfTestFunctionalTask.class.php
+===================================================================
+--- lib/task/test/sfTestFunctionalTask.class.php	(revision 2324)
++++ lib/task/test/sfTestFunctionalTask.class.php	(working copy)
+@@ -24,7 +24,7 @@
+   protected function configure()
+   {
+     $this->addArguments(array(
+-      new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
++      new sfCommandArgument('application_or_plugin', sfCommandArgument::REQUIRED, 'The application or plugin name'),
+       new sfCommandArgument('controller', sfCommandArgument::OPTIONAL | sfCommandArgument::IS_ARRAY, 'The controller name'),
+     ));
+ 
+@@ -39,11 +39,15 @@
+ 
+     $this->detailedDescription = <<<EOF
+ The [test:functional|INFO] task launches functional tests for a
+-given application:
++given application or plugin:
+ 
+   [./symfony test:functional frontend|INFO]
+ 
+-The task launches all tests found in [test/functional/%application%|COMMENT].
++The task launches all tests found in [test/functional/frontend|COMMENT].
++
++  [./symfony test:functional myPlugin|INFO]
++  
++The task launches all tests found in [plugins/myPlugin/test/functional/|COMMENT].  
+ 
+ If some tests fail, you can use the [--trace|COMMENT] option to have more
+ information about the failures:
+@@ -71,7 +75,19 @@
+    */
+   protected function execute($arguments = array(), $options = array())
+   {
+-    $app = $arguments['application'];
++    $applicationOrPlugin = $arguments['application_or_plugin'];
++ 
++    if (file_exists(sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$applicationOrPlugin))
++    {
++      // the application_or_plugin is an application name
++      $baseDir = sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$applicationOrPlugin;
++    }
++    else
++    {
++      // the application_or_plugin is a plugin name
++      $baseDir = sfConfig::get('sf_plugins_dir').DIRECTORY_SEPARATOR.$applicationOrPlugin.DIRECTORY_SEPARATOR.'test'.DIRECTORY_SEPARATOR.'functional';
++    }
++    
+ 
+     if (count($arguments['controller']))
+     {
+@@ -80,7 +96,8 @@
+       foreach ($arguments['controller'] as $controller)
+       {
+         $finder = sfFinder::type('file')->follow_link()->name(basename($controller).'Test.php');
+-        $files = array_merge($files, $finder->in(sfConfig::get('sf_test_dir').'/functional/'.$app.'/'.dirname($controller)));
++//        $files = array_merge($files, $finder->in(sfConfig::get('sf_test_dir').'/functional/'.$app.'/'.dirname($controller)));
++        $files = array_merge($files, $finder->in($baseDir));
+       }
+ 
+       if($allFiles = $this->filterTestFiles($files, $arguments, $options))
+@@ -104,11 +121,11 @@
+         'verbose'      => isset($options['trace']) && $options['trace'],
+       ));
+       $h->addPlugins(array_map(array($this->configuration, 'getPluginConfiguration'), $this->configuration->getPlugins()));
+-      $h->base_dir = sfConfig::get('sf_test_dir').'/functional/'.$app;
++      $h->base_dir = sfConfig::get('sf_test_dir').'/functional/'.$applicationOrPlugin;
+ 
+       // filter and register functional tests
+       $finder = sfFinder::type('file')->follow_link()->name('*Test.php');
+-      $h->register($this->filterTestFiles($finder->in($h->base_dir), $arguments, $options));
++      $h->register($this->filterTestFiles($finder->in($baseDir), $arguments, $options));
+ 
+       $ret = $h->run() ? 0 : 1;
+ 
+Index: lib/task/test/sfTestUnitTask.class.php
+===================================================================
+--- lib/task/test/sfTestUnitTask.class.php	(revision 2324)
++++ lib/task/test/sfTestUnitTask.class.php	(working copy)
+@@ -29,6 +29,8 @@
+ 
+     $this->addOptions(array(
+       new sfCommandOption('xml', null, sfCommandOption::PARAMETER_REQUIRED, 'The file name for the JUnit compatible XML log file'),
++      new sfCommandOption('no-plugins', null, sfCommandOption::PARAMETER_NONE, 'Do not run tests in the plugins'),
++      new sfCommandOption('plugin', null, sfCommandOption::PARAMETER_REQUIRED, 'Only run tests in a specific plugin'),      
+     ));
+ 
+     $this->aliases = array('test-unit');
+@@ -46,7 +48,7 @@
+ If some tests fail, you can use the [--trace|COMMENT] option to have more
+ information about the failures:
+ 
+-    [./symfony test:unit -t|INFO]
++  [./symfony test:unit -t|INFO]
+ 
+ You can launch unit tests for a specific name:
+ 
+@@ -55,6 +57,14 @@
+ You can also launch unit tests for several names:
+ 
+   [./symfony test:unit strtolower strtoupper|INFO]
++  
++Don't execute any plugin tests at all with the --no-plugins option:
++
++  [./symfony test:unit --no-plugins|INFO]
++  
++Execute the unit tasks for a single plugin:
++
++  [./symfony test:unit --plugin=myPlugin|INFO]
+ 
+ The task can output a JUnit compatible XML log file with the [--xml|COMMENT]
+ options:
+@@ -75,7 +85,7 @@
+       foreach ($arguments['name'] as $name)
+       {
+         $finder = sfFinder::type('file')->follow_link()->name(basename($name).'Test.php');
+-        $files = array_merge($files, $finder->in(sfConfig::get('sf_test_dir').'/unit/'.dirname($name)));
++        $files = array_merge($files, $finder->in($this->getBaseDirs($options, 'unit')));
+       }
+ 
+       if($allFiles = $this->filterTestFiles($files, $arguments, $options))
+@@ -103,7 +113,7 @@
+ 
+       // filter and register unit tests
+       $finder = sfFinder::type('file')->follow_link()->name('*Test.php');
+-      $h->register($this->filterTestFiles($finder->in($h->base_dir), $arguments, $options));
++      $h->register($this->filterTestFiles($finder->in($this->getBaseDirs($options, 'unit')), $arguments, $options));
+ 
+       $ret = $h->run() ? 0 : 1;
+ 
