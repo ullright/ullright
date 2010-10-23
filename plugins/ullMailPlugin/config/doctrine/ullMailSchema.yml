@@ -1,0 +1,13 @@
+# Queue for batch mailing
+UllMailMessage:
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    message:
+      type: clob
+      notnull: true
+    is_sent:
+      type: boolean
+      default: false
