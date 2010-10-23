@@ -24,6 +24,7 @@ strong {
 	font-weight: bold;
 	background-color: yellow;
 	padding: .2em .5em;
+	line-height: 2em;
 }
 
 td,th {
