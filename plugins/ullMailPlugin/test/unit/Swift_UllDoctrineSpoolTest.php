@@ -1,6 +1,6 @@
 <?php
 
-include dirname(__FILE__) . '/../../bootstrap/unit.php';
+include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
