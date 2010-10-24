@@ -32,5 +32,15 @@ class PluginUllMailQueuedMessageTable extends UllRecordTable
       ;
       
       return $q;
-    }            
+    }     
+
+    /**
+     * Return number of unsent messages
+     */
+    public static function countUnsentMessages()
+    {
+      $q = self::querySpooledMessages();
+      
+      return (int) $q->count();
+    }
 }

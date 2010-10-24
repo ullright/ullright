@@ -119,4 +119,39 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
     
     return floor(60 / $mailsPerMinute * 1000000);  
   }
+  
+  
+  /**
+   * Set number of mails to send per minute
+   * 
+   * @param integer $mailsPerMinute
+   * @return self
+   */
+  public function setMailsPerMinute($mailsPerMinute)
+  {
+    if (!is_int($mailsPerMinute))
+    {
+      throw new InvalidArgumentException('Input must be an integer');
+    }
+    
+    if ($mailsPerMinute < 1)
+    {
+      throw new OutOfRangeException('Input must be an integer > 0');  
+    }    
+    
+    $this->mailsPerMinute = $mailsPerMinute;
+
+    return $this;
+  }
+  
+  
+  /**
+   * Get number of mails to send per minute
+   * 
+   * @return integer
+   */
+  public function getMailsPerMinute()
+  {
+    return (int) $this->mailsPerMinute;
+  }  
 }

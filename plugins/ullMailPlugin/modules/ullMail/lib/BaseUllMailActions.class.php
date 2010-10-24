@@ -12,7 +12,7 @@
 class BaseUllMailActions extends BaseUllGeneratorActions
 {
   
-  public function executeSendNewsletter(sfWebRequest $request)
+  public function executeSendNewsletterTest(sfWebRequest $request)
   {
     $message = Swift_Message::newInstance()
       ->setFrom('null@ull.at')
@@ -26,5 +26,27 @@ class BaseUllMailActions extends BaseUllGeneratorActions
     $this->ok = $this->getMailer()->batchSendQueue($message);    
     
   }  
+  
+  public function executeFlushQueue(sfWebRequest $request)
+  {
+    
+    $spool = $this->getMailer()->getSpool();
+    
+//    $mailsPerMinute = $spool->getMailsPerMinute();
+//    
+//    $refreshIntervalSeconds = 3;
+//    
+//    $numOfMailsToSend =  $mailsPerMinute / 60 * $refreshIntervalSeconds;
+    
+//    $spool->setMessageLimit($options['message-limit']);
+    $spool->setTimeLimit(3);
+
+    $this->num_sent = $this->getMailer()->flushQueue();
+    
+    $this->num_unsent = UllMailQueuedMessageTable::countUnsentMessages();
+    
+    
+    
+  }
 
 }

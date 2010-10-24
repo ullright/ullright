@@ -5,17 +5,15 @@ test:
 
 dev:
   mailer:
+    param:
+      delivery_address:   klemens@ull.at
+      spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 12 ]
+      
+all:
+  mailer:
     class: ullMailer
     param:
       delivery_address:   klemens@ull.at
       delivery_strategy:  spool
       spool_class:        Swift_UllDoctrineSpool
-      spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 6 ]
-      
-prod:
-  mailer:
-    param:
-      delivery_strategy: spool  
-
-all:
-  
+      spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 120 ]  

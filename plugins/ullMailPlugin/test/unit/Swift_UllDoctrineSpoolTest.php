@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(9, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(10, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -18,7 +18,7 @@ $t->begin('__construct()');
       'UllEmailMessage', 
       'message', 
       'querySpooledMessages', 
-      30
+      120
     );
     $t->pass('Constructor accepts mailsPerMin param');
   }
@@ -29,6 +29,12 @@ $t->begin('__construct()');
   
   $t->isa_ok($spool, 'Swift_UllDoctrineSpool', 'Creates the correct object');
 
+  
+$t->diag('set/getMailsPerMinute()');
+  $spool->setMailsPerMinute(180);
+  $t->is($spool->getMailsPerMinute(), '180', 'Returns the correct number of mails per minute');
+    
+  
   
 $t->diag('Swift_UllDoctrineSpool::calculateSleepTime()');
   try
