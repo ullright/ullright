@@ -62,7 +62,17 @@ abstract class ullBaseTask extends sfBaseTask
     if (file_exists($fullPath))
     {
       $command = 'svn --force delete ' . $fullPath;
-      $this->log($this->getFilesystem()->execute($command));
+      try 
+      {
+        $this->log($this->getFilesystem()->execute($command));
+      }
+      catch (Exception $e)
+      {
+        $this->log('Cannot svn delete - try file system delete');
+        $command = 'rm ' . $fullPath;
+        $this->log($this->getFilesystem()->execute($command));
+      }
+      
     }
     else
     {
@@ -101,7 +111,7 @@ abstract class ullBaseTask extends sfBaseTask
   {
     $this->logSection($this->name, 'Deleting model classes');
     $path = 'lib/model/doctrine/' .
-    (($pluginName) ? $pluginName . '/' : '');
+      (($pluginName) ? $pluginName . '/' : '');
 
     $currentPath = $path . 'base/Base' . $modelName . '.class.php'; 
     $this->svnDelete($currentPath);    
