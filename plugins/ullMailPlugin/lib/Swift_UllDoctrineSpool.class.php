@@ -38,7 +38,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
    * @param integer Throttle: Limit the amount of mails sent per minute
    */
   public function __construct(
-    $model = 'UllMailMessage', 
+    $model = 'UllMailQueuedMessage', 
     $column = 'message', 
     $method = 'querySpooledMessages',
     $mailsPerMinute = 120

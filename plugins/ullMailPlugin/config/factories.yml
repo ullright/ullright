@@ -10,7 +10,7 @@ dev:
       delivery_address:   klemens@ull.at
       delivery_strategy:  spool
       spool_class:        Swift_UllDoctrineSpool
-      spool_arguments:    [ UllMailMessage, message, querySpooledMessages, 6 ]
+      spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 6 ]
       
 prod:
   mailer:

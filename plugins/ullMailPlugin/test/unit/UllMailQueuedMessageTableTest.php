@@ -11,7 +11,7 @@ $t->setFixturesPath($path);
 
 
 $t->begin('querySpooledMessages()');
-  $q = UllMailMessageTable::querySpooledMessages();
+  $q = UllMailQueuedMessageTable::querySpooledMessages();
 
   $t->is(
      $q->count(), 
@@ -19,7 +19,7 @@ $t->begin('querySpooledMessages()');
     'Returns the correct number of unsent messages when having no messages'
   );
   
-  $message = new UllMailMessage;
+  $message = new UllMailQueuedMessage;
   $message->message = 'foo';
   $message->save();
   
@@ -29,7 +29,7 @@ $t->begin('querySpooledMessages()');
     'Returns the correct number of unsent messages for one unsent message'
   );  
   
-  $message = new UllMailMessage;
+  $message = new UllMailQueuedMessage;
   $message->message = 'bar';
   $message->save();  
   
