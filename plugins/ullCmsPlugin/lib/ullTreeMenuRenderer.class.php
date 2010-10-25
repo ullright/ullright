@@ -127,7 +127,7 @@ $("ul.ull_menu_' . $menuRootSlug . ' a[href=\'#\']").each(function(index) {
   $(this).click(function () {
     if ($(this).next().is(":visible"))
     {
-      $(this).next().fadeOut(500);
+      $(this).next().fadeOut(250);
     }
     else
     {
