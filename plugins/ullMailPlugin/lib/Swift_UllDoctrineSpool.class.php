@@ -48,6 +48,28 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
     
     $this->mailsPerMinute = $mailsPerMinute;
   }  
+  
+  /**
+   * Stores a message in the queue.
+   * 
+   * Reduces memory usage
+   *
+   * @param Swift_Mime_Message $message The message to store
+   */
+  public function queueMessage(Swift_Mime_Message $message)
+  {
+    $object = new $this->model;
+
+    if (!$object instanceof Doctrine_Record)
+    {
+      throw new InvalidArgumentException('The mailer message object must be a Doctrine_Record object.');
+    }
+
+    $object->{$this->column} = serialize($message);
+    $object->save();
+    
+    $object->free(true);
+  }  
 
   /**
    * Sends messages using the given transport instance.
@@ -60,8 +82,8 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
   public function flushQueue(Swift_Transport $transport, &$failedRecipients = null)
   {
     $table = Doctrine_Core::getTable($this->model);
-    $objects = $table->{$this->method}()->limit($this->getMessageLimit())->execute();
-
+    $ids = $table->{$this->method}()->select('id')->limit($this->getMessageLimit())->execute(array(), DOCTRINE::HYDRATE_NONE);
+    
     if (!$transport->isStarted())
     {
       $transport->start();
@@ -69,8 +91,9 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
 
     $count = 0;
     $time = time();
-    foreach ($objects as $object)
+    foreach ($ids as $id)
     {
+      $object = $table->findOneById($id[0]); 
       $message = unserialize($object->{$this->column});
       
       try
@@ -84,6 +107,8 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
       {
       }
       
+      $object->free(true);
+      
       if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit())
       {
         break;
@@ -94,6 +119,8 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
       {
         usleep(self::calculateSleepTime($this->mailsPerMinute));
       }
+      
+      var_dump(UllMailQueuedMessageTable::countUnsentMessages() . ' mails left');
     }
 
     return $count;

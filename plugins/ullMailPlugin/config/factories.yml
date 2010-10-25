@@ -3,11 +3,7 @@ test:
     param:
       delivery_strategy: none      
 
-dev:
-  mailer:
-    param:
-      delivery_address:   klemens@ull.at
-      spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 12 ]
+     
       
 all:
   mailer:
@@ -16,4 +12,4 @@ all:
       delivery_address:   klemens@ull.at
       delivery_strategy:  spool
       spool_class:        Swift_UllDoctrineSpool
-      spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 120 ]  
+      spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 60 ]  
