@@ -6,6 +6,8 @@ prod:
       dsn:          'mysql:host=localhost;dbname=ullright'
       username:     ullright
       password:     'right&wrong!'
+      # Deactivate doctrine profiler. Consumes a lot of memory eg. for inserts
+      profiler:     false
 
 ### dev Environment
 dev:
@@ -23,7 +25,8 @@ cli:
     param:
       dsn:          'mysql:host=localhost;dbname=ullright'
       username:     ullright
-      password:     'right&wrong!' 
+      password:     'right&wrong!'
+      profiler:     false
 
 ### Test Environment
 test:
@@ -33,7 +36,8 @@ test:
 #      dsn:          'sqlite::memory:'
       dsn:          'mysql:host=localhost;dbname=ullright_test'
       username:     ullright_test
-      password:     test      
+      password:     test
+      profiler:     false      
 
 ### Other
 #all:   all does not work since DoctrineTestbrowser is deleting all the tables...
