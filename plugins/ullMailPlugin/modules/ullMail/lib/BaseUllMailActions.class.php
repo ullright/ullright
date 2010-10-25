@@ -40,12 +40,17 @@ class BaseUllMailActions extends BaseUllGeneratorActions
     
 //    $spool->setMessageLimit($options['message-limit']);
     $spool->setTimeLimit(3);
+    $spool->setMessageLimit(100);
 
     $this->num_sent = $this->getMailer()->flushQueue();
     
     $this->num_unsent = UllMailQueuedMessageTable::countUnsentMessages();
     
     
+//    if ($this->num_unsent);
+//    {
+//      $this->redirect('ullMail/flushQueue');
+//    }
     
   }
 
