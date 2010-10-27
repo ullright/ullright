@@ -1,6 +1,6 @@
 <?php echo $breadcrumb_tree ?>
-
-    <ul class='list_action_buttons color_light_bg'>
+<div class="ull_orgchart_list_action_buttons">
+    <ul class='list_action_buttons color_light_bg float_left'>
         <li><?php echo ull_link_to(__('Reset', null, 'common'), 'ullOrgchart/list') ?></li>
         
         <li>
@@ -10,8 +10,6 @@
           <?php echo ull_link_to('4', array('depth' => 4)) ?>
           <?php echo ull_link_to(__('All', null, 'common'), array('depth' => 9999)) ?>
         </li>
-        <p style="margin:0">Zoom:</p>
-        <div id='ull_orgchart_zoom_slider'></div>
         
         
         <!--
@@ -23,6 +21,9 @@
         </li>
          -->
     </ul>
+  <div class="ull_orgchart_list_action_buttons_zoom float_left"><?php echo __('Zoom', null, 'ullPhoneMessages') ?>:</div>
+  <div class="float_left" id='ull_orgchart_zoom_slider'></div>
+  </div>
 
     
 
@@ -45,7 +46,7 @@
       
 
       $(function() {
-        $("#ull_orgchart_zoom_slider").slider({min: 0.2, max: 1.5, step: 0.05, value: 1});
+        $("#ull_orgchart_zoom_slider").slider({min: 0.2, max: 1, step: 0.05, value: 0.8});
       });
       
       

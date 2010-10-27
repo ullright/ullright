@@ -74,18 +74,32 @@ a:visited {
 
 .ull_orgchart_list_action_buttons{
   width: 100%;
-  height: 4.6em;
+  height: 3.6em;
   margin: 0;
   padding: 0;
+  background: none repeat scroll 0 0 #FFEC91;
+}
+
+
+.ull_orgchart_list_action_buttons_zoom{
+  margin: 1.1em 0 0em 1em;
+}
+
+.ull_orgchart_list_action_buttons ul.list_action_buttons li{
+  line-height: 0;
+}
+
+.ull_orgchart_list_action_buttons ul.list_action_buttons{
 }
 
 #ull_orgchart_zoom_slider{
 width: 14em;
-margin: 0.8em 0 1em 0;
+margin: 1.1em 0 0em 0.5em;
 }
 
 div.ull_orgchart{
-	font-size: 1em;
+	font-size: 0.8em;
+	margin-top: 1em;
 	
 }
 

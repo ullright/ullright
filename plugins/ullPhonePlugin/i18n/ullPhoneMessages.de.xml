@@ -48,6 +48,11 @@
         <target>Abteilungsansicht</target>
       </trans-unit>      
       
+      <trans-unit id="10">
+        <source>Zoom</source>
+        <target>Zoom</target>
+      </trans-unit>  
+      
     </body>
   </file>
 </xliff>
