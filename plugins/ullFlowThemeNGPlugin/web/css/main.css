@@ -106,4 +106,10 @@ table.ull_flow_upload {
   background-color: #eeeeee;
 }
 
+.ull_flow_reminder_date_color {
+  color: orange;
+}
 
+.ull_flow_overdue_date_color {
+  color: red;
+}

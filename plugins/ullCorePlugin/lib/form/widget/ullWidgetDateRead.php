@@ -6,6 +6,7 @@ class ullWidgetDateRead extends ullWidget
   {
     $this->addOption('show_weekday', false);
     $this->addOption('show_only_year', false);
+    $this->addOption('add_span_if_before');
     
     parent::__construct($options, $attributes);
   }
@@ -29,6 +30,30 @@ class ullWidgetDateRead extends ullWidget
       $value = ull_format_date($value, true, $this->getOption('show_weekday'));
     }
     
-    return $value;
+    $dates = $this->getOption('add_span_if_before');
+    if (is_array($dates) && !empty($dates))
+    {
+      //ascending dates
+      ksort($dates);
+      foreach ($dates as $dateTimestamp => $dateClass)
+      {
+        if (strtotime($value) < $dateTimestamp)
+        {
+          $className = $dateClass;
+          break;
+        }
+      }
+    }
+    
+    //if the 'add_span_if_before' option was set AND the given date is
+    //before one of those contained in the array then $className is set 
+    if (isset($className))
+    {
+      return "<span class=\"$className\">" . $value . '</span>';
+    }
+    else
+    {
+      return $value;
+    }
   } 
 }

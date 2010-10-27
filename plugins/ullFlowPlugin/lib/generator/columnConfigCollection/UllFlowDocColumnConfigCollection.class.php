@@ -67,7 +67,8 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       
       $this['due_date']
         ->setLabel(__('Due date', null, 'common'))
-        ->setMetaWidgetClassName('ullMetaWidgetDate')
+        ->setMetaWidgetClassName('ullMetaWidgetDateTime')
+        ->setWidgetOption('act_as_due_date', true)
       ;
 
       $this['ull_flow_action_id']
@@ -119,7 +120,8 @@ class UllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       {
         // the subject column is taken from UllFlowDoc if no app is given,
         //   therefore we need to obmit it here to prevent duplicate
-        if ($this->app || (!$this->app && !$column['is_subject']))
+        // same for due_date
+        if ($this->app || (!$this->app && !$column['is_subject'] && !$column['is_due_date']))
         {
           $this->create($columnName)
             ->setLabel($column->label)
