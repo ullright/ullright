@@ -425,11 +425,11 @@ class sfProjectConfiguration
 
     $this->pluginPaths[$subPath] = array();
     $pluginPaths = $this->getPluginPaths();
-    foreach ($pluginPaths as $plugin => $pluginPath)
+    foreach ($pluginPaths as $pluginPath)
     {
       if (is_dir($pluginPath.$subPath))
       {
-        $this->pluginPaths[$subPath][$plugin] = $pluginPath.$subPath;
+        $this->pluginPaths[$subPath][] = $pluginPath.$subPath;
       }
     }
 
@@ -454,7 +454,7 @@ class sfProjectConfiguration
       {
         if (isset($pluginPaths[$plugin]))
         {
-          $this->pluginPaths[''][$plugin] = $pluginPaths[$plugin];
+          $this->pluginPaths[''][] = $pluginPaths[$plugin];
         }
         else
         {
