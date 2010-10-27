@@ -72,6 +72,23 @@ a:visited {
 
 /* orgchart */
 
+.ull_orgchart_list_action_buttons{
+  width: 100%;
+  height: 4.6em;
+  margin: 0;
+  padding: 0;
+}
+
+#ull_orgchart_zoom_slider{
+width: 14em;
+margin: 0.8em 0 1em 0;
+}
+
+div.ull_orgchart{
+	font-size: 1em;
+	
+}
+
 .ull_orgchart > table
 {
   width: 100%;
@@ -226,6 +243,10 @@ a:visited {
 
 .ull_orgchart_border_left {
   border-left: .2em solid black !important;
+}
+
+tr.ull_orgchart_sub_superiors > td > table > tbody > tr.ull_orgchart_spacer_row > td {
+  width: 10em;
 }
 
 .ull_orgchart_boxes_row {
