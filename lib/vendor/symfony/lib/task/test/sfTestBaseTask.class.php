@@ -66,7 +66,7 @@ abstract class sfTestBaseTask extends sfBaseTask
       // test a single plugin
       foreach ($this->getPluginPaths(false) as $plugin => $path)
       {
-        if (strpos($path, $options['plugin']) !== false)
+        if ($options['plugin'] == $plugin)
         {
           $baseDirs[] = $path . $subDirectory;
         }
@@ -80,7 +80,7 @@ abstract class sfTestBaseTask extends sfBaseTask
       // test all plugins
       if (!$options['no-plugins'])
       {
-        foreach ($this->getPluginPaths() as $plugin => $path)
+        foreach ($this->getPluginPaths(true) as $plugin => $path)
         {
           $baseDirs[] = $path . $subDirectory;
         }
@@ -99,12 +99,12 @@ abstract class sfTestBaseTask extends sfBaseTask
    */
   private function getPluginPaths($enabledOnly=true)
   {
-    $pluginPaths = $this->configuration->getPluginPaths();
+    $pluginPaths = $this->configuration->getPluginPaths(true);
     
     if ($enabledOnly)
     {
       $enabledPlugins = $this->configuration->getTestedPlugins();
-      
+    
       foreach ($pluginPaths as $plugin => &$path)
       {
         if (!in_array($plugin, $enabledPlugins))
@@ -120,5 +120,5 @@ abstract class sfTestBaseTask extends sfBaseTask
     }
     
     return $pluginPaths;
-  }
+  }  
 }

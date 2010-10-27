@@ -24,9 +24,10 @@ class sfProjectConfiguration
     $dispatcher            = null,
     $plugins               = array(),
     $pluginPaths           = array(),
+    $pluginPathsWithKeys   = array(),
     $overriddenPluginPaths = array(),
     $pluginConfigurations  = array(),
-    $testedPlugins        = array(),
+    $testedPlugins         = array(),
     $pluginsLoaded         = false;
 
   static protected
@@ -320,6 +321,7 @@ class sfProjectConfiguration
     $this->plugins = $plugins;
 
     $this->pluginPaths = array();
+    $this->pluginPathsWithKeys = array();
   }
 
   /**
@@ -376,6 +378,7 @@ class sfProjectConfiguration
     }
 
     $this->pluginPaths = array();
+    $this->pluginPathsWithKeys = array();
   }
 
   /**
@@ -443,18 +446,28 @@ class sfProjectConfiguration
    *
    * @throws InvalidArgumentException If an enabled plugin does not exist
    */
-  public function getPluginPaths()
+  public function getPluginPaths($withKeys = false)
   {
-    if (!isset($this->pluginPaths['']))
+    $arrayName = ($withKeys) ? 'pluginPathsWithKeys' : 'pluginPaths';
+    $pathArray = &$this->$arrayName;
+    
+    if (!isset($pathArray['']))
     {
       $pluginPaths = $this->getAllPluginPaths();
 
-      $this->pluginPaths[''] = array();
+      $pathArray[''] = array();
       foreach ($this->getPlugins() as $plugin)
       {
         if (isset($pluginPaths[$plugin]))
         {
-          $this->pluginPaths[''][] = $pluginPaths[$plugin];
+          if ($withKeys)
+          {
+            $pathArray[''][$plugin] = $pluginPaths[$plugin];
+          }
+          else
+          {
+            $pathArray[''][] = $pluginPaths[$plugin];
+          }
         }
         else
         {
@@ -463,7 +476,7 @@ class sfProjectConfiguration
       }
     }
 
-    return $this->pluginPaths[''];
+    return $pathArray[''];
   }
 
   /**
