@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * This meta widget represents a date with a time component.
+ * 
+ * If the 'act_as_due_date' option is set to true, this widget
+ * disregards the time component and adds reminder/overdue
+ * color spans.
+ */
 class ullMetaWidgetDateTime extends ullMetaWidget
 {
   protected function configureWriteMode()
