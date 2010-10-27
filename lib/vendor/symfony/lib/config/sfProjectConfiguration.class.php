@@ -441,7 +441,10 @@ class sfProjectConfiguration
 
   /**
    * Gets the paths to plugins root directories, minding overloaded plugins.
+   * Can return an associative array with plugin names as keys if needed.
    *
+   * @param boolean $withKeys sets plugin names as keys if true, sets no keys otherwise
+   * 
    * @return array The plugin root paths.
    *
    * @throws InvalidArgumentException If an enabled plugin does not exist
