@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This class renders a date in a read only contex, respecting
+ * user culture in the process.
+ * 
+ * Options:
+ * show_weekday - adds the weekday the date represents
+ * show_only_year - displays only the year part of the date 
+ * add_span_if_before - if date is before key: timestamp, value: class_name is used for a span-wrap
+ */
 class ullWidgetDateRead extends ullWidget
 {
   public function __construct($options = array(), $attributes = array())
