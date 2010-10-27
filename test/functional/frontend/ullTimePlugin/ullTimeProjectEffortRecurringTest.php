@@ -10,18 +10,25 @@ $dgsListEdit = $b->getDgsUllTimeEditList();
 $dgsListSum = $b->getDgsUllTimeListTableSum();
 
 //from: next friday (testing workday-only recurrence)
-$testDate = date('Y-m-d', strtotime('next friday'));
 //to: tuesday after that friday
+$testDate = date('Y-m-d', strtotime('next friday'));
 $testDateRecurring = date('Y-m-d', strtotime('next tuesday', strtotime('next friday')));
-//these dates could be in the future, in that case, we need a time period
-if (UllTimePeriodTable::findSlugByDate($testDate) === null)
-{
-  $period = new UllTimePeriod();
-  $period->name = 'next_month';
-  $period->from_date = $testDate;
-  $period->to_date = $testDateRecurring;
-  $period->save();
-}
+
+//we need these dates later on
+$firstDay = date('Y-m-d', strtotime('first day of', strtotime($testDate)));
+$lastDay = date('Y-m-d', strtotime('last day of', strtotime($testDateRecurring)));
+
+//remove all time periods
+$q = new Doctrine_Query();
+$q->delete('UllTimePeriod');
+$q->execute();
+
+//create a new time period for our dates, can span two months
+$period = new UllTimePeriod();
+$period->name = 'test_period';
+$period->from_date = $firstDay;
+$period->to_date = $lastDay;
+$period->save();
 
 $testUserId = Doctrine::getTable('UllUser')->findOneByUserName('test_user')->id;
 $projectId = Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id;
