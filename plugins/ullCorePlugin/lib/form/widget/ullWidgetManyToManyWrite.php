@@ -8,6 +8,13 @@
  * <http://www.erichynds.com> to replace the default HTML multi
  * select box with a more user-friendly and filter-enabled dropdown.
  * 
+ * Differences to sfWidgetFormDoctrineChoice:
+ * This widget supports Doctrine::HYDRATE_ARRAY hydration.
+ * This widget ignores the 'table_method' option (can be added if needed).
+ * When using array hydration, the 'method' and 'key_method' options
+ *   are interpreted as key and value column names (i.e. instead of
+ *   ->method(), [method] is used).
+ * 
  * Note: A few of these lines are by K. Adryjanek <kamil.adryjanek@gmail.com>
  */
 class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
@@ -28,8 +35,49 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
           label : '" . __('Search', null, 'common') . ":' }");
 
     parent::configure($options, $attributes);
+    
+    //we should remove the table_method option if we do not support it, but how?
   }
 
+  public function getChoices()
+  {
+    $choices = array();
+    if (false !== $this->getOption('add_empty'))
+    {
+      $choices[''] = true === $this->getOption('add_empty') ? '' : $this->translate($this->getOption('add_empty'));
+    }
+
+    $query = null === $this->getOption('query') ? Doctrine_Core::getTable($this->getOption('model'))->createQuery() : $this->getOption('query');
+    if ($order = $this->getOption('order_by'))
+    {
+      $query->addOrderBy($order[0] . ' ' . $order[1]);
+    }
+   
+    $objects = $query->execute();
+
+    $method = $this->getOption('method');
+    $keyMethod = $this->getOption('key_method');
+  
+    //was array hydration used?
+    if (is_array($objects))
+    {
+      foreach ($objects as $object)
+      {
+        $choices[$object[$keyMethod]] = $object[$method];
+      }
+    }
+    //otherwise assume records
+    else
+    {
+      foreach ($objects as $object)
+      {
+        $choices[$object->$keyMethod()] = $object->$method();
+      }
+    }
+    
+    return $choices;
+  }
+  
   /**
    * Typical widget rendering code, uses the rendering of the
    * sfWidgetFormDoctrineChoice parent class but adds some
