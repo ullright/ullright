@@ -18,10 +18,24 @@ class BaseUllProjectColumnConfigCollection extends ullColumnConfigCollection
     
     if ($this->isCreateOrEditAction())
     {
+      $q = new Doctrine_Query;
+      $q
+        ->select('display_name')
+        ->from('UllUser')
+      ;
+      //needed for performance reasons when displaying all users
+      $q->setHydrationMode(Doctrine::HYDRATE_ARRAY);
+      
       $this->create('Managers')
         ->setMetaWidgetClassName('ullMetaWidgetManyToMany')
+        //set model (it's a required option)
         ->setWidgetOption('model', 'UllUser')
+        ->setWidgetOption('query', $q)
+        //see ullWidgetManyToManyWrite class doc for why we set this
+        ->setWidgetOption('key_method', 'id')
+        ->setWidgetOption('method', 'display_name')
         ->setValidatorOption('model', 'UllUser')
+        ->setValidatorOption('query', $q)
       ;
       
       $this->order(array(
