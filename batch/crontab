@@ -1,9 +1,8 @@
 #MAILTO=me@example.com
 
-# ullright crontab file for the production server
+# ullright example crontab file for the production server
 # 2010-08-16 by Klemens Ullmann-Marx
 #
-# Execute "crontab batch/crontab" from your ullright base dir to enable this crontab file
 #
 
 
