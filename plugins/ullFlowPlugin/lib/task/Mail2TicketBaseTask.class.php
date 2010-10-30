@@ -22,10 +22,8 @@ abstract class Mail2TicketBaseTask extends sfBaseTask
     $this->logSection($this->name, 'Initializing');
     
     $configuration = ProjectConfiguration::getApplicationConfiguration(
-	  $arguments['application'], $arguments['env'], true);
-    
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull'));
-    
+      $arguments['application'], $arguments['env'], true);
+	  
     $databaseManager = new sfDatabaseManager($configuration);
 
     
