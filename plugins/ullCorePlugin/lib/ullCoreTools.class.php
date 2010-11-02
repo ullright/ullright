@@ -528,4 +528,23 @@ class ullCoreTools
     return html_entity_decode($value, ENT_QUOTES, sfConfig::get('sf_charset'));
   }
   
+  /**
+   * Returns the server name this code is executing on.
+   * If $_SERVER['SERVER_NAME'] is not available, 'server_name'
+   * from app.yml is read. If it is not set, false is returned.
+   * 
+   * @return string current server name or false if not available
+   */
+  public static function getServerName()
+  {
+    $serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : false;
+    
+    //if $_SERVER['SERVER_NAME'] is not available, try to read app.yml
+    if ($serverName === false)
+    {
+      $serverName = sfConfig::get('app_server_name', false);
+    }
+    
+    return $serverName;
+  }
 }

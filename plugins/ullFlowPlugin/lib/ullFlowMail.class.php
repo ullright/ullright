@@ -46,9 +46,13 @@ class ullFlowMail extends ullsfMail
    */
   public function getEditLink() 
   {
-    //if SERVER_NAME is not available, use the local hostname
-    //TODO: introduce a config param?
-    $serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : php_uname('n');
+    $serverName = ullCoreTools::getServerName();
+    
+    if ($serverName === false)
+    {
+      throw new UnexpectedValueException(
+      	'Could not determine server name - please set \'server_name\' in app.yml');
+    }
     
     return 
       __('Link') .

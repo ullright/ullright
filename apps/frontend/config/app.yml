@@ -29,6 +29,11 @@ all:
   error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
   error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
 
+  #The following server name is used in situations where
+  #a server name cannot be determined automatically, e.g.
+  #when mailing from the command line
+  server_name: www.ull.at
+
   i18n:  
     supported_languages: [ 'de', 'en' ]
   
