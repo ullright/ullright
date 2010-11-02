@@ -9,10 +9,13 @@ class PluginUllFlowDocTable extends UllRecordTable
    * 'danger interval' is given in days, i.e. all ullFlowDocs with
    * a due date before [today + x days] are returned.
    * 
+   * By default only active tickets are returned.
+   * 
    * @param int $daysBefore danger interval
+   * @param boolean $onlyActive if true, only active tickets are returned
    * @return Doctrine_Collection ullFlowDocs in danger of expiration
    */
-  public static function findDueDateDangerDocs($daysBefore = 2)
+  public static function findDueDateDangerDocs($daysBefore = 2, $onlyActive = true)
   {
     if (!is_numeric($daysBefore))
     {
@@ -31,17 +34,26 @@ class PluginUllFlowDocTable extends UllRecordTable
       ->where('d.due_date < ?', date('Y-m-d', $dateThreshold))
     ;
     
+    //TODO: replace this with a separate flag?
+    if ($onlyActive)
+    {
+      $q->addWhere('d.UllFlowAction.is_in_resultlist = ?', true);
+    }
+    
     return $q->execute();
   }
 
   /**
    * Retrieves all overdue (due date < now) ullFlowDocs.
    * 
+   * By default only active tickets are returned.
+   * 
+   * @param boolean $onlyActive if true, only active tickets are returned
    * @return Doctrine_Collection expired ullFlowDocs 
    */
-  public static function findOverdueDocs()
+  public static function findOverdueDocs($onlyActive = true)
   {
-    return self::findDueDateDangerDocs(0);
+    return self::findDueDateDangerDocs(0, $onlyActive);
   }
   
   /**

@@ -53,8 +53,8 @@ EOF;
     $ownerReminderMailCount = 0;
     $ownerOverdueMailCount = 0;
     
-    $overdueDocs = UllFlowDocTable::findOverdueDocs();
-    $this->logSection('ullFlowDocs', 'Found ' . count($overdueDocs) . ' overdue docs');
+    $overdueDocs = UllFlowDocTable::findOverdueDocs(true);
+    $this->logSection('ullFlowDocs', 'Found ' . count($overdueDocs) . ' active overdue docs');
     
     //send overdue notification mails
     foreach ($overdueDocs as $doc)
@@ -75,8 +75,8 @@ EOF;
     if ($reminderDays > 0)
     {
       $this->logSection('dueDate-mailing', "Reminder period is $reminderDays days");
-      $dangerDocs = UllFlowDocTable::findDueDateDangerDocs($reminderDays);
-      $this->logSection('ullFlowDocs', 'Found ' . count($dangerDocs) . ' docs in reminder period');
+      $dangerDocs = UllFlowDocTable::findDueDateDangerDocs($reminderDays, true);
+      $this->logSection('ullFlowDocs', 'Found ' . count($dangerDocs) . ' active docs in reminder period');
 
       foreach ($dangerDocs as $doc)
       {
