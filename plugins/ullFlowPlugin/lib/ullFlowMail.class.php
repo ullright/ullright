@@ -47,10 +47,12 @@ class ullFlowMail extends ullsfMail
   public function getEditLink() 
   {
     //TODO: replace SERVER_NAME with a config param?
+    $serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : php_uname('n');
+    
     return 
       __('Link') .
       ': http://' . 
-      @$_SERVER['SERVER_NAME'] . 
+      $serverName . 
       '/ullFlow/edit/doc/' .
       $this->doc->id
     ;
