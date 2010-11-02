@@ -46,7 +46,8 @@ class ullFlowMail extends ullsfMail
    */
   public function getEditLink() 
   {
-    //TODO: replace SERVER_NAME with a config param?
+    //if SERVER_NAME is not available, use the local hostname
+    //TODO: introduce a config param?
     $serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : php_uname('n');
     
     return 
