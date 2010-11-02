@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class renders a date in a read only contex, respecting
+ * This class renders a date in a read only context, respecting
  * user culture in the process.
  * 
  * Options:

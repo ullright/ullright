@@ -9,7 +9,7 @@ class DueDateMailingTask extends ullBaseTask
     $this->briefDescription = 'Sends mails regarding due dates (reminders and overdue notifications)';
     $this->detailedDescription = <<<EOF
     The [{$this->name} task|INFO] sends mail to users regarding tickets
-    which are overdue or are in danger of due date expiration
+    which are overdue or are in danger of due date expiration.
     
     Call it with:
 
@@ -37,7 +37,7 @@ EOF;
 
     //read default culture from config and set it
     //so that mails are sent out in the correct language
-    //TODO: Mails should decide for themselves based on recipients set language
+    //TODO: Mails should decide for themselves based on recipient's set language
     $defaultCulture = sfConfig::get('sf_default_culture', 'en');
     sfContext::getInstance()->getUser()->setCulture($defaultCulture);
     //sfContext::getInstance()->getUser()->setCulture('de');
@@ -52,32 +52,6 @@ EOF;
   
     $ownerReminderMailCount = 0;
     $ownerOverdueMailCount = 0;
-
-    //send reminder mails
-    //only send them if the functionality is enabled, i.e. not 0
-    if ($reminderDays > 0)
-    {
-      $this->logSection('dueDate-mailing', "Reminder period is $reminderDays days");
-      $dangerDocs = UllFlowDocTable::findDueDateDangerDocs($reminderDays);
-      $this->logSection('ullFlowDocs', 'Found ' . count($dangerDocs) . ' docs in reminder period');
-
-      foreach ($dangerDocs as $doc)
-      {
-        //send reminder mail to ticket owner
-        if (!$doc['owner_due_reminder_sent'] === true)
-        {
-          $mail = new ullFlowMailDueDateReminderOwner($doc, null, $doc['due_date']);
-          $mail->send();
-          $doc['owner_due_reminder_sent'] = true;
-          $doc->save();
-          $ownerReminderMailCount++;
-        }
-      }
-    }
-    else
-    {
-      $this->logSection('dueDate-mailing', 'Reminder period is zero, not sending reminder mails');
-    }
     
     $overdueDocs = UllFlowDocTable::findOverdueDocs();
     $this->logSection('ullFlowDocs', 'Found ' . count($overdueDocs) . ' overdue docs');
@@ -94,6 +68,46 @@ EOF;
         $doc->save();
         $ownerOverdueMailCount++;
       }
+    }
+    
+    //send reminder mails
+    //only send them if the functionality is enabled, i.e. not 0
+    if ($reminderDays > 0)
+    {
+      $this->logSection('dueDate-mailing', "Reminder period is $reminderDays days");
+      $dangerDocs = UllFlowDocTable::findDueDateDangerDocs($reminderDays);
+      $this->logSection('ullFlowDocs', 'Found ' . count($dangerDocs) . ' docs in reminder period');
+
+      foreach ($dangerDocs as $doc)
+      {
+        //send reminder mail to ticket owner
+        if (!$doc['owner_due_reminder_sent'] === true)
+        {
+          if ($doc['owner_due_expiration_sent'] === false)
+          {
+            $mail = new ullFlowMailDueDateReminderOwner($doc, null, $doc['due_date']);
+            $mail->send();
+            $doc['owner_due_reminder_sent'] = true;
+            $doc->save();
+            $ownerReminderMailCount++;
+          }
+          else
+          {
+            //if an overdue notification has been sent an additional reminder mail
+            //makes no sense (most likely cause is that this task was not executed
+            //regularly)
+            $doc['owner_due_reminder_sent'] = true;
+            $doc->save();
+            
+            $this->logSection('dueDate-mailing', 'No reminder mail for id: ' . $doc['id'] .
+              ' - overdue mail has already been sent');
+          }
+        }
+      }
+    }
+    else
+    {
+      $this->logSection('dueDate-mailing', 'Reminder period is zero, not sending reminder mails');
     }
     
     $this->logSection('Summary', "Sent $ownerReminderMailCount reminder mails to owners");
