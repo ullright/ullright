@@ -32,7 +32,7 @@ all:
   #The following server name is used in situations where
   #a server name cannot be determined automatically, e.g.
   #when mailing from the command line
-  server_name: www.ull.at
+  server_name: www.ullright.org
 
   i18n:  
     supported_languages: [ 'de', 'en' ]

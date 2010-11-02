@@ -40,7 +40,7 @@ Trouble ticket: "My first trouble ticket" has been rejected.
 
 Comment: Mmmmhh, bacon!
 
-Link: http:///ullFlow/edit/doc/1
+Link: http://www.ullright.org/ullFlow/edit/doc/1
 
 Kind regards,
 Helpdesk User

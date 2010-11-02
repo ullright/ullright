@@ -34,7 +34,7 @@ $t->diag('prepare()');
 
 Please take care of Trouble ticket "My first trouble ticket".
 
-Link: http:///ullFlow/edit/doc/1
+Link: http://www.ullright.org/ullFlow/edit/doc/1
 
 Kind regards,
 Helpdesk User
