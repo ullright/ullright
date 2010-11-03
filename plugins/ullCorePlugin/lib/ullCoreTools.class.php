@@ -405,6 +405,36 @@ class ullCoreTools
     return $return;
   }
   
+  
+  /**
+   * Debug an invalid sfForm and dump the errors
+   * 
+   * @param sfForm $form
+   * @param boolean $return
+   * 
+   * @return string
+   */
+  public static function debugFormError(sfForm $form, $return = false)
+  {
+    $return = '';
+    
+    $return .= 'Form class: ' . get_class($form) . "\n";
+      
+    foreach ($form->getErrorSchema()->getErrors() as $error)
+    {
+      $return .= $error->getMessage() . "\n";
+    }    
+    
+    if ($return)
+    {
+      return $return;
+    }
+    else
+    {
+      var_dump($return);
+    }
+  }
+  
   /**
    * Prepares a value for export to csv format
    * 

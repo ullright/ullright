@@ -325,7 +325,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     if (!$this->filter_form->isValid())
     {
-      throw new RuntimeException('Filter form validation error');
+      throw new RuntimeException('Filter form validation error' . "\n" .
+        ullCoreTools::debugFormError($this->filter_form, true));
     }
     
     $this->ull_filter = new ullFilter();
