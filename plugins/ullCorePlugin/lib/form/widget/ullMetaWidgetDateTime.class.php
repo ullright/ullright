@@ -35,8 +35,8 @@ class ullMetaWidgetDateTime extends ullMetaWidget
       $dateOverdue = strtotime('today');
       $dateReminder = strtotime('+' . $reminderDays . ' day', strtotime('today'));
       $options = array('add_span_if_before' => array(
-        $dateReminder => 'ull_flow_reminder_date_color',
-        $dateOverdue => 'ull_flow_overdue_date_color',
+        $dateReminder => 'ull_widget_datetime_warning',
+        $dateOverdue => 'ull_widget_datetime_alert',
       ));
       
       $this->addWidget(new ullWidgetDateRead($options, $this->columnConfig->getWidgetAttributes()));

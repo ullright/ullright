@@ -815,3 +815,20 @@ table span.ull_widget_time {
 .ui-multiselect-checkboxes li input {
 	left: -4px !important;
 }
+
+
+/*
+ * ************************************************
+ *  ullWidgetDateTime
+ * ************************************************
+ */
+
+.ull_widget_datetime_warning {
+  border-left: 1.3em solid #ffaa00;
+  padding-left: .5em;
+}
+
+.ull_widget_datetime_alert {
+  border-left: 1.3em solid red;
+  padding-left: .5em;
+}
