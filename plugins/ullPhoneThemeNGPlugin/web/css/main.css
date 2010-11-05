@@ -81,15 +81,12 @@ a:visited {
 }
 
 
-.ull_orgchart_list_action_buttons_zoom{
-  margin: 1.1em 0 0em 1em;
+.ull_orgchart_list_action_buttons > .ull_orgchart_list_action_buttons_zoom{
+  margin: 1.1em 0 0em 2em;
 }
 
-.ull_orgchart_list_action_buttons ul.list_action_buttons li{
-  line-height: 0;
-}
-
-.ull_orgchart_list_action_buttons ul.list_action_buttons{
+.ull_orgchart_list_action_buttons > div{
+  margin: 1.1em 0 0em 0.8em;
 }
 
 #ull_orgchart_zoom_slider{

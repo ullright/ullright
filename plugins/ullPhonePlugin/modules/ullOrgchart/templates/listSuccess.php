@@ -1,15 +1,15 @@
 <?php echo $breadcrumb_tree ?>
 <div class="ull_orgchart_list_action_buttons no_print">
-    <ul class='list_action_buttons color_light_bg float_left'>
-        <li><?php echo ull_link_to(__('Reset', null, 'common'), 'ullOrgchart/list') ?></li>
+    
+        <div class="float_left"><?php echo ull_link_to(__('Reset', null, 'common'), 'ullOrgchart/list') ?></div>
         
-        <li>
+        <div class="float_left">
           <?php echo __('Number of displayed levels', null, 'ullOrgchartMessages') ?>:
           <?php echo ull_link_to('2', array('depth' => 2)) ?>  
           <?php echo ull_link_to('3', array('depth' => 3)) ?>
           <?php echo ull_link_to('4', array('depth' => 4)) ?>
           <?php echo ull_link_to(__('All', null, 'common'), array('depth' => 9999)) ?>
-        </li>
+        </div>
         
         
         <!--
@@ -20,7 +20,7 @@
                   array('alt' => 'search_list', 'class' => 'image_align_middle_no_border')) */?>     
         </li>
          -->
-    </ul>
+    
   <div class="ull_orgchart_list_action_buttons_zoom float_left"><?php echo __('Zoom', null, 'ullPhoneMessages') ?>:</div>
   <div class="float_left" id='ull_orgchart_zoom_slider'></div>
   </div>
@@ -46,7 +46,7 @@
       
 
       $(function() {
-        $("#ull_orgchart_zoom_slider").slider({min: 0.2, max: 1, step: 0.05, value: 0.8});
+        $("#ull_orgchart_zoom_slider").slider({min: 0.4, max: 1, step: 0.05, value: 0.8});
       });
       
       
