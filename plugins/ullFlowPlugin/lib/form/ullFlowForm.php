@@ -142,30 +142,26 @@ class ullFlowForm extends ullGeneratorForm
   {
     if (!$this->ullFlowAction->is_status_only)
     {
-      // Step One: try to get information about "next" from ullFlowActionHandler
-      $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
-      $handler = new $className($this);
-      $next = $handler->getNext();
-      
-      if (isset($next['entity'])) 
-      {
-        $this->object->UllEntity = $next['entity'];
-      }
-      
-      if (isset($next['step']))
-      {
-        $this->object->UllFlowStep = $next['step'];
-      }
-      
-      // Step Two: get information about "next" from rule script
+      // Step One: get information about "next" from rule script
+      // This is optional. The rule script can, but must not set the next
+      // entity or step.
       $className = 'ullFlowRule' . sfInflector::camelize($this->object->UllFlowApp->slug);
       $rule = new $className($this->object);
-      
       $next = $rule->getNext();
+
+      // Step two: if the rule script did not supply an entity or a step
+      // We use the default behaviour of the ullFlow action (e.g. "reopen")
+      if (!isset($next['entity']) || !isset($next['step']))
+      {
+        $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
+        $handler = new $className($this);
+        $next = array_merge($handler->getNext(), $next);
+      }
       
+      // Now update the object only for next parts which have been modified,
+      // otherwise leave them as they were
       if (isset($next['entity'])) 
       {
-        $next['entity']->comment = 'popo';
         $this->object->UllEntity = $next['entity'];
       }
       
@@ -173,6 +169,9 @@ class ullFlowForm extends ullGeneratorForm
       {
         $this->object->UllFlowStep = $next['step'];
       }
+      
+//      var_dump(ullCoreTools::debugArrayWithDoctrineRecords($next));
+      
     }
   }
 
