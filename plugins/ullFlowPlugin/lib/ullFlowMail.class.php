@@ -30,7 +30,7 @@ class ullFlowMail extends ullsfMail
   }
   
   /**
-   * get current user
+   * Get current user
    *
    * @return UllUser
    */
@@ -40,27 +40,12 @@ class ullFlowMail extends ullsfMail
   }
   
   /**
-   * builds and returns the URL to edit the current UllFlowDoc
+   * Builds and returns the URL to edit the current UllFlowDoc
    *
    * @return string edit URL
    */
   public function getEditLink() 
   {
-    $serverName = ullCoreTools::getServerName();
-    
-    if ($serverName === false)
-    {
-      throw new UnexpectedValueException(
-      	'Could not determine server name - please set \'server_name\' in app.yml');
-    }
-    
-    return 
-      __('Link') .
-      ': http://' . 
-      $serverName . 
-      '/ullFlow/edit/doc/' .
-      $this->doc->id
-    ;
+    return __('Link') .  ': ' . url_for('ullFlow/edit?doc=' . $this->doc->id, true);
   }
-  
 }

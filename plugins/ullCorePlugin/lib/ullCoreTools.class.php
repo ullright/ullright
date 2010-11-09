@@ -561,18 +561,20 @@ class ullCoreTools
   /**
    * Returns the server name this code is executing on.
    * If $_SERVER['SERVER_NAME'] is not available, 'server_name'
-   * from app.yml is read. If it is not set, false is returned.
+   * from app.yml is read. If it is not set, an exception is thrown
    * 
-   * @return string current server name or false if not available
+   * @return string the current server name
    */
   public static function getServerName()
   {
-    $serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : false;
-    
     //if $_SERVER['SERVER_NAME'] is not available, try to read app.yml
-    if ($serverName === false)
+    $serverName = isset($_SERVER['SERVER_NAME']) ?
+      $_SERVER['SERVER_NAME'] : sfConfig::get('app_server_name');
+    
+    if ($serverName === null)
     {
-      $serverName = sfConfig::get('app_server_name', false);
+      throw new UnexpectedValueException(
+      	'Could not determine server name - please set \'server_name\' in app.yml');
     }
     
     return $serverName;
