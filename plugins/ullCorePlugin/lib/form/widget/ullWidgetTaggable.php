@@ -13,7 +13,6 @@ class ullWidgetTaggable extends ullWidget
   {
     $html = '';
     $html .= $this->renderTag('input', array_merge(array('type' => 'text', 'name' => $name, 'value' => $value), $attributes));
-
     $tags_pop = TagTable::getPopulars();
 
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Tags', 'I18N', 'ull'));
@@ -21,8 +20,6 @@ class ullWidgetTaggable extends ullWidget
     $id = $this->generateId($name);
     $html .= tag_cloud($tags_pop, 'addTag("%s","' . $id . '")', array('link_function' => 'link_to_function'));
     $html .= ull_js_add_tag();
-    
-    var_dump($html);
     
     return $html;
   }
