@@ -36,7 +36,7 @@ $t->begin('edit of a single booking');
   $booking->save();
   
   $bookings = Doctrine::getTable('UllBooking')->findAll();
-  $t->is(count($bookings), 2, 'amount of bookings has not changed');
+  $t->is(count($bookings), 5, 'amount of bookings has not changed');
 
 //test invalid (overlapping) edit of a single booking
 $t->diag('invalid edit of a single booking');

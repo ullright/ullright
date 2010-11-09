@@ -16,6 +16,11 @@ sfContext::createInstance($configuration);
 //test invalid combination of duration and recurrence period
 $t->begin('createRecurringBooking() with invalid combination of duration and recurrence period');
 
+  //delete all existing bookings
+  $q = new Doctrine_Query();
+  $q->delete('UllBooking')->execute();
+
+  //and create a new one
   $booking = new UllBooking();
   $booking->name = 'TestBooking';
   $booking->ull_booking_resource_id = 2;
