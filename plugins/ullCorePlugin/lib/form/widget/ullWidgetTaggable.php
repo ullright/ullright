@@ -22,6 +22,8 @@ class ullWidgetTaggable extends ullWidget
     $html .= tag_cloud($tags_pop, 'addTag("%s","' . $id . '")', array('link_function' => 'link_to_function'));
     $html .= ull_js_add_tag();
     
+    var_dump($html);
+    
     return $html;
   }
 
