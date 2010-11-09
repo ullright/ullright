@@ -30,9 +30,11 @@
 
 <?php echo $tree ?>
 
-<?php
-      use_stylesheet('/ullCorePlugin/css/jqui/jquery-ui.css', 'last');
-      
+</div>
+
+<?php use_stylesheet('/ullCorePlugin/css/jqui/jquery-ui.css', 'last'); ?>
+
+<?php       
       echo javascript_tag('
       
       $("#ull_orgchart_zoom_slider").slider({

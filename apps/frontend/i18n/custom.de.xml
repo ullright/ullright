@@ -18,6 +18,12 @@
   
 -->
 
+
+<trans-unit id="14">
+<source>License information</source>
+<target>Lizenzinformation</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
