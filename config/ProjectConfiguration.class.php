@@ -11,6 +11,16 @@ class ProjectConfiguration extends sfProjectConfiguration
   {
     $this->enableAllPluginsExcept('sfPropelPlugin');
     
-    $this->enablePluginTests(array('ullMailPlugin'));
+    $this->enablePluginTests(array(
+      'ullBookingPlugin',
+      'ullCmsPlugin', 
+      'ullCorePlugin', 
+      'ullFlowPlugin', 
+      'ullMailPlugin', 
+      'ullPhonePlugin',
+      'ullTimePlugin',
+      'ullVentoryPlugin', 
+      'ullWikiPlugin'
+    ));
   }
 }
