@@ -8,7 +8,9 @@ class myTestCase extends sfDoctrineTestCase
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
-sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull', 'I18N'));
+
+ullCoreTools::fixRoutingForAbsoluteURLS();
 
 $t = new myTestCase(4, new lime_output_color, $configuration);
 $path = dirname(__FILE__);

@@ -579,4 +579,31 @@ class ullCoreTools
     
     return $serverName;
   }
+  
+  /**
+   * Patches the routing system so that it generates valid absolute urls.
+   * Subsequently url helpers (e.g. url_for) are fixed as well.
+   * 
+   * Before: http:///symfony/ullFlow/edit/doc/1
+   * After:  http://www.ullright.org/ullFlow/edit/doc/1
+   * 
+   * See also ullCoreTools::getServerName().
+   * 
+   * @param sfContext $context a valid initialized sfContext instance or null
+   */
+  public static function fixRoutingForAbsoluteURLS(sfContext $context = null)
+  {
+    //if no context was given, retrieve the default one
+    if ($context === null)
+    {
+      $context = sfContext::getInstance();
+    }
+    
+    $routing = $context->getRouting(); 
+    $routingOptions = $routing->getOptions();
+    $routingOptions['logging'] = false;
+    $routingOptions['context']['prefix'] = null;
+    $routingOptions['context']['host'] = ullCoreTools::getServerName();
+    $routing->initialize(new sfEventDispatcher(), $routing->getCache(), $routingOptions);
+  }
 }
