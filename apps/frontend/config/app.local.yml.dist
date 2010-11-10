@@ -1,0 +1,12 @@
+#Remove .dist extension to enable app.yml override
+#Usually used by developers to apply local settings for their dev environment (e.g. mailing)
+
+all:
+  mailing:
+    mailer:         sendmail #or smtp
+    #smtp_hostname: localhost
+    #smtp_port:     25
+    #smtp_username:  
+    #smtp_passwort:  
+    
+    debug_address:  dev@example.com
