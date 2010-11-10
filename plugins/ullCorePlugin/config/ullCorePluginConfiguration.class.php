@@ -16,6 +16,8 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
+    $this->loadLocalConfig();
+    
     $manager = Doctrine_Manager::getInstance();
     
     //enable Doctrine cache
@@ -47,6 +49,24 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     $this->detectMobileDevice();
   }
 
+  /**
+   * Loads a local configuration file (config/app.local.yml) if it exists.
+   * Values set there override the ones in config/app.yml.
+   */
+  protected function loadLocalConfig()
+  {
+    $config = sfApplicationConfiguration::getActive();
+    //initially, $config is actually a project config
+    if ($config instanceof sfApplicationConfiguration)
+    {
+      $localConfigPath = $config->getConfigCache()->checkConfig('config/app.local.yml', true);
+      if ($localConfigPath != null)
+      {
+        require($localConfigPath);
+      }
+    }
+  }
+  
   /**
    * Create cache dir tree for HTML Purifier if not already available
    */

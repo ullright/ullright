@@ -1,0 +1,4 @@
+config/app.local.yml:
+  class: sfDefineEnvironmentConfigHandler
+  param:
+    prefix: app_
