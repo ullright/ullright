@@ -60,7 +60,7 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     if ($config instanceof sfApplicationConfiguration)
     {
       $localConfigPath = $config->getConfigCache()->checkConfig('config/app.local.yml', true);
-      if ($localConfigPath != null)
+      if ($localConfigPath !== null)
       {
         require($localConfigPath);
       }
