@@ -1,39 +1,85 @@
-Index: lib/config/sfProjectConfiguration.class.php
+Index: lib/vendor/symfony/lib/config/sfProjectConfiguration.class.php
 ===================================================================
---- lib/config/sfProjectConfiguration.class.php	(revision 2324)
-+++ lib/config/sfProjectConfiguration.class.php	(working copy)
-@@ -26,6 +26,7 @@
+--- lib/vendor/symfony/lib/config/sfProjectConfiguration.class.php	(revision 2317)
++++ lib/vendor/symfony/lib/config/sfProjectConfiguration.class.php	(revision 2343)
+@@ -24,8 +24,10 @@
+     $dispatcher            = null,
+     $plugins               = array(),
      $pluginPaths           = array(),
++    $pluginPathsWithKeys   = array(),
      $overriddenPluginPaths = array(),
      $pluginConfigurations  = array(),
-+    $testedPlugins        = array(),
++    $testedPlugins         = array(),
      $pluginsLoaded         = false;
  
    static protected
-@@ -424,11 +425,11 @@
+@@ -319,6 +321,7 @@
+     $this->plugins = $plugins;
  
-     $this->pluginPaths[$subPath] = array();
-     $pluginPaths = $this->getPluginPaths();
--    foreach ($pluginPaths as $pluginPath)
-+    foreach ($pluginPaths as $plugin => $pluginPath)
-     {
-       if (is_dir($pluginPath.$subPath))
-       {
--        $this->pluginPaths[$subPath][] = $pluginPath.$subPath;
-+        $this->pluginPaths[$subPath][$plugin] = $pluginPath.$subPath;
-       }
+     $this->pluginPaths = array();
++    $this->pluginPathsWithKeys = array();
+   }
+ 
+   /**
+@@ -375,6 +378,7 @@
      }
  
-@@ -453,7 +454,7 @@
+     $this->pluginPaths = array();
++    $this->pluginPathsWithKeys = array();
+   }
+ 
+   /**
+@@ -437,23 +441,36 @@
+ 
+   /**
+    * Gets the paths to plugins root directories, minding overloaded plugins.
++   * Can return an associative array with plugin names as keys if needed.
+    *
++   * @param boolean $withKeys sets plugin names as keys if true, sets no keys otherwise
++   * 
+    * @return array The plugin root paths.
+    *
+    * @throws InvalidArgumentException If an enabled plugin does not exist
+    */
+-  public function getPluginPaths()
++  public function getPluginPaths($withKeys = false)
+   {
+-    if (!isset($this->pluginPaths['']))
++    $arrayName = ($withKeys) ? 'pluginPathsWithKeys' : 'pluginPaths';
++    $pathArray = &$this->$arrayName;
++    
++    if (!isset($pathArray['']))
+     {
+       $pluginPaths = $this->getAllPluginPaths();
+ 
+-      $this->pluginPaths[''] = array();
++      $pathArray[''] = array();
+       foreach ($this->getPlugins() as $plugin)
        {
          if (isset($pluginPaths[$plugin]))
          {
 -          $this->pluginPaths[''][] = $pluginPaths[$plugin];
-+          $this->pluginPaths[''][$plugin] = $pluginPaths[$plugin];
++          if ($withKeys)
++          {
++            $pathArray[''][$plugin] = $pluginPaths[$plugin];
++          }
++          else
++          {
++            $pathArray[''][] = $pluginPaths[$plugin];
++          }
          }
          else
          {
-@@ -632,4 +633,29 @@
+@@ -462,7 +479,7 @@
+       }
+     }
+ 
+-    return $this->pluginPaths[''];
++    return $pathArray[''];
+   }
+ 
+   /**
+@@ -632,4 +649,29 @@
  
      return $event->getReturnValue();
    }
@@ -64,10 +110,10 @@ Index: lib/config/sfProjectConfiguration.class.php
 +  
  }
 \ No newline at end of file
-Index: lib/task/test/sfTestAllTask.class.php
+Index: lib/vendor/symfony/lib/task/test/sfTestAllTask.class.php
 ===================================================================
---- lib/task/test/sfTestAllTask.class.php	(revision 2324)
-+++ lib/task/test/sfTestAllTask.class.php	(working copy)
+--- lib/vendor/symfony/lib/task/test/sfTestAllTask.class.php	(revision 2324)
++++ lib/vendor/symfony/lib/task/test/sfTestAllTask.class.php	(working copy)
 @@ -26,6 +26,8 @@
      $this->addOptions(array(
        new sfCommandOption('only-failed', 'f', sfCommandOption::PARAMETER_NONE, 'Only run tests that failed last time'),
@@ -105,10 +151,10 @@ Index: lib/task/test/sfTestAllTask.class.php
      }
  
      $ret = $h->run() ? 0 : 1;
-Index: lib/task/test/sfTestBaseTask.class.php
+Index: lib/vendor/symfony/lib/task/test/sfTestBaseTask.class.php
 ===================================================================
---- lib/task/test/sfTestBaseTask.class.php	(revision 2324)
-+++ lib/task/test/sfTestBaseTask.class.php	(working copy)
+--- lib/vendor/symfony/lib/task/test/sfTestBaseTask.class.php	(revision 2317)
++++ lib/vendor/symfony/lib/task/test/sfTestBaseTask.class.php	(revision 2343)
 @@ -3,6 +3,7 @@
  /*
   * This file is part of the symfony package.
@@ -117,10 +163,11 @@ Index: lib/task/test/sfTestBaseTask.class.php
   * 
   * For the full copyright and license information, please view the LICENSE
   * file that was distributed with this source code.
-@@ -35,4 +36,90 @@
+@@ -35,4 +36,89 @@
  
      return $event->getReturnValue();
    }
+-}
 +  
 +  /**
 +   * Returns the test base directories of the project and plugins.
@@ -165,7 +212,7 @@ Index: lib/task/test/sfTestBaseTask.class.php
 +      // test all plugins
 +      if (!$options['no-plugins'])
 +      {
-+        foreach ($this->getPluginPaths() as $plugin => $path)
++        foreach ($this->getPluginPaths(true) as $plugin => $path)
 +        {
 +          $baseDirs[] = $path . $subDirectory;
 +        }
@@ -184,7 +231,7 @@ Index: lib/task/test/sfTestBaseTask.class.php
 +   */
 +  private function getPluginPaths($enabledOnly=true)
 +  {
-+    $pluginPaths = $this->configuration->getPluginPaths();
++    $pluginPaths = $this->configuration->getPluginPaths(true);
 +    
 +    if ($enabledOnly)
 +    {
@@ -205,13 +252,13 @@ Index: lib/task/test/sfTestBaseTask.class.php
 +    }
 +    
 +    return $pluginPaths;
-+  }
-+  
- }
-Index: lib/task/test/sfTestFunctionalTask.class.php
++  }  
++}
+\ No newline at end of file
+Index: lib/vendor/symfony/lib/task/test/sfTestFunctionalTask.class.php
 ===================================================================
---- lib/task/test/sfTestFunctionalTask.class.php	(revision 2324)
-+++ lib/task/test/sfTestFunctionalTask.class.php	(working copy)
+--- lib/vendor/symfony/lib/task/test/sfTestFunctionalTask.class.php	(revision 2324)
++++ lib/vendor/symfony/lib/task/test/sfTestFunctionalTask.class.php	(working copy)
 @@ -24,7 +24,7 @@
    protected function configure()
    {
@@ -284,10 +331,10 @@ Index: lib/task/test/sfTestFunctionalTask.class.php
  
        $ret = $h->run() ? 0 : 1;
  
-Index: lib/task/test/sfTestUnitTask.class.php
+Index: lib/vendor/symfony/lib/task/test/sfTestUnitTask.class.php
 ===================================================================
---- lib/task/test/sfTestUnitTask.class.php	(revision 2324)
-+++ lib/task/test/sfTestUnitTask.class.php	(working copy)
+--- lib/vendor/symfony/lib/task/test/sfTestUnitTask.class.php	(revision 2324)
++++ lib/vendor/symfony/lib/task/test/sfTestUnitTask.class.php	(working copy)
 @@ -29,6 +29,8 @@
  
      $this->addOptions(array(
