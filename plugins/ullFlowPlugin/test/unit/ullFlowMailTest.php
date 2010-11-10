@@ -35,7 +35,7 @@ $t->begin('__construct');
   
 $t->diag('getEditLink()');
 
-  $t->is($mail->getEditLink(), 'Link: http://www.ullright.org/ullFlow/edit/doc/1', 'returns the correct URL');
+  $t->is($mail->getEditLink(), 'Link: http://www.example.com/ullFlow/edit/doc/1', 'returns the correct URL');
   
   
   

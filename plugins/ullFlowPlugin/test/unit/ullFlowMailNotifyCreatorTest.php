@@ -38,7 +38,7 @@ Trouble ticket "My first trouble ticket" has been created.
 Kind regards,
 Master Admin
 
-Link: http://www.ullright.org/ullFlow/edit/doc/1
+Link: http://www.example.com/ullFlow/edit/doc/1
 ';
   
   $t->is($mail->getBody(), $reference, 'creates the correct body');
