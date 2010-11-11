@@ -52,6 +52,7 @@ EOF;
    */
   protected function pinToRevision($revision)
   {
+    /* Plugins */
     $externals = $this->getSvnExternalsProperty(sfConfig::get('sf_plugins_dir'));
     
     $externals = preg_replace('#( -r[\d]+)#', '', $externals);
@@ -63,16 +64,34 @@ EOF;
 //    var_dump($matches);
 
     $this->putSvnExternalsProperty($externals, sfConfig::get('sf_plugins_dir'));
+    
+    /* Symfony lib */
+    $path = sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR . 'vendor';
+    $externals = $this->getSvnExternalsProperty($path);
+    
+    $externals = preg_replace('#( -r[\d]+)#', '', $externals);
+    $externals = preg_replace('#(http://bigfish.ull.at/svn/ullright/[\S]+)#m', '-r' . $revision . ' $1', $externals);
+
+    $this->putSvnExternalsProperty($externals, $path);    
   }
   
   
   protected function pinToHeadRevision()
   {
+    /* Plugins */
     $externals = $this->getSvnExternalsProperty(sfConfig::get('sf_plugins_dir'));
     
     $externals = preg_replace('#( -r[\d]+)#', '', $externals);
 
-    $this->putSvnExternalsProperty($externals, sfConfig::get('sf_plugins_dir'));    
+    $this->putSvnExternalsProperty($externals, sfConfig::get('sf_plugins_dir'));  
+
+    /* Symfony lib */
+    $path = sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR . 'vendor';
+    $externals = $this->getSvnExternalsProperty($path);
+    
+    $externals = preg_replace('#( -r[\d]+)#', '', $externals);
+
+    $this->putSvnExternalsProperty($externals, $path);      
   }
   
   
