@@ -213,6 +213,11 @@
         <source>Kind regards</source>
         <target>Mit freundlichen Grüßen</target>
       </trans-unit>
+      
+      <trans-unit id="210">
+        <source>Done, assign to creator for review</source>
+        <target>Erledigt, zur Abnahme an Ersteller zuweisen</target>
+      </trans-unit>      
     </body>
   </file>
 </xliff>
