@@ -23,7 +23,7 @@ $t->diag('__construct()');
   
 $t->diag('render()');
     
-  $reference = '<input type="submit" name="submit|action_slug=done_return" value="Done, assign to creator for review" />';
+  $reference = '<input type="submit" name="submit|action_slug=done_review" value="Done, assign to creator for review" />';
   $t->is($handler->render(), $reference, 'returns the correct html code');
   
 //TODO: test getNext()  
