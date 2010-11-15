@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull', 'I18N'));
 
-ullCoreTools::fixRoutingForAbsoluteURLS();
+ullCoreTools::fixRoutingForAbsoluteUrls();
 
 $t = new myTestCase(4, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
