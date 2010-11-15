@@ -111,6 +111,8 @@ UllUser:
     is_superior:
       type: boolean
       default: false
+    selected_culture:
+      type: string(2) # following the ISO 639-1 standard
   
   relations:
     UllGroup:

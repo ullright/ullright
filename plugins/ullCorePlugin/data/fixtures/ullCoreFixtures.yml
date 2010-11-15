@@ -25,6 +25,7 @@ UllUser:
     ull_employment_type_id: 1
     ull_user_status_id:     1
     photo:              admin.png
+    selected_culture:   'en'
     creator_user_id:    1               # integer since the adminuser isn't created yet
     updator_user_id:    1               # integer since the adminuser isn't created yet
     namespace:          ullCore
@@ -48,7 +49,8 @@ UllUser:
     is_show_extension_in_phonebook: false
     fax_extension:      4444
     mobile_number:      +43 664 55556666
-    is_show_mobile_number_in_phonebook: true    
+    is_show_mobile_number_in_phonebook: true
+    selected_culture:   'en' 
     namespace:          test
     
 UllCloneUser:

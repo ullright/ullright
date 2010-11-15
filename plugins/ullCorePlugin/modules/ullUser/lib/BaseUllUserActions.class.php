@@ -470,8 +470,18 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   public function executeChangeCulture(sfRequest $request)
   {
     $this->getUriMemory()->setReferer();
-        
+
+    //TODO: shouldn't we match against app_i18n_supported_languages here?
+    
+    //set the culture for the user object (which is always available)
     $this->getUser()->setCulture($request->getParameter('culture'));
+    
+    //and set it in the user's record (only available if a user is logged-in)
+    if (($user = UllUserTable::findLoggedInUser()) !== false)
+    {
+      $user['selected_culture'] = $request->getParameter('culture');
+      $user->save();
+    }
     
     // the following flag is used by the i18n filter to detect manual setting of culture
     $this->getUser()->setAttribute('is_culture_set_by_user', true);
@@ -674,6 +684,14 @@ class BaseUllUserActions extends BaseUllGeneratorActions
             {
               $this->getUser()->setAttribute('user_id', $user->getId());      
 
+              //if the user has a set culture, use it
+              if ($user['selected_culture'] !== null)
+              {
+                $this->getUser()->setCulture($user['selected_culture']);
+                //tell the i18n filter that we already have a culture available
+                $this->getUser()->setAttribute('is_culture_set_by_user', true);
+              }
+              
               // Restore original POST request values and forward
               if ($originalRequestParams = $this->form->getValue('original_request_params'))
               {
