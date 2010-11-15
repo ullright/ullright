@@ -582,16 +582,17 @@ class ullCoreTools
   
   /**
    * Patches the routing system so that it generates valid absolute urls.
-   * Subsequently url helpers (e.g. url_for) are fixed as well.
+   * This results in fixed url helpers, which are needed e.g. when
+   * using url_for in mails sent from cli tasks.
    * 
    * Before: http:///symfony/ullFlow/edit/doc/1
-   * After:  http://www.ullright.org/ullFlow/edit/doc/1
+   * After:  http://www.example.com/ullFlow/edit/doc/1
    * 
    * See also ullCoreTools::getServerName().
    * 
    * @param sfContext $context a valid initialized sfContext instance or null
    */
-  public static function fixRoutingForAbsoluteURLS(sfContext $context = null)
+  public static function fixRoutingForAbsoluteUrls(sfContext $context = null)
   {
     //if no context was given, retrieve the default one
     if ($context === null)
