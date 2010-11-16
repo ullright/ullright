@@ -96,6 +96,10 @@ $t->diag('hasPermission()');
   $groupPermission->UllGroup = Doctrine::getTable('UllGroup')->findOneByDisplayName('Everyone');
   $groupPermission->save();
   
+  //clean the cache so that changes apply
+  $cache = Doctrine_Manager::getInstance()->getAttribute(Doctrine_Core::ATTR_RESULT_CACHE);
+  $cache->deleteAll();
+  
   $t->is(
     UllUserTable::hasPermission('ull_foo_show'),
     true,
@@ -112,6 +116,9 @@ $t->diag('hasPermission()');
   
   $groupPermission->UllGroup = Doctrine::getTable('UllGroup')->findOneByDisplayName('Logged in users');
   $groupPermission->save();
+  
+  //clean the cache again
+  $cache->deleteAll();
   
   $t->is(
     UllUserTable::hasPermission('ull_foo_show'),

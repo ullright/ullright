@@ -6,11 +6,14 @@ class PluginUllUserTable extends UllEntityTable
 {
 
   /**
-   * check if a user is member of a group
+   * Check if a user is member of a group.
    * 
-   * special handling for 'LoggedIn': returns true if the user is logged in
+   * Special handling for 'LoggedIn': returns true if the user is logged in
    *
-   * @param mixed $group      group_id, group name or array of group ids/names (not mixed!)
+   * This method uses the Doctrine result cache since repeated calling
+   * is a possibility.
+   * 
+   * @param mixed $group group_id, group name or array of group ids/names (not mixed!)
    * @param integer $userId  
    * @return boolean
    */
@@ -39,6 +42,7 @@ class PluginUllUserTable extends UllEntityTable
       $q
         ->from('UllUser u, u.UllGroup g')
         ->where('u.id = ?', $userId)
+        ->useResultCache(true)
       ;
   
       if (!is_array($group))
@@ -74,9 +78,12 @@ class PluginUllUserTable extends UllEntityTable
   }
 
   /**
-   * check if a user has a certain permission
+   * Check if a user has a certain permission.
    * 
-   * @param string $permission
+   * This method uses the Doctrine result cache since repeated calling
+   * is a possibility.
+   * 
+   * @param string $permission the slug of the permission
    * @param integer $userId
    * @return boolean
    */
@@ -93,7 +100,8 @@ class PluginUllUserTable extends UllEntityTable
     $q
       ->from('UllGroupPermission gp, gp.UllPermission p, gp.UllGroup g')
       ->addWhere('p.slug = ?', $permission)
-      ->addWhere('g.display_name = ?', 'Everyone')      
+      ->addWhere('g.display_name = ?', 'Everyone')
+      ->useResultCache(true)
     ;
     
     if ($q->count())
@@ -114,7 +122,8 @@ class PluginUllUserTable extends UllEntityTable
     $q
       ->from('UllUser u, u.UllGroup g, g.UllPermissions p')
       ->where('u.id = ?', $userId)
-      ->addWhere('p.slug = ?', $permission)      
+      ->addWhere('p.slug = ?', $permission)
+      ->useResultCache(true)
     ;
     
     if ($q->count())
@@ -127,7 +136,8 @@ class PluginUllUserTable extends UllEntityTable
     $q
       ->from('UllGroupPermission gp, gp.UllPermission p, gp.UllGroup g')
       ->addWhere('p.slug = ?', $permission)
-      ->addWhere('g.display_name = ?', 'Logged in users')      
+      ->addWhere('g.display_name = ?', 'Logged in users')
+      ->useResultCache(true)
     ;
     
     if ($q->count() && $userId)
@@ -139,8 +149,7 @@ class PluginUllUserTable extends UllEntityTable
     if (self::hasGroup('MasterAdmins', $userId))
     {
       return true;
-    }      
-
+    }
   }  
   
   /**
