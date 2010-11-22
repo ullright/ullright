@@ -1,0 +1,9 @@
+# Global rsync exclude
+# Common settings for the generic ullright go here
+# Custom additions go into (root)/config/rsync_exclude.txt
+
+.svn
+/apps/frontend/config/app.local.yml
+/cache/*
+/log/*
+/web/uploads/* 
