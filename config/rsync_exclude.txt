@@ -1,5 +1,4 @@
-.svn
-/web/uploads/*
-/cache/*
-/log/*
-/apps/frontend/config/app.local.yml
+# Custom rsync exclude file for files not to publish to the production server
+
+# Example:
+# /web/my_folder
