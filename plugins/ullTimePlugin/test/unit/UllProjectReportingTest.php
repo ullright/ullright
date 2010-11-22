@@ -11,7 +11,7 @@ sfContext::createInstance($configuration);
 
 sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
 
-$t = new myTestCase(5, new lime_output_color, $configuration);
+$t = new myTestCase(2, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
