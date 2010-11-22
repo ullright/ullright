@@ -608,11 +608,15 @@ class ullCoreTools
     $routing->initialize(new sfEventDispatcher(), $routing->getCache(), $routingOptions);
   }
   
+  /**
+   * Returns a regular expression which covers most
+   * 'western' first and last names.
+   */
   public static function getRegexForNames()
   {
-    // u modifier at the end is very important!
-    //unicode characters from 00c0 to 01ff are allowed, which
-    //i guess covers most european/american names
+    //the 'u' modifier at the end is very important!
+    //unicode characters from 00c0 to 01ff are allowed,
+    //they cover most european/american names
     //in addition, ' - . , are allowed
     
     return '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-\.\,])+$/u';
