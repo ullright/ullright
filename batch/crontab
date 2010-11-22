@@ -7,8 +7,8 @@
 
 
 # m h dom mon dow user  command
-5 4 * * *  php /path/to/your/ullright/symfony ullright:user-deactivation > /dev/null
-10 4 * * *  php /path/to/your/ullright/symfony ull_flow:due_date-mailing > /dev/null
+5 4 * * *  php /path/to/your/ullright/symfony ullright:user-deactivation frontend prod > /dev/null
+10 4 * * *  php /path/to/your/ullright/symfony ull_flow:due_date-mailing frontend prod > /dev/null
 
 
 
