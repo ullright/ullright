@@ -35,7 +35,7 @@ EOF;
     sfContext::createInstance($configuration);
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull', 'I18N'));
     
-    ullCoreTools::fixRoutingForAbsoluteUrls();
+    ullCoreTools::fixRoutingForCliAbsoluteUrls();
     
     //read default culture from config and set it
     //so that mails are sent out in the correct language

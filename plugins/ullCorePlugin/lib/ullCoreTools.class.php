@@ -592,7 +592,7 @@ class ullCoreTools
    * 
    * @param sfContext $context a valid initialized sfContext instance or null
    */
-  public static function fixRoutingForAbsoluteUrls(sfContext $context = null)
+  public static function fixRoutingForCliAbsoluteUrls(sfContext $context = null)
   {
     //if no context was given, retrieve the default one
     if ($context === null)
@@ -606,5 +606,15 @@ class ullCoreTools
     $routingOptions['context']['prefix'] = null;
     $routingOptions['context']['host'] = ullCoreTools::getServerName();
     $routing->initialize(new sfEventDispatcher(), $routing->getCache(), $routingOptions);
+  }
+  
+  public static function getRegexForNames()
+  {
+    // u modifier at the end is very important!
+    //unicode characters from 00c0 to 01ff are allowed, which
+    //i guess covers most european/american names
+    //in addition, ' - . , are allowed
+    
+    return '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-\.\,])+$/u';
   }
 }
