@@ -92,7 +92,7 @@ EOF;
     
     $command = 'rsync -az --delete --stats ' .
       '--exclude-from=' . sfConfig::get('sf_config_dir') . '/rsync_exclude.txt ' .
-      '--exclude-from=' . sfConfig::get('sf_plugin_dir') . '/ullCorePlugin/config/rsync_exclude.txt ' .
+      '--exclude-from=' . sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/config/rsync_exclude.txt ' .
       sfConfig::get('sf_root_dir') . '/' .
       ' ' .
       $this->targetUserName . '@' . $this->targetServerName .  ':' . $this->targetDir . '/'
