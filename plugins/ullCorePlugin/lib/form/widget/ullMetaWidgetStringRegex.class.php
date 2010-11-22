@@ -1,18 +1,14 @@
 <?php
+
 /**
- * ullMetaWidgetString 
+ * This class represents a string the same way ullMetaWidgetString
+ * does, but validates it with a given regular expression using
+ * sfValidatorRegex.
  * 
- * Used for strings
+ * Note: The validation option 'pattern' is mandatory.
  */
-class ullMetaWidgetString extends ullMetaWidget
+class ullMetaWidgetStringRegex extends ullMetaWidgetString
 {
-  
-  protected function configureReadMode()
-  {
-    $this->addWidget(new ullWidget($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
-    $this->addValidator(new sfValidatorPass());
-  }
-  
   protected function configureWriteMode()
   {
     if (!$this->columnConfig->getWidgetAttribute('size'))
@@ -20,7 +16,7 @@ class ullMetaWidgetString extends ullMetaWidget
       $this->columnConfig->setWidgetAttribute('size', '40');
     }
     
-    $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions())); 
+    $this->addValidator(new sfValidatorRegex($this->columnConfig->getValidatorOptions())); 
 
     //disable injection of identifier because sfWidgetFormInput can't handle it
     $this->columnConfig->setInjectIdentifier(false);

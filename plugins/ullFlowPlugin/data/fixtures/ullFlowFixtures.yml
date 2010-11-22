@@ -164,7 +164,6 @@ UllFlowColumnConfig:
     UllColumnType:  string
     is_mandatory:   true
     is_subject:     true
-    options:        disablePurification=true
     namespace:      test
     
 #  ull_flow_column_config_trouble_ticket_date:
@@ -282,7 +281,6 @@ UllFlowColumnConfig:
     UllColumnType:  string
     is_mandatory:   true
     is_subject:     true
-    options:        disablePurification=true
     namespace:      test
     
   ull_flow_column_config_todo_column_priority:

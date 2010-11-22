@@ -55,7 +55,8 @@ class ullWidget extends sfWidgetForm
   {
     $value = $this->handleSuffixOption($value);
     
-    // why do escaping in the widget?!?
+    //widgets have to escape their output because sfForm
+    //is exempted from output escaping
     $value = esc_entities($value);
     
     $value = $this->handleNowrapOption($value);

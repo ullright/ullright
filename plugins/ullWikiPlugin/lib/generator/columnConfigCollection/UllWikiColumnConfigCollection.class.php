@@ -35,8 +35,6 @@ class UllWikiColumnConfigCollection extends ullColumnConfigCollection
     
     if ($this->isCreateOrEditAction())
     {
-      $this['subject']->setWidgetOption('disablePurification', true);
-      
       $this->disable(array('id', 'updator_user_id', 'updated_at'));
     }    
 

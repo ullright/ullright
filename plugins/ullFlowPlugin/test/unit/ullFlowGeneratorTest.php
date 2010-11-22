@@ -13,7 +13,6 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('My custom subject label');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setIsInList(false);
-    $columnConfig->setWidgetOption('disablePurification', true);
     $this->columnsConfigMock['my_subject'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_information_update');

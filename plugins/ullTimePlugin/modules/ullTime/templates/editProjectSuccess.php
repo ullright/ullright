@@ -39,14 +39,9 @@
         <?php endif; ?>
       </td>
       
-      <?php // special handling for comment -> decode for usable link ?>
-      <?php foreach ($list_generator->getAutoRenderedColumns() as $column_name => $column_config): ?>
+     <?php foreach ($list_generator->getAutoRenderedColumns() as $column_name => $column_config): ?>
         <td>
-          <?php if ($column_name == 'comment'): ?>
-            <?php echo ullCoreTools::esc_decode($form[$column_name]) ?>
-          <?php else: ?>
-            <?php echo $form[$column_name] ?>
-          <?php endif ?>
+          <?php echo $form[$column_name] ?>
         </td>
       <?php endforeach ?>
       

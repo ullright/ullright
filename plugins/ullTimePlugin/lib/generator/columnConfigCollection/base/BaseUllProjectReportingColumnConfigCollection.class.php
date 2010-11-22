@@ -38,7 +38,8 @@ class BaseUllProjectReportingColumnConfigCollection extends ullColumnConfigColle
       ->setValidatorOption('allow_zero_duration', false)
     ;
     $this['comment']
-      ->setMetaWidgetClassName('ullMetaWidgetString')
+      ->setMetaWidgetClassName('ullMetaWidgetUllProjectReportingComment')
+      ->setInjectIdentifier(true)
     ;
     $this['week']->disable();
     $this['created_at']->disable();

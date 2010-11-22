@@ -17,39 +17,4 @@ abstract class PluginUllProjectReporting extends BaseUllProjectReporting
   {
     $this->week = date('YW', strtotime($this->date)); 
   }
-
-  
-  /**
-   * Get string representation for linked models
-   * 
-   * @return string
-   */
-  
-  // An argument with the value true is given per default. Why?
-  public function getComment()
-  {
-    if ($this->linked_id)
-    {
-      $model = Doctrine::getTable($this->linked_model)->findOneById($this->linked_id);
-      
-      $return = '<a href="' . url_for($model->getEditUri()) . '">' .
-        $model . '</a>';
-        
-      return $return;
-    }
-    
-    return $this->_get('comment');
-  }
-
-  
-  /**
-   * Get the raw comment
-   * 
-   * @return string
-   */
-  public function getRawComment()
-  {
-    return $this->_get('comment');
-  }  
-
 }

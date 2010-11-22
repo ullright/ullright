@@ -8,7 +8,7 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this->disable(array('version', 'is_virtual_group', 'display_name', 'last_name_first', 'parent_ull_user_id'));
+    $this->disable(array('version', 'is_virtual_group', 'display_name', 'last_name_first', 'parent_ull_user_id', 'selected_culture'));
     
     $this['display_name']->setMetaWidgetClassName('ullMetaWidgetUllEntity');
 
@@ -24,8 +24,16 @@ class BaseUllEntityColumnConfigCollection extends ullColumnConfigCollection
       ->setHelp(__('If unchecked, the photo will be visible in administrative areas only.', null, 'ullCoreMessages'))
     ;
     
+    $this['first_name']
+      ->setMetaWidgetClassName('ullMetaWidgetStringRegex')
+      ->setValidatorOption('pattern', ullCoreTools::getRegexForNames())
+    ;
+    
     $this['username']
-      ->setIsRequired(true);
+      ->setIsRequired(true)
+      ->setMetaWidgetClassName('ullMetaWidgetStringRegex')
+      ->setValidatorOption('pattern', '/^[a-z0-9_]+$/i')
+    ;
     
     $this['password']
       ->setMetaWidgetClassName('ullMetaWidgetPassword')
