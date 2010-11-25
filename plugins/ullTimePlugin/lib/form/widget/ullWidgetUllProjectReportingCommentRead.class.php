@@ -6,7 +6,6 @@
  * to the edit page of the linked record. Otherwise, the comment column is
  * rendered as text.
  * 
- * Needs an injected identifier!
  */
 class ullWidgetUllProjectReportingCommentRead extends ullWidget
 {
