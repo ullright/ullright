@@ -176,6 +176,71 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   
   
   /**
+   * Update a single field, usually called via ajax
+   * Call syntax: ullTableTool/updateSingleColumn?table=UllUser&id=2&column=street&value=streetname
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeUpdateSingleColumn(sfRequest $request)
+  {
+    $table = $request->getParameter('table');
+    $column = $request->getParameter('column');
+    
+    // check for dynamic permission
+    // example: ull_tabletool_write_ull_user_street
+    $this->checkPermission(
+      'ull_tabletool_write_' .
+      sfInflector::underscore($table) . '_' .
+      $column
+    );
+    
+    $this->generator = new ullTableToolGenerator($table, 'w');
+    $row = $this->getRowFromRequest();
+    $this->id = $row->id;
+    
+    $this->generator->buildForm($row);
+    
+    if ($this->generator->getForm()->bindAndSave(
+      array_merge(
+        $this->prepareDefaultsForUpdateSingleColumn($row),
+        array($column => $request->getParameter('value'))
+        , 
+        array('id' => $row->id) ) 
+    ))
+    {
+      // Everything's fine, no validation error occured
+      
+      return $this->renderText(json_encode(array('id' => $row->id))); 
+    }
+    else
+    {
+     // ullCoreTools::debugFormError($this->generator->getForm());
+      throw new Exception('Validation failed');
+    }
+  }  
+  
+
+  /**
+   * Does what the method name suggests
+   * 
+   * @param unknown_type $row
+   */
+  protected function prepareDefaultsForUpdateSingleColumn($row)
+  {
+    $defaultsForValidation = array_intersect_key(
+      $row->toArray(), 
+      array_flip($this->generator->getForm()->getListOfFields())
+    ); 
+    
+    //unset($defaultsForValidation['id']);
+    
+    // TODO: remove hardcoded fix for UllUser
+    unset($defaultsForValidation['password']);
+    
+    return $defaultsForValidation;
+  }
+  
+  /**
    * Setup ullGenerator
    * 
    * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()

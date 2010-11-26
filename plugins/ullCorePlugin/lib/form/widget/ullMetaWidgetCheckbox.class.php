@@ -18,6 +18,21 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
     }
     else
     {
+      if ($this->getColumnConfig()->getOption('enable_ajax_update'))
+      {
+        $ajaxOptions = array(
+          'enable_ajax_update', 
+          'ajax_url', 
+          'ajax_model', 
+          'ajax_column'
+        );
+        
+        foreach ($ajaxOptions as $option)
+        {
+          $this->getColumnConfig()->setWidgetOption($option, $this->getColumnConfig()->getOption($option));
+        }
+      }
+      
       $this->addWidget(new ullWidgetCheckbox($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     }
     $this->addValidator(new sfValidatorPass());     

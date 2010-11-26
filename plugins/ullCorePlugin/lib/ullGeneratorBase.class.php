@@ -181,7 +181,8 @@ class ullGeneratorBase
    */
   public function isEditAction()
   {
-    return $this->isAction('edit');
+    // TODO: refactore inflexible hardcoded action names
+    return $this->isAction(array('edit', 'updateSingleColumn'));
   }  
 
   /**
