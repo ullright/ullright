@@ -188,11 +188,14 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     
     // check for dynamic permission
     // example: ull_tabletool_write_ull_user_street
-    $this->checkPermission(
+    if (!UllUsertable::hasPermission(
       'ull_tabletool_write_' .
       sfInflector::underscore($table) . '_' .
       $column
-    );
+    ))
+    {
+      throw new InvalidArgumentException('Access denied');
+    }
     
     $this->generator = new ullTableToolGenerator($table, 'w', null, array('id', $column));
     $row = $this->getRowFromRequest();
