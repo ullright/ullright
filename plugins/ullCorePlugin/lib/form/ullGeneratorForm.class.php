@@ -451,5 +451,19 @@ class ullGeneratorForm extends sfFormDoctrine
     }   
   } 
  
+  /**
+   * Returns an array with the form fields
+   */
+  public function getListOfFields()
+  {
+    $return = array();
+    
+    foreach($this->getFormFieldSchema() as $key => $value)
+    {
+      $return[] = $key;
+    }
+    
+    return $return;
+  }
 
 }
