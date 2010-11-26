@@ -13,40 +13,49 @@
  */
 function ajax_update(control, indicator_id, url)
 {
-  $(control).fadeOut(function()
+	
+  var indicator = $('#' + indicator_id);
+	
+  $(control).fadeOut(300, function()
   {
-	var indicator = $('#' + indicator_id);  
-    $(indicator).fadeIn(function()
+    $(indicator).fadeIn(300);
+  })
+  
+  // normalize different input types
+  if ('checkbox' === $(control).attr('type'))
+  {
+	var value = $(control).attr('checked')
+  }  
+  else
+  {
+	var value = $(control).val();
+  }
+  
+  $.ajax(
+  {
+    url : url,
+    data :
     {
-      var flagValue = $(control).attr('checked');
-      flagValue = (flagValue) ? 'false' : 'true';
-
-      $.ajax(
+      'value' : value
+    },
+    cache : false,
+    success : function(data, textStatus, XMLHttpRequest)
+    {
+      $(indicator).fadeOut(300, function()
       {
-        url : url,
-        data :
-        {
-          'value' : flagValue
-        },
-        cache : false,
-        success : function(data, textStatus, XMLHttpRequest)
-        {
-          $(indicator).fadeOut(function()
-          {
-            $(control).attr("checked", !$(control).attr('checked'));
-            $(control).fadeIn();
-          });
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown)
-        {
-          alert('Sorry, your change could not be processed.');
-
-          $(indicator).fadeOut(function()
-           {
-            $(control).fadeIn();
-          });
-        }
+        $(control).attr("checked", !$(control).attr('checked'));
+        $(control).fadeIn(300);
       });
-    });
+    },
+    error : function(XMLHttpRequest, textStatus, errorThrown)
+    {
+      alert('Sorry, your change could not be processed.');
+
+      $(indicator).fadeOut(function()
+       {
+        $(control).fadeIn();
+      });
+    }
   });
+  
 }

@@ -194,27 +194,33 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
       $column
     );
     
-    $this->generator = new ullTableToolGenerator($table, 'w');
+    $this->generator = new ullTableToolGenerator($table, 'w', null, array('id', $column));
     $row = $this->getRowFromRequest();
     $this->id = $row->id;
     
     $this->generator->buildForm($row);
     
+//    var_dump($this->generator->getForm()->getListOfFields());
+//    die;
+    
+    
     if ($this->generator->getForm()->bindAndSave(
       array_merge(
-        $this->prepareDefaultsForUpdateSingleColumn($row),
-        array($column => $request->getParameter('value'))
-        , 
+//        $this->prepareDefaultsForUpdateSingleColumn($row),
+        array($column => $request->getParameter('value')), 
         array('id' => $row->id) ) 
     ))
     {
       // Everything's fine, no validation error occured
       
-      return $this->renderText(json_encode(array('id' => $row->id))); 
+      return $this->renderText(json_encode(array('id' => $row->id, $column => $row[$column]))); 
+//      return $this->renderText($this->generator->getForm()->offsetGet($column)->render());
+      
     }
     else
     {
-     // ullCoreTools::debugFormError($this->generator->getForm());
+//      ullCoreTools::debugFormError($this->generator->getForm());
+//      die('arggh');
       throw new Exception('Validation failed');
     }
   }  
@@ -231,8 +237,6 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
       $row->toArray(), 
       array_flip($this->generator->getForm()->getListOfFields())
     ); 
-    
-    //unset($defaultsForValidation['id']);
     
     // TODO: remove hardcoded fix for UllUser
     unset($defaultsForValidation['password']);
