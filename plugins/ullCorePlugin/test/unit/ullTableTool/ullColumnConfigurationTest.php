@@ -9,9 +9,9 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(15, new lime_output_color, $configuration);
+$t = new myTestCase(24, new lime_output_color, $configuration);
 
-$cc = new ullColumnConfiguration;
+$cc = new ullColumnConfiguration();
 $cc->setAccess('r');
 
 $t->diag('__construct()');
@@ -22,6 +22,11 @@ $t->diag('disable() / isActive()');
   $t->is($cc->isActive(), true, 'Column is active');
   $cc->disable();
   $t->is($cc->isActive(), false, 'After calling disable() the column is not active');
+  
+$t->diag('set/getModelName()');
+  $t->is($cc->getModelName(), '', 'empty per default');
+  $cc->setModelName('my_model');
+  $t->is($cc->getModelName(), 'my_model', 'Returns the correct model name');
   
 $t->diag('set/getSection()');
   $t->is($cc->getSection(), '', 'empty per default');
@@ -52,4 +57,19 @@ $t->diag('set/getIsRequired()');
   $t->is($cc->getIsRequired(), false, 'false per default');
   $cc->setIsRequired(true);
   $t->is($cc->getIsRequired(), true, 'true when set');
+  
+$cc = new ullColumnConfiguration('my_column');
+$cc->setAccess('r');
+$cc->setModelName('my_model');
+  
+$t->diag('set/getAjaxUpdate');
+  $t->is($cc->getAjaxUpdate(), false, 'false per default');
+  $cc->setAjaxUpdate(true);
+  $t->is($cc->getAjaxUpdate(), true, 'true when set');
+  $t->is($cc->getOption('enable_ajax_update'), true, 'ajax is enabled');
+  $t->is($cc->getOption('ajax_model'), 'my_model', 'sets the correct ajax model');
+  $t->is($cc->getOption('ajax_column'), 'my_column', 'sets the correct ajax column');
+  $t->is($cc->getOption('ajax_url'), 'ullTableTool/updateSingleColumn', 'sets the correct ajax url');
+  $t->is($cc->getInjectIdentifier(), true, 'activates identifier injection');
+    
     

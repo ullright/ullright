@@ -7,7 +7,8 @@ class ullColumnConfiguration
 {
   protected
     //manual
-    $columnName, //db column name  
+    $columnName, //db column name
+    $modelName,  
     $label, 
     $help, //'description' in ull_column_config table
     $metaWidgetClassName    = 'ullMetaWidgetString',
@@ -74,7 +75,6 @@ class ullColumnConfiguration
     }
   }
 
-  //below: only getters/setters/removers
   
   public function getColumnName()
   {
@@ -84,6 +84,18 @@ class ullColumnConfiguration
   public function setColumnName($columnName)
   {
     $this->columnName = $columnName;
+    
+    return $this;
+  }
+  
+  public function getModelName()
+  {
+    return $this->modelName;
+  }
+
+  public function setModelName($modelName)
+  {
+    $this->modelName = $modelName;
     
     return $this;
   }
@@ -559,4 +571,41 @@ class ullColumnConfiguration
     return (boolean) $this->getValidatorOption('required');
   }
   
+  
+  /**
+   * Enable ajax update function for the current field
+   * 
+   * @param boolean $boolean
+   */
+  public function setAjaxUpdate($boolean)
+  {
+    $this->setOption('enable_ajax_update', $boolean);
+    
+    if (true === $boolean)
+    {
+      $this->setInjectIdentifier(true);
+      $this->setOption('ajax_url', 'ullTableTool/updateSingleColumn');
+      $this->setOption('ajax_model', $this->getModelName());
+      $this->setOption('ajax_column', $this->getColumnName());
+    } 
+    else
+    {
+      $this->removeOption('ajax_url');
+      $this->removeOption('ajax_model');
+      $this->removeOption('ajax_column');
+    }
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Check if ajax update is enabled
+   * 
+   * @return boolean 
+   */
+  public function getAjaxUpdate()
+  {
+    return (boolean) $this->getOption('enable_ajax_update');
+  }
 }

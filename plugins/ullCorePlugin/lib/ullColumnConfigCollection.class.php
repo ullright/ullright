@@ -187,6 +187,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     {
       $columnConfig
         ->setColumnName($columnName)
+        ->setModelName($this->modelName)
         ->setAccess($this->defaultAccess)
         ->setLabel(ullHumanizer::humanizeAndTranslateColumnName($columnName))
       ;

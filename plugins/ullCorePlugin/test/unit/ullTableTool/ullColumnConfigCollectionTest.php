@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(68, new lime_output_color, $configuration);
+$t = new myTestCase(69, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -31,6 +31,7 @@ $t->diag('buildFor() - createColumnConfigs');
 
 $t->diag('buildFor() - applyCommonSettings');
   $t->is($c['my_email']->getColumnName(), 'my_email', 'sets column name');
+  $t->is($c['my_email']->getModelName(), 'TestTable', 'sets model name');
   $t->is($c['my_email']->getAccess(), 'w', 'defaultAccess mode is set to "w" because of default action "edit"');
   $t->is($c['creator_user_id']->getAccess(), 'r', 'access is set to "r" for defined readOnly columns');
   $t->is($c['namespace']->getAccess(), null, 'blacklisted columns are disabled');
