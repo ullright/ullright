@@ -138,11 +138,18 @@ function ull_image_path($type, $width = null, $height = null, $plugin = null)
            'Plugin/images/action_icons/' . $type . '_' . $width . 'x' . $height;
 }
 
-function ull_image_tag($type, $link_option = array(), $width = null, $height = null, $plugin = null)
+function ull_image_tag($type, $options = array(), $width = null, $height = null, $plugin = null)
 {
-	return image_tag(ull_image_path($type, $width, $height, $plugin), 
-    array_merge(array('alt' => __(ucfirst($type), null, 'common'),
-                      'title' => __(ucfirst($type), null, 'common')), $link_option));
+  $mergedOptions = array_merge(
+    array('alt' => __(ucfirst($type), null, 'common'),
+    'title' => __(ucfirst($type), null, 'common')), 
+    $options
+  );
+  
+	return image_tag(
+    ull_image_path($type, $width, $height, $plugin),
+    $mergedOptions 
+  );
 }
 
 
