@@ -416,22 +416,22 @@ class ullCoreTools
    */
   public static function debugFormError(sfForm $form, $return = false)
   {
-    $return = '';
+    $output = '';
     
-    $return .= 'Form class: ' . get_class($form) . "\n";
+    $output .= 'Form class: ' . get_class($form) . "\n";
       
-    foreach ($form->getErrorSchema()->getErrors() as $error)
+    foreach ($form->getErrorSchema()->getErrors() as $key => $error)
     {
-      $return .= $error->getMessage() . "\n";
+      $output .= $key . ': ' . $error->getMessage() . "\n";
     }    
     
     if ($return)
     {
-      return $return;
+      return $output;
     }
     else
     {
-      var_dump($return);
+      var_dump($output);
     }
   }
   
