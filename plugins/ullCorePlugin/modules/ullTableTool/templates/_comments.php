@@ -3,7 +3,9 @@
   <div class="comment">
   
     <div class="comment_photo">
-      <?php echo $photo_widget->render('photo', $comment['Commenter']['photo'], ESC_RAW) ?>    
+      <?php if ($comment['deleted_status'] == 'no') : ?>
+        <?php echo $photo_widget->render('photo', $comment['Commenter']['photo'], ESC_RAW) ?>
+      <?php endif ?>    
     </div>
   
     <div class="comment_content">
