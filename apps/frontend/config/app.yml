@@ -90,6 +90,9 @@ all:
     reset_password_sender_name:             No reply
     reset_password_sender_address:          noreply@example.com
     
+    # Supply a custom "nobody" image to show for a user without photo
+    #nobody_image:                           /images/nobody.png
+    
   ull_photo:
     upload_path:    /uploads/userPhotos
     # displayed height of the uploaded image before cropping 
