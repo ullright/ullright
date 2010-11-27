@@ -33,7 +33,10 @@ class ullWidgetPhoto extends ullWidget
     }
     else
     {
-      $photo =   '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .'Plugin/images/nobody.png';
+      $photo = sfConfig::get('app_ull_user_nobody_image', 
+        '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .'Plugin/images/nobody.png');   
+      
+      $this->getOption('nobody_image');
     }
     
     $attributes['src'] = $photo;
