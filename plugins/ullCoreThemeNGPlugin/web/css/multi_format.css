@@ -655,6 +655,19 @@ img.ull_user_popup_icon {
 
 .comment {
   margin-bottom: 2.5em;
+  height: 100%; /* enclose floating child divs */ 
+  overflow: hidden; /* enclose floating child divs */
+}
+
+.comment_photo {
+	float: left;
+  width: 100px;
+}
+
+.comment_content {
+  margin-left: 100px;
+  padding-left: 2em; 
+  min-height: 100px;
 }
 
 .comment_author {
