@@ -6,4 +6,4 @@
 /apps/frontend/config/app.local.yml
 /cache/*
 /log/*
-/web/uploads/* 
+/web/uploads/*
