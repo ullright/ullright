@@ -203,10 +203,6 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     
     $this->generator->buildForm($row);
     
-//    var_dump($this->generator->getForm()->getListOfFields());
-//    die;
-    
-    
     if ($this->generator->getForm()->bindAndSave(
       array_merge(
 //        $this->prepareDefaultsForUpdateSingleColumn($row),
@@ -217,13 +213,9 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
       // Everything's fine, no validation error occured
       
       return $this->renderText(json_encode(array('id' => $row->id, $column => $row[$column]))); 
-//      return $this->renderText($this->generator->getForm()->offsetGet($column)->render());
-      
     }
     else
     {
-//      ullCoreTools::debugFormError($this->generator->getForm());
-//      die('arggh');
       throw new Exception('Validation failed');
     }
   }  
