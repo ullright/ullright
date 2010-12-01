@@ -11,26 +11,31 @@ class ullWidgetUllProjectReportingCommentRead extends ullWidget
 {
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    //We must have an injected identifier
     if (is_array($value))
     {
       $projectReportingId = $value['id'];
-      
-      $projectReporting = Doctrine::getTable('UllProjectReporting')->findOneById($projectReportingId);
-    
-      if ($projectReporting !== false && $projectReporting['linked_id'] !== null)
-      {
-        $linkedModel = Doctrine::getTable($projectReporting['linked_model'])->findOneById($projectReporting['linked_id']);
-  
-        if ($linkedModel === false)
-        {
-          return __('Linked record is not available', null, 'ullTimeMessages');
-        }
-        
-        return '<a href="' . url_for($linkedModel->getEditUri()) . '">' .
-          esc_entities((string) $linkedModel) . '</a>';
-      }      
+    }
+    else
+    {
+      throw new InvalidArgumentException('$value must be an array, use id injection');
     }
 
+    $projectReporting = Doctrine::getTable('UllProjectReporting')->findOneById($projectReportingId);
+    
+    if ($projectReporting !== false && $projectReporting['linked_id'] !== null)
+    {
+      $linkedModel = Doctrine::getTable($projectReporting['linked_model'])->findOneById($projectReporting['linked_id']);
+
+      if ($linkedModel === false)
+      {
+        return __('Linked record is not available', null, 'ullTimeMessages');
+      }
+      
+      return '<a href="' . url_for($linkedModel->getEditUri()) . '">' .
+        esc_entities((string) $linkedModel) . '</a>';
+    }
+    
     return parent::render($name, $value, $attributes, $errors);
   }
 }

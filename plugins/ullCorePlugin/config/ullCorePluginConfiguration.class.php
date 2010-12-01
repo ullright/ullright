@@ -16,7 +16,7 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
    */
   public function initialize()
   {
-    $this->loadLocalConfig();
+    $this->loadLocalAppYml();
     
     $manager = Doctrine_Manager::getInstance();
     
@@ -49,17 +49,22 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     $this->detectMobileDevice();
   }
 
+  
   /**
-   * Loads a local configuration file (config/app.local.yml) if it exists.
+   * Loads a local apps/frontend/config/app.local.yml file if it exists.
    * Values set there override the ones in config/app.yml.
+   * 
+   * @see apps/frontend/config/app.local.yml.dist for further details
    */
-  protected function loadLocalConfig()
+  protected function loadLocalAppYml()
   {
     $config = sfApplicationConfiguration::getActive();
-    //initially, $config is actually a project config
+    
+    //initially, $config is actually a project config therefore we check the class type
     if ($config instanceof sfApplicationConfiguration)
     {
       $localConfigPath = $config->getConfigCache()->checkConfig('config/app.local.yml', true);
+      
       if ($localConfigPath !== null)
       {
         require($localConfigPath);
