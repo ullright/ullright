@@ -121,7 +121,10 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
     // translation objects. sfFormObject::doUpdateObject()'s fromArray() method
     // subsequently fails because it tries to insert the english translation 
     // instead of updating it.
-    $this->getObject()->refreshRelated('Translation');
+    if ($this->getObject()->hasRelation('Translation'))
+    {
+      $this->getObject()->refreshRelated('Translation');
+    }
     
 
     $this->values = $values;
