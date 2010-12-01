@@ -1,12 +1,19 @@
-#Remove .dist extension to enable app.yml override
-#Usually used by developers to apply local settings for their dev environment (e.g. mailing)
+# This file overrides the application's app.yml settings
+# 
+# Usually used by developers to apply local settings for their dev environment 
+# ' (e.g. mailing). Furthermore this file is excluded from commits via svn:ignore 
+# property and not published to production servers (rsync_exclude)
+# 
+# Remove .dist extension to enable
 
 all:
   mailing:
-    mailer:         sendmail #or smtp
+    mailer:         sendmail            #or smtp
     #smtp_hostname: localhost
     #smtp_port:     25
     #smtp_username:  
     #smtp_passwort:  
     
     debug_address:  dev@example.com
+  
+
