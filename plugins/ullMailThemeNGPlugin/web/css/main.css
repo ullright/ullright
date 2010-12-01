@@ -1,0 +1,45 @@
+/*
+ * ************************************************
+ *  ullMail styles
+ * ************************************************
+ */
+ 
+ /* Overridden css: ullCore / main.css - formats */
+
+.color_light_bg {
+  background: #e9c9ca;
+}
+
+.color_medium_bg {
+  background: #e9aeb0;
+}
+
+.color_dark_bg {
+  background: #e11d25;
+}
+
+.edit_container {
+  max-width: 780px;
+}
+
+.list_table tbody tr:hover {
+  background: #e9c9ca;  
+}
+
+/* Overridden css: ullCore / taskcenter.css - formats */
+ 
+#tc_wrapper a:visited {
+  color: #e11d25;
+}
+
+/* Overridden css: ullCore / common.css - formats */
+ 
+a {
+  color: #e11d25;
+}
+
+a:visited {
+  color: #e11d25;
+}
+
+/* End of overridden css */

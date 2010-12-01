@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext" date="2007-12-13T14:54:05Z">
+    <body>
+
+<!-- index -->
+
+<trans-unit id="100">
+<source>Compose Newsletter</source>
+<target>Newsletter verfassen</target>
+</trans-unit>
+
+<trans-unit id="101">
+<source>Lists</source>
+<target>Listen</target>
+</trans-unit>
+
+
+    </body>
+  </file>
+</xliff>
