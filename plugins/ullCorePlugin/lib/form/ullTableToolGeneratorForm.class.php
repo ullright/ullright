@@ -97,6 +97,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
     )->getReturnValue();
     
     
+    // i18n translations
     foreach ($values as $fieldName => $value)
     {
       if (strstr($fieldName, '_translation_'))
@@ -111,16 +112,17 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
         $values['Translation'][$culture]['lang'] = $culture;
         $values['Translation'][$culture][$realFieldName] = $value;
       }
-      
-      //removed because this caused checkboxes to re-enable themselves
-      //in sfFormDoctrine#updateObject when set to default
-      
-      // create proper null entries
-//      if ($value == '')
-//      {
-//        $values[$fieldName] = null;
-//      }
     }
+    
+    // refresh translation objects
+    //
+    // this is necessary for the following example: set the interface lang to de
+    // when editing a translated column, the action only retrieves the german
+    // translation objects. sfFormObject::doUpdateObject()'s fromArray() method
+    // subsequently fails because it tries to insert the english translation 
+    // instead of updating it.
+    $this->getObject()->refreshRelated('Translation');
+    
 
     $this->values = $values;
     
