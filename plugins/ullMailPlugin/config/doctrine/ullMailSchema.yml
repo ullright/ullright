@@ -11,3 +11,187 @@ UllMailQueuedMessage:
     is_sent:
       type: boolean
       default: false
+ 
+UllNewsletterCategory: #e.g. "Product News", "Best Practices"
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    Sluggable:
+      unique: true
+      fields: [name]
+  columns:
+    name:
+      type: string(200)
+      notnull: true
+    description:
+      type: string(3000)
+    is_active:
+      type: boolean
+      default: true
+      notnull: true
+  relations:
+    Subscribers:
+      class: UllUser #NOTE: change this to UllEntity if there are problems when importing fixtures during testing
+      refClass: UllNewsletterSubscriber
+      local: ull_newsletter_category_id
+      foreign: ull_user_id
+ 
+UllNewsletterSubscriber: #m:n table for newsletter categories <-> UllUsers
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_newsletter_category_id:
+      type: integer
+      notnull: true
+    ull_user_id:
+      type: integer
+      notnull: true
+  relations:
+    UllUser:
+      local: ull_user_id
+      foreign: id
+    UllNewsletterCategory:
+      local: ull_newsletter_category_id
+      foreign: id
+ 
+UllNewsletterLayout:
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    Sluggable:
+      unique: true
+      fields: [name]
+  columns:
+    name:
+      type: string(200)
+      notnull: true
+    html_layout:
+      type: clob
+      notnull: true
+ 
+UllNewsletter: #instance of a newsletter category, e.g. "Product news - December 2010"
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    Taggable:
+  columns:
+    subject:
+      type: string(255)
+      notnull: true
+    ull_newsletter_layout_id:
+      type: integer
+    html_body_template:
+      type: clob
+      notnull: true
+    sent_by_ull_user_id:
+      type: integer
+    sent_at:
+      type: timestamp
+    is_active:
+      type: boolean
+      default: true
+      notnull: true
+    #counters are incremented by post save hooks
+    num_sent_email:
+      type: integer
+      default: 0
+      notnull: true
+    num_read_emails:
+      type: integer
+      default: 0
+      notnull: true
+  relations:
+    Categories:
+      class: UllNewsletterCategory
+      refClass: UllNewsletterInstanceCategory
+      local: ull_newsletter_id
+      foreign: ull_newsletter_category_id
+    UllNewsletterLayout:
+      local: ull_newsletter_layout_id
+      foreign: id
+    SentByUllUser:
+      class: UllUser
+      local: sent_by_ull_user_id
+      foreign: id
+
+UllNewsletterInstanceCategory:
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_newsletter_id:
+      type: integer
+      notnull: true
+    ull_newsletter_category_id:
+      type: integer
+      notnull: true
+  relations:
+    UllNewsletter:
+      local: ull_newsletter_id
+      foreign: id
+    UllNewsletterCategory:
+      local: ull_newsletter_category_id
+      foreign: id
+
+UllMailLoggedMessage:
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:    
+    sender:
+      type: string(500) #email address max length is 254 but there can be a display name
+      notnull: true
+    main_recipient_ull_user_id: #(if there is only one main To-recipient)
+      type: integer
+    to_list: #csv list of recipients
+      type: clob
+      notnull: true
+    cc_list:
+      type: clob
+    bcc_list:
+      type: clob
+    headers: #all header lines
+      type: clob
+    subject:
+      type: string(255) #78 is RFC limit for a line, but what about multiline?
+      notnull: true
+    plaintext_body:
+      type: clob
+    html_body:
+      type: clob
+    spool_sent_status: #before sending the transport sets this to false, after sending to true
+      type: boolean
+    realtime_sent_status:
+      type: boolean
+    sent_at: #set when the mail was sent by the realtime transport
+      type: timestamp
+    first_read_at:
+      type: timestamp
+    num_of_readings:
+      type: integer
+      default: 0
+      notnull: true
+    last_ip:
+      type: string(15)
+    last_user_agent:
+      type: string(500)
+    ull_newsletter_id:
+      type: integer
+  relations:
+    UllNewsletter:
+      local: ull_newsletter_id
+      foreign: id
+    MainRecipient:
+      class: UllUser
+      local: main_recipient_ull_user_id
+      foreign: id
