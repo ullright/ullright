@@ -107,7 +107,6 @@ $b
     ->checkElement($dgsDetails->get(1, 'comment') ,'Server hardware setup')
   ->end()
   //TODO: why is a the exception not detected? (Without this fix: http://trac.ullright.org/changeset/2401)
-  //->checkResponseElement('body', '!/exception|Exception|EXCEPTION/')  
-  ->dumpdie()
+  ->checkResponseElement('body', '!/exception|Exception|EXCEPTION/')  
   
 ;
