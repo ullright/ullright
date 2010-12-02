@@ -39,7 +39,7 @@ class PluginUllCmsItemTable extends UllRecordTable
    *      -> team
    *      -> contact
    *      
-   * getSubMenuFor('main_menu', 'team') returns team(=active), contact 
+   * getSubMenuFor('main_menu', 'team') returns about_us, team(=active), contact 
    * 
    * @param unknown_type $parentSlug
    * @param unknown_type $currentSlug
