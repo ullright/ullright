@@ -271,7 +271,7 @@ class ullTreeNode
 
     if ($verbose && method_exists($this->data, 'toArray'))
     {
-      $array['data'] = $this->data->toArray();
+      $array['data'] = $this->data->toArray(false);
     }
     else
     {

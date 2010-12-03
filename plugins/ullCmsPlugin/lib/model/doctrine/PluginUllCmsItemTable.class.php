@@ -159,17 +159,18 @@ class PluginUllCmsItemTable extends UllRecordTable
   /**
    * Build a tree of all ancestors menu items for the given slug
    * 
-   * @param string $slug slug of the menu item child
+   * @param string $currentSlug slug of the menu item child
+   * @param string $referenceSlug optional: stop at some ancestor level - used for submenus
    * @param ullTreeNode $children optional: give already built subtree by recursion 
    * 
    * @return ullTreeNode tree
    */
-  public static function getAncestorTree($slug, $children = null)
+  public static function getAncestorTree($currentSlug, $referenceSlug = null, $children = null)
   {
-    $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($slug);
+    $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($currentSlug);
     if (!$item)
     {
-      throw new InvalidArgumentException('Unknown slug given: ' . $slug);
+      throw new InvalidArgumentException('Unknown slug given: ' . $currentSlug);
     }
     
     $node = new UllTreeNode($item);
@@ -185,10 +186,13 @@ class PluginUllCmsItemTable extends UllRecordTable
     {
       $children = $node;
     }
-      
-    if ($parentSlug = $node->getData()->Parent->slug)
+    
+    if (
+      $currentSlug != $referenceSlug &&
+      $parentSlug = $node->getData()->Parent->slug
+    )
     {
-      $node =  self::getAncestorTree($parentSlug, $children);
+      $node =  self::getAncestorTree($parentSlug, $referenceSlug, $children);
     }
     
     return $node;
@@ -213,7 +217,7 @@ class PluginUllCmsItemTable extends UllRecordTable
     
     if (!$ancestorTree)
     {
-      $ancestorTree = self::getAncestorTree($slug);
+      $ancestorTree = self::getAncestorTree($slug, $tree->getData()->slug);
     }
     
     if ($tree->getData()->slug == $slug)
@@ -227,8 +231,6 @@ class PluginUllCmsItemTable extends UllRecordTable
     {
       if (
         $subnode->getData()->id == $ancestorTree->getFirstSubnode()->getData()->id
-        //TODO: what is the reason for this condition?
-//        && $subnode->hasSubnodes()
       )
       {
         self::markParentsAsAncestors($subnode, $slug, $ancestorTree->getFirstSubnode());

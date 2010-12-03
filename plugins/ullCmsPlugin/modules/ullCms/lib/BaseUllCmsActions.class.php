@@ -128,8 +128,9 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
    */
   protected function loadMenus()
   {
-    $menu = UllCmsItemTable::getSubMenuFor('main-menu', $this->doc->slug);
-    $this->setVar('sidebar_menu', new ullTreeMenuRenderer($menu), true);    
+    $tree = UllCmsItemTable::getSubMenuFor('main-menu', $this->doc->slug);
+    
+    $this->setVar('sidebar_menu', new ullTreeMenuRenderer($tree), true);    
   }
   
   /**

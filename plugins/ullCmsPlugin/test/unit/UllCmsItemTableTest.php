@@ -76,6 +76,13 @@ $t->diag('getAncestorTree()');
   $sub = reset($subs);
   $t->is($sub->getData()->slug, 'advanced-course-1', 'Returns the correct level 4 node');
 
+$t->diag('getAncestorTree() with reference slug for a submenu');
+  $tree = UllCmsItemTable::getAncestorTree('advanced-course-1', 'courses');
+  
+  $t->is($tree->getData()->slug, 'advanced-courses', 'Returns the correct top node');
+  $subs = $tree->getSubnodes();
+  $sub = reset($subs);
+  $t->is($sub->getData()->slug, 'advanced-course-1', 'Returns the correct level 2 node');
 
 $t->diag('markParentsAsAncestors() for a top level item');
   
