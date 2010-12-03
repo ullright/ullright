@@ -21,6 +21,13 @@ class PluginUllCmsItemTable extends UllRecordTable
       throw new InvalidArgumentException("$parentSlug is not a valid ullCmsItem slug");
     }
     
+    // remove invalid current slugs e.g. for other modules than ullCms which use
+    // a slug request parameter
+    if (!Doctrine::getTable('UllCmsItem')->findOneBySlug($currentSlug))
+    {
+      $currentSlug = null;
+    }
+    
     $tree = self::getSubTree($item, $currentSlug, $depth);
     
     $tree = self::markParentsAsAncestors($tree, $currentSlug);
