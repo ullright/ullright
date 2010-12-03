@@ -1,3 +1,22 @@
+# Example menu (slugs)
+#
+# main-menu *
+#   home
+#   about-us
+#     team
+#     location
+#   courses
+#     advanced-courses *
+#       advanced-course-1
+#   contact
+#   wiki * 
+# footer-menu *
+#   legal
+#
+# * ... menu-only item
+
+
+# "Menu only" entries - no content page
 UllCmsMenuItem:
   main_menu:
     Translation:
@@ -38,7 +57,7 @@ UllCmsMenuItem:
     is_active:              false
         
  
-    
+# content pages and at the same time a menu item    
 UllCmsPage:
   home:
     Translation:
@@ -48,7 +67,6 @@ UllCmsPage:
       de:
         title:              Startseite            
         body:               '<h1>Willkommen</h1>beim ullright cms'
-    #allow_sub_items:        false
     Parent:                 main_menu
     sequence:               10
   about_us:
@@ -69,7 +87,6 @@ UllCmsPage:
       de:
         title:              Team            
         body:               '<ul><li>Chef</li><li>Mitarbeiter</li></ul>'
-    #allow_sub_items:        false
     Parent:                 about_us
   location:
     Translation:
@@ -79,7 +96,6 @@ UllCmsPage:
       de:
         title:              Standort            
         body:               '<a href="http://maps.google.com">Google Karten</a>'
-    #allow_sub_items:        false
     Parent:                 about_us         
   contact:
     Translation:
@@ -89,7 +105,6 @@ UllCmsPage:
       de:
         title:              Kontakt            
         body:               '<a href="mailto:office@example.com">E-Mail</a>'
-    #allow_sub_items:        false
     Parent:                 main_menu
     sequence:               90
   courses:
@@ -119,7 +134,6 @@ UllCmsPage:
       de:
         title:              Impressum            
         body:               '<cite>Nach dem Gesetz der...</cite>'
-    #allow_sub_items:        false
     Parent:                 footer_menu       
 
     

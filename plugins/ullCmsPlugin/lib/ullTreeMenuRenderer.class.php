@@ -57,7 +57,10 @@ class ullTreeMenuRenderer
     {
       foreach ($node->getSubnodes() as $subNode)
       { 
-        $return .= '<li' . (($subNode->hasMeta('is_current')) ? ' class="ull_menu_is_current"' : '') . '>';
+        $classes = 'ull_menu_item_' . ullCoreTools::htmlId($subNode->getData()->slug);
+        $classes .= ($subNode->hasMeta('is_current')) ? ' ull_menu_is_current' : '';
+        $classes .= ($subNode->hasMeta('is_ancestor')) ? ' ull_menu_is_ancestor' : '';
+        $return .= '<li class="' . $classes . '">';
         
         $uri = null;
         

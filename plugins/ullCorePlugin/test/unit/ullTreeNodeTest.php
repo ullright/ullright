@@ -7,7 +7,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 //sfContext::getInstance()->getConfiguration()->loadHelpers('ull');
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new lime_test(21, new lime_output_color);
+$t = new lime_test(22, new lime_output_color);
 
 
 $t->diag('__construct()');
@@ -134,10 +134,12 @@ $t->diag('toArray()');
   
   $t->is($node->toArray(), $reference, 'Returns the correct array format for a nested node');
   
-  
 $t->diag('getLevel()');
   $t->is($node->getLevel(), 1, 'Returns the correct level');  
   $node->setLevel(99);
   $t->is($node->getLevel(), 99, 'Returns the correct level');
   $subnodes = $node->getSubnodes();
   $t->is(reset($subnodes)->getLevel(), 2, 'Returns the correct level');  
+  
+$t->diag('getFirstSubnode()');
+  $t->is($node->getFirstSubnode()->getData(), 'subnode1', 'Returns the first subnode');  

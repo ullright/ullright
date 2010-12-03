@@ -110,6 +110,19 @@ class ullTreeNode
     
     return $storage;
   }
+  
+  
+  /**
+   * Return the first subnode
+   * 
+   * @return ullTreeNode
+   */
+  public function getFirstSubnode()
+  {
+    $subs = $this->subnodes;
+    
+    return reset($subs);
+  }
 
   
   /**

@@ -19,9 +19,6 @@ UllCmsItem:
     is_active:
       type: boolean
       default: true
-    #allow_sub_items:
-    #  type: boolean
-    #  default: true
     # Caches the full path to a navigation item. E.g. "Main navigation - About us - Team"
     # Improves performance and allows proper ordering in list views
     full_path:

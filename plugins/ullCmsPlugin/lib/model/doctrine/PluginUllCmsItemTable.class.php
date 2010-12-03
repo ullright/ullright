@@ -23,6 +23,8 @@ class PluginUllCmsItemTable extends UllRecordTable
     
     $tree = self::getSubTree($item, $currentSlug, $depth);
     
+    $tree = self::markParentsAsAncestors($tree, $currentSlug);
+    
     return $tree;
   }
   
@@ -128,6 +130,9 @@ class PluginUllCmsItemTable extends UllRecordTable
   /**
    * Get an array of root node slugs
    * 
+   * That means cms items that have no parent in the menu tree
+   * Examples: main-menu, footer-menu, ...
+   * 
    * @return array
    */
   public static function getRootNodeSlugs()
@@ -149,5 +154,86 @@ class PluginUllCmsItemTable extends UllRecordTable
     }
     
     return $return;
+  }
+
+  /**
+   * Build a tree of all ancestors menu items for the given slug
+   * 
+   * @param string $slug slug of the menu item child
+   * @param ullTreeNode $children optional: give already built subtree by recursion 
+   * 
+   * @return ullTreeNode tree
+   */
+  public static function getAncestorTree($slug, $children = null)
+  {
+    $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($slug);
+    if (!$item)
+    {
+      throw new InvalidArgumentException('Unknown slug given: ' . $slug);
+    }
+    
+    $node = new UllTreeNode($item);
+    
+    if ($children)
+    {
+      if (!$children instanceof ullTreeNode)
+      {
+        throw new InvalidArgumentException('$children must be a ullTreeNode');
+      }
+      $children = $node->addSubnode($children);
+    }
+    {
+      $children = $node;
+    }
+      
+    if ($parentSlug = $node->getData()->Parent->slug)
+    {
+      $node =  self::getAncestorTree($parentSlug, $children);
+    }
+    
+    return $node;
+  }
+
+  /**
+   * Mark the parents of a given menu tree and given current page slug as
+   * ancestors
+   * 
+   * @param ullTreeNode $tree     The menu tree
+   * @param unknown_type $slug    optional The slug of the current page
+   *                              Without a given slug, the original tree is 
+   *                              returned unchanged.
+   * @param unknown_type $ancestorTree  optional ancestor tree for recursion
+   */
+  public static function markParentsAsAncestors(ullTreeNode $tree, $slug = null, $ancestorTree = null)
+  {
+    if (!$slug)
+    {
+      return $tree;
+    }
+    
+    if (!$ancestorTree)
+    {
+      $ancestorTree = self::getAncestorTree($slug);
+    }
+    
+    if ($tree->getData()->slug == $slug)
+    {
+      return $tree;
+    }
+    
+    $tree->setMeta('is_ancestor', true);
+    
+    foreach ($tree->getSubnodes() as $subnode)
+    {
+      if (
+        $subnode->getData()->id == $ancestorTree->getFirstSubnode()->getData()->id
+        && $subnode->hasSubnodes()
+      )
+      {
+        self::markParentsAsAncestors($subnode, $slug, $ancestorTree->getFirstSubnode());
+      }
+    }
+    
+    return $tree;
   }
 }
