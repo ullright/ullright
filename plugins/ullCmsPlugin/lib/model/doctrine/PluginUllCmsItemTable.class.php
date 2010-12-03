@@ -227,7 +227,8 @@ class PluginUllCmsItemTable extends UllRecordTable
     {
       if (
         $subnode->getData()->id == $ancestorTree->getFirstSubnode()->getData()->id
-        && $subnode->hasSubnodes()
+        //TODO: what is the reason for this condition?
+//        && $subnode->hasSubnodes()
       )
       {
         self::markParentsAsAncestors($subnode, $slug, $ancestorTree->getFirstSubnode());
