@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(43, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(46, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -79,10 +79,13 @@ $t->diag('getAncestorTree()');
 $t->diag('getAncestorTree() with reference slug for a submenu');
   $tree = UllCmsItemTable::getAncestorTree('advanced-course-1', 'courses');
   
-  $t->is($tree->getData()->slug, 'advanced-courses', 'Returns the correct top node');
+  $t->is($tree->getData()->slug, 'courses', 'Returns the correct top node');
   $subs = $tree->getSubnodes();
   $sub = reset($subs);
-  $t->is($sub->getData()->slug, 'advanced-course-1', 'Returns the correct level 2 node');
+  $t->is($sub->getData()->slug, 'advanced-courses', 'Returns the correct level 2 node');
+  $subs = $sub->getSubnodes();
+  $sub = reset($subs);
+  $t->is($sub->getData()->slug, 'advanced-course-1', 'Returns the correct level 3 node');
 
 $t->diag('markParentsAsAncestors() for a top level item');
   
