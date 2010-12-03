@@ -23,7 +23,7 @@ class PluginUllCmsItemTable extends UllRecordTable
     
     // remove invalid current slugs e.g. for other modules than ullCms which use
     // a slug request parameter
-    if (!Doctrine::getTable('UllCmsItem')->findOneBySlug($currentSlug))
+    if ($currentSlug !== null && !Doctrine::getTable('UllCmsItem')->findOneBySlug($currentSlug))
     {
       $currentSlug = null;
     }
