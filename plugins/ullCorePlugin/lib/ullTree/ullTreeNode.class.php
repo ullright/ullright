@@ -265,11 +265,18 @@ class ullTreeNode
    * 
    * @return array
    */
-  public function toArray()
+  public function toArray($verbose = false)
   {
     $array = array();
 
-    $array['data'] = (string) $this->data;
+    if ($verbose && method_exists($this->data, 'toArray'))
+    {
+      $array['data'] = $this->data->toArray();
+    }
+    else
+    {
+      $array['data'] = (string) $this->data;
+    }
     $array['meta'] = array();
     // arrayize ullTreeNodes in the meta array
     foreach ($this->meta as $key => $singleMeta)
@@ -278,7 +285,7 @@ class ullTreeNode
       {
         foreach($singleMeta as $nodeKey => $nodeValue)
         {
-          $array['meta'][$key][$nodeKey] = $nodeValue->toArray();
+          $array['meta'][$key][$nodeKey] = $nodeValue->toArray($verbose);
         }
       }  
       else
@@ -290,7 +297,7 @@ class ullTreeNode
     
     foreach ($this->subnodes as $subnode)
     {
-      $array['subnodes'][] = $subnode->toArray();
+      $array['subnodes'][] = $subnode->toArray($verbose);
     }
     
     return $array;
