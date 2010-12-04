@@ -403,8 +403,8 @@ abstract class ullGenerator extends ullGeneratorBase
           // Parse the value using the appropriate read widget
           sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping')); // required by some widgets
           $tempForm = new sfForm();
-          $readColumnsConfig = $this->getColumnsConfig()->offsetGet($filterColumn);
-          $readColumnsConfig->setAccess('r');
+          $readColumnsConfig = clone $this->getColumnsConfig()->offsetGet($filterColumn);
+          $readColumnsConfig->setAccess('f');
           $metaWidgetReadClassName = $readColumnsConfig->getMetaWidgetClassName();
           $metaWidgetRead = new $metaWidgetReadClassName($readColumnsConfig, $tempForm);
           $metaWidgetRead->addToFormAs($filterColumn);

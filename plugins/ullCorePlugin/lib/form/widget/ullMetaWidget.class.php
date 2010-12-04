@@ -73,7 +73,10 @@ abstract class ullMetaWidget
         break;
       case 's':
         $this->configureSearchMode();
-        break;  
+        break;
+      case 'f':
+        $this->configureFilterMode();
+        break;           
     }
   }
   
@@ -121,7 +124,16 @@ abstract class ullMetaWidget
   protected function configureSearchMode()
   {
     $this->configureWriteMode();
-  }  
+  }
+
+  /**
+   * Configure form with defaults for filter settings
+   * @return none
+   */
+  protected function configureFilterMode()
+  {
+    $this->configureReadMode();
+  }    
   
   
   /**
