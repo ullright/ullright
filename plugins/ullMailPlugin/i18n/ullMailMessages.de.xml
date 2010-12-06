@@ -15,6 +15,27 @@
 <target>Listen</target>
 </trans-unit>
 
+<!--  column names  -->
+<trans-unit id="200">
+<source>Layout</source>
+<target>Layout</target>
+</trans-unit>
+
+<trans-unit id="201">
+<source>Sent at</source>
+<target>Gesendet am</target>
+</trans-unit>
+
+<trans-unit id="202">
+<source>No. of emails sent</source>
+<target>Anzahl der gesendeten E-Mails</target>
+</trans-unit>
+
+<trans-unit id="203">
+<source>No. of emails sent</source>
+<target>Anzahl der gelesenen E-Mails</target>
+</trans-unit>
+
 
     </body>
   </file>

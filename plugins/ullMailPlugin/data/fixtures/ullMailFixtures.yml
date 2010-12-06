@@ -26,7 +26,7 @@ UllNewsletterEdition:
     html_body_template: <p>Hello %first_name% %$last_name%,</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><p>Have a nice day.</p>
     Sender: test_user
     sent_at: 2010-12-06 08:34:00
-    num_sent_email: 2
+    num_sent_emails: 2
     num_read_emails: 1
     
 UllNewsletterEditionMailingList:

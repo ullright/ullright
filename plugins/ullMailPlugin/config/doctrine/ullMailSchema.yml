@@ -165,7 +165,7 @@ UllNewsletterEdition:
       default: true
       notnull: true
     #counters are incremented by post save hooks
-    num_sent_email:
+    num_sent_emails:
       type: integer
       default: 0
       notnull: true
@@ -174,7 +174,7 @@ UllNewsletterEdition:
       default: 0
       notnull: true
   relations:
-    UllNewsletterDistributions:
+    UllNewsletterEditionMailingLists:
       class: UllNewsletterMailingList
       refClass: UllNewsletterEditionMailingList
       local: ull_newsletter_edition_id
