@@ -14,6 +14,11 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     $this->disable('type');
     
     $this['username']->setValidatorOption('required', true);
+    
+    //TODO:  Fix read mode first
+//    $this->useManyToManyRelation('UllGroup');
+    
+    
   }  
   
   

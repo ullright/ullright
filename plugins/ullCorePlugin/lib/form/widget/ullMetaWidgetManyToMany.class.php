@@ -17,4 +17,12 @@ class ullMetaWidgetManyToMany extends ullMetaWidget
     $this->addValidator(new sfValidatorDoctrineChoice(
       array_merge($defaultOptions, $this->columnConfig->getValidatorOptions())));
   }
+  
+  // TODO: implement, properly as list
+  protected function configureReadMode()
+  {
+    $this->columnConfig->setWidgetAttribute('disabled', 'disabled');
+    
+    $this->configureWriteMode();
+  }    
 }

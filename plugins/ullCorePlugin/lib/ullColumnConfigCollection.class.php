@@ -871,6 +871,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     $q
       ->select($toStringColumn)
       ->from($model)
+      ->orderBy($toStringColumn)
       //better performance
       ->setHydrationMode(Doctrine::HYDRATE_ARRAY);
     ;

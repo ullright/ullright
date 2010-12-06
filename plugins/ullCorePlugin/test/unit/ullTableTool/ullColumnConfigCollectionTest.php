@@ -244,7 +244,7 @@ $t->diag('useManyToManyRelation()');
   $t->is($cc->getWidgetOption('model'), 'UllGroup', 'Returns the correct widget option "model"');
   $q = $cc->getWidgetOption('query');
   $t->isa_ok($q, 'Doctrine_Query', 'Returns a doctrine query');
-  $t->is($q->getSqlQuery(), 'SELECT u.id AS u__id, u.display_name AS u__display_name FROM ull_entity u WHERE (u.type = \'group\')', 'Returns the correct query');
+  $t->is($q->getSqlQuery(), 'SELECT u.id AS u__id, u.display_name AS u__display_name FROM ull_entity u WHERE (u.type = \'group\') ORDER BY u.display_name', 'Returns the correct query');
   $t->is($cc->getWidgetOption('key_method'), 'id', 'Returns the corret widget option "key_method"');
   $t->is($cc->getWidgetOption('method'),  'display_name', 'Returns the corret widget option "method"'); 
   $t->is($cc->getValidatorOption('model'), 'UllGroup', 'Returns the correct validator option "model"');
