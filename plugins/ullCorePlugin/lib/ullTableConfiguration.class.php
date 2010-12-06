@@ -58,6 +58,13 @@ class ullTableConfiguration
      */
     $editColumns = array(),    
     
+    
+    /**
+     * Name to use as default field for string representation for this table
+     */
+    $toStringColumn = '',
+    
+    
     /**
      * Dictionary for custom relation names
      * 
@@ -426,6 +433,44 @@ class ullTableConfiguration
   {
     return $this->editColumns;
   }  
+  
+  
+  /** 
+   * Sets the column which should be used for string representation
+   * 
+   * @param string $name
+   * @return self
+   */
+  public function setToStringColumn($name)
+  {
+    $this->toStringColumn = $name;
+    
+    return $this;
+  }
+  
+  /**
+   * Gets the column which should be used for string representation
+   * 
+   * If non is set, we guess.
+   * 
+   * @return: string
+   */
+  public function getToStringColumn()
+  {
+    if (!$this->toStringColumn)
+    {
+      if ($this->table->hasColumn('name'))
+      {
+        $this->toStringColumn = 'name';
+      }
+      else
+      {
+        throw new InvalidArgumentException('Please set the "to string column" in the table config for ' . $this->getModelName());
+      }
+    }
+    
+    return $this->toStringColumn;  
+  }
   
 
   

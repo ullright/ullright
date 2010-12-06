@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(69, new lime_output_color, $configuration);
+$t = new myTestCase(81, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -54,7 +54,7 @@ $t->diag('buildFor() - applyDoctrineSettings for "my_email"');
 $t->diag('buildFor() - applyDoctrineSettings for "ull_user_id"');
   $t->is($c['ull_user_id']->getMetaWidgetClassName(), 'ullMetaWidgetUllEntity', 'sets the correct metaWidget');
   $t->is($c['ull_user_id']->getOption('entity_classes'), array('UllUser'), 'sets the correct options');
-  $t->is($c['ull_user_id']->getRelation(), array('model' => 'UllUser', 'foreign_id' => 'id'), 'returns the correct relation settings');
+  $t->is($c['ull_user_id']->getRelation(), array('alias' => 'UllUser', 'model' => 'UllUser', 'foreign_id' => 'id'), 'returns the correct relation settings');
   
 $t->diag('buildFor() - applyDoctrineSettings for sums');
   $t->is($c['id']->getCalculateSum(), false, 'Do not build sums for "id" column');  
@@ -228,3 +228,30 @@ $t->diag('setIsRequired()');
   $t->is($c['one']->getIsRequired(), true, 'Returns true for a required field'); 
   $t->is($c['two']->getIsRequired(), false, 'Returns false for a non-required field');
   $t->is($c['three']->getIsRequired(), true, 'Returns true for a required field');
+  
+$t->diag('getTableConfig()');
+  $c = ullColumnConfigCollection::buildFor('UllJobTitle');
+  $tableConfig = $c->getTableConfig();
+  $t->isa_ok($tableConfig, 'UllJobTitleTableConfiguration', 'Returns a table config');
+  $t->is($tableConfig->getToStringColumn(), 'name', 'Uses the correct class'); 
+  
+$t->diag('useManyToManyRelation()');
+  $c = ullColumnConfigCollection::buildFor('UllPermission');
+  $c->useManyToManyRelation('UllGroup');
+  $t->ok($c->offsetExists('UllGroup'), 'Generated a new field');
+  $cc = $c->offsetGet('UllGroup');
+  $t->is($cc->getMetaWidgetClassName(), 'ullMetaWidgetManyToMany', 'Returns the correct meta widget');
+  $t->is($cc->getWidgetOption('model'), 'UllGroup', 'Returns the correct widget option "model"');
+  $q = $cc->getWidgetOption('query');
+  $t->isa_ok($q, 'Doctrine_Query', 'Returns a doctrine query');
+  $t->is($q->getSqlQuery(), 'SELECT u.id AS u__id, u.display_name AS u__display_name FROM ull_entity u WHERE (u.type = \'group\')', 'Returns the correct query');
+  $t->is($cc->getWidgetOption('key_method'), 'id', 'Returns the corret widget option "key_method"');
+  $t->is($cc->getWidgetOption('method'),  'display_name', 'Returns the corret widget option "method"'); 
+  $t->is($cc->getValidatorOption('model'), 'UllGroup', 'Returns the correct validator option "model"');
+  $t->is($cc->getValidatorOption('query'), $q, 'Returns the correct validator option "q"');
+  
+$t->diag('useManyToManyRelation() using model override');
+  $c = ullColumnConfigCollection::buildFor('UllPermission');
+  $c->useManyToManyRelation('UllGroup', 'UllEntity');
+  $cc = $c->offsetGet('UllGroup');
+  $t->is($cc->getWidgetOption('model'), 'UllEntity', 'Returns the correct overridden model');

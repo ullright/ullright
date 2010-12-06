@@ -30,25 +30,7 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       ->setAccess('r')
     ;    
     
-      $q = new Doctrine_Query;
-      $q
-        ->select('name')
-        ->from('UllNewsletterMailingList')
-      ;
-      //needed for performance reasons when displaying all users
-      $q->setHydrationMode(Doctrine::HYDRATE_ARRAY);
-      
-      $this->create('UllNewsletterEditionMailingLists')
-        ->setMetaWidgetClassName('ullMetaWidgetManyToMany')
-        //set model (it's a required option)
-        ->setWidgetOption('model', 'UllNewsletterMailingList')
-        ->setWidgetOption('query', $q)
-        //see ullWidgetManyToManyWrite class doc for why we set this
-        ->setWidgetOption('key_method', 'id')
-        ->setWidgetOption('method', 'name')
-        ->setValidatorOption('model', 'UllNewsletterMailingList')
-        ->setValidatorOption('query', $q)
-      ;    
+    $this->useManyToManyRelation('UllNewsletterEditionMailingLists');
     
     if ($this->isCreateAction())
     {

@@ -66,14 +66,14 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig = new ullColumnConfiguration('ull_user_id');
     $columnConfig->setLabel('User');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
-    $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
+    $columnConfig->setRelation(array('alias' => 'UllUser', 'model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['ull_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('creator_user_id');
     $columnConfig->setLabel('Created by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setAccess(null);
-    $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
+    $columnConfig->setRelation(array('alias' => 'Creator', 'model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['creator_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('created_at');
@@ -87,7 +87,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('Updated by');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setAccess(null);
-    $columnConfig->setRelation(array('model' => 'UllUser', 'foreign_id' => 'id'));
+    $columnConfig->setRelation(array('alias' => 'Updator', 'model' => 'UllUser', 'foreign_id' => 'id'));
     $this->columnsConfigMock['updator_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updated_at');

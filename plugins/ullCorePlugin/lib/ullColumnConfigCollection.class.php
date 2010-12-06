@@ -23,7 +23,8 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
      *        "primary"       => true
      *      )
      *  )
-     */    
+     */
+    $tableConfigCache,     
     $columns = array(),
     $relations = array(),
     $modelName,
@@ -423,12 +424,13 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   {
     if (!$this->relations)
     {
-      foreach(Doctrine::getTable($this->modelName)->getRelations() as $relation)
+      foreach(Doctrine::getTable($this->modelName)->getRelations() as $alias => $relation)
       {
         // take the first relation for each column and don't overwrite them later on
         if (!isset($this->relations[$relation->getLocal()]))
         {
           $this->relations[$relation->getLocal()] = array(
+            'alias'       => $alias,
             'model'       => $relation->getClass(), 
             'foreign_id'  => $relation->getForeign()
           );
@@ -438,6 +440,24 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     
     return $this->relations;
   }  
+  
+  
+  /**
+   * Return relation info by an Alias name
+   * 
+   * @param string $alias
+   * @return array
+   */
+  protected function getRelationByAlias($alias)
+  {
+    foreach ($this->relations as $relation)
+    {
+      if ($relation['alias'] == $alias)
+      {
+        return $relation;
+      }
+    }
+  }
   
   
   /**
@@ -830,5 +850,58 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     return count($this->collection);
   }
 
+  /**
+   * Add a field for a many to many relation
+   *  
+   * @param string $relationAlias
+   * @param string $model optional model name override
+   *                      This is useful e.g. for UllEntity / UllUser issues etc
+   */
+  public function useManyToManyRelation($relationAlias, $model = null)
+  {
+    $relation = $this->getRelationByAlias($relationAlias);
+    $toStringColumn = ullTableConfiguration::buildFor($relation['model'])->getToStringColumn();
+    
+    if (!$model)
+    {
+      $model = $relation['model'];
+    }
+    
+    $q = new Doctrine_Query;
+    $q
+      ->select($toStringColumn)
+      ->from($model)
+      //better performance
+      ->setHydrationMode(Doctrine::HYDRATE_ARRAY);
+    ;
+    
+    $this->create($relationAlias)
+      ->setMetaWidgetClassName('ullMetaWidgetManyToMany')
+      //set model (it's a required option)
+      ->setWidgetOption('model', $model)
+      ->setWidgetOption('query', $q)
+      //see ullWidgetManyToManyWrite class doc for why we set this
+      ->setWidgetOption('key_method', 'id')
+      ->setWidgetOption('method', $toStringColumn)
+      ->setValidatorOption('model', $model)
+      ->setValidatorOption('query', $q)
+    ;        
+  }
   
+  
+  /**
+   * Lazy load the according table configuration and returns it
+   * 
+   * @return: ullTableConfiguration
+   */
+  public function getTableConfig()
+  {
+    if (!$this->tableConfigCache)
+    {
+      $this->tableConfigCache = ullTableConfiguration::buildFor($this->modelName);
+    }
+    
+    return $this->tableConfigCache;
+  }
+
 }

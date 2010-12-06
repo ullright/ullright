@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N', 'ull'));
 
-$t = new myTestCase(33, new lime_output_color, $configuration);
+$t = new myTestCase(36, new lime_output_color, $configuration);
 
 class TestTableWithoutTableConfiguration extends sfDoctrineRecord
 {
@@ -25,7 +25,7 @@ class TestTableWithoutTableConfiguration extends sfDoctrineRecord
     }
 }  
 
-$t->diag('__construct()');
+$t->begin('__construct()');
   try
   {
     new ullTableConfiguration('InvalidTable');
@@ -67,6 +67,21 @@ $t->diag('set/getSearchColumns()');
   $config->setSearchColumns(array('user_name', 'email'));
   $t->is($config->getSearchColumns(), array('user_name', 'email'), 'Returns the correct searchColumns');  
 
+$t->diag('set/getToStringColumn()');
+  try
+  {
+    $config->getToStringColumn();
+    $t->fail('Doesn\'t throw an exception for an not-set and non-guessable to string column'); 
+  } 
+  catch (InvalidArgumentException $e)
+  {
+    $t->pass('Throws an exception for an not-set and non-guessable to string column');  
+  } 
+  $config->setToStringColumn('my_name');
+  $t->is($config->getToStringColumn(), 'my_name', 'Returns the correct to string column name');
+  
+  $jobTableConfig = ullTableConfiguration::buildFor('UllJobTitle');
+  $t->is($jobTableConfig->getToStringColumn(), 'name', 'Guesses "name" as default to string column name');
   
 $t->diag('getSearchColumnsAsArray()');
   $t->is($config->getSearchColumnsAsArray(), array('user_name', 'email'), 'Returns the correct searchColumns');    
