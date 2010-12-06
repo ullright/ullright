@@ -1,3 +1,63 @@
+UllMailLoggedMessage:
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    # email address max length is 254 but there can be a display name    
+    sender:
+      type: string(500) 
+      notnull: true
+    # if there is only one main To-recipient
+    main_recipient_ull_user_id: 
+      type: integer
+    # csv list of recipients
+    to_list: 
+      type: clob
+      notnull: true
+    cc_list:
+      type: clob
+    bcc_list:
+      type: clob
+    # mail headers one at a line
+    headers:
+      type: clob
+    subject:
+      type: string(255)
+      notnull: true
+    plaintext_body:
+      type: clob
+    html_body:
+      type: clob
+    # before sending the transport sets this to false, after sending to true
+    spool_sent_status: 
+      type: boolean
+    realtime_sent_status:
+      type: boolean
+    # set when the mail was sent by the realtime transport
+    sent_at: 
+      type: timestamp
+    first_read_at:
+      type: timestamp
+    num_of_readings:
+      type: integer
+      default: 0
+      notnull: true
+    last_ip:
+      type: string(15)
+    last_user_agent:
+      type: string(500)
+    ull_newsletter_edition_id:
+      type: integer
+  relations:
+    UllNewsletterEdition:
+      local: ull_newsletter_edition_id
+      foreign: id
+    MainRecipient:
+      class: UllUser
+      local: main_recipient_ull_user_id
+      foreign: id
+
 # Queue for batch mailing
 UllMailQueuedMessage:
   package: ullMailPlugin.lib.model.doctrine
@@ -12,7 +72,8 @@ UllMailQueuedMessage:
       type: boolean
       default: false
  
-UllNewsletterCategory: #e.g. "Product News", "Best Practices"
+#e.g. "Product News", "Best Practices" 
+UllNewsletterMailingList: 
   package: ullMailPlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
@@ -33,18 +94,20 @@ UllNewsletterCategory: #e.g. "Product News", "Best Practices"
       notnull: true
   relations:
     Subscribers:
-      class: UllUser #NOTE: change this to UllEntity if there are problems when importing fixtures during testing
-      refClass: UllNewsletterSubscriber
-      local: ull_newsletter_category_id
+      #NOTE: change this to UllEntity if there are problems when importing fixtures during testing
+      class: UllUser 
+      refClass: UllNewsletterMailingListSubscriber
+      local: ull_newsletter_mailing_list_id
       foreign: ull_user_id
  
-UllNewsletterSubscriber: #m:n table for newsletter categories <-> UllUsers
+#m:n table for newsletter lists <-> UllUsers
+UllNewsletterMailingListSubscriber: 
   package: ullMailPlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
     type: concrete
   columns:
-    ull_newsletter_category_id:
+    ull_newsletter_mailing_list_id:
       type: integer
       notnull: true
     ull_user_id:
@@ -54,10 +117,11 @@ UllNewsletterSubscriber: #m:n table for newsletter categories <-> UllUsers
     UllUser:
       local: ull_user_id
       foreign: id
-    UllNewsletterCategory:
-      local: ull_newsletter_category_id
+    UllNewsletterList:
+      local: ull_newsletter_mailing_list_id
       foreign: id
  
+# layout templates 
 UllNewsletterLayout:
   package: ullMailPlugin.lib.model.doctrine
   inheritance:
@@ -74,8 +138,9 @@ UllNewsletterLayout:
     html_layout:
       type: clob
       notnull: true
- 
-UllNewsletter: #instance of a newsletter category, e.g. "Product news - December 2010"
+
+#instance of a newsletter list, e.g. "Product news - December 2010" 
+UllNewsletterEdition: 
   package: ullMailPlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
@@ -109,89 +174,35 @@ UllNewsletter: #instance of a newsletter category, e.g. "Product news - December
       default: 0
       notnull: true
   relations:
-    Categories:
-      class: UllNewsletterCategory
-      refClass: UllNewsletterInstanceCategory
-      local: ull_newsletter_id
-      foreign: ull_newsletter_category_id
+    UllNewsletterDistributions:
+      class: UllNewsletterMailingList
+      refClass: UllNewsletterEditionMailingList
+      local: ull_newsletter_edition_id
+      foreign: ull_newsletter_mailing_list_id
     UllNewsletterLayout:
       local: ull_newsletter_layout_id
       foreign: id
-    SentByUllUser:
+    Sender:
       class: UllUser
       local: sent_by_ull_user_id
       foreign: id
 
-UllNewsletterInstanceCategory:
+UllNewsletterEditionMailingList:
   package: ullMailPlugin.lib.model.doctrine
   inheritance:
     extends: UllRecord
     type: concrete
   columns:
-    ull_newsletter_id:
+    ull_newsletter_edition_id:
       type: integer
       notnull: true
-    ull_newsletter_category_id:
+    ull_newsletter_mailing_list_id:
       type: integer
       notnull: true
   relations:
-    UllNewsletter:
-      local: ull_newsletter_id
+    UllNewsletterEdition:
+      local: ull_newsletter_edition_id
       foreign: id
-    UllNewsletterCategory:
-      local: ull_newsletter_category_id
-      foreign: id
-
-UllMailLoggedMessage:
-  package: ullMailPlugin.lib.model.doctrine
-  inheritance:
-    extends: UllRecord
-    type: concrete
-  columns:    
-    sender:
-      type: string(500) #email address max length is 254 but there can be a display name
-      notnull: true
-    main_recipient_ull_user_id: #(if there is only one main To-recipient)
-      type: integer
-    to_list: #csv list of recipients
-      type: clob
-      notnull: true
-    cc_list:
-      type: clob
-    bcc_list:
-      type: clob
-    headers: #all header lines
-      type: clob
-    subject:
-      type: string(255) #78 is RFC limit for a line, but what about multiline?
-      notnull: true
-    plaintext_body:
-      type: clob
-    html_body:
-      type: clob
-    spool_sent_status: #before sending the transport sets this to false, after sending to true
-      type: boolean
-    realtime_sent_status:
-      type: boolean
-    sent_at: #set when the mail was sent by the realtime transport
-      type: timestamp
-    first_read_at:
-      type: timestamp
-    num_of_readings:
-      type: integer
-      default: 0
-      notnull: true
-    last_ip:
-      type: string(15)
-    last_user_agent:
-      type: string(500)
-    ull_newsletter_id:
-      type: integer
-  relations:
-    UllNewsletter:
-      local: ull_newsletter_id
-      foreign: id
-    MainRecipient:
-      class: UllUser
-      local: main_recipient_ull_user_id
+    UllNewsletterMailingList:
+      local: ull_newsletter_mailing_list_id
       foreign: id
