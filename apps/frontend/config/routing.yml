@@ -3,6 +3,13 @@ homepage:
   url:   /
   param: { module: myModule, action: index }
 
+# Here's an homepage example for a ullCms page   
+#homepage:
+#  url:   /
+#  param: { module: ullCms, action: show, slug: homepage }
+#  class: sfDoctrineRoute
+#  options: { model: UllCmsPage, type: object }  
+
 default_symfony:
   url:   /symfony/:action/*
   param: { module: default }
