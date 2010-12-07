@@ -34,6 +34,9 @@ all:
   #a server name cannot be determined automatically, e.g.
   #when mailing from the command line
   server_name: www.example.com
+  
+  #Enable specialied mobile version rendering for smartphones etc
+  enable_mobile_version: true
 
   i18n:  
     supported_languages: [ 'de', 'en' ]
