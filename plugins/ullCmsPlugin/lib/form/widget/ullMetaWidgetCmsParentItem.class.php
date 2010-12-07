@@ -12,9 +12,14 @@ class ullMetaWidgetCmsParentItem extends ullMetaWidgetForeignKey
   protected function configureWriteMode()
   {
     $this->columnConfig->removeWidgetOption('model');
-    $this->columnConfig->removeWidgetOption('add_empty');
-    
+
     $choices = array();
+    
+    if ($this->columnConfig->getWidgetOption('add_empty'))
+    {
+      $choices[''] = '';
+      $this->columnConfig->removeWidgetOption('add_empty');
+    }
     
     foreach(UllCmsItemTable::getRootNodeSlugs() as $slug)
     {
