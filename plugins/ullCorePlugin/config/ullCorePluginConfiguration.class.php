@@ -100,7 +100,10 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
    */
   protected function detectMobileDevice()
   {
-    $this->dispatcher->connect('request.filter_parameters', array($this, 'filterRequestParameters'));
+    if (sfConfig::get('app_enable_mobile_version', true))
+    {
+      $this->dispatcher->connect('request.filter_parameters', array($this, 'filterRequestParameters'));
+    }
   }
   
   
