@@ -100,7 +100,7 @@ UllNewsletterMailingList:
       local: ull_newsletter_mailing_list_id
       foreign: ull_user_id
  
-#m:n table for newsletter lists <-> UllUsers
+# m:n table for newsletter lists <-> UllUsers
 UllNewsletterMailingListSubscriber: 
   package: ullMailPlugin.lib.model.doctrine
   inheritance:
@@ -139,7 +139,7 @@ UllNewsletterLayout:
       type: clob
       notnull: true
 
-#instance of a newsletter list, e.g. "Product news - December 2010" 
+# Instance of a newsletter list, e.g. "Product news - December 2010" 
 UllNewsletterEdition: 
   package: ullMailPlugin.lib.model.doctrine
   inheritance:
@@ -164,7 +164,7 @@ UllNewsletterEdition:
       type: boolean
       default: true
       notnull: true
-    #counters are incremented by post save hooks
+    # counters are incremented by post save hooks
     num_sent_emails:
       type: integer
       default: 0
@@ -191,6 +191,7 @@ UllNewsletterEdition:
       local: sent_by_ull_user_id
       foreign: id
 
+# Logs which newsletter edition was sent to which mailing lists
 UllNewsletterEditionMailingList:
   package: ullMailPlugin.lib.model.doctrine
   inheritance:

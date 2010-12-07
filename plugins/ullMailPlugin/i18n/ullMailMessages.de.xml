@@ -32,9 +32,21 @@
 </trans-unit>
 
 <trans-unit id="203">
-<source>No. of emails sent</source>
+<source>No. of emails read</source>
 <target>Anzahl der gelesenen E-Mails</target>
 </trans-unit>
+
+<trans-unit id="203">
+<source>No. of failed emails </source>
+<target>Anzahl der fehlgeschlagenen E-Mails</target>
+</trans-unit>
+
+<trans-unit id="205">
+<source>Mailing lists</source>
+<target>Verteiler</target>
+</trans-unit>
+
+
 
 
     </body>

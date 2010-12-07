@@ -8,12 +8,14 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
    */
   protected function applyCustomSettings()
   {
-//    $this['ull_newsletter_layout_id']
-//      ->setLabel(__('Layout', null, 'ullMailMessages'))
-//    ;
+    $this['ull_newsletter_layout_id']
+      ->setLabel(__('Layout', null, 'ullMailMessages'))
+      ->setWidgetOption('add_empty', true)
+    ;
     
     $this['html_body_template']
       ->setLabel(__('Text', null, 'common'))
+      ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
     ;
     
     $this['sent_at']
@@ -25,12 +27,23 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       ->setAccess('r')
     ;
     
+    $this['num_failed_emails']
+      ->setLabel(__('No. of failed emails', null, 'ullMailMessages'))
+      ->setAccess('r')
+    ;      
+    
     $this['num_read_emails']
       ->setLabel(__('No. of emails read', null, 'ullMailMessages'))
       ->setAccess('r')
-    ;    
-    
-    $this->useManyToManyRelation('UllNewsletterEditionMailingLists');
+    ;
+
+    if ($this->isCreateOrEditAction())
+    {
+      $this->useManyToManyRelation('UllNewsletterEditionMailingLists');
+      $this['UllNewsletterEditionMailingLists']
+        ->setLabel(__('Mailing lists', null, 'ullMailMessages'))
+      ;
+    }
     
     if ($this->isCreateAction())
     {
@@ -38,8 +51,17 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
         'sent_by_ull_user_id',
         'sent_at',
         'num_sent_emails', 
+        'num_failed_emails',
         'num_read_emails'));
     }
+    
+    $this->order(array(
+      'UllNewsletterEditionMailingLists',
+      'subject',
+      'html_body_template',
+      'ull_newsletter_layout_id',
+      'is_active',
+    ));
     
     
     
