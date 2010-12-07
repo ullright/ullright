@@ -169,10 +169,14 @@ UllNewsletterEdition:
       type: integer
       default: 0
       notnull: true
-    num_read_emails:
+    num_failed_emails:
       type: integer
       default: 0
       notnull: true
+    num_read_emails:
+      type: integer
+      default: 0
+      notnull: true      
   relations:
     UllNewsletterEditionMailingLists:
       class: UllNewsletterMailingList
