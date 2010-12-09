@@ -119,9 +119,9 @@
  */
 $(document).ready(function() 
 {
-  $("#ull_time_index_future_periods#").children().hide();
+  $("#ull_time_index_future_periods").children().hide();
 
-  $("#ull_time_index_future_periods#").prepend(
+  $("#ull_time_index_future_periods").prepend(
     "<li id=\"ull_time_show_future_periods_message\"><a href=\"#\" onclick=\"showFuturePeriods(); return false;\">' . __('Show', null, 'ullTimeMessages') . '</a></li>"
   );
   
