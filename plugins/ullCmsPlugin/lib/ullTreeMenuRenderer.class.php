@@ -92,7 +92,13 @@ class ullTreeMenuRenderer
           $return .= "\n" . $this->doRendering($subNode) . "\n";
         }
         
-        $return .= '</li>' . "\n";
+       if (1 == $node->getLevel()){
+          $return .= '</' . $this->topLevelHtmlTag . '>';
+        }
+        else
+        {
+          $return .= '</li>';
+        }
       }        
     }
     
