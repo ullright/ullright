@@ -2,11 +2,11 @@ prod:
   mailing:
     # send a copy of each mail to the developers' email address
     send_debug_cc: true
-    test: 123
 
 test:
   mailing:
-    # completely disable mail sending
+    # completely disable mail sending during testing
+    # this must always be set to false
     enable:        false
 
 dev:
