@@ -4,7 +4,8 @@ class ullTreeMenuRenderer
 {
   protected
     $node,
-    $renderUlTag
+    $renderUlTag,
+    $topLevelHtmlTag
   ;
   
   /**
@@ -18,11 +19,14 @@ class ullTreeMenuRenderer
    * 
    * @param ullTreeNode $node the node which should be rendered
    * @param unknown_type $renderUlTag if false, the first level of nodes is not enclosed by ul tags
+   * @param String $topLevelHtmlTag HTML Tag name for the top level elements e.g. "li"
+   * 
    */
-  public function __construct(ullTreeNode $node, $renderUlTag = true)
+  public function __construct(ullTreeNode $node, $renderUlTag = true, $topLevelHtmlTag = 'li')
   {
     $this->node = $node;
     $this->renderUlTag = (boolean) $renderUlTag;
+    $this->topLevelHtmlTag = $topLevelHtmlTag;
   }
   
   
@@ -43,7 +47,6 @@ class ullTreeMenuRenderer
     return $return;
   }
   
-  
   public function doRendering(ullTreeNode $node)
   {
     $return = '';
@@ -60,7 +63,13 @@ class ullTreeMenuRenderer
         $classes = 'ull_menu_item_' . ullCoreTools::htmlId($subNode->getData()->slug);
         $classes .= ($subNode->hasMeta('is_current')) ? ' ull_menu_is_current' : '';
         $classes .= ($subNode->hasMeta('is_ancestor')) ? ' ull_menu_is_ancestor' : '';
-        $return .= '<li class="' . $classes . '">';
+        if (1 == $node->getLevel()){
+          $return .= '<' . $this->topLevelHtmlTag . ' class="' . $classes . '">';
+        }
+        else
+        {
+          $return .= '<li class="' . $classes . '">';
+        }
         
         $uri = null;
         
