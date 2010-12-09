@@ -82,7 +82,11 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
   public function flushQueue(Swift_Transport $transport, &$failedRecipients = null)
   {
     $table = Doctrine_Core::getTable($this->model);
-    $ids = $table->{$this->method}()->select('id')->limit($this->getMessageLimit())->execute(array(), DOCTRINE::HYDRATE_NONE);
+    
+    $messageLimit = $this->getMessageLimit();
+    $messageLimit = ($messageLimit !== null) ? $messageLimit : 0;
+    
+    $ids = $table->{$this->method}()->select('id')->limit($messageLimit)->execute(array(), DOCTRINE::HYDRATE_NONE);
     
     if (!$transport->isStarted())
     {
@@ -120,7 +124,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
         usleep(self::calculateSleepTime($this->mailsPerMinute));
       }
       
-      var_dump(UllMailQueuedMessageTable::countUnsentMessages() . ' mails left');
+      //var_dump(UllMailQueuedMessageTable::countUnsentMessages() . ' mails left');
     }
 
     return $count;

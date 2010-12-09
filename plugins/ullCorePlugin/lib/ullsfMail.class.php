@@ -1,327 +1,132 @@
 <?php
 
 /**
- * extension of sfMail
+ * This class is an extension of Swift_Message.
+ * It used to extend sfMail and provided support for
+ * debug rerouting, ... - stuff which is now handled
+ * by the Swift Mailer system and matching plugins
+ * (see ullMailPluginConfiguration).
  * 
- * adds functionality to reroute emails to the developer's email address for
- * the dev environment
- * 
- * adds functionality to send a bcc copy of every email to the developers email
- * adress
- * 
- * allows giving a UllEntity as address
- *
+ * Unique functionality added by this class is the ability
+ * to pass an UllEntity instead of an address - if the
+ * entity has more than one address, multiple mails are sent.
  */
-class ullsfMail extends sfMail
+class ullsfMail extends Swift_Message
 {
-  
-  protected
-    $to = array(),  // temp storage, since phpmailer offers no methods to get the addresses
-    $cc = array(),  // temp storage, since phpmailer offers no methods to get the addresses
-    $bcc = array(), // temp storage, since phpmailer offers no methods to get the addresses
-    $reroute_flag = true,
-    $reroute_to = array(),
-    $reroute_cc = array(),
-    $reroute_bcc = array(),
-    $exclude_bcc = false,
-    $slug           
-  ;
+  protected $slug;
   
   /**
-   * Constructor
-   * 
-   * Initialisation / set defaults
-   * 
-   * Turn of dev-env rerouting functionality for the production environment
-   * 
-   * @param string $slug is an optional slug for sending module/action (e.g. ull_user_signed_up)
-   *
+   * Returns a new instance of the ullsfMail class.
    */
   public function __construct($slug = null) 
   {
-    parent::__construct();
+    //construct with empty subject, body, content-type and
+    //set the charset to utf-8
+    parent::__construct(null, null, null, 'utf-8');
     
-    $this->setCharset(sfConfig::get('app_mailing_charset', 'utf-8'));
-    $this->setMailer(sfConfig::get('app_mailing_mailer', 'sendmail'));    
-    $this->setHostname(sfConfig::get('app_mailing_smtp_hostname'));
-    $this->setUsername(sfConfig::get('app_mailing_smtp_username'));
-    $this->setPassword(sfConfig::get('app_mailing_smtp_password'));
-    $this->setPort(sfConfig::get('app_mailing_smtp_port', 25));
     $this->slug = $slug;
-    
-    // reroute mails except in the production environment
-    if (!sfConfig::get('app_mailing_reroute', true)) 
-    {      
-      $this->reroute_flag = false;
+  }
+  
+  /**
+   * Adds an address and a matching name, either to the
+   * recipient list, the carbon copy list or the blind
+   * carbon copy list. UllEntities are resolved to their
+   * addresses.
+   * 
+   * @param mixed $address a mail address or an UllEntity
+   * @param string $name a matching name - will be generated if possible (if it is null)
+   * @param string $type 'To', 'Cc' or 'Bcc' - 'To' is default
+   * @throws UnexpectedValueException in case the type argument is invalid
+   */
+  protected function addAddressForType($address, $name = null, $type = 'To')
+  {
+    if (!in_array($type, array('To', 'Cc', 'Bcc')))
+    {
+      throw new UnexpectedValueException("type must be 'To', 'Cc' or 'Bcc'.");
+    }
+
+    //resolve UllEntity addresses and add all of them
+    if ($address instanceof UllEntity)
+    {
+      $entityAddresses = $this->getUllEntityEmail($address);
+      
+      foreach ($entityAddresses as $entityAddress)
+      {
+        $this->addAddressForType($entityAddress['email'], $entityAddress['name'], $type);
+      }
+    }
+    else 
+    {
+      //try to generate a name if none was given
+      if ($name == null) 
+      {
+        list($address, $name) = ullCoreTools::splitMailAddressWithName($address);
+      }
+      
+      //call the appropriate method in Swift_Message ...
+      $methodName = 'add' . $type;
+      //.. but also fix empty name string for compat with Swift Mailer
+      parent::$methodName($address, (strlen($name) === 0) ? null : $name);
     }
   }
   
   /**
-   * @see sfMail
-   * 
-   * adds dev-env rerouting
-   *
-   * @param mixed $address  UllEntity or string
+   * @param mixed $address UllEntity or string
    * @param string $name
    */
   public function addAddress($address, $name = null)
   {
-    if ($address instanceof UllEntity)
-    {
-      $entityAddresses = $this->getUllEntityEmail($address);
-      
-      foreach ($entityAddresses as $entityAddress)
-      {
-        $this->addAddress($entityAddress['email'], $entityAddress['name']);
-      }
-    }
-    else 
-    {
-      if ($name == null) 
-      {
-        list($address, $name) = $this->splitAddress($address);
-      }
-      
-      $this->to[$address] = $name;
-      
-      //handle non-prod rerouting
-      if ($this->reroute_flag) 
-      {
-        $this->mailer->AddAddress(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
-        $this->reroute_to[] = $address; 
-      } 
-      else 
-      {
-        $this->mailer->AddAddress($address, $name);
-      }
-    }
+    $this->addAddressForType($address, $name, 'To');
   }
 
   /**
-   * @see sfMail
-   * 
-   * adds dev-env rerouting
-   *
-   * @param mixed $address  UllEntity or string
+   * @param mixed $address UllEntity or string
    * @param string $name
    */
   public function addCc($address, $name = null)
   {
-    if ($address instanceof UllEntity)
-    {
-      $entityAddresses = $this->getUllEntityEmail($address);
-      
-      foreach ($entityAddresses as $entityAddress)
-      {
-        $this->addCc($entityAddress['email'], $entityAddress['name']);
-      }
-    }
-    else 
-    {    
-      if ($name == null) 
-      {
-        list($address, $name) = $this->splitAddress($address);
-      }
-      
-      $this->cc[$address] = $name;
-      
-      //handle non-prod rerouting    
-      if ($this->reroute_flag) 
-      {
-  //      $this->mailer->AddCc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
-        $this->reroute_to[] = $address; 
-      } 
-      else 
-      {
-        $this->mailer->AddCc($address, $name);
-      }
-    }
+    $this->addAddressForType($address, $name, 'Cc');
   }
 
   /**
-   * @see sfMail
-   * 
-   * adds dev-env rerouting
-   *
-   * @param mixed $address  UllEntity or string
+   * @param mixed $address UllEntity or string
    * @param string $name
    */  
   public function addBcc($address, $name = null)
   {
-    if ($address instanceof UllEntity)
-    {
-      $entityAddresses = $this->getUllEntityEmail($address);
-      
-      foreach ($entityAddresses as $entityAddress)
-      {
-        $this->addBcc($entityAddress['email'], $entityAddress['name']);
-      }
-    }
-    else 
-    {    
-      if ($name == null) 
-      {
-        list($address, $name) = $this->splitAddress($address);
-      }
-      
-      $this->bcc[$address] = $name;
-      
-      //handle non-prod rerouting    
-      if ($this->reroute_flag) 
-      {
-        $this->mailer->AddBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
-        $this->reroute_to[] = $address; 
-      } 
-      else 
-      {
-        $this->mailer->AddBcc($address, $name);
-      }
-    }
+    $this->addAddressForType($address, $name, 'Bcc');
   }
   
   /**
-   * get to addresses
+   * Returns true if there is at least one 'To' address, false otherwise.
    *
-   * @return array
-   */
-  public function getAddresses()
-  {
-    return $this->to;
-  }
-  
-  /**
-   * get cc addresses
-   *
-   * @return array
-   */
-  public function getCcs()
-  {
-    return $this->cc;
-  }  
-  
-  /**
-   * get bcc addresses
-   *
-   * @return array
-   */
-  public function getBccs()
-  {
-    return $this->bcc;
-  }  
-  
-  /**
-   * check if any 'to' addresses have been supplied
-   *
-   * @return boolean
+   * @return boolean true if at least one 'To' address is available
    */
   public function hasAddresses() 
   {
-    if ($this->to) 
-    {
-      return true;
-    }
+    return (count($this->getTo()) > 0);
   }
   
   /**
-   * Hook for custom logic which is executed before sending the mail
-   * 
-   * @deprecated prepareForSending should be used and extended from now on
-   *
+   * Legacy recipient address getter.
    */
-  public function prepare() {}
-  
-  
-  /**
-   * Prepare for sending
-   * 
-   * @return none
-   */
-  public function prepareForSending() 
+  public function getAddresses()
   {
-    // generally disable mailing for certain environments
-    if (!sfConfig::get('app_mailing_enable', false))
-    {
-      return false;
-    }
-    
-    if ($this->reroute_flag) 
-    {
-      $reroute_info = 'Original to: ';
-      $reroute_info .= implode(', ',  $this->reroute_to) . "\n";
-      
-      if ($this->reroute_cc) 
-      {  
-        $reroute_info = 'Original cc: ';
-        $reroute_info .= implode(', ',  $this->reroute_cc) . "\n";
-      }
-      
-      if ($this->reroute_bcc) 
-      {
-        $reroute_info = 'Original bcc: ';
-        $reroute_info .= implode(', ',  $this->reroute_bcc) . "\n";
-      }
-      
-      $reroute_info .= "\n";
-      $this->setBody($reroute_info . $this->getBody());
-    } 
-    else 
-    {
-      // send copy to debugger's email if configured
-      if (sfConfig::get('app_mailing_send_debug_cc', false) && !$this->isInDebugCcExcludeList()) 
-      {
-        $this->addBcc(sfConfig::get('app_mailing_debug_address', 'me@example.com'));
-      }
-    }
-    
-    return true;
+    return $this->getTo();
   }
   
-  
   /**
-   * send email
-   *
+   * Returns the slug of this message.
    */
-  public function send() 
+  public function getSlug()
   {
-    $this->prepare();
-    
-    $shouldSend = $this->prepareForSending();
-    
-    if ($shouldSend && $this->hasAddresses()) 
-    {
-      if (!$this->mailer->Send())
-      {
-        throw new sfException($this->mailer->ErrorInfo);
-      }
-    }
+    return $this->slug;
   }
 
-  
   /**
-   * @see sfMail
-   *
-   * has to be redeclared here, since it is private in sfMail (@#!"?*+)
-   * 
-   * @param string $address
-   * @return array
-   */
-  protected function splitAddress($address)
-  {
-    if (preg_match('/^(.+)\s<(.+?)>$/', $address, $matches))
-    {
-      return array($matches[2], $matches[1]);
-    }
-    else
-    {
-      return array($address, '');
-    }
-  }  
-  
-
-  /**
-   * get array of email addresses and names for the addXxx methods
-   * 
-   * supports UllGroups without group email address -> returns all addresses of its members
+   * Resolves an UllEntity to its email addresses and returns
+   * them in an array. Also supports UllGroups without group email
+   * address -> returns all addresses of its members.
    *
    * @param UllEntity $entity
    * @return array array(array('email' => 'me@example.com', 'name' => 'me'), ...)
@@ -352,16 +157,54 @@ class ullsfMail extends sfMail
     return $return;
   }
   
-  /**
-   * Checks if the slug is in the debug cc exlude list.
-   * 
-   * @return boolean
-   */
-  protected function isInDebugCcExcludeList()
+  public function setBodies($htmlBody, $plaintextBody)
   {
-    $bccExcludeList = sfConfig::get('app_mailing_debug_cc_exclude_list', array());
-    
-    return in_array($this->slug, $bccExcludeList);
+    $this->setBody($htmlBody, 'text/html');
+    $this->addPart($plaintextBody, 'text/plain');  
   }
   
+  /**
+   * Hook for custom logic which is executed before sending the mail
+   * 
+   * @deprecated prepareForSending should be used and extended from now on
+   */
+  public function prepare() {}
+  
+  
+  /**
+   * Prepare for sending
+   * 
+   * @return none
+   */
+  public function prepareForSending() 
+  {
+    return true;
+  }
+  
+  
+  /**
+   * Commences mail sending process, using the realtime transport
+   * by default. Optionally uses the queue.
+   * 
+   * @param boolean $queue true/false => common/realtime transport
+   * @deprecated use sfContext::getInstance()->getMailer()->send() instead.
+   */
+  public function send($queue = false) 
+  {
+    $this->prepare();
+    
+    $shouldSend = $this->prepareForSending();
+    
+    if ($shouldSend && $this->hasAddresses()) 
+    {
+      if ($queue)
+      {
+        sfContext::getInstance()->getMailer()->sendQueue($this);
+      }
+      else
+      {
+        sfContext::getInstance()->getMailer()->send($this);
+      }
+    }
+  }
 }

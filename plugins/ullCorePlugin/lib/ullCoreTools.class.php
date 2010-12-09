@@ -621,4 +621,22 @@ class ullCoreTools
     
     return '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-\.\,])+$/u';
   }
+  
+  /**
+   * Copied from sfMail (it's private there)
+   * 
+   * Parses 'Name <email>' strings into parts
+   * @param string $address a 'Name <email>' string
+   */
+  public static function splitMailAddressWithName($address)
+  {
+    if (preg_match('/^(.+)\s<(.+?)>$/', $address, $matches))
+    {
+      return array($matches[2], $matches[1]);
+    }
+    else
+    {
+      return array($address, '');
+    }
+  }
 }

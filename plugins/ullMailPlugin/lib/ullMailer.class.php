@@ -9,18 +9,24 @@
 class ullMailer extends sfMailer
 {
   protected 
-    $options,
-    $dispatcher,
     $addToQueue = false
   ;
   
-//  public function __construct(sfEventDispatcher $dispatcher, $options)
-//  {
-//    $this->dispatcher = $dispatcher;
-//    $this->options = $options;
-//    
-//    parent::__construct($dispatcher, $options);
-//  }
+  public function __construct($dispatcher, $options)
+  {
+    Swift_DependencyContainer::getInstance()
+      ->register('transport.eventdispatcher')
+      ->asNewInstanceOf('Swift_Events_ullSimpleEventDispatcher')
+    ;
+    
+    parent::__construct($dispatcher, $options);
+    
+    // add logger to realtime transport, since sfMailer doesn't do it (why?)
+    if ($options['logging'] && $this->logger)
+    {
+      $this->realtimeTransport->registerPlugin($this->logger);
+    }
+  }
   
   /**
    * Sends the given message without spooling

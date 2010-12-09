@@ -30,9 +30,7 @@ UllMailLoggedMessage:
     html_body:
       type: clob
     # before sending the transport sets this to false, after sending to true
-    spool_sent_status: 
-      type: boolean
-    realtime_sent_status:
+    transport_sent_status:
       type: boolean
     # set when the mail was sent by the realtime transport
     sent_at: 
