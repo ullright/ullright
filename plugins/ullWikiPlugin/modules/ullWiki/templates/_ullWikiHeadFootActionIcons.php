@@ -13,7 +13,7 @@
 
 <?php if ($access): ?>
 
-<ul class='ull_wiki_headfoot_action_icons'>
+<ul class='ull_wiki_headfoot_action_icons no_print'>
 
   <li>
     <?php

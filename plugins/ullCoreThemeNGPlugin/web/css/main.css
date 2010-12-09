@@ -315,7 +315,7 @@ img, div {
 @media print {
 	
 	body {
-	 font-size: 66%;
+	 font-size: 100%;
 	}
 	
 	/* Otherwise all input tags are HUGE in Firefox (3.0.13) */
