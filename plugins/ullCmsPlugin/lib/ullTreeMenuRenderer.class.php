@@ -93,11 +93,11 @@ class ullTreeMenuRenderer
         }
         
        if (1 == $node->getLevel()){
-          $return .= '</' . $this->topLevelHtmlTag . '>';
+          $return .= '</' . $this->topLevelHtmlTag . '>' . "\n";
         }
         else
         {
-          $return .= '</li>';
+          $return .= '</li>' . "\n";
         }
       }        
     }
