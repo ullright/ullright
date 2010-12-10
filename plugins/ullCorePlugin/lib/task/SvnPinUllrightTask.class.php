@@ -1,16 +1,16 @@
 <?php
 
-class PinPluginRevisionsTask extends ullBaseTask
+class SvnPinUllrightTask extends ullBaseTask
 {
   
   protected function configure()
   {
     $this->namespace        = 'ullright';
-    $this->name             = 'pin-plugin-revisions';
-    $this->briefDescription = 'Pins the subversion revision number';
+    $this->name             = 'svn-pin-ullright';
+    $this->briefDescription = 'Pins the subversion revision number of the generic ullright parts';
     $this->detailedDescription = <<<EOF
     The [{$this->name} task|INFO] pins the subversion revision number of 
-    the ullright plugins to a certain revision
+    the ullright plugins and symfony libs to a certain revision
     
     When no revision number is given, the HEAD revision is used
     Call it with:

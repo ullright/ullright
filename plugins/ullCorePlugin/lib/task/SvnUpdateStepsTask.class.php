@@ -44,14 +44,14 @@ EOF;
     
     $this->initializeDatabaseConnection($arguments, $options);
     
-    $currentRevision = $this->getCurrentRevision();
+    $currentRevision = $this->getUllrightCurrentRevision();
     
     // Set initial number of migrations
     $this->detectNewMigration($currentRevision);
     
     $this->log('Current revision: ' . $currentRevision);
     
-    $headRevision = $this->getHeadRevision();
+    $headRevision = $this->getUllrightHeadRevision();
     
     $this->log('Head revision: ' . $headRevision);
     
@@ -61,8 +61,7 @@ EOF;
     {
       if ($this->detectNewMigration($rev))
       {
-        $this->updateSvnExternalProperties($rev);
-        $this->log('Pinned svn:externals to ' . $rev);
+        $this->runTask('ullright:svn-pin-ullright', array('revision' => $rev));
         
         $command = 'svn update';
         $this->log(reset($this->getFilesystem()->execute($command)));
@@ -71,6 +70,9 @@ EOF;
         $this->runTask('doctrine:migrate');
       }  
     }    
+    
+    // Reset ullright svn:externals to HEAD revision
+    $this->runTask('ullright:svn-pin-ullright');
   }
   
   
@@ -87,67 +89,6 @@ EOF;
 //    $conn = Doctrine_Manager::connection();
   }
   
-  /**
-   * Return the current ullright svn revision number
-   * 
-   * Preferable from data/ullright_svn_revision.txt
-   * Or via svn info as fallback
-   * 
-   * @return string
-   */
-  protected function getCurrentRevision()
-  {
-    $path = sfConfig::get('sf_data_dir') .
-      DIRECTORY_SEPARATOR .
-      'ullright_svn_revision.txt';
-      
-    if (file_exists($path))
-    {
-      return file_get_contents($path);
-    }  
-    else
-    {
-      $command = 'svn info plugins/ullCorePlugin';
-      $output = reset($this->getFilesystem()->execute($command));
-      preg_match('#Revision: ([\d]+)#', $output, $matches);
-      
-      return $matches[1];
-    }
-  }
-  
-  protected function getHeadRevision()
-  {
-    $command = 'svn info http://bigfish.ull.at/svn/ullright/trunk';
-    $output = reset($this->getFilesystem()->execute($command));
-    preg_match('#Revision: ([\d]+)#', $output, $matches);
-      
-    return $matches[1];
-  }
-
-  /**
-   * Pins the ullright externals to a revision nr.
-   * 
-   * @param unknown_type $revision
-   */
-  protected function updateSvnExternalProperties($revision)
-  {
-    $command = 'svn propget svn:externals ' . sfConfig::get('sf_plugins_dir');
-    $output = $this->getFilesystem()->execute($command);
-    $externals = reset($this->getFilesystem()->execute($command));
-    
-    $externals = preg_replace('#( -r[\d]+)#', '', $externals);
-//    var_dump($externals);
-    
-    
-//    $externals = preg_replace('#(^[\S]+)#m', '$1 -r'. $revision,  $externals);
-//    $externals = preg_match_all('#(http://bigfish.ull.at/svn/ullright/[\S]+)#m', $externals, $matches);
-    $externals = preg_replace('#(http://bigfish.ull.at/svn/ullright/[\S]+)#m', '-r' . $revision . ' $1', $externals);
-//    var_dump($matches);
-    
-    
-    $command = 'svn propset svn:externals "' . $externals . '" ' . sfConfig::get('sf_plugins_dir');
-    $this->getFilesystem()->execute($command);
-  }
   
   /**
    * Detect an increase in number of ullright migrations relative to the stored number

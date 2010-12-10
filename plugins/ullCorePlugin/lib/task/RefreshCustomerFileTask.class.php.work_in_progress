@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Work in progress !
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
+class RefreshCustomerFileTask extends ullBaseTask
+{
+  
+  protected function configure()
+  {
+    $this->namespace        = 'ullright';
+    $this->name             = 'refresh-customer-file';
+    $this->briefDescription = 'Refresh local customer file with ullright repo file';
+    $this->detailedDescription = <<<EOF
+    The [{$this->name} task|INFO] refreshes a local customer installation file 
+    with the similar one from the ullright dev instance.
+    
+    The tasks checks for local changes and warns in that case.
+
+    Call it with:
+
+    [php symfony {$this->namespace}:{$this->name}|INFO]
+EOF;
+
+    $this->addArgument('file', sfCommandArgument::REQUIRED,
+      'The file to refresh');
+    $this->addArgument('application', sfCommandArgument::OPTIONAL,
+      'The application name', 'frontend');
+    $this->addArgument('env', sfCommandArgument::OPTIONAL,
+      'The environment', 'cli');
+  }
+
+
+  protected function execute($arguments = array(), $options = array())
+  {
+    $this->logSection($this->name, 'Initializing');
+    
+    $currentRevision = $this->getUllrightCurrentRevision();
+
+    //TODO: add logic
+ 
+    
+  }
+  
+  
+}
