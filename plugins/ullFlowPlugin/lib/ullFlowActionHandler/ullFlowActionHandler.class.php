@@ -131,6 +131,7 @@ abstract class ullFlowActionHandler
    */
   public function getNext()
   {
+    return array();
   }
 
   /**

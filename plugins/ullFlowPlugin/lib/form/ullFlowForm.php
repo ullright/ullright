@@ -148,9 +148,9 @@ class ullFlowForm extends ullGeneratorForm
       $className = 'ullFlowRule' . sfInflector::camelize($this->object->UllFlowApp->slug);
       $rule = new $className($this->object);
       $next = $rule->getNext();
-
+      
       // Step two: if the rule script did not supply an entity or a step
-      // We use the default behaviour of the ullFlow action (e.g. "reopen")
+      // we use the default behaviour of the ullFlow action (e.g. "reopen")
       if (!isset($next['entity']) || !isset($next['step']))
       {
         $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
@@ -171,7 +171,6 @@ class ullFlowForm extends ullGeneratorForm
       }
       
 //      var_dump(ullCoreTools::debugArrayWithDoctrineRecords($next));
-      
     }
   }
 
