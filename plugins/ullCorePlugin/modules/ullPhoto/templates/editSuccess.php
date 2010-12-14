@@ -110,14 +110,16 @@ function preview(img, selection) {
           ) 
         ?>
       </li>
+      <!--  
       <li>
         <?php 
-          echo submit_tag(
+          /*echo submit_tag(
             __('Crop', null, 'ullCoreMessages'),
             array('name' => 'submit|action_slug=crop')            
-          ) 
+          ) */
         ?>
       </li>
+      -->
       <li>
         <?php 
           echo submit_tag(

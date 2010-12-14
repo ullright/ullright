@@ -190,7 +190,7 @@ class BaseUllPhotoActions extends ullsfActions
           $img->save();
         }
         
-        elseif ($actionSlug == 'crop')
+       /* elseif ($actionSlug == 'crop')
         {
           $coordinates = $this->getCoordinatesFromForm($values);
           
@@ -202,11 +202,22 @@ class BaseUllPhotoActions extends ullsfActions
           
           $this->resizePhoto($img);
           $img->save();
-        }
+        }*/
         
         elseif ($actionSlug == 'save')
         {
-          $img = new sfImage($path . '/' . $values['photo'], 'image/jpg' );
+          $coordinates = $this->getCoordinatesFromForm($values);
+          
+          $img = new sfImage($path . '/' . $values['photo'],'image/png' );
+          $adjustedValues = $this->adjustCoordinates(
+            $coordinates, $img->getHeight(), $this->display_height);
+            
+          $img->crop($adjustedValues['x1'], $adjustedValues['y1'], $adjustedValues['width'], $adjustedValues['height']);
+          
+         // $this->resizePhoto($img);
+         // $img->save();
+          
+          //$img = new sfImage($path . '/' . $values['photo'], 'image/jpg' );
           $this->resizePhoto($img);
           
           $fullPath = 
