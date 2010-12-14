@@ -153,14 +153,17 @@ UllNews:
   second_entry:
     Translation:
       en:
-        title:             Second entry
-        abstract:          Since today (2010-03-14) we have a second entry. Have fun
-        link_name:         more ...
+        title:             "Welcome, I hope you're ullright!"
+        abstract:          |
+                             If you can see this, the basic configuration is working fine.
+                             
+                             Please login as user admin/admin.
       de:
-        title:             Zweiter Eintrag
-        abstract:          Seit heute (14.3.2010) haben wir einen zweiten Eintrag. Viel Spaß
-        link_name:         mehr ...
-    link_url:              http://google.com
+        title:             "Welcome, I hope you're ullright!"
+        abstract:          |
+                             Falls Sie diesen Text lesen können, ist die Basiskonfiguration abgeschlossen.
+                             
+                             Zum Einloggen bitte admin/admin verwenden
     activation_date:       '2010-03-14'
    
     
@@ -203,7 +206,7 @@ UllGroupPermission:
     UllPermission:      ull_permission_cms_list
     namespace:          ull_cms
   ull_group_permission_ull_cms_2:
-    UllGroup:           ull_group_cms_admins
+    UllGroup:           ull_group_everyone
     UllPermission:      ull_permission_cms_show
     namespace:          ull_cms            
   ull_group_permission_ull_cms_3:
