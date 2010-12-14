@@ -182,7 +182,7 @@ ul.nav_syslinks_list li:last-child {
   margin: 0;
   padding: 0.2em;
   postion: relativ;
-  height: 1.6em;
+  height: 1.7em;
   background-color: #777475;
   width: inherit;
 }
@@ -194,6 +194,8 @@ ul.nav_syslinks_list li:last-child {
 
 div.nav_main_menu a {
   color: #ffffff !important;
+  font-weight: bold;
+  font-size: 1.05em;
 }
 
 
