@@ -148,7 +148,7 @@ UllNews:
         title:              Erster News-Eintrag
         abstract:           Wilkommen. Das sind unsere ersten News
         link_name:          Foo-Link de
-    link_url:               http://orf.at
+    link_url:               http://google.com
     activation_date:       '2010-03-12'
   second_entry:
     Translation:
@@ -160,7 +160,7 @@ UllNews:
         title:             Zweiter Eintrag
         abstract:          Seit heute (14.3.2010) haben wir einen zweiten Eintrag. Viel Spaß
         link_name:         mehr ...
-    link_url:              http://orf.at
+    link_url:              http://google.com
     activation_date:       '2010-03-14'
    
     
