@@ -15,6 +15,18 @@
 <target>Listen</target>
 </trans-unit>
 
+<trans-unit id="102">
+<source>Mailing</source>
+<target>Mailing</target>
+</trans-unit>
+
+<trans-unit id="103">
+<source>Logged Mail Messages</source>
+<target>Protokollierte E-Mail Nachrichten</target>
+</trans-unit>
+
+
+
 <!--  column names  -->
 <trans-unit id="200">
 <source>Layout</source>
