@@ -175,6 +175,28 @@ ul.nav_syslinks_list li:last-child {
 }
 
 
+.nav_main_menu ul {
+	clear: right;
+  line-height: 1.4em;
+  list-style: none;
+  margin: 0;
+  padding: 0.2em;
+  postion: relativ;
+  height: 1.6em;
+  background-color: #777475;
+  width: inherit;
+}
+
+.nav_main_menu ul li {
+  float: left;
+  margin: 0 1em;
+}
+
+div.nav_main_menu a {
+  color: #ffffff !important;
+}
+
+
 /*
  * ************************************************
  *  Sidebar
@@ -197,6 +219,15 @@ ul.nav_syslinks_list li:last-child {
 
 #sidebar_content a:visited {
   color: gray;
+}
+
+#sidebar_content ul {
+  list-style: none;
+}
+
+#sidebar_content ul li {
+  margin: 0;
+  padding: 0;
 }
 
 #sidebar_logo {
@@ -229,11 +260,6 @@ ul.nav_syslinks_list li:last-child {
 
 ul.sidebar_list {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-ul.sidebar_list li {
   margin: 0;
   padding: 0;
 }
