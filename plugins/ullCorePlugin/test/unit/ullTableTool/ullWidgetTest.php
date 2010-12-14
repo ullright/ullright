@@ -6,7 +6,7 @@ sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping'));
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new lime_test(5, new lime_output_color(), $configuration);
+$t = new lime_test(6, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);
 
 $t->diag('__construct()');
@@ -28,3 +28,12 @@ $t->diag('nowrap option');
     '<span style="white-space: nowrap;">very long long long long string</span>', 
     'Wraps value in span "nowrap" tags'
   );  
+  
+$t->diag('decode_mime option');
+  $w = new ullWidget(array('decode_mime' => true));
+  $t->is(
+    $w->render('my_fieldname', 'Thomas =?utf-8?Q?Strau=C3=9F?='), 
+    'Thomas Strauß', 
+    'Decodes imap mime string'
+  );   
+  

@@ -20,6 +20,9 @@ class ullWidgetTextarea extends ullWidget
     {
       $value = '';
     }
+    
+    $value = $this->handleDecodeMimeOption($value);
+    
     return auto_link_text($value);
   }
 }

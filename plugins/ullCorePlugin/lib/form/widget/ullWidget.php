@@ -12,6 +12,7 @@ class ullWidget extends sfWidgetForm
   {
     $this->addOption('suffix');
     $this->addOption('nowrap');
+    $this->addOption('decode_mime');
     
     parent::__construct($options, $attributes);
   }
@@ -59,6 +60,8 @@ class ullWidget extends sfWidgetForm
     //is exempted from output escaping
     $value = esc_entities($value);
     
+    $value = $this->handleDecodeMimeOption($value);
+    
     $value = $this->handleNowrapOption($value);
     
     return $value;
@@ -97,5 +100,22 @@ class ullWidget extends sfWidgetForm
 
     return $value;
   }
+  
+  
+  /**
+   * Handle decode_mime option
+   
+   * @param string $value
+   * @return string
+   */
+  protected function handleDecodeMimeOption($value)
+  {
+    if ($this->getOption('decode_mime'))
+    {
+      $value = imap_utf8($value);
+    }
+    
+    return $value;
+  } 
   
 }
