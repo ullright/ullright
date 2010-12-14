@@ -1,6 +1,9 @@
 /*
- * Common non-layout styles (mostly fonts)
+ * ************************************************
+ *  Common (basic styles e.g. links, headings, ...)
+ * ************************************************
  */
+ 
 a img,:link img,:visited img {
 	border: none;
 }

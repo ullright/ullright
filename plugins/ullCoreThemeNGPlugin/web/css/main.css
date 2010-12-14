@@ -9,7 +9,7 @@
 
 /*
  * ************************************************
- *  top level
+ *  Layout
  * ************************************************
  */
 
@@ -34,85 +34,9 @@ body {
 }
 
 
-
 /*
  * ************************************************
- *  sidebar
- * ************************************************
- */
-
-#sidebar {
-	margin: 0;
-	float: left;
-	width: 12em;
-}
-
-#sidebar_content a {
-  color: gray;
-}
-
-#sidebar_content a:hover {
-  color: gray;
-}
-
-#sidebar_content a:visited {
-  color: gray;
-}
-
-#sidebar_logo {
-	padding-top: .7em;
-  padding-bottom: 1.6em;
-  text-align: center;
-}
-
-#sidebar_content {
-	padding-left: 6px;
-	text-align: left;
-  color: #000;
-}
-
-#sidebar_tab {
-  position: absolute;
-  left: 0;
-  top: 45%;
-}
-
-.sidebar_section {
-  margin-bottom: 1em; 
-}
-
-#sidebar_content h3 {
-  font-size: 1em;
-  font-weight: normal;
-  margin: 0;
-}  
-
-ul.sidebar_list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-ul.sidebar_list li {
-  margin: 0;
-  padding: 0;
-}
-
-.sidebar_round_button {
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  
-  border: 1px solid #d3d3d3;
-  background: #e6e6e6;
-  font-weight: normal;
-  color: #555555;
-}
-
-
-/*
- * ************************************************
- *  navigation
+ *  Header
  * ************************************************
  */
 
@@ -253,7 +177,82 @@ ul.nav_syslinks_list li:last-child {
 
 /*
  * ************************************************
- *  content
+ *  Sidebar
+ * ************************************************
+ */
+
+#sidebar {
+  margin: 0;
+  float: left;
+  width: 12em;
+}
+
+#sidebar_content a {
+  color: gray;
+}
+
+#sidebar_content a:hover {
+  color: gray;
+}
+
+#sidebar_content a:visited {
+  color: gray;
+}
+
+#sidebar_logo {
+  padding-top: .7em;
+  padding-bottom: 1.6em;
+  text-align: center;
+}
+
+#sidebar_content {
+  padding-left: 6px;
+  text-align: left;
+  color: #000;
+}
+
+#sidebar_tab {
+  position: absolute;
+  left: 0;
+  top: 45%;
+}
+
+.sidebar_section {
+  margin-bottom: 1em; 
+}
+
+#sidebar_content h3 {
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+}  
+
+ul.sidebar_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.sidebar_list li {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar_round_button {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6;
+  font-weight: normal;
+  color: #555555;
+}
+
+
+/*
+ * ************************************************
+ *  Content
  * ************************************************
  */
 #content {
@@ -263,7 +262,7 @@ ul.nav_syslinks_list li:last-child {
 
 /*
  * ************************************************
- *  footer
+ *  Footer
  * ************************************************
  */
 #footer {
