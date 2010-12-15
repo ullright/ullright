@@ -13,14 +13,12 @@
         <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/action_icons/create_24x24', 'ullNewsletter/create', __('Compose Newsletter', null, 'ullMailMessages')) ?></li>
       </ul>
       
-      <?php  /* 
       <h3><?php echo __('Lists', null, 'ullMailMessages') ?></h3>
       <ul class="tc_tasks">
         <?php foreach ($categories as $category): ?>
           <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/ull_mail_24x24', 'ullNewsletter/list', $category) ?></li>
         <?php endforeach; ?>
       </ul>
-      */ ?>
     </div>    
     
     
@@ -32,13 +30,17 @@
         <?php echo $form['search']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
         <?php echo javascript_tag('document.getElementById("filter_search").focus();'); ?>
       </div>
+      <!-- 
       <div class="tc_box_with_bottom_spacer color_light_bg">
-        <?php echo ull_link_to(__('Advanced search', null, 'common'), 'ullNewsletter/search') ?>
+        <?php //echo ull_link_to(__('Advanced search', null, 'common'), 'ullNewsletter/search') ?>
       </div>
+       -->
+      <!--
       <div class="tc_box_with_bottom_spacer color_medium_bg">
         <?php //echo $form['ull_entity_id']->renderLabel() ?><br />
         <?php //echo $form['ull_entity_id']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
       </div>
+      -->
       </form>
 
       <!-- 
