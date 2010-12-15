@@ -11,18 +11,16 @@ class ullMetaWidgetManyToMany extends ullMetaWidget
     //since this is a widget for many to many relationships,
     //multiple is always true
     $defaultOptions = array('multiple' => true);
-    
+
     $this->addWidget(new ullWidgetManyToManyWrite(
       array_merge($defaultOptions, $this->columnConfig->getWidgetOptions())));
     $this->addValidator(new sfValidatorDoctrineChoice(
       array_merge($defaultOptions, $this->columnConfig->getValidatorOptions())));
   }
-  
-  // TODO: implement, properly as list
+
   protected function configureReadMode()
   {
-    $this->columnConfig->setWidgetAttribute('disabled', 'disabled');
-    
-    $this->configureWriteMode();
-  }    
+    $this->addWidget(new ullWidgetManyToManyRead($this->columnConfig->getWidgetOptions()));
+    $this->addValidator(new sfValidatorPass());
+  }
 }

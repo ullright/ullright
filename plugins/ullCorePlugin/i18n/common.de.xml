@@ -1227,6 +1227,11 @@
 <target>Fällig am</target>
 </trans-unit>
 
+<trans-unit id="26009">
+<source>None</source>
+<target>Keine</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
