@@ -12,7 +12,7 @@ class ullNamedQueriesUllUserCustom extends ullNamedQueries
     $this
       ->setBaseUri('ullUser/list')
       ->setI18nCatalogue('messages')
-      ->add('ullNamedQueryUllUserOpeningCompetition')
+      ->add('ullNamedQueryMyQuery')
     ;
   }
   
