@@ -736,10 +736,32 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       {
         $value->setAccess(null);
       }
-//      else
-//      {
-//        $value->setAccess($this->defaultAccess);
-//      }
+    }
+  }
+
+  /**
+   * Completely removes the given columns from this
+   * column config collection
+   * 
+   * @param $array array of columnNames
+   * @param $withoutErrors boolean specifying if invalid column names
+   *   (i.e. ones that are in $array but not in this column configuration
+   *   collection) should result in errors or be silently discarded
+   * @return none
+   */
+  public function remove($array, $withoutErrors = false)
+  {
+    if (!is_array($array))
+    {
+      $array = array($array);
+    }
+    
+    foreach ($array as $columnName)
+    {
+      if (!$withoutErrors || isset($this->collection[$columnName]))
+      {
+        unset($this->collection[$columnName]);
+      }    
     }
   }
   

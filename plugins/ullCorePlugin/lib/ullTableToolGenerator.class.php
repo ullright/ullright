@@ -522,10 +522,14 @@ class ullTableToolGenerator extends ullGenerator
     for($i = $maxVersion; $i >= 1; $i--)
     {
       if ($i > 1)
-      $rowRev->revert($i - 1);
+      {
+        $rowRev->revert($i - 1);
+      }
       else
-      $rowRev = new $this->modelName;
-
+      {
+        $rowRev = new $this->modelName;
+      }
+	      
       $this->historyGenerators[$i - 1] = new ullTableToolHistoryGenerator($this->modelName, 'r');
       $this->historyGenerators[$i - 1]->buildHistoryForm($rowCur, $rowRev, $this->enableFutureVersions);
 

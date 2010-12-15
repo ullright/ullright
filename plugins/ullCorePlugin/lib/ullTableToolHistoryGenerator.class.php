@@ -66,7 +66,7 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
       }
     }
 
-    $this->columnsConfig->disable(array_merge(array(
+    $this->columnsConfig->remove(array_merge(array(
       'version',
       'updated_at',
       'updator_user_id',
@@ -105,6 +105,7 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
         $this->scheduledUpdater = $versionRecord->Updator;
       }
     }
+    
     parent::buildForm($curRow);
   }
   
