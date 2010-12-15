@@ -27,7 +27,7 @@ class BaseUllNewsletterEditionTableConfiguration extends UllTableConfiguration
       'num_failed_emails',
       'num_read_emails',
     ));
-    $this->setForeignRelationName(__('Layout', null, 'ullMailMessages'));
+//    $this->setForeignRelationName(__('Layout', null, 'ullMailMessages'));
   }  
   
 }

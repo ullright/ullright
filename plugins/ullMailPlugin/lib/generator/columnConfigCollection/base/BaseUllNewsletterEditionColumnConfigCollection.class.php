@@ -17,23 +17,29 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       ->setLabel(__('Text', null, 'common'))
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
     ;
+
+    $this['sent_by_ull_user_id']
+      ->setLabel(__('Sender', null, 'ullMailMessages'))
+      ->setAccess('r')
+    ;
     
     $this['sent_at']
       ->setLabel(__('Sent at', null, 'ullMailMessages'))
+      ->setAccess('r')
     ;
     
     $this['num_sent_emails']
-      ->setLabel(__('No. of emails sent', null, 'ullMailMessages'))
+      ->setLabel(__('Mails sent', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
     
     $this['num_failed_emails']
-      ->setLabel(__('No. of failed emails', null, 'ullMailMessages'))
+      ->setLabel(__('Undeliverable', null, 'ullMailMessages'))
       ->setAccess('r')
     ;      
     
     $this['num_read_emails']
-      ->setLabel(__('No. of emails read', null, 'ullMailMessages'))
+      ->setLabel(__('Read', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
 
