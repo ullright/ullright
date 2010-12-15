@@ -150,6 +150,7 @@ UllNews:
         link_name:          Foo-Link de
     link_url:               http://google.com
     activation_date:       '2010-03-12'
+    image_upload:          employee.jpg
   second_entry:
     Translation:
       en:
@@ -165,6 +166,7 @@ UllNews:
                              
                              Zum Einloggen bitte admin/admin verwenden
     activation_date:       '2010-03-14'
+    image_upload:          ullright-image-small.png
    
     
 UllPermission:

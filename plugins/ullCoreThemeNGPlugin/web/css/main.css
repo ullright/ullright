@@ -232,6 +232,11 @@ div.nav_main_menu a {
   padding: 0;
 }
 
+#sidebar_content ul ul{
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+
 #sidebar_logo {
   padding-top: .7em;
   padding-bottom: 1.6em;
