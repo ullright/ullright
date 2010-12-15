@@ -14,7 +14,7 @@ $b = new ullTableToolTestBrowser(
 	'UllGroup', 
 	'Groups', 
 	'Manage Groups', 
-  5, 
+  6, 
   $s, 
   $configuration
 );
