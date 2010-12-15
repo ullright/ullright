@@ -37,13 +37,21 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       ->setAccess('r')
     ;
 
-    if ($this->isCreateOrEditAction())
-    {
+//    if ($this->isCreateOrEditAction())
+//    {
       $this->useManyToManyRelation('UllNewsletterEditionMailingLists');
       $this['UllNewsletterEditionMailingLists']
         ->setLabel(__('Mailing lists', null, 'ullMailMessages'))
       ;
-    }
+      
+      $this->order(array(
+        'UllNewsletterEditionMailingLists',
+        'subject',
+        'html_body_template',
+        'ull_newsletter_layout_id',
+        'is_active',
+      ));      
+//    }
     
     if ($this->isCreateAction())
     {
@@ -55,13 +63,7 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
         'num_read_emails'));
     }
     
-    $this->order(array(
-      'UllNewsletterEditionMailingLists',
-      'subject',
-      'html_body_template',
-      'ull_newsletter_layout_id',
-      'is_active',
-    ));
+
     
     
     

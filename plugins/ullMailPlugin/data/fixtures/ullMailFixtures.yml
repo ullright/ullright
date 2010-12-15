@@ -17,13 +17,13 @@ UllNewsletterMailingListSubscriber:
 UllNewsletterLayout:
   ull_newsletter_layout_1:
     name: ullright Layout
-    html_layout: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>%CONTENT%<p>%UNSUBSCRIBE%</p><p>(C) 2011 by ull.at</p> 
+    html_layout: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p> 
 
 UllNewsletterEdition:
   ull_newsletter_edition_1:
     subject: ullright presents "ullMail" - our easy-cheesy newsletter system
     UllNewsletterLayout: ull_newsletter_layout_1
-    html_body_template: <p>Hello %first_name% %$last_name%,</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><p>Have a nice day.</p>
+    html_body_template: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><p>Have a nice day.</p>
     Sender: test_user
     sent_at: 2010-12-06 08:34:00
     num_sent_emails: 2

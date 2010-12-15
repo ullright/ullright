@@ -26,7 +26,6 @@
 </trans-unit>
 
 
-
 <!--  column names  -->
 <trans-unit id="200">
 <source>Layout</source>
@@ -49,7 +48,7 @@
 </trans-unit>
 
 <trans-unit id="203">
-<source>No. of failed emails </source>
+<source>No. of failed emails</source>
 <target>Anzahl der fehlgeschlagenen E-Mails</target>
 </trans-unit>
 
@@ -58,6 +57,13 @@
 <target>Verteiler</target>
 </trans-unit>
 
+
+<!-- named queries -->
+
+<trans-unit id="300">
+<source>All newsletters</source>
+<target>Alle Newsletter</target>
+</trans-unit>
 
 
 

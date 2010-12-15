@@ -14,9 +14,19 @@ class BaseUllNewsletterEditionTableConfiguration extends UllTableConfiguration
    */
   protected function applyCustomSettings()
   {
-//    $this->setName(__('News', null, 'ullNewsMessages'));
-//    $this->setSearchColumns(array('title'));
-//    $this->setOrderBy('activation_date DESC');
+    $this->setName(__('Newsletter', null, 'ullNewsletterMessages'));
+    $this->setSearchColumns(array('subject'));
+    $this->setOrderBy('sent_at DESC');
+    $this->setListColumns(array(
+//      'UllNewsletterMailingList->name',
+      'subject',
+      'sent_at',
+      'Sender->display_name',
+      'is_active',
+      'num_sent_emails',
+      'num_failed_emails',
+      'num_read_emails',
+    ));
     $this->setForeignRelationName(__('Layout', null, 'ullMailMessages'));
   }  
   

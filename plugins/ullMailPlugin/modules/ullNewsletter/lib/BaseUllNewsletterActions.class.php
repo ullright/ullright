@@ -36,13 +36,60 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_mail_index');
     
-//    $this->form = new ullVentoryFilterForm;
+    $this->form = new ullFilterForm;
 //    
-//    $this->named_queries = new ullNamedQueriesUllVentory;
+    $this->named_queries = new ullNamedQueriesUllNewsletter;
 
     $this->breadcrumbForIndex();
   }
+  
+  
+  /**
+   * Executes list action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeList(sfRequest $request) 
+  {
+    $this->checkPermission('ull_newsletter_list');
+    
+    parent::executeList($request);
 
+    $this->setTableToolTemplate('list');
+  }
+  
+  
+  public function executeEdit(sfRequest $request) 
+  {
+    $this->checkPermission('ull_newsletter_edit');
+    
+    $this->registerEditActionButton(new ullGeneratorEditActionButtonNewsSaveAndShow($this));
+    
+    parent::executeEdit($request);
+
+    $this->setTableToolTemplate('edit');
+  }
+
+  
+  /**
+   * Define generator for list action
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
+   */
+  protected function getListGenerator()
+  {
+    return new ullNewsletterGenerator('r', 'list', $this->columns);
+  }  
+  
+  /**
+   * Define generator for edit action
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
+   */
+  protected function getEditGenerator()
+  {
+    return new ullNewsletterGenerator('w');
+  } 
   
   /**
    * Create breadcrumbs for index action
@@ -53,4 +100,44 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $breadcrumbTree = new ullNewsletterBreadcrumbTree();
     $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
+  
+  /**
+   * Handles breadcrumb for list action
+   */
+  protected function breadcrumbForList()
+  {
+    $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
+    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullNews/list');
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
+  
+  /**
+   * Handles breadcrumb for edit action
+   *
+   */
+  protected function breadcrumbForEdit()
+  {
+    $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
+    $breadcrumb_tree->setEditFlag(true);
+    if ($referer = $this->getUriMemory()->get('list'))
+    {
+      $breadcrumb_tree->add(__('Result list', null, 'common'), $referer);
+    }
+    else
+    {
+      $breadcrumb_tree->addDefaultListEntry();
+    }    
+    
+    if ($this->id) 
+    {
+      $breadcrumb_tree->add(__('Edit', null, 'common'));
+    }
+    else
+    {
+      $breadcrumb_tree->add(__('Create', null, 'common'));
+    }
+    
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
+    
 }
