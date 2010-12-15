@@ -867,7 +867,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       $model = $relation['model'];
     }
     
-    $q = new Doctrine_Query;
+    $q = new Doctrine_Query();
     $q
       ->select($toStringColumn)
       ->from($model)

@@ -374,6 +374,20 @@ class ullQuery
     $finalColumn = $column;
     $relations = array();
     
+    //handle many to many relations:
+    //these relations do not have a -> in their name, but their names
+    //do not equal regular columns, so atm, we just throw them out
+    //TODO: this results in a separate query executed by Doctrine later on
+    //Is there a way we can modify the query at this point to prevent this?
+    if (Doctrine::getTable($finalModel)->hasRelation($column))
+    {
+      $relation = Doctrine::getTable($finalModel)->getRelation($column);
+      if ($relation instanceof Doctrine_Relation_Association)
+      {
+        return null;
+      }
+    }
+    
     if (ullGeneratorTools::hasRelations($column))
     {
       $relations = ullGeneratorTools::relationStringToArray($column);

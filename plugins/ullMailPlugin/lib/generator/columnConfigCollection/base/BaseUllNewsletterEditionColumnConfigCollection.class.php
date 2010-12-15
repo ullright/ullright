@@ -68,15 +68,5 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
         'num_failed_emails',
         'num_read_emails'));
     }
-    
-
-    
-    
-    
-    
-//    if ($this->isListAction())
-//    {
-//      $this->disableAllExcept(array('id', 'title', 'link_name', 'link_url', 'activation_date', 'deactivation_date'));
-//    }
   }
 }
