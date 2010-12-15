@@ -72,6 +72,7 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     }
   }
   
+  
   /**
    * Create cache dir tree for HTML Purifier if not already available
    */
@@ -93,7 +94,8 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
     
     sfConfig::add(array('htmlpurifier_cache_dir' => $purifierCachePath));
   }
-        
+
+  
   /**
    * Connect to request.filter_parameters event and set request format in case
    * of surfing with a mobile device (smartphone)

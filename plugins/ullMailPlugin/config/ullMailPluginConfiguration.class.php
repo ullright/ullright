@@ -21,7 +21,6 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
    * does not occur, this behavior is not a problem at the moment,
    * but it is something that might need to be considered in the future.
    */
-
   public function initialize()
   {
     //mailer.configure is not fired during application/plugin initialization,
@@ -32,12 +31,18 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $this->dispatcher->connect('mailer.configure', array($this, 'configureMailingSystem'));
   }
 
+  
+  /**
+   * Method to be invoked by mailer.configure event
+   * 
+   * @param sfEvent $event
+   */
   public function configureMailingSystem(sfEvent $event)
   {
     $mailer = $event->getSubject();
     
     //regardless of the transport configuration in factories.yml,
-    //we override it with old-style values read from app.yml
+    //we override it with "old-style" values read from app.yml
     $this->overrideMailerTransport($mailer);
 
     //add mail auditing plugin
@@ -62,9 +67,10 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     }
   }
 
+  
   /**
    * This function reconfigures the realtime transport of the
-   * mailer based on old-style configuration values in app.yml,
+   * mailer based on "old-style" configuration values in app.yml,
    * i.e. the ones symfony used before adopting Swift Mailer.
    *
    * @param sfEvent $event
@@ -108,6 +114,7 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $mailer->setRealtimeTransport($transport);
   }
 
+  
   /**
    * Enables mail auditing (= logging of sent mails to the database).
    * Uses the Swift_Plugins_ullAuditPlugin class.
@@ -119,10 +126,10 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $auditingPlugin = new Swift_Plugins_ullAuditPlugin();
     $auditingPlugin->setPriority(9);
 
-    //$mailer->getTransport()->registerPlugin($auditingPlugin);
     $mailer->getRealtimeTransport()->registerPlugin($auditingPlugin);
   }
 
+  
   /**
    * Disables the delivery of mails by registering a
    * Swift_Plugins_ullDisableMailingPlugin at the realtime
@@ -143,6 +150,7 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $mailer->getRealtimeTransport()->registerPlugin($disablingPlugin);
   }
 
+  
   /**
    * Enables mail rerouting to a single debug address. Uses the
    * Swift_Plugins_RedirectingPlugin.
@@ -158,6 +166,7 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $this->enableDebugAddressPlugin($mailer, null, 'Swift_Plugins_RedirectingPlugin');
   }
 
+  
   /**
    * Registeres a plugin which includes a single debug address in
    * the BCC list of every mail sent. Uses the Swift_Plugins_ullAddToBccPlugin.
@@ -177,6 +186,7 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $this->enableDebugAddressPlugin($mailer, -5, 'Swift_Plugins_ullAddToBccPlugin', $slugExcludeList);
   }
 
+  
   /**
    * Helper function (used by enableMailRerouting and enableAddDebugToBcc)
    * to create and register a plugin (class name is given) to the
@@ -215,7 +225,6 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     }
     
     //and tell the realtime transport to use it
-    //$mailer->getTransport()->registerPlugin($plugin);
     $mailer->getRealtimeTransport()->registerPlugin($plugin);
   }
 }

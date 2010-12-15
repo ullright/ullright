@@ -157,11 +157,18 @@ class ullsfMail extends Swift_Message
     return $return;
   }
   
+  
+  /**
+   * Add multiple format bodies
+   * @param string $htmlBody
+   * @param string $plaintextBody
+   */
   public function setBodies($htmlBody, $plaintextBody)
   {
     $this->setBody($htmlBody, 'text/html');
     $this->addPart($plaintextBody, 'text/plain');  
   }
+
   
   /**
    * Hook for custom logic which is executed before sending the mail
@@ -172,7 +179,7 @@ class ullsfMail extends Swift_Message
   
   
   /**
-   * Prepare for sending
+   * Prepare for sending template method for child classes
    * 
    * @return none
    */
