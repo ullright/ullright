@@ -5,6 +5,6 @@
  * 
  *
  */
-class UllMailLoggedMessageColumnConfigCollection extends BaseUllMailLoggedMessageColumnConfigCollection
+class UllNewsLetterEditionColumnConfigCollection extends BaseUllNewsletterEditionColumnConfigCollection
 {
 }

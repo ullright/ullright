@@ -57,6 +57,21 @@
 <target>Verteiler</target>
 </trans-unit>
 
+<trans-unit id="206">
+<source>Newsletter layout</source>
+<target>Newsletter-Layout</target>
+</trans-unit>
+
+<trans-unit id="207">
+<source>HTML layout</source>
+<target>HTML-Layout</target>
+</trans-unit>
+
+<trans-unit id="208">
+<source>Newsletter mailing list</source>
+<target>Newsletter-Verteiler</target>
+</trans-unit>
+
 
 <!-- named queries -->
 
