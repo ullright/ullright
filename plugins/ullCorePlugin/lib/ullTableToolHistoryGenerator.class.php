@@ -21,6 +21,23 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
   protected $id;
   protected $wasScheduledUpdate;
   protected $scheduledUpdater;
+  protected $ignoreRelations;
+  
+  public function __construct($modelName, $defaultAccess = null, $requestAction = null, $columns = array())
+  {
+    parent::__construct($modelName, $defaultAccess, $requestAction, $columns);
+    
+    //find out if we have m:n relations which we need to ignore
+    $this->ignoreRelations = array();
+    $relations = Doctrine::getTable($modelName)->getRelations();
+    foreach ($relations as $relationName => $relation)
+    {
+      if ($relation instanceof Doctrine_Relation_Association)
+      {
+        $this->ignoreRelations[] = $relationName;
+      }
+    }
+  }
   
   /**
    * Compares two Doctrine_Records and adds columns with
@@ -49,13 +66,13 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
       }
     }
 
-    $this->columnsConfig->disable(array(
+    $this->columnsConfig->disable(array_merge(array(
       'version',
       'updated_at',
       'updator_user_id',
       'created_at',
-      'creator_user_id',   
-    ));
+      'creator_user_id',  
+    ), $this->ignoreRelations), true);
 
     if ($enableFutureVersions)
     {
