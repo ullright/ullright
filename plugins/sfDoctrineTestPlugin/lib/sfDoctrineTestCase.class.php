@@ -125,7 +125,7 @@ class sfDoctrineTestCase extends lime_test
         $this->createTables();
         
         $this->clearTables();
-        $this->loadFixtures();      	    
+        $this->loadFixtures(true);      	    
 	    
 //        $this->recreateDatabase();
 //        $task = new sfDoctrineBuildTask(new sfEventDispatcher, new sfFormatter);
@@ -170,7 +170,7 @@ class sfDoctrineTestCase extends lime_test
       
       Doctrine::loadModels($this->modelsPath);
         
-      if($this->resets==0)
+      if ($this->resets == 0)
       {
         $this->recreateDatabase();
         $this->createTables();
@@ -284,6 +284,11 @@ class sfDoctrineTestCase extends lime_test
 		}
 	}
 	
+	/** 
+	 * Clears the first level cache (identityMap) of the models
+   *
+   * This method ensures that records are reloaded from the db
+	 */ 
 	private function clearTables()
 	{
 		$models = Doctrine::getLoadedModels();
@@ -299,9 +304,9 @@ class sfDoctrineTestCase extends lime_test
 	 * 
 	 * @see setFixturesPath()
 	 */
-	private function loadFixtures()
+	private function loadFixtures($append = false)
 	{
-		Doctrine::loadData($this->fixturesPath);
+		Doctrine::loadData($this->fixturesPath, $append);
 	}
 	
 	/**
