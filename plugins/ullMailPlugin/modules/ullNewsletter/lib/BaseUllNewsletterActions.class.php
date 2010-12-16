@@ -70,7 +70,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   
   
   protected function executePostSave(Doctrine_Record $row, sfRequest $request)
-  {    
+  { 
     $mail = new ullsfMail();
     
     $user = UllUserTable::findLoggedInUser();
@@ -83,6 +83,11 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     {
       $mail->addAddress($user);
       $this->getMailer()->send($mail);  
+      
+      $this->getUser()->setFlash('message', 
+        __('Test newsletter was sent to %email%', 
+          array('%email%' => $user['email']), 'ullMailMessages') . '.'
+      );      
     }
     
     if ($request->getParameter('action_slug') == 'send')
@@ -93,7 +98,22 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
           __('This newsletter has already been sent', null, 'ullMailMessages') . '!'
         );
         
-        return;
+        $this->redirect(ullCoreTools::appendParamsToUri(
+          $this->edit_base_uri, 
+          'id=' . $this->generator->getForm()->getObject()->id
+        ));
+      }
+      
+      if (!count($row->getRecipients()))
+      {
+        $this->getUser()->setFlash('message', 
+          __('No recipients found. Please select one or more mailing lists with subscribers', null, 'ullMailMessages') . '.'
+        );
+        
+        $this->redirect(ullCoreTools::appendParamsToUri(
+          $this->edit_base_uri, 
+          'id=' . $this->generator->getForm()->getObject()->id
+        ));
       }
       
       //TODO: allow to give an array of UllUsers

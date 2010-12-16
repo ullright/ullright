@@ -35,13 +35,13 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
    */
   public function getRecipients()
   {
-    $q = new UllQuery('UllUser');
+    $q = new Doctrine_Query;
     $q
-      ->addSelect('display_name')
-      ->addSelect('email')
-      ->addWhere('UllUserStatus->is_active = ?', true)
-      ->addWhere('UllNewsletterMailingListSubscriber->ull_newsletter_mailing_list_id = ?', $this->id)
-      ->addOrderBy('email')
+      ->select('DISTINCT u.email')
+      ->from('UllUser u, u.UllUserStatus s, u.UllNewsletterMailingList ml, ml.UllNewsletterEdition e')
+      ->addWhere('s.is_active = ?', true)
+      ->addWhere('e.id = ?', $this->id)
+      ->addOrderBy('u.email')
     ;
     
     return $q->execute();

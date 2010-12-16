@@ -1,8 +1,10 @@
 UllNewsletterMailingList:
   product_news:
+    id: 101
     name: Product news
     description: News about our products. Sent approx. six times a year.
   best_practices:
+    id: 102
     name: Best practices
     description: Bi-weekly newsletter explaining best practices for ullright!
 
@@ -19,6 +21,7 @@ UllNewsletterMailingListSubscriber:
     
 UllNewsletterLayout:
   ull_newsletter_layout_1:
+    id: 201
     name: ullright Layout
     html_layout: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p> 
 

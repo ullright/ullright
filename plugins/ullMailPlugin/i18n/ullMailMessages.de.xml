@@ -103,6 +103,16 @@
 <target>Dieser Newsletter wurde an %number% Empfänger versendet</target>
 </trans-unit>
 
+<trans-unit id="404">
+<source>Test newsletter was sent to %email%</source>
+<target>Test-Newsletter wurde an %email% gesendet</target>
+</trans-unit>
+
+<trans-unit id="405">
+<source>No recipients found. Please select one or more mailing lists with subscribers</source>
+<target>Keine Empfänger gefunden. Bitte wählen Sie eine oder mehrere Mailing-Listen mit Abonnenten</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>
