@@ -18,6 +18,8 @@ class ullMetaWidgetTextarea extends ullMetaWidgetString
   
   protected function configureWriteMode()
   {
+    $this->columnConfig->removeWidgetOption('decode_mime');
+    
     if ($cols = $this->columnConfig->getWidgetOption('cols'))
     {
       $this->columnConfig->setWidgetAttribute('cols', $cols);

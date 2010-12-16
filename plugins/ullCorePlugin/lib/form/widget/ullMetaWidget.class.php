@@ -95,6 +95,8 @@ abstract class ullMetaWidget
    */
   protected function configureWriteMode()
   {
+    $this->columnConfig->removeWidgetOption('decode_mime');
+    
     $widgetAttributes = $this->columnConfig->getWidgetAttributes();
     if (!isset($widgetAttributes['size']))
     {

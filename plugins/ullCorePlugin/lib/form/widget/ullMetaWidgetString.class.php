@@ -15,6 +15,8 @@ class ullMetaWidgetString extends ullMetaWidget
   
   protected function configureWriteMode()
   {
+    $this->columnConfig->removeWidgetOption('decode_mime');
+    
     if (!$this->columnConfig->getWidgetAttribute('size'))
     {
       $this->columnConfig->setWidgetAttribute('size', '40');

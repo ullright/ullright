@@ -17,6 +17,8 @@ class ullMetaWidgetFCKEditor extends ullMetaWidget
         'BasePath'                 => '/ullCorePlugin/js/fckeditor/',
       );
 
+      $this->columnConfig->removeWidgetOption('decode_mime');
+      
       $this->columnConfig->setWidgetOptions(array_merge($defaults, $this->columnConfig->getWidgetOptions()));
       
       $this->addWidget(new sfWidgetFormTextareaFCKEditor($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
