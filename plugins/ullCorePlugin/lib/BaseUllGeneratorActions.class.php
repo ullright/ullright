@@ -174,27 +174,44 @@ abstract class BaseUllGeneratorActions extends ullsfActions
           return $this->renderText(json_encode(array('id' => $row->id))); 
         }
         
-        $this->processEditActionButtons();
+        $this->processEditActionButtons($row, $request);
         
-        // save only
-        if ($request->getParameter('action_slug') == 'save_only') 
-        {
-          $this->redirect(ullCoreTools::appendParamsToUri(
-            $this->edit_base_uri, 
-            'id=' . $this->generator->getForm()->getObject()->id
-          ));
-        }
-        elseif ($request->getParameter('action_slug') == 'save_new') 
-        {
-          $this->redirect($this->create_base_uri);
-        }
-                
-        $this->redirect($this->getUriMemory()->getAndDelete('list'));
+        return $this->executePostSave($row, $request);
       }
     }
     
     $this->setVar('form_uri', $this->getEditFormUri(), true);
   }  
+  
+  /**
+   * Execute actions to be performed after successfully saving the object
+   * 
+   * Usually used for redirects
+   * 
+   * @param Doctrine_Record $row
+   * @param sfRequest $request
+   * 
+   * @return boolean
+   */
+  protected function executePostSave(Doctrine_Record $row, sfRequest $request)
+  {
+    // save only
+    if ($request->getParameter('action_slug') == 'save_only') 
+    {
+      $this->redirect(ullCoreTools::appendParamsToUri(
+        $this->edit_base_uri, 
+        'id=' . $this->generator->getForm()->getObject()->id
+      ));
+    }
+    elseif ($request->getParameter('action_slug') == 'save_new') 
+    {
+      $this->redirect($this->create_base_uri);
+    }
+            
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));   
+
+    return true;
+  }
   
   
   /**
