@@ -1180,25 +1180,7 @@ function _convert_array_to_string($arr) {
 }
 
 function printQuery($query) {
-    // formats a query
-    $out = "$query";
-    $out = str_ireplace("select ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:red; font-weight:bold;'>select</span> ", $out);
-    $out = str_ireplace(" from ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:blue; font-weight:bold;'>from</span> ", $out);
-    $out = str_ireplace(" where ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:green; font-weight:bold;'>where</span> ", $out);
-    $out = str_ireplace(" order ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:purple; font-weight:bold;'>order</span> ", $out);
-    $out = str_ireplace(" group by ", "<br /> &nbsp; &nbsp; &nbsp; <span style='color:orange; font-weight:bold;'>group by</span> ", $out);
-    $out = str_ireplace(",", ",<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ", $out);
-    //$out = str_ireplace(" and ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; and ", $out);
-    //$out = str_ireplace(" or ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; or ", $out);
-    $out = str_ireplace(" and ", " <span style='color:orange; font-weight:bold;'>and</span> ", $out);
-    $out = str_ireplace(" or ", " <span style='color:orange; font-weight:bold;'>or</span> ", $out);
-    $out = str_ireplace(") ", ")<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ", $out);
-    $out = str_ireplace(" left join ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style='color:navy; font-weight:bold;'>left join</span> ", $out);
-    $out = str_ireplace(" right join ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style='color:navy; font-weight:bold;'>right join</span> ", $out);
-    $out = str_ireplace(" join ", "<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style='color:navy; font-weight:bold;'>join</span> ", $out);
-    $out = str_ireplace(" on ", " <span style='color:navy; font-weight:bold;'>on</span> ", $out);
-    $out = str_ireplace("<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ","<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ",$out);
-    echo "$out<br /><br />";
+  ullCoreTools::printQuery($query);
 }
 
 /**
