@@ -62,11 +62,13 @@
    
       <div class='clear_right'></div><!-- to force the parent-box to enclose the floating divs -->
       
+      <!-- 
       <div class='nav_main_menu'>
         <ul class="ull_menu_main_menu">
-          <?php include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
+          <?php //include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
         </ul>
       </div>
+      -->
             
     </div> <!-- end of nav_top -->
      
