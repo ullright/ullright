@@ -9,8 +9,8 @@ sfConfig::set('app_mailing_debug_address', 'dev@example.com');
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(19, new lime_output_color, $configuration);
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$t = new sfDoctrineTestCase(18, new lime_output_color, $configuration);
+$path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $t->begin('send queued mail');
@@ -20,10 +20,8 @@ $message = ullMailTestHelper::createMail();
 $mailer->sendQueue($message);
 
 $loggedMessages = Doctrine::getTable('UllMailLoggedMessage')->findAll();
-$loggedMessage = $loggedMessages->getFirst();
 
-$t->is(count($loggedMessages), 0, 'no mail log record is created');
-$t->same($loggedMessage, false, 'no real mail log record is created');
+$t->is(count($loggedMessages), 2, 'no mail log record is created');
 
 $queuedMessages = Doctrine::getTable('UllMailQueuedMessage')->findAll();
 $queuedMessage = $queuedMessages->getFirst();
@@ -44,9 +42,9 @@ $t->diag('flushing queue');
 $mailer->flushQueue();
 
 $loggedMessages = Doctrine::getTable('UllMailLoggedMessage')->findAll();
-$loggedMessage = $loggedMessages->getFirst();
+$loggedMessage = $loggedMessages[2];
 
-$t->is(count($loggedMessages), 1, 'after flushing, mail log record is created');
+$t->is(count($loggedMessages), 3, 'after flushing, mail log record is created');
 $t->isntSame($loggedMessage, false, 'after flushing, real mail log record is created');
 
 $t->like($loggedMessage['headers'], '/Content-Type: multipart\/alternative/', 'log record headers contain correct content-type');

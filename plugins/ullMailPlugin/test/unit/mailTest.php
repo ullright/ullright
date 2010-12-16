@@ -6,7 +6,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 
 $t = new sfDoctrineTestCase(12, new lime_output_color, $configuration);
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $t->begin('send mail');
@@ -17,9 +17,9 @@ $message = ullMailTestHelper::createMail();
 $mailer->send($message);
 
 $loggedMessages = Doctrine::getTable('UllMailLoggedMessage')->findAll();
-$loggedMessage = $loggedMessages[0];
+$loggedMessage = $loggedMessages[2];
 
-$t->is(count($loggedMessages), 1, 'mail log record is created');
+$t->is(count($loggedMessages), 3, 'mail log record is created');
 $t->isntSame($loggedMessage, false, 'real mail log record is created');
 $t->like($loggedMessage['headers'], '/Content-Type: multipart\/alternative/', 'log record headers contain correct content-type');
 $t->is($loggedMessage['sender'], 'Example user <user@example.com>', 'log record sender is correct');

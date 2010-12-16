@@ -13,7 +13,12 @@
  */
 class ullsfMail extends Swift_Message
 {
-  protected $slug;
+  protected 
+    $slug,
+    //TODO: enhance for multiple recipients and batch sending
+    $recipientUllUserId,
+    $isHtml = false
+  ;
   
   /**
    * Returns a new instance of the ullsfMail class.
@@ -152,6 +157,11 @@ class ullsfMail extends Swift_Message
       {
         $return[] = array('email' => $email, 'name' => (string) $entity);
       }       
+      
+      if ($entity instanceof UllUser)
+      {
+        $this->recipientUllUserId = $entity->id;
+      }
     }
 
     return $return;
@@ -165,8 +175,94 @@ class ullsfMail extends Swift_Message
    */
   public function setBodies($htmlBody, $plaintextBody)
   {
-    $this->setBody($htmlBody, 'text/html');
-    $this->addPart($plaintextBody, 'text/plain');  
+    $this->setHtmlBody($htmlBody);
+    $this->setPlaintextBody($plaintextBody);
+  }
+  
+  
+  /**
+   * Sets the html body
+   * 
+   * @param string $body
+   * 
+   * @return self
+   */
+  public function setHtmlBody($body)
+  {
+    $this->setBody($body, 'text/html');
+    $this->setIsHtml(true);
+    
+    return $this;
+  }
+  
+  /**
+   * Gets the html body
+   * 
+   * It is the main body per our convention
+   * 
+   * @return string
+   */
+  public function getHtmlBody()
+  {
+//    if ($this->getContentType() == 'text/html')
+//    {
+      return $this->getBody();
+//    }
+//    else
+//    {
+//      throw new UnexpectedValueException('The main body is not of type html!');
+//    }
+  }
+  
+  /**
+   * Set plaintext body
+   * 
+   * @param string $body
+   * 
+   * @return self
+   */
+  public function setPlaintextBody($body)
+  {
+    $children = $this->getChildren();
+    
+    $isFound = false;
+    
+    foreach($children as $child)
+    {
+      if ($child->getContentType() == 'text/plain')
+      {
+        $child->setBody($body);
+        $isFound = true;
+        
+        break;
+      }
+    }    
+    
+    if (!$isFound)
+    {
+      $this->addPart($body, 'text/plain');
+    }
+    
+    return $this;
+  }
+
+  
+  /**
+   * Gets the plaintext body
+   * 
+   * @return string
+   */
+  public function getPlaintextBody()
+  {
+    $children = $this->getChildren();
+    
+    foreach($children as $child)
+    {
+      if ($child->getContentType() == 'text/plain')
+      {
+        return $child->getBody();
+      }
+    }
   }
 
   
@@ -214,4 +310,52 @@ class ullsfMail extends Swift_Message
       }
     }
   }
+  
+  /**
+   * Sets the RecipientUllUserId when sending to a single UllUser
+   * 
+   * @param integer $id
+   * 
+   * @return: self
+   */
+  public function setRecipientUllUserId($id)
+  {
+    $this->recipientUllUserId = $id;
+    
+    return $this;
+  }
+
+  /** 
+   * Gets the RecipientUllUserId when sent to a single UllUser
+   * 
+   * @return: integer
+   */
+  public function getRecipientUllUserId()
+  {
+    return $this->recipientUllUserId;
+  }
+  
+  /**
+   * Mark as html email
+   * 
+   * @param boolean $boolean
+   * 
+   * @return: self
+   */
+  public function setIsHtml($boolean)
+  {
+    $this->isHtml = (boolean) $boolean;
+    
+    return $this;
+  }
+
+  /** 
+   * Is the mail marked as html?
+   * 
+   * @return: boolean
+   */
+  public function getIsHtml()
+  {
+    return (boolean) $this->isHtml;
+  }  
 }

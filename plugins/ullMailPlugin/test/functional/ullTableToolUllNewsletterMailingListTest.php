@@ -15,7 +15,7 @@ $b = new ullTableToolTestBrowser(
   'UllNewsletterMailingList', 
   'Newsletter mailing list', 
   'Manage Newsletter mailing list', 
-  0, 
+  2, 
   $selector, 
   $configuration
 );

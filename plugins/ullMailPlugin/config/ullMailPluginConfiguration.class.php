@@ -45,7 +45,10 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     //we override it with "old-style" values read from app.yml
     $this->overrideMailerTransport($mailer);
 
-    //add mail auditing plugin
+    $this->enableMailPersonalization($mailer);
+    
+    $this->enableMailHtml2TextTransformation($mailer);
+    
     $this->enableMailAuditing($mailer);
 
     //is mailing completely disabled?
@@ -114,6 +117,32 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $mailer->setRealtimeTransport($transport);
   }
 
+  /**
+   * Enable personalization
+   * 
+   * @param sfMailer $mailer
+   */
+  public function enableMailPersonalization(sfMailer $mailer)
+  {
+    $plugin = new Swift_Plugins_ullPersonalizePlugin();
+    $plugin->setPriority(5);
+
+    $mailer->getRealtimeTransport()->registerPlugin($plugin);
+  }
+  
+  
+  /**
+   * Enable automatichtml to text transformation for html emails
+   * 
+   * @param sfMailer $mailer
+   */
+  public function enableMailHtml2TextTransformation(sfMailer $mailer)
+  {
+    $plugin = new Swift_Plugins_ullHtml2TextPlugin();
+    $plugin->setPriority(6);
+
+    $mailer->getRealtimeTransport()->registerPlugin($plugin);
+  }
   
   /**
    * Enables mail auditing (= logging of sent mails to the database).

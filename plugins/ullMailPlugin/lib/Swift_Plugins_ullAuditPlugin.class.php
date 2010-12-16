@@ -42,21 +42,28 @@ class Swift_Plugins_ullAuditPlugin
     //$columnName = (($evt->getTransport() instanceof Swift_SpoolTransport) ? 'spool' : 'realtime') . '_sent_status';
     $loggedMessage['transport_sent_status'] = false;
     
-    //see if we can resolve the main recipient to an UllUser
-    $recipientAddresses = $mail->getHeaders()->get('to')->getAddresses();
-    if (count($recipientAddresses) == 1)
+    if ($mail instanceof ullsfMail && $mail->getRecipientUllUserId())
     {
-      $q = new Doctrine_Query();
-      $q->from('UllUser')
-        ->select('id')
-        ->where('email = ?', $recipientAddresses[0])
-        ->setHydrationMode(Doctrine::HYDRATE_ARRAY)
-      ;
-      
-      $recipientId = $q->execute();
-      if (count($recipientId) == 1)
+      $loggedMessage['main_recipient_ull_user_id'] = $mail->getRecipientUllUserId();
+    }
+    else
+    {
+      //see if we can resolve the main recipient to an UllUser
+      $recipientAddresses = $mail->getHeaders()->get('to')->getAddresses();
+      if (count($recipientAddresses) == 1)
       {
-        $loggedMessage['main_recipient_ull_user_id'] = $recipientId[0]['id']; 
+        $q = new Doctrine_Query();
+        $q->from('UllUser')
+          ->select('id')
+          ->where('email = ?', $recipientAddresses[0])
+          ->setHydrationMode(Doctrine::HYDRATE_ARRAY)
+        ;
+        
+        $recipientId = $q->execute();
+        if (count($recipientId) == 1)
+        {
+          $loggedMessage['main_recipient_ull_user_id'] = $recipientId[0]['id']; 
+        }
       }
     }
     

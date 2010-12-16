@@ -9,7 +9,7 @@ sfConfig::set('app_mailing_debug_address', 'dev@example.com');
 sfContext::createInstance($configuration);
 
 $t = new sfDoctrineTestCase(15, new lime_output_color, $configuration);
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $t->begin('send rerouted mail');
@@ -19,9 +19,9 @@ $message = ullMailTestHelper::createMail();
 $mailer->send($message);
 
 $loggedMessages = Doctrine::getTable('UllMailLoggedMessage')->findAll();
-$loggedMessage = $loggedMessages[0];
+$loggedMessage = $loggedMessages[2];
 
-$t->is(count($loggedMessages), 1, 'mail log record is created');
+$t->is(count($loggedMessages), 3, 'mail log record is created');
 $t->isntSame($loggedMessage, false, 'real mail log record is created');
 $t->like($loggedMessage['headers'], '/Content-Type: multipart\/alternative/', 'log record headers contain correct content-type');
 $t->like($loggedMessage['headers'], '/X-Swift-To: Test user <test.user@example.com>/', 'log record headers contain correct original recipients');

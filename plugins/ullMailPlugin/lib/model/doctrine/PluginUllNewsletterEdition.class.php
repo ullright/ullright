@@ -12,5 +12,39 @@
  */
 abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
 {
-
+  
+  /**
+   * Decorate the body with the selected template
+   * 
+   * @return string
+   */
+  public function getDecoratedBody()
+  {
+    $body = $this['body'];
+    $layout = $this['UllNewsletterLayout']['html_layout'];
+    
+    $body = strtr($layout, array('[CONTENT]' => $body));
+    
+    return $body; 
+  }
+  
+  /**
+   * Get a list of recipients
+   * 
+   * @return Doctrine_Collection
+   */
+  public function getRecipients()
+  {
+    $q = new UllQuery('UllUser');
+    $q
+      ->addSelect('display_name')
+      ->addSelect('email')
+      ->addWhere('UllUserStatus->is_active = ?', true)
+      ->addWhere('UllNewsletterMailingListSubscriber->ull_newsletter_mailing_list_id = ?', $this->id)
+      ->addOrderBy('email')
+    ;
+    
+    return $q->execute();
+  }
+  
 }

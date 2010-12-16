@@ -81,6 +81,27 @@
 </trans-unit>
 
 
+<!--  edit -->
+
+<trans-unit id="400">
+<source>Send test newsletter to myself</source>
+<target>Sende Test-Newsletter an mich</target>
+</trans-unit>
+
+<trans-unit id="401">
+<source>Send newsletter</source>
+<target>Sende Newsletter</target>
+</trans-unit>
+
+<trans-unit id="402">
+<source>This newsletter has already been sent</source>
+<target>Dieser Newsletter wurde bereits gesendet</target>
+</trans-unit>
+
+<trans-unit id="403">
+<source>This newsletter has been sent to %number% recipients</source>
+<target>Dieser Newsletter wurde an %number% Empfänger versendet</target>
+</trans-unit>
 
     </body>
   </file>

@@ -13,7 +13,7 @@ sfConfig::set('app_mailing_debug_address', 'dev@example.com');
 sfContext::createInstance($configuration);
 
 $t = new sfDoctrineTestCase(6, new lime_output_color, $configuration);
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 $t->begin('send mail with debug in bcc');
@@ -23,9 +23,9 @@ $message = ullMailTestHelper::createMail();
 $mailer->send($message);
 
 $loggedMessages = Doctrine::getTable('UllMailLoggedMessage')->findAll();
-$loggedMessage = $loggedMessages[0];
+$loggedMessage = $loggedMessages[2];
 
-$t->is(count($loggedMessages), 1, 'mail log record is created');
+$t->is(count($loggedMessages), 3, 'mail log record is created');
 $t->isntSame($loggedMessage, false, 'real mail log record is created');
 $t->is($loggedMessage['sender'], 'Example user <user@example.com>', 'log record sender is correct');
 foreach (array(

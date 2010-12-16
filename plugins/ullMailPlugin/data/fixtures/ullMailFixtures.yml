@@ -11,8 +11,11 @@ UllNewsletterMailingListSubscriber:
     UllNewsletterMailingList: product_news
     UllUser: test_user
   product_news_admin:
+    UllNewsletterMailingList: product_news
+    UllUser: admin_user
+  best_practices_admin:
     UllNewsletterMailingList: best_practices
-    UllUser: admin_user    
+    UllUser: admin_user         
     
 UllNewsletterLayout:
   ull_newsletter_layout_1:
@@ -23,11 +26,15 @@ UllNewsletterEdition:
   ull_newsletter_edition_1:
     subject: ullright presents "ullMail" - our easy-cheesy newsletter system
     UllNewsletterLayout: ull_newsletter_layout_1
-    html_body_template: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><p>Have a nice day.</p>
+    body: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p>
     Sender: test_user
-    sent_at: '2010-12-06 08:34:00'
+    sent_at: '2010-10-10 10:10:10'
     num_sent_emails: 2
     num_read_emails: 1
+  ull_newsletter_edition_2:
+    subject: ullright presents "ullFuture" - the answer to all problems
+    UllNewsletterLayout: ull_newsletter_layout_1
+    body: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>Not yet!</p><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Bye bye.</p>
     
 UllNewsletterEditionMailingList:
   edition_mailing_list_1:
@@ -36,6 +43,12 @@ UllNewsletterEditionMailingList:
   edition_mailing_list_2:
     UllNewsletterEdition: ull_newsletter_edition_1
     UllNewsletterMailingList: best_practices
+  edition_mailing_list_3:
+    UllNewsletterEdition: ull_newsletter_edition_2
+    UllNewsletterMailingList: product_news
+  edition_mailing_list_4:
+    UllNewsletterEdition: ull_newsletter_edition_2
+    UllNewsletterMailingList: best_practices    
 
 UllMailLoggedMessage:
   ull_newsletter_edition_1_a:

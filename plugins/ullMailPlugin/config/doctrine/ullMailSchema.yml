@@ -151,7 +151,7 @@ UllNewsletterEdition:
       notnull: true
     ull_newsletter_layout_id:
       type: integer
-    html_body_template:
+    body:
       type: clob
       notnull: true
     sent_by_ull_user_id:
@@ -165,16 +165,10 @@ UllNewsletterEdition:
     # counters are incremented by post save hooks
     num_sent_emails:
       type: integer
-      default: 0
-      notnull: true
     num_failed_emails:
       type: integer
-      default: 0
-      notnull: true
     num_read_emails:
       type: integer
-      default: 0
-      notnull: true      
   relations:
     UllNewsletterEditionMailingLists:
       class: UllNewsletterMailingList

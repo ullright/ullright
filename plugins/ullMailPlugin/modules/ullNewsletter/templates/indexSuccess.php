@@ -13,12 +13,14 @@
         <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/action_icons/create_24x24', 'ullNewsletter/create', __('Compose Newsletter', null, 'ullMailMessages')) ?></li>
       </ul>
       
+      <!-- 
       <h3><?php echo __('Lists', null, 'ullMailMessages') ?></h3>
       <ul class="tc_tasks">
         <?php foreach ($categories as $category): ?>
           <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/ull_mail_24x24', 'ullNewsletter/list', $category) ?></li>
         <?php endforeach; ?>
       </ul>
+       -->
     </div>    
     
     

@@ -6,7 +6,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 
 $t = new sfDoctrineTestCase(10, new lime_output_color, $configuration);
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 

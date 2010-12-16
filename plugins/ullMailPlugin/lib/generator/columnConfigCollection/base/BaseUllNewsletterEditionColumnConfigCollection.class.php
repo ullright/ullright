@@ -13,7 +13,7 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       ->setWidgetOption('add_empty', true)
     ;
     
-    $this['html_body_template']
+    $this['body']
       ->setLabel(__('Text', null, 'common'))
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
     ;
@@ -53,7 +53,7 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       $this->order(array(
         'UllNewsletterEditionMailingLists',
         'subject',
-        'html_body_template',
+        'body',
         'ull_newsletter_layout_id',
         'is_active',
       ));      

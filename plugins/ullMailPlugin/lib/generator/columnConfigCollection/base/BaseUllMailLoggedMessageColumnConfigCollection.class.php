@@ -20,5 +20,10 @@ class BaseUllMailLoggedMessageColumnConfigCollection extends ullColumnConfigColl
       ->setWidgetOption('decode_mime', true)
     ;
     
+    foreach($this->getCollection() as $item)
+    {
+      $item->setAccess('r');
+    }
+    
   }
 }

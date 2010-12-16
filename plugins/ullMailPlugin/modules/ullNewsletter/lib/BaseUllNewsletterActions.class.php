@@ -63,12 +63,75 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_newsletter_edit');
     
-    $this->registerEditActionButton(new ullGeneratorEditActionButtonNewsSaveAndShow($this));
-    
     parent::executeEdit($request);
-
-    $this->setTableToolTemplate('edit');
+    
+    $this->already_sent = (boolean) $this->generator->getRow()->sent_at;
   }
+  
+  
+  protected function executePostSave(Doctrine_Record $row, sfRequest $request)
+  {    
+    $mail = new ullsfMail();
+    
+    $user = UllUserTable::findLoggedInUser();
+    $mail->setFrom($user->email, $user->display_name);
+    
+    $mail->setSubject($row['subject']);
+    $mail->setHtmlBody($row->getDecoratedBody());
+    
+    if ($request->getParameter('action_slug') == 'send_test')
+    {
+      $mail->addAddress($user);
+      $this->getMailer()->send($mail);  
+    }
+    
+    if ($request->getParameter('action_slug') == 'send')
+    {
+      if ($row->sent_at)
+      {
+        $this->getUser()->setFlash('message', 
+          __('This newsletter has already been sent', null, 'ullMailMessages') . '!'
+        );
+        
+        return;
+      }
+      
+      //TODO: allow to give an array of UllUsers
+      //TODO: add handling for multiple UllUsers for batchSend
+      foreach ($row->getRecipients() as $recipient)
+      {
+        $currentMail = clone $mail;
+        $currentMail->addAddress($recipient);
+        $this->getMailer()->send($currentMail);
+        unset($currentMail);
+      }  
+      
+      $row['sent_at'] = date('Y-m-d H:i:s');
+      $row['sent_by_ull_user_id'] = $user->id;
+      $row['num_sent_emails'] = count($row->getRecipients());
+      $row->save();
+      
+      $this->getUser()->setFlash('message', 
+        __('This newsletter has been sent to %number% recipients', 
+          array('%number%' => $row['num_sent_emails']), 'ullMailMessages') . '.'
+      );
+    }      
+    
+    if (
+      $request->getParameter('action_slug') == 'send_test' ||
+      $request->getParameter('action_slug') == 'save_only'
+    ) 
+    {
+      $this->redirect(ullCoreTools::appendParamsToUri(
+        $this->edit_base_uri, 
+        'id=' . $this->generator->getForm()->getObject()->id
+      ));
+    }
+    
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));
+    
+    
+  }  
 
   
   /**

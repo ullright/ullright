@@ -13,7 +13,7 @@ $b = new ullTableToolTestBrowser(
   'UllNewsletterLayout', 
   'Newsletter layout', 
   'Manage Newsletter layout', 
-  0, 
+  1, 
   $selector, 
   $configuration
 );
