@@ -79,6 +79,8 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $mail->setSubject($row['subject']);
     $mail->setHtmlBody($row->getDecoratedBody());
     
+    $mail->setNewsletterEditionId($row['id']);
+    
     if ($request->getParameter('action_slug') == 'send_test')
     {
       $mail->addAddress($user);
@@ -132,7 +134,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       $row->save();
       
       $this->getUser()->setFlash('message', 
-        __('This newsletter has been sent to %number% recipients', 
+        __('The newsletter has been sent to %number% recipients', 
           array('%number%' => $row['num_sent_emails']), 'ullMailMessages') . '.'
       );
     }      
@@ -152,6 +154,51 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     
   }  
+  
+  
+  public function executeUnsubscribe(sfRequest $request)
+  {
+    $list = Doctrine::getTable('UllNewsletterMailingList')->findOneBySlug(
+      $request->getParameter('list'));
+      
+    if (!$list)
+    {
+      $this->getUser()->setFlash('message', 
+        __('Mailing list not found', null, 'ullMailMessages') . '.'
+      );
+
+      return;
+    }
+
+    $users = Doctrine::getTable('UllUser')->findByEmail(
+      base64_decode($request->getParameter('email')));
+      
+    if (count($users) == 0)
+    {
+      $this->getUser()->setFlash('message', 
+        __('User not found', null, 'ullMailMessages') . '.'
+      );
+
+      return;     
+    }
+    
+    $num = $list->unsubscribeUsers($users);
+    
+    if ($num)
+    {
+      $this->getUser()->setFlash('message', 
+        __('You have been successfully unsubscribed from list "%list%"', 
+          array('%list%' => $list['name']), 'ullMailMessages') . '.'
+      );
+    }
+    else
+    {
+      $this->getUser()->setFlash('message', 
+        __('You are not subscribed to "%list%"', 
+          array('%list%' => $list['name']), 'ullMailMessages') . '.'
+      );      
+    }
+  }
 
   
   /**

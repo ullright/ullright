@@ -115,7 +115,7 @@ UllNewsletterMailingListSubscriber:
     UllUser:
       local: ull_user_id
       foreign: id
-    UllNewsletterList:
+    UllNewsletterMailingList:
       local: ull_newsletter_mailing_list_id
       foreign: id
  

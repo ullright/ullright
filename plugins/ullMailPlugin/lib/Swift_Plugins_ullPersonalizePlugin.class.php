@@ -29,13 +29,28 @@ class Swift_Plugins_ullPersonalizePlugin
     {
       $user = UllEntityTable::findById($mail->getRecipientUllUserId());
       
-      $dictionary = array(
-        '[UNSUBSCRIBE]' => link_to(
-          __('Unsubscribe', null, 'ullMailMessages'),
-          'ullNewsletter/unsubscribe?id=' . $user['id'],
-          array('absolute' => true)
-        )
-      );
+      $dictionary = array();
+      
+      if ($editionId = $mail->getNewsletterEditionId())
+      {
+        $edition = Doctrine::getTable('UllNewsletterEdition')->find($editionId);
+        
+        $lists = $edition->getMailingListsForUser($user['id']);
+
+        $unsubscribe = array();
+        
+        foreach ($lists as $list)
+        {
+          $unsubscribe[] = link_to(
+            __('Unsubscribe from list "%list%"', array('%list%' => $list['name']), 'ullMailMessages'),
+            'ullNewsletter/unsubscribe?list=' . $list['slug'] . '&email=' . base64_encode($user['email']),
+            array('absolute' => true)
+          );
+        }
+        
+        $dictionary['[UNSUBSCRIBE]'] = implode('<br />', $unsubscribe);
+        
+      }
       
       foreach ($user as $field => $value)
       {

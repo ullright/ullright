@@ -47,4 +47,26 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     return $q->execute();
   }
   
+  /**
+   * Get mailing lists for the current edition and the given user
+   * 
+   * @param integer $ullUserId
+   * 
+   * @return Doctrine_Collection
+   */
+  public function getMailingListsForUser($ullUserId)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('ml.id, ml.name')
+      ->from('UllNewsletterMailingList ml, ml.Subscribers u, u.UllUserStatus s, ml.UllNewsletterEdition e')
+      ->addWhere('s.is_active = ?', true)
+      ->addWhere('e.id = ?', $this->id)
+      ->addWhere('u.id = ?', $ullUserId)
+      ->addOrderBy('ml.name')
+    ;
+    
+    return $q->execute();
+  }  
+  
 }

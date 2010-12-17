@@ -71,6 +71,12 @@ abstract class PluginUllMailLoggedMessage extends BaseUllMailLoggedMessage
 //        break;
 //    }
 
+    // handle newsletter edition 
+    if ($mail instanceof ullsfMail && $mail->getNewsletterEditionId())
+    {
+      $loggedMessage['ull_newsletter_edition_id'] = $mail->getNewsletterEditionId();
+    }
+
     return $loggedMessage;
   }
 

@@ -11,7 +11,7 @@ sfContext::createInstance($configuration);
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 
-$t = new myTestCase(22, new lime_output_color, $configuration);
+$t = new myTestCase(24, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -95,3 +95,10 @@ $t->diag('set/getIsHtml()');
   $t->is($mail->getIsHtml(), false, 'A fresh mail is not an html mail');
   $mail->setIsHtml(true);
   $t->is($mail->getIsHtml(), true, 'Now marked as html mail');
+  
+$t->diag('set/getNewsletterEditionId()');
+  $mail = new ullsfMail();
+  
+  $t->same($mail->getNewsletterEditionId(), null, 'No newsletter edition id by default');
+  $mail->setNewsletterEditionId(99);
+  $t->same($mail->getNewsletterEditionId(), 99, 'Newsletter correctly returned');

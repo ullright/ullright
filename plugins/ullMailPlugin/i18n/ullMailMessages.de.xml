@@ -99,8 +99,8 @@
 </trans-unit>
 
 <trans-unit id="403">
-<source>This newsletter has been sent to %number% recipients</source>
-<target>Dieser Newsletter wurde an %number% Empfänger versendet</target>
+<source>The newsletter has been sent to %number% recipients</source>
+<target>Der Newsletter wurde an %number% Empfänger versendet</target>
 </trans-unit>
 
 <trans-unit id="404">
@@ -112,6 +112,36 @@
 <source>No recipients found. Please select one or more mailing lists with subscribers</source>
 <target>Keine Empfänger gefunden. Bitte wählen Sie eine oder mehrere Mailing-Listen mit Abonnenten</target>
 </trans-unit>
+
+
+<!-- unsubscribe -->
+
+<trans-unit id="501">
+<source>Unsubscribe from list "%list%"</source>
+<target>Von Liste "%list%" abmelden</target>
+</trans-unit>
+
+<trans-unit id="502">
+<source>Mailing list not found</source>
+<target>Verteiler nicht gefunden</target>
+</trans-unit>
+
+<trans-unit id="503">
+<source>User not found</source>
+<target>Benutzer nicht gefunden</target>
+</trans-unit>
+
+<trans-unit id="504">
+<source>You have been successfully unsubscribed from list "%list%"</source>
+<target>Sie wurden erfolgreich von der Liste "%list%" abgemeldet</target>
+</trans-unit>
+
+<trans-unit id="505">
+<source>You are not subscribed to list"%list%</source>
+<target>Sie sind nicht auf der Liste "%list%" angemeldet</target>
+</trans-unit>
+
+
 
     </body>
   </file>

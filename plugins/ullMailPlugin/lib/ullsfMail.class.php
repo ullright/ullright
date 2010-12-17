@@ -17,6 +17,7 @@ class ullsfMail extends Swift_Message
     $slug,
     //TODO: enhance for multiple recipients and batch sending
     $recipientUllUserId,
+    $newsletterEditionId,
     $isHtml = false
   ;
   
@@ -349,6 +350,7 @@ class ullsfMail extends Swift_Message
     return $this;
   }
 
+  
   /** 
    * Is the mail marked as html?
    * 
@@ -358,4 +360,27 @@ class ullsfMail extends Swift_Message
   {
     return (boolean) $this->isHtml;
   }  
+  
+  
+  /**
+   * Set newsletter edition id
+   * 
+   * @param integer $id
+   * @return self
+   */
+  public function setNewsletterEditionId($id)
+  {
+    $this->newsletterEditionId = $id;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get newsletter edition id
+   */
+  public function getNewsletterEditionId()
+  {
+    return $this->newsletterEditionId;
+  }
 }

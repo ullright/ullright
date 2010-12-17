@@ -13,4 +13,30 @@
 abstract class PluginUllNewsletterMailingList extends BaseUllNewsletterMailingList
 {
 
+  /**
+   * Unsubscribe the given users from the current list
+   * 
+   * @param Doctrine_Collection $users
+   * 
+   * @return integer The number of unsubscribed entries
+   */
+  public function unsubscribeUsers(Doctrine_Collection $users)
+  {
+    $userIds = array();
+    
+    foreach ($users as $user)
+    {
+      $userIds[] = $user['id'];
+    }
+    
+    $q = new Doctrine_Query;
+    $q
+      ->delete('UllNewsletterMailingListSubscriber s')
+      ->whereIn('s.ull_user_id', $userIds)
+      ->addWhere('s.ull_newsletter_mailing_list_id = ?', $this['id'])
+    ;
+    
+    return $q->execute();
+  }
+  
 }
