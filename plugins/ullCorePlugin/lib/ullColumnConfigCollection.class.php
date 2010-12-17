@@ -450,9 +450,9 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    */
   protected function getRelationByAlias($alias)
   {
-    foreach ($this->relations as $relation)
+    foreach (Doctrine::getTable($this->modelName)->getRelations() as $currentAlias => $relation)
     {
-      if ($relation['alias'] == $alias)
+      if ($currentAlias == $alias)
       {
         return $relation;
       }
@@ -882,11 +882,11 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   public function useManyToManyRelation($relationAlias, $model = null)
   {
     $relation = $this->getRelationByAlias($relationAlias);
-    $toStringColumn = ullTableConfiguration::buildFor($relation['model'])->getToStringColumn();
+    $toStringColumn = ullTableConfiguration::buildFor($relation->getClass())->getToStringColumn();
     
     if (!$model)
     {
-      $model = $relation['model'];
+      $model = $relation->getClass();
     }
     
     $q = new Doctrine_Query();

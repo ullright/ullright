@@ -72,6 +72,10 @@
 <target>Newsletter-Verteiler</target>
 </trans-unit>
 
+<trans-unit id="209">
+<source>Newsletter subscriptions</source>
+<target>Newsletter Abonnements</target>
+</trans-unit>
 
 <!-- named queries -->
 
