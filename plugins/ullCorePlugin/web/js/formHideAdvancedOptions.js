@@ -14,12 +14,14 @@ function formHideAdvancedOptions(message)
     {
       advancedFields.hide();
       var linkId = $(this).attr('id') + '_show_advanced';
-      var showLink = '<a id="' + linkId + '">' + message + '</a>';
+      var showLink = '<a href="#" id="' + linkId + '">' + message + '</a>';
       $(this).find('table > tbody').append('<tr><td>' + showLink + '</td></tr>');
       $('#' + linkId).click(function()
       {
         $(this).hide();
         advancedFields.fadeIn(500);
+        
+        return false;
       });
     }
   });

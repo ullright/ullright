@@ -1171,6 +1171,19 @@ function ull_js_observer($form_id) {
   return $html;
 }
 
+/**
+ * Helper to load the "hide advanced form fields" js
+ * 
+ */
+function hide_advanced_form_fields()
+{
+  use_javascript('/ullCorePlugin/js/formHideAdvancedOptions.js');
+  
+  return javascript_tag('
+formHideAdvancedOptions(' . __('Show advanced options', null, 'common') . ');
+');
+}
+
 function _convert_array_to_string($arr) {
 	$str = '';
 	foreach ($arr as $key => $value) {
