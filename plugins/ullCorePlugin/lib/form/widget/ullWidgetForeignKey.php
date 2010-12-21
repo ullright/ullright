@@ -22,6 +22,14 @@ class ullWidgetForeignKey extends ullWidget
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    $primaryKey = null;
+    
+    if (is_array($value))
+    {
+      $primaryKey = $value['id'];
+      $value = $value['value'];
+    }
+    
     $return = '';
     
     if ($this->getOption('render_additional_hidden_field'))
@@ -36,11 +44,8 @@ class ullWidgetForeignKey extends ullWidget
       return $return;
     }
     
-    if (is_array($value))
+    if ($primaryKey)
     {
-      $primaryKey = $value['id'];
-      $value = $value['value'];
-      
       $value = $this->handleOptions($value);
       
       $return .= $value;
