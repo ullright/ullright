@@ -26,6 +26,10 @@
   background: #e9c9ca;  
 }
 
+.edit_table_spacer_row td {
+  background-color: #e11d25;
+}
+
 /* Overridden css: ullCore / taskcenter.css - formats */
  
 #tc_wrapper a:visited {

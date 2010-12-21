@@ -927,4 +927,23 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     return $this->tableConfigCache;
   }
 
+  /**
+   * Mark a field as advanced form field.
+   * 
+   * This means it is hidden per default and replaced with a link to 
+   * "advanced options" by js
+   * 
+   * @param array $array list of field names
+   */
+  public function markAsAdvancedFields($array)
+  {
+    foreach ($array as $field)
+    {
+      $this[$field]->setWidgetAttribute('class', 
+        $this[$field]->getWidgetAttribute('class') . ' advanced_form_field' 
+      );  
+    }  
+    
+    return $this;
+  }
 }

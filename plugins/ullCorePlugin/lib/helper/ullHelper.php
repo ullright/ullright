@@ -1180,7 +1180,7 @@ function hide_advanced_form_fields()
   use_javascript('/ullCorePlugin/js/formHideAdvancedOptions.js');
   
   return javascript_tag('
-formHideAdvancedOptions(' . __('Show advanced options', null, 'common') . ');
+formHideAdvancedOptions("' . __('Show advanced options', null, 'common') . '");
 ');
 }
 

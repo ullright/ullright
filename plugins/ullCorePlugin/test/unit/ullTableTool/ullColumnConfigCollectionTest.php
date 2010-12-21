@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(81, new lime_output_color, $configuration);
+$t = new myTestCase(83, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -255,3 +255,10 @@ $t->diag('useManyToManyRelation() using model override');
   $c->useManyToManyRelation('UllGroup', 'UllEntity');
   $cc = $c->offsetGet('UllGroup');
   $t->is($cc->getWidgetOption('model'), 'UllEntity', 'Returns the correct overridden model');
+  
+$t->diag('markAsAdvancedFields()');
+  $c = ullColumnConfigCollection::buildFor('TestTable');
+  $c['my_string']->setWidgetAttribute('class', 'foo');
+  $t->is($c['my_string']->getWidgetAttribute('class'), 'foo', 'No "advanced form field" class set by default');
+  $c->markAsAdvancedFields(array('my_text', 'my_string'));
+  $t->is($c['my_string']->getWidgetAttribute('class'), 'foo advanced_form_field', 'Attribute class="advanced_form_field" correctly set');

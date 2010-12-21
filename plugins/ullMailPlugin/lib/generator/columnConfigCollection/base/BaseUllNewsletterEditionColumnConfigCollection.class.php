@@ -43,21 +43,43 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       ->setAccess('r')
     ;
 
-//    if ($this->isCreateOrEditAction())
-//    {
-      $this->useManyToManyRelation('UllNewsletterEditionMailingLists');
-      $this['UllNewsletterEditionMailingLists']
-        ->setLabel(__('Mailing lists', null, 'ullMailMessages'))
-      ;
-      
-      $this->order(array(
+    $this->useManyToManyRelation('UllNewsletterEditionMailingLists');
+    $this['UllNewsletterEditionMailingLists']
+      ->setLabel(__('Mailing lists', null, 'ullMailMessages'))
+    ;
+    
+    $this->order(array(
+      'basics' => array(
         'UllNewsletterEditionMailingLists',
         'subject',
         'body',
         'ull_newsletter_layout_id',
         'is_active',
-      ));      
-//    }
+      ),
+      'tracking' => array(
+        'num_sent_emails', 
+        'num_failed_emails',
+        'num_read_emails',
+        'sent_by_ull_user_id',
+        'sent_at',
+      ),
+      'misc' => array(
+        'id',
+        'creator_user_id',
+        'created_at',
+        'updator_user_id',
+        'updated_at',
+      ),
+      
+    ));      
+    
+    $this->markAsAdvancedFields(array(
+      'id',
+      'creator_user_id',
+      'created_at',
+      'updator_user_id',
+      'updated_at',    
+    ));
     
     if ($this->isCreateAction())
     {
@@ -66,7 +88,8 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
         'sent_at',
         'num_sent_emails', 
         'num_failed_emails',
-        'num_read_emails'));
+        'num_read_emails',
+      ));
     }
   }
 }

@@ -9,7 +9,7 @@ function formHideAdvancedOptions(message)
 {
   $('form').each(function()
   {
-    var advancedFields = $(this).find(':input.advanced_form_field').parents('tr');
+    var advancedFields = $(this).find('.advanced_form_field').parents('tr');
     if (advancedFields.length > 0 && !hasErrorInRows(advancedFields))
     {
       advancedFields.hide();
