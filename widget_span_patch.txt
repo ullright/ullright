@@ -1,0 +1,101 @@
+Index: plugins/ullCorePlugin/lib/form/widget/ullWidget.php
+===================================================================
+--- plugins/ullCorePlugin/lib/form/widget/ullWidget.php	(revision 2505)
++++ plugins/ullCorePlugin/lib/form/widget/ullWidget.php	(working copy)
+@@ -26,6 +26,8 @@
+     
+     $value = $this->handleOptions($value);
+     
++    $value = $this->encloseInSpanTag($value, $attributes);
++    
+     return (string) $value;
+   }
+   
+@@ -118,4 +120,18 @@
+     return $value;
+   } 
+   
++  /**
++   * Enclose the value in span tags to make use of the widget's attributes
++   * 
++   * @param string $value
++   * @param array $attributes
++   * @return string
++   */
++  protected function encloseInSpanTag($value, $attributes)
++  {
++    $value = $this->renderContentTag('span', $value, $attributes);
++    
++    return $value;
++  }
++  
+ }
+Index: plugins/ullCorePlugin/lib/form/widget/ullWidgetDateRead.php
+===================================================================
+--- plugins/ullCorePlugin/lib/form/widget/ullWidgetDateRead.php	(revision 2505)
++++ plugins/ullCorePlugin/lib/form/widget/ullWidgetDateRead.php	(working copy)
+@@ -48,21 +48,13 @@
+       {
+         if (strtotime($value) < $dateTimestamp)
+         {
+-          $className = $dateClass;
++          $attributes['class'] .= ' ' . $dateClass;
+           break;
+         }
+       }
+     }
+     
+-    //if the 'add_span_if_before' option was set AND the given date is
+-    //before one of those contained in the array then $className is set 
+-    if (isset($className))
+-    {
+-      return "<span class=\"$className\">" . $value . '</span>';
+-    }
+-    else
+-    {
+-      return $value;
+-    }
++    $value = $this->encloseInSpanTag($value, $attributes);
++    return $value;
+   } 
+ }
+\ No newline at end of file
+Index: plugins/ullCorePlugin/lib/form/widget/ullWidgetDateTimeRead.php
+===================================================================
+--- plugins/ullCorePlugin/lib/form/widget/ullWidgetDateTimeRead.php	(revision 2505)
++++ plugins/ullCorePlugin/lib/form/widget/ullWidgetDateTimeRead.php	(working copy)
+@@ -9,6 +9,10 @@
+       return '';
+     }
+     
+-    return ull_format_datetime($value);
++    $value = ull_format_datetime($value);
++    
++    $value = $this->encloseInSpanTag($value, $attributes);
++    
++    return $value;
+   } 
+ }
+\ No newline at end of file
+Index: plugins/ullCorePlugin/lib/form/widget/ullWidgetForeignKey.php
+===================================================================
+--- plugins/ullCorePlugin/lib/form/widget/ullWidgetForeignKey.php	(revision 2505)
++++ plugins/ullCorePlugin/lib/form/widget/ullWidgetForeignKey.php	(working copy)
+@@ -33,6 +33,8 @@
+     
+     if (empty($value))
+     {
++      $return = $this->encloseInSpanTag($value, $attributes);
++      
+       return $return;
+     }
+     
+@@ -107,6 +109,8 @@
+       }
+     }    
+     
++    $return = $this->encloseInSpanTag($return, $attributes);
++    
+     return $return;
+   }
+   
