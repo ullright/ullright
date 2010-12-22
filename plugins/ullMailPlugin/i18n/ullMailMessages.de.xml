@@ -122,7 +122,7 @@
 
 <trans-unit id="501">
 <source>Unsubscribe from list "%list%"</source>
-<target>Von Liste "%list%" abmelden</target>
+<target>Abmelden: Ich möchte keine E-Mails mehr zum Thema "%list%" erhalten (Unsubscribe)</target>
 </trans-unit>
 
 <trans-unit id="502">

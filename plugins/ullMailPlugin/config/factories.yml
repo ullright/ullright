@@ -6,5 +6,5 @@ all:
       spool_class:        Swift_UllDoctrineSpool
       spool_arguments:    [ UllMailQueuedMessage, message, querySpooledMessages, 60 ] #60 = mails per minute
       #do NOT configure the transport (sendmail, smtp, port) here
-      #ullright uses the configuration ('old-style') values in app.yml
+      #ullright uses the configuration ('old-style') in app.yml
       #transport:

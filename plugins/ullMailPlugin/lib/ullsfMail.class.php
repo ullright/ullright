@@ -18,7 +18,8 @@ class ullsfMail extends Swift_Message
     //TODO: enhance for multiple recipients and batch sending
     $recipientUllUserId,
     $newsletterEditionId,
-    $isHtml = false
+    $isHtml = false,
+    $isQueued = false
   ;
   
   /**
@@ -32,6 +33,24 @@ class ullsfMail extends Swift_Message
     
     $this->slug = $slug;
   }
+  
+  /**
+   * Perform a deep clone
+   * 
+   * Used for preparing a mail for multiple recipients.
+   * 
+   * Without it, the previous recipients are remembered 
+   */
+//  function __clone() 
+//  {
+//    foreach ($this as $key => $val) 
+//    {
+//      if (is_object($val) || (is_array($val))) 
+//      {
+//        $this->{$key} = unserialize(serialize($val));
+//      }
+//    }
+//  }  
   
   /**
    * Adds an address and a matching name, either to the
@@ -382,5 +401,37 @@ class ullsfMail extends Swift_Message
   public function getNewsletterEditionId()
   {
     return $this->newsletterEditionId;
+  }
+  
+  /**
+   * 
+   * @param boolean $boolean
+   * @return self
+   */
+  public function setIsQueued($boolean)
+  {
+    $this->isQueued = (boolean) $boolean;
+    
+    return $this;
+  }
+
+  /**
+   * 
+   * @return boolean
+   */
+  public function getIsQueued()
+  {
+    return (boolean) $this->isQueued;
+  }
+  
+  /**
+   * Clear all recipients
+   */
+  public function clearRecipients()
+  {
+    $this->setTo(array());
+    $this->setCC(array());
+    $this->setBcc(array());
+    $this->setRecipientUllUserId(null);
   }
 }

@@ -127,7 +127,36 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $plugin = new Swift_Plugins_ullPersonalizePlugin();
     $plugin->setPriority(5);
 
+    /*
+     * Personalization plugin causes headache with the current sf / swift
+     * implementation: The plugin needs the i18n helper which depends on
+     * sfContext and the current culture of the logged in user. Both is
+     * not available in the cli environment of the project:send-emails task
+     * 
+     * This results in the need to have fine-grained control over plugins usage.
+     * (Which we currently have not) 
+     * 
+     * Example: 
+     *  * normal sending -> execute personalisation
+     *  * putting in queue -> execute personalisation (we have sfContext and culture)
+     *  * flushing queue -> do not execute personalization again!
+     *  
+     * Current workaround is a flag "isQueued" in the message.
+     * 
+     * We register the personalisation plugin for both the realtime and the
+     * spool transport here.
+     * 
+     * The personalisation plugin itself then checks for the isQueued flag
+     * and disable itself when detecting "true" which happens only in case of 
+     * the queue beeing flushed.
+     * 
+     */
+    
     $mailer->getRealtimeTransport()->registerPlugin($plugin);
+    if ($mailer->getTransport() instanceof Swift_SpoolTransport)
+    {
+      $mailer->getTransport()->registerPlugin($plugin);
+    }
   }
   
   

@@ -13,11 +13,6 @@ class Swift_Plugins_ullPersonalizePlugin
   extends Swift_Plugins_ullPrioritizedPlugin
   implements Swift_Events_SendListener
 { 
-  public function __construct()
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
-  }
-  
   /**
    * @param Swift_Events_SendEvent $evt
    */
@@ -25,8 +20,16 @@ class Swift_Plugins_ullPersonalizePlugin
   {
     $mail = $evt->getMessage();
     
-    if ($mail instanceof ullsfMail && $mail->getRecipientUllUserId())
+    if (
+      // Only ullsfMails can support this
+      $mail instanceof ullsfMail
+      // The plugin was already executed before putting into the queue
+      && $mail->getIsQueued() == false 
+      // We can only perfom personalization when we have a single UllUser recipient
+      && $mail->getRecipientUllUserId())
     {
+      sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+      
       $user = UllEntityTable::findById($mail->getRecipientUllUserId());
       
       $dictionary = array();

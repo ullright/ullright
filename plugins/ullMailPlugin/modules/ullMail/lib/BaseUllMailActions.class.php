@@ -14,6 +14,8 @@ class BaseUllMailActions extends BaseUllGeneratorActions
   
   public function executeSendNewsletterTest(sfWebRequest $request)
   {
+    $this->checkPermission('ull_newsletter_edit');
+    
     $message = Swift_Message::newInstance()
       ->setFrom('null@ull.at')
       ->setTo(array('k@ull.at', 'klemens@ull.at', 'null@ull.at', 'office@ull.at'))
@@ -29,6 +31,7 @@ class BaseUllMailActions extends BaseUllGeneratorActions
   
   public function executeFlushQueue(sfWebRequest $request)
   {
+    $this->checkPermission('ull_newsletter_edit');
     
     $spool = $this->getMailer()->getSpool();
     
@@ -52,6 +55,15 @@ class BaseUllMailActions extends BaseUllGeneratorActions
 //      $this->redirect('ullMail/flushQueue');
 //    }
     
+  }
+  
+  public function executeDebugQueue(sfWebRequest $request)
+  {
+    $this->checkPermission('ull_newsletter_edit');
+    
+    $this->setVar('mails', Doctrine::getTable('UllMailQueuedMessage')->findAll(), true);
+    
+
   }
 
 }

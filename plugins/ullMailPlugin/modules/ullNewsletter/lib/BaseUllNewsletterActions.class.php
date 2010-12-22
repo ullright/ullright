@@ -34,7 +34,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
    */
   public function executeIndex(sfRequest $request) 
   {
-    $this->checkPermission('ull_mail_index');
+    $this->checkPermission('ull_newsletter_index');
     
     $this->form = new ullFilterForm;
 //    
@@ -118,14 +118,15 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         ));
       }
       
+      
       //TODO: allow to give an array of UllUsers
       //TODO: add handling for multiple UllUsers for batchSend
       foreach ($row->getRecipients() as $recipient)
       {
-        $currentMail = clone $mail;
-        $currentMail->addAddress($recipient);
-        $this->getMailer()->send($currentMail);
-        unset($currentMail);
+        $mail->clearRecipients();
+        $mail->addAddress($recipient);
+
+        $this->getMailer()->sendQueue($mail);
       }  
       
       $row['sent_at'] = date('Y-m-d H:i:s');

@@ -64,6 +64,8 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
     {
       throw new InvalidArgumentException('The mailer message object must be a Doctrine_Record object.');
     }
+    
+    $message->setIsQueued(true);
 
     $object->{$this->column} = serialize($message);
     $object->save();
@@ -95,6 +97,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
 
     $count = 0;
     $time = time();
+    
     foreach ($ids as $id)
     {
       $object = $table->findOneById($id[0]); 
@@ -109,6 +112,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
       }
       catch (Exception $e)
       {
+        var_dump($e->getMessage());
       }
       
       $object->free(true);
