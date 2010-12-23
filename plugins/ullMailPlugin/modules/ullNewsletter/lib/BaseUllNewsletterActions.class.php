@@ -106,7 +106,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         ));
       }
       
-      if (!count($row->getRecipients()))
+//      $recipients = $row->getRecipients(Doctrine::HYDRATE_ARRAY);
+      $recipients = $row->getRecipients();
+      
+      if (!count($recipients))
       {
         $this->getUser()->setFlash('message', 
           __('No recipients found. Please select one or more mailing lists with subscribers', null, 'ullMailMessages') . '.'
@@ -121,7 +124,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       
       //TODO: allow to give an array of UllUsers
       //TODO: add handling for multiple UllUsers for batchSend
-      foreach ($row->getRecipients() as $recipient)
+      foreach ($recipients as $recipient)
       {
         $mail->clearRecipients();
         $mail->addAddress($recipient);
@@ -131,7 +134,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       
       $row['sent_at'] = date('Y-m-d H:i:s');
       $row['sent_by_ull_user_id'] = $user->id;
-      $row['num_sent_emails'] = count($row->getRecipients());
+      $row['num_sent_emails'] = count($recipients);
       $row->save();
       
       $this->getUser()->setFlash('message', 

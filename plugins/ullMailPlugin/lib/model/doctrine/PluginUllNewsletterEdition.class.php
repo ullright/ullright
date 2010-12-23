@@ -33,7 +33,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
    * 
    * @return Doctrine_Collection
    */
-  public function getRecipients()
+  public function getRecipients($hydrationMode = null)
   {
     $q = new Doctrine_Query;
     $q
@@ -44,7 +44,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       ->addOrderBy('u.email')
     ;
     
-    return $q->execute();
+    return $q->execute(array(), $hydrationMode);
   }
   
   /**

@@ -62,8 +62,43 @@ class BaseUllMailActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_newsletter_edit');
     
     $this->setVar('mails', Doctrine::getTable('UllMailQueuedMessage')->findAll(), true);
-    
-
   }
+  
+  public function executeBreedSubscribers(sfWebRequest $request)
+  {
+    $this->checkPermission('ull_newsletter_edit');
+    
+    $list = Doctrine::getTable('UllNewsletterMailingList')->findOneByName('Product news');
+    
+//    var_dump($list->toArray());die;
+    
+    for ($i = 1; $i < 2000; $i++)
+    {
+      $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+
+      $q = "INSERT INTO ull_entity (type, first_name, last_name, email, created_at, updated_at) VALUES
+        ('user', 'First name {$i}', 'Last name {$i}', '{$i}@example.com', NOW(), NOW())";
+      $dbh->exec($q);
+      
+      $id = $dbh->lastInsertId();
+      
+      $q = "INSERT INTO ull_newsletter_mailing_list_subscriber (ull_user_id, ull_newsletter_mailing_list_id) VALUES
+      ( {$id}, {$list['id']} )";
+      $dbh->exec($q);
+      
+//      $user = new UllUser;
+//      $user['first_name'] = 'First name ' . $i;
+//      $user['last_name'] = 'Last name ' . $i;
+//      $user['email'] = $i . '@example.com';
+//      $user->save();
+//      
+//      $subscription = new UllNewsletterMailingListSubscriber;
+//      $subscription['ull_user_id'] = $user['id'];
+//      $subscription['ull_newsletter_mailing_list_id'] = $list['id'];
+//      $subscription->save();
+    }
+    
+    return sfView::NONE;
+  }  
 
 }
