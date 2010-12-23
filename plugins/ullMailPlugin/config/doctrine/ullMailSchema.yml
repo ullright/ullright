@@ -89,7 +89,6 @@ UllNewsletterMailingList:
     is_active:
       type: boolean
       default: true
-      notnull: true
   relations:
     Subscribers:
       #NOTE: change this to UllEntity if there are problems when importing fixtures during testing
@@ -167,7 +166,6 @@ UllNewsletterEdition:
     is_active:
       type: boolean
       default: true
-      notnull: true
     # counters are incremented by post save hooks
     num_sent_emails:
       type: integer

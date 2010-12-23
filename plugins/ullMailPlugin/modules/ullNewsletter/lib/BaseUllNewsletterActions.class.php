@@ -101,7 +101,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       }
       
 //      $recipients = $row->findRecipients(Doctrine::HYDRATE_ARRAY);
-      $numOfRecipients = $row->findRecipients();
+      $numOfRecipients = $row->countRecipients();
       
       if (!$numOfRecipients)
       {
