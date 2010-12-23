@@ -600,12 +600,16 @@ class ullCoreTools
       $context = sfContext::getInstance();
     }
     
-    $routing = $context->getRouting(); 
-    $routingOptions = $routing->getOptions();
-    $routingOptions['logging'] = false;
-    $routingOptions['context']['prefix'] = null;
-    $routingOptions['context']['host'] = ullCoreTools::getServerName();
-    $routing->initialize(new sfEventDispatcher(), $routing->getCache(), $routingOptions);
+    // Only do this in the cli environment
+    if (!isset($_SERVER['SERVER_NAME']))
+    {
+      $routing = $context->getRouting(); 
+      $routingOptions = $routing->getOptions();
+      $routingOptions['logging'] = false;
+      $routingOptions['context']['prefix'] = null;
+      $routingOptions['context']['host'] = ullCoreTools::getServerName();
+      $routing->initialize(new sfEventDispatcher(), $routing->getCache(), $routingOptions);
+    }
   }
   
   /**

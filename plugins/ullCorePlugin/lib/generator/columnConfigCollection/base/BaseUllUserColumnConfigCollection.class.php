@@ -133,7 +133,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     
     $this->useManyToManyRelation('UllNewsletterMailingList');
     $this['UllNewsletterMailingList']
-      ->setLabel(__('Newsletter subscriptions', null, 'ullMailMessages'))
+      ->setLabel(__('Newsletter', null, 'ullMailMessages'))
     ;
     
     $this->order(array(

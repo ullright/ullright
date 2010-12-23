@@ -42,6 +42,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       ->from('UllUser u, u.UllUserStatus s, u.UllNewsletterMailingList ml, ml.UllNewsletterEdition e')
       ->addWhere('s.is_active = ?', true)
       ->addWhere('e.id = ?', $this->id)
+      ->addWhere('u.email IS NOT NULL')
       ->addOrderBy('u.email')
     ;
     
@@ -109,12 +110,18 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
   {
     $mail = new ullsfMail();
     
-    $mail->setFrom($loggedInUser['email'], $loggedInUser['display_name']);
+//    $mail->setFrom($loggedInUser['email'], $loggedInUser['display_name']);
+    $mail->setFrom(array(
+        sfConfig::get('app_ull_newsletter_from_address') =>
+          sfConfig::get('app_ull_newsletter_from_name')
+    ));
     
     $mail->setSubject($this['subject']);
     $mail->setHtmlBody($this->getDecoratedBody());
     
     $mail->setNewsletterEditionId($this['id']);
+    
+    $mail->setReturnPath(sfConfig::get('app_ull_newsletter_bounce_mail_box'));
     
     return $mail;
   }

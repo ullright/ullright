@@ -37,6 +37,9 @@ class Swift_Plugins_ullPersonalizePlugin
         array('I18N', 'Url', 'Tag')
       );
       
+      ullCoreTools::fixRoutingForCliAbsoluteUrls();
+      
+      
       $user = UllEntityTable::findById($mail->getRecipientUllUserId());
       
       $dictionary = array();

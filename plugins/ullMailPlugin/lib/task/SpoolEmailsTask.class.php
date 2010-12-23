@@ -4,7 +4,7 @@ class SpoolEmailsTask extends ullBaseTask
 {
   protected function configure()
   {
-    $this->namespace        = 'ullMail';
+    $this->namespace        = 'ull_mail';
     $this->name             = 'spool-emails';
     $this->briefDescription = 'Looks for composed newsletters and spools them';
     $this->detailedDescription = <<<EOF
