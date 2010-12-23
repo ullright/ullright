@@ -14,7 +14,7 @@ $t->begin('findEditionsToBeSpooled()');
 
   $editions = UllNewsletterEditionTable::findEditionsToBeSpooled();
   
-  $t->is(count($editions), 0, 'No composed editions that are not spooled');
+  $t->is(count($editions), 1, 'Got one composed edition that is not spooled from the fixtures');
   
   $edition = new UllNewsletterEdition;
   $edition->fromArray(array(
@@ -26,5 +26,5 @@ $t->begin('findEditionsToBeSpooled()');
   
   $editions = UllNewsletterEditionTable::findEditionsToBeSpooled();
   
-  $t->is(count($editions), 1, 'Now we have one composed editions that is marked as to be spooled');
+  $t->is(count($editions), 2, 'Now we have one composed editions that is marked as to be spooled');
   
