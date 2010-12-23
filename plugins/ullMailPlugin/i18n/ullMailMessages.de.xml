@@ -103,8 +103,8 @@
 </trans-unit>
 
 <trans-unit id="403">
-<source>The newsletter has been sent to %number% recipients</source>
-<target>Der Newsletter wurde an %number% Empfänger versendet</target>
+<source>The newsletter is beeing sended to %number% recipients</source>
+<target>Der Newsletter wird an %number% Empfänger versendet</target>
 </trans-unit>
 
 <trans-unit id="404">

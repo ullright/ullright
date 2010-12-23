@@ -61,7 +61,11 @@ class BaseUllMailActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_newsletter_edit');
     
-    $this->setVar('mails', Doctrine::getTable('UllMailQueuedMessage')->findAll(), true);
+    $q = new Doctrine_Query();
+    $q->from('UllMailQueuedMessage')->limit(25);
+    $mails = $q->execute();
+    
+    $this->setVar('mails', $mails, true);
   }
   
   public function executeBreedSubscribers(sfWebRequest $request)

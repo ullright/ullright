@@ -8,6 +8,11 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
    */
   protected function applyCustomSettings()
   {
+    $this->disable(array(
+      'sender_culture',
+      'queued_at',
+    ));
+    
     $this['ull_newsletter_layout_id']
       ->setLabel(__('Layout', null, 'ullMailMessages'))
       ->setWidgetOption('add_empty', true)

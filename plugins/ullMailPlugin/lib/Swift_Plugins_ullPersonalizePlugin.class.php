@@ -20,6 +20,11 @@ class Swift_Plugins_ullPersonalizePlugin
   {
     $mail = $evt->getMessage();
     
+//    var_dump($mail instanceof ullsfMail);
+//    var_dump($mail->getSubject());
+//    var_dump($mail->getIsQueued());
+//    var_dump($mail->getRecipientUllUserId());
+    
     if (
       // Only ullsfMails can support this
       $mail instanceof ullsfMail
@@ -28,7 +33,9 @@ class Swift_Plugins_ullPersonalizePlugin
       // We can only perfom personalization when we have a single UllUser recipient
       && $mail->getRecipientUllUserId())
     {
-      sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+      sfContext::getInstance()->getConfiguration()->loadHelpers(
+        array('I18N', 'Url', 'Tag')
+      );
       
       $user = UllEntityTable::findById($mail->getRecipientUllUserId());
       
@@ -38,7 +45,7 @@ class Swift_Plugins_ullPersonalizePlugin
       {
         $edition = Doctrine::getTable('UllNewsletterEdition')->find($editionId);
         
-        $lists = $edition->getMailingListsForUser($user['id']);
+        $lists = $edition->findMailingListsForUser($user['id']);
 
         $unsubscribe = array();
         

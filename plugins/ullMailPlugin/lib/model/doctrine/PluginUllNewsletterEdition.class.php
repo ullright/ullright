@@ -28,12 +28,13 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     return $body; 
   }
   
+  
   /**
-   * Get a list of recipients
+   * Get query for a list of recipients
    * 
-   * @return Doctrine_Collection
+   * @return Doctrine_Query
    */
-  public function getRecipients($hydrationMode = null)
+  public function queryRecipients()
   {
     $q = new Doctrine_Query;
     $q
@@ -44,8 +45,36 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       ->addOrderBy('u.email')
     ;
     
+    return $q;
+  }  
+  
+  
+  /**
+   * Return number of recipients
+   * 
+   * @return integer
+   */
+  public function countRecipients()
+  {
+    $q = $this->queryRecipients();
+    
+    return $q->count();
+  }
+  
+  
+  /**
+   * Get a list of recipients
+   * 
+   * @return Doctrine_Collection
+   */
+  public function findRecipients($hydrationMode = null)
+  {
+    $q = $this->queryRecipients();
+    
     return $q->execute(array(), $hydrationMode);
   }
+  
+
   
   /**
    * Get mailing lists for the current edition and the given user
@@ -54,7 +83,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
    * 
    * @return Doctrine_Collection
    */
-  public function getMailingListsForUser($ullUserId)
+  public function findMailingListsForUser($ullUserId)
   {
     $q = new Doctrine_Query;
     $q
@@ -68,5 +97,26 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     
     return $q->execute();
   }  
+  
+  /**
+   * Create message from the current newletter edition record
+   * 
+   * @param UllUser $loggedInUser
+   * 
+   * @return ullsfMail
+   */
+  public function createMailMessage(UllUser $loggedInUser)
+  {
+    $mail = new ullsfMail();
+    
+    $mail->setFrom($loggedInUser['email'], $loggedInUser['display_name']);
+    
+    $mail->setSubject($this['subject']);
+    $mail->setHtmlBody($this->getDecoratedBody());
+    
+    $mail->setNewsletterEditionId($this['id']);
+    
+    return $mail;
+  }
   
 }

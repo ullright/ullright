@@ -65,10 +65,14 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
       throw new InvalidArgumentException('The mailer message object must be a Doctrine_Record object.');
     }
     
+    $queuedStatus = $message->getIsQueued();
     $message->setIsQueued(true);
 
     $object->{$this->column} = serialize($message);
     $object->save();
+    
+    // Reset in case the message is used multiple times
+    $message->setIsQueued($queuedStatus);
     
     $object->free(true);
   }  

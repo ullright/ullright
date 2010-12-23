@@ -71,15 +71,9 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   
   protected function executePostSave(Doctrine_Record $row, sfRequest $request)
   { 
-    $mail = new ullsfMail();
-    
     $user = UllUserTable::findLoggedInUser();
-    $mail->setFrom($user->email, $user->display_name);
     
-    $mail->setSubject($row['subject']);
-    $mail->setHtmlBody($row->getDecoratedBody());
-    
-    $mail->setNewsletterEditionId($row['id']);
+    $mail = $row->createMailMessage($user);
     
     if ($request->getParameter('action_slug') == 'send_test')
     {
@@ -106,10 +100,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         ));
       }
       
-//      $recipients = $row->getRecipients(Doctrine::HYDRATE_ARRAY);
-      $recipients = $row->getRecipients();
+//      $recipients = $row->findRecipients(Doctrine::HYDRATE_ARRAY);
+      $numOfRecipients = $row->findRecipients();
       
-      if (!count($recipients))
+      if (!$numOfRecipients)
       {
         $this->getUser()->setFlash('message', 
           __('No recipients found. Please select one or more mailing lists with subscribers', null, 'ullMailMessages') . '.'
@@ -121,24 +115,14 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         ));
       }
       
-      
-      //TODO: allow to give an array of UllUsers
-      //TODO: add handling for multiple UllUsers for batchSend
-      foreach ($recipients as $recipient)
-      {
-        $mail->clearRecipients();
-        $mail->addAddress($recipient);
-
-        $this->getMailer()->sendQueue($mail);
-      }  
-      
       $row['sent_at'] = date('Y-m-d H:i:s');
       $row['sent_by_ull_user_id'] = $user->id;
-      $row['num_sent_emails'] = count($recipients);
+      $row['sender_culture'] = $this->getUser()->getCulture();
+      $row['num_sent_emails'] = $numOfRecipients;
       $row->save();
       
       $this->getUser()->setFlash('message', 
-        __('The newsletter has been sent to %number% recipients', 
+        __('The newsletter is beeing sended to %number% recipients', 
           array('%number%' => $row['num_sent_emails']), 'ullMailMessages') . '.'
       );
     }      

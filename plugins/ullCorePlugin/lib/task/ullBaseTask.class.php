@@ -5,6 +5,8 @@ abstract class ullBaseTask extends sfBaseTask
   
   protected
     $recordNamespace = 'test',
+    $configuration,
+    $debug = false,
     
     $camelcase_name = '',
     $underscore_name = '',
@@ -43,10 +45,10 @@ abstract class ullBaseTask extends sfBaseTask
   {
     $this->logSection($this->name, 'Initializing database connection');
     
-    $configuration = ProjectConfiguration::getApplicationConfiguration(
-    $arguments['application'], $arguments['env'], true);
+    $this->configuration = ProjectConfiguration::getApplicationConfiguration(
+    $arguments['application'], $arguments['env'], $this->debug);
     
-    $databaseManager = new sfDatabaseManager($configuration);
+    $databaseManager = new sfDatabaseManager($this->configuration);
   }
   
   
