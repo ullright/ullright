@@ -23,7 +23,9 @@ class Swift_Plugins_ullHtml2TextPlugin
       !$mail->getPlaintextBody()
     )
     {
-      $mail->setPlaintextBody(ullHtml2Text::transform($mail->getBody()));
+      $body = ullCoreTools::esc_decode($mail->getBody());
+      
+      $mail->setPlaintextBody(ullHtml2Text::transform($body));
     }
   }
   

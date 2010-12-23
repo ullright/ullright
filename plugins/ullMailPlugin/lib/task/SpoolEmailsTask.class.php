@@ -35,6 +35,8 @@ EOF;
       $this->log('No editions found to be spooled!');
     }
     
+    $failedRecipients = array();
+    
     foreach ($editions as $edition)
     {
       $this->logBlock('Now spooling ' . $edition['subject'], 'INFO');
@@ -59,14 +61,23 @@ EOF;
         
         $currentMail = clone $mail;
         $currentMail->clearRecipients(); // TODO: why is this necessary despite cloning?
-        $currentMail->addAddress($recipient);
         
-        $this->getMailer()->sendQueue($currentMail);
-        
-        $numSent++;
+        try 
+        {
+          $currentMail->addAddress($recipient);
+          $this->getMailer()->sendQueue($currentMail);
+          $numSent++;
+        }
+        catch (Exception $e)
+        {
+          $this->log('Invalid address: ' . $recipient['email']);
+          $failedRecipients[] = $recipient['email'];
+        }
       }  
       
       $this->logBlock("Queued {$numSent} of " . count($recipients) . ' messages', 'INFO');
+      $this->log('Failed Recipients: ' . count($failedRecipients));
+      $this->log(print_r($failedRecipients, true));
     }      
     
     

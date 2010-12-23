@@ -43,6 +43,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       ->addWhere('s.is_active = ?', true)
       ->addWhere('e.id = ?', $this->id)
       ->addWhere('u.email IS NOT NULL')
+      ->addWhere('u.email <> ?', '')
       ->addOrderBy('u.email')
     ;
     
