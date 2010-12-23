@@ -6,7 +6,7 @@ class DeleteModelClassesTask extends ullBaseTask
   protected function configure()
   {
     $this->namespace        = 'ullright';
-    $this->name             = sfInflector::underscore(str_replace('Task', '', get_class($this)));
+    $this->name             = 'delete-model-classes';
     $this->briefDescription = 'Deletes model, filter and filter form classes for a model';
     $this->detailedDescription = <<<EOF
     The [{$this->name} task|INFO] {$this->briefDescription}
