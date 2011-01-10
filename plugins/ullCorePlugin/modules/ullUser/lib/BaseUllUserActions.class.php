@@ -687,6 +687,15 @@ class BaseUllUserActions extends BaseUllGeneratorActions
               //if the user has a set culture, use it
               if ($user['selected_culture'] !== null)
               {
+                //it might happen that a user has a culture set which is not supported (anymore)
+                //in this case, reset the culture to the default one
+                $supportedLanguages = sfConfig::get('app_i18n_supported_languages', array('de', 'en'));
+                if (!in_array($user['selected_culture'], $supportedLanguages))
+                {
+                  $user['selected_culture'] = sfConfig::get('sf_default_culture');
+                  $user->save();
+                }
+                
                 $this->getUser()->setCulture($user['selected_culture']);
                 //tell the i18n filter that we already have a culture available
                 $this->getUser()->setAttribute('is_culture_set_by_user', true);
