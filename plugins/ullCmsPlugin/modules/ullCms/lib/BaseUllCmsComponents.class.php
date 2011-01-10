@@ -26,4 +26,13 @@ class BaseUllCmsComponents extends sfComponents
     );    
   }
   
+  public function executeRenderCmsPage(sfRequest $request)
+  {
+    $this->doc = Doctrine::getTable('UllCmsPage')->findOneBySlug($this->slug);
+    $this->setVar('title', $this->doc->title);
+    $this->setVar('body', $this->doc->body, true);
+    
+    $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');
+  }
+  
 }
