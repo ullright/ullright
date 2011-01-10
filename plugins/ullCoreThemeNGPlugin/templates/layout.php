@@ -1,5 +1,3 @@
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
-
 <?php require('_head.php') ?>
 
 <body class="<?php 
@@ -104,7 +102,7 @@
     
 </div> <!--  end of container -->
 
-<?php if (sfConfig::get('app_sidebar_toggle', false) == true) : ?>
+<?php if (sfConfig::get('app_sidebar_toggle', true) == true) : ?>
   <?php include_partial('default/sidebar_toggle') ?>
 <?php endif; ?>
 

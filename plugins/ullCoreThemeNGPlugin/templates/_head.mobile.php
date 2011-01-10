@@ -11,7 +11,8 @@
 
 <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
   'Plugin/css/main.mobile.css', 'first', array('media' => 'all')) ?>
-  
+
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>  
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
 <!-- html head slot -->

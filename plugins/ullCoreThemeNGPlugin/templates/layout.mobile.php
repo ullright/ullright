@@ -1,5 +1,3 @@
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
-
 <?php require('_head.mobile.php') ?>
 
 <body class="<?php 
