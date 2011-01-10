@@ -744,12 +744,12 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    * column config collection
    * 
    * @param $array array of columnNames
-   * @param $withoutErrors boolean specifying if invalid column names
+   * @param $ignoreErrors boolean specifying if invalid column names
    *   (i.e. ones that are in $array but not in this column configuration
    *   collection) should result in errors or be silently discarded
    * @return none
    */
-  public function remove($array, $withoutErrors = false)
+  public function remove($array, $ignoreErrors = false)
   {
     if (!is_array($array))
     {
@@ -758,7 +758,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     
     foreach ($array as $columnName)
     {
-      if (!$withoutErrors || isset($this->collection[$columnName]))
+      if (!$ignoreErrors || isset($this->collection[$columnName]))
       {
         unset($this->collection[$columnName]);
       }    
