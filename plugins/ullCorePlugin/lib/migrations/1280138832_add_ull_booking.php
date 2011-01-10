@@ -187,12 +187,9 @@ class AddUllBookingIfNeeded extends Doctrine_Migration_Base
     }
     else
     {
-      
-      $bookingAdmins = new UllGroup();
-      $bookingAdmins->display_name = 'BookingAdmins';
-      $bookingAdmins->namespace = 'ull_booking';
-      $bookingAdmins->save();
-      $groupId = $bookingAdmins->id;
+      $result = $dbh->query("INSERT INTO ull_entity (type, display_name, namespace) 
+        VALUES ('group', 'BookingAdmins', 'ull_booking')");
+      $groupId = $dbh->lastInsertId();
     }
     
     //drop permissions ...
