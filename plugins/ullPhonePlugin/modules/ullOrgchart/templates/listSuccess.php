@@ -1,6 +1,6 @@
 <?php echo $breadcrumb_tree ?>
 
-<div class="ull_orgchart_list_action_buttons no_print">
+<div class="ull_orgchart_list_action_buttons color_light_bg">
     
   <div class="float_left"><?php echo ull_link_to(__('Reset', null, 'common'), 'ullOrgchart/list') ?></div>
         
