@@ -22,31 +22,40 @@
         echo '<th class="color_dark_bg">&nbsp;</th>';
       }
     
+      $order = $sf_data->getRaw('order');
+      $order_array = ullGeneratorTools::arrayizeOrderBy($order);
+      $order_first_column = reset($order_array);
+        
+      $unsortable_columns = $generator->getUnsortableColumnConfig();
+      
       foreach ($generator->getAutoRenderedLabelsWithDefaultOrder() as $field_name => $field): ?>
       
       <th class="color_dark_bg">
-        <?php 
-        $order = $sf_data->getRaw('order');
-        $order_array = ullGeneratorTools::arrayizeOrderBy($order);
-        $order_first_column = reset($order_array);
-        
-        if ($order_first_column['column'] == $field_name) 
+      <?php
+        if (isset($unsortable_columns[$field_name]))
         {
-          $arrow  = ($order_first_column['direction'] == 'desc') ? ' <span class="order_arrow">↑</span>' : ' <span class="order_arrow">↓</span>';
-          $dir    = ($order_first_column['direction'] == 'desc') ? 'asc' : 'desc';
-        } 
-        else 
-        {
-          $arrow = '';
-          $dir = $field['defaultOrderDirection']; //the column config provides the default order direction
+          echo $field['label'];
         }
-        
-        echo ull_link_to(
-          $field['label'] . $arrow
-          , array(
-              'order' => UllGeneratorTools::convertOrderByFromQueryToUri($field_name . ' ' . $dir)
-            )
-        );
+        else
+        {
+          if ($order_first_column['column'] == $field_name) 
+          {
+            $arrow  = ($order_first_column['direction'] == 'desc') ? ' <span class="order_arrow">↑</span>' : ' <span class="order_arrow">↓</span>';
+            $dir    = ($order_first_column['direction'] == 'desc') ? 'asc' : 'desc';
+          } 
+          else 
+          {
+            $arrow = '';
+            $dir = $field['defaultOrderDirection']; //the column config provides the default order direction
+          }
+          
+          echo ull_link_to(
+            $field['label'] . $arrow
+            , array(
+                'order' => UllGeneratorTools::convertOrderByFromQueryToUri($field_name . ' ' . $dir)
+              )
+          );
+        }
       ?>      
       </th>
     <?php endforeach; ?>

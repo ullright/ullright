@@ -908,6 +908,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       ->setWidgetOption('method', $toStringColumn)
       ->setValidatorOption('model', $model)
       ->setValidatorOption('query', $q)
+      ->setIsSortable(false) //at the moment, we do not have support for this
     ;        
   }
   

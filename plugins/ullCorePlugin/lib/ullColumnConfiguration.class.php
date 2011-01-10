@@ -17,6 +17,7 @@ class ullColumnConfiguration
     $defaultValue,
     $naturalOrdering        = false,
     $defaultOrderDirection  = 'asc', //default to ascending order
+    $isSortable             = true,
     
     //from model
     $unique                 = false, 
@@ -571,6 +572,29 @@ class ullColumnConfiguration
     return (boolean) $this->getValidatorOption('required');
   }
   
+  /**
+   * Set the sortable attribute
+   * 
+   * @param boolean $boolean
+   * @return self
+   */
+  public function setIsSortable($boolean)
+  {
+    $this->isSortable = (boolean) $boolean;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get the sortable attribute
+   * 
+   * @return boolean
+   */
+  public function getIsSortable()
+  {
+    return $this->isSortable;
+  }
   
   /**
    * Enable ajax update function for the current field

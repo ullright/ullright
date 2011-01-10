@@ -103,6 +103,26 @@ abstract class ullGenerator extends ullGeneratorBase
   }
   
   /**
+   * Returns all column configurations where the
+   * 'sortable' flag is set to false
+   * 
+   * @return ullColumnConfigCollection
+   */
+  public function getUnsortableColumnConfig()
+  {
+    $unsortableColumnConfig = array();
+    foreach ($this->columnsConfig as $columnName => $cc)
+    {
+      if (!$cc->getIsSortable())
+      {
+        $unsortableColumnConfig[$columnName] = $cc;
+      }
+    }
+    
+    return $unsortableColumnConfig;
+  }
+  
+  /**
    * set the column config
    *
    * @return array
