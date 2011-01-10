@@ -55,7 +55,7 @@ $t->diag('createMailMessage()');
     'Returns the correct subject'
   );
   $t->is($mail->getFrom(), 
-    array('test.user@example.com' => 'Test User'), 
+    array('newsletter@example.com' => 'Example Newsletter'), 
     'Returns the correct sender'
   );
   $t->is($mail->getHtmlBody(), 
