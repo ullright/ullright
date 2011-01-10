@@ -13,14 +13,16 @@
         <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/action_icons/create_24x24', 'ullNewsletter/create', __('Compose Newsletter', null, 'ullMailMessages')) ?></li>
       </ul>
       
-      <!-- 
-      <h3><?php echo __('Lists', null, 'ullMailMessages') ?></h3>
+      
+      <h3><?php echo __('Mailing lists', null, 'ullMailMessages') ?></h3>
       <ul class="tc_tasks">
-        <?php foreach ($categories as $category): ?>
-          <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/ull_mail_24x24', 'ullNewsletter/list', $category) ?></li>
+        <?php foreach ($mailing_lists as $mailing_list): ?>
+          <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/ull_mail_24x24',
+          	'ullNewsletter/list?filter[ull_newsletter_mailing_list_id]=' . $mailing_list['id'],
+            $mailing_list) ?></li>
         <?php endforeach; ?>
       </ul>
-       -->
+
     </div>    
     
     

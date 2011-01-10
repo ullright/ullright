@@ -20,9 +20,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   public function preExecute()
   {
     parent::preExecute();
-    
-    $this->categories = array('Product News', 'Pest Practicies');
-    
+
     //Add module stylsheet for all actions
     $path =  '/ullMailTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
     $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));    
@@ -40,6 +38,13 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
 //    
     $this->named_queries = new ullNamedQueriesUllNewsletter;
 
+    $q = new Doctrine_Query();
+    $q
+      ->from('UllNewsletterMailingList')
+      ->orderBy('name')
+    ;
+    $this->mailing_lists = $q->execute();
+    
     $this->breadcrumbForIndex();
   }
   
