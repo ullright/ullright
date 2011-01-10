@@ -495,7 +495,7 @@ class ullOrgchartTreeRenderer
     $return .= '<li><em>' . $this->widgetEntity->render(null, array('id' => $entity->id, 'value' => (string) $entity)) . '</em></li>';
     $return .= '<li>' . $entity->UllLocation . '</li>';
     $return .= '<li>' . $entity->UllDepartment . '</li>';
-    if ($entity->hasSubordinates())
+    if ($entity->hasSubordinates() && sfContext::getInstance()->getRequest()->getParameter('depth') > 2)
     {
       $return .= '<li>&nbsp;</li>';
       $return .= '<li class="no_print">' . ull_link_to(__('Department view', null, 'ullPhoneMessages'), array('ullOrgchart/list', 'user_id' => $entity->id, 'depth' => '2')) . '</li>';
