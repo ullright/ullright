@@ -188,6 +188,27 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     }
   }
 
+  /**
+   * Apply custom modifications to the query
+   *  
+   * @return none
+   */
+  protected function modifyQueryForFilter()
+  {
+    //filter per mailing list
+    if ($mailingListId = $this->filter_form->getValue('ull_newsletter_mailing_list_id'))
+    {
+      $mailingList = Doctrine::getTable('UllNewsletterMailingList')->findOneById($mailingListId);
+      
+      if ($mailingList !== false)
+      {
+        $this->q->addWhere('UllNewsletterEditionMailingLists->id = ?', $mailingListId);
+        
+        $this->ull_filter->add('filter[ull_newsletter_mailing_list_id]',
+          __('Mailing list', null, 'ullMailMessages') . ': ' . $mailingList);
+      }
+    }
+  } 
   
   /**
    * Define generator for list action
