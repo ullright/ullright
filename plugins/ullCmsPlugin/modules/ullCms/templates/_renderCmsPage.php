@@ -1,5 +1,5 @@
-<div class="ull_cms_content">
-  <h1 class="ull_cms_content_heading">
+<div class="ull_cms_content_area">
+  <h1 class="ull_cms_content_area_heading">
     <?php  if ($allow_edit): ?>
       <span class="ull_cms_content_heading_edit_link">
         <?php
@@ -8,7 +8,7 @@
         ?>   
       </span>           
     <?php endif ?>
-    <span class="ull_cms_content_heading_text"><?php echo $title ?></span>
+    <span class="ull_cms_content_area_heading_text"><?php echo $title ?></span>
   </h1>
   
   <?php echo $body ?>
