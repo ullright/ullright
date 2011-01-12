@@ -3,6 +3,7 @@ UllNewsletterMailingList:
     id: 101
     name: Product news
     description: News about our products. Sent approx. six times a year.
+    is_subscribed_by_default: true
   best_practices:
     id: 102
     name: Best practices

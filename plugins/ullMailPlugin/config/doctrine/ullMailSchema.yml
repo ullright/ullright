@@ -86,6 +86,9 @@ UllNewsletterMailingList:
       notnull: true
     description:
       type: string(3000)
+    is_subscribed_by_default:
+      type: boolean
+      default: false
     is_active:
       type: boolean
       default: true
