@@ -60,11 +60,20 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->setVar('title', $this->doc->title);
     $this->setVar('body', $this->doc->body, true);
     
+    //loads a specific template, if configurated
+    $filename = sfConfig::get('sf_app_dir') . '/modules/ullCms/templates/' . $this->doc->slug . 'Success.php';
+    if (file_exists($filename))
+    {
+      $this->setTemplate($this->doc->slug, 'ullCms');
+    }
+    
     $this->getResponse()->setTitle($this->doc->title);
     
     $this->loadMenus();
     
     $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');
+    
+    $this->loadCustomAction($request);
     
     $this->loadCustomTemplate();
   }
@@ -203,9 +212,28 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   
   
   /**
+   * Look for a custom page-specifig action
+   * 
+   * Put an action method named executeShow$slug in 
+   * apps/frontend/modules/ullCms/actions/actions.class.php
+   *
+   * @param sfRequest $request
+   */
+  protected function loadCustomAction(sfRequest $request)
+  {
+    $method = 'executeShow' . sfInflector::classify($this->doc->slug);
+    
+    if (method_exists($this, $method))
+    {
+      return call_user_func_array(array($this, $method), array('request' => $request));
+    }
+  }
+  
+  
+  /**
    * Look for a custom page-specific template 
    * 
-   * Put the tempalte in apps/frontend/modules/ullCms/templates/
+   * Put the template in apps/frontend/modules/ullCms/templates/
    * and name it $slugSuccess.php
    *
    */
