@@ -77,6 +77,11 @@
 <target>Newsletter Abonnements</target>
 </trans-unit>
 
+<trans-unit id="210">
+<source>Is subscribed by default</source>
+<target>Standardmäßig angemeldet</target>
+</trans-unit>
+
 <!-- named queries -->
 
 <trans-unit id="300">
