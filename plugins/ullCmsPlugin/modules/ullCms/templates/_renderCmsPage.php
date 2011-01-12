@@ -11,7 +11,10 @@
     <span class="ull_cms_content_area_heading_text"><?php echo $title ?></span>
   </h1>
   
-  <?php echo $body ?>
+  <?php echo auto_link_text($body, $link = 'all', array(
+        'class'  => 'link_external',
+        'target' => '_blank',
+  )); ?>
   
   <?php //include_slot('ull_cms_additional_body') ?>
 </div> 
