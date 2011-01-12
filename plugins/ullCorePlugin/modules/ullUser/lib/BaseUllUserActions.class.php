@@ -146,13 +146,17 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     
     parent::executeEdit($request);
     
-//    var_dump($this->generator->getColumnsConfig());die;
-    
     if ($password = $this->generator->getForm()->getDefault('password'))
     {
       $this->generator->getForm()->setDefault('password_confirmation', '********');
     }
 
+    //if we are in a creation action, set the default mailing lists
+    if ($this->id === null)
+    {
+      $this->addMailingListDefaults();    
+    }
+    
     $this->setTableToolTemplate('edit');
   }  
   
@@ -178,6 +182,9 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->user = new UllUser;
     
     $this->handleEditAccount($request);
+    
+    //set the default mailing lists
+    $this->addMailingListDefaults();    
     
     if ($request->isMethod('post'))
     {
@@ -1080,4 +1087,13 @@ Please change your password at %edit_account_url%
     }
   }  
 
+  /**
+   * Retrieves all UllNewsletterMailingLists which have their 'is_subscribed_by_default'
+   * flag set to true and sets them as the default for the matching m:n widget.
+   */
+  protected function addMailingListDefaults()
+  {
+    $newsletters = Doctrine::getTable('UllNewsletterMailingList')->findByIsSubscribedByDefault(true);
+    $this->generator->getForm()->setDefault('UllNewsletterMailingList', $newsletters->getPrimaryKeys());
+  }
 }
