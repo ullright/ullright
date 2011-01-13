@@ -38,11 +38,13 @@
       <div id='nav_links'>             
         <?php include_partial('myModule/navTopLinks'); ?>
       </div>
+      <!-- 
       <div class='nav_main_menu'>
         <ul class="ull_menu_main_menu">
-          <?php include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
+          <?php //include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
         </ul>
       </div>
+      -->
       
     </div> <!-- end of nav_top -->
      
