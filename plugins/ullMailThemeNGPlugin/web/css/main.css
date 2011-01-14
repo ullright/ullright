@@ -7,15 +7,23 @@
  /* Overridden css: ullCore / main.css - formats */
 
 .color_light_bg {
-  background: #e9c9ca;
+  background: #e2a896;
+  background: #eccdce;
 }
 
 .color_medium_bg {
-  background: #e9aeb0;
+  background: #cc6d6f;
+  background: #e2001a;
+  background: #e25a44;
+  background: #e6676b;
 }
 
 .color_dark_bg {
-  background: #e11d25;
+  background: #c3081c;
+  /*
+  background: #cc6d6f;
+  background: #e2432e;
+  */
 }
 
 .edit_container {
@@ -33,17 +41,20 @@
 /* Overridden css: ullCore / taskcenter.css - formats */
  
 #tc_wrapper a:visited {
-  color: #e11d25;
+  /* color: #e11d25; */
+  color: #c3081c;
 }
 
 /* Overridden css: ullCore / common.css - formats */
  
 a {
-  color: #e11d25;
+  /* color: #e11d25; */
+  color: #c3081c;
 }
 
 a:visited {
-  color: #e11d25;
+  /* color: #e11d25; */
+  color: #c3081c;
 }
 
 /* End of overridden css */
