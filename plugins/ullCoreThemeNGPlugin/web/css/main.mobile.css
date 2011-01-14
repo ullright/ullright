@@ -41,11 +41,6 @@ textarea {
   color: #585858; 
 }
 
-
-#nav_logo img {
-  width: 100px;
-}
- 
 #nav_syslinks_container {
   float: right;	
 }
@@ -133,8 +128,6 @@ div.nav_main_menu a {
 
 #sidebar {
 	margin-top: 3em;
-	padding-top: 1em;
-  border-top: 1px solid grey;	
 }
 
 #sidebar h3 {
