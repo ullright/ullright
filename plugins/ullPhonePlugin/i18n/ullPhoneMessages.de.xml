@@ -53,6 +53,11 @@
         <target>Zoom</target>
       </trans-unit>  
       
+      <trans-unit id="11">
+        <source>Phone dir.</source>
+        <target>Telefonbuch</target>
+      </trans-unit      
+      
     </body>
   </file>
 </xliff>
