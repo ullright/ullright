@@ -19,10 +19,6 @@
   background: #007a86;
 }
 
-.edit_container {
-  max-width: 780px;
-}
-
 .list_table tbody tr:hover {
   background: #c9eff3 !important;  
 }

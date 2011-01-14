@@ -34,7 +34,7 @@ textarea {
  */
  
 #nav_top a {
-  color: #585858;	
+  color: #585858;
 }
 
 #nav_top a:visited {
@@ -75,6 +75,10 @@ ul.nav_syslinks_list li:first-child {
 	margin-top: .5em;
 	background: #e1e2e2;
 	padding: .5em;
+}
+
+#nav_links a {
+	font-weight: bold;
 }
 
 ul.nav_top_links {
@@ -135,6 +139,7 @@ div.nav_main_menu a {
 
 #sidebar h3 {
 	margin: 0;
+	margin-bottom: .5em;
   font-size: 1em;
   line-height: 1.5em;
 }
@@ -152,6 +157,7 @@ div.nav_main_menu a {
   padding: 0;
   margin: 0;
   line-height: 1.5em;
+  height: 2em;
 }
 
 .sidebar_section {
@@ -198,3 +204,26 @@ div.nav_main_menu a {
 	padding: .5em;
 	line-height: 1.5em;
 } 
+
+
+/*
+ * ************************************************
+ *  ullGenerator
+ * ************************************************
+ */
+
+.list_table tr {
+  min-height: 3em;
+} 
+
+/*
+ * ************************************************
+ *  ullGenerator
+ * ************************************************
+ */
+
+
+.edit_container {
+  max-width: 60em;
+}
+
