@@ -101,16 +101,6 @@ class BaseUllCloneUserActions extends BaseUllGeneratorActions
   }
 
   
-  /**
-   * Configure the ullFilter class name
-   * 
-   * @return string
-   */
-  public function getUllFilterClassName()
-  {
-    return 'ullFilterForm';
-  }  
-  
   
   /**
    * Apply custom modifications to the query

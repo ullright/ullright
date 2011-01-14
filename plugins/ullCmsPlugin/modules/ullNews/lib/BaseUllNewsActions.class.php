@@ -94,17 +94,6 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   }
   
   /**
-   * Configure the ullFilter class name
-   * 
-   * @return string
-   */
-  public function getUllFilterClassName()
-  {
-    return 'ullFilterForm';
-  }  
-  
-  
-  /**
    * Define generator for list action
    * 
    * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()

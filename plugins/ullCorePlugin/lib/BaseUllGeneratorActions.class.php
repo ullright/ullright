@@ -482,7 +482,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     {
       $this->filter_form = $this->generator->getFilterForm();
     }
-  
+    
+//    $this->filter_form->debug();
   }
    
   
