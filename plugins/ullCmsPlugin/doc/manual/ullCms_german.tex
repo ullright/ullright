@@ -99,16 +99,15 @@
 %move picture left/right
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.6\textwidth]{softwarebox}
+\includegraphics[width=0.5\textwidth]{softwarebox}
 \end{figure}
 
 \vspace{1cm}
 
 %we do not use xelatex anymore
 {%\fontspec[Scale=1.4, Color = DocBlue]{Ubuntu Bold}
-\Large
-\textbf
-\centering
+\huge
+\color{ullblue}
 ullCms -- Webseiten einfach selbst verwalten
 }
 
@@ -117,15 +116,16 @@ ullCms -- Webseiten einfach selbst verwalten
 %we do not use xelatex anymore
 {%\fontspec[Scale=0.8]{Gentium Basic}
 \small
-\noindent
-2011-01-13 -- Klemens Ullmann-Marx
+13.01.2011 -- Klemens Ullmann-Marx
+
+14.01.2011 -- Klemens Ullmann-Marx
 }
 
 \clearpage
 
 \pagestyle{plain}
 
-\setcounter{page}{1}
+%\setcounter{page}{1}
 
 %number and include in toc up until subsections
 \setcounter{secnumdepth}{2}
@@ -171,7 +171,7 @@ Mehr über die Benutzer- und Gruppenverwaltung finden Sie im Handbuch "`ullUser"
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{direct_edit}
+\includegraphics[width=0.9\textwidth]{direct_edit}
 \caption{Icons zur direkten Bearbeitung}
 \label{fig:direct_edit}
 \end{figure}
@@ -189,7 +189,7 @@ Klicken Sie in der Admin-Menüleiste auf den Menüpunkt "`Seiten verwalten"'. Si
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{list}
+\includegraphics[width=0.9\textwidth]{list}
 \caption{Liste aller CMS-Seiten}
 \label{fig:list}
 \end{figure}
@@ -219,7 +219,7 @@ Bei einer großen Anzahl an Seiten werden nicht alle Einträge auf einer Seite a
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{paging}
+\includegraphics[width=0.9\textwidth]{paging}
 \caption{Blättern}
 \label{fig:paging}
 \end{figure}
@@ -234,7 +234,7 @@ Die Liste beschränkt sich nun auf die Seiten, die den Suchbegriff im Betreff en
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{search}
+\includegraphics[width=0.9\textwidth]{search}
 \caption{Suche}
 \label{fig:search}
 \end{figure}
@@ -251,14 +251,14 @@ Klicken Sie auf "`Erstellen"' um eine neue CMS-Seite zu erstellen. Alles weitere
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{edit1}
+\includegraphics[width=0.9\textwidth]{edit1}
 \caption{Bearbeiten Teil 1}
 \label{fig:edit1}
 \end{figure}
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{edit2}
+\includegraphics[width=0.9\textwidth]{edit2}
 \caption{Bearbeiten Teil 2}
 \label{fig:edit2}
 \end{figure}
@@ -314,7 +314,7 @@ Für das Bearbeiten oder Erstellen mehrerer Seiten bietet ullCms einige praktisc
 
 \begin{figure}[htp]
 \centering
-\includegraphics[width=0.8\textwidth]{editor}
+\includegraphics[width=0.9\textwidth]{editor}
 \caption{WYSIWYG-Editor}
 \label{fig:editor}
 \end{figure}
@@ -347,22 +347,11 @@ Die wichtigsten Formatierungen (von links nach rechts):
 \end{itemize}
 
 
-% \begin{wrapfigure}{l}{0,5cm}
-% \vspace{-10pt}
-% \includegraphics{image_icon}
-% \vspace{-10pt}
-% \end{wrapfigure}
-
 \subsection{Bild einfügen}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5cm,height=0.5cm]{image_icon}
-\end{figure}
 
 \begin{itemize}
 \item Setzten Sie den Cursor an die gewünschte Stelle im Text
-\item Klicken Sie auf das Bildsymbol
+\item Klicken Sie auf das Bildsymbol \includegraphics[height=5mm]{image_icon}
 \item Wählen Sie "`Server durchsuchen"'
 \item Wählen oder erstellen Sie gegebenenfalls einen neuen Ordner um eine ordentliche Struktur Ihrer Daten zu gewährleisten
 \item Wenn Sie ein neues Bild hochladen möchten klicken Sie auf "`Durchsuchen"' und wählen Sie eine Bilddatei von Ihrem Computer aus.
@@ -402,18 +391,7 @@ Beispiele:
 \item office@ull.at
 \end{itemize}
 
-% \begin{wrapfigure}{l}{0,5cm}
-% \vspace{-10pt}
-% \includegraphics{link_icon}
-% \vspace{-10pt}
-% \end{wrapfigure}
-
-Möchten Sie hingegen gewisse Wörter im Text verlinken markieren Sie die Wörter und klicken Sie auf das Linksymbol (blau-grüne Erdkugel).
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5cm,height=0.5cm]{link_icon}
-\end{figure}
+Möchten Sie hingegen gewisse Wörter im Text verlinken markieren Sie die Wörter und klicken Sie auf das Linksymbol \includegraphics[height=5mm]{link_icon} (blau-grüne Erdkugel).
 
 \subsubsection{Link zu einer Internetadresse (URL)}
 Geben Sie bei "`URL"' die gewünschte Adresse ein. Beispiel: http://www.ullright.org
@@ -442,20 +420,9 @@ Wählen Sie bei "`Link-Typ"' E-Mail und geben Sie die gewünschte E-Mailadresse 
 
 Das Hochladen einer Datei funktioniert wie eine Mischung aus Link- und Bildeinfügen.
 
-% \begin{wrapfigure}{l}{0,5cm}
-% \vspace{-10pt}
-% \includegraphics{link_icon}
-% \vspace{-10pt}
-% \end{wrapfigure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5cm,height=0.5cm]{link_icon}
-\end{figure}
-
 \begin{itemize}
 \item Markieren Sie die Wörter die mit der Datei verlinkt werden sollen.
-\item Klicken Sie auf das Linksymbol (blau-grüne Erdkugel)
+\item Klicken Sie auf das Linksymbol \includegraphics[height=5mm]{link_icon} (blau-grüne Erdkugel)
 \item Wählen Sie „Server durchsuchen“
 \item Wählen oder erstellen Sie gegebenenfalls einen neuen Ordner um eine ordentliche Struktur Ihrer Daten zu gewährleisten
 \item Wenn Sie eine neue Datei hochladen möchten klicken Sie auf "`Durchsuchen"' und wählen Sie eine Datei von Ihrem Computer aus.
