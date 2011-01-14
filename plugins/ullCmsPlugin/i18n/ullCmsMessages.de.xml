@@ -58,6 +58,15 @@
 <target>Automatisch wird hier der Titel der Seite verwendet. Überschreiben Sie ihn hier um z.B. einen kürzern Titel im Menü anzuzeigen</target>
 </trans-unit>
 
+<trans-unit id="12">
+<source>Content</source>
+<target>Inhalte</target>
+</trans-unit>
+
+<trans-unit id="13">
+<source>Content Mangement</source>
+<target>Inhalte verwalten</target>
+</trans-unit>
 
 
     </body>
