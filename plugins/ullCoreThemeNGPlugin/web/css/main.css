@@ -61,7 +61,7 @@ ul.nav_top_links {
 
 ul.nav_top_links li {
 	float: left;
-	margin: 0 2em 0 0;
+	margin: 0 .4em 0 0;
 	padding: 0;
 	text-align: center;
 	padding-bottom: .33em;
@@ -118,6 +118,14 @@ ul.nav_top_links li:hover {
 
 #nav_link_ull_orgchart:hover {
   border-color: #f3c100;
+}
+
+#nav_link_ull_cms:hover {
+  border-color: #0095a2;
+}
+
+#nav_link_ull_mail:hover {
+  border-color: #c3081c;
 }
 
 #nav_link_admin:hover {
