@@ -1,0 +1,31 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1.1}Einleitung}{2}{section.1.1}
+\contentsline {section}{\numberline {1.2}Berechtigungen}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}Direktes Bearbeiten von Inhalten}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}Seiten verwalten}{3}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Spalten}{3}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Sortieren}{4}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}Bl\IeC {\"a}ttern}{4}{subsection.1.4.3}
+\contentsline {subsection}{\numberline {1.4.4}Suche}{5}{subsection.1.4.4}
+\contentsline {subsection}{\numberline {1.4.5}Neue Seite erstellen}{5}{subsection.1.4.5}
+\contentsline {section}{\numberline {1.5}Seiten bearbeiten}{6}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Titel}{6}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Text}{6}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}Men\IeC {\"u}titel}{6}{subsection.1.5.3}
+\contentsline {subsection}{\numberline {1.5.4}\IeC {\"U}bergeordneter Men\IeC {\"u}eintrag}{7}{subsection.1.5.4}
+\contentsline {subsection}{\numberline {1.5.5}Reihenfolge}{7}{subsection.1.5.5}
+\contentsline {subsection}{\numberline {1.5.6}Ist aktiv}{7}{subsection.1.5.6}
+\contentsline {subsection}{\numberline {1.5.7}Eindeutige Bezeichnung}{8}{subsection.1.5.7}
+\contentsline {subsection}{\numberline {1.5.8}Aktionen}{8}{subsection.1.5.8}
+\contentsline {section}{\numberline {1.6}Text bearbeiten mit dem "`WYSIWYG"' Editor}{8}{section.1.6}
+\contentsline {subsection}{\numberline {1.6.1}Text schreiben}{8}{subsection.1.6.1}
+\contentsline {subsection}{\numberline {1.6.2}Text formatieren}{9}{subsection.1.6.2}
+\contentsline {subsection}{\numberline {1.6.3}Bild einf\IeC {\"u}gen}{9}{subsection.1.6.3}
+\contentsline {subsection}{\numberline {1.6.4}Bildeigenschaften \IeC {\"a}ndern}{9}{subsection.1.6.4}
+\contentsline {subsubsection}{Reiter "`Bild-Info"'}{10}{subsection.1.6.4}
+\contentsline {subsubsection}{Reiter "`Erweitert"'}{10}{subsection.1.6.4}
+\contentsline {subsection}{\numberline {1.6.5}Link erstellen}{10}{subsection.1.6.5}
+\contentsline {subsubsection}{Link zu einer Internetadresse (URL)}{10}{subsection.1.6.5}
+\contentsline {subsubsection}{Link zu einer anderen CMS-Seite}{11}{subsection.1.6.5}
+\contentsline {subsubsection}{E-Mail Link}{11}{subsection.1.6.5}
+\contentsline {subsection}{\numberline {1.6.6}Datei hochladen}{11}{subsection.1.6.6}
