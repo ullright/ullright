@@ -78,13 +78,17 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       
     ));      
     
+    /* we'd like to hide these, but atm this is not possible
+     * since the widgets do not have a span around them
+     * and no span -> no class -> not selectable
     $this->markAsAdvancedFields(array(
       'id',
       'creator_user_id',
       'created_at',
       'updator_user_id',
-      'updated_at',    
+      'updated_at',
     ));
+    */
     
     if ($this->isCreateAction())
     {
