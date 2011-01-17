@@ -7,6 +7,9 @@ UllWiki:
     SoftDelete:
     Versionable:
     Taggable:
+    Sluggable:
+      unique: true
+      fields: [subject]
   columns:
     subject: 
       type: string(255)

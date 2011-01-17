@@ -1,0 +1,12 @@
+# UllWiki
+ull_wiki_show:
+  url:     /ullWiki/show/:slug
+  param:   { module: ullWiki, action: show }
+  requirements:
+    sf_method: [get, post]
+
+ull_wiki_edit:    
+  url:     /ullWiki/edit/:slug
+  param:   { module: ullWiki, action: edit }
+  requirements:
+    sf_method: [get, post]

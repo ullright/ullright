@@ -43,7 +43,7 @@
   <?php foreach($generator->getForms() as $row => $form): ?>
     <?php $identifier = $generator->getIdentifierUrlParams($row) ?>
     <?php $form['subject']->getWidget()->setAttribute('href', 
-      ull_url_for(array_merge($generator->getIdentifierUrlParamsAsArray($row), array('action' => 'show')))) ?>
+      ull_url_for(array('slug' => $form->getObject()->getSlug(), 'action' => 'show'))) ?>
       <?php
         if ($odd) {
           $odd_style = ' class=\'odd\'';
@@ -56,9 +56,13 @@
     <tr <?php echo $odd_style ?>>
       <td class='no_wrap'>          
         <?php
-            echo ull_link_to(ull_image_tag('edit'), 'ullWiki/edit?' . $identifier);
-            echo ull_link_to(ull_image_tag('delete'), 'ullWiki/delete?' . $identifier,
-                'confirm='.__('Are you sure?', null, 'common')); 
+            echo ull_link_to(
+              ull_image_tag('edit'),  
+              ull_url_for(array('slug' => $form->getObject()->getSlug(), 'action' => 'edit')));
+            echo ull_link_to(
+              ull_image_tag('delete'), 
+              ull_url_for(array('slug' => $form->getObject()->getSlug(), 'action' => 'delete')),
+              'confirm='.__('Are you sure?', null, 'common')); 
         ?>
       </td>
       <?php echo $form ?>

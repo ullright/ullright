@@ -158,7 +158,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
         // save and show
         elseif ($request->getParameter('action_slug') == 'save_show') 
         {
-          $this->redirect('ullWiki/show?docid=' . $this->doc->id);
+          $this->redirect('ullWiki/show?slug=' . $this->doc->slug);
         } 
         
         // save and new
@@ -347,7 +347,10 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
    */
   protected function getDocFromRequest()
   {
-    $this->forward404Unless($this->getRequestParameter('docid'), 'docid is mandatory!');
+    $this->forward404Unless(
+      $this->getRequestParameter('docid') || $this->getRequestParameter('slug'),
+      'slug or docid is mandatory!'
+    );
 
     $this->getDocFromRequestOrCreate();
   }
@@ -361,6 +364,11 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
     if ($id = $this->getRequestParameter('docid')) 
     {
       $this->doc = Doctrine::getTable('UllWiki')->find($id);
+      $this->forward404Unless($this->doc);
+    }
+    elseif ($slug = $this->getRequestParameter('slug')) 
+    {
+      $this->doc = Doctrine::getTable('UllWiki')->findOneBySlug($slug);
       $this->forward404Unless($this->doc);
     }
     else
