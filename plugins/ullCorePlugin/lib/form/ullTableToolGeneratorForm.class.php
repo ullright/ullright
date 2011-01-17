@@ -12,14 +12,18 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
   protected function updateDefaultsFromObject()
   {
     parent::updateDefaultsFromObject();
-
+    
     //iterate all column configs and load defaults for
     //many to many relationships
     foreach ($this->columnsConfig as $columnName => $columnConfig)
     {
       if ($columnConfig->getMetaWidgetClassName() == 'ullMetaWidgetManyToMany')
       {
-        $this->setDefault($columnName, $this->object->$columnName->getPrimaryKeys());
+        // Get all connected objects for an existing object 
+        if ($this->getObject()->exists())
+        {
+          $this->setDefault($columnName, $this->object->$columnName->getPrimaryKeys());
+        }
       }
     } 
 

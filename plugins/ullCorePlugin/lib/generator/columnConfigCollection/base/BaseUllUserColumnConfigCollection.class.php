@@ -136,6 +136,12 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       ->setLabel(__('Newsletter', null, 'ullMailMessages'))
     ;
     
+    // Set default subscriptions for new objects
+    $newsletters = Doctrine::getTable('UllNewsletterMailingList')->findByIsSubscribedByDefault(true);
+    $this['UllNewsletterMailingList']
+      ->setDefaultValue($newsletters->getPrimaryKeys())
+    ;    
+    
     $this->order(array(
       'id',
       'personal' => array(

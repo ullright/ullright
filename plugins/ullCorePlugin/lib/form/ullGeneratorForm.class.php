@@ -51,7 +51,7 @@ class ullGeneratorForm extends sfFormDoctrine
 
     parent::__construct($object, $options, $CSRFSecret);
 
-    // called after parent:__construct, because sfFormDoctrine overwrites defaults 
+    // called (again) after parent:__construct, because sfFormDoctrine overwrites defaults 
     //   with emtpy array *#!?$
     $this->setDefaults($defaults);
     $this->updateDefaultsFromObject();
@@ -126,6 +126,8 @@ class ullGeneratorForm extends sfFormDoctrine
     
     foreach($this->getWidgetSchema()->getPositions() as $fieldName)
     {
+      
+      
       if (
         ullGeneratorTools::hasRelations($fieldName) ||
         // we have to check for translated columns for the edit action 
@@ -134,6 +136,8 @@ class ullGeneratorForm extends sfFormDoctrine
           $this->columnsConfig[$fieldName]->getTranslated())
       )
       {
+
+        
         $relations = ullGeneratorTools::relationStringToArray($fieldName);
         // remove columnName
         array_pop($relations);
@@ -169,6 +173,8 @@ class ullGeneratorForm extends sfFormDoctrine
       if (isset($this->columnsConfig[$fieldName]) &&
                 $this->columnsConfig[$fieldName]->getIsArtificial())
       {
+        
+        
         try
         {
           $defaults[$fieldName] = $this->getObject()->get($fieldName);
@@ -185,6 +191,7 @@ class ullGeneratorForm extends sfFormDoctrine
         && $this->columnsConfig[$fieldName]->getInjectIdentifier()
       )
       {
+        
         if (array_key_exists($fieldName, $defaults))
         {
           $defaults[$fieldName] = array(
@@ -194,8 +201,6 @@ class ullGeneratorForm extends sfFormDoctrine
         }
       }
     }
-
-//    var_dump($defaults);    
     
     $this->setDefaults($defaults);
   }  
