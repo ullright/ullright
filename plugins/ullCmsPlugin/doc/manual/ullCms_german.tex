@@ -24,6 +24,9 @@
 %wrapping text around figures
 \usepackage{wrapfig}
 
+%provides symbols for shift, enter, etc.
+\usepackage{keystroke}
+
 %url handling
 \usepackage{url}
 
@@ -47,7 +50,7 @@
     citecolor=black,%
     filecolor=black,%
     linkcolor=black,%
-    urlcolor=black
+    urlcolor=black,%
     pdfauthor={ull.at},%
     pdftitle={ullCms Handbuch},%
     pdfsubject={ullright - ullCms}
@@ -111,11 +114,21 @@
 ullCms -- Webseiten einfach selbst verwalten
 }
 
+\vspace{0.2cm}
+
+{%\fontspec[Scale=1.4, Color = DocBlue]{Ubuntu Bold}
+\large
+%\color{ullblue}
+Ein Modul der ullright-Plattform -- www.ullright.org
+}
+
 \vspace{1cm}
 
 %we do not use xelatex anymore
 {%\fontspec[Scale=0.8]{Gentium Basic}
-\small
+\footnotesize
+17.01.2011 -- Martin Leonhartsberger-Schrott
+
 13.01.2011 -- Klemens Ullmann-Marx
 
 14.01.2011 -- Klemens Ullmann-Marx
@@ -140,7 +153,7 @@ ullCms -- Webseiten einfach selbst verwalten
 \chapter*{ullCms}
 
 \section{Einleitung}
-ullCms ist ein Modul der ullright Plattform zur Inhaltsverwaltung von Webseiten. 
+ullCms ist ein Modul der ullright-Plattform zur Inhaltsverwaltung von Webseiten. 
 
 CMS steht für "`Content Management System"' und bedeutet Inhaltsverwaltungssystem.
 
@@ -229,7 +242,7 @@ Bei einer großen Anzahl an Seiten werden nicht alle Einträge auf einer Seite a
 
 Wenn Ihre Webseite aus vielen Seiten besteht kann die Suchfunktion (Abbildung \vref{fig:search}) hilfreich sein .
 
-Geben Sie eine Suchbegriff oder auch nur einen Teil davon in das Suchfeld ein und drücken sie [ENTER] oder klicken Sie das Lupen-Symbol an.
+Geben Sie eine Suchbegriff oder auch nur einen Teil davon in das Suchfeld ein und drücken Sie $\Enter$ oder klicken Sie das Lupen-Symbol an.
 Die Liste beschränkt sich nun auf die Seiten, die den Suchbegriff im Betreff enthalten. Der Suchbegriff erscheint zusätzlich als "`Filter"'. Durch Klick auf das Papierkorb-Symbol entfernen Sie das Filterkriterium.
 
 \begin{figure}[htp]
@@ -323,7 +336,7 @@ Für das Bearbeiten oder Erstellen mehrerer Seiten bietet ullCms einige praktisc
 
 Geben Sie wie von anderen Texteditoren gewohnt den Text ein.
 
-Tipp: [Enter] erzeugt einen neuen Paragrafen, also einen Textblock mit einer Leerzeile dahinter. Einen einfachen Zeilenumbruch erreichen Sie mit [SHIFT - Enter].
+Tipp: $\Enter$ erzeugt einen neuen Paragrafen, also einen Textblock mit einer Leerzeile dahinter. Einen einfachen Zeilenumbruch erreichen Sie mit $\Shift + \Enter$.
 
 \subsection{Text formatieren}
 
@@ -342,7 +355,7 @@ Die wichtigsten Formatierungen (von links nach rechts):
 \begin{itemize}
 \item Nummerierte Liste
 \item Liste mit Aufzählungszeichen
-\item Stile: "`Important"' - also "`Wichtig"' wird fett angezeigt
+\item Stile: "`Important"' -- also "`Wichtig"' wird fett angezeigt
 \item Format: "`Überschrift"'
 \end{itemize}
 
@@ -394,7 +407,7 @@ Beispiele:
 Möchten Sie hingegen gewisse Wörter im Text verlinken markieren Sie die Wörter und klicken Sie auf das Linksymbol \includegraphics[height=5mm]{link_icon} (blau-grüne Erdkugel).
 
 \subsubsection{Link zu einer Internetadresse (URL)}
-Geben Sie bei "`URL"' die gewünschte Adresse ein. Beispiel: http://www.ullright.org
+Geben Sie bei "`URL"' die gewünschte Adresse ein. Beispiel: \url{http://www.ullright.org}
 
 Bei Links zu Internetseiten empfiehlt sich die Seite in einem neuen Browserfenster zu öffnen. Wählen Sie hierzu im Reiter "`Zielseite"' "`Neues Fenster (\_blank)"'.
 
@@ -404,11 +417,11 @@ Zusätzlich empfehlen wir einen solchen Link durch das Symbol für "`Externe Sei
 
 Öffnen Sie die Zielseite in einem neuen Browsertab oder -fenster und kopieren Sie die Adresse.
 
-Beispiel: http://www.ull.at/ullCms/show/kontakt
+Beispiel: \url{http://www.ull.at/ullCms/show/kontakt}
 
 Geben Sie nun bei "`URL"' die gekürzte Adresse startend mit den Schrägstrich nach dem Domänennamen ein.
 
-Beispiel: /ullCms/show/kontakt
+Beispiel: \url{/ullCms/show/kontakt}
 
 \subsubsection{E-Mail Link}
 
@@ -428,7 +441,7 @@ Das Hochladen einer Datei funktioniert wie eine Mischung aus Link- und Bildeinf�
 \item Wenn Sie eine neue Datei hochladen möchten klicken Sie auf "`Durchsuchen"' und wählen Sie eine Datei von Ihrem Computer aus.
 \item Vergessen Sie nicht danach auf "`Upload"' zu klicken
 \item Wählen Sie nun die Datei aus der Liste durch anklicken.
-\item Klicken Sie auf „OK“
+\item Klicken Sie auf "`OK"'
 \end{itemize}
 
 
