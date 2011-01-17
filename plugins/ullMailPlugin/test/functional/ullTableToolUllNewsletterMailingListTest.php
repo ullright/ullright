@@ -7,6 +7,7 @@ $selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array
         'edit_delete',      
         'name',
         'description',
+        'is_subscribed_by_default',
         'is_active'
       )
     );
@@ -26,6 +27,7 @@ $b->resetDatabase();
 $createValues = array(
   'name' => 'Test mailing list', 
   'description' => 'This is a test',
+  'is_subscribed_by_default' => array(true, 'Checkbox_checked'),
   'is_active' => array(true, 'Checkbox_checked')
 );
 $editValues = array(
