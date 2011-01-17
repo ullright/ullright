@@ -82,6 +82,11 @@
 <target>Standardmäßig angemeldet</target>
 </trans-unit>
 
+<trans-unit id="211">
+<source>If checked, newly created users will subscribe to this mailing list by default</source>
+<target>Wenn angehakt, abonnieren neu angelegte Benutzer diesen Verteiler automatisch</target>
+</trans-unit>
+
 <!-- named queries -->
 
 <trans-unit id="300">
