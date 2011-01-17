@@ -88,6 +88,8 @@ $b
   ->checkResponseElement('input#fields_subject', true)
 //  ->dumpDie()
 ;
+
+$wikiEntry = Doctrine::getTable('UllWiki')->findOneBySubject('My new test subject');
   
 $b  
   ->diag('save and show')
@@ -97,6 +99,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'show')
+  ->isRequestParameter('slug', $wikiEntry['slug'])
   ->responseContains('My new test subject')
 ;
 
@@ -220,6 +223,18 @@ $b
   ->checkResponseElement('tr > td + td', 'Testdoc')
   ->checkResponseElement('tr + tr > td + td', 'Another Testdoc')
   ->checkResponseElement('tr + tr + tr > td + td', 'My new test subject, updated again')
+;
+
+//test show via docid
+
+$b
+  ->diag('show via docid')
+  ->get('ullWiki/show/docid/' . $wikiEntry['id'])
+  ->isStatusCode(200)
+  ->isRequestParameter('module', 'ullWiki')
+  ->isRequestParameter('action', 'show')
+  ->isRequestParameter('docid', $wikiEntry['id'])
+  ->responseContains('My new test subject, updated again')
 ;
 
 $b
