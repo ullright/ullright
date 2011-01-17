@@ -878,8 +878,10 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
    * @param string $relationAlias
    * @param string $model optional model name override
    *                      This is useful e.g. for UllEntity / UllUser issues etc
+   *               $hideInactive if set to true and the relation model has a field named
+   *                      'is_active', a where clause 'is_active = true' is added to the query
    */
-  public function useManyToManyRelation($relationAlias, $model = null)
+  public function useManyToManyRelation($relationAlias, $model = null, $hideInactive = true)
   {
     $relation = $this->getRelationByAlias($relationAlias);
     $toStringColumn = ullTableConfiguration::buildFor($relation->getClass())->getToStringColumn();
@@ -897,6 +899,11 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       //better performance
       ->setHydrationMode(Doctrine::HYDRATE_ARRAY);
     ;
+    
+    if ($hideInactive && Doctrine::getTable($model)->hasField('is_active'))
+    {
+      $q->where('is_active = true');
+    }
     
     $this->create($relationAlias)
       ->setMetaWidgetClassName('ullMetaWidgetManyToMany')
