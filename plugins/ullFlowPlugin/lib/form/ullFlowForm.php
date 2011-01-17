@@ -143,8 +143,8 @@ class ullFlowForm extends ullGeneratorForm
     if (!$this->ullFlowAction->is_status_only)
     {
       // Step One: get information about "next" from rule script
-      // This is optional. The rule script can, but must not set the next
-      // entity or step.
+      // This is optional. The rule script can, but is not obligated to
+      // set the next entity or step.
       $className = 'ullFlowRule' . sfInflector::camelize($this->object->UllFlowApp->slug);
       $rule = new $className($this->object);
       $next = $rule->getNext();
