@@ -17,14 +17,14 @@
 
   <li>
     <?php
-      echo ull_link_to(ull_image_tag('edit'),
-            array('module' => 'ullWiki', 'action' => 'edit', 'docid' => $doc->id));
+      echo link_to(ull_image_tag('edit'),
+            array('module' => 'ullWiki', 'action' => 'edit', 'slug' => $doc->slug));
     ?>
   </li>
 
   <li>
     <?php
-      echo ull_link_to(ull_image_tag('delete'), array('module' => 'ullWiki', 'action' => 'delete', 'docid' => $doc->id),
+      echo link_to(ull_image_tag('delete'), array('module' => 'ullWiki', 'action' => 'delete', 'slug' => $doc->slug),
           'confirm='.__('Are you sure?', null, 'common')); 
    
       ?>

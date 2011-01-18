@@ -80,7 +80,7 @@ $b
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'show')
   ->isRequestParameter('return_var', 'ull_wiki_doc_id')
-  ->isRequestParameter('docid', '2')
+  ->isRequestParameter('slug', 'another-testdoc')
   ->responseContains('Another Testdoc')
 ;
 

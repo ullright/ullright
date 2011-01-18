@@ -10,3 +10,9 @@ ull_wiki_edit:
   param:   { module: ullWiki, action: edit }
   requirements:
     sf_method: [get, post]
+    
+ull_wiki_delete:    
+  url:     /ullWiki/delete/:slug
+  param:   { module: ullWiki, action: delete }
+  requirements:
+    sf_method: [get, post]

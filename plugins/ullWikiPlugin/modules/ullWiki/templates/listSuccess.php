@@ -43,7 +43,7 @@
   <?php foreach($generator->getForms() as $row => $form): ?>
     <?php $identifier = $generator->getIdentifierUrlParams($row) ?>
     <?php $form['subject']->getWidget()->setAttribute('href', 
-      ull_url_for(array('slug' => $form->getObject()->getSlug(), 'action' => 'show'))) ?>
+      ull_url_for(array('slug' => $form->getObject()->getSlug(), 'action' => 'show', 'filter' => ''))) ?>
       <?php
         if ($odd) {
           $odd_style = ' class=\'odd\'';
@@ -58,10 +58,10 @@
         <?php
             echo ull_link_to(
               ull_image_tag('edit'),  
-              ull_url_for(array('slug' => $form->getObject()->getSlug(), 'action' => 'edit')));
+              url_for('ullWiki/edit?slug=' . $form->getObject()->getSlug()));
             echo ull_link_to(
               ull_image_tag('delete'), 
-              ull_url_for(array('slug' => $form->getObject()->getSlug(), 'action' => 'delete')),
+              url_for('ullWiki/delete?slug=' . $form->getObject()->getSlug()),
               'confirm='.__('Are you sure?', null, 'common')); 
         ?>
       </td>
