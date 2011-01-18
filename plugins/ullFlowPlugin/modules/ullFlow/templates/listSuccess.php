@@ -53,7 +53,7 @@
     <?php
       $identifiers = (array) $generator->getIdentifierUrlParamsAsArray($row);
       $form['subject']->getWidget()->setAttribute('href', 
-        ull_url_for(array_merge($identifiers, array('action' => 'edit'))));
+        ull_url_for(array_merge($identifiers, array('action' => 'edit', 'filter' => ''))));
     ?>
       <?php
         if ($odd) 
