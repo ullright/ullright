@@ -558,6 +558,25 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     return $columns;
   }     
   
+  /**
+   * Get an array of columnConfigurations that are marked
+   * as unsortable 
+   * 
+   * @return array of column configs where sortable == false
+   */
+  public function getUnsortableColumns()
+  {
+    $unsortableColumns = array();
+    foreach($this->collection as $columnName => $columnConfig)
+    {
+      if (!$columnConfig->getIsSortable())
+      {
+        $unsortableColumns[$columnName] = $columnConfig;
+      }
+    }
+    
+    return $unsortableColumns;
+  }
   
   /** 
    * Alias for getActiveColumns()

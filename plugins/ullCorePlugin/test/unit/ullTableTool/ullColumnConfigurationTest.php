@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(24, new lime_output_color, $configuration);
+$t = new myTestCase(26, new lime_output_color, $configuration);
 
 $cc = new ullColumnConfiguration();
 $cc->setAccess('r');
@@ -57,6 +57,11 @@ $t->diag('set/getIsRequired()');
   $t->is($cc->getIsRequired(), false, 'false per default');
   $cc->setIsRequired(true);
   $t->is($cc->getIsRequired(), true, 'true when set');
+
+$t->diag('set/getIsSortable()');
+  $t->is($cc->getIsSortable(), true, 'true per default');
+  $cc->setIsSortable(false);
+  $t->is($cc->getIsSortable(), false, 'false when set');
   
 $cc = new ullColumnConfiguration('my_column');
 $cc->setAccess('r');

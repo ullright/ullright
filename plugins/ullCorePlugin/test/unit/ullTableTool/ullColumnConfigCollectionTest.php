@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(83, new lime_output_color, $configuration);
+$t = new myTestCase(84, new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -218,7 +218,11 @@ $t->diag('getAutoRenderedColumns');
 $t->diag('getDatabaseColumns');
   $c['one']->setIsArtificial(true);
   $t->is(array_keys($c->getDatabaseColumns()), array('two', 'four'), 'returns the correct columns');  
-  
+
+$t->diag('getUnsortableColumns');
+  $c['three']->setIsSortable(false);
+  $t->is(array_keys($c->getUnsortableColumns()), array('three'), 'returns the correct columns');  
+ 
 $t->diag('setIsRequired()');  
   $c = new ullColumnConfigCollection('TestTable');
   $c['one'] = new UllColumnConfiguration;

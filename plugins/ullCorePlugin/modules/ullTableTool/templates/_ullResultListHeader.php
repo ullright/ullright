@@ -26,7 +26,7 @@
       $order_array = ullGeneratorTools::arrayizeOrderBy($order);
       $order_first_column = reset($order_array);
         
-      $unsortable_columns = $generator->getUnsortableColumnConfig();
+      $unsortable_columns = $generator->getUnsortableColumns();
       
       foreach ($generator->getAutoRenderedLabelsWithDefaultOrder() as $field_name => $field): ?>
       
