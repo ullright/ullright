@@ -8,7 +8,7 @@ class myTestCase extends sfDoctrineTestCase {}
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(24, new lime_output_color, $configuration);
+$t = new myTestCase(25, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -213,9 +213,10 @@ $t->diag('Doctrine 1.0 bug resolved with UllUser and SELECT on >= 2 relations');
   
   $q->execute();
   
+$t->diag('Many to many relations are removed');
+  
+$q = new ullQuery('UllUser');
+  $q->addSelect('UllGroup');
+  
+  $t->unlike($q->getSqlQuery(), '/ullgroup/', 'removes m:n relations');
 
-
-
-
-
-        

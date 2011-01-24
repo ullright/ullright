@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(84, new lime_output_color, $configuration);
+$t = new myTestCase(85,  new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -266,3 +266,8 @@ $t->diag('markAsAdvancedFields()');
   $t->is($c['my_string']->getWidgetAttribute('class'), 'foo', 'No "advanced form field" class set by default');
   $c->markAsAdvancedFields(array('my_text', 'my_string'));
   $t->is($c['my_string']->getWidgetAttribute('class'), 'foo advanced_form_field', 'Attribute class="advanced_form_field" correctly set');
+  
+$t->diag('remove()');
+  $c->remove(array('my_useless_column'));
+  $t->is(in_array('my_useless_column', $c->getKeys()), false, 'Removes column');
+  
