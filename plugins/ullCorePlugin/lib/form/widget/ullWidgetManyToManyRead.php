@@ -21,7 +21,7 @@ class ullWidgetManyToManyRead extends ullWidget
   {
     $this->addRequiredOption('model');
     $this->addOption('method', '__toString');
-    $this->addOption('key_method', 'getPrimaryKey');
+    $this->addOption('key_method', 'id');
     $this->addOption('query', null);
     
     parent::configure($options, $attributes);
@@ -50,7 +50,6 @@ class ullWidgetManyToManyRead extends ullWidget
       $q = new Doctrine_Query();
       $q
         ->from($model)
-        ->select($method)
         //better performance
         ->setHydrationMode(Doctrine::HYDRATE_ARRAY);
       ;
