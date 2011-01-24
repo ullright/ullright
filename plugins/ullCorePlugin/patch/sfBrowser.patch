@@ -1,0 +1,26 @@
+Index: lib/vendor/symfony/lib/util/sfBrowser.class.php
+===================================================================
+--- lib/vendor/symfony/lib/util/sfBrowser.class.php	(revision 2566)
++++ lib/vendor/symfony/lib/util/sfBrowser.class.php	(working copy)
+@@ -164,6 +164,20 @@
+   {
+     $filterChain->execute();
+ 
++    //ullright patch: block is copied from sfRenderingFilter
++    
++    // hack to rethrow sfForm and|or sfFormField __toString() exceptions (see sfForm and sfFormField)
++    if (sfForm::hasToStringException())
++    {
++      throw sfForm::getToStringException();
++    }
++    else if (sfFormField::hasToStringException())
++    {
++      throw sfFormField::getToStringException();
++    }
++    
++    //end ullright patch
++    
+     $this->context->getResponse()->sendContent();
+   }
+ }
+
