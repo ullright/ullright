@@ -27,3 +27,12 @@ ErrorDocument 500 "<h2>Application error</h2>symfony application failed to start
 #php_value xdebug.profiler_output_dir /tmp
 #php_value xdebug.profiler_enable 1
 
+#protect dev controller
+<Files "frontend_dev.php">
+  AuthType Basic
+  AuthName "Authentication Required"
+  AuthUserFile /etc/apache2/ullright.passwd
+  Require valid-user
+
+  Order deny,allow
+</Files>
