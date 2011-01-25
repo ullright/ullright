@@ -23,11 +23,11 @@ $b->resetDatabase();
 
 $createValues = array(
   'name' => 'Test layout', 
-  'html_layout' => array('This is a test', false)
+  'html_body' => array('This is a test', false)
 );
 $editValues = array(
   'name' => 'Test layout update', 
-  'html_layout' => array('Another test', false)
+  'html_body' => array('Another test', false)
 );
 
 $b->setCreateValues($createValues);

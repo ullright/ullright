@@ -24,7 +24,7 @@ UllNewsletterLayout:
   ull_newsletter_layout_1:
     id: 201
     name: ullright Layout
-    html_layout: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p> 
+    html_body: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p> 
 
 UllNewsletterEdition:
   ull_newsletter_edition_1:

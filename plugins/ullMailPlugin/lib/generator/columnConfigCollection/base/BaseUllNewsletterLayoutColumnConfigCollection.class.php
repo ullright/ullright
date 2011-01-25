@@ -8,8 +8,8 @@ class BaseUllNewsletterLayoutColumnConfigCollection extends ullColumnConfigColle
    */
   protected function applyCustomSettings()
   {
-    $this['html_layout']
-      ->setLabel(__('HTML layout', null, 'ullMailMessages'))
+    $this['html_body']
+      ->setLabel(__('HTML body', null, 'ullMailMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
     ;
   }
