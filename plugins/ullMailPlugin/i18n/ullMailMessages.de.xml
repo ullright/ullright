@@ -87,6 +87,11 @@
 <target>Wenn angehakt, abonnieren neu angelegte Benutzer diesen Verteiler automatisch</target>
 </trans-unit>
 
+<trans-unit id="212">
+<source>HTML head</source>
+<target>HTML-Head</target>
+</trans-unit>
+
 <!-- named queries -->
 
 <trans-unit id="300">

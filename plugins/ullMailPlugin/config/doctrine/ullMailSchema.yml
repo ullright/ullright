@@ -135,6 +135,8 @@ UllNewsletterLayout:
     name:
       type: string(200)
       notnull: true
+    html_head:
+      type: string(3000)
     html_body:
       type: clob
       notnull: true

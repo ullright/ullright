@@ -12,5 +12,8 @@ class BaseUllNewsletterLayoutColumnConfigCollection extends ullColumnConfigColle
       ->setLabel(__('HTML body', null, 'ullMailMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
     ;
+    $this['html_head']
+      ->setLabel(__('HTML head', null, 'ullMailMessages'))
+    ;
   }
 }

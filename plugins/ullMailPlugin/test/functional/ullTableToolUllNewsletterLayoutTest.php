@@ -13,7 +13,7 @@ $b = new ullTableToolTestBrowser(
   'UllNewsletterLayout', 
   'Newsletter layout', 
   'Manage Newsletter layout', 
-  1, 
+  2, 
   $selector, 
   $configuration
 );
@@ -23,11 +23,13 @@ $b->resetDatabase();
 
 $createValues = array(
   'name' => 'Test layout', 
-  'html_body' => array('This is a test', false)
+  'html_body' => array('This is a test', false),
+  'html_head' => array('<style=" h1 {color: red}"', false)
 );
 $editValues = array(
   'name' => 'Test layout update', 
-  'html_body' => array('Another test', false)
+  'html_body' => array('Another test', false),
+  'html_head' => array('<style=" h1 {color: green}"', false)
 );
 
 $b->setCreateValues($createValues);

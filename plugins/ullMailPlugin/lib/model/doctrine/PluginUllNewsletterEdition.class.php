@@ -21,9 +21,12 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
   public function getDecoratedBody()
   {
     $body = $this['body'];
-    $layout = $this['UllNewsletterLayout']['html_body'];
+    $layoutHead = $this['UllNewsletterLayout']['html_head'];
+    $layoutBody = $this['UllNewsletterLayout']['html_body'];
     
-    $body = strtr($layout, array('[CONTENT]' => $body));
+    $body = 
+      "<head>\n" . $layoutHead . "\n</head>\n" . 
+      "\n<body>\n" . strtr($layoutBody, array('[CONTENT]' => $body)) . "\n</body>";
     
     return $body; 
   }
