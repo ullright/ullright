@@ -53,6 +53,8 @@ class ullTimeProjectFilterForm extends ullFilterForm
       'from_date' => __('Begindate', null, 'common'),
       'to_date' => __('Enddate', null, 'common'),
     ));    
+    
+    $this->setDefault('from_date', date('Y') . '-01-01');
   }
   
   

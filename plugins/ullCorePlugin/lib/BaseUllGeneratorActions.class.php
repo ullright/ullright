@@ -476,6 +476,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     if (method_exists($this, 'getUllFilterClassName') && $filterClassName = $this->getUllFilterClassName())
     {
       $this->filter_form = new $filterClassName;    
+      // Set the custom filter Form also in generator for usage in ullGenerator::setFilterFormDefaults();
+      $this->generator->setFilterForm($this->filter_form);
     }
     // Use generic filter mechanism
     else

@@ -310,6 +310,19 @@ abstract class ullGenerator extends ullGeneratorBase
     
 //    $this->filterForm->debug();
   }
+
+  /**
+   * Sets the filter form
+   * 
+   * @return self
+   */
+  public function setFilterForm(sfForm $filterForm)
+  {
+    $this->filterForm = $filterForm;
+    
+    return $this; 
+  }
+    
   
   
   /**
@@ -338,12 +351,6 @@ abstract class ullGenerator extends ullGeneratorBase
    */
   public function setFilterFormDefaults($filterParams)
   {
-    // legacy check (manual filter forms)
-    if (!method_exists($this->tableConfig, 'getFilterColumns'))
-    {
-      return;
-    }
-    
     $defaults = $this->filterForm->getDefaults();
     
     foreach($defaults as $fieldName => $value)
