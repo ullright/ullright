@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/functional.php';
 
-$b = new ullTestBrowser(null, null, array('configuration' => $configuration));
+$b = new ullTimeTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
@@ -73,6 +73,8 @@ $b
   ->end()
 ;
 
+$b->setFromDateTo();
+
 $b
   ->diag('click on project')
   ->click('Introduce ullright')
@@ -81,7 +83,7 @@ $b
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'reportProject')
     ->isParameter('report', 'by_user')
-    ->isParameter('filter', array('ull_project_id' => 1))
+    ->isParameter('filter', array('from_date' => '2009-01-01', 'ull_project_id' => 1))
   ->end()
   
   ->with('response')->begin()
@@ -98,7 +100,7 @@ $b
     ->isParameter('module', 'ullTime')
     ->isParameter('action', 'reportProject')
     ->isParameter('report', 'details')
-    ->isParameter('filter', array('ull_project_id' => 1, 'ull_user_id' => 2))
+    ->isParameter('filter', array('from_date' => '2009-01-01', 'ull_project_id' => 1, 'ull_user_id' => 2))
   ->end()
   ->with('response')->begin()
     ->checkElement($dgsDetails->getFullRowSelector(), 6)

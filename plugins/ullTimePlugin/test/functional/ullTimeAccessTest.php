@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/functional.php';
 
-$b = new ullTestBrowser(null, null, array('configuration' => $configuration));
+$b = new ullTimeTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
@@ -97,6 +97,8 @@ $b
   ->end()
 ;
 
+$b->setFromDateTo();
+
 $b
   ->diag('report: we expect the two entries for test_user')
   ->with('response')->begin()
@@ -120,6 +122,10 @@ $manager->save();
 
 $b
   ->get('ullTime/reportProject/report/by_project')
+;
+$b->setFromDateTo();
+
+$b
   ->with('response')->begin()
     ->checkElement($dgsList->getFullRowSelector(), 3) // 2 + sum row
     ->checkElement($dgsList->get(1, 'project') ,'Introduce ullright')
@@ -138,6 +144,10 @@ $groupMembership->save();
 
 $b
   ->get('ullTime/reportProject/report/by_project')
+;
+$b->setFromDateTo();
+
+$b
   ->with('response')->begin()
     ->checkElement($dgsList->getFullRowSelector(), 3) // 2 + sum row
     ->checkElement($dgsList->get(1, 'project') ,'Introduce ullright')

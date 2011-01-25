@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/functional.php';
 
-$b = new ullTestBrowser(null, null, array('configuration' => $configuration));
+$b = new ullTimeTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
@@ -47,6 +47,8 @@ $b
     ->isParameter('action', 'reportProject')
   ->end()
 ;
+
+$b->setFromDateTo();
 
 $b
   ->diag('list: check correct times')
