@@ -88,13 +88,15 @@ class ullFlowGenerator extends ullGenerator
       {
         $ullFlowActionSlug = $stepAction->UllFlowAction->slug;
         $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowActionSlug);
+//        var_dump($ullFlowActionHandlerName);
+//        var_dump($stepAction->options);
         $this->ullFlowActionHandlers[$ullFlowActionSlug] = new $ullFlowActionHandlerName($this->getForm(), $stepAction->options);     
       }
     }
     
     //Always allow the master admin to perform "assign to" action
     if (UllUserTable::hasGroup('MasterAdmins') &&
-      !in_array('assign_to_user', $this->ullFlowActionHandlers))
+      !in_array('assign_to_user', array_keys($this->ullFlowActionHandlers)))
     {
       $this->ullFlowActionHandlers['assign_to_user'] = new ullFlowActionHandlerAssignToUser($this->getForm());
       return;

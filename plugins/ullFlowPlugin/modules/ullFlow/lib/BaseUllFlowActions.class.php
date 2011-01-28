@@ -143,7 +143,7 @@ class BaseUllFlowActions extends ullsfActions
    * @param sfRequest $request
    * @return unknown
    */
-  public function executeEdit($request)
+  public function executeEdit(sfRequest $request)
   {
     $this->getDocFromRequestOrCreate();
     
