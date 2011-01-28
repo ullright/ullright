@@ -67,3 +67,4 @@ UllWikiAccessLevelAccess:
     UllPrivilege:
     UllWikiAccessLevel:
       local: model_id
+      onDelete: CASCADE
