@@ -163,7 +163,7 @@ class PluginUllUserTable extends UllEntityTable
     $q
       ->select('u.id, u.last_name_first as name, us.is_active, us.is_absent')
       ->from('UllUser u INDEXBY u.id, u.UllUserStatus us')
-      ->orderBy('name')
+      ->orderBy('name, us.id')
     ;
     
     if ($filterUsersByGroup !== null)
