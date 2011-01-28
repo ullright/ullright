@@ -266,6 +266,12 @@ UllFlowAction:
     is_comment_mandatory:
       type: boolean
       default: false
+  relations:
+    UllFlowSteps:
+      class: UllFlowStep 
+      refClass: UllFlowStepAction
+      local: ull_flow_action_id
+      foreign: ull_flow_step_id    
       
 UllFlowStep:
   package: ullFlowPlugin.lib.model.doctrine
@@ -291,6 +297,11 @@ UllFlowStep:
     UllFlowApp:
       foreignAlias: UllFlowSteps
       onDelete: CASCADE
+    UllFlowActions:
+      class: UllFlowAction 
+      refClass: UllFlowStepAction
+      local: ull_flow_step_id
+      foreign: ull_flow_action_id        
     
 UllFlowStepAction:
   package: ullFlowPlugin.lib.model.doctrine
