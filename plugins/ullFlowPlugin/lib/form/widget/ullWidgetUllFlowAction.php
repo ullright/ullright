@@ -10,14 +10,6 @@ class ullWidgetUllFlowAction extends sfWidgetFormSelect
     parent::__construct($options, $attributes);
   }  
   
-  protected function configure($options = array(), $attributes = array())
-  {
-//    $this->addOption('app_slug', false);
-//    $this->addOption('add_empty', false);
-    $this->addOption('method', '__toString');
-
-    parent::configure($options, $attributes);
-  }
 
   /**
    * Returns the choices associated to the model.
@@ -27,39 +19,29 @@ class ullWidgetUllFlowAction extends sfWidgetFormSelect
   public function getChoices()
   {
     $choices = array();
-//    if (false !== $this->getOption('add_empty'))
-//    {
-//      $choices[''] = true === $this->getOption('add_empty') ? '' : $this->getOption('add_empty');
-//    }
     
     $choices[''] = __('All active');
     $choices['all'] = __('All');
     
-//    $a = $this->getOption('alias');
-//    $q = is_null($this->getOption('query')) ? Doctrine_Query::create()->from($this->getOption('model')." $a") : $this->getOption('query');
-//
-//    if ($order = $this->getOption('order_by'))
-//    {
-//      $q->orderBy("$a." . $order[0] . ' ' . $order[1]);
-//    }
-
-    $q = new Doctrine_Query;
+    $q = new UllQuery('UllFlowAction');
     $q
-      ->from('UllFlowAction a')
-      ->where('a.is_status_only = ?', false)
+      ->addSelect('label')
+      ->addWhere('is_status_only = ?', false)
+      ->addOrderBy('label')
     ;
     
-//    printQuery($q->getQuery());
-//    var_dump($q->getParams());
-//    die;
-
+    if ($appSlug = sfContext::getInstance()->getRequest()->getParameter('app'))
+    {
+      $q->addWhere('UllFlowStepActions->UllFlowStep->UllFlowApp->slug = ?', $appSlug);
+    }
+      
     $objects = $q->execute();
-    $method = $this->getOption('method');
+    
     foreach ($objects as $object)
     {
-        $choices[$object->slug] = $object->$method();
-    }
-
+      $choices[$object->slug] = $object->__toString();
+    }  
+    
     return $choices;
   }  
   
