@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(41, new lime_output_color);
+$t = new lime_test(44, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -160,3 +160,16 @@ $t->diag('esc_decode()');
   $t->is(ullCoreTools::esc_decode('Grüße'), 'Grüße', 'Correctly retains an string with german umlauts');
   $t->is(ullCoreTools::esc_decode('Gr&uuml;&szlig;e'), 'Grüße', 'Correctly decodes html umlaut entities with the correct charset');
   $t->is(ullCoreTools::esc_decode('&lt;br /&gt;'), '<br />', 'Correctly decodes a tag');
+ 
+$t->diag('base64_encode_urlsafe()');
+  //the following string, encoded with base64_encode(), results in:
+  //'Zrw/4QS+Lfr6+g==' which includes / + and padding, all three not URL compatible
+  $string = chr(102) . chr(188) . chr(63) . chr(225) . chr(4) .
+    chr(190) . chr(45) . chr(250) . chr(250) . chr(250);
+    
+  $t->is(base64_encode($string), 'Zrw/4QS+Lfr6+g==', 'base64_encode creates non-url compat. string'); 
+  $t->is(ullCoreTools::base64_encode_urlsafe($string), 'Zrw_4QS-Lfr6-g', ' base64_encode_urlsafe is url compat.');
+
+$t->diag('base64_decode_urlsafe()');
+  $t->is(ullCoreTools::base64_decode_urlsafe('Zrw_4QS-Lfr6-g'), $string, ' base64_decode_urlsafe decodes correctly');
+  

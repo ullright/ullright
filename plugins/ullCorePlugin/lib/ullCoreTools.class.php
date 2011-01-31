@@ -664,5 +664,34 @@ class ullCoreTools
     $out = str_ireplace(" on ", " <span style='color:navy; font-weight:bold;'>on</span> ", $out);
     $out = str_ireplace("<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ","<br /> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ",$out);
     echo "$out<br /><br />";
-}  
+  }
+  
+  
+  /**
+   * URL-compatible Base64 encoding, replaces + and / and removes =
+   * Found here/thanks to: http://php.net/manual/en/function.base64-encode.php
+   * @param mixed $string
+   */
+  public static function base64_encode_urlsafe($string) {
+    $data = base64_encode($string);
+    $data = str_replace(array('+', '/', '='), array('-', '_', ''), $data);
+    
+    return $data;
+  }
+
+  /**
+   * URL-compatible Base64 decoding, fixes + / and padding.
+   * Found here/thanks to: http://php.net/manual/en/function.base64-encode.php
+   * @param mixed $string
+   */
+  public static function base64_decode_urlsafe($string) {
+    $data = str_replace(array('-', '_'), array('+', '/'), $string);
+    $mod4 = strlen($data) % 4;
+    if ($mod4)
+    {
+      $data .= substr('====', $mod4);
+    }
+    
+    return base64_decode($data);
+  }  
 }
