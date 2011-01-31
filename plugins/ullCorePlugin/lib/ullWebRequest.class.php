@@ -11,6 +11,8 @@ class ullWebRequest extends sfWebRequest
   {
     parent::fixParameters();
     
+    $this->decryptSecureParameters();
+    
     $this->parseSubmitName();
     
     $this->parseSquareBracketKeys();
@@ -21,6 +23,24 @@ class ullWebRequest extends sfWebRequest
     }
 
   }
+  
+  /**
+   * Decrypts parameter values if their name fulfills certain requirements,
+   * tested by ullSecureParameter::isSecureParameter().
+   */
+  protected function decryptSecureParameters()
+  {
+    $parameters = $this->getParameterHolder()->getAll();
+    
+    foreach ($parameters as $paramName => $paramValue)
+    {
+      if (ullSecureParameter::isSecureParameter($paramName))
+      {
+        $parameters[$paramName] = ullSecureParameter::decryptParameter($paramValue);
+      }
+    }
+  }
+  
   
   /**
    * Parses payload in the name attribute of the clicked submit tag
