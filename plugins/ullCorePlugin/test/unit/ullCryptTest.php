@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 
-$t = new lime_test(2, new lime_output_color);
+$t = new lime_test(3, new lime_output_color);
 
 $t->diag('encrypt and then decrypt, compare strings');
 
@@ -14,8 +14,14 @@ $t->diag('encrypt and then decrypt, compare strings');
   
   $t->ok(strcmp($testString, $cleartext) === 0);
   
-$t->diag('encrypt test string again, ciphertext must be different due to IV');
+$t->diag('encrypt test string again, ciphertext must be different due to random IV');
 
   $secondCiphertext = $crypt->encrypt($testString);
   
   $t->ok(!(strcmp($ciphertext, $secondCiphertext) === 0));
+  
+$t->diag('but it still has to decode to the same cleartext');
+
+  $secondCleartext = $crypt->decrypt($secondCiphertext);
+  
+  $t->ok(strcmp($testString, $secondCleartext) === 0);
