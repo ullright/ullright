@@ -6,7 +6,7 @@ class myTestCase extends lime_test
 {
 }
 
-$t = new myTestCase(1, new lime_output_color, $configuration);
+$t = new myTestCase(2, new lime_output_color, $configuration);
 
 $t->diag('parseSubmitName()');
 
@@ -31,5 +31,20 @@ $t->diag('parseSubmitName()');
     'external_field'    => 10,
   ); 
   
-  $t->is($request->getParameterHolder()->getAll(), $reference, 'returns the correct value');  
+  $t->is_deeply($request->getParameterHolder()->getAll(), $reference, 'parseSubmitName() correct');  
+ 
+
+$t->diag('decryptSecureParameters()');
+
+  $_POST = array(
+    's_id' => 'yB9VgzqqGmFppIQ3al8sZDcAn6S_-3mf3hnIWtnLfUWC'
+  );
+  
+  $request = new ullWebRequest(new sfEventDispatcher);
+
+  $reference = array(
+    's_id'    => 2
+  ); 
+  
+  $t->is_deeply($request->getParameterHolder()->getAll(), $reference, 'decryptSecureParameters() correct');  
   

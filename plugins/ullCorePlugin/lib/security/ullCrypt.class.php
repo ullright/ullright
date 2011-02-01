@@ -85,6 +85,12 @@ class ullCrypt
    */
   public function decrypt($ciphertext)
   {
+    //the ciphertext length has to be at least ivSize + 1
+    if (strlen($ciphertext) <= $this->ivSize)
+    {
+      throw new UnexpectedValueException('Ciphertext is too small.');
+    }
+    
     //extract IV from ciphertext
     $iv = substr($ciphertext, 0, $this->ivSize);
     //init crypt. module with key and IV

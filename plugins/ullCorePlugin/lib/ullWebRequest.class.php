@@ -36,7 +36,8 @@ class ullWebRequest extends sfWebRequest
     {
       if (ullSecureParameter::isSecureParameter($paramName))
       {
-        $parameters[$paramName] = ullSecureParameter::decryptParameter($paramValue);
+        $this->getParameterHolder()->set($paramName,
+          ullSecureParameter::decryptParameter($paramValue));
       }
     }
   }
