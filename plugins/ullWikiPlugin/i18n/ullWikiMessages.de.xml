@@ -25,6 +25,21 @@
         <source>Is outdated</source>
         <target>Ist veraltet</target>
       </trans-unit>
+      
+      <trans-unit id="13">
+        <source>Saved</source>
+        <target>Gespeichert</target>
+      </trans-unit>
+      
+      <trans-unit id="14">
+        <source>Error during saving</source>
+        <target>Fehler beim Speichern</target>
+      </trans-unit>
+      
+      <trans-unit id="15">
+        <source>Quick save</source>
+        <target>Quick-Save</target>
+      </trans-unit>
 
     </body>
   </file>

@@ -130,11 +130,26 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
     $this->breadcrumbForEdit();
     
     // allows ullWiki to be used as a plugin (e.g. ullFlow to ullWiki interface)
-    $this->return_var = $this->getRequestParameter('return_var');    
+    $this->return_var = $this->getRequestParameter('return_var'); 
 
-    if ($request->isMethod('post'))
+    //Ajax call
+    if ($request->isXmlHttpRequest())
     {
-//      var_dump($this->getRequest()->getParameterHolder()->getAll());die;
+      //return $this->renderText(' ' . serialize($request->getParameterHolder()->getAll()));
+      
+      if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
+      {
+        return $this->renderText("ok");
+      }
+      else
+      {
+        throw new InvalidArgumentException('Validation Error: Please check your form');
+      }
+    }
+
+    elseif ($request->isMethod('post'))
+    {
+      //var_dump($this->getRequest()->getParameterHolder()->getAll());die;
       
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
@@ -175,7 +190,8 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
       }
     }
   }
-
+  
+  
   /**
    * Execute delete action
    */
