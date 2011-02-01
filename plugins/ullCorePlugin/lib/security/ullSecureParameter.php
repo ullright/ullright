@@ -21,7 +21,8 @@ class ullSecureParameter
    */
   public static function isSecureParameter($parameterName)
   {
-    return (strpos($parameterName, self::$secureParamIdentifier) === 0);
+    return (strlen($parameterName) > 2
+      && strpos($parameterName, self::$secureParamIdentifier) === 0);
   }
   
   /**
