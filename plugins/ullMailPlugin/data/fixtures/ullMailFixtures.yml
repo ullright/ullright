@@ -29,14 +29,14 @@ UllNewsletterLayout:
   ull_newsletter_layout_2:
     id: 202
     name: ullright alternativ Layout
-    html_head: <style='body { color: #aaaaaa }' />
+    html_head: "<style='body { color: #aaaaaa }' />"
     html_body: <h2>ullright Product News</h2>[CONTENT]<p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p> 
 
 UllNewsletterEdition:
   ull_newsletter_edition_1:
     subject: ullright presents "ullMail" - our easy-cheesy newsletter system
     UllNewsletterLayout: ull_newsletter_layout_1
-    body: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p>
+    body: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p><p>[ONLINE_LINK]</p>
     Sender: test_user
     sent_at: '2010-10-10 10:10:10'
     sender_culture: de
