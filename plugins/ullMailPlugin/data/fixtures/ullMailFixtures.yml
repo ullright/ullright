@@ -25,18 +25,18 @@ UllNewsletterLayout:
     id: 201
     name: ullright Layout
     html_head: <style='h1 { color: red }' />
-    html_body: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p> 
+    html_body: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>
   ull_newsletter_layout_2:
     id: 202
     name: ullright alternativ Layout
     html_head: "<style='body { color: #aaaaaa }' />"
-    html_body: <h2>ullright Product News</h2>[CONTENT]<p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p> 
+    html_body: <h2>ullright Product News</h2>[CONTENT]<small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>> 
 
 UllNewsletterEdition:
   ull_newsletter_edition_1:
     subject: ullright presents "ullMail" - our easy-cheesy newsletter system
     UllNewsletterLayout: ull_newsletter_layout_1
-    body: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p><p>[ONLINE_LINK]</p>
+    body: <p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p>
     Sender: test_user
     sent_at: '2010-10-10 10:10:10'
     sender_culture: de
