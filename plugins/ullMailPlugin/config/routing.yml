@@ -1,0 +1,5 @@
+newsletter_edition_show:
+  url:     /newsletter/id/:id/*
+  param:   { module: ullNewsletter, action: show }
+  requirements:
+    id: \d+

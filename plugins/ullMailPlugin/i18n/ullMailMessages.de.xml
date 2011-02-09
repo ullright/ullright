@@ -160,7 +160,17 @@
 <target>Sie sind nicht auf der Liste "%list%" angemeldet</target>
 </trans-unit>
 
+<!-- online link -->
 
+<trans-unit id="601">
+<source>Having trouble viewing this message?</source>
+<target>Probleme mit der Darstellung dieser Nachricht?</target>
+</trans-unit>
+
+<trans-unit id="602">
+<source>Read the newsletter online.</source>
+<target>Lesen Sie den Newsletter online.</target>
+</trans-unit>
 
     </body>
   </file>
