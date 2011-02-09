@@ -37,13 +37,13 @@ $t->diag('parseSubmitName()');
 $t->diag('decryptSecureParameters()');
 
   $_POST = array(
-    's_id' => 'yB9VgzqqGmFppIQ3al8sZDcAn6S_-3mf3hnIWtnLfUWC'
+    's_id' => 'ZEF3_XppB59Mh60KN49ACGF4fXJFzrNdw01Q1gEs-GZOKB0FV2Z99mHhK1vqWd4kwc7LtJRYp8hXobxUEUbVsDmm0IKU2qFwaCpd2T2DUXKKqmUO'
   );
   
   $request = new ullWebRequest(new sfEventDispatcher);
 
   $reference = array(
-    's_id'    => 2
+    's_id'    => 1
   ); 
   
   $t->is_deeply($request->getParameterHolder()->getAll(), $reference, 'decryptSecureParameters() correct');  
