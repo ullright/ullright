@@ -261,6 +261,9 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
   protected function enableDebugAddressPlugin(sfMailer $mailer, $priority, $pluginClassName, $additionalParam = null)
   {
     //read mailing debug address from config and validate it
+    //TODO: sfValidatorEmail does not allow e.g. dev@localhost
+    //check disabled for now
+    /*
     $mailValidator = new sfValidatorEmail();
     try
     {
@@ -270,7 +273,10 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     {
       throw new UnexpectedValueException('The configured debug address for mailing is invalid.');
     }
-
+    */
+   
+    $debugAddress = sfConfig::get('app_mailing_debug_address');
+    
     //create the plugin for the set debug address
     $plugin = ($additionalParam !== null) ?
     new $pluginClassName($debugAddress, $additionalParam) :
