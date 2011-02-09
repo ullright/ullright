@@ -158,7 +158,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
         // save only
         if ($request->getParameter('action_slug') == 'save_only') 
         {
-          $this->redirect('ullWiki/edit?docid=' . $this->doc->id);
+          $this->redirect('ullWiki/edit?slug=' . $this->doc->slug);
         }
         
         // plugin mode

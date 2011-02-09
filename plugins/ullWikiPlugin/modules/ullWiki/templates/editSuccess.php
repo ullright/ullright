@@ -4,12 +4,25 @@
   <div class='form_error'>
   <?php echo __('Please correct the following errors', null, 'common') ?>:
   <?php echo $generator->getForm()->renderGlobalErrors() ?>
-  </div>  
+  </div>
   <br /><br />
 <?php endif; ?>
-
+<div class="ull_wiki_autosave_status">
+  <div class="ull_wiki_autosave_status_ok">
+    <?php echo __('Saved', null, 'common') ?>
+  </div>
+  <div class="ull_wiki_autosave_status_saving">
+    <?php echo __('Auto saving ...', null, 'common') ?>
+    <?php echo image_tag('/ullCoreThemeNGPlugin/images/indicator.gif') ?>
+  </div>
+  <div class="ull_wiki_autosave_status_fail">
+    <?php echo __('Auto save not possible because one or more fields are incorrect.', null, 'common') ?>
+    <br />
+    <input type="button" value=" <?php echo __('Show errors', null, 'common') ?> " onclick='$("#ull_wiki_form").submit();'>
+  </div>
+</div>
 <?php 
-  echo form_tag('ullWiki/edit?docid=' . $doc->id, 
+  echo form_tag('ullWiki/edit?slug=' . $doc->slug, 
     array('id' => 'ull_wiki_form', 'name' => 'edit_form')) 
 ?>
 
@@ -63,8 +76,10 @@
             array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_wiki_form', 'display_as_link' => true)
           ); 
         ?>
-      
-      </li>
+        <div id="ull_wiki_autosave_notice">
+          <?php echo __('(Please click once to enable auto save)', null, 'common') ?>
+        </div>
+      </li> 
       
       <li>
         <?php 
@@ -104,75 +119,66 @@
 
   $(document).ready(function() {
     // edit mode and no validation errors
-    if ((' . $doc->id .') && (!($("#content > .form_error").length>0)))
+    if (("' . $doc->id .'") && (!($("#content > .form_error").length>0)))
     {
-      //add a quick save ajax link
-      $(".edit_action_buttons_right > ul").prepend(""+
-        "<li class=\"ull_wiki_quick_save\">"+
-          "<a onclick=\"saveWikiAjax(); return false;\" href=\"#\">' . __('Quick save', null, 'ullWikiMessages') . '</a>"+
-        "</li>"+
-      "");
+      
+      setInterval("autoSaveWikiAjax()", 60000);
+    }
+    else
+    {
+      $("#ull_wiki_autosave_notice").show();
     }
     
   }); 
   
   
-  function saveWikiAjax() {
-    //saves the current content of the FCKEditor
-    document.getElementById("fields_body").value = FCKeditorAPI.GetInstance("fields_body").GetHTML(true);
-    
-    //get the form-data
-    var formData = $("#ull_wiki_form").serialize();
-    
-    $.ajax({
-      url: "' . url_for('ullWiki/edit?docid=' . $doc->id . '') . '",
-      type: "POST",
-      data: formData,
-      cache: false,
-      success: function(data, textStatus, XMLHttpRequest)
-      {
-        //display a notices, that everything went fine
-        var selector = ".ull_wiki_quick_save";
-        var messageSelector = ".ajax_save_ok"; 
-        $(selector).append("<div class=\'ajax_save_ok\' style=\'display:none;\'>' . __('Saved', null, 'ullWikiMessages') . '</div>");
-        
-        $(messageSelector).fadeIn(500);
-        
-        setTimeout(
-          function(){
-            $(messageSelector).fadeOut(
-              500, 
-              function(){
-                $(messageSelector).remove();
-              }
-            )
-          },
-          4000
-        );
-      },
-      
-      error: function(XMLHttpRequest, textStatus, errorThrown)
-      {
-        //display an error notice
-        var selector = ".ull_wiki_quick_save";
-        var messageSelector = ".ajax_save_fail"; 
-        $(selector).append("<div class=\'ajax_save_fail\' style=\'display:none;\'>' . __('Error during saving', null, 'ullWikiMessages') . '</div>");
-        
-        $(messageSelector).fadeIn(500);
-        
-        setTimeout(
-          function()
-          {
-            //make a redirect
-            $("#ull_wiki_form").submit();
-          },
-          1500
-        );
-      }
-    }); //end of ajax    
-    
-  };
+  function autoSaveWikiAjax() {
   
+    if (ull_js_observer_detect_change())
+    {
+      $(".ull_wiki_autosave_status div").hide();
+      $(".ull_wiki_autosave_status_saving").fadeIn(400);
+      //saves the current content of the FCKEditor
+      document.getElementById("fields_body").value = FCKeditorAPI.GetInstance("fields_body").GetHTML(true);
+      
+      //get the form-data
+      var formData = $("#ull_wiki_form").serialize();
+      
+      $.ajax({
+        url: "' . url_for('ullWiki/edit?docid=' . $doc->id . '') . '",
+        type: "POST",
+        data: formData,
+        cache: false,
+        success: function(data, textStatus, XMLHttpRequest)
+        {
+          ull_js_observer_update_initial_state();      
+        
+          var selector = ".ull_wiki_autosave_status_ok";
+          
+           $(selector).fadeIn(
+            400, 
+            function(){$(".ull_wiki_autosave_status_saving").fadeOut(400);}
+           );
+          
+          setTimeout(
+            function(){
+              $(selector).fadeOut(400)
+            },
+            4000
+          );
+        },
+        
+        error: function(XMLHttpRequest, textStatus, errorThrown)
+        {
+          $(".ull_wiki_autosave_status_saving").fadeOut(100);
+          $(".ull_wiki_autosave_status_fail").fadeIn(400);
+          /*if (confirm("' . __('Auto save failed.\nDo you want to save manually?', null, 'common') . '")) {
+            $("#ull_wiki_form").submit();
+          }*/
+        }
+      }); //end of ajax    
+    }
+  }
 ')?>
 
 <?php use_javascripts_for_form($generator->getForm()) ?>

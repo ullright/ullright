@@ -471,6 +471,36 @@
 <target>Bitte wählen Sie zuerst einen Eintrag aus der Liste</target>
 </trans-unit>
 
+<trans-unit id="4007">
+<source>Auto saving ...</source>
+<target>Automatisches Speichern ...</target>
+</trans-unit>
+
+<trans-unit id="4008">
+<source>Saved</source>
+<target>Gespeichert</target>
+</trans-unit>
+
+<trans-unit id="4009">
+<source>Auto save failed.\nDo you want to save manually?</source>
+<target>Automatisches Speichern fehlgeschlagen.\nWollen Sie manuell speichern?</target>
+</trans-unit>
+
+<trans-unit id="4010">
+<source>(Please click once to enable auto save)</source>
+<target>(Bitte einmal klicken um automatisches Speichern zu aktivieren)</target>
+</trans-unit>
+
+<trans-unit id="4011">
+<source>Auto save not possible because one or more fields are incorrect.</source>
+<target>Automatisches Speichern nicht möglich, da ein oder mehrere Felder fehlerhaft sind.</target>
+</trans-unit>
+
+<trans-unit id="4012">
+<source>Show errors</source>
+<target>Fehler anzeigen</target>
+</trans-unit>
+
 
 <!-- common validation phrases -->
 

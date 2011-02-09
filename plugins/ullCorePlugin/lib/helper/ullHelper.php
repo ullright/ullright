@@ -1153,6 +1153,25 @@ function ull_js_observer($form_id) {
         }
       }
     }
+    
+    function ull_js_observer_update_initial_state() {
+      var elements = document.getElementById("' . $form_id . '");
+      initial_state = new Array();
+  
+      for (i = 0; i < elements.length; i++) {
+        if (elements[i] && elements[i].id != "") {
+          if (elements[i].type == "checkbox")  
+            initial_state[elements[i].id] = elements[i].checked;
+          else
+            initial_state[elements[i].id] = elements[i].value;
+          if (elements[i].id.indexOf("___Config") > -1) {
+            var instance_name = elements[i].id.replace(/___Config/, "");
+            var oEditor = FCKeditorAPI.GetInstance(instance_name);
+            oEditor.ResetIsDirty();
+          }
+        }
+      }
+    }
   ');
 
 /*

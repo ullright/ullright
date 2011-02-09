@@ -142,6 +142,40 @@ a:visited {
   margin-top: 0;
 }
 
+.ull_wiki_autosave_status div{
+	border: solid thin;
+  font-size: 1.2em;
+  position:fixed; 
+  text-align: center;
+  top:25px;
+  right: 25px; 
+  width:15em; 
+  height:1.8em; 
+  line-height: 1.8em;
+  display: none; 
+}
+
+.ull_wiki_autosave_status_saving {
+  background-color: #efd24c;
+}
+
+.ull_wiki_autosave_status_ok {
+	background-color:#5fef4c;
+}
+
+.ull_wiki_autosave_status .ull_wiki_autosave_status_fail {
+  background-color:#e77566;
+  height: auto;
+  line-height: auto;
+  padding-bottom: 0.5em;
+}
+
+#ull_wiki_autosave_notice {
+	display: none;
+	max-width: 18em;
+}
+	
+
 /*
  * ************************************************
  *  Syntax highlighter

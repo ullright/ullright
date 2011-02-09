@@ -82,7 +82,6 @@ $b
   ->followRedirect()
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'edit')
-  ->isRequestParameter('docid', 3)
   //why doesn't this work?
 //  ->checkResponseElement('input#ull_wiki_subject[value="My new test subject"]', true)
   ->checkResponseElement('input#fields_subject', true)
