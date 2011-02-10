@@ -24,9 +24,10 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     $layoutHead = $this['UllNewsletterLayout']['html_head'];
     $layoutBody = $this['UllNewsletterLayout']['html_body'];
     
-    $body = 
+    $body = "<html>\n" .
       "<head>\n" . $layoutHead . "\n</head>\n" . 
-      "\n<body>\n" . strtr($layoutBody, array('[CONTENT]' => $body)) . "\n</body>";
+      "\n<body>\n" . strtr($layoutBody, array('[CONTENT]' => $body)) . "\n</body>" .
+      "\n</html>";
     
     return $body; 
   }
@@ -129,5 +130,69 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     
     return $mail;
   }
-  
+
+  /**
+   * Personalizes this newsletter edition for a given user, generating
+   * unsubscribe and online links, ...
+   * Receives a string (the 'body') and returns a version where tags
+   * (e.g. [ONLINE_LINK]) are replaced.
+   * Used by mailing (see Swift_Plugins_ullPersonalizePlugin) and
+   * ullNewsletter's show action.
+   * 
+   * @param string $body with tags to replace
+   * @param ullUser $user or null (not supported atm)
+   * @param boolean $onlineView if true, ONLINE_LINK gets removed instead of replaced
+   */
+  public function getPersonalizedBody($body, $user = null, $onlineView = false)
+  {
+    $dictionary = array();
+    
+    //if a user was given, replace user-specific tags
+    if ($user !== null)
+    {
+      //look for UllUser column names (used as tags) and replace them
+      //with the their matching value
+      foreach ($user as $field => $value)
+      {
+        $dictionary['[' .strtoupper($field) . ']'] = $value;
+      }
+      
+      //[UNSUBSCRIBE]
+      $lists = $this->findMailingListsForUser($user['id']);
+      $unsubscribe = array();
+      
+      //note: s_uid as param name results in encrypted user ids (=secure params)
+      foreach ($lists as $list)
+      {
+        $unsubscribe[] = link_to(
+          __('Unsubscribe from list "%list%"', array('%list%' => $list['name']), 'ullMailMessages'),
+            'ullNewsletter/unsubscribe?list=' . $list['slug'] . '&s_uid=' . $user['id'],
+            array('absolute' => true)
+          );
+      }
+        
+      $dictionary['[UNSUBSCRIBE]'] = implode('<br />', $unsubscribe);
+      
+      //[ONLINE_LINK]
+      $onlineLink = ($onlineView) ? '' : 
+        $onlineLink = __('Having trouble viewing this message?', null, 'ullMailMessages') .
+          ' ' . link_to(__('Read the newsletter online.', null, 'ullMailMessages'),
+              'newsletter_edition_show',
+              array('id' => $this['id'], 's_uid' => $user['id']),
+              array('absolute' => true)
+            );
+
+      $dictionary['[ONLINE_LINK]'] = $onlineLink;
+    }
+    
+    //do common replacement stuff which is not dependent on a specific user
+    //(there are none atm)
+    
+    //TODO: we do not do this because we do not send unpersonalized mails atm
+    //add unpersonalized online_link, if a personalized one was not added above
+    //if (!isset($dictionary['[ONLINE_LINK]'])) ...
+
+    //return original body with replaced tags
+    return strtr($body, $dictionary);
+  }
 }

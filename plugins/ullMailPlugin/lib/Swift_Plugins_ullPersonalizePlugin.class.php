@@ -20,11 +20,6 @@ class Swift_Plugins_ullPersonalizePlugin
   {
     $mail = $evt->getMessage();
     
-//    var_dump($mail instanceof ullsfMail);
-//    var_dump($mail->getSubject());
-//    var_dump($mail->getIsQueued());
-//    var_dump($mail->getRecipientUllUserId());
-    
     if (
       // Only ullsfMails can support this
       $mail instanceof ullsfMail
@@ -39,38 +34,15 @@ class Swift_Plugins_ullPersonalizePlugin
       
       ullCoreTools::fixRoutingForCliAbsoluteUrls();
       
-      
       $user = UllEntityTable::findById($mail->getRecipientUllUserId());
-      
-      $dictionary = array();
       
       if ($editionId = $mail->getNewsletterEditionId())
       {
         $edition = Doctrine::getTable('UllNewsletterEdition')->find($editionId);
         
-        $lists = $edition->findMailingListsForUser($user['id']);
-
-        $unsubscribe = array();
-        
-        foreach ($lists as $list)
-        {
-          $unsubscribe[] = link_to(
-            __('Unsubscribe from list "%list%"', array('%list%' => $list['name']), 'ullMailMessages'),
-            'ullNewsletter/unsubscribe?list=' . $list['slug'] . '&email=' . base64_encode($user['email']),
-            array('absolute' => true)
-          );
-        }
-        
-        $dictionary['[UNSUBSCRIBE]'] = implode('<br />', $unsubscribe);
-        
+        $newBody = $edition->getPersonalizedBody($mail->getBody(), $user);
+        $mail->setBody($newBody);
       }
-      
-      foreach ($user as $field => $value)
-      {
-        $dictionary['[' .strtoupper($field) . ']'] = $value;
-      }
-      
-      $mail->setBody(strtr($mail->getBody(), $dictionary));
     }
   }
   
@@ -79,9 +51,7 @@ class Swift_Plugins_ullPersonalizePlugin
    * @param Swift_Events_SendEvent $evt
    */
   public function sendPerformed(Swift_Events_SendEvent $evt)
-  { 
-  }  
- 
+  {
+     
+  } 
 }
-
-

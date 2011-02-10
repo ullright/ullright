@@ -29,6 +29,8 @@ class BaseUllMailActions extends BaseUllGeneratorActions
     
   }  
   
+  //following: debug helper stuff
+  
   public function executeFlushQueue(sfWebRequest $request)
   {
     $this->checkPermission('ull_newsletter_edit');

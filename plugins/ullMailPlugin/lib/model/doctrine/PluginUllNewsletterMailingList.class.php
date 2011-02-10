@@ -12,21 +12,27 @@
  */
 abstract class PluginUllNewsletterMailingList extends BaseUllNewsletterMailingList
 {
-
   /**
    * Unsubscribe the given users from the current list
    * 
-   * @param Doctrine_Collection $users
+   * @param mixed $users (record or record collection)
    * 
    * @return integer The number of unsubscribed entries
    */
-  public function unsubscribeUsers(Doctrine_Collection $users)
+  public function unsubscribeUsers($users)
   {
     $userIds = array();
     
-    foreach ($users as $user)
+    if ($users instanceof Doctrine_Record) //single user?
     {
-      $userIds[] = $user['id'];
+      $userIds[] = $users['id'];
+    }
+    else //record collection
+    {
+      foreach ($users as $user)
+      {
+        $userIds[] = $user['id'];
+      }
     }
     
     $q = new Doctrine_Query;

@@ -21,9 +21,12 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   {
     parent::preExecute();
 
-    //Add module stylsheet for all actions
-    $path =  '/ullMailTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));    
+    //add module stylsheet for all actions but show
+    if ($this->getActionName() !== 'show')
+    {
+      $path =  '/ullMailTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
+      $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+    }   
   }  
   
   /**
@@ -35,7 +38,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_newsletter_index');
     
     $this->form = new ullFilterForm;
-//    
+
     $this->named_queries = new ullNamedQueriesUllNewsletter;
 
     $q = new Doctrine_Query();
@@ -48,6 +51,33 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->breadcrumbForIndex();
   }
   
+  public function executeShow(sfRequest $request)
+  {
+    $this->checkPermission('ull_newsletter_show');
+    $this->breadcrumbForShow();
+    
+    $newsletterEdition = Doctrine::getTable('UllNewsletterEdition')
+      ->findOneById($request->getParameter('id'));
+    $this->forward404If($newsletterEdition === false); 
+    
+    $user = Doctrine::getTable('UllUser')->find($request->getParameter('s_uid'));
+    
+    if ($user)
+    {
+      //TODO: make use of the information that this user clicked on
+      //the read-online link (statistics, graphs ... pie charts!)
+     
+      //generate header + body with CONTENT replaced by actual content
+      $body = $newsletterEdition->getDecoratedBody();
+   
+      //replace user tags like FIRST_NAME, ONLINE_LINK, ...
+      //note: ONLINE_LINK gets removed (since we're already in
+      //online view mode)
+      $body = $newsletterEdition->getPersonalizedBody($body, $user, true);
+
+      return $this->renderText($body);
+    }
+  }
   
   /**
    * Executes list action
@@ -148,7 +178,6 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
   }  
   
-  
   public function executeUnsubscribe(sfRequest $request)
   {
     $list = Doctrine::getTable('UllNewsletterMailingList')->findOneBySlug(
@@ -163,10 +192,9 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       return;
     }
 
-    $users = Doctrine::getTable('UllUser')->findByEmail(
-      base64_decode($request->getParameter('email')));
+    $user = Doctrine::getTable('UllUser')->find($request->getParameter('s_uid'));
       
-    if (count($users) == 0)
+    if (!$user)
     {
       $this->getUser()->setFlash('message', 
         __('User not found', null, 'ullMailMessages') . '.'
@@ -175,7 +203,8 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       return;     
     }
     
-    $num = $list->unsubscribeUsers($users);
+    //do the actual unsubscribing
+    $num = $list->unsubscribeUsers($user);
     
     if ($num)
     {
@@ -251,7 +280,17 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   protected function breadcrumbForList()
   {
     $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
-    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullNews/list');
+    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullNewsletter/list');
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
+  
+  /**
+   * Handles breadcrumb for show action
+   */
+  protected function breadcrumbForShow()
+  {
+    $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
+    $breadcrumb_tree->add(__('Show', null, 'common'));
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
   }  
   
