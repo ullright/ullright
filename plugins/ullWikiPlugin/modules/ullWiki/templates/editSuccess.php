@@ -117,12 +117,12 @@
 
 <?php echo javascript_tag('
 
-  $(document).ready(function() {
-    // edit mode and no validation errors
-    if (("' . $doc->id .'") && (!($("#content > .form_error").length>0)))
+  $(document).ready(function() 
+  {
+    // disable ajax autosave in create mode or having validation errors
+    if (("' . $doc->id .'") && ( ! ($("#content > .form_error").length > 0)))
     {
-      
-      setInterval("autoSaveWikiAjax()", 60000);
+      setInterval("autoSaveWikiAjax()", 5000);
     }
     else
     {
@@ -131,13 +131,15 @@
     
   }); 
   
-  
-  function autoSaveWikiAjax() {
-  
+
+  function autoSaveWikiAjax() 
+  {
+    // Perform ajax autosave only if form content was modified
     if (ull_js_observer_detect_change())
     {
       $(".ull_wiki_autosave_status div").hide();
       $(".ull_wiki_autosave_status_saving").fadeIn(400);
+      
       //saves the current content of the FCKEditor
       document.getElementById("fields_body").value = FCKeditorAPI.GetInstance("fields_body").GetHTML(true);
       
@@ -164,7 +166,7 @@
             function(){
               $(selector).fadeOut(400)
             },
-            4000
+            1500
           );
         },
         
@@ -172,9 +174,6 @@
         {
           $(".ull_wiki_autosave_status_saving").fadeOut(100);
           $(".ull_wiki_autosave_status_fail").fadeIn(400);
-          /*if (confirm("' . __('Auto save failed.\nDo you want to save manually?', null, 'common') . '")) {
-            $("#ull_wiki_form").submit();
-          }*/
         }
       }); //end of ajax    
     }
