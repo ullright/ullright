@@ -43,7 +43,7 @@ EOF;
     
     try
     {
-      $command = '/usr/bin/openssl rand -base64 2048';
+      $command = 'openssl rand -base64 2048';
       $commandOutput = $this->getFilesystem()->execute($command);
       $newKey = $commandOutput[0];
     }
