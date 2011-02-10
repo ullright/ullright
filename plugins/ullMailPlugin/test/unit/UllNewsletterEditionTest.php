@@ -59,13 +59,15 @@ $t->diag('createMailMessage()');
     'Returns the correct sender'
   );
   $t->is($mail->getHtmlBody(), 
-    '<head>
+    '<html>
+<head>
 <style=\'h1 { color: red }\' />
 </head>
 
 <body>
-<img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1><p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p>
-</body>', 
+<img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1><p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p><small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>
+</body>
+</html>', 
     'Returns the correct body'
   );
   $t->is($mail->getNewsletterEditionId(), 1, 'Returns the newsletter edition id');
