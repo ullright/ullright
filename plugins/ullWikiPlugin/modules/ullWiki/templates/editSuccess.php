@@ -122,7 +122,7 @@
     // disable ajax autosave in create mode or having validation errors
     if (("' . $doc->id .'") && ( ! ($("#content > .form_error").length > 0)))
     {
-      setInterval("autoSaveWikiAjax()", 5000);
+      setInterval("autoSaveWikiAjax()", 20000);
     }
     else
     {
@@ -166,7 +166,7 @@
             function(){
               $(selector).fadeOut(400)
             },
-            1500
+            2500
           );
         },
         
