@@ -1,0 +1,23 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1.1}Einf\IeC {\"u}hrung}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Startseite}{4}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Neues Dokument erstellen}{4}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Suchfunktionen}{5}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Abfragen}{5}{subsection.1.2.3}
+\contentsline {section}{\numberline {1.3}Ergebnisliste}{5}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Anzahl der Ergebnisse und Bl\IeC {\"a}ttern}{5}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Liste}{5}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Tipp: Die Browser Adresszeile als Kommandozeile}{6}{subsection.1.3.3}
+\contentsline {section}{\numberline {1.4}Erstellen und Bearbeiten}{7}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}WYSIWYG Editor}{7}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Tags}{8}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}Zugriffsrecht}{8}{subsection.1.4.3}
+\contentsline {subsection}{\numberline {1.4.4}Speichern}{8}{subsection.1.4.4}
+\contentsline {section}{\numberline {1.5}WYSIWYG Editor im Detail}{9}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Bild einf\IeC {\"u}gen}{9}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Link einf\IeC {\"u}gen}{10}{subsection.1.5.2}
+\contentsline {section}{\numberline {1.6}Ansicht}{10}{section.1.6}
+\contentsline {section}{\numberline {1.7}Administration - Zugriffrechte}{11}{section.1.7}
+\contentsline {subsection}{\numberline {1.7.1}Anlegen}{11}{subsection.1.7.1}
+\contentsline {subsection}{\numberline {1.7.2}Zugriffsrecht konfigurieren}{11}{subsection.1.7.2}
+\contentsline {subsection}{\numberline {1.7.3}Beispiel}{11}{subsection.1.7.3}
