@@ -200,10 +200,10 @@ Die Startseite besteht aus drei Spalten (von links nach rechts) (Siehe Abbildung
 \end{figure}
 
 \subsection{Neues Dokument erstellen}
-Häufig möchte man schnell einen Gedanken oder Einfall dokumentieren. Dafür ist natürlich der Punkt ein neues Dokument zu erstellen am wichtigsten. Falls Sie noch nicht in „ullright“ angemeldet sind, werden sie praktischerweise sofort zur Anmeldemaske weitergeleitet. Auch nach der Anmeldung landen Sie nicht irgendwo, sondern direkt auf der Erstellungsseite.
+Häufig möchte man schnell einen Gedanken oder Einfall dokumentieren. Dafür ist natürlich der Punkt ein neues Dokument zu erstellen am wichtigsten. Falls Sie noch nicht in "`ullright"' angemeldet sind, werden sie praktischerweise sofort zur Anmeldemaske weitergeleitet. Auch nach der Anmeldung landen Sie nicht irgendwo, sondern direkt auf der Erstellungsseite.
 
 \subsection{Suchfunktionen}
-Geben Sie einfach jeglichen gewünschten Begriff in das Suchfeld ein. Wenn Sie auch den Text der Dokumente durchsuchen wollen, haken Sie bitte „Volltext“ an. Die Suchfunktion sucht in den Feldern Id, Betreff und Tags.
+Geben Sie einfach jeglichen gewünschten Begriff in das Suchfeld ein. Wenn Sie auch den Text der Dokumente durchsuchen wollen, haken Sie bitte "`Volltext"' an. Die Suchfunktion sucht in den Feldern Id, Betreff und Tags.
 
 Sie können Dokumente auch direkt anhand von Tags auswählen. Klicken Sie dazu einfach auf einen Tag und Sie erhalten eine Liste aller Dokumente für die dieses Tag vergeben wurde
 
@@ -231,7 +231,7 @@ Aus diesem Grund verlinkt ullright standardmäßig auf die Ergebnisliste des Wik
 
 
 \subsection{Anzahl der Ergebnisse und Blättern}
-Sie sehen die Anzahl der gefunden Dokumente, und welche Einträge gerade angezeigt werden. Standardmäßig werden 30 Einträge pro Seite angezeigt. Benutzen Sie die Funktion „Blättern“ auf der rechten Seite um zur nächsten, oder einer beliebigen Seite der Ergebnisliste zu kommen.
+Sie sehen die Anzahl der gefunden Dokumente, und welche Einträge gerade angezeigt werden. Standardmäßig werden 30 Einträge pro Seite angezeigt. Benutzen Sie die Funktion "`Blättern"' auf der rechten Seite um zur nächsten, oder einer beliebigen Seite der Ergebnisliste zu kommen.
 
 \subsection{Liste}
 Damit Sie die neuesten Einträge stets in Griffweite haben, sortiert die Ergebnisliste standardmäßig nach dem Aktualisierungsdatum. Sie finden also die zuletzt geänderten Dokumente ganz oben.
@@ -243,13 +243,13 @@ Mittels der ersten beiden Symbole jeder Zeile können Sie einen Eintrag bearbeit
 Durch Klick auf den Betreff gelangen Sie zur Ansicht des Dokuments.
 
 \subsection{Tipp: Die Browser Adresszeile als Kommandozeile}
-Alle ullright Module unterstützen aktiv das sogenannte „Deep Linking“. Das bedeutet, daß alle wichtigen Parameter, wie zum Beispiel ein Suchbegriff, in der Adressleiste angeführt sind.
+Alle ullright Module unterstützen aktiv das sogenannte "`Deep Linking"'. Das bedeutet, daß alle wichtigen Parameter, wie zum Beispiel ein Suchbegriff, in der Adressleiste angeführt sind.
 
 Sie können also jederzeit eine ullright Adresse als Bookmark (Favorit) speichern oder einer Kollegin per E-Mail schicken.
 
 Beispiel: \url{http://www.ullright.org/ullWiki/list/filter[search]/openoffice}
 
-Zeigt die Ergebnisliste für den Suchbegriff „openoffice“
+Zeigt die Ergebnisliste für den Suchbegriff "`openoffice"'
 
 
 
@@ -270,9 +270,9 @@ Geben Sie einfach Betreff, Text, Tags und Zugriffsrecht an und Speichern Sie.
 \subsection{WYSIWYG Editor}
 Viele Wikis verlangen nach HTML-Kenntnissen oder einer speziellen Syntax um den Text zu formatieren. ullWiki hingegen bietet einen komfortablen Editor, der ähnlich wie OpenOffice Writer oder MS Word funktioniert. Auch das Einfügen von Bildern oder Anhängen ist, wie weiter unten beschrieben, leicht möglich.
 
-Bitte beachten Sie, dass die von uns ausgewählten Formatierungsmöglichkeiten nach semantischen Gesichtspunkten ausgewählt wurden. Sie finden also nur „logische“ Auszeichnungen wie zum Beispiel „wichtig“ oder „Überschrift“, und keine rein optischen Formatierungsmöglichkeiten wie Farben oder Schriftgrößen. Somit werden saubere und zukunftssichere Teste gewährleistet. (Stichwort „semantic Web“)
+Bitte beachten Sie, dass die von uns ausgewählten Formatierungsmöglichkeiten nach semantischen Gesichtspunkten ausgewählt wurden. Sie finden also nur "`logische"' Auszeichnungen wie zum Beispiel "`wichtig"' oder "`Überschrift"', und keine rein optischen Formatierungsmöglichkeiten wie Farben oder Schriftgrößen. Somit werden saubere und zukunftssichere Teste gewährleistet. (Stichwort "`semantic Web"')
 
-„WYSISYG“ steht übrigens für „What you see is what you get“, also sinnhaft man sieht schon beim bearbeiten genau wie es im Ansichtsmodus aussehen wird.
+"`WYSISYG"' steht übrigens für "`What you see is what you get"', also sinnhaft man sieht schon beim bearbeiten genau wie es im Ansichtsmodus aussehen wird.
 
 \subsection{Tags}
 Vergeben Sie sinnvolle Tags um das Dokument zu kategorisieren und die Suche zu vereinfachen. Häufig benutzte Tags werden bereits angezeigt und müssen nur angeklickt werden.
@@ -290,10 +290,10 @@ Standardmäßig finden Sie folgende Zugriffsrechte in der Liste:
 \item Öffentlich lesbar – Jeder kann lesen und angemeldete Benutzer können bearbeiten.
 \item Für angemeldete Benutzer lesbar – Nur angemeldete Benutzer können lesen und bearbeiten.
 \end{itemize}
-Die Liste der Zugriffsrechte kann beliebig erweitert werden – Siehe Punkt „Administration“.
+Die Liste der Zugriffsrechte kann beliebig erweitert werden – Siehe Punkt "`Administration"'.
 
 \subsection{Speichern}
-Damit Sie möglichst effizient Arbeiten können, stellen wir mehrere Buttons zum Speichern zur Verfügung. So sparen Sie zum Beispiel bei „Zwischenspeichern“ mehrere Klicks im Vergleich zu anderen Wikis, die nur einen „Speichern“ Button bieten, und Sie zum weiter-bearbeiten erneut zur Bearbeitungsseite navigieren müssen.
+Damit Sie möglichst effizient Arbeiten können, stellen wir mehrere Buttons zum Speichern zur Verfügung. So sparen Sie zum Beispiel bei "`Zwischenspeichern"' mehrere Klicks im Vergleich zu anderen Wikis, die nur einen "`Speichern"' Button bieten, und Sie zum weiter-bearbeiten erneut zur Bearbeitungsseite navigieren müssen.
 
 \begin{itemize}
 \item Speichern und anzeigen: Speichert das Dokument und zeigt die Ansichtsseite
@@ -310,11 +310,11 @@ Es folgen die Beschreibungen der wichtigsten erweiterten Funktionen.
 \subsection{Bild einfügen}
 (Siehe Abbildung \vref{fig:upload-picture})
 \begin{itemize}
-\item Setzten Sie den Cursor an die gewünschte Stelle im Text \includegraphics{picture-symbol.png}
-\item Klicken Sie auf das Bildsymbol 
-\item Wählen Sie „Server durchsuchen“
+\item Setzten Sie den Cursor an die gewünschte Stelle im Text
+\item Klicken Sie auf das Bildsymbol \includegraphics[width=5mm, height=5mm]{picture-symbol.png}
+\item Wählen Sie "`Server durchsuchen"'
 \item Wählen Sie ein Bild aus der Liste, oder laden Sie ein neues Bild hoch und wählen Sie es dann aus
-\item Klicken Sie auf „OK“
+\item Klicken Sie auf "`OK"'
 \end{itemize}
 
 \begin{figure}[htp]
@@ -328,9 +328,9 @@ Es folgen die Beschreibungen der wichtigsten erweiterten Funktionen.
 \subsection{Link einfügen}
 \begin{itemize}
 \item Markieren Sie die Wörter im Text die Sie verlinken möchten
-\item Klicken Sie auf das Linksymbol \includegraphics{link-symbol.png}
+\item Klicken Sie auf das Linksymbol \includegraphics[width=5mm, height=5mm]{link-symbol.png}
 \item Geben Sie die Adresse (URL) ein
-\item Klicken Sie auf „OK
+\item Klicken Sie auf "`OK
 \end{itemize}
 
 
@@ -339,14 +339,14 @@ Es folgen die Beschreibungen der wichtigsten erweiterten Funktionen.
 \section{Ansicht}
 Durch Klick auf den Betreff in der Ergebnisliste wird das Dokument im Ansichtsmodus geladen (Siehe Abbildung \vref{fig:show}).
 
-Mittels der ersten beiden Symbole „Stift“ und „Mülleimer“ können Sie einen Eintrag bearbeiten oder löschen.
+Mittels der ersten beiden Symbole "`Stift"' und "`Mülleimer"' können Sie einen Eintrag bearbeiten oder löschen.
 
 Am Ende des Dokuments erfahren Sie Detailinformationen zum Dokument, also wer und wann es erstellt hat, und wer und wann es aktualisiert hat.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.9\textwidth]{show}
-\caption{Ansichtsmodus}
+\caption{Ansicht eines Eintrags}
 \label{fig:show}
 \end{figure}
 
@@ -354,37 +354,37 @@ Am Ende des Dokuments erfahren Sie Detailinformationen zum Dokument, also wer un
 
 
 \section{Administration - Zugriffrechte}
-Melden Sie sich als Benutzer mit Masteradmin-Rechten an und wählen Sie im Hauptmenü den Punkt „Admin“.
+Melden Sie sich als Benutzer mit Masteradmin-Rechten an und wählen Sie im Hauptmenü den Punkt "`Admin"'.
 
-Blättern Sie hinunter bis zum Punkt „Wiki“.
+Blättern Sie hinunter bis zum Punkt "`Wiki"'.
 
 \subsection{Anlegen}
-Wenn Sie ein neues Zugriffsrecht anlegen möchten klicken Sie auf „Verwalte Liste der Zugriffsrechte“ und erstellen Sie dort einen neuen Eintrag. Geben Sie eine eindeutige Bezeichnung (system-intern), sowie eine deutsche und englische Bezeichnung für das neue Zugriffsrecht ein.
+Wenn Sie ein neues Zugriffsrecht anlegen möchten klicken Sie auf "`Verwalte Liste der Zugriffsrechte"' und erstellen Sie dort einen neuen Eintrag. Geben Sie eine eindeutige Bezeichnung (system-intern), sowie eine deutsche und englische Bezeichnung für das neue Zugriffsrecht ein.
 
 \subsection{Zugriffsrecht konfigurieren}
-Um für jedes Zugriffsrecht einzustellen wer was darf wählen Sie im „Admin“ Bereich „Wiki“ den Punkt „Verwalte Zugriffsrechte“.
+Um für jedes Zugriffsrecht einzustellen wer was darf wählen Sie im "`Admin"' Bereich "`Wiki"' den Punkt "`Verwalte Zugriffsrechte"'.
 
 Sie sehen nun eine Liste welche Gruppe welches Privileg (lesen, schreiben) pro Zugriffsrecht hat.
 
 Erstellen Sie einfach neue Einträge nach Ihren Wünschen.
 
 \subsection{Beispiel}
-Zugriffsrecht für die Abteilung „Einkauf“ erstellen. Nur Mitglieder der Abteilung Einkauf sollen die Einträge lesen und bearbeiten dürfen.
+Zugriffsrecht für die Abteilung "`Einkauf"' erstellen. Nur Mitglieder der Abteilung Einkauf sollen die Einträge lesen und bearbeiten dürfen.
 
-Falls die dafür erforderliche Benutzergruppe „Einkauf“ noch nicht angelegt ist:
+Falls die dafür erforderliche Benutzergruppe "`Einkauf"' noch nicht angelegt ist:
 \begin{itemize}
- \item Admin $\rightarrow$ Verwalte Gruppen $\rightarrow$ Gruppe „Einkauf“ anlegen
- \item Admin $\rightarrow$ Verwalte Gruppenmitgliedschaften $\rightarrow$ Die Mitarbeiter der Abteilung Einkauf zur Gruppe „Einkauf“ hinzufügen
+ \item Admin $\rightarrow$ Verwalte Gruppen $\rightarrow$ Gruppe "`Einkauf"' anlegen
+ \item Admin $\rightarrow$ Verwalte Gruppenmitgliedschaften $\rightarrow$ Die Mitarbeiter der Abteilung Einkauf zur Gruppe "`Einkauf"' hinzufügen
 \end{itemize}
 
 Nun wird das Wiki-Zugriffsrecht erstellt:
 \begin{itemize}
- \item Admin $\rightarrow$ Sektion „Wiki“ $\rightarrow$ Verwalte Liste der Zugriffsrechte $\rightarrow$ Neues Zugriffsrecht „Einkauf“ anlegen
+ \item Admin $\rightarrow$ Sektion "`Wiki"' $\rightarrow$ Verwalte Liste der Zugriffsrechte $\rightarrow$ Neues Zugriffsrecht "`Einkauf"' anlegen
 \end{itemize}
 
 Und zuletzt wird das Zugriffsrecht konfiguriert:
 \begin{itemize}
- \item Admin $\rightarrow$ Sektion „Wiki“ $\rightarrow$ Verwalte Zugriffsrechte
+ \item Admin $\rightarrow$ Sektion "`Wiki"' $\rightarrow$ Verwalte Zugriffsrechte
  \begin{itemize}
   \item Erstellen $\rightarrow$ 
   \begin{itemize}

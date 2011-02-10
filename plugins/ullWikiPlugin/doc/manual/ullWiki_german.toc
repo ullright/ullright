@@ -13,11 +13,12 @@
 \contentsline {subsection}{\numberline {1.4.2}Tags}{8}{subsection.1.4.2}
 \contentsline {subsection}{\numberline {1.4.3}Zugriffsrecht}{8}{subsection.1.4.3}
 \contentsline {subsection}{\numberline {1.4.4}Speichern}{8}{subsection.1.4.4}
+\contentsline {subsection}{\numberline {1.4.5}Automatisches Speichern}{9}{subsection.1.4.5}
 \contentsline {section}{\numberline {1.5}WYSIWYG Editor im Detail}{9}{section.1.5}
 \contentsline {subsection}{\numberline {1.5.1}Bild einf\IeC {\"u}gen}{9}{subsection.1.5.1}
-\contentsline {subsection}{\numberline {1.5.2}Link einf\IeC {\"u}gen}{10}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.2}Link einf\IeC {\"u}gen}{9}{subsection.1.5.2}
 \contentsline {section}{\numberline {1.6}Ansicht}{10}{section.1.6}
-\contentsline {section}{\numberline {1.7}Administration - Zugriffrechte}{11}{section.1.7}
+\contentsline {section}{\numberline {1.7}Administration - Zugriffrechte}{10}{section.1.7}
 \contentsline {subsection}{\numberline {1.7.1}Anlegen}{11}{subsection.1.7.1}
 \contentsline {subsection}{\numberline {1.7.2}Zugriffsrecht konfigurieren}{11}{subsection.1.7.2}
-\contentsline {subsection}{\numberline {1.7.3}Beispiel}{11}{subsection.1.7.3}
+\contentsline {subsection}{\numberline {1.7.3}Beispiel}{12}{subsection.1.7.3}
