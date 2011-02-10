@@ -1,9 +1,7 @@
 <?php
 
 /**
- * This task generates a new cryptographic key and stores it in a 
- * file called security.key in the application config directory.
- * If this file exists, it is renamed to security.key.<timestamp>.backup
+ * See task description
  */
 class ullGenerateCryptoKeyTask extends sfBaseTask
 {
@@ -21,6 +19,8 @@ class ullGenerateCryptoKeyTask extends sfBaseTask
 The [ullright:generate-crypto-key|INFO] task generates a new cryptographic key
 and stores it in a file called security.key in the application config directory.
 If this file exists, it is renamed to security.key.<timestamp>.backup
+
+This key is used to secure url parameters (HMAC)
 
   [./symfony generate-crypto-key|INFO]
 EOF;

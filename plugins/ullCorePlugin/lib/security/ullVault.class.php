@@ -2,6 +2,8 @@
 /**
  * Provides cryptographic key loading and management.
  * 
+ * Currently used to secure url parameters
+ * 
  * TODO: Add functions for key history and revocation list.
  */
 class ullVault implements UllVaultInterface
