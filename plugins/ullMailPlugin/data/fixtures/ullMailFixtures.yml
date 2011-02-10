@@ -84,3 +84,41 @@ UllMailLoggedMessage:
     html_body: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1><p>Hello Test User,</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><p>Have a nice day.</p><p><a href="http://www.ullright.org/ullMail/unsubscribe/id/2">Unsubscribe</a></p><p>(C) 2011 by ull.at</p>
     sent_at: 2010-12-06 08:37:30
     UllNewsletterEdition: ull_newsletter_edition_1      
+
+    
+UllGroup:
+  ull_group_newsletter_admins:
+    display_name:       NewsletterAdmins
+    namespace:          ull_newsletter   
+
+UllPermission:
+  ull_permission_newsletter_index:
+    slug:               ull_newsletter_index
+    namespace:          ull_newsletter
+  ull_permission_newsletter_list:
+    slug:               ull_newsletter_list
+    namespace:          ull_newsletter    
+  ull_permission_newsletter_edit:
+    slug:               ull_newsletter_edit
+    namespace:          ull_newsletter    
+  ull_permission_newsletter_show:
+    slug:               ull_newsletter_show
+    namespace:          ull_newsletter          
+   
+UllGroupPermission:
+  ull_group_permission_ull_newsletter_1:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_newsletter_index
+    namespace:          ull_newsletter
+  ull_group_permission_ull_newsletter_2:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_newsletter_list
+    namespace:          ull_newsletter    
+  ull_group_permission_ull_newsletter_3:
+    UllGroup:           ull_group_newsletter_admins
+    UllPermission:      ull_permission_newsletter_edit
+    namespace:          ull_newsletter    
+  ull_group_permission_ull_newsletter_4:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_newsletter_show
+    namespace:          ull_newsletter
