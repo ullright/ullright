@@ -56,6 +56,8 @@ EOF;
     $this->executeRemoteSymfonyTask('ullright:custom-migrate');
     
     $this->executeRemoteSymfonyTask('project:permissions', true);
+    
+    $this->executeRemoteCommand('chmod o-rwx . -R ');
   }
   
   
