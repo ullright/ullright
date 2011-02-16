@@ -187,7 +187,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     {
       $this->getUser()->setFlash('message', 
         __('Mailing list not found', null, 'ullMailMessages') . '.'
-      );
+      , false);
 
       return;
     }
@@ -198,27 +198,38 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     {
       $this->getUser()->setFlash('message', 
         __('User not found', null, 'ullMailMessages') . '.'
-      );
+      , false);
 
       return;     
     }
     
-    //do the actual unsubscribing
-    $num = $list->unsubscribeUsers($user);
-    
-    if ($num)
+    if ($request->getParameter('confirm') !== '1')
     {
       $this->getUser()->setFlash('message', 
-        __('You have been successfully unsubscribed from list "%list%"', 
-          array('%list%' => $list['name']), 'ullMailMessages') . '.'
-      );
+        __('Are you sure you want to unsubscribe from list "%list%"?', 
+          array('%list%' => $list['name']), 'ullMailMessages') . '<br /><br />' .
+          ull_link_to(__('Confirm', null, 'common'), array('confirm' => 1))
+      , false);
     }
     else
     {
-      $this->getUser()->setFlash('message', 
-        __('You are not subscribed to "%list%"', 
-          array('%list%' => $list['name']), 'ullMailMessages') . '.'
-      );      
+      //do the actual unsubscribing
+      $num = $list->unsubscribeUsers($user);
+      
+      if ($num)
+      {
+        $this->getUser()->setFlash('message', 
+          __('You have been successfully unsubscribed from list "%list%"', 
+            array('%list%' => $list['name']), 'ullMailMessages') . '.'
+        , false);
+      }
+      else
+      {
+        $this->getUser()->setFlash('message', 
+          __('You are not subscribed to "%list%"', 
+            array('%list%' => $list['name']), 'ullMailMessages') . '.'
+        , false);      
+      }
     }
   }
 

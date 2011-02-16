@@ -160,6 +160,16 @@
 <target>Sie sind nicht auf der Liste "%list%" angemeldet</target>
 </trans-unit>
 
+<trans-unit id="506">
+<source>Are you sure you want to unsubscribe from list "%list%"?</source>
+<target>Bitte bestätigen Sie die Abmeldung von Liste "%list%".</target>
+</trans-unit>
+
+<trans-unit id="507">
+<source>Back to newsletter archive</source>
+<target>Zurück zum Newsletter-Archiv</target>
+</trans-unit>
+
 <!-- online link -->
 
 <trans-unit id="601">

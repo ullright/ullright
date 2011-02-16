@@ -1262,6 +1262,11 @@
 <target>Keine</target>
 </trans-unit>
 
+<trans-unit id="26010">
+<source>Confirm</source>
+<target>Bestätigen</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
