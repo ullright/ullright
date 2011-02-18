@@ -11,7 +11,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
   {
     parent::applyCustomSettings();
     
-    $this->disable(array('type', 'is_virtual_group', 'display_name', 'last_name_first', 'parent_ull_user_id', 'selected_culture'));
+    $this->disable(array('type', 'is_virtual_group', 'display_name', 'last_name_first', 'parent_ull_user_id', 'selected_culture', 'num_email_bounces'));
     
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
     

@@ -113,6 +113,8 @@ UllUser:
       default: false
     selected_culture:
       type: string(2) # following the ISO 639-1 standard
+    num_email_bounces:
+      type: integer
   
   relations:
     UllGroup:

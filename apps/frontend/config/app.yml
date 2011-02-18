@@ -131,6 +131,14 @@ all:
   ull_newsletter:
     from_address: newsletter@example.com
     from_name: Example Newsletter
+    
+  ull_mail:
+    bounce_mailserver:              '{imap.example.com}'
+    bounce_mailbox:                 'INBOX'
+    bounce_handled_mailbox:         'INBOX.handledBounces'
+    bounce_username:                'user'
+    bounce_password:                'password'
+    bounce_deactiation_threshold:   3
  
   publish:
     # Set the following options if you want to use the ullright:publish task

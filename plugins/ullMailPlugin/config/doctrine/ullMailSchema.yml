@@ -47,6 +47,8 @@ UllMailLoggedMessage:
       type: string(500)
     ull_newsletter_edition_id:
       type: integer
+    failed_at:
+      type: timestamp
   relations:
     UllNewsletterEdition:
       local: ull_newsletter_edition_id
