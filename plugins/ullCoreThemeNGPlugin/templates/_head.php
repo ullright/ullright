@@ -2,26 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
+<!-- Html meta information -->
+<?php // Defined in /apps/frontend/config/view.yml ?>
 <?php include_http_metas() ?>
 <?php include_metas() ?>
 <?php include_title() ?>
 
-<?php $favicon_uri = sfConfig::get('app_override_favicon', '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 'Plugin/images/favicon.ico') ?>
+<!-- Favicon -->
+<?php // Path defined in /apps/frontend/config/app.yml ?>
+<?php $favicon_uri = sfConfig::get('app_override_favicon', 
+  '/ullCoreTheme' . 
+  sfConfig::get('app_theme_package', 'NG') . 
+  'Plugin/images/favicon.ico') ?>
 <link rel="shortcut icon" href="<?php echo $favicon_uri ?>" type="image/vnd.microsoft.icon" />
 
+<!-- Main default ullright stylesheet -->
 <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
   'Plugin/css/main.css', 'first', array('media' => 'all')) ?>
   
+<!-- Default custom stylesheet -->
+<?php /* Usually located in  web/css/custom_override.css */ ?>
+<?php if ($overrideCss = sfConfig::get('app_override_css')): ?>
+  <?php sfContext::getInstance()->getResponse()->addStylesheet($overrideCss, 'last', array('media' => 'all')) ?>
+<?php endif ?>  
+  
+<!-- Default ullright javascripts -->  
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
-<!-- html head slot -->
+<!-- Html head slot -->
 <?php include_slot('html_head') ?>
-<!-- end of html head slot -->
+<!-- End of html head slot -->
 
-
-<?php if ($overrideCss = sfConfig::get('app_override_css')): ?>
-  <?php sfContext::getInstance()->getResponse()->addStylesheet($overrideCss, 'last', array('media' => 'all')) ?>
-<?php endif ?>
 </head>
 

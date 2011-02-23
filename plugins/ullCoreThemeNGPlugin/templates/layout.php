@@ -1,28 +1,29 @@
-<!-- Define statements to be added to the html head  -->
+<?php /* Statements to be added to the html head */ ?>
 <?php slot('html_head') ?>
 
-  <!-- Include rss feed (Uncomment to activate) -->
+  <?php /* Include rss feed (Uncomment to activate */ ?>
   <?php //include_component('ullNews', 'rssFeed') ?>
 
-  <!-- Add a global custom stylesheet (Uncomment to activate) -->
-  <!-- Put the file in web/css/ -->
+  <?php /* Add global custom stylesheets (Uncomment to activate) */ ?>
+  <?php /* Put files in web/css/ */ ?>
   <?php //use_stylesheet('/css/my_stylesheet.css', 'last', array('media' => 'all')) ?>
   
-  <!-- Add a global custom javascript (Uncomment to activate) -->
-  <!-- Put the file in web/js/ -->
+  <?php /* Add global custom javascripts (Uncomment to activate) */?>
+  <?php /* Put files in web/js/ */?>
   <?php //use_javascript('/js/my_javascript.js') ?>
   
 <?php end_slot() ?>
 
 
-<!-- Actually include the html head --> 
+<?php /* Actually include the html head */ ?> 
+<?php /* The default head is located in plugins/ullCoreThemeNGPlugin/templates/_head.php */ ?>
 <?php require(sfConfig::get('sf_plugins_dir') . 
   '/ullCoreTheme' .
   sfConfig::get('app_theme_package', 'NG') .
   'Plugin/templates/_head.php') ?>
 
 <!--  Begin of html body including css selectors for the current page -->
-<!--  Example: <body class="ullCms_show"> -->
+<?php /*  Example: <body class="ullCms_show"> */ ?>
 <body class="<?php 
   echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();
 ?>">
@@ -88,7 +89,8 @@
       <!-- Force the parent-box ("nav_top") to enclose the floating divs -->
       <div class='clear_right'></div>
       
-      <!-- Example for an ullCms main menu (Uncomment to activate) -->
+      <!-- ullCms main menu -->
+      <?php /* Uncomment to activate */ ?>
       <!-- 
       <div class='nav_main_menu'>
         <ul class="ull_menu_main_menu">

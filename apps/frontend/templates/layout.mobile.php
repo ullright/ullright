@@ -1,7 +1,7 @@
 <?php 
 
-// Use default theme layout.
-// To customize, define your own layout here instead
+// Link to the default layout
+// To customize, copy it here from plugins/ullCoreThemeNGPlugin/templates/ and modify it
 $path = sfConfig::get('sf_plugins_dir') . 
   '/ullCoreTheme' .
   sfConfig::get('app_theme_package', 'NG') .
