@@ -65,7 +65,7 @@ UllMailLoggedMessage:
   ull_newsletter_edition_1_a:
     sender: Test User <test.user@example.com>
     MainRecipient: admin_user
-    to_list: Master Admin (admin@example.com)
+    to_list: Master Admin <admin@example.com>
     subject: ullright presents "ullMail" - our easy-cheesy newsletter system
     plaintext_body: 
     html_body: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1><p>Hello Master Admin,</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><p>Have a nice day.</p><p><a href="http://www.ullright.org/ullMail/unsubscribe/id/1">Unsubscribe</a></p><p>(C) 2011 by ull.at</p>

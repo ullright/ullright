@@ -134,7 +134,7 @@ all:
   ull_mail:
     bounce_mailserver:              '{imap.example.com}'
     bounce_mailbox:                 'INBOX'
-    bounce_handled_mailbox:         'INBOX.handledBounces'
+    bounce_handled_mailbox:         'INBOX.processed'
     bounce_username:                'user'
     bounce_password:                'password'
     bounce_deactiation_threshold:   3

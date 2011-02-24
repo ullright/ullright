@@ -7,13 +7,57 @@
  */
 class PluginUllMailLoggedMessageTable extends UllRecordTable
 {
-    /**
-     * Returns an instance of this class.
-     *
-     * @return object PluginUllMailLoggedMessageTable
-     */
-    public static function getInstance()
-    {
-        return Doctrine_Core::getTable('PluginUllMailLoggedMessage');
-    }
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object PluginUllMailLoggedMessageTable
+   */
+  public static function getInstance()
+  {
+      return Doctrine_Core::getTable('PluginUllMailLoggedMessage');
+  }
+  
+  
+ /**
+   * Returns the latest log entry for a specific user
+   * 
+   * @param ullUser $user
+   * @return ullMailLoggedMessage
+   */
+  public static function findLatestEntryByUser($user)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllMailLoggedMessage m')
+      ->where('m.main_recipient_ull_user_id = ?', $user->id)
+      ->orderBy('m.sent_at DESC, m.id DESC')
+    ;
+  
+    $result = $q->fetchOne();
+  
+    return $result;
+  }
+
+  
+   /**
+   * Returns the latest log entry for a specific email address
+   * 
+   * @param string $email
+   * @return ullMailLoggedMessage
+   */
+  public static function findLatestLogByEmail($email)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllMailLoggedMessage m')
+      ->where('m.to_list like ?', '%' . $email . '%')
+      ->orderBy('m.sent_at DESC, m.id DESC')
+    ;
+  
+    $result = $q->fetchOne();
+  
+    return $result;
+  }
+  
+  
 }

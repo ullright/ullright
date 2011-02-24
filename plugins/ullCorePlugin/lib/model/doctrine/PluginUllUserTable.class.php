@@ -318,5 +318,40 @@ class PluginUllUserTable extends UllEntityTable
     return false;
   }
   
+  /**
+   * Returns user with active mail delivery errors
+   * 
+   * @return ullUser
+   */
+  public static function findWithBounces()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllUser u')
+      ->where('u.num_email_bounces > 0')
+    ;
+  
+    $result = $q->execute();
+  
+    return $result;
+  }
+  
+  /**
+   * Returns all user which mail delivery error counter has reached the maximum
+   * 
+   * @return ullUser
+   */
+  public static function findWithExceededBounceCounterLimit()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllUser u')
+      ->where('u.num_email_bounces >= ?', sfConfig::get('app_ull_mail_bounce_deactiation_threshold', 3))
+    ;
+  
+    $result = $q->execute();
+  
+    return $result;
+  }
   
 }
