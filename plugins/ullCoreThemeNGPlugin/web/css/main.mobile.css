@@ -1,10 +1,12 @@
 /*
- * Layout styles for mobile layout
+ * ************************************************
+ *  Main ullright styles for mobile version
+ * ************************************************
  */
 
 @import "common.css";
-@import "multi_format.css";
-@import "taskcenter.css";
+@import "main_multi_format.css";
+
 
 /*
  * ************************************************
@@ -26,150 +28,6 @@ textarea {
 }
 
 
-
-/*
- * ************************************************
- *  Header
- * ************************************************
- */
- 
-#nav_top a {
-  color: #585858;
-}
-
-#nav_top a:visited {
-  color: #585858; 
-}
-
-#nav_syslinks_container {
-  float: right;	
-}
-
-ul.nav_syslinks_list {
-  list-style-type: none;
-  margin: 0;
-  display: inline;
-}
-
-ul.nav_syslinks_list li {
-  display: inline;
-  padding: 0 .5em 0 .7em;
-  margin: 0;
-  border-left: 1px solid grey;
-  line-height: 1.5em;
-  white-space: nowrap;
-}
-
-ul.nav_syslinks_list li:first-child {
-  display: inline;
-  border: none;
-}
-
-
-#nav_links {
-	margin-top: .5em;
-	background: #e1e2e2;
-	padding: .5em;
-}
-
-#nav_links a {
-	font-weight: bold;
-}
-
-ul.nav_top_links {
-  list-style-type: none;
-  margin: 0;
-}
-
-ul.nav_top_links li {
-  display: inline;
-  padding: 0 .5em 0 .7em;
-  margin: 0;
-  border-left: 1px solid grey;
-  line-height: 2.5em;
-  white-space: nowrap;
-}
-
-ul.nav_top_links li:first-child {
-  display: inline;
-  border: none;
-  padding-left: 0;
-}
-
-.nav_main_menu ul {
-  clear: right;
-  line-height: 1.4em;
-  list-style: none;
-  margin: 0;
-  padding: 0.2em;
-  postion: relativ;
-  height: 1.7em;
-  background-color: #777475;
-  width: inherit;
-}
-
-.nav_main_menu ul li {
-  float: left;
-  margin: 0 0.5em;
-  margin-left: 0em;
-}
-
-div.nav_main_menu a {
-  color: #ffffff !important;
-  font-weight: bold;
-  font-size: 1.05em;
-}
-
-/*
- * ************************************************
- *  Sidebar
- * ************************************************
- */
-
-#sidebar {
-	margin-top: 3em;
-}
-
-#sidebar h3 {
-	margin: 0;
-	margin-bottom: .5em;
-  font-size: 1em;
-  line-height: 1.5em;
-}
-
-#sidebar ul {
-  list-style-type: none;
-  margin: 0;
-}
-
-#sidebar_content ul ul{
-  margin-left: 1em;
-}
-
-#sidebar li {
-  padding: 0;
-  margin: 0;
-  line-height: 1.5em;
-  height: 2em;
-}
-
-.sidebar_section {
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 1em;
-  margin-bottom: 1em;
-  padding: 0;
-}
-
-#sidebar_default {
-  display: inline-block;
-}
-
-#sidebar_custom {
-  display: inline-block;
-}
-
-
 /*
  * ************************************************
  *  Content
@@ -183,20 +41,6 @@ div.nav_main_menu a {
 #ull_user_popup_sidebar {
   float: none;
 }
-
-
-/*
- * ************************************************
- *  Footer
- * ************************************************
- */
- 
-#footer {
-	margin-top: 3em;
-	background: #e1e2e2;
-	padding: .5em;
-	line-height: 1.5em;
-} 
 
 
 /*

@@ -1,16 +1,12 @@
 <?php /* Statements to be added to the html head */ ?>
 <?php slot('html_head') ?>
 
-  <?php /* Include rss feed (Uncomment to activate */ ?>
-  <?php //include_component('ullNews', 'rssFeed') ?>
+  <!-- ullNews RSS feed -->
+  <?php include_component('ullNews', 'rssFeed') ?>
 
   <?php /* Add global custom stylesheets (Uncomment to activate) */ ?>
   <?php /* Put files in web/css/ */ ?>
   <?php //use_stylesheet('/css/my_stylesheet.css', 'last', array('media' => 'all')) ?>
-  
-  <?php /* Add classic ullright layout */ ?>
-  <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
-  'Plugin/css/layout_ullright.css', 'last', array('media' => 'all')) ?>
   
   <?php /* Add global custom javascripts (Uncomment to activate) */?>
   <?php /* Put files in web/js/ */?>
@@ -26,6 +22,7 @@
   sfConfig::get('app_theme_package', 'NG') .
   'Plugin/templates/_head.php') ?>
 
+
 <!--  Begin of html body -->
 <?php /*  Adds a css selector for the current module + action 
   Example: <body class="ullCms_show"> */ ?>
@@ -36,6 +33,7 @@
 <!-- Top-level box containing all subsequent elements -->
 <div id="container">
 
+<?php /*
   <!-- Sidebar box -->
   <div id="sidebar">
     
@@ -51,7 +49,8 @@
     <?php include_partial('default/sidebar_inclusion') ?>
   
   <!-- End of sidebar --> 
-  </div> 
+  </div>
+*/ ?>   
   
   <!-- The canvas contains main navigation, content and footer -->
   <!-- So basically it's everything except the sidebar -->
@@ -61,9 +60,11 @@
     <div id="nav_top">
   
       <!-- Main navigation links (ullright module icons) -->
+      <!--
       <div id='nav_links'>             
-        <?php include_partial('myModule/navTopLinks'); ?>
-      </div> 
+        <?php //include_partial('myModule/navTopLinks'); ?>
+      </div>
+      --> 
       
       <!-- A box on the right side containing e.g. the login link -->
       <div id="nav_syslinks_container">
@@ -93,14 +94,11 @@
       <div class='clear_right'></div>
       
       <!-- ullCms main menu -->
-      <?php /* Uncomment to activate */ ?>
-      <!-- 
       <div class='nav_main_menu'>
         <ul class="ull_menu_main_menu">
-          <?php //include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
+          <?php include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
         </ul>
       </div>
-      -->
             
     <!-- End of navigation -->            
     </div> 
@@ -147,9 +145,9 @@
 
 
 <!-- Sidebar hide / unhide code -->
-<?php if (sfConfig::get('app_sidebar_toggle', true) == true) : ?>
+<?php /* if (sfConfig::get('app_sidebar_toggle', true) == true) : ?>
   <?php include_partial('default/sidebar_toggle') ?>
-<?php endif; ?>
+<?php endif */?>
 
 <!--  End of html body -->
 </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
 
 <!-- Html meta information -->
@@ -16,24 +17,23 @@
   'Plugin/images/favicon.ico') ?>
 <link rel="shortcut icon" href="<?php echo $favicon_uri ?>" type="image/vnd.microsoft.icon" />
 
-<!-- Main default ullright stylesheet -->
+<?php /* Main default ullright stylesheet */ ?>
 <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
   'Plugin/css/main.mobile.css', 'first', array('media' => 'all')) ?>
 
-<!-- Default custom stylesheet -->
+<?php /* Default custom stylesheet */ ?>
 <?php /* Usually located in  web/css/custom_override.css */ ?>
 <?php if ($overrideCss = sfConfig::get('app_override_css')): ?>
   <?php $overrideCss = str_replace('.css', '.mobile.css', $overrideCss)?>
   <?php sfContext::getInstance()->getResponse()->addStylesheet($overrideCss, 'last', array('media' => 'all')) ?>
 <?php endif ?>  
 
-<!-- Default ullright javascripts --> 
+<?php /* Default ullright javascripts */ ?> 
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>  
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
-<!-- Html head slot -->
+<?php /* Include content of the  html_head slot */ ?>
 <?php include_slot('html_head') ?>
-<!-- End of html head slot -->
 
 </head>
 

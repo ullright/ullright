@@ -8,6 +8,10 @@
   <?php /* Put files in web/css/ */ ?>
   <?php //use_stylesheet('my_stylesheet.css', 'last', array('media' => 'all')) ?>
   
+  <?php /* Add classic ullright layout */ ?>
+  <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
+  'Plugin/css/layout_ullright.mobile.css', 'last', array('media' => 'all')) ?>
+  
   <?php /* Add global custom javascripts (Uncomment to activate) */?>
   <?php /* Put files in web/js/my_library/ */?>
   <?php //use_javascript('mylibrary/my_javascript.js') ?>
@@ -21,8 +25,9 @@
   sfConfig::get('app_theme_package', 'NG') .
   'Plugin/templates/_head.mobile.php') ?>
 
-<!--  Begin of html body including css selectors for the current page -->
-<?php /*  Example: <body class="ullCms_show"> */ ?>
+<!--  Begin of html body -->
+<?php /*  Adds a css selector for the current module + action 
+  Example: <body class="ullCms_show"> */ ?>
 <body class="<?php 
   echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();
 ?>">
