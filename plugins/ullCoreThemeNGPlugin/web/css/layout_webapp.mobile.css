@@ -1,12 +1,11 @@
 /*
  * ************************************************
- *  Classic ullright layout for mobile version
- *  
- *  "ullright as a tool" with sidebar and module icons 
+ *  Classic ullright "webapplication" layout for mobile version
+ 
  * ************************************************
  */
 
-@import "layout_ullright_multi_format.css";
+@import "layout_webapp_multi_format.css";
 
 
 /*

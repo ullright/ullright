@@ -3,11 +3,15 @@
 
   <!-- ullNews RSS feed -->
   <?php include_component('ullNews', 'rssFeed') ?>
-
-  <?php /* Add global custom stylesheets (Uncomment to activate) */ ?>
-  <?php /* Put files in web/css/ */ ?>
-  <?php //use_stylesheet('/css/my_stylesheet.css', 'last', array('media' => 'all')) ?>
   
+  <?php /* Add website layout */ ?>
+  <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
+    'Plugin/css/layout_website.css', 'last', array('media' => 'all')) ?>
+    
+  <?php /* Add custom stylesheet */ ?>
+  <?php /* Located in web/css/ */ ?>
+  <?php use_stylesheet('custom.css', 'last', array('media' => 'all')) ?>      
+
   <?php /* Add global custom javascripts (Uncomment to activate) */?>
   <?php /* Put files in web/js/ */?>
   <?php //use_javascript('/js/my_javascript.js') ?>
