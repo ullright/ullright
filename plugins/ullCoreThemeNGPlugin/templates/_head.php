@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
+<!--  Begin of html head -->
 <head>
 
 <!-- Html meta information -->
@@ -21,18 +22,13 @@
 <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
   'Plugin/css/main.css', 'first', array('media' => 'all')) ?>
   
-<?php /* Default custom stylesheet */ ?>
-<?php /* Usually located in  web/css/custom_override.css */ ?>
-<?php if ($overrideCss = sfConfig::get('app_override_css')): ?>
-  <?php sfContext::getInstance()->getResponse()->addStylesheet($overrideCss, 'last', array('media' => 'all')) ?>
-<?php endif ?>  
-  
 <?php /* Default ullright javascripts */?>  
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
 <?php /* Include content of the  html_head slot */ ?>
+<?php /* This is used to inject additional head parts  */ ?>
 <?php include_slot('html_head') ?>
 
 </head>
-
+<!--  End of html head -->
