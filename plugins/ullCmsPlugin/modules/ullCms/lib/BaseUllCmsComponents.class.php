@@ -26,14 +26,34 @@ class BaseUllCmsComponents extends sfComponents
     );    
   }
   
+  /*
+   * Directly render a cms page by slug
+   * 
+   * This can be used for user-editable content blocks
+   */
   public function executeRenderCmsPage(sfRequest $request)
   {
     $this->doc = Doctrine::getTable('UllCmsPage')->findOneBySlug($this->slug);
+
+    // In some cases the translation need is not fetched... 
+    $this->doc->refreshRelated('Translation');
     $this->setVar('title', $this->doc->title);
     $this->setVar('body', $this->doc->body, true);
     $this->setVar('is_active', $this->doc->is_active);
     
     $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');
+  }
+  
+  
+  /**
+   * Render all child pages of the given slug as sidebar blocks
+   * 
+   * @param sfRequest $request
+   * 
+   */
+  public function executeRenderSidebarBlocks(sfRequest $request)
+  {
+    $this->setVar('tree', UllCmsItemTable::getMenuTree($this->slug, null, 2), true);
   }
   
 }
