@@ -93,6 +93,21 @@ class ullCrypt
 
     return $ciphertext;
   }
+  
+/**
+   * Encrypts an arbitrary variable, usually a string.
+   * Returns a string with the ciphertext (base64 encodiert).
+   * 
+   * @param mixed $cleartext
+   * @return string ciphertext for $cleartext - base64 encodiert
+   */
+  public function encryptBase64($cleartext)
+  {
+    $ciphertext = $this->encrypt($cleartext);
+    $base64Ciphertext = base64_encode($ciphertext);
+
+    return $base64Ciphertext;
+  }
 
   /**
    * Decrypts a given ciphertext and returns the cleartext representation.
@@ -140,6 +155,24 @@ class ullCrypt
     mcrypt_generic_deinit($this->cryptModule);
     
     return $cleartext;
+  }
+  
+  /**
+   * Decrypts a given base64 encoded ciphertext and returns the cleartext representation.
+   * Only works if the IV which was used during encryption is prepended to
+   * the ciphertext and a valid HMAC is appended.
+   * 
+   * @param string base64 encoded ciphertext
+   * @return string cleartext for $base64Ciphertext
+   * 
+   * @throws UnexpectedValueException if the ciphertext is too small
+   * @throws ullSecurityNotGenuineException if the HMAC is invalid (usually caused by tampering)
+   */
+  public function decryptBase64($base64Ciphertext)
+  {
+    $ciphertext = base64_decode($base64Ciphertext);
+    
+    return $this->decrypt($ciphertext);
   }
 
   /**
