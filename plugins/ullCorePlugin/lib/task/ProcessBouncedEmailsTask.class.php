@@ -127,7 +127,7 @@ EOF;
           preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
           $bouncedEmailAddresses[] = $matches[1];
           
-          //imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_mailbox'));
+          imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_mailbox'));
         }
       }
     }
