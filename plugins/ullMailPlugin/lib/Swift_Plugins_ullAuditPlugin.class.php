@@ -69,8 +69,12 @@ class Swift_Plugins_ullAuditPlugin
     
     $loggedMessage->save();
     
+    //encrypt loggedMessage id
+    $ullCrypt = ullCrypt::getInstance();
+    $encryptLoggedMessageId = base64_encode($ullCrypt->encrypt($loggedMessage->id));
+    
     $headers = $mail->getHeaders();
-    $headers->addTextHeader('ull-mail-logged-id', $loggedMessage->id);
+    $headers->addTextHeader('ull-mail-logged-id', '' .$encryptLoggedMessageId);
     
     //store the doctrine record under the unique object hash of the mail message
     //since that is the only thing we'll have in sendPerformed() later on

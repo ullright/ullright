@@ -93,13 +93,29 @@ EOF;
     //array with mail numbers (sorted by date)
     $mailNumbers = imap_sort($this->mbox, SORTDATE, 0);
     
+    //to decrypt the ullMailLoggedMessage id
+    $ullCrypt = ullCrypt::getInstance();
+    
     foreach ($mailNumbers as $mailNumber)
     {
       // get the id of the ullMailLogged entry for this message (it is saved in the email header)
-      if (preg_match("/ull-mail-logged-id: ([0-9]*)/i", imap_body($this->mbox, $mailNumber), $matches))
+      if (preg_match("/ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches))
       {
-        $ullMailLoggedMessageId = $matches[1];
-        if ($ullMailLoggedMessage = Doctrine::getTable('UllMailLoggedMessage')->findOneById($ullMailLoggedMessageId))
+        try
+        {
+          //decrypt the ullMailLoggedMessage id 
+          $ullMailLoggedMessageId = $ullCrypt->decrypt(base64_decode($matches[1]));
+        }
+        catch(RuntimeException $e)
+        {
+          $this->logSection(
+            $this->name, 
+            $e->getMessage(),
+            null,
+            'ERROR'
+          );
+        }
+        if (isset($ullMailLoggedMessageId) && $ullMailLoggedMessage = Doctrine::getTable('UllMailLoggedMessage')->findOneById($ullMailLoggedMessageId))
         {
           //saves the date of receiving the "undeliverable message"
           $header = imap_headerinfo($this->mbox, $mailNumber);
@@ -111,12 +127,10 @@ EOF;
           preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
           $bouncedEmailAddresses[] = $matches[1];
           
-          imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_mailbox'));
+          //imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_mailbox'));
         }
       }
     }
-    
-    $this->logSection($this->name, 'Number of bounced emails: ' . count($bouncedEmailAddresses));
     
     return $bouncedEmailAddresses;
   }
