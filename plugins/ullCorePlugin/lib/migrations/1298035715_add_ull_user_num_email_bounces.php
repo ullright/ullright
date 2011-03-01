@@ -14,17 +14,23 @@ protected $tableNames = array(
   
   public function up()
   {
+    $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
     
     // Fix leftover error from failed migration
-    if (! Doctrine::getTable('UllEntity')->hasColumn('num_email_bounces'))
+    try
     {
+      $result = $dbh->query("SELECT num_email_bounces FROM ull_entity LIMIT 1");
+    }
+    catch (Exception $e)
+    {
+      // If the column does not exist yet -> add it
       foreach ($this->tableNames as $tableName)
       {
-        
         {
           $this->addColumn($tableName, 'num_email_bounces', 'string');
         }  
-      }
+      }    
+      
     }
 
   }
