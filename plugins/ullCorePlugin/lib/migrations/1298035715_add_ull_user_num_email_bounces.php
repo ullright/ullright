@@ -14,15 +14,24 @@ protected $tableNames = array(
   
   public function up()
   {
-    foreach ($this->tableNames as $tableName)
+    
+    // Fix leftover error from failed migration
+    if (! Doctrine::getTable('UllEntity')->hasColumn('num_email_bounces'))
     {
-      $this->addColumn($tableName, 'num_email_bounces', 'string');
+      foreach ($this->tableNames as $tableName)
+      {
+        
+        {
+          $this->addColumn($tableName, 'num_email_bounces', 'string');
+        }  
+      }
     }
+
   }
   
   public function down()
   {
-  foreach ($this->tableNames as $tableName)
+    foreach ($this->tableNames as $tableName)
     {
       $this->removeColumn($tableName, 'num_email_bounces');
     }
