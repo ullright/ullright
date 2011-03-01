@@ -4,15 +4,15 @@ class AddUllNewsletterAccess extends Doctrine_Migration_Base
 {
   public function up()
   {
-    $newsletterAdmins = new UllGroup();
-    $newsletterAdmins->display_name = 'NewsletterAdmins';
-    $newsletterAdmins->namespace = 'ull_newsletter';
-    $newsletterAdmins->save();
   }
 
   public function postUp()
   {
     $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
+    
+    $result = $dbh->query("INSERT INTO ull_entity (type, display_name, namespace) 
+        VALUES ('group', 'NewsletterAdmins', 'ull_newsletter')");
+    $groupId = $dbh->lastInsertId();
 
     $result = $dbh->query("SELECT id FROM ull_entity WHERE type='group' AND display_name = 'Everyone'");
     $row = $result->fetch(PDO::FETCH_ASSOC);
