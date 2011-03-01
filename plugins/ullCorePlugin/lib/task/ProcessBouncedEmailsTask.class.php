@@ -64,30 +64,30 @@ EOF;
   {
     //connect to imap mailbox
     if(! $this->mbox = imap_open(
-        sfConfig::get('app_ull_mail_bounce_mailserver') . sfConfig::get('app_ull_mail_bounce_mailbox'), 
+        sfConfig::get('app_ull_mail_bounce_mailbox_base') . sfConfig::get('app_ull_mail_bounce_inbox_folder'), 
         sfConfig::get('app_ull_mail_bounce_username'),
         sfConfig::get('app_ull_mail_bounce_password')
       ))
     {
       throw new RuntimeException(
         'Could not connect to IMAP mailbox: ' . 
-        sfConfig::get('app_ull_mail_bounce_mailserver') . 
-        sfConfig::get('app_ull_mail_bounce_mailbox')
+        sfConfig::get('app_ull_mail_bounce_mailbox_base') . 
+        sfConfig::get('app_ull_mail_bounce_inbox_folder')
       );
     }
      
     $this->logSection(
       $this->name, 
       'Connected to mailbox: ' . 
-      sfConfig::get('app_ull_mail_bounce_mailserver') . 
-      sfConfig::get('app_ull_mail_bounce_mailbox')
+      sfConfig::get('app_ull_mail_bounce_mailbox_base') . 
+      sfConfig::get('app_ull_mail_bounce_inbox_folder')
     );
     
     //creates a new folder for processed mails
     imap_createmailbox(
       $this->mbox, 
-      sfConfig::get('app_ull_mail_bounce_mailserver') . 
-        sfConfig::get('app_ull_mail_bounce_handled_mailbox')
+      sfConfig::get('app_ull_mail_bounce_mailbox_base') . 
+        sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed')
     );
     
     //array with mail numbers (sorted by date)
@@ -104,7 +104,7 @@ EOF;
         try
         {
           //decrypt the ullMailLoggedMessage id 
-          $ullMailLoggedMessageId = $ullCrypt->decrypt(base64_decode($matches[1]));
+          $ullMailLoggedMessageId = $ullCrypt->decryptBase64($matches[1]);
         }
         catch(RuntimeException $e)
         {
@@ -114,20 +114,26 @@ EOF;
             null,
             'ERROR'
           );
+          
+          imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed'));
         }
         if (isset($ullMailLoggedMessageId) && $ullMailLoggedMessage = Doctrine::getTable('UllMailLoggedMessage')->findOneById($ullMailLoggedMessageId))
         {
-          //saves the date of receiving the "undeliverable message"
-          $header = imap_headerinfo($this->mbox, $mailNumber);
-          $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
+          // check if the the log entry is not marked as failed (should not happen)
+          if (! $ullMailLoggedMessage->failed_at)
+          {
+            //saves the date of receiving the "undeliverable message"
+            $header = imap_headerinfo($this->mbox, $mailNumber);
+            $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
+            
+            $ullMailLoggedMessage->save();
+            
+            // exctract email address
+            preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
+            $bouncedEmailAddresses[] = $matches[1];
+          }
           
-          $ullMailLoggedMessage->save();
-          
-          // exctract email address
-          preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
-          $bouncedEmailAddresses[] = $matches[1];
-          
-          imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_mailbox'));
+          imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed'));
         }
       }
     }

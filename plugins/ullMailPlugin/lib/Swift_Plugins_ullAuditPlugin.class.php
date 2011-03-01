@@ -71,7 +71,7 @@ class Swift_Plugins_ullAuditPlugin
     
     //encrypt loggedMessage id
     $ullCrypt = ullCrypt::getInstance();
-    $encryptLoggedMessageId = base64_encode($ullCrypt->encrypt($loggedMessage->id));
+    $encryptLoggedMessageId = $ullCrypt->encryptBase64($loggedMessage->id);
     
     $headers = $mail->getHeaders();
     $headers->addTextHeader('ull-mail-logged-id', '' .$encryptLoggedMessageId);

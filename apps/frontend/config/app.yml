@@ -128,13 +128,14 @@ all:
     due_date_reminder_period: 3
  
   ull_newsletter:
-    from_address: newsletter@example.com
-    from_name: Example Newsletter
+    from_address:       newsletter@example.com
+    from_name:          Example Newsletter
+    bounce_mail_box:    bounce@example.com
     
   ull_mail:
-    bounce_mailserver:              '{imap.example.com}'
-    bounce_mailbox:                 'INBOX'
-    bounce_handled_mailbox:         'INBOX.processed'
+    bounce_mailbox_base:            '{imap.example.com}'
+    bounce_inbox_folder:            'INBOX'
+    bounce_handled_folder:          'INBOX.processed'
     bounce_username:                'user'
     bounce_password:                'password'
     bounce_deactiation_threshold:   3
