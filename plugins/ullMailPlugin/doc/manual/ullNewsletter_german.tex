@@ -1,0 +1,283 @@
+%ullright document template
+%default a4 one-sided article page setup
+\documentclass[article, a4paper, oneside, 11pt]{memoir}
+
+%the following three commands are necessary when using pdflatex
+%(set input/output encoding)
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+%use sans serife font for body 
+\renewcommand*\familydefault{\sfdefault}
+
+%but with more tech-doc like margins
+\setlrmarginsandblock{2.8cm}{2.8cm}{*}
+\checkandfixthelayout
+
+%for the german language
+\usepackage[ngerman]{babel}
+
+%including pictures
+\usepackage{graphicx}
+\graphicspath{{./figures/}}
+
+%wrapping text around figures
+\usepackage{wrapfig}
+
+%provides symbols for shift, enter, etc.
+\usepackage{keystroke}
+
+%url handling
+\usepackage{url}
+
+%for code examples
+\usepackage{listings}
+
+%elaborate references
+\usepackage[ngerman]{varioref}
+
+%we do not use xelatex anymore
+%allows convenient font/color specification
+%\usepackage{xcolor}
+%\usepackage{fontspec}
+%'classic' tex mappings, e.g. -- => en-dash
+%\defaultfontfeatures{Mapping=tex-text}
+%\setromanfont{Gentium Basic}
+%\definecolor{DocBlue}{rgb}{0.1, 0.42, 0.59}
+%\setsansfont[Color = DocBlue]{Ubuntu}
+
+%enables pdf linking and attributes
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black,%
+    pdfauthor={ull.at},%
+    pdftitle={ullCms Handbuch},%
+    pdfsubject={ullright - ullCms}
+}
+
+\chapterstyle{veelo}
+\headstyles{komalike}
+\pagestyle{empty}
+
+%header and footer images on every page
+\usepackage{wallpaper}
+\ULCornerWallPaper{1.0}{header}
+\LLCornerWallPaper{1.0}{footer}
+
+%Precise figure placement
+% \usepackage{float}
+
+%padding for fbox borders
+%\setlength\fboxsep{0pt}
+
+%color headlines
+\usepackage{color}
+\usepackage{titlesec}
+
+\definecolor{ullblue}{rgb}{0.1, 0.42, 0.59}
+
+\titleformat{\chapter}[display]
+{\color{ullblue}\normalfont\huge\bfseries}{\chaptertitlename\
+\thechapter}{20pt}{\Huge}
+
+\titleformat{\section}
+{\color{ullblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+
+% Do not indent paragraphes but add newlines
+\usepackage{parskip}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{2mm}
+
+
+%memoir recommendation
+\clubpenalty=10000
+\widowpenalty=10000
+\raggedbottom
+
+
+\begin{document}
+
+\vspace*{3cm}
+%move picture left/right
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.5\textwidth]{softwarebox}
+\end{figure}
+
+\vspace{3cm}
+
+%we do not use xelatex anymore
+{%\fontspec[Scale=1.4, Color = DocBlue]{Ubuntu Bold}
+\huge
+\color{ullblue}
+ullNewsletter -- Erfolg durch informierte Kunden
+}
+
+\vspace{0.2cm}
+
+{%\fontspec[Scale=1.4, Color = DocBlue]{Ubuntu Bold}
+\large
+%\color{ullblue}
+Ein Modul der ullright-Plattform -- www.ullright.org
+}
+
+\vspace{1cm}
+
+%we do not use xelatex anymore
+{%\fontspec[Scale=0.8]{Gentium Basic}
+\footnotesize
+01.03.2011 -- Klemens Ullmann-Marx
+}
+
+\clearpage
+
+\pagestyle{plain}
+
+%\setcounter{page}{1}
+
+%number and include in toc up until subsections
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\tableofcontents*
+
+\clearpage
+
+\addtocounter{chapter}{1}
+
+%the star prevents this chapter from being added to the toc and from being numbered
+\chapter*{ullNewsletter}
+
+\section{Verteiler}
+
+Legen Sie Verteiler für jede Zielgruppe an. Sprechen Sie dadurch jede Interessentengruppe gezielt an. Dadurch vermeiden Sie Abmeldungen weil Ihre Kunden nicht mit für sie uninteressanten Informationen "`zugespammt"' werden.
+
+\subsection{Verwaltung}
+
+Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Verteiler"'.
+
+\subsection{Erstellen}
+\label{sec:create-mailing-list}
+
+Klicken Sie auf "`Erstellen"'
+
+\subsubsection{Name}
+
+Geben Sie den Namen für den Verteiler ein.
+
+Beispiel: Produktneuigkeiten für Gemüsehändler
+
+\subsubsection{Beschreibung}
+
+Beschreiben Sie welche Informationen Ihre Kunden über diesen Verteiler erhalten.
+
+Denken Sie an folgende Punkte:
+\begin{itemize}
+ \item Zielgruppe
+ \item Themen
+ \item Anzahl der Newsletter pro Jahr
+\end{itemize}
+
+Beispiel:  
+
+Erhalten Sie 4-6 Mal jährlich interessante Produktneuigkeiten und Erfahrungsberichte aus dem Bereich des Gemüsehandels.
+
+\subsubsection{Standardmäßig angemeldet}
+
+Hier geht es darum ob neu angelegte Benutzer automatisch für den aktuellen Newsletter angemeldet werden.
+Dabei ist es egal ob Sie einen Benutzer händisch anlegen oder ob sich der Benutzer selbst auf Ihrer Webseite registriert.
+
+\subsubsection{Ist aktiv}
+
+Damit steuern Sie ob der aktuelle Verteiler in der Liste Ihrer Verteiler aufscheint.
+
+Wenn dieses Feld nicht angekreuzt wird, können Kunden sich nicht für diesen Verteiler anmelden.
+
+
+
+
+
+\section{Layouts}
+
+Ein Layout ist eine Art Formatvorlage um Ihren Newslettern ein einheitliches und attraktives Aussehen zu verleihen.
+
+Im Normalfall genügt es einmal ein Layout im Stile Ihrer CI (Coporate Identity) anzulegen.
+
+Sie können beliebig viele Layouts anlegen.
+
+
+\subsection{Verwaltung}
+
+Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Layouts"'.
+
+\subsection{Erstellen}
+\label{sec:create-layout}
+
+Klicken Sie auf "`Erstellen"'
+
+\subsubsection{Name}
+
+Geben Sie einen Namen für das neue Layout ein. Beispiel: "`Standard"'
+
+\subsubsection{HTML-Head}
+
+Der "`head"' Teil des HTML Codes. Hier können Sie z.B. CSS Stylesheet Anweisungen einfügen.
+
+Beispiel:
+
+\begin{lstlisting}
+<style type="text/css">
+  body {
+    font-size 10pt; 
+  }
+  
+  h1 { 
+    color: red;
+  } 
+</style>
+\end{lstlisting}
+
+Hinweis: Der "`<head>"' Tag ist nicht erforderlich.
+
+\subsubsection{HTML-Body}
+
+Geben Sie hier den HTML-Code für Ihr Layout ein.
+
+Sie können den grafischen WYSIWYG (What you see is what you get) Editor verwenden oder durck Klick auf den Button "`Quellcode"' zum HTML-Code umschalten.
+
+Tips und Tricks zur Verwendung des Editors erhalten Sie im ullCms Handbuch.
+
+
+Folgende Platzhalter stehen zur Verfügung:
+
+\begin{itemize}
+\item [ONLINE_LINK] - Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
+\item [CONTENT] - Platzhalter für den eigentlichen Inhalt des Newsletters
+\item [UNSUBSCRIBE] - Fügt die Unsubscribe-Links zur Abmeldung ein
+\end{itemize}
+
+Ein einfaches Beispiel:
+
+\begin{lstlisting}
+<h1>ullright Product News</h1>
+
+<p>[ONLINE_LINK]<p>
+
+<p>[CONTENT]</p>
+
+<p>[UNSUBSCRIBE]</p>
+<p>(C) 2011 by ull.at</p>
+\end{lstlisting}
+
+\subsection{Bearbeiten}
+
+Klicken Sie in der Liste der Layouts auf das Stiftsymbol vor dem Eintrag den Sie bearbeiten möchte.
+
+Alles weitere erfahren Sie im Kapitel \vref{sec:create-layout}.
+
+
+
+\end{document}

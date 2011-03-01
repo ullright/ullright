@@ -92,6 +92,11 @@
 <target>HTML-Head</target>
 </trans-unit>
 
+<trans-unit id="213">
+<source>Newsletter layouts</source>
+<target>Newsletter-Layouts</target>
+</trans-unit>
+
 <!-- named queries -->
 
 <trans-unit id="300">
