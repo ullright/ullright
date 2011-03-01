@@ -162,23 +162,26 @@ EOF;
       $userEmails[] = $user->email;
     }
     
-    //uniquify the arra
-    $userEmails = array_values(array_unique($userEmails));
-    
-    foreach ($userEmails as $userEmail)
+    if (isset($userEmails))
     {
-      $ullMailLoggedMessage = UllMailLoggedMessageTable::findLatestLogByEmail($userEmail);
+      //uniquify the arra
+      $userEmails = array_values(array_unique($userEmails));
       
-      if ($ullMailLoggedMessage && (! $ullMailLoggedMessage->failed_at))
+      foreach ($userEmails as $userEmail)
       {
-        //get email address from ullMailLoggedMessage
-        preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
-        $toResetUsers = Doctrine::getTable('UllUser')->findByEmail($matches[1]);
+        $ullMailLoggedMessage = UllMailLoggedMessageTable::findLatestLogByEmail($userEmail);
         
-        foreach ($toResetUsers as $toResetUser)
+        if ($ullMailLoggedMessage && (! $ullMailLoggedMessage->failed_at))
         {
-          $toResetUser->num_email_bounces = 0;
-          $toResetUser->save();
+          //get email address from ullMailLoggedMessage
+          preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
+          $toResetUsers = Doctrine::getTable('UllUser')->findByEmail($matches[1]);
+          
+          foreach ($toResetUsers as $toResetUser)
+          {
+            $toResetUser->num_email_bounces = 0;
+            $toResetUser->save();
+          }
         }
       }
     }
