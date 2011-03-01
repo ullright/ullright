@@ -1,0 +1,6 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1.1}Layouts}{3}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Erstellen}{3}{subsection.1.1.1}
+\contentsline {subsubsection}{Name}{3}{subsection.1.1.1}
+\contentsline {subsubsection}{HTML-Head}{3}{subsection.1.1.1}
+\contentsline {subsubsection}{HTML-Body}{4}{lstnumber.-1.9}
