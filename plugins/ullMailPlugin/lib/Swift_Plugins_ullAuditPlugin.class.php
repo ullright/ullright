@@ -67,13 +67,21 @@ class Swift_Plugins_ullAuditPlugin
     
     $loggedMessage->save();
     
-    //encrypt loggedMessage id
-    $ullCrypt = ullCrypt::getInstance();
-    $encryptLoggedMessageId = $ullCrypt->encryptBase64($loggedMessage->id);
     
+    //add encrypted loggedMessage id to mail headers
+    $ullCrypt = ullCrypt::getInstance();
+    $encryptLoggedMessageId = $ullCrypt->encryptBase64($loggedMessage->id, true);
     $headers = $mail->getHeaders();
     $headers->addTextHeader('ull-mail-logged-id', '' .$encryptLoggedMessageId);
     
+    //replace logged message id tag in body
+    $mail->setBody(str_replace('_-_LOGGED_MESSAGE_ID_-_',
+      $encryptLoggedMessageId, $mail->getBody()));
+    
+    //shouldn't setBody handle this?
+    $mail->setPlaintextBody(str_replace('_-_LOGGED_MESSAGE_ID_-_',
+      $encryptLoggedMessageId, $mail->getPlaintextBody()));
+      
     //store the doctrine record under the unique object hash of the mail message
     //since that is the only thing we'll have in sendPerformed() later on
     //i don't think we can trust the mail id (is it really unique?)

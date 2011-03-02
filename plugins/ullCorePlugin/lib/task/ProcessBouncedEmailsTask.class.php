@@ -104,7 +104,7 @@ EOF;
         try
         {
           //decrypt the ullMailLoggedMessage id 
-          $ullMailLoggedMessageId = $ullCrypt->decryptBase64($matches[1]);
+          $ullMailLoggedMessageId = $ullCrypt->decryptBase64($matches[1], true);
         }
         catch(RuntimeException $e)
         {

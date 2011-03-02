@@ -96,17 +96,19 @@ class ullCrypt
   
 /**
    * Encrypts an arbitrary variable, usually a string.
-   * Returns a string with the ciphertext (base64 encodiert).
+   * Returns a string with the ciphertext
+   * (base64 encoded, optionally url-safe).
    * 
    * @param mixed $cleartext
-   * @return string ciphertext for $cleartext - base64 encodiert
+   * @param boolean $urlSafe enables url-safe encoding
+   * @return string ciphertext for $cleartext - (url-safe) base64 encoded
    */
-  public function encryptBase64($cleartext)
+  public function encryptBase64($cleartext, $urlSafe = false)
   {
     $ciphertext = $this->encrypt($cleartext);
-    $base64Ciphertext = base64_encode($ciphertext);
-
-    return $base64Ciphertext;
+    
+    return ($urlSafe) ? ullCoreTools::base64_encode_urlsafe($ciphertext) :
+      base64_encode($ciphertext);
   }
 
   /**
@@ -158,19 +160,21 @@ class ullCrypt
   }
   
   /**
-   * Decrypts a given base64 encoded ciphertext and returns the cleartext representation.
-   * Only works if the IV which was used during encryption is prepended to
-   * the ciphertext and a valid HMAC is appended.
+   * Decrypts a given base64 encoded ciphertext and returns the cleartext
+   * representation. Only works if the IV which was used during encryption
+   * is prepended to the ciphertext and a valid HMAC is appended.
    * 
-   * @param string base64 encoded ciphertext
+   * @param string $base64Ciphertext base64 encoded ciphertext
+   * @param boolean $urlSafe enables url-safe decoding
    * @return string cleartext for $base64Ciphertext
    * 
    * @throws UnexpectedValueException if the ciphertext is too small
    * @throws ullSecurityNotGenuineException if the HMAC is invalid (usually caused by tampering)
    */
-  public function decryptBase64($base64Ciphertext)
+  public function decryptBase64($base64Ciphertext, $urlSafe = false)
   {
-    $ciphertext = base64_decode($base64Ciphertext);
+    $ciphertext = ($urlSafe) ? ullCoreTools::base64_decode_urlsafe($base64Ciphertext) :
+      base64_decode($base64Ciphertext);
     
     return $this->decrypt($ciphertext);
   }

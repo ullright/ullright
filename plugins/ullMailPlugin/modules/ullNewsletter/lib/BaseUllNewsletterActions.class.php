@@ -56,27 +56,28 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_newsletter_show');
     $this->breadcrumbForShow();
     
-    $newsletterEdition = Doctrine::getTable('UllNewsletterEdition')
-      ->findOneById($request->getParameter('id'));
-    $this->forward404If($newsletterEdition === false); 
+    $ullCrypt = ullCrypt::getInstance();
     
-    $user = Doctrine::getTable('UllUser')->find($request->getParameter('s_uid'));
+    $loggedMessage = Doctrine::getTable('UllMailLoggedMessage')
+      ->findOneById($ullCrypt->decryptBase64($request->getParameter('mid'), true));
+    $this->forward404If($loggedMessage === false); 
     
-    if ($user)
+    //make use of the information that the user clicked on the read-online link     
+    $loggedMessage['num_of_readings'] = $loggedMessage['num_of_readings'] + 1;
+    $loggedMessage['last_user_agent'] = $request->getHttpHeader('User-Agent');
+    $loggedMessage['last_ip'] = $request->getRemoteAddress();
+    
+    //first time this message is read?
+    if (!$loggedMessage['first_read_at'])
     {
-      //TODO: make use of the information that this user clicked on
-      //the read-online link (statistics, graphs ... pie charts!)
-     
-      //generate header + body with CONTENT replaced by actual content
-      $body = $newsletterEdition->getDecoratedBody();
-   
-      //replace user tags like FIRST_NAME, ONLINE_LINK, ...
-      //note: ONLINE_LINK gets removed (since we're already in
-      //online view mode)
-      $body = $newsletterEdition->getPersonalizedBody($body, $user, true);
-
-      return $this->renderText($body);
+      $loggedMessage['first_read_at'] = date('c');
+      $readCount = $loggedMessage->UllNewsletterEdition['num_read_emails'];
+      $loggedMessage->UllNewsletterEdition['num_read_emails'] = $readCount + 1;
     }
+    
+    $loggedMessage->save();
+    
+    return $this->renderText($loggedMessage['html_body']);
   }
   
   /**
