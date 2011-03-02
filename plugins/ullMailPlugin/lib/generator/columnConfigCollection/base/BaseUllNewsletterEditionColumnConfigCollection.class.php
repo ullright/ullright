@@ -49,7 +49,7 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
     ;
     
     $this['num_sent_recipients']
-      ->setLabel(__('Delivered', null, 'ullMailMessages'))
+      ->setLabel(__('Sent', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
 

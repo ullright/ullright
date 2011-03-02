@@ -153,7 +153,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       $row['submitted_at'] = date('Y-m-d H:i:s');
       $row['submitted_by_ull_user_id'] = $user->id;
       $row['sender_culture'] = $this->getUser()->getCulture();
-      $row['num_recipients'] = $numOfRecipients;
+      $row['num_total_recipients'] = $numOfRecipients;
       $row->save();
       
       $this->getUser()->setFlash('message', 

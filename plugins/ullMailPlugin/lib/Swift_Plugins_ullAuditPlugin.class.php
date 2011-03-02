@@ -99,10 +99,18 @@ class Swift_Plugins_ullAuditPlugin
       //set the 'sent' timestamp
       $loggedMessage['sent_at'] = date('Y-m-d H:i:s');
       
-      //TODO: update newsletter edition sent count
-      
       $loggedMessage->save();
       unset($this->mailsInTransfer[spl_object_hash($mail)]);
+      
+      
+      //update newsletter edition sent count
+      $newsletterEdition = Doctrine::getTable('UllNewsletterEdition')
+        ->find($loggedMessage['ull_newsletter_edition_id']);
+      if ($newsletterEdition)
+      {
+        $newsletterEdition['num_sent_recipients'] = $newsletterEdition['num_sent_recipients'] + 1;
+        $newsletterEdition->save();
+      }
     }
   }
 }

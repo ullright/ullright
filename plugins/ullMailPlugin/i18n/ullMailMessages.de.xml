@@ -103,8 +103,8 @@
 </trans-unit>
 
 <trans-unit id="215">
-<source>Delivered</source>
-<target>Zugestellt</target>
+<source>Sent</source>
+<target>Versandt</target>
 </trans-unit>
 
 <!-- named queries -->
