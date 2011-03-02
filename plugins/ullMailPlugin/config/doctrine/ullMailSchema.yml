@@ -161,9 +161,9 @@ UllNewsletterEdition:
       type: clob
       notnull: true
     # Means when the user clicks on "send" for a newsletter.
-    sent_at:
+    submitted_at:
       type: timestamp
-    sent_by_ull_user_id:
+    submitted_by_ull_user_id:
       type: integer      
     sender_culture:
       type string(5)
@@ -173,12 +173,14 @@ UllNewsletterEdition:
     is_active:
       type: boolean
       default: true
-    # counters are incremented by post save hooks
-    num_sent_emails:
+    num_total_recipients:
       type: integer
+    # counters are incremented by post save hooks
     num_failed_emails:
       type: integer
     num_read_emails:
+      type: integer
+    num_sent_recipients:
       type: integer
   relations:
     UllNewsletterEditionMailingLists:
@@ -191,7 +193,7 @@ UllNewsletterEdition:
       foreign: id
     Sender:
       class: UllUser
-      local: sent_by_ull_user_id
+      local: submitted_by_ull_user_id
       foreign: id
 
 # Logs which newsletter edition was sent to which mailing lists

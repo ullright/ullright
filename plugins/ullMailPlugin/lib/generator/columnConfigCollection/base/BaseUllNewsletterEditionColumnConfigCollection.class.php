@@ -23,18 +23,18 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
     ;
 
-    $this['sent_by_ull_user_id']
+    $this['submitted_by_ull_user_id']
       ->setLabel(__('Sender', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
     
-    $this['sent_at']
+    $this['submitted_at']
       ->setLabel(__('Sent at', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
     
-    $this['num_sent_emails']
-      ->setLabel(__('Mails sent', null, 'ullMailMessages'))
+    $this['num_total_recipients']
+      ->setLabel(__('Total recipient count', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
     
@@ -45,6 +45,11 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
     
     $this['num_read_emails']
       ->setLabel(__('Read', null, 'ullMailMessages'))
+      ->setAccess('r')
+    ;
+    
+    $this['num_sent_recipients']
+      ->setLabel(__('Delivered', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
 
@@ -62,11 +67,12 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
         'is_active',
       ),
       'tracking' => array(
-        'num_sent_emails', 
+        'num_total_recipients',
+        'num_sent_recipients',
         'num_failed_emails',
         'num_read_emails',
-        'sent_by_ull_user_id',
-        'sent_at',
+        'submitted_by_ull_user_id',
+        'submitted_at',
       ),
       'misc' => array(
         'id',
@@ -93,11 +99,12 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
     if ($this->isCreateAction())
     {
       $this->disable(array(
-        'sent_by_ull_user_id',
-        'sent_at',
-        'num_sent_emails', 
+        'submitted_by_ull_user_id',
+        'submitted_at',
+        'num_total_recipients', 
         'num_failed_emails',
         'num_read_emails',
+        'num_sent_recipients'
       ));
     }
   }

@@ -100,7 +100,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     parent::executeEdit($request);
     
-    $this->already_sent = (boolean) $this->generator->getRow()->sent_at;
+    $this->already_sent = (boolean) $this->generator->getRow()->submitted_at;
   }
   
   
@@ -123,7 +123,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     if ($request->getParameter('action_slug') == 'send')
     {
-      if ($row->sent_at)
+      if ($row->submitted_at)
       {
         $this->getUser()->setFlash('message', 
           __('This newsletter has already been sent', null, 'ullMailMessages') . '!'
@@ -150,15 +150,15 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         ));
       }
       
-      $row['sent_at'] = date('Y-m-d H:i:s');
-      $row['sent_by_ull_user_id'] = $user->id;
+      $row['submitted_at'] = date('Y-m-d H:i:s');
+      $row['submitted_by_ull_user_id'] = $user->id;
       $row['sender_culture'] = $this->getUser()->getCulture();
-      $row['num_sent_emails'] = $numOfRecipients;
+      $row['num_recipients'] = $numOfRecipients;
       $row->save();
       
       $this->getUser()->setFlash('message', 
-        __('The newsletter is beeing sended to %number% recipients', 
-          array('%number%' => $row['num_sent_emails']), 'ullMailMessages') . '.'
+        __('The newsletter is being sent to %number% recipients', 
+          array('%number%' => $row['num_total_recipients']), 'ullMailMessages') . '.'
       );
     }      
     

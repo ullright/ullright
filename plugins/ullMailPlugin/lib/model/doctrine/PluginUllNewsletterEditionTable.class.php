@@ -22,7 +22,7 @@ class PluginUllNewsletterEditionTable extends UllRecordTable
       $q = new Doctrine_Query;
       $q
         ->from('UllNewsletterEdition e')
-        ->where('e.sent_at IS NOT NULL')
+        ->where('e.submitted_at IS NOT NULL')
         ->addWhere('e.queued_at IS NULL')
       ;
       

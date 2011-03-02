@@ -97,6 +97,16 @@
 <target>Newsletter-Layouts</target>
 </trans-unit>
 
+<trans-unit id="214">
+<source>Total recipient count</source>
+<target>Gesamtzahl Empfänger</target>
+</trans-unit>
+
+<trans-unit id="215">
+<source>Delivered</source>
+<target>Zugestellt</target>
+</trans-unit>
+
 <!-- named queries -->
 
 <trans-unit id="300">
@@ -123,7 +133,7 @@
 </trans-unit>
 
 <trans-unit id="403">
-<source>The newsletter is beeing sended to %number% recipients</source>
+<source>The newsletter is being sent to %number% recipients</source>
 <target>Der Newsletter wird an %number% Empfänger versendet</target>
 </trans-unit>
 

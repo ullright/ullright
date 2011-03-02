@@ -13,7 +13,7 @@ class SpoolEmailsTask extends ullBaseTask
 
     [php symfony {$this->namespace}:{$this->name}|INFO]
     
-    This task usually is invoked by a frequently run cronjob which should run 
+    This task usually is invoked by a frequently run cronjob.
 EOF;
 
     $this->addArgument('application', sfCommandArgument::OPTIONAL,
@@ -47,6 +47,10 @@ EOF;
       $mail = $edition->createMailMessage($user);
       
       $recipients = $edition->findRecipients();
+      
+      //recipient count might have changed in the time period
+      //between submission and spooling
+      $edition['num_total_recipients'] = count($recipients);
       
       //TODO: allow to give an array of UllUsers
       //TODO: add handling for multiple UllUsers for batchSend

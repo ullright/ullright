@@ -16,15 +16,16 @@ class BaseUllNewsletterEditionTableConfiguration extends UllTableConfiguration
   {
     $this->setName(__('Newsletter', null, 'ullNewsletterMessages'));
     $this->setSearchColumns(array('subject'));
-    $this->setOrderBy('sent_at DESC');
+    $this->setOrderBy('submitted_at DESC');
 
     $this->setListColumns(array(
       'subject',
       'UllNewsletterEditionMailingLists',
-      'sent_at',
+      'submitted_at',
       'Sender->display_name',
       'is_active',
-      'num_sent_emails',
+      'num_total_recipients',
+      'num_sent_recipients',
       'num_failed_emails',
       'num_read_emails',
     ));

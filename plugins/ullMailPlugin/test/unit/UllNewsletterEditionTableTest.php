@@ -20,7 +20,7 @@ $t->begin('findEditionsToBeSpooled()');
   $edition->fromArray(array(
     'subject' => 'foo',
     'body'  => 'bar',
-    'sent_at' => '2010-10-10 10:10:10',
+    'submitted_at' => '2010-10-10 10:10:10',
   ));
   $edition->save();
   

@@ -7,9 +7,7 @@
  * How it works: This plugin acts before and after sending
  * is performed. Before sending, a status flag is set to
  * false (it is null by default); it is set to true after 
- * sending. Depending on the currently acting transport
- * the 'realtime_sent_status' or the 'spool_sent_status'
- * column is used.
+ * sending.
  * 
  * To catch modifications done by previous plugins (e.g.
  * the RedirectingPlugin, which modifies headers), this
@@ -100,6 +98,8 @@ class Swift_Plugins_ullAuditPlugin
       
       //set the 'sent' timestamp
       $loggedMessage['sent_at'] = date('Y-m-d H:i:s');
+      
+      //TODO: update newsletter edition sent count
       
       $loggedMessage->save();
       unset($this->mailsInTransfer[spl_object_hash($mail)]);
