@@ -122,11 +122,13 @@
     // disable ajax autosave in create mode or having validation errors
     if (("' . $doc->id .'") && ( ! ($("#content > .form_error").length > 0)))
     {
-      setInterval("autoSaveWikiAjax()", 60000);
+      // Temp. disabled because of  http://www.ullright.org/ullFlow/edit/doc/1482
+      //setInterval("autoSaveWikiAjax()", 60000);
     }
     else
     {
-      $("#ull_wiki_autosave_notice").show();
+      // Temp. disabled because of  http://www.ullright.org/ullFlow/edit/doc/1482
+      //$("#ull_wiki_autosave_notice").show();
     }
     
   }); 
