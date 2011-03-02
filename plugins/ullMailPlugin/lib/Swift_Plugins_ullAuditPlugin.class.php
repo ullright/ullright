@@ -104,12 +104,36 @@ class Swift_Plugins_ullAuditPlugin
       
       
       //update newsletter edition sent count
-      $newsletterEdition = Doctrine::getTable('UllNewsletterEdition')
-        ->find($loggedMessage['ull_newsletter_edition_id']);
-      if ($newsletterEdition)
+      if ($loggedMessage['ull_newsletter_edition_id'])
       {
-        $newsletterEdition['num_sent_recipients'] = $newsletterEdition['num_sent_recipients'] + 1;
-        $newsletterEdition->save();
+        $newsletterEdition = Doctrine::getTable('UllNewsletterEdition')
+          ->find($loggedMessage['ull_newsletter_edition_id']);
+        if ($newsletterEdition)
+        {
+          $q = new Doctrine_Query();
+          $q->from('UllMailLoggedMessage')
+            ->where('ull_newsletter_edition_id = ?', $loggedMessage['ull_newsletter_edition_id'])
+            ->andWhere('transport_sent_status = ?', true)
+            /*  _   _     _       ____   _  __    
+               |'| |'|U  /"\  uU /"___| |"|/ /    
+              /| |_| |\\/ _ \/ \| | u   | ' /     
+              U|  _  |u/ ___ \  | |/__U/| . \\u   
+               |_| |_|/_/   \_\  \____| |_|\_\    
+               //   \\ \\    >> _// \\,-,>> \\,-. 
+              (_") ("_)__)  (__)__)(__)\.)   (_/  
+              
+              considering test messages are most likely sent by 'real'
+              users (i.e. users with user id != 1) the following
+              prevents these test messages from counting as 'sent messages'
+              
+							68 kittens were killed during production of this code line
+            */
+            ->andWhere('creator_user_id = ?', 1)
+          ;
+          
+          $newsletterEdition['num_sent_recipients'] = $q->count();
+          $newsletterEdition->save();
+        }
       }
     }
   }
