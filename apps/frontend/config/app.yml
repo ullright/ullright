@@ -130,9 +130,9 @@ all:
   ull_newsletter:
     from_address:       newsletter@example.com
     from_name:          Example Newsletter
-    bounce_mail_box:    bounce@example.com
     
   ull_mail:
+    bounce_mail_address:            bounce@example.com
     bounce_mailbox_base:            '{imap.example.com}'
     bounce_inbox_folder:            'INBOX'
     bounce_handled_folder:          'INBOX.processed'

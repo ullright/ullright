@@ -126,7 +126,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     
     $mail->setNewsletterEditionId($this['id']);
     
-    $mail->setReturnPath(sfConfig::get('app_ull_newsletter_bounce_mail_box'));
+    $mail->setReturnPath(sfConfig::get('app_ull_newsletter_bounce_mail_address'));
     
     return $mail;
   }
