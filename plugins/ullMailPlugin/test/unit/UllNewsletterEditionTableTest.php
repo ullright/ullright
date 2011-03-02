@@ -12,6 +12,11 @@ $t->setFixturesPath($path);
 
 $t->begin('findEditionsToBeSpooled()');
 
+  //fake unqueued newsletter edition
+  $newsletterEdition = Doctrine::getTable('UllNewsletterEdition')->find(1);
+  $newsletterEdition['queued_at'] = null;
+  $newsletterEdition->save();
+  
   $editions = UllNewsletterEditionTable::findEditionsToBeSpooled();
   
   $t->is(count($editions), 1, 'Got one composed edition that is not spooled from the fixtures');
