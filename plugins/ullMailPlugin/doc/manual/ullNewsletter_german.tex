@@ -254,9 +254,11 @@ Tips und Tricks zur Verwendung des Editors erhalten Sie im ullCms Handbuch.
 Folgende Platzhalter stehen zur Verfügung:
 
 \begin{itemize}
-\item [ONLINE_LINK] - Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
-\item [CONTENT] - Platzhalter für den eigentlichen Inhalt des Newsletters
-\item [UNSUBSCRIBE] - Fügt die Unsubscribe-Links zur Abmeldung ein
+ % "[" is interpreted -> use \lbrack instead
+ % the underscore in ONLINE_LINK is interpreted (!?%&) -> escape with \
+ \item \lbrack ONLINE\_LINK \rbrack  - Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
+ \item \lbrack CONTENT \rbrack  - Platzhalter für den eigentlichen Inhalt des Newsletters
+ \item \lbrack UNSUBSCRIBE \rbrack   - Fügt die Unsubscribe-Links zur Abmeldung ein
 \end{itemize}
 
 Ein einfaches Beispiel:

@@ -1,6 +1,15 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1.1}Layouts}{3}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Erstellen}{3}{subsection.1.1.1}
-\contentsline {subsubsection}{Name}{3}{subsection.1.1.1}
-\contentsline {subsubsection}{HTML-Head}{3}{subsection.1.1.1}
-\contentsline {subsubsection}{HTML-Body}{4}{lstnumber.-1.9}
+\contentsline {section}{\numberline {1.1}Verteiler}{3}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Verwaltung}{3}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Erstellen}{3}{subsection.1.1.2}
+\contentsline {subsubsection}{Name}{3}{subsection.1.1.2}
+\contentsline {subsubsection}{Beschreibung}{3}{subsection.1.1.2}
+\contentsline {subsubsection}{Standardm\IeC {\"a}\IeC {\ss }ig angemeldet}{4}{subsection.1.1.2}
+\contentsline {subsubsection}{Ist aktiv}{4}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Layouts}{4}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Verwaltung}{4}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Erstellen}{4}{subsection.1.2.2}
+\contentsline {subsubsection}{Name}{4}{subsection.1.2.2}
+\contentsline {subsubsection}{HTML-Head}{5}{subsection.1.2.2}
+\contentsline {subsubsection}{HTML-Body}{5}{lstnumber.-1.9}
+\contentsline {subsection}{\numberline {1.2.3}Bearbeiten}{6}{subsection.1.2.3}

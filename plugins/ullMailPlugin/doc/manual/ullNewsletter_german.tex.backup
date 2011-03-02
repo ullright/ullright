@@ -160,9 +160,44 @@ Legen Sie Verteiler für jede Zielgruppe an. Sprechen Sie dadurch jede Interesse
 Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Verteiler"'.
 
 \subsection{Erstellen}
-\label{sec:create-}
+\label{sec:create-mailing-list}
 
 Klicken Sie auf "`Erstellen"'
+
+\subsubsection{Name}
+
+Geben Sie den Namen für den Verteiler ein.
+
+Beispiel: Produktneuigkeiten für Gemüsehändler
+
+\subsubsection{Beschreibung}
+
+Beschreiben Sie welche Informationen Ihre Kunden über diesen Verteiler erhalten.
+
+Denken Sie an folgende Punkte:
+\begin{itemize}
+ \item Zielgruppe
+ \item Themen
+ \item Anzahl der Newsletter pro Jahr
+\end{itemize}
+
+Beispiel:  
+
+Erhalten Sie 4-6 Mal jährlich interessante Produktneuigkeiten und Erfahrungsberichte aus dem Bereich des Gemüsehandels.
+
+\subsubsection{Standardmäßig angemeldet}
+
+Hier geht es darum ob neu angelegte Benutzer automatisch für den aktuellen Newsletter angemeldet werden.
+Dabei ist es egal ob Sie einen Benutzer händisch anlegen oder ob sich der Benutzer selbst auf Ihrer Webseite registriert.
+
+\subsubsection{Ist aktiv}
+
+Damit steuern Sie ob der aktuelle Verteiler in der Liste Ihrer Verteiler aufscheint.
+
+Wenn dieses Feld nicht angekreuzt wird, können Kunden sich nicht für diesen Verteiler anmelden.
+
+
+
 
 
 \section{Layouts}
@@ -219,9 +254,10 @@ Tips und Tricks zur Verwendung des Editors erhalten Sie im ullCms Handbuch.
 Folgende Platzhalter stehen zur Verfügung:
 
 \begin{itemize}
-\item [ONLINE_LINK] - Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
-\item [CONTENT] - Platzhalter für den eigentlichen Inhalt des Newsletters
-\item [UNSUBSCRIBE] - Fügt die Unsubscribe-Links zur Abmeldung ein
+ \item \lbrack ONLINE\_LINK\ - foo
+ %\item x ONLINE_LINK  - Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
+ \item CONTENT - Platzhalter für den eigentlichen Inhalt des Newsletters
+ \item UNSUBSCRIBE - Fügt die Unsubscribe-Links zur Abmeldung ein
 \end{itemize}
 
 Ein einfaches Beispiel:
