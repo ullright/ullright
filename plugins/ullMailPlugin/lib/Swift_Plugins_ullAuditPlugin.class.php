@@ -126,7 +126,7 @@ class Swift_Plugins_ullAuditPlugin
               users (i.e. users with user id != 1) the following
               prevents these test messages from counting as 'sent messages'
               
-							68 kittens were killed during production of this code line
+              68 kittens were killed during production of this code line
             */
             ->andWhere('creator_user_id = ?', 1)
           ;

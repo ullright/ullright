@@ -55,12 +55,12 @@
     linkcolor=black,%
     urlcolor=black,%
     pdfauthor={ull.at},%
-    pdftitle={ullCms Handbuch},%
-    pdfsubject={ullright - ullCms}
+    pdftitle={ullNewsletter Handbuch},%
+    pdfsubject={ullright - ullNewsletter}
 }
 
-\chapterstyle{veelo}
-\headstyles{komalike}
+%\chapterstyle{veelo}
+%\headstyles{komalike}
 \pagestyle{empty}
 
 %header and footer images on every page
@@ -80,12 +80,10 @@
 
 \definecolor{ullblue}{rgb}{0.1, 0.42, 0.59}
 
-\titleformat{\chapter}[display]
-{\color{ullblue}\normalfont\huge\bfseries}{\chaptertitlename\
-\thechapter}{20pt}{\Huge}
+%\titleformat{\chapter}[display]{\color{ullblue}\normalfont\Huge\bfseries}
+%{\chaptertitlename\thechapter}{20pt}{\Huge}
 
-\titleformat{\section}
-{\color{ullblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\chapter}{\color{ullblue}\normalfont\huge\bfseries}{\thechapter}{0.75em}{\huge}
 
 % Do not indent paragraphes but add newlines
 \usepackage{parskip}
@@ -146,31 +144,26 @@ Ein Modul der ullright-Plattform -- www.ullright.org
 
 \clearpage
 
-\addtocounter{chapter}{1}
-
-%the star prevents this chapter from being added to the toc and from being numbered
-\chapter*{ullNewsletter}
-
-\section{Verteiler}
+\chapter{Verteiler}
 
 Legen Sie Verteiler für jede Zielgruppe an. Sprechen Sie dadurch jede Interessentengruppe gezielt an. Dadurch vermeiden Sie Abmeldungen weil Ihre Kunden nicht mit für sie uninteressanten Informationen "`zugespammt"' werden.
 
-\subsection{Verwaltung}
+\section{Verwaltung}
 
 Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Verteiler"'.
 
-\subsection{Erstellen}
+\section{Erstellen}
 \label{sec:create-mailing-list}
 
 Klicken Sie auf "`Erstellen"'
 
-\subsubsection{Name}
+\subsection{Name}
 
 Geben Sie den Namen für den Verteiler ein.
 
 Beispiel: Produktneuigkeiten für Gemüsehändler
 
-\subsubsection{Beschreibung}
+\subsection{Beschreibung}
 
 Beschreiben Sie welche Informationen Ihre Kunden über diesen Verteiler erhalten.
 
@@ -185,22 +178,19 @@ Beispiel:
 
 Erhalten Sie 4-6 Mal jährlich interessante Produktneuigkeiten und Erfahrungsberichte aus dem Bereich des Gemüsehandels.
 
-\subsubsection{Standardmäßig angemeldet}
+\subsection{Standardmäßig angemeldet}
 
 Hier geht es darum ob neu angelegte Benutzer automatisch für den aktuellen Newsletter angemeldet werden.
 Dabei ist es egal ob Sie einen Benutzer händisch anlegen oder ob sich der Benutzer selbst auf Ihrer Webseite registriert.
 
-\subsubsection{Ist aktiv}
+\subsection{Ist aktiv}
 
 Damit steuern Sie ob der aktuelle Verteiler in der Liste Ihrer Verteiler aufscheint.
 
 Wenn dieses Feld nicht angekreuzt wird, können Kunden sich nicht für diesen Verteiler anmelden.
 
 
-
-
-
-\section{Layouts}
+\chapter{Layouts}
 
 Ein Layout ist eine Art Formatvorlage um Ihren Newslettern ein einheitliches und attraktives Aussehen zu verleihen.
 
@@ -209,20 +199,20 @@ Im Normalfall genügt es einmal ein Layout im Stile Ihrer CI (Coporate Identity)
 Sie können beliebig viele Layouts anlegen.
 
 
-\subsection{Verwaltung}
+\section{Verwaltung}
 
 Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Layouts"'.
 
-\subsection{Erstellen}
+\section{Erstellen}
 \label{sec:create-layout}
 
 Klicken Sie auf "`Erstellen"'
 
-\subsubsection{Name}
+\subsection{Name}
 
 Geben Sie einen Namen für das neue Layout ein. Beispiel: "`Standard"'
 
-\subsubsection{HTML-Head}
+\subsection{HTML-Head}
 
 Der "`head"' Teil des HTML Codes. Hier können Sie z.B. CSS Stylesheet Anweisungen einfügen.
 
@@ -242,7 +232,7 @@ Beispiel:
 
 Hinweis: Der "`<head>"' Tag ist nicht erforderlich.
 
-\subsubsection{HTML-Body}
+\subsection{HTML-Body}
 
 Geben Sie hier den HTML-Code für Ihr Layout ein.
 
@@ -253,13 +243,14 @@ Tips und Tricks zur Verwendung des Editors erhalten Sie im ullCms Handbuch.
 
 Folgende Platzhalter stehen zur Verfügung:
 
-\begin{itemize}
+\begin{description}
  % "[" is interpreted -> use \lbrack instead
  % the underscore in ONLINE_LINK is interpreted (!?%&) -> escape with \
- \item \lbrack ONLINE\_LINK \rbrack  - Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
- \item \lbrack CONTENT \rbrack  - Platzhalter für den eigentlichen Inhalt des Newsletters
- \item \lbrack UNSUBSCRIBE \rbrack   - Fügt die Unsubscribe-Links zur Abmeldung ein
-\end{itemize}
+ \item[\lbrack ONLINE\_LINK\rbrack] Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
+ \item[\lbrack CONTENT\rbrack] Platzhalter für den eigentlichen Inhalt des Newsletters
+ \item[\lbrack UNSUBSCRIBE\rbrack] Fügt die Unsubscribe-Links zur Abmeldung ein
+\end{description}
+
 
 Ein einfaches Beispiel:
 
@@ -274,7 +265,7 @@ Ein einfaches Beispiel:
 <p>(C) 2011 by ull.at</p>
 \end{lstlisting}
 
-\subsection{Bearbeiten}
+\section{Bearbeiten}
 
 Klicken Sie in der Liste der Layouts auf das Stiftsymbol vor dem Eintrag den Sie bearbeiten möchte.
 
