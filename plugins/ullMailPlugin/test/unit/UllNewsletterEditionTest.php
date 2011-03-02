@@ -61,7 +61,7 @@ $t->diag('createMailMessage()');
   $t->is($mail->getHtmlBody(), 
     '<html>
 <head>
-<style=\'h1 { color: red }\' />
+<style type="text/css">h1 {color: red;} </style>
 </head>
 
 <body>
