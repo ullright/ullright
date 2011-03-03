@@ -113,7 +113,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
    */
   public function createMailMessage(UllUser $loggedInUser)
   {
-    $mail = new ullsfMail();
+    $mail = new ullsfMail('ull_newsletter');
     
 //    $mail->setFrom($loggedInUser['email'], $loggedInUser['display_name']);
     $mail->setFrom(array(

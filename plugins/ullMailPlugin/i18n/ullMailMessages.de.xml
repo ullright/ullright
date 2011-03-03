@@ -134,7 +134,8 @@
 
 <trans-unit id="403">
 <source>The newsletter is being sent to %number% recipients</source>
-<target>Der Newsletter wird an %number% Empfänger versendet</target>
+<target>Der Sendeauftrag für %number% Empfänger wurde entgegengenommen. Der Versand wird nun einige Zeit in Anspruch nehmen.</target>
+
 </trans-unit>
 
 <trans-unit id="404">
@@ -144,7 +145,7 @@
 
 <trans-unit id="405">
 <source>No recipients found. Please select one or more mailing lists with subscribers</source>
-<target>Keine Empfänger gefunden. Bitte wählen Sie eine oder mehrere Mailing-Listen mit Abonnenten</target>
+<target>Keine Empfänger gefunden. Bitte wählen Sie eine oder mehrere Verteiler mit Abonnenten</target>
 </trans-unit>
 
 
@@ -177,7 +178,7 @@
 
 <trans-unit id="506">
 <source>Are you sure you want to unsubscribe from list "%list%"?</source>
-<target>Bitte bestätigen Sie die Abmeldung von Liste "%list%".</target>
+<target>Bitte bestätigen Sie die Abmeldung vom Newsletter "%list%".</target>
 </trans-unit>
 
 <trans-unit id="507">

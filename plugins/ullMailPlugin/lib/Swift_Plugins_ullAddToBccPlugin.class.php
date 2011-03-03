@@ -13,6 +13,11 @@ class Swift_Plugins_ullAddToBccPlugin
   
   /**
    * Returns a new instance of Swift_Plugins_ullAddToBccPlugin.
+   * 
+   * @param string $recipient email address of the bcc recipient
+   * @param array $slugExcludeList blacklistof email "slugs"
+   *   Every ullsfMail can be given a unique "slug" like "registration_confirmation"
+   *   The functionality of this plugin can then be disabled per slug
    */
   public function __construct($recipient, $slugExcludeList)
   {

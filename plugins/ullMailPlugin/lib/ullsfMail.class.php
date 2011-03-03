@@ -24,6 +24,11 @@ class ullsfMail extends Swift_Message
   
   /**
    * Returns a new instance of the ullsfMail class.
+   * 
+   * @param string $slug a unique identifer for the "type" of email
+   *                     Example: registration_confirmation
+   *                     This e.g. used to blacklist bcc debug mails for
+   *                     certain types of emails
    */
   public function __construct($slug = null) 
   {
