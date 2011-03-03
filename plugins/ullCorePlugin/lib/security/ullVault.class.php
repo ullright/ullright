@@ -25,7 +25,7 @@ class ullVault implements UllVaultInterface
     $key = file_get_contents(sfConfig::get('sf_app_config_dir') . '/security.key');
     if ($key === false)
     {
-      throw new Exception('Could not read key for cryptography from file. Generate a valid one with ullright:blub');
+      throw new Exception('Could not read key for cryptography from file. Generate a valid one with "php symfony ullright:generate-crypto-key"');
     }
 
     
@@ -33,13 +33,13 @@ class ullVault implements UllVaultInterface
     $decodedKey = base64_decode($key);
     if ($decodedKey === false)
     {
-      throw new Exception('Invalid key for cryptography defined. Generate a new one with ullright:blub');
+      throw new Exception('Invalid key for cryptography defined. Generate a new one with "php symfony ullright:generate-crypto-key"');
     }
     
     //check for required size
     if (strlen($decodedKey) !== self::$keySize)
     {
-      throw new Exception('Key for cryptography is not ' . self::$keySize . ' bytes long. Generate a valid one with ullright:blub');
+      throw new Exception('Key for cryptography is not ' . self::$keySize . ' bytes long. Generate a valid one with "php symfony ullright:generate-crypto-key"');
     }
 
     self::$key = $decodedKey;
