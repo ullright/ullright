@@ -2,6 +2,8 @@ prod:
   mailing:
     # send a copy of each mail to the developers' email address
     send_debug_cc: true
+    # blacklist of ullsfMail "slugs" (no bcc debug copy sent for these)
+    debug_cc_exclude_list: [ 'ull_newsletter' ]
 
 test:
   mailing:
@@ -50,6 +52,8 @@ all:
     #smtp_passwort:  
     reroute:        false
     debug_address:  dev@example.com
+    # blacklist of ullsfMail "slugs" (no bcc debug copy sent for these)    
+    debug_cc_exclude_list: []
     # send a copy of each mail to the debugger's email address
     send_debug_cc: false
     
