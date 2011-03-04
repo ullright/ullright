@@ -178,7 +178,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
         $onlineLink = __('Having trouble viewing this message?', null, 'ullMailMessages') .
           ' ' . link_to(__('Read the newsletter online.', null, 'ullMailMessages'),
               'newsletter_edition_show',
-              array('mid' => '_-_LOGGED_MESSAGE_ID_-_'),
+              array('mid' => '[LOGGED_MAIL_MESSAGE_ID]'),
               array('absolute' => true)
             );
 

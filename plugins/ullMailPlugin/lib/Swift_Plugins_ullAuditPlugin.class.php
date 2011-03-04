@@ -75,12 +75,16 @@ class Swift_Plugins_ullAuditPlugin
     $headers->addTextHeader('ull-mail-logged-id', '' .$encryptLoggedMessageId);
     
     //replace logged message id tag in body
-    $mail->setBody(str_replace('_-_LOGGED_MESSAGE_ID_-_',
+    $mail->setBody(str_replace('[LOGGED_MAIL_MESSAGE_ID]',
       $encryptLoggedMessageId, $mail->getBody()));
     
-    //shouldn't setBody handle this?
-    $mail->setPlaintextBody(str_replace('_-_LOGGED_MESSAGE_ID_-_',
-      $encryptLoggedMessageId, $mail->getPlaintextBody()));
+    //we also need to do this for alternative parts
+    // TODO: refactor -> better API of ullsfMessage
+    foreach ($mail->getChildren() as $child)
+    {
+      $child->setBody(str_replace('[LOGGED_MAIL_MESSAGE_ID]',
+      $encryptLoggedMessageId, $child->getBody()));
+    }
       
     //store the doctrine record under the unique object hash of the mail message
     //since that is the only thing we'll have in sendPerformed() later on
