@@ -75,14 +75,14 @@ class Swift_Plugins_ullAuditPlugin
     $headers->addTextHeader('ull-mail-logged-id', '' .$encryptLoggedMessageId);
     
     //replace logged message id tag in body
-    $mail->setBody(str_replace('[LOGGED_MAIL_MESSAGE_ID]',
+    $mail->setBody(str_replace('_-_LOGGED_MESSAGE_ID_-_',
       $encryptLoggedMessageId, $mail->getBody()));
     
     //we also need to do this for alternative parts
     // TODO: refactor -> better API of ullsfMessage
     foreach ($mail->getChildren() as $child)
     {
-      $child->setBody(str_replace('[LOGGED_MAIL_MESSAGE_ID]',
+      $child->setBody(str_replace('_-_LOGGED_MESSAGE_ID_-_',
       $encryptLoggedMessageId, $child->getBody()));
     }
       

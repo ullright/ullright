@@ -77,7 +77,11 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     $loggedMessage->save();
     
-    return $this->renderText($loggedMessage['html_body']);
+    $onlineBody = preg_replace(
+    '/<span.*?id\s*=\s*"ull_newsletter_show_online_link".*?>.*?<\/span>/',
+    	'', $loggedMessage['html_body']);
+    
+    return $this->renderText($onlineBody);
   }
   
   /**
