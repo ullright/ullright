@@ -20,14 +20,14 @@ class BaseUllNewsletterEditionTableConfiguration extends UllTableConfiguration
 
     $this->setListColumns(array(
       'subject',
-      'UllNewsletterEditionMailingLists',
-      'submitted_at',
-      'Sender->display_name',
-      'is_active',
       'num_total_recipients',
       'num_sent_recipients',
-      'num_failed_emails',
       'num_read_emails',
+      'num_failed_emails',
+      'UllNewsletterEditionMailingLists',
+      'is_active',
+      'submitted_at',
+      'Sender->display_name',
     ));
 //    $this->setForeignRelationName(__('Layout', null, 'ullMailMessages'));
   }  
