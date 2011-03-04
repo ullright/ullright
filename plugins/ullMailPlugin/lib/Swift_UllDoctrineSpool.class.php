@@ -87,51 +87,98 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
    */
   public function flushQueue(Swift_Transport $transport, &$failedRecipients = null)
   {
-    $table = Doctrine_Core::getTable($this->model);
-    
     $messageLimit = $this->getMessageLimit();
     $messageLimit = ($messageLimit !== null) ? $messageLimit : 0;
-    
-    $ids = $table->{$this->method}()->select('id')->limit($messageLimit)->execute(array(), DOCTRINE::HYDRATE_NONE);
-    
+     
     if (!$transport->isStarted())
     {
       $transport->start();
     }
 
+    //retrieve ids of mails to send, up to $messageLimit
+    $table = Doctrine_Core::getTable($this->model);
+    $ids = $table->{$this->method}()->select('id')->limit($messageLimit)->execute(array(), DOCTRINE::HYDRATE_NONE);
+  
+    //important note concerning Doctrine locking
+    //the locking manager has a serious bug: row-level locking is not possible,
+    //every time an object is locked the whole table (= model) gets locked.
+    //the upside: for our purposes this behavior is 'good enough'
+    
+    //create locking manager and unique id for locking
+    //pid + random string should be unique enough
+    $lockingManager = new Doctrine_Locking_Manager_Pessimistic(Doctrine_Manager::connection());
+    $uniqueId = uniqid(getmypid(), true);
+    
+    //remove old mail locks (> 5 min)
+    $lockingManager->releaseAgedLocks(300, $table->getComponentName());
+       
     $count = 0;
     $time = time();
-    
+
     foreach ($ids as $id)
     {
-      $object = $table->findOneById($id[0]); 
-      $message = unserialize($object->{$this->column});
-      
+      //retrieve actual mail object
+      $mailObject = $table->findOneById($id[0]);
+      if (!$mailObject)
+      {
+        continue;
+      }
+
+      //request exclusive lock for this mail object
       try
       {
+        if (!$lockingManager->getLock($mailObject, $uniqueId))
+        {
+          echo 'Could not retrieve lock for queued message with id: ' .
+            $mailObject['id'] . "\n";
+          continue;
+        }
+      }
+      catch (Doctrine_Locking_Exception $dle)
+      {
+        echo $dle->getMessage();
+        continue;
+      }
+
+      //now that we have the lock, handle the message
+      try
+      {
+        $message = unserialize($mailObject->{$this->column});
         $count += $transport->send($message, $failedRecipients);
-        
-        $object->is_sent = true;
-        $object->save();
+        $mailObject->delete();
+        unset($message);
       }
       catch (Exception $e)
       {
-        var_dump($e->getMessage());
+        echo $e->getMessage();
+        //TODO: add proper error handling
       }
-      
-      $object->free(true);
-      
+
+      //message was handled, release lock
+      try
+      {
+        $lockingManager->releaseLock($mailObject, $uniqueId);
+      }
+      catch(Doctrine_Locking_Exception $dle)
+      {
+        echo $dle->getMessage();
+      }
+
+      //free memory used by the mail objects
+      $mailObject->free(true);
+
+      //total time limit reached?
       if ($this->getTimeLimit() && (time() - $time) >= $this->getTimeLimit())
       {
         break;
       }
-      
-      // Throtteling
+
+      //throttle sending if necessary
       if ($this->mailsPerMinute)
       {
         usleep(self::calculateSleepTime($this->mailsPerMinute));
       }
-      
+
       //var_dump(UllMailQueuedMessageTable::countUnsentMessages() . ' mails left');
     }
 
