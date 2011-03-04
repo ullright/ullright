@@ -98,7 +98,9 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
     //retrieve ids of mails to send, up to $messageLimit
     $table = Doctrine_Core::getTable($this->model);
     $ids = $table->{$this->method}()->select('id')->limit($messageLimit)->execute(array(), DOCTRINE::HYDRATE_NONE);
-  
+    
+    echo "Beginning to process " . count($ids) . " messages\n";
+    
     //important note concerning Doctrine locking
     //the locking manager has a serious bug: row-level locking is not possible,
     //every time an object is locked the whole table (= model) gets locked.
@@ -146,7 +148,10 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
         $message = unserialize($mailObject->{$this->column});
         $count += $transport->send($message, $failedRecipients);
         
-        echo 'Sending to  ' . $message->getTo() . "\n";
+        $a = $message->getTo();
+        $to = reset($a);
+        
+        echo 'Sending to  ' . $to . '<' . key($a) . ">\n";
         
         $mailObject->delete();
         unset($message);

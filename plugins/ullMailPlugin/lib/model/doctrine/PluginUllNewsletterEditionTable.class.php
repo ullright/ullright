@@ -24,6 +24,7 @@ class PluginUllNewsletterEditionTable extends UllRecordTable
         ->from('UllNewsletterEdition e')
         ->where('e.submitted_at IS NOT NULL')
         ->addWhere('e.queued_at IS NULL')
+        ->addWhere('e.is_active = ?', true)
       ;
       
       return $q->execute();

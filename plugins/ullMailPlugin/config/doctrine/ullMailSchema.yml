@@ -140,7 +140,7 @@ UllNewsletterLayout:
     html_head:
       type: string(3000)
     html_body:
-      type: clob
+      type: string(3000)
       notnull: true
 
 # Instance of a newsletter list, e.g. "Product news - December 2010" 
