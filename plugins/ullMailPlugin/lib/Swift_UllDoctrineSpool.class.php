@@ -146,7 +146,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
         $message = unserialize($mailObject->{$this->column});
         $count += $transport->send($message, $failedRecipients);
         
-        var_dump($message->getTo());
+        echo 'Sending to  ' . $message->getTo() . "\n";
         
         $mailObject->delete();
         unset($message);
@@ -182,7 +182,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
         usleep(self::calculateSleepTime($this->mailsPerMinute));
       }
 
-      var_dump(UllMailQueuedMessageTable::countUnsentMessages() . ' mails left');
+      echo UllMailQueuedMessageTable::countUnsentMessages() . " mails left\n";
     }
 
     return $count;

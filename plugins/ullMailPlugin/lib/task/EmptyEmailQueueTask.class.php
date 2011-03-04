@@ -30,9 +30,11 @@ EOF;
     
     $records = Doctrine::getTable('UllMailQueuedMessage')->findAll();
     
+    $num = count($records);
+    
     $records->delete();
     
-    $this->log('Deleted all queued mail messages (table UllMailQueuedMessage');
+    $this->log('Deleted ' . $num . ' queued mail messages (table UllMailQueuedMessage');
   }
   
 }
