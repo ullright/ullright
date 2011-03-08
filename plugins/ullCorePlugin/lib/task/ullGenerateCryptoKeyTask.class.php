@@ -68,6 +68,16 @@ EOF;
     //directory, which we already checked above
     if ($keyFileExists)
     {
+      $answer = $this->askConfirmation(array('Existing key file found. ' .
+        'Are you sure you want to proceed? The old key will be ' .
+        'moved to a backup file. (y/N)'), 'QUESTION_LARGE', false);
+
+      if (!$answer)
+      {
+        $this->logSection($this->name, 'aborting.');
+        return;
+      }
+      
       $backupFileName = 'security.key.' . time() . '.backup';
       $this->logSection($this->name, 'key file exists, moving to: ' . $backupFileName);
       rename($keyFilePath, sfConfig::get('sf_app_config_dir') . '/' . $backupFileName);
