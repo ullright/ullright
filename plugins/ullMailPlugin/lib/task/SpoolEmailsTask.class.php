@@ -126,8 +126,16 @@ EOF;
       $this->releaseLock($lockingManager, $edition, $uniqueId);
       
       $this->logBlock("Queued {$numSent} of " . count($recipients) . ' messages', 'INFO');
-      $this->log('Failed Recipients: ' . count($failedRecipients));
-      $this->log(print_r($failedRecipients, true));
+      
+      if (count($failedRecipients) > 0)
+      {
+        $this->log('Invalid recipients: ' . count($failedRecipients));
+        $this->log(print_r($failedRecipients, true));
+          
+        throw new ullMailSpoolingInvalidRecipientsException(
+        	'Encountered invalid recipient addresses while spooling: ' .
+          implode(' ', $failedRecipients));
+      }
     }        
   }
   
@@ -156,3 +164,5 @@ EOF;
     }
   }
 }
+
+class ullMailSpoolingInvalidRecipientsException extends Exception { }
