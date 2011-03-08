@@ -17,8 +17,8 @@ class ullGenerateCryptoKeyTask extends sfBaseTask
 
     $this->detailedDescription = <<<EOF
 The [ullright:generate-crypto-key|INFO] task generates a new cryptographic key
-and stores it in a file called security.key in the application config directory.
-If this file exists, it is renamed to security.key.<timestamp>.backup
+and stores it in a file called ullVault.key in the application config directory.
+If this file exists, it is renamed to ullVault.key.<timestamp>.backup
 
 This key is used to secure url parameters (HMAC)
 
@@ -59,7 +59,7 @@ EOF;
        $this->logBlock('Generated key has incorrect size, aborting.', 'ERROR_LARGE');
     }
     
-    $keyFilePath = sfConfig::get('sf_app_config_dir') . '/security.key';
+    $keyFilePath = sfConfig::get('sf_app_config_dir') . '/ullVault.key';
     $keyFileExists = file_exists($keyFilePath);
     
     //if there is an existing key file, rename it as backup
@@ -78,7 +78,7 @@ EOF;
         return;
       }
       
-      $backupFileName = 'security.key.' . time() . '.backup';
+      $backupFileName = 'ullVault.key.' . time() . '.backup';
       $this->logSection($this->name, 'key file exists, moving to: ' . $backupFileName);
       rename($keyFilePath, sfConfig::get('sf_app_config_dir') . '/' . $backupFileName);
     }

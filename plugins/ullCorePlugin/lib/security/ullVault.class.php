@@ -13,7 +13,7 @@ class ullVault implements UllVaultInterface
   protected static $keySize = 2048; //bytes
   
   /**
-   * Loads the main cryptographic key from the security.key file located
+   * Loads the main cryptographic key from the ullVault.key file located
    * in the app's config dir. Base64-decodes this key and checks for validity
    * (decoded size = self::$keySize).
    * 
@@ -22,7 +22,7 @@ class ullVault implements UllVaultInterface
   protected static function loadCryptographyKeyFromFile()
   {
     //load key from file
-    $key = file_get_contents(sfConfig::get('sf_app_config_dir') . '/security.key');
+    $key = file_get_contents(sfConfig::get('sf_app_config_dir') . '/ullVault.key');
     if ($key === false)
     {
       throw new Exception('Could not read key for cryptography from file. Generate a valid one with "php symfony ullright:generate-crypto-key"');
