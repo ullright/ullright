@@ -4,7 +4,7 @@
   <!-- ullNews RSS feed -->
   <?php include_component('ullNews', 'rssFeed') ?>
   
-  <?php /* Add website layout */ ?>
+  <?php /* Add example stylesheet */ ?>
   <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
     'Plugin/css/layout_website.css', 'last', array('media' => 'all')) ?>
     
@@ -28,7 +28,7 @@
 
 
 <!--  Begin of html body -->
-<?php /*  Adds a css selector for the current module + action 
+<?php /*  Adds a css selector for the current request (module + action name) 
   Example: <body class="ullCms_show"> */ ?>
 <body class="<?php 
   echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();
@@ -37,121 +37,96 @@
 <!-- Top-level box containing all subsequent elements -->
 <div id="container">
 
-<?php /*
-  <!-- Sidebar box -->
-  <div id="sidebar">
+  <!-- Header -->
+  <div id="header">
+  
+    <!-- A box on the right side containing e.g. the login link -->
+    <div id="secondary_menu">
     
-    <div id="sidebar_logo">
-      <?php echo ull_link_to(
-        image_tag(sfConfig::get('app_sidebar_logo',
-          '/ullCoreThemeNGPlugin/images/logo_120'), 'alt="logo"')
-          , '@homepage'
-          , 'ull_js_observer_confirm=true'
-        ) ?>
+      <!-- A box containing "My Account" link and language selection -->
+      <ul>
+        <?php // Login link / login information ?>
+        <?php include_component('ullUser', 'headerLogin'); ?>
+        <?php // "my account" link ?>
+        <?php include_component('ullUser', 'headerSyslinkMyAccount'); ?>
+        <?php // Language selection ?>
+        <?php include_component('ullUser', 'headerSyslinkLanguageSelectionGermanEnglish'); ?>
+      </ul>
+      
+    <!-- end of secondary_menu -->  
+    </div> 
+    
+    <div id="logo">
+      <?php // Logo with link to homepage ?>
+      <?php echo link_to('<img src="/ullCoreThemeNGPlugin/images/logo_120.png" alt="logo"', '@homepage') ?>
+    </div>    
+    
+    <!--  main menu -->
+    <div id='main_menu'>
+      <ul>
+        <?php // Main menu?>
+        <?php include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
+      </ul>
     </div>
-   
-    <?php include_partial('default/sidebar_inclusion') ?>
-  
-  <!-- End of sidebar --> 
-  </div>
-*/ ?>   
-  
-  <!-- The canvas contains main navigation, content and footer -->
-  <!-- So basically it's everything except the sidebar -->
-  <div id="canvas">
-  
-    <!-- Navigation -->
-    <div id="nav_top">
-  
-      <!-- Main navigation links (ullright module icons) -->
-      <!--
-      <div id='nav_links'>             
-        <?php //include_partial('myModule/navTopLinks'); ?>
-      </div>
-      --> 
-      
-      <!-- A box on the right side containing e.g. the login link -->
-      <div id="nav_syslinks_container">
-      
-        <!-- A box containing "My Account" link and language selection -->
-        <div id="nav_syslinks">
-          <ul class="nav_syslinks_list">
-            <?php include_component('ullUser', 'headerSyslinkMyAccount'); ?>
-            <?php include_component('ullUser', 'headerSyslinkLanguageSelectionGermanEnglish'); ?>
-          </ul>
-        </div>   
-        
-        <!-- A box containing the login link -->
-        <div id="nav_loginbox">
-          <ul class="nav_syslinks_list">
-            <?php include_component('ullUser', 'headerLogin'); ?>
-          </ul>
-        </div>        
-      
-      <!-- End of nav_syslinks_container -->  
-      </div> 
-      
-      
-      <div id="nav_top_separator_line"></div>      
-   
-      <!-- Force the parent-box ("nav_top") to enclose the floating divs -->
-      <div class='clear_right'></div>
-      
-      <!-- ullCms main menu -->
-      <div class='nav_main_menu'>
-        <ul class="ull_menu_main_menu">
-          <?php include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
-        </ul>
-      </div>
-            
-    <!-- End of navigation -->            
-    </div> 
-     
     
-    <!-- Content box --> 
-    <!-- The actual content of a page is rendered here. 
-         Think of it like the picture in a picture frame -->
-    <div id="content">
-      <?php echo $sf_data->getRaw('sf_content') ?>
-    </div> 
-     
-    <!-- Footer --> 
-    <div id="footer">
-    
-      <div id="footer_copyright">
-        © 2007-<?php echo date('Y')?> 
-        by <?php echo ull_link_to('ull.at', 'http://www.ull.at', 'ull_js_observer_confirm=true link_external=true')?>
-      </div>
-      
-      <div id="footer_links">
-        Powered by the enterprise 2.0 platform 
-        <?php echo ull_link_to(
-          'ullright', 
-          'http://www.ullright.org', 
-          'ull_js_observer_confirm=true link_external=true'
-        ) ?>
-        |
-        <?php echo ull_link_to(
-          __('About', null, 'ullCoreMessages'), 
-          'ullAdmin/about', 
-          'ull_js_observer_confirm=true'
-        ) ?>
-      </div>
-    
-    <!-- End of footer -->  
-    </div>  
-  
-  <!-- End of canavas -->  
+  <!-- End of header -->            
   </div> 
+   
+   
+  <!-- Sidebar -->
+  <?php //if ($sf_params->get('module') == 'ullCms' && $sf_params->get('action') == 'show' ): ?>
+    <div id="sidebar">  
+    
+        <?php if (strstr(get_slot('sidebar'), '<li')): // We expect the side menu here. If we have no <li> entries we consider it empty ?>
+          <div class="sidebar_block">
+            <h1>Menü</h1>
+            <?php include_slot('sidebar') ?>
+          </div>
+        <?php endif ?>
+        
+        <?php if ($sf_params->get('module') == 'ullCms' && $sf_params->get('slug') == 'homepage' ): ?>
+          <?php include_component('ullCms', 'renderSidebarBlocks', array('slug' => 'sidebar-module'))?>
+        <?php endif ?>
+        
+    </div> <!-- end of sidebar -->
+  <?php //endif ?>      
+   
+  
+  <!-- Content box --> 
+  <!-- The actual content of a page is rendered here. 
+       Think of it like the picture in a picture frame -->
+  <div id="content">
+    <?php echo $sf_data->getRaw('sf_content') ?>
+  </div> 
+   
+  <!-- Footer --> 
+  <div id="footer">
+  
+    <div id="footer_right">
+      <ul>
+        <li>
+          © 2007-<?php echo date('Y')?> 
+          by <?php echo ull_link_to('ull.at', 'http://www.ull.at', 'ull_js_observer_confirm=true link_external=true')?>
+        </li>
+        
+        <li>
+          Powered by <?php echo link_to('ullright', 'http://www.ullright.org', 'target=_blank class=link_external') ?>
+        </li>
+      </ul>
+    </div>
+    
+    <div id="footer_left">
+      <ul>
+        <?php include_component('ullCms', 'footerMenu', array('renderUlTag' => false))?>
+      </ul>
+    </div>
+  
+  <!-- End of footer -->  
+  </div>  
 
 <!-- End of container -->    
 </div> 
 
-
-<!-- Sidebar hide / unhide code -->
-<?php /* if (sfConfig::get('app_sidebar_toggle', true) == true) : ?>
-  <?php include_partial('default/sidebar_toggle') ?>
-<?php endif */?>
 
 <!--  End of html body -->
 </body>

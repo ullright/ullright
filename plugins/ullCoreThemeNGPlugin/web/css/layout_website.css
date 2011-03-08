@@ -1,0 +1,47 @@
+/*
+ * ************************************************
+ *  Example website layout
+ *  
+ * ************************************************
+ */
+ 
+@import "layout_website_multi_format.css";
+
+
+/*
+ * ************************************************
+ *  Layout
+ * ************************************************
+ */
+
+body {
+  margin: 1em;
+  padding: 0;
+  font-size: 90%;
+}
+
+
+/* We use a grid of 27 36px wide elements arranged to 4 columns with 6 elements
+	 each (= 216px) and one element space (= 36px) */
+	 
+
+#container {
+	width: 972px;
+	margin: 0 auto;
+}
+
+#content {
+	width: 720px;
+	padding-right: 16px;
+	border-right: 1px solid grey;
+}
+
+#sidebar {
+  float: right;
+  width: 216px;	
+}
+
+
+ 
+ 
+ 
