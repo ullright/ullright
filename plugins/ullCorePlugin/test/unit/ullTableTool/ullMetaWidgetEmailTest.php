@@ -14,6 +14,7 @@ class myTestCase extends lime_test
   }
 }
 
+sfContext::createInstance($configuration);
 $t = new myTestCase(6, new lime_output_color, $configuration);
 
 $columnConfig = $t->getColumnConfig();
@@ -33,6 +34,6 @@ $t->diag('for write access:');
   $t->isa_ok($widget, 'ullMetaWidgetEmail', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
   $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormInput', 'returns the correct widget for write access');
-  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorEmail', 'returns the correct validator for write access');
+  $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'ullValidatorEmail', 'returns the correct validator for write access');
 
   //TODO: test available options?

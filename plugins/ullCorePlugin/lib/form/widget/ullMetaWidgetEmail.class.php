@@ -12,13 +12,12 @@ class ullMetaWidgetEmail extends ullMetaWidget
     $this->addWidget(new sfWidgetFormInput($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(
       ($withValidator == true) ?
-        new sfValidatorEmail($this->columnConfig->getValidatorOptions()) :
+        new ullValidatorEmail($this->columnConfig->getValidatorOptions()) :
         new sfValidatorString($this->columnConfig->getValidatorOptions()));
   }
 
   protected function configureSearchMode()
   {
-    
     $this->configureWriteMode(false);
   }
 
