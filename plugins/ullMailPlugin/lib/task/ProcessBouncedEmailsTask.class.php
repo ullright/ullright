@@ -6,11 +6,14 @@ class ProcessBouncedEmailsTask extends ullBaseTask
   {
     $this->namespace        = 'ull_mail';
     $this->name             = 'process-bounced-emails';
-    $this->briefDescription = 'Deletes unreachable e-mail addresses from ullUsers';
+    $this->briefDescription = 'Processes bounced newsletter emails';
     $this->detailedDescription = <<<EOF
-    The [{$this->name} task|INFO] checks the bounce mailbox and deletes the 
-    e-mail addresses from unreachable ullUsers after a configurable number of
-    errors. 
+    The [{$this->name} task|INFO] processes bounces newsletter emails.
+    
+    1) Get a list of failed email addresses
+    2) Increase the bounce counter of the particular UllUser
+    3) Reset bounce counter for UllUsers with temporary errors
+    4) Delete emailaddress for UllUsers with exceeded bounce counter
     
     This task usually is invoked by a (daily) cronjob. 
 EOF;
@@ -19,8 +22,11 @@ EOF;
       'The application name', 'frontend');
     $this->addArgument('env', sfCommandArgument::OPTIONAL,
       'The environment', 'cli');
+//    $this->addOption('quiet', null, sfCommandOption::PARAMETER_NONE,
+//      'Be less noisy. Output interesting stuff only');
     $this->addOption('dry-run', null, sfCommandOption::PARAMETER_NONE,
       'Dry run - Don\'t do anything');
+    
   }
 
 
@@ -83,6 +89,8 @@ EOF;
    */
   public function findBouncedEmailAddresses($arguments = array(), $options = array())
   {
+    
+    
     //connect to imap mailbox
     $mailbox  = sfConfig::get('app_ull_mail_bounce_mailbox_base') . sfConfig::get('app_ull_mail_bounce_inbox_folder');
     $username = sfConfig::get('app_ull_mail_bounce_username');
