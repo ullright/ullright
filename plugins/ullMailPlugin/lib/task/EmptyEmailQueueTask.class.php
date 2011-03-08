@@ -26,15 +26,23 @@ EOF;
   {
     $this->initializeDatabaseConnection($arguments, $options);
     
-    $this->askConfirmation('Are you sure that you want to empty the email queue?');
+    $answer = $this->askConfirmation(array('Are you sure that you want to ' .
+      'empty the email queue? (y/N)'), 'QUESTION_LARGE', false);
     
-    $records = Doctrine::getTable('UllMailQueuedMessage')->findAll();
-    
-    $num = count($records);
-    
-    $records->delete();
-    
-    $this->log('Deleted ' . $num . ' queued mail messages (table UllMailQueuedMessage');
+    if ($answer)
+    {
+      $records = Doctrine::getTable('UllMailQueuedMessage')->findAll();
+      
+      $num = count($records);
+      
+      $records->delete();
+      
+      $this->log('Deleted ' . $num . ' queued mail messages (table UllMailQueuedMessage)');
+    }
+    else
+    {
+      $this->logSection($this->name, 'Aborted');
+    }
   }
   
 }
