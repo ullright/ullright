@@ -140,6 +140,7 @@ all:
     bounce_mailbox_base:            '{imap.example.com}'
     bounce_inbox_folder:            'INBOX'
     bounce_handled_folder:          'INBOX.processed'
+    bounce_unprocessable_folder:    'INBOX.unprocessable'
     bounce_username:                'user'
     bounce_password:                'password'
     bounce_deactiation_threshold:   3

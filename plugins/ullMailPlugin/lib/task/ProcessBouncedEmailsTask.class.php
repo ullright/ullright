@@ -119,6 +119,11 @@ EOF;
       $status = imap_createmailbox($this->mbox, $processedFolder);
 
 //      var_dump($status);die;
+
+      $unprocessableFolder = sfConfig::get('app_ull_mail_bounce_mailbox_base') . 
+        sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable');
+    
+      $status = imap_createmailbox($this->mbox, $unprocessableFolder);
     }
     
     //array with mail numbers (sorted by date)
@@ -137,7 +142,7 @@ EOF;
         {
           $ullMailLoggedMessageId = $ullCrypt->decryptBase64($matches[1], true);
         }
-        // In case of failure ignore the mail and move it to processed folder        
+        // In case of failure ignore the mail and move it to unprocessable folder        
         catch(RuntimeException $e)
         {
           $this->logSection(
@@ -149,7 +154,7 @@ EOF;
           
           if (!$options['dry-run'])
           {
-            imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed'));
+            imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
           }
           
           // skip the rest of processing
@@ -168,6 +173,8 @@ EOF;
               $header = imap_headerinfo($this->mbox, $mailNumber);
               $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
               $ullMailLoggedMessage->save();
+              
+              imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed'));
             }
             
             // extract email address
@@ -175,10 +182,30 @@ EOF;
             // and remember it
             $bouncedEmailAddresses[] = $matches[1];
           }
+          else
+          {
+            if (!$options['dry-run'])
+            {
+              imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
+            }
+          }
         }
-        
-        imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed'));
+        else
+        {
+          if (!$options['dry-run'])
+          {
+            imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
+          }
+        }
       }
+      else
+      {
+        if (!$options['dry-run'])
+        {
+          imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
+        }
+      }
+      
     }
     
     return $bouncedEmailAddresses;
