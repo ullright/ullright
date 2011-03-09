@@ -99,7 +99,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
     $table = Doctrine_Core::getTable($this->model);
     $ids = $table->{$this->method}()->select('id')->limit($messageLimit)->execute(array(), DOCTRINE::HYDRATE_NONE);
     
-    echo "Beginning to process " . count($ids) . " messages\n";
+    $this->log("Beginning to process " . count($ids) . " messages\n");
     
     //important note concerning Doctrine locking
     //the locking manager has a serious bug: row-level locking is not possible,
@@ -131,14 +131,16 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
       {
         if (!$lockingManager->getLock($mailObject, $uniqueId))
         {
-          echo 'Could not retrieve lock for queued message with id: ' .
-            $mailObject['id'] . "\n";
+          $this->log('Could not retrieve lock for queued message with id: ' .
+            $mailObject['id'] . "\n");
+            
           continue;
         }
       }
-      catch (Doctrine_Locking_Exception $dle)
+      catch (Doctrine_Locking_Exception $e)
       {
-        echo $dle->getMessage();
+        echo $e->getMessage();
+        
         continue;
       }
 
@@ -151,14 +153,14 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
         $a = $message->getTo();
         $to = reset($a);
         
-        echo 'Sending to  ' . $to . '<' . key($a) . ">\n";
+        $this->log('Sending to  ' . $to . '<' . key($a) . ">\n");
         
         $mailObject->delete();
         unset($message);
       }
       catch (Exception $e)
       {
-        echo $e->getMessage();
+        $this->log($e->getMessage());
         //TODO: add proper error handling
       }
 
@@ -167,9 +169,9 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
       {
         $lockingManager->releaseLock($mailObject, $uniqueId);
       }
-      catch(Doctrine_Locking_Exception $dle)
+      catch(Doctrine_Locking_Exception $e)
       {
-        echo $dle->getMessage();
+        $this->log($e->getMessage());
       }
 
       //free memory used by the mail objects
@@ -187,7 +189,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
         usleep(self::calculateSleepTime($this->mailsPerMinute));
       }
 
-      echo UllMailQueuedMessageTable::countUnsentMessages() . " mails left\n";
+      $this->log(UllMailQueuedMessageTable::countUnsentMessages() . " mails left\n");
     }
 
     return $count;
@@ -247,5 +249,24 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
   public function getMailsPerMinute()
   {
     return (int) $this->mailsPerMinute;
-  }  
+  }
+
+  /**
+   * Workaround method to output debugging information
+   * 
+   * We like to get some stats when running "php symfony project:send-email"
+   * but we cannot use the symfony tasks' log output here
+   * 
+   * Temp. workaround is using echo, but we cannot do this in the test environment
+   * because it confuses the lime test harness parsing
+   * 
+   * @param string $msg
+   */
+  public function log($msg)
+  {
+    if (sfConfig::get('sf_environment') != 'test')
+    {
+      echo $msg;
+    }
+  }
 }
