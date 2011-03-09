@@ -8,6 +8,8 @@ abstract class ullBaseTask extends sfBaseTask
     $configuration,
     $debug = false,
     
+    $dryRun = false,
+    
     $camelcase_name = '',
     $underscore_name = '',
     $humanized_name = '',
@@ -269,5 +271,27 @@ abstract class ullBaseTask extends sfBaseTask
     preg_match('#Revision: ([\d]+)#', $output, $matches);
       
     return $matches[1];
+  }
+
+  /**
+   * Set dry run option
+   * 
+   * @param boolean $boolean
+   */
+  public function setIsDryRun($boolean)
+  {
+    $this->dryRun = (bool) $boolean;
+    
+    return $this;
   }  
+  
+  /**
+   * Check for dry run option
+   * 
+   * @return boolean
+   */
+  public function isDryRun()
+  {
+    return (bool) $this->dryRun;
+  }
 }
