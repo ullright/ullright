@@ -89,19 +89,17 @@ EOF;
     
     if (!$options['no-confirmation'])
     {
-      $this->askConfirmation('Are you sure that you want to update the production instance?');
-      
-      
-    $answer = $this->askConfirmation(array(
-      'Are you sure that you want to update the production instance? (y/N)'), 
-      'QUESTION_LARGE', 
-      false
-    );
+      $answer = $this->askConfirmation(
+        'Are you sure that you want to update the production instance? (y/N)', 
+        'QUESTION_LARGE', 
+        false
+      );
     
-    if (!$answer)
-    {
-      $this->logSection($this->name, 'Aborted');
-      exit();
+      if (!$answer)
+      {
+        $this->logSection($this->name, 'Aborted');
+        exit();
+      }
     }
     
     $command = 'rsync -az --delete --stats ' .
