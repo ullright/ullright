@@ -143,7 +143,7 @@ all:
     bounce_unprocessable_folder:    'INBOX.unprocessable'
     bounce_username:                'user'
     bounce_password:                'password'
-    bounce_deactiation_threshold:   3
+    bounce_deactivation_threshold:   3
  
   publish:
     # Set the following options if you want to use the ullright:publish task

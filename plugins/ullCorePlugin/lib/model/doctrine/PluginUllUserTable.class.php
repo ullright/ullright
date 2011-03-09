@@ -346,7 +346,7 @@ class PluginUllUserTable extends UllEntityTable
     $q = new Doctrine_Query;
     $q
       ->from('UllUser u')
-      ->where('u.num_email_bounces >= ?', sfConfig::get('app_ull_mail_bounce_deactiation_threshold', 3))
+      ->where('u.num_email_bounces >= ?', sfConfig::get('app_ull_mail_bounce_deactivation_threshold', 3))
     ;
   
     $result = $q->execute();
