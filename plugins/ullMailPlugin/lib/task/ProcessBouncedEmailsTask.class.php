@@ -34,6 +34,11 @@ EOF;
   {
     $this->initializeDatabaseConnection($arguments, $options);
     
+    if ($options['dry-run'])
+    {
+      $this->setIsDryRun(true);
+    }
+    
     try
     {
       $bouncedEmailAddresses = $this->findBouncedEmailAddresses($arguments, $options);
@@ -68,7 +73,7 @@ EOF;
     var_dump($deletedUsers);
     $this->logSection($this->name, 'Number of users with deleted email address: ' . count($deletedUsers));
     
-    if (!$options['dry-run'])
+    if (!$this->isDryRun())
     {
       imap_expunge($this->mbox);
     }
@@ -109,7 +114,7 @@ EOF;
     );
     
     //creates a new folder for processed mails
-    if (!$options['dry-run'])
+    if (!$this->isDryRun())
     {
 //      var_dump(imap_getmailboxes($this->mbox, sfConfig::get('app_ull_mail_bounce_mailbox_base'), "*"));
     
@@ -152,7 +157,7 @@ EOF;
             'ERROR'
           );
           
-          if (!$options['dry-run'])
+          if (!$this->isDryRun())
           {
             imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
           }
@@ -167,7 +172,7 @@ EOF;
           // check if the the log entry is not already marked as failed (should not happen)
           if (! $ullMailLoggedMessage->failed_at)
           {
-            if (!$options['dry-run'])
+            if (!$this->isDryRun())
             {
               //saves the date of receiving the "undeliverable message"
               $header = imap_headerinfo($this->mbox, $mailNumber);
@@ -184,7 +189,7 @@ EOF;
           }
           else
           {
-            if (!$options['dry-run'])
+            if (!$this->isDryRun())
             {
               imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
             }
@@ -192,7 +197,7 @@ EOF;
         }
         else
         {
-          if (!$options['dry-run'])
+          if (!$this->isDryRun())
           {
             imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
           }
@@ -200,7 +205,7 @@ EOF;
       }
       else
       {
-        if (!$options['dry-run'])
+        if (!$this->isDryRun())
         {
           imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
         }
@@ -243,7 +248,7 @@ EOF;
           $user->num_email_bounces = 1;
         }
         
-        if (!$options['dry-run'])
+        if (!$this->isDryRun())
         {
           $user->save();
         }
@@ -292,7 +297,7 @@ EOF;
           foreach ($toResetUsers as $toResetUser)
           {
             $toResetUser->num_email_bounces = 0;
-            if (!$options['dry-run'])
+            if (!$this->isDryRun())
             {
               $toResetUser->save();
             }
@@ -328,7 +333,7 @@ EOF;
       $user->email = '';
       $user->num_email_bounces = 0;
       
-      if (!$options['dry-run'])
+      if (!$this->isDryRun())
       {
         $user->save();
       }
