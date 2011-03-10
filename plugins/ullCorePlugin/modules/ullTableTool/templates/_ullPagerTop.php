@@ -45,6 +45,5 @@
     <?php echo implode(' &nbsp;&nbsp; ', $list) ?>      
   </div>
   
-  <div class='clear_right'></div>
-  
 </div>
+

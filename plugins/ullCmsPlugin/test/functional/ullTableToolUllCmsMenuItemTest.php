@@ -14,7 +14,7 @@ $b = new ullTableToolTestBrowser(
   'UllCmsMenuItem', 
   'Menu entries', 
   'Manage Menu entries', 
-  5, 
+  15, 
   $selector, 
   $configuration
 );

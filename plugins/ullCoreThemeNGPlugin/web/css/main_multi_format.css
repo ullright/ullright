@@ -503,8 +503,10 @@ ul.tag-cloud li {
  * ************************************************
  */
 .pager {
-  clear: right;
+  /* clear: right; */
   margin-bottom: .3em;
+  width: 100%; /* enclose floating child divs */
+  
 }
 
 #pager_bottom {
@@ -518,6 +520,8 @@ ul.tag-cloud li {
 .pager_right {
   float: right;
   position: relative; /* workaround for IE 6 */
+  height: 2em;
+  overflow: hidden; /* enclose floating child divs */
 }
 
 .ull_pager_element {

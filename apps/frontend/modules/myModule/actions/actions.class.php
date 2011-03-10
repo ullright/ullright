@@ -10,12 +10,15 @@
  */
 class myModuleActions extends ullsfActions
 {
+  
   /**
    * Executes index action
    *
    */
-  public function executeIndex()
+  public function executeIndex($request)
   {
+    $this->redirect('ullCms/show?slug=homepage');
   }
+  
   
 }

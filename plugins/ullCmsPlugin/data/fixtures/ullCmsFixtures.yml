@@ -10,10 +10,18 @@
 #       advanced-course-1
 #   contact
 #   wiki * 
+#
+# sidebar-blocks *
+#   sidebar-block-address
+#   sidebar-block-facebook
+#
 # footer-menu *
 #   legal
 #
-# * ... menu-only item
+# admin-menu *
+#   ...
+#
+# * = menu-only item
 
 
 # "Menu only" entries - no content page
@@ -40,13 +48,6 @@ UllCmsMenuItem:
       de:
         name:               Advanced Kurse
     Parent:                 courses            
-  footer_menu:
-    slug:                   footer-menu
-    Translation:
-      en:
-        name:               Footer
-      de:
-        name:               Fußzeile
   inactive_entry:
     Translation:
       en:
@@ -55,6 +56,104 @@ UllCmsMenuItem:
         name:               Inaktiver Eintrag
     Parent:                 main_menu
     is_active:              false
+
+  sidebar_blocks:
+    slug:                   sidebar-blocks
+    Translation:
+      en:
+        name:               Sidebar blocks
+      de:                   
+        name:               Sidebar-Blöcke
+        
+  admin_menu:
+    slug:                   admin-menu
+    Translation:
+      en:
+        name:               Admin menu
+      de:                   
+        name:               Admin-Menü
+  manage_content:
+    slug:                   manage-content
+    Parent:                 admin_menu
+    Translation:
+      en:
+        name:               Manage content
+      de:
+        name:               Inhalte verwalten
+  manage_pages:
+    slug:                   manage-pages
+    Parent:                 manage_content
+    link:                   ullCms/list
+    Translation:
+      en:
+        name:               Pages
+      de:
+        name:               Seiten
+  manage_news:
+    slug:                   manage-news
+    Parent:                 manage_content
+    link:                   ullNews/list
+    Translation:
+      en:
+        name:               News
+      de:
+        name:               News            
+  manage_menu_items:
+    slug:                   manage-menu-items
+    Parent:                 manage_content
+    link:                   ullTableTool/list?table=UllCmsMenuItem
+    Translation:
+      en:
+        name:               Menu items
+      de:
+        name:               Menüeinträge
+        
+  tools:
+    slug:                   tools
+    Parent:                 admin_menu
+    Translation:
+      en:
+        name:               Tools
+      de:
+        name:               Tools
+  admin:
+    slug:                   admin
+    Parent:                 tools
+    link:                   ullAdmin/index
+    Translation:
+      en:
+        name:               Admin
+      de:
+        name:               Admin        
+  newsletter:
+    slug:                   newsletter
+    Parent:                 tools
+    link:                   ullNewsletter/index
+    Translation:
+      en:
+        name:               Newsletter
+      de:
+        name:               Newsletter    
+  tasks:
+    slug:                   tasks
+    Parent:                 tools
+    link:                   ullFlow/index?app=todo
+    Translation:
+      en:
+        name:               Tasks
+      de:
+        name:               Aufgaben         
+
+             
+  
+  footer_menu:
+    slug:                   footer-menu
+    Translation:
+      en:
+        name:               Footer
+      de:
+        name:               Fußzeile
+
         
  
 # content pages and at the same time a menu item    
@@ -62,13 +161,16 @@ UllCmsPage:
   home:
     Translation:
       en:
-        title:              Homepage
-        body:               '<h1>Welcome</h1>to ullright cms'
+        title:              Welcome to ullright
+        name:               Home
+        body:               '<p>"ullright" is a platform for professional webapplication.</p><p>A lot of integrated modules are available like content management, newsletter, wiki, time reporting, trouble ticketing and inventory.</p>'
       de:
-        title:              Startseite            
-        body:               '<h1>Willkommen</h1>beim ullright cms'
+        title:              Willkommen bei ullright
+        name:               Home            
+        body:               '<p>"ullright" ist eine Plattform für professionelle Webanwendungen.</p><p>Eine Vielzahl von Modulen wie z.B. Content Management, Newsletter, Wiki, Zeiterfassung, Trouble Ticketing und Inventory sind verfügbar.</p>'
     Parent:                 main_menu
     sequence:               10
+    slug:                   homepage
   about_us:
     Translation:
       en:
@@ -101,30 +203,30 @@ UllCmsPage:
     Translation:
       en:
         title:              Contact
-        body:               '<a href="mailto:office@example.com">Email</a>'
+        body:               'mailto:office@example.com'
       de:
         title:              Kontakt            
-        body:               '<a href="mailto:office@example.com">E-Mail</a>'
+        body:               'mailto:office@example.com'
     Parent:                 main_menu
     sequence:               90
   courses:
     Translation:
       en:
         title:              Courses
-        body:               '<h1>Courses</h1>We have interesting courses...'
+        body:               '<p>We offer interesting courses...</p><p>Please make your choice from the menu</p>'
       de:
         title:              Kurse            
-        body:               '<h1>Kurse</h1>Wir bieten interessante Kurse...'
+        body:               '<p>Wir bieten interessante Kurse...</p><p>Bitte wählen Sie aus dem Menü</p>'
     Parent:                 main_menu
     sequence:               50
   advanced_course_1:
     Translation:
       en:
         title:              Advanced course 1
-        body:               'For skilled...'
+        body:               'For already skilled people...'
       de:
-        title:              Advanced Kurs 1            
-        body:               'Für Fortgeschrittene'
+        title:              Fortgeschrittenen Kurs 1            
+        body:               'Für Fortgeschrittene...'
     Parent:                 courses_advanced      
   legal:
     Translation:
@@ -134,7 +236,30 @@ UllCmsPage:
       de:
         title:              Impressum            
         body:               '<cite>Nach dem Gesetz der...</cite>'
-    Parent:                 footer_menu       
+    Parent:                 footer_menu    
+
+  # sidebar blocks
+  sidebar_block_address:
+    slug:                    sidebar-block-address
+    Parent:                  sidebar_blocks
+    Translation:
+      en:
+        title:              Address
+        body:               <address>Quietroad 7<br />12345 Newtown</address>
+      de:
+        title:              Adresse            
+        body:               <address>Leiseweg 7<br />12345 Neustadt</address>
+
+  sidebar_block_facebook:
+    slug:                    sidebar-block-facebook
+    Parent:                  sidebar_blocks
+    Translation:
+      en:
+        title:              Facebook
+        body:               <a title="ull.at" target="_blank" href="http://www.facebook.com/pages/Wien/ullat/133839889986466"><img width="120" height="96" alt="Facebook" style="border: 0px none;" src="http://badge.facebook.com/badge/133839889986466.1052.554780483.png" /></a>
+      de:
+        title:              Facebook            
+        body:               <a title="ull.at" target="_blank" href="http://www.facebook.com/pages/Wien/ullat/133839889986466"><img width="120" height="96" alt="Facebook" style="border: 0px none;" src="http://badge.facebook.com/badge/133839889986466.1052.554780483.png" /></a>
 
     
 UllNews:

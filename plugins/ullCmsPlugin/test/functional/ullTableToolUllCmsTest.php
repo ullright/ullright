@@ -15,7 +15,7 @@ $b = new ullTableToolTestBrowser(
   'ullCms', 
   'Pages', 
   'Manage Pages', 
-  8, 
+  10, 
   $selector, 
   $configuration,
   array('order' =>' title', 'no_delete' => true)
@@ -34,7 +34,7 @@ $editValues = array(
   'title_translation_en' => 'Next Page', 
   'body_translation_en' => array('Test body', false),
   'name_translation_en' => array('Next name', false),
-  'parent_ull_cms_item_id' => array(Doctrine::getTable('UllCmsItem')->findOneBySlug('homepage')->id, 'Main menu - Homepage'),
+  'parent_ull_cms_item_id' => array(Doctrine::getTable('UllCmsItem')->findOneBySlug('homepage')->id, 'Main menu - Home'),
   'is_active' => array(false, 'Checkbox_unchecked')
 );
 

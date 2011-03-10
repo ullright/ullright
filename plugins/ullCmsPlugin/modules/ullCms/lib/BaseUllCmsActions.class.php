@@ -24,9 +24,12 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   {
     parent::preExecute();
     
-    //Add ullCms stylsheet for all actions
-    $path =  '/ullCmsTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
-    $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+    if ($this->getActionName() != 'show')
+    {
+      //Add ullCms stylsheet for all actions
+      $path =  '/ullCmsTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
+      $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+    }
   }    
   
   /**

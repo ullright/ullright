@@ -26,6 +26,34 @@ class BaseUllCmsComponents extends sfComponents
     );    
   }
   
+  public function executeRenderSidebarMenu(sfRequest $request, $renderClass = 'ullTreeMenuRenderer', $topLevelHtmlTag = 'li')
+  {
+    if (!isset($this->renderUlTag))
+    {
+      $this->renderUlTag = true;
+    }
+    
+    $item = Doctrine::getTable('UllCmsItem')->findOneBySlug($this->slug);
+    
+    // In some cases the translation need is not fetched... 
+    $item->refreshRelated('Translation');
+    
+    $this->setVar(
+      'item',
+      $item
+    );
+    
+    $navigation = UllCmsItemTable::getMenuTree(
+      $this->slug, 
+      $request->getParameter('slug')  //TODO: get the top level slug for subpages
+    );
+    $this->setVar(
+      'menu',
+      new $renderClass($navigation, $this->getVar('renderUlTag'), $topLevelHtmlTag),
+      true
+    );    
+  }  
+  
   /*
    * Directly render a cms page by slug
    * 

@@ -58,38 +58,42 @@
     
     <div id="logo">
       <?php // Logo with link to homepage ?>
-      <?php echo link_to('<img src="/ullCoreThemeNGPlugin/images/logo_120.png" alt="logo"', '@homepage') ?>
+      <?php echo link_to('<img src="/ullCoreThemeNGPlugin/images/logo_120.png" alt="logo" />', '@homepage') ?>
     </div>    
     
     <!--  main menu -->
     <div id='main_menu'>
       <ul>
-        <?php // Main menu?>
+        <?php // Main menu ?>
         <?php include_component('ullCms', 'mainMenu', array('renderUlTag' => false))?>
       </ul>
     </div>
     
   <!-- End of header -->            
   </div> 
-   
-   
+  
+
   <!-- Sidebar -->
-  <?php //if ($sf_params->get('module') == 'ullCms' && $sf_params->get('action') == 'show' ): ?>
-    <div id="sidebar">  
+  <div id="sidebar">
+      
+    <?php // Admin menu - only shown with the right permission ?>
+    <?php if (UllUserTable::hasPermission('show_admin_menu')): ?>
+      <?php include_component('ullCms', 'renderSidebarMenu', array('slug' => 'admin-menu'))?>
+    <?php endif ?>
+
+    <?php // Submenu of the main menu - only shown when we have subpages ?>          
+    <?php if (strstr(get_slot('sidebar'), '<li')): // We expect the side menu here. If we have no <li> entries we consider it empty ?>
+      <div class="sidebar_block">
+        <h1><?php echo __('Menu', null, 'common') ?></h1>
+        <?php include_slot('sidebar') ?>
+      </div>
+    <?php endif ?>
     
-        <?php if (strstr(get_slot('sidebar'), '<li')): // We expect the side menu here. If we have no <li> entries we consider it empty ?>
-          <div class="sidebar_block">
-            <h1>Menü</h1>
-            <?php include_slot('sidebar') ?>
-          </div>
-        <?php endif ?>
-        
-        <?php if ($sf_params->get('module') == 'ullCms' && $sf_params->get('slug') == 'homepage' ): ?>
-          <?php include_component('ullCms', 'renderSidebarBlocks', array('slug' => 'sidebar-module'))?>
-        <?php endif ?>
-        
-    </div> <!-- end of sidebar -->
-  <?php //endif ?>      
+    <?php // Sidebar blocks ?>  
+    <?php include_component('ullCms', 'renderSidebarBlocks', array('slug' => 'sidebar-blocks'))?>
+      
+  <!-- End of sidebar -->      
+  </div> 
    
   
   <!-- Content box --> 
@@ -98,6 +102,8 @@
   <div id="content">
     <?php echo $sf_data->getRaw('sf_content') ?>
   </div> 
+  
+  
    
   <!-- Footer --> 
   <div id="footer">

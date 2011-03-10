@@ -18,7 +18,7 @@ $t->begin('render()');
 
   $menu = UllCmsItemTable::getMenuTree('main-menu', 'location');
 
-  $reference = '<li class="ull_menu_item_homepage"><a href="/ullCms/show/homepage" class="ull_menu_entry_homepage">Homepage</a></li>
+  $reference = '<li class="ull_menu_item_homepage"><a href="/ullCms/show/homepage" class="ull_menu_entry_homepage">Home</a></li>
 <li class="ull_menu_item_about_us ull_menu_is_ancestor"><a href="/ullCms/show/about-us" class="ull_menu_entry_about_us">About us</a>
 <ul class="ull_menu_about_us">
 <li class="ull_menu_item_location ull_menu_is_current"><a href="/ullCms/show/location" class="ull_menu_entry_location">Location</a></li>
@@ -54,7 +54,7 @@ $t->begin('render()');
   
     $menu = UllCmsItemTable::getMenuTree('main-menu', 'location');
 
-  $reference = '<td class="ull_menu_item_homepage"><a href="/ullCms/show/homepage" class="ull_menu_entry_homepage">Homepage</a></td>
+  $reference = '<td class="ull_menu_item_homepage"><a href="/ullCms/show/homepage" class="ull_menu_entry_homepage">Home</a></td>
 <td class="ull_menu_item_about_us ull_menu_is_ancestor"><a href="/ullCms/show/about-us" class="ull_menu_entry_about_us">About us</a>
 <ul class="ull_menu_about_us">
 <li class="ull_menu_item_location ull_menu_is_current"><a href="/ullCms/show/location" class="ull_menu_entry_location">Location</a></li>

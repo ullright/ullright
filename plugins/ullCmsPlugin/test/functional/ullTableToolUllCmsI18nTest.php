@@ -6,10 +6,12 @@ $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();
 
+$page = Doctrine::getTable('UllCmsPage')->findOneBySlug('homepage');
+$id = $page['id'];
 
 $b
   ->diag('edit cms page in german')
-  ->get('/ullCms/edit/id/7') // "home"
+  ->get('/ullCms/edit/id/' . $id)
   ->loginAsAdmin()
   ->click('Deutsch')
   ->isRedirected()
@@ -18,7 +20,7 @@ $b
   ->with('request')->begin()
     ->isParameter('module', 'ullCms')
     ->isParameter('action', 'edit')
-    ->isParameter('id', '7')
+    ->isParameter('id', $id)
   ->end()
   ->setField('fields[title_translation_en]', 'Go Home')
   ->setField('fields[title_translation_de]', 'Geh zaus')

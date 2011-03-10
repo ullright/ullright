@@ -1267,6 +1267,11 @@
 <target>Bestätigen</target>
 </trans-unit>
 
+<trans-unit id="26011">
+<source>Menu</source>
+<target>Menü</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>
