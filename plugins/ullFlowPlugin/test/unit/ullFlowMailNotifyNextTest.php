@@ -32,15 +32,16 @@ $t->diag('prepare()');
   
   $t->is($mail->getSubject(), 'Trouble ticket: "My first trouble ticket"', 'creates the correct subject');
   
-  $reference = 'Hello Master Admin,
+  $serverName = sfConfig::get('app_server_name', 'www.example.com');
+  $reference = "Hello Master Admin,
 
-Please take care of Trouble ticket "My first trouble ticket".
+Please take care of Trouble ticket \"My first trouble ticket\".
 
-Link: http://www.example.com/ullFlow/edit/doc/1
+Link: http://$serverName/ullFlow/edit/doc/1
 
 Kind regards,
 Helpdesk User
-';
+";
   
   $t->is($mail->getBody(), $reference, 'creates the correct body');
   

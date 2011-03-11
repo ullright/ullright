@@ -35,7 +35,8 @@ $t->begin('__construct');
   
 $t->diag('getEditLink()');
 
-  $t->is($mail->getEditLink(), 'Link: http://www.example.com/ullFlow/edit/doc/1', 'returns the correct URL');
+  $serverName = sfConfig::get('app_server_name', 'www.example.com');
+  $t->is($mail->getEditLink(), "Link: http://$serverName/ullFlow/edit/doc/1", 'returns the correct URL');
   
   
   
