@@ -103,7 +103,7 @@ ul#breadcrumbs li.first {
 
 /*
  * ************************************************
- *  index action (also known als "tc" TaskCenter
+ *  index action (also known als "tc" TaskCenter)
  * ************************************************
  */
 
@@ -140,8 +140,8 @@ ul#breadcrumbs li.first {
 */
 #tc_tasks {
   float: left;
-  width: 225px;
-  margin-right: 25px;
+  width: 27%;
+  margin-right: 5%;
 }
 
 #tc_tasks > h3 {
@@ -176,8 +176,8 @@ ul.tc_tasks li img {
  */
 #tc_search {
   float: left;
-  width: 255px;
-  margin-right: 25px;
+  width: 33%;
+  margin-right: 5%;
 }
 
 .tc_search_quick_top {
@@ -213,7 +213,7 @@ ul.tc_tasks li img {
  */
 #tc_queries {
   float: left;
-  width: 230px;
+  width: 30%;
 }
 
 .tc_query_box {

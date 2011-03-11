@@ -24,7 +24,7 @@
 <?php require(sfConfig::get('sf_plugins_dir') . 
   '/ullCoreTheme' .
   sfConfig::get('app_theme_package', 'NG') .
-  'Plugin/templates/_head.php') ?>
+  'Plugin/templates/_head.mobile.php') ?>
 
 
 

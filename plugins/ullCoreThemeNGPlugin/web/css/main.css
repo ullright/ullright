@@ -16,7 +16,7 @@
  */
 
 
-.edit_container {
+.edit_container, #tc_wrapper {
   max-width: 780px;
 }
 

@@ -15,7 +15,7 @@
  */
 
 body {
-  margin: .2em;
+  margin: .5em;
 }
 
 img {
@@ -33,7 +33,7 @@ textarea {
  *  Content
  * ************************************************
  */
-.edit_container {
+.edit_container  {
   width: 100%;
   max-width: none;
 }
@@ -41,6 +41,35 @@ textarea {
 #ull_user_popup_sidebar {
   float: none;
 }
+
+/*
+ * ************************************************
+ *  index actions
+ * ************************************************
+ */
+ 
+#tc_container > div {
+	float: none;
+	width: 100%;
+	max-width: 24em;
+}
+
+/*
+ * ************************************************
+ *  edit actions
+ * ************************************************
+ */
+
+.edit_action_buttons_left {
+  float: none;
+}
+ 
+.edit_action_buttons_right {
+  float: none;
+  margin: 1em 0 0 .8em;
+  line-height: 1.8em;
+}
+
 
 
 /*
@@ -52,13 +81,6 @@ textarea {
 .list_table tr {
   min-height: 3em;
 } 
-
-/*
- * ************************************************
- *  ullGenerator
- * ************************************************
- */
-
 
 .edit_container {
   max-width: 60em;
