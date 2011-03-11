@@ -84,6 +84,7 @@ UllCmsMenuItem:
     slug:                   manage-pages
     Parent:                 manage_content
     link:                   ullCms/list
+    sequence:               10
     Translation:
       en:
         name:               Pages
@@ -93,6 +94,7 @@ UllCmsMenuItem:
     slug:                   manage-news
     Parent:                 manage_content
     link:                   ullNews/list
+    sequence:               20
     Translation:
       en:
         name:               News
@@ -102,6 +104,7 @@ UllCmsMenuItem:
     slug:                   manage-menu-items
     Parent:                 manage_content
     link:                   ullTableTool/list?table=UllCmsMenuItem
+    sequence:               30
     Translation:
       en:
         name:               Menu items
@@ -133,16 +136,61 @@ UllCmsMenuItem:
       en:
         name:               Newsletter
       de:
-        name:               Newsletter    
-  tasks:
-    slug:                   tasks
+        name:               Newsletter
+  inventory:
+    slug:                   inventory
     Parent:                 tools
-    link:                   ullFlow/index?app=todo
+    link:                   ullVentory/index
     Translation:
       en:
-        name:               Tasks
+        name:               Inventory
       de:
-        name:               Aufgaben         
+        name:               Inventur
+  phone_directory:
+    slug:                   phone-directory
+    Parent:                 tools
+    link:                   ullPhone/list
+    Translation:
+      en:
+        name:               Phone directory
+      de:
+        name:               Telefonbuch
+  orgchart:
+    slug:                   orgchart
+    Parent:                 tools
+    link:                   ullOrgchart/list
+    Translation:
+      en:
+        name:               Orgchart
+      de:
+        name:               Organigramm
+  wiki1:
+    slug:                   wiki1
+    Parent:                 tools
+    link:                   ullWiki/list
+    Translation:
+      en:
+        name:               Wiki
+      de:
+        name:               Wiki
+  workflows:
+    slug:                   workflows
+    Parent:                 tools
+    link:                   ullFlow/index
+    Translation:
+      en:
+        name:               Workflows
+      de:
+        name:               Workflows       
+  time_reporting:
+    slug:                   time-reporting
+    Parent:                 tools
+    link:                   ullTime/index
+    Translation:
+      en:
+        name:               Time reporting
+      de:
+        name:               Zeiterfassung           
 
              
   
@@ -163,11 +211,22 @@ UllCmsPage:
       en:
         title:              Welcome to ullright
         name:               Home
-        body:               '<p>"ullright" is a platform for professional webapplication.</p><p>A lot of integrated modules are available like content management, newsletter, wiki, time reporting, trouble ticketing and inventory.</p>'
+        body:               | 
+          <p>"ullright" is a platform for professional webapplication.</p>
+          <p>A lot of integrated modules are available like content management, newsletter, wiki, time reporting, trouble ticketing and inventory.</p>
+          <h1>Example Layouts</h1>
+          <p>"ullright" is very flexible and can be used for everything from simple homepages to enterprise webapplications.</p>
+          <p><a href="/myModule/toggleLayout">Click here to toggle between a "webapp" and a "website" example layout</a>.</p>
       de:
         title:              Willkommen bei ullright
         name:               Home            
-        body:               '<p>"ullright" ist eine Plattform für professionelle Webanwendungen.</p><p>Eine Vielzahl von Modulen wie z.B. Content Management, Newsletter, Wiki, Zeiterfassung, Trouble Ticketing und Inventory sind verfügbar.</p>'
+        body:               |
+          <p>"ullright" ist eine Plattform für professionelle Webanwendungen.</p>
+          <p>Eine Vielzahl von Modulen wie z.B. Content Management, Newsletter, Wiki, Zeiterfassung, Trouble Ticketing und Inventory sind verfügbar.</p>
+          <h1>Layout Beispiele</h1>
+          <p>"ullright" ist sehr flexibel und kann für alles von der kleinen Homepage bis zu komplexen Unternehmens-Webanwendungen eingesetzt werden.</p>
+          <p><a href="/myModule/toggleLayout">Klicken Sie hier um zwischen Beispielen für ein Webanwendungs- und ein Homepagelayout umzusschalten</a>.</p>        
+        
     Parent:                 main_menu
     sequence:               10
     slug:                   homepage

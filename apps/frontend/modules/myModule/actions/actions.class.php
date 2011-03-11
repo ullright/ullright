@@ -21,4 +21,28 @@ class myModuleActions extends ullsfActions
   }
   
   
+  /**
+   * Toogle between webapp and website example layouts
+   * 
+   * @param sfRequest $request
+   */
+  public function executeToggleLayout($request)
+  {
+    $layout = $this->getUser()->getAttribute('layout');
+    
+    if ($layout == 'layout_webapp')
+    {
+      $layout = 'layout_website';
+    }
+    else
+    {
+      $layout = 'layout_webapp';
+    }
+    
+    $this->getUser()->setAttribute('layout', $layout);
+    
+    $this->redirect('@homepage');
+  }
+  
+  
 }
