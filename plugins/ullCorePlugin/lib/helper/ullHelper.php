@@ -714,7 +714,7 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true)
   
   // clean params
   $params = _ull_reqpass_clean_array($params);
-  
+
   return $params;
 }
 
@@ -758,7 +758,6 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
     }  
   }
   
-  
   foreach ($array as $key => $value) 
   {
     // recurse
@@ -777,15 +776,15 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
       // TODO: what's the usecase for rawurlencode?
       if ($rawurlencode and !is_array($value)) 
       {
-        $array[$key] = ull_sf_url_encode($value);        
+        $array[$key] = ull_sf_url_encode($value);
       }
       else
       {      
-      $array[$key] = $value;
+        $array[$key] = $value;
       }
     }
   }
-  
+
   return $array; 
 }
 
@@ -883,19 +882,23 @@ function _ull_reqpass_build_base_url($params) {
 
 
 /** 
- * encodes special chars in urls
- * used mainly for encoding '.' in url params because '.' breaks the symfony rewrite rules
- * example symfony url that does not work: 'myModule/myAction/search/file.txt'
+ * Raw-Encodes special chars in urls
  * 
- * @param string string   
- * @return string
+ * @param string $string   
+ * @return string the rawurlencoded $string
  */
 
 function ull_sf_url_encode($string) 
 {
-  
-  // replace '.' by the corresponding html entity
-  return rawurlencode(str_replace('.', '&#x2E;', $string));
+  //it seems that the . replacement is not necessary any longer.
+  //if this turns out to be wrong, we need to reenable the replacement
+  //here AND adapt the reqpassing code to also call ull_sf_url_decode
+  //for each parameter (which does not happen at the moment).
+  //as an alternative, see the 'segment_separators' parameter for the
+  //symfony routing system, but removing the . from this parameter
+  //might break other things.
+  return rawurlencode($string);
+;
   
 }
 
