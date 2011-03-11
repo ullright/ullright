@@ -49,13 +49,14 @@ class ullTimeProjectEffortGenerator extends ullTableToolGenerator
       $this->getColumnsConfig()->orderBottom(array('comment', 'recurring_until'));
     }
     
-    if ($this->isAction('editProject'))
+    if ($this->isAction(array('editProject', 'createProject')))
     {
       $this->getColumnsConfig()->offsetGet('date')
         ->setAccess('w')
         ->setWidgetAttribute('class', 'advanced_form_field')
+        ->setHelp(__('Change the date of this effort', null, 'ullTimeMessages'))
       ;
-      
+
       if (!UllUserTable::hasPermission('ull_time_enter_future_periods'))
       {
         $this->getColumnsConfig()->offsetGet('date')

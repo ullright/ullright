@@ -234,6 +234,11 @@
 <target>Falls Sie ein zukünftiges Datum eingeben wollen kontaktieren Sie bitte Ihren Vorgesetzten</target>
 </trans-unit>
 
+<trans-unit id="47">
+<source>Change the date of this effort</source>
+<target>Das Datum dieses Aufwands ändern</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

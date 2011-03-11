@@ -97,8 +97,7 @@
   <?php
     foreach ($edit_generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
     {
-      $hide_rows = ($edit_generator->getRow()->exists()) ?
-        array('ull_user_id') : array('ull_user_id', 'date');
+      $hide_rows = array('ull_user_id');
       if (!in_array($column_name, $hide_rows))
       {
         echo $edit_generator->getForm()->offsetGet($column_name)->renderRow();
