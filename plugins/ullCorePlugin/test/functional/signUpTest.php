@@ -10,6 +10,8 @@ $b->resetDatabase();
 $b
   ->diag('Load sign up page')
   ->get('/')
+  ->isRedirected()
+  ->followRedirect()
   ->click('Sign up')
   ->isStatusCode(200)   
   ->with('request')->begin()   
