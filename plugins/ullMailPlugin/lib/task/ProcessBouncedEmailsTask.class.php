@@ -22,23 +22,28 @@ EOF;
       'The application name', 'frontend');
     $this->addArgument('env', sfCommandArgument::OPTIONAL,
       'The environment', 'cli');
-//    $this->addOption('quiet', null, sfCommandOption::PARAMETER_NONE,
-//      'Be less noisy. Output interesting stuff only');
     $this->addOption('dry-run', null, sfCommandOption::PARAMETER_NONE,
       'Dry run - Don\'t do anything');
+    $this->addOption('less-noisy', null, sfCommandOption::PARAMETER_NONE,
+      'Be less noisy. Output interesting stuff only. Used for cron jobs');    
     
   }
 
 
   protected function execute($arguments = array(), $options = array())
   {
-    $this->initializeDatabaseConnection($arguments, $options);
-    
     if ($options['dry-run'])
     {
       $this->setIsDryRun(true);
     }
     
+    if ($options['less-noisy'])
+    {
+      $this->setIsLessNoisy(true);
+    }
+    
+    $this->initializeDatabaseConnection($arguments, $options);
+
     try
     {
       $bouncedEmailAddresses = $this->findBouncedEmailAddresses($arguments, $options);
@@ -54,24 +59,61 @@ EOF;
       exit();
     }
     
-    $this->logSection($this->name, "Bounced email addresses:");
-    var_dump($bouncedEmailAddresses);
-    $this->logSection($this->name, 'Number of bounced emails: ' . count($bouncedEmailAddresses));
+    $this->logNoisySectionIf(
+      $bouncedEmailAddresses, 
+      $this->name, 
+      "Bounced email addresses: \n " . implode("\n", $bouncedEmailAddresses),
+      999999
+    );
+    $this->logNoisySectionIf(
+      $bouncedEmailAddresses, 
+      $this->name, 
+      'Number of bounced emails: ' . count($bouncedEmailAddresses)
+    );
 
-    $userBounces = $this->increaseBounceCounter($bouncedEmailAddresses, $arguments, $options);
     
-    $this->logSection($this->name, "User bounce status:");
-    var_dump($userBounces);
+    
+    $userBounces = $this->increaseBounceCounter($bouncedEmailAddresses, $arguments, $options);
+    $this->logNoisySectionIf(
+      $userBounces, 
+      $this->name, 
+      "User bounce status: \n " . implode("\n", $userBounces),
+      999999
+    );
+    $this->logNoisySectionIf(
+      $userBounces, 
+      $this->name, 
+      'Number of users with positive bounce counter: ' . count($userBounces)
+    );       
+
     
     $resetUsers = $this->resetBounceCounter($arguments, $options);
+    $this->logNoisySectionIf(
+      $resetUsers, 
+      $this->name, 
+      "Users with reset bounce counter: \n " . implode("\n", $resetUsers),
+      999999
+    );
+    $this->logNoisySectionIf(
+      $resetUsers, 
+      $this->name, 
+      'Number of users with reset bounce counter: ' . count($resetUsers)
+    );
     
-    $this->logSection($this->name, "Users with reset bounce counter:");
-    var_dump($resetUsers);
+    
     
     $deletedUsers = $this->deleteMailAddressesOnBounceMax($arguments, $options);
-    $this->logSection($this->name, "Users with deleted email address:");
-    var_dump($deletedUsers);
-    $this->logSection($this->name, 'Number of users with deleted email address: ' . count($deletedUsers));
+    $this->logNoisySectionIf(
+      $deletedUsers, 
+      $this->name, 
+      "Users with deleted email address: \n " . implode("\n", $deletedUsers),
+      999999
+    );     
+    $this->logNoisySectionIf(
+      $deletedUsers, 
+      $this->name, 
+      'Number of users with deleted email address: ' . count($deletedUsers)
+    );
     
     if (!$this->isDryRun())
     {
@@ -281,7 +323,7 @@ EOF;
     {
       $resetUsers = array();
       
-      //uniquify the arra
+      //uniquify the array
       $userEmails = array_values(array_unique($userEmails));
       
       foreach ($userEmails as $userEmail)

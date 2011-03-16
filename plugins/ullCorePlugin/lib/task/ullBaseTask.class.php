@@ -8,7 +8,9 @@ abstract class ullBaseTask extends sfBaseTask
     $configuration,
     $debug = false,
     
-    $dryRun = false,
+    $isDryRun = false,
+    /* Be less noisy, output only interesting stuff (for cron)*/
+    $isLessNoisy = false,
     
     $camelcase_name = '',
     $underscore_name = '',
@@ -276,11 +278,13 @@ abstract class ullBaseTask extends sfBaseTask
   /**
    * Set dry run option
    * 
+   * This means that no data is modified in the database etc.
+   * 
    * @param boolean $boolean
    */
   public function setIsDryRun($boolean)
   {
-    $this->dryRun = (bool) $boolean;
+    $this->isDryRun = (bool) $boolean;
     
     return $this;
   }  
@@ -292,6 +296,67 @@ abstract class ullBaseTask extends sfBaseTask
    */
   public function isDryRun()
   {
-    return (bool) $this->dryRun;
+    return (bool) $this->isDryRun;
   }
+
+  
+  /**
+   * Set "less noisy" flag.
+   * 
+   * This means that only uncommon or events of special interest are
+   * outputted. Used mainly for cron jobs
+   * 
+   * @param boolean $boolean
+   * @return self
+   */
+  public function setIsLessNoisy($boolean)
+  {
+    $this->isLessNoisy = (bool) $boolean;
+    
+    return $this;
+  }
+  
+  
+  /**
+   * Get "less noisy" flag
+   * 
+   * @return boolean
+   */
+  public function isLessNoisy()
+  {
+    return (bool) $this->isLessNoisy;
+  }
+  
+  
+  /**
+   * Adds "less noisy" mode
+   * 
+   * @see sfTask 
+   * 
+   */
+  public function logSection($section, $message, $size = null, $style = 'INFO', $beNoisy = false)
+  {
+    if ($this->isLessNoisy() && !$beNoisy)
+    {
+      return;
+    }
+    
+    return parent::logSection($section, $message, $size, $style);
+  }
+
+  /**
+   * Log section with a given condition even in "less noisy" mode
+   * 
+   * @param boolean $condition
+   * @see sfTask 
+   * 
+   */
+  public function logNoisySectionIf($condition, $section, $message, $size = null, $style = 'INFO')
+  {
+    $condition = (boolean) $condition;
+    
+    return $this->logSection($section, $message, $size, $style, $condition);
+  }
+  
+  
 }
