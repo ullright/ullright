@@ -135,8 +135,6 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
     //Ajax call
     if ($request->isXmlHttpRequest())
     {
-      //return $this->renderText(' ' . serialize($request->getParameterHolder()->getAll()));
-      
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
       {
         return $this->renderText("ok");

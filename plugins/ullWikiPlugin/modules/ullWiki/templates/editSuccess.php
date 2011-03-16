@@ -123,14 +123,13 @@
     if (("' . $doc->id .'") && ( ! ($("#content > .form_error").length > 0)))
     {
       // Temp. disabled because of  http://www.ullright.org/ullFlow/edit/doc/1482
-      //setInterval("autoSaveWikiAjax()", 60000);
+      setInterval("autoSaveWikiAjax()", 60000);
     }
     else
     {
       // Temp. disabled because of  http://www.ullright.org/ullFlow/edit/doc/1482
-      //$("#ull_wiki_autosave_notice").show();
+      $("#ull_wiki_autosave_notice").show();
     }
-    
   }); 
   
 
@@ -145,9 +144,23 @@
       //saves the current content of the FCKEditor
       document.getElementById("fields_body").value = FCKeditorAPI.GetInstance("fields_body").GetHTML(true);
       
-      //get the form-data
-      var formData = $("#ull_wiki_form").serialize();
+      //get the form data
+      var formData = $("#ull_wiki_form").serializeArray();
       
+      //since serialize() seems to do strange things to newlines (in Firefox)
+      //retrieve its raw value, normalize new lines and 
+      var docContent =  document.getElementById("fields_body").value;
+      docContent.replace(/(\r\n|\r|\n)/g, \'\n\');
+      
+      //replace the serialized body with the fixed value
+      for (var i = 0; i < formData.length; i++)
+      {
+				if (formData[i].name == "fields[body]")
+				{
+					formData[i].value = docContent;
+				}
+			}
+			
       $.ajax({
         url: "' . url_for('ullWiki/edit?docid=' . $doc->id . '') . '",
         type: "POST",
