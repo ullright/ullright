@@ -148,7 +148,7 @@
       var formData = $("#ull_wiki_form").serializeArray();
       
       //since serialize() seems to do strange things to newlines (in Firefox)
-      //retrieve its raw value, normalize new lines and 
+      //retrieve the raw value of the text box and normalize new lines 
       var docContent =  document.getElementById("fields_body").value;
       docContent.replace(/(\r\n|\r|\n)/g, \'\n\');
       
