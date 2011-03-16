@@ -27,7 +27,7 @@
 <?php use_stylesheet('custom.mobile.css', 'last', array('media' => 'all')) ?>  
 
 <?php /* Default ullright javascripts */ ?> 
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>  
+<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js', 'first') ?>
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
 <?php /* Include content of the  html_head slot */ ?>
