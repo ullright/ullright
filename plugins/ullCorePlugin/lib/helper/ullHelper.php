@@ -592,10 +592,12 @@ function ull_submit_tag($value = 'Save changes', $options = array())
       $options['name']) . '_cheersIE8()'; 
 	  
     $return = input_hidden_tag($options['name'], null, array('id' => str_replace(array('|', '='), '_', $options['name']))) . "\n";
+    //note: do not call submit() immediately, but use jQuery
+    //there might be submit() handlers listening
     $return .= javascript_tag('function ' . $js_function_name . ' 
 {
   document.getElementById("' . str_replace(array('|', '='), '_', $options['name']) . '").value = 1;
-  document.getElementById("' . $options['form_id'] . '").submit();
+  $("#' . $options['form_id'] . '").submit();
 }') . "\n"; 
     
     unset($options['name']);
