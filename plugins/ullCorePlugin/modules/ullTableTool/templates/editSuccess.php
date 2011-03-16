@@ -17,33 +17,51 @@
     <?php if ($is_ajax): ?>
       <ul>
           <li>
-            <?php             
-              echo button_to_function(
-                __('Save', null, 'common'),
-                '$.ajax({  
-                  type: "POST",  
-                  url: "' . url_for($form_uri) . '",  
-                  data: $("#ull_tabletool_form").serialize(), 
-                  success: function(data) {
-                    // A json response means ok
-                    try {
-                      var json = jQuery.parseJSON(data);
-                      // save overlay edit id
-                      window.overlayId = json.id;
-                      // trigger save on close event
-                      window.overlaySaveOnClose = true;
-                      $("#overlay").overlay().close();
-                    }
-                    // Otherwise we have a validation error
-                    catch (e) {
-                      var wrap = $("#overlay").overlay().getOverlay().find(".overlayContentWrap");
-                      wrap.html(data);
-                      wrap.scrollTop(0);
+            <script type="text/javascript">
+//<![CDATA[
+            $(document).ready(function()
+              {
+                $('input#edit_action_buttons_left_save_button').click(function()
+                {
+                  if ($(this).data().alreadyClicked)
+                  {
+                     return false;
+                  }
+                  else
+                  {
+                    $(this).data('alreadyClicked', true);
+                  }
+                  
+                  $.ajax({  
+                    type: "POST",  
+                    url: "<?php echo url_for($form_uri); ?>",  
+                    data: $("#ull_tabletool_form").serialize(), 
+                    success: function(data) {
+                      // A json response means ok
+                      try {
+                        var json = jQuery.parseJSON(data);
+                        // save overlay edit id
+                        window.overlayId = json.id;
+                        // trigger save on close event
+                        window.overlaySaveOnClose = true;
+                        $("#overlay").overlay().close();
+                      }
+                      // Otherwise we have a validation error
+                      catch (e) {
+                        var wrap = $("#overlay").overlay().getOverlay().find(".overlayContentWrap");
+                        wrap.html(data);
+                        wrap.scrollTop(0);
+                      }  
                     }  
-                  }  
-                });'
-              );  
-            ?>
+                  });
+                  
+                  return false;
+                });
+              });
+//]]>
+            </script>
+            <input id="edit_action_buttons_left_save_button" type="button"
+              value="<?php echo __('Save', null, 'common'); ?>" />
           </li>     
       </ul>      
     
@@ -80,7 +98,7 @@
       <ul>
       
         <li>
-          <?php 
+          <?php
             echo ull_submit_tag(
               __('Save only', null, 'common'), 
               array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
