@@ -23,12 +23,15 @@
               {
                 $('input#edit_action_buttons_left_save_button').click(function()
                 {
+                  //is this the first time the button was clicked?
                   if ($(this).data().alreadyClicked)
                   {
-                     return false;
+                    //if not, cancel operation
+                    return false;
                   }
                   else
                   {
+                    //if yes, save the fact
                     $(this).data('alreadyClicked', true);
                   }
                   
