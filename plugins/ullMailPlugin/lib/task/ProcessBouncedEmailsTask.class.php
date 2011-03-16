@@ -136,8 +136,6 @@ EOF;
    */
   public function findBouncedEmailAddresses($arguments = array(), $options = array())
   {
-    
-    
     //connect to imap mailbox
     $mailbox  = sfConfig::get('app_ull_mail_bounce_mailbox_base') . sfConfig::get('app_ull_mail_bounce_inbox_folder');
     $username = sfConfig::get('app_ull_mail_bounce_username');
@@ -162,14 +160,10 @@ EOF;
     
       $processedFolder = sfConfig::get('app_ull_mail_bounce_mailbox_base') . 
         sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed');
-    
       $status = imap_createmailbox($this->mbox, $processedFolder);
-
-//      var_dump($status);die;
 
       $unprocessableFolder = sfConfig::get('app_ull_mail_bounce_mailbox_base') . 
         sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable');
-    
       $status = imap_createmailbox($this->mbox, $unprocessableFolder);
     }
     
@@ -179,81 +173,93 @@ EOF;
     //to decrypt the ullMailLoggedMessage id
     $ullCrypt = ullCrypt::getInstance();
     
+    $unprocessableLog = array();
+    
     foreach ($mailNumbers as $mailNumber)
     {
       // get the id of the ullMailLogged entry for this message (it is saved in the email header)
-      if (preg_match("/ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches))
+      $found = preg_match("/ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
+      if (!$found)
       {
-        // decrypt the ullMailLoggedMessage id
-        try
-        {
-          $ullMailLoggedMessageId = $ullCrypt->decryptBase64($matches[1], true);
-        }
-        // In case of failure ignore the mail and move it to unprocessable folder        
-        catch(RuntimeException $e)
-        {
-          $this->logSection(
-            $this->name, 
-            $e->getMessage(),
-            null,
-            'ERROR'
-          );
-          
-          if (!$this->isDryRun())
-          {
-            imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
-          }
-          
-          // skip the rest of processing
-          continue;
-        }
-        
-        // check if the $ullMailLoggedMessage is valid and process it
-        if ($ullMailLoggedMessage = Doctrine::getTable('UllMailLoggedMessage')->findOneById($ullMailLoggedMessageId))
-        {
-          // check if the the log entry is not already marked as failed (should not happen)
-          if (! $ullMailLoggedMessage->failed_at)
-          {
-            if (!$this->isDryRun())
-            {
-              //saves the date of receiving the "undeliverable message"
-              $header = imap_headerinfo($this->mbox, $mailNumber);
-              $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
-              $ullMailLoggedMessage->save();
-              
-              imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed'));
-            }
-            
-            // extract email address
-            preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
-            // and remember it
-            $bouncedEmailAddresses[] = $matches[1];
-          }
-          else
-          {
-            if (!$this->isDryRun())
-            {
-              imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
-            }
-          }
-        }
-        else
-        {
-          if (!$this->isDryRun())
-          {
-            imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
-          }
-        }
-      }
-      else
-      {
-        if (!$this->isDryRun())
-        {
-          imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable'));
-        }
+        $unprocessableLog[] = 'No mail_log_id found in message: ' . $mailNumber;
+        $this->imapMoveToUnproccessable($mailNumber);
+
+        // skip the rest of processing
+        continue;
       }
       
-    }
+      
+      // decrypt the ullMailLoggedMessage id
+      try
+      {
+        $ullMailLoggedMessageId = $ullCrypt->decryptBase64($matches[1], true);
+      }
+      // In case of failure ignore the mail and move it to unprocessable folder        
+      catch(RuntimeException $e)
+      {
+        $this->logSection(
+          $this->name, 
+          $e->getMessage(),
+          null,
+          'ERROR'
+        );
+
+        $unprocessableLog[] = 'Failed to decrypt mail_log_id in message: ' . $mailNumber;
+        $this->imapMoveToUnproccessable($mailNumber);
+
+        
+        // skip the rest of processing
+        continue;
+      }
+      
+      
+      // check if the $ullMailLoggedMessage is valid and process it
+      $ullMailLoggedMessage = Doctrine::getTable('UllMailLoggedMessage')->findOneById($ullMailLoggedMessageId);
+      
+      if (!$ullMailLoggedMessage)
+      {
+        $unprocessableLog[] = 'Invalid mail_log_id: ' . $ullMailLoggedMessageId;
+        $this->imapMoveToUnproccessable($mailNumber);
+        
+        // skip the rest of processing
+        continue;
+      }
+      
+      
+      // check if the the log entry is not already marked as failed (should not happen)
+      if ($ullMailLoggedMessage->failed_at)
+      {
+        $unprocessableLog[] = 'Message already marked as failed: ' . $ullMailLoggedMessageId;
+        $this->imapMoveToUnproccessable($mailNumber);
+        
+        // skip the rest of processing
+        continue;
+      }        
+      
+      if (!$this->isDryRun())
+      {
+        //saves the date of receiving the "undeliverable message"
+        $header = imap_headerinfo($this->mbox, $mailNumber);
+        $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
+        $ullMailLoggedMessage->save();
+        
+        // Move to processed
+        imap_mail_move($this->mbox, $mailNumber, sfConfig::get('app_ull_mail_bounce_handled_folder', 'INBOX.processed'));
+      }
+      
+      // extract email address
+      preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
+      // and remember it
+      $bouncedEmailAddresses[] = $matches[1];
+      
+    } // end of foreach email in inbox
+    
+    $this->logNoisySectionIf(
+      $unprocessableLog,
+      $this->name, 
+      "Unprocessable emails: \n " . implode("\n", $unprocessableLog),
+      999999      
+    );
     
     return $bouncedEmailAddresses;
   }
@@ -384,4 +390,24 @@ EOF;
     
     return $userList;
   }
+  
+  
+  /**
+   * Helper to move unprocessable emails into the correct folder
+   * 
+   * @param integer $mailNumber
+   */
+  public function imapMoveToUnproccessable($mailNumber)
+  {
+    if (!$this->isDryRun())
+    {
+      imap_mail_move(
+        $this->mbox, 
+        $mailNumber, 
+        sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable')
+      );
+    }    
+  }
+  
+  
 }
