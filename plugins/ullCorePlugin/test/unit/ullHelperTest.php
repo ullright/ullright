@@ -126,7 +126,7 @@ $t->diag('ull_submit_tag()');
 function submit_my_name_cheersIE8() 
 {
   document.getElementById("submit_my_name").value = 1;
-  document.getElementById("my_form_id").submit();
+  $("#my_form_id").submit();
 }
 //]]>
 </script>
