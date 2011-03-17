@@ -112,6 +112,11 @@
 <target>Ist Standardlayout</target>
 </trans-unit>
 
+<trans-unit id="217">
+<source>Is default mailing list</source>
+<target>Ist Standard-Newsletter-Verteiler</target>
+</trans-unit>
+
 <!-- named queries -->
 
 <trans-unit id="300">

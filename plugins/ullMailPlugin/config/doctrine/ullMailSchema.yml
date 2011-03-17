@@ -94,6 +94,8 @@ UllNewsletterMailingList:
     is_active:
       type: boolean
       default: true
+    is_default:
+      type: boolean
   relations:
     Subscribers:
       #NOTE: change this to UllEntity if there are problems when importing fixtures during testing

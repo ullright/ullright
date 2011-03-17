@@ -110,6 +110,10 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
       $this['ull_newsletter_layout_id']
         ->setWidgetOption('default', PluginUllNewsletterLayoutTable::getDefaultId());
       ;
+      
+      $this['UllNewsletterEditionMailingLists']
+        ->setWidgetOption('default', PluginUllNewsletterMailingListTable::getDefaultIds());
+      ;
     }
   }
 }

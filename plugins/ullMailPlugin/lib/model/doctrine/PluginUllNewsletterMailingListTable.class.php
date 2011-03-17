@@ -16,4 +16,22 @@ class PluginUllNewsletterMailingListTable extends UllRecordTable
     {
         return Doctrine_Core::getTable('PluginUllNewsletterMailingList');
     }
+    
+  /**
+   * Returns an array with the default ullNewsLetterMailingList ids or an empty array
+   * 
+   * @return array
+   */
+  public static function getDefaultIds()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllNewsletterMailingList m INDEXBY m.id')
+      ->where('m.is_default = ?', true)
+    ;
+    
+    $mailingLists = $q->fetchArray();
+    
+    return array_keys($mailingLists);
+  }
 }

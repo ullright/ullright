@@ -32,5 +32,32 @@
     ->get('ullNewsletter/create')
     ->checkResponseElement($dgsEdit->get(4, 2) . ' select option[selected]', 'testLayout')
     
-    //->dumpDie()
+    
+    ->info('check the default mailing lists (there shouldn\'t be one)')
+    ->checkResponseElement($dgsEdit->get(1, 2) . ' select option[selected]', '')
+  ;
+  
+  $list = new UllNewsletterMailingList();
+  $list->name = 'testListOne';
+  $list->is_default = true;
+  $list->save();
+  
+  $b
+    ->info('create a new mailing list and make it default')
+    ->get('ullNewsletter/create')
+    ->checkResponseElement($dgsEdit->get(1, 2) . ' select option[selected]', 'testListOne')
+  ; 
+    
+  $listTwo = new UllNewsletterMailingList();
+  $listTwo->name = 'testListTwo';
+  $listTwo->is_default = true;
+  $listTwo->save();
+  
+  $b
+    ->info('create a new mailing list and make it default. Check both')
+    ->get('ullNewsletter/create')
+    ->checkResponseElement($dgsEdit->get(1, 2) . ' option[value=' . $list->id . '][selected]', 'testListOne')
+    ->checkResponseElement($dgsEdit->get(1, 2) . ' option[value=' . $listTwo->id . '][selected]', 'testListTwo')
+  
+    //->dumpDie();
 ;
