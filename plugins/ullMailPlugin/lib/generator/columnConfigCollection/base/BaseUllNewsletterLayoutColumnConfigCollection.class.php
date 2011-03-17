@@ -17,5 +17,8 @@ class BaseUllNewsletterLayoutColumnConfigCollection extends ullColumnConfigColle
       ->setWidgetOption('rows', 20)
       ->setWidgetOption('cols', 80)
     ;
+    $this['is_default']
+      ->setLabel(__('Is default layout', null, 'ullMailMessages'))
+    ;
   }
 }

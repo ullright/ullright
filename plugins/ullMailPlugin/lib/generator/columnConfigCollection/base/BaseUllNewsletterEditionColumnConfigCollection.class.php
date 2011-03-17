@@ -106,6 +106,10 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
         'num_read_emails',
         'num_sent_recipients'
       ));
+      
+      $this['ull_newsletter_layout_id']
+        ->setWidgetOption('default', PluginUllNewsletterLayoutTable::getDefaultId());
+      ;
     }
   }
 }

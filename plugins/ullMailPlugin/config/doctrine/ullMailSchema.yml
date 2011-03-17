@@ -142,6 +142,8 @@ UllNewsletterLayout:
     html_body:
       type: string(3000)
       notnull: true
+    is_default:
+      type: boolean
 
 # Instance of a newsletter list, e.g. "Product news - December 2010" 
 UllNewsletterEdition: 

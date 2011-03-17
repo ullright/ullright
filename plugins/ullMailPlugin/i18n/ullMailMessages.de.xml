@@ -107,6 +107,11 @@
 <target>Versandt</target>
 </trans-unit>
 
+<trans-unit id="216">
+<source>Is default layout</source>
+<target>Ist Standardlayout</target>
+</trans-unit>
+
 <!-- named queries -->
 
 <trans-unit id="300">

@@ -16,4 +16,28 @@ class PluginUllNewsletterLayoutTable extends UllRecordTable
     {
         return Doctrine_Core::getTable('PluginUllNewsletterLayout');
     }
+    
+/**
+   * Returns the default ullNewsLetterLayout id or false
+   * 
+   * @return int id
+   */
+  public static function getDefaultId()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('l.id')
+      ->from('UllNewsletterLayout l')
+      ->where('l.is_default = ?', true)
+    ;
+  
+    if ($ullNewsletterLayout = $q->fetchOne())
+    {
+      return $ullNewsletterLayout->id;
+    }
+    else
+    {
+      return false;
+    }
+  }
 }
