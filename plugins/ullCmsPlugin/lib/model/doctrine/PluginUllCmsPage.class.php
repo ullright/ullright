@@ -14,12 +14,13 @@ abstract class PluginUllCmsPage extends BaseUllCmsPage
 {
 
   /**
-   * Automatically set the name (=navigation item name) to the title of the page
+   * preSave hook
    * 
    * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#preSave($event)
    */
   public function preSave($event)
   {
+    // Automatically set the name (=navigation item name) to the title of the page
     foreach($this->Translation as $lang => $translation)
     {
       if (!$this->Translation[$lang]->name)
@@ -27,6 +28,9 @@ abstract class PluginUllCmsPage extends BaseUllCmsPage
         $this->Translation[$lang]->name = $this->Translation[$lang]->title;
       }
     }
+    
+    // Set tags in taggable behaviour
+    $this->setTags($this->duplicate_tags_for_search);
         
     parent::preSave($event);
   }

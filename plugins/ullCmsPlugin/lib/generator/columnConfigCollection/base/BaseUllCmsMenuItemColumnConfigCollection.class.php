@@ -12,7 +12,7 @@ class BaseUllCmsMenuItemColumnConfigCollection extends UllCmsItemColumnConfigCol
     parent::applyCustomSettings();
     
     $this->disable(array(
-      'title', 'body'
+      'title', 'body', 'duplicate_tags_for_search'
     ));
   }
 }

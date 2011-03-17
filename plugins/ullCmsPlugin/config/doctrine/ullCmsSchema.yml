@@ -64,7 +64,17 @@ UllCmsPage:
     extends: UllCmsItem
     type: column_aggregation
     keyValue: page
-
+  actAs:  
+    Taggable:
+  columns:
+    duplicate_tags_for_search:
+      type: string(3000)
+  relations:
+    Tagging:
+      local: id
+      foreign: taggable_id
+      foreignType: one
+      type: many
     
 # Frontpage news entries
 UllNews:
