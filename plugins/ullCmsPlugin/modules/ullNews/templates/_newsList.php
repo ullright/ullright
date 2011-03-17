@@ -18,7 +18,13 @@
         <?php $image_link_options = array('target' => '_blank') ?>
       <?php endif ?>
       
-      <div class="ull_news_entry">
+      <?php if ($form['link_url']->render()): ?>
+        <?php $onclick = 'style="cursor: pointer;" onclick="window.location = \'' . url_for($form['link_url']->render()) . '\'"'; ?>
+      <?php else: ?>
+        <?php $onclick = ''; ?>
+      <?php endif ?>
+      
+      <div class="ull_news_entry" <?php echo $onclick ?>>
         <div class="ull_news_image">
           <?php if ($form['link_url']->render() && $form['image_upload']->render()): ?>
             <?php echo ull_link_to($form['image_upload']->render(), 
