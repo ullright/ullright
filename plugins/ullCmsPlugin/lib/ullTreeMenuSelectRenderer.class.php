@@ -40,7 +40,7 @@ class ullTreeMenuSelectRenderer
     $indent = '';
     while($i--) 
     {
-      $indent .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+      $indent .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
     }
     
     $this->result[$node->getData()->id] = $indent . $node->getData()->name;
