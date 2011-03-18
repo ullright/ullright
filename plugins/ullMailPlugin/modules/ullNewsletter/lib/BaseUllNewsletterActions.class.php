@@ -245,7 +245,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     if ($loggedMessage !== false)
     {
       //make use of the information that the user opened the mail
-      //and that their client requested the tracking image
+      //and that the mail client requested the tracking image
       $loggedMessage->handleTrackingRequest($request);
       $loggedMessage->save();
     }
