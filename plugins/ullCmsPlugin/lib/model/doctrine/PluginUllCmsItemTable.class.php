@@ -148,7 +148,7 @@ class PluginUllCmsItemTable extends UllRecordTable
     $q
       ->addSelect('slug')
       ->addWhere('parent_ull_cms_item_id IS NULL')
-      ->addOrderBy('name')
+      ->addOrderBy('sequence, name')
     ; 
     
     $results = $q->execute(array(), Doctrine::HYDRATE_NONE);
