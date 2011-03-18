@@ -669,6 +669,11 @@
 <target>Optionen</target>
 </trans-unit>
 
+<trans-unit id="11016">
+<source>Name of the entry in the address-bar (URL)</source>
+<target>Name des Eintrags in der Addresse-Leiste (URL)</target>
+</trans-unit>
+
 <!-- upload -->
 
 <trans-unit id="12000">
