@@ -120,6 +120,10 @@ all:
     rss_author:             'Author'
     rss_logo:               'http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png'
     rss_number_of_entries:  10
+    
+  ull_cms:
+    preview_image_width:    140
+    image_width:            640
  
   ull_flow: 
     # ullFlowDocs can have a due date. If this parameter

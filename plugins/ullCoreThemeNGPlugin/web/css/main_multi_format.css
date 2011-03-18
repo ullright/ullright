@@ -620,21 +620,15 @@ ul.tag-cloud li {
  * ************************************************
  */
 
-.ull_widget_simple_upload_write_image {
-  margin-bottom: 1em;
-}
-
-.ull_widget_simple_upload_write_image img {
-  max-width: 250px;
-  max-height: 250px;
-}
-
 .ull_widget_simple_upload_image {
+  margin-right: 2em;
+  float: left; 
+  max-width: 15em;
+  max-height: 15em;
 }
 
 .ull_widget_simple_upload_image_input {
-  display:block;
-  margin-top: 1em;
+  /* display:block; */
 }
 
 

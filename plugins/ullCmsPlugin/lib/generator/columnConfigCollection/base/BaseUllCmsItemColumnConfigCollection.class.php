@@ -10,7 +10,7 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
   protected function applyCustomSettings()
   {
     $this->disable(array(
-      'full_path', 'type'
+      'full_path', 'type', 'preview_image', 'image'
     ));
     
     $this['name']
@@ -27,6 +27,26 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOption('add_empty', true)
       ->setWidgetOption('show_search_box', true)      
     ;
+    
+    // Enable in your custom column config if you like to use it
+    
+//    $this['preview_image']
+//      ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
+//      ->setLabel(__('Preview image', null, 'ullCmsMessages'))
+//      ->setValidatorOption(
+//          'imageWidth', 
+//          sfConfig::get('app_ull_cms_preview_image_width', 140)
+//        )
+//    ;
+//    $this['image']
+//      ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
+//      ->setLabel(__('Image', null, 'ullCmsMessages'))
+//      ->setValidatorOption(
+//          'imageWidth', 
+//          sfConfig::get('app_ull_cms_image_width', 640)
+//        )
+//    ;    
+    
     
   }
 }

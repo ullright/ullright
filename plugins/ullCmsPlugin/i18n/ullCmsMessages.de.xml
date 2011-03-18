@@ -68,6 +68,16 @@
 <target>Inhalte verwalten</target>
 </trans-unit>
 
+<trans-unit id="14">
+<source>Preview image</source>
+<target>Vorschau-Bild</target>
+</trans-unit>
+
+<trans-unit id="15">
+<source>Image</source>
+<target>Bild</target>
+</trans-unit>
+
 
     </body>
   </file>
