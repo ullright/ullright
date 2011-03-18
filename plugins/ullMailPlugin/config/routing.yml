@@ -1,4 +1,8 @@
 newsletter_edition_show:
-  url:     /newsletter/mid/:mid/*
-  param:   { module: ullNewsletter, action: show }
+  url:      /newsletter/mid/:mid/*
+  param:    { module: ullNewsletter, action: show }
+  
+newsletter_web_beacon:
+  url:      /newsletter/beacon/:mid
+  param:    { module: ullNewsletter, action: trackWebBeacon }
   

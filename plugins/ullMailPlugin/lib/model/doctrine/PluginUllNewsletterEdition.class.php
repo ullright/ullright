@@ -133,17 +133,15 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
 
   /**
    * Personalizes this newsletter edition for a given user, generating
-   * unsubscribe and online links, ...
+   * unsubscribe and online links, a tracking beacon ...
    * Receives a string (the 'body') and returns a version where tags
    * (e.g. [ONLINE_LINK]) are replaced.
-   * Used by mailing (see Swift_Plugins_ullPersonalizePlugin) and
-   * ullNewsletter's show action.
+   * Used by mailing (see Swift_Plugins_ullPersonalizePlugin).
    * 
    * @param string $body with tags to replace
    * @param ullUser $user or null (not supported atm)
-   * @param boolean $onlineView if true, ONLINE_LINK gets removed instead of replaced
    */
-  public function getPersonalizedBody($body, $user = null, $onlineView = false)
+  public function getPersonalizedBody($body, $user = null)
   {
     $dictionary = array();
     
@@ -174,16 +172,24 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       $dictionary['[UNSUBSCRIBE]'] = implode('<br />', $unsubscribe);
       
       //[ONLINE_LINK]
-      $onlineLink = ($onlineView) ? '' : 
-        $onlineLink = __('Having trouble viewing this message?', null, 'ullMailMessages') .
+      $onlineLink = __('Having trouble viewing this message?', null, 'ullMailMessages') .
           ' ' . link_to(__('Read the newsletter online.', null, 'ullMailMessages'),
-              'newsletter_edition_show',
-              array('mid' => '_-_LOGGED_MESSAGE_ID_-_'),
-              array('absolute' => true)
-            );
+        'newsletter_edition_show',
+         array('mid' => '_-_LOGGED_MESSAGE_ID_-_'),
+         array('absolute' => true)
+       );
 
       $dictionary['[ONLINE_LINK]'] = '<span id="ull_newsletter_show_online_link">'
         . $onlineLink . '</span>';
+        
+      //[TRACKING]
+      $trackingTag = image_tag(url_for('newsletter_web_beacon',
+          array('mid' => '_-_LOGGED_MESSAGE_ID_-_'),
+          array('absolute' => true)),
+        array('id' => 'ull_newsletter_beacon', 'alt' => '')
+      );
+
+      $dictionary['[TRACKING]'] = $trackingTag;
     }
     
     //do common replacement stuff which is not dependent on a specific user

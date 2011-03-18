@@ -25,12 +25,12 @@ UllNewsletterLayout:
     id: 201
     name: ullright Layout
     html_head: '<style type="text/css">h1 {color: red;} </style>'
-    html_body: <img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>
+    html_body: '[TRACKING]<img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1>[CONTENT]<small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>'
   ull_newsletter_layout_2:
     id: 202
     name: ullright alternativ Layout
     html_head: '<style type="text/css">h1 {color: #aaaaaa;} </style>'
-    html_body: <h2>ullright Product News</h2>[CONTENT]<small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>> 
+    html_body: '[TRACKING]<h2>ullright Product News</h2>[CONTENT]<small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>'
 
 UllNewsletterEdition:
   ull_newsletter_edition_1:

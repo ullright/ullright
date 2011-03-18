@@ -6,6 +6,28 @@
 abstract class PluginUllMailLoggedMessage extends BaseUllMailLoggedMessage
 {
   /**
+   * Handles tracking for an incoming request, usually originating
+   * from online view mode or directly from the email client (loading
+   * the beacon image)
+   * 
+   * @param sfRequest $request the incoming request
+   */
+  public function handleTrackingRequest(sfRequest $request)
+  {
+    $this['num_of_readings'] = $this['num_of_readings'] + 1;
+    $this['last_user_agent'] = $request->getHttpHeader('User-Agent');
+    $this['last_ip'] = $request->getRemoteAddress();
+    
+    //is this the first time this message was opened?
+    if (!$this['first_read_at'])
+    {
+      $this['first_read_at'] = date('c');
+      $readCount = $this->UllNewsletterEdition['num_read_emails'];
+      $this->UllNewsletterEdition['num_read_emails'] = $readCount + 1;
+    }
+  }
+  
+  /**
    * Returns a new (unsaved) PluginUllMailLoggedMessage instance generated
    * from a Swift_Message instance.+
    * 

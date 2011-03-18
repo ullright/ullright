@@ -63,23 +63,20 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->forward404If($loggedMessage === false); 
     
     //make use of the information that the user clicked on the read-online link     
-    $loggedMessage['num_of_readings'] = $loggedMessage['num_of_readings'] + 1;
-    $loggedMessage['last_user_agent'] = $request->getHttpHeader('User-Agent');
-    $loggedMessage['last_ip'] = $request->getRemoteAddress();
-    
-    //first time this message is read?
-    if (!$loggedMessage['first_read_at'])
-    {
-      $loggedMessage['first_read_at'] = date('c');
-      $readCount = $loggedMessage->UllNewsletterEdition['num_read_emails'];
-      $loggedMessage->UllNewsletterEdition['num_read_emails'] = $readCount + 1;
-    }
-    
+    $loggedMessage->handleTrackingRequest($request);
     $loggedMessage->save();
+    
+    //remove online link and tracking beacon (since we are in online
+    //view mode anyway and tracking was already handled) 
+    $onlineBody = $loggedMessage['html_body'];
     
     $onlineBody = preg_replace(
     '/<span.*?id\s*=\s*"ull_newsletter_show_online_link".*?>.*?<\/span>/',
-    	'', $loggedMessage['html_body']);
+    	'', $onlineBody);
+    
+    $onlineBody = preg_replace(
+    '/<img.*?id\s*=\s*"ull_newsletter_beacon".*?\/>/',
+    	'', $onlineBody);
     
     return $this->renderText($onlineBody);
   }
@@ -238,6 +235,32 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     }
   }
 
+  public function executeTrackWebBeacon(sfRequest $request)
+  {
+    $ullCrypt = ullCrypt::getInstance();
+    
+    $loggedMessage = Doctrine::getTable('UllMailLoggedMessage')
+      ->findOneById($ullCrypt->decryptBase64($request->getParameter('mid'), true));
+    
+    if ($loggedMessage !== false)
+    {
+      //make use of the information that the user opened the mail
+      //and that their client requested the tracking image
+      $loggedMessage->handleTrackingRequest($request);
+      $loggedMessage->save();
+    }
+    
+    //serve the 1x1 transparent gif
+    $this->getResponse()->setContentType('image/gif');
+    
+    $imagePath = sfConfig::get('sf_root_dir') . '/plugins/ullCoreTheme' .
+      sfConfig::get('app_theme_package', 'NG') . 'Plugin/web/images/beacon.gif';
+    $beaconImage = file_get_contents($imagePath);
+    print ($beaconImage);
+    
+    return sfView::NONE;
+  }
+  
   /**
    * Apply custom modifications to the query
    *  
