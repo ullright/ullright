@@ -17,5 +17,20 @@ class UllNewsletterMailingListColumnConfigCollection extends ullColumnConfigColl
     $this['is_default']
       ->setLabel(__('Is default mailing list', null, 'ullMailMessages'))
     ;
+    
+    if ($this->isCreateOrEditAction())
+    {
+      $this->useManyToManyRelation('Subscribers');
+      $this['Subscribers']
+        ->setLabel(__('Subscribers', null, 'ullMailMessages'))
+      ;
+      
+      $this->order(array(
+        'id',
+        'name',
+        'description',
+        'Subscribers',
+      ));
+    }
   }
 }
