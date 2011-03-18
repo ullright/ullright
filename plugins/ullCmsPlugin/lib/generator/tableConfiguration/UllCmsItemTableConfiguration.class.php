@@ -13,7 +13,7 @@ class UllCmsItemTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setForeignRelationName(__('Parent menu entry', null, 'ullCmsMessages'));
+    $this->setForeignRelationName(__('Parent', null, 'ullCmsMessages'));
     $this->setForeignRelationName(__('Higher', null, 'ullCmsMessages'), 'Parent');
     $this->setFilterColumns(array('is_active' => null));
   }

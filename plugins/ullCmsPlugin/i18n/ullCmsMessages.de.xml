@@ -24,8 +24,8 @@
 </trans-unit>
 
 <trans-unit id="5">
-<source>Parent menu entry</source>
-<target>Übergeordneter Menüeintrag</target>
+<source>Parent</source>
+<target>Übergeordneter Eintrag</target>
 </trans-unit>
 
 <trans-unit id="6">

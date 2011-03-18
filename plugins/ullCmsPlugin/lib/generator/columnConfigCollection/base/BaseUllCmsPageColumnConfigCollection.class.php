@@ -20,7 +20,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
     ;
     
     $this['parent_ull_cms_item_id']
-      ->setLabel(__('Parent menu entry', null, 'ullCmsMessages'))
+      ->setLabel(__('Parent', null, 'ullCmsMessages'))
     ;
     
     $this['body']
