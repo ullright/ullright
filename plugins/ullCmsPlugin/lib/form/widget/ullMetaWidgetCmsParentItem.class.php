@@ -32,7 +32,7 @@ class ullMetaWidgetCmsParentItem extends ullMetaWidgetForeignKey
     $this->columnConfig->setWidgetOption('choices', $choices);
     $this->columnConfig->setValidatorOption('choices', array_keys($choices));
     
-    $this->addWidget(new sfWidgetFormSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addWidget(new ullWidgetFormSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorChoice($this->columnConfig->getValidatorOptions()));
     
     $this->handleAllowCreate();

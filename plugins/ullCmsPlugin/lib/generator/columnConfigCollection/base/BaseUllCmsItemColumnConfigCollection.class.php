@@ -25,7 +25,7 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
       ->setMetaWidgetClassName('ullMetaWidgetCmsParentItem')
       ->setLabel(__('Higher menu entry', null, 'ullCmsMessages'))
       ->setWidgetOption('add_empty', true)
-      
+      ->setWidgetOption('show_search_box', true)      
     ;
     
   }
