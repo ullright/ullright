@@ -28,12 +28,9 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')
     ;
     
-    
-    // add this to your custom column config to enable tagging
-    // configure tags
-//    $this['duplicate_tags_for_search']
-//      ->setLabel('Tags')
-//      ->setMetaWidgetClassName('ullMetaWidgetTaggable');
+    $this['duplicate_tags_for_search']
+      ->setLabel('Tags')
+      ->setMetaWidgetClassName('ullMetaWidgetTaggable');
       
     $this->order(array(
       'id',
@@ -42,7 +39,6 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       'name',
       'parent_ull_cms_item_id',
       'sequence',
-//      'duplicate_tags_for_search',
     ));
     
   }

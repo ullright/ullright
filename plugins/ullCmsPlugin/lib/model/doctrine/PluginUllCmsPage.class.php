@@ -35,6 +35,4 @@ abstract class PluginUllCmsPage extends BaseUllCmsPage
     parent::preSave($event);
   }
   
-  
-  
 }
