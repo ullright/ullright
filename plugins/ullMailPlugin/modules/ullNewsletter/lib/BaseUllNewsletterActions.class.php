@@ -235,6 +235,11 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     }
   }
 
+  /**
+   * Render transparent 1x1 image to track email readings
+   * 
+   * @param sfRequest $request
+   */
   public function executeTrackWebBeacon(sfRequest $request)
   {
     $ullCrypt = ullCrypt::getInstance();
