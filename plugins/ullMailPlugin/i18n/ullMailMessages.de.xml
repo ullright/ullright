@@ -78,13 +78,13 @@
 </trans-unit>
 
 <trans-unit id="210">
-<source>Is subscribed by default</source>
-<target>Standardmäßig angemeldet</target>
+<source>Subscribed by default</source>
+<target>Automatisch anmelden</target>
 </trans-unit>
 
 <trans-unit id="211">
-<source>If checked, newly created users will subscribe to this mailing list by default</source>
-<target>Wenn angehakt, abonnieren neu angelegte Benutzer diesen Verteiler automatisch</target>
+<source>New users are automatically subscribed to this mailing list</source>
+<target>Neue Benutzer werden automatisch Mitglieder dieses Verteilers</target>
 </trans-unit>
 
 <trans-unit id="212">
@@ -113,14 +113,20 @@
 </trans-unit>
 
 <trans-unit id="217">
-<source>Is default mailing list</source>
-<target>Ist Standard-Newsletter-Verteiler</target>
+<source>Default mailing list</source>
+<target>Standard-Verteiler</target>
 </trans-unit>
 
 <trans-unit id="218">
 <source>Subscribers</source>
 <target>Abonnenten</target>
 </trans-unit>
+
+<trans-unit id="219">
+<source>This mailing list is automatically selected when composing a newsletter</source>
+<target>Beim Verfassen eines neuen Newsletter ist dieser Verteiler automatisch ausgewählt</target>
+</trans-unit>
+
 
 <!-- named queries -->
 
