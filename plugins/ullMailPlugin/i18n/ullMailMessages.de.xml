@@ -169,6 +169,26 @@
 <target>Keine Empfänger gefunden. Bitte wählen Sie eine oder mehrere Verteiler mit Abonnenten</target>
 </trans-unit>
 
+<trans-unit id="406">
+<source>The following placeholders are available: 
+[ONLINE_LINK] - Inserts the link to online version ("Read the newsletter online"); 
+[CONTENT] - Inserts the actual email content;
+[UNSUBSCRIBE] - Prints the unsubscribe links;
+[TRACKING] - Insert the code for tracking ("Who read the email")</source>
+<target>Die folgenden Platzhalter sind verfügbar: 
+[ONLINE_LINK] - Fügt den Link zur Online-Version ein ("Lesen Sie diesen Newsletter online"); 
+[CONTENT] - Fügt den eigentlichen Inhalt ein;
+[UNSUBSCRIBE] - Zeigt die Abmeldungs-Links an ("Unsubscribe");
+[TRACKING] - Fügt die Funktionalität für das Tracking ein ("Wer hat den Newsletter gelesen")</target>
+</trans-unit>
+
+<trans-unit id="407">
+<source>Every user database field can be used as placeholder for personalization. 
+Examples: [FIRST_NAME], [LAST_NAME], [TITLE], ...</source>
+<target>Jedes Benutzer-Datenbankfeld kann als Platzhalter zur Personalisierung verwendet werden. 
+Beispiele: [FIRST_NAME], [LAST_NAME], [TITLE], ...</target>
+</trans-unit>
+
 
 <!-- unsubscribe -->
 

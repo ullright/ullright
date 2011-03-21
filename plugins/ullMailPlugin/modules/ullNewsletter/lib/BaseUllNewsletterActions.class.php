@@ -301,12 +301,23 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   /**
    * Define generator for edit action
    * 
-   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getEditGenerator()
    */
   protected function getEditGenerator()
   {
     return new ullNewsletterGenerator('w');
+  }
+
+  /**
+   * Define generator for delete action
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getDeleteGenerator()
+   */
+  protected function getDeleteGenerator()
+  {
+    return new ullNewsletterGenerator('w');
   } 
+    
   
   /**
    * Create breadcrumbs for index action

@@ -18,7 +18,8 @@ class BaseUllNewsletterLayoutTableConfiguration extends UllTableConfiguration
     $this->setSearchColumns(array('name'));
     $this->setOrderBy('name');
     $this->setListColumns(array(
-      'name'
+      'name',
+      'is_default',
     ));
   }  
   

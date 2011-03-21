@@ -196,7 +196,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     
     if (isset($this['slug']))
     {
-       $this['slug']->setHelp(__('Name of the entry in the address-bar (URL)', null, 'common'));
+       $this['slug']->setHelp(__('Name of the entry in the address bar (URL)', null, 'common'));
     }
 
     $this->showOnlyInEditModeAndReadOnly();
