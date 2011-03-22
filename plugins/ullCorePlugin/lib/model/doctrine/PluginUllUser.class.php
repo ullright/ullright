@@ -59,6 +59,8 @@ abstract class PluginUllUser extends BaseUllUser
    * 
    * If so, deactivate the user for the moment, and schedule the activation for the entry date
    * 
+   * Also, reset the bounce counter, if the email address is updated
+   * 
    * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#postSave($event)
    */
   public function preSave($event)
@@ -102,6 +104,14 @@ abstract class PluginUllUser extends BaseUllUser
         //handled it above
         $event->skipOperation();
       }
+    }
+    
+    //reset bounce counter if the email address is updated
+    
+    $old = $this->getModified(true);
+    if(isset($old['email']) && ($old['email'] != $this['email']))
+    {
+      $this['num_email_bounces'] = 0;
     }
   }
   

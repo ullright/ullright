@@ -33,3 +33,13 @@ $t->diag('set/isInactive()');
   $t->is($user->isActive(), true, 'User is active');
   $user->setInactive();
   $t->is($user->isActive(), false, 'User is now inactive');
+  
+$t->diag('reset num_email_bounces on email update');
+
+  $user->num_email_bounces = 3;
+  $user->save();
+  $t->is($user->num_email_bounces, 3, 'num_email_bounces is 3');
+  
+  $user->email = 'new@example.com';
+  $user->save();
+  $t->is($user->num_email_bounces, 0, 'num_email_bounces is reseted');
