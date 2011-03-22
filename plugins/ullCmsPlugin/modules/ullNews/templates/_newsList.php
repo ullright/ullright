@@ -18,13 +18,7 @@
         <?php $image_link_options = array('target' => '_blank') ?>
       <?php endif ?>
       
-      <?php if ($form['link_url']->render()): ?>
-        <?php $onclick = 'style="cursor: pointer;" onclick="window.location = \'' . url_for($form['link_url']->render()) . '\'"'; ?>
-      <?php else: ?>
-        <?php $onclick = ''; ?>
-      <?php endif ?>
-      
-      <div class="ull_news_entry" <?php echo $onclick ?>>
+      <div class="ull_news_entry">
         <div class="ull_news_image">
           <?php if ($form['link_url']->render() && $form['image_upload']->render()): ?>
             <?php echo ull_link_to($form['image_upload']->render(), 
@@ -35,21 +29,27 @@
         </div>
         <div class="ull_news_content">
           <div class="ull_news_date"><?php echo $form['activation_date']->render() ?></div>
-          <?php if ($allow_edit): ?>
-            <?php
-                echo '<h3 class="ull_news_title">';
-                echo ull_link_to(ull_image_tag('edit'),
-                  array('module' => 'ullNews', 'action' => 'edit', 'id' => $form->getObject()->id));
-                echo $form['title']->render();
-                echo '</h3>';
-              ?>
-          <?php else: ?>
-            <?php
-                echo '<h3 class="ull_news_title">';
-                echo $form['title']->render();
-                echo '</h3>';
-              ?>
-          <?php endif?>
+          <?php
+            echo '<h3 class="ull_news_title">';
+            if ($allow_edit)
+            {
+              echo ull_link_to(ull_image_tag('edit'),
+                array('module' => 'ullNews', 'action' => 'edit', 'id' => $form->getObject()->id));
+            }
+            if ($form['link_url']->render())
+            {
+              echo ull_link_to(
+                $form['title']->render(),
+                $form['link_url']->render(), 
+                $link_options
+              );
+            }
+            else
+            {
+              echo $form['title']->render();
+            }
+            echo '</h3>';
+          ?>
           
           <p class="ull_news_abstract"><?php echo $form['abstract']->render() ?></p>
           <?php if ($form['link_name']->render() && $form['link_url']->render()): ?>
