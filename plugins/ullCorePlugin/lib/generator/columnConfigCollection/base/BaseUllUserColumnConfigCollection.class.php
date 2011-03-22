@@ -125,6 +125,9 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     $this['ull_user_status_id']
       ->setMetaWidgetClassName('ullMetaWidgetUllUserStatus')
     ;
+    $this['num_email_bounces']
+      ->setLabel(__('Number of bounced emails', null, 'ullCoreMessages'))
+    ;
     
     $this->useManyToManyRelation('UllGroup');
     $this['UllGroup']

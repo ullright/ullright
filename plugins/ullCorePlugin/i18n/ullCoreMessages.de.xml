@@ -220,7 +220,12 @@
       <trans-unit id="40">
         <source>Is assistant</source>
         <target>Ist Assistent</target>
-      </trans-unit>          
+      </trans-unit> 
+      
+      <trans-unit id="41">
+        <source>Number of bounced emails</source>
+        <target>Anzahl der abgewiesenen E-Mails</target>
+      </trans-unit>        
       
       <!--  ullPhoto -->
       
