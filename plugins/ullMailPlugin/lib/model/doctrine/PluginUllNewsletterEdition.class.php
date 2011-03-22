@@ -183,11 +183,9 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
         . $onlineLink . '</span>';
         
       //[TRACKING]
-      $trackingTag = image_tag(url_for('newsletter_web_beacon',
+      $trackingTag = '<img src="' . url_for('newsletter_web_beacon',
           array('mid' => '_-_LOGGED_MESSAGE_ID_-_'),
-          array('absolute' => true)),
-        array('id' => 'ull_newsletter_beacon', 'alt' => '')
-      );
+          array('absolute' => true)) . '" id="ull_newsletter_beacon" alt="" />';
 
       $dictionary['[TRACKING]'] = $trackingTag;
     }
