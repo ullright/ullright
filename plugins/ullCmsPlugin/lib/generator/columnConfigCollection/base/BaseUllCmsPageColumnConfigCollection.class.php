@@ -33,13 +33,25 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       ->setMetaWidgetClassName('ullMetaWidgetTaggable');
       
     $this->order(array(
-      'id',
-      'title',
-      'body',
-      'name',
-      'parent_ull_cms_item_id',
-      'sequence',
-    ));
+      array(
+        'title',
+        'name',
+        'body',
+      ),
+      array(
+        'parent_ull_cms_item_id',
+        'sequence',
+        'is_active',
+      ),
+      array(
+        'slug',
+        'id',
+        'creator_user_id',
+        'created_at',
+        'updator_user_id',
+        'updated_at',
+      ),
+    )); 
     
   }
 }
