@@ -43,7 +43,7 @@ EOF;
     $this->runTask('doctrine:drop-db', array(), array('no-confirmation' => true));
     $this->runTask('doctrine:build-db');
     
-    $command = 'bunzip2 < ' . 
+    $command = 'bzcat < ' . 
       sfConfig::get('sf_data_dir') . '/sql/' . $this->dbName . $this->dumpExtension . 
       ' | mysql -u ' . $this->dbUsername . ' --password=\'' . $this->dbPassword . '\'' . 
       ' ' . $this->dbName
