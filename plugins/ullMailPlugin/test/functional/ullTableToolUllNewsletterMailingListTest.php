@@ -8,6 +8,7 @@ $selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array
         'name',
         'description',
         'is_subscribed_by_default',
+        'is_default',
         'is_active'
       )
     );
@@ -28,11 +29,14 @@ $createValues = array(
   'name' => 'Test mailing list', 
   'description' => 'This is a test',
   'is_subscribed_by_default' => array(true, 'Checkbox_checked'),
+  'is_default' => array(false, 'Checkbox_unchecked'),
   'is_active' => array(true, 'Checkbox_checked')
 );
 $editValues = array(
   'name' => 'Test mailing list 2', 
   'description' => 'Another test',
+  'is_subscribed_by_default' => array(true, 'Checkbox_checked'),
+  'is_default' => array(true, 'Checkbox_checked'),
   'is_active' => array(false, 'Checkbox_unchecked')
 );
 
