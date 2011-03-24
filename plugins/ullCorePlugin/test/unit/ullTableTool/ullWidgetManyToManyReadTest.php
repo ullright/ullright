@@ -19,7 +19,7 @@ $t->begin('without prebuilt query');
   $options = array('model' => 'UllUser', 'method' => 'display_name');
   $widget = new ullWidgetManyToManyRead($options);
 
-  $t->is($widget->render('foo', array($testUser['id'], $adminUser['id'])), 'Master Admin, Test User');
+  $t->is($widget->render('foo', array($testUser['id'], $adminUser['id'])), '<span>Master Admin, Test User</span>');
 
 $t->diag('with prebuilt query');
 
@@ -34,5 +34,5 @@ $t->diag('with prebuilt query');
 
 $t->diag('->render()');
   
-  $t->is($widget->render('foo', array($testUser['id'], $adminUser['id'])), 'Test User, Master Admin');
+  $t->is($widget->render('foo', array($testUser['id'], $adminUser['id'])), '<span>Test User, Master Admin</span>');
   

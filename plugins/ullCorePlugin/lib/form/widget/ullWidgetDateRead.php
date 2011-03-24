@@ -40,29 +40,27 @@ class ullWidgetDateRead extends ullWidget
     }
     
     $dates = $this->getOption('add_span_if_before');
+    
     if (is_array($dates) && !empty($dates))
     {
+      if (!isset($attributes['class']))
+      {
+        $attributes['class'] = '';
+      }
+      
       //ascending dates
       ksort($dates);
       foreach ($dates as $dateTimestamp => $dateClass)
       {
         if (strtotime($value) < $dateTimestamp)
         {
-          $className = $dateClass;
+          $attributes['class'] .= ' ' . $dateClass;
           break;
         }
       }
     }
     
-    //if the 'add_span_if_before' option was set AND the given date is
-    //before one of those contained in the array then $className is set 
-    if (isset($className))
-    {
-      return "<span class=\"$className\">" . $value . '</span>';
-    }
-    else
-    {
-      return $value;
-    }
+    $value = $this->encloseInSpanTag($value, $attributes);
+    return $value;
   } 
 }

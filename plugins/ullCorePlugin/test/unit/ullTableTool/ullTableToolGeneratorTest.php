@@ -14,6 +14,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetInteger');
     $columnConfig->setAccess(false);
     $columnConfig->setUnique(true);
+    $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
     $this->columnsConfigMock['id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_string');
@@ -74,6 +75,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setAccess(null);
     $columnConfig->setRelation(array('alias' => 'Creator', 'model' => 'UllUser', 'foreign_id' => 'id'));
+    $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
     $this->columnsConfigMock['creator_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('created_at');
@@ -81,6 +83,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess(null);
     $columnConfig->setValidatorOption('required', true);
+    $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
     $this->columnsConfigMock['created_at'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updator_user_id');
@@ -88,6 +91,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setAccess(null);
     $columnConfig->setRelation(array('alias' => 'Updator', 'model' => 'UllUser', 'foreign_id' => 'id'));
+    $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
     $this->columnsConfigMock['updator_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updated_at');
@@ -97,6 +101,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
     $columnConfig->setAccess(null);
     $columnConfig->setValidatorOption('required', true);
+    $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
     $this->columnsConfigMock['updated_at'] = $columnConfig;
   }      
 

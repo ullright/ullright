@@ -27,6 +27,7 @@
 # "Menu only" entries - no content page
 UllCmsMenuItem:
   main_menu:
+    sequence:               10
     Translation:
       en:
         name:               Main menu
@@ -58,6 +59,7 @@ UllCmsMenuItem:
     is_active:              false
 
   sidebar_blocks:
+    sequence:               20
     slug:                   sidebar-blocks
     Translation:
       en:
@@ -66,6 +68,7 @@ UllCmsMenuItem:
         name:               Sidebar-Blöcke
         
   admin_menu:
+    sequence:               99
     slug:                   admin-menu
     Translation:
       en:
@@ -195,6 +198,7 @@ UllCmsMenuItem:
              
   
   footer_menu:
+    sequence:               30
     slug:                   footer-menu
     Translation:
       en:
@@ -212,7 +216,7 @@ UllCmsPage:
         title:              Welcome to ullright
         name:               Home
         body:               | 
-          <p>"ullright" is a platform for professional webapplication.</p>
+          <p>"ullright" is a platform for professional webapplications.</p>
           <p>A lot of integrated modules are available like content management, newsletter, wiki, time reporting, trouble ticketing and inventory.</p>
           <p></p>
           <h1>Example Layouts</h1>

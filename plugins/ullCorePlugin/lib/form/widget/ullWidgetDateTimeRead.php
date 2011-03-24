@@ -9,6 +9,10 @@ class ullWidgetDateTimeRead extends ullWidget
       return '';
     }
     
-    return ull_format_datetime($value);
+    $value = ull_format_datetime($value);
+    
+    $value = $this->encloseInSpanTag($value, $attributes);
+    
+    return $value;
   } 
 }

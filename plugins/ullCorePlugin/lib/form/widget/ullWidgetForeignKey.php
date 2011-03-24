@@ -41,6 +41,8 @@ class ullWidgetForeignKey extends ullWidget
     
     if (empty($value))
     {
+      $return = $this->encloseInSpanTag($value, $attributes);
+      
       return $return;
     }
     
@@ -111,6 +113,8 @@ class ullWidgetForeignKey extends ullWidget
         $return .= ull_link_entity_icon_popup($primaryKey);
       }
     }    
+    
+    $return = $this->encloseInSpanTag($return, $attributes);
     
     return $return;
   }

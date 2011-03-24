@@ -15,8 +15,8 @@ $t->diag('__construct()');
   
 $t->diag('->render()');
   $now = time();  
-  $t->is($w->render('foo', $now), date("m/d/Y H:i:s"), 'renders default culture correctly');
+  $t->is($w->render('foo', $now), '<span>' . date("m/d/Y H:i:s") . '</span>', 'renders default culture correctly');
   
   $instance->getUser()->setCulture("de");
   
-  $t->is($w->render('foo', $now), date("d.m.Y H:i:s"), 'renders german culture correctly');
+  $t->is($w->render('foo', $now), '<span>' . date("d.m.Y H:i:s") . '</span>', 'renders german culture correctly');

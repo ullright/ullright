@@ -26,6 +26,8 @@ class ullWidget extends sfWidgetForm
     
     $value = $this->handleOptions($value);
     
+    $value = $this->encloseInSpanTag($value, $attributes);
+    
     return (string) $value;
   }
   
@@ -117,5 +119,40 @@ class ullWidget extends sfWidgetForm
     
     return $value;
   } 
+  
+  /**
+   * Enclose the value in span tags to make use of the widget's attributes
+   * 
+   * Only for id or class attribute
+   * 
+   * @param string $value
+   * @param array $attributes
+   * @return string
+   */
+  protected function encloseInSpanTag($value, $attributes)
+  {
+    // merge custom attributes with constructor attributes
+    $attributes = array_merge($this->attributes, $attributes);
+    
+    $spanAttributes = array();
+    
+    // whitelist attributes which make sense for the span enclosement
+    foreach ($attributes as $attribute => $attributeValue)
+    {
+      if (in_array($attribute, array('id', 'class')))
+      {
+        $spanAttributes[$attribute] = $attributeValue;
+      }
+    }
+    
+    $value = '<span' . 
+      implode('', array_map(array($this, 'attributesToHtmlCallback'), array_keys($spanAttributes), array_values($spanAttributes))) .
+      '>' .
+      $value .
+      '</span>'
+    ;
+    
+    return $value;
+  }
   
 }

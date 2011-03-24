@@ -51,7 +51,7 @@ $b
   // item properties
   ->checkResponseElement($dgsEdit->getFullRowSelector(), 6) // num of rows
   ->checkResponseElement($dgsEdit->get('type', 'value'), 'Printer')
-  ->checkResponseElement($dgsEdit->get('type', 'value') . ' > input[type="hidden"]', true)  
+  ->checkResponseElement($dgsEdit->get('type', 'value') . ' input[type="hidden"]', true)
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 2)
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option + option', 'Brother')  
   ->checkResponseElement('#fields_ull_ventory_item_model_id > option', 2)
@@ -120,7 +120,7 @@ $b
   ->isRequestParameter('inventory_number', '1703')
   ->checkResponseElement('div.edit_container h3', 'Item of user: Stored')
   ->checkResponseElement($dgsEdit->get('type', 'value'), 'Printer')
-  ->checkResponseElement($dgsEdit->get('type', 'value') . ' > input[type="hidden"]', true)  
+  ->checkResponseElement($dgsEdit->get('type', 'value') . ' input[type="hidden"]', true)  
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option', 3)
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option + option', 'Apple')  
   ->checkResponseElement('#fields_ull_ventory_item_manufacturer_id > option[selected="selected"]', 'Brother')

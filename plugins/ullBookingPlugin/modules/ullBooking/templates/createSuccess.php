@@ -29,7 +29,7 @@
     <tr id="show_advanced_link_row">
       <td>
         <a href="#" id="show_advanced_link" class="js_mandatory">
-          <?php echo __('Show advanced options', null, 'ullBookingMessages'); ?>
+          <?php echo __('Show more fields', null, 'ullBookingMessages'); ?>
         </a>
       </td>
     </tr>
@@ -63,7 +63,7 @@
   </div>
 <?php endif; ?>
 
-<?php //deactivated for now because we decided to always show advanced options ?>
+<?php //deactivated for now because we decided to always Show more fields ?>
 <?php if (false) : //if ($is_simple) : ?>
 <script type="text/javascript">
 //<![CDATA[

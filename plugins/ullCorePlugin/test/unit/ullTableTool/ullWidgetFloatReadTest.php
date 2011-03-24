@@ -9,14 +9,14 @@ sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping', 'I18
 $w = new ullWidgetFloatRead();
 
 $t->diag('->render() with default culture');
-$t->is($w->render('foo', '01234.358'), '1,234.358', '->render() renders correctly.');
-$t->is($w->render('foo', '-423342.64'), '-423,342.64', '->render() renders correctly.');
-$t->is($w->render('foo', '-423342.'), '-423,342.', '->render() renders correctly.');
+$t->is($w->render('foo', '01234.358'), '<span>1,234.358</span>', '->render() renders correctly.');
+$t->is($w->render('foo', '-423342.64'), '<span>-423,342.64</span>', '->render() renders correctly.');
+$t->is($w->render('foo', '-423342.'), '<span>-423,342.</span>', '->render() renders correctly.');
 
 
 $instance->getUser()->setCulture("de");
 
 $t->diag('->render() with \'de\' culture');
-$t->is($w->render('foo', '01234.358'), '1.234,358', '->render() renders correctly.');
-$t->is($w->render('foo', '-423342.64'), '-423.342,64', '->render() renders correctly.');
-$t->is($w->render('foo', '-423342.'), '-423.342,', '->render() renders correctly.');
+$t->is($w->render('foo', '01234.358'), '<span>1.234,358</span>', '->render() renders correctly.');
+$t->is($w->render('foo', '-423342.64'), '<span>-423.342,64</span>', '->render() renders correctly.');
+$t->is($w->render('foo', '-423342.'), '<span>-423.342,</span>', '->render() renders correctly.');

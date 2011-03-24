@@ -59,7 +59,7 @@ $t->diag('getMenuTree() for a sub tree - level 3 (advanced course items)');
 
 $t->diag('getRootNodeSlugs()');
 
-  $t->is(UllCmsItemTable::getRootNodeSlugs(), array('admin-menu', 'footer-menu', 'main-menu', 'sidebar-blocks'), 'Returns the correct slugs');
+  $t->is(UllCmsItemTable::getRootNodeSlugs(), array('main-menu', 'sidebar-blocks', 'footer-menu', 'admin-menu'), 'Returns the correct slugs');
 
   
 $t->diag('getAncestorTree()');

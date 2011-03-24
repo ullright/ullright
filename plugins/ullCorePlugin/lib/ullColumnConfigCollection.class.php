@@ -256,6 +256,8 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
         }    
       } 
     }
+    
+    $this->markAsAdvancedFields($this->showOnlyInEditModeAndReadOnly);
   }
   
   
@@ -959,6 +961,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     return $this->tableConfigCache;
   }
 
+  
   /**
    * Mark a field as advanced form field.
    * 
@@ -971,9 +974,12 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   {
     foreach ($array as $field)
     {
-      $this[$field]->setWidgetAttribute('class', 
-        $this[$field]->getWidgetAttribute('class') . ' advanced_form_field' 
-      );  
+      if (isset($this[$field]))
+      {
+        $this[$field]->setWidgetAttribute('class', 
+          $this[$field]->getWidgetAttribute('class') . ' advanced_form_field' 
+        );  
+      }
     }  
     
     return $this;

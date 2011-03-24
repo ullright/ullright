@@ -23,7 +23,7 @@ $t->begin('init test');
 
 $t->diag('->render()');
   
-  $t->is($widget->render('foo', $testUser['id']), 'Test &lt;big&gt;User&lt;/big&gt;');
+  $t->is($widget->render('foo', $testUser['id']), '<span>Test &lt;big&gt;User&lt;/big&gt;</span>');
 
 $t->diag('show entity popup');
  
@@ -31,8 +31,8 @@ $t->diag('show entity popup');
   $widget = new ullWidgetForeignKey($options);
   
    $t->is($widget->render('foo', $testUser['id']),
-    '<a title="Show business card" onclick="this.href=&quot;#&quot;;popup(
+    '<span><a title="Show business card" onclick="this.href=&quot;#&quot;;popup(
             &quot;/ullUser/show/' . $testUser['id'] . '&quot;,
             &quot;Popup' . $testUser['id'] . '&quot;,
             &quot;width=720,height=720,scrollbars=yes,resizable=yes&quot;
-          );" href="/ullUser/show/' . $testUser['id'] . '">Test &lt;big&gt;User&lt;/big&gt;</a>');
+          );" href="/ullUser/show/' . $testUser['id'] . '">Test &lt;big&gt;User&lt;/big&gt;</a></span>');
