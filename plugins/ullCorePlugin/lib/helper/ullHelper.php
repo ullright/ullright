@@ -142,7 +142,7 @@ function ull_image_tag($type, $options = array(), $width = null, $height = null,
 {
   $mergedOptions = array_merge(
     array('alt' => __(ucfirst($type), null, 'common'),
-    'title' => __(ucfirst($type), null, 'common')), 
+    'title' => __(ucfirst($type), null, 'common')),
     $options
   );
   
@@ -982,6 +982,8 @@ function ull_js_add_tag() {
   
   return javascript_tag('
     function addTag(tag, field_id) {
+    
+      
 
       var tags = document.getElementById(field_id).value;
       

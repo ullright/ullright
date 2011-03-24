@@ -122,12 +122,10 @@
     // disable ajax autosave in create mode or having validation errors
     if (("' . $doc->id .'") && ( ! ($("#content > .form_error").length > 0)))
     {
-      // Temp. disabled because of  http://www.ullright.org/ullFlow/edit/doc/1482
       setInterval("autoSaveWikiAjax()", 60000);
     }
     else
     {
-      // Temp. disabled because of  http://www.ullright.org/ullFlow/edit/doc/1482
       $("#ull_wiki_autosave_notice").show();
     }
   }); 
@@ -197,3 +195,5 @@
 
 <?php use_javascripts_for_form($generator->getForm()) ?>
 <?php use_stylesheets_for_form($generator->getForm()) ?>
+
+<?php //use_stylesheet('/ullCorePlugin/css/jqui/jquery-ui.css')?>

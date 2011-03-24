@@ -16,6 +16,7 @@ class ullValidatorTaggable extends sfValidatorString
    */
   protected function doClean($value)
   {
+    $value = ullHTMLPurifier::purifyForSecurity($value);
     $tagsArray = array_map('trim', explode(',', strtolower($value)));
     natsort($tagsArray);
     

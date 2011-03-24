@@ -34,7 +34,7 @@ $b
   ->isRequestParameter('app', 'trouble_ticket')
   ->checkResponseElement($dgsEditTT->getFullRowSelector(), 9) // number of displayed fields
   ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' > select > option[selected="selected"]', 'Normal')
-  ->checkResponseElement('ul.tag-cloud a ', 'ull_flow_tag1')
+  //->checkResponseElement('ul.tag-cloud a ', 'ull_flow_tag1')
   ->checkResponseElement('body', '!/Progress/')
   ->checkResponseElement('input#fields_memory_comment', true)
   ->setField('fields[my_email]', 'foobar')
