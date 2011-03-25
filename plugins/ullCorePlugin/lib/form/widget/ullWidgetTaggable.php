@@ -73,7 +73,8 @@ class ullWidgetTaggable extends sfWidgetFormInput
   {
     return array(
       '/ullCorePlugin/js/jq/jquery-min.js', 
-      '/ullCorePlugin/js/taggable.js'
+      '/ullCorePlugin/js/jq/jquery-ui-min.js',
+      '/ullCorePlugin/js/taggable.js',
     );   
   }  
   
@@ -90,7 +91,7 @@ class ullWidgetTaggable extends sfWidgetFormInput
   public function getStylesheets()
   {
     return array(
-      '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all'
+      '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
     );  
   }
   
