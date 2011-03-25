@@ -16,15 +16,14 @@ class ullMetaWidgetTaggable extends ullMetaWidget
       }
       
       $this->columnConfig->setWidgetOption('typeahead-url', url_for('taggableComplete/complete'));
-      $this->columnConfig->setWidgetOption('tags-label', 'Tags:');
-      $this->columnConfig->setWidgetOption('popular-tags-label', __('Popular tags', null, ''));
+      $this->columnConfig->setWidgetOption('tags-label', __('Selected tags', null, 'common') . ':');
+      $this->columnConfig->setWidgetOption('popular-tags-label', __('Popular tags', null, 'common') . ':');
       $this->columnConfig->setWidgetOption('popular-tags', TagTable::getPopulars());
-     // $this->columnConfig->setWidgetOption('add-tag-label', htmlentities(__('Add', null, 'common'), ENT_COMPAT, 'UTF-8'));
       $this->columnConfig->setWidgetOption('add-tag-label', __('Add', null, 'common'));
       $this->columnConfig->setWidgetOption('selected_tag_markup',
-        '<span class="ull_widget_taggable_existing_tag_element color_light_bg" title="%s">' .
+        '<span class="ull_widget_taggable_selected_tag_element color_light_bg" title="%s">' .
           '<span>%s</span>' .
-          '<a class="ull_widget_taggable_existing_tag_remove_tag" title="%s">' . ull_image_tag('delete', array(), 12, 12) . '</a>' .
+          '<a class="ull_widget_taggable_selected_tag_remove_tag" title="%s">' . ull_image_tag('delete', array(), 12, 12) . '</a>' .
     	  '</span>'
     	);
       // TODO: neuen Validator nehmen

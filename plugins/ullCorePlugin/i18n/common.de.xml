@@ -501,6 +501,11 @@
 <target>Fehler anzeigen</target>
 </trans-unit>
 
+<trans-unit id="4013">
+<source>Selected tags</source>
+<target>Gewählte Tags</target>
+</trans-unit>
+
 
 <!-- common validation phrases -->
 
