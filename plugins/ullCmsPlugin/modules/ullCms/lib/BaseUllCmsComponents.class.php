@@ -2,30 +2,38 @@
 class BaseUllCmsComponents extends sfComponents
 {
   
-  public function executeMainMenu(sfRequest $request, $renderClass = 'ullTreeMenuRenderer', $topLevelHtmlTag = 'li')
+  /**
+   * Render a menu
+   * 
+   * Expects the "slug" of the cms item
+   * 
+   * @param sfRequest $request
+   * @param integer $depth                Optional. Depth of sub hierachies. Default = 2
+   * @param string $renderClass           Optional. Give a custom render class
+   * @param string $topLevelHtmlTag       Optional. Configure the top html tag type. Default = 'li'
+   */
+  public function executeRenderMenu(sfRequest $request, $depth = 2, $renderClass = 'ullTreeMenuRenderer', $topLevelHtmlTag = 'li')
   {
     $navigation = UllCmsItemTable::getMenuTree(
-      'main-menu', 
-      $request->getParameter('slug'),  //TODO: get the top level slug for subpages
-      sfConfig::get('app_ull_cms_main_menu_depth', 2)
+      $this->slug, 
+      $request->getParameter('slug'),
+      $depth
     );
+    
     $this->setVar(
-      'main_menu', 
+      'menu', 
       new $renderClass($navigation, $this->getVar('renderUlTag'), $topLevelHtmlTag),
       true
-    );    
+    );     
   }
   
-  public function executeFooterMenu(sfRequest $request, $renderClass = 'ullTreeMenuRenderer', $topLevelHtmlTag = 'li')
-  {
-    $navigation = UllCmsItemTable::getMenuTree('footer-menu', '', 2);
-    $this->setVar(
-      'footer_menu', 
-      new $renderClass($navigation, $this->getVar('renderUlTag'), $topLevelHtmlTag), 
-      true
-    );    
-  }
-  
+  /**
+   * Render sidebar menu
+   * 
+   * @param sfRequest $request
+   * @param unknown_type $renderClass
+   * @param unknown_type $topLevelHtmlTag
+   */
   public function executeRenderSidebarMenu(sfRequest $request, $renderClass = 'ullTreeMenuRenderer', $topLevelHtmlTag = 'li')
   {
     if (!isset($this->renderUlTag))
@@ -53,6 +61,7 @@ class BaseUllCmsComponents extends sfComponents
       true
     );    
   }  
+  
   
   /*
    * Directly render a cms page by slug
@@ -83,5 +92,51 @@ class BaseUllCmsComponents extends sfComponents
   {
     $this->setVar('tree', UllCmsItemTable::getMenuTree($this->slug, null, 2), true);
   }
+  
+  
+  /**
+   * Shortcut for main-menu
+   * 
+   * @deprecated
+   * @param sfRequest $request
+   * @param unknown_type $renderClass
+   * @param unknown_type $topLevelHtmlTag
+   */
+  public function executeMainMenu(sfRequest $request, $renderClass = 'ullTreeMenuRenderer', $topLevelHtmlTag = 'li')
+  {
+    $this->slug = 'main-menu';
+    
+    $this->executeRenderMenu(
+      $request, 
+      sfConfig::get('app_ull_cms_main_menu_depth', 2),
+      $renderClass,
+      $topLevelHtmlTag
+    );
+    
+    $this->setVar('main_menu', $this->menu, true);
+  }
+  
+  
+  /**
+   * Shortcut for footer-menu
+   * 
+   * @deprecated
+   * @param sfRequest $request
+   * @param unknown_type $renderClass
+   * @param unknown_type $topLevelHtmlTag
+   */
+  public function executeFooterMenu(sfRequest $request, $renderClass = 'ullTreeMenuRenderer', $topLevelHtmlTag = 'li')
+  {
+    $this->slug = 'footer-menu';
+    
+    $this->executeRenderMenu(
+      $request, 
+      2,
+      $renderClass,
+      $topLevelHtmlTag
+    );
+    
+    $this->setVar('footer_menu', $this->menu, true);
+  }    
   
 }
