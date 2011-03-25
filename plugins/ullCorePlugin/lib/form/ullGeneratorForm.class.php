@@ -352,7 +352,7 @@ class ullGeneratorForm extends sfFormDoctrine
       $widgetData['class'] = get_class($widget);
       $widgetData['default'] = $this->getDefault($key);
       
-      if ($widget instanceof sfWidgetFormDoctrineSelect)
+      if ($widget instanceof sfWidgetFormDoctrineChoice)
       {
         $choices = $widget->getOption('choices');
         if ($choices instanceof sfCallable)
