@@ -344,15 +344,6 @@ Index: lib/vendor/symfony/lib/task/test/sfTestUnitTask.class.php
      ));
  
      $this->aliases = array('test-unit');
-@@ -46,7 +48,7 @@
- If some tests fail, you can use the [--trace|COMMENT] option to have more
- information about the failures:
- 
--    [./symfony test:unit -t|INFO]
-+  [./symfony test:unit -t|INFO]
- 
- You can launch unit tests for a specific name:
- 
 @@ -55,6 +57,14 @@
  You can also launch unit tests for several names:
  
