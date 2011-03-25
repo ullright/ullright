@@ -1,70 +1,79 @@
-Index: branches/1.2/lib/Doctrine/Template/Listener/Sluggable.php
+Index: lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Template/Listener/Sluggable.php
 ===================================================================
---- branches/1.2/lib/Doctrine/Template/Listener/Sluggable.php (revision 7309)
-+++ branches/1.2/lib/Doctrine/Template/Listener/Sluggable.php (revision 7360)
-@@ -153,5 +153,20 @@
+--- lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Template/Listener/Sluggable.php	(revision 2728)
++++ lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Template/Listener/Sluggable.php	(working copy)
+@@ -152,22 +152,7 @@
+      */
      public function getUniqueSlug($record, $slugFromFields)
      {
--        $name = $record->getTable()->getFieldName($this->_options['name']);
-+        /* fix for use with Column Aggregation Inheritance */
-+        if ($record->getTable()->getOption('inheritanceMap')) {
-+          $parentTable = $record->getTable()->getOption('parents');
-+          $i = 0;
-+          // Be sure that you do not instanciate an abstract class;
-+          $reflectionClass = new ReflectionClass($parentTable[$i]);
-+          while ($reflectionClass->isAbstract()) {
-+            $i++;
-+            $reflectionClass = new ReflectionClass($parentTable[$i]);
-+          }
-+          $table = Doctrine::getTable($parentTable[$i]);
-+        } else {
-+          $table = $record->getTable();
-+        }
-+
-+        $name = $table->getFieldName($this->_options['name']);
+-        /* fix for use with Column Aggregation Inheritance */
+-        if ($record->getTable()->getOption('inheritanceMap')) {
+-          $parentTable = $record->getTable()->getOption('parents');
+-          $i = 0;
+-          // Be sure that you do not instanciate an abstract class;
+-          $reflectionClass = new ReflectionClass($parentTable[$i]);
+-          while ($reflectionClass->isAbstract()) {
+-            $i++;
+-            $reflectionClass = new ReflectionClass($parentTable[$i]);
+-          }
+-          $table = Doctrine_Core::getTable($parentTable[$i]);
+-        } else {
+-          $table = $record->getTable();
+-        }
+-
+-        $name = $table->getFieldName($this->_options['name']);
++        $name = $record->getTable()->getFieldName($this->_options['name']);
          $proposal =  call_user_func_array($this->_options['builder'], array($slugFromFields, $record));
          $slug = $proposal;
-@@ -162,5 +177,5 @@
+ 
+@@ -176,7 +161,7 @@
+ 
          if ($record->exists()) {
              $identifier = $record->identifier();
--            $whereString .= ' AND r.' . implode(' != ? AND r.', $record->getTable()->getIdentifierColumnNames()) . ' != ?';
-+            $whereString .= ' AND r.' . implode(' != ? AND r.', $table->getIdentifierColumnNames()) . ' != ?';
+-            $whereString .= ' AND r.' . implode(' != ? AND r.', $table->getIdentifierColumnNames()) . ' != ?';
++            $whereString .= ' AND r.' . implode(' != ? AND r.', $record->getTable()->getIdentifierColumnNames()) . ' != ?';
              $whereParams = array_merge($whereParams, array_values($identifier));
          }
-@@ -180,9 +195,8 @@
+ 
+@@ -194,17 +179,18 @@
+         }
  
          // Disable indexby to ensure we get all records
--        $originalIndexBy = $record->getTable()->getBoundQueryPart('indexBy');
--        $record->getTable()->bindQueryPart('indexBy', null);
--
--        $query = $record->getTable()
--            ->createQuery('r')
-+        $originalIndexBy = $table->getBoundQueryPart('indexBy');
-+        $table->bindQueryPart('indexBy', null);
-+
-+        $query = $table->createQuery('r')
+-        $originalIndexBy = $table->getBoundQueryPart('indexBy');
+-        $table->bindQueryPart('indexBy', null);
++        $originalIndexBy = $record->getTable()->getBoundQueryPart('indexBy');
++        $record->getTable()->bindQueryPart('indexBy', null);
+ 
+-        $query = $table->createQuery('r')
++        $query = $record->getTable()
++            ->createQuery('r')
              ->select('r.' . $name)
              ->where($whereString , $whereParams)
-@@ -190,6 +204,6 @@
+             ->setHydrationMode(Doctrine_Core::HYDRATE_ARRAY);
  
          // We need to introspect SoftDelete to check if we are not disabling unique records too
--        if ($record->getTable()->hasTemplate('Doctrine_Template_SoftDelete')) {
--	        $softDelete = $record->getTable()->getTemplate('Doctrine_Template_SoftDelete');
-+        if ($table->hasTemplate('Doctrine_Template_SoftDelete')) {
-+	        $softDelete = $table->getTemplate('Doctrine_Template_SoftDelete');
+-        if ($table->hasTemplate('Doctrine_Template_SoftDelete')) {
+-	        $softDelete = $table->getTemplate('Doctrine_Template_SoftDelete');
++        if ($record->getTable()->hasTemplate('Doctrine_Template_SoftDelete')) {
++	        $softDelete = $record->getTable()->getTemplate('Doctrine_Template_SoftDelete');
  
  	        // we have to consider both situations here
-@@ -210,5 +224,5 @@
+             if ($softDelete->getOption('type') == 'boolean') {
+@@ -223,7 +209,7 @@
+         $query->free();
  
          // Change indexby back
--        $record->getTable()->bindQueryPart('indexBy', $originalIndexBy);
-+        $table->bindQueryPart('indexBy', $originalIndexBy);
+-        $table->bindQueryPart('indexBy', $originalIndexBy);
++        $record->getTable()->bindQueryPart('indexBy', $originalIndexBy);
  
          $similarSlugs = array();
-@@ -225,5 +239,5 @@
+         foreach ($similarSlugResult as $key => $value) {
+@@ -238,7 +224,7 @@
+ 
          // If slug is longer then the column length then we need to trim it
          // and try to generate a unique slug again
--        $length = $record->getTable()->getFieldLength($this->_options['name']);
-+        $length = $table->getFieldLength($this->_options['name']);
+-        $length = $table->getFieldLength($this->_options['name']);
++        $length = $record->getTable()->getFieldLength($this->_options['name']);
          if (strlen($slug) > $length) {
              $slug = substr($slug, 0, $length - (strlen($i) + 1));
+             $slug = $this->getUniqueSlug($record, $slug);
