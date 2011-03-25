@@ -2,11 +2,9 @@
 
 require_once(dirname(__FILE__).'/../../../../../test/bootstrap/unit.php');
 
-sfLoader::loadHelpers(array('Escaping'));
-
 $t = new lime_test(5, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);
-sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N', 'Escaping'));
 
 $w = new ullWidgetPhoneNumberRead();
 
