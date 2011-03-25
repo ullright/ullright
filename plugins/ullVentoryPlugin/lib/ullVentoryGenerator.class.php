@@ -50,8 +50,10 @@ class ullVentoryGenerator extends ullTableToolGenerator
     $this->columnsConfig = UllVentoryItemColumnConfigCollection::build(
       $this->defaultAccess, $this->requestAction, $this->itemType);
 
+    $params = sfContext::getInstance()->getRequest()->getParameter('filter');
+      
     // Remove owner column if we show the items of a selected owner
-    if (sfContext::getInstance()->getRequest()->hasParameter('filter[ull_entity_id]'))
+    if (isset($params['ull_entity_id']))
     {
       $this->columns = array_diff($this->columns, array('ull_entity_id'));
     }      

@@ -53,7 +53,8 @@ class BaseUllPhoneActions extends BaseUllGeneratorActions
     $this->generator = new ullPhoneGenerator();
     
     //search term set?
-    $this->phoneSearchFilter = $request->getParameter('filter[search]');
+    $params = $request->getParameter('filter');
+    $this->phoneSearchFilter = $params['search'];
 
     //shall we render location headers?
     $this->isLocationView = $this->getRequestParameter('locationView');
