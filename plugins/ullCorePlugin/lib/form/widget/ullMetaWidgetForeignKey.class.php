@@ -21,7 +21,7 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
   {
     $this->parseOptions();
     
-    $this->addWidget(new ullWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addWidget(new ullWidgetFormDoctrineChoice($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
     
     $this->handleAllowCreate();

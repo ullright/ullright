@@ -10,7 +10,7 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class ullWidgetFormDoctrineSelect extends sfWidgetFormDoctrineSelect
+class ullWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
 {
   
   /**
