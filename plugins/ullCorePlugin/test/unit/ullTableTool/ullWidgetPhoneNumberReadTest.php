@@ -6,7 +6,7 @@ sfLoader::loadHelpers(array('Escaping'));
 
 $t = new lime_test(5, new lime_output_color(), $configuration);
 sfContext::createInstance($configuration);
-sfLoader::loadHelpers('I18N');
+sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N'));
 
 $w = new ullWidgetPhoneNumberRead();
 
