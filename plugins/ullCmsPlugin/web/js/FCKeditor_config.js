@@ -28,7 +28,7 @@
 FCKConfig.CustomConfigurationsPath = '' ;
 
 //FCKConfig.EditorAreaCSS = FCKConfig.BasePath + 'css/fck_editorarea.css' ;
-FCKConfig.EditorAreaCSS = new Array('/ullCoreThemeNGPlugin/css/common.css', '/css/custom_override.css');
+FCKConfig.EditorAreaCSS = new Array('/ullCoreThemeNGPlugin/css/common.css', '/css/custom.css');
 FCKConfig.EditorAreaStyles = '';
 FCKConfig.ToolbarComboPreviewCSS = '' ;
 
