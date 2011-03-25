@@ -38,5 +38,5 @@ $t->diag('for write access:');
   $widget = new ullMetaWidgetCountry($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetCountry', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
-  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormI18nSelectCountry', 'returns the correct widget for write access');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormI18nChoiceCountry', 'returns the correct widget for write access');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorI18nChoiceCountry', 'returns the correct validator for write access');

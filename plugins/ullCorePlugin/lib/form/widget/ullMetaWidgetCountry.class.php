@@ -21,7 +21,7 @@ class ullMetaWidgetCountry extends ullMetaWidget
         $countries = array('AT', 'DE', 'LI', 'CH');
       }
 
-      $this->addWidget(new sfWidgetFormI18nSelectCountry(array('culture' => $culture, 'countries' => $countries)));
+      $this->addWidget(new sfWidgetFormI18nChoiceCountry(array('culture' => $culture, 'countries' => $countries)));
       //sfValidatorI18nChoiceCountry doesn't support max_length
       $this->columnConfig->removeValidatorOption('max_length');
       $this->addValidator(new sfValidatorI18nChoiceCountry($this->columnConfig->getValidatorOptions()));
