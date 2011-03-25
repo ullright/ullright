@@ -10,7 +10,7 @@
 // the README
 
 function taggableWidget(selector, options)
-{	
+{
 	$(selector).each(function()
 	{	
 		// Semi-global
@@ -242,7 +242,6 @@ function taggableWidget(selector, options)
 		
 		var addButton = $('<a />');
 		addButton.html(addTagLabel);
-	//	addButton.html('testüü');
 		addButton.attr({'href' : '#', 'class' : 'ull_widget_taggable_add_tag', 'title' : addTagLabel});
 
 		typeAheadContainer.addClass('ull_widget_taggable_type_ahead_box').append(typeAheadBox).append(addButton);
