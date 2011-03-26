@@ -8,7 +8,7 @@ sfContext::getInstance()->getConfiguration()->loadHelpers(array(
   'Asset', 
   'Date', 
   'Form', 
-  'Javascript', 
+  'JavascriptBase', 
   'Tag', 
   'Url'
 ));
