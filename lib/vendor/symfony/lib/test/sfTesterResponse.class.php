@@ -383,6 +383,8 @@ class sfTesterResponse extends sfTester
    */
   public function matches($regex)
   {
+    var_dump(get_class($this->tester));die;
+    
     if (!preg_match('/^(!)?([^a-zA-Z0-9\\\\]).+?\\2[ims]?$/', $regex, $match))
     {
       throw new InvalidArgumentException(sprintf('"%s" is not a valid regular expression.', $regex));

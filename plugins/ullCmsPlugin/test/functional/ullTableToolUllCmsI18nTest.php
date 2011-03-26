@@ -37,7 +37,7 @@ $b
     ->isParameter('action', 'list')
   ->end()
   ->with('response')->begin()
-    ->contains('Geh zaus')
+    ->matches('/Geh zaus/')
   ->end()
 ;  
 
@@ -52,6 +52,6 @@ $b
     ->isParameter('action', 'list')
   ->end()
   ->with('response')->begin()
-    ->contains('Go Home')
+    ->matches('/Go Home/')
   ->end()
 ;  

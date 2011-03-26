@@ -99,7 +99,7 @@ class ullTableToolTestBrowser extends ullTestBrowser
         ->isParameter('table', $this->table)
       ->end() 
       ->with('response')->begin()
-        ->contains('<h3>' . $this->label . '</h3>')   
+        ->matches('#<h3>' . $this->label . '</h3>#')   
         ->checkElement($this->dgsList->getFullRowSelector(), $this->rowCount)
       ->end()
     ;

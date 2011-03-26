@@ -29,7 +29,7 @@ $b
     ->isParameter('username', Doctrine::getTable('UllUser')->findOneByUserName('test_user')->id)
   ->end()
   ->with('response')->begin()
-    ->contains('test_user')
-    ->contains('Superior')
+    ->matches('/test_user/')
+    ->matches('/Superior/')
   ->end()
 ;

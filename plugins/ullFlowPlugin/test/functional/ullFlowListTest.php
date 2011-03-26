@@ -32,7 +32,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[search]', 'ull_flow_tag2')
+  ->isRequestParameter('filter', array('search' => 'ull_flow_tag2'))
   ->isRequestParameter('app', '')
   ->checkResponseElement($dgsList->getFullRowSelector(), 1) // number of rows
   ->checkResponseElement($dgsList->get(1, 'subject'), 'My first trouble ticket')
@@ -46,7 +46,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[search]', 'ull_flow_tag1')
+  ->isRequestParameter('filter', array('search' => 'ull_flow_tag1'))
   ->isRequestParameter('app', 'todo')
   ->checkResponseElement($dgsListTD->getFullRowSelector(), 1) // number of rows
   ->checkResponseElement($dgsListTD->get(1, 'subject'), 'AAA My second thing todo')
@@ -153,7 +153,7 @@ $b
   ->followRedirect()
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[search]', 'first t')  
+  ->isRequestParameter('filter', array('search' => 'first t'))
   ->checkResponseElement('ul.list_action_buttons input[name="filter[search]"][value="first t"]', true)
   ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
   ->checkResponseElement($dgsList->get(1, 'subject'), 'My first thing todo')
@@ -167,8 +167,7 @@ $b
   ->followRedirect()  
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[search]', 'first t')
-  ->isRequestParameter('filter[status]', 'all')
+  ->isRequestParameter('filter', array('search' => 'first t', 'status' => 'all'))
   ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
   ->checkResponseElement($dgsList->get(1, 'subject'), 'My first thing todo')
   ->checkResponseElement($dgsList->get(2, 'subject'), 'My first trouble ticket')  
@@ -181,8 +180,7 @@ $b
   ->followRedirect()  
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[search]', 'first t')
-  ->isRequestParameter('filter[status]', 'reject')
+  ->isRequestParameter('filter', array('search' => 'first t', 'status' => 'reject'))
   ->checkResponseElement($dgsList->getFullRowSelector(), false) // number of rows
 ;  
 

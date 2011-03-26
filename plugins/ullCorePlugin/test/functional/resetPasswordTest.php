@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/functional.php';
 
-$b = new sfDoctrineTestBrowser(null, null, array('configuration' => $configuration));
+$b = new ullTestBrowser(null, null, array('configuration' => $configuration));
 $path = dirname(__FILE__);
 $b->setFixturesPath($path);
 $b->resetDatabase();

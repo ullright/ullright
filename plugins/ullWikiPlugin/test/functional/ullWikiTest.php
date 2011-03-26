@@ -56,7 +56,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullWiki')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[search]', 'ull_wiki_tag2')
+  ->isRequestParameter('filter', array('search' => 'ull_wiki_tag2'))
   ->checkResponseElement('table > tbody > tr', 1)
   ->checkResponseElement('tr > td + td', 'Testdoc')  
 ;

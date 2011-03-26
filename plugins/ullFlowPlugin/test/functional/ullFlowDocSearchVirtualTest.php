@@ -32,7 +32,7 @@ $browser
 
 $browser
   ->with('response')->begin()
-    ->contains('Trouble ticket tool')
+    ->matches('/Trouble ticket tool/')
     ->click('Trouble ticket tool', array (
   'app' => 'trouble_ticket',
 ))
@@ -41,7 +41,7 @@ $browser
 
 $browser
   ->with('response')->begin()
-    ->contains('Advanced search')
+    ->matches('/Advanced search/')
     ->click('Advanced search', array())
   ->end()
 ;

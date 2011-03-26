@@ -235,7 +235,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'list')
   ->isRequestParameter('app', 'trouble_ticket')
-  ->isRequestParameter('filter[status]', 'close')
+  ->isRequestParameter('filter', array('status' => 'close'))
   ->checkResponseElement($dgsListTT->getFullRowSelector(), 1) // number of rows
   ->checkResponseElement($dgsListTT->get(1, 'subject'), 'Urgently use ullright')  
 ;
