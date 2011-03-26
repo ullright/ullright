@@ -66,7 +66,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
 
     $this
 	    ->with('response')->begin()
-		    ->contains('Advanced search')
+		    ->matches('/Advanced search/')
 		    ->click('Advanced search', array())
 	    ->end()
     ;
@@ -89,7 +89,7 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     
     $this
       ->with('response')->begin()
-	       ->contains('Reset search')
+	       ->matches('/Reset search/')
 	       ->click('Reset search', array())
       ->end()
     ;
@@ -535,6 +535,83 @@ class ullTestBrowser extends sfDoctrineTestBrowser
     
     return $s;
   }
+  
+  /**
+   * Backward compatiblity with sf1.2 tests
+   * 
+   * @return unknown
+   */
+  public function isRedirected()
+  {
+    $this
+      ->with('response')
+      ->begin()
+      ->isRedirected()
+      ->end()
+    ;
+    return $this;
+  }
+  
+  /**
+   * Backward compatiblity with sf1.2 tests
+   * 
+   * @return unknown
+   */  
+  public function isStatusCode($value)
+  {
+    $this
+      ->with('response')
+      ->begin()
+      ->isStatusCode($value)
+      ->end()
+    ;
+    return $this;
+  }
+
+  /**
+   * Backward compatiblity with sf1.2 tests
+   * 
+   * @return unknown
+   */  
+  public function isRequestParameter($param, $value)
+  {
+    $this
+      ->with('request')
+      ->begin()
+      ->isParameter($param, $value)
+      ->end()
+    ;
+    return $this;
+  }   
+  
+  /**
+   * Backward compatiblity with sf1.2 tests
+   * 
+   * @return unknown
+   */  
+  public function responseContains($value)
+  {
+    self::$test->like($this->getResponse()->getContent(), '/'.preg_quote($value, '/').'/', sprintf('response contains "%s"', substr($value, 0, 40)));
+    
+    return $this;
+  }  
+
+  /**
+   * Backward compatiblity with sf1.2 tests
+   * 
+   * @return unknown
+   */  
+  public function checkResponseElement($selector, $value = true, $options = array())
+  {
+    $this
+      ->with('response')
+      ->begin()
+      ->checkElement($selector, $value, $options)
+      ->end()
+    ;
+    
+    return $this;
+  }    
   
 }
 

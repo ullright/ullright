@@ -5,7 +5,7 @@
  *    
  * @author klemens.ullmann-marx@ull.at
  */
-class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineSelect 
+class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineChoice 
 {
   
   public function __construct($options = array(), $attributes = array())

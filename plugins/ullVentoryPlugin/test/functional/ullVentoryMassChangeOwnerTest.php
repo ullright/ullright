@@ -35,7 +35,7 @@ $browser
 $browser
   ->info('Mass change owner - selecting test user')
   ->with('response')->begin()
-    ->contains('Result list')
+    ->matches('/Result list/')
     ->click('Result list', array())
   ->end()
   ->call('/ullVentory/list/filter[ull_entity_id]/' . $testUserId, 'get', array()) 
@@ -54,7 +54,7 @@ $browser
 
 $browser
   ->with('response')->begin()
-    ->contains('Change owner')
+    ->matches('/Change owner/')
     ->click('Change owner', array())
   ->end()
 ;
@@ -87,8 +87,8 @@ $browser
   ->end()
   ->with('response')->begin()
     ->isStatusCode(200)
-    ->contains('Please correct the following errors')
-    ->contains('Required')
+    ->matches('/Please correct the following errors/')
+    ->matches('/Required/')
   ->end()
 ;
 

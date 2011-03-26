@@ -32,7 +32,7 @@ $b
   ->get('ullTime/list/username/admin/period/october-2009')
   ->isStatusCode(200)
   ->with('response')->begin()
-    ->contains('No Access')
+    ->matches('/No Access/')
   ->end()
 ;  
 
@@ -56,8 +56,8 @@ $b
     ->isParameter('action', 'edit')
   ->end()
   ->with('response')->begin()
-    ->contains('09/17/2009')
-    ->contains('Read only access. Entries are locked after 30 days.')
+    ->matches('/09/17/2009/')
+    ->matches('/Read only access. Entries are locked after 30 days./')
     ->checkElement('input#fields_begin_work_at', false)
   ->end()  
 ;

@@ -12,7 +12,6 @@ class ullWidgetWikiLink extends sfWidgetForm
   public static function renderWikiLinkTag($name, $value, $attributes = array()) 
   {
     $html = '';
-//    $html .= textarea_tag($name, $value, $attributes);
     $html = input_hidden_tag($name, $value, $attributes);
     
     if ($value) 

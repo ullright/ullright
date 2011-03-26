@@ -76,7 +76,7 @@ $b
   ->isStatusCode(200)
   ->isRequestParameter('module', 'ullVentory')
   ->isRequestParameter('action', 'list')
-  ->isRequestParameter('filter[ull_entity_id]', $testUserId)
+  ->isRequestParameter('filter', array('ull_entity_id' => $testUserId))
   ->checkResponseElement('#content h3', 'Items of Test User')
   ->checkResponseElement($dgsList->getFullRowSelector(), 2) // number of rows
   ->checkResponseElement($dgsList->get(1, 'inventory_number'), '1702')

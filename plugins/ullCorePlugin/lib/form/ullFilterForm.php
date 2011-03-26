@@ -98,7 +98,7 @@ class ullFilterForm extends sfForm
       $widgetData['default'] = $this->getDefault($key);
 //      $widgetData['options'] = $widget->getOptions();
       
-      if ($widget instanceof sfWidgetFormDoctrineSelect)
+      if ($widget instanceof sfWidgetFormDoctrineChoice)
       {
         $choices = $widget->getOption('choices');
         if ($choices instanceof sfCallable)

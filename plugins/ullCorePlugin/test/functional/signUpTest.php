@@ -41,7 +41,7 @@ $b
     ->isParameter('action', 'signedUp')
   ->end()
   ->with('response')->begin()
-    ->contains('Thank you for signing up')
+    ->matches('/Thank you for signing up/')
     ->checkElement('#nav_loginbox a', 'pj') // "@header: Logged in as pj"
   ->end() 
 ;
@@ -55,7 +55,7 @@ $b
    ->isParameter('action', 'editAccount')
   ->end() 
   ->with('response')->begin()
-    ->contains('Edit your account data')
+    ->matches('/Edit your account data/')
     ->checkElement('input[id="fields_first_name"][value="PJ"]')
     ->checkElement('input[id="fields_last_name"][value="Harvey"]')
     ->checkElement('input[id="fields_email"][value="pj@example.com"]')
@@ -77,7 +77,7 @@ $b
    ->isParameter('action', 'editAccount')
   ->end()
   ->with('response')->begin()
-    ->contains('Edit your account data')
+    ->matches('/Edit your account data/')
     ->checkElement('input[id="fields_email"][value="pj.harvey@example.com"]')
   ->end()
 ;

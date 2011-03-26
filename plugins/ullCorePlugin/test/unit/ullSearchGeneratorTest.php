@@ -59,9 +59,9 @@ $widgetClassNames = array('ullWidgetFormInput', 'ullWidgetFormInput',
   'sfWidgetFormInput',
   'sfWidgetFormInput', 'sfWidgetFormInput',
   'sfWidgetFormSelect',
-  'ullWidgetFormDoctrineSelect',
+  'ullWidgetFormDoctrineChoice',
   'sfWidgetFormSelectWithOptionAttributes',
-  'sfWidgetFormI18nSelectCountry');
+  'sfWidgetFormI18nChoiceCountry');
 $labels = array('ID', 'RangeTo 0 5',
   'First name',
   'Last name', 'Last name',

@@ -59,7 +59,7 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
     $this->columnConfig->setValidatorOption('query', $q);
 
 
-    $this->addWidget(new ullWidgetFormDoctrineSelect($this->columnConfig->getWidgetOptions(),
+    $this->addWidget(new ullWidgetFormDoctrineChoice($this->columnConfig->getWidgetOptions(),
       $this->columnConfig->getWidgetAttributes()));
     $this->columnConfig->setWidgetOption('ull_select', $ullSelect);
     $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));

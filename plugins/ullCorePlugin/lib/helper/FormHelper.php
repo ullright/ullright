@@ -1,6 +1,10 @@
 <?php
 
 /*
+ * Copied here from symfony 1.3.9 as many helpers are still useful
+ */
+
+/*
  * This file is part of the symfony package.
  * (c) 2004-2006 Fabien Potencier <fabien.potencier@symfony-project.com>
  * (c) 2004 David Heinemeier Hansson
@@ -16,7 +20,7 @@
  * @subpackage helper
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author     David Heinemeier Hansson
- * @version    SVN: $Id: FormHelper.php 28849 2010-03-29 09:53:43Z fabien $
+ * @version    SVN: $Id$
  */
 
 /**

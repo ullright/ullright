@@ -81,7 +81,7 @@ all:
 #
 #    # Helpers included in all templates by default
 #    standard_helpers:       [Partial, Cache, Form]
-    standard_helpers:       [Date, Form, I18N, Javascript, Partial, Object, Text, ull, Validation]
+    standard_helpers:       [Date, Form, I18N, JavascriptBase, Partial, Text, ull]
 #
 #    # Activated modules from plugins or from the symfony core
 #    enabled_modules:        [default]
