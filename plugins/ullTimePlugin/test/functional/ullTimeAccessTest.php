@@ -56,7 +56,7 @@ $b
     ->isParameter('action', 'edit')
   ->end()
   ->with('response')->begin()
-    ->matches('/09/17/2009/')
+    ->matches('#09/17/2009#')
     ->matches('/Read only access. Entries are locked after 30 days./')
     ->checkElement('input#fields_begin_work_at', false)
   ->end()  
