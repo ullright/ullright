@@ -16,7 +16,7 @@
 #   sidebar-block-facebook
 #
 # footer-menu *
-#   legal
+#   imprint
 #
 # admin-menu *
 #   ...
@@ -293,10 +293,10 @@ UllCmsPage:
         title:              Fortgeschrittenen Kurs 1            
         body:               'Für Fortgeschrittene...'
     Parent:                 courses_advanced      
-  legal:
+  imprint:
     Translation:
       en:
-        title:              Legal
+        title:              Imprint
         body:               '<cite>According to the laws of...</cite>'
       de:
         title:              Impressum            
