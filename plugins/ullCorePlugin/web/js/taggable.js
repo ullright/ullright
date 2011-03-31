@@ -241,9 +241,9 @@ function taggableWidget(selector, options)
 			});
 		}
 		
-		var addButton = $('<a />');
-		addButton.html(addTagLabel);
-		addButton.attr({'href' : '#', 'class' : 'ull_widget_taggable_add_tag', 'title' : addTagLabel});
+		var addButton = $('<input />');
+		//addButton.html(addTagLabel);
+		addButton.attr({'class' : 'ull_widget_taggable_add_tag', 'value' : addTagLabel, 'type' : 'submit'});
 
 		typeAheadContainer.addClass('ull_widget_taggable_type_ahead_box').append(typeAheadBox).append(addButton);
 
