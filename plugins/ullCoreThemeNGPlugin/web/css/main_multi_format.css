@@ -493,7 +493,7 @@ ul.list_action_buttons li {
 
 .ull_widget_taggable_selected_tag_element {
   padding: .2em .3em;
-  margin-left: .7em;
+  margin-right: .7em;
   border: 1px solid #aaa;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -502,10 +502,11 @@ ul.list_action_buttons li {
   margin-bottom: 0.7em;
 }
 
-.ull_widget_taggable_label {
+.ull_widget_taggable_selected_tag > .ull_widget_taggable_label {
 	white-space: nowrap;
 	float: left;
 	padding: .3em .3em;
+	margin-right: 0.7em;
 }
 
 .ull_widget_taggable_selected_tag_remove_tag {
@@ -533,23 +534,24 @@ ul.list_action_buttons li {
 
 .ull_widget_taggable_cloud {
   margin-top: 0.7em;
+  line-height:1.4em;
   
 }
 
 .taggable_big {
-	font-size: 115%;
+	font-size: 1.15em;
 }
 
 .taggable_bigger {
-	font-size: 130%;
+	font-size: 1.3em;
 }
 
 .taggable_small {
-	font-size: 90%;
+	font-size: 0.85em;
 }
 
 .taggable_smaller {
-	font-size: 80%;
+	font-size: 0.75em;
 }
   
  

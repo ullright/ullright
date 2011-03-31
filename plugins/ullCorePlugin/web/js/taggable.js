@@ -98,6 +98,7 @@ function taggableWidget(selector, options)
 			
 			new_tag.attr({ title: title }).addClass('ull_widget_taggable_cloud_element' + tag_size);
 			new_tag.prepend(new_link);
+			new_tag.prepend(" ");
 			new_link.text(title);
 			new_link.attr(attributes);
 			return new_tag;
@@ -266,6 +267,7 @@ function taggableWidget(selector, options)
 			var new_link = makeRemoveLink(existingTagsAttributes, tag, tag + ' x');
 			new_link.children('a').bind('click', function() { removeTagsFromForm($(this).parent()); return false; });
 			existingDiv.append(new_link);
+			existingDiv.addClass("ull_widget_taggable_selected_tag");
 			existingDiv.children('span.ull_widget_taggable_label').show();
 		}
 		
