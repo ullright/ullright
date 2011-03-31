@@ -80,19 +80,19 @@ function taggableWidget(selector, options)
 			
 			if(text == 1)
 			{
-				tag_size = ' big';
+				tag_size = ' taggable_big';
 			}
 			else if(text == 2)
 			{
-				tag_size = ' bigger';
+				tag_size = ' taggable_bigger';
 			}
 			else if(text == -1)
 			{
-				tag_size = ' small';
+				tag_size = ' taggable_small';
 			}
 			else if(text == -2)
 			{
-				tag_size = ' smaller';
+				tag_size = ' taggable_smaller';
 			}
 				
 			

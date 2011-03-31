@@ -488,7 +488,7 @@ ul.list_action_buttons li {
  */
  
 .ull_widget_taggable_selected_tags {
-  line-height: 1.8em;
+  
 }
 
 .ull_widget_taggable_selected_tag_element {
@@ -497,6 +497,15 @@ ul.list_action_buttons li {
   border: 1px solid #aaa;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  white-space: nowrap;
+  float: left;
+  margin-bottom: 0.7em;
+}
+
+.ull_widget_taggable_label {
+	white-space: nowrap;
+	float: left;
+	padding: .3em .3em;
 }
 
 .ull_widget_taggable_selected_tag_remove_tag {
@@ -505,8 +514,12 @@ ul.list_action_buttons li {
   cursor: pointer;
 }
  
+.ull_widget_taggable_existing_tags {
+  margin-bottom: 1.1em;
+}
+ 
 .ull_widget_taggable_type_ahead_box {
-  margin-top: 0.7em;
+	clear: left;
 }
 
 .ull_widget_taggable_add_tag {
@@ -520,6 +533,23 @@ ul.list_action_buttons li {
 
 .ull_widget_taggable_cloud {
   margin-top: 0.7em;
+  
+}
+
+.taggable_big {
+	font-size: 115%;
+}
+
+.taggable_bigger {
+	font-size: 130%;
+}
+
+.taggable_small {
+	font-size: 90%;
+}
+
+.taggable_smaller {
+	font-size: 80%;
 }
   
  
