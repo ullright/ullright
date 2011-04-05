@@ -53,7 +53,7 @@ function taggableWidget(selector, options)
 		}
 		if (removeLinkClass === undefined)
 		{
-			removeLinkClass = 'ull_widget_taggable_existing_tags';
+			removeLinkClass = 'ull_widget_taggable_selected_tags';
 		}
 		
 		if (addTagLabel === undefined)
@@ -267,7 +267,6 @@ function taggableWidget(selector, options)
 			var new_link = makeRemoveLink(existingTagsAttributes, tag, tag + ' x');
 			new_link.children('a').bind('click', function() { removeTagsFromForm($(this).parent()); return false; });
 			existingDiv.append(new_link);
-			existingDiv.addClass("ull_widget_taggable_selected_tag");
 			existingDiv.children('span.ull_widget_taggable_label').show();
 		}
 		
@@ -293,6 +292,7 @@ function taggableWidget(selector, options)
 				var new_link = makePopularLink(existingTagsAttributes, tag, linkLabel);
 				new_link.children('span.ull_widget_taggable_label').bind('click', function() { addTagsToForm($(this).parent()); return false; });
 				popularsDiv.children('span.ull_widget_taggable_label').show();
+				popularsDiv.addClass('blah');
 				popularsDiv.append(new_link);
 			}
 		}
@@ -301,6 +301,7 @@ function taggableWidget(selector, options)
 		// a maker function for tag containers
 		function makeTagContainer(containerLabel, tagArray, linkAttributes, linkLabelType)
 		{
+		  
 			// Add a list of tags that may be removed
 			var tagContainer = $('<div />');
 			//tagContainer.addClass('ull_widget_taggable');
@@ -313,6 +314,14 @@ function taggableWidget(selector, options)
 			{
 				header.hide();
 			}
+			if(linkLabelType == 'add')
+			{
+			  tagContainer.addClass(addLinkClass);
+			}
+			else if (linkLabelType == 'remove')
+			{
+			  tagContainer.addClass(removeLinkClass);
+			}
 		
 			var attributes = {};
 			for (x in tagArray)
@@ -320,16 +329,12 @@ function taggableWidget(selector, options)
 				var linkLabel = '';
 				if (linkLabelType == 'add')
 				{
-					tagContainer.addClass(addLinkClass);
-					
 					linkLabel = tagArray[x];
 					var new_link = makePopularLink(linkAttributes, x, linkLabel);
 					new_link.children('a').bind('click', function() { addTagsToForm($(this).parent());  return false; });
 				}
 				else if (linkLabelType == 'remove')
 				{
-					tagContainer.addClass(removeLinkClass);
-										
 					linkLabel = 'x ' + x;
 					var new_link = makeRemoveLink(linkAttributes, x, linkLabel);
 					new_link.children('a').bind('click', function() { removeTagsFromForm($(this).parent());  return false; });

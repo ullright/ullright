@@ -487,9 +487,6 @@ ul.list_action_buttons li {
  * ************************************************
  */
  
-.ull_widget_taggable_selected_tags {
-  
-}
 
 .ull_widget_taggable_selected_tag_element {
   padding: .2em .3em;
@@ -502,7 +499,7 @@ ul.list_action_buttons li {
   margin-bottom: 0.7em;
 }
 
-.ull_widget_taggable_selected_tag > .ull_widget_taggable_label {
+.ull_widget_taggable_selected_tags > .ull_widget_taggable_label {
 	white-space: nowrap;
 	float: left;
 	padding: .3em .3em;
