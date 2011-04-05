@@ -426,8 +426,8 @@
 </trans-unit>
 
 <trans-unit id="2017">
-<source>Too many results, limiting to 100</source>
-<target>Beschränkt auf 100 Ergebnisse</target>
+<source>Too many results found, limiting to first 100</source>
+<target>Zuviele Ergebnisse, Anzeige beschränkt auf 100</target>
 </trans-unit>
 
 <!-- common show action phrases -->

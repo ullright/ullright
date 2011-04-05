@@ -251,7 +251,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     
     if (count($choices) >= 100)
     {
-      $resultText = __('Too many results, limiting to 100', null, 'common');
+      $resultText = __('Too many results found, limiting to first 100', null, 'common');
     }
     else
     {

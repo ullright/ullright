@@ -6,9 +6,9 @@
  * functionality and adds a faked filter + handlers.
  * 
  * @param widget our widget object
- * @param $multiselectOptions options for the MultiSelect widget
+ * @param multiselectOptions options for the MultiSelect widget
  */
-function manyToMany_setup(widget, $multiselectOptions)
+function manyToMany_setup(widget, multiselectOptions)
 {
   //save originally selected options
   var selectedOptions = [];
@@ -42,11 +42,13 @@ function manyToMany_setup(widget, $multiselectOptions)
   parentNode.prepend(newSelectBox);
   
   //enable 'jQuery UI MultiSelect Widget'
-  widget.selectBox.multiselect($multiselectOptions);
+  widget.selectBox.multiselect(multiselectOptions);
+  widget.noneSelectedText = multiselectOptions.noneSelectedText;
   
   //add fake filterbox
   var header = widget.selectBox.next('button').next('div.ui-multiselect-menu');
-  var filterInput = $('<div class="ui-multiselect-filter">Search:<input placeholder="Enter keywords"></div>');
+  var filterInput = $('<div class="ui-multiselect-filter">' +
+      widget.searchLabel + '<input placeholder="Enter keywords"></div>');
   header.children('div.ui-widget-header').addClass('ui-multiselect-hasfilter');
   header.children('div.ui-widget-header').prepend(filterInput);
   filterInput.append('<span class="ui-multiselect-result-text"></span>');
@@ -99,11 +101,11 @@ function manyToMany_rebuildBackingSelect(widget)
   
   if (widget.selectedOptions.length == 0)
   {
-    var buttonText = '&nbsp;'
+    var buttonText = widget.noneSelectedText;
   }
   else if (widget.selectedOptions.length > 5)
   {
-    var buttonText = widget.selectedOptions.length + ' elements selected';
+    var buttonText = widget.selectedOptions.length + ' selected';
   }
   else
   {
@@ -185,7 +187,7 @@ function manyToMany_filter(widget)
     {
       if (data !== null) //could be null if request was aborted
       {
-        filterBox.children('span.ui-multiselect-result-text').text(data.resultText);
+        filterBox.children('span.ui-multiselect-result-text').html('<br />' + data.resultText);
         var optionString = '';
         $.each(data.choices, function(id, item) {
           var selected = ($.inArray(id, widget.selectedOptions) !== -1) ? 'selected="selected"' : '';
