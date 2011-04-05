@@ -292,7 +292,6 @@ function taggableWidget(selector, options)
 				var new_link = makePopularLink(existingTagsAttributes, tag, linkLabel);
 				new_link.children('span.ull_widget_taggable_label').bind('click', function() { addTagsToForm($(this).parent()); return false; });
 				popularsDiv.children('span.ull_widget_taggable_label').show();
-				popularsDiv.addClass('blah');
 				popularsDiv.append(new_link);
 			}
 		}
