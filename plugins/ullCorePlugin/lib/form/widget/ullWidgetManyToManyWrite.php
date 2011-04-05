@@ -27,11 +27,11 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
    */
   protected function configure($options = array(), $attributes = array())
   {
-    $this->addOption('config',
-      "{ minWidth : 400,
-         header : ' ',
-         selectedList: 5,
-         noneSelectedText : '" . __('Please select ...', null, 'common') . "' }");
+     $this->addOption('config',
+	      "{ minWidth : 400,
+	         header : ' ',
+	         selectedList: 5,
+	         noneSelectedText : '" . __('Please select ...', null, 'common') . "' }");
     $this->addOption('filter_config',
       "{ label : '" . __('Search', null, 'common') . ":' }");
     $this->addOption('filter_results');
@@ -116,6 +116,7 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
       $ownerModel = $this->getOption('owner_model');
       $ownerRelationName = $this->getOption('owner_relation_name');
       $ajaxUrl = url_for('ullTableTool/manyToManyFilter');
+      $filterConfig = $this->getOption('filter_config');
       
       return parent::render($name, $value, $attributes, $errors).
       sprintf(<<<EOF
@@ -124,13 +125,16 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
               		selectedOptions: null, selectedValues: null,
               		selectBox: $('#$id'), xhr: null,
               		timeoutId: null, oldFilterValue: '',
-    							ownerModel: '$ownerModel',
-    							ownerRelationName: '$ownerRelationName',
-    							ajaxUrl: '$ajaxUrl' };  					
+              		ownerModel: '$ownerModel',
+              		ownerRelationName: '$ownerRelationName',
+              		ajaxUrl: '$ajaxUrl',
+              		searchLabel: $filterConfig.label
+    						};
             		jQuery(document).ready(function()
             		{
              		  manyToMany_setup(widget_$id, %s);
                	});
+
               </script>
 EOF
       ,
@@ -142,11 +146,10 @@ EOF
 	      sprintf(<<<EOF
 	            <script type="text/javascript">
 	                jQuery(document).ready(function() {
-                    $("#%s").multiselect(
+                  $("#%s").multiselect(
 	                        %s
 	                    ).multiselectfilter(%s); //additionally enables the filter
 	                });
-	
 	            </script>
 EOF
 	    ,

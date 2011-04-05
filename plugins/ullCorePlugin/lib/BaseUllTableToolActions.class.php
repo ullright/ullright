@@ -248,8 +248,16 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     $this->getResponse()->setContentType('application/json');
     
     $choices = $widget->getChoices();
-    $resultText = format_number_choice('[0]No results found|[1]1 result found|(1,+Inf]%1% results found',
-      array('%1%' => count($choices)), count($choices), 'common'); 
+    
+    if (count($choices) >= 100)
+    {
+      $resultText = __('Too many results, limiting to 100', null, 'common');
+    }
+    else
+    {
+      $resultText = format_number_choice('[0]No results found|[1]1 result found|(1,+Inf]%1% results found',
+        array('%1%' => count($choices)), count($choices), 'common');
+    }
     $wrapper = array('choices' => $choices, 'resultText' => $resultText);
     
     return $this->renderText(json_encode($wrapper));
