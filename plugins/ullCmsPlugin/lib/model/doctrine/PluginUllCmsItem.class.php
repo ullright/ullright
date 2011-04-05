@@ -48,7 +48,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     {
       $this->Translation[$lang]->full_path = $this->getFullPathName($this, $lang);
     }
-
+    
     parent::preSave($event);
   }
 
@@ -80,7 +80,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     
     $return = array();
     
-    if ($object->hasReference('Parent'))
+    if (isset($object->parent_ull_cms_item_id) && ($object->parent_ull_cms_item_id != null))
     {
       $return = array_merge($this->buildFullPathName($object->Parent, $lang), $return);
     }
@@ -104,7 +104,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     {
       $return[] = $object->name;
     }
-      
+    
     
     return $return;
   }
@@ -127,7 +127,6 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     ;
   
     $result = $q->execute(null, $hydrationMode);
-
     return $result;
   }    
   
