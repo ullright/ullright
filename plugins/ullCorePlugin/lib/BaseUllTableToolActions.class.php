@@ -220,6 +220,40 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     }
   }  
   
+  /**
+   * Called from the ullManytoManyWrite widget (in AJAX mode).
+   * Takes a table + column, creates the widget as would the generator
+   * but with an additional filter applied. Results are returned
+   * in JSON.
+   */
+  public function executeManyToManyFilter(sfRequest $request)
+  {
+    $this->checkPermission($this->getPermissionName());
+    
+    $this->forward404If(!$request->hasParameter('table'));
+    $this->forward404If(!$request->hasParameter('column'));
+    $this->forward404If(!$request->hasParameter('filter'));
+    
+    $table = $request->getParameter('table');
+    $columnName = $request->getParameter('column');
+    $filter = trim($request->getParameter('filter'));
+    
+    $columnConfig = ullColumnConfigCollection::buildFor($table, 'w', 'edit');
+    $column = $columnConfig[$columnName];
+    
+    $widget = new ullWidgetManyToManyWrite(
+      array_merge($column->getWidgetOptions(), array('filter_results' => $filter)),
+      $column->getWidgetAttributes());
+    
+    $this->getResponse()->setContentType('application/json');
+    
+    $choices = $widget->getChoices();
+    $resultText = format_number_choice('[0]No results found|[1]1 result found|(1,+Inf]%1% results found',
+      array('%1%' => count($choices)), count($choices), 'common'); 
+    $wrapper = array('choices' => $choices, 'resultText' => $resultText);
+    
+    return $this->renderText(json_encode($wrapper));
+  }
 
   /**
    * Does what the method name suggests
