@@ -20,7 +20,10 @@ class ullMetaWidgetManyToMany extends ullMetaWidget
 
   protected function configureReadMode()
   {
-    $this->addWidget(new ullWidgetManyToManyRead($this->columnConfig->getWidgetOptions()));
+    $options = $this->columnConfig->getWidgetOptions();
+    unset ($options['owner_model']);
+    unset ($options['owner_relation_name']);
+    $this->addWidget(new ullWidgetManyToManyRead($options));
     $this->addValidator(new sfValidatorPass());
   }
 }

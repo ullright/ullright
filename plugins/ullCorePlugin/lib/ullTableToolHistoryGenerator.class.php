@@ -48,9 +48,9 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
    * @return void
    */
   public function buildHistoryForm(Doctrine_Record $curRow, Doctrine_Record $revRow, $enableFutureVersions) {
-    $changes = array_diff_assoc($curRow->toArray(), $revRow->toArray());
+    $changes = array_diff_assoc($curRow->toArray(false), $revRow->toArray(false));
 
-    foreach ($curRow->toArray() as $key => $value)
+    foreach ($curRow->toArray(false) as $key => $value)
     {
       //HACK
       //Our change detection algorithm doesn't handle I18n

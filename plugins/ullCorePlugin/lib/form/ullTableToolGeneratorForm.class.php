@@ -22,37 +22,12 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
         // Get all connected objects for an existing object 
         if ($this->getObject()->exists())
         {
-          $this->setDefault($columnName, $this->object->$columnName->getPrimaryKeys());
+          $this->setDefault($columnName,
+            $this->getPrimaryKeysEfficiently($this->object, $columnName));
         }
       }
     } 
 
-    //parent updateDefaultsFromObject begins here:
-    /*
-    if ($this->isNew())
-    {
-      $this->setDefaults(array_merge($this->getObject()->toArray(false), $this->getDefaults()));
-    }
-    else
-    {
-      //$this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->toArray(false)));
-      $this->setDefaults(array_merge($this->getDefaults(), $this->getObject()->getData()));
-    }
-    
-     $defaults = $this->getDefaults();
-    foreach ($this->embeddedForms as $name => $form)
-    {
-      if ($form instanceof sfFormDoctrine)
-      {
-        $form->updateDefaultsFromObject();
-        $defaults[$name] = $form->getDefaults();
-      }
-    }
-    $this->setDefaults($defaults);
-    */
-    //parent updateDefaultsFromObject ends here:
-    
-    
     if ($this->isI18n()) 
     { 
       $defaults = $this->getDefaults();
@@ -148,6 +123,43 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
   }
   
   /**
+   * Override sfFormDoctrine's doUpdateObject() to provide support
+   * for our custom many to many relation handling (= prevent
+   * thousands of related records from loading/hydrating).
+   * 
+   * @see sfFormDoctrine::doUpdateObject()
+   */
+  protected function doUpdateObject($values)
+  {
+    $unset = array();
+    $associations = array();
+    $relations = $this->getObject()->getTable()->getManyToManyRelations();
+    foreach ($relations as $relationName => $relation)
+    {
+      if (isset($values[$relationName]))
+      {
+        $unset[] = $relationName;
+        if ($this->object->exists())
+        {
+          unset($values[$relationName]);
+        }
+      }
+    }
+    
+    parent::doUpdateObject($values);
+    
+    foreach ($relations as $relationName => $relation)
+    {
+      if ($this->object->exists() || !in_array($relationName, $unset))
+      {
+        $componentName = $relation->getClass();
+        $collection = Doctrine_Collection::create($componentName);
+        $this->getObject()->set($relationName, $collection, false);
+      }
+    }
+  }
+  
+  /**
    * Override parent's doSave() to provide support for many
    * to many relationships (also see saveManyToMany()).
    */
@@ -193,7 +205,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       $connection = $this->getConnection();
     }
 
-    $existing = $this->object->$columnName->getPrimaryKeys();
+    $existing = $this->getPrimaryKeysEfficiently($this->object, $columnName);
     $values = $this->getValue($columnName);
     if (!is_array($values))
     {
@@ -203,13 +215,82 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
     $unlink = array_diff($existing, $values);
     if (count($unlink))
     {
-      $this->object->unlink($columnName, array_values($unlink));
+      if ($this->object->exists())
+      {
+        $relation = $this->object->getTable()->getRelation($columnName);
+  
+        foreach (array_values($unlink) as $unlinkValue)
+        {
+          $q = new Doctrine_Query();
+          $q
+            ->delete($relation->getAssociationTable()->getComponentName())
+            ->where($relation->getLocalRefColumnName() . ' = ?', $this->object->id)
+            ->andWhere($relation->getForeignRefColumnName() . ' = ?', $unlinkValue)
+          ;
+          $q->execute();
+        }
+      }
+      else
+      {
+         $this->object->unlink($columnName, array_values($unlink));
+      }
     }
 
     $link = array_diff($values, $existing);
     if (count($link))
     {
-      $this->object->link($columnName, array_values($link));
+      if ($this->object->exists())
+      {
+        $relation = $this->object->getTable()->getRelation($columnName);
+        $associationObjectName = $relation->getAssociationTable()->getComponentName();
+        
+        foreach (array_values($link) as $linkValue)
+        {
+          $associationObject = new $associationObjectName();
+          $associationObject[$relation->getLocalRefColumnName()] = $this->object->id;
+          $associationObject[$relation->getForeignRefColumnName()] = $linkValue;
+          $associationObject->save();        
+        }
+      }
+      else
+      {
+        $this->object->link($columnName, array_values($link));
+      }
     }
+  }
+  
+  /**
+   * This function solves performance problems regarding $this->object->$columnName,
+   * which was originally used by this class.
+   * Imagine e.g. mailingListObject->Subscribers is not loaded, so lazy loading
+   * gets active. Now Doctrine tries to retrieve/hydrate 5000+ UllUser records,
+   * -> slowness ensues.
+   * Solution: Ask the doctrine record if object->columnName is already available
+   * or if lazy loading would be used. If it is not available, retrieve the primary
+   * keys via a separate query instead.
+   * 
+   * @param Doctrine_Record $record
+   * @param string $columnName
+   */
+  protected function getPrimaryKeysEfficiently($record, $columnName)
+  {
+    //would accessing $columnName trigger lazy load?
+    if ($record->get($columnName, false) === null)
+    {
+      $relation = $record->getTable()->getRelation($columnName);
+      $dql = 'SELECT id ' .  $relation->getRelationDql(1);
+      $results = Doctrine_Manager::connection()->query($dql,
+        array($record->id), Doctrine::HYDRATE_SINGLE_SCALAR);
+      if (!is_array($results))
+      {
+        $results = array($results);
+      }
+    }
+    else
+    {
+      $results = $record->$columnName->getPrimaryKeys();
+    }
+    
+    return $results;
   }
 }

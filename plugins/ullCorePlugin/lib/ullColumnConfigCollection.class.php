@@ -939,10 +939,12 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       //see ullWidgetManyToManyWrite class doc for why we set this
       ->setWidgetOption('key_method', 'id')
       ->setWidgetOption('method', $toStringColumn)
+      ->setWidgetOption('owner_model', $this->getModelName())
+      ->setWidgetOption('owner_relation_name', $relationAlias)
       ->setValidatorOption('model', $model)
       ->setValidatorOption('query', $q)
       ->setIsSortable(false) //at the moment, we do not have support for this
-    ;        
+    ;     
   }
   
   

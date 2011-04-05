@@ -19,6 +19,8 @@
  */
 class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
 {
+  protected $cachedChoices = null;
+  
   /**
    * Configures this widget, setting a couple of default options
    * for the multiselect widget.
@@ -31,8 +33,10 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
          selectedList: 5,
          noneSelectedText : '" . __('Please select ...', null, 'common') . "' }");
     $this->addOption('filter_config',
-      "{  /*placeholder : 'Filter ...',*/
-          label : '" . __('Search', null, 'common') . ":' }");
+      "{ label : '" . __('Search', null, 'common') . ":' }");
+    $this->addOption('filter_results');
+    $this->addRequiredOption('owner_model');
+    $this->addRequiredOption('owner_relation_name');
 
     parent::configure($options, $attributes);
     
@@ -41,6 +45,14 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
 
   public function getChoices()
   {
+    if ($this->cachedChoices !== null)
+    {
+      return $this->cachedChoices;
+    }
+    
+    $method = $this->getOption('method');
+    $keyMethod = $this->getOption('key_method');
+    
     $choices = array();
     if (false !== $this->getOption('add_empty'))
     {
@@ -52,11 +64,20 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
     {
       $query->addOrderBy($order[0] . ' ' . $order[1]);
     }
-   
-    $objects = $query->execute();
 
-    $method = $this->getOption('method');
-    $keyMethod = $this->getOption('key_method');
+    //is a filter string specified?
+    $filter = $this->getOption('filter_results');
+    if ($filter !== null)
+    {
+      $query->addWhere($method . ' LIKE ?', '%' . $filter . '%');
+      //filtering is usually used via AJAX, where the results
+      //are processes via JS (e.g. dynamic options for a select tag)
+      //since more than lets say 100 entries do not make much sense
+      //in such a context, we limit the query
+      $query->limit(100);
+    }
+    
+    $objects = $query->execute();
   
     //was array hydration used?
     if (is_array($objects))
@@ -75,6 +96,7 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
       }
     }
     
+    $this->cachedChoices = $choices;
     return $choices;
   }
   
@@ -85,29 +107,62 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    return parent::render($name, $value, $attributes, $errors).
-    sprintf(<<<EOF
-            <script type="text/javascript">
-                jQuery(document).ready(function() {
-                    $("#%s").multiselect(
-                        %s
-                    ).multiselectfilter(%s); //additionally enables the filter
-                });
-
-            </script>
+    $id = $this->generateId($name);
+    $choicesCount = count($this->getChoices());
+ 
+    //enable AJAX mode if choice count is high
+    if ($choicesCount > 1000)
+    {
+      $ownerModel = $this->getOption('owner_model');
+      $ownerRelationName = $this->getOption('owner_relation_name');
+      $ajaxUrl = url_for('ullTableTool/manyToManyFilter');
+      
+      return parent::render($name, $value, $attributes, $errors).
+      sprintf(<<<EOF
+              <script type="text/javascript">
+              	var widget_$id = {
+              		selectedOptions: null, selectedValues: null,
+              		selectBox: $('#$id'), xhr: null,
+              		timeoutId: null, oldFilterValue: '',
+    							ownerModel: '$ownerModel',
+    							ownerRelationName: '$ownerRelationName',
+    							ajaxUrl: '$ajaxUrl' };  					
+            		jQuery(document).ready(function()
+            		{
+             		  manyToMany_setup(widget_$id, %s);
+               	});
+              </script>
 EOF
-    ,
-    $this->generateId($name),
-    $this->getOption('config'),
-    $this->getOption('filter_config')
-    );
+      ,
+      $this->getOption('config'));
+    }
+    else
+    {
+      return parent::render($name, $value, $attributes, $errors).
+	      sprintf(<<<EOF
+	            <script type="text/javascript">
+	                jQuery(document).ready(function() {
+                    $("#%s").multiselect(
+	                        %s
+	                    ).multiselectfilter(%s); //additionally enables the filter
+	                });
+	
+	            </script>
+EOF
+	    ,
+	    $id,
+	    $this->getOption('config'),
+	    $this->getOption('filter_config')
+	    );
+    }
   }
 
   protected static $javaScripts = array(
     '/ullCorePlugin/js/jq/jquery-min.js',
     '/ullCorePlugin/js/jq/jquery-ui-min.js',
     '/ullCorePlugin/js/jq/jquery.multiselect-min.js',
-    '/ullCorePlugin/js/jq/jquery.multiselect.filter.js'
+  	'/ullCorePlugin/js/jq/jquery.multiselect.filter.js',
+    '/ullCorePlugin/js/ullWidgetManyToMany.js'
   );
   
   /**

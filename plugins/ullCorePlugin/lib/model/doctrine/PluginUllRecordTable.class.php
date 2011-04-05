@@ -15,4 +15,24 @@ class PluginUllRecordTable extends Doctrine_Table
     
     return $q->fetchOne();
   }
+  
+  /**
+   * Retrieves an array of all many to many relations
+   * for this table, where the keys are the relation
+   * names and the values the relations itself.
+   */
+  public function getManyToManyRelations()
+  {
+    $manyToManyRelations = array();
+    $relations = $this->getRelations();
+    foreach ($relations as $relationName => $relation)
+    {
+      if ($relation instanceof Doctrine_Relation_Association)
+      {
+        $manyToManyRelations[$relationName] = $relation;
+      }
+    }
+    
+    return $manyToManyRelations;
+  }
 }
