@@ -11,7 +11,8 @@ class ApplyScheduledUpdatesTask extends sfBaseTask
       'done_at');
 
   protected $ignoreTables = array('UllEntity');
-    
+  protected $disableNowConfirmation = false;
+  
   protected function configure()
   {
     $this->namespace        = 'ullright';
@@ -40,7 +41,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    if ($arguments['now'] == 'now') {
+    if ($arguments['now'] == 'now' && !$this->disableNowConfirmation) {
       $answer = $this->ask('Are you sure you wish to apply all scheduled updates ' .
             'regardless of their due date? (y/n)');
 
@@ -50,7 +51,7 @@ EOF;
         return;
       }
     }
-    
+
     $this->applyUpdates($arguments, $options);
   }
   
@@ -67,7 +68,7 @@ EOF;
     $modelNames = Doctrine::getLoadedModels();
 
     $conn->beginTransaction();
-    
+
     foreach ($modelNames as $modelName) {
         
       if (in_array($modelName, $this->ignoreTables))
@@ -120,7 +121,7 @@ EOF;
           $row = $q->fetchOne();
           $tempRow = clone $row;
           $row->revert($futureVersion->reference_version);
-
+ 
           $changes = array_diff_assoc($futureVersion->toArray(), $row->toArray());
 
 //this is never executed because changes will always include blacklisted columns...
@@ -142,6 +143,7 @@ EOF;
             
           $this->log('Now saving ' . $modelName . ' with id: ' . $row->id);
           //$tempRow->reference_version = ;
+
           $tempRow->save();
           $newFutureVersion = $tempRow->getAuditLog()->getVersionRecord($tempRow);
           $newFutureVersion->reference_version = $futureVersion->version;
@@ -155,5 +157,10 @@ EOF;
     //$conn->rollback();
     $conn->commit();
     $this->log("ApplyScheduledUpdatesTask finished\n");
+  }
+  
+  public function disableNowConfirmation()
+  {
+    $this->disableNowConfirmation = true;
   }
 }

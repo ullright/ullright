@@ -131,10 +131,11 @@ $b
   ->diag('calling the ApplyScheduledUpdates task with now-option')
 ;
 
-$applyUpdatesTask = new ApplyScheduledUpdatesTask(new sfEventDispatcher(), new sfFormatter());
-$applyUpdatesTask->applyUpdates(array('now' => 'now',
-                        'application' => $app,
-                        'env' => 'test'));
+Doctrine_Manager::connection()->clear();
+$applyUpdatesTask = new ApplyScheduledUpdatesTask(
+  sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
+$applyUpdatesTask->disableNowConfirmation();
+$applyUpdatesTask->run(array('now' => 'now', 'application' => $app, 'env' => 'test'), array());
 
 $b
   ->diag('reload test user, check if scheduled update was applied')
