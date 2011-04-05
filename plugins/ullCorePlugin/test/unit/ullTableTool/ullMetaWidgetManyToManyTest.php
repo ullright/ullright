@@ -8,9 +8,11 @@ class myTestCase extends sfDoctrineTestCase
   {
     $columnConfig = new ullColumnConfiguration();
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetManyToMany');
-    $columnConfig->setWidgetOption('model', 'UllUser');
-    $columnConfig->setValidatorOption('model', 'UllUser');
+    $columnConfig->setWidgetOption('model', 'UllGroup');
+    $columnConfig->setValidatorOption('model', 'UllGroup');
     $columnConfig->setAccess('r');
+    $columnConfig->setWidgetOption('owner_model', 'UllUser');
+    $columnConfig->setWidgetOption('owner_relation_name', 'UllGroup');
     
     return $columnConfig;
   }
