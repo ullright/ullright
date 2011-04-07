@@ -736,6 +736,6 @@ class ullCoreTools
    */
   public static function urlDotDecodeByReference(&$string) 
   {
-    $string = rawurldecode(str_replace('&#x2E;', '.', $string));
+    $string = self::urlDotDecode($string);
   }
 }

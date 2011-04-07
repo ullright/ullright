@@ -6,7 +6,7 @@ class myTestCase extends lime_test
 {
 }
 
-$t = new myTestCase(2, new lime_output_color, $configuration);
+$t = new myTestCase(3, new lime_output_color, $configuration);
 
 $t->diag('parseSubmitName()');
 
@@ -47,4 +47,32 @@ $t->diag('decryptSecureParameters()');
   ); 
   
   $t->is_deeply($request->getParameterHolder()->getAll(), $reference, 'decryptSecureParameters() correct');  
+
+$t->diag('fixDotCharacter()');
+
+  $_POST = array(
+    'one' => '&#x2E;',
+    'two' => array(
+      'three' => '&#x2E;&#x2E;',
+      'four' => '&#x2E;four&#x2E;four&#x2E;',
+      'five' => array(
+        'six' => 'six&#x2E;'
+     )
+    )
+  );
+
+  $request = new ullWebRequest(new sfEventDispatcher);
+
+  $reference = array(
+    'one' => '.',
+    'two' => array(
+      'three' => '..',
+      'four' => '.four.four.',
+      'five' => array(
+        'six' => 'six.'
+     )
+    )
+  ); 
+  
+  $t->is_deeply($request->getParameterHolder()->getAll(), $reference, 'fixDotCharacter() correct');  
   
