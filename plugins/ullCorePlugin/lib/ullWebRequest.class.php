@@ -2,7 +2,6 @@
 
 class ullWebRequest extends sfWebRequest
 {
-  
   /**
    * Loads GET, PATH_INFO and POST data into the parameter list.
    *
@@ -13,15 +12,40 @@ class ullWebRequest extends sfWebRequest
     
     $this->decryptSecureParameters();
     
+    $this->fixDotCharacter();
+    
     $this->parseSubmitName();
     
     $this->parseSquareBracketKeys();
-    
+
     if (sfConfig::get('sf_logging_enabled'))
     {
       $this->dispatcher->notify(new sfEvent($this, 'application.log', array(sprintf('Request parameters %s', str_replace("\n", '', var_export($this->getParameterHolder()->getAll(), true))))));
     }
 
+  }
+
+  /**
+   * Applies ullCoreTools:urlDotDecode to all parameters, which
+   * is needed by symfony's default routing
+   * 
+   * Only works for top and first parameter level (array in array is not supported)
+   */
+  protected function fixDotCharacter()
+  {
+    $parameterHolder = $this->getParameterHolder();
+    foreach ($parameterHolder->getAll() as $paramName => $paramValue)
+    {
+      if (is_array($paramValue))
+      {
+        array_walk($paramValue, 'ullCoreTools::urlDotDecode');
+        $parameterHolder->set($paramName, $paramValue);
+      }
+      else
+      {
+        $parameterHolder->set($paramName, ullCoreTools::urlDotDecode($paramValue));
+      }
+    }
   }
   
   /**

@@ -721,7 +721,7 @@ function _ull_reqpass_initialize($merge_array = array(), $rawurlencode = true)
   
   // clean params
   $params = _ull_reqpass_clean_array($params);
-
+  
   return $params;
 }
 
@@ -765,6 +765,7 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
     }  
   }
   
+  
   foreach ($array as $key => $value) 
   {
     // recurse
@@ -783,15 +784,15 @@ function _ull_reqpass_clean_array($array, $rawurlencode = true)
       // TODO: what's the usecase for rawurlencode?
       if ($rawurlencode and !is_array($value)) 
       {
-        $array[$key] = ull_sf_url_encode($value);
+        $array[$key] = ullCoreTools::urlDotEncode($value);        
       }
       else
       {      
-        $array[$key] = $value;
+      $array[$key] = $value;
       }
     }
   }
-
+  
   return $array; 
 }
 
@@ -882,48 +883,8 @@ function _ull_reqpass_build_base_url($params) {
   // action
   $url .= '/' . $params['action'];
   
-  return $url;
-  
-  
+  return $url; 
 }
-
-
-/** 
- * Raw-Encodes special chars in urls
- * 
- * @param string $string   
- * @return string the rawurlencoded $string
- */
-
-function ull_sf_url_encode($string) 
-{
-  //it seems that the . replacement is not necessary any longer.
-  //if this turns out to be wrong, we need to reenable the replacement
-  //here AND adapt the reqpassing code to also call ull_sf_url_decode
-  //for each parameter (which does not happen at the moment).
-  //as an alternative, see the 'segment_separators' parameter for the
-  //symfony routing system, but removing the . from this parameter
-  //might break other things.
-  return rawurlencode($string);
-;
-  
-}
-
-/** 
- * decodes special chars in urls
- * counterpart for ull_sf_url_encode
- * 
- * @param string string   
- * @return string
- */
-function ull_sf_url_decode($string) 
-{
-  
-  // TODO: check why it is necessary to do raw_url_decode on some webservers and and on some not 
-  return rawurldecode(str_replace('&#x2E;', '.', $string));
-  
-}
-
 
 /*
  * The following 2 functions are from http://www.linuxscope.net/articles/mailAttachmentsPHP.html

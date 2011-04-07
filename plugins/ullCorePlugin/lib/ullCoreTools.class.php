@@ -693,5 +693,34 @@ class ullCoreTools
     }
     
     return base64_decode($data);
-  }  
+  }
+  
+  /** 
+   * Encodes dot char in URLs
+   * Used because '.' breaks the symfony rewrite rules
+   * Example symfony url that does not work: 'myModule/myAction/search/file.txt'
+   * 
+   * @see ullCoreTools::urlDotDecode
+   * 
+   * @param string string   
+   * @return string fixed string
+   */
+  public static function urlDotEncode($string) 
+  {
+    // replace '.' by the corresponding html entity
+    return rawurlencode(str_replace('.', '&#x2E;', $string)); 
+  }
+  
+  /** 
+   * Decodes dot char in URLs
+   * 
+   * @see ullCoreTools::urlDotEncode
+   * 
+   * @param string string  
+   * @return string fixed string
+   */
+  public static function urlDotDecode($string) 
+  {
+    return rawurldecode(str_replace('&#x2E;', '.', $string));
+  }
 }
