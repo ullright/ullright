@@ -28,17 +28,16 @@ class ullWebRequest extends sfWebRequest
   /**
    * Applies ullCoreTools:urlDotDecode to all parameters, which
    * is needed by symfony's default routing
-   * 
-   * Only works for top and first parameter level (array in array is not supported)
    */
   protected function fixDotCharacter()
   {
     $parameterHolder = $this->getParameterHolder();
+    
     foreach ($parameterHolder->getAll() as $paramName => $paramValue)
     {
       if (is_array($paramValue))
       {
-        array_walk($paramValue, 'ullCoreTools::urlDotDecode');
+        array_walk_recursive($paramValue, 'ullCoreTools::urlDotDecodeByReference');
         $parameterHolder->set($paramName, $paramValue);
       }
       else

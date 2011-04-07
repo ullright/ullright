@@ -723,4 +723,19 @@ class ullCoreTools
   {
     return rawurldecode(str_replace('&#x2E;', '.', $string));
   }
+  
+  /** 
+   * Decodes dot char in URLs, but does not return the
+   * fixed value, instead it directly modifies the given
+   * string
+   * 
+   * @see ullCoreTools::urlDotDecode
+   * 
+   * @param string string by reference  
+   * @return nothing
+   */
+  public static function urlDotDecodeByReference(&$string) 
+  {
+    $string = rawurldecode(str_replace('&#x2E;', '.', $string));
+  }
 }
