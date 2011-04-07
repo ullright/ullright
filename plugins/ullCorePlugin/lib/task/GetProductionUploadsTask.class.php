@@ -68,7 +68,10 @@ EOF;
   {
     $this->logSection($this->name, 'Rsyncing uploaded files');
     
-    $command = 'rsync -az --delete --stats ' .
+    // We need to call all individual options instead of "-a", to ignore 
+    // syncing the file permissions because they may be set to "600" and 
+    // owned by another user. 
+    $command = 'rsync -rltgoDz --delete --stats ' .
       $this->targetUserName . '@' . $this->targetServerName .  ':' . $this->targetDir . '/web/uploads/' .
       ' ' .
       sfConfig::get('sf_upload_dir') . '/'
