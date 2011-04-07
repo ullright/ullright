@@ -16,7 +16,7 @@ class BaseUllMailLoggedMessageTableConfiguration extends UllTableConfiguration
   {
     $this->setName(__('Logged Mail Messages', null, 'ullMailMessages'));
 //    $this->setSearchColumns(array('title'));
-    $this->setOrderBy('created_at DESC');
+    $this->setOrderBy('sent_at DESC');
     $this->setListColumns(array(
       'sender',
       'to_list',
