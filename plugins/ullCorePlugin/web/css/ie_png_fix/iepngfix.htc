@@ -173,10 +173,13 @@ IEPNGFix.childFix = function(elm) {
 		}
 	}
 	t = tFix.length;
-	if (t && (/relative|absolute/i).test(elm.currentStyle.position)) {
-		alert('IEPNGFix: Unclickable children of element:' +
-			'\n\n<' + elm.nodeName + (elm.id && ' id=' + elm.id) + '>');
-	}
+	
+	// related to http://xhtmlforum.de/53462-ie-6-png-transparenz-trotz-iepngfix.html we disabled the alert
+	//
+	//if (t && (/relative|absolute/i).test(elm.currentStyle.position)) {
+	//	alert('IEPNGFix: Unclickable children of element:' +
+	//		'\n\n<' + elm.nodeName + (elm.id && ' id=' + elm.id) + '>');
+	//}
 	while (t--) {
 		if (!(/relative|absolute/i).test(tFix[t].currentStyle.position)) {
 			tFix[t].style.position = 'relative';
