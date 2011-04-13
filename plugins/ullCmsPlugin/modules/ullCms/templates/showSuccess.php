@@ -2,7 +2,7 @@
   <?php echo $sidebar_menu ?>
 <?php end_slot() ?>
 
-<div class="ull_cms_content">
+<div class="ull_cms_content ull_cms_page_<?php echo $doc->slug ?>">
   <h1 class="ull_cms_content_heading">
     <?php if ($allow_edit): ?>
       <span class="ull_cms_content_heading_edit_link">
