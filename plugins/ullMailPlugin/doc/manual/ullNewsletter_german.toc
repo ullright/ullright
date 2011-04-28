@@ -1,15 +1,28 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1.1}Verteiler}{3}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Verwaltung}{3}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Erstellen}{3}{subsection.1.1.2}
-\contentsline {subsubsection}{Name}{3}{subsection.1.1.2}
-\contentsline {subsubsection}{Beschreibung}{3}{subsection.1.1.2}
-\contentsline {subsubsection}{Standardm\IeC {\"a}\IeC {\ss }ig angemeldet}{4}{subsection.1.1.2}
-\contentsline {subsubsection}{Ist aktiv}{4}{subsection.1.1.2}
-\contentsline {section}{\numberline {1.2}Layouts}{4}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Verwaltung}{4}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Erstellen}{4}{subsection.1.2.2}
-\contentsline {subsubsection}{Name}{4}{subsection.1.2.2}
-\contentsline {subsubsection}{HTML-Head}{5}{subsection.1.2.2}
-\contentsline {subsubsection}{HTML-Body}{5}{lstnumber.-1.9}
-\contentsline {subsection}{\numberline {1.2.3}Bearbeiten}{6}{subsection.1.2.3}
+\contentsline {chapter}{\chapternumberline {1}\IeC {\"U}berblick}{3}{chapter.1}
+\contentsline {chapter}{\chapternumberline {2}Listenansicht}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Filterleiste}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Liste}{4}{section.2.2}
+\contentsline {chapter}{\chapternumberline {3}Newsletter verfassen}{4}{chapter.3}
+\contentsline {section}{\numberline {3.1}Felder}{4}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Verteiler}{4}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Betreff}{4}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Text}{4}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Layout}{5}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Senden}{5}{section.3.2}
+\contentsline {chapter}{\chapternumberline {4}Verteiler}{5}{chapter.4}
+\contentsline {section}{\numberline {4.1}Verwaltung}{6}{section.4.1}
+\contentsline {section}{\numberline {4.2}Erstellen}{6}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Name}{6}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Beschreibung}{6}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Automatisch anmelden}{6}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Standard-Verteiler}{6}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}Ist aktiv}{7}{subsection.4.2.5}
+\contentsline {chapter}{\chapternumberline {5}Layouts}{7}{chapter.5}
+\contentsline {section}{\numberline {5.1}Verwaltung}{7}{section.5.1}
+\contentsline {section}{\numberline {5.2}Erstellen}{7}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Name}{7}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}HTML-Head}{7}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}HTML-Body}{8}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Ist Standardlayout}{9}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Bearbeiten}{9}{section.5.3}

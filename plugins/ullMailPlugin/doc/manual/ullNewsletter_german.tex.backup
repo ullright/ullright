@@ -55,12 +55,12 @@
     linkcolor=black,%
     urlcolor=black,%
     pdfauthor={ull.at},%
-    pdftitle={ullCms Handbuch},%
-    pdfsubject={ullright - ullCms}
+    pdftitle={ullNewsletter Handbuch},%
+    pdfsubject={ullright - ullNewsletter}
 }
 
-\chapterstyle{veelo}
-\headstyles{komalike}
+%\chapterstyle{veelo}
+%\headstyles{komalike}
 \pagestyle{empty}
 
 %header and footer images on every page
@@ -80,12 +80,10 @@
 
 \definecolor{ullblue}{rgb}{0.1, 0.42, 0.59}
 
-\titleformat{\chapter}[display]
-{\color{ullblue}\normalfont\huge\bfseries}{\chaptertitlename\
-\thechapter}{20pt}{\Huge}
+%\titleformat{\chapter}[display]{\color{ullblue}\normalfont\Huge\bfseries}
+%{\chaptertitlename\thechapter}{20pt}{\Huge}
 
-\titleformat{\section}
-{\color{ullblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\chapter}{\color{ullblue}\normalfont\huge\bfseries}{\thechapter}{0.75em}{\huge}
 
 % Do not indent paragraphes but add newlines
 \usepackage{parskip}
@@ -146,31 +144,97 @@ Ein Modul der ullright-Plattform -- www.ullright.org
 
 \clearpage
 
-\addtocounter{chapter}{1}
+\chapter{Überblick}
 
-%the star prevents this chapter from being added to the toc and from being numbered
-\chapter*{ullNewsletter}
+ullNewsletter ist ein leistungsfähiges Modul der ullright Plattform zum Versand von E-Mail Newslettern.
 
-\section{Verteiler}
+Hinter einer sehr einfachen Bedienoberfläche arbeitet ein komplexes System um Ihre Newsletter mit grösstmöglicher Sicherheit an Ihre Kunden zu versenden.
 
-Legen Sie Verteiler für jede Zielgruppe an. Sprechen Sie dadurch jede Interessentengruppe gezielt an. Dadurch vermeiden Sie Abmeldungen weil Ihre Kunden nicht mit für sie uninteressanten Informationen "`zugespammt"' werden.
+Die wichtigsten Funktionen:
 
-\subsection{Verwaltung}
+\begin{itemize}
+ \item Personalisierte Newsletter (z.B. mit persönlicher Anrede)
+ \item Beliebig viele Verteiler für unterschiedliche Zielgruppen können angelegt werden
+ \item Mehrere Layouts können hinterlegt und beim Versand ausgewählt werden
+ \item HTML-E-Mails und Grafiken werden unterstützt
+ \item Einfache Abmeldung (Unsubscribe)
+ \item Automatisierte Behandlung von Fehlern und Out-of-Office Antworten (Bounce-Management)
+ \item Online Version zum Ansehen des Newsletters auf Ihrer Website
+ \item Tracking zur Nachverfolgung wieviele Empfänger Ihren Newsletter gelesen haben
+\end{itemize}
+
+
+\chapter{Newsletter verfassen}
+
+Klicken Sie auf der Newletter-Startseite, oder auf der Listenansicht auf "`Erstellen"'
+
+\section{Felder}
+
+\subsection{Verteiler}
+
+Wählen Sie einen oder mehrere Verteiler an den Sie den Newletter senden möchten
+Verteiler die in der Verwaltung (siehe Kapitel \vref{sec:verteiler}) als Standardverteiler markiert wurden sind bereits ausgewählt.
+
+\subsection{Betreff}
+
+Geben Sie einen Betreff ein.
+
+\subsection{Text}
+
+Den Inhalt Ihres Newsletter geben Sie im Feld "`Text"' ein. Es steht Ihnen eine WYSIWYG-Editor ähnlich wie von Word oder OpenOffice gewohnt zur Verfügung. Sie können also Überschriften, Aufzählunglisten und Schriftformatierungen wählen. Auch das Einfügen von Links und Bildern ist möglich.
+
+Ausführliche Informationen zum Editor erhalten Sie im Handbuch "`ullCms"'.
+
+Für personalisierte E-Mails können Sie eine Reihe von Platzhaltern verwenden.
+
+Beispiele:
+\begin{description}
+ % "[" is interpreted -> use \lbrack instead
+ % the underscore in ONLINE_LINK is interpreted (!?%&) -> escape with \
+ \item[\lbrack FIRST\_NAME\rbrack] Der Vorname des Empfängers
+ \item[\lbrack LAST\_NAME\rbrack] Der Nachname des Empfängers
+ \item[\lbrack TITLE\rbrack] Der Titel
+\end{description}
+
+Beispiel: Hallo [FIRST\_NAME] [LAST\_NAME]!
+
+\subsection{Layout}
+
+Wählen Sie ein Layout aus der Liste. Im Normalfall ist Ihr Standardlayout bereits vor-ausgewählt.
+
+\section{Senden}
+
+Wenn Sie mit dem Verfassen fertig sind, können Sie sich mittels "`Sende Test-Newsletter an mich"' einen Newsletter an Ihre eigene E-Mailadresse zusenden um die Darstellung zu überprüfen
+
+Sind Sie zufrieden senden Sie den Newsletter durch Klick auf "`Sende Newsletter"' ab. Bestätigen dazu die Sicherheitsabfrage.
+
+Sie werden nun zur Listenansicht weitergeleitet und erhalten eine Meldung an wieviele Empfänger der Aufrag zur Sendung des Newsletters entgegengenommen wurde.
+
+Je nach Anzahl der Empfänger kann das Versenden bis zu mehreren Stunden dauern. Sie können jederzeit nachsehen wieviele E-Mails bereits versendet wurden in dem Sie die Listenansicht aktualisieren (Taste [F5]).
+
+
+
+\chapter{Verteiler}
+\label{sec:verteiler}
+
+Legen Sie Verteiler für jede Zielgruppe an. Sie sprechen so jede Interessentengruppe gezielt an und vermeiden Abmeldungen wegen uniteressanten Informationen für Ihre Kunden.
+
+\section{Verwaltung}
 
 Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Verteiler"'.
 
-\subsection{Erstellen}
+\section{Erstellen}
 \label{sec:create-mailing-list}
 
 Klicken Sie auf "`Erstellen"'
 
-\subsubsection{Name}
+\subsection{Name}
 
 Geben Sie den Namen für den Verteiler ein.
 
 Beispiel: Produktneuigkeiten für Gemüsehändler
 
-\subsubsection{Beschreibung}
+\subsection{Beschreibung}
 
 Beschreiben Sie welche Informationen Ihre Kunden über diesen Verteiler erhalten.
 
@@ -185,44 +249,41 @@ Beispiel:
 
 Erhalten Sie 4-6 Mal jährlich interessante Produktneuigkeiten und Erfahrungsberichte aus dem Bereich des Gemüsehandels.
 
-\subsubsection{Standardmäßig angemeldet}
+\subsection{Standardmäßig angemeldet}
 
 Hier geht es darum ob neu angelegte Benutzer automatisch für den aktuellen Newsletter angemeldet werden.
 Dabei ist es egal ob Sie einen Benutzer händisch anlegen oder ob sich der Benutzer selbst auf Ihrer Webseite registriert.
 
-\subsubsection{Ist aktiv}
+\subsection{Ist aktiv}
 
 Damit steuern Sie ob der aktuelle Verteiler in der Liste Ihrer Verteiler aufscheint.
 
 Wenn dieses Feld nicht angekreuzt wird, können Kunden sich nicht für diesen Verteiler anmelden.
 
 
-
-
-
-\section{Layouts}
+\chapter{Layouts}
 
 Ein Layout ist eine Art Formatvorlage um Ihren Newslettern ein einheitliches und attraktives Aussehen zu verleihen.
 
-Im Normalfall genügt es einmal ein Layout im Stile Ihrer CI (Coporate Identity) anzulegen.
+Im Normalfall genügt es einmal ein Layout im Stile Ihrer CI (Corporate Identity) anzulegen.
 
 Sie können beliebig viele Layouts anlegen.
 
 
-\subsection{Verwaltung}
+\section{Verwaltung}
 
 Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Layouts"'.
 
-\subsection{Erstellen}
+\section{Erstellen}
 \label{sec:create-layout}
 
 Klicken Sie auf "`Erstellen"'
 
-\subsubsection{Name}
+\subsection{Name}
 
 Geben Sie einen Namen für das neue Layout ein. Beispiel: "`Standard"'
 
-\subsubsection{HTML-Head}
+\subsection{HTML-Head}
 
 Der "`head"' Teil des HTML Codes. Hier können Sie z.B. CSS Stylesheet Anweisungen einfügen.
 
@@ -242,7 +303,7 @@ Beispiel:
 
 Hinweis: Der "`<head>"' Tag ist nicht erforderlich.
 
-\subsubsection{HTML-Body}
+\subsection{HTML-Body}
 
 Geben Sie hier den HTML-Code für Ihr Layout ein.
 
@@ -253,12 +314,14 @@ Tips und Tricks zur Verwendung des Editors erhalten Sie im ullCms Handbuch.
 
 Folgende Platzhalter stehen zur Verfügung:
 
-\begin{itemize}
- \item \lbrack ONLINE\_LINK\ - foo
- %\item x ONLINE_LINK  - Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
- \item CONTENT - Platzhalter für den eigentlichen Inhalt des Newsletters
- \item UNSUBSCRIBE - Fügt die Unsubscribe-Links zur Abmeldung ein
-\end{itemize}
+\begin{description}
+ % "[" is interpreted -> use \lbrack instead
+ % the underscore in ONLINE_LINK is interpreted (!?%&) -> escape with \
+ \item[\lbrack ONLINE\_LINK\rbrack] Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
+ \item[\lbrack CONTENT\rbrack] Platzhalter für den eigentlichen Inhalt des Newsletters
+ \item[\lbrack UNSUBSCRIBE\rbrack] Fügt die Unsubscribe-Links zur Abmeldung ein
+\end{description}
+
 
 Ein einfaches Beispiel:
 
@@ -273,7 +336,7 @@ Ein einfaches Beispiel:
 <p>(C) 2011 by ull.at</p>
 \end{lstlisting}
 
-\subsection{Bearbeiten}
+\section{Bearbeiten}
 
 Klicken Sie in der Liste der Layouts auf das Stiftsymbol vor dem Eintrag den Sie bearbeiten möchte.
 

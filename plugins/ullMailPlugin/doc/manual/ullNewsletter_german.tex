@@ -129,6 +129,7 @@ Ein Modul der ullright-Plattform -- www.ullright.org
 {%\fontspec[Scale=0.8]{Gentium Basic}
 \footnotesize
 01.03.2011 -- Klemens Ullmann-Marx
+28.04.2011 -- Klemens Ullmann-Marx
 }
 
 \clearpage
@@ -144,9 +145,94 @@ Ein Modul der ullright-Plattform -- www.ullright.org
 
 \clearpage
 
-\chapter{Verteiler}
+\chapter{Überblick}
 
-Legen Sie Verteiler für jede Zielgruppe an. Sprechen Sie dadurch jede Interessentengruppe gezielt an. Dadurch vermeiden Sie Abmeldungen weil Ihre Kunden nicht mit für sie uninteressanten Informationen "`zugespammt"' werden.
+ullNewsletter ist ein leistungsfähiges Modul der ullright Plattform zum Versand von E-Mail Newslettern.
+
+Hinter einer sehr einfachen Bedienoberfläche arbeitet ein komplexes System um Ihre Newsletter verlässlich und mit größtmöglicher Sicherheit an Ihre Kunden zu versenden.
+
+Die wichtigsten Funktionen:
+
+\begin{itemize}
+ \item Personalisierte Newsletter (z.B. mit persönlicher Anrede)
+ \item Beliebig viele Verteiler für unterschiedliche Zielgruppen können angelegt werden
+ \item Mehrere Layouts können hinterlegt und beim Versand ausgewählt werden
+ \item HTML-E-Mails und Grafiken werden unterstützt
+ \item Einfache Abmeldung (Unsubscribe)
+ \item Automatisierte Behandlung von Fehlern und Out-of-Office Antworten (Bounce-Management)
+ \item Online Version zum Ansehen des Newsletters auf Ihrer Website
+ \item Tracking zur Nachverfolgung wieviele Empfänger Ihren Newsletter gelesen haben
+\end{itemize}
+
+\chapter{Listenansicht}
+
+In der Listenansicht sehen Sie einen Überblick Ihrer Newsletter.
+
+\section{Filterleiste}
+
+Über die Filterleiste können Sie nach Newslettern suchen (Betreff und Text wird durchsucht), sich Newsletter nur an bestimmte Verteiler anzeigen lassen, oder auch inaktive (quasi gelöschte) Newsletter anzeigen lassen.
+
+\section{Liste}
+
+In der Liste selbst sehen Sie einige Informationen über den Status der einzelnen Newsletter.
+
+Klicken Sie auf das Stiftsymbol um einen Newsletter zu bearbeiten.
+
+
+\chapter{Newsletter verfassen}
+
+Klicken Sie auf der Newletter-Startseite, oder auf der Listenansicht auf "`Erstellen"'
+
+\section{Felder}
+
+\subsection{Verteiler}
+
+Wählen Sie einen oder mehrere Verteiler an den Sie den Newletter senden möchten
+Verteiler die in der Verwaltung (siehe Kapitel \vref{sec:verteiler}) als Standardverteiler markiert wurden sind bereits ausgewählt.
+
+\subsection{Betreff}
+
+Geben Sie einen Betreff ein.
+
+\subsection{Text}
+
+Den Inhalt Ihres Newsletter geben Sie im Feld "`Text"' ein. Es steht Ihnen eine WYSIWYG-Editor ähnlich wie von Word oder OpenOffice gewohnt zur Verfügung. Sie können also Überschriften, Aufzählunglisten und Schriftformatierungen wählen. Auch das Einfügen von Links und Bildern ist möglich.
+
+Ausführliche Informationen zum Editor erhalten Sie im Handbuch "`ullCms"'.
+
+Für personalisierte E-Mails können Sie eine Reihe von Platzhaltern verwenden.
+
+Beispiele:
+\begin{description}
+ % "[" is interpreted -> use \lbrack instead
+ % the underscore in ONLINE_LINK is interpreted (!?%&) -> escape with \
+ \item[\lbrack FIRST\_NAME\rbrack] Der Vorname des Empfängers
+ \item[\lbrack LAST\_NAME\rbrack] Der Nachname des Empfängers
+ \item[\lbrack TITLE\rbrack] Der Titel
+\end{description}
+
+Beispiel: Hallo [FIRST\_NAME] [LAST\_NAME]!
+
+\subsection{Layout}
+
+Wählen Sie ein Layout aus der Liste. Im Normalfall ist Ihr Standardlayout bereits vor-ausgewählt.
+
+\section{Senden}
+
+Wenn Sie mit dem Verfassen fertig sind, können Sie sich mittels "`Sende Test-Newsletter an mich"' einen Newsletter an Ihre eigene E-Mailadresse zusenden um die Darstellung zu überprüfen
+
+Sind Sie zufrieden senden Sie den Newsletter durch Klick auf "`Sende Newsletter"' ab. Bestätigen dazu die Sicherheitsabfrage.
+
+Sie werden nun zur Listenansicht weitergeleitet und erhalten eine Meldung an wieviele Empfänger der Aufrag zur Sendung des Newsletters entgegengenommen wurde.
+
+Je nach Anzahl der Empfänger kann das Versenden bis zu mehreren Stunden dauern. Sie können jederzeit nachsehen wieviele E-Mails bereits versendet wurden in dem Sie die Listenansicht aktualisieren (Taste [F5]).
+
+
+
+\chapter{Verteiler}
+\label{sec:verteiler}
+
+Legen Sie Verteiler für jede Zielgruppe an. Sie sprechen so jede Interessentengruppe gezielt an und vermeiden Abmeldungen wegen uniteressanten Informationen für Ihre Kunden.
 
 \section{Verwaltung}
 
@@ -178,10 +264,14 @@ Beispiel:
 
 Erhalten Sie 4-6 Mal jährlich interessante Produktneuigkeiten und Erfahrungsberichte aus dem Bereich des Gemüsehandels.
 
-\subsection{Standardmäßig angemeldet}
+\subsection{Automatisch anmelden}
 
 Hier geht es darum ob neu angelegte Benutzer automatisch für den aktuellen Newsletter angemeldet werden.
 Dabei ist es egal ob Sie einen Benutzer händisch anlegen oder ob sich der Benutzer selbst auf Ihrer Webseite registriert.
+
+\subsection{Standard-Verteiler}
+
+Wenn Sie dieses Feld anhaken wird beim Verfassen eines neuen Newsletter dieser Verteiler automatisch ausgewählt.
 
 \subsection{Ist aktiv}
 
@@ -194,7 +284,7 @@ Wenn dieses Feld nicht angekreuzt wird, können Kunden sich nicht für diesen Ve
 
 Ein Layout ist eine Art Formatvorlage um Ihren Newslettern ein einheitliches und attraktives Aussehen zu verleihen.
 
-Im Normalfall genügt es einmal ein Layout im Stile Ihrer CI (Coporate Identity) anzulegen.
+Im Normalfall genügt es einmal ein Layout im Stile Ihrer CI (Corporate Identity) anzulegen.
 
 Sie können beliebig viele Layouts anlegen.
 
@@ -249,6 +339,7 @@ Folgende Platzhalter stehen zur Verfügung:
  \item[\lbrack ONLINE\_LINK\rbrack] Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
  \item[\lbrack CONTENT\rbrack] Platzhalter für den eigentlichen Inhalt des Newsletters
  \item[\lbrack UNSUBSCRIBE\rbrack] Fügt die Unsubscribe-Links zur Abmeldung ein
+ \item[\lbrack TRACKING\rbrack] Fügt die Funktionalität für das Tracking ein ("`Wer hat den Newsletter gelesen"')
 \end{description}
 
 
@@ -264,6 +355,10 @@ Ein einfaches Beispiel:
 <p>[UNSUBSCRIBE]</p>
 <p>(C) 2011 by ull.at</p>
 \end{lstlisting}
+
+\subsection{Ist Standardlayout}
+
+Wenn Sie dieses Feld anhaken wird dieses Layout beim Verfassen eines neuen Newsletter automatisch vor-ausgewählt.
 
 \section{Bearbeiten}
 
