@@ -20,11 +20,18 @@ EOF;
       'The application name', 'frontend');
     $this->addArgument('env', sfCommandArgument::OPTIONAL,
       'The environment', 'dev');
+    $this->addOption('less-noisy', null, sfCommandOption::PARAMETER_NONE,
+      'Be less noisy. Output interesting stuff only. Used for cron jobs');        
   }
 
 
   protected function execute($arguments = array(), $options = array())
   {
+    if ($options['less-noisy'])
+    {
+      $this->setIsLessNoisy(true);
+    }    
+    
     $this->initializeDatabaseConnection($arguments, $options);
     $context = sfContext::createInstance($this->configuration);
     
@@ -46,7 +53,7 @@ EOF;
     
     if (!count($editions))
     {
-      $this->log('No editions found to be spooled!');
+      $this->logSection($this->name, 'No editions found to be spooled!');
       return;
     }
     
@@ -57,12 +64,12 @@ EOF;
       //request exclusive lock for the newsletter object
       if (!$this->requestLock($lockingManager, $edition, $uniqueId))
       {
-        $this->log('Could not retrieve lock for newsletter edition with id: ' .
+        $this->logNoisySection($this->name, 'Could not retrieve lock for newsletter edition with id: ' .
           $edition['id']);
         continue;
       }
       
-      $this->logBlock('Now spooling ' . $edition['subject'], 'INFO');
+      $this->logNoisySection($this->name, 'Now spooling ' . $edition['subject']);
       
       $context->getUser()->setCulture($edition['sender_culture']);
       
@@ -84,13 +91,13 @@ EOF;
       $transaction = $connection->transaction;
       $transaction->setIsolation('SERIALIZABLE');
       
-      $this->log('Beginning to spool');
+      $this->logNoisySection($this->name, 'Beginning to spool');
       
       try
       {
         foreach ($recipients as $recipient)
         {
-          $this->log('...for ' . $recipient['first_name'] . ' ' . $recipient['last_name']);
+          $this->logNoisySection($this->name, '...for ' . $recipient['first_name'] . ' ' . $recipient['last_name']);
           
           $currentMail = clone $mail;
           $currentMail->clearRecipients(); // TODO: why is this necessary despite cloning?
@@ -103,7 +110,7 @@ EOF;
           }
           catch (Exception $e)
           {
-            $this->log('Invalid address: ' . $recipient['email']);
+            $this->logNoisySection($this->name, 'Invalid address: ' . $recipient['email']);
             $failedRecipients[] = $recipient['email'];
           }
         }  
@@ -111,12 +118,12 @@ EOF;
         $edition['queued_at'] = date('Y-m-d H:i:s');
         $edition->save();
         
-        $this->log('Comitting all spooled messages');
+        $this->logNoisySection($this->name, 'Comitting all spooled messages');
         $connection->commit();
       }
       catch (Exception $e)
       {
-        $this->log('Exception during spooling, executing rollback');
+        $this->logNoisySection($this->name, 'Exception during spooling, executing rollback');
         $connection->rollback();
         
         $this->releaseLock($lockingManager, $edition, $uniqueId);
@@ -125,12 +132,12 @@ EOF;
       
       $this->releaseLock($lockingManager, $edition, $uniqueId);
       
-      $this->logBlock("Queued {$numSent} of " . count($recipients) . ' messages', 'INFO');
+      $this->logNoisySectionBlock($this->name, "Queued {$numSent} of " . count($recipients) . ' messages');
       
       if (count($failedRecipients) > 0)
       {
-        $this->log('Invalid recipients: ' . count($failedRecipients));
-        $this->log(print_r($failedRecipients, true));
+        $this->logNoisySection($this->name, 'Invalid recipients: ' . count($failedRecipients));
+        $this->logNoisySection($this->name, print_r($failedRecipients, true));
           
         throw new ullMailSpoolingInvalidRecipientsException(
         	'Encountered invalid recipient addresses while spooling: ' .
