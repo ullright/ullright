@@ -17,6 +17,7 @@ class BaseUllNewsletterEditionTableConfiguration extends UllTableConfiguration
     $this->setName(__('Newsletter', null, 'ullNewsletterMessages'));
     $this->setSearchColumns(array('subject'));
     $this->setOrderBy('created_at DESC');
+    $this->setFilterColumns(array('is_active' => 'checked'));
 
     $this->setListColumns(array(
       'subject',
