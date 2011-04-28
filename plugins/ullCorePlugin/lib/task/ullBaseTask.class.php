@@ -345,6 +345,18 @@ abstract class ullBaseTask extends sfBaseTask
   }
 
   /**
+   * Log section even in "less noisy" mode
+   * 
+   * @param boolean $condition
+   * @see sfTask 
+   * 
+   */
+  public function logNoisySection($section, $message, $size = null, $style = 'INFO')
+  {
+    return $this->logSection($section, $message, $size, $style, true);
+  }
+  
+  /**
    * Log section with a given condition even in "less noisy" mode
    * 
    * @param boolean $condition
@@ -356,7 +368,7 @@ abstract class ullBaseTask extends sfBaseTask
     $condition = (boolean) $condition;
     
     return $this->logSection($section, $message, $size, $style, $condition);
-  }
+  }  
   
   
 }
