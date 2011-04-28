@@ -31,7 +31,7 @@
             <?php             
               echo ull_submit_tag(
                 __('Send newsletter', null, 'ullMailMessages'),
-                array('name' => 'submit|action_slug=send')
+                array('name' => 'submit|action_slug=send', 'confirm' => __('Are you sure?', null, 'common'))
               );  
             ?>
           <?php else: ?>
