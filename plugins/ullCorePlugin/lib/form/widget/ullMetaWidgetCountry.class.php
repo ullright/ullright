@@ -16,7 +16,7 @@ class ullMetaWidgetCountry extends ullMetaWidget
       $culture = sfContext::getInstance()->getUser()->getCulture();
       $countries = null;
       
-      if($this->columnConfig->getOption('show_only_german_countries'))
+      if ($this->columnConfig->getOption('show_only_german_countries'))
       {
         $countries = array('AT', 'DE', 'LI', 'CH');
       }
