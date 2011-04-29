@@ -56,6 +56,15 @@
           ?>
         </li>    
         
+        <li>
+          <?php             
+            echo ull_submit_tag(
+              __('Save and return to list', null, 'common'),
+              array('name' => 'submit|action_slug=save_close', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
+            );  
+          ?>
+        </li>        
+        
       </ul>
     </div>
   <?php endif // is_ajax? ?>
