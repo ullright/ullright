@@ -189,6 +189,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'UllGroup'
       ),
       'personal_contact' => array(
+        'mobile_number',
         'phone_number',
         'fax_number',
         'website',
@@ -197,6 +198,15 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'city',
         'country',
       ),
+      'phone_book' => array(
+        'is_show_in_phonebook',
+        'phone_extension',
+        'is_show_extension_in_phonebook',
+        'alternative_phone_extension',
+        'fax_extension',
+        'is_show_mobile_number_in_phonebook',
+        'UllNewsletterMailingList'
+      ),      
       'organizational' => array(
         'ull_company_id',
         'ull_location_id',
@@ -207,16 +217,6 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'is_superior',
         'is_assistant',
         'is_show_in_orgchart',
-      ),
-      'phone_book' => array(
-        'is_show_in_phonebook',
-        'phone_extension',
-        'is_show_extension_in_phonebook',
-        'alternative_phone_extension',
-        'fax_extension',
-        'mobile_number',
-        'is_show_mobile_number_in_phonebook',
-        'UllNewsletterMailingList'
       ),
       'human_resources' => array(
         'personnel_number',
