@@ -738,4 +738,94 @@ class ullCoreTools
   {
     $string = self::urlDotDecode($string);
   }
+  
+  public static function convertCsvToDoctrineArray(
+    $csv, 
+    $mapping, 
+    $hasLabels = true,
+    $csvDelimiter = ',',
+    $csvEnclosure = '"',
+    $csvEscape = '\\'
+  )
+  {
+    
+    // remove carriage returns
+    $csv = str_replace("\r", '', $csv);
+
+    //handle multiline data
+    $csv = str_replace($csvEnclosure . "\n", $csvEnclosure . '@@@RealLineEnd@@@', $csv);
+    $csvLines = explode('@@@RealLineEnd@@@', $csv);
+
+    $doctrineArray = array();
+    
+    if ($hasLabels)
+    {
+      $labelLine = array_shift($csvLines);
+      
+      $labels = str_getcsv($labelLine, $csvDelimiter, $csvEnclosure, $csvEscape);
+    }
+    
+    foreach ($csvLines as $line)
+    {
+      // skip empty lines
+      if (!$line)
+      {
+        continue;
+      }
+      
+      $lineArray = array();
+      
+      $columns = str_getcsv($line, $csvDelimiter, $csvEnclosure, $csvEscape);
+      
+      foreach ($columns as $key => $column)
+      {
+        //skip empty values
+        if (!$column)
+        {
+          continue;
+        }
+        
+        // Skip columns with no label
+        if (!isset($labels[$key]))
+        {
+          continue;
+        }
+        
+        // Skip columns with no mapping
+        if (!isset($mapping[$labels[$key]]))
+        {
+          continue;
+        }
+        
+        $lineArray[$mapping[$labels[$key]]] = $column;
+      }
+      
+      // create mandatory username if none set
+      if (!isset($lineArray['username']))
+      {
+        $username = '';
+        
+        
+        if (isset($lineArray['email']))
+        {
+          $username = $lineArray['email'];
+        }
+        else
+        {
+          if (isset($lineArray['last_name']))
+          {
+            $username = ullCoreTools::sluggify($lineArray['last_name']);
+          }
+          
+          $username .= rand(1000, 9999);
+        }
+        $lineArray['username'] = $username;
+      }
+      
+      $doctrineArray[] = $lineArray;
+      
+    }
+
+    return $doctrineArray;
+  }
 }
