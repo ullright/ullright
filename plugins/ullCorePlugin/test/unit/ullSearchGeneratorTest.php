@@ -51,22 +51,22 @@ $sfeArray[] = $sfeWithRelations;
 $fieldNames = array('rangeFrom_0_5', 'rangeTo_0_5',
   'standard_0_6',
   'standard_0_0', 'standard_1_0',
-  'boolean_0_4',
   'foreign_0_1',
+  'boolean_0_4',
   'foreign_0_3',
   'foreign_0_7');
 $widgetClassNames = array('ullWidgetFormInput', 'ullWidgetFormInput',
   'sfWidgetFormInput',
   'sfWidgetFormInput', 'sfWidgetFormInput',
-  'sfWidgetFormSelect',
   'ullWidgetFormDoctrineChoice',
+  'sfWidgetFormSelect',
   'sfWidgetFormSelectWithOptionAttributes',
   'sfWidgetFormI18nChoiceCountry');
 $labels = array('ID', 'RangeTo 0 5',
   'First name',
   'Last name', 'Last name',
-  'Show phone ext. in phone book',
   'Department',
+  'Show phone ext. in phone book',
   'Status',
   'Created by - Location - Country');
 
@@ -97,7 +97,8 @@ for ($i = 0; $i < count($positions); $i++)
   $formField = $form->offsetGet($currentPosition);
   next($positions);
 
-  $t->is($formField->getName(), $fieldNames[$i], 'field name is ok');
-  $t->isa_ok($formField->getWidget(), $widgetClassNames[$i], 'widget class name is ok');
-  $t->is($formField->renderLabelName(), $labels[$i], 'label ok');
+  $t->is($formField->renderLabelName(), $labels[$i], "* * * \n" . 'label ' . $labels[$i] . ' ok');
+  $t->is($formField->getName(), $fieldNames[$i], 'field name ' . $fieldNames[$i] . ' is ok');
+  $t->isa_ok($formField->getWidget(), $widgetClassNames[$i], 'widget class name ' . $widgetClassNames[$i] . ' is ok');
+  
 }
