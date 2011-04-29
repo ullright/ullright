@@ -41,29 +41,79 @@ UllUser:
     keyValue: user
   
   columns:
+    # Personal data
+    title:
+      type: string(100)
     first_name:
       type: string(64)
     last_name:
       type: string(64)
-    password:
-      type: string(40)
-    last_name_first:
-      type: string(129)
+    last_name_first: # automatically built
+      type: string(129)      
     sex:
       type: enum
       values: [null, m, f]
-    entry_date:
-      type: date
-    deactivation_date:
-      type: date
-    separation_date:
-      type: date
+    photo:
+      type: string(255) # format: usually $username.png
+    is_photo_public:
+      type: boolean
+      default: true
+
+    # IT data
+    # other columns (username, email) are defined in UllEntity
+    password:
+      type: string(40)
+    selected_culture:
+      type: string(2) # following the ISO 639-1 standard      
+      
+    # Personal contact data
+    street:
+      type: string(200)
+    post_code:
+      type: string(10)
+    city:
+      type: string(100)
+    country:
+      type: string(10)
+    phone_number:
+      type: string(20)
+    mobile_number:
+      type: string(20)  
+    fax_number:
+      type: string(20)      
+    birth_date:
+      type: date  
+    website:
+      type: string(255) 
+        
+         
+    
+    # Company internal organisational data
+    ull_company_id:
+      type: integer
+    #ull_location_id is defined in UllEntity      
+    ull_department_id:
+      type: integer
+    ull_job_title_id:
+      type: integer
+    cost_center:
+      type: string(64)
+    superior_ull_user_id:
+      type: integer
+    is_superior:
+      type: boolean
+      default: false
+    is_assistant:
+      type: boolean
+      default: false      
+    is_show_in_orgchart:
+      type: boolean
+      default: true
+      
+    # Internal phone directory data    
     is_show_in_phonebook:
       type: boolean
       default: true
-    is_show_in_orgchart:
-      type: boolean
-      default: true      
     phone_extension:
       type: integer(20)
     alternative_phone_extension:
@@ -73,49 +123,38 @@ UllUser:
       default: true
     fax_extension:
       type: integer(20)
-    mobile_number:
-      type: string(20)
     is_show_mobile_number_in_phonebook:
       type: boolean
-      default: true
+      default: true        
+          
+    # Human resources data
+    entry_date:
+      type: date
+    deactivation_date:
+      type: date
+    separation_date:
+      type: date
     personnel_number:
       type: string(20)
     ull_employment_type_id:
       type: integer
-    ull_job_title_id:
-      type: integer
-    ull_company_id:
-      type: integer
-    ull_department_id:
-      type: integer
-    cost_center:
-      type: string(64)
-    superior_ull_user_id:
-      type: integer
-    comment:
-      type: string(4000)
+
+
+    # Other data
     ull_user_status_id:
       type: integer
       notnull: true
       default: 1        # equals active status
-    photo:
-      type: string(255) # format: usually $username.png
-    is_photo_public:
-      type: boolean
-      default: true
+
     parent_ull_user_id: # for clone users
       type: integer
-    is_assistant:
-      type: boolean
-      default: false
-    is_superior:
-      type: boolean
-      default: false
-    selected_culture:
-      type: string(2) # following the ISO 639-1 standard
-    num_email_bounces:
+          
+    comment:
+      type: string(4000)
+
+    num_email_bounces: # for ullNewsletter TODO: remove here
       type: integer
-  
+
   relations:
     UllGroup:
       refClass: UllEntityGroup

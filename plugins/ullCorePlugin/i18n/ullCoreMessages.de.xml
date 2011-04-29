@@ -114,115 +114,120 @@
       <target>Geburtsdatum</target>
       </trans-unit>       
       
+      <trans-unit id="24">
+      <source>Fax number</source>
+      <target>Faxnummer</target>
+      </trans-unit>           
+      
       
       <!-- table config -->
-      <trans-unit id="20">
+      <trans-unit id="920">
         <source>Group memberships</source>
         <target>Gruppen-Mitgliedschaften</target>
       </trans-unit>
 
-      <trans-unit id="21">
+      <trans-unit id="921">
         <source>Group permissions</source>
         <target>Gruppen-Zugriffsrechte</target>
       </trans-unit>
 
-      <trans-unit id="22">
+      <trans-unit id="922">
         <source>Groups</source>
         <target>Gruppen</target>
       </trans-unit>
 
-      <trans-unit id="23">
+      <trans-unit id="923">
         <source>Permissions</source>
         <target>Zugriffsrechte</target>
       </trans-unit>
 
-      <trans-unit id="24">
+      <trans-unit id="924">
         <source>Select box entries</source>
         <target>Auswahlfeld-Einträge</target>
       </trans-unit>
 
-      <trans-unit id="25">
+      <trans-unit id="925">
         <source>Select boxes</source>
         <target>Auswahlfelder</target>
       </trans-unit>
 
-      <trans-unit id="26">
+      <trans-unit id="926">
         <source>Users</source>
         <target>Benutzer</target>
       </trans-unit>
 
-      <trans-unit id="27">
+      <trans-unit id="927">
         <source>Companies</source>
         <target>Unternehmen</target>
       </trans-unit>
 
-      <trans-unit id="28">
+      <trans-unit id="928">
         <source>Departments</source>
         <target>Abteilungen</target>
       </trans-unit>
 
-      <trans-unit id="29">
+      <trans-unit id="929">
         <source>Locations</source>
         <target>Standorte</target>
       </trans-unit>
 
-      <trans-unit id="30">
+      <trans-unit id="930">
         <source>Employment types</source>
         <target>Beschäfigungsverhältnisse</target>
       </trans-unit>
 
-      <trans-unit id="31">
+      <trans-unit id="931">
         <source>Job titles</source>
         <target>Funktionen</target>
       </trans-unit>
 
-      <trans-unit id="32">
+      <trans-unit id="932">
         <source>Field types</source>
         <target>Feldtypen</target>
       </trans-unit>
 
-      <trans-unit id="33">
+      <trans-unit id="933">
         <source>Searches for name, username, email, location and department</source>
         <target>Suche nach Name, Benutzername, E-Mail Adresse, Standort und Abteilung</target>
       </trans-unit>
       
-      <trans-unit id="34">
+      <trans-unit id="934">
         <source>Mobile number</source>
         <target>Handynummer</target>
       </trans-unit>
       
       
-      <trans-unit id="35">
+      <trans-unit id="935">
         <source>User status</source>
         <target>Benutzer Status</target>
       </trans-unit>
       
-      <trans-unit id="36">
+      <trans-unit id="936">
         <source>Users are automatically activated on the entry day</source>
         <target>Benutzer werden automatisch am Tag des Eintritts aktiviert</target>
       </trans-unit>
       
-      <trans-unit id="37">
+      <trans-unit id="937">
         <source>Optional date if a user should be deactivated before the separation date. Example: exemption</source>
         <target>Optionales Datum für den Fall, dass ein Benutzer vor dem Austrittsdatum deaktiviert werden soll. Beispiel: Freistellung</target>
       </trans-unit>
       
-      <trans-unit id="38">
+      <trans-unit id="938">
         <source>Users are automatically deactivated after the separation day ends</source>
         <target>Benutzer werden automatisch nach Ablauf des Austrittstages deaktiviert</target>
       </trans-unit>         
       
-      <trans-unit id="39">
+      <trans-unit id="939">
         <source>Is superior</source>
         <target>Ist Führungskraft</target>
       </trans-unit>
       
-      <trans-unit id="40">
+      <trans-unit id="940">
         <source>Is assistant</source>
         <target>Ist Assistent</target>
       </trans-unit> 
       
-      <trans-unit id="41">
+      <trans-unit id="941">
         <source>Number of bounced emails</source>
         <target>Anzahl der abgewiesenen E-Mails</target>
       </trans-unit>        

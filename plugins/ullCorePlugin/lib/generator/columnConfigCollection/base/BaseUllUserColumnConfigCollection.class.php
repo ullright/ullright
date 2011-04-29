@@ -15,6 +15,11 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
     
+    $this['birth_date']
+      ->setLabel(__('Day of birth', null, 'ullCoreMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetDate')
+    ;
+    
     $this['photo']
       ->setMetaWidgetClassName('ullMetaWidgetPhoto')
       ->setInjectIdentifier(true)
@@ -41,6 +46,30 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       ->setMetaWidgetClassName('ullMetaWidgetPassword')
       ->setWidgetOption('render_pseudo_password', true)
       ->setWidgetAttribute('autocomplete', 'off')
+    ;
+    
+    
+    
+    $this['mobile_number']
+      ->setLabel(__('Mobile number', null, 'ullCoreMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+      ->setHelp(__('Format: +43 664 1234567', null, 'ullCoreMessages'))
+      ->setOption('default_country_code', '+43')
+    ;
+    $this['phone_number']
+      ->setLabel(__('Phone number', null, 'ullCoreMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+      ->setHelp(__('Format: +43 2236 1234567', null, 'ullCoreMessages'))
+    ;
+    $this['fax_number']
+      ->setLabel(__('Fax number', null, 'ullCoreMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
+      ->setHelp(__('Format: +43 2236 1234567-30', null, 'ullCoreMessages'))
+    ;        
+    
+    $this['country']
+      ->setMetaWidgetClassName('ullMetaWidgetCountry')
+      ->setWidgetOption('add_empty', true);
     ;
     
     $this['ull_company_id']
@@ -91,11 +120,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'replaces the regular one.', null, 'ullCoreMessages'))
     ;
     $this['fax_extension']->setLabel(__('Fax extension', null, 'ullCoreMessages'));
-    $this['mobile_number']
-      ->setLabel(__('Mobile number', null, 'ullCoreMessages'))
-      ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
-      ->setHelp(__('Format: +43 664 1234567', null, 'ullCoreMessages'))
-      ->setOption('default_country_code', '+43')
+
     ;
     $this['is_show_mobile_number_in_phonebook']
       ->setLabel(__('Show mobile number in phone book', null, 'ullCoreMessages'))
@@ -148,8 +173,10 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     $this->order(array(
       'id',
       'personal' => array(
+        'title',
         'first_name',
         'last_name',
+        'birth_date',
         'sex',
         'photo',
         'is_photo_public',
@@ -160,6 +187,15 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'email',
         'type',
         'UllGroup'
+      ),
+      'personal_contact' => array(
+        'phone_number',
+        'fax_number',
+        'website',
+        'street',
+        'post_code',
+        'city',
+        'country',
       ),
       'organizational' => array(
         'ull_company_id',
@@ -216,6 +252,15 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'is_assistant',
         'UllGroup',
         'UllNewsletterMailingList',
+        'title',
+        'birth_date',
+        'street',
+        'post_code',
+        'city',
+        'country',
+        'phone_number',
+        'fax_number',
+        'website',
       ));
       
       $this['photo']->setAutoRender(false);
