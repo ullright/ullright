@@ -39,6 +39,9 @@ class ullMetaWidgetCountry extends ullMetaWidget
     }
     else
     {
+      // Read widgets never need these options
+      $this->columnConfig->removeWidgetOption('add_empty');
+      
       $this->addWidget(new ullWidgetCountryRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
