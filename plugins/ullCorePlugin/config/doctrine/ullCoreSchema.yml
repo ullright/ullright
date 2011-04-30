@@ -40,6 +40,9 @@ UllUser:
     type: column_aggregation
     keyValue: user
   
+  actAs:
+    Taggable:    
+  
   columns:
     # Personal data
     title:
@@ -154,6 +157,9 @@ UllUser:
 
     num_email_bounces: # for ullNewsletter TODO: remove here
       type: integer
+      
+    duplicate_tags_for_search:
+      type: string(4000)      
 
   relations:
     UllGroup:
@@ -183,6 +189,11 @@ UllUser:
     UllUserStatus:
       local: ull_user_status_id
       foreign: id
+    Tagging:
+      local: id
+      foreign: taggable_id
+      foreignType: one
+      type: many      
       
 UllGroup:
   package: ullCorePlugin.lib.model.doctrine

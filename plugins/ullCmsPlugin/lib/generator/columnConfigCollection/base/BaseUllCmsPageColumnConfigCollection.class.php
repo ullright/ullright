@@ -30,7 +30,8 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
     
     $this['duplicate_tags_for_search']
       ->setLabel('Tags')
-      ->setMetaWidgetClassName('ullMetaWidgetTaggable');
+      ->setMetaWidgetClassName('ullMetaWidgetTaggable')
+    ;
       
     $this->order(array(
       array(

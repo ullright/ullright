@@ -19,6 +19,8 @@ class BaseUllAdminActions extends ullsfActions
     
     $this->form = new ullUserFilterForm;
     
+    $this->loadPopularTags();
+    
     $this->loadNamedQueries();
     
     $this->is_master_admin = UllUserTable::hasGroup('Masteradmins');
@@ -63,5 +65,19 @@ class BaseUllAdminActions extends ullsfActions
     {
       $this->named_queries_custom = null;
     }
+  }  
+  
+  /**
+   * Query popular tags for the index action
+   */
+  protected function loadPopularTags()
+  {
+    $q = new Doctrine_Query;
+    $q->from('Tagging tg, tg.Tag t, tg.UllUser x');
+//    $q->addWhere('x.is_active = ?', false);
+    $q->limit(sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100));
+//    $q = $this->queryReadAccess($q);
+    $this->tags_pop = TagTable::getPopulars($q, array('model' => 'UllUser'));
+    $this->tagurl = str_replace('%25', '%', ull_url_for(array('module' => 'ullUser', 'action' => 'list', 'filter[search]' => '%s')));
   }  
 }

@@ -113,6 +113,9 @@ abstract class PluginUllUser extends BaseUllUser
     {
       $this['num_email_bounces'] = 0;
     }
+    
+    // Set tags in taggable behaviour
+    $this->setTags($this->duplicate_tags_for_search);
   }
   
   /**

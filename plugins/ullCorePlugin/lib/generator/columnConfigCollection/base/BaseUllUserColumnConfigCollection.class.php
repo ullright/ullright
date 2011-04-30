@@ -154,6 +154,11 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       ->setLabel(__('Number of bounced emails', null, 'ullCoreMessages'))
     ;
     
+    $this['duplicate_tags_for_search']
+      ->setLabel('Tags')
+      ->setMetaWidgetClassName('ullMetaWidgetTaggable')
+    ;
+    
     $this->useManyToManyRelation('UllGroup');
     $this['UllGroup']
       ->setLabel(__('Group memberships', null, 'ullCoreMessages'))
@@ -197,7 +202,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'post_code',
         'city',
         'country',
-      ),
+      ),  
       'phone_book' => array(
         'is_show_in_phonebook',
         'phone_extension',
@@ -227,6 +232,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'ull_user_status_id',
       ),
       'comment' => array(
+        'duplicate_tags_for_search',
         'comment',
       )
     ));

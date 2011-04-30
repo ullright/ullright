@@ -129,6 +129,14 @@
           <?php echo $form['id']->renderLabel() ?><br />
           <?php echo $form['id']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
         </div>      
+        
+        <div class="tc_search_tag_top color_medium_bg"><h3><?php echo __('By popular tags', null, 'common') ?></h3></div>
+        <div class="tc_search_tag_bottom color_light_bg">
+          <?php
+            sfContext::getInstance()->getConfiguration()->loadHelpers(array('Tags'));
+            echo tag_cloud($tags_pop, $tagurl);
+          ?>      
+        </div>        
       
       <!-- 
       <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
