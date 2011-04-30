@@ -797,7 +797,16 @@ class ullCoreTools
           continue;
         }
         
-        $lineArray[$mapping[$labels[$key]]] = $column;
+        $label = $mapping[$labels[$key]];
+        
+        // Handle tags
+        if ($label == 'duplicate_tags_for_search')
+        {
+          $lineArray[$label] = (($lineArray[$label]) ? ($lineArray[$label] . ', ') : '') . $column;
+          continue;
+        }
+        
+        $lineArray[$label] = $column;
       }
       
       // create mandatory username if none set
