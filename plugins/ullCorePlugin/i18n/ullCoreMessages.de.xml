@@ -117,7 +117,12 @@
       <trans-unit id="24">
       <source>Fax number</source>
       <target>Faxnummer</target>
-      </trans-unit>           
+      </trans-unit>       
+
+      <trans-unit id="25">
+      <source>Salutation</source>
+      <target>Anrede</target>
+      </trans-unit>      
       
       
       <!-- table config -->
