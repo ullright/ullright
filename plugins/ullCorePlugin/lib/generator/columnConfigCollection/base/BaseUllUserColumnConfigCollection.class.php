@@ -54,7 +54,6 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       ->setLabel(__('Mobile number', null, 'ullCoreMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetPhoneNumber')
       ->setHelp(__('Format: +43 664 1234567', null, 'ullCoreMessages'))
-      ->setOption('default_country_code', '+43')
     ;
     $this['phone_number']
       ->setLabel(__('Phone number', null, 'ullCoreMessages'))
