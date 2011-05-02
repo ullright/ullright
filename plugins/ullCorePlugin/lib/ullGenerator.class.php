@@ -277,7 +277,7 @@ abstract class ullGenerator extends ullGeneratorBase
     }
     
     $this->filterForm = new $this->filterFormClass;
-
+    
     // legacy check    
     if (!method_exists($this->tableConfig, 'getFilterColumns'))
     {
@@ -302,7 +302,8 @@ abstract class ullGenerator extends ullGeneratorBase
       $widget = $this->filterForm->getWidgetSchema()->offsetGet($filterColumn);
       
       // auto submit select boxes
-      if ($widget instanceof sfWidgetFormSelect)
+      if ($widget instanceof sfWidgetFormSelect || 
+        $widget instanceof sfWidgetFormChoice)
       {
         $widget->setAttribute('onchange', 'submit();');
       }
