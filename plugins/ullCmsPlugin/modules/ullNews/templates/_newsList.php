@@ -13,16 +13,17 @@
      
       <?php $link_options = array();?>
       <?php $image_link_options = array();?>
-      <?php if (substr($form['link_url']->render(), 0, 7) == 'http://'): ?>
+      
+      <?php if (substr($form->getDefault('link_url'), 0, 7) == 'http://'): ?>
         <?php $link_options = array('link_new_window' => true, 'link_external' => true) ?>
         <?php $image_link_options = array('target' => '_blank') ?>
       <?php endif ?>
       
       <div class="ull_news_entry">
         <div class="ull_news_image">
-          <?php if ($form['link_url']->render() && $form['image_upload']->render()): ?>
+          <?php if ($form->getDefault('link_url') && $form['image_upload']->render()): ?>
             <?php echo ull_link_to($form['image_upload']->render(), 
-              $form['link_url']->render(), $image_link_options) ?>
+              $form->getDefault('link_url'), $image_link_options) ?>
           <?php else: ?>
             <?php echo $form['image_upload']->render() ?>
           <?php endif ?>
@@ -36,11 +37,11 @@
               echo ull_link_to(ull_image_tag('edit'),
                 array('module' => 'ullNews', 'action' => 'edit', 'id' => $form->getObject()->id));
             }
-            if ($form['link_url']->render())
+            if ($form->getDefault('link_url'))
             {
               echo ull_link_to(
                 $form['title']->render(),
-                $form['link_url']->render(), 
+                $form->getDefault('link_url'), 
                 $link_options
               );
             }
@@ -52,10 +53,10 @@
           ?>
           
           <p class="ull_news_abstract"><?php echo $form['abstract']->render() ?></p>
-          <?php if ($form['link_name']->render() && $form['link_url']->render()): ?>
+          <?php if ($form['link_name']->render() && $form->getDefault('link_url')): ?>
             <p class="ull_news_link">
               <?php echo ull_link_to($form['link_name']->render(), 
-               $form['link_url']->render(), $link_options) ?>
+               $form->getDefault('link_url'), $link_options) ?>
             </p>
           <?php endif ?>
         </div>
