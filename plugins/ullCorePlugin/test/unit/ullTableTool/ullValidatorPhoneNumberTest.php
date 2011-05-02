@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../../../../test/bootstrap/unit.php';
 
-$t = new lime_test(16, new lime_output_color);
+$t = new lime_test(18, new lime_output_color);
 
 $validator = new ullValidatorPhoneNumber(array('default_country_code' => '+43'));
 
@@ -18,6 +18,8 @@ $t->diag('clean()');
   $t->is($validator->clean('(+43) (664)/123 56 78'), '+43 664 1235678', 'Returns the correct value');
   $t->is($validator->clean('(0664)/(123 56 78)'), '+43 664 1235678', 'Returns the correct value');
   $t->is($validator->clean('0664-123 56 78'), '+43 664 1235678', 'Returns the correct value');
+  $t->is($validator->clean('+43 123 45678-90'), '+43 123 45678-90', 'Allows dashes for extensions');
+  $t->is($validator->clean('+43 123-45678-90'), '+43 123 45678-90', 'Removes non-extension dashes');
   
   try
   {
