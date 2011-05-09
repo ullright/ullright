@@ -1,9 +1,8 @@
 <?php
 /**
  */
-class PluginUllCmsPageTable extends UllRecordTable
+class PluginUllCmsPageTable extends UllCmsItemTable
 {
-
   /**
    * Find pages by given parent slug
    * 
@@ -11,7 +10,7 @@ class PluginUllCmsPageTable extends UllRecordTable
    * 
    * @return Doctrine_Collection
    */
-  public static function findByParentSlug($slug)
+  public static function findByParentSlug($slug, $limit = null)
   {
     $q = new UllQuery('UllCmsPage');
     $q
@@ -20,11 +19,16 @@ class PluginUllCmsPageTable extends UllRecordTable
       ->addOrderBy('sequence, name')
     ;
     
+    if ($limit)
+    {
+      $q->limit($limit);
+    }
+    
     $result = $q->execute();
     
     return $result;
   }    
-  
+
   /**
    * Returns random cms pages
    * 

@@ -139,4 +139,11 @@ class BaseUllCmsComponents extends sfComponents
     $this->setVar('footer_menu', $this->menu, true);
   }    
   
+  /**
+   * Edit link component
+   */
+  public function executeEditLink()
+  {
+    $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');  
+  }
 }
