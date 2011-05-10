@@ -64,18 +64,9 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->setVar('body', $this->doc->body, true);
     $this->setVar('doc', $this->doc, true);
     
-    //loads a specific template, if configurated
-    $filename = sfConfig::get('sf_app_dir') . '/modules/ullCms/templates/' . $this->doc->slug . 'Success.php';
-    if (file_exists($filename))
-    {
-      $this->setTemplate($this->doc->slug, 'ullCms');
-    }
-    
     $this->getResponse()->setTitle($this->doc->title);
     
     $this->loadMenus();
-    
-//    $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');
     
     $this->loadCustomAction($request);
     
