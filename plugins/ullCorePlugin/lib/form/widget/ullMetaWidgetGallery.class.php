@@ -1,10 +1,10 @@
 <?php
 /**
- * ullMetaWidgetSimpleUpload
+ * ullMetaWidgetGallery
  *
- * Used for uploads for ullTableTool module
+ * Used for multi file image upload and thumbnail creation
  */
-class ullMetaWidgetSimpleUpload extends ullMetaWidget
+class ullMetaWidgetGallery extends ullMetaWidget
 {
   protected $path;
 
@@ -19,7 +19,7 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
   {
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
-    $this->dispatcher->connect('form.update_object', array('ullMetaWidgetSimpleUpload', 'listenToUpdateObjectEvent'));
+    $this->dispatcher->connect('form.update_object', array('ullMetaWidgetGallery', 'listenToUpdateObjectEvent'));
 
     parent::__construct($columnConfig, $form);
   }
@@ -92,7 +92,7 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
    */
   protected function configureWriteMode()
   {
-    $this->addWidget(new ullWidgetSimpleUploadWrite(
+    $this->addWidget(new ullWidgetGalleryWrite(
       array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
       $this->columnConfig->getWidgetAttributes()
     ));
