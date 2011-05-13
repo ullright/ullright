@@ -31,25 +31,25 @@ class ullMetaWidgetGallery extends ullMetaWidget
   {
     $this->columnConfig->removeValidatorOption('max_length');
 
-    if (!$this->columnConfig->getValidatorOption('path'))
-    {
-      $uploadPath = sfConfig::get('sf_upload_dir') . '/tableTool/' . get_class($this->getForm()->getObject());
-      $this->columnConfig->setValidatorOption('path', $uploadPath);
-    }
-    $this->path = $this->columnConfig->getValidatorOption('path');
-    
-    if (!$this->columnConfig->getValidatorOption('mime_types'))
-    {
-      $this->columnConfig->setValidatorOption('mime_types', 'web_images');
-    }
-    if (!$this->columnConfig->getValidatorOption('imageWidth'))
-    {
-      $this->columnConfig->setValidatorOption('imageWidth', 1000);
-    }
-    if (!$this->columnConfig->getValidatorOption('imageHeight'))
-    {
-      $this->columnConfig->setValidatorOption('imageHeight', 1000);
-    }
+//    if (!$this->columnConfig->getValidatorOption('path'))
+//    {
+//      $uploadPath = sfConfig::get('sf_upload_dir') . '/tableTool/' . get_class($this->getForm()->getObject());
+//      $this->columnConfig->setValidatorOption('path', $uploadPath);
+//    }
+//    $this->path = $this->columnConfig->getValidatorOption('path');
+//    
+//    if (!$this->columnConfig->getValidatorOption('mime_types'))
+//    {
+//      $this->columnConfig->setValidatorOption('mime_types', 'web_images');
+//    }
+//    if (!$this->columnConfig->getValidatorOption('imageWidth'))
+//    {
+//      $this->columnConfig->setValidatorOption('imageWidth', 1000);
+//    }
+//    if (!$this->columnConfig->getValidatorOption('imageHeight'))
+//    {
+//      $this->columnConfig->setValidatorOption('imageHeight', 1000);
+//    }
 
   }
   
@@ -96,25 +96,25 @@ class ullMetaWidgetGallery extends ullMetaWidget
       array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
       $this->columnConfig->getWidgetAttributes()
     ));
-    $this->addValidator(new ullValidatorFile($this->columnConfig->getValidatorOptions()));
+    $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
     
-    if ($this->columnConfig->getOption('allow_delete')) 
-    {
-      $simpleUploadDeleteFieldName = 'simple_upload_delete_' . $this->columnConfig->getColumnName();
-      
-      $simpleUploadDeleteWidget = new ullWidgetCheckboxWrite();
-      $simpleUploadDeleteWidget->setLabel($this->columnConfig->getOption('delete_label'));
-      
-      $this->addWidget(
-        $simpleUploadDeleteWidget, 
-        $simpleUploadDeleteFieldName
-      );
-      
-      $this->addValidator(
-        new sfValidatorBoolean(),
-        $simpleUploadDeleteFieldName
-      );
-    }
+//    if ($this->columnConfig->getOption('allow_delete')) 
+//    {
+//      $simpleUploadDeleteFieldName = 'simple_upload_delete_' . $this->columnConfig->getColumnName();
+//      
+//      $simpleUploadDeleteWidget = new ullWidgetCheckboxWrite();
+//      $simpleUploadDeleteWidget->setLabel($this->columnConfig->getOption('delete_label'));
+//      
+//      $this->addWidget(
+//        $simpleUploadDeleteWidget, 
+//        $simpleUploadDeleteFieldName
+//      );
+//      
+//      $this->addValidator(
+//        new sfValidatorBoolean(),
+//        $simpleUploadDeleteFieldName
+//      );
+//    }
   }
   
   
@@ -124,7 +124,7 @@ class ullMetaWidgetGallery extends ullMetaWidget
    */
   protected function configureReadMode()
   {
-    $this->addWidget(new ullWidgetSimpleUploadRead(
+    $this->addWidget(new ullWidgetGalleryRead(
       array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
       $this->columnConfig->getWidgetAttributes()
     ));
