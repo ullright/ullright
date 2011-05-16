@@ -125,6 +125,14 @@ function ull_format_datetime($date = null, $zeroPadding = true, $showSeconds = t
   return format_datetime($date, ull_date_pattern($zeroPadding) . ' ' . $timePattern);
 }
 
+/**
+ * Build path for default action_icons in the correct color for the current module
+ * 
+ * @param $type
+ * @param $width
+ * @param $height
+ * @param $plugin
+ */
 function ull_image_path($type, $width = null, $height = null, $plugin = null)
 {
   $width = ($width === null) ? 16 : $width;
@@ -135,14 +143,28 @@ function ull_image_path($type, $width = null, $height = null, $plugin = null)
            'Plugin/images/action_icons/' . $type . '_' . $width . 'x' . $height;
     
   $actual_file_path = sfConfig::get('sf_root_dir') . '/web' . $path . '.png';
-    
+
   if (file_exists($actual_file_path))
+  {
     return $path;
+  }
+  // Fallback to default icon
   else
+  {
     return '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
            'Plugin/images/action_icons/' . $type . '_' . $width . 'x' . $height;
+  }
 }
 
+/**
+ * Image tag helper for default action_icons in the correct color for the current module
+ * 
+ * @param $type
+ * @param $options
+ * @param $width
+ * @param $height
+ * @param $plugin
+ */
 function ull_image_tag($type, $options = array(), $width = null, $height = null, $plugin = null)
 {
   $mergedOptions = array_merge(
@@ -159,34 +181,15 @@ function ull_image_tag($type, $options = array(), $width = null, $height = null,
 
 
 /**
- * Wrapper for link_to(image_tag(...) for standard icons in 
- * plugins/myTheme/web/images/action_icons...
- * 
- * automagically sets the alt and title attribute
- *
- * @param link string         symfony internal URI
- * @param icon string         name of the icon without suffix (e.g. edit for edit.png)
- * @param alt string          optional, 'alt' and 'title' caption, default = icons filename
- * @param link_option string  optional, link_to() option (3rd argument)
- * @return string             html
+ * @param unknown_type $link
+ * @param unknown_type $type
+ * @param unknown_type $linkOptions
+ * @param unknown_type $imageOptions
+ * @param unknown_type $plugin
  */
-
-function ull_icon($link, $icon, $alt = null, $link_option = null) {
-  
-  if (!$alt) {
-    $alt = $icon;
-  }  
-  
-  return link_to(
-    image_tag(
-      '/' 
-        . sfConfig::get('app_theme', 'ullThemeNG')
-        . '/images/action_icons/' . $icon . '.png',
-      'alt=' . $alt . ' title=' . $alt . ' style=vertical-align:bottom;'
-    ),  
-    $link,
-    $link_option
-  ); 
+function ull_icon($link, $type, $linkOptions = array(), $imageOptions = array(), $plugin = null) 
+{
+  return link_to(ull_image_tag($type, $imageOptions, null, null, $plugin), $link, $linkOptions);
 }
 
 /**

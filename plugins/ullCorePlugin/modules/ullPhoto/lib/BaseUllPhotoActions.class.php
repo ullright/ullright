@@ -394,6 +394,63 @@ class BaseUllPhotoActions extends ullsfActions
   
   
   /**
+   * Ajax request for image upload
+   * 
+   * Counterpart for plupload
+   * 
+   * Used e.g. by ullWidgetGalleryWrite
+   * @param $request
+   */
+  public function executeImageUpload(sfRequest $request)
+  {
+    sfConfig::set('sf_web_debug', false);
+    
+    $form = new ullWidgetGalleryForm();
+    
+    $form->bind(array('file' => $request->getParameter('name')), $this->getRequest()->getFiles());
+    
+    if ($form->isValid()) 
+    {
+      $file = $form->getValue('file');
+      $file->save();
+      // create relative path
+      $path = str_replace(sfConfig::get('sf_web_dir'), '', $file->getSavedName());
+      
+      return $this->renderText($path);
+    }
+    else
+    {
+      return $this->renderText('Error!');
+    }
+  }
+  
+  
+  /**
+   * Ajax request to render gallery preview for ullWidgetGalleryWrite
+   * 
+   * @param $request
+   */
+  public function executeRenderGalleryPreview(sfRequest $request)
+  {
+    $images = $request->getParameter('images');
+
+    return $this->renderText(ullWidgetGalleryWrite::renderPreview($images));
+  }    
+  
+  /**
+   * Delete an image - path encrypted by ullCrypt
+   */
+  public function executeImageDelete(sfRequest $request)
+  {
+    $image = $request->getParameter('s_image');
+    
+    $path = sfConfig::get('sf_web_dir') . $image;
+    
+    return $this->renderText(unlink($path));
+  }
+  
+  
+  /**
    * Breadcrumbs for index action
    * 
    * @return unknown_type

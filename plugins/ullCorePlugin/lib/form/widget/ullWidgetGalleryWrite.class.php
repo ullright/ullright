@@ -15,135 +15,56 @@ class ullWidgetGalleryWrite extends sfWidgetFormTextarea
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     $id = $this->getAttribute('id');   
 
-    $return = parent::render($name, $value, $attributes, $errors);
+    $return = '';
     
+    $return .= '<div id="' . $id . '_content">';
     
-    $return .= self::renderPreview($value);
-
-    $return .= '<input type="button" value="Click to add images" id="add_files" />';
-    $return .= '<div id="drag_drop">Or drag and drop files here</div>';
+    $return .= parent::render($name, $value, $attributes, $errors);
     
-//    $return .= '
-//<div id="uploader">
-//</div>
-//    ';    
+    $return .= '<ul class="ull_widget_gallery_preview">';
+    
+    //$return .= self::renderPreview($value);
+    
+    $return .= '</ul>';
+    
+    $return .= '<div class="ull_widget_gallery_control">';
+    $return .= '  <input type="button" value="' . __('Add images', null, 'ullCoreMessages') . '" id="ull_widget_gallery_add_files_' . $id . '" />';
+    $return .= '  <span class="ull_widget_gallery_control_drop">' . __('or drag and drop files here', null, 'ullCoreMessages') . '</span>';
+    $return .= '  <span class="ull_widget_gallery_control_indicator" id="ull_widget_gallery_control_indicator_' . $id . '">';
+    $return .= '    ' . __('Upload in progress', null, 'ullCoreMessages') . '&hellip;';
+    $return .= '    <img src="/ullCoreThemeNGPlugin/images/indicator.gif" alt="Indicator" />';
+    $return .= '  </span>';
+    $return .= '</div>';
+      
 
-    $returnxxx = '
 
-<script type="text/javascript">
-// Convert divs to queue widgets when the DOM is ready
-$(function() {
-  $("#uploader").plupload({
-    // General settings
-    preinit: attachCallbacks,
-    runtimes : "html5",
-    url : "' . url_for('main/test') . '",
-    max_file_size : "10mb",
-    chunk_size : "1mb",
-    unique_names : true,
-
-    // Resize images on clientside if we can
-    resize : {width : 320, height : 240, quality : 90},
-
-    // Specify what files to browse for
-    filters : [
-      {title : "Image files", extensions : "jpg,gif,png"},
-      {title : "Zip files", extensions : "zip"}
-    ],
-  });
-  
-//  // Client side form validation
-//  $("#form").submit(function(e) {
-//    var uploader = $("#uploader").pluploadQueue();
-//    
-//    uploader.bind("FileUploaded", function(up, file, res) {
-//      alert("whoo");
-//    });
-//    
-//    /*
-//    uploader.bind("FileUploaded", function(up, file, response) {
-//      alert(response.response);
-//      var obj = jQuery.parseJSON(response.response);
-//    });
-//    */     
-//
-//    // Validate number of uploaded files
-//    if (uploader.total.uploaded == 0) {
-//      // Files in queue upload them first
-//      if (uploader.files.length > 0) {
-//        // When all files are uploaded submit form
-//        uploader.bind("UploadProgress", function() {
-//          if (uploader.total.uploaded == uploader.files.length)
-//            $("form").submit();
-//        });
-//
-//        uploader.start();
-//      } else
-//        alert("You must at least upload one file.");
-//
-//      e.preventDefault();
-//    }
-//
-//  });
-
-});
-</script>
-';
     
     $return .= '
 <script type="text/javascript">
-
-function attachCallbacks(Uploader) {
-  Uploader.bind("FileUploaded", function(up, file, response) {
-    // Add new image to the form field
-    $("#' . $id . '").val($("#' . $id . '").val() + "\n" + response.response);
-    
-    // Re-render gallery preview
-    var images = $("#' . $id . '").val();
-    var url = "' . url_for('main/renderGalleryPreview') . '";
-    
-    $("#' . $id . '").parent("td").find(".ull_widget_gallery_preview").load(
-      url,
-      { images:  images }
-    );
-  });
-}
-
-</script>
-';    
-    
-      $return .= '  
-<script type="text/javascript">
 //<![CDATA[
 
-    var uploader = new plupload.Uploader({
-      preinit: attachCallbacks,
-      runtimes: "html5",
-      browse_button: "add_files",
-      drop_element: "drag_drop",
-      url: "' . url_for('main/test') . '"
-    });
-    
-    uploader.init();
-    
-    uploader.bind("FilesAdded", function () {
-      uploader.start();
-    });
-    
-//    document.getElementById("uploadfiles").onclick = function() {
-//        uploader.start();
-//    };
-//]]>
-</script>
-';    
-
-
-
-     $return .= '
-<script type="text/javascript">   
-
-$(document).ready(function() {
+/**
+ * Re-render gallery preview
+ */
+ 
+function refreshGalleryPreview() {
+  var images = $("#' . $id . '").val();
+  var url = "' . url_for('ullPhoto/renderGalleryPreview') . '";
+  $("#' . $id . '").parents("td").find(".ull_widget_gallery_preview").load(
+    url,
+    { images:  images },
+    function () {
+      sortable();
+      imageActionHover();
+      imageDelete();
+    }
+  );
+}
+ 
+function sortable() {
   $(".ull_widget_gallery_preview").sortable({
+  
+    // Update form field after sort action
     stop: function(event, ui) {
       window.ull_widget_gallery_' . $id . '_content = "";
       $(".ull_widget_gallery_preview").find("img").each(function() {
@@ -152,29 +73,114 @@ $(document).ready(function() {
       $("#' . $id . '").val(window.ull_widget_gallery_' . $id . '_content);
     }
   });
+};
+
+function imageActionHover() {
+  $(".ull_widget_gallery_preview li").each(function(index, element) {
+    $(element).mouseenter(function() {
+      $(element).find(".ull_widget_gallery_actions").show();
+    });
+  });
+  
+  $(".ull_widget_gallery_preview li").each(function(index, element) {
+    $(element).mouseleave(function() {
+      $(element).find(".ull_widget_gallery_actions").hide();
+    });
+  });
+}   
+
+function imageDelete() {
+  $(".ull_widget_gallery_actions a").each(function(index, element) {
+    $(element).click(function(){
+      $.ajax({
+        url: $(element).attr("href"),
+        success: function(){
+          // delete image from form field
+          var path = $(element).parents("li").find("img").attr("src");
+          var value = $("#' . $id . '").val();
+          value = value.split(path + "\n").join("");
+          $("#' . $id . '").val(value);
+          
+          refreshGalleryPreview();
+        }
+      });
+      return false;
+    });
+  });
+}
+
+
+/**
+ * Plupload uploader callbacks
+ */
+function attachCallbacks(Uploader) {
+  Uploader.bind("FileUploaded", function(up, file, response) {
+    // Add new image to the form field
+    $("#' . $id . '").val($("#' . $id . '").val() + "\n" + response.response);
+    
+    refreshGalleryPreview();
+
+    if ((Uploader.total.uploaded + 1) == Uploader.files.length)
+    {
+      $("#ull_widget_gallery_control_indicator_' . $id . '").hide();
+    }
+    
+  });
+}
+
+
+/**
+ * Initialize and configure plupload uploader
+ */
+$(document).ready(function() {
+  var uploader = new plupload.Uploader({
+    preinit: attachCallbacks,
+    runtimes: "html5",
+    browse_button: "ull_widget_gallery_add_files_' . $id . '",
+    drop_element: "' . $id . '_content",
+    url: "' . url_for('ullPhoto/imageUpload') . '"
+  });
+  
+  uploader.init();
+  
+  uploader.bind("FilesAdded", function () {
+    $("#ull_widget_gallery_control_indicator_' . $id . '").show();
+    uploader.start();
+  });
+  
 });
 
 
+/**
+ * Initialize sortable
+ */
+$(document).ready(function() {
+
+});
+
+
+/**
+ * image actions hover (delete, ...) 
+ */
+$(document).ready(function()
+{
+  refreshGalleryPreview();
+});
+
+
+/**
+ * image delete
+ */
+$(document).ready(function()
+{
+
+});
+
+//]]>
 </script>
 ';
 
-
-    
-    
-    /*
-    $return = '';
-    
-    $return .= ullWidgetSimpleUploadRead::renderFile($value, $this->getOption('path'), $this->getAttribute('alt'));
-    
-
-    
-    $return .= parent::render(
-      $name, 
-      $value, 
-      array_merge($attributes, array('class' =>'ull_widget_simple_upload_image_input')), 
-      $errors
-    );
-    */
+    $return .= '</div><!-- end of widget content -->';
     
     return $return;
   }
@@ -187,32 +193,27 @@ $(document).ready(function() {
    * @param boolean $renderUl
    * @return string
    */
-  public static function renderPreview($images, $renderUl = true)
+  public static function renderPreview($images)
   {
     $return = '';
     
     $images = explode("\n", $images);
     
-    if ($renderUl)
-    {
-      $return .= '<ul class="ull_widget_gallery_preview">';
-    }
-    
     foreach ($images as $image)
     {
       if (trim($image))
       {
-        $return .= '<li class="ull_widget_gallery_preview_image_container">';
-        $return .= '<div class="ull_widget_gallery_preview_image">';
-        $return .= '<img src="' . $image .'" alt="preview image" />';
+        $return .= '<li>';
+        $return .= '<div class="ull_widget_gallery_preview_image_container">';
+        $return .= '  <div class="ull_widget_gallery_preview_image">';
+        $return .= '    <img src="' . $image .'" alt="preview image" />';
+        $return .= '  </div>';
         $return .= '</div>';
+        $return .= '  <div class="ull_widget_gallery_actions">';
+        $return .= '    ' . ull_icon('ullPhoto/imageDelete?s_image=' . $image, 'delete');
+        $return .= '  </div>';        
         $return .= '</li>';
       }
-    }
-    
-    if ($renderUl)
-    {
-      $return .= '</ul>';
     }
     
     return $return;

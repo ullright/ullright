@@ -756,6 +756,27 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <target>Keine Javascript-Unterstützung gefunden. Bitte aktivieren Sie Javascript in Ihrem Webbrowser für eine benutzerfreundlichere Bedienung.</target>
       </trans-unit> 
       
+      <!--  ullWidgetGallery -->
+      
+      <trans-unit id="3500">
+        <source>Add images</source>
+        <target>Bilder hinzufügen</target>
+      </trans-unit>       
+      
+      <trans-unit id="3501">
+        <source>or drag and drop files here</source>
+        <target>oder Bilder hierher ziehen und fallen lassen</target>
+      </trans-unit>
+      
+      <trans-unit id="3502">
+        <source>Upload in progress</source>
+        <target>Bilder werden hochgeladen</target>
+      </trans-unit>
+      
+      
+      
+      
+      
     </body>
   </file>
 </xliff>
