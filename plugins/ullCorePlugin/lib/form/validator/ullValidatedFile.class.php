@@ -36,7 +36,8 @@ class ullValidatedFile extends sfValidatedFile
   {
     if (ullCoreTools::isValidImage($this->getTempName()))
     {
-      try{
+      try
+      {
         $image = new sfImage($this->getTempName(), 'image/jpg');
         $this->resizePhoto($image);
         $image->save();
