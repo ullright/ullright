@@ -31,7 +31,7 @@ class ullWidgetGalleryWrite extends sfWidgetFormTextarea
     $return .= '  <input type="button" value="' . __('Add images', null, 'ullCoreMessages') . '" id="ull_widget_gallery_add_files_' . $id . '" />';
     $return .= '  <span class="ull_widget_gallery_control_drop">' . __('or drag and drop files here', null, 'ullCoreMessages') . '</span>';
     $return .= '  <span class="ull_widget_gallery_control_indicator" id="ull_widget_gallery_control_indicator_' . $id . '">';
-    $return .= '    ' . __('Upload in progress', null, 'ullCoreMessages') . '&hellip;';
+//    $return .= '    ' . __('Upload in progress', null, 'ullCoreMessages') . '&hellip;';
     $return .= '    <img src="/ullCoreThemeNGPlugin/images/indicator.gif" alt="Indicator" />';
     $return .= '  </span>';
     $return .= '</div>';
@@ -67,7 +67,7 @@ function sortable() {
     // Update form field after sort action
     stop: function(event, ui) {
       window.ull_widget_gallery_' . $id . '_content = "";
-      $(".ull_widget_gallery_preview").find("img").each(function() {
+      $(".ull_widget_gallery_preview_image").find("img").each(function() {
         window.ull_widget_gallery_' . $id . '_content = window.ull_widget_gallery_' . $id . '_content + "\n" + $(this).attr("src");   
       });
       $("#' . $id . '").val(window.ull_widget_gallery_' . $id . '_content);
@@ -92,16 +92,18 @@ function imageActionHover() {
 function imageDelete() {
   $(".ull_widget_gallery_actions a").each(function(index, element) {
     $(element).click(function(){
+      $("#ull_widget_gallery_control_indicator_' . $id . '").show();
       $.ajax({
         url: $(element).attr("href"),
         success: function(){
           // delete image from form field
           var path = $(element).parents("li").find("img").attr("src");
           var value = $("#' . $id . '").val();
-          value = value.split(path + "\n").join("");
+          value = value.split(path).join("");
           $("#' . $id . '").val(value);
           
           refreshGalleryPreview();
+          $("#ull_widget_gallery_control_indicator_' . $id . '").hide();
         }
       });
       return false;
