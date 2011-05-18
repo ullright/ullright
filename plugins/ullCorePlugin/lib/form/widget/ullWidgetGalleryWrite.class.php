@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetGalleryWrite extends sfWidgetFormTextarea
+class ullWidgetGalleryWrite extends sfWidgetFormInputHidden
 {
   
   public function __construct($options = array(), $attributes = array())
@@ -22,9 +22,6 @@ class ullWidgetGalleryWrite extends sfWidgetFormTextarea
     
     $return .= parent::render($name, $value, $attributes, $errors);
     
-    $return .= '  <ul class="ull_widget_gallery_preview">';
-    $return .= '  </ul>';
-    
     $return .= '  <div class="ull_widget_gallery_control">';
     $return .= '    <input type="button" value="' . __('Add images', null, 'ullCoreMessages') . '" id="ull_widget_gallery_add_files_' . $id . '" />';
     $return .= '    <span class="ull_widget_gallery_control_drop">';
@@ -34,8 +31,10 @@ class ullWidgetGalleryWrite extends sfWidgetFormTextarea
     $return .= '    <span class="ull_widget_gallery_control_indicator" id="ull_widget_gallery_control_indicator_' . $id . '">';
     $return .= '      <img src="/ullCoreThemeNGPlugin/images/indicator.gif" alt="Indicator" />';
     $return .= '    </span>';
-    $return .= '  </div>';
-      
+    $return .= '  </div>';    
+    
+    $return .= '  <ul class="ull_widget_gallery_preview">';
+    $return .= '  </ul>';
     
     $return .= '
 <script type="text/javascript">
