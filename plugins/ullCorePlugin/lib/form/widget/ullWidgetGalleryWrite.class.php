@@ -220,6 +220,7 @@ $(document).ready(function()
   {
     return array(
       '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
+      '/ullCorePlugin/css/ull_gallery.css' => 'all',
       '/ullCorePlugin/js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css' => 'all',
     );
   }
