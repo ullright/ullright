@@ -137,9 +137,9 @@
 	  <?php foreach ($cultures as $culture): ?>
       <?php echo 
       '$("#fields_title_translation_' . $culture . '").blur(function() {'.
-        'if (document.getElementById("fields_name_translation_' . $culture . '").value == "") {' .
-          'document.getElementById("fields_name_translation_' . $culture . '").value = 
-          document.getElementById("fields_title_translation_' . $culture . '").value' ?>
+        'if ($("#fields_name_translation_' . $culture . '") != 0 && $("#fields_name_translation_' . $culture . '").value == "") {' .
+          '$("#fields_name_translation_' . $culture . '").value = 
+          $("#fields_title_translation_' . $culture . '").value' ?>
         }
       });
   <?php endforeach ?>
