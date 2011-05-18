@@ -135,11 +135,15 @@
   //<![CDATA[
   $(document).ready(function() {
 	  <?php foreach ($cultures as $culture): ?>
-      <?php echo 
-      '$("#fields_title_translation_' . $culture . '").blur(function() {'.
-        'if ($("#fields_name_translation_' . $culture . '") != 0 && $("#fields_name_translation_' . $culture . '").value == "") {' .
-          '$("#fields_name_translation_' . $culture . '").value = 
-          $("#fields_title_translation_' . $culture . '").value' ?>
+      $("#fields_title_translation_<?php echo $culture ?>").blur(function() {
+        //$("#fields_name_translation_<?php echo $culture ?>").length != 0 &&
+        
+        if ($("#fields_name_translation_<?php echo $culture ?>").length != 0 &&
+          $("#fields_name_translation_<?php echo $culture ?>").val() == ""
+        ){
+          $("#fields_name_translation_<?php echo $culture ?>").val(
+          	$("#fields_title_translation_<?php echo $culture ?>").val()
+        	);
         }
       });
   <?php endforeach ?>
