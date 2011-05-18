@@ -58,6 +58,7 @@
 
 .ull_widget_gallery_control {
   position: static; 
+  margin-bottom: 1em;
 }
  
 .ull_widget_gallery_control_drop {
