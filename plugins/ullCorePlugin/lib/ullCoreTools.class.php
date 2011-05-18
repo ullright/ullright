@@ -837,4 +837,25 @@ class ullCoreTools
 
     return $doctrineArray;
   }
+  
+  
+  /**
+   * Calculate thumbnail part in the same directory
+   * as a given image
+   * 
+   * @param $file
+   * 
+   * @return string
+   */
+  public static function calculateThumnailPath($file)
+  {
+    $parts = pathinfo($file);
+    
+    $thumbnailPath =  $parts['dirname'] . DIRECTORY_SEPARATOR .
+      $parts['filename'] . '_thumbnail' . '.' .
+      $parts['extension']
+    ;
+    
+    return $thumbnailPath;
+  }
 }

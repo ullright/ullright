@@ -5,7 +5,8 @@ class ullWidgetGalleryWrite extends sfWidgetFormTextarea
   
   public function __construct($options = array(), $attributes = array())
   {
-    $this->addOption('path');
+    $this->addOption('model');
+    $this->addOption('column');
     parent::__construct($options, $attributes);
   }
   
@@ -21,23 +22,20 @@ class ullWidgetGalleryWrite extends sfWidgetFormTextarea
     
     $return .= parent::render($name, $value, $attributes, $errors);
     
-    $return .= '<ul class="ull_widget_gallery_preview">';
+    $return .= '  <ul class="ull_widget_gallery_preview">';
+    $return .= '  </ul>';
     
-    //$return .= self::renderPreview($value);
-    
-    $return .= '</ul>';
-    
-    $return .= '<div class="ull_widget_gallery_control">';
-    $return .= '  <input type="button" value="' . __('Add images', null, 'ullCoreMessages') . '" id="ull_widget_gallery_add_files_' . $id . '" />';
-    $return .= '  <span class="ull_widget_gallery_control_drop">' . __('or drag and drop files here', null, 'ullCoreMessages') . '</span>';
-    $return .= '  <span class="ull_widget_gallery_control_indicator" id="ull_widget_gallery_control_indicator_' . $id . '">';
-//    $return .= '    ' . __('Upload in progress', null, 'ullCoreMessages') . '&hellip;';
-    $return .= '    <img src="/ullCoreThemeNGPlugin/images/indicator.gif" alt="Indicator" />';
-    $return .= '  </span>';
-    $return .= '</div>';
+    $return .= '  <div class="ull_widget_gallery_control">';
+    $return .= '    <input type="button" value="' . __('Add images', null, 'ullCoreMessages') . '" id="ull_widget_gallery_add_files_' . $id . '" />';
+    $return .= '    <span class="ull_widget_gallery_control_drop">';
+    $return .= '      ' . __('or drag and drop files here', null, 'ullCoreMessages');
+    $return .= '      (' .  __('Currently only with Firefox', null, 'ullCoreMessages') . ')';
+    $return .= '    </span>';
+    $return .= '    <span class="ull_widget_gallery_control_indicator" id="ull_widget_gallery_control_indicator_' . $id . '">';
+    $return .= '      <img src="/ullCoreThemeNGPlugin/images/indicator.gif" alt="Indicator" />';
+    $return .= '    </span>';
+    $return .= '  </div>';
       
-
-
     
     $return .= '
 <script type="text/javascript">
@@ -140,7 +138,7 @@ $(document).ready(function() {
     runtimes: "html5",
     browse_button: "ull_widget_gallery_add_files_' . $id . '",
     drop_element: "' . $id . '_content",
-    url: "' . url_for('ullPhoto/imageUpload') . '"
+    url: "' . url_for('ullPhoto/imageUpload?model=' . $this->getOption('model') . '&column=' . $this->getOption('column')) . '"
   });
   
   uploader.init();
@@ -153,29 +151,9 @@ $(document).ready(function() {
 });
 
 
-/**
- * Initialize sortable
- */
-$(document).ready(function() {
-
-});
-
-
-/**
- * image actions hover (delete, ...) 
- */
 $(document).ready(function()
 {
   refreshGalleryPreview();
-});
-
-
-/**
- * image delete
- */
-$(document).ready(function()
-{
-
 });
 
 //]]>

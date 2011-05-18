@@ -21,7 +21,21 @@ abstract class ullMetaWidget
   {
     $this->columnConfig = $columnConfig;
     $this->form = $form;
+    
+    $this->configure();
   }
+  
+  
+  /**
+   * Generic configuration for all modes
+   * 
+   * @return none
+   */
+  protected function configure()
+  {
+  
+  }  
+  
   
   /**
    * Returns the form
@@ -61,7 +75,7 @@ abstract class ullMetaWidget
    */
   protected function addToForm()
   {
-    $this->configure();
+//    $this->configure();
     
     switch ($this->columnConfig->getAccess())
     {
@@ -78,15 +92,6 @@ abstract class ullMetaWidget
         $this->configureFilterMode();
         break;           
     }
-  }
-  
-  /**
-   * Generic configuration for all modes
-   * @return none
-   */
-  protected function configure()
-  {
-  
   }
   
   /**

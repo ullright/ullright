@@ -405,7 +405,26 @@ class BaseUllPhotoActions extends ullsfActions
   {
     sfConfig::set('sf_web_debug', false);
     
+    $model = $request->getParameter('model');
+    $column = $request->getParameter('column');
+    
+    $columnsConfig = ullColumnConfigCollection::buildFor($model);
+    $columnConfig = $columnsConfig[$column];
+    
+    // let columnConfig be modified by metaWidget (defaults etc)
+    $metaWidgetClassName = $columnConfig->getMetaWidgetClassName();
+    $metaWidget = new $metaWidgetClassName($columnConfig, new sfForm);
+    
     $form = new ullWidgetGalleryForm();
+    $form->getValidatorSchema()->offsetSet('file',  
+      new ullValidatorFile(array(
+        'required'   => true,
+        'path'       => $columnConfig->getOption('path'),
+        'mime_types' => $columnConfig->getOption('mime_types'),
+        'imageWidth' => $columnConfig->getOption('image_width'),
+        'imageHeight' => $columnConfig->getOption('image_height'),
+      ))
+    );
     
     $form->bind(array('file' => $request->getParameter('name')), $this->getRequest()->getFiles());
     
@@ -413,6 +432,9 @@ class BaseUllPhotoActions extends ullsfActions
     {
       $file = $form->getValue('file');
       $file->save();
+      
+      $this->createThumbnail($file->getSavedName(), $columnConfig);
+      
       // create relative path
       $path = str_replace(sfConfig::get('sf_web_dir'), '', $file->getSavedName());
       
@@ -420,7 +442,32 @@ class BaseUllPhotoActions extends ullsfActions
     }
     else
     {
-      return $this->renderText('Error!');
+      throw new RuntimeException('Error, encountered invalid file');
+    }
+  }
+  
+  
+  /**
+   * Create thumbnail
+   * 
+   * @param unknown_type $file
+   * @param ullColumnConfiguration $columnConfig
+   */
+  protected function createThumbnail($file, ullColumnConfiguration $columnConfig)
+  {
+    // duplicate file because it is overwritten by validatedFile
+    $destination = ullCoreTools::calculateThumnailPath($file);
+    copy($file, $destination);
+    
+    if ($columnConfig->getOption('create_thumbnails'))
+    {
+      $validatedFile = new ullValidatedFile(
+        null, null, $destination, null, $columnConfig->getOption('path')
+      );
+      $validatedFile->setImageWidth($columnConfig->getOption('thumbnail_width')); 
+      $validatedFile->setImageHeight($columnConfig->getOption('thumbnail_height'));
+      
+      $validatedFile->save($destination);
     }
   }
   
@@ -446,7 +493,11 @@ class BaseUllPhotoActions extends ullsfActions
     
     $path = sfConfig::get('sf_web_dir') . $image;
     
-    return $this->renderText(unlink($path));
+    unlink($path);
+    
+    unlink(ullCoreTools::calculateThumnailPath($path));
+    
+    return $this->renderText('');
   }
   
   

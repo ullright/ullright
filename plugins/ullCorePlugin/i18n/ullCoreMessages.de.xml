@@ -768,12 +768,11 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <target>oder Bilder hierher ziehen und fallen lassen</target>
       </trans-unit>
       
-      <trans-unit id="3502">
-        <source>Upload in progress</source>
-        <target>Bilder werden hochgeladen</target>
-      </trans-unit>
-      
-      
+      <trans-unit id="3503">
+        <source>Currently only with Firefox</source>
+        <target>Zur Zeit nur mit Firefox</target>
+      </trans-unit>      
+
       
       
       
