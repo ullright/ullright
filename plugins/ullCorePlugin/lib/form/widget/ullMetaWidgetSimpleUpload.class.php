@@ -33,7 +33,7 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
 
     if (!$this->columnConfig->getValidatorOption('path'))
     {
-      $uploadPath = sfConfig::get('sf_upload_dir') . '/tableTool/' . get_class($this->getForm()->getObject());
+      $uploadPath = self::calculateUploadPath($this->getForm()->getObject());
       $this->columnConfig->setValidatorOption('path', $uploadPath);
     }
     $this->path = $this->columnConfig->getValidatorOption('path');
@@ -129,5 +129,15 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
       $this->columnConfig->getWidgetAttributes()
     ));
     $this->addValidator(new sfValidatorPass());    
-  }  
+  } 
+
+  /**
+   * Get upload path
+   * 
+   * @param Doctrine_Record $object
+   */
+  public static function calculateUploadPath(Doctrine_Record $object)
+  {
+    return sfConfig::get('sf_upload_dir') . '/tableTool/' . get_class($object);
+  }
 }
