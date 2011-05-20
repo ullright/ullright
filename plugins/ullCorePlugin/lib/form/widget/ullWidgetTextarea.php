@@ -23,6 +23,8 @@ class ullWidgetTextarea extends ullWidget
     
     $value = $this->handleDecodeMimeOption($value);
     
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Text');
+    
     return auto_link_text($value);
   }
 }

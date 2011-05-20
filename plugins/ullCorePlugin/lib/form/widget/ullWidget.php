@@ -60,6 +60,9 @@ class ullWidget extends sfWidgetForm
     
     //widgets have to escape their output because sfForm
     //is exempted from output escaping
+    
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Escaping');
+    
     $value = esc_entities($value);
     
     $value = $this->handleDecodeMimeOption($value);
