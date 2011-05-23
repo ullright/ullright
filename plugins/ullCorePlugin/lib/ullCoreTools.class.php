@@ -498,6 +498,7 @@ class ullCoreTools
     }
   }
   
+  
   /**
    * Returns a list of hour:minute strings; the starting
    * hour, ending hour and interval size parameters can

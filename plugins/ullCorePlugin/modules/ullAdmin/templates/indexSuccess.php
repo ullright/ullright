@@ -11,8 +11,10 @@
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_user_24x24', 'ullUser/create', __('Create user', null, 'ullCoreMessages')) ?></li>
       </ul>
       <h3><?php echo __('User and Groups') ?></h3>
-      <ul class="tc_tasks">      
+      <ul class="tc_tasks">
+        <?php /* temp disable because of problems. @see http://www.ullright.org/ullFlow/edit/doc/1319
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_clone_user_24x24', 'ullCloneUser/list', __('Manage', null, 'common') . ' ' . __('Clone users', null, 'ullCoreMessages')) ?></li>
+        */ ?>
         <?php if($is_master_admin): ?>
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllGroup', 'ullCore', 'ull_group_24x24') ?></li>
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEntityGroup', 'ullCore', 'ull_group_24x24') ?></li>
@@ -44,57 +46,11 @@
         </ul> 
         //-->
         
-        <?php if (ullCoreTools::isModuleEnabled('ullCms')): ?>
-          <h3><?php echo __('Content Mangement', null, 'ullCmsMessages') ?></h3>
-          <ul class="tc_tasks">
-            <li><?php echo ull_tc_task_link('/ullCmsThemeNGPlugin/images/ull_cms_24x24', 'ullCms/list', __('Manage', null, 'common') . ' ' . __('Pages', null, 'ullCmsMessages')) ?></li>
-            <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllCmsMenuItem', 'ullCms', 'ull_cms_24x24') ?></li>
-            <li><?php echo ull_tc_task_link('/ullCmsThemeNGPlugin/images/ull_cms_24x24', 'ullNews/list', __('Manage', null, 'common') . ' ' . __('News entries', null, 'ullNewsMessages')) ?></li>
-          </ul> 
-        <?php endif?>
-        
-        <h3><?php echo __('Timereporting', null, 'ullTimeMessages') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProject', 'ullTime', 'ull_time_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProjectManager', 'ullTime', 'ull_time_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllTimePeriod', 'ullTime', 'ull_time_24x24') ?></li>
-        </ul>
-        
-        <h3><?php echo __('Mailing', null, 'ullMailMessages') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllMailLoggedMessage', 'ullMail', 'ull_mail_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterMailingList', 'ullMail', 'ull_mail_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterLayout', 'ullMail', 'ull_mail_24x24') ?></li>
-        </ul>                  
-        
-        <h3><?php echo __('Workflow') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowApp', 'ullFlow', 'ull_flow_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAppPermission', 'ullFlow', 'ull_flow_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowColumnConfig', 'ullFlow', 'ull_flow_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStep', 'ullFlow', 'ull_flow_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStepAction', 'ullFlow', 'ull_flow_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAction', 'ullFlow', 'ull_flow_24x24') ?></li>  
-        </ul>
-        <h3><?php echo __('Wiki') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevel', 'ullWiki', 'ull_wiki_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevelAccess', 'ullWiki', 'ull_wiki_24x24') ?></li>
-        </ul>          
-        <h3><?php echo __('Inventory', null, 'ullVentoryMessages') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemType', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemManufacturer', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemModel', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemAttribute', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemTypeAttribute', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentorySoftware', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentorySoftwareLicense', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryOriginDummyUser', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryStatusDummyUser', 'ullVentory', 'ull_ventory_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryTaking', 'ullVentory', 'ull_ventory_24x24') ?></li>
-        </ul>
-
+        <?php /* Load admin link partials for enabled modules 
+          (Defined in .../myModule/templates/_adminLinks.php) */ ?>
+        <?php foreach ($modules as $module): ?>
+          <?php try {include_partial($module . '/adminLinks');} catch (Exception $e) {} ?>
+        <?php endforeach ?>
          
       <?php endif ?>          
     </div>
