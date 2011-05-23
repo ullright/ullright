@@ -5,52 +5,58 @@ class ullWidgetNewsLinkWrite extends sfWidgetFormInput
   
   /**
    * (non-PHPdoc)
-   * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/widget/sfWidgetFormInput#configure($options, $attributes)
-   */
-  protected function configure($options = array(), $attributes = array())
-  {
-
-  }
-    
-  /**
-   * (non-PHPdoc)
    * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/widget/sfWidgetFormInput#render($name, $value, $attributes, $errors)
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $pages = Doctrine::getTable('UllCmsItem')->findByType('page');
+    $this->setAttribute('name', $name);
+    $this->setAttributes($this->fixFormId($this->getAttributes()));
+    $id = $this->getAttribute('id');       
     
-    $select = '<option value="" selected="selected"></option>';
-    foreach ($pages as $page)
+    $choices[''] = ''; 
+    
+    foreach(UllCmsItemTable::getRootNodeSlugs() as $slug)
     {
-      $select .= '<option value="ullCms/show?slug=' . $page['slug'] . '">' . $page['full_path'] . '</option>';
+      $navigation = UllCmsItemTable::getMenuTree($slug);
+      $renderer = new ullTreeMenuSelectRenderer($navigation, 'slug');
+      $choices += $renderer->render();      
     }
     
-    $return = javascript_tag('$(document).ready(function()
-    {
-      obj = document.getElementsByTagName("div");
-      obj["pages_to_link"].style.display = "";
-    })
+    $return = '';
     
-    function changeLinkUrl(id, value)
+    $return .= '<div class="ull_widget_news_link_write_page_selection" style="display: none;">';
+    $return .= '  ' . __('Select a CMS page', null, 'ullNewsMessages');
+    $return .= '  <br />';
+    
+    $return .= '  <select>';
+    
+    foreach ($choices as $key => $text)
     {
-      obj = document.getElementsByTagName("input");
-      obj[id].value = value;
+      $return .= '    <option value="' . $key . '">' . $text . '</option>';
     }
-    ');
     
-    $return .= '<div id="pages_to_link" style="display: none;">';
-    $return .= __('Select a CMS page', null, 'ullNewsMessages');
-    $return .= '<br />';
-    $SelectWidget =  new sfWidgetFormInput();
-    $return .= $SelectWidget->renderContentTag('select', 
-      $select, 
-      array('id' => 'fields_link_url_pages', 'onchange' => 'changeLinkUrl("fields_link_url", value)')
-    );
-    $return .= '<br />';
-    $return .= __('or enter an internet address (URL). Example:', null, 'ullNewsMessages') . ' http://www.example.com';
+    $return .= '  </select>';
+    
+    $return .= '  <br />';
+    $return .= '  ' . __('or enter an internet address (URL). Example:', null, 'ullNewsMessages') . ' http://www.example.com';
+    
     $return .= '</div>';
+    
     $return .= parent::render($name, $value, $attributes, $errors);
+
+    $return .= javascript_tag('
+$(document).ready(function() {
+  $(".ull_widget_news_link_write_page_selection").show();
+  
+  $(".ull_widget_news_link_write_page_selection select").click(function() {
+  
+    var url = "' . url_for('ullCms/show') . '/" + $(this).val();
+  
+    $("#' . $id .'").val(url);
+  });
+})
+
+');    
     
     return $return;
   } 
