@@ -10,6 +10,7 @@ abstract class ullGeneratorEditActionButton
 {
   protected
     $action, 
+    $object,
     
     // primary = main action on the left side, otherwise render as secondory
     // action on the right side
@@ -51,5 +52,21 @@ abstract class ullGeneratorEditActionButton
   {
     return (boolean) $this->isPrimary;
   }
+  
+  public function setObject($object)
+  {
+    $this->object = $object;
+    
+    return $this;
+  }
+  
+  public function getObject()
+  {
+    return $this->object;
+  }
+  
+  
+  
+  
   
 }

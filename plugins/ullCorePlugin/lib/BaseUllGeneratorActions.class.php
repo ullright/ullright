@@ -656,12 +656,13 @@ abstract class BaseUllGeneratorActions extends ullsfActions
    * Executes the logic of the edit actions buttons after binding the form
    * @return none
    */
-  protected function processEditActionButtons()
+  protected function processEditActionButtons(Doctrine_Record $row, sfRequest $request)
   {
     if (count($this->edit_action_buttons_store))
     {
       foreach($this->edit_action_buttons_store as $button)
       {
+        $button->setObject($row);
         $button->executePostFormBindAndSave();
       }
     }  

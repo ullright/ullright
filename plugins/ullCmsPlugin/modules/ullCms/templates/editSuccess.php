@@ -14,16 +14,6 @@
   <h3><?php echo __('Actions', null, 'common')?></h3>
   
   <div class='edit_action_buttons_left'>
-    <?php
-      if ($generator->getRow()->exists() && $generator->isVersionable() && $generator->getEnableFutureVersions())
-      {
-        echo ' <label for="fields_scheduled_update">';
-        echo __('Schedule changes on this date', null, 'common') . ':';
-        echo '</label><br />'; 
-        echo $generator->getForm()->offsetGet('scheduled_update_date')->render();
-        echo $generator->getForm()->offsetGet('scheduled_update_date')->renderError();
-      }
-    ?>
     <ul>
         <li>
           <?php             
@@ -90,41 +80,6 @@
 <?php 
   echo ull_js_observer("ull_tabletool_form");
 ?>  
-
-<?php if ($generator->hasFutureVersions()): ?>
-  <div id="edit_future_versions">
-  <h2><?php echo __('Scheduled updates', null, 'common') ?></h2>
-    
-  <?php 
-    $fg = $generator->getFutureGenerators();
-      
-    $cnt = count($fg);
-    for ($i = 0; $i < $cnt; $i++)
-    { 
-      $id = $fg[$i]->getIdentifierArray();
-      //var_dump($id);
-      echo '<div class="edit_container">';
-      echo '<br /><h4>' . ull_format_date($fg[$i]->getScheduledUpdateDate()) . '</h4>' .
-            //__('Future version ', null, 'common') . ($i + 1) . ' - ' .
-            __('by', null, 'common') . ' ' . $fg[$i]->getUpdator() . ' - ' .
-            ull_format_datetime($fg[$i]->getUpdatedAt()) . ' - ' .
-            ull_link_to(ull_image_tag('delete'), 
-            ullCoreTools::appendParamsToUri(
-              $delete_future_version_base_uri,
-                'id=' . $id['id'] .
-                '&version=' . $id['version'])
-                , 'confirm='.__('Are you sure?', null, 'common')
-                ) .
-              '<br /><br />';
-      echo '<table class="edit_table"><tbody>';
-      echo ($fg[$i]->hasColumns()) ? $fg[$i]->getForm() : '<tr><td>' . __('No changes') . '</td></tr>';
-      echo '</tbody></table>';
-      echo '</div>';
-    }
-  ?>
-  </div>
-<?php endif ?>
-
 
 <?php include_partial('ullTableTool/history', array(
   'generator' => $generator

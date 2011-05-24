@@ -58,6 +58,8 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     
     $this->forward404Unless($this->getRoute() instanceof sfDoctrineRoute);
     
+    $this->getUriMemory()->setUri();
+    
     $this->doc = $this->getRoute()->getObject();
     
     $this->setVar('title', $this->doc->title);
@@ -94,13 +96,15 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_cms_edit');
     
     $this->registerEditActionButton(new ullGeneratorEditActionButtonCmsSaveAndShow($this));
-    $this->registerEditActionButton(new ullGeneratorEditActionButtonCmsSaveAndCreateNews($this, false));
+    
+    if (ullCoreTools::isModuleEnabled('ullNews'))
+    {
+      $this->registerEditActionButton(new ullGeneratorEditActionButtonCmsSaveAndCreateNews($this, false));
+    }      
     
     parent::executeEdit($request);
     
     $this->cultures = ullGenerator::getDefaultCultures();
-    
-    //$this->setTableToolTemplate('edit');
   }   
   
   
