@@ -30,17 +30,6 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
    */
   public function preSave($event)
   {
-    // Create menu name if none given
-    // This applies only to UllCmsPage children
-//    foreach($this->Translation as $lang => $translation)
-//    {
-//      if (!$this->Translation[$lang]->name)
-//      {
-//        $this->Translation[$lang]->name = $this->Translation[$lang]->title;
-//      }
-//    }
-    
-    
     // Create the full path cache
     // e.g. "Main navigation - About us - Team"
     // Improves performance and allows proper ordering in list views
@@ -82,6 +71,8 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     
     if (isset($object->parent_ull_cms_item_id) && ($object->parent_ull_cms_item_id != null))
     {
+      // For new objects, we have to load the parent
+      $object->refreshRelated('Parent');
       $return = array_merge($this->buildFullPathName($object->Parent, $lang), $return);
     }
 
