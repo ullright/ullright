@@ -4,7 +4,7 @@
 class PluginUllCmsPageTable extends UllCmsItemTable
 {
   /**
-   * Find pages by given parent slug
+   * Find active pages by given parent slug
    * 
    * @param string $slug
    * 
@@ -16,6 +16,7 @@ class PluginUllCmsPageTable extends UllCmsItemTable
     $q
       ->addSelect(array('*'))
       ->addWhere('Parent->slug = ?', $slug)
+      ->addWhere('is_active = ?', true)
       ->addOrderBy('sequence, name')
     ;
     
@@ -30,7 +31,7 @@ class PluginUllCmsPageTable extends UllCmsItemTable
   }    
 
   /**
-   * Returns random cms pages
+   * Returns random active cms pages
    * 
    * @param integer $limit number of pages
    * @param Doctrine_Query $q give a doctrine query object for additional clauses
@@ -44,6 +45,7 @@ class PluginUllCmsPageTable extends UllCmsItemTable
       ->addSelect('p.*, RANDOM() AS rand')
       ->addFrom('UllCmsPage p')
       ->addOrderby('rand')
+      ->addWhere('is_active = ?', true)
       ->limit($limit)
     ;
     

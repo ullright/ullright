@@ -21,7 +21,7 @@ abstract class PluginUllCmsPage extends BaseUllCmsPage
   public function preSave($event)
   {
     // Automatically set the name (=navigation item name) to the title of the page
-    foreach($this->Translation as $lang => $translation)
+    foreach ($this->Translation as $lang => $translation)
     {
       if (!$this->Translation[$lang]->name)
       {
