@@ -43,7 +43,7 @@ class BaseUllAdminActions extends ullsfActions
     ksort($modules);
     $modules = array_flip($modules);
     
-    $modules = ullCoreTools::orderArrayByArray($modules, sfConfig::get('app_admin_module_links_order', array()));
+    $modules = ullCoreTools::orderArrayByArray($modules, sfConfig::get('app_admin_module_links_order', array()), false);
     
     $this->modules = array_keys($modules);
     

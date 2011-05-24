@@ -46,20 +46,27 @@ class ullCoreTools
    *  
    * @param $array array to order
    * @param $order array defining the expected order
+   * @param $strict boolean throw an exception if an invalid key is given
    * @return array
    */
-  public static function orderArrayByArray(array $array, array $order)
+  public static function orderArrayByArray(array $array, array $order, $strict = true)
   {
     $ordered = array();
     
     foreach ($order as $key)
     {
-      if (!key_exists($key, $array))
+      if (key_exists($key, $array))
       {
-        throw new InvalidArgumentException('Invalid key given: ' . $key);
+        $ordered[$key] = $array[$key];
+        unset($array[$key]);
       }
-      $ordered[$key] = $array[$key];
-      unset($array[$key]);     
+      else
+      {
+        if ($strict)
+        {
+          throw new InvalidArgumentException('Invalid key given: ' . $key);
+        }        
+      }     
     }
   
     return array_merge($ordered, $array);
