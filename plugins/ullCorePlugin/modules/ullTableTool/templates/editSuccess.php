@@ -191,6 +191,7 @@
   'generator' => $generator
 ))?>
 
+<?php echo hide_advanced_form_fields() ?>
 
 <?php use_javascripts_for_form($generator->getForm()) ?>
 <?php use_stylesheets_for_form($generator->getForm()) ?>
