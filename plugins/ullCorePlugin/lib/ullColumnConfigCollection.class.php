@@ -1,7 +1,7 @@
 <?php 
 
 /**
- * The ullColumnConfigCollection class represents one one hand an "array object"
+ * The ullColumnConfigCollection class represents on one hand an "array object"
  * as a collection of ullColumnConfigs, on the other hand it builds the column
  * configs for a given model and allows customization of the columnConfigs
  * 
