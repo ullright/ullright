@@ -161,4 +161,20 @@ class PluginUllFlowDocTable extends UllRecordTable
     
     return (bool) $q->count();
 	}
+	
+	/**
+	 * Find docs by app slug
+	 * 
+	 * @param string $slug
+	 * @return Doctrine_Collection
+	 */
+	public static function findByAppSlug($slug)
+	{
+	   $q = new UllQuery('UllFlowDoc');
+	   $q
+	     ->addWhere('UllFlowApp.slug = ?', $slug)
+     ;
+
+	   return $q->execute();
+	}
 }

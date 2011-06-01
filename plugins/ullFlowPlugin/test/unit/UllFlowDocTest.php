@@ -231,6 +231,15 @@ $t->diag('getEditUri()');
   $doc = Doctrine::getTable('UllFlowDoc')->find(1);
   $t->is($doc->getEditUri(), 'ullFlow/edit?doc=1', 'Returns the correct uri for edit');
   
+$t->diag('setSubject');
+  $doc = new UllFlowDoc();
+  $doc->ull_flow_app_id = 1;
+  $doc->subject = 'moo';
+  $doc->save();
+
+  $t->is($doc->subject, 'moo', 'Correctly sets the global subject');
+  $t->is($doc->subject, 'my_subject', 'Correctly sets the global subject');
+  
 
 // Deactivated because of many sideeffects
 //$t->diag('Native column setters');
