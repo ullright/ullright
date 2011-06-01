@@ -25,7 +25,7 @@ class ullWidgetCaller extends sfWidgetFormSelectWithOptionAttributes
     $user = Doctrine::getTable('UllUser')->find($value);
     
     $return .= ' &nbsp; ';
-    $return .= link_to_function('Userinfo'
+    $return .= link_to_function(__('Details', null, 'ullCoreMessages')
       , "caller_user_link(\"$id\")"      
     );
     
@@ -47,7 +47,7 @@ class ullWidgetCaller extends sfWidgetFormSelectWithOptionAttributes
     
     $return .= ' &nbsp; ';
     
-    $return .= link_to_function('Inventur'
+    $return .= link_to_function(__('Inventory', null, 'ullVentoryMessages')
       , "caller_inv_link(\"$id\")"      
     );
     
