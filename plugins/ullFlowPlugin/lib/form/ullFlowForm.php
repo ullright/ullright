@@ -67,7 +67,7 @@ class ullFlowForm extends ullGeneratorForm
     $this->setAction();
     $this->setNext();
     $this->setMemory();
-
+    
     return $this->object;
   }
   
