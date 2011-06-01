@@ -71,11 +71,6 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       $values = $this->values;
     }
 
-    $values = sfContext::getInstance()->getEventDispatcher()->filter(
-        new sfEvent($this, 'form.update_object'), $values
-    )->getReturnValue();
-    
-    
     // i18n translations
     foreach ($values as $fieldName => $value)
     {

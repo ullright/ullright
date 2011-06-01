@@ -218,6 +218,10 @@ class ullGeneratorForm extends sfFormDoctrine
       $values = $this->values;
     }
     
+    $values = sfContext::getInstance()->getEventDispatcher()->filter(
+        new sfEvent($this, 'form.update_object'), $values
+    )->getReturnValue();    
+    
     $this->removeUnusedFields(); 
     
   	$widgets = $this->getWidgetSchema()->getFields();
