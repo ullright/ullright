@@ -96,6 +96,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_user_show');
     
     $this->allow_edit = false;
+    
     if (UllUserTable::hasGroup('MasterAdmins'))
     {
       $this->allow_edit = true;
@@ -109,15 +110,28 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       }
     }
     
-    $this->generator = new ullTableToolGenerator('UllUser', 'r');
-    $this->handlePublicAccess();
     $this->getUserFromRequestOrCreate();
+    
+    $this->generator = new ullTableToolGenerator(get_class($this->user), 'r');
+    $this->handlePublicAccess();
+    
     
     // Allow only existing users;
     if (!$this->user->exists())
     {
       $this->forward404();
     }    
+    
+    
+    if (get_class($this->user) == 'UllUser')
+    {
+      $this->is_user = true;
+    }
+    else
+    {
+      $this->is_user = false;
+      $this->show_orgchart_link = false;
+    }
     
     $this->generator->buildForm($this->user);
     

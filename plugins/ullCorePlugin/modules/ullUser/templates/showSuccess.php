@@ -1,11 +1,10 @@
 <h1>
-  <?php echo $generator->getForm()->offsetGet('first_name')->render() ?>
-  <?php echo $generator->getForm()->offsetGet('last_name')->render() ?>
+  <?php echo $generator->getForm()->offsetGet('display_name')->render() ?>
 </h1>
 
 <div id="ull_user_popup_sidebar">
   <div id="ull_user_popup_photo">
-    <?php echo $generator->getForm()->offsetGet('photo')->render() ?>
+    <?php try { echo $generator->getForm()->offsetGet('photo')->render(); } catch (Exception $e) {} ?>
   </div>
   
   <?php if ($show_orgchart_link || $allow_edit): ?>
@@ -64,6 +63,8 @@
 </tbody>
 </table>
 
-<?php include_partial('ullTableTool/editTable', array('generator' => $location_generator)) ?>
+<?php if ($is_user): ?>
+  <?php include_partial('ullTableTool/editTable', array('generator' => $location_generator)) ?>
+<?php endif ?>
 
 </div>
