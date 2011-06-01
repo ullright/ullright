@@ -455,6 +455,11 @@ Gültige Dateitypen sind jpg und png.</target>
       <target>About</target>
       </trans-unit>
       
+      <trans-unit id="1001">
+      <source>Details</source>
+      <target>Userinfo</target>
+      </trans-unit>      
+      
       <!--  ullRateable -->
       
       <trans-unit id="2000">
