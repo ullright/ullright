@@ -161,6 +161,9 @@ class BaseUllFlowActions extends ullsfActions
 
     if ($request->isMethod('post'))
     {
+//      var_dump($request->getParameterHolder()->getAll());
+//      die;
+      
       $this->generator->setUllFlowActionHandler($request->getParameter('action_slug'));
 
       if ($this->generator->getForm()->bindAndSave($request->getParameter('fields')))
@@ -175,6 +178,8 @@ class BaseUllFlowActions extends ullsfActions
         $this->sendMails();
           
         $this->handleFullPageWidgets($request);
+        
+//        die('actions');
 
         // referer handling
         if ($request->getParameter('action_slug') == 'save_only')

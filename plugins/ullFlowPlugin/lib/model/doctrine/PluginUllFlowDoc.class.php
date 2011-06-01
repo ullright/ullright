@@ -36,8 +36,6 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     parent::setUp();
     
     $this->unshiftFilter(new UllFlowDocRecordFilter());
-    
-//    $this->setDefaults();
   }
 
   /**
@@ -87,6 +85,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   {
     //check if due date was modified
     $modifiedOldValues = $event->getInvoker()->getModified(true);
+    
     if (isset($modifiedOldValues['due_date']))
     {
       $newDueDate = strtotime($event->getInvoker()->get('due_date'));
@@ -101,8 +100,13 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
       //if true, reset mail notification fields
       if ($newDueDate > time())
       {
-        foreach(array('owner_due_reminder_sent',
-          'owner_due_expiration_sent', 'creator_due_expiration_sent') as $fieldName)
+        $notifyFields = array(
+          'owner_due_reminder_sent',
+          'owner_due_expiration_sent', 
+          'creator_due_expiration_sent'
+        );
+        
+        foreach($notifyFields as $fieldName)
         {
           $event->getInvoker()->set($fieldName, false);
         }
@@ -497,44 +501,5 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->UllFlowMemories[$i]->assigned_to_ull_entity_id = $this->getUserId();
     $this->UllFlowMemories[$i]->ull_flow_step_id = $this->UllFlowApp->findStartStep()->id;
   }
-  
-  /**
-   * Also set the column subject
-   * 
-   * @see lib/model/doctrine/ullFlowPlugin/base/BaseUllFlowDoc#setSubject()
-   */
-  
-    // Deactivated because of many side effects
-//  public function setSubject($value)
-//  {
-//    $slug = UllFlowColumnConfigTable::findSubjectColumnSlug($this->UllFlowApp->id);
-//    
-//    $this->subject = $value;
-//    
-//    // Update the virtual column only if not yet set and a UllFlowApp->id exists
-//    if ($slug && $this->$slug != $value)
-//    {
-//      $this->$slug = $value;
-//    }
-//  }
-  
-  /**
-   * Also set the column priority
-   * 
-   * @see lib/model/doctrine/ullFlowPlugin/base/BaseUllFlowDoc#setSubject()
-   */
-    // Deactivated because of many side effects
-//  public function setPriority($value)
-//  {
-//    $slug = UllFlowColumnConfigTable::findPriorityColumnSlug($this->UllFlowApp->id);
-//    
-//    $this->priority = $value;
-//    
-//    // Update the virtual column only if not yet set 
-//    if ($slug && $this->$slug != $value)
-//    {
-//      $this->$slug = $value;
-//    }
-//  }  
   
 }
