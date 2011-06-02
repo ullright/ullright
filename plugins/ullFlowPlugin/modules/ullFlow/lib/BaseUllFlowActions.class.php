@@ -152,7 +152,7 @@ class BaseUllFlowActions extends ullsfActions
     $accessType = $this->doc->checkAccess();
     $this->redirectToNoAccessUnless($accessType);
 
-    $this->generator = new ullFlowGenerator($this->app, $accessType);
+    $this->generator = new ullFlowGenerator($this->app, $this->doc, $accessType);
     $this->generator->buildForm($this->doc);
     
     $this->generator->buildListOfUllFlowActionHandlers();

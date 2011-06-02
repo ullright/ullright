@@ -5,6 +5,7 @@ class ullFlowGenerator extends ullGenerator
   protected
     $formClass = 'ullFlowForm',
     $app,
+    $doc,
     $ullFlowActionHandlers = array(),
     $ullFlowActionHandler
   ;
@@ -13,9 +14,12 @@ class ullFlowGenerator extends ullGenerator
    * Constructor
    *
    * @param UllFlowApp $app
+   * @param UllFlowDoc $doc optional, used in edit mode for columnsConfig
+   *                        to allow doc-based configurations e.g. show a field
+   *                        only in a certain step
    * @param string $defaultAccess can be "r" or "w" for read or write
    */
-  public function __construct($app = null, $defaultAccess = 'r', $requestAction = null)
+  public function __construct($app = null, $doc = null, $defaultAccess = 'r', $requestAction = null)
   {
     if ($app)
     {
@@ -26,6 +30,8 @@ class ullFlowGenerator extends ullGenerator
       
       $this->app = $app;
     }
+    
+    $this->doc = $doc;
     
     parent::__construct($defaultAccess, $requestAction);
   }    
@@ -68,7 +74,7 @@ class ullFlowGenerator extends ullGenerator
   protected function buildColumnsConfig()
   {   
     $this->columnsConfig = UllFlowDocColumnConfigCollection::build(
-        $this->app, $this->defaultAccess, $this->requestAction);
+        $this->app, $this->doc, $this->defaultAccess, $this->requestAction);
         
 //    var_dump(ullCoreTools::debugArrayWithDoctrineRecords($this->columnsConfig, true));die;
   }

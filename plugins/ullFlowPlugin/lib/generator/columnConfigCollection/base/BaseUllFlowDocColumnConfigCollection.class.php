@@ -4,6 +4,7 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
 {
   protected 
     $app,
+    $doc,
     $defaultListColumns = array(
       'subject',
       'priority',
@@ -13,13 +14,15 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
     )
   ;
 
-  public function __construct($modelName, $app, $defaultAccess = null, $requestAction = null)
+  public function __construct($modelName, $app, $doc, $defaultAccess = null, $requestAction = null)
   {
     $this->app = $app;
+    $this->doc = $doc;
+    
     parent::__construct($modelName, $defaultAccess, $requestAction);
   }
 
-  public static function build($app, $defaultAccess = null, $requestAction = null)
+  public static function build($app, $doc, $defaultAccess = null, $requestAction = null)
   {
     // Check for custom app column config collection to add e.g. app specific column access rights
     // Example: 
@@ -44,7 +47,7 @@ class UllFlowDocTroubleTicketColumnConfigCollection extends UllFlowDocColumnConf
       $className = UllFlowDocColumnConfigCollection;
     }
     
-    $c = new $className('UllFlowDoc', $app, $defaultAccess, $requestAction);
+    $c = new $className('UllFlowDoc', $app, $doc, $defaultAccess, $requestAction);
     $c->buildCollection();
 
     return $c;
