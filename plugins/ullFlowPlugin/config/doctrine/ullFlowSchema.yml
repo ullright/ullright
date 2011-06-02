@@ -119,6 +119,7 @@ UllFlowColumnConfig:
     Sluggable:
       unique: true
       fields: [label]
+      builder: [UllFlowColumnConfig, sluggify]
   columns:
     ull_flow_app_id:
       type: integer

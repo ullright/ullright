@@ -12,19 +12,16 @@ abstract class PluginUllFlowColumnConfig extends BaseUllFlowColumnConfig
    * This needs to be a valid php object method name, because it is handled
    * by doctrine record filter.
    * 
-   * @param unknown_type $event
+   * @param string $string
+   * 
+   * @return string
    */
-  public function postSave($event)
+  public static function sluggify($string)
   {
-    parent::postSave($event);
+    $string = Doctrine_Inflector::urlize($string);
+    $string = Doctrine_Inflector::classify($string);
     
-    // don't touch save legacy slug names
-    if (strstr($this->slug, '-'))
-    {
-      $this->slug = Doctrine_Inflector::classify($this->slug);
-      $this->save();
-    }
-    
+    return $string;
   }
   
 }
