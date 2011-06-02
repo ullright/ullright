@@ -44,7 +44,7 @@ class UllFlowDocTroubleTicketColumnConfigCollection extends UllFlowDocColumnConf
     
     if (!class_exists($className))
     {
-      $className = UllFlowDocColumnConfigCollection;
+      $className = 'UllFlowDocColumnConfigCollection';
     }
     
     $c = new $className('UllFlowDoc', $app, $doc, $defaultAccess, $requestAction);
