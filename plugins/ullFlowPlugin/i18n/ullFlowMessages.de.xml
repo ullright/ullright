@@ -218,6 +218,14 @@
         <source>Done, assign to creator for review</source>
         <target>Erledigt, zur Abnahme an Ersteller zuweisen</target>
       </trans-unit>      
+
+  <!--  -->
+
+      <trans-unit id="301">
+        <source>in step</source>
+        <target>im Schritt</target>
+      </trans-unit>   
+      
     </body>
   </file>
 </xliff>

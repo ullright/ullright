@@ -56,7 +56,7 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
       
       $return .= __('Status', null, 'ullFlowMessages') . ': ' . $doc['UllFlowAction']['label'];
       $return .= ' ' . __('by', null, 'ullFlowMessages') . ' ' . $doc['UllEntity']['short_name'];
-      $return .= ' ' . __('at', null, 'ullFlowMessages') . ' ' . ull_format_date($doc['updated_at']);
+      $return .= ' ' . __('on', null, 'ullFlowMessages') . ' ' . ull_format_date($doc['updated_at']);
       
       $return .= ' &nbsp; ' . link_to(
         __('Details', null, 'ullFlowMessages'),
