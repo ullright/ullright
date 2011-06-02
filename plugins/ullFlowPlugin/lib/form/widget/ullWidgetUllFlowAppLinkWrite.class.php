@@ -37,8 +37,8 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
 //      );
       
       $choices = array(
-        '' => 'Do nothing', 
-        'create_save' => 'Create workflow',
+        '' => '', 
+        'create_save' => __('Create', null, 'common') . ' ' . $app->label,
 //        'create_send' => 'Create and send workflow'
       );
       
