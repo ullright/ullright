@@ -21,7 +21,30 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
 
   public static function build($app, $defaultAccess = null, $requestAction = null)
   {
-    $c = new UllFlowDocColumnConfigCollection('UllFlowDoc', $app, $defaultAccess, $requestAction);
+    // Check for custom app column config collection to add e.g. app specific column access rights
+    // Example: 
+/*    
+// apps/frontend/lib/generator/columnConfigCollection/UllFlowDocTroubleTicketColumnConfigCollection.class.php
+<?php
+
+class UllFlowDocTroubleTicketColumnConfigCollection extends UllFlowDocColumnConfigCollection
+{
+  protected function applyCustomSettings()
+  {
+    parent::applyCustomSettings();
+    
+    // add custom code here... 
+  }  
+}
+*/   
+    $className = 'UllFlowDoc' . sfInflector::classify($app['slug']) . 'ColumnConfigCollection';
+    
+    if (!class_exists($className))
+    {
+      $className = UllFlowDocColumnConfigCollection;
+    }
+    
+    $c = new $className('UllFlowDoc', $app, $defaultAccess, $requestAction);
     $c->buildCollection();
 
     return $c;
@@ -141,10 +164,6 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
             $this[$columnName]->setDefaultValue($column->default_value);
           }
           
-//          if ($column->UllColumnType->class == 'UllProject')
-//          {
-//            $this[$columnName]->setRelation
-//          }
         }
       }
     }    
