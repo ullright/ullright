@@ -57,25 +57,6 @@ class ullMetaWidgetGallery extends ullMetaWidget
    */
   protected function configureWriteMode()
   {
-//    if ($this->columnConfig->getValidatorOption('path'))
-//    {
-//      $path = sfConfig::get('sf_upload_dir') . '/ullGallery/';
-//      $this->columnConfig->setValidatorOption('path', $uploadPath);
-//    }
-//    $this->path = $this->columnConfig->getValidatorOption('path');    
-    
-//    var_dump($this->columnConfig);
-    
-//    if (!$path = $this->columnConfig->getOption('path'))
-//    {
-//      $path = sfConfig::get('sf_upload_dir') . '/tableTool/' .
-//        $this->columnConfig->getModelName() . '/' .
-//        $this->columnConfig->getColumnName()
-//      ;
-//    }
-
-//    $this->columnConfig->setWidgetOption('path', $path);
-    
     $this->columnConfig->setWidgetOption('model', $this->columnConfig->getModelName());
     $this->columnConfig->setWidgetOption('column', $this->columnConfig->getColumnName());
     
@@ -91,12 +72,12 @@ class ullMetaWidgetGallery extends ullMetaWidget
    * (non-PHPdoc)
    * @see plugins/ullCorePlugin/lib/form/widget/ullMetaWidget#configureReadMode()
    */
-  protected function configureReadMode()
-  {
-    $this->addWidget(new ullWidgetGalleryRead(
-      array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
-      $this->columnConfig->getWidgetAttributes()
-    ));
-    $this->addValidator(new sfValidatorPass());    
-  }  
+//  protected function configureReadMode()
+//  {
+//    $this->addWidget(new ullWidgetGalleryRead(
+//      array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
+//      $this->columnConfig->getWidgetAttributes()
+//    ));
+//    $this->addValidator(new sfValidatorPass());    
+//  }  
 }
