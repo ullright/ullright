@@ -80,7 +80,7 @@ EOF;
       $table = Doctrine::getTable($modelName);
       if ($table->hasTemplate('Doctrine_Template_SuperVersionable'))
       {
-        $this->log('Now looking at model: ' . $modelName);
+        $this->log("\n" . 'Now looking at model: ' . $modelName);
 
         $template = $table->getTemplate('Doctrine_Template_SuperVersionable');
         $className = $template->getClassName();
@@ -103,9 +103,11 @@ EOF;
         ;
 
         $futureVersions = $q->execute();
+        
         $this->log('Found ' . count($futureVersions) . ' scheduled updates to apply');
 
-        if (count($futureVersions) == 0) {
+        if (count($futureVersions) == 0) 
+        {
           continue;
         }
 
@@ -121,8 +123,12 @@ EOF;
           $row = $q->fetchOne();
           $tempRow = clone $row;
           $row->revert($futureVersion->reference_version);
+          
+          // Since tagging is enabled, it shows up even in toArray() (why?). Remove it.
+          $futureVersionArray = ullCoreTools::debugArrayWithDoctrineRecords($futureVersion->toArray(false));
+          $rowArray = ullCoreTools::debugArrayWithDoctrineRecords($row->toArray(false));          
  
-          $changes = array_diff_assoc($futureVersion->toArray(), $row->toArray());
+          $changes = array_diff_assoc($futureVersionArray, $rowArray);
 
 //this is never executed because changes will always include blacklisted columns...
 //          if (count($changes) == 0)

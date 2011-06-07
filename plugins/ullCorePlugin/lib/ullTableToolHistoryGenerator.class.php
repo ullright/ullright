@@ -47,10 +47,15 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
    * @param Doctrine_Record $revRow the revision record
    * @return void
    */
-  public function buildHistoryForm(Doctrine_Record $curRow, Doctrine_Record $revRow, $enableFutureVersions) {
-    $changes = array_diff_assoc($curRow->toArray(false), $revRow->toArray(false));
+  public function buildHistoryForm(Doctrine_Record $curRow, Doctrine_Record $revRow, $enableFutureVersions) 
+  {
+    // Since tagging is enabled, it shows up even in toArray() (why?). Remove it.
+    $curRowArray = ullCoreTools::debugArrayWithDoctrineRecords($curRow->toArray(false));
+    $revRowArray = ullCoreTools::debugArrayWithDoctrineRecords($revRow->toArray(false));
+    
+    $changes = array_diff_assoc($curRowArray, $revRowArray);
 
-    foreach ($curRow->toArray(false) as $key => $value)
+    foreach ($curRowArray as $key => $value)
     {
       //HACK
       //Our change detection algorithm doesn't handle I18n
