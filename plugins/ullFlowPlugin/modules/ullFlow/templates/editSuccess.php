@@ -19,6 +19,10 @@
 
 
 <div class="edit_container">
+
+<?php include_partial('ullTableTool/editTable', array('generator' => $generator)) ?>
+
+<?php /* 
 <table class="edit_table">
 <tbody>
 
@@ -28,6 +32,7 @@
 
 </tbody>
 </table>
+*/?>
 
 <?php if ($generator->getDefaultAccess() == 'w'): ?>
   <div class='edit_action_buttons color_light_bg'>

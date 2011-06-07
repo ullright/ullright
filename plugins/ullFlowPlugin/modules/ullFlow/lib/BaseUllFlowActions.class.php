@@ -147,17 +147,18 @@ class BaseUllFlowActions extends ullsfActions
   {
     $this->getDocFromRequestOrCreate();
     
-    $this->setTitle($this->doc->UllFlowApp, $this->doc);
-    
     $accessType = $this->doc->checkAccess();
     $this->redirectToNoAccessUnless($accessType);
-
+    
     $this->generator = new ullFlowGenerator($this->app, $this->doc, $accessType);
+    
     $this->generator->buildForm($this->doc);
     
     $this->generator->buildListOfUllFlowActionHandlers();
     
     $this->user_widget = new ullWidgetForeignKey(array('model' => 'UllEntity', 'show_ull_entity_popup' => true));
+    
+    $this->setTitle($this->doc->UllFlowApp, $this->doc);
 
     if ($request->isMethod('post'))
     {

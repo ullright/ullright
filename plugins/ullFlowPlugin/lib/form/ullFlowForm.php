@@ -17,20 +17,6 @@ class ullFlowForm extends ullGeneratorForm
   public function configure()
   {
     parent::configure();
-    
-    // add meta data fields only for create/edit action
-    //TODO: why here? why not in generator?
-    if ($this->requestAction == 'create' or $this->requestAction == 'edit')
-    {
-      $this->getWidgetSchema()->offsetSet('memory_comment', new sfWidgetFormInput(array(), array('size' => 50)));
-      $this->getValidatorSchema()->offsetSet('memory_comment', new sfValidatorString(array('required' => false)));
-      
-      $this->getWidgetSchema()->offsetSet('duration_seconds', new ullWidgetTimeDurationWrite(array('fragmentation' => 5)));
-      $this->getValidatorSchema()->offsetSet('duration_seconds', new ullValidatorTimeDuration(array('required' => false)));
-      
-      $this->getWidgetSchema()->offsetSet('effort_date', new ullWidgetDateWrite(array(), array('size' => 10)));
-      $this->getValidatorSchema()->offsetSet('effort_date', new sfValidatorDate(array('required' => false)));
-    }    
   }
   
 

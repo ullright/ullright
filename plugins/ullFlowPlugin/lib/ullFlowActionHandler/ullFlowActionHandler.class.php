@@ -12,7 +12,7 @@ abstract class ullFlowActionHandler
   
   protected
     $options = array(),
-    $form,
+    $generator,
     // used to store the form fields for one handler to allow setting the
     //  validators to required for all widgets of one handler
     $formFields = array()    
@@ -24,9 +24,9 @@ abstract class ullFlowActionHandler
    * @param sfForm $form
    * @param array $options
    */
-  public function __construct(sfForm $form, $options = array())
+  public function __construct(ullGenerator $generator, $options = array())
   {
-    $this->setForm($form);
+    $this->setGenerator($generator);
     $this->setOptions($options);
     $this->configure();
   }
@@ -56,15 +56,25 @@ abstract class ullFlowActionHandler
 
   
   /**
-   * Set the sfForm
+   * Set the ullGenerator
    * 
-   * @param sfForm $form
+   * @param ullGenerator $generator
    */
-  public function setForm(sfForm $form) 
+  public function setGenerator(ullGenerator $generator) 
   {
-    $this->form = $form;
+    $this->generator = $generator;
   }
   
+  
+  /**
+   * Get the ullGenerator
+   * 
+   * @return ullGenerator
+   */
+  public function getGenerator()
+  {
+    return $this->generator;
+  }
   
   /**
    * Get the sfForm
@@ -73,8 +83,8 @@ abstract class ullFlowActionHandler
    */
   public function getForm()
   {
-    return $this->form;
-  }
+    return $this->getGenerator()->getForm();
+  }  
   
   /**
    * Get form fields
@@ -110,11 +120,15 @@ abstract class ullFlowActionHandler
     $columnConfig->setWidgetOptions($widgetOptions);
     $columnConfig->setWidgetAttributes($widgetAttributes);
     $columnConfig->setValidatorOptions($validatorOptions);
+    // We do not want the action handler form fields in the edit table
+    $columnConfig->setAutoRender(false);
     
-    $ullMetaWidget = new $className($columnConfig, $this->form);
+    $ullMetaWidget = new $className($columnConfig, $this->generator->getForm());
     $ullMetaWidget->addToFormAs($name);
     
     $this->formFields[] = $name;
+    
+    $this->getGenerator()->getColumnsConfig()->offsetSet($name, $columnConfig);
   }
   
   

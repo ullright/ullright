@@ -114,7 +114,28 @@ class UllFlowDocTroubleTicketColumnConfigCollection extends UllFlowDocColumnConf
   
     if ($this->isCreateOrEditAction())
     {
+      // Hide native UllFlowDoc columns
       $this->disableAllExcept(array());
+      
+        $this->create('memory_comment')
+          ->setWidgetAttribute('size', 50)
+          ->setIsArtificial(true)
+          ->setAutoRender(false)
+        ;
+        
+        $this->create('duration_seconds')
+          ->setMetaWidgetClassName('ullMetaWidgetTime')
+          ->setWidgetOption('fragmentation', 5)
+          ->setIsArtificial(true)
+          ->setAutoRender(false)
+        ;
+
+        $this->create('effort_date')
+          ->setMetaWidgetClassName('ullMetaWidgetDate')
+          ->setWidgetAttribute('size', 10)
+          ->setIsArtificial(true)
+          ->setAutoRender(false)
+        ;        
     }
     
     $this->addVirtualColumns();

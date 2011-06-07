@@ -986,4 +986,21 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     
     return $this;
   }
+  
+  /**
+   * Debugging output
+   * 
+   * @return multitype:
+   */
+  public function debug()
+  {
+    $return = array();
+    
+    foreach ($this as $key => $columnConfig)
+    {
+      $return[$key] = $columnConfig;
+    }
+    
+    return $return;
+  }
 }
