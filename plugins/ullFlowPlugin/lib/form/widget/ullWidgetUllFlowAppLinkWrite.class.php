@@ -29,7 +29,7 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
     $app = Doctrine::getTable('UllFlowApp')->findOneBySlug($this->getOption('app'));
     
     // create
-    if (!$value)
+    if (!$value || in_array($value, array('create_save', 'create_send')))
     {
 //      $return .= link_to(
 //        __('Create new "%app%"', array('%app%' => $app['doc_label']), 'ullFlowMessages'),
@@ -37,14 +37,16 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
 //      );
       
       $choices = array(
-        '' => '', 
-        'create_save' => __('Create', null, 'common') . ' ' . $app->label,
+      'create_save' => __('Create', null, 'common') . ' ' . $app->label,
+      'create_send' => __('Create and send', null, 'common') . ' ' . $app->label,
+        '' => __('Do nothing', null, 'ullFlowMessages')
+      
 //        'create_send' => 'Create and send workflow'
       );
       
       $widget = new sfWidgetFormSelect(array('choices' => $choices));
       
-      $return .= $widget->render($name);
+      $return .= $widget->render($name, $value);
       
     }   
     // edit

@@ -62,7 +62,7 @@ class ullMetaWidgetUllFlowAppLink extends ullMetaWidget
     {
       if (isset(self::$columnConfigs[$columnName]))
       {
-        if ($value == 'create_save' || $value == 'create_save')
+        if (in_array($value, array('create_save', 'create_send')))
         {
           $columnConfig = self::$columnConfigs[$columnName];
           $doc = new UllFlowDoc();
