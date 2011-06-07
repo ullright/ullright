@@ -146,7 +146,7 @@ class ullFlowGenerator extends ullGenerator
         throw new InvalidArgumentException('Invalid ullFlowAction slug: ' . $actionSlug);
       }
       
-      $this->ullFlowActionHandler = new $ullFlowActionHandlerName($this->getForm());
+      $this->ullFlowActionHandler = new $ullFlowActionHandlerName($this);
       
       // check if comment is mandatory
       $action = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug);

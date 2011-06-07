@@ -140,7 +140,7 @@ class ullFlowForm extends ullGeneratorForm
       if (!isset($next['entity']) || !isset($next['step']))
       {
         $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
-        $handler = new $className($this);
+        $handler = new $className(new ullFlowGenerator);
         $next = array_merge($handler->getNext(), $next);
       }
       

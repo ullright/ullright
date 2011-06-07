@@ -105,4 +105,14 @@ abstract class ullFlowRule
     }
   }   
   
+  public function getStep()
+  {
+    return (string) $this->doc->UllFlowStep->slug;
+  }
+  
+  public function getAction()
+  {
+    return (string) $this->doc->UllFlowAction->slug;
+  }
+  
 }
