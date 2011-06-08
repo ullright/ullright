@@ -55,7 +55,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
   
   
   /**
-   * Build the full path name
+   * Build the full path name recursivly
    * 
    * @param unknown_type $object
    * @return array
@@ -71,12 +71,10 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     
     if (isset($object->parent_ull_cms_item_id) && ($object->parent_ull_cms_item_id != null))
     {
-      // For new objects, we have to load the parent
-      $object->refreshRelated('Parent');
       $return = array_merge($this->buildFullPathName($object->Parent, $lang), $return);
     }
 
-    // We have to refetch the Translations for pages. Why?
+    // We have to refetch the Translations for pages if not loaded
     if (!$object->name)
     {
       // Necessary for fixture loading
@@ -86,16 +84,26 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
       }
       $object->refreshRelated('Translation');
     }
+    if ($lang && !$object->Translation[$lang]->name)
+    {
+      // Necessary for fixture loading
+      if (!$object->exists())
+      {
+        $object->save();
+      }
+      $object->refreshRelated('Translation');
+    }    
 
     if ($lang)
     {
-      $return[] = $object->Translation[$lang]->name;
+      $name = $object->Translation[$lang]->name;
     }
     else
     {
-      $return[] = $object->name;
+      $name = $object->name;
     }
     
+    $return[] = $name;
     
     return $return;
   }
