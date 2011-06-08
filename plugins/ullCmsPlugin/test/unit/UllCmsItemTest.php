@@ -27,7 +27,7 @@ $t->begin('Create/update full_path cache');
   $page->Translation['en']->title = 'foo';
   $page->Translation['de']->title = 'furcht';
   $page->Translation['en']->body = 'bar';
-  $page->Translation['en']->body = 'bar, oder?';
+  $page->Translation['de']->body = 'bar, oder?';
   $page->Parent = Doctrine::getTable('UllCmsPage')->findOneBySlug('about-us');
   $page->save();
   
