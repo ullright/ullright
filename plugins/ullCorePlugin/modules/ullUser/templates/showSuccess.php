@@ -1,4 +1,5 @@
 <h1>
+  <?php // Don't use the display name for UllUsers because it may be shortend ?>
   <?php if ($is_user): ?>
     <?php echo $generator->getForm()->offsetGet('first_name')->render() ?>
     <?php echo $generator->getForm()->offsetGet('last_name')->render() ?>
