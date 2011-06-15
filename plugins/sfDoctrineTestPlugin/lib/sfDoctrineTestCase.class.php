@@ -289,7 +289,7 @@ class sfDoctrineTestCase extends lime_test
    *
    * This method ensures that records are reloaded from the db
 	 */ 
-	private function clearTables()
+	public function clearTables()
 	{
 		$models = Doctrine::getLoadedModels();
 		
