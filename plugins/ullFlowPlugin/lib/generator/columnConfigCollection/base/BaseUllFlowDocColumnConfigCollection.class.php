@@ -26,20 +26,18 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
   {
     // Check for custom app column config collection to add e.g. app specific column access rights
     // Example: 
-/*    
 // apps/frontend/lib/generator/columnConfigCollection/UllFlowDocTroubleTicketColumnConfigCollection.class.php
-<?php
-
-class UllFlowDocTroubleTicketColumnConfigCollection extends UllFlowDocColumnConfigCollection
-{
-  protected function applyCustomSettings()
-  {
-    parent::applyCustomSettings();
-    
-    // add custom code here... 
-  }  
-}
-*/   
+//<?php
+//
+//class UllFlowDocTroubleTicketColumnConfigCollection extends UllFlowDocColumnConfigCollection
+//{
+//  protected function applyCustomSettings()
+//  {
+//    parent::applyCustomSettings();
+//    
+//    // add custom code here... 
+//  }  
+//}
     $className = 'UllFlowDoc' . sfInflector::classify($app['slug']) . 'ColumnConfigCollection';
     
     if (!class_exists($className))
