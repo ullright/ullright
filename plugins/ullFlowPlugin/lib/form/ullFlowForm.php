@@ -95,8 +95,8 @@ class ullFlowForm extends ullGeneratorForm
    */
   protected function setAction()
   { 
-    $actionSlug = sfContext::getInstance()->getRequest()->getParameter('action_slug', 'save_close');    
-    
+    $actionSlug = sfContext::getInstance()->getRequest()->getParameter('action_slug', 'save_close');
+
     if ($this->ullFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug))
     {
       // TODO: maybe this could be refactored into UllFlowDoc...
@@ -140,7 +140,10 @@ class ullFlowForm extends ullGeneratorForm
       if (!isset($next['entity']) || !isset($next['step']))
       {
         $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
-        $handler = new $className(new ullFlowGenerator);
+        // fake generator
+        $generator = new ullFlowGenerator;
+        $generator->setForm($this);
+        $handler = new $className($generator);
         $next = array_merge($handler->getNext(), $next);
       }
       
