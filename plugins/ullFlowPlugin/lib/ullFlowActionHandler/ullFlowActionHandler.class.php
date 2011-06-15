@@ -155,7 +155,7 @@ abstract class ullFlowActionHandler
    */
   public function getNextFromPreviousStep() 
   {
-    $memory = $this->form->getObject()->findPreviousNonStatusOnlyMemory();
+    $memory = $this->getForm()->getObject()->findPreviousNonStatusOnlyMemory();
     
     return array(
       'entity' => $memory->AssignedToUllEntity, 
