@@ -72,6 +72,8 @@ class ullWidgetDateWrite extends sfWidgetFormInput
     
     $return = parent::render($name, $value, $attributes, $errors);
     
+    $return .= "\n";
+    
     if ($this->getOption('enable_date_picker'))
     {
       // Put options in quotes

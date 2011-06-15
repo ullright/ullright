@@ -21,38 +21,60 @@ $t->diag('__construct()');
 	$now = time();
 	$dateTime = new DateTime();
   $utcNow = strtotime(date('Y-m-d', $now)) + $dateTime->getOffset();
-	
-  $expected = '
-      <script type="text/javascript">
-      $(function() {
-       $("#foo").datepicker({
-          changeYear: true,
-          yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
-          firstDay: 1,
-          showOn: \'button\'
-       });$("#foo").datepicker("setDate", new Date('. ($utcNow * 1000) . '));});
-      
-      foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
-      
-      </script><input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />';
   
-  $t->is($w->render('foo', date('Y-m-d', $now)), $expected);
+  $expected = '<input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />
+<script type="text/javascript">
+//<![CDATA[
+
+
+$(function() {
+  $("#foo").datepicker({
+    changeYear: true,
+    yearRange: "1950:+10",
+    changeMonth: true,
+    firstDay: 1,
+    showOn: \'button\',
+    minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', 
+  }); 
+  
+  $("#foo").datepicker("setDate", new Date('. ($utcNow * 1000) . '));
+});
+
+  // KU 2011-06-01 what is this?
+  foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
+
+
+//]]>
+</script>';  
+  
+  $t->is($w->render('foo', date('Y-m-d', $now)), $expected, 'Renders the correct html output');
   
   $instance->getUser()->setCulture("de");
   
-  $expected = '
-      <script type="text/javascript">
-      $(function() {
-       $("#foo").datepicker({
-          changeYear: true,
-          yearRange: \'1950:+10\',minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', changeMonth: true,
-          firstDay: 1,
-          showOn: \'button\'
-       });$("#foo").datepicker("setDate", new Date('. ($utcNow * 1000) . '));});
-      
-      foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
-      
-      </script><script type="text/javascript">$.datepicker.regional[\'de\'] = {clearText: \'löschen\', clearStatus: \'aktuelles Datum löschen\',
+  $expected = '<input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />
+<script type="text/javascript">
+//<![CDATA[
+
+
+$(function() {
+  $("#foo").datepicker({
+    changeYear: true,
+    yearRange: "1950:+10",
+    changeMonth: true,
+    firstDay: 1,
+    showOn: \'button\',
+    minDate: \'-3y +2d\', maxDate: new Date(733755250000), defaultDate: \'-28y\', 
+  }); 
+  
+  $("#foo").datepicker("setDate", new Date('. ($utcNow * 1000) . '));
+});
+
+  // KU 2011-06-01 what is this?
+  foo_initial_date = \'' . ull_format_date(NULL, true) .  '\';
+
+
+//]]>
+</script><script type="text/javascript">$.datepicker.regional[\'de\'] = {clearText: \'löschen\', clearStatus: \'aktuelles Datum löschen\',
             closeText: \'schließen\', closeStatus: \'ohne Änderungen schließen\',
             prevText: \'&#x3c;zurück\', prevStatus: \'letzten Monat zeigen\',
             nextText: \'Vor&#x3e;\', nextStatus: \'nächsten Monat zeigen\',
@@ -70,6 +92,5 @@ $t->diag('__construct()');
             dayStatus: \'Setze DD als ersten Wochentag\', dateStatus: \'Wähle D, M d\',
             initStatus: \'Wähle ein Datum\', isRTL: false};
             $.datepicker.setDefaults($.datepicker.regional[\'de\']);</script>';
-  $expected .= '<input name="foo" id="foo" type="text" value="' . date('Y-m-d', $now) . '" />';
   
-  $t->is($w->render('foo', date('Y-m-d', $now)), $expected);
+  $t->is($w->render('foo', date('Y-m-d', $now)), $expected, 'Renders the correct html code for culture "de"');

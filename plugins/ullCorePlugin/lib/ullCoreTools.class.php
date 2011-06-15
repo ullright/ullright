@@ -866,4 +866,15 @@ class ullCoreTools
     
     return $thumbnailPath;
   }
+
+  /**
+   * Escape single quotes
+   * 
+   * This method is used for functional tests to get the expected output string
+   * e.g. for widgets
+   */
+  public static function escapeSingleQuotes($string)
+  {
+    return str_replace("'", "\'", $string);
+  }  
 }
