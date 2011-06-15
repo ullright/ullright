@@ -13,6 +13,10 @@ class ullWidgetInformationUpdateWrite extends ullWidget
     $this->setAttribute('cols', 58);
   }
 	
+  /**
+   * (non-PHPdoc)
+   * @see plugins/ullCorePlugin/lib/form/widget/ullWidget#render($name, $value, $attributes, $errors)
+   */
 	public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     $return = '';
@@ -27,6 +31,14 @@ class ullWidgetInformationUpdateWrite extends ullWidget
     return $return; 
   }
   
+  
+  /**
+   * Update Object
+   * 
+   * @param Doctrine_Record $object
+   * @param unknown_type $values
+   * @param unknown_type $fieldName
+   */
   public function updateObject(Doctrine_Record $object, $values, $fieldName)
   {
   	$oldtext = $object->exists() ? $object->$fieldName : '';
@@ -35,11 +47,13 @@ class ullWidgetInformationUpdateWrite extends ullWidget
     $user = Doctrine::getTable('UllUser')->find($userId);
     $now = ull_format_datetime();
     
-    if ($values[$fieldName]) {
+    if (isset($values[$fieldName]) && $values[$fieldName]) 
+    {
 	     $returnValue = "--------------------------------\n$user ($now):\n{$values[$fieldName]}\n";
 	  
         // new line handling improvement
-        if (substr($values[$fieldName], -1) <> "\n") {
+        if (substr($values[$fieldName], -1) != "\n") 
+        {
           $returnValue .= "\n";
         }
        
