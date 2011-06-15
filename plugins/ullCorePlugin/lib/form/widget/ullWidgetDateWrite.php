@@ -145,7 +145,7 @@ $(function() {
   ' . $datepickerSetDate . '
 });
 
-  // KU 2011-06-01 what ist this?
+  // KU 2011-06-01 what is this?
   ' . $id . '_initial_date = \'' . (($timestamp == 0) ? '' : ull_format_date($value, true)) . '\';
 
 ');
