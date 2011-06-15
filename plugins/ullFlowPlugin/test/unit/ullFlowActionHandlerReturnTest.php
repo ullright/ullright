@@ -16,8 +16,10 @@ $t->setFixturesPath($path);
 
 $t->diag('__construct()');
 
-  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
-  $handler = new ullFlowActionHandlerReturn($form);
+  $generator = new ullFlowGenerator();
+  $generator->buildForm(new UllFlowDoc());
+  $form = $generator->getForm();
+  $handler = new ullFlowActionHandlerReturn($generator);
   
   $t->isa_ok($handler, 'ullFlowActionHandlerReturn', 'returns the correct object');
   
@@ -45,8 +47,12 @@ $t->diag('getNextFromPreviousStep()');
   $doc->assigned_to_ull_flow_step_id = Doctrine::getTable('UllFlowStep')->findOneBySlug('trouble_ticket_troubleshooter')->id;
   $doc->save();
   
-  $form = new ullFlowForm($doc, new ullColumnConfigCollection('ullFlowDoc'));
-  $handler = new ullFlowActionHandlerReturn($form);
+  $generator = new ullFlowGenerator();
+  $generator->buildForm($doc);
+  $form = $generator->getForm();
+  $handler = new ullFlowActionHandlerReturn($generator);
+  
+  
   $next = $handler->getNextFromPreviousStep();
   
   $t->is($next['entity']->id, Doctrine::getTable('UllGroup')->findOneByDisplayName('Helpdesk')->id, 'return the correct UllEntity');

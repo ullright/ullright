@@ -73,8 +73,10 @@ $b->diag('check values and click "save_only"')
   ->checkResponseElement($dgsEditTT->get('priority', 'value') . ' > select > option[selected="selected"]', 'High')
   ->checkResponseElement($dgsEditTT->get('tags', 'value') . ' > input[value="my_test_tag"]', true)
   ->responseContains('Progress')
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 2) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Edited[\s]+by[\s]+Master[\s]+Admin/')  
   ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_memory_comment > li', '/My memory comment/')
+  ->checkResponseElement($dgsEditMem->get(2), '/Created[\s]+by[\s]+Master[\s]+Admin/')
   ->setField('fields[my_subject]', 'This is my shiny little subject')
 ;
 
@@ -98,7 +100,7 @@ $b
   ->isRequestParameter('module', 'ullFlow')
   ->isRequestParameter('action', 'edit')
   ->isRequestParameter('doc', 5)
-  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 4) // number of memory entries
+  ->checkResponseElement($dgsEditMem->getFullRowSelector(), 3) // number of memory entries
   ->checkResponseElement($dgsEditTT->get('subject', 'value') . ' > input[value="This is my shiny little subject"]', true)
   ->setField('fields[my_subject]', 'This is my shiny little edited subject')
 

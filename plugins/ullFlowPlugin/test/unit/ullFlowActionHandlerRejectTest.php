@@ -14,8 +14,7 @@ $t = new myTestCase(2, new lime_output_color, $configuration);
 
 $t->diag('__construct()');
 
-  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
-  $handler = new ullFlowActionHandlerReject($form);
+  $handler = new ullFlowActionHandlerReject(new ullFlowGenerator());
   
   $t->isa_ok($handler, 'ullFlowActionHandlerReject', 'returns the correct object');
   

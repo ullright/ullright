@@ -16,8 +16,8 @@ $t->setFixturesPath($path);
 
 $t->diag('__construct()');
 
-  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
-  $handler = new ullFlowActionHandlerDoneReview($form);
+  $handler = new ullFlowActionHandlerDoneReview(new ullFlowGenerator());
+  
   
   $t->isa_ok($handler, 'ullFlowActionHandlerDoneReview', 'returns the correct object');
   

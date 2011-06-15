@@ -16,14 +16,16 @@ $t->setFixturesPath($path);
 
 $t->begin('__construct()');
 
-  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
-  $handler = new ullFlowActionHandlerAssignToUser($form);
+  $generator = new ullFlowGenerator();
+  $generator->buildForm(new UllFlowDoc());
+  $form = $generator->getForm();
+  $handler = new ullFlowActionHandlerAssignToUser($generator);
   
   $t->isa_ok($handler, 'ullFlowActionHandlerAssignToUser', 'returns the correct object');
 
 $t->diag('configure()');  
 
-  $t->is(count($form->getWidgetSchema()->getFields()), 1, 'Sets the correct number of widgets');
+  $t->is(count($form->getWidgetSchema()->getFields()), 14, 'Sets the correct number of widgets');
   $t->isa_ok($form->getWidgetSchema()->offsetGet('ull_flow_action_assign_to_user_ull_entity'),
   	'sfWidgetFormSelectWithOptionAttributes', 'Sets the correct widget');
   $t->is($handler->getFormFields(), array('ull_flow_action_assign_to_user_ull_entity'), 'Sets the correct list of form fields');
@@ -51,8 +53,10 @@ $(document).ready(function()
   
 $t->diag('setting options');
 
-  $form = new ullFlowForm(new UllFlowDoc(), new ullColumnConfigCollection('ullFlowDoc'));
-  $handler = new ullFlowActionHandlerAssignToUser($form, array('group' => 'TestGroup'));
+  $generator = new ullFlowGenerator();
+  $generator->buildForm(new UllFlowDoc());
+  $form = $generator->getForm();
+  $handler = new ullFlowActionHandlerAssignToUser($generator, array('group' => 'TestGroup'));
   
   $reference = '<input type="submit" name="submit|action_slug=assign_to_user" value="Assign" /> to user 
 <div style="white-space: nowrap; display: inline;"><script type="text/javascript">

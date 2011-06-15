@@ -21,12 +21,6 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setIsInList(false);
     $this->columnsConfigMock['my_information_update'] = $columnConfig;
     
-    //$columnConfig = new ullColumnConfiguration('my_date');
-    //$columnConfig->setLabel('Date');
-    //$columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
-    //$columnConfig->setIsInList(false);
-    //$this->columnsConfigMock['my_date'] = $columnConfig;
-    
     $columnConfig = new ullColumnConfiguration('my_email');
     $columnConfig->setLabel('Your email address');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
@@ -90,7 +84,6 @@ class myTestCase extends sfDoctrineTestCase
     $this->is($columnConfig->getMetaWidgetClassName(), $columnConfigMock->getMetaWidgetClassName(), 'meta widget class name ok');
     $this->is($columnConfig->getAccess(), $columnConfigMock->getAccess(), 'access ok');
     //compare access instead
-    //$this->is($columnConfig->getIsInList(), $columnConfigMock->getIsInList(), 'isInList ok');
     $this->is_deeply($columnConfig->getRelation(), $columnConfigMock->getRelation(), 'relation ok');
     $this->is($columnConfig->getUnique(), $columnConfigMock->getUnique(), 'isInList ok');
     $this->is($columnConfig->getTranslated(), $columnConfigMock->getTranslated(), 'translation ok');
@@ -107,17 +100,17 @@ $t->setMode('yml_fixtures');
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$app = Doctrine::getTable('UllFlowApp')->find(1);
-$docs = Doctrine::getTable('UllFlowDoc')->findByUllFlowAppId(1);
-
 $t->initialize();
 
 $t->begin('__construct()');
 
+  $app = Doctrine::getTable('UllFlowApp')->find(1);
+  $docs = Doctrine::getTable('UllFlowDoc')->findByUllFlowAppId(1);
+
   $generator = new ullFlowGenerator;
   $t->isa_ok($generator, 'ullFlowGenerator', '__construct() returns the correct object without params');
   
-  $generator = new ullFlowGenerator($app, 'w');
+  $generator = new ullFlowGenerator($app, null, 'w');
   $t->isa_ok($generator, 'ullFlowGenerator', '__construct() returns the correct object');
 
 $t->diag('getTableConfig()');
@@ -183,7 +176,7 @@ $t->diag('getListOfUllFlowActionHandlers()');
 $t->diag('setUllFlowActionHandler()');
 
   $doc = Doctrine::getTable('UllFlowDoc')->find(2);
-  $generator = new ullFlowGenerator($app, 'w');
+  $generator = new ullFlowGenerator($app, null, 'w');
   $generator->buildForm($doc);
   
   $generator->buildListOfUllFlowActionHandlers();
