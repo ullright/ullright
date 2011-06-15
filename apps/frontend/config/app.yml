@@ -154,3 +154,6 @@ all:
     #server_name:    my-server.example.com
     #user_name:      my_username
     #target_dir:     /var/www/ullright_my_company 
+
+  admin:
+    module_links_order: [ 'ullNewsletter', 'ullMail', 'ullVentory', 'ullWiki', 'ullCms', 'ullNews', 'ullFlow', 'ullTime' ]
