@@ -1,5 +1,10 @@
 <h1>
-  <?php echo $generator->getForm()->offsetGet('display_name')->render() ?>
+  <?php if ($is_user): ?>
+    <?php echo $generator->getForm()->offsetGet('first_name')->render() ?>
+    <?php echo $generator->getForm()->offsetGet('last_name')->render() ?>
+  <?php else: ?>
+    <?php echo $generator->getForm()->offsetGet('display_name')->render() ?>
+  <?php endif ?>
 </h1>
 
 <div id="ull_user_popup_sidebar">
