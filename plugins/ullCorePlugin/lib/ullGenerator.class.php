@@ -113,6 +113,21 @@ abstract class ullGenerator extends ullGeneratorBase
   }  
   
   /**
+   * Manual override method to set a form
+   * 
+   * e.g. used in ullFlowForm::setNext() to fake a generator
+   * @param sfForm $form
+   */
+  public function setForm(sfForm $form)
+  {
+    $this->forms[] = $form;
+    
+    $this->isBuilt = true;
+    
+    return $this;
+  }
+  
+  /**
    * get the embedded sfForm
    *
    * @return ullGeneratorForm
