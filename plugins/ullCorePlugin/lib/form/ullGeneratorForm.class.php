@@ -213,23 +213,15 @@ class ullGeneratorForm extends sfFormDoctrine
    */
   public function updateObject($values = null)
   {
-    
     $this->values = sfContext::getInstance()->getEventDispatcher()->filter(
         new sfEvent($this, 'form.update_object'), $this->values
     )->getReturnValue();    
     
-    $this->removeUnusedFields(); 
+    $this->removeUnusedFields();
+
+    $this->callWidgetUpdateObject();
     
-  	$widgets = $this->getWidgetSchema()->getFields();
-    foreach ($widgets as $fieldName => $widget)
-    {
-      if ($widget instanceof ullWidget)
-      {
-        $this->values = $widget->updateObject($this->getObject(), $this->getValues(), $fieldName);
-      }
-    }
-    
-    $object =  parent::updateObject();
+    $object = parent::updateObject();
 
     // Save modified for post save event
     $this->modified = $object->getModified();
@@ -469,6 +461,23 @@ class ullGeneratorForm extends sfFormDoctrine
     }
     
     return $return;
+  }
+  
+  
+  /**
+   * ullWidgets can supply a widget-specific updateObject method
+   */
+  protected function callWidgetUpdateObject()
+  {
+    $widgets = $this->getWidgetSchema()->getFields();
+    
+    foreach ($widgets as $fieldName => $widget)
+    {
+      if ($widget instanceof ullWidget)
+      {
+        $this->values = $widget->updateObject($this->getObject(), $this->getValues(), $fieldName);
+      }
+    }    
   }
 
 }
