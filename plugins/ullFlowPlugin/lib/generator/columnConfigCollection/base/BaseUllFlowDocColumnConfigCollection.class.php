@@ -105,6 +105,10 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
         ->setMetaWidgetClassName('ullMetaWidgetUllEntity')
       ;
       
+      $this['assigned_to_ull_flow_step_id']
+        ->setLabel(__('Step', null, 'ullFlowMessages'))
+      ;      
+      
       $this['created_at']->setMetaWidgetClassName('ullMetaWidgetDate');
       
       $this->enable(array('creator_user_id', 'created_at'));
@@ -238,5 +242,21 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       
       $this->order($listColumns);
     }  
+  }
+  
+  /**
+   * Check if we are in a given step
+   * 
+   * @param string $slug
+   * @return boolean
+   */
+  public function isStep($slug)
+  {
+    if ($this->doc && $this->doc->UllFlowStep->slug == $slug)
+    {
+      return true;
+    }
+    
+    return false;
   }
 }
