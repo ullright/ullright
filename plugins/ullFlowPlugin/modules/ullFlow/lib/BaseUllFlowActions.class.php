@@ -461,7 +461,7 @@ class BaseUllFlowActions extends ullsfActions
     {
       $q->addWhere('x.ull_flow_app_id = ?', $this->app->id);
     }
-    $q->addWhere('x.UllFlowAction.slug = ?', 'assign_to_user');
+    //$q->addWhere('x.UllFlowAction.slug = ?', 'assign_to_user');
     $q->addOrderBy('x.UllEntity.last_name_first ASC');
     $q->addOrderBy('x.priority ASC');
     $q->addOrderBy('x.created_at DESC');
