@@ -749,18 +749,25 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     }
   }
   
+  
   /**
    * Disables all columns except those given
+   * 
+   * Only for columns which are auto-rendered
+   * 
    * @param $array of columnNames
    * @return none
    */
   public function disableAllExcept(array $array)
   {
-    foreach ($this->collection as $key => $value)
+    foreach ($this->collection as $key => $columnConfig)
     {
       if (array_search($key, $array) === false)
       {
-        $value->setAccess(null);
+        if ($columnConfig->getAutoRender() == true)
+        {
+          $columnConfig->setAccess(null);
+        }
       }
     }
   }
