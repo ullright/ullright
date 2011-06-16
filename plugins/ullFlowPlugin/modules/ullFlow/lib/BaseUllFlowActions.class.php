@@ -180,8 +180,6 @@ class BaseUllFlowActions extends ullsfActions
           
         $this->handleFullPageWidgets($request);
         
-//        die('actions');
-
         // referer handling
         if ($request->getParameter('action_slug') == 'save_only')
         {

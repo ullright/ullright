@@ -67,7 +67,8 @@ class ullMetaWidgetUllFlowAppLink extends ullMetaWidget
           $columnConfig = self::$columnConfigs[$columnName];
           $doc = new UllFlowDoc();
           $doc->ull_flow_app_id = Doctrine::getTable('UllFlowApp')->findOneBySlug(
-            $columnConfig->getWidgetOption('app'))->id;
+            $columnConfig->getWidgetOption('app')
+          )->id;
             
           //copy the subject
           $parentDocAppId = $event->getSubject()->getObject()->ull_flow_app_id;
