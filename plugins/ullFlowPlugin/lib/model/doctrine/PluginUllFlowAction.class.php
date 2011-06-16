@@ -13,7 +13,7 @@ abstract class PluginUllFlowAction extends BaseUllFlowAction
    */
   public function __toString()
   {
-    return (string)$this->label;
+    return (string) $this->label;
   }
   
   /**
@@ -32,5 +32,21 @@ abstract class PluginUllFlowAction extends BaseUllFlowAction
       '_' . $width . 'x' . $height . '.png'
     ;
   }  
+  
+
+  /**
+   * Create a custom slug name using underscores
+   * 
+   * @param string $string
+   * 
+   * @return string
+   */
+  public static function sluggify($string)
+  {
+    $string = Doctrine_Inflector::urlize($string);
+    $string = str_replace('-', '_', $string);
+    
+    return $string;
+  }
   
 }
