@@ -159,9 +159,11 @@ class PluginUllUserTable extends UllEntityTable
    */
   public static function findChoices($filterUsersByGroup = null)
   {
+    $nameField = sfConfig::get('app_ull_user_select_field', 'last_name_first');
+    
     $q = new Doctrine_Query;
     $q
-      ->select('u.id, u.last_name_first as name, us.is_active, us.is_absent')
+      ->select('u.id, u.' . $nameField . ' as name, us.is_active, us.is_absent')
       ->from('UllUser u INDEXBY u.id, u.UllUserStatus us')
       ->orderBy('name, us.id')
     ;
@@ -176,11 +178,11 @@ class PluginUllUserTable extends UllEntityTable
     foreach($result as $key => $value)
     {
       unset($result[$key]['id']);
-      if(!$result[$key]['UllUserStatus']['is_active'])
+      if (!$result[$key]['UllUserStatus']['is_active'])
       {
         $result[$key]['attributes']['class'] = 'color_inactiv_bg_ull_entity_widget';
       } 
-      if($result[$key]['UllUserStatus']['is_absent'])
+      if ($result[$key]['UllUserStatus']['is_absent'])
       {
         $result[$key]['attributes']['class'] = 'color_absent_bg_ull_entity_widget';
       } 
