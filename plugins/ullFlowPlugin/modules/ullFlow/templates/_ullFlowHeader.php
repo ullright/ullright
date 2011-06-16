@@ -31,15 +31,14 @@
 		    <?php echo $user_widget->render(null, $doc->updator_user_id) ?>
 		    <?php echo __('on', null, 'common') ?> 
 		    <?php echo ull_format_datetime($doc->updated_at, true, false) ?>
-		    <?php echo __('in step', null, 'ullFlowMessages') ?>
-        "<?php echo $doc->UllFlowStep->label ?>"
 		  </li>
 		  <?php if ($doc->UllFlowAction->is_in_resultlist): //excludes action "closed" ?>
-		    <li>
-		      <?php echo __('Next one') ?>:
-		      <?php echo $user_widget->render(null, $doc->assigned_to_ull_entity_id) ?>
-		      
-	      </li>
+        <li>
+        <?php echo __('Assigned to ') ?>
+        <?php echo $user_widget->render(null, $doc->assigned_to_ull_entity_id) ?>
+        <?php echo __('in step') ?>
+        "<?php echo $doc->UllFlowStep->label ?>" 
+    </li>
 	    <?php endif ?>
 		</ul>
 	</div>
