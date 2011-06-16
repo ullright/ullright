@@ -102,7 +102,9 @@ class ullFlowGenerator extends ullGenerator
     
     //Always allow the master admin to perform "assign to" action
     if (UllUserTable::hasGroup('MasterAdmins') &&
-      !in_array('assign_to_user', array_keys($this->ullFlowActionHandlers)))
+      !in_array('assign_to_user', array_keys($this->ullFlowActionHandlers)) &&
+      sfConfig::get('app_ull_flow_enable_master_admin_assign_to_user', true)
+      )
     {
       $this->ullFlowActionHandlers['assign_to_user'] = new ullFlowActionHandlerAssignToUser($this);
       return;
