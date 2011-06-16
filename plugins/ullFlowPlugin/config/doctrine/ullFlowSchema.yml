@@ -242,6 +242,7 @@ UllFlowAction:
     Sluggable:
       unique: true
       fields: [label]
+      builder: [UllFlowAction, sluggify]
   columns:
     label:
       type: string(32)
