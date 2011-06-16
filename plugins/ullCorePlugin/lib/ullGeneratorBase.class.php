@@ -133,7 +133,7 @@ class ullGeneratorBase
    */
   public function isAction($action)
   {
-    if(!is_array($action))
+    if (!is_array($action))
     {
       $action = array($action);
     }

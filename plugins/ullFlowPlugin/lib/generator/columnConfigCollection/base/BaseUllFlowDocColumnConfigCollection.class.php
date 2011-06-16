@@ -63,7 +63,39 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
     
     $this['ull_project_id']
       ->setLabel(__('Project', null, 'ullTimeMessages'))
-    ;    
+    ;
+
+    $this['subject']
+      ->setLabel(__('Subject', null, 'common'))
+      ->setMetaWidgetClassName('ullMetaWidgetLink')
+    ;
+
+    $this['priority']
+      ->setLabel(__('Priority', null, 'common'))
+      ->setMetaWidgetClassName('ullMetaWidgetPriority')
+    ;
+    
+    $this['due_date']
+      ->setLabel(__('Due date', null, 'common'))
+      ->setMetaWidgetClassName('ullMetaWidgetDateTime')
+      ->setWidgetOption('act_as_due_date', true)
+    ;
+
+    $this['ull_flow_action_id']
+      ->setLabel(__('Status', null, 'common'))
+      ->setMetaWidgetClassName('ullMetaWidgetUllFlowAction')
+    ;
+
+    $this['assigned_to_ull_entity_id']
+      ->setLabel(__('Assigned to', null, 'ullFlowMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetUllEntity')
+    ;
+    
+    $this['assigned_to_ull_flow_step_id']
+      ->setLabel(__('Step', null, 'ullFlowMessages'))
+    ;      
+    
+    $this['created_at']->setMetaWidgetClassName('ullMetaWidgetDate');    
     
     if ($this->isListAction())
     {
@@ -79,37 +111,7 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
         $this->disable(array('ull_flow_app_id'));
       }
        
-      $this['subject']
-        ->setLabel(__('Subject', null, 'common'))
-        ->setMetaWidgetClassName('ullMetaWidgetLink')
-      ;
 
-      $this['priority']
-        ->setLabel(__('Priority', null, 'common'))
-        ->setMetaWidgetClassName('ullMetaWidgetPriority')
-      ;
-      
-      $this['due_date']
-        ->setLabel(__('Due date', null, 'common'))
-        ->setMetaWidgetClassName('ullMetaWidgetDateTime')
-        ->setWidgetOption('act_as_due_date', true)
-      ;
-
-      $this['ull_flow_action_id']
-        ->setLabel(__('Status', null, 'common'))
-        ->setMetaWidgetClassName('ullMetaWidgetUllFlowAction')
-      ;
-
-      $this['assigned_to_ull_entity_id']
-        ->setLabel(__('Assigned to', null, 'ullFlowMessages'))
-        ->setMetaWidgetClassName('ullMetaWidgetUllEntity')
-      ;
-      
-      $this['assigned_to_ull_flow_step_id']
-        ->setLabel(__('Step', null, 'ullFlowMessages'))
-      ;      
-      
-      $this['created_at']->setMetaWidgetClassName('ullMetaWidgetDate');
       
       $this->enable(array('creator_user_id', 'created_at'));
     }
@@ -143,6 +145,8 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
     $this->addVirtualColumns();
     
     $this->handleListColumns();
+    
+    $this->handleAssignmentOverview();
   }
   
   
@@ -242,6 +246,36 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
       
       $this->order($listColumns);
     }  
+  }
+  
+  /**
+   * handleAssignmentOverview
+   */
+  protected function handleAssignmentOverview()
+  {
+    if ($this->isAction('assignmentOverview'))
+    {
+      $this['assigned_to_ull_entity_id']
+        ->enable()
+        ->setAutoRender(false)
+      ;
+      
+      $columns = array(
+        'ull_flow_app_id',
+        'subject',
+        'priority',
+        'due_date',
+        'creator_user_id',
+        'created_at',
+        'assigned_to_ull_entity_id',
+      );
+      
+      $this->enable($columns);
+      
+      $this->disableAllExcept($columns);
+      
+      $this->order($columns);
+    }
   }
   
   /**

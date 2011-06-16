@@ -451,7 +451,7 @@ class BaseUllFlowActions extends ullsfActions
     
     $this->loadNamedQueries();
 
-    $this->generator = new ullFlowAssignmentGenerator($this->app, null, 'r', 'list');
+    $this->generator = new ullFlowGenerator($this->app, null, 'r');
 
     $q = new Doctrine_Query;
     $q->select('x.*, v.*, cc.slug, a.*');
