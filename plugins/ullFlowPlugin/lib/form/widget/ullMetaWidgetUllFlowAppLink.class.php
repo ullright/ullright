@@ -77,7 +77,16 @@ class ullMetaWidgetUllFlowAppLink extends ullMetaWidget
           $docSubjectSlug = UllFlowColumnConfigTable::findSubjectColumnSlug($doc->ull_flow_app_id);
           
           $doc->$docSubjectSlug = $values[$parentDocSubjectSlug];
-          $doc->save();
+          
+          if ('create_save' == $value)
+          {
+            $doc->save();
+          }
+          elseif ('create_send' == $value)
+          {
+            $action = Doctrine::getTable('UllFlowAction')->findOneBySlug('send');
+            $doc->performActionAndSave($action);
+          }
           
           $values[$columnName] = $doc->id;
         }

@@ -57,7 +57,7 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
       $doc = Doctrine::getTable('UllFlowDoc')->findOneById($value);
       
       $return .= __('Status', null, 'ullFlowMessages') . ': ' . $doc['UllFlowAction']['label'];
-      $return .= ' ' . __('by', null, 'ullFlowMessages') . ' ' . $doc['UllEntity']['short_name'];
+      $return .= ' ' . __('by', null, 'ullFlowMessages') . ' ' . $doc['UllEntity'];
       $return .= ' ' . __('on', null, 'ullFlowMessages') . ' ' . ull_format_date($doc['updated_at']);
       
       $return .= ' &nbsp; ' . link_to(
