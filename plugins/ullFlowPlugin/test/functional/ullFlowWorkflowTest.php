@@ -53,7 +53,7 @@ $b
   ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Sent[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk/') 
+  ->checkResponseElement($dgsEditHead->get('next'), '/Assigned to[\s]+Helpdesk/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 2) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Sent[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Created[\s]+by[\s]+Test User/')
@@ -93,7 +93,7 @@ $b
   ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk Admin User/') 
+  ->checkResponseElement($dgsEditHead->get('next'), '/Assigned to[\s]+Helpdesk Admin User/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 3) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')  
   ->checkResponseElement($dgsEditMem->get(2), '/Sent[\s]+by[\s]+Test User/')
@@ -124,7 +124,7 @@ $b
   ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Returned[\s]+by[\s]+Helpdesk Admin User/')
-  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk/') 
+  ->checkResponseElement($dgsEditHead->get('next'), '/Assigned to[\s]+Helpdesk/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 4) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Returned[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
@@ -156,7 +156,7 @@ $b
   ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
-  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk Admin User[\s]/') 
+  ->checkResponseElement($dgsEditHead->get('next'), '/Assigned to[\s]+Helpdesk Admin User[\s]/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 5) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Assigned to user[\s]+Helpdesk Admin User[\s]+by[\s]+Helpdesk User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Returned[\s]+by[\s]+Helpdesk Admin User/')
@@ -200,7 +200,7 @@ $b
   ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Rejected[\s]+by[\s]+Helpdesk Admin User/')
-  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk/') 
+  ->checkResponseElement($dgsEditHead->get('next'), '/Assigned to[\s]+Helpdesk/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 6) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Rejected[\s]+by[\s]+Helpdesk Admin User/')
   ->checkResponseElement($dgsEditMem->get(1) . ' > ul.ull_memory_comment > li', '/Sooo sorry, but I worry!/')
@@ -302,7 +302,7 @@ $b
   ->checkResponseElement('#ull_flow_edit_header h1', 'Trouble ticket "Urgently use ullright"')
   ->checkResponseElement($dgsEditHead->get('created'), '/Created by[\s]+Test User/')
   ->checkResponseElement($dgsEditHead->get('status'), '/Last action:[\s]+Reopened[\s]+by[\s]+Test User/')
-  ->checkResponseElement($dgsEditHead->get('next'), '/Next one:[\s]+Helpdesk/') 
+  ->checkResponseElement($dgsEditHead->get('next'), '/Assigned to[\s]+Helpdesk/') 
   ->checkResponseElement($dgsEditMem->getFullRowSelector(), 9) // number of memory entries
   ->checkResponseElement($dgsEditMem->get(1), '/Reopened[\s]+by[\s]+Test User/')
   ->checkResponseElement($dgsEditMem->get(2), '/Edited[\s]+by[\s]+Test User/')

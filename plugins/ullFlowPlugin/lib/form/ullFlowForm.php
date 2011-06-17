@@ -49,67 +49,33 @@ class ullFlowForm extends ullGeneratorForm
   {
     parent::updateObject();
     
-    $this->setSubject();    
-    $this->setAction();
-    $this->setNext();
-    $this->setMemory();
+    $this->performAction();
     
     return $this->object;
   }
   
   
   /**
-   * Make sure that the native UllFlowDoc subject column is a string
-   * 
-   * We achive this by rendering the read-mode widget of virtual subject column 
-   */
-  protected function setSubject()
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers('Escaping');
-    
-    $slug = UllFlowColumnConfigTable::findSubjectColumnSlug($this->object->UllFlowApp->id);
-    $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($this->object->UllFlowApp->id, $slug);
-    $columnType = $cc->UllColumnType->class;
-    
-    $ccMock = new ullColumnConfiguration();
-    $ccMock->setAccess('r');
-    
-    $formMock = new sfForm();
-    
-    $metaWidgetMock = new $columnType($ccMock, $formMock);
-    $metaWidgetMock->addToFormAs('subject');
-    
-    $formMock->setDefault('subject', $this->object['subject']);
-
-    // TODO: check why this is htmlentity escaped!
-    $subjectAsString = ullCoreTools::esc_decode(strip_tags($formMock['subject']->render()));
-    
-    $this->object['subject'] = $subjectAsString;
-  }
-  
-  /**
-   * parses the given ullFlow action from the submit_xxx request params
-   * and injects the action id into the request params
+   * Checks for a valid UllFlowAction and triggers the workflow rule handling
    *
    * @throws InvalidArgumentException if no valid UllFlowAction->slug is given
    */
-  protected function setAction()
+  protected function performAction()
   { 
     $actionSlug = sfContext::getInstance()->getRequest()->getParameter('action_slug', 'save_close');
 
     if ($this->ullFlowAction = Doctrine::getTable('UllFlowAction')->findOneBySlug($actionSlug))
     {
-      // TODO: maybe this could be refactored into UllFlowDoc...
+      $ullFlowActionHandlerValues = array();
+      foreach ($this->values as $key => $value)
+      {
+        if (strstr($key, 'ull_flow_action_'))
+        {
+          $ullFlowActionHandlerValues[$key] = $value;          
+        }
+      }
       
-      // Don't update doc with status only actions (e.g. editing a closed doc should stay closed)
-      if ($this->ullFlowAction->is_status_only)
-      {
-        $this->object->setMemoryAction($this->ullFlowAction);
-      }
-      else
-      {
-        $this->object->UllFlowAction = $this->ullFlowAction;
-      }
+      $this->object->performAction($this->ullFlowAction, $ullFlowActionHandlerValues);
     }
     else
     {
@@ -117,65 +83,4 @@ class ullFlowForm extends ullGeneratorForm
     }
   } 
     
-  
-  /**
-   * parses the app's rules and sets the next entity and step accordingly
-   * 
-   * (only if we don't have a status_only action)
-   * 
-   */
-  protected function setNext()
-  {
-    if (!$this->ullFlowAction->is_status_only)
-    {
-      // Step One: get information about "next" from rule script
-      // This is optional. The rule script can, but is not obligated to
-      // set the next entity or step.
-      $className = 'ullFlowRule' . sfInflector::camelize($this->object->UllFlowApp->slug);
-      $rule = new $className($this->object);
-      $next = $rule->getNext();
-      
-      // Step two: if the rule script did not supply an entity or a step
-      // we use the default behaviour of the ullFlow action (e.g. "reopen")
-      if (!isset($next['entity']) || !isset($next['step']))
-      {
-        $className = 'ullFlowActionHandler' . sfInflector::camelize(sfContext::getInstance()->getRequest()->getParameter('action_slug'));
-        // fake generator
-        $generator = new ullFlowGenerator;
-        $generator->setForm($this);
-        $handler = new $className($generator);
-        $next = array_merge($handler->getNext(), $next);
-      }
-      
-      // Now update the object only for next parts which have been modified,
-      // otherwise leave them as they were
-      if (isset($next['entity'])) 
-      {
-        $this->object->UllEntity = $next['entity'];
-      }
-      
-      if (isset($next['step']))
-      {
-        $this->object->UllFlowStep = $next['step'];
-      }
-      
-//      var_dump(ullCoreTools::debugArrayWithDoctrineRecords($next));
-    }
-  }
-
-  
-  /**
-   * adds the memory data to the object
-   *
-   */
-  protected function setMemory()
-  {
-    $values = $this->getValues();
-    
-    if (isset($values['memory_comment'])) 
-    {
-      $this->object->memory_comment = $values['memory_comment'];
-    }
-  }    
-  
 }

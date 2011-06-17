@@ -77,6 +77,63 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->handleModifiedDueDate($event);
   }
   
+  
+  /**
+   * Make sure that the native UllFlowDoc subject column is a string
+   * It could also be a e.g. a foreign key id
+   * 
+   * We achive this by rendering the read-mode widget of virtual subject column 
+   */
+  public function setSubject($value)
+  {
+    $slug = UllFlowColumnConfigTable::findSubjectColumnSlug($this->ull_flow_app_id);
+    
+    // For test fixture loading (no columConfig yet)
+    if (!$slug)
+    {
+      $this->_set('subject', $value);
+      
+      return;
+    }
+    
+    $cc = UllFlowColumnConfigTable::findByAppIdAndSlug($this->ull_flow_app_id, $slug);
+    $columnType = $cc->UllColumnType->class;
+    
+    $ccMock = new ullColumnConfiguration();
+    $ccMock->setAccess('r');
+    
+    $formMock = new sfForm();
+    
+    $metaWidgetMock = new $columnType($ccMock, $formMock);
+    $metaWidgetMock->addToFormAs('subject');
+    
+    $formMock->setDefault('subject', $value);
+
+    // TODO: check why this is htmlentity escaped!
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Escaping');
+    $subjectAsString = ullCoreTools::esc_decode(strip_tags($formMock['subject']->render()));
+    
+    $this->_set('subject', $subjectAsString);
+  }  
+
+  
+  /**
+   * Don't update doc with status only actions (e.g. editing a closed doc should stay closed)
+   * 
+   * @param UllFlowAction $value
+   */
+  public function setUllFlowActionWithStatusOnlyDetection(UllFlowAction $value)
+  {
+    if ($value->is_status_only)
+    {
+      $this->setMemoryAction($value);
+    }
+    else
+    {
+      $this->UllFlowAction = $value;
+    }    
+  }
+  
   /**
    * Checks for a modified due date and resets mail notification fields.
    * @param Doctrine_Event $event
@@ -501,5 +558,131 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $this->UllFlowMemories[$i]->assigned_to_ull_entity_id = $this->getUserId();
     $this->UllFlowMemories[$i]->ull_flow_step_id = $this->UllFlowApp->findStartStep()->id;
   }
+  
+  /**
+   * Performs a workflow action and saves 
+   * 
+   * @param UllFlowAction $ullFlowAction
+   * @param array $ullFlowActionHandlerValues
+   */
+  public function performActionAndSave(UllFlowAction $ullFlowAction, $ullFlowActionHandlerValues = array())
+  {
+    $this->performAction($ullFlowAction, $ullFlowActionHandlerValues);
+    
+    $this->save();
+  }
+  
+  
+  /**
+   * Performs a workflow action
+   * 
+   * Parses the rules, and sends emails
+   * 
+   * @param UllFlowAction $ullFlowAction
+   * @param array $ullFlowActionHandlerValues
+   */
+  public function performAction(UllFlowAction $ullFlowAction, $ullFlowActionHandlerValues = array())
+  {
+    $this->setUllFlowActionWithStatusOnlyDetection($ullFlowAction);
+    
+    if (!$ullFlowAction->is_status_only)
+    {
+      $ullFlowActionHandler = $this->buildUllFlowActionHandler($ullFlowAction, $ullFlowActionHandlerValues);
+      $this->setNext($ullFlowAction, $ullFlowActionHandler);
+      $this->sendMails($ullFlowAction, $ullFlowActionHandler);
+    }
+  }
+  
+  /**
+   * Build the UllFlowActionHandler for a given UllFlowAction
+   * @param UllFlowAction $ullFlowAction
+   * @param array $ullFlowActionHandlerValues
+   * 
+   * @return unknown
+   */
+  protected function buildUllFlowActionHandler(UllFlowAction $ullFlowAction, $ullFlowActionHandlerValues)
+  {
+    $className = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowAction->slug);
+    
+    // mock generator
+    $generator = new ullFlowGenerator($this->UllFlowApp, $this, 'w', 'edit');
+    $generator->buildForm($this);
+    $generator->buildListOfUllFlowActionHandlers();
+    
+    // mock / inject ullFlowActionHandlerValues
+    $form = $generator->getForm();
+    $values = array_merge($form->getDefaults(), $ullFlowActionHandlerValues);
+    unset($values['_tags']); // workaround
+    
+    $form->bind($values);
+    if (!$form->isValid())
+    {
+      throw new InvalidArgumentException('Mock form for UllFlowActioNhandlers has a validation error: ' . ullCoreTools::debugFormError($form, true));
+    }
+    
+    $handler = new $className($generator);    
+    
+    return $handler;
+  }
+  
+  /**
+   * Parses the app's rules and sets the next entity and step accordingly
+   * 
+   * @param UllFlowAction $ullFlowAction
+   * @param UllFlowActionHandler $ullFlowActionHandler
+   */
+  protected function setNext(UllFlowAction $ullFlowAction, UllFlowActionHandler $ullFlowActionHandler)
+  {
+    // Step One: get information about "next" from rule script
+    // This is optional. The rule script can, but is not obligated to
+    // set the next entity or step.
+    $className = 'ullFlowRule' . sfInflector::camelize($this->UllFlowApp->slug);
+    $rule = new $className($this);
+    $next = $rule->getNext();
+    
+    // Step two: if the rule script did not supply an entity or a step
+    // we use the default behaviour of the ullFlow action (e.g. "reopen")
+    if (!isset($next['entity']) || !isset($next['step']))
+    {
+      $next = array_merge($ullFlowActionHandler->getNext(), $next);
+    }
+    
+    // Now update the object only for next parts which have been modified,
+    // otherwise leave them as they were
+    if (isset($next['entity'])) 
+    {
+      $this->UllEntity = $next['entity'];
+    }
+    
+    if (isset($next['step']))
+    {
+      $this->UllFlowStep = $next['step'];
+    }
+  }
+  
+  
+  /**
+   * Send notify emails
+   * 
+   * @param UllFlowAction $ullFlowAction
+   * @param UllFlowActionHandler $ullFlowActionHandler
+   */
+  protected function sendMails(UllFlowAction $ullFlowAction, UllFlowActionHandler $ullFlowActionHandler)
+  {
+    if ($ullFlowAction->is_notify_next)
+    {
+      $mail = new ullFlowMailNotifyNext($this);
+      $mail->send();
+    }
+
+    if ($ullFlowAction->is_notify_creator)
+    {
+      $mail = new ullFlowMailNotifyCreator($this);
+      $mail->send();
+    }
+
+    $ullFlowActionHandler->sendMail();
+  }  
+  
   
 }

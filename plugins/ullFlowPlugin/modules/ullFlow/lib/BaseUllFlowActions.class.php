@@ -176,8 +176,6 @@ class BaseUllFlowActions extends ullsfActions
         
         $this->saveEffort();
         
-        $this->sendMails();
-          
         $this->handleFullPageWidgets($request);
         
         // referer handling
@@ -825,30 +823,6 @@ class BaseUllFlowActions extends ullsfActions
       $this->forward404Unless($this->app);
       $this->doc->UllFlowApp = $this->app;
       $this->doc->setDefaults();
-    }
-  }
-
-  /**
-   * send notify emails
-   *
-   */
-  protected function sendMails()
-  {
-    if (!$this->isStatusOnlyRequestAction())
-    {
-      if ($this->doc->UllFlowAction->is_notify_next)
-      {
-        $mail = new ullFlowMailNotifyNext($this->doc);
-        $mail->send();
-      }
-  
-      if ($this->doc->UllFlowAction->is_notify_creator)
-      {
-        $mail = new ullFlowMailNotifyCreator($this->doc);
-        $mail->send();
-      }
-  
-      $this->generator->getUllFlowActionHandler()->sendMail();
     }
   }
 

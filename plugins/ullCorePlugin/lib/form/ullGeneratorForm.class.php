@@ -126,8 +126,6 @@ class ullGeneratorForm extends sfFormDoctrine
     
     foreach($this->getWidgetSchema()->getPositions() as $fieldName)
     {
-      
-      
       if (
         ullGeneratorTools::hasRelations($fieldName) ||
         // we have to check for translated columns for the edit action 
@@ -136,8 +134,6 @@ class ullGeneratorForm extends sfFormDoctrine
           $this->columnsConfig[$fieldName]->getTranslated())
       )
       {
-
-        
         $relations = ullGeneratorTools::relationStringToArray($fieldName);
         // remove columnName
         array_pop($relations);
@@ -478,6 +474,27 @@ class ullGeneratorForm extends sfFormDoctrine
         $this->values = $widget->updateObject($this->getObject(), $this->getValues(), $fieldName);
       }
     }    
+  }
+  
+  
+  /**
+   * Remove defaults for deactivated columns
+   */
+  protected function updateDefaultsFromObject()
+  {
+    parent::updateDefaultsFromObject();
+    
+    $defaults = $this->getDefaults();
+    
+    foreach ($this->getColumnsConfig() as $field => $columnConfig)
+    {
+      if (!$columnConfig->isActive())
+      {
+        unset($defaults[$field]);
+      }
+    }
+    
+    $this->setDefaults($defaults); 
   }
 
 }
