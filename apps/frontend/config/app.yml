@@ -77,6 +77,8 @@ all:
   ull_user:
     display_name_length_limit:              22
     display_name_first_name_length_limit:   10
+    # Which UllUser field to use in select boxes 
+    select_field:                           last_name_first
     clone_user_columns:                     [ 'ull_company_id', 'ull_location_id', 'ull_department_id', 'ull_job_title_id', 'superior_ull_user_id', 'phone_extension', 'fax_extension', 'ull_user_status_id', 'comment' ]
     phone_book_show_columns:                [ 'last_name_first', 'phone_extension', 'mobile_number', 'email', 'UllLocation->name',  'UllDepartment->name', 'UllJobTitle->name' ]
     phone_book_search_columns:              [ 'first_name', 'last_name', 'UllLocation->name', 'UllLocation->short_name', 'UllLocation->phone_base_no', 'UllDepartment->name', 'UllJobTitle->name' ]
@@ -134,6 +136,9 @@ all:
     # on overdue notification mails, those are independent).
     # If this parameter is not set or < 0, 2 is assumed.
     due_date_reminder_period: 3
+
+    # Always display the "assign to user" action for master admins
+    enable_master_admin_assign_to_user: true
  
   ull_newsletter:
     from_address:       newsletter@example.com
