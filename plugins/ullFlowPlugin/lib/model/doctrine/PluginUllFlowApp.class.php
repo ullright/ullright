@@ -48,6 +48,26 @@ abstract class PluginUllFlowApp extends BaseUllFlowApp
   }
   
   /**
+   * Find a step for the current app by a given label.
+   * 
+   * The applications's default language is used. (Not the current users language)
+   * 
+   * @param string $label
+   * @return UllFlowApp
+   */
+  public function findStepByLabel($label)
+  {
+    $q = new Doctrine_Query;
+    
+    $q->from('UllFlowStep s, s.Translation t')
+      ->where('s.ull_flow_app_id = ?', $this->id)
+      ->addWhere('t.label = ?', $label)
+      ->addWhere('t.lang = ?', sfConfig::get('sf_default_culture'))
+    ;
+    return $q->fetchOne();    
+  }
+  
+  /**
    * returns the ull_flow_step_id for a given slug and for the current UllFlowApp
    *
    * @param string $slug  a UllFlowStep slug

@@ -10,7 +10,8 @@ abstract class PluginUllFlowStep extends BaseUllFlowStep
    */
   public function __toString()
   {
-    return (string) $this->label;
+    // Necessary e.g. for UllFlowStepAction admin
+    return (string) $this->UllFlowApp . ' - ' . $this->label;
   }
 
 }

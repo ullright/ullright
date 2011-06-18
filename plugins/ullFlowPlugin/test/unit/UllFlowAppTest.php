@@ -7,9 +7,9 @@ class myTestCase extends sfDoctrineTestCase
 }
 
 // create context since it is required by ->getUser() etc.
-sfContext::createInstance($configuration);
+$instance = sfContext::createInstance($configuration);
 
-$t = new myTestCase(7, new lime_output_color, $configuration);
+$t = new myTestCase(9, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -38,3 +38,12 @@ $t->diag('findOrderedColumns()');
   
   $t->is($columns[0]->slug, 'my_subject', 'returns the correct column');
   $t->is($columns[1]->slug, 'my_information_update', 'returns the correct column');
+  
+$t->diag('findStepByLabel()');
+
+  $t->is($app->findStepByLabel('Helpdesk dispatcher')->slug, 'trouble_ticket_dispatcher', 'Returns the correct step');
+  
+  $instance->getUser()->setCulture("de");
+  
+  $t->is($app->findStepByLabel('Helpdesk dispatcher')->slug, 'trouble_ticket_dispatcher', 'Ignores the users culture, and takes the default culture');
+  

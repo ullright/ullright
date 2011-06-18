@@ -72,6 +72,19 @@ abstract class ullFlowRule
     return $step;
   }
   
+  /**
+   * returns UllFlowStep->id for a given label
+   *
+   * @param string $label
+   * @return UllFlowStep
+   */
+  public function findStepByLabel($label)
+  {
+    $step = $this->doc->UllFlowApp->findStepByLabel($label);
+    
+    return $step;
+  }  
+  
   
   /**
    * returns true if the document is assigned to the given step
@@ -88,6 +101,22 @@ abstract class ullFlowRule
       return true;
     }
   }
+  
+  /**
+   * returns true if the document is assigned to the given step
+   *
+   * @param string $slug    UllFlowStep label
+   * @return boolean
+   */
+  public function isStepByLabel($label)
+  {
+    $ullFlowStepId = $this->doc->UllFlowApp->findStepByLabel($label)->id;
+    
+    if ($this->doc->assigned_to_ull_flow_step_id == $ullFlowStepId)
+    {
+      return true;
+    }
+  }  
 
   /**
    * returns true if performed ullFlowAction is the the given action
