@@ -12,6 +12,10 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $memoryAction = null
   ;
   
+  // TODO: give UllFlowApp in the constructor to force check if 
+  //  a virtual column exists?
+  // UPDATE KU 2011-06-18: This would also be nice to load defaults, in particular
+  // the start-step. But it seems difficult to overwrite the Doctrine_Record constructor  
   
   /**
    * String representation
@@ -23,10 +27,6 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     return $this->UllFlowApp->doc_label . ' "'. $this->subject . '"';
   }
   
-  
-  // TODO: give UllFlowApp in the constructor to force check if 
-  //  a virtual column exists?
-  
   /**
    * add Doctrine_Filter to handle virtual columns transparently
    *
@@ -37,7 +37,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     
     $this->unshiftFilter(new UllFlowDocRecordFilter());
   }
-
+  
   /**
    * pre save hook
    * 
@@ -61,9 +61,11 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   public function preInsert($event)
   {
-    $this->setDefaults();
+    $this->loadDefaults();
     $this->createFirstMemory();
     $this->createMemory();
+    
+//    var_dump($this->toArray());die();
   }
   
   /**
@@ -324,10 +326,10 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   }
   
   /**
-   * Set Defaults
+   * Load Defaults
    *
    */
-  public function setDefaults()
+  public function loadDefaults()
   {
     if (!$this->ull_flow_action_id)
     {
@@ -583,6 +585,13 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   public function performAction(UllFlowAction $ullFlowAction, $ullFlowActionHandlerValues = array())
   {
+    // Load defaults, as they are not loaded yet (preInsert), but necessary
+    // for the "next" handling
+    if (!$this->exists())
+    {
+      $this->loadDefaults();
+    }
+    
     $this->setUllFlowActionWithStatusOnlyDetection($ullFlowAction);
     
     if (!$ullFlowAction->is_status_only)
@@ -669,6 +678,12 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   protected function sendMails(UllFlowAction $ullFlowAction, UllFlowActionHandler $ullFlowActionHandler)
   {
+    // We need the id for the mails
+    if (!$this->exists())
+    {
+      $this->save();
+    }
+    
     if ($ullFlowAction->is_notify_next)
     {
       $mail = new ullFlowMailNotifyNext($this);

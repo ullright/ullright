@@ -8,7 +8,12 @@ class UllFlowStepColumnConfigCollection extends ullColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this['ull_flow_app_id']->setLabel(__('Application', null, 'ullFlowMessages'));
-    $this['is_start']->setLabel(__('Is start-step?', null, 'ullFlowMessages'));
+    $this['ull_flow_app_id']
+      ->setLabel(__('Application', null, 'ullFlowMessages'))
+    ;
+    
+    $this['is_start']
+      ->setLabel(__('Is start-step?', null, 'ullFlowMessages'))
+    ;
   }
 }
