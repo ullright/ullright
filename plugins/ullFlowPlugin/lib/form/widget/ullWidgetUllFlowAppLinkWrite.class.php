@@ -56,13 +56,22 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
       
       $doc = Doctrine::getTable('UllFlowDoc')->findOneById($value);
       
-      $return .= __('Status', null, 'ullFlowMessages') . ': ' . $doc['UllFlowAction']['label'];
-      $return .= ' ' . __('by', null, 'ullFlowMessages') . ' ' . $doc['UllEntity'];
-      $return .= ' ' . __('on', null, 'ullFlowMessages') . ' ' . ull_format_date($doc['updated_at']);
+//      $return .= __('Status', null, 'ullFlowMessages') . ': ' . $doc['UllFlowAction']['label'];
+//      $return .= ' ' . __('by', null, 'ullFlowMessages') . ' ' . $doc['Updator'];
+//      $return .= ' ' . __('on', null, 'ullFlowMessages') . ' ' . ull_format_date($doc['updated_at']);
+      
+      $return .= __('Status', null, 'ullFlowMessages') . ': '; 
+      $return .= __('In step', null, 'ullFlowMessages') .  ' "' . $doc['UllFlowStep']['label'] . '"';
+      $return .= ', ' . strtolower($doc['UllFlowAction']['label']);
+      if ($doc->UllFlowAction->is_show_assigned_to)
+      {
+        $return .= ' ' . $doc['UllEntity'];
+      }
+      $return .= ' ' . __('on', null, 'ullFlowMessages') . ' ' . ull_format_date($doc['updated_at']);      
       
       $return .= ' &nbsp; ' . link_to(
         __('Details', null, 'ullFlowMessages'),
-        'ullFlow/edit?doc= ' . $doc['id'],
+        'ullFlow/edit?doc=' . $doc['id'],
         array('target' => '_blank', 'class' => 'link_new_window')
       );
     }

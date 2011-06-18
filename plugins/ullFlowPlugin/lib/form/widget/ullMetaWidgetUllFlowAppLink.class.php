@@ -69,7 +69,7 @@ class ullMetaWidgetUllFlowAppLink extends ullMetaWidget
           $doc->ull_flow_app_id = Doctrine::getTable('UllFlowApp')->findOneBySlug(
             $columnConfig->getWidgetOption('app')
           )->id;
-            
+          
           //copy the subject
           $parentDocAppId = $event->getSubject()->getObject()->ull_flow_app_id;
           $parentDocSubjectSlug = UllFlowColumnConfigTable::findSubjectColumnSlug($parentDocAppId);
@@ -77,6 +77,8 @@ class ullMetaWidgetUllFlowAppLink extends ullMetaWidget
           $docSubjectSlug = UllFlowColumnConfigTable::findSubjectColumnSlug($doc->ull_flow_app_id);
           
           $doc->$docSubjectSlug = $values[$parentDocSubjectSlug];
+          
+//          var_dump($doc->toArray());die();
           
           if ('create_save' == $value)
           {
