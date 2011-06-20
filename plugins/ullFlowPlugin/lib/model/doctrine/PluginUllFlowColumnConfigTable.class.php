@@ -68,6 +68,28 @@ class PluginUllFlowColumnConfigTable extends UllRecordTable
     $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
     
     return $result[0];
+  }
+
+  /**
+   * Find the due date column slug for a given UllFlowApp->id
+   * 
+   * @param unknown_type $ullFlowAppId
+   * @return string
+   */
+  public static function findDueDateColumnSlug($ullFlowAppId)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->select('cc.slug')
+      ->from('UllFlowColumnConfig cc')
+      ->where('cc.ull_flow_app_id = ?',  $ullFlowAppId)
+      ->addWhere('cc.is_due_date = ?', true)
+    ;
+    
+    $result = $q->fetchOne(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0];
   }   
 
 }
