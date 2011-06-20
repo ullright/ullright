@@ -1005,7 +1005,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     
     foreach ($this as $key => $columnConfig)
     {
-      $return[$key] = $columnConfig;
+      $return[$key] = ullCoreTools::debugArrayWithDoctrineRecords($columnConfig);
     }
     
     return $return;

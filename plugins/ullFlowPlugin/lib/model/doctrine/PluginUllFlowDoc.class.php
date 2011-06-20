@@ -623,6 +623,13 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $values = array_merge($form->getDefaults(), $ullFlowActionHandlerValues);
     unset($values['_tags']); // workaround
     
+//    var_dump($form->debug());
+//    
+//    var_dump($values);die;
+    
+//    die;
+    
+    
     $form->bind($values);
     if (!$form->isValid())
     {
