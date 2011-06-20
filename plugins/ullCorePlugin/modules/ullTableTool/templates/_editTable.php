@@ -43,6 +43,9 @@
 </tbody>
 </table>
 
+<dfn><?php echo __('Fields marked with * are mandatory', null, 'ullCoreMessages')?></dfn>
+
+
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
 
 <?php echo javascript_tag('

@@ -122,7 +122,14 @@
       <trans-unit id="25">
       <source>Salutation</source>
       <target>Anrede</target>
-      </trans-unit>      
+      </trans-unit>    
+      
+      <!--  edit action -->
+
+      <trans-unit id="100">
+      <source>Fields marked with * are mandatory</source>
+      <target>Mit * markierte Felder sind Pflichtfelder</target>
+      </trans-unit>       
       
       
       <!-- table config -->

@@ -330,6 +330,8 @@ ul.list_action_buttons li {
   width: 100%; 
   *width: 99%; /* hack for IE 6-7 to prevent dropping below the sidebar */
   border-spacing: 0;
+  
+  margin-bottom: .5em;
 }
 
 .edit_table th {
