@@ -4,8 +4,6 @@
 $(document).ready(function()
 {
   $('form').preventDoubleSubmit();
-  
-  markErrorFormFields();
 });
 
 

@@ -47,4 +47,6 @@
 
 <?php echo javascript_tag('
   $("table.edit_table :input:visible:enabled:first").focus();
+  
+  markErrorFormFields();
 ')?>
