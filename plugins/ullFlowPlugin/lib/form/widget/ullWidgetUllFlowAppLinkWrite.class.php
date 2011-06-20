@@ -37,7 +37,7 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
 //      );
       
       $choices = array(
-      'create_save' => __('Create', null, 'common') . ' ' . $app->label,
+//      'create_save' => __('Create', null, 'common') . ' ' . $app->label,
       'create_send' => __('Create and send', null, 'common') . ' ' . $app->label,
         '' => __('Do nothing', null, 'ullFlowMessages')
       

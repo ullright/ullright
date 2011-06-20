@@ -40,6 +40,9 @@ class ullMetaWidgetUllFlowAppLink extends ullMetaWidget
   
   protected function configureWriteMode()
   {
+    $this->columnConfig->setOption('custom_logic_callable', $this->columnConfig->getWidgetOption('custom_logic_callable'));
+    $this->columnConfig->removeWidgetOption('custom_logic_callable');
+    
     $this->addWidget(new ullWidgetUllFlowAppLinkWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
   }  
@@ -71,12 +74,32 @@ class ullMetaWidgetUllFlowAppLink extends ullMetaWidget
           )->id;
           
           //copy the subject
-          $parentDocAppId = $event->getSubject()->getObject()->ull_flow_app_id;
+          $parentDoc = $event->getSubject()->getObject();
+          $parentDocAppId = $parentDoc->ull_flow_app_id;
           $parentDocSubjectSlug = UllFlowColumnConfigTable::findSubjectColumnSlug($parentDocAppId);
           
           $docSubjectSlug = UllFlowColumnConfigTable::findSubjectColumnSlug($doc->ull_flow_app_id);
           
           $doc->$docSubjectSlug = $values[$parentDocSubjectSlug];
+          
+          
+          //custom logic
+          // A ullMetaWidgetUllFlowAppLink can be configured by the widgetOption "custom_logic_callable"
+          // to handle custom logic. Example: "custom_logic_callable=UllFlowApp::mapApp1ToApp2"
+          // Signature: mapApp1ToApp2(UllFlowDoc $parentDoc, UllFlowDoc $targetDoc, $value)
+          
+          $callableString = $columnConfig->getOption('custom_logic_callable');
+          $callable = explode('::', $callableString);
+          
+          if (is_callable($callable))
+          {
+            call_user_func_array($callable, array(
+              'parentDoc' => $parentDoc,
+              'targetDoc' => $doc,
+              'value'     => $value 
+            ));
+          }
+
           
 //          var_dump($doc->toArray());die();
           
