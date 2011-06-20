@@ -38,5 +38,11 @@ class ullMetaWidgetPhoneNumber extends ullMetaWidgetString
         $this->columnConfig->getWidgetAttributes()
       ));
       $this->addValidator(new ullValidatorPhoneNumber($this->columnConfig->getValidatorOptions()));
+  
+      if (!$this->columnConfig->getHelp())
+      {
+        $this->columnConfig->setHelp(__("Format: +43 1 234567-100<br />(Country code, area code, base number, extension)", null, 'ullCoreMessages'));
+      }      
     }
+    
   }

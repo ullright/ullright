@@ -777,6 +777,12 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <source>Currently only with Firefox</source>
         <target>Zur Zeit nur mit Firefox</target>
       </trans-unit>      
+      
+      <!--  ullWidgetPhonenumber -->
+      <trans-unit id="3601">
+        <source>Format: +43 1 234567-100<br />(Country code, area code, base number, extension)</source>
+        <target>Format: +43 1 234567-100<br />(Landesvorwahl, Vorwahl, Basisnummer, Durchwahl)</target>
+      </trans-unit>      
 
       
       
