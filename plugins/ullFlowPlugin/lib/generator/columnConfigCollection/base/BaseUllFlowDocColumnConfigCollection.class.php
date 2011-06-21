@@ -177,6 +177,7 @@ class BaseUllFlowDocColumnConfigCollection extends ullColumnConfigCollection
         if ($this->app || (!$this->app && !$column['is_subject'] && !$column['is_due_date']))
         {
           $this->create($columnName)
+            ->setModelName($this->getModelName())
             ->setLabel($column->label)
             ->setMetaWidgetClassName($column->UllColumnType->class)
             ->setWidgetOptions(sfToolkit::stringToArray($column->options))
