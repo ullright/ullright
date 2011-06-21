@@ -48,6 +48,7 @@ class ullValidatedFile extends sfValidatedFile
         die;
       }
     }
+    
     return parent::save($file, $fileMode, $create, $dirMode);
   }
   

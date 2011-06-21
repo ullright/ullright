@@ -783,7 +783,12 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       <trans-unit id="3503">
         <source>Currently only with Firefox</source>
         <target>Zur Zeit nur mit Firefox</target>
-      </trans-unit>      
+      </trans-unit>
+      
+      <trans-unit id="3504">
+        <source>Add files</source>
+        <target>Dateien hinzufügen</target>
+      </trans-unit>  
       
       <!--  ullWidgetPhonenumber -->
       <trans-unit id="3601">

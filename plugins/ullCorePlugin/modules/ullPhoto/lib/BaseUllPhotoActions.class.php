@@ -408,12 +408,13 @@ class BaseUllPhotoActions extends ullsfActions
     $model = $request->getParameter('model');
     $column = $request->getParameter('column');
     
-    $columnsConfig = ullColumnConfigCollection::buildFor($model);
-    $columnConfig = $columnsConfig[$column];
+    $columnConfig = $this->buildColumnConfig($model, $column);
     
     // let columnConfig be modified by metaWidget (defaults etc)
     $metaWidgetClassName = $columnConfig->getMetaWidgetClassName();
     $metaWidget = new $metaWidgetClassName($columnConfig, new sfForm);
+    
+//    throw new Exception($columnConfig->getOption('mime_types'));
     
     $form = new ullWidgetGalleryForm();
     $form->getValidatorSchema()->offsetSet('file',  
@@ -433,7 +434,7 @@ class BaseUllPhotoActions extends ullsfActions
       $file = $form->getValue('file');
       $file->save();
       
-      $this->createThumbnail($file->getSavedName(), $columnConfig);
+      $this->createThumbnail($file, $columnConfig);
       
       // create relative path
       $path = str_replace(sfConfig::get('sf_web_dir'), '', $file->getSavedName());
@@ -442,8 +443,38 @@ class BaseUllPhotoActions extends ullsfActions
     }
     else
     {
-      throw new RuntimeException('Error, encountered invalid file');
+      throw new RuntimeException('Validation error: ' . ullCoreTools::debugFormError($form, true));
     }
+  }
+  
+  /**
+   * Build column config for upload
+   * 
+   * @param $model
+   * @param $column
+   */
+  protected function buildColumnConfig($model, $column)
+  {
+    // Try to get a custom columns config via event dispatching
+    // Used e.g. for ullFlow
+    $eventResult = sfContext::getInstance()->getEventDispatcher()->filter(
+        new sfEvent($this, 'ull_photo.get_columns_config'), 
+        array(
+          'model'   => $model,
+          'column'  => $column,
+        )
+    )->getReturnValue();
+    
+    if (isset($eventResult['columnsConfig']) && $eventResult['columnsConfig'] instanceof ullColumnConfigCollection)
+    {
+      $columnsConfig = $eventResult['columnsConfig'];
+    }
+    else
+    {
+      $columnsConfig = ullColumnConfigCollection::buildFor($model);
+    }
+    
+    return $columnsConfig[$column];    
   }
   
   
@@ -455,19 +486,45 @@ class BaseUllPhotoActions extends ullsfActions
    */
   protected function createThumbnail($file, ullColumnConfiguration $columnConfig)
   {
-    // duplicate file because it is overwritten by validatedFile
-    $destination = ullCoreTools::calculateThumnailPath($file);
-    copy($file, $destination);
-    
     if ($columnConfig->getOption('create_thumbnails'))
     {
-      $validatedFile = new ullValidatedFile(
-        null, null, $destination, null, $columnConfig->getOption('path')
-      );
-      $validatedFile->setImageWidth($columnConfig->getOption('thumbnail_width')); 
-      $validatedFile->setImageHeight($columnConfig->getOption('thumbnail_height'));
+      $fileName = $file->getSavedName();
+      $mimeType = $file->getType();
       
-      $validatedFile->save($destination);
+      $width = $columnConfig->getOption('thumbnail_width');
+      $height = $columnConfig->getOption('thumbnail_height');
+      
+      // duplicate file because it is overwritten by validatedFile
+      $destination = ullCoreTools::calculateThumbnailPath($fileName);
+      copy($file, $destination);      
+      
+      /* Images */
+      if (in_array($mimeType, ullValidatorFile::getWebImageMimeTypes()))
+      {
+        $validatedFile = new ullValidatedFile(
+          null, null, $destination, null, $columnConfig->getOption('path')
+        );
+        $validatedFile->setImageWidth($width); 
+        $validatedFile->setImageHeight($height);
+        
+        $validatedFile->save($destination);
+      }
+      
+      /* office */
+      elseif (in_array($mimeType, ullValidatorFile::getOfficeMimeTypes()))
+      {
+        $cmd = 'gsf-office-thumbnailer -i ' . $fileName . ' -o ' . $destination . ' -s ' . $width;
+        
+        shell_exec($cmd); 
+      }      
+      
+      /* pfd */
+      elseif ('application/pdf' ==  $mimeType)
+      {
+        $cmd = 'convert -resize ' . $width . 'x' . $height . ' ' . $fileName . ' ' . $destination;
+        
+        shell_exec($cmd); 
+      }
     }
   }
   
@@ -495,7 +552,7 @@ class BaseUllPhotoActions extends ullsfActions
     
     unlink($path);
     
-    unlink(ullCoreTools::calculateThumnailPath($path));
+    unlink(ullCoreTools::calculateThumbnailPath($path));
     
     return $this->renderText('');
   }

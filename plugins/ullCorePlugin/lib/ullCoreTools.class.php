@@ -855,9 +855,20 @@ class ullCoreTools
    * 
    * @return string
    */
-  public static function calculateThumnailPath($file)
+  public static function calculateThumbnailPath($file)
   {
     $parts = pathinfo($file);
+
+    $imageTypes = array(
+      'jpg',
+      'png',
+      'gif',
+    );
+    
+    if (!in_array($parts['extension'], $imageTypes))
+    {
+      $parts['extension'] = 'png';
+    }
     
     $thumbnailPath =  $parts['dirname'] . DIRECTORY_SEPARATOR .
       $parts['filename'] . '_thumbnail' . '.' .
@@ -865,6 +876,32 @@ class ullCoreTools
     ;
     
     return $thumbnailPath;
+  }
+  
+  /**
+   * Converts an absolute path to a web path
+   * E.g. /var/www/my_ullright/web/uploads/xyz.png => /uploads/xyz.png
+   * 
+   * @param string $path
+   */
+  public static function absoluteToWebPath($path)
+  {
+    $path = str_replace(sfConfig::get('sf_web_dir'), '', $path);
+    
+    return $path;
+  }
+  
+  /**
+   * Converts a web path to an absolute path
+   * E.g. /uploads/xyz.png => /var/www/my_ullright/web/uploads/xyz.png
+   * 
+   * @param string $path
+   */  
+  public static function webToAbsolutePath($path)
+  {
+    $path = sfConfig::get('sf_web_dir') . $path;
+    
+    return $path;
   }
 
   /**

@@ -23,7 +23,7 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden
     $return .= parent::render($name, $value, $attributes, $errors);
     
     $return .= '  <div class="ull_widget_gallery_control">';
-    $return .= '    <input type="button" value="' . __('Add images', null, 'ullCoreMessages') . '" id="ull_widget_gallery_add_files_' . $id . '" />';
+    $return .= '    <input type="button" value="' . __('Add files', null, 'ullCoreMessages') . '" id="ull_widget_gallery_add_files_' . $id . '" />';
     $return .= '    <span class="ull_widget_gallery_control_drop">';
     $return .= '      ' . __('or drag and drop files here', null, 'ullCoreMessages');
     $return .= '      (' .  __('Currently only with Firefox', null, 'ullCoreMessages') . ')';
@@ -94,7 +94,7 @@ function imageDelete() {
         url: $(element).attr("href"),
         success: function(){
           // delete image from form field
-          var path = $(element).parents("li").find("img").attr("src");
+          var path = $(element).parents("li").find("img").attr("rel");
           var value = $("#' . $id . '").val();
           value = value.split(path).join("");
           $("#' . $id . '").val(value);
@@ -182,10 +182,18 @@ $(document).ready(function()
     {
       if (trim($image))
       {
+        // Check for thumbnails
+        $thumbnail = ullCoreTools::calculateThumbnailPath($image);
+        $thumbnailAbsolutePath = ullCoreTools::webToAbsolutePath($thumbnail);
+        if (!file_exists(ullCoreTools::webToAbsolutePath($thumbnail)))
+        {
+          $thumbnail = $image;
+        }
+        
         $return .= '<li>';
         $return .= '<div class="ull_widget_gallery_preview_image_container">';
         $return .= '  <div class="ull_widget_gallery_preview_image">';
-        $return .= '    <img src="' . $image .'" alt="preview image" />';
+        $return .= '    <img src="' . $thumbnail .'" alt="preview image" rel="' . $image . '" />';
         $return .= '  </div>';
         $return .= '</div>';
         $return .= '  <div class="ull_widget_gallery_actions">';
