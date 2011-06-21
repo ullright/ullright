@@ -193,7 +193,7 @@ $(document).ready(function()
         $return .= '<li>';
         $return .= '<div class="ull_widget_gallery_preview_image_container">';
         $return .= '  <div class="ull_widget_gallery_preview_image">';
-        $return .= '    <img src="' . $thumbnail .'" alt="preview image" rel="' . $image . '" />';
+        $return .= '    <a href="'. $image . '" target="_blank"><img src="' . $thumbnail .'" alt="preview image" rel="' . $image . '" /></a>';
         $return .= '  </div>';
         $return .= '</div>';
         $return .= '  <div class="ull_widget_gallery_actions">';
