@@ -170,11 +170,12 @@ class PluginUllFlowDocTable extends UllRecordTable
 	 */
 	public static function findByAppSlug($slug)
 	{
-	   $q = new UllQuery('UllFlowDoc');
+	   $q = new Doctrine_Query;
 	   $q
-	     ->addWhere('UllFlowApp.slug = ?', $slug)
+	     ->from('UllFlowDoc d, d.UllFlowApp a')
+	     ->addWhere('a.slug = ?', $slug)
      ;
-
+     
 	   return $q->execute();
 	}
 }
