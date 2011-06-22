@@ -43,6 +43,8 @@ class ullVentoryGeneratorForm extends ullGeneratorForm
    * Update manufacturer and model
    * and handle the "create new" input fields 
    * 
+   * TODO: this should be refactored into ullMetaWidgetForeignKey
+   * 
    * @param array $values
    * @return none
    */
