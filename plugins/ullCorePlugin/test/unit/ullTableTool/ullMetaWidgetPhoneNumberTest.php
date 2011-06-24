@@ -2,9 +2,10 @@
 
 include dirname(__FILE__) . '/../../../../../test/bootstrap/unit.php';
 
-
-
 $t = new lime_test(6, new lime_output_color, $configuration);
+
+sfContext::createInstance($configuration);
+sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 $form = new sfForm();
 $columnConfig = new ullColumnConfiguration();
