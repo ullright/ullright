@@ -58,7 +58,7 @@
             <?php echo $generator->getForm()->offsetGet('duration_seconds')->render() ?>
             <?php echo $generator->getForm()->offsetGet('duration_seconds')->renderError() ?>
             <dfn><?php echo __('Hours : minutes', null, 'ullFlowMessages') ?></dfn>
-            &nbsp; <?php echo __('am', null, 'common') ?>
+            &nbsp; <?php echo __('at', null, 'common') ?>
             <?php echo $generator->getForm()->offsetGet('effort_date')->render() ?>
             <?php echo $generator->getForm()->offsetGet('effort_date')->renderError() ?>            
             
