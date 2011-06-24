@@ -1,15 +1,21 @@
-#MAILTO=me@example.com
-
-# ullright example crontab file for the production server
+# ullright example crontab file for the production server 
+# assuming installation using "crontab -e"
 # 2010-08-16 by Klemens Ullmann-Marx
+# 2011-06-18 by Klemens Ullmann-Marx
 #
 #
+# m h  dom mon dow   command
 
+MAILTO=support@example.com
 
-# m h dom mon dow user  command
-5 4 * * *  php /path/to/your/ullright/symfony ullright:user-deactivation frontend prod > /dev/null
-10 4 * * *  php /path/to/your/ullright/symfony ull_flow:due_date-mailing frontend prod > /dev/null
+# ullUser
+5 4 * * *  php /path/to/your/ullright/installation/symfony ullright:user-deactivation frontend prod > /dev/null
+5 0 * * *  php /path/to/your/ullright/installation/symfony ullright:apply-scheduled-updates > /dev/null
 
+# ullFlow
+10 4 * * *  php /path/to/your/ullright/installation/symfony ull_flow:due_date-mailing frontend prod > /dev/null
 
-
-
+# ullMail
+*/5 * * * *  php /path/to/your/ullright/installation/symfony ull_mail:spool-emails --less-noisy
+*/5 * * * *  php /path/to/your/ullright/installation/symfony project:send-emails --env=prod --time-limit=270 > /dev/null
+25 4 * * *  php /path/to/your/ullright/installation/symfony ull_mail:process-bounced-emails --less-noisy
