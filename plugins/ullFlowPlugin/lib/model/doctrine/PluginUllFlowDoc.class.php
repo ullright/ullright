@@ -9,7 +9,8 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   protected
     $memoryComment = '',
     $memoryDuration = 0,
-    $memoryAction = null
+    $memoryAction = null,
+    $createMemory = true
   ;
   
   // TODO: give UllFlowApp in the constructor to force check if 
@@ -37,6 +38,19 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     
     $this->unshiftFilter(new UllFlowDocRecordFilter());
   }
+
+  /**
+   * Allow to disable UllMemory creation upon saving
+   *
+   * @param Doctrine_Connection $conn 
+   * @param boolean $createMemory
+   */
+  public function save(Doctrine_Connection $conn = null, $createMemory = true)
+  {
+    $this->createMemory = (boolean) $createMemory;
+    
+    parent::save($conn);
+  }
   
   /**
    * pre save hook
@@ -63,9 +77,11 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   {
     $this->loadDefaults();
     $this->createFirstMemory();
-    $this->createMemory();
     
-//    var_dump($this->toArray());die();
+    if ($this->createMemory)
+    {
+      $this->createMemory();
+    }      
   }
   
   /**
@@ -75,7 +91,11 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */  
   public function preUpdate($event)
   {
-    $this->createMemory();
+    if ($this->createMemory)
+    {
+      $this->createMemory();
+    }    
+    
     $this->handleModifiedDueDate($event);
   }
   
@@ -226,6 +246,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   {
     $ullFlowValue = UllFlowValueTable::findByDocIdAndSlug($this->id, $ullFlowColumnConfigSlug);
     $ullFlowValue->value = $value;
+    
     return $ullFlowValue->save();
   }  
   
@@ -294,13 +315,19 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     return $return;
   }  
   
+  
+  /**
+   * Get ullFlowMemories ordered by date
+   * 
+   * @return Doctrine_Collection
+   */
   public function getUllFlowMemoriesOrderedByDate()
   {
     $q = new Doctrine_Query;
     $q
       ->from('UllFlowMemory x')
       ->addWhere('x.ull_flow_doc_id = ?', $this->id)
-      //additional ordering by id is a hack to properly order in case of exaxtly the same date 
+      //additional ordering by id is a hack to properly order in case of exactly the same date 
       ->orderBy('x.created_at DESC, x.id DESC')  
     ;      
      
@@ -325,8 +352,12 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     }
   }
   
+  
   /**
-   * Load Defaults
+   * Load Defaults for a new UllFlowDoc object.
+   * 
+   * This needs to be executed manually, because it's difficult to 
+   * overwrite the constructor of Doctrine_Records
    *
    */
   public function loadDefaults()
@@ -538,13 +569,11 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   
     $this->UllFlowMemories[$i]->comment = $this->memoryComment;        
     
-//    sfContext::getInstance()->getLogger()->crit('num of mems: '.count($this->UllFlowMemories));
-    
     return $i;
   }
 
   /**
-   * create first UllFlowMemory entry
+   * Create first UllFlowMemory entry
    * 
    * sets the action to create
    * removes the comment to avoid duplication
@@ -562,7 +591,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
   }
   
   /**
-   * Performs a workflow action and saves 
+   * Performs a workflow action and saves
    * 
    * @param UllFlowAction $ullFlowAction
    * @param array $ullFlowActionHandlerValues
@@ -623,17 +652,10 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     $values = array_merge($form->getDefaults(), $ullFlowActionHandlerValues);
     unset($values['_tags']); // workaround
     
-//    var_dump($form->debug());
-//    
-//    var_dump($values);die;
-    
-//    die;
-    
-    
     $form->bind($values);
     if (!$form->isValid())
     {
-      throw new InvalidArgumentException('Mock form for UllFlowActioNhandlers has a validation error: ' . ullCoreTools::debugFormError($form, true));
+      throw new InvalidArgumentException('Mock form for UllFlowActionHandlers has a validation error: ' . ullCoreTools::debugFormError($form, true));
     }
     
     $handler = new $className($generator);    
@@ -688,7 +710,7 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
     // We need the id for the mails
     if (!$this->exists())
     {
-      $this->save();
+      $this->save(null, false);
     }
     
     if ($ullFlowAction->is_notify_next)
