@@ -790,13 +790,16 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <target>Dateien hinzufügen</target>
       </trans-unit>  
       
+      <trans-unit id="3505">
+        <source>Invalid file type</source>
+        <target>Ungültiger Dateityp</target>
+      </trans-unit>        
+      
       <!--  ullWidgetPhonenumber -->
       <trans-unit id="3601">
         <source>Format: +43 1 234567-100<br />(Country code, area code, base number, extension)</source>
         <target>Format: +43 1 234567-100<br />(Landesvorwahl, Vorwahl, Basisnummer, Durchwahl)</target>
       </trans-unit>      
-
-      
       
       
     </body>

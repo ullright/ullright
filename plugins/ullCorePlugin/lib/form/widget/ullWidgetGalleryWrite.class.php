@@ -7,6 +7,7 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden
   {
     $this->addOption('model');
     $this->addOption('column');
+    
     parent::__construct($options, $attributes);
   }
   
@@ -137,7 +138,8 @@ $(document).ready(function() {
     runtimes: "html5",
     browse_button: "ull_widget_gallery_add_files_' . $id . '",
     drop_element: "' . $id . '_content",
-    url: "' . url_for('ullPhoto/imageUpload?model=' . $this->getOption('model') . '&column=' . $this->getOption('column')) . '"
+    url: "' . url_for('ullPhoto/imageUpload?model=' . $this->getOption('model') . '&column=' . $this->getOption('column')) . '",
+    max_file_size: "' . ullCoreTools::getMaxPhpUploadSize() . 'mb"
   });
   
   uploader.init();
@@ -146,6 +148,27 @@ $(document).ready(function() {
     $("#ull_widget_gallery_control_indicator_' . $id . '").show();
     uploader.start();
   });
+  
+  uploader.bind("Error", function(up, err) {
+//    $("#filelist").append("<div>Error: " + err.code +
+//      ", Message: " + err.message +
+//      (err.file ? ", File: " + err.file.name : "") +
+//      "</div>"
+//    );
+    
+    $("#' . $id . '_content").append("<div class=\"form_error\">" + 
+      "' . __('Invalid file type', null, 'ullCoreMessages') . ': " +
+      (err.file ? err.file.name : "") + "</div>"
+    );
+    
+//    alert("' . __('Fehler: ungültiger Dateityp', null, 'ullCoreMessages') . ': " +
+//      (err.file ? err.file.name : "") 
+//    );
+    
+    $("#ull_widget_gallery_control_indicator_' . $id . '").hide();
+    
+  //up.refresh(); // Reposition Flash/Silverlight
+  });  
   
 });
 
@@ -180,26 +203,31 @@ $(document).ready(function()
     
     foreach ($images as $image)
     {
+      // ignore empty lines
       if (trim($image))
       {
-        // Check for thumbnails
-        $thumbnail = ullCoreTools::calculateThumbnailPath($image);
-        $thumbnailAbsolutePath = ullCoreTools::webToAbsolutePath($thumbnail);
-        if (!file_exists(ullCoreTools::webToAbsolutePath($thumbnail)))
+        // ignore invalid stuff
+        if (file_exists(ullCoreTools::webToAbsolutePath($image)))
         {
-          $thumbnail = $image;
+          // Check for thumbnails
+          $thumbnail = ullCoreTools::calculateThumbnailPath($image);
+          $thumbnailAbsolutePath = ullCoreTools::webToAbsolutePath($thumbnail);
+          if (!file_exists(ullCoreTools::webToAbsolutePath($thumbnail)))
+          {
+            $thumbnail = $image;
+          }
+          
+          $return .= '<li>';
+          $return .= '<div class="ull_widget_gallery_preview_image_container">';
+          $return .= '  <div class="ull_widget_gallery_preview_image">';
+          $return .= '    <a href="'. $image . '" target="_blank"><img src="' . $thumbnail .'" alt="preview image" rel="' . $image . '" /></a>';
+          $return .= '  </div>';
+          $return .= '</div>';
+          $return .= '  <div class="ull_widget_gallery_actions">';
+          $return .= '    ' . ull_icon('ullPhoto/imageDelete?s_image=' . $image, 'delete');
+          $return .= '  </div>';        
+          $return .= '</li>';
         }
-        
-        $return .= '<li>';
-        $return .= '<div class="ull_widget_gallery_preview_image_container">';
-        $return .= '  <div class="ull_widget_gallery_preview_image">';
-        $return .= '    <a href="'. $image . '" target="_blank"><img src="' . $thumbnail .'" alt="preview image" rel="' . $image . '" /></a>';
-        $return .= '  </div>';
-        $return .= '</div>';
-        $return .= '  <div class="ull_widget_gallery_actions">';
-        $return .= '    ' . ull_icon('ullPhoto/imageDelete?s_image=' . $image, 'delete');
-        $return .= '  </div>';        
-        $return .= '</li>';
       }
     }
     

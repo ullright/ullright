@@ -15,15 +15,20 @@ class ullFlowPluginConfiguration extends sfPluginConfiguration
   
   public static function supplyUllPhotoColumnsConfig(sfEvent $event, $values)
   {
-    $columnName = $values['column'];
+    $currentModule = sfContext::getInstance()->getModuleName();
     
-    
-    $column = Doctrine::getTable('UllFlowColumnConfig')->findOneBySlug($columnName);
-    $app = $column->UllFlowApp;
-    
-    $columnsConfig = UllFlowDocColumnConfigCollection::build($app, new UllFlowDoc, 'w', 'edit');
-    
-    $values['columnsConfig'] = $columnsConfig;
+    if ('ullFlow' == $currentModule)
+    {
+      $columnName = $values['column'];
+      
+      
+      $column = Doctrine::getTable('UllFlowColumnConfig')->findOneBySlug($columnName);
+      $app = $column->UllFlowApp;
+      
+      $columnsConfig = UllFlowDocColumnConfigCollection::build($app, new UllFlowDoc, 'w', 'edit');
+      
+      $values['columnsConfig'] = $columnsConfig;
+    }
     
     return $values;
   }
