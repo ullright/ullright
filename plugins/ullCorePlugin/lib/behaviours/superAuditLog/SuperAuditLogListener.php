@@ -35,12 +35,24 @@
  */
 class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
 {
-  /**
-   * Instance of Doctrine_Auditlog
-   *
-   * @var Doctrine_AuditLog
-   */
-  protected $_auditLog;
+
+  protected
+    /**
+     * Instance of Doctrine_Auditlog
+     *
+     * @var Doctrine_AuditLog
+     */
+    $_auditLog,
+  
+    /**
+     * Store the modified array in the saving process
+     */
+    $modified       = array(),
+    /**
+     * Stores the exists status of an object 
+     */
+    $exists         = null
+  ;  
 
   /**
    * Instantiate AuditLog listener and set the Doctrine_AuditLog instance to the class
@@ -127,6 +139,12 @@ class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
   public function preUpdate(Doctrine_Event $event)
   {
     $record = $event->getInvoker();
+    
+    // Save modified & exists from before record is saved;
+    $this->modified = $record->getModified();
+    $this->exists = $record->exists();
+    
+    
     $class  = $this->_auditLog->getOption('className');
     $versionColumn = $this->_auditLog->getOption('versionColumn');
     $version = new $class();
@@ -159,6 +177,8 @@ class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
         $version->set('reference_version', $this->_getNextVersion($record) - 1);
         $version->set($versionColumn, $this->_getNextFutureVersion($record));
         $version->save();
+        
+        $this->notifyPostSaveEvent($version);
         
         return;
       }
@@ -202,4 +222,25 @@ class Doctrine_SuperAuditLog_Listener extends Doctrine_Record_Listener
     $minVersion = ($minVersion == 1) ? 0 : $minVersion;
     return $minVersion - 1;
   }
+  
+  
+  /**
+   * Notify "super_versionable_future_update.post_save event" for 
+   * 
+   * @param Doctrine_Record $object
+   * @return none
+   */
+  protected function notifyPostSaveEvent($object)
+  {
+//    var_dump(sfContext::getInstance()->getEventDispatcher()->getListeners('form.post_save'));
+//    die;
+
+    sfContext::getInstance()->getEventDispatcher()->notify(
+      new sfEvent($this, 'super_versionable_future_update.post_save', array(
+        'object'    => $object, 
+        'modified'  => $this->modified,
+        'exists'    => $this->exists,
+      ))
+    ); 
+  }    
 }

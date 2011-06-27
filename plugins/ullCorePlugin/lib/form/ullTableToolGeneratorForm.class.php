@@ -103,6 +103,9 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
 
     $this->values = $values;
     
+    
+    // Handle versionable behaviour
+    //
     if ($this->object->getTable()->hasTemplate('Doctrine_Template_SuperVersionable'))
     {
       if (isset($this->values['scheduled_update_date']))
@@ -129,6 +132,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
     $unset = array();
     $associations = array();
     $relations = $this->getObject()->getTable()->getManyToManyRelations();
+    
     foreach ($relations as $relationName => $relation)
     {
       if (isset($values[$relationName]))

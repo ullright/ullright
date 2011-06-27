@@ -234,7 +234,7 @@ class ullGeneratorForm extends sfFormDoctrine
    */
   public function save($con = null)
   {
-    $object = parent::Save($con);
+    $object = parent::save($con);
     
     $this->notifyPostSaveEvent($object);
     
