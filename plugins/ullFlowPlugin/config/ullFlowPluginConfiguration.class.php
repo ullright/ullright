@@ -17,10 +17,10 @@ class ullFlowPluginConfiguration extends sfPluginConfiguration
   {
     $currentModule = sfContext::getInstance()->getModuleName();
     
-    if ('ullFlow' == $currentModule)
+    // Don't do anything if it's no UllFlowDoc
+    if ('UllFlowDoc' == $values['model'])
     {
       $columnName = $values['column'];
-      
       
       $column = Doctrine::getTable('UllFlowColumnConfig')->findOneBySlug($columnName);
       $app = $column->UllFlowApp;
