@@ -985,9 +985,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     {
       if (isset($this[$field]))
       {
-        $this[$field]->setWidgetAttribute('class', 
-          $this[$field]->getWidgetAttribute('class') . ' advanced_form_field' 
-        );  
+        $this[$field]->markAsAdvancedField();  
       }
     }  
     

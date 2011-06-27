@@ -632,4 +632,21 @@ class ullColumnConfiguration
   {
     return (boolean) $this->getOption('enable_ajax_update');
   }
+  
+  /**
+   * Mark a field as advanced form field.
+   * 
+   * This means it is hidden per default and replaced with a link to 
+   * "advanced options" by js
+   * 
+   */
+  public function markAsAdvancedField()
+  {
+    $this->setWidgetAttribute(
+      'class', 
+      $this->getWidgetAttribute('class') . ' advanced_form_field'
+    ); 
+    
+    return $this;
+  }
 }
