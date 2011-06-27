@@ -519,11 +519,15 @@ class BaseUllPhotoActions extends ullsfActions
       }      
       
       /* pfd */
-      elseif ('application/pdf' ==  $mimeType)
+      elseif (in_array($mimeType, ullValidatorFile::getTextMimeTypes()))
       {
         $cmd = 'convert -resize ' . $width . 'x' . $height . ' ' . $fileName . ' ' . $destination;
         
         shell_exec($cmd); 
+      }
+      else
+      {
+        copy(sfConfig::get('sf_web_dir') . '/ullCoreThemeNGPlugin/images/ull_admin_32x32.png', $destination);
       }
     }
   }

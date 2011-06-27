@@ -26,11 +26,13 @@ class ullValidatorFile extends sfValidatorFile
       'text/rtf',
     ),
 
-    $otherFiles = array(
+    $textFiles = array(
       'application/pdf',
-      'application/zip',
-      'application/msexcel',
       'text/plain',
+    ),
+    
+    $otherFiles = array(
+      'application/zip',
     )
   ;    
   
@@ -75,6 +77,11 @@ class ullValidatorFile extends sfValidatorFile
   {
     return self::$officeFiles;
   }
+
+  public static function getTextMimeTypes()
+  {
+    return self::$textFiles;
+  }  
   
   public static function getOtherMimeTypes()
   {
@@ -86,6 +93,7 @@ class ullValidatorFile extends sfValidatorFile
     return array_merge(
       self::getWebImageMimeTypes(),
       self::getOfficeMimeTypes(),
+      self::getTextMimeTypes(),
       self::getOtherMimeTypes()
     );
   }
