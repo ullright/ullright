@@ -17,7 +17,7 @@ class PluginUllCmsPageTable extends UllCmsItemTable
       ->addSelect(array('*'))
       ->addWhere('Parent->slug = ?', $slug)
       ->addWhere('is_active = ?', true)
-      ->addOrderBy('sequence, name')
+      ->addOrderBy('sequence desc, name')
     ;
     
     if ($limit)
