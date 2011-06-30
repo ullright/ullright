@@ -169,7 +169,7 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_news_delete');
     
-    parent::executeDelete();
+    parent::executeDelete($request);
   }
   
   /**
