@@ -66,7 +66,7 @@ function sortable() {
     stop: function(event, ui) {
       window.ull_widget_gallery_' . $id . '_content = "";
       $(".ull_widget_gallery_preview_image").find("img").each(function() {
-        window.ull_widget_gallery_' . $id . '_content = window.ull_widget_gallery_' . $id . '_content + "\n" + $(this).attr("src");   
+        window.ull_widget_gallery_' . $id . '_content = window.ull_widget_gallery_' . $id . '_content + "\n" + $(this).attr("rel");   
       });
       $("#' . $id . '").val(window.ull_widget_gallery_' . $id . '_content);
     }
