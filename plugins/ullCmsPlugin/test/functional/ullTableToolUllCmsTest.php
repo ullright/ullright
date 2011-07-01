@@ -28,13 +28,14 @@ $createValues = array(
   'title_translation_en' => 'Test page', 
   'body_translation_en' => array('Test body', false),
   'name_translation_en' => array('Test name', false),
-  'is_active' => array(true, 'Checkbox_checked')
+  'is_active' => array(true, 'Checkbox_checked'),
+  'parent_ull_cms_item_id' => array(1, false),
 );
 $editValues = array(
   'title_translation_en' => 'Next Page', 
   'body_translation_en' => array('Test body', false),
   'name_translation_en' => array('Next name', false),
-  'is_active' => array(false, 'Checkbox_unchecked')
+  'is_active' => array(false, 'Checkbox_unchecked'),
 );
 
 $b->setCreateValues($createValues);
