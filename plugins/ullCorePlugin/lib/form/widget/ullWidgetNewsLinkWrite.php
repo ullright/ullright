@@ -48,11 +48,19 @@ class ullWidgetNewsLinkWrite extends sfWidgetFormInput
 $(document).ready(function() {
   $(".ull_widget_news_link_write_page_selection").show();
   
-  $(".ull_widget_news_link_write_page_selection select").click(function() {
+  $(".ull_widget_news_link_write_page_selection select").change(function() {
   
-    var url = "' . url_for('ullCms/show') . '/" + $(this).val();
+    if ($(this).val() == "")
+    {
+      var url = "";     
+    }
+    else
+    {
+      var url = "' . url_for('ullCms/show') . '/" + $(this).val();
+    }
   
     $("#' . $id .'").val(url);
+    
   });
 })
 
