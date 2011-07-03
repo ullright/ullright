@@ -663,7 +663,7 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       
       <trans-unit id="3122">
         <source>Allowed filetypes: jpg, gif, png. By uploading a file you certify that you have the right to distribute this picture and that it does not violate the Terms of Service</source>
-        <target>Erlaubte Formate: jpg, gif, png. Durch das Hochladen einer Datei bestätigen Sie, dass Sie das Recht haben, dieses Bild zu veröffentlichen und es nicht gegen die Allgemeine Geschäftsbedingungen verstößt.</target>  
+        <target>Erlaubte Formate: jpg, gif, png. Durch das Hochladen einer Datei bestätigen Sie, dass Sie das Recht haben, dieses Bild zu veröffentlichen und es nicht gegen die allgemeinen Geschäftsbedingungen verstößt.</target>  
       </trans-unit>
 
       <trans-unit id="3123">
