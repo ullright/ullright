@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext"
+    date="2007-12-13T14:54:05Z">
+    <body>
+
+      <trans-unit id="1">
+        <source>Course</source>
+        <target>Kurs</target>
+      </trans-unit>
+      
+      <trans-unit id="2">
+        <source>Course number</source>
+        <target>Kurs-Nummer</target>
+      </trans-unit>
+            
+      <trans-unit id="3">
+        <source>Trainer</source>
+        <target>Leiter</target>
+      </trans-unit>
+      
+      <trans-unit id="4">
+        <source>Participants applied</source>
+        <target>Anmeldungen</target>
+      </trans-unit>
+      
+      <trans-unit id="5">
+        <source>Participants paid</source>
+        <target>Bezahlt</target>
+      </trans-unit>
+      
+      <trans-unit id="6">
+        <source>Turnover</source>
+        <target>Umsatz</target>
+      </trans-unit>
+
+      <trans-unit id="7">
+        <source>Begin date</source>
+        <target>Beginndatum</target>
+      </trans-unit>
+      
+      <trans-unit id="8">
+        <source>End date</source>
+        <target>Enddatum</target>
+      </trans-unit>
+      
+      <trans-unit id="9">
+        <source>Begin time</source>
+        <target>Beginnzeit</target>
+      </trans-unit>
+      
+      <trans-unit id="10">
+        <source>End time</source>
+        <target>Endzeit</target>
+      </trans-unit>   
+      
+      <trans-unit id="11">
+        <source>Number of units</source>
+        <target>Anzahl der Einheiten</target>
+      </trans-unit>         
+      
+      <!-- 
+      <trans-unit id="12">
+        <source>Normal price</source>
+        <target>Normaler Preis</target>
+      </trans-unit>   
+      
+      <trans-unit id="13">
+        <source>Reduced price</source>
+        <target>Vergünstigter Preis</target>
+      </trans-unit>
+       -->
+      
+      <trans-unit id="14">
+        <source>Equipment included</source>
+        <target>Leihmaterial inkl.</target>
+      </trans-unit>   
+      
+      <trans-unit id="15">
+        <source>Admission included</source>
+        <target>Eintritt inkl.</target>
+      </trans-unit>     
+      
+      <trans-unit id="16">
+        <source>Min. participants</source>
+        <target>Mindestteilnehmer</target>
+      </trans-unit>
+      
+      <trans-unit id="17">
+        <source>Max. participants</source>
+        <target>Maximalteilnehmer</target>
+      </trans-unit>      
+      
+      <trans-unit id="18">
+        <source>Course tariffs</source>
+        <target>Kurstarife</target>
+      </trans-unit>      
+
+      <trans-unit id="19">
+        <source>Tariffs</source>
+        <target>Tarife</target>
+      </trans-unit>         
+      
+      
+                        
+      
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,136 @@
+# List of courses
+UllCourse:
+  package: ullCoursePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name, description]
+    Sluggable:
+      unique: true
+      fields: [name] 
+  columns:
+    name: 
+      type: string(255)
+      notnull: true
+    description:
+      type: string(4000)
+    trainer_ull_user_id: 
+      type: integer
+    ull_cms_item_id:
+      type: integer
+    begin_date:
+      type: date
+    end_date:
+      type: date
+    begin_time:
+      type: time
+    end_time:
+      type: time
+    # number of units/lessons per course
+    # e.g 10 units every friday from september till december
+    number_of_units:
+      type: integer
+#    price_normal:
+#      type: float
+#    price_reduced:
+#      type: float
+    is_equipment_included:
+      type: boolean
+    is_admission_included:
+      type: boolean
+    sequence:
+      type: integer
+    is_active:
+      type: boolean
+      default: true
+    min_number_of_participants:
+      type: integer
+    max_number_of_participants:
+      type: integer
+    proxy_number_of_participants_applied:
+      type: integer
+    proxy_number_of_participants_paid:
+      type: integer
+    proxy_turnover:
+      type: float
+  relations:   
+    Trainer:
+      class: UllUser
+      local: trainer_ull_user_id
+      foreign: id   
+    UllCmsItem:
+    Participants:
+      class: UllUser 
+      refClass: UllCourseBooking
+      local: ull_course_id
+      foreign: ull_user_id   
+    UllCourseTariff:
+      class: UllCourseTariff 
+      refClass: UllCourseTariffCourse
+      local: ull_course_id
+      foreign: ull_course_tariff_id         
+
+# list of tariffs      
+UllCourseTariff:
+  package: ullCoursePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name] 
+  columns:
+    name: 
+      type: string(255)
+      notnull: true
+    price:
+      type: float
+      notnull: true
+
+# m:n table between courses and tariffs
+UllCourseTariffCourse:
+  package: ullCoursePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_course_id:
+      type: integer
+      notnull: true  
+    ull_course_tariff_id:
+      type: integer
+      notnull: true
+  relations:
+    UllCourse:
+    UllCourseTariff:
+
+# list of bookings      
+UllCourseBooking:
+  package: ullCoursePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_course_id:
+      type: integer
+      notnull: true
+    ull_course_tariff_id:
+      type: integer
+      notnull: true
+    ull_user_id:
+      type: integer
+      notnull: true
+    is_paid:
+      type: boolean
+    comment:
+      type: string(4000)
+  relations:   
+    UllCourse:
+    UllUser:
+    UllCourseTariff:
+
