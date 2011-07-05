@@ -18,4 +18,35 @@ abstract class PluginUllCourseTariff extends BaseUllCourseTariff
 //    return (string) $this->name;
 //  }
 
+    /** 
+     * Create a readable display column
+     * 
+     * @param $event
+     */
+    public function preSave($event)
+    {
+      /**
+       * Create context for fixture loading
+       */
+      if (sfContext::hasInstance())
+      {
+        $context = sfContext::getInstance();
+      }
+      else
+      {
+        $context = sfContext::createInstance(new frontendConfiguration('prod', false));
+      }
+      $context->getConfiguration()->loadHelpers(array('Number'));
+      
+      foreach ($this->Translation as $lang => $translation)
+      {
+        $this->Translation[$lang]->display_name =
+          format_currency($this->price, null, $lang) .  
+          ' ('. 
+          $this->Translation[$lang]->name .
+          ')'
+        ;
+      }  
+    }
+
 }

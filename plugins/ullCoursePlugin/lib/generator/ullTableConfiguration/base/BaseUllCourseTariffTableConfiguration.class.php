@@ -15,7 +15,12 @@ class BaseUllCourseTariffTableConfiguration extends ullTableConfiguration
   {
     $this
       ->setName(__('Course tariffs', null, 'ullCourseMessages'))
-      ->setToStringColumn('slug');
+      ->setListColumns(array(
+          'price',
+          'name',
+        ))
+      ->setToStringColumn('slug')
+      ->setOrderBy('price, name')
     ;
   }
   

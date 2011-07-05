@@ -14,7 +14,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
   protected function applyCustomSettings()
   {
     $this
-      ->setName(__('Courses', null, 'ullCourseMessages'))
+      ->setName(__('Bookings', null, 'ullCourseMessages'))
       ->setSearchColumns(array('id', 'name'))
       ->setOrderBy('sequence, name')
       ->setListColumns(array(
@@ -27,7 +27,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
         'proxy_number_of_participants_paid',
         'proxy_turnover',      
       ))
-//      ->setForeignRelationName(__('User', null, 'ullCoreMessages'))
+      ->setForeignRelationName(__('Course', null, 'ullCourseMessages'))
 //      ->setToStringColumn('display_name');
       ->setFilterColumns(array(
         'trainer_ull_user_id' => '',

@@ -51,7 +51,7 @@ UllCourseTariff:
       en:
         name:               Reduced price
       de:
-        name:               Vergünstigeter Preis
+        name:               Vergünstigter Preis
   tariff_3:
     price:                  29.90
     Translation:
@@ -65,7 +65,7 @@ UllCourseTariff:
       en:
         name:               Reduced price
       de:
-        name:               Vergünstigeter Preis            
+        name:               Vergünstigter Preis            
                 
 UllCourseTariffCourse:
   tariff_course_1:

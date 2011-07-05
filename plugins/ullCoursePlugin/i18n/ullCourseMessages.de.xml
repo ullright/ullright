@@ -99,9 +99,37 @@
       <trans-unit id="19">
         <source>Tariffs</source>
         <target>Tarife</target>
+      </trans-unit>  
+      
+      <trans-unit id="20">
+        <source>Courses</source>
+        <target>Kurse</target>
+      </trans-unit>     
+      
+      <trans-unit id="21">
+        <source>Course bookings</source>
+        <target>Kursbuchungen</target>
+      </trans-unit>    
+      
+      <trans-unit id="22">
+        <source>Booking number</source>
+        <target>Buchungs-Nummer</target>
+      </trans-unit>   
+      
+      <trans-unit id="23">
+        <source>Paid</source>
+        <target>Bezahlt</target>
+      </trans-unit>  
+      
+      <trans-unit id="24">
+        <source>Tariff</source>
+        <target>Tarif</target>
+      </trans-unit>       
+
+      <trans-unit id="25">
+        <source>Price</source>
+        <target>Preis</target>
       </trans-unit>         
-      
-      
                         
       
     </body>

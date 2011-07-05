@@ -80,7 +80,7 @@ UllCourseTariff:
     type: concrete
   actAs:
     I18n:
-      fields: [name]
+      fields: [name, display_name]
     Sluggable:
       unique: true
       fields: [name] 
@@ -90,6 +90,9 @@ UllCourseTariff:
       notnull: true
     price:
       type: float
+      notnull: true
+    display_name:
+      type: string(255)
       notnull: true
 
 # m:n table between courses and tariffs

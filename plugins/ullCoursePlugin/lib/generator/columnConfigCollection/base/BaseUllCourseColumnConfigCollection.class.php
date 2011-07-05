@@ -106,9 +106,13 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         'basics' => array(
           'id',
           'name',
-          'ull_cms_item_id',
           'description',
           'trainer_ull_user_id',
+        ),
+        'status' => array(
+          'ull_cms_item_id',
+          'sequence',
+          'is_active',        
         ),
         'temporal' => array(
           'begin_date',
@@ -126,6 +130,11 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'min_number_of_participants',
           'max_number_of_participants',
         ),
+        'proxies' => array(
+          'proxy_number_of_participants_applied',
+          'proxy_number_of_participants_paid',
+          'proxy_turnover',
+        )
       ));
     }
   }
