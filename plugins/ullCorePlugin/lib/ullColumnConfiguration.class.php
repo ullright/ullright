@@ -186,9 +186,9 @@ class ullColumnConfiguration
     return $this->naturalOrdering;
   }
 
-  public function setNaturalOrdering($naturalOrdering)
+  public function setNaturalOrdering($boolean)
   {
-    $this->naturalOrdering = (boolean) $naturalOrdering;
+    $this->naturalOrdering = (boolean) $boolean;
     
     return $this;
   }
