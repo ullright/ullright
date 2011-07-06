@@ -256,7 +256,7 @@ class ullCoreTools
    * 
    * @param string $path					
    * @param optional string $file	filename. If empty $path is expected to be a full path including the filename
-   * @param optional array $validTypes			Default = web images
+   * @param optional array $validTypes			List of valid mimetypes. Default = web images
    * @return boolean
    */
   
@@ -269,20 +269,16 @@ class ullCoreTools
     
     if ($validTypes === null)
     {
-      $validTypes = array('JPEG', 'PNG', 'GIF');
+      $validTypes = ullValidatorFile::getWebImageMimeTypes();
     }
     
-    try 
+    
+    $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type aka mimetype extension
+    $mimeType = (finfo_file($finfo, $path));
+    finfo_close($finfo);
+    
+    if (!in_array($mimeType, $validTypes))
     {
-      $image = new Imagick($path);
-      
-      if (!in_array($image->getImageFormat(), $validTypes))
-      {
-        throw new UnexpectedValueException();
-      }
-    }
-    catch (Exception $e)
-    {      
       return false;
     }
     
