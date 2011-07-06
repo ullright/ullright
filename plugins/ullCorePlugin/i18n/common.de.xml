@@ -1291,6 +1291,11 @@
 <target>Menü</target>
 </trans-unit>
 
+<trans-unit id="26012">
+<source>Time</source>
+<target>Zeit</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

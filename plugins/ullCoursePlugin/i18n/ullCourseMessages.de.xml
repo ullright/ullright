@@ -130,7 +130,16 @@
         <source>Price</source>
         <target>Preis</target>
       </trans-unit>         
-                        
+
+      <trans-unit id="26">
+        <source>Date</source>
+        <target>Termin</target>
+      </trans-unit>          
+      
+      <trans-unit id="27">
+        <source>%units% units</source>
+        <target>%units% Einheiten</target>
+      </trans-unit>      
       
     </body>
   </file>

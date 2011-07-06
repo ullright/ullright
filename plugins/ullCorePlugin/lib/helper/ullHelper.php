@@ -125,6 +125,26 @@ function ull_format_datetime($date = null, $zeroPadding = true, $showSeconds = t
   return format_datetime($date, ull_date_pattern($zeroPadding) . ' ' . $timePattern);
 }
 
+
+/**
+ * Extends symfony's DateTimeHelper with a specific time format
+ * This is culture sensitive.
+ *
+ * @param string date         iso time like "13:45:10"
+ * @return string date        formated time like "13:45" for "de"
+ */
+function ull_format_time($time, $showSeconds = false) 
+{
+  $fakeDate = date('Y-m-d');
+  
+  $date = $fakeDate . ' ' . $time;
+  
+  $timePattern = ($showSeconds) ? 'HH:mm:ss' : 'HH:mm';
+  
+  return format_datetime($date, $timePattern);
+}
+
+
 /**
  * Build path for default action_icons in the correct color for the current module
  * 
