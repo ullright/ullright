@@ -3,12 +3,20 @@
  * ullMetaWidgetCheckbox
  *
  * Used for checkboxes
+ * 
+ * Supports fully automated ajax update e.g. for list views
+ * 
+ * 
  */
 class ullMetaWidgetCheckbox extends ullMetaWidget
 {
   protected function configureReadMode()
   {
+    /**
+     * This is deprecated stuff
+     */
     $ajaxConfiguration = $this->getColumnConfig()->getOption('configure_for_ajax');
+    
     if (is_array($ajaxConfiguration))
     {
       $this->addWidget(new ullWidgetAjaxCheckbox(
@@ -16,6 +24,10 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
         $this->columnConfig->getWidgetAttributes())
       );
     }
+    
+    /**
+     * Handle current ajax checkbox handling
+     */
     else
     {
       if ($this->getColumnConfig()->getOption('enable_ajax_update'))
@@ -35,6 +47,7 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
       
       $this->addWidget(new ullWidgetCheckbox($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     }
+    
     $this->addValidator(new sfValidatorPass());     
   }
   

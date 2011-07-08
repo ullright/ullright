@@ -141,6 +141,52 @@
         <target>%units% Einheiten</target>
       </trans-unit>      
       
+      <trans-unit id="28">
+        <source>Booking</source>
+        <target>Buchung</target>
+      </trans-unit>       
+
+      <trans-unit id="29">
+        <source>%current% from %total% spots available</source>
+        <target>%current% von %total% Plätzen verfügbar</target>
+      </trans-unit>
+          
+      <trans-unit id="30">
+        <source>Not enough participants yet</source>
+        <target>Mindestteilnehmer-Anzahl noch nicht erreicht</target>
+      </trans-unit>    
+      
+      <trans-unit id="31">
+        <source>A minimum of %min% bookings are necessary</source>
+        <target>Mindestens %min% Teilnehmer sind notwendig</target>
+      </trans-unit>    
+      
+      <trans-unit id="32">
+        <source>Fully booked</source>
+        <target>Ausgebucht</target>
+      </trans-unit>       
+      
+      <trans-unit id="33">
+        <source>Book this course</source>
+        <target>Kurs buchen</target>
+      </trans-unit>   
+
+      <trans-unit id="34">
+        <source>Marked as paid at</source>
+        <target>Markiert als bezahlt am</target>
+      </trans-unit>   
+      
+      <trans-unit id="35">
+        <source>Marked as paid by</source>
+        <target>Markiert als bezahlt von</target>
+      </trans-unit>         
+      
+      Marked as paid at   
+      
+                               
+      
+        
+      
     </body>
   </file>
 </xliff>

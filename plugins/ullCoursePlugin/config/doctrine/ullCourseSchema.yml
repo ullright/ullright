@@ -130,10 +130,18 @@ UllCourseBooking:
       notnull: true
     is_paid:
       type: boolean
+    marked_as_paid_ull_user_id:
+      type: integer
+    marked_as_paid_at:
+      type: datetime
     comment:
       type: string(4000)
   relations:   
     UllCourse:
     UllUser:
     UllCourseTariff:
+    PaidMarker:
+      class: UllUser 
+      local: marked_as_paid_ull_user_id
+      foreign: id      
 

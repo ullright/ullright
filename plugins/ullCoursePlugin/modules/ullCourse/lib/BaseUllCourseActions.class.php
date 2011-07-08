@@ -58,13 +58,46 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_show');
     
-    $docId = $this->getRequestParameter('slug');
-    $this->doc = Doctrine::getTable('UllCourse')->findOneBySlug($docId);
-    $this->forward404Unless($this->doc);
+    $doc = $this->getDocFromRequest();
     
-    $this->isMultiDay = (boolean) ($this->doc['begin_date'] < $this->doc['end_date']);
+    
+    $this->setVar('doc', $doc, true);
+  }
+  
+  public function executeSelectPayment(sfRequest $request)
+  {
+    $this->checkPermission('ull_course_select_payment');    
+    
+    $doc = $this->getDocFromRequest();
+    
+    $this->setVar('doc', $doc, true);
+  }  
+  
+  
+  public function executeConfirmation(sfRequest $request)
+  {
+    $this->checkPermission('ull_course_confirmation');    
+    
+    $doc = $this->getDocFromRequest();
+    
+    $this->setVar('doc', $doc, true);
   }
 
+  
+  
+  
+  /**
+   * Gets the doc according to request param
+   * 
+   */
+  protected function getDocFromRequest()
+  {
+    $slug = $this->getRequestParameter('slug');
+    $doc = Doctrine::getTable('UllCourse')->findOneBySlug($slug);
+    $this->forward404Unless($doc);
+    
+    return $doc;
+  }
   
   /**
    * Define generator for list action

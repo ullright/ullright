@@ -86,12 +86,14 @@ UllCourseBooking:
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_1
-    is_paid:                true             
+    is_paid:                true     
+    #marked_as_paid_at:      '2011-07-08 12:13:14'        
   booking_2:
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_2
     is_paid:                true   
+    #marked_as_paid_at:      '2011-07-08 13:14:15'
     comment:                For my daughter Lina 
   booking_3:
     UllCourse:              course_1

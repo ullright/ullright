@@ -597,7 +597,11 @@ class ullColumnConfiguration
   }
   
   /**
-   * Enable ajax update function for the current field
+   * Enable fully automated ajax update function for the current field
+   * 
+   * Currently supported for checkboxes.
+   * 
+   * @see ullMetaWidgetCheckbox
    * 
    * @param boolean $boolean
    */

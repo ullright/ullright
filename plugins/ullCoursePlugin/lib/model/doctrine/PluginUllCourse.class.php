@@ -90,6 +90,38 @@ abstract class PluginUllCourse extends BaseUllCourse
     $this->proxy_turnover = $result['sum']; 
   }    
   
+  /**
+   * Check if we have a multi day course
+   */
+  public function isMultiDay()
+  {
+    return (boolean) ($this['begin_date'] < $this['end_date']);
+  }
+  
+  /**
+   * Check if the course is full
+   */
+  public function isFullyBooked() 
+  { 
+    return(boolean) ($this['proxy_number_of_participants_paid'] >= $this['max_number_of_participants']);
+  }
+  
+  /**
+   * Check of this course has insufficient participants
+   */
+  public function isInsufficientParticipants() 
+  {
+    return (boolean) ($this['proxy_number_of_participants_paid'] < $this['min_number_of_participants']);
+  }
+
+  /**
+   * Get the number of available course spots 
+   */
+  public function getSpotsAvailable() 
+  {
+    return(integer) $this['max_number_of_participants'] - $this['proxy_number_of_participants_paid'];
+  }
+  
   
   
   

@@ -19,7 +19,7 @@ class BaseUllCourseTariffTableConfiguration extends ullTableConfiguration
           'price',
           'name',
         ))
-      ->setToStringColumn('slug')
+      ->setToStringColumn('display_name')
       ->setOrderBy('price, name')
     ;
   }

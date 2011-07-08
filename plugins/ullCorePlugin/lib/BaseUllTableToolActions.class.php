@@ -177,6 +177,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   
   /**
    * Update a single field, usually called via ajax
+   * 
    * Call syntax: ullTableTool/updateSingleColumn?table=UllUser&id=2&column=street&value=streetname
    *
    * @param sfWebRequest $request

@@ -13,10 +13,15 @@
 abstract class PluginUllCourseTariff extends BaseUllCourseTariff
 {
   
-//  public function __toString()
-//  {
-//    return (string) $this->name;
-//  }
+  /**
+   * String representation
+   * 
+   * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/record/sfDoctrineRecord#__toString()
+   */
+  public function __toString()
+  {
+    return (string) $this['display_name'];
+  }
 
     /** 
      * Create a readable display column

@@ -6,6 +6,10 @@
  * If JS is enabled a small script will replace this control
  * with a 'real' checkbox, which is AJAX-enhanced to provide
  * flag toggling without page reloads.
+ * 
+ * THIS IS NOW DEPRECATED and replaced by ullWidgetCheckboxRead
+ * 
+ * @deprecated
  */
 class ullWidgetAjaxCheckbox extends ullWidget
 {

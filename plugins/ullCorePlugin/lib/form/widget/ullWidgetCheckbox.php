@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Checkbox read widget
+ * 
+ * Also supports ajax handling e.g. for list actions
+ * By default the ullTableTool/updateSingleColumn action is used as ajax target
+ * @author klemens
+ *
+ */
 class ullWidgetCheckbox extends ullWidget
 {
   public function __construct($options = array(), $attributes = array())

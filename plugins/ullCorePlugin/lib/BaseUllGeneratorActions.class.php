@@ -150,6 +150,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyGeneratorBeforeBuildForm($row);
     
+    
     $this->generator->buildForm($row);
     
     $this->setVar('generator', $this->generator, true);    

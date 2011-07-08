@@ -292,7 +292,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     
     $type = $column['type'];
     $length = $column['length'];
-      
+    
     $columnConfig->setMetaWidgetClassName(ullMetaWidget::getMetaWidgetClassName($type));
     
     if ($type == 'string')
@@ -309,7 +309,19 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
         ;
       }
     }
-
+    elseif ('date' == $type)
+    {
+      $columnConfig->setMetaWidgetClassName('ullMetaWidgetDate');
+    }
+    elseif ('time' == $type)
+    {
+      $columnConfig->setMetaWidgetClassName('ullMetaWidgetTime');
+    }            
+    elseif (in_array($type, array('timestamp', 'datetime')))
+    {
+      $columnConfig->setMetaWidgetClassName('ullMetaWidgetDateTime');
+    }
+    
     if (in_array($type, array('integer', 'float')))
     {
       // Do not build sums for id columns (match "id" at the end)
