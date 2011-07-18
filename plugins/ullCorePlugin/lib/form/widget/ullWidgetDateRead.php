@@ -8,6 +8,7 @@
  * show_weekday - adds the weekday the date represents
  * show_only_year - displays only the year part of the date 
  * add_span_if_before - if date is before key: timestamp, value: class_name is used for a span-wrap
+ * pattern - a symfony i18n date pattern. @see sfDateFormat::getPattern(), sfDateFormat::$tokens
  */
 class ullWidgetDateRead extends ullWidget
 {
@@ -16,21 +17,23 @@ class ullWidgetDateRead extends ullWidget
     $this->addOption('show_weekday', false);
     $this->addOption('show_only_year', false);
     $this->addOption('add_span_if_before');
+    $this->addOption('pattern');
     
     parent::__construct($options, $attributes);
   }
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    //ull_format_date renders the current date when $value is NULL
-    //but we actually need an empty field
-    
     if (!$value)
     {
       return '';
     }
-    
-    if ($this->getOption('show_only_year'))
+
+    if ($pattern = $this->getOption('pattern'))
+    {
+      $value = format_datetime($value, $pattern);
+    }    
+    elseif ($this->getOption('show_only_year'))
     {
       $value = date('Y', strtotime($value));
     }

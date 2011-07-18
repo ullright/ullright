@@ -27,6 +27,8 @@ class ullMetaWidgetDate extends ullMetaWidget
 {
   protected function configureWriteMode()
   {
+    $this->columnConfig->removeWidgetOption('pattern');
+    
     if ($this->columnConfig->getWidgetAttribute('size') == null)
     {
       $this->columnConfig->setWidgetAttribute('size', '10');

@@ -61,6 +61,9 @@ function ull_date_pattern($zeroPadding = true, $php_format = false, $showWeekday
   $culture_parts = explode('_', $culture);
   $language = $culture_parts[0];
   
+  // For an explanation of this cryptic patterns 
+  // @see sfDateFormat::getPattern(), sfDateFormat::$tokens
+  
   if ($php_format)
   {
     $dayPattern = $zeroPadding ? 'd' : 'j';
@@ -92,18 +95,23 @@ function ull_date_pattern($zeroPadding = true, $php_format = false, $showWeekday
 /**
  * Extends symfony's DateHelper with a specific date format
  * This is culture sensitive.
- *
- * @param string date         iso date like "2007-12-04 13:45:10"
- * @return string date        formated date like "4.12.2007" for "de"
+ * 
+ * @param string $date          iso date like "2007-12-04 13:45:10"
+ * @param boolean $zeroPadding  show leading zeros    
+ * @param boolean $showWeekday  show the current weekday name
+ * 
+ * @return string
  */
 function ull_format_date($date = null, $zeroPadding = true, $showWeekday = false) 
 {
-  if ($date == null)
+  if (!$date)
   {
     $date = time();
   }
     
-  return format_datetime($date, ull_date_pattern($zeroPadding, false, $showWeekday));
+  $pattern = ull_date_pattern($zeroPadding, false, $showWeekday);
+  
+  return format_datetime($date, $pattern);
 }
 
 
