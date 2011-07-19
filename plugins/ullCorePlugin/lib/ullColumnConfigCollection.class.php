@@ -939,8 +939,7 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     $q = new ullQuery($model);
     $q
       ->addSelect($toStringColumn)
-      // we do a natsort anyway...
-//      ->addOrderBy($toStringColumn)
+      ->addOrderBy($toStringColumn)
       //better performance
       ->setHydrationMode(Doctrine::HYDRATE_ARRAY);
     ;

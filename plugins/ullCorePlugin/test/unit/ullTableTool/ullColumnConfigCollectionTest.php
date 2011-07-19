@@ -250,7 +250,7 @@ $t->diag('useManyToManyRelation()');
   $t->isa_ok($q, 'ullQuery', 'Returns a ull query to support translated columns');
   $t->is(
     $q->getSqlQuery(), 
-    "SELECT u.id AS u__id, u.type AS u__type, u.display_name AS u__display_name FROM ull_entity u WHERE (u.type = 'group')", 
+    "SELECT u.id AS u__id, u.type AS u__type, u.display_name AS u__display_name FROM ull_entity u WHERE (u.type = 'group') ORDER BY u.display_name asc", 
     'Returns the correct query'
   );
   $t->is($cc->getWidgetOption('key_method'), 'id', 'Returns the corret widget option "key_method"');
