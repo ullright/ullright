@@ -60,12 +60,39 @@ class ullQuery
    ******************************************/
   
   /**
+   * SELECT columns
+   * 
+   * @param mixed $columns    string or array
+   * @return self
+   */
+  public function select($columns)
+  {
+    $this->handleSelect($columns, 'select');
+    
+    return $this;
+  }  
+  
+  /**
    * Add SELECT columns
    * 
    * @param mixed $columns    string or array
    * @return self
    */
   public function addSelect($columns)
+  {
+    $this->handleSelect($columns, 'addSelect');
+    
+    return $this;
+  }
+  
+  /**
+   * Handle select
+   * 
+   * @param mixed $columns    string or array
+   * @param string method
+   * @return self
+   */
+  protected function handleSelect($columns, $method)
   {
     if (!is_array($columns))
     {
@@ -76,15 +103,30 @@ class ullQuery
     {
       if ($selectColumn = $this->relationStringToDoctrineQueryColumn($column))
       {
-        $this->q->addSelect($selectColumn);
+        $this->q->$method($selectColumn);
       }
     }
     
     $this->addRelationsToQuery();
-    
-    return $this;
   }
   
+  /**
+   * WHERE clauses
+   * 
+   * Attention: it currently supports only a single where statement
+   * Example: 'UllUser->Username = ?'
+   * 
+   * @param string $where   A valid doctrine WHERE string
+   * @param $params
+   * 
+   * @return self
+   */
+  public function where($where, $params = array())
+  {
+    $this->handleWhere($where, $params, 'where');
+    
+    return $this;
+  }  
   
   /**
    * Add WHERE clauses
@@ -98,7 +140,7 @@ class ullQuery
    */
   public function addWhere($where, $params = array())
   {
-    $this->handleWhere($where, $params, false);
+    $this->handleWhere($where, $params, 'addWhere');
     
     return $this;
   }
@@ -115,8 +157,64 @@ class ullQuery
    */
   public function orWhere($where, $params = array())
   {
-    $this->handleWhere($where, $params, true);
+    $this->handleWhere($where, $params, 'orWhere');
     
+    return $this;
+  }
+  
+  /**
+   * Internal function which handles adding where clauses to
+   * the query; supports AND and OR.
+   * 
+   * @param $where      the where term to add
+   * @param $params     params
+   * @param $method     method name
+   * 
+   * @return self
+   */
+  protected function handleWhere($where, $params, $method)
+  {
+    // retrieve the where column name 
+    preg_match('/^([a-z>_-])+/i', $where, $matches);
+    $column = $matches[0];
+
+    // get the doctrine name for it
+    $doctrineColumn = $this->relationStringToDoctrineQueryColumn($column);
+    
+    // replace the column name in the where clause
+    $where = str_replace($column, $doctrineColumn, $where);
+    
+    $this->q->$method($where, $params);
+    
+    $this->addRelationsToQuery();
+  }   
+  
+  /**
+   * WHERE IN
+   * 
+   * Alias for addWhereIn()
+   * 
+   * @param string $expr
+   * @param array $params
+   */
+  public function whereIn($expr, $params = array())
+  {
+    return $this->andWhereIn($expr, $params);
+  }  
+  
+  /**
+   * Add WHERE IN
+   * 
+   * @param string $expr
+   * @param array $params
+   */
+  public function andWhereIn($expr, $params = array())
+  {
+    $column = $this->relationStringToDoctrineQueryColumn($expr);
+    $this->q->andWhereIn($column, $params);
+    
+    $this->addRelationsToQuery();
+
     return $this;
   }
   
@@ -165,6 +263,36 @@ class ullQuery
   
   
   /**
+   * ORDER BY
+   * 
+   * @param string $orderBy the ORDER BY query part to add, can also be an array already transformed
+   *    by ullGeneratorTools::arrayizeOrderBy
+   *    
+   * @return self
+   */
+  public function orderBy($orderBy)
+  {
+    $this->handleOrderBy($orderBy, 'orderBy');
+    
+    return $this;
+  }  
+  
+  /**
+   * Add ORDER BY
+   * 
+   * @param string $orderBy the ORDER BY query part to add, can also be an array already transformed
+   *    by ullGeneratorTools::arrayizeOrderBy
+   *    
+   * @return self
+   */
+  public function addOrderBy($orderBy)
+  {
+    $this->handleOrderBy($orderBy, 'addOrderBy');
+    
+    return $this;
+  }    
+  
+  /**
    * Adds an ORDER BY query in front of the existing query part
    * 
    * e.g.
@@ -177,18 +305,20 @@ class ullQuery
    */
   public function addOrderByPrefix($orderPrefix)
   {
-    return $this->addOrderBy($orderPrefix, true);
-  }
+    $this->handleOrderBy($orderPrefix, 'addOrderBy', true);
+    
+    return $this;
+  }  
   
   /**
-   * Add ORDER BY
+   * Handle ORDER BY
    * 
    * @param string $orderBy the ORDER BY query part to add, can also be an array already transformed
    *    by ullGeneratorTools::arrayizeOrderBy
    * @param boolean $addAsPrefix if true, adds $orderBy in front of the existing query part
    * @return self
    */
-  public function addOrderBy($orderBy, $addAsPrefix = false)
+  protected function handleOrderBy($orderBy, $method, $addAsPrefix = false)
   {
     //if $orderBy is already an array, nothing will change
     $orderByArray = ullGeneratorTools::arrayizeOrderBy($orderBy);
@@ -217,14 +347,12 @@ class ullQuery
         }
         else
         {
-          $this->q->addOrderBy($newOrderString);
+          $this->q->$method($newOrderString);
         }
       }
     }
     
     $this->addRelationsToQuery();
-    
-    return $this;
   }
   
   
@@ -243,6 +371,11 @@ class ullQuery
     return $this;
   }  
   
+  
+  /**
+   * Simple Doctrine Query Aliases
+   */
+  
   /**
    * SQL limit funtion
    * 
@@ -256,6 +389,26 @@ class ullQuery
     return $this;
   }
   
+  
+  /**
+   * Set the hydration mode
+   * 
+   * @param unknown_type $mode
+   */
+  public function setHydrationMode($mode)
+  {
+    $this->q->setHydrationMode($mode);
+    
+    return $this;
+  }
+  
+  /**
+   * Return the root alias
+   */
+  public function getRootAlias()
+  {
+    return $this->q->getRootAlias();
+  }
   
   /**
    * Return query sql
@@ -593,38 +746,6 @@ class ullQuery
     {
       return null;
     } 
-  }  
-  
-  
-  /**
-   * Internal function which handles adding where clauses to
-   * the query; supports AND and OR.
-   * 
-   * @param $where the where term to add
-   * @param $params
-   * @param $coordinatorIsOr true if OR, false if AND
-   * @return self
-   */
-  protected function handleWhere($where, $params = array(), $coordinatorIsOr)
-  {
-    preg_match('/^([a-z>_-])+/i', $where, $matches);
-    $search = $matches[0];
-    $replace = $this->relationStringToDoctrineQueryColumn($search);
-
-    $where = str_replace($search, $replace, $where);
-    
-    if ($coordinatorIsOr)
-    {
-      $this->q->orWhere($where, $params);
-    }
-    else
-    {
-      $this->q->addWhere($where, $params);
-    }
-    
-    $this->addRelationsToQuery();
-    
-    return $this;
   }  
   
   

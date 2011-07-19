@@ -25,9 +25,7 @@ class ullDoctrineQuery extends Doctrine_Query
       $this->_dqlParts['where'] = $where;
     }
     
-    
     return $this;
-
   }
 
   /**
@@ -54,9 +52,12 @@ class ullDoctrineQuery extends Doctrine_Query
    *
    * @return $this
    */
-  public function wrapExistingWhereInParantheses() {
+  public function wrapExistingWhereInParantheses() 
+  {
     $where = $this->_dqlParts['where'];
-    if (count($where) > 0) {
+    
+    if (count($where) > 0) 
+    {
       array_unshift($where, '(');
       array_push($where, ')');
       $this->_dqlParts['where'] = $where;

@@ -8,10 +8,13 @@ class myTestCase extends sfDoctrineTestCase {}
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(25, new lime_output_color, $configuration);
+$t = new myTestCase(30, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
+/**
+ * Core functionality
+ */
 
 $t->begin('__construct()');
   $q = new ullQuery('TestTable');
@@ -42,14 +45,6 @@ $t->diag('relationStringToAlias()');
     'x',
     'Returns the correct string'
   );  
-
-  
-$t->diag('nestPlainArray()');
-  $t->is(
-    $q->nestPlainArray(array('UllUser', 'UllUserStatus', 'Translation')),
-    array('UllUser' => array('UllUserStatus' => array('Translation' => array()))),
-    'Creates the correct nested array'
-  );
 
   
 $t->diag('addRelations / getRelations()');
@@ -93,7 +88,68 @@ $t->diag('addRelationsToQuery()');
     ),
     'Creates the correct from Parts');
 
+
+/**
+ * Doctrine Query Equivalents
+ */
     
+$t->diag('select()');
+  $q = new ullQuery('TestTable');
+  $q->select('my_email');
+  $t->is(
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id, t.my_email AS t__my_email FROM test_table t",
+    'Returns the correct query'
+  );  
+  
+$t->diag('where()');
+  $q = new ullQuery('TestTable');
+  $q
+    ->select('id')
+    ->where('my_email = ?', 'foobar@example.com');
+  $t->is(
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id FROM test_table t WHERE (t.my_email = ?)",
+    'Returns the correct query'
+  );   
+
+$t->diag('whereIn()');
+  $q = new ullQuery('TestTable');
+  $q
+    ->select('id')
+    ->whereIn('my_email', array('foobar@example.com', 'x@foo.bar'));
+  $t->is(
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id FROM test_table t WHERE (t.my_email IN (?, ?))",
+    'Returns the correct query'
+  );   
+  
+$t->diag('andWhereIn()');
+  $q = new ullQuery('TestTable');
+  $q
+    ->select('id')
+    ->andWhereIn('my_email', array('foobar@example.com', 'x@foo.bar'));
+  $t->is(
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id FROM test_table t WHERE (t.my_email IN (?, ?))",
+    'Returns the correct query'
+  );  
+
+$t->diag('orderBy()');
+  $q = new ullQuery('TestTable');
+  $q
+    ->select('id')
+    ->orderBy('my_email');
+  $t->is(
+    $q->getSqlQuery(),
+    "SELECT t.id AS t__id FROM test_table t ORDER BY t.my_email asc",
+    'Returns the correct query'
+  ); 
+
+/**
+ * Here we also test more complex options and the "play together" of different parts"
+ */
+  
 $t->diag('addSelect()');    
   $q = new ullQuery('TestTable');
   $q->addSelect(array(
@@ -127,7 +183,6 @@ $t->diag('addOrderByPrefix()');
     "SELECT t.id AS t__id, t.my_email AS t__my_email, t2.id AS t2__id, t2.lang AS t2__lang, t2.my_string AS t2__my_string, u.id AS u__id, u.username AS u__username, u.type AS u__type, u2.id AS u2__id, u3.id AS u3__id, u3.lang AS u3__lang, u3.name AS u3__name, u4.id AS u4__id, u4.username AS u4__username, u4.type AS u4__type, CONCAT('Write an email to ', t.my_email) AS t__0 FROM test_table t LEFT JOIN test_table_translation t2 ON t.id = t2.id AND (t2.lang = \"en\") LEFT JOIN ull_entity u ON t.ull_user_id = u.id AND u.type = 'user' LEFT JOIN ull_employment_type u2 ON u.ull_employment_type_id = u2.id LEFT JOIN ull_employment_type_translation u3 ON u2.id = u3.id AND (u3.lang = \"en\") LEFT JOIN ull_entity u4 ON t.creator_user_id = u4.id AND u4.type = 'user' LEFT JOIN ull_location u5 ON u.ull_location_id = u5.id ORDER BY t.my_email asc, u5.short_name asc, t2.my_string asc, u3.name desc, u5.name asc",
     'Returns the correct query'
   );
-
   
 $t->diag('addWhere()');
   $q->addWhere('my_email = ?', 'foobar@example.com');
@@ -138,6 +193,7 @@ $t->diag('addWhere()');
     'Returns the correct query'
   );
   
+
 $t->diag('orWhere()');
   $q->orWhere('my_email = ?', 'barfoo@mpleexa.moc');
   $q->orWhere('UllUser->UllEmploymentType->name = ?', 'OEC');
@@ -150,6 +206,7 @@ $t->diag('orWhere()');
 
   $t->isa_ok($q->execute(), 'Doctrine_Collection', 'Successfully executes the query');
   $t->ok(is_array($q->execute(null, Doctrine::HYDRATE_ARRAY)), 'Successfully executes the query in array hydration mode');
+
 
 $t->diag('addSearch()');
   $q = new ullQuery('TestTable');
@@ -186,6 +243,10 @@ $t->diag('addGroupBy()');
     'Returns the correct query'
   );
   
+/**
+ * Miscellaneous
+ */  
+  
 $t->diag('__construct() with INDEXBY | Also tests limit()');
   $q = new ullQuery('UllUserStatus', 'slug');
   $q->addSelect('is_absent');
@@ -201,6 +262,12 @@ $t->diag('__construct() with INDEXBY | Also tests limit()');
     'Returns an indexed by array'
   );  
   
+$t->diag('nestPlainArray()');
+  $t->is(
+    $q->nestPlainArray(array('UllUser', 'UllUserStatus', 'Translation')),
+    array('UllUser' => array('UllUserStatus' => array('Translation' => array()))),
+    'Creates the correct nested array'
+  );  
 
 $t->diag('Doctrine 1.0 bug resolved with UllUser and SELECT on >= 2 relations');  
   
