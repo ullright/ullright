@@ -132,7 +132,7 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
       }
     }
     
-    natsort($choices);
+    natcasesort($choices);
     
     $this->cachedChoices = $choices;
     
