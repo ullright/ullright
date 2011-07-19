@@ -936,18 +936,18 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       $model = $relation->getClass();
     }
     
-    $q = new Doctrine_Query();
+    $q = new ullQuery($model);
     $q
-      ->select($toStringColumn)
-      ->from($model)
-      ->orderBy($toStringColumn)
+      ->addSelect($toStringColumn)
+      // we do a natsort anyway...
+//      ->addOrderBy($toStringColumn)
       //better performance
       ->setHydrationMode(Doctrine::HYDRATE_ARRAY);
     ;
     
     if ($hideInactive && Doctrine::getTable($model)->hasField('is_active'))
     {
-      $q->where('is_active = true');
+      $q->addWhere('is_active = ?', true);
     }
     
     $this->create($relationAlias)

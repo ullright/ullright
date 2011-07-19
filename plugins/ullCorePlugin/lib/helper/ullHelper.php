@@ -1303,7 +1303,7 @@ function use_stylesheets_for_widget($widgetClass)
 {
   if (!method_exists($widgetClass, 'getStylesheetsStatic'))
   {
-    throw new InvalidArgumentException('Invalid widget class');
+    throw new InvalidArgumentException($widgetClass . ' has no getStylesheetStatic() method');
   }
   
   $response = sfContext::getInstance()->getResponse();
@@ -1327,7 +1327,7 @@ function use_javascripts_for_widget($widgetClass)
 {
   if (!method_exists($widgetClass, 'getJavaScriptsStatic'))
   {
-    throw new InvalidArgumentException('Invalid widget class');
+    throw new InvalidArgumentException($widgetClass . ' has no getJavaScriptsStatic() method');
   }
   
   $response = sfContext::getInstance()->getResponse();

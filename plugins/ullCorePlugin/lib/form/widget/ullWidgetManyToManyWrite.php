@@ -9,17 +9,34 @@
  * select box with a more user-friendly and filter-enabled dropdown.
  * 
  * Differences to sfWidgetFormDoctrineChoice:
- * This widget supports Doctrine::HYDRATE_ARRAY hydration.
- * This widget ignores the 'table_method' option (can be added if needed).
- * When using array hydration, the 'method' and 'key_method' options
- *   are interpreted as key and value column names (i.e. instead of
- *   ->method(), [method] is used).
+ * - This widget supports Doctrine::HYDRATE_ARRAY hydration.
+ * - This widget ignores the 'table_method' option (can be added if needed).
+ * - When using array hydration, the 'method' and 'key_method' options
+ *     are interpreted as key and value column names (i.e. instead of
+ *     ->method(), [method] is used).
  * 
  * Note: A few of these lines are by K. Adryjanek <kamil.adryjanek@gmail.com>
  */
 class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
 {
-  protected $cachedChoices = null;
+  protected 
+    $cachedChoices = null
+  ;
+  
+  protected static 
+    $javaScripts = array(
+      '/ullCorePlugin/js/jq/jquery-min.js',
+      '/ullCorePlugin/js/jq/jquery-ui-min.js',
+      '/ullCorePlugin/js/jq/jquery.multiselect-min.js',
+      '/ullCorePlugin/js/jq/jquery.multiselect.filter.js',
+      '/ullCorePlugin/js/ullWidgetManyToMany.js'
+    ),
+    $stylesheets = array(
+      '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
+      '/ullCorePlugin/css/jquery.multiselect.css' => 'all',
+      '/ullCorePlugin/css/jquery.multiselect.filter.css' => 'all'
+    )
+  ;  
   
   /**
    * Configures this widget, setting a couple of default options
@@ -43,6 +60,9 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
     //we should remove the table_method option if we do not support it, but how?
   }
 
+  /** 
+   * Get choices
+   */
   public function getChoices()
   {
     if ($this->cachedChoices !== null)
@@ -54,12 +74,14 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
     $keyMethod = $this->getOption('key_method');
     
     $choices = array();
-    if (false !== $this->getOption('add_empty'))
+    
+    if ($this->getOption('add_empty'))
     {
-      $choices[''] = true === $this->getOption('add_empty') ? '' : $this->translate($this->getOption('add_empty'));
+      $choices[''] = ''; 
     }
 
     $query = null === $this->getOption('query') ? Doctrine_Core::getTable($this->getOption('model'))->createQuery() : $this->getOption('query');
+    
     if ($order = $this->getOption('order_by'))
     {
       $query->addOrderBy($order[0] . ' ' . $order[1]);
@@ -77,26 +99,43 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
       $query->limit(100);
     }
     
-    $objects = $query->execute();
+    $results = $query->execute();
   
     //was array hydration used?
-    if (is_array($objects))
+    if (is_array($results))
     {
-      foreach ($objects as $object)
+      foreach ($results as $object)
       {
-        $choices[$object[$keyMethod]] = $object[$method];
+        if (isset($object[$method]))
+        {
+          $choices[$object[$keyMethod]] = $object[$method];
+        }
+        // try if it is a translated column
+        elseif (isset($object['Translation']))
+        {
+          $translation = reset($object['Translation']);
+          
+          $choices[$object[$keyMethod]] = $translation[$method];
+        }
+        else
+        {
+          throw new RuntimeException('Field or method not found in result'); 
+        }
       }
     }
     //otherwise assume records
     else
     {
-      foreach ($objects as $object)
+      foreach ($results as $object)
       {
         $choices[$object->$keyMethod()] = $object->$method();
       }
     }
     
+    natsort($choices);
+    
     $this->cachedChoices = $choices;
+    
     return $choices;
   }
   
@@ -160,14 +199,6 @@ EOF
     }
   }
 
-  protected static $javaScripts = array(
-    '/ullCorePlugin/js/jq/jquery-min.js',
-    '/ullCorePlugin/js/jq/jquery-ui-min.js',
-    '/ullCorePlugin/js/jq/jquery.multiselect-min.js',
-  	'/ullCorePlugin/js/jq/jquery.multiselect.filter.js',
-    '/ullCorePlugin/js/ullWidgetManyToMany.js'
-  );
-  
   /**
    * Gets the JavaScript paths associated with the widget.
    *
@@ -197,19 +228,11 @@ EOF
    */
   public function getStylesheets()
   {
-    return array(
-      '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
-      '/ullCorePlugin/css/jquery.multiselect.css' => 'all',
-      '/ullCorePlugin/css/jquery.multiselect.filter.css' => 'all'
-      );
+    return self::$stylesheets;
   }
   
   public static function getStylesheetsStatic()
   {
-    return array(
-      '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
-      '/ullCorePlugin/css/jquery.multiselect.css' => 'all',
-      '/ullCorePlugin/css/jquery.multiselect.filter.css' => 'all'
-      );
+    return self::$stylesheets;
   }
 }
