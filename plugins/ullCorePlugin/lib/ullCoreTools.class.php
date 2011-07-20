@@ -272,9 +272,14 @@ class ullCoreTools
       $validTypes = ullValidatorFile::getWebImageMimeTypes();
     }
     
+    // PHP 5.2 does not support constant FILEINFO_MIME_TYPE
+//    $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type aka mimetype extension
+    $finfo = finfo_open(FILEINFO_MIME); // return mime type aka mimetype extension
     
-    $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type aka mimetype extension
     $mimeType = (finfo_file($finfo, $path));
+    $mimeType = explode(';', $mimeType);
+    $mimeType = $mimeType[0];
+    
     finfo_close($finfo);
     
     if (!in_array($mimeType, $validTypes))
