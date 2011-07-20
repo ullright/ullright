@@ -83,7 +83,7 @@ class PluginUllFlowDocTable extends UllRecordTable
     // app-specific global read access
     if ($app)
     {
-      if (UllUserTable::hasPermission('UllFlow_' . $app->slug . '_global_read'))
+      if (UllUserTable::hasPermission('ullFlow_' . $app->slug . '_global_read'))
       {
         return $q;
       }
