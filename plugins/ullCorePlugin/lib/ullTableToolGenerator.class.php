@@ -353,7 +353,7 @@ class ullTableToolGenerator extends ullGenerator
   
   
   /**
-   * Add "scheduled_update_date" field funknown_typeor versionable behaviour
+   * Add "scheduled_update_date" field for versionable behaviour
    * 
    * @return none
    */
