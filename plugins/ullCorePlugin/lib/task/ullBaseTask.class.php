@@ -174,6 +174,25 @@ abstract class ullBaseTask extends sfBaseTask
       $this->svnDelete($currentPath);      
     }
     
+    /* Delete plugin classes */
+    if ($pluginName)
+    {
+      $this->logSection($this->name, 'Deleting plugin classes');
+      
+      $path = 'plugins/' . $pluginName . '/lib';
+      
+      $currentPath = $path . '/model/doctrine/Plugin' . $modelName . '.class.php';
+      $this->svnDelete($currentPath);
+      
+      $currentPath = $path . '/model/doctrine/Plugin' . $modelName . 'Table.class.php';
+      $this->svnDelete($currentPath);      
+      
+      $currentPath = $path . '/form/doctrine/Plugin' . $modelName . 'Form.class.php';
+      $this->svnDelete($currentPath);      
+      
+      $currentPath = $path . '/filter/doctrine/Plugin' . $modelName . 'FormFilter.class.php';
+      $this->svnDelete($currentPath);            
+    }
     
     
     
