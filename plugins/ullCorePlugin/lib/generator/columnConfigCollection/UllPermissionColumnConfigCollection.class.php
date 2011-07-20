@@ -9,5 +9,9 @@ class UllPermissionColumnConfigCollection extends ullColumnConfigCollection
   protected function applyCustomSettings()
   {
     $this->enable(array('slug'));
+    
+    $this['slug']
+      ->removeWidgetAttribute('class')
+    ;
   }
 }
