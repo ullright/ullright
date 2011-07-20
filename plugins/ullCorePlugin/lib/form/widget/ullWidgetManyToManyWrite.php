@@ -17,7 +17,7 @@
  * 
  * Note: A few of these lines are by K. Adryjanek <kamil.adryjanek@gmail.com>
  */
-class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
+class ullWidgetManyToManyWrite extends ullWidgetFormDoctrineChoice
 {
   protected 
     $cachedChoices = null
@@ -141,12 +141,13 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
   
   /**
    * Typical widget rendering code, uses the rendering of the
-   * sfWidgetFormDoctrineChoice parent class but adds some
+   * ullWidgetFormDoctrineChoice parent class but adds some
    * javascript to call and enable the multiselect widget.
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     $id = $this->generateId($name);
+    
     $choicesCount = count($this->getChoices());
  
     //enable AJAX mode if choice count is high
@@ -157,8 +158,8 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
       $ajaxUrl = url_for('ullTableTool/manyToManyFilter');
       $filterConfig = $this->getOption('filter_config');
       
-      return parent::render($name, $value, $attributes, $errors).
-      sprintf(<<<EOF
+      $return = parent::render($name, $value, $attributes, $errors);
+      $return .= sprintf(<<<EOF
               <script type="text/javascript">
               	var widget_$id = {
               		selectedOptions: null, selectedValues: null,
@@ -176,13 +177,17 @@ class ullWidgetManyToManyWrite extends sfWidgetFormDoctrineChoice
 
               </script>
 EOF
-      ,
-      $this->getOption('config'));
+        ,
+        $this->getOption('config')
+      );
+      
+      return $return;
     }
     else
     {
-      return parent::render($name, $value, $attributes, $errors).
-	      sprintf(<<<EOF
+      $return = parent::render($name, $value, $attributes, $errors);
+      
+      $return .= sprintf(<<<EOF
 	            <script type="text/javascript">
 	                jQuery(document).ready(function() {
                   $("#%s").multiselect(
@@ -191,11 +196,13 @@ EOF
 	                });
 	            </script>
 EOF
-	    ,
-	    $id,
-	    $this->getOption('config'),
-	    $this->getOption('filter_config')
+  	    ,
+  	    $id,
+  	    $this->getOption('config'),
+  	    $this->getOption('filter_config')
 	    );
+	    
+	    return $return;
     }
   }
 

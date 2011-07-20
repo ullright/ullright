@@ -68,20 +68,6 @@ class ullWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
     return $choices;
   }
   
-  /**
-   * Gets the JavaScript paths associated with the widget.
-   *
-   * @return array An array of JavaScript paths
-   */
-  public function getJavaScripts()
-  {
-    return array(
-      '/ullCorePlugin/js/jq/jquery-min.js', 
-      '/ullCorePlugin/js/jq/jquery.add_select_filter.js',
-      '/ullCorePlugin/js/jq/jquery.tools.min.js',
-    );   
-  }
-  
   
   /**
    * Renders search box field for select boxes
@@ -115,32 +101,35 @@ $(document).ready(function()
    */
   protected function renderInlineEditing($id, $name)
   {
+    if (!$this->getOption('enable_inline_editing'))
+    {
+      return;
+    }
+    
     $return = '';
     
-    if ($this->getOption('enable_inline_editing') == true)
-    {
-      // add
-      $return .= ' <span class="ull_widget_form_doctrine_select">';
-      $return .= link_to_function(
-        '+', 
-        'ullOverlay("create")' 
-      ); 
-      $return .= '</span>';
+    // add
+    $return .= ' <span class="ull_widget_form_doctrine_select">';
+    $return .= link_to_function(
+      '+', 
+      'ullOverlay("create")' 
+    ); 
+    $return .= '</span>';
+    
+    // edit
+    $return .= ' <span class="ull_widget_form_doctrine_select">';
+    $return .= link_to_function(
+        ull_image_tag('edit'),
+        'ullOverlay("edit")'
+      );
+    $return .= '</span>';      
       
-      // edit
-      $return .= ' <span class="ull_widget_form_doctrine_select">';
-      $return .= link_to_function(
-          ull_image_tag('edit'),
-          'ullOverlay("edit")'
-        );
-      $return .= '</span>';      
-        
-      // overlay content
-      $return .= '<div class="overlay" id="overlay">';
-      $return .= '  <div class="overlayContentWrap"></div>';
-      $return .= '</div>';
-  
-      $return .= javascript_tag('
+    // overlay content
+    $return .= '<div class="overlay" id="overlay">';
+    $return .= '  <div class="overlayContentWrap"></div>';
+    $return .= '</div>';
+
+    $return .= javascript_tag('
 
 function ullOverlay(action) {
 
@@ -191,8 +180,9 @@ function ullOverlay(action) {
   
       onClose: function () {
       
-        // check trigger if we want to ajax save the form on close
-        if (window.overlaySaveOnClose == true) {
+        // Check if the widget data was modified (create/edit)
+        //   and if so reload the widget markup  
+        if (window.overlayIsModified == true) {
           $.ajax({  
             url: "' . ull_url_for(array('field' => $name)) . '",  
             timeout: 5000,
@@ -219,9 +209,22 @@ function ullOverlay(action) {
   
 }
 ');
-    }    
     
-    return $return;
+  return $return;
   }
   
+  
+  /**
+   * Gets the JavaScript paths associated with the widget.
+   *
+   * @return array An array of JavaScript paths
+   */
+  public function getJavaScripts()
+  {
+    return array(
+      '/ullCorePlugin/js/jq/jquery-min.js', 
+      '/ullCorePlugin/js/jq/jquery.add_select_filter.js',
+      '/ullCorePlugin/js/jq/jquery.tools.min.js',
+    );   
+  }  
 }

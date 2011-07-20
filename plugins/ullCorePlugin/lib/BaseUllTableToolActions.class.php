@@ -179,6 +179,8 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
    * Update a single field, usually called via ajax
    * 
    * Call syntax: ullTableTool/updateSingleColumn?table=UllUser&id=2&column=street&value=streetname
+   * 
+   * This is e.g. used by ullWidgetCheckbox for direct ajax updates in the list view 
    *
    * @param sfWebRequest $request
    */
@@ -264,23 +266,24 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     return $this->renderText(json_encode($wrapper));
   }
 
-  /**
-   * Does what the method name suggests
-   * 
-   * @param unknown_type $row
-   */
-  protected function prepareDefaultsForUpdateSingleColumn($row)
-  {
-    $defaultsForValidation = array_intersect_key(
-      $row->toArray(), 
-      array_flip($this->generator->getForm()->getListOfFields())
-    ); 
-    
-    // TODO: remove hardcoded fix for UllUser
-    unset($defaultsForValidation['password']);
-    
-    return $defaultsForValidation;
-  }
+//  /**
+//   * Does what the method name suggests
+//   * (Did you have a bad day?)
+//   * 
+//   * @param unknown_type $row
+//   */
+//  protected function prepareDefaultsForUpdateSingleColumn($row)
+//  {
+//    $defaultsForValidation = array_intersect_key(
+//      $row->toArray(), 
+//      array_flip($this->generator->getForm()->getListOfFields())
+//    ); 
+//    
+//    // TODO: remove hardcoded fix for UllUser
+//    unset($defaultsForValidation['password']);
+//    
+//    return $defaultsForValidation;
+//  }
   
   /**
    * Setup ullGenerator

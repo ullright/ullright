@@ -23,6 +23,8 @@
               {
                 $('input#edit_action_buttons_left_save_button').click(function()
                 {
+                  /* Prevent multiple submits */
+                  
                   //is this the first time the button was clicked?
                   if ($(this).data().alreadyClicked)
                   {
@@ -34,22 +36,26 @@
                     //if yes, save the fact
                     $(this).data('alreadyClicked', true);
                   }
+
+                  /* End of multi submit prevention */
                   
                   $.ajax({  
                     type: "POST",  
                     url: "<?php echo url_for($form_uri); ?>",  
                     data: $("#ull_tabletool_form").serialize(), 
                     success: function(data) {
-                      // A json response means ok
+                      // A json response containing the id of the object means ok
                       try {
                         var json = jQuery.parseJSON(data);
-                        // save overlay edit id
+                        // save object id for overlay creator (=original edit page) 
                         window.overlayId = json.id;
-                        // trigger save on close event
-                        window.overlaySaveOnClose = true;
+                        // save modified status for overlay creator to trigger widget reload
+                        window.overlayIsModified = true;
                         $("#overlay").overlay().close();
                       }
-                      // Otherwise we have a validation error
+                      // Otherwise a validation error occured.
+                      // We got the normal html markup (form with error msgs) and
+                      //   re-render it 
                       catch (e) {
                         var wrap = $("#overlay").overlay().getOverlay().find(".overlayContentWrap");
                         wrap.html(data);
