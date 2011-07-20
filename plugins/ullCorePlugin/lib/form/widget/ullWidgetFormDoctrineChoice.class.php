@@ -5,7 +5,7 @@
  * 
  * Adds 
  *   * support for js search box which filters the select options
- *   * inline adding of select box entries
+ *   * inline adding and editing of select box entries
  *    
  * @author klemens.ullmann-marx@ull.at
  *
