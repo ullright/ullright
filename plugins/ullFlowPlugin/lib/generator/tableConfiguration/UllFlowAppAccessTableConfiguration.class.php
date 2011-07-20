@@ -1,11 +1,11 @@
 <?php
 /**
- * TableConfiguration for UllFlowAppPermission
+ * TableConfiguration
  * 
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class UllFlowAppPermissionTableConfiguration extends ullTableConfiguration
+class UllFlowAppAccessTableConfiguration extends ullTableConfiguration
 {
   /**
    * (non-PHPdoc)
@@ -13,7 +13,7 @@ class UllFlowAppPermissionTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setName(__('Workflow access rights', null, 'ullFlowMessages'));
+    $this->setName(__('Workflow permissions', null, 'ullFlowMessages'));
     $this->setSearchColumns(array('ull_flow_app_id'));
     $this->setOrderBy('ull_flow_app_id');
   }

@@ -1,6 +1,6 @@
 <?php
 
-class UllFlowAppPermissionColumnConfigCollection extends ullColumnConfigCollection
+class UllFlowAppAccessColumnConfigCollection extends ullColumnConfigCollection
 {
   /**
    * Applies model specific custom column configuration

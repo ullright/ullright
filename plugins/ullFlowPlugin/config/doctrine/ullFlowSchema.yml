@@ -25,9 +25,11 @@ UllFlowApp:
       type: boolean
       default: true
   relations:
+    # DEPRECATED!
     UllPermission:
       refClass: UllFlowAppPermission
 
+# DEPRECATED!
 UllFlowAppPermission:
   package: ullFlowPlugin.lib.model.doctrine
   inheritance:
@@ -329,3 +331,24 @@ UllFlowStepAction:
     # because "options" column collides with doctrine internal options
     auto_accessor_override: false
       
+UllFlowAppAccess:
+  package: ullFlowPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  columns:
+    ull_flow_app_id:
+      type: integer
+      notnull: true
+    ull_group_id:
+      type: integer
+      notnull: true
+    ull_privilege_id:
+      type: integer
+      notnull: true
+  relations:
+    UllFlowApp:
+      onDelete: CASCADE
+    UllGroup:
+      onDelete: CASCADE    
+    UllPrivilege:

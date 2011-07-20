@@ -218,6 +218,13 @@
         <source>Done, assign to creator for review</source>
         <target>Erledigt, zur Abnahme an Ersteller zuweisen</target>
       </trans-unit>      
+      
+      <trans-unit id="211">
+        <source>Workflow permissions</source>
+        <target>Workflow Zugriffrechte</target>
+      </trans-unit>
+      
+      
 
   <!--  -->
 

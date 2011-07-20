@@ -80,15 +80,6 @@ class PluginUllFlowDocTable extends UllRecordTable
       return $q;
     }
     
-    // app-specific global read access
-    if ($app)
-    {
-      if (UllUserTable::hasPermission('ullFlow_' . $app->slug . '_global_read'))
-      {
-        return $q;
-      }
-    }
-    
   	$userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
   	
   	// check is_public
@@ -109,10 +100,10 @@ class PluginUllFlowDocTable extends UllRecordTable
     $q->leftJoin('x.UllFlowMemories m');
     $q->leftJoin('m.CreatorUllEntity.UllEntityGroupsAsGroup meg');
     
-    // global read access:
-    $q->leftJoin('x.UllFlowApp.UllPermission p');
-    $q->leftJoin('p.UllGroup.UllUser gru');
-
+//    // global read access:
+    $q->leftJoin('x.UllFlowApp.UllFlowAppAccess acc');
+    $q->leftJoin('acc.UllPrivilege priv');
+    $q->leftJoin('acc.UllGroup.UllUser privu');
     
     // moved all where clauses into one statement to properly set the braces
     $q->addWhere('
@@ -120,9 +111,16 @@ class PluginUllFlowDocTable extends UllRecordTable
       OR aeg.ull_entity_id = ? 
       OR m.creator_ull_entity_id = ? 
       OR meg.ull_entity_id = ?
-      OR gru.id = ? AND p.slug LIKE ?
+      OR (priv.slug = ? AND privu.id = ?)
       OR x.UllFlowApp.is_public = ?',
-      array($userId, $userId, $userId, $userId, $userId, '%_global_read', true)
+      array(
+        $userId, 
+        $userId, 
+        $userId, 
+        $userId, 
+        'read',
+        $userId,
+        true)
     );
 
     return $q;
