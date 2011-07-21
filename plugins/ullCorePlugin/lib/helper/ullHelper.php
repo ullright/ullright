@@ -1086,11 +1086,17 @@ function ull_js_observer($form_id) {
  */
 function hide_advanced_form_fields()
 {
-  use_javascript('/ullCorePlugin/js/formHideAdvancedOptions.js');
-  
-  return javascript_tag('
-formHideAdvancedOptions("' . __('Show more fields', null, 'common') . '");
-');
+  // Disable this functionalty for edit pages loaded via ajay (overlay)
+  // because it has sideeffects on the originating page
+  // TODO: implement proper solution which works also for overlays
+  if (!sfContext::getInstance()->getRequest()->isXmlHttpRequest())
+  {
+    use_javascript('/ullCorePlugin/js/formHideAdvancedOptions.js');
+    
+    return javascript_tag('
+  formHideAdvancedOptions("' . __('Show more fields', null, 'common') . '");
+  ');
+  }
 }
 
 function _convert_array_to_string($arr) {
