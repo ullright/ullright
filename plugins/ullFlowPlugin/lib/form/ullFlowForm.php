@@ -27,11 +27,15 @@ class ullFlowForm extends ullGeneratorForm
    */
   protected function updateDefaultsFromObject()
   {
-    parent::updateDefaultsFromObject();
-    
+    // Add the virtual values before the native values
+    // because the values get filtered by ullGeneratorForm::updateDefaultsFromObject()
+    // and the filtering should also apply to virtual values
     $this->setDefaults(array_merge($this->getDefaults(), 
         $this->object->getVirtualValuesAsArray()));
-        
+
+    parent::updateDefaultsFromObject();   
+
+    // What does this here?
     if (!$this->getDefault('effort_date'))
     {
       $this->setDefault('effort_date', date('Y-m-d')); 
