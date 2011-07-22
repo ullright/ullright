@@ -193,10 +193,6 @@ abstract class ullBaseTask extends sfBaseTask
       $currentPath = $path . '/filter/doctrine/Plugin' . $modelName . 'FormFilter.class.php';
       $this->svnDelete($currentPath);            
     }
-    
-    
-    
-    //TODO: also non-generated plugin models?
   }
 
   
