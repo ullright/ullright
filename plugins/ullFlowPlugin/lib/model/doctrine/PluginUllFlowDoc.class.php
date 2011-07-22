@@ -472,16 +472,14 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
         return 'w';
       }
       
-      // TODO: add new write access check
-      
-//      // app-specific global write access
-//      if (UllUserTable::hasPermission('UllFlow_' . $this->UllFlowApp->slug . '_global_write'))
-//      {
-//        return 'w';
-//      }    
-      
       // a user has write access to docs which are assigned to him
       if (UllEntityTable::has($this->UllEntity))
+      {
+        return 'w';
+      }
+      
+      // app-specific global write access
+      if (UllFlowAppTable::hasLoggedInUserGlobalWriteAccess($this->ull_flow_app_id))
       {
         return 'w';
       }

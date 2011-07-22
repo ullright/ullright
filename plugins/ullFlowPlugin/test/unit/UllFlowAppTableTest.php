@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(7, new lime_output_color, $configuration);
+$t = new myTestCase(9, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -41,3 +41,11 @@ $t->diag('findAllOrderByLabel');
   $t->is(count($apps), 2, 'Returns the correct number of results');
   $t->is($apps[0]['slug'], 'todo', 'Returns the correct result at the correct position');
   $t->is($apps[1]['slug'], 'trouble_ticket', 'Returns the correct result at the correct position');
+  
+$t->diag('hasLoggedInUserGlobalWriteAccess()');
+
+  $t->loginAs('helpdesk_user');
+  $t->is(UllFlowAppTable::hasLoggedInUserGlobalWriteAccess(1), false, 'Helpdesk user has no global write access');
+  $t->loginAs('helpdesk_admin_user');
+  $t->is(UllFlowAppTable::hasLoggedInUserGlobalWriteAccess(1), true, 'Helpdesk admin user has global write access');
+  

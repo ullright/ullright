@@ -24,22 +24,11 @@ UllGroup:
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
-    #UllPermissions:     [ullFlow_trouble_ticket_global_write]
   helpdesk_group:
     display_name:       Helpdesk
     Creator:            admin_user
     Updator:            admin_user
     namespace:          test
-    #UllPermissions:     [ullFlow_trouble_ticket_global_read] 
-
-UllPermission:
-  ullFlow_trouble_ticket_global_write:
-    slug:               ullFlow_trouble_ticket_global_write
-    namespace:          test
-  ullFlow_trouble_ticket_global_read:
-    slug:               ullFlow_trouble_ticket_global_read
-    namespace:          test
-      
     
 UllEntityGroup:
   ull_entity_group_ull_flow_1:
@@ -51,16 +40,19 @@ UllEntityGroup:
     UllGroup:           helpdesk_group
     namespace:          test
     
-UllGroupPermission:
-  ull_group_permission_ull_flow_1:
+UllFlowAppAccess:
+  ull_flow_app_access_1:
+    UllFlowApp:         ull_flow_app_trouble_ticket
     UllGroup:           helpdesk_admin_group
-    UllPermission:      ullFlow_trouble_ticket_global_write
-    namespace:          test
-  ull_group_permission_ull_flow_2:
+    UllPrivilege:       ull_privilege_read
+  ull_flow_app_access_2:
+    UllFlowApp:         ull_flow_app_trouble_ticket
+    UllGroup:           helpdesk_admin_group
+    UllPrivilege:       ull_privilege_write
+  ull_flow_app_access_3:
+    UllFlowApp:         ull_flow_app_trouble_ticket
     UllGroup:           helpdesk_group
-    UllPermission:      ullFlow_trouble_ticket_global_read
-    namespace:          test
-
+    UllPrivilege:       ull_privilege_read        
 
 
 UllFlowApp:
@@ -88,12 +80,6 @@ UllFlowApp:
     slug: todo   
     namespace:      test
       
-UllFlowAppPermission:
-  ull_flow_app_permission_1:
-    UllFlowApp:     ull_flow_app_trouble_ticket
-    UllPermission:  ullFlow_trouble_ticket_global_read
-    namespace:      test
-
 # It's not possible to set the virtual column-values here via fixtures
 # @see http://trac.doctrine-project.org/ticket/2493                 
 UllFlowDoc:
@@ -165,18 +151,6 @@ UllFlowColumnConfig:
     is_mandatory:   true
     is_subject:     true
     namespace:      test
-    
-#  ull_flow_column_config_trouble_ticket_date:
-#    Translation:
-#      en:
-#        label:      Date
-#      de:
-#        label:      Datum
-#    UllFlowApp:     ull_flow_app_trouble_ticket
-#    slug:           my_date
-#    sequence:       2000
-#    UllColumnType:  date
-#    namespace:      test
     
   ull_flow_column_config_trouble_ticket_email:
     Translation:
@@ -322,11 +296,6 @@ UllFlowValue:
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_information_update
     value:          blub macht da fisch :)
     namespace:      test
-#  ull_flow_value_doc_trouble_ticket1_date:
-#    UllFlowDoc:     ull_flow_doc_trouble_ticket1
-#    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_date
-#    value:          '2011-11-11'
-#    namespace:      test
   ull_flow_value_doc_trouble_ticket1_email:
     UllFlowDoc:     ull_flow_doc_trouble_ticket1
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_email
@@ -363,11 +332,6 @@ UllFlowValue:
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_subject
     value:          AAA My second trouble ticket
     namespace:      test
-#  ull_flow_value_doc_trouble_ticket2_date:
-#    UllFlowDoc:     ull_flow_doc_trouble_ticket2
-#    UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_date
-#    value:          '2012-12-12'
-#    namespace:      test
   ull_flow_value_doc_trouble_ticket2_email:
     UllFlowDoc:     ull_flow_doc_trouble_ticket2
     UllFlowColumnConfig: ull_flow_column_config_trouble_ticket_email
@@ -542,15 +506,6 @@ UllFlowAction:
     slug:             create
     is_status_only:   false
     namespace:        ullFlow
-#  ull_flow_action_edit:
-#    Translation:
-#      en:
-#        label:       Edited
-#      de:
-#        label:       Bearbeitet
-#    namespace:       ullFlow
-#    slug:            edited
-#    status_only:     true
   ull_flow_action_save_only:
     Translation:
       en:

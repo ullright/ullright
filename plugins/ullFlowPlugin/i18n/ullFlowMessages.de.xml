@@ -155,7 +155,7 @@
       <!-- table config -->
       <trans-unit id="200">
         <source>Workflow access rights</source>
-        <target>Workflow-Zugriffsrechte</target>
+        <target>Workflow Zugriffsrechte</target>
       </trans-unit>
 
       <trans-unit id="201">
@@ -219,10 +219,6 @@
         <target>Erledigt, zur Abnahme an Ersteller zuweisen</target>
       </trans-unit>      
       
-      <trans-unit id="211">
-        <source>Workflow permissions</source>
-        <target>Workflow Zugriffrechte</target>
-      </trans-unit>
       
       
 

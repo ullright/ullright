@@ -6,15 +6,16 @@ $selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array
       array(
         'edit_delete',      
         'ull_flow_app_id',
-        'ull_permission_id',
+        'ull_group_id',
+        'ull_privilege_id',
       )
     );
 
 $b = new ullTableToolTestBrowser(
-	'UllFlowAppPermission', 
+	'UllFlowAppAccess', 
 	'Workflow access rights', 
 	'Manage Workflow access rights', 
-  1, 
+  3, 
   $selector, 
   $configuration,
   array('order' => 'created_at', 'desc' => true)
@@ -25,12 +26,14 @@ $b->resetDatabase();
 
 $createValues = array(
 	'ull_flow_app_id' => array(Doctrine::getTable('UllFlowApp')->findOneBySlug('trouble_ticket')->id, 'Trouble ticket tool'), 
-	'ull_permission_id' => array(Doctrine::getTable('UllPermission')->findOneBySlug('testpermission')->id, 'testPermission') 
+  'ull_group_id' => array(Doctrine::getTable('UllGroup')->findOneByDisplayName('TestGroup')->id, 'TestGroup'),
+	'ull_privilege_id' => array(Doctrine::getTable('UllPrivilege')->findOneBySlug('read')->id, 'read') 
 );
 
 $editValues = array(
-  'ull_flow_app_id' => array(Doctrine::getTable('UllFlowApp')->findOneBySlug('todo')->id, 'Todo list'), 
-  'ull_permission_id' => array(Doctrine::getTable('UllPermission')->findOneBySlug('ull_photo')->id, 'ull_photo')
+  'ull_flow_app_id' => array(Doctrine::getTable('UllFlowApp')->findOneBySlug('todo')->id, 'Todo list'),
+  'ull_group_id' => array(Doctrine::getTable('UllGroup')->findOneByDisplayName('MasterAdmins')->id, 'MasterAdmins'),
+  'ull_privilege_id' => array(Doctrine::getTable('UllPrivilege')->findOneBySlug('write')->id, 'write')
 );
 
 $b->setCreateValues($createValues);

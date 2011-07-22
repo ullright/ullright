@@ -57,7 +57,7 @@ class PluginUllFlowDocTable extends UllRecordTable
   }
   
   /**
-   * adds access checks to the query
+   * Adds read access checks to the query
    * 
    * @param Doctrine_Query $q
    * @param $app empty or a UllFlowApp
@@ -68,7 +68,7 @@ class PluginUllFlowDocTable extends UllRecordTable
 	{
 		if ($app)
 		{
-		  if(!$app instanceof UllFlowApp)
+		  if (!$app instanceof UllFlowApp)
 		  {
 		    throw new InvalidArgumentException('Please supply a valid UllFlowApp');
 		  }
@@ -125,6 +125,7 @@ class PluginUllFlowDocTable extends UllRecordTable
 
     return $q;
 	}
+	
 	
 	/**
 	 * Check if a given UllFlowDoc id exists

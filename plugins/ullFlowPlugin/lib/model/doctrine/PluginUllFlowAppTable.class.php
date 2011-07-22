@@ -68,5 +68,33 @@ class PluginUllFlowAppTable extends UllRecordTable
 
     return $result;
   }
+  
+  /**
+   * Check if the currently logged in user has global write access for the given app
+   * @param $ullFlowAppId
+   * 
+   * @return boolean
+   */
+  public static function hasLoggedInUserGlobalWriteAccess($ullFlowAppId)
+  {
+    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllFlowApp x')
+      ->leftJoin('x.UllFlowAppAccess acc')
+      ->leftJoin('acc.UllPrivilege priv')
+      ->leftJoin('acc.UllGroup.UllUser privu')
+      
+      ->where('x.id = ?', $ullFlowAppId)
+    
+      // moved all where clauses into one statement to properly set the braces
+      ->addWhere('priv.slug = ?', 'write')
+      ->addWhere('privu.id = ?', $userId)
+    ;
+    
+    return (boolean) $q->count();
+  }  
 
 }
