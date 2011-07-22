@@ -308,19 +308,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       }
     }
 
-    /**
-     * Render only a given form field for ajax requests
-     */
-    if ($request->isXmlHttpRequest())
-    {
-      $field = $request->getParameter('field');
-      
-      $field = str_replace('fields[', '', $field);
-      $field = str_replace(']', '', $field);
-      
-      return $this->renderText($this->edit_generator->getForm()->offsetGet($field)->render());
-    }
-    
+    return $this->enableAjaxSingleWidgetRendering($this->edit_generator);
   }
 
 

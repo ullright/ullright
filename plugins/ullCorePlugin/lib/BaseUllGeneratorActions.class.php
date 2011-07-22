@@ -672,4 +672,49 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     }  
   }
   
+  
+  /**
+   * Render only a given form field for ajax requests
+   * 
+   * It is called at the bottom of an action.
+   * 
+   * This is used e.g. by ullWidgetFormDoctrineChoice for the ajax inline
+   * editing.
+   * 
+   * @param $generator optional   A ullGenerator instance
+   */
+  protected function enableAjaxSingleWidgetRendering($generator = null)
+  {
+    $request = $this->getRequest();
+    
+    // Only ajax requests are allowed here
+    if (!$request->isXmlHttpRequest())
+    {
+      return null;
+    }
+      
+    if (!$generator)
+    {
+      $generator =  $this->generator;
+    }
+    
+    if (! $generator instanceof ullGenerator)
+    {
+      throw new InvalidArgumentException('"generator" must be a ullGenerator');
+    }
+    
+    $field = $request->getParameter('field');
+    
+    // the form field names are usually combined in an array called "fields" in ullright
+    $field = str_replace('fields[', '', $field);
+    $field = str_replace(']', '', $field);
+    
+    if (!$field)
+    {
+      throw new InvalidArgumentException('Parameter "field" is mandatory!');
+    }
+    
+    return $this->renderText($generator->getForm()->offsetGet($field)->render());
+  }
+  
 }

@@ -22,7 +22,9 @@ class ullWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
   {
     parent::configure($options, $attributes);
     
+    // prepend a searchbox to simplify finding options in the select box
     $this->addOption('show_search_box', false);
+    // enable ajax inline editing of related records 
     $this->addOption('enable_inline_editing', false);
   }  
 
@@ -128,7 +130,7 @@ $(document).ready(function()
     $return .= '<div class="overlay" id="overlay">';
     $return .= '  <div class="overlayContentWrap"></div>';
     $return .= '</div>';
-
+    
     $return .= javascript_tag('
 
 function ullOverlay(action) {
@@ -183,8 +185,15 @@ function ullOverlay(action) {
         // Check if the widget data was modified (create/edit)
         //   and if so reload the widget markup  
         if (window.overlayIsModified == true) {
+        
+          // call the current action to request the updated widget
+          // the action must support this manually
+          var url = "' . ull_url_for(array('field' => $name)) . '"; 
+           
+          //var url = "' . url_for('ullTableTool/renderSingleWidget?table=' . $this->getOption('base_model') . '&field=' . $name /*. ($id ? '&id=' . $id : '')*/) . '";
+          
           $.ajax({  
-            url: "' . ull_url_for(array('field' => $name)) . '",  
+            url: url,  
             timeout: 5000,
             /* The ajax call returns the updated widget as html and we replace the old one */
             success: function(data) {  

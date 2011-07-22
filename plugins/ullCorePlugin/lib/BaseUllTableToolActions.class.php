@@ -224,6 +224,51 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   }  
   
   /**
+   * Render a single widget for ajax
+   * 
+   * Call syntax: ullTableTool/renderSingleWidget?table=UllUser&field=street&id=2
+   * 
+   * This is e.g. used by ullWidgetFormDoctrineChoice for inline editing via overlay 
+   *
+   * @param sfWebRequest $request
+   */  
+  public function executeRenderSingleWidget(sfRequest $request)
+  {
+     $table = $request->getParameter('table');
+     // in ullright the fields are grouped into field[xxx] 
+     $field = $request->getParameter('field');
+     $field = str_replace('fields[', '', $field);
+     $field = str_replace(']', '', $field);
+    
+    // TODO: find suitable permission checking mechanismn
+    // Basically, the permission check must be done as or by the appropriate
+    // edit action. A generic check as used below is not enough, as it allows
+    // to retreive all data of one model/column and also additional information
+    // like select box entries
+     
+    // check for dynamic permission
+    // example: ull_tabletool_read_ull_user_street
+    if (!UllUsertable::hasPermission(
+      'ull_tabletool_read_' .
+      sfInflector::underscore($table) . '_' .
+      $field
+    ))
+    {
+      throw new InvalidArgumentException('Access denied');
+    }
+    
+    $this->generator = new ullTableToolGenerator($table, 'w', null, array('id', $field));
+    $row = $this->getRowFromRequestOrCreate();
+    $this->id = $row->id;
+    
+    $this->generator->buildForm($row);
+    
+    $return = $this->renderText($this->generator->getForm()->offsetGet($field)->render());
+    
+    return  $return; 
+  }
+  
+  /**
    * Called from the ullManytoManyWrite widget (in AJAX mode).
    * Takes a table + column, creates the widget as would the generator
    * but with an additional filter applied. Results are returned
