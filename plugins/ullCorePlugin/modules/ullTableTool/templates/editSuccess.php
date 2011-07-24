@@ -2,7 +2,7 @@
 
 <?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
 
-<?php echo form_tag($form_uri, array('multipart' => 'true', 'id' => 'ull_tabletool_form')) ?>
+<?php echo form_tag($form_uri, array('multipart' => 'true', 'id' => $form_html_id)) ?>
 
 <div class="edit_container">
 
@@ -42,7 +42,7 @@
                   $.ajax({  
                     type: "POST",  
                     url: "<?php echo url_for($form_uri); ?>",  
-                    data: $("#ull_tabletool_form").serialize(), 
+                    data: $("#<?php echo $form_html_id ?>").serialize(), 
                     success: function(data) {
                       // A json response containing the id of the object means ok
                       try {
@@ -110,7 +110,7 @@
           <?php
             echo ull_submit_tag(
               __('Save only', null, 'common'), 
-              array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
+              array('name' => 'submit|action_slug=save_only', 'form_id' => $form_html_id, 'display_as_link' => true)
             ); 
           ?>
         </li>    
@@ -119,7 +119,7 @@
           <?php 
             echo ull_submit_tag(
               __('Save and new', null, 'common'), 
-              array('name' => 'submit|action_slug=save_new', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
+              array('name' => 'submit|action_slug=save_new', 'form_id' => $form_html_id, 'display_as_link' => true)
             ); 
           ?>
         </li>    
@@ -155,7 +155,7 @@
 </form>   
 
 <?php 
-  echo ull_js_observer("ull_tabletool_form");
+  echo ull_js_observer($form_html_id);
 ?>  
 
 <?php if ($generator->hasFutureVersions()): ?>
@@ -196,6 +196,8 @@
 <?php include_partial('ullTableTool/history', array(
   'generator' => $generator
 ))?>
+
+<?php include_partial('ullTableTool/overlay') ?>
 
 <?php echo hide_advanced_form_fields() ?>
 

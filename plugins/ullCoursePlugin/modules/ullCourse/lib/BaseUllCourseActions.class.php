@@ -37,9 +37,9 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_list');
     
-    parent::executeList($request);
-
     $this->setTableToolTemplate('list');
+    
+    return  parent::executeList($request);
   }
   
   
@@ -49,9 +49,9 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     $this->registerEditActionButton(new ullGeneratorEditActionButtonNewsSaveAndShow($this));
     
-    parent::executeEdit($request);
-
     $this->setTableToolTemplate('edit');
+    
+    return parent::executeEdit($request);
   }
   
   public function executeShow(sfRequest $request) 
@@ -59,7 +59,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_course_show');
     
     $doc = $this->getDocFromRequest();
-    
     
     $this->setVar('doc', $doc, true);
   }

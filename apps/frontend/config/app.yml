@@ -162,3 +162,7 @@ all:
 
   admin:
     module_links_order: [ 'ullNewsletter', 'ullMail', 'ullVentory', 'ullWiki', 'ullCms', 'ullNews', 'ullFlow', 'ullTime' ]
+
+  ull_widgets:
+    many_to_many_write_:
+      ajax_mode_threshold:      1000

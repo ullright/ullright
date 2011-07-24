@@ -19,10 +19,10 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     ;    
     
     $this['description']
-      ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
-      ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')      
-      ->setWidgetOption('width', 650)
-      ->setWidgetOption('height', 250)
+//      ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
+//      ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')      
+//      ->setWidgetOption('width', 650)
+//      ->setWidgetOption('height', 250)
     ;    
     
     $this['trainer_ull_user_id']
@@ -98,6 +98,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     $this->useManyToManyRelation('UllCourseTariff');
     $this['UllCourseTariff']
       ->setLabel(__('Tariffs', null, 'ullCourseMessages'))
+      ->setWidgetOption('enable_inline_editing', true)
     ;
 
     if ($this->isCreateOrEditAction())

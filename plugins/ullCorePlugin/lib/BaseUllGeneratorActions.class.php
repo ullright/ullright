@@ -150,10 +150,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->modifyGeneratorBeforeBuildForm($row);
     
-    
     $this->generator->buildForm($row);
-    
-    $this->setVar('generator', $this->generator, true);    
     
     $this->breadcrumbForEdit();
 
@@ -185,6 +182,20 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     }
     
     $this->setVar('form_uri', $this->getEditFormUri(), true);
+
+    // Generate a unique html form id for ajax call to distinguish the form
+    // from the originating form
+    $this->form_html_id = 'ull_tabletool_form';
+    if ($this->is_ajax)
+    {
+      $this->form_html_id .= '_ajax';
+    }
+    
+    $return = $this->enableAjaxSingleWidgetRendering($this->generator);
+    
+    $this->setVar('generator', $this->generator, true);
+    
+    return $return;
   }  
   
   /**
@@ -681,27 +692,11 @@ abstract class BaseUllGeneratorActions extends ullsfActions
    * This is used e.g. by ullWidgetFormDoctrineChoice for the ajax inline
    * editing.
    * 
-   * @param $generator optional   A ullGenerator instance
+   * @param $generator    A ullGenerator instance
    */
-  protected function enableAjaxSingleWidgetRendering($generator = null)
+  protected function enableAjaxSingleWidgetRendering(ullGenerator $generator)
   {
     $request = $this->getRequest();
-    
-    // Only ajax requests are allowed here
-    if (!$request->isXmlHttpRequest())
-    {
-      return null;
-    }
-      
-    if (!$generator)
-    {
-      $generator =  $this->generator;
-    }
-    
-    if (! $generator instanceof ullGenerator)
-    {
-      throw new InvalidArgumentException('"generator" must be a ullGenerator');
-    }
     
     $field = $request->getParameter('field');
     
@@ -709,12 +704,18 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $field = str_replace('fields[', '', $field);
     $field = str_replace(']', '', $field);
     
+    // Only ajax requests supplying "field" are allowed here
+    if (!$request->isXmlHttpRequest() || !$field)
+    {
+      return null;
+    }
+      
     if (!$field)
     {
       throw new InvalidArgumentException('Parameter "field" is mandatory!');
     }
     
     return $this->renderText($generator->getForm()->offsetGet($field)->render());
-  }
+  } 
   
 }

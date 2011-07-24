@@ -110,30 +110,68 @@ $(document).ready(function()
     
     $return = '';
     
-    // add
+    $return .= $this->renderControls($id, $name);
+      
+    $return .= $this->renderOverlayJavascript($id, $name);
+    
+    return $return;
+  }
+  
+  /**
+   * Render inline editing controls (add, edit buttons)
+   */
+  public function renderControls($id, $name)
+  {
+    $return = '';
+
+    $return .= $this->renderAddControl($id, $name);
+    
+    $return .= $this->renderEditControl($id, $name);
+    
+    return $return;
+  }
+
+  
+  /**
+   * Render add button
+   */
+  public function renderAddControl($id, $name)
+  {
+    $return = '';
+    
     $return .= ' <span class="ull_widget_form_doctrine_select">';
     $return .= link_to_function(
       '+', 
-      'ullOverlay("create")' 
+      'ullOverlay_' . $id .'("create")' 
     ); 
     $return .= '</span>';
     
-    // edit
+    return $return;
+  }
+  
+  
+  /**
+   * Render edit button
+   */
+  public function renderEditControl($id, $name)
+  {
+    $return = '';
+    
     $return .= ' <span class="ull_widget_form_doctrine_select">';
     $return .= link_to_function(
         ull_image_tag('edit'),
-        'ullOverlay("edit")'
+        'ullOverlay_' . $id .'("edit")'
       );
-    $return .= '</span>';      
-      
-    // overlay content
-    $return .= '<div class="overlay" id="overlay">';
-    $return .= '  <div class="overlayContentWrap"></div>';
-    $return .= '</div>';
-    
-    $return .= javascript_tag('
+    $return .= '</span>';
 
-function ullOverlay(action) {
+    return $return;
+  }
+  
+  public function renderOverlayJavascript($id, $name)
+  {
+    $return = javascript_tag('
+
+function ullOverlay_' . $id .'(action) {
 
   /* @see: http://flowplayer.org/tools/overlay/index.html */
 
@@ -189,15 +227,13 @@ function ullOverlay(action) {
           // call the current action to request the updated widget
           // the action must support this manually
           var url = "' . ull_url_for(array('field' => $name)) . '"; 
-           
-          //var url = "' . url_for('ullTableTool/renderSingleWidget?table=' . $this->getOption('base_model') . '&field=' . $name /*. ($id ? '&id=' . $id : '')*/) . '";
           
           $.ajax({  
             url: url,  
             timeout: 5000,
             /* The ajax call returns the updated widget as html and we replace the old one */
             success: function(data) {  
-              $("#' . $id . '").parent().replaceWith(data);
+              $("#' . $id . '").parents("td").html(data);
               // Select added entry
               $("#' . $id . '").val(window.overlayId);
             },
@@ -220,6 +256,7 @@ function ullOverlay(action) {
 ');
     
   return $return;
+    
   }
   
   
