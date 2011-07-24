@@ -801,6 +801,12 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <target>Format: +43 1 234567-100<br />(Landesvorwahl, Vorwahl, Basisnummer, Durchwahl)</target>
       </trans-unit>      
       
+      <!--  ullWidgetManyToManyWrite -->
+      <trans-unit id="3701">
+        <source>Manage entries</source>
+        <target>Einträge verwalten</target>
+      </trans-unit>            
+      
       
     </body>
   </file>

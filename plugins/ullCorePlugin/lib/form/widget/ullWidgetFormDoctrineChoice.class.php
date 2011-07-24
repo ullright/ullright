@@ -234,8 +234,8 @@ function ullOverlay_' . $id .'(action) {
             /* The ajax call returns the updated widget as html and we replace the old one */
             success: function(data) {  
               $("#' . $id . '").parents("td").html(data);
-              // Select added entry
-              $("#' . $id . '").val(window.overlayId);
+              
+              ' . $this->renderPostWidgetReload($id, $name) . '
             },
             error: function(msg){
               alert("Sorry, an error occured. Please try again! (" + msg + ")");
@@ -258,6 +258,23 @@ function ullOverlay_' . $id .'(action) {
   return $return;
     
   }
+
+  /**
+   * Render javascript code to be executed after the widget has been reloaded
+   * 
+   * @param string $id
+   * @param string $name
+   */
+  public function renderPostWidgetReload($id, $name)
+  {
+    $return = '
+// Select added entry
+$("#' . $id . '").val(window.overlayId);
+';
+    
+    return $return;
+  }
+
   
   
   /**

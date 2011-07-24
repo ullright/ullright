@@ -1055,6 +1055,10 @@ table span.ull_widget_time {
 	border: 1px solid #AAAAAA !important;
 }
 
+.ull_widget_many_to_many_write_edit_control {
+  margin-left: 1em;
+}
+
 
 /*
  * ************************************************

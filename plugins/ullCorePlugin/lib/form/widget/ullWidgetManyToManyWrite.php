@@ -208,113 +208,41 @@ EOF
     }
   }
   
-  
   /**
-   * TODO: refactor to avoid code duplication
+   * Render javascript code to be executed after the widget has been reloaded
    * 
-   * @see plugins/ullCorePlugin/lib/form/widget/ullWidgetFormDoctrineChoice#renderOverlayJavascript($id, $name)
+   * @param string $id
+   * @param string $name
    */
-  public function renderOverlayJavascript($id, $name)
+  public function renderPostWidgetReload($id, $name)
   {
-    $return = javascript_tag('
-
-function ullOverlay_' . $id .'(action) {
-
-  /* @see: http://flowplayer.org/tools/overlay/index.html */
-
-  if (action == "create") {
-    var url = "' . url_for('ullTableTool/create?table=' . $this->getOption('model')) . '";
+    $return = '
+// select the new entry
+var selector = "#'. $id . ' > option[value=\'" + window.overlayId + "\']";
+$(selector).attr("selected", true);
+$("#' . $id . '").multiselect("refresh");
+';
     
-  } else if (action == "edit") {
-    var optionId = $("#' . $id . '").val();
-    
-    if (!optionId) {
-      alert("' . __('Please select an entry from the list first', null, 'common') . '.");
-      return false;
-    }
-      
-    var url = "' . url_for('ullTableTool/edit?table=' . $this->getOption('model')) . 
-      '/id/" + optionId;
-      
-  } else {
-    throw new exception ("Invalid action given");
-  }
-  
-  // grab wrapper element inside content
-  var wrap = $("#overlay").find(".overlayContentWrap");
-
-  // load the page specified in the trigger
-  wrap.load(url, function (response, status, xhr) {
-  
-    if (status == "error") {
-      alert("Sorry, an error occured. Please try again! (" + xhr.status + " " + xhr.statusText + ")");
-    } 
-    
-    if (!wrap.html())
-    {
-      alert("Sorry, an error occured. Please try again! (Load failure)");
-    }
-  
-    $("#overlay").overlay({
-  
-      fixed: false,
-      mask: {
-        color: "#666666",
-        loadSpeed: 1000,
-        opacity: 0.7
-      },
-      load: true,
-  
-      onClose: function () {
-      
-        // Check if the widget data was modified (create/edit)
-        //   and if so reload the widget markup  
-        if (window.overlayIsModified == true) {
-        
-          // call the current action to request the updated widget
-          // the action must support this manually
-          var url = "' . ull_url_for(array('field' => $name)) . '"; 
-          
-          $.ajax({  
-            url: url,  
-            timeout: 5000,
-            /* The ajax call returns the updated widget as html and we replace the old one */
-            success: function(data) {  
-              $("#' . $id . '").parents("td").html(data);
-              
-              // select the new entry
-              var selector = "#'. $id . ' > option[value=\'" + window.overlayId + "\']";
-              $(selector).attr("selected", true);
-              $("#' . $id . '").multiselect("refresh");
-
-            },
-            error: function(msg){
-              alert("Sorry, an error occured. Please try again! (" + msg + ")");
-            }
-            
-          });
-        }
-      } 
-  
-    }).load();  
-    
-    $(this).scrollTop(0);
-  
-  });
-  
-  
-}
-');
-    
-  return $return;
-    
+    return $return;
   }  
   
   /**
-   * No edit at the moment for inline editing
+   * Since we have multiple selected options we cannot edit the currently
+   * select option. Instead we link to the particular tabletool administration
    */
   public function renderEditControl($id, $name)
   {
+    $return = '';
+    
+    $return .= ' <span class="ull_widget_many_to_many_write_edit_control">';
+    $return .= ull_link_to(
+        __('Manage entries', null, 'ullCoreMessages'),
+        'ullTableTool/list?table=' . $this->getOption('model'),
+        array('target' => '_blank', 'style' => 'link_new_window')
+      );
+    $return .= '</span>';
+
+    return $return;    
   }  
 
   /**
