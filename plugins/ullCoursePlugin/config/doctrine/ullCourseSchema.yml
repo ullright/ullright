@@ -32,10 +32,6 @@ UllCourse:
     # e.g 10 units every friday from september till december
     number_of_units:
       type: integer
-#    price_normal:
-#      type: float
-#    price_reduced:
-#      type: float
     is_equipment_included:
       type: boolean
     is_admission_included:
@@ -54,7 +50,9 @@ UllCourse:
     proxy_number_of_participants_paid:
       type: integer
     proxy_turnover:
-      type: float
+      type: decimal
+      length: 15
+      scale: 2
   relations:   
     Trainer:
       class: UllUser
@@ -89,7 +87,9 @@ UllCourseTariff:
       type: string(255)
       notnull: true
     price:
-      type: float
+      type: decimal
+      length: 15
+      scale: 2
       notnull: true
     display_name:
       type: string(255)

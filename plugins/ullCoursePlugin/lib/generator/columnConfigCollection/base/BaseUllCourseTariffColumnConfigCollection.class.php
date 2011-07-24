@@ -19,6 +19,9 @@ class BaseUllCourseTariffColumnConfigCollection extends ullColumnConfigCollectio
     
     $this['price']
       ->setLabel(__('Price', null, 'ullCourseMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetFloat')
+      // right align in list view
+      ->setWidgetAttribute('class', 'ull_widget_time')
     ;
     
     if ($this->isCreateOrEditAction())

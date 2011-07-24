@@ -56,14 +56,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Number of units', null, 'ullCourseMessages'))
     ;        
     
-//    $this['price_normal']
-//      ->setLabel(__('Normal price', null, 'ullCourseMessages'))
-//    ;
-//
-//    $this['price_reduced']
-//      ->setLabel(__('Reduced price', null, 'ullCourseMessages'))
-    ;    
-    
     $this['is_equipment_included']
       ->setLabel(__('Equipment included', null, 'ullCourseMessages') . '?')
     ;
@@ -92,6 +84,9 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
 
     $this['proxy_turnover']
       ->setLabel(__('Turnover', null, 'ullCourseMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetFloat')
+      // right align in list view
+      ->setWidgetAttribute('class', 'ull_widget_time')
       ->setAccess('r')
     ;
     
@@ -124,8 +119,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         ),
         'service' => array(
           'UllCourseTariff',
-//          'price_normal',
-//          'price_reduced',  
           'is_equipment_included',
           'is_admission_included',
           'min_number_of_participants',

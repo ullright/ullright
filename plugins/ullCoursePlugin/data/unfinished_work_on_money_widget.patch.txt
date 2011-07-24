@@ -1,0 +1,207 @@
+### Eclipse Workspace Patch 1.0
+#P ullright
+Index: plugins/ullCoursePlugin/lib/generator/columnConfigCollection/base/BaseUllCourseColumnConfigCollection.class.php
+===================================================================
+--- plugins/ullCoursePlugin/lib/generator/columnConfigCollection/base/BaseUllCourseColumnConfigCollection.class.php	(revision 2959)
++++ plugins/ullCoursePlugin/lib/generator/columnConfigCollection/base/BaseUllCourseColumnConfigCollection.class.php	(working copy)
+@@ -56,14 +56,6 @@
+       ->setLabel(__('Number of units', null, 'ullCourseMessages'))
+     ;        
+     
+-//    $this['price_normal']
+-//      ->setLabel(__('Normal price', null, 'ullCourseMessages'))
+-//    ;
+-//
+-//    $this['price_reduced']
+-//      ->setLabel(__('Reduced price', null, 'ullCourseMessages'))
+-    ;    
+-    
+     $this['is_equipment_included']
+       ->setLabel(__('Equipment included', null, 'ullCourseMessages') . '?')
+     ;
+@@ -124,8 +116,6 @@
+         ),
+         'service' => array(
+           'UllCourseTariff',
+-//          'price_normal',
+-//          'price_reduced',  
+           'is_equipment_included',
+           'is_admission_included',
+           'min_number_of_participants',
+Index: plugins/ullCoursePlugin/lib/generator/columnConfigCollection/base/BaseUllCourseTariffColumnConfigCollection.class.php
+===================================================================
+--- plugins/ullCoursePlugin/lib/generator/columnConfigCollection/base/BaseUllCourseTariffColumnConfigCollection.class.php	(revision 2959)
++++ plugins/ullCoursePlugin/lib/generator/columnConfigCollection/base/BaseUllCourseTariffColumnConfigCollection.class.php	(working copy)
+@@ -19,6 +19,7 @@
+     
+     $this['price']
+       ->setLabel(__('Price', null, 'ullCourseMessages'))
++      ->setMetaWidgetClassName('ullMetaWidgetMoney')
+     ;
+     
+     if ($this->isCreateOrEditAction())
+Index: plugins/ullCorePlugin/lib/form/widget/ullMetaWidgetMoney.class.php
+===================================================================
+--- plugins/ullCorePlugin/lib/form/widget/ullMetaWidgetMoney.class.php	(revision 0)
++++ plugins/ullCorePlugin/lib/form/widget/ullMetaWidgetMoney.class.php	(revision 0)
+@@ -0,0 +1,46 @@
++<?php
++
++class ullMetaWidgetMoney extends ullMetaWidget
++{
++  protected function configure()
++  {
++    if ($this->columnConfig->hasOption('suffix'))
++    {
++      $suffixOption = $this->columnConfig->getOption('suffix');
++      
++      if (!$suffixOption)
++      {
++        $suffixOption = '€';
++      }
++      $this->columnConfig->setWidgetOption('suffix', $suffixOption);
++    }
++  }
++
++  protected function configureWriteMode()
++  {
++    $this->addWidget(new ullWidgetMoneyWrite($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
++    $this->addValidator(new ullValidatorMoney($this->columnConfig->getValidatorOptions()));
++  }
++
++  protected function configureReadMode()
++  {
++    $this->addWidget(new ullWidgetMoneyRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
++    $this->addValidator(new sfValidatorPass());
++  }
++
++  public function getSearchType()
++  {
++    return 'range';
++  }
++
++  /**
++   * Overriden because this meta widget represents
++   * numeric values
++   * 
++   * @return true
++   */
++  public static function isNumeric()
++  {
++    return true;
++  } 
++}
+\ No newline at end of file
+Index: plugins/ullCorePlugin/lib/form/widget/ullWidgetMoneyWrite.class.php
+===================================================================
+--- plugins/ullCorePlugin/lib/form/widget/ullWidgetMoneyWrite.class.php	(revision 0)
++++ plugins/ullCorePlugin/lib/form/widget/ullWidgetMoneyWrite.class.php	(revision 0)
+@@ -0,0 +1,16 @@
++<?php
++
++class ullWidgetMoneyWrite extends ullWidgetFormInput
++{
++  public function render($name, $value = null, $attributes = array(), $errors = array())
++  {
++    if ($value)
++    {
++      $value = ullMetaWidgetFloat::formatNumber($value / 100);
++    }
++    
++    return parent::render($name, $value, $attributes, $errors);
++  }
++}
++
++
+Index: plugins/ullCoursePlugin/config/doctrine/ullCourseSchema.yml
+===================================================================
+--- plugins/ullCoursePlugin/config/doctrine/ullCourseSchema.yml	(revision 2959)
++++ plugins/ullCoursePlugin/config/doctrine/ullCourseSchema.yml	(working copy)
+@@ -32,10 +32,6 @@
+     # e.g 10 units every friday from september till december
+     number_of_units:
+       type: integer
+-#    price_normal:
+-#      type: float
+-#    price_reduced:
+-#      type: float
+     is_equipment_included:
+       type: boolean
+     is_admission_included:
+@@ -53,8 +49,9 @@
+       type: integer
+     proxy_number_of_participants_paid:
+       type: integer
++    # euro cents
+     proxy_turnover:
+-      type: float
++      type: integer
+   relations:   
+     Trainer:
+       class: UllUser
+@@ -88,8 +85,9 @@
+     name: 
+       type: string(255)
+       notnull: true
++    # price in euro cents
+     price:
+-      type: float
++      type: integer
+       notnull: true
+     display_name:
+       type: string(255)
+Index: plugins/ullCoursePlugin/data/fixtures/ullCourseFixtures.yml
+===================================================================
+--- plugins/ullCoursePlugin/data/fixtures/ullCourseFixtures.yml	(revision 2959)
++++ plugins/ullCoursePlugin/data/fixtures/ullCourseFixtures.yml	(working copy)
+@@ -39,28 +39,28 @@
+     
+ UllCourseTariff:
+   tariff_1:
+-    price:                  239.90
++    price:                  23990
+     Translation:
+       en:
+         name:               Normal price
+       de:
+         name:               Normalpreis
+   tariff_2:
+-    price:                  159.90
++    price:                  15990
+     Translation:
+       en:
+         name:               Reduced price
+       de:
+         name:               Vergünstigter Preis
+   tariff_3:
+-    price:                  29.90
++    price:                  2990
+     Translation:
+       en:
+         name:               Normal price
+       de:
+         name:               Normalpreis
+   tariff_4:
+-    price:                  19.90
++    price:                  1990
+     Translation:
+       en:
+         name:               Reduced price
+Index: plugins/ullCoursePlugin/test/unit/UllCourseBookingTest.php
+===================================================================
+--- plugins/ullCoursePlugin/test/unit/UllCourseBookingTest.php	(revision 2959)
++++ plugins/ullCoursePlugin/test/unit/UllCourseBookingTest.php	(working copy)
+@@ -23,11 +23,11 @@
+ 
+   $t->is($course1->proxy_number_of_participants_applied, 3, 'Calculates correct number of participants who applied for course 1');
+   $t->is($course1->proxy_number_of_participants_paid, 2, 'Calculates correct number of participants who paid for course 1');
+-  $t->is($course1->proxy_turnover, 399.80, 'Calculates correct turnover for course 1');
++  $t->is($course1->proxy_turnover, 39980, 'Calculates correct turnover for course 1');
+   
+   $t->is($course2->proxy_number_of_participants_applied, 1, 'Calculates correct number of Participants for course 2');
+   $t->is($course2->proxy_number_of_participants_paid, 0, 'Calculates correct number of participants who paid for course 2');
+-  $t->is($course2->proxy_turnover, 0.00, 'Calculates correct turnover for course 2');
++  $t->is($course2->proxy_turnover, 0, 'Calculates correct turnover for course 2');
+ 
+ $t->diag('is_paid triggers insert of marked_as_paid_by and _at');
+ 
