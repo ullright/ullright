@@ -44,6 +44,9 @@ EOF;
     $this->initializeConfig($arguments, $options);
     
     $this->syncFiles($arguments, $options);
+
+    // normally only files are modified here, so we don' need to call this while publishing
+//    $this->executeRemoteSymfonyTask('ullright:migrate-pre-build-model');
     
     $this->executeRemoteSymfonyTask('cache:clear', true);
     
@@ -53,7 +56,9 @@ EOF;
     
     $this->executeRemoteSymfonyTask('doctrine:migrate');
     
-    $this->executeRemoteSymfonyTask('ullright:custom-migrate');
+    $this->executeRemoteSymfonyTask('ullright:migrate-custom');
+    
+    $this->executeRemoteSymfonyTask('ullright:migrate-data');
     
     $this->executeRemoteSymfonyTask('project:permissions', true);
     
