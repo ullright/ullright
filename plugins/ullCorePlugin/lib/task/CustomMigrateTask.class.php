@@ -88,11 +88,11 @@ EOF;
 
     if ($from == $version)
     {
-      $this->logSection('doctrine', sprintf('Already at migration version %s', $version));
+      $this->logSection('custom migrate', sprintf('Already at migration version %s', $version));
       return;
     }
 
-    $this->logSection('doctrine', sprintf('Migrating from version %s to %s%s', $from, $version, $options['dry-run'] ? ' (dry run)' : ''));
+    $this->logSection('custom migrate', sprintf('Migrating from version %s to %s%s', $from, $version, $options['dry-run'] ? ' (dry run)' : ''));
     try
     {
       $migration->migrate($version, $options['dry-run']);
@@ -106,7 +106,7 @@ EOF;
     {
       if ($this->commandApplication && $this->commandApplication->withTrace())
       {
-        $this->logSection('doctrine', 'The following errors occurred:');
+        $this->logSection('custom migrate', 'The following errors occurred:');
         foreach ($migration->getErrors() as $error)
         {
           $this->commandApplication->renderException($error);
@@ -123,7 +123,7 @@ EOF;
       return 1;
     }
 
-    $this->logSection('doctrine', 'Migration complete');
+    $this->logSection('custom migrate', 'Migration complete');
   }
 }
 
