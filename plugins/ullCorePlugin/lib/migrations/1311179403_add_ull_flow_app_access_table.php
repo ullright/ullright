@@ -72,7 +72,6 @@ class AddUllFlowAppAccessTable extends Doctrine_Migration_Base
     
     public function postUp()
     {
-      RecreateForeignKeysTask::createAllForeignKeysFromModel();
     }    
 
     public function down()
