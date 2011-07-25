@@ -1,6 +1,6 @@
 <?php
 
-class CustomMigrateTask extends sfDoctrineBaseTask
+class PreBuildModelMigrateTask extends sfDoctrineBaseTask
 {
   /**
    * @see sfTask
@@ -8,39 +8,38 @@ class CustomMigrateTask extends sfDoctrineBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('version', sfCommandArgument::OPTIONAL, 'The custom version to migrate to'),
+      new sfCommandArgument('version', sfCommandArgument::OPTIONAL, 'The "pre build model" version to migrate to'),
     ));
 
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'frontend'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('up', null, sfCommandOption::PARAMETER_NONE, 'Migrate up one custom version'),
-      new sfCommandOption('down', null, sfCommandOption::PARAMETER_NONE, 'Migrate down one custom version'),
-      new sfCommandOption('dry-run', null, sfCommandOption::PARAMETER_NONE, 'Do not persist custom migrations'),
+      new sfCommandOption('up', null, sfCommandOption::PARAMETER_NONE, 'Migrate up one "pre build model" version'),
+      new sfCommandOption('down', null, sfCommandOption::PARAMETER_NONE, 'Migrate down one "pre build model" version'),
+      new sfCommandOption('dry-run', null, sfCommandOption::PARAMETER_NONE, 'Do not persist "pre build model" migrations'),
     ));
 
-    $this->aliases = array('custom-migrate');
     $this->namespace = 'ullright';
-    $this->name = 'migrate-custom';
-    $this->briefDescription = 'Migrates database to current/specified custom version';
+    $this->name = 'migrate-pre-build-model';
+    $this->briefDescription = 'Performs file system updates before running the build-model task';
 
     $this->detailedDescription = <<<EOF
-The [ullright:custom-migrate|INFO] task migrates the database using custom versions:
+The [ullright:pre-build-model-migrate|INFO] task performs file system updates before running the doctrine:build-model task
 
-  [./symfony ullright:custom-migrate|INFO]
+  [./symfony ullright:pre-build-model-migrate|INFO]
 
-Provide a version argument to migrate to a specific custom version:
+Provide a version argument to migrate to a specific "pre build model" version:
 
-  [./symfony ullright:custom-migrate 10|INFO]
+  [./symfony ullright:pre-build-model-migrate 10|INFO]
 
-To migration up or down one custom migration, use the [--up|COMMENT] or [--down|COMMENT] options:
+To migration up or down one "pre build model" migration, use the [--up|COMMENT] or [--down|COMMENT] options:
 
-  [./symfony ullright:custom-migrate --down|INFO]
+  [./symfony ullright:pre-build-model-migrate --down|INFO]
 
-If your database supports rolling back DDL statements, you can run custom migrations
+If your database supports rolling back DDL statements, you can run "pre build model" migrations
 in dry-run mode using the [--dry-run|COMMENT] option:
 
-  [./symfony ullright:custom-migrate --dry-run|INFO]
+  [./symfony ullright:pre-build-model-migrate --dry-run|INFO]
 EOF;
   }
 
@@ -53,20 +52,20 @@ EOF;
 
     $config = $this->getCliConfig();
     
-    //remove doctrine, add custom; find a more reliable way to do this
-    $customMigrationsPath = substr($config['migrations_path'], 0, -8);
-    $customMigrationsPath .= 'custom';
+    //remove doctrine, add pre_build_model; find a more reliable way to do this
+    $preBuildModelMigrationsPath = substr($config['migrations_path'], 0, -8);
+    $preBuildModelMigrationsPath .= 'pre_build_model';
     
-    if (!file_exists($customMigrationsPath))
+    if (!file_exists($preBuildModelMigrationsPath))
     {
        $this->logBlock(array(
-        'The custom migration directory does not exist:', '', $customMigrationsPath),
+        'The "pre build model" migration directory does not exist:', '', $preBuildModelMigrationsPath),
         'ERROR_LARGE');
        
        return;
     }
     
-    $migration = new Custom_Doctrine_Migration($customMigrationsPath);
+    $migration = new PreBuildModel_Doctrine_Migration($preBuildModelMigrationsPath);
     $from = $migration->getCurrentVersion();
 
     if (is_numeric($arguments['version']))
