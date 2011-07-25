@@ -12,6 +12,7 @@ svn --force delete lib/form/doctrine/ullFlowPlugin/UllFlowAppPermissionForm.clas
 svn --force delete lib/filter/doctrine/ullFlowPlugin/base/BaseUllFlowAppPermissionFormFilter.class.php
 svn --force delete lib/filter/doctrine/ullFlowPlugin/UllFlowAppPermissionFormFilter.class.php
     
+    
 # Create new migration symlinks    
 php symfony cache:clear
 php symfony doctrine:build --model --forms --filters
