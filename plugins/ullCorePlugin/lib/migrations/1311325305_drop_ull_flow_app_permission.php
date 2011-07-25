@@ -22,11 +22,17 @@ class DropUllFlowAppPermission extends Doctrine_Migration_Base
     $data = $result->fetch(PDO::FETCH_ASSOC);
     $writeId = $data['id'];    
 
-    $dbh->query("DELETE FROM ull_group_permission_version WHERE ull_permission_id=$readId");
-    $dbh->query("DELETE FROM ull_group_permission_version WHERE ull_permission_id=$writeId");    
+    if ($readId)
+    {
+      $dbh->query("DELETE FROM ull_group_permission_version WHERE ull_permission_id=$readId");
+      $dbh->query("DELETE FROM ull_group_permission WHERE ull_permission_id=$readId");
+    }
     
-    $dbh->query("DELETE FROM ull_group_permission WHERE ull_permission_id=$readId");
-    $dbh->query("DELETE FROM ull_group_permission WHERE ull_permission_id=$writeId");
+    if ($writeId)
+    {
+      $dbh->query("DELETE FROM ull_group_permission_version WHERE ull_permission_id=$writeId");
+      $dbh->query("DELETE FROM ull_group_permission WHERE ull_permission_id=$writeId");
+    }
     
     $dbh->query("DELETE FROM ull_permission_version WHERE slug='ullFlow_trouble_ticket_global_read'");
     $dbh->query("DELETE FROM ull_permission_version WHERE slug='ullFlow_trouble_ticket_global_write'");    
