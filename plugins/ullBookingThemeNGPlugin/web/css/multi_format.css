@@ -27,6 +27,7 @@
 }
 
 #booking_schedule_info {
+	max-width: 400px;
   float: left;
 }
 

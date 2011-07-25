@@ -24,6 +24,7 @@
   <div id="booking_schedule_info">
     <!-- legend -->
     <h3><?php echo __('Legend', null, 'ullBookingMessages'); ?></h3>
+    
     <table id="booking_schedule_legend">
       <?php for ($i = 0; $i < count($cell_status); $i++) : ?>
         <tr>
@@ -31,6 +32,8 @@
         </tr>
       <?php endfor; ?>
     </table>
+    
+    <?php include_partial('customLegend') ?>
     
     <?php if (UllUserTable::hasPermission('ull_booking_weekly_schedule')) : ?>
       <h3>Ansichten</h3>

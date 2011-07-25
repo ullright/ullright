@@ -1,0 +1,1 @@
+<?php // place this file in apps/frontend/modules/ullBooking/templates and fill it with your custom legend content ?>
