@@ -36,18 +36,20 @@ class DropUllFlowAppPermission extends Doctrine_Migration_Base
     
     $libPath = sfConfig::get('sf_lib_dir');
     
-    echo shell_exec('svn --force delete ' . $libPath . '/model/doctrine/ullFlowPlugin/base/BaseUllFlowAppPermission.class.php');
-    echo shell_exec('svn --force delete ' . $libPath . '/model/doctrine/ullFlowPlugin/UllFlowAppPermission.class.php');
-    echo shell_exec('svn --force delete ' . $libPath . '/model/doctrine/ullFlowPlugin/UllFlowAppPermissionTable.class.php');
+    // this has to be called by hand for custom installations. see update log
     
-    echo shell_exec('svn --force delete ' . $libPath . '/form/doctrine/ullFlowPlugin/base/BaseUllFlowAppPermissionForm.class.php');
-    echo shell_exec('svn --force delete ' . $libPath . '/form/doctrine/ullFlowPlugin/UllFlowAppPermissionForm.class.php');
-    
-    echo shell_exec('svn --force delete ' . $libPath . '/filter/doctrine/ullFlowPlugin/base/BaseUllFlowAppPermissionFormFilter.class.php');
-    echo shell_exec('svn --force delete ' . $libPath . '/filter/doctrine/ullFlowPlugin/UllFlowAppPermissionFormFilter.class.php');
-    
-    echo shell_exec('php symfony cache:clear');
-    echo shell_exec('php symfony doctrine:build --model --forms --filters');
+//    echo shell_exec('svn --force delete ' . $libPath . '/model/doctrine/ullFlowPlugin/base/BaseUllFlowAppPermission.class.php');
+//    echo shell_exec('svn --force delete ' . $libPath . '/model/doctrine/ullFlowPlugin/UllFlowAppPermission.class.php');
+//    echo shell_exec('svn --force delete ' . $libPath . '/model/doctrine/ullFlowPlugin/UllFlowAppPermissionTable.class.php');
+//    
+//    echo shell_exec('svn --force delete ' . $libPath . '/form/doctrine/ullFlowPlugin/base/BaseUllFlowAppPermissionForm.class.php');
+//    echo shell_exec('svn --force delete ' . $libPath . '/form/doctrine/ullFlowPlugin/UllFlowAppPermissionForm.class.php');
+//    
+//    echo shell_exec('svn --force delete ' . $libPath . '/filter/doctrine/ullFlowPlugin/base/BaseUllFlowAppPermissionFormFilter.class.php');
+//    echo shell_exec('svn --force delete ' . $libPath . '/filter/doctrine/ullFlowPlugin/UllFlowAppPermissionFormFilter.class.php');
+//    
+//    echo shell_exec('php symfony cache:clear');
+//    echo shell_exec('php symfony doctrine:build --model --forms --filters');
     
     RecreateForeignKeysTask::createAllForeignKeysFromModel();    
   }  
