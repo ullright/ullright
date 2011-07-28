@@ -90,7 +90,11 @@ class ullFlowGenerator extends ullGenerator
   {
     if (UllEntityTable::has($this->getRow()->UllEntity))
     {
-      foreach ($this->getRow()->UllFlowStep->UllFlowStepActions as $stepAction) 
+      $stepId = $this->getRow()->UllFlowStep->id;
+      
+      $stepActions = UllFlowStepActionTable::findUllFlowActionsByStep($stepId);
+      
+      foreach ($stepActions as $stepAction) 
       {
         $ullFlowActionSlug = $stepAction->UllFlowAction->slug;
         $ullFlowActionHandlerName = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowActionSlug);

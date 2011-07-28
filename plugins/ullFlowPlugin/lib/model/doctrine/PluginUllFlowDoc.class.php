@@ -640,15 +640,19 @@ abstract class PluginUllFlowDoc extends BaseUllFlowDoc
    */
   protected function buildUllFlowActionHandler(UllFlowAction $ullFlowAction, $ullFlowActionHandlerValues)
   {
+    
     $className = 'ullFlowActionHandler' . sfInflector::camelize($ullFlowAction->slug);
     
     // mock generator
     $generator = new ullFlowGenerator($this->UllFlowApp, $this, 'w', 'edit');
+    
     $generator->buildForm($this);
+    
     $generator->buildListOfUllFlowActionHandlers();
     
     // mock / inject ullFlowActionHandlerValues
     $form = $generator->getForm();
+    
     $values = array_merge($form->getDefaults(), $ullFlowActionHandlerValues);
     unset($values['_tags']); // workaround
     

@@ -5,4 +5,17 @@
 class PluginUllFlowStepActionTable extends UllRecordTable
 {
 
+  public static function findUllFlowActionsByStep($ullFlowStepId)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllFlowStepAction sa')
+      ->where('sa.ull_flow_step_id = ?', $ullFlowStepId)
+      ->orderBy('sa.sequence, id')
+    ;
+    
+    return $q->execute();
+  }
+  
 }

@@ -566,7 +566,7 @@ abstract class ullGenerator extends ullGeneratorBase
         $defaults[$columnName] = $columnConfig->getDefaultValue();
       }
     }
-
+    
     return $defaults;
   }
   
