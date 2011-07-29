@@ -15,7 +15,11 @@
 
 <?php /* Add example website stylesheet */ ?>
 <?php /* use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
-  'Plugin/css/layout_website.css', 'last', array('media' => 'all')) */?>
+  'Plugin/css/layout_website.mobile.css', 'last', array('media' => 'all')) */?>
+
+<?php /* Add the ullright webapp stylesheet */ ?>
+<?php /* use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
+  'Plugin/css/layout_webapp.mobile.css', 'last', array('media' => 'all')) */?>
   
 <?php /* Add custom stylesheet */ ?>
 <?php /* Located in web/css/ */ ?>

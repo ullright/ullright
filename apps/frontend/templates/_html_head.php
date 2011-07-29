@@ -17,6 +17,10 @@
 <?php /* use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
   'Plugin/css/layout_website.css', 'last', array('media' => 'all')) */?>
   
+<?php /* Add the ullright webapp stylesheet */ ?>
+<?php /* use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
+  'Plugin/css/layout_webapp.css', 'last', array('media' => 'all')) */?>
+  
 <?php /* Add custom stylesheet */ ?>
 <?php /* Located in web/css/ */ ?>
 <?php use_stylesheet('custom.css', 'last', array('media' => 'all')) ?>      
