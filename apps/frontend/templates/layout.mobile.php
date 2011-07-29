@@ -10,6 +10,8 @@
 $layout =  $sf_user->getAttribute('layout');
 $layout = ($layout) ? $layout : 'layout_webapp';
 
+use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
+  'Plugin/css/' . $layout . '.mobile.css', 'last', array('media' => 'all'));
 
 // Link to the default layout
 // To customize, copy it here from plugins/ullCoreThemeNGPlugin/templates/ and modify it
