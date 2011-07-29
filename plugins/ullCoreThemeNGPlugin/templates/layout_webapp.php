@@ -1,4 +1,4 @@
-<?php include_partial('global/head') ?>
+<?php include_partial('global/html_head') ?>
 <?php /* The statement above loads the html head */ ?>
 <?php /* The file is located in apps/frontend/templates/_html_head.php */ ?>
 
