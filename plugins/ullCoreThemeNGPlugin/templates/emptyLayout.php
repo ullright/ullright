@@ -1,4 +1,6 @@
-<?php require('_head.php') ?>
+<?php include_partial('global/head') ?>
+<?php /* The statement above loads the html head */ ?>
+<?php /* The file is located in apps/frontend/templates/_html_head.php */ ?>
 
 <body class="<?php 
   echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();

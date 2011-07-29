@@ -1,31 +1,6 @@
-<?php /* Statements to be added to the html head */ ?>
-<?php slot('html_head') ?>
-
-  <?php /* Include rss feed (Uncomment to activate */ ?>
-  <?php //include_component('ullNews', 'rssFeed') ?>
-  
-  <?php /* Add classic ullright webapplication layout */ ?>
-  <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
-    'Plugin/css/layout_webapp.mobile.css', 'last', array('media' => 'all')) ?>
-    
-  <?php /* Add custom stylesheet */ ?>
-  <?php /* Located in web/css/ */ ?>
-  <?php use_stylesheet('custom.mobile.css', 'last', array('media' => 'all')) ?>      
-  
-  <?php /* Add custom javascripts (Uncomment to activate) */?>
-  <?php /* Put files in web/js/ */?>
-  <?php //use_javascript('/js/my_javascript.js') ?>
-  
-<?php end_slot() ?>
-
-
-<?php /* Actually include the html head */ ?> 
-<?php /* The default head is located in plugins/ullCoreThemeNGPlugin/templates/_head.php */ ?>
-<?php require(sfConfig::get('sf_plugins_dir') . 
-  '/ullCoreTheme' .
-  sfConfig::get('app_theme_package', 'NG') .
-  'Plugin/templates/_head.mobile.php') ?>
-
+<?php include_partial('global/head') ?>
+<?php /* The statement above loads the html head */ ?>
+<?php /* The file is located in apps/frontend/templates/_html_head.mobile.php */ ?>
 
 
 <!--  Begin of html body -->

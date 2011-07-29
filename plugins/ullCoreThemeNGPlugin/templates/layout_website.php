@@ -1,30 +1,6 @@
-<?php /* Statements to be added to the html head */ ?>
-<?php slot('html_head') ?>
-
-  <!-- ullNews RSS feed -->
-  <?php include_component('ullNews', 'rssFeed') ?>
-  
-  <?php /* Add example stylesheet */ ?>
-  <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
-    'Plugin/css/layout_website.css', 'last', array('media' => 'all')) ?>
-    
-  <?php /* Add custom stylesheet */ ?>
-  <?php /* Located in web/css/ */ ?>
-  <?php use_stylesheet('custom.css', 'last', array('media' => 'all')) ?>      
-
-  <?php /* Add global custom javascripts (Uncomment to activate) */?>
-  <?php /* Put files in web/js/ */?>
-  <?php //use_javascript('/js/my_javascript.js') ?>
-  
-<?php end_slot() ?>
-
-
-<?php /* Actually include the html head */ ?> 
-<?php /* The default head is located in plugins/ullCoreThemeNGPlugin/templates/_head.php */ ?>
-<?php require(sfConfig::get('sf_plugins_dir') . 
-  '/ullCoreTheme' .
-  sfConfig::get('app_theme_package', 'NG') .
-  'Plugin/templates/_head.php') ?>
+<?php include_partial('global/head') ?>
+<?php /* The statement above loads the html head */ ?>
+<?php /* The file is located in apps/frontend/templates/_html_head.php */ ?>
 
 
 <!--  Begin of html body -->

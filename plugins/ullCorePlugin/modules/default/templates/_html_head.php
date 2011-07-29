@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-<!--  Begin of html head -->
-<head>
+<?php 
+/**
+ * ullright default html head statements
+ */
+?>
 
 <!-- Html meta information -->
 <?php // Defined in /apps/frontend/config/view.yml ?>
@@ -18,17 +18,11 @@
   'Plugin/images/favicon.ico') ?>
 <link rel="shortcut icon" href="<?php echo $favicon_uri ?>" type="image/vnd.microsoft.icon" />
 
-<?php /* Main default ullright stylesheet */ ?>
+<?php // Load default ullright stylesheet ?> 
 <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
   'Plugin/css/main.css', 'first', array('media' => 'all')) ?>
   
-<?php /* Default ullright javascripts */?>  
+<?php // Load default ullright javascripts ?>  
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js', 'first') ?>
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
-<?php /* Include content of the  html_head slot */ ?>
-<?php /* This is used to inject additional head parts  */ ?>
-<?php include_slot('html_head') ?>
-
-</head>
-<!--  End of html head -->
