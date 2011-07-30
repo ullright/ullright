@@ -331,7 +331,7 @@ function image_tag($source, $options = array())
   }
 
   $options = _parse_attributes($options);
-
+  
   $absolute = false;
   if (isset($options['absolute']))
   {
@@ -348,6 +348,18 @@ function image_tag($source, $options = array())
     $options['src'] = $source;
     unset($options['raw_name']);
   }
+  
+  /* The following lines are copied from sf1.2, as they we're
+   * removed with sf 1.4
+   */
+  if (!isset($options['alt']))
+  {
+    $path_pos = strrpos($source, '/');
+    $dot_pos = strrpos($source, '.');
+    $begin = $path_pos ? $path_pos + 1 : 0;
+    $nb_str = ($dot_pos ? $dot_pos : strlen($source)) - $begin;
+    $options['alt'] = ucfirst(substr($source, $begin, $nb_str));
+  }  
 
   if (isset($options['alt_title']))
   {
