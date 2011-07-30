@@ -35,7 +35,7 @@
       <?php if ($link && $image): ?>
         <?php $image_html .=  ull_link_to($image, $link, $image_link_options) ?>
       <?php else: ?>
-        <?php $image_html = $image ?>
+        <?php $image_html .= $image ?>
       <?php endif ?>
       <?php $image_html .= '</div>' ?>
       
