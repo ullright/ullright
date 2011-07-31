@@ -14,7 +14,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
   protected function applyCustomSettings()
   {
     $this
-      ->setName(__('Bookings', null, 'ullCourseMessages'))
+      ->setName(__('Courses', null, 'ullCourseMessages'))
       ->setSearchColumns(array('id', 'name'))
       ->setOrderBy('sequence, name')
       ->setListColumns(array(

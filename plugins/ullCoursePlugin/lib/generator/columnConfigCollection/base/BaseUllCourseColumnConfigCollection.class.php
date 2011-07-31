@@ -85,8 +85,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     $this['proxy_turnover']
       ->setLabel(__('Turnover', null, 'ullCourseMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetFloat')
-      // right align in list view
-      ->setWidgetAttribute('class', 'ull_widget_time')
       ->setAccess('r')
     ;
     
@@ -112,8 +110,8 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         ),
         'temporal' => array(
           'begin_date',
-          'end_date',
           'begin_time',
+          'end_date',        
           'end_time',
           'number_of_units',
         ),
@@ -130,6 +128,14 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'proxy_turnover',
         )
       ));
+    }
+    
+    if (!$this->isCreateOrEditAction())
+    {
+      $this['proxy_turnover']
+        // right align in list view
+        ->setWidgetAttribute('class', 'ull_widget_time')
+      ;      
     }
   }
  
