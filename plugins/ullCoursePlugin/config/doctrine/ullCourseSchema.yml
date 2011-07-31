@@ -10,6 +10,7 @@ UllCourse:
     Sluggable:
       unique: true
       fields: [name] 
+    Taggable:          
   columns:
     name: 
       type: string(255)
@@ -17,8 +18,6 @@ UllCourse:
     description:
       type: string(4000)
     trainer_ull_user_id: 
-      type: integer
-    ull_cms_item_id:
       type: integer
     begin_date:
       type: date
@@ -36,8 +35,6 @@ UllCourse:
       type: boolean
     is_admission_included:
       type: boolean
-    sequence:
-      type: integer
     is_active:
       type: boolean
       default: true
@@ -53,12 +50,13 @@ UllCourse:
       type: decimal
       length: 15
       scale: 2
+    duplicate_tags_for_search:
+      type: string(4000)      
   relations:   
     Trainer:
       class: UllUser
       local: trainer_ull_user_id
       foreign: id   
-    UllCmsItem:
     Participants:
       class: UllUser 
       refClass: UllCourseBooking

@@ -16,7 +16,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
     $this
       ->setName(__('Courses', null, 'ullCourseMessages'))
       ->setSearchColumns(array('id', 'name'))
-      ->setOrderBy('sequence, name')
+      ->setOrderBy('name')
       ->setListColumns(array(
         'id', 
         'name', 

@@ -1296,6 +1296,11 @@
 <target>Zeit</target>
 </trans-unit>
 
+<trans-unit id="26013">
+<source>No.</source>
+<target>Nr.</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

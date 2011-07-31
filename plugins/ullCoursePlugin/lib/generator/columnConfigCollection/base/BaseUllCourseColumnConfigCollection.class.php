@@ -11,7 +11,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
   {
 
     $this['id']
-      ->setLabel(__('Course number', null, 'ullCourseMessages'))
+      ->setLabel(__('No.', null, 'common'))
     ;
     
     $this['name']
@@ -29,12 +29,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Trainer', null, 'ullCourseMessages'))
       ->setWidgetOption('add_empty', true)
     ;
-
-    $this['ull_cms_item_id']
-      ->setLabel(__('Parent', null, 'ullCmsMessages'))
-      ->setWidgetOption('show_search_box', true)
-      ->setWidgetOption('add_empty', true)
-    ;    
 
     $this['begin_date']
       ->setLabel(__('Begin date', null, 'ullCourseMessages'))
@@ -93,6 +87,12 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Tariffs', null, 'ullCourseMessages'))
       ->setWidgetOption('enable_inline_editing', true)
     ;
+    
+    $this['duplicate_tags_for_search']
+      ->setLabel('Tags')
+      ->setMetaWidgetClassName('ullMetaWidgetTaggable')
+      ->setOption('tagging_options', array('model' => 'UllCourse'))
+    ;    
 
     if ($this->isCreateOrEditAction())
     {
@@ -104,8 +104,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'trainer_ull_user_id',
         ),
         'status' => array(
-          'ull_cms_item_id',
-          'sequence',
+          'duplicate_tags_for_search',
           'is_active',        
         ),
         'temporal' => array(

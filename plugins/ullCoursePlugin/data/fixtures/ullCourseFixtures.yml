@@ -1,8 +1,6 @@
 UllCourse:
   course_1:
-    sequence:               10
     Trainer:                test_user
-    UllCmsItem:             courses_advanced
     begin_date:             "2011-07-01"
     end_date:               "2011-08-26"
     begin_time:             18:30:00
@@ -10,6 +8,8 @@ UllCourse:
     number_of_units:           9
     min_number_of_participants: 6
     max_number_of_participants: 10
+    duplicate_tags_for_search:  'Adults, Erwachsene, Advanced, Several-day, Mehrtägig'
+    
     Translation:
       en:
         name:               Course 1
@@ -19,9 +19,7 @@ UllCourse:
         description:        "<b>Lerne es richtig!</b><br />Unsere Trainer werden dir die Wadln viere richtn."
         
   course_2:
-    sequence:               20
     Trainer:                admin_user
-    UllCmsItem:             courses_advanced
     begin_date:             "2011-07-04"
     end_date:               "2011-07-04"
     begin_time:             17:45:00
@@ -29,6 +27,7 @@ UllCourse:
     number_of_units:           1
     min_number_of_participants: 7
     max_number_of_participants: 14
+    duplicate_tags_for_search:  'Children, Kinder, Advanced, One-day, 1tägig'
     Translation:
       en:
         name:               Course 2

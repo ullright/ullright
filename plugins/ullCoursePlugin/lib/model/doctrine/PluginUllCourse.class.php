@@ -12,6 +12,16 @@
  */
 abstract class PluginUllCourse extends BaseUllCourse
 {
+  /**
+   * Pre save hook
+   * @param unknown_type $event
+   */
+  public function preSave($event)
+  {
+    // Set tags in taggable behaviour
+    $this->setTags($this->duplicate_tags_for_search);
+  }
+  
   
   public function updateProxies()
   {
