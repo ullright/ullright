@@ -3,6 +3,11 @@
  * ullMetaWidgetString 
  * 
  * Used for strings
+ * 
+ * Column config options:
+ *  - tagging_query       Supply a doctrine query object with limitations for the tag could
+ *  - tagging_options     Supply some restrictions for the tag could e.g. "model", "limit"
+ *                        @see  PluginTagTable::getAllTagNameWithCount()
  */
 class ullMetaWidgetTaggable extends ullMetaWidget
 {
@@ -18,7 +23,19 @@ class ullMetaWidgetTaggable extends ullMetaWidget
       $this->columnConfig->setWidgetOption('typeahead-url', url_for('taggableComplete/complete'));
       $this->columnConfig->setWidgetOption('tags-label', __('Selected tags', null, 'common') . ':');
       $this->columnConfig->setWidgetOption('popular-tags-label', __('Popular tags', null, 'common') . ':');
-      $this->columnConfig->setWidgetOption('popular-tags', TagTable::getPopulars());
+      
+      $taggingQuery = null;
+      if ($this->columnConfig->getOption('tagging_query'))
+      {
+        $taggingQuery = $this->columnConfig->getOption('tagging_query');
+      }
+      $taggingOptions = array();
+      if ($this->columnConfig->getOption('tagging_options'))
+      {
+        $taggingOptions = $this->columnConfig->getOption('tagging_options');
+      }      
+      $this->columnConfig->setWidgetOption('popular-tags', TagTable::getPopulars($taggingQuery, $taggingOptions));
+      
       $this->columnConfig->setWidgetOption('add-tag-label', __('Add', null, 'common'));
       $this->columnConfig->setWidgetOption('selected_tag_markup',
         '<span class="ull_widget_taggable_selected_tag_element color_light_bg" title="%s">' .
