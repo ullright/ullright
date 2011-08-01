@@ -607,6 +607,12 @@ class ullColumnConfiguration
    */
   public function setAjaxUpdate($boolean)
   {
+    // ajax update is only useful for read mode
+    if ('r' <> $this->getAccess())
+    {
+      return $this;
+    }
+    
     $this->setOption('enable_ajax_update', $boolean);
     
     if (true === $boolean)
