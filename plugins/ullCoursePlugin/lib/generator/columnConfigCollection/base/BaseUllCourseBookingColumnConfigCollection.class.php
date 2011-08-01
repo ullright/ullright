@@ -28,33 +28,22 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
       ->setLabel(__('Tariff', null, 'ullCourseMessages'))
       ->setWidgetOption('add_empty', true)
     ;        
+    
+    $this['are_terms_of_use_accepted']
+      ->setLabel(__('Terms of use accepted', null, 'ullCourseMessages') . '?')
+      ->setAccess('r')
+    ;     
 
     $this['is_paid']
       ->setLabel(__('Paid', null, 'ullCourseMessages') . '?')
       ->setAjaxUpdate(true)
     ;
     
-    $this['marked_as_paid_at']
-      ->setLabel(__('Marked as paid at', null, 'ullCourseMessages'))
-      ->setAccess('r')
+    $this['is_approved']
+      ->setLabel(__('Is approved', null, 'ullCourseMessages') . '?')
+      ->setAjaxUpdate(true)
     ;
     
-    $this['marked_as_paid_ull_user_id']
-      ->setLabel(__('Marked as paid by', null, 'ullCourseMessages'))
-      ->setAccess('r')
-    ;    
-    
-    if ($this->isCreateAction())
-    {
-      $this->disable(array(
-        'marked_as_paid_at',
-        'marked_as_paid_ull_user_id'
-      ));
-    }
-    
-    if ($this->isCreateOrEditAction())
-    {
-    }
   }
  
 }

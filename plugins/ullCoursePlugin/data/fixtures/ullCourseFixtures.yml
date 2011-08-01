@@ -85,20 +85,98 @@ UllCourseBooking:
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_1
+    are_terms_of_use_accepted: true
+    is_approved:            true
     is_paid:                true     
-    #marked_as_paid_at:      '2011-07-08 12:13:14'        
   booking_2:
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_2
+    are_terms_of_use_accepted: true
+    is_approved:            true
     is_paid:                true   
-    #marked_as_paid_at:      '2011-07-08 13:14:15'
     comment:                For my daughter Lina 
   booking_3:
     UllCourse:              course_1
     UllUser:                admin_user
     UllCourseTariff:        tariff_2    
+    are_terms_of_use_accepted: true
+    is_approved:            true
   booking_4:
     UllCourse:              course_2
     UllUser:                test_user
-    UllCourseTariff:        tariff_4            
+    UllCourseTariff:        tariff_4
+    are_terms_of_use_accepted: true       
+    
+UllPermission:
+  ull_permission_ull_course_list:
+    slug:                   ull_course_list
+    namespace:          ullCourse         
+  ull_permission_ull_course_edit:
+    slug:                   ull_course_edit
+    namespace:          ullCourse
+  ull_permission_ull_course_delete:
+    slug:                   ull_course_delete
+    namespace:          ullCourse
+  ull_permission_ull_course_offering:
+    slug:                   ull_course_offering
+    namespace:          ullCourse
+  ull_permission_ull_course_show:
+    slug:                   ull_course_show
+    namespace:          ullCourse
+  ull_permission_ull_course_select_tariff:
+    slug:                   ull_course_select_tariff
+    namespace:          ullCourse
+  ull_permission_ull_course_confirmation:
+    slug:                   ull_course_confirmation
+    namespace:          ullCourse          
+    
+UllGroup:
+  ull_group_ull_course_admins:
+    display_name:       CourseAdmins    
+    namespace:          ullCourse
+  ull_group_ull_course_trainers:
+    display_name:       Trainers 
+    namespace:          ullCourse
+
+# Test user becomes a ullCourse trainer    
+UllEntityGroup:
+  ull_entity_group_ull_course_1:
+    UllUser:            test_user
+    UllGroup:           ull_group_ull_course_trainers
+    
+UllGroupPermission: 
+  # Public stuff
+  ull_group_permission_ull_course_1:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_ull_course_offering
+    namespace:          ullCourse
+  ull_group_permission_ull_course_2:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_ull_course_show
+    namespace:          ullCourse
+    
+  # Logged in stuff
+  ull_group_permission_ull_course_21:
+    UllGroup:           ull_group_logged_in_users
+    UllPermission:      ull_permission_ull_course_select_tariff
+    namespace:          ullCourse
+    
+  ull_group_permission_ull_course_22:
+    UllGroup:           ull_group_logged_in_users
+    UllPermission:      ull_permission_ull_course_confirmation
+    namespace:          ullCourse        
+  
+  # ullCourse admin stuff
+  ull_group_permission_ull_course_3:
+    UllGroup:           ull_group_ull_course_admins
+    UllPermission:      ull_permission_ull_course_list
+    namespace:          ullCourse       
+  ull_group_permission_ull_course_4:
+    UllGroup:           ull_group_ull_course_admins
+    UllPermission:      ull_permission_ull_course_edit
+    namespace:          ullCourse                      
+  ull_group_permission_ull_course_5:
+    UllGroup:           ull_group_ull_course_admins
+    UllPermission:      ull_permission_ull_course_delete
+    namespace:          ullCourse            

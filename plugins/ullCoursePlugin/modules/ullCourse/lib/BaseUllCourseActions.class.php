@@ -39,7 +39,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     $this->setTableToolTemplate('list');
     
-    return  parent::executeList($request);
+    return parent::executeList($request);
   }
   
   
@@ -53,7 +53,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     return parent::executeEdit($request);
   }
-  
+
   public function executeShow(sfRequest $request) 
   {
     $this->checkPermission('ull_course_show');
@@ -61,29 +61,145 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $doc = $this->getDocFromRequest();
     
     $this->setVar('doc', $doc, true);
+  }  
+  
+  /**
+   * Public offering of courses
+   * 
+   * @param sfRequest $request
+   */
+  public function executeOffering(sfRequest $request) 
+  {
+    $this->checkPermission('ull_course_offering');
+    
+    return  parent::executeList($request);    
   }
   
-  public function executeSelectPayment(sfRequest $request)
+  public function executeSelectTariff(sfRequest $request)
   {
-    $this->checkPermission('ull_course_select_payment');    
-    
+    $this->checkPermission('ull_course_select_tariff');   
+
     $doc = $this->getDocFromRequest();
     
     $this->setVar('doc', $doc, true);
-  }  
+  }
+  
+//  public function executeSelectTariffX(sfRequest $request)
+//  {
+//    $this->checkPermission('ull_course_select_tariff');    
+//    
+//    $course = $this->getDocFromRequest();
+//    
+//    $generator = new ullTableToolGenerator('UllCourseBooking', 'w', 'edit');
+//    
+//    $cc = $generator->getColumnsConfig();
+//    
+//    $cc->disableAllExcept(array(
+//      'ull_course_tariff_id',
+//      'comment',
+//    ));
+//    
+//    $booking = new UllCourseBooking();
+//    $booking->UllCourse = $course;
+//    $booking->UllUser = UllUserTable::findLoggedInUser();
+//    
+//    $generator->buildForm($booking);
+//    
+//    $this->setVar('generator', $generator, true);
+//  }  
+  
+//  public function executeSelectPayment(sfRequest $request)
+//  {
+//    $this->checkPermission('ull_course_select_payment');    
+//    
+//    $doc = $this->getDocFromRequest();
+//    
+//    $this->setVar('doc', $doc, true);
+//  }  
   
   
   public function executeConfirmation(sfRequest $request)
   {
-    $this->checkPermission('ull_course_confirmation');    
+    $this->checkPermission('ull_course_confirmation');
+
+    $course = $this->getDocFromRequest();
     
-    $doc = $this->getDocFromRequest();
+    $tariff = $this->getTariffFromRequest($course);
     
-    $this->setVar('doc', $doc, true);
+    $generator = new ullTableToolGenerator('UllCourseBooking', 'w', 'edit');
+    
+    $cc = $generator->getColumnsConfig();
+    
+    $cc['are_terms_of_use_accepted']
+      ->setAccess('w')
+      ->setIsRequired(true)
+    ;
+    
+//    $cc->disableAllExcept(array(
+//      'ull_course_tariff_id',
+//      'comment',
+//    ));
+    
+    $booking = new UllCourseBooking();
+    $booking->UllCourse = $course;
+    $booking->UllCourseTariff = $tariff;
+    $booking->UllUser = UllUserTable::findLoggedInUser();
+    
+    $generator->buildForm($booking);
+    
+    if ($request->isMethod('post'))
+    {
+//      var_dump($request->getParameterHolder()->getAll());
+//      die;
+      
+      if ($generator->getForm()->bindAndSave(
+        $request->getParameter('fields')
+      ))
+      {   
+        die('wow!');
+      }
+    }
+    
+    ullCoreTools::debugFormError($generator->getForm());
+
+    $this->setVar('form', $generator->getForm(), true);
+    $this->setVar('generator', $generator, true);
+    
+    $this->setVar('course', $course, true);
+    $this->setVar('tariff', $tariff, true);
+  }
+  
+  /**
+   * Get tariff from request and check if the tarif is valid for the given course
+   * 
+   * @param UllCourse $course
+   */
+  protected function getTariffFromRequest(UllCourse $course)
+  {
+    $ullCourseTariffId = $this->getRequestParameter('ull_course_tariff_id');
+    $tariff = Doctrine::getTable('UllCourseTariff')->findOneById($ullCourseTariffId);
+    $this->forward404Unless($tariff);
+    
+    $validTariffIds = array();
+    
+    foreach ($course->UllCourseTariff as $record)
+    {
+      $validTariffIds[] = $record['id'];
+    }
+    
+    if (!in_array($tariff['id'], $validTariffIds))
+    {
+      throw new InvalidArgumentException('Tarif ' . $tariff['display_name'] . 'is not a valid tariff for course ' . $course['name']);
+    }
+    
+    return $tariff;
   }
 
   
-  
+  protected function modifyGeneratorBeforeBuildForm($object)
+  {
+        
+  } 
   
   /**
    * Gets the doc according to request param

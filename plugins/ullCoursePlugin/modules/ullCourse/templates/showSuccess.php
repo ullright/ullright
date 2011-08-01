@@ -27,9 +27,10 @@
 
 <h2><?php echo __('Trainer', null, 'ullCourseMessages') ?></h2>
 
+<?php $photoWidget = new ullWidgetPhoto() ?>
 <p><?php echo $doc['Trainer']['display_name'] ?></p>
 <p><?php echo $doc['Trainer']['comment'] ?></p>
-<p><?php echo $doc['Trainer']['photo'] ?></p>
+<p><?php echo $photoWidget->render(null, $doc['Trainer']['photo']) ?></p>
 
 <h2><?php echo __('Booking', null, 'ullCourseMessages') ?></h2>
 
@@ -72,7 +73,7 @@
 <div class="ull_course_book_me">
   <?php echo link_to(
     __('Book this course', null, 'ullCourseMessages'),
-    'ullCourse/selectPayment?slug=' . $doc['slug']
+    'ullCourse/selectTariff?slug=' . $doc['slug']
     )
      ?>
 </div>  

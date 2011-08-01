@@ -67,6 +67,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
     $this->generator = $this->getListGenerator();
     
+    $this->modifyGeneratorBeforeGetFromRequest();
+    
     $this->docs = $this->getFilterFromRequest();
     
     $this->modifyGeneratorBeforeBuildForm(null);
@@ -80,6 +82,14 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->breadcrumbForList();
   }
 
+  /**
+   * Template method to modify the generator before getting the object(s) from the request
+   */
+  protected function modifyGeneratorBeforeGetFromRequest()
+  {
+    
+  }  
+  
   
   /**
    * Template method to modify the generator before buildForm() is called

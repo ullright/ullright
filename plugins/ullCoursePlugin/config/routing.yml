@@ -2,10 +2,10 @@ ull_course_show:
   url:     /ullCourse/show/:slug
   param:    { module: ullCourse, action: show }
   
-ull_course_select_payment:
-  url:     /ullCourse/selectPayment/:slug
-  param:    { module: ullCourse, action: selectPayment }  
+ull_course_select_tariff:
+  url:     /ullCourse/selectTariff/:slug
+  param:    { module: ullCourse, action: selectTariff }  
 
 ull_course_confirmation:
-  url:     /ullCourse/confirmation/:slug
+  url:     /ullCourse/confirmation/:slug/:ull_course_tariff_id
   param:    { module: ullCourse, action: confirmation }   

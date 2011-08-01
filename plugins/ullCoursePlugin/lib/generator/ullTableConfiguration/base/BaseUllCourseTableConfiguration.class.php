@@ -15,12 +15,13 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
   {
     $this
       ->setName(__('Courses', null, 'ullCourseMessages'))
-      ->setSearchColumns(array('id', 'name'))
+      ->setSearchColumns(array('id', 'name', 'duplicate_tags_for_search'))
       ->setOrderBy('name')
       ->setListColumns(array(
         'id', 
         'name', 
-        'trainer_ull_user_id', 
+        'trainer_ull_user_id',
+        'duplicate_tags_for_search', 
         'begin_date', 
         'is_active',
         'proxy_number_of_participants_applied',

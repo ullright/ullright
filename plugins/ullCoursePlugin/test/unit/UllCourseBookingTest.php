@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(12, new lime_output_color, $configuration);
+$t = new myTestCase(6, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -29,16 +29,3 @@ $t->begin('update course proxies (implicitly call UllCourseBooking post save hoo
   $t->is($course2->proxy_number_of_participants_paid, 0, 'Calculates correct number of participants who paid for course 2');
   $t->is($course2->proxy_turnover, 0.00, 'Calculates correct turnover for course 2');
 
-$t->diag('is_paid triggers insert of marked_as_paid_by and _at');
-
-  $booking1 = Doctrine::getTable('UllCourseBooking')->findOneById(1);
-  $t->is($booking1['marked_as_paid_ull_user_id'], 1, 'marked_as_paid_ull_user_id is correctly filled in');
-  $t->is(substr($booking1['marked_as_paid_at'], 0, 10), date('Y-m-d'), 'marked_as_paid_at is correctly filled in');
-  
-  $booking2 = Doctrine::getTable('UllCourseBooking')->findOneById(2);
-  $t->is($booking2['marked_as_paid_ull_user_id'], 1, 'marked_as_paid_ull_user_id is correctly filled in');
-  $t->is(substr($booking2['marked_as_paid_at'], 0, 10), date('Y-m-d'), 'marked_as_paid_at is correctly filled in');
-
-  $booking3 = Doctrine::getTable('UllCourseBooking')->findOneById(3);
-  $t->is($booking3['marked_as_paid_ull_user_id'], null, 'marked_as_paid_ull_user_id is empty');
-  $t->is($booking3['marked_as_paid_at'], null, 'marked_as_paid_at is empty');  

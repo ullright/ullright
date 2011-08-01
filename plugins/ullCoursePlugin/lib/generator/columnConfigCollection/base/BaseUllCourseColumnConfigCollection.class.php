@@ -136,6 +136,17 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         ->setWidgetAttribute('class', 'ull_widget_time')
       ;      
     }
+    
+    if ('offering' == sfContext::getInstance()->getActionName())
+    {
+      $this['name']
+        ->setMetaWidgetClassName('ullMetaWidgetLink')
+      ;
+      
+      $this['trainer_ull_user_id']
+        ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
+      ;
+    }
   }
  
 }

@@ -172,13 +172,13 @@
       </trans-unit>   
 
       <trans-unit id="34">
-        <source>Marked as paid at</source>
-        <target>Markiert als bezahlt am</target>
+        <source>Is approved</source>
+        <target>Wurde geprüft</target>
       </trans-unit>   
       
       <trans-unit id="35">
-        <source>Marked as paid by</source>
-        <target>Markiert als bezahlt von</target>
+        <source>Terms of use accepted</source>
+        <target>AGB akzeptiert</target>
       </trans-unit>         
       
                                

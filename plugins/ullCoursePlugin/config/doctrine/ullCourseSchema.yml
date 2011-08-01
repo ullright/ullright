@@ -116,6 +116,8 @@ UllCourseBooking:
   inheritance:
     extends: UllRecord
     type: concrete
+  actAs:
+    SuperVersionable:
   columns:
     ull_course_id:
       type: integer
@@ -126,20 +128,16 @@ UllCourseBooking:
     ull_user_id:
       type: integer
       notnull: true
-    is_paid:
+    are_terms_of_use_accepted:
       type: boolean
-    marked_as_paid_ull_user_id:
-      type: integer
-    marked_as_paid_at:
-      type: datetime
+    is_approved:
+      type: boolean
+    is_paid:
+      type: boolean      
     comment:
       type: string(4000)
   relations:   
     UllCourse:
     UllUser:
     UllCourseTariff:
-    PaidMarker:
-      class: UllUser 
-      local: marked_as_paid_ull_user_id
-      foreign: id      
 

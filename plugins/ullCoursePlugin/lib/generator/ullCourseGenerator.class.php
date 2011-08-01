@@ -11,7 +11,25 @@ class ullCourseGenerator extends ullTableToolGenerator
   
   public function configure()
   {
-    //$this->setAllowDelete(false);
   }
   
+  
+  protected function customizeTableConfig()
+  {
+    if (sfContext::getInstance()->getActionName() == 'offering')
+    {
+      $this->getTableConfig()
+        ->setOrderBy('begin_date desc')      
+        ->setListColumns(array(
+          'name', 
+          'trainer_ull_user_id',
+          'begin_date',
+          'end_date' 
+        ))      
+        ->setFilterColumns(array())
+      ;      
+      
+      
+    }
+  }
 }
