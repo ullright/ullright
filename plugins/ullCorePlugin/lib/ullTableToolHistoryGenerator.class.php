@@ -39,6 +39,11 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
     }
   }
   
+  public function buildFilterForm()
+  {
+    
+  }
+  
   /**
    * Compares two Doctrine_Records and adds columns with
    * different content to the internal blacklist.
