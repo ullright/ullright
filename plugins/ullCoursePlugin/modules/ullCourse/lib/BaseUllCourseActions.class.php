@@ -130,6 +130,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     $cc = $generator->getColumnsConfig();
     
+//    var_dump($cc);die;
+    
     $cc['are_terms_of_use_accepted']
       ->setAccess('w')
       ->setIsRequired(true)
@@ -149,24 +151,81 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     if ($request->isMethod('post'))
     {
-//      var_dump($request->getParameterHolder()->getAll());
-//      die;
-      
+      // TODO: investigate why it is necessary to have required fields
+      //   explicitly in the values. Why are given defaults ignored?
       if ($generator->getForm()->bindAndSave(
-        $request->getParameter('fields')
+        array_merge(
+          $generator->getForm()->getDefaults(),
+          $request->getParameter('fields')
+        )
       ))
-      {   
-        die('wow!');
+      { 
+//        $this->dispatcher->connect('ull_course.booked', array('ullCourseActions', 'listenToBookedEvent'));
+        
+        $this->sendConfirmationMail($booking);
+        
+        $this->notifyBookedEvent($booking);
+        
+        $this->redirect('ullCourse/booked');
       }
     }
     
-    ullCoreTools::debugFormError($generator->getForm());
-
     $this->setVar('form', $generator->getForm(), true);
     $this->setVar('generator', $generator, true);
     
     $this->setVar('course', $course, true);
     $this->setVar('tariff', $tariff, true);
+  }
+
+  protected function sendConfirmationMail(UllCourseBooking $booking)
+  {
+    $mail = new ullsfMail('ull_course_booked');
+    
+    $mail->setFrom(
+      sfConfig::get('app_ull_course_from_address'),
+      sfConfig::get('app_ull_course_from_name')
+    );
+    $mail->addAddress($booking->Creator);
+    
+    $subject = $this->getPartial('ullCourse/bookedMailSubject', array(
+      'booking' => $booking
+    ));
+    $mail->setSubject($subject);
+    
+    $body = $this->getPartial('ullCourse/bookedMailBody', array(
+      'booking' => $booking
+    ));
+    $mail->setBody($body);    
+    
+    $mail->send();
+  }
+  
+  /**
+   * Notify a successful booking e.g. for mailing
+   * 
+   * @param UllCourseBooking $booking
+   */
+  protected function notifyBookedEvent(UllCourseBooking $booking)
+  {
+      sfContext::getInstance()->getEventDispatcher()->notify(
+      new sfEvent($this, 'ull_course.booked', array(
+        'booking'    => $booking, 
+      ))
+    ); 
+  }
+  
+//  public static function listenToBookedEvent(sfEvent $event)
+//  {
+//    $params = $event->getParameters();
+//    $booking = $params['booking'];
+//    
+//    $event->
+//    
+//  }
+  
+  public function executeBooked(sfRequest $request)
+  {
+    
   }
   
   /**

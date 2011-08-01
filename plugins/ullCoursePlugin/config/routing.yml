@@ -1,3 +1,7 @@
+ull_course_offering:
+  url:     /courses/*
+  param:    { module: ullCourse, action: offering }
+
 ull_course_show:
   url:     /ullCourse/show/:slug
   param:    { module: ullCourse, action: show }

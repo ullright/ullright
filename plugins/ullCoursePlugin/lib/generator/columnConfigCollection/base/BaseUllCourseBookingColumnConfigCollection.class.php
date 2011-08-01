@@ -11,7 +11,7 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
   {
 
     $this['id']
-      ->setLabel(__('Booking number', null, 'ullCourseMessages'))
+      ->setLabel(__('No.', null, 'common'))
     ;
     
     $this['ull_course_id']
@@ -40,7 +40,7 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     ;
     
     $this['is_approved']
-      ->setLabel(__('Is approved', null, 'ullCourseMessages') . '?')
+      ->setLabel(__('Approved', null, 'ullCourseMessages') . '?')
       ->setAjaxUpdate(true)
     ;
     

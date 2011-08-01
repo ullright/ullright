@@ -172,8 +172,8 @@
       </trans-unit>   
 
       <trans-unit id="34">
-        <source>Is approved</source>
-        <target>Wurde geprüft</target>
+        <source>Approved</source>
+        <target>Geprüft</target>
       </trans-unit>   
       
       <trans-unit id="35">

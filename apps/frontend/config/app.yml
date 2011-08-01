@@ -153,6 +153,10 @@ all:
     bounce_username:                'user'
     bounce_password:                'password'
     bounce_deactivation_threshold:   3
+    
+  ull_course:
+    from_address:       courses@example.com
+    from_name:          Example Company
  
   publish:
     # Set the following options if you want to use the ullright:publish task
