@@ -39,6 +39,9 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
     }
   }
   
+  /**
+   * The history generator does not need a filter form
+   */
   public function buildFilterForm()
   {
     
