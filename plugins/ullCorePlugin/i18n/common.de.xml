@@ -1313,6 +1313,11 @@
 <target>Danke</target>
 </trans-unit>
 
+<trans-unit id="30002">
+<source>Links</source>
+<target>Links</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

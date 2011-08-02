@@ -243,12 +243,57 @@
       
       <trans-unit id="48">
         <source>Please transfer %amount% to our bank account</source>
-        <target>Bitte überweisen Sie %amount% auf unsere Konto</target>
+        <target>Bitte überweisen Sie %amount% auf unser Konto</target>
       </trans-unit>       
       
       <trans-unit id="49">
         <source>Payment information</source>
         <target>Zahlungsinformationen</target>
+      </trans-unit>       
+      
+      <trans-unit id="50">
+        <source>Don't forget to fill in</source>
+        <target>Bitte nicht vergessen</target>
+      </trans-unit>       
+      
+      <trans-unit id="51">
+        <source>Your name</source>
+        <target>Ihr Name</target>
+      </trans-unit>       
+      
+      <trans-unit id="52">
+        <source>Customer data</source>
+        <target>Kundendaten</target>
+      </trans-unit>       
+      
+      <trans-unit id="53">
+        <source>Your booking number</source>
+        <target>Ihre Buchungsnummer</target>
+      </trans-unit>       
+      
+      <trans-unit id="54">
+        <source>Bookings are orderd by the incoming tranfer date</source>
+        <target>Die Buchungen werden nach dem Zahlungseingang gereiht</target>
+      </trans-unit>       
+      
+      <trans-unit id="55">
+        <source>thank you for your booking our course</source>
+        <target>danke für die Buchung unseres Kurses</target>
+      </trans-unit>       
+      
+      <trans-unit id="56">
+        <source>Course details</source>
+        <target>Kurs-Details</target>
+      </trans-unit>       
+      
+      <trans-unit id="57">
+        <source>Terms of use</source>
+        <target>Teilnahmebedinungen</target>
+      </trans-unit>       
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
       </trans-unit>       
       
       <trans-unit id="">
