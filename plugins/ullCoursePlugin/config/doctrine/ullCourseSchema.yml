@@ -130,8 +130,9 @@ UllCourseBooking:
       notnull: true
     are_terms_of_use_accepted:
       type: boolean
-    is_approved:
-      type: boolean
+# Not needed at the moment
+#    is_approved:
+#      type: boolean
     is_paid:
       type: boolean      
     comment:

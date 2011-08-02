@@ -7,6 +7,11 @@
 <h2><?php echo $course['name']?></h2>
 
 <p>
+  <?php echo __('Trainer', null, 'ullCourseMessages') ?>: 
+  <?php echo $course['Trainer']['display_name'] ?>
+</p>
+
+<p>
   <?php if ($course->isMultiDay()): ?>
     <?php echo __('%units% units', array('%units%' => $course['number_of_units']), 'ullCourseMessages') ?>
   <?php endif ?>   
@@ -22,7 +27,7 @@
   <?php if ($course->isMultiDay()): ?>
     <?php echo __('to', null, 'common') ?>
     <?php echo ull_format_date($course['end_date'], false, true) ?>
-  <?php endif?>, 
+  <?php endif?>
   
   <?php echo __('Time', null, 'common') ?>:
   <?php echo ull_format_time($course['begin_time']) ?> 
@@ -30,10 +35,7 @@
   <?php echo ull_format_time($course['end_time']) ?>  
 </p>
 
-<p>
-  <?php echo __('Trainer', null, 'ullCourseMessages') ?>: 
-  <?php echo $course['Trainer']['display_name'] ?>
-</p>
+
 
 <p>
   <?php echo __('Tariff', null, 'ullCourseMessages') ?>: 
@@ -59,7 +61,12 @@
 
 <p>
 <?php echo $form['are_terms_of_use_accepted']->render() ?> &nbsp;
-<?php echo __('I confirm to have read the terms of use and comply to them', null, 'ullCourseMessages') ?>
+<?php echo __('I hereby accept the', null, 'ullCourseMessages') ?> 
+<?php echo ull_link_to(
+  __('terms of use', null, 'ullCourseMessages'),
+  sfConfig::get('ull_course_terms_of_use_link', 'ullAdmin/about'),
+  array('link_new_window' => true )
+) ?>.
 </p>
 
 </p>

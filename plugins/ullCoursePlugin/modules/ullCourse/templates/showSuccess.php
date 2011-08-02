@@ -65,7 +65,7 @@
 
 <ul>
 <?php foreach ($doc->UllCourseTariff as $tariff): ?>
-  <li><?php echo $tariff['name'] ?>: <?php echo $tariff['price'] ?></li>
+  <li><?php echo $tariff['name'] ?>: <?php echo format_currency($tariff['price'], 'EUR') ?></li>
 <?php endforeach ?>
 </ul> 
   

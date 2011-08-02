@@ -179,9 +179,87 @@
       <trans-unit id="35">
         <source>Terms of use accepted</source>
         <target>AGB akzeptiert</target>
-      </trans-unit>         
+      </trans-unit>       
       
-                               
+      <trans-unit id="36">
+        <source>Tariff selection</source>
+        <target>Tarifauswahl</target>
+      </trans-unit>       
+      
+      <trans-unit id="37">
+        <source>Please select the correct tariff</source>
+        <target>Bitte wählen Sie den richtigen Tarif</target>
+      </trans-unit>       
+      
+      <trans-unit id="38">
+        <source>Booking confirmation</source>
+        <target>Buchungsbestätigung</target>
+      </trans-unit>       
+      
+      <trans-unit id="39">
+        <source>Your're about to book the following course</source>
+        <target>Sie sind dabei folgenden Kurs zu buchen</target>
+      </trans-unit>       
+      
+      <trans-unit id="40">
+        <source>If you book a course for another person please note the name here</source>
+        <target>Wenn Sie einen Kurs für eine andere Person buchen, bitte hier den Namen angeben</target>
+      </trans-unit>       
+      
+      <trans-unit id="41">
+        <source>For reduced prices please give the reason for the reduction</source>
+        <target>Für vergünstigte Tarife bitte den Grund angeben</target>
+      </trans-unit>       
+      
+      <trans-unit id="42">
+        <source>I hereby accept the</source>
+        <target>Ich akzeptiere hiermit die</target>
+      </trans-unit>       
+      
+      <trans-unit id="43">
+        <source>terms of use</source>
+        <target>Teilnahmebedingungen</target>
+      </trans-unit>       
+      
+      <trans-unit id="44">
+        <source>Send booking</source>
+        <target>Buchung senden</target>
+      </trans-unit>       
+      
+      <trans-unit id="45">
+        <source>Thank you for your booking</source>
+        <target>Danke für Ihre Buchung</target>
+      </trans-unit>       
+      
+      <trans-unit id="46">
+        <source>An email containing the payment information has been sent to you</source>
+        <target>Die Zahlungsinformationen wurden Ihnen per E-Mail gesendet</target>
+      </trans-unit>       
+      
+      <trans-unit id="47">
+        <source>Return to the list of courses</source>
+        <target>Zurück zu den Kursen</target>
+      </trans-unit>       
+      
+      <trans-unit id="48">
+        <source>Please transfer %amount% to our bank account</source>
+        <target>Bitte überweisen Sie %amount% auf unsere Konto</target>
+      </trans-unit>       
+      
+      <trans-unit id="49">
+        <source>Payment information</source>
+        <target>Zahlungsinformationen</target>
+      </trans-unit>       
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>       
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
       
         
       

@@ -1,7 +1,7 @@
 <h1><?php echo __('Tarif selection', null, 'ullCourseMessages') ?></h1>
 
 <p>
-  <?php echo __('Please select the correct tariff for you', null, 'ullCourseMessages') ?>:
+  <?php echo __('Please select the correct tariff', null, 'ullCourseMessages') ?>:
 </p>
 
 <ul>

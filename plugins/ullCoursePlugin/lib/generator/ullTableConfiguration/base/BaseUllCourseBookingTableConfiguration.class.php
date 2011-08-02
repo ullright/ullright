@@ -21,7 +21,7 @@ class BaseUllCourseBookingTableConfiguration extends ullTableConfiguration
         'id', 
         'UllCourse->name', 
         'UllUser->display_name',
-        'is_approved', 
+//        'is_approved', 
         'is_paid',
         'comment', 
         'created_at',
@@ -31,7 +31,7 @@ class BaseUllCourseBookingTableConfiguration extends ullTableConfiguration
 //      ->setToStringColumn('display_name');
       ->setFilterColumns(array(
         'ull_course_id' => '',
-        'is_approved' => false,
+//        'is_approved' => false,
         'is_paid' => false,
         'UllCourse->is_active' => 'checked'
       ))

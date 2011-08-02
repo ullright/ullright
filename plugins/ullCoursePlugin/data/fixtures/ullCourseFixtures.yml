@@ -86,14 +86,14 @@ UllCourseBooking:
     UllUser:                test_user
     UllCourseTariff:        tariff_1
     are_terms_of_use_accepted: true
-    is_approved:            true
+#    is_approved:            true
     is_paid:                true     
   booking_2:
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_2
     are_terms_of_use_accepted: true
-    is_approved:            true
+#    is_approved:            true
     is_paid:                true   
     comment:                For my daughter Lina 
   booking_3:
@@ -101,7 +101,7 @@ UllCourseBooking:
     UllUser:                admin_user
     UllCourseTariff:        tariff_2    
     are_terms_of_use_accepted: true
-    is_approved:            true
+#    is_approved:            true
   booking_4:
     UllCourse:              course_2
     UllUser:                test_user

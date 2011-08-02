@@ -39,10 +39,10 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
       ->setAjaxUpdate(true)
     ;
     
-    $this['is_approved']
-      ->setLabel(__('Approved', null, 'ullCourseMessages') . '?')
-      ->setAjaxUpdate(true)
-    ;
+//    $this['is_approved']
+//      ->setLabel(__('Approved', null, 'ullCourseMessages') . '?')
+//      ->setAjaxUpdate(true)
+//    ;
     
   }
  

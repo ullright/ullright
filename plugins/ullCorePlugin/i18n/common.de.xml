@@ -1301,6 +1301,18 @@
 <target>Nr.</target>
 </trans-unit>
 
+<!--  common phrases -->
+
+<trans-unit id="30000">
+<source>Hello</source>
+<target>Hallo</target>
+</trans-unit>
+
+<trans-unit id="30001">
+<source>Thank you</source>
+<target>Danke</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

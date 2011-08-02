@@ -47,7 +47,7 @@ abstract class PluginUllCourseTariff extends BaseUllCourseTariff
     foreach ($this->Translation as $lang => $translation)
     {
       $this->Translation[$lang]->display_name =
-        format_currency($this->price, null, $lang) .  
+        format_currency($this->price, 'EUR', $lang) .  
         ' ('. 
         $this->Translation[$lang]->name .
         ')'
