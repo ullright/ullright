@@ -67,6 +67,12 @@ class ullMetaWidgetCheckbox extends ullMetaWidget
           $this->columnConfig->getValidatorOptions())));
   }
   
+  protected function configureFilterMode()
+  {
+    $this->addWidget(new ullWidgetCheckbox($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+    $this->addValidator(new sfValidatorPass());     
+  }
+  
   public function getSearchType()
   {
     return 'boolean';

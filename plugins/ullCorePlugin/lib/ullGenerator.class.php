@@ -422,21 +422,21 @@ abstract class ullGenerator extends ullGeneratorBase
         else
         {
           $q->addWhere($filterColumn . ' = ?', $value);
-          
-          // Parse the value using the appropriate read widget
-          sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping')); // required by some widgets
-          $tempForm = new sfForm();
-          $readColumnsConfig = clone $this->getColumnsConfig()->offsetGet($filterColumn);
-          $readColumnsConfig->setAccess('f');
-          $metaWidgetReadClassName = $readColumnsConfig->getMetaWidgetClassName();
-          $metaWidgetRead = new $metaWidgetReadClassName($readColumnsConfig, $tempForm);
-          $metaWidgetRead->addToFormAs($filterColumn);
-          $tempForm->setDefault($filterColumn, $value);
-          
-          $outputValue = $tempForm->offsetGet($filterColumn)->render();
-          
-          $ullFilter->add('filter[' . $filterColumn . ']', $this->filterForm->getWidgetSchema()->getLabel($filterColumn) . ': ' . $outputValue);
         }
+          
+        // Parse the value using the appropriate read widget
+        sfContext::getInstance()->getConfiguration()->loadHelpers(array('Escaping')); // required by some widgets
+        $tempForm = new sfForm();
+        $readColumnsConfig = clone $this->getColumnsConfig()->offsetGet($filterColumn);
+        $readColumnsConfig->setAccess('f');
+        $metaWidgetReadClassName = $readColumnsConfig->getMetaWidgetClassName();
+        $metaWidgetRead = new $metaWidgetReadClassName($readColumnsConfig, $tempForm);
+        $metaWidgetRead->addToFormAs($filterColumn);
+        $tempForm->setDefault($filterColumn, $value);
+          
+        $outputValue = $tempForm->offsetGet($filterColumn)->render();
+        
+        $ullFilter->add('filter[' . $filterColumn . ']', $this->filterForm->getWidgetSchema()->getLabel($filterColumn) . ': ' . $outputValue);
       }
     }
   }

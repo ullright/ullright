@@ -58,7 +58,20 @@ class ullFilter
         $return .= '<li class="color_light_bg">';
         $return .= $filter;
         $return .= ' ';
-        $return .= ull_link_to(ull_image_tag('delete', array(), 12, 12), array($request_param => ''), array('class' => 'ull_filter_icon'));
+        
+        // hack for checkbox special handling
+        // TODO: refactor, e.g. by allowing to give a null value
+        $nullValue = '';
+        if (strpos($filter, 'checkbox'))
+        {
+          $nullValue = '_all_';
+        }
+        
+        $return .= ull_link_to(
+          ull_image_tag('delete', array(), 12, 12), 
+          array($request_param => $nullValue), 
+          array('class' => 'ull_filter_icon')
+        );
         $return .= '</li>'; 
       }
       $return .= '</ul>';

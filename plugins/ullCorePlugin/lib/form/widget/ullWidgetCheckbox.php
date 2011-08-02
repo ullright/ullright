@@ -39,6 +39,14 @@ class ullWidgetCheckbox extends ullWidget
       }
     }
     
+//    var_dump($value);
+//    
+    //fix value for list action filter
+    if ('unchecked' === $value)
+    {
+      $value = false;
+    } 
+    
     //create various ids
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     $id = $this->getAttribute('id');

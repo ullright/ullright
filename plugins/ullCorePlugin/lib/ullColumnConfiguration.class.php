@@ -607,23 +607,23 @@ class ullColumnConfiguration
    */
   public function setAjaxUpdate($boolean)
   {
-    // ajax update is only useful for read mode
-    if ('r' <> $this->getAccess())
-    {
-      return $this;
-    }
-    
-    $this->setOption('enable_ajax_update', $boolean);
-    
     if (true === $boolean)
     {
-      $this->setInjectIdentifier(true);
-      $this->setOption('ajax_url', 'ullTableTool/updateSingleColumn');
-      $this->setOption('ajax_model', $this->getModelName());
-      $this->setOption('ajax_column', $this->getColumnName());
+      // ajax update is only useful for read mode
+      if ('r' == $this->getAccess())
+      {
+        $this->setOption('enable_ajax_update', $boolean);
+        
+        $this->setInjectIdentifier(true);
+        $this->setOption('ajax_url', 'ullTableTool/updateSingleColumn');
+        $this->setOption('ajax_model', $this->getModelName());
+        $this->setOption('ajax_column', $this->getColumnName());
+      }
     } 
     else
     {
+      $this->setOption('enable_ajax_update', $boolean);
+      
       $this->removeOption('ajax_url');
       $this->removeOption('ajax_model');
       $this->removeOption('ajax_column');
