@@ -291,15 +291,65 @@
         <target>Teilnahmebedinungen</target>
       </trans-unit>       
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="60">
+        <source>More about %name%</source>
+        <target>Mehr über %name%</target>
       </trans-unit>       
+      
+      <trans-unit id="61">
+        <source>Trainers</source>
+        <target>Kursleiter</target>
+      </trans-unit>     
+      
+      <trans-unit id="62">
+        <source>Here is an alphabetical list of our trainers</source>
+        <target>Hier sind unsere Kursleiter in alphabetischer Reihenfolge</target>
+      </trans-unit>     
       
       <trans-unit id="">
         <source></source>
         <target></target>
-      </trans-unit>       
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
       
       <trans-unit id="">
         <source></source>

@@ -27,10 +27,28 @@
 
 <h2><?php echo __('Trainer', null, 'ullCourseMessages') ?></h2>
 
+
+<p>
+  <?php $popupLink = 'ullCourse/trainer?username=' . $doc['Trainer']['username'] ?>
+  <?php $popupOptions = array(
+    'title' => __('More about %name%', array('%name%' => $doc['Trainer']['display_name']), 'ullCourseMessages'),
+    'onclick' => 'this.href="#";popup("' . url_for($popupLink) . '", "Popup", "width=600, height=450,scrollbars=auto,resizable=yes");return false;'
+  ) ?>
+  <?php echo link_to(
+    $doc['Trainer']['display_name'],
+    $popupLink,
+    $popupOptions
+   ) ?>
+</p>
+
 <?php $photoWidget = new ullWidgetPhoto() ?>
-<p><?php echo $doc['Trainer']['display_name'] ?></p>
-<p><?php echo $doc['Trainer']['comment'] ?></p>
-<p><?php echo $photoWidget->render(null, $doc['Trainer']['photo']) ?></p>
+<p>
+  <?php echo link_to(
+    $photoWidget->render(null, $doc['Trainer']['photo']),
+    $popupLink,
+    $popupOptions 
+  ) ?>
+</p>
 
 <h2><?php echo __('Booking', null, 'ullCourseMessages') ?></h2>
 

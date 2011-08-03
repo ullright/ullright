@@ -229,6 +229,39 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   }
   
   /**
+   * Show a list of trainers
+   * 
+   * @param sfRequest $request
+   */
+  public function executeTrainers(sfRequest $request)
+  {
+    $this->trainers = UllUserTable::findByGroup('Trainers');
+  }
+  
+  
+  /**
+   * Show a trainer popup
+   * 
+   * @param sfRequest $request
+   */
+  public function executeTrainer(sfRequest $request)
+  {
+    $username = $request->getParameter('username');
+    
+    $trainer = Doctrine::getTable('UllUser')->findOneByUsername($username);
+    $this->forward404Unless($trainer);
+    
+    if (!UllUserTable::hasGroup('Trainers', $trainer['id'], false))
+    {
+      $this->forward404('The given user is not a trainer: ' . $trainer['display_name']);
+    }
+    
+    $this->setEmptyLayout();
+    
+    $this->trainer = $trainer;
+  }  
+  
+  /**
    * Get tariff from request and check if the tarif is valid for the given course
    * 
    * @param UllCourse $course
