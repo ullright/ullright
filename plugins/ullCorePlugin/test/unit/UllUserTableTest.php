@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(26, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(28, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -170,3 +170,8 @@ $t->diag('findLoggedInUsername()');
   $t->loginAs('test_user');
   $t->is(UllUserTable::findLoggedInUsername(), 'test_user', 'Returns the correct user object when logged in');
   $t->logout();  
+
+$t->diag('findByGroup()');
+  $users = UllUserTable::findByGroup('TestGroup');
+  $t->is(count($users), 1, 'Returns the correct number of memembers');  
+  $t->is($users[0]['display_name'], 'Test User', 'Returns the correct user');

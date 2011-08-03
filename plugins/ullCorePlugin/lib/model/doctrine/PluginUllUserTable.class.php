@@ -76,6 +76,25 @@ class PluginUllUserTable extends UllEntityTable
     }    
 
   }
+  
+  /**
+   * Find users by group name
+   * 
+   * @param string $name
+   * @return Doctrine_Collection
+   */
+  public static function findByGroup($name)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllUser u, u.UllGroup g')
+      ->where('g.display_name = ?', $name)
+      ->orderBy('u.display_name')
+    ;
+    
+    return $q->execute();
+  }
 
   /**
    * Check if a user has a certain permission.
