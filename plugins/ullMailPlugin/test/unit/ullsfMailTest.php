@@ -11,7 +11,7 @@ sfContext::createInstance($configuration);
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 
-$t = new myTestCase(31, new lime_output_color, $configuration);
+$t = new myTestCase(33, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -136,3 +136,9 @@ $t->diag('clearRecipients()');
   $mail->clearRecipients();
   $t->is($mail->getAddresses(), array(), 'No more recipients');  
   $t->is($mail->getRecipientUllUserId(), null, 'Also the recipient ull_user_id is unset');
+  
+$t->diag('usePartial()');
+  $mail = new ullsfMail();
+  $mail->usePartial('ullMail/testMail');
+  $t->is($mail->getSubject(), 'Every little thing\'s gonna be ullright', 'Sets the correct subject');
+  $t->is($mail->getBody(), "Hello Klemens,\n\nwhat's up today?", 'Sets the correct body');

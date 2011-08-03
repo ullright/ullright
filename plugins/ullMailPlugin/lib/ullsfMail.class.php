@@ -439,4 +439,35 @@ class ullsfMail extends Swift_Message
     $this->setBcc(array());
     $this->setRecipientUllUserId(null);
   }
+  
+  
+  /**
+   * Render a symfony partial as mail content
+   * 
+   * The first line is assumed to be the subject
+   * 
+   * @param string $partial     A valid symfony partial name e.g. ullMail/testMail 
+   *                            @see get_partial()
+   * @param array $vars         optional, array of partial variables
+   * 
+   * @return self
+   */
+  public function usePartial($partial, $vars = array())
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+    
+    $partial = get_partial($partial, $vars);
+    
+    $lines = explode("\n", $partial);
+    $subject = array_shift($lines);
+    
+    $this->setSubject($subject);
+    
+    $body = implode("\n", $lines); 
+    
+    $this->setBody($body);
+
+    return $this;
+  }
+  
 }
