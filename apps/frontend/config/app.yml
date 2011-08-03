@@ -158,10 +158,16 @@ all:
     from_address:       courses@example.com
     from_name:          Example Company
     terms_of_use_link:  ullAdmin/about
+    # Translation possible using the custom dictionary (apps/frontend/i18n/custom.XX.xml)
     payment_information: |
       - Bank: Example bank
       - Account number: 1234567890
       - Bank code: 98765
+    # Translation possible using the custom dictionary (apps/frontend/i18n/custom.XX.xml)
+    contact: |
+      Example Company
+      - Email: office@example.com
+      - Phone: +1 2 345678-90
  
   publish:
     # Set the following options if you want to use the ullright:publish task

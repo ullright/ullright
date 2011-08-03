@@ -27,7 +27,10 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     
     $this['trainer_ull_user_id']
       ->setLabel(__('Trainer', null, 'ullCourseMessages'))
+      ->setOption('filter_users_by_group', 'Trainers')
+      ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
+
     ;
 
     $this['begin_date']
@@ -110,8 +113,8 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         'temporal' => array(
           'begin_date',
           'begin_time',
-          'end_date',        
           'end_time',
+          'end_date',
           'number_of_units',
         ),
         'service' => array(

@@ -162,8 +162,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
       { 
 //        $this->dispatcher->connect('ull_course.booked', array('ullCourseActions', 'listenToBookedEvent'));
         
-        $this->sendConfirmationMail($booking);
-        
         $this->notifyBookedEvent($booking);
         
         $this->redirect('ullCourse/booked');
@@ -177,28 +175,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->setVar('tariff', $tariff, true);
   }
 
-  protected function sendConfirmationMail(UllCourseBooking $booking)
-  {
-    $mail = new ullsfMail('ull_course_booked');
-    
-    $mail->setFrom(
-      sfConfig::get('app_ull_course_from_address'),
-      sfConfig::get('app_ull_course_from_name')
-    );
-    $mail->addAddress($booking->Creator);
-    
-    $subject = $this->getPartial('ullCourse/bookedMailSubject', array(
-      'booking' => $booking
-    ));
-    $mail->setSubject($subject);
-    
-    $body = $this->getPartial('ullCourse/bookedMailBody', array(
-      'booking' => $booking
-    ));
-    $mail->setBody($body);    
-    
-    $mail->send();
-  }
+
   
   /**
    * Notify a successful booking e.g. for mailing

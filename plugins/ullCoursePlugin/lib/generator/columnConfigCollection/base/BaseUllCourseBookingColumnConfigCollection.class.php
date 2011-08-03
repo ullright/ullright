@@ -16,16 +16,19 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     
     $this['ull_course_id']
       ->setLabel(__('Course', null, 'ullCourseMessages'))
+      ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
     ;
 
     $this['ull_user_id']
       ->setLabel(__('Person', null, 'ullCoreMessages'))
+      ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
     ;    
     
     $this['ull_course_tariff_id']
       ->setLabel(__('Tariff', null, 'ullCourseMessages'))
+      ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
     ;        
     

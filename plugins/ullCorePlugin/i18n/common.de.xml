@@ -1318,6 +1318,11 @@
 <target>Links</target>
 </trans-unit>
 
+<trans-unit id="30003">
+<source>Contact</source>
+<target>Kontakt</target>
+</trans-unit>
+
 </body>
   </file>
 </xliff>

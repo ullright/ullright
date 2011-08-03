@@ -13,6 +13,11 @@
 abstract class PluginUllCourseBooking extends BaseUllCourseBooking
 {
   
+  public function postInsert($event)
+  {
+    $this->sendConfirmationMail();
+  }
+  
   /**
    * pre save hook
    */
@@ -29,5 +34,31 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
   {
     $this->UllCourse->updateProxies();    
   }
+
+  /**
+   * Send booking confirmation and payment information 
+   */
+  public function sendConfirmationMail()
+  {
+    // We cannot send emails without an email address
+    if (!$this->UllUser->email)
+    {
+      return;
+    }
+    
+    $mail = new ullsfMail('ull_course_booked');
+    
+    $mail->setFrom(
+      sfConfig::get('app_ull_course_from_address'),
+      sfConfig::get('app_ull_course_from_name')
+    );
+    $mail->addAddress($this->UllUser);
+
+    $mail->usePartial('ullCourse/bookedMail', array(
+      'booking' => $this
+    ));
+    
+    $mail->send();
+  }  
   
 }
