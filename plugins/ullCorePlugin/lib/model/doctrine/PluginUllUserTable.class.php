@@ -13,11 +13,13 @@ class PluginUllUserTable extends UllEntityTable
    * This method uses the Doctrine result cache since repeated calling
    * is a possibility.
    * 
-   * @param mixed $group group_id, group name or array of group ids/names (not mixed!)
-   * @param integer $userId  
+   * @param mixed $group              group_id, group name or array of group ids/names (not mixed!)
+   * @param integer $userId           optional, give a userId to check
+   * @param boolean $masterAdminHasAllGroups optional, by default the master admin is member of all groups 
+   * 
    * @return boolean
    */
-  public static function hasGroup($group, $userId = null, $checkMasterAdmin = true) 
+  public static function hasGroup($group, $userId = null, $masterAdminHasAllGroups = true) 
   {
     // use session user_id as default user
     if ($userId === null) 
@@ -66,7 +68,7 @@ class PluginUllUserTable extends UllEntityTable
     }
     
     // prevent looping
-    if ($checkMasterAdmin === true)
+    if ($masterAdminHasAllGroups === true)
     {
       // MasterAdmins are members of all groups
       if (self::hasGroup('MasterAdmins', $userId, false))
