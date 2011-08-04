@@ -255,6 +255,17 @@ function ull_icon_to_function($function, $icon, $alt = null, $link_option = null
 
 
 /**
+ * Render ajax indicator
+ */
+function ull_image_tag_indicator()
+{
+  $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
+           'Plugin/images/indicator.gif';
+
+  return image_tag($path);
+}
+
+/**
  * Enhancement of ull_icon() helper 
  * Get current request params, and allows adding or overriding of specific params
  *

@@ -16,4 +16,21 @@ class PluginUllCourseTariffTable extends UllRecordTable
     {
         return Doctrine_Core::getTable('PluginUllCourseTariff');
     }
+    
+    
+    public static function findIdsByCourseId($courseId)
+    {
+      $q = new Doctrine_Query();
+      
+      $q
+        ->select('t.id')
+        ->from('UllCourseTariff t, t.UllCourse c')
+        ->where('c.id = ?', $courseId)
+        ->orderBy('t.id')
+      ;
+      
+      $result = $q->execute(null, Doctrine::HYDRATE_SINGLE_SCALAR);
+      
+      return $result;
+    }
 }

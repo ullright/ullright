@@ -23,6 +23,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function preSave($event)
   {
+    UllCourseBookingTable::validateTarif($this);
   }
 
   /**
@@ -34,7 +35,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
   {
     $this->UllCourse->updateProxies();    
   }
-
+  
   /**
    * Send booking confirmation and payment information 
    */

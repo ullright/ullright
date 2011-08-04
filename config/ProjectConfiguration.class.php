@@ -15,6 +15,7 @@ class ProjectConfiguration extends sfProjectConfiguration
       'ullBookingPlugin',
       'ullCmsPlugin', 
       'ullCorePlugin', 
+      'ullCoursePlugin',
       'ullFlowPlugin', 
       'ullMailPlugin', 
       'ullPhonePlugin',

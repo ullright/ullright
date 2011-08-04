@@ -99,6 +99,14 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
   }
   
+  /**
+   * Template method to modify the generator after buildForm() is called
+   */
+  protected function modifyGeneratorAfterBuildForm($object)
+  {
+    
+  }  
+  
   
   /**
    * Template method to construct and configure an ullGenerator
@@ -161,6 +169,11 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->modifyGeneratorBeforeBuildForm($row);
     
     $this->generator->buildForm($row);
+    
+    $this->modifyGeneratorAfterBuildForm($row);
+    
+//    var_dump($this->generator->getColumnsConfig()->debug());die;
+//    var_dump($this->generator->getForm()->debug());die;
     
     $this->breadcrumbForEdit();
 

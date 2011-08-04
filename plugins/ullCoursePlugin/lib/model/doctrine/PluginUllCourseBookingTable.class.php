@@ -7,13 +7,28 @@
  */
 class PluginUllCourseBookingTable extends UllRecordTable
 {
-    /**
-     * Returns an instance of this class.
-     *
-     * @return object PluginUllCourseBookingTable
-     */
-    public static function getInstance()
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object PluginUllCourseBookingTable
+   */
+  public static function getInstance()
+  {
+    return Doctrine_Core::getTable('PluginUllCourseBooking');
+  }
+    
+  /**
+   * Check if a booking has a valid tariff
+   * 
+   * @param UllCourseBooking $booking
+   */
+  public static function validateTarif(UllCourseBooking $booking)
+  {
+    $validTariffs = UllCourseTariffTable::findIdsByCourseId($booking->UllCourse->id);
+    
+    if (!in_array($booking->UllCourseTariff->id, $validTariffs))
     {
-        return Doctrine_Core::getTable('PluginUllCourseBooking');
+      throw new InvalidArgumentException('Invalid tariff given');
     }
+  }      
 }
