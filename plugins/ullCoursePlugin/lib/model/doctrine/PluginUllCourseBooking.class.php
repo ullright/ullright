@@ -23,7 +23,12 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function preSave($event)
   {
-    UllCourseBookingTable::validateTarif($this);
+    // Fixes fixture loading. At the moment of loading UllCourseBookings
+    // UllCourseTariffCourse is not loaded yet.
+    if (Doctrine::getTable('UllCourseTariffCourse')->count())
+    {
+      UllCourseBookingTable::validateTarif($this);
+    }
   }
 
   /**
