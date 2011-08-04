@@ -23,7 +23,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     parent::preExecute();
     
-    //Add ullCourse stylsheet for all actions
+    //Add ullCourse stylesheet for all actions
     $path =  '/ullCourseTheme' . sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
     $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
   }    
@@ -40,6 +40,17 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->setTableToolTemplate('list');
     
     return parent::executeList($request);
+  }
+  
+  /**
+   * Show only active courses in offering 
+   */
+  protected function modifyQueryForFilter()
+  {
+    if ('offering' == $this->getActionName())
+    {
+      $this->q->addWhere('x.is_active = ?', true);
+    }
   }
   
   

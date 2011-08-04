@@ -720,6 +720,10 @@ div#indicator {
   background: url(/ullCoreThemeNGPlugin/images/indicator.gif) no-repeat 0 0;
 }
 
+.ajax_indicator {
+	vertical-align: middle;
+}
+
 .center {
   text-align: center;
 }

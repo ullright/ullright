@@ -6,7 +6,7 @@ $(document).ready(function() {
   window.ull_tariffs = $("#fields_ull_course_tariff_id").html();
   
   $("#fields_ull_course_tariff_id").after(
-    \'<span id="fields_ull_course_tariff_id_indicator">' . ull_image_tag_indicator() . '</span>\'
+    \'<span id="fields_ull_course_tariff_id_indicator" class="ajax_indicator">' . ull_image_tag_indicator() . '</span>\'
   );
   $("#fields_ull_course_tariff_id_indicator").hide();
   

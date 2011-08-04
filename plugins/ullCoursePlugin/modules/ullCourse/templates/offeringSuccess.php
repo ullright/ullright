@@ -1,17 +1,27 @@
-<?php echo $breadcrumb_tree ?>
-
 <h1><?php echo $generator->getTableConfig()->getName() ?></h1>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
-<?php echo $ull_filter ?>
+<p>
+<?php echo ull_link_to(
+          __('All courses', null, 'ullCourseMessages'), 
+          array('filter[search]' => '')
+        )?>
+</p>
 
+<?php include_partial('ullCourse/offeringQuickFilter') ?>
+
+
+
+<?php //echo $ull_filter ?>
+
+<?php  /* ?>
 <?php echo ull_form_tag(array('page' => '', 'filter' => array('search' => ''))) ?>
 
 <ul class='list_action_buttons color_light_bg'>
   
-  <?php /*<li><?php echo ull_button_to(__('Create', null, 'common'), $create_base_uri); ?></li>*/ ?>
+  <?php <li><?php echo ull_button_to(__('Create', null, 'common'), $create_base_uri); ?></li> ?>
   
   <?php echo $filter_form ?>                
   
@@ -23,6 +33,7 @@
 </ul>
  
 </form>
+*/ ?>
 
 <?php include_partial('ullTableTool/ullPagerTop', array(
   'pager'         => $pager, 

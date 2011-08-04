@@ -1,0 +1,13 @@
+#ull_course_offering_quick_filter {
+  overflow: hidden; /* force div to enclose floating divs */
+}
+
+.ull_course_offering_quick_filter_category {
+  float: left;
+  margin-right: 2em;
+}
+
+.ull_course_offering_quick_filter_category li {
+  list-style: none;
+  margin-left: 1.5em;
+}

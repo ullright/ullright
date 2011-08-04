@@ -46,7 +46,16 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
 //      ->setLabel(__('Approved', null, 'ullCourseMessages') . '?')
 //      ->setAjaxUpdate(true)
 //    ;
+
+    if ($this->isCreateAction())
+    {
+      $this->disable(array(
+        'are_terms_of_use_accepted'
+      ));
+    }
     
   }
+  
+  
  
 }
