@@ -37,8 +37,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_list');
     
-    $this->setTableToolTemplate('list');
-    
     return parent::executeList($request);
   }
   

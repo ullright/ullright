@@ -96,6 +96,14 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setMetaWidgetClassName('ullMetaWidgetTaggable')
       ->setOption('tagging_options', array('model' => 'UllCourse'))
     ;    
+    
+    $this->create('link_to_bookings')
+      ->setMetaWidgetClassName('ullMetaWidgetLinkCourseToBooking')
+      ->setLabel(' ')
+      ->setIsArtificial(true)
+      ->setAccess('r')
+      ->setInjectIdentifier(true)
+    ;
 
     if ($this->isCreateOrEditAction())
     {
@@ -104,9 +112,15 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'id',
           'name',
           'description',
-          'trainer_ull_user_id',
         ),
+        'proxies' => array(
+          'proxy_number_of_participants_applied',
+          'proxy_number_of_participants_paid',
+          'proxy_turnover',
+          'link_to_bookings'
+        ),        
         'status' => array(
+          'trainer_ull_user_id',
           'duplicate_tags_for_search',
           'is_active',        
         ),
@@ -124,11 +138,16 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'min_number_of_participants',
           'max_number_of_participants',
         ),
-        'proxies' => array(
-          'proxy_number_of_participants_applied',
-          'proxy_number_of_participants_paid',
-          'proxy_turnover',
-        )
+      ));
+    }
+    
+    if ($this->isCreateAction())
+    {
+      $this->disable(array(
+        'proxy_number_of_participants_applied',
+        'proxy_number_of_participants_paid',
+        'proxy_turnover',
+        'link_to_bookings'
       ));
     }
     

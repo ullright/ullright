@@ -37,8 +37,6 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_booking_list');
     
-    $this->setTableToolTemplate('list');
-    
     return parent::executeList($request);
   }
   
@@ -50,6 +48,17 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     return parent::executeEdit($request);
   }
   
+  protected function modifyGeneratorBeforeBuildForm($row)
+  {
+    if ('list' == $this->getActionName())
+    {
+      $this->generator->getColumnsConfig()->offsetGet('UllCourse->name')
+        ->setMetaWidgetClassName('ullMetaWidgetLink')
+        ->removeOption('show_search_box', true)
+        ->removeWidgetOption('add_empty', true)
+      ;      
+    }
+  }
   
   protected function modifyGeneratorAfterBuildForm($row)
   {
@@ -58,6 +67,7 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     $form->mergePostValidator(
       new ullValidatorSchemaUllCourseTariff('ull_course_tariff_id', 'ull_course_id')
     );
+    
   }
   
 

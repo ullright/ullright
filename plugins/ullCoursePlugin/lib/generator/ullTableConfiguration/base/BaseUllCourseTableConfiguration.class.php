@@ -18,6 +18,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
       ->setSearchColumns(array('id', 'name', 'duplicate_tags_for_search'))
       ->setOrderBy('name')
       ->setListColumns(array(
+        'link_to_bookings',
         'id', 
         'name', 
         'trainer_ull_user_id',
