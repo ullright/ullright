@@ -413,49 +413,6 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   }
   
   
-  /**
-   * Handles breadcrumb for list action
-   *
-   */
-  protected function breadcrumbForList()
-  {
-    $breadcrumb_tree = new breadcrumbTree();
-    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-    $breadcrumb_tree->add(__('Tabletool'));
-    $breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->getName());
-    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
-    
-    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-  }
-  
-  
-  /**
-   * Handles breadcrumb for edit action
-   *
-   */
-  protected function breadcrumbForEdit()
-  {
-    //is this even called anymore?
-    //it looks exactly like the one in BaseUllGeneratorActions...
-    
-    $breadcrumb_tree = new breadcrumbTree();
-    $breadcrumb_tree->setEditFlag(true);
-    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-    $breadcrumb_tree->add(__('Tabletool'));
-    $breadcrumb_tree->add(__('Table') . ' ' . $this->generator->getTableConfig()->getName());
-    $breadcrumb_tree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));    
-    if ($this->id) 
-    {
-      $breadcrumb_tree->add(__('Edit', null, 'common'));
-    }
-    else
-    {
-      $breadcrumb_tree->add(__('Create', null, 'common'));
-    }
-    
-    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-  }
-  
   protected function setCommonTitle()
   {
     $this->getResponse()->setTitle(
