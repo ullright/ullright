@@ -306,14 +306,14 @@
         <target>Hier sind unsere Kursleiter in alphabetischer Reihenfolge</target>
       </trans-unit>     
       
-      <trans-unit id="">
+      <trans-unit id="63">
         <source>Bookings</source>
         <target>Buchungen</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="64">
+        <source>Leave empty for a single-day course</source>
+        <target>Freilassen bei ein-tägigem Kurs</target>
       </trans-unit>     
       
       <trans-unit id="">

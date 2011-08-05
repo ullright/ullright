@@ -171,6 +171,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
       { 
 //        $this->dispatcher->connect('ull_course.booked', array('ullCourseActions', 'listenToBookedEvent'));
         
+        $booking->sendConfirmationMail();
+        
         $this->notifyBookedEvent($booking);
         
         $this->redirect('ullCourse/booked');

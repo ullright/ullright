@@ -70,6 +70,24 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     
   }
   
+  /**
+   * Execute actions to be performed after successfully saving the object
+   * 
+   * Usually used for redirects
+   * 
+   * @param Doctrine_Record $row
+   * @param sfRequest $request
+   * 
+   * @return boolean
+   */
+  protected function executePostSave(Doctrine_Record $row, sfRequest $request)
+  {
+    $return = parent::executePostSave($row, $request);
+    
+    $booking->sendConfirmationMail();
+    
+    return $return;
+  }  
 
   public function executeShow(sfRequest $request) 
   {

@@ -23,6 +23,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
 //      ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')      
 //      ->setWidgetOption('width', 650)
 //      ->setWidgetOption('height', 250)
+      ->setIsRequired(true)
     ;    
     
     $this['trainer_ull_user_id']
@@ -30,27 +31,32 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('filter_users_by_group', 'Trainers')
       ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
-
+      ->setIsRequired(true)
     ;
 
     $this['begin_date']
       ->setLabel(__('Begin date', null, 'ullCourseMessages'))
+      ->setIsRequired(true)
     ;       
     
     $this['end_date']
       ->setLabel(__('End date', null, 'ullCourseMessages'))
+      ->setHelp(__('Leave empty for a single-day course', null, 'ullCourseMessages'))
     ;    
     
     $this['begin_time']
       ->setLabel(__('Begin time', null, 'ullCourseMessages'))
+      ->setIsRequired(true)
     ;    
     
     $this['end_time']
       ->setLabel(__('End time', null, 'ullCourseMessages'))
+      ->setIsRequired(true)
     ;
 
     $this['number_of_units']
       ->setLabel(__('Number of units', null, 'ullCourseMessages'))
+      ->setIsRequired(true)
     ;        
     
     $this['is_equipment_included']

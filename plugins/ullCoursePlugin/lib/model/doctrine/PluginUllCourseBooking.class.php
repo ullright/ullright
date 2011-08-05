@@ -15,7 +15,6 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
   
   public function postInsert($event)
   {
-    $this->sendConfirmationMail();
   }
   
   /**
