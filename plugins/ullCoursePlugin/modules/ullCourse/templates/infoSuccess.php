@@ -28,7 +28,7 @@
   <?php echo __('Trainer', null, 'ullCourseMessages') ?>: 
   <?php echo $course['Trainer']['display_name'] ?>, 
   <?php echo $course['Trainer']['email'] ?>, 
-  <?php echo $course['Trainer']['mobile_number'] ?>, 
+  <?php echo $course['Trainer']['mobile_number'] ?>
 </p>
 
 

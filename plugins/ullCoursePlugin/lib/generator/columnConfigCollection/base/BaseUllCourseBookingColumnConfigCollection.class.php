@@ -42,6 +42,11 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
       ->setAjaxUpdate(true)
     ;
     
+    $this['created_at']
+      ->setLabel(__('Booked at', null, 'ullCourseMessages'))
+      ->setWidgetOption('show_seconds', false)
+    ;       
+    
 //    $this['is_approved']
 //      ->setLabel(__('Approved', null, 'ullCourseMessages') . '?')
 //      ->setAjaxUpdate(true)

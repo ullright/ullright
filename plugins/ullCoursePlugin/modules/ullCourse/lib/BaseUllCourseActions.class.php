@@ -113,16 +113,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
         'UllCourse->is_active',
       );
     
-    $generator = new ullTableToolGenerator('UllCourseBooking', 'r', 'list', $columns);
-//    $generator->getTableConfig()
-//      ->setListColumns(array(
-//        'UllUser->last_name_first',
-//        'UllUser->email',
-//        'UllUser->mobile_number',
-//        'created_at',
-//        'is_paid',
-//      ))
-//    ;
     $columnsConfig = $generator->getColumnsConfig();
     $columnsConfig
       ->disableAllExcept(array(
@@ -144,10 +134,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $columnsConfig['UllUser->mobile_number']
       ->setLabel('Mobile number', null, 'common')
     ;
-    $columnsConfig['created_at']
-      ->setLabel('Booking date', null, 'ullCourseMessages')
-      ->setWidgetOption('show_seconds', false)
-    ;            
     $columnsConfig['is_paid']
       ->setAjaxUpdate(false)
     ;

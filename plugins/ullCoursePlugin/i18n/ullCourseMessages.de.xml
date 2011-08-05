@@ -322,8 +322,8 @@
       </trans-unit>     
       
       <trans-unit id="66">
-        <source>Booking date</source>
-        <target>Buchungsdatum</target>
+        <source>Booked at</source>
+        <target>Gebucht am</target>
       </trans-unit>     
       
       <trans-unit id="">

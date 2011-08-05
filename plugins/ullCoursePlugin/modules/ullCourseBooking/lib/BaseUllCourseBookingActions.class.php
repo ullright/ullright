@@ -37,6 +37,14 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_booking_list');
     
+    $this->course = null;
+    $filter = $request->getParameter('filter');
+    if (isset($filter['ull_course_id']))
+    {
+      $courseId = $filter['ull_course_id'];
+      $this->course = Doctrine::getTable('UllCourse')->findOneById($courseId); 
+    }
+    
     return parent::executeList($request);
   }
   
@@ -52,11 +60,22 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   {
     if ('list' == $this->getActionName())
     {
-      $this->generator->getColumnsConfig()->offsetGet('UllCourse->name')
+      $columnsConfig = $this->generator->getColumnsConfig();
+      $columnsConfig['UllCourse->name']
         ->setMetaWidgetClassName('ullMetaWidgetLink')
         ->removeOption('show_search_box', true)
         ->removeWidgetOption('add_empty', true)
       ;      
+      $columnsConfig['UllCourse->is_active']
+        ->disable()
+      ;
+      if ($this->course)
+      {
+        $columnsConfig['UllCourse->name']
+          ->disable()
+        ;
+      }
+      
     }
   }
   

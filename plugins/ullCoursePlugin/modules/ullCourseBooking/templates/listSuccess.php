@@ -1,7 +1,44 @@
 <?php echo $breadcrumb_tree ?>
 
-<h3><?php echo $generator->getTableConfig()->getName() ?></h3>
+<h1>
+  <?php echo $generator->getTableConfig()->getName() ?>
+  <?php if ($course): ?>
+    "<?php echo link_to($course['name'], 'ullCourse/edit?id=' . $course['id']) ?>"
+  <?php endif ?>
+</h1>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
+
+<?php if ($course): ?>
+  <p>
+    <?php if ($course->isMultiDay()): ?>
+      <?php echo __('%units% units', array('%units%' => $course['number_of_units']), 'ullCourseMessages') ?>
+    <?php endif ?>   
+    
+    <?php if ($course->isMultiDay()): ?>
+      <?php echo __('from', null, 'common') ?>
+    <?php else: ?>
+      <?php echo __('on', null, 'common') ?>
+    <?php endif ?>
+    
+    <?php echo ull_format_date($course['begin_date'], false, true) ?>
+    
+    <?php if ($course->isMultiDay()): ?>
+      <?php echo __('to', null, 'common') ?>
+      <?php echo ull_format_date($course['end_date'], false, true) ?>
+    <?php endif?>
+    
+    <?php echo __('Time', null, 'common') ?>:
+    <?php echo ull_format_time($course['begin_time']) ?> 
+    <?php echo __('to', null, 'common') ?>
+    <?php echo ull_format_time($course['end_time']) ?>  
+  <br />
+    <?php echo __('Trainer', null, 'ullCourseMessages') ?>: 
+    <?php echo $course['Trainer']['display_name'] ?>, 
+    <?php echo auto_link_text($course['Trainer']['email']) ?>, 
+    <?php echo $course['Trainer']['mobile_number'] ?>
+  </p>
+
+<?php endif ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
@@ -41,8 +78,10 @@
   <tbody>
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-    <?php $form['UllCourse->name']->getWidget()->setAttribute('href', 
-      url_for('ullCourse/edit?id=' . $form->getObject()->ull_course_id)) ?>
+    <?php if(isset($form['UllCourse->name'])): ?>
+      <?php $form['UllCourse->name']->getWidget()->setAttribute('href', 
+        url_for('ullCourse/edit?id=' . $form->getObject()->ull_course_id)) ?>
+    <?php endif ?>
     <?php $id_url_params = $generator->getIdentifierUrlParams($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          
