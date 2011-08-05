@@ -27,6 +27,7 @@ class ullWidgetManyToManyWrite extends ullWidgetFormDoctrineChoice
     $javaScripts = array(
       '/ullCorePlugin/js/jq/jquery-min.js',
       '/ullCorePlugin/js/jq/jquery-ui-min.js',
+      '/ullCorePlugin/js/jq/jquery.tools.min.js', // for overlay
       '/ullCorePlugin/js/jq/jquery.multiselect-min.js',
       '/ullCorePlugin/js/jq/jquery.multiselect.filter.js',
       '/ullCorePlugin/js/ullWidgetManyToMany.js'
@@ -238,7 +239,7 @@ $("#' . $id . '").multiselect("refresh");
     $return .= ull_link_to(
         __('Manage entries', null, 'ullCoreMessages'),
         'ullTableTool/list?table=' . $this->getOption('model'),
-        array('target' => '_blank', 'style' => 'link_new_window')
+        array('target' => '_blank', 'link_new_window' => true)
       );
     $return .= '</span>';
 

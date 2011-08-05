@@ -287,7 +287,7 @@ $("#' . $id . '").val(window.overlayId);
     return array(
       '/ullCorePlugin/js/jq/jquery-min.js', 
       '/ullCorePlugin/js/jq/jquery.add_select_filter.js',
-      '/ullCorePlugin/js/jq/jquery.tools.min.js',
+      '/ullCorePlugin/js/jq/jquery.tools.min.js', // for overlay
     );   
   }  
 }
