@@ -10,6 +10,12 @@ class ullWidgetEmail extends ullWidget
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    if (is_array($value))
+    {
+      $id = $value['id'];
+      $value = $value['value'];
+    }
+    
     if ($value)
     {
       if ($this->getOption('show_icon_only'))
