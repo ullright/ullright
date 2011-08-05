@@ -175,6 +175,13 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         ->setMetaWidgetClassName('ullMetaWidgetForeignKey')
       ;
     }
+    
+    if ($this->isListAction())
+    {
+      $this['name']
+        ->setMetaWidgetClassName('ullMetaWidgetLink')
+      ;
+    }
   }
  
 }

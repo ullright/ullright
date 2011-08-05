@@ -93,6 +93,73 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->setVar('doc', $doc, true);
   }
   
+  /**
+   * Course information sheet
+   * @param sfRequest $request
+   */
+  public function executeInfo(sfRequest $request)
+  {
+    $this->checkPermission('ull_course_info');   
+
+    $course = $this->getDocFromRequest();
+    
+    $columns = array(
+        'UllUser->last_name_first',
+        'UllUser->email',
+        'UllUser->mobile_number',
+        'created_at',
+        'is_paid',
+        'comment',
+        'UllCourse->is_active',
+      );
+    
+    $generator = new ullTableToolGenerator('UllCourseBooking', 'r', 'list', $columns);
+//    $generator->getTableConfig()
+//      ->setListColumns(array(
+//        'UllUser->last_name_first',
+//        'UllUser->email',
+//        'UllUser->mobile_number',
+//        'created_at',
+//        'is_paid',
+//      ))
+//    ;
+    $columnsConfig = $generator->getColumnsConfig();
+    $columnsConfig
+      ->disableAllExcept(array(
+        'UllUser->last_name_first',
+        'UllUser->email',
+        'UllUser->mobile_number',
+        'created_at',
+        'is_paid',
+        'comment',
+      ))
+    ;
+    $columnsConfig['UllUser->last_name_first']
+      ->setLabel('Name', null, 'common')
+      ->setWidgetOption('nowrap', true)
+    ;    
+    $columnsConfig['UllUser->email']
+      ->setLabel('Email', null, 'common')
+    ;    
+    $columnsConfig['UllUser->mobile_number']
+      ->setLabel('Mobile number', null, 'common')
+    ;
+    $columnsConfig['created_at']
+      ->setLabel('Booking date', null, 'ullCourseMessages')
+      ->setWidgetOption('show_seconds', false)
+    ;            
+    $columnsConfig['is_paid']
+      ->setAjaxUpdate(false)
+    ;
+    
+    $bookings = UllCourseBookingTable::findByCourseOrderedByUserName($course->id);
+    
+    $generator->buildForm($bookings);
+
+    $this->setVar('course', $course, true);
+    $this->setVar('generator', $generator, true);
+  }  
+  
 //  public function executeSelectTariffX(sfRequest $request)
 //  {
 //    $this->checkPermission('ull_course_select_tariff');    

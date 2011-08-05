@@ -31,4 +31,23 @@ class PluginUllCourseBookingTable extends UllRecordTable
       throw new InvalidArgumentException('Invalid tariff given');
     }
   }      
+  
+  /**
+   * Find by course, orderd by UllUser->last_name_first
+   * 
+   * @param integer $ull_course_id
+   * @return Doctrine_Collection
+   */
+  public static function findByCourseOrderedByUserName($ull_course_id)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllCourseBooking b, b.UllUser u')
+      ->where('b.ull_course_id = ?', $ull_course_id)
+      ->orderby('u.last_name_first, b.created_at, b.id')
+    ;
+    
+    return $q->execute();
+  }
 }

@@ -15,7 +15,12 @@ class BaseUllCourseBookingTableConfiguration extends ullTableConfiguration
   {
     $this
       ->setName(__('Course bookings', null, 'ullCourseMessages'))
-      ->setSearchColumns(array('id', 'UllCourse->name', 'UllUser->display_name'))
+      ->setSearchColumns(array(
+        'id', 
+        'UllCourse->name', 
+        'UllUser->display_name',
+        'comment',
+      ))
       ->setOrderBy('created_at desc, name')
       ->setListColumns(array(
         'id', 

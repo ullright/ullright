@@ -316,14 +316,14 @@
         <target>Freilassen bei ein-tägigem Kurs</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="65">
+        <source>Participants</source>
+        <target>Teilnehmer</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="66">
+        <source>Booking date</source>
+        <target>Buchungsdatum</target>
       </trans-unit>     
       
       <trans-unit id="">
