@@ -15,7 +15,11 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
   {
     $this
       ->setName(__('Courses', null, 'ullCourseMessages'))
-      ->setSearchColumns(array('id', 'name', 'duplicate_tags_for_search'))
+      ->setSearchColumns(array(
+        'id', 
+        'name', 
+        'duplicate_tags_for_search')
+      )
       ->setOrderBy('name')
       ->setListColumns(array(
         'link_to_bookings',
@@ -25,6 +29,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
         'duplicate_tags_for_search', 
         'begin_date', 
         'is_active',
+        'min_number_of_participants',
         'proxy_number_of_participants_applied',
         'proxy_number_of_participants_paid',
         'proxy_turnover',      

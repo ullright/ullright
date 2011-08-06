@@ -328,9 +328,30 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     return $tariff;
   }
 
-  
+  /**
+   * modifyGeneratorBeforeBuildForm
+   * 
+   * @param Doctrine_Record $object
+   */
   protected function modifyGeneratorBeforeBuildForm($object)
   {
+    if ('list' == $this->getActionName())
+    {
+//      die('whoo');
+      $columnsConfig = $this->generator->getColumnsConfig();
+      $filter = $this->getRequestParameter('filter');
+      if (
+        // hide is_active column for default setting (show only active courses)
+        !isset($filter['is_active']) || 
+        // and also hide is_active column for all settings except any is_active status (= _all_)
+        (isset($filter['is_active']) && '_all_' != $filter['is_active'])
+      )
+      {
+        $columnsConfig['is_active']
+          ->disable()
+        ;
+      }
+    }
         
   } 
   
