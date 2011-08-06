@@ -41,8 +41,21 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     
     $this['end_date']
       ->setLabel(__('End date', null, 'ullCourseMessages'))
-      ->setHelp(__('Leave empty for a single-day course', null, 'ullCourseMessages'))
+      ->setIsRequired(true)
     ;    
+    
+    $this['is_active']
+      ->setLabel(__('Is online', null, 'common'))
+    ;
+    
+    $this['is_canceled']
+      ->disable()
+    ;    
+    
+    $this['ull_course_status_id']
+      ->setLabel(__('Status', null, 'common'))
+      ->setAccess('r')
+    ;
     
     $this['begin_time']
       ->setLabel(__('Begin time', null, 'ullCourseMessages'))
@@ -120,6 +133,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'description',
         ),
         'proxies' => array(
+          'ull_course_status_id',
           'proxy_number_of_participants_applied',
           'proxy_number_of_participants_paid',
           'proxy_turnover',
@@ -153,7 +167,9 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         'proxy_number_of_participants_applied',
         'proxy_number_of_participants_paid',
         'proxy_turnover',
-        'link_to_bookings'
+        'link_to_bookings',
+        'ull_course_status_id',
+        'is_canceled',
       ));
     }
     

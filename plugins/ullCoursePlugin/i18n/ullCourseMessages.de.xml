@@ -326,9 +326,9 @@
         <target>Gebucht am</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="67">
+        <source>Course status</source>
+        <target>Kursstatus</target>
       </trans-unit>     
       
       <trans-unit id="">

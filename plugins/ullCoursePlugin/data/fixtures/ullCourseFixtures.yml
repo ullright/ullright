@@ -1,8 +1,8 @@
 UllCourse:
   course_1:
     Trainer:                test_user
-    begin_date:             "2011-07-01"
-    end_date:               "2011-08-26"
+    begin_date:             <?php echo "'" . date('Y-m-d', strtotime('+1 week ')) . "'\n" ?>
+    end_date:               <?php echo "'" . date('Y-m-d', strtotime('+2 month')) . "'\n" ?>
     begin_time:             18:30:00
     end_time:               20:00:00
     number_of_units:           9
@@ -20,8 +20,8 @@ UllCourse:
         
   course_2:
     Trainer:                admin_user
-    begin_date:             "2011-07-04"
-    end_date:               "2011-07-04"
+    begin_date:             <?php echo "'" . date('Y-m-d', strtotime('tomorrow')) . "'\n" ?>
+    end_date:               <?php echo "'" . date('Y-m-d', strtotime('tomorrow')) . "'\n" ?>
     begin_time:             17:45:00
     end_time:               19:00:00
     number_of_units:           1
@@ -35,6 +35,50 @@ UllCourse:
       de:
         name:               Kurs 2
         description:        "<b>Lerne es falsch!</b><br />Unsere Trainer werden nichts tun."
+    
+UllCourseStatus:
+  ull_course_status_planned:
+   Translation:
+    en:
+      name:               Planned
+    de:
+      name:               Geplant
+  ull_course_status_announced:
+   Translation:
+    en:
+      name:               Announced
+    de:
+      name:               Angekündigt
+  ull_course_status_active:
+   Translation:
+    en:
+      name:               Active
+    de:
+      name:               Aktiv
+  ull_course_status_finished:
+   Translation:
+    en:
+      name:               Finished
+    de:
+      name:               Beendet
+  ull_course_status_insufficient_participants:
+   Translation:
+    en:
+      name:               Insufficient participants
+    de:
+      name:               Zu wenig Teilnehmer
+  ull_course_status_overbooked:
+   Translation:
+    en:
+      name:               Overbooked
+    de:
+      name:               Überbucht
+  ull_course_status_canceled:
+   Translation:
+    en:
+      name:               Canceled
+    de:
+      name:               Abgesagt
     
 UllCourseTariff:
   tariff_1:

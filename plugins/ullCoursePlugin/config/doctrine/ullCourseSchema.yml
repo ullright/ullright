@@ -35,9 +35,13 @@ UllCourse:
       type: boolean
     is_admission_included:
       type: boolean
+    # Actually this is labeled "Is online" for the users, but we use the built-in
+    # ullright functionalty for "is_active"
     is_active:
       type: boolean
       default: true
+    is_canceled:
+      type: boolean
     min_number_of_participants:
       type: integer
     max_number_of_participants:
@@ -51,7 +55,10 @@ UllCourse:
       length: 15
       scale: 2
     duplicate_tags_for_search:
-      type: string(4000)      
+      type: string(4000)    
+    ull_course_status_id:
+      type: integer
+      notnull: true
   relations:   
     Trainer:
       class: UllUser
@@ -66,7 +73,24 @@ UllCourse:
       class: UllCourseTariff 
       refClass: UllCourseTariffCourse
       local: ull_course_id
-      foreign: ull_course_tariff_id         
+      foreign: ull_course_tariff_id      
+    UllCourseStatus:   
+
+UllCourseStatus:
+  package: ullCoursePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name] 
+  columns:
+    name: 
+      type: string(255)
+      notnull: true 
 
 # list of tariffs      
 UllCourseTariff:

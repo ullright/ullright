@@ -20,6 +20,8 @@ abstract class PluginUllCourse extends BaseUllCourse
   {
     // Set tags in taggable behaviour
     $this->setTags($this->duplicate_tags_for_search);
+    
+    $this->updateStatus();
   }
   
   
@@ -132,7 +134,64 @@ abstract class PluginUllCourse extends BaseUllCourse
     return(integer) $this['max_number_of_participants'] - $this['proxy_number_of_participants_paid'];
   }
   
+  /**
+   * Update the human readable UllCourseStatus depending on the course data
+   */
+  public function updateStatus()
+  {
+    
+    if ($this->is_canceled)
+    {
+      $this->UllCourseStatus = $this->findStatus('canceled');
+      
+      return;
+    }   
+    
+    if (date('Y-m-d') > $this->end_date)
+    {
+      $this->UllCourseStatus = $this->findStatus('finished');
+      
+      return;
+    }      
+
+    if ($this->is_active && $this->proxy_number_of_participants_paid < $this->min_number_of_participants)
+    {
+      $this->UllCourseStatus = $this->findStatus('insufficient-participants');
+      
+      return;
+    }       
+    
+    if ($this->is_active && $this->proxy_number_of_participants_paid > $this->max_number_of_participants)
+    {
+      $this->UllCourseStatus = $this->findStatus('overbooked');
+      
+      return;
+    }      
+    
+    if (!$this->is_active && date('Y-m-d') < $this->begin_date)
+    {
+      $this->UllCourseStatus = $this->findStatus('planned');
+    }
+    elseif ($this->is_active && date('Y-m-d') < $this->begin_date)
+    {
+      $this->UllCourseStatus = $this->findStatus('announced');
+    }
+    elseif ($this->is_active && date('Y-m-d') >= $this->begin_date && date('Y-m-d') <= $this->end_date)
+    {
+      $this->UllCourseStatus = $this->findStatus('active');
+    } 
   
+  }
+  
+  /**
+   * Helper shortcurt method to get an UllCourseStatus by slug
+   * 
+   * @param string $slug
+   */
+  protected function findStatus($slug)
+  {
+    return Doctrine::getTable('UllCourseStatus')->findOneBySlug($slug);
+  }
   
   
 }

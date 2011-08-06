@@ -18,26 +18,28 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
       ->setSearchColumns(array(
         'id', 
         'name', 
-        'duplicate_tags_for_search')
-      )
+//        'duplicate_tags_for_search',
+      ))
       ->setOrderBy('name')
       ->setListColumns(array(
         'link_to_bookings',
         'id', 
         'name', 
         'trainer_ull_user_id',
-        'duplicate_tags_for_search', 
+//        'duplicate_tags_for_search', 
         'begin_date', 
+        'UllCourseStatus->name',
         'is_active',
-        'min_number_of_participants',
         'proxy_number_of_participants_applied',
         'proxy_number_of_participants_paid',
+        'min_number_of_participants',
         'proxy_turnover',      
       ))
       ->setForeignRelationName(__('Course', null, 'ullCourseMessages'))
 //      ->setToStringColumn('display_name');
       ->setFilterColumns(array(
-        'trainer_ull_user_id' => '',
+        'ull_course_status_id' => '',
+//        'trainer_ull_user_id' => '',
         'is_active' => 'checked',
       ))
     ;
