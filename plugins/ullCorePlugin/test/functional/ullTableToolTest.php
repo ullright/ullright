@@ -44,9 +44,8 @@ $b
   
 $b
   ->diag('list - test breadcrumb')  
-  ->checkResponseElement('ul#breadcrumbs > li + li + li', 'Tabletool')
-  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Table TestTableLabel')
-  ->checkResponseElement('ul#breadcrumbs > li + li + li + li + li', 'Result list')
+  ->checkResponseElement('ul#breadcrumbs > li + li + li', 'TestTableLabel')
+  ->checkResponseElement('ul#breadcrumbs > li + li + li + li', 'Result list')
 ;
 
 $b
