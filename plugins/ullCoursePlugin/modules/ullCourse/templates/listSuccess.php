@@ -1,6 +1,6 @@
 <?php echo $breadcrumb_tree ?>
 
-<h3><?php echo $generator->getTableConfig()->getName() ?></h3>
+<h1><?php echo $generator->getTableConfig()->getName() ?></h1>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
