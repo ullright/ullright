@@ -351,6 +351,11 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
           ->disable()
         ;
       }
+      
+      $columnsConfig['UllCourseStatus->name']
+        ->setMetaWidgetClassName('ullMetaWidgetCourseStatus')
+      ;
+      
     }
         
   } 

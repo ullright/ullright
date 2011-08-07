@@ -11,3 +11,40 @@
   list-style: none;
   margin-left: 1.5em;
 }
+
+/* UllCourseStatus */
+
+.ull_course_status_planned {
+  border-left: 1.3em solid grey;
+  padding-left: .5em;
+}
+
+.ull_course_status_announced {
+  border-left: 1.3em solid green;
+  padding-left: .5em;
+}
+
+.ull_course_status_active {
+  border-left: 1.3em solid green;
+  padding-left: .5em;
+}
+
+.ull_course_status_finished {
+  border-left: 1.3em solid brown;
+  padding-left: .5em;
+}
+
+.ull_course_status_insufficient_participants {
+  border-left: 1.3em solid #ffaa00;
+  padding-left: .5em;
+}
+
+.ull_course_status_overbooked {
+  border-left: 1.3em solid red;
+  padding-left: .5em;
+}
+
+.ull_course_status_canceled {
+  border-left: 1.3em solid brown;
+  padding-left: .5em;
+}
