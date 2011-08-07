@@ -13,8 +13,9 @@
 abstract class PluginUllCourseBooking extends BaseUllCourseBooking
 {
   
-  public function postInsert($event)
+  public function preInsert($event)
   {
+    $this->updatePriceNegotiated();
   }
   
   /**
@@ -28,6 +29,12 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     {
       UllCourseBookingTable::validateTarif($this);
     }
+    
+    $this->updatePaidAt();
+    
+    $this->updatePricePaid();
+    
+    $this->updateStatus();
   }
 
   /**
@@ -66,4 +73,109 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     $mail->send();
   }  
   
+  
+  /**
+   * Default the negotiated price to the tariff's price
+   */
+  public function updatePriceNegotiated()
+  {
+    if (!$this->price_negotiated)
+    {
+      $this->price_negotiated = $this->UllCourseTariff->price;
+    }
+  }
+  
+  /**
+   * Set the paid_at date when is_paid was modified
+   */
+  public function updatePaidAt()
+  {
+    $modified = $this->getModified();
+    
+    if (!isset($modified['is_paid']))
+    {
+      return;
+    }
+    
+    if (true === $modified['is_paid'])
+    {
+      $this->paid_at = date('Y-m-d H:i:s');
+    }
+    if (false === $modified['is_paid'])
+    {
+      $this->paid_at = null;
+    }    
+  }
+  
+  /**
+   * Default the price_paid if not set manually
+   */
+  public function updatePricePaid()
+  {
+    if ($this->is_paid && !$this->price_paid)
+    {
+      $this->price_paid = $this->UllCourseTariff->price;
+    }    
+  }  
+  
+  /**
+   * Update the human readable UllCourseBookingStatus depending on the booking data
+   */
+  public function updateStatus()
+  {
+    if (!$this->is_active)
+    {
+      $this->UllCourseBookingStatus = $this->findStatus('deleted');
+      
+      return;
+    }
+    
+    if ($this->is_paid && $this->price_paid < $this->UllCourseTariff->price)
+    {
+      $this->UllCourseBookingStatus = $this->findStatus('underpaid');
+      
+      return;      
+    }
+    
+    if ($this->is_supernumerary_paid)
+    {
+      $this->UllCourseBookingStatus = $this->findStatus('supernumerary-paid');
+      
+      return;      
+    }
+    
+    if ($this->is_paid && $this->price_paid > $this->UllCourseTariff->price)
+    {
+      $this->UllCourseBookingStatus = $this->findStatus('overpaid');
+      
+      return;      
+    }
+
+    if ($this->is_supernumerary_booked)
+    {
+      $this->UllCourseBookingStatus = $this->findStatus('supernumerary-booked');
+      
+      return;      
+    }
+
+    if ($this->is_paid)
+    {
+      $this->UllCourseBookingStatus = $this->findStatus('paid');
+      
+      return;      
+    }      
+    
+    // default
+    $this->UllCourseBookingStatus = $this->findStatus('booked');
+  }
+  
+  /**
+   * Helper shortcut method to get an UllCourseStatus by slug
+   * 
+   * @param string $slug
+   */
+  protected function findStatus($slug)
+  {
+    return Doctrine::getTable('UllCourseBookingStatus')->findOneBySlug($slug);
+  }  
 }

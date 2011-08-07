@@ -139,7 +139,6 @@ abstract class PluginUllCourse extends BaseUllCourse
    */
   public function updateStatus()
   {
-    
     if ($this->is_canceled)
     {
       $this->UllCourseStatus = $this->findStatus('canceled');
@@ -184,7 +183,7 @@ abstract class PluginUllCourse extends BaseUllCourse
   }
   
   /**
-   * Helper shortcurt method to get an UllCourseStatus by slug
+   * Helper shortcut method to get an UllCourseStatus by slug
    * 
    * @param string $slug
    */

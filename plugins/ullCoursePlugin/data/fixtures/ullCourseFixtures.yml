@@ -123,34 +123,79 @@ UllCourseTariffCourse:
   tariff_course_4:
     UllCourse:              course_2
     UllCourseTariff:        tariff_4   
-    
+
+# Booking 
 UllCourseBooking:
   booking_1:
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_1
     are_terms_of_use_accepted: true
-#    is_approved:            true
-    is_paid:                true     
+    is_paid:                true    
   booking_2:
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_2
     are_terms_of_use_accepted: true
-#    is_approved:            true
-    is_paid:                true   
+    is_paid:                true
     comment:                For my daughter Lina 
   booking_3:
     UllCourse:              course_1
     UllUser:                admin_user
-    UllCourseTariff:        tariff_2    
+    UllCourseTariff:        tariff_2   
+    price_paid:             149.90    # underpaid. should be 159.90 
     are_terms_of_use_accepted: true
-#    is_approved:            true
   booking_4:
     UllCourse:              course_2
     UllUser:                test_user
     UllCourseTariff:        tariff_4
     are_terms_of_use_accepted: true       
+    
+UllCourseBookingStatus:
+  ull_course_booking_status_booked:
+   Translation:
+    en:
+      name:               Booked
+    de:
+      name:               Gebucht    
+  ull_course_booking_status_paid:
+   Translation:
+    en:
+      name:               Paid
+    de:
+      name:               Bezahlt
+  ull_course_booking_status_underpaid:
+   Translation:
+    en:
+      name:               Underpaid
+    de:
+      name:               Zuwenig überwiesen
+  ull_course_booking_status_overpaid:
+   Translation:
+    en:
+      name:               Overpaid
+    de:
+      name:               Zuviel überwiesen     
+  ull_course_booking_status_supernumerary_booked:
+   slug:                  supernumerary-booked
+   Translation:
+    en:
+      name:               Supernumerary booking
+    de:
+      name:               Überzählige Buchung
+  ull_course_booking_status_supernumerary_paid:
+   slug:                  supernumerary-paid
+   Translation:
+    en:
+      name:               Supernumerary participant
+    de:
+      name:               Überzähliger Teilnehmer
+  ull_course_booking_status_supernumerary_deleted:
+   Translation:
+    en:
+      name:               Deleted
+    de:
+      name:               Gelöscht                            
     
 UllPermission:
   ull_permission_ull_course_list:

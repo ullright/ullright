@@ -26,7 +26,7 @@ $t->begin('updateStatus())');
   
   $course->proxy_number_of_participants_paid = 7;
   $course->save();
-  $t->is($course->UllCourseStatus->slug, 'active', 'Set correct status active');    
+  $t->is($course->UllCourseStatus->slug, 'announced', 'Set correct status announced');    
 
   $course->begin_date = date('Y-m-d', strtotime('tomorrow'));
   $course->is_active = false;
@@ -34,8 +34,9 @@ $t->begin('updateStatus())');
   $t->is($course->UllCourseStatus->slug, 'planned', 'Set correct status planned');    
   
   $course->is_active = true;
+  $course->begin_date = date('Y-m-d', strtotime('yesterday'));
   $course->save();
-  $t->is($course->UllCourseStatus->slug, 'announced', 'Set correct status announced');
+  $t->is($course->UllCourseStatus->slug, 'active', 'Set correct status active');
   
   $course->end_date = date('Y-m-d', strtotime('yesterday'));
   $course->save();

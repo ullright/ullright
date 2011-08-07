@@ -152,12 +152,37 @@ UllCourseBooking:
     ull_user_id:
       type: integer
       notnull: true
+    ull_course_booking_status_id:
+      type: integer
+      notnull: true
     are_terms_of_use_accepted:
       type: boolean
-# Not needed at the moment
-#    is_approved:
-#      type: boolean
     is_paid:
+      type: boolean
+    # automatically set when is_paid is set to true
+    paid_at:
+      type: datetime
+    # The actual price that was paid by the customer. Entered manually or imported
+    # from online payment or bank transfer. Defaults to the tariff's price
+    price_paid:
+      type: decimal
+      length: 15
+      scale: 2
+    # A special price can be made for special customers. Defaults to the tariff's price
+    price_negotiated:
+      type: decimal
+      length: 15
+      scale: 2     
+      notnull: true
+    # is actually used as "not deleted" to benefit of the ullright features for is_active
+    is_active:
+      default: true
+      type: boolean
+    # marks a booking in the sequence of booking (=creation) date as overbooked  
+    is_supernumerary_booked:
+      type: boolean 
+    # marks a paid booking in the sequence of payment date as overbooked      
+    is_supernumerary_paid:
       type: boolean      
     comment:
       type: string(4000)
@@ -165,4 +190,20 @@ UllCourseBooking:
     UllCourse:
     UllUser:
     UllCourseTariff:
+    UllCourseBookingStatus:   
 
+UllCourseBookingStatus:
+  package: ullCoursePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name] 
+  columns:
+    name: 
+      type: string(255)
+      notnull: true 
