@@ -29,7 +29,7 @@ class ullMetaWidgetDateTime extends ullMetaWidget
   {
     if ($this->getColumnConfig()->getWidgetOption('act_as_due_date'))
     {
-      $reminderDays = (int)sfConfig::get('app_ull_flow_due_date_reminder_period', 2);
+      $reminderDays = (integer) sfConfig::get('app_ull_flow_due_date_reminder_period', 2);
       $reminderDays = ($reminderDays < 0) ? 2 : $reminderDays;
       
       $dateOverdue = strtotime('today');
