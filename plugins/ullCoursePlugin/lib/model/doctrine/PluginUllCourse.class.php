@@ -34,6 +34,11 @@ abstract class PluginUllCourse extends BaseUllCourse
   }  
   
   
+  /**
+   * Update the proxy fields
+   * 
+   * Called by booking post save hook
+   */
   public function updateProxies()
   {
     if (!$this->exists())
@@ -100,8 +105,8 @@ abstract class PluginUllCourse extends BaseUllCourse
     
     $q = new Doctrine_Query;
     $q
-      ->select('SUM(t.price) as sum')
-      ->from('UllCourseBooking b, b.UllCourseTariff t')
+      ->select('SUM(b.price_negotiated) as sum')
+      ->from('UllCourseBooking b')
       ->where('b.ull_course_id = ?', $this->id)
       ->addWhere('b.is_paid = ?', true)
     ;
