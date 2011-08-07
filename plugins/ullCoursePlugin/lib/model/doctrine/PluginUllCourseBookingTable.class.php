@@ -50,4 +50,88 @@ class PluginUllCourseBookingTable extends UllRecordTable
     
     return $q->execute();
   }
+  
+  /**
+   * Mark supernumerary bookings
+   * 
+   * @param integer $ull_course_id
+   */
+  public static function updateSupernumerary($ull_course_id)
+  {
+    $course = Doctrine::getTable('UllCourse')->findOneById($ull_course_id);
+    
+    // mark supernumerary bookings
+    $bookings = self::findBookingsByCourseOrderedByBookingDate($ull_course_id);
+    
+    $i = 1;
+    foreach($bookings as $booking)
+    {
+      if ($i > $course->max_number_of_participants)
+      {
+        $booking->is_supernumerary_booked = true;
+        $booking->save();
+      }
+      
+      $i++;
+    }
+    
+    // mark supernumerary paid bookings
+    $paidBookings = self::findPaidBookingsByCourseOrderedByPaidDate($ull_course_id);
+    
+    $i = 1;
+    foreach($paidBookings as $paidBooking)
+    {
+      if ($i > $course->max_number_of_participants)
+      {
+        $paidBooking->is_supernumerary_paid = true;
+        $paidBooking->save();
+      }
+      
+      $i++;
+    }    
+  }
+
+  /**
+   * Find all bookings for a course which are not deleted and not paid yet
+   * ordered by booking (=creation) date
+   * 
+   * @param id $ull_course_id
+   */
+  public static function findBookingsByCourseOrderedByBookingDate($ull_course_id)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllCourseBooking b')
+      ->where('b.ull_course_id = ?', $ull_course_id)
+      ->addWhere('b.is_paid = ?', false)
+      ->addWhere('b.is_active = ?', true)
+      ->orderBy('b.created_at, b.id')
+    ;
+    
+    $result = $q->execute();
+    
+    return $result;
+  }
+  
+  /**
+   * Find all paid bookings for a course which are not deleted
+   * ordered by pay date
+   * 
+   * @param id $ull_course_id
+   */
+  public static function findPaidBookingsByCourseOrderedByPaidDate($ull_course_id)
+  {
+    $q = new Doctrine_Query;
+    
+    $q
+      ->from('UllCourseBooking b')
+      ->where('b.ull_course_id = ?', $ull_course_id)
+      ->addWhere('is_paid = ?', true)
+      ->addWhere('is_active = ?', true)
+      ->orderBy('b.paid_at, b.id')
+    ;
+    
+    return $q->execute();    
+  }  
 }

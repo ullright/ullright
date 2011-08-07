@@ -24,6 +24,15 @@ abstract class PluginUllCourse extends BaseUllCourse
     $this->updateStatus();
   }
   
+  /**
+   * Pre update hook
+   * @param unknown_type $event
+   */
+  public function postUpdate($event)
+  {
+    $this->updateSupernumeraryBookings();
+  }  
+  
   
   public function updateProxies()
   {
@@ -180,6 +189,20 @@ abstract class PluginUllCourse extends BaseUllCourse
       $this->UllCourseStatus = $this->findStatus('active');
     } 
   
+  }
+  
+  /**
+   * If max_number_of_participants is modified we have to re-itererate the 
+   * bookings to update the supernumerary flags
+   */
+  public function updateSupernumeraryBookings()
+  {
+    $modified = $this->getLastModified();
+    
+    if (isset($modified['max_number_of_participants']))
+    {
+      UllCourseBookingTable::updateSupernumerary($this['id']);   
+    }
   }
   
   /**

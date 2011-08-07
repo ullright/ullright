@@ -157,8 +157,10 @@ UllCourseBooking:
       notnull: true
     are_terms_of_use_accepted:
       type: boolean
+      default: false
     is_paid:
       type: boolean
+      default: false
     # automatically set when is_paid is set to true
     paid_at:
       type: datetime
@@ -176,14 +178,16 @@ UllCourseBooking:
       notnull: true
     # is actually used as "not deleted" to benefit of the ullright features for is_active
     is_active:
-      default: true
       type: boolean
+      default: true
     # marks a booking in the sequence of booking (=creation) date as overbooked  
     is_supernumerary_booked:
-      type: boolean 
+      type: boolean
+      default: false 
     # marks a paid booking in the sequence of payment date as overbooked      
     is_supernumerary_paid:
-      type: boolean      
+      type: boolean 
+      default: false     
     comment:
       type: string(4000)
   relations:   

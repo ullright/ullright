@@ -13,7 +13,7 @@ $t = new myTestCase(25, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$t->begin('updatePriceNegotiated()');
+$t->begin('pre insert defaultPriceNegotiated()');
 
   $booking = newBooking();
   $booking->save();
@@ -28,7 +28,7 @@ $t->begin('updatePriceNegotiated()');
   $booking->save();
   $t->is($booking->price_negotiated, 999.99, 'Sets the correct tariff price upon update'); 
 
-$t->diag('updatePaidAt()');
+$t->diag('pre save updatePaidAt()');
 
   $booking = newBooking();
   $booking->is_paid = true;
@@ -40,7 +40,7 @@ $t->diag('updatePaidAt()');
   $booking->save();
   $t->is($booking->paid_at, null, 'Removes the paid_at date');
 
-$t->diag('updatePricePaid()');
+$t->diag('pre save updatePricePaid()');
 
   $booking = newBooking();
   $booking->save();
@@ -66,7 +66,7 @@ $t->diag('updatePricePaid()');
   $t->is($booking->price_paid, 999.99, 'Ignores a manual price_paid upon update');  
 
   
-$t->diag('validateTarif()');
+$t->diag('pre save validateTarif()');
 
   $booking = newBooking();
   $booking->save();
@@ -85,7 +85,7 @@ $t->diag('validateTarif()');
   }
   
   
-$t->begin('updateStatus()');
+$t->begin('pre save updateStatus()');
 
   $booking = Doctrine::getTable('UllCourseBooking')->findOneById(1);
   $t->is($booking->UllCourseBookingStatus->slug, 'paid', 'Sets correct status paid');

@@ -13,9 +13,14 @@
 abstract class PluginUllCourseBooking extends BaseUllCourseBooking
 {
   
+  /**
+   * Pre insert hook
+   * 
+   * @param unknown_type $event
+   */
   public function preInsert($event)
   {
-    $this->updatePriceNegotiated();
+    $this->defaultPriceNegotiated();
   }
   
   /**
@@ -44,6 +49,8 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function postSave($event)
   {
+    $this->updateSupernumerary();
+    
     $this->UllCourse->updateProxies();    
   }
   
@@ -77,7 +84,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
   /**
    * Default the negotiated price to the tariff's price
    */
-  public function updatePriceNegotiated()
+  public function defaultPriceNegotiated()
   {
     if (!$this->price_negotiated)
     {
@@ -168,6 +175,21 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     // default
     $this->UllCourseBookingStatus = $this->findStatus('booked');
   }
+  
+  /**
+   *  Mark supernumerary bookings 
+   */
+  public function updateSupernumerary()
+  {
+    // called with postSave(), Therefore the record also exists and nothing changed.
+    // getLastModified() gets the modifications from before the last save
+    $modified = $this->getLastModified();
+    
+    if (isset($modified['is_paid']) || isset($modified['is_active']))
+    {
+      UllCourseBookingTable::updateSupernumerary($this->UllCourse->id);
+    }
+  }  
   
   /**
    * Helper shortcut method to get an UllCourseStatus by slug

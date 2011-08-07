@@ -9,12 +9,12 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(7, new lime_output_color, $configuration);
+$t = new myTestCase(9, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
 
-$t->begin('updateStatus())');
+$t->begin('pre save updateStatus())');
 
   $course = Doctrine::getTable('UllCourse')->findOneById(1);
   
@@ -46,6 +46,16 @@ $t->begin('updateStatus())');
   $course->save();
   $t->is($course->UllCourseStatus->slug, 'canceled', 'Set correct status canceled');
   
+  
+$t->begin('post update updateSupernumeraryBookings()');
+
+  $course = Doctrine::getTable('UllCourse')->findOneById(1);
+  $course->max_number_of_participants = 1;
+  $course->save();
+  
+  $bookings = UllCourseBookingTable::findPaidBookingsByCourseOrderedByPaidDate(1);
+  $t->is($bookings[0]->is_supernumerary_paid, false, 'Leaves the first paid booking as it was');
+  $t->is($bookings[1]->is_supernumerary_paid, true, 'Marks the second paid booking a supernumerary because the max_number_of_pariticpants was changed');
   
   
   
