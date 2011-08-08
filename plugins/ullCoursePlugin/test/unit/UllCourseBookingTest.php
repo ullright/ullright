@@ -9,11 +9,11 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(19, new lime_output_color, $configuration);
+$t = new myTestCase(20, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
-$t->begin('pre insert defaultPriceNegotiated()');
+$t->begin('pre save defaultPriceNegotiated()');
 
   $booking = newBooking();
   $booking->save();
@@ -91,7 +91,10 @@ $t->begin('pre save updateStatus()');
   $t->is($booking->UllCourseBookingStatus->slug, 'paid', 'Sets correct status paid');
   
   $booking = Doctrine::getTable('UllCourseBooking')->findOneById(3);
-  $t->is($booking->UllCourseBookingStatus->slug, 'booked', 'Sets correct status booked');
+  $t->is($booking->UllCourseBookingStatus->slug, 'underpaid', 'Sets correct status underpaid');
+  
+  $booking = Doctrine::getTable('UllCourseBooking')->findOneById(4);
+  $t->is($booking->UllCourseBookingStatus->slug, 'booked', 'Sets correct status booked');  
 
   $booking->is_active = false;
   $booking->save();
@@ -114,6 +117,7 @@ $t->begin('pre save updateStatus()');
   $t->is($booking->UllCourseBookingStatus->slug, 'supernumerary-paid', 'Sets correct status supernumerary-paid');  
   
   $booking = Doctrine::getTable('UllCourseBooking')->findOneById(4);
+  $booking->is_active = true;
   $booking->is_supernumerary_booked  = true;
   $booking->save();
   $t->is($booking->UllCourseBookingStatus->slug, 'supernumerary-booked', 'Sets correct status supernumerary-booked');  

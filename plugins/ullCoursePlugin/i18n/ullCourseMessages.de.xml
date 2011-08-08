@@ -331,14 +331,39 @@
         <target>Kursstatus</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="68">
+        <source>Booking status</source>
+        <target>Buchungs-Status</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="69">
+        <source>Price paid</source>
+        <target>Preis bezahlt</target>
+      </trans-unit>     
+      
+      <trans-unit id="70">
+        <source>Price negotiated</source>
+        <target>Soll-Preis</target>
+      </trans-unit>     
+      
+      <trans-unit id="71">
+        <source>Paid at</source>
+        <target>Bezahlt am</target>
+      </trans-unit>     
+      
+      <trans-unit id="72">
+        <source>Optional, default is the current date. Give a different date e.g. in case of manuall booking</source>
+        <target>Optional, standardmäßig wird das aktuelle Datum verwendet. Im Fall von manuellen Buchungen können Sie ein anderes Datum eingeben. </target>
+      </trans-unit>     
+      
+      <trans-unit id="73">
+        <source>Optional, default is the price of the selected tariff. You can enter an individual special price here.</source>
+        <target>Optional, standardmäßig wird der Preis des ausgewählten Tarifs verwendet. Sie können hier einen individuellen Spezialpreis eingeben.</target>
+      </trans-unit>     
+      
+      <trans-unit id="74">
+        <source>Optional, in case of a partial payment, you can enter the amount here.</source>
+        <target>Optional, z.B. für den Fall einer Anzahlung.</target>
       </trans-unit>     
       
       <trans-unit id="">

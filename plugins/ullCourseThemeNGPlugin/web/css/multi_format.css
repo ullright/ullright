@@ -15,17 +15,17 @@
 /* UllCourseStatus */
 
 .ull_course_status_planned {
-  border-left: 1.3em solid grey;
+  border-left: 1.3em solid transparent;
   padding-left: .5em;
 }
 
 .ull_course_status_announced {
-  border-left: 1.3em solid green;
+  border-left: 1.3em solid #B2D519;
   padding-left: .5em;
 }
 
 .ull_course_status_active {
-  border-left: 1.3em solid green;
+  border-left: 1.3em solid blue;
   padding-left: .5em;
 }
 
@@ -45,6 +45,43 @@
 }
 
 .ull_course_status_canceled {
+  border-left: 1.3em solid brown;
+  padding-left: .5em;
+}
+
+/* UllCourseBookingStatus */
+
+.ull_course_booking_status_booked {
+  border-left: 1.3em solid transparent;
+  padding-left: .5em;
+}
+
+.ull_course_booking_status_paid {
+  border-left: 1.3em solid #B2D519;
+  padding-left: .5em;
+}
+
+.ull_course_booking_status_underpaid {
+  border-left: 1.3em solid red;
+  padding-left: .5em;
+}
+
+.ull_course_booking_status_overpaid {
+  border-left: 1.3em solid #ffaa00;
+  padding-left: .5em;
+}
+
+.ull_course_booking_status_supernumerary_booked {
+  border-left: 1.3em solid #ffaa00;
+  padding-left: .5em;
+}
+
+.ull_course_booking_status_supernumerary_paid {
+  border-left: 1.3em solid red;
+  padding-left: .5em;
+}
+
+.ull_course_booking_status_supernumerary_deleted {
   border-left: 1.3em solid brown;
   padding-left: .5em;
 }

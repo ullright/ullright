@@ -36,6 +36,13 @@ class ullMetaWidgetForeignKey extends ullMetaWidget
     $this->addWidget(new ullWidgetForeignKey($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
     $this->addValidator(new sfValidatorPass());
   }
+  
+  protected function configureSearchMode()
+  {
+    $this->columnConfig->removeOption('show_search_box');
+    
+    parent::configureSearchMode();
+  }
 
   public function getSearchType()
   {

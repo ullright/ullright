@@ -76,6 +76,11 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
         ;
       }
       
+      $columnsConfig['UllCourseBookingStatus->name']
+        ->setMetaWidgetClassName('ullMetaWidgetCourseStatus')
+        ->setWidgetOption('model', 'UllCourseBookingStatus')
+      ;      
+      
     }
   }
   

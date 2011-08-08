@@ -20,7 +20,6 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function preInsert($event)
   {
-    $this->defaultPriceNegotiated();
   }
   
   /**
@@ -38,6 +37,8 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     $this->updatePaidAt();
     
     $this->updatePricePaid();
+    
+    $this->defaultPriceNegotiated();
     
     $this->updateStatus();
   }
@@ -123,6 +124,11 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     {
       $this->price_paid = $this->UllCourseTariff->price;
     }    
+    
+    if (!$this->is_paid)
+    {
+      $this->price_paid = null;
+    }
   }  
   
   /**
@@ -137,7 +143,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
       return;
     }
     
-    if ($this->is_paid && $this->price_paid < $this->UllCourseTariff->price)
+    if ($this->price_paid && $this->price_paid < $this->price_negotiated)
     {
       $this->UllCourseBookingStatus = $this->findStatus('underpaid');
       
@@ -151,7 +157,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
       return;      
     }
     
-    if ($this->is_paid && $this->price_paid > $this->UllCourseTariff->price)
+    if ($this->price_paid && $this->price_paid > $this->price_negotiated)
     {
       $this->UllCourseBookingStatus = $this->findStatus('overpaid');
       

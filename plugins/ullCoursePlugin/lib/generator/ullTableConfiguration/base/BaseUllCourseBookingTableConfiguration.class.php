@@ -21,15 +21,21 @@ class BaseUllCourseBookingTableConfiguration extends ullTableConfiguration
         'UllUser->display_name',
         'comment',
       ))
-      ->setOrderBy('created_at desc, name')
+      ->setOrderBy('paid_at, created_at, id')
       ->setListColumns(array(
         'id', 
         'UllCourse->name', 
         'UllUser->display_name',
-//        'is_approved', 
-        'is_paid',
-        'comment', 
+        'comment',
         'created_at',
+//        'is_approved', 
+        'UllCourseBookingStatus->name',
+        'is_paid',
+        'price_negotiated',
+        'price_paid',
+         
+        
+        'paid_at',
         'UllCourse->is_active',        
       ))
       ->setForeignRelationName(__('User', null, 'ullCoreMessages'))
@@ -38,6 +44,7 @@ class BaseUllCourseBookingTableConfiguration extends ullTableConfiguration
         'ull_course_id' => '',
 //        'is_approved' => false,
         'is_paid' => false,
+        'ull_course_booking_status_id' => '',
         'UllCourse->is_active' => 'checked'
       ))
     ;
