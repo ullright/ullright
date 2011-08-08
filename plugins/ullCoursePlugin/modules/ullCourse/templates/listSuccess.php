@@ -3,6 +3,8 @@
 <h1><?php echo $generator->getTableConfig()->getName() ?></h1>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
+<p><?php echo link_to(__('Show bookings', null, 'UllCourseMessages'), 'ullCourseBooking/list')?></p>
+
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
 <?php echo $ull_filter ?>

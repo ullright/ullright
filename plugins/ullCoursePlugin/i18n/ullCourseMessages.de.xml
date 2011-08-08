@@ -366,9 +366,9 @@
         <target>Optional, z.B. für den Fall einer Anzahlung.</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="75">
+        <source>Show bookings</source>
+        <target>Zeige Buchungen</target>
       </trans-unit>     
       
       <trans-unit id="">

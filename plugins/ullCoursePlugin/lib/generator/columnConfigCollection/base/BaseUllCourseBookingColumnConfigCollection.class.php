@@ -49,6 +49,9 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     ;     
 
     $this['price_negotiated']
+      ->setMetaWidgetClassName('ullMetaWidgetFloat')
+      // right align in list view
+      ->setWidgetAttribute('class', 'ull_widget_time')    
       ->setLabel(__('Price negotiated', null, 'ullCourseMessages'))
       ->setHelp(__('Optional, default is the price of the selected tariff. You can enter an individual special price here.', null, 'ullCourseMessages'))
       ->setIsRequired(false)
@@ -65,6 +68,9 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     ;    
     
     $this['price_paid']
+      ->setMetaWidgetClassName('ullMetaWidgetFloat')
+      // right align in list view
+      ->setWidgetAttribute('class', 'ull_widget_time')    
       ->setLabel(__('Price paid', null, 'ullCourseMessages'))
       ->setHelp(__('Optional, in case of a partial payment, you can enter the amount here.', null, 'ullCourseMessages' ))
     ;
