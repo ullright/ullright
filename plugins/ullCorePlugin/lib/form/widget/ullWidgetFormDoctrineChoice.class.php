@@ -14,6 +14,26 @@ class ullWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
 {
   
   /**
+   * @see sfWidget
+   */
+  public function __construct($options = array(), $attributes = array())
+  {
+    // Remember optional choices because sfWidgetFormDoctrineChoice deletes them
+    $choices = array();
+    if (isset($options['choices']))
+    {
+      $choices = $options['choices'];
+    }
+    
+    parent::__construct($options, $attributes);
+    
+    if ($choices)
+    {
+      $this->setOption('choices', $choices);
+    }
+  }
+  
+  /**
    * Constructor.
    *
    * @see sfWidgetFormSelect
@@ -60,6 +80,11 @@ class ullWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
    */
   public function getChoices()
   {
+    if ($choices = $this->getOption('choices'))
+    {
+      return $choices;
+    }
+    
     $choices = parent::getChoices();
     
     if (!$this->getOption('order_by'))
@@ -176,7 +201,7 @@ function ullOverlay_' . $id .'(action) {
   /* @see: http://flowplayer.org/tools/overlay/index.html */
 
   if (action == "create") {
-    var url = "' . url_for('ullTableTool/create?table=' . $this->getOption('model')) . '";
+    var url = ' . $this->renderCreateUrl($id, $name) . ';
     
   } else if (action == "edit") {
     var optionId = $("#' . $id . '").val();
@@ -186,8 +211,7 @@ function ullOverlay_' . $id .'(action) {
       return false;
     }
       
-    var url = "' . url_for('ullTableTool/edit?table=' . $this->getOption('model')) . 
-      '/id/" + optionId;
+    var url = ' . $this->renderEditUrl($id, $name) . ';
       
   } else {
     throw new exception ("Invalid action given");
@@ -275,6 +299,33 @@ $("#' . $id . '").val(window.overlayId);
     return $return;
   }
 
+  /**
+   * Render the create URL for inline editing
+   * 
+   * @param unknown_type $id
+   * @param unknown_type $name
+   */
+  public function renderCreateUrl($id, $name)
+  {
+    $return = '"' . url_for('ullTableTool/create?table=' . $this->getOption('model')) . '"';
+    
+    return $return;
+  }
+  
+  
+  /**
+   * Render the edit URL for inline editing
+   * 
+   * @param unknown_type $id
+   * @param unknown_type $name
+   */
+  public function renderEditUrl($id, $name)
+  {
+    $return = '"' . url_for('ullTableTool/edit?table=' . $this->getOption('model')) . 
+      '/id/" + optionId';
+    
+    return $return;    
+  }
   
   
   /**

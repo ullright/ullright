@@ -5,15 +5,19 @@
  *
  *
  * available options given by columnConfig->getWidgetOption:
- * 'add_empty'  => boolean, true to include an empty entry
- * 'entity_classes'  => array, list of UllEntity classes to include in the option list
- * 'show_search_box' => boolean, show js search box to filter the select box entries (default = yes)
+ * 'add_empty'              boolean, true to include an empty entry
+ * 'show_search_box'        boolean, show js search box to filter the select box entries (default = yes)
+ * 'enable_inline_editing'  boolean, only available when supplying a single entity class 
+ * 'filter_users_by_group'  string, show only members of the given UllGroup name
+ * 'entity_classes'         array, list of UllEntity classes to include in the option list
+
  */
 class ullMetaWidgetUllEntity extends ullMetaWidget
 {
   protected
     $readWidget = 'ullWidgetForeignKey',
-    $writeWidget = 'sfWidgetFormSelectWithOptionAttributes',
+//    $writeWidget = 'sfWidgetFormSelectWithOptionAttributes',
+    $writeWidget = 'ullWidgetFormChoiceUllEntity',
     $validator = 'sfValidatorChoice'
   ;
 
@@ -93,6 +97,26 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     else
     {
       $this->columnConfig->setWidgetOption('show_search_box', false);
+    }
+    
+    // Inline editing
+    if ($this->columnConfig->getOption('enable_inline_editing'))
+    {
+      $entityClasses = $this->columnConfig->getOption('entity_classes');
+      
+      if (count($entityClasses) > 1)
+      {
+        throw new InvalidArgumentException('option "enable_inline_editing" is only allowed for a sinlge entity_class');
+      }      
+      
+      $this->columnConfig->setWidgetOption('enable_inline_editing', true);
+      $this->columnConfig->setWidgetOption('model', reset($entityClasses));
+    }
+    else
+    {
+      $this->columnConfig->setWidgetOption('enable_inline_editing', false);
+      // we need to supply a model name
+      $this->columnConfig->setWidgetOption('model', 'irrelevant');
     }
     
     $this->addWidget(new $this->writeWidget(

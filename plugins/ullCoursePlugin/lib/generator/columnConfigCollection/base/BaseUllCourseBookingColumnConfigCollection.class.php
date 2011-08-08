@@ -28,6 +28,7 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     $this['ull_user_id']
       ->setLabel(__('Person', null, 'ullCoreMessages'))
       ->setOption('show_search_box', true)
+      ->setOption('enable_inline_editing', true)
       ->setWidgetOption('add_empty', true)
     ;    
     
