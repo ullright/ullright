@@ -1,4 +1,7 @@
-<h1><?php echo $doc['name'] ?></h1>
+<h1>
+  <?php include_component('ullCourse', 'editLink', array('doc' => $doc)) ?>
+  <?php echo $doc['name'] ?>
+</h1>
 
 <p><?php echo $doc['description'] ?></p>
 

@@ -66,6 +66,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_course_edit');
     
     $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseSaveAndShow($this));
+    $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseCancel($this));
     
     $this->setTableToolTemplate('edit');
     

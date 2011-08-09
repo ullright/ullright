@@ -371,6 +371,31 @@
         <target>Zeige Buchungen</target>
       </trans-unit>     
       
+      <trans-unit id="76">
+        <source>Cancel course</source>
+        <target>Kurs absagen</target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
       <trans-unit id="">
         <source></source>
         <target></target>
