@@ -29,6 +29,15 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   }    
   
   /**
+   * Executes index action
+   *
+   */
+  public function executeIndex(sfRequest $request)
+  {    
+    $this->redirect('ullCourse/list');
+  }  
+  
+  /**
    * Executes list action
    *
    * @param sfWebRequest $request
@@ -56,7 +65,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_edit');
     
-    $this->registerEditActionButton(new ullGeneratorEditActionButtonNewsSaveAndShow($this));
+    $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseSaveAndShow($this));
     
     $this->setTableToolTemplate('edit');
     

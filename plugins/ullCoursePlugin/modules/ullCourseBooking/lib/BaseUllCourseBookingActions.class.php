@@ -29,6 +29,15 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   }    
   
   /**
+   * Executes index action
+   *
+   */
+  public function executeIndex(sfRequest $request)
+  {    
+    $this->redirect('ullCourse/list');
+  }    
+  
+  /**
    * Executes list action
    *
    * @param sfWebRequest $request

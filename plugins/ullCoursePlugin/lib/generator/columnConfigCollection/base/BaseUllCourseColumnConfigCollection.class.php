@@ -132,18 +132,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'name',
           'description',
         ),
-        'proxies' => array(
-          'ull_course_status_id',
-          'proxy_number_of_participants_applied',
-          'proxy_number_of_participants_paid',
-          'proxy_turnover',
-          'link_to_bookings'
-        ),        
-        'status' => array(
-          'trainer_ull_user_id',
-          'duplicate_tags_for_search',
-          'is_active',        
-        ),
         'temporal' => array(
           'begin_date',
           'begin_time',
@@ -157,7 +145,21 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'is_admission_included',
           'min_number_of_participants',
           'max_number_of_participants',
+        ),                                
+        'proxies' => array(
+          'ull_course_status_id',
+          'proxy_number_of_participants_applied',
+          'proxy_number_of_participants_paid',
+          'proxy_turnover',
+          'link_to_bookings'
         ),
+        'status' => array(
+          'trainer_ull_user_id',
+          'duplicate_tags_for_search',
+          'is_active',        
+        ),
+
+
       ));
     }
     
