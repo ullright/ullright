@@ -148,13 +148,6 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     //if a user was given, replace user-specific tags
     if ($user !== null)
     {
-      //look for UllUser column names (used as tags) and replace them
-      //with the their matching value
-      foreach ($user as $field => $value)
-      {
-        $dictionary['[' .strtoupper($field) . ']'] = $value;
-      }
-      
       //[UNSUBSCRIBE]
       $lists = $this->findMailingListsForUser($user['id']);
       $unsubscribe = array();

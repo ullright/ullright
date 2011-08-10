@@ -11,7 +11,7 @@ sfContext::createInstance($configuration);
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 
-$t = new myTestCase(33, new lime_output_color, $configuration);
+$t = new myTestCase(36, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -117,9 +117,23 @@ $t->diag('set/getNewsletterEditionId()');
 $t->diag('set/getRecipientUllUserId()');
   $mail = new ullsfMail();
   
-  $t->same($mail->getRecipientUllUserId(), null, 'No recipient UllUser id by default');
+  $t->same($mail->getRecipientUllUserId(), false, 'No recipient UllUser id by default');
   $mail->setRecipientUllUserId(2);
   $t->same($mail->getRecipientUllUserId(), 2, 'recipient UllUser id correctly returned');  
+  
+  $mail->setRecipientUllUserId(1, 'admin@example.com');
+  $t->is($mail->getRecipientUllUserId('admin@example.com'), 1, 'recipient UllUser id correctly returned');
+
+$t->diag('set/getRecipientUllUserIds()');
+  $mail = new ullsfMail();
+  
+  $t->is($mail->getRecipientUllUserIds(), array(), 'No recipient UllUser ids by default');
+  $data = array(
+    'foo@example.com' => 48,
+    'bar@example.com' => 49,
+  );
+  $mail->setRecipientUllUserIds($data);
+  $t->is($mail->getRecipientUllUserIds(), $data, 'recipient UllUser ids correctly returned');    
   
   
 $t->diag('set/getIsQueued()');

@@ -15,8 +15,7 @@ class ullsfMail extends Swift_Message
 {
   protected 
     $slug,
-    //TODO: enhance for multiple recipients and batch sending
-    $recipientUllUserId,
+    $recipientUllUserIds = array(),
     $newsletterEditionId,
     $isHtml = false,
     $isQueued = false
@@ -95,6 +94,7 @@ class ullsfMail extends Swift_Message
       
       //call the appropriate method in Swift_Message ...
       $methodName = 'add' . $type;
+      
       //.. but also fix empty name string for compat with Swift Mailer
       parent::$methodName($address, (strlen($name) === 0) ? null : $name);
     }
@@ -146,6 +146,21 @@ class ullsfMail extends Swift_Message
   }
   
   /**
+   * Return addresses as string
+   */
+  public function getAddressesAsString()
+  {
+    $return = array();
+    
+    foreach ($this->getTo() as $email => $name)
+    {
+      $return[] = "$name <$email>";
+    }
+    
+    return implode(', ', $return);
+  }  
+  
+  /**
    * Returns the slug of this message.
    */
   public function getSlug()
@@ -181,12 +196,13 @@ class ullsfMail extends Swift_Message
       if ($email = $entity->email) 
       {
         $return[] = array('email' => $email, 'name' => (string) $entity);
+        
+        if ($entity instanceof UllUser)
+        {
+          $this->recipientUllUserId = $entity->id;
+          $this->recipientUllUserIds[$entity->email] = $entity->id;
+        }        
       }       
-      
-      if ($entity instanceof UllUser)
-      {
-        $this->recipientUllUserId = $entity->id;
-      }
     }
 
     return $return;
@@ -343,9 +359,20 @@ class ullsfMail extends Swift_Message
    * 
    * @return: self
    */
-  public function setRecipientUllUserId($id)
+  public function setRecipientUllUserId($id, $email = null)
   {
-    $this->recipientUllUserId = $id;
+    if ($email)
+    {
+      $this->recipientUllUserIds[$email] = $id;
+    }
+    else
+    {
+      // overwrite the first array entry
+      reset($this->recipientUllUserIds);
+      $key = key($this->recipientUllUserIds);
+      $this->recipientUllUserIds[$key] = $id;
+      
+    }
     
     return $this;
   }
@@ -355,10 +382,40 @@ class ullsfMail extends Swift_Message
    * 
    * @return: integer
    */
-  public function getRecipientUllUserId()
+  public function getRecipientUllUserId($email = null)
   {
-    return $this->recipientUllUserId;
+    if ($email)
+    {
+      return $this->recipientUllUserIds[$email];
+    }
+    else
+    {
+      $ids = $this->recipientUllUserIds;
+      return reset($ids);
+    }
   }
+  
+  /** 
+   * Sets the recipientUllUserIds
+   * 
+   * @return: array
+   */
+  public function setRecipientUllUserIds($array)
+  {
+    $this->recipientUllUserIds = $array;
+    
+    return $this;
+  }    
+  
+  /** 
+   * Gets the recipientUllUserIds
+   * 
+   * @return: array
+   */
+  public function getRecipientUllUserIds()
+  {
+    return $this->recipientUllUserIds;
+  }  
   
   /**
    * Mark as html email
@@ -437,7 +494,7 @@ class ullsfMail extends Swift_Message
     $this->setTo(array());
     $this->setCC(array());
     $this->setBcc(array());
-    $this->setRecipientUllUserId(null);
+    $this->setRecipientUllUserIds(array());
   }
   
   

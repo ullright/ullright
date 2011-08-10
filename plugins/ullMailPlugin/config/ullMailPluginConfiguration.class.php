@@ -4,6 +4,17 @@
  * Configures the ullMail plugin. Handles global enabling/disable,
  * debug rerouting, bcc-to-every-mail and auditing/log functionality
  * in ullright.
+ * 
+ * The order of the plugins is (in dev environment):
+ * 
+ * "Swift_Plugins_RedirectingPlugin"
+ * "Swift_Plugins_ullPersonalizePlugin"
+ * "Swift_Plugins_ullHtml2TextPlugin"
+ * "Swift_Plugins_ullAuditPlugin"
+ * "sfMailerMessageLoggerPlugin"
+
+ * 
+ * 
  */
 class ullMailPluginConfiguration extends sfPluginConfiguration
 {
@@ -21,6 +32,7 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
    * does not occur, this behavior is not a problem at the moment,
    * but it is something that might need to be considered in the future.
    */
+  
   public function initialize()
   {
     //mailer.configure is not fired during application/plugin initialization,
@@ -125,7 +137,7 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
   public function enableMailPersonalization(sfMailer $mailer)
   {
     $plugin = new Swift_Plugins_ullPersonalizePlugin();
-    $plugin->setPriority(5);
+    $plugin->setPriority(-2);
 
     /*
      * Personalization plugin causes headache with the current sf / swift
@@ -168,7 +180,7 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
   public function enableMailHtml2TextTransformation(sfMailer $mailer)
   {
     $plugin = new Swift_Plugins_ullHtml2TextPlugin();
-    $plugin->setPriority(6);
+    $plugin->setPriority(-1);
 
     $mailer->getRealtimeTransport()->registerPlugin($plugin);
   }
