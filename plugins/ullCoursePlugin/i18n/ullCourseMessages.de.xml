@@ -376,9 +376,34 @@
         <target>Kurs absagen</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="77">
+        <source>Course cancelation</source>
+        <target>Kursabsage</target>
+      </trans-unit>     
+      
+      <trans-unit id="78">
+        <source>we are sorry to inform you that course "%course%" has been canceled</source>
+        <target>es tut uns leid Ihnen mitteilen zu müssen, dass der Kurs "%course%" abgesagt wurde</target>
+      </trans-unit>     
+      
+      <trans-unit id="79">
+        <source>Please choose another course from our offering</source>
+        <target>Bitte wählen Sie einen anderen Kurs aus unserem Angebot</target>
+      </trans-unit>     
+      
+      <trans-unit id="80">
+        <source>Send cancelation email for course "%course%"</source>
+        <target>Kursabsage E-Mail für Kurs "%course%" senden</target>
+      </trans-unit>     
+      
+      <trans-unit id="81">
+        <source>Send email to participants</source>
+        <target>E-Mail an Teilnehmer senden</target>
+      </trans-unit>     
+      
+      <trans-unit id="82">
+        <source>Send email to participants of course "%course%"</source>
+        <target>E-Mail an Teilnehmer des Kurses "%course%" senden</target>
       </trans-unit>     
       
       <trans-unit id="">
@@ -405,6 +430,7 @@
         <source></source>
         <target></target>
       </trans-unit>
+      
       
         
       

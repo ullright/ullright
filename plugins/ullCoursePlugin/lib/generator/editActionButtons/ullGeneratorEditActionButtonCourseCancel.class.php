@@ -16,10 +16,13 @@ class ullGeneratorEditActionButtonCourseCancel extends ullGeneratorEditActionBut
    */
   public function render()
   {
-    return ull_submit_tag(
-      __('Cancel course', null, 'ullCourseMessages'),
-      array('name' => 'submit|action_slug=cancel')
-    );      
+    if (!$this->action->generator->getRow()->is_canceled)
+    {
+      return ull_submit_tag(
+        __('Cancel course', null, 'ullCourseMessages'),
+        array('name' => 'submit|action_slug=cancel')
+      );
+    }      
   }
   
   
@@ -35,6 +38,8 @@ class ullGeneratorEditActionButtonCourseCancel extends ullGeneratorEditActionBut
       $course->is_canceled = true;
       $course->is_active = false;
       $course->save(); 
+      
+      $this->action->redirect('ullCourse/cancel?slug=' . $course->slug);
     }   
   }
   

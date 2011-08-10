@@ -66,6 +66,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_course_edit');
     
     $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseSaveAndShow($this));
+    $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseMail($this));
     $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseCancel($this));
     
     $this->setTableToolTemplate('edit');
@@ -276,7 +277,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   
   public function executeBooked(sfRequest $request)
   {
-    
+    $this->checkPermission('ull_course_booked');
   }
   
   /**
@@ -286,9 +287,107 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
    */
   public function executeTrainers(sfRequest $request)
   {
+    $this->checkPermission('ull_course_trainers');
+    
     $this->trainers = UllUserTable::findByGroup('Trainers');
   }
   
+  
+  public function executeCancel(sfRequest $request)
+  {
+    $this->checkPermission('ull_course_cancel');
+    
+    $course = $this->getDocFromRequest();
+    
+    $form = new UllCourseEmailForm();
+    
+    $mail = $course->composeMail('', '', 'cancelMail');
+    
+    if ($request->isMethod('get'))
+    {
+      
+      $form->setDefaults(array(
+        'recipients'  => $mail->getAddressesAsString(),
+        'subject'     => $mail->getSubject(),
+        'body'        => $mail->getBody(),
+      ));
+    }
+    
+    if ($request->isMethod('post'))
+    {
+      if ('send' == $request->getParameter('action_slug'))
+      {
+        $form->bind($request->getParameter('fields'));
+        
+        if ($form->isValid())
+        {
+          $mail->setSubject($form->getValue('subject'));
+          $mail->setBody($form->getValue('body'));
+          
+          $this->getMailer()->batchSend($mail);
+          
+          $this->redirect('ullCourse/list');
+        }        
+      } 
+      
+      if ('cancel' == $request->getParameter('action_slug'))
+      {
+        $this->redirect('ullCourse/list');
+      }
+      
+    }
+    
+    $this->setVar('form', $form, true);
+    $this->setVar('course', $course, true);
+  }
+  
+  public function executeMail(sfRequest $request)
+  {
+    $this->checkPermission('ull_course_mail');
+    
+    $course = $this->getDocFromRequest();
+    
+    $form = new UllCourseEmailForm();
+    
+    $mail = $course->composeMail('', '', 'genericMail');
+    
+    if ($request->isMethod('get'))
+    {
+      
+      $form->setDefaults(array(
+        'recipients'  => $mail->getAddressesAsString(),
+        'subject'     => $mail->getSubject(),
+        'body'        => $mail->getBody(),
+      ));
+    }
+    
+    if ($request->isMethod('post'))
+    {
+      if ('send' == $request->getParameter('action_slug'))
+      {
+        $form->bind($request->getParameter('fields'));
+        
+        if ($form->isValid())
+        {
+          $mail->setSubject($form->getValue('subject'));
+          $mail->setBody($form->getValue('body'));
+          
+          $this->getMailer()->batchSend($mail);
+          
+          $this->redirect('ullCourse/list');
+        }        
+      } 
+      
+      if ('cancel' == $request->getParameter('action_slug'))
+      {
+        $this->redirect('ullCourse/list');
+      }
+      
+    }
+    
+    $this->setVar('form', $form, true);
+    $this->setVar('course', $course, true);
+  }  
   
   /**
    * Show a trainer popup
@@ -372,7 +471,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   
   /**
    * Gets the doc according to request param
-   * 
+   *
+   * @return UllCourse
    */
   protected function getDocFromRequest()
   {

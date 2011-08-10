@@ -1,5 +1,5 @@
 <?php /* The first line is the subject */ echo __('Payment information', null, 'ullCourseMessages') ?> 
-<?php echo __('Hello', null, 'common') . ' ' . $booking->UllUser->display_name ?>,
+<?php include_partial('ullCourse/mailGreeting', array('booking' => $booking)) ?> 
     
 <?php echo __('thank you for booking our course', null, 'ullCourseMessages') ?> "<?php echo $booking->UllCourse->name ?>".    
     
@@ -19,14 +19,7 @@
   
 <?php echo __('Bookings are orderd by the incoming tranfer date', null, 'ullCourseMessages') ?>.  
 
+<?php include_partial('ullCourse/mailFooter', array('booking' => $booking)) ?>
 
-<?php echo __('Links', null, 'common') ?>:
 
-- <?php echo __('Course details', null, 'ullCourseMessages') ?>: <?php echo url_for('ullCourse/show?slug=' . $booking->UllCourse->slug, true) ?> 
-- <?php echo __('Terms of use', null, 'ullCourseMessages') ?>: <?php echo url_for(sfConfig::get('ull_course_terms_of_use_link', 'ullAdmin/about'), true) ?> 
-  
-
-<?php echo __('Contact', null, 'common') ?>:
-
-<?php echo __(sfConfig::get('app_ull_course_contact'), null, 'custom') ?>
 

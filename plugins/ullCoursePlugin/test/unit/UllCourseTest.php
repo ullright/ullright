@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(15, new lime_output_color, $configuration);
+$t = new myTestCase(19, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -28,6 +28,25 @@ $t->begin('updateProxies()');
   $t->is($course2->proxy_number_of_participants_paid, 0, 'Calculates correct number of participants who paid for course 2');
   $t->is($course2->proxy_turnover, 0.00, 'Calculates correct turnover for course 2'); 
 
+$t->diag('findRecipients()');
+
+  $recipients = $course1->findRecipients();
+  
+  $t->is(count($recipients), 2, 'Returns the correct number of recipients');
+  $t->is($recipients[0]->username, 'admin', 'Returns the correct users');
+  $t->is($recipients[1]->username, 'test_user', 'Returns the correct users');
+  
+$t->diag('findRecipientsAsArray()');
+
+  $recipients = $course1->findRecipientsAsArray();
+  
+  $result = array(
+    'admin@example.com' => 'Master Admin',
+    'test.user@example.com' => 'Test User',
+  );
+  
+  $t->is($recipients, $result, 'Returns the correct recipients');
+  
 $t->diag('pre save updateStatus())');
 
   $course = Doctrine::getTable('UllCourse')->findOneById(1);

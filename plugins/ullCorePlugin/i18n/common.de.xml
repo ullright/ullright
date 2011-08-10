@@ -117,6 +117,10 @@
 <target>Aktualisieren</target>
 </trans-unit>
 
+<trans-unit id="23">
+<source>Send</source>
+<target>Senden</target>
+</trans-unit>
 
 <!-- Common Field Names -->
 
@@ -1336,6 +1340,17 @@
 <source>Status</source>
 <target>Status</target>
 </trans-unit>
+
+<trans-unit id="30006">
+<source>Reason</source>
+<target>Grund</target>
+</trans-unit>
+
+<trans-unit id="30007">
+<source>Recipients</source>
+<target>Empfänger</target>
+</trans-unit>
+
 
 </body>
   </file>

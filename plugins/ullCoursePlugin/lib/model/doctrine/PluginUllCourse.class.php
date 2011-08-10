@@ -211,6 +211,117 @@ abstract class PluginUllCourse extends BaseUllCourse
   }
   
   /**
+   * Find email and name of course participants as email recipients.
+   * 
+   * Format: array(
+   *   'email' => 'display_name'
+   * )
+   */
+  public function findRecipientsAsArray()
+  {
+    $q = new Doctrine_Query;
+
+    $q
+      ->select('DISTINCT u.display_name, u.email')
+      ->from('UllUser u, u.UllCourseBooking b')
+      ->where('b.is_active = ?', true)
+      ->addWhere('b.ull_course_id = ?', $this->id)
+      ->orderBy('u.last_name_first')
+    ;    
+    
+    $q->setHydrationMode(DOCTRINE::HYDRATE_NONE);
+    
+    $results = $q->execute();
+    
+    $return = array();
+    
+    foreach($results as $result)
+    {
+      $email = $result[1];
+      $name = $result[0];
+      
+      if ($email)
+      {
+        $return[$email] = $name;
+      }
+    }
+    
+    return $return;
+  }  
+  
+  
+  /**
+   * Find course participants
+   * 
+   * @return: Doctrine_Collection
+   */
+  public function findRecipients()
+  {
+    $q = new Doctrine_Query;
+
+    $q
+      ->from('UllUser u, u.UllCourseBooking b')
+      ->where('b.is_active = ?', true)
+      ->addWhere('b.ull_course_id = ?', $this->id)
+      ->orderBy('u.last_name_first')
+    ;    
+    
+    $results = $q->execute();
+    
+    return $results;
+  }    
+  
+  /**
+   * Compose mail to all course participants 
+   * 
+   * @param string $subject     optional, the subject
+   * @param string $body        optional, the body (plaintext)
+   * @param string $partial     optional, a partial name for the mail, first line = subject,
+   *                            default = "ullCourse/genericMail"
+   * @param string $slug        optional, mail slug, default = "ull_course_mail"
+   * 
+   * @return ullsfMail
+   */
+  public function composeMail($subject = '', $body = '', $partial = 'genericMail', $slug = 'ull_course_mail')
+  {
+    $recipients = $this->findRecipients();
+    
+    // We cannot send without recipients
+    if (!$recipients)
+    {
+      return;
+    }
+    
+    $mail = new ullsfMail($slug);
+    
+    $mail->setFrom(
+      sfConfig::get('app_ull_course_from_address'),
+      sfConfig::get('app_ull_course_from_name')
+    );
+    
+    foreach ($recipients as $recipient)
+    {
+      $mail->addAddress($recipient);
+    }
+
+    $mail->usePartial('ullCourse/' . $partial, array(
+      'booking' => $this
+    ));
+    
+    if ($subject)
+    {
+      $mail->setSubject($subject);
+    }
+    
+    if ($body)
+    {
+      $mail->setBody($body);
+    }    
+    
+    return $mail;
+  }    
+  
+  /**
    * Helper shortcut method to get an UllCourseStatus by slug
    * 
    * @param string $slug
@@ -219,6 +330,8 @@ abstract class PluginUllCourse extends BaseUllCourse
   {
     return Doctrine::getTable('UllCourseStatus')->findOneBySlug($slug);
   }
+  
+
   
   
 }
