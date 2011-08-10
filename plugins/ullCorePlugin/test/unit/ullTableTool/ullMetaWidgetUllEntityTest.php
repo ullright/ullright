@@ -37,7 +37,7 @@ $t->diag('write access with default options');
   $widget = new ullMetaWidgetUllEntity($columnConfig, $form);
   $t->isa_ok($widget, 'ullMetaWidgetUllEntity', '__construct() returns the correct object');
   $widget->addToFormAs('my_field');
-  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'sfWidgetFormSelectWithOptionAttributes', 'returns the correct widget for write access');
+  $t->isa_ok($form->getWidgetSchema()->offsetGet('my_field'), 'ullWidgetFormChoiceUllEntity', 'returns the correct widget for write access');
   $t->isa_ok($form->getValidatorSchema()->offsetGet('my_field'), 'sfValidatorChoice', 'returns the correct validator for write access');
   $t->is($widget->getColumnConfig()->getOption('entity_classes'), array('UllUser', 'UllGroup'), 'returns the correct list of default entity classes');
   
