@@ -27,13 +27,13 @@ $t->diag('configure()');
 
   $t->is(count($form->getWidgetSchema()->getFields()), 14, 'Sets the correct number of widgets');
   $t->isa_ok($form->getWidgetSchema()->offsetGet('ull_flow_action_assign_to_user_ull_entity'),
-  	'sfWidgetFormSelectWithOptionAttributes', 'Sets the correct widget');
+  	'ullWidgetFormChoiceUllEntity', 'Sets the correct widget');
   $t->is($handler->getFormFields(), array('ull_flow_action_assign_to_user_ull_entity'), 'Sets the correct list of form fields');
   
 $t->diag('render()');
     
   $reference = '<input type="submit" name="submit|action_slug=assign_to_user" value="Assign" /> to user 
-<div style="white-space: nowrap; display: inline;"><script type="text/javascript">
+<script type="text/javascript">
 //<![CDATA[
 
 $(document).ready(function()
@@ -42,7 +42,7 @@ $(document).ready(function()
 });
       
 //]]>
-</script><select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
+</script><div style="white-space: nowrap; display: inline;"><select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
 <option value="" selected="selected"></option>
 <option value="1">Admin Master</option>
 <option value="3">Admin User Helpdesk</option>
@@ -59,7 +59,7 @@ $t->diag('setting options');
   $handler = new ullFlowActionHandlerAssignToUser($generator, array('group' => 'TestGroup'));
   
   $reference = '<input type="submit" name="submit|action_slug=assign_to_user" value="Assign" /> to user 
-<div style="white-space: nowrap; display: inline;"><script type="text/javascript">
+<script type="text/javascript">
 //<![CDATA[
 
 $(document).ready(function()
@@ -68,7 +68,7 @@ $(document).ready(function()
 });
       
 //]]>
-</script><select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
+</script><div style="white-space: nowrap; display: inline;"><select name="fields[ull_flow_action_assign_to_user_ull_entity]" id="fields_ull_flow_action_assign_to_user_ull_entity">
 <option value="" selected="selected"></option>
 <option value="2">User Test</option>
 </select></div>';
