@@ -406,19 +406,19 @@
         <target>E-Mail an Teilnehmer des Kurses "%course%" senden</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="83">
+        <source>Payment received</source>
+        <target>Zahlungseingang erfolgt</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="84">
+        <source>thank your for your payment of %price% for course "%course"</source>
+        <target>danke für die Bezahlung von %price% für Kurs "%course"</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="85">
+        <source>We're looking forward to welcome you on %date% at %time%</source>
+        <target>Wir freunen und darauf Sie am %datum% um %time% begrüßen zu dürfen</target>
       </trans-unit>     
       
       <trans-unit id="">

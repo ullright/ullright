@@ -119,6 +119,9 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     
     $booking->sendConfirmationMail();
     
+    // TODO: condition when to send payment
+    $booking->sendPaymentReceivedMail();
+    
     return $return;
   }  
 

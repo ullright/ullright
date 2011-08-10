@@ -81,6 +81,28 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     $mail->send();
   }  
   
+  public function sendPaymentReceivedMail()
+  {
+    // We cannot send emails without an email address
+    if (!$this->UllUser->email)
+    {
+      return;
+    }
+    
+    $mail = new ullsfMail('ull_course_payment_received');
+    
+    $mail->setFrom(
+      sfConfig::get('app_ull_course_from_address'),
+      sfConfig::get('app_ull_course_from_name')
+    );
+    $mail->addAddress($this->UllUser);
+
+    $mail->usePartial('ullCourse/paymentReceivedMail', array(
+      'booking' => $this
+    ));
+    
+    $mail->send();
+  }  
   
   /**
    * Default the negotiated price to the tariff's price

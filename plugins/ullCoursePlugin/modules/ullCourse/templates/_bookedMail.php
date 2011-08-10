@@ -1,5 +1,5 @@
 <?php /* The first line is the subject */ echo __('Payment information', null, 'ullCourseMessages') ?> 
-<?php include_partial('ullCourse/mailGreeting', array('booking' => $booking)) ?> 
+<?php include_partial('ullCourse/mailGreeting') ?> 
     
 <?php echo __('thank you for booking our course', null, 'ullCourseMessages') ?> "<?php echo $booking->UllCourse->name ?>".    
     
