@@ -213,8 +213,13 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
         array('id' => $row->id) ) 
     ))
     {
-      // Everything's fine, no validation error occured
+      // Notify event      
+      $this->dispatcher->notify(new sfEvent($this, 'ull_table_tool.update_single_column', array(
+        'column'        => $column,
+        'object'        => $row,
+      )));
       
+      // Everything's fine, no validation error occured      
       return $this->renderText(json_encode(array('id' => $row->id, $column => $row[$column]))); 
     }
     else

@@ -7,7 +7,7 @@
  * with a 'real' checkbox, which is AJAX-enhanced to provide
  * flag toggling without page reloads.
  * 
- * THIS IS NOW DEPRECATED and replaced by ullWidgetCheckboxRead
+ * THIS IS NOW DEPRECATED and replaced by ullWidgetCheckbox
  * 
  * @deprecated
  */

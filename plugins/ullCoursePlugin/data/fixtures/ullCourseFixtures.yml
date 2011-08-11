@@ -144,8 +144,9 @@ UllCourseBooking:
   booking_3:
     UllCourse:              course_1
     UllUser:                admin_user
-    UllCourseTariff:        tariff_2   
-    price_paid:             149.90    # underpaid. should be 159.90 
+    UllCourseTariff:        tariff_2
+    # underpaid. should be 159.90   
+    price_paid:             149.90
     are_terms_of_use_accepted: true
   booking_4:
     UllCourse:              course_2

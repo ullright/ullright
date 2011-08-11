@@ -12,6 +12,7 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     $this->disable(array(
       'is_supernumerary_booked',
       'is_supernumerary_paid',
+      'ull_payment_type_id'
     ));
     
 

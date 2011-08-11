@@ -81,6 +81,9 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     $mail->send();
   }  
   
+  /**
+   * Send mail to confirm the payment
+   */
   public function sendPaymentReceivedMail()
   {
     // We cannot send emails without an email address
@@ -122,7 +125,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
   {
     $modified = $this->getModified();
     
-    if (!isset($modified['is_paid']))
+    if (!array_key_exists('is_paid', $modified))
     {
       return;
     }
@@ -146,11 +149,6 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     {
       $this->price_paid = $this->UllCourseTariff->price;
     }    
-    
-    if (!$this->is_paid)
-    {
-      $this->price_paid = null;
-    }
   }  
   
   /**
@@ -217,6 +215,64 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
     {
       UllCourseBookingTable::updateSupernumerary($this->UllCourse->id);
     }
+  }  
+  
+  /**
+   * Ask wether we should send a booking confirmation mail now.
+   */
+  public function shouldWeSendConfirmationMail()
+  {
+    // lets support bookings unsaved, as well previously saved
+    if ($this->getModified())
+    {
+      $modified = $this->getModified(true);
+    }
+    else
+    {
+      $modified = $this->getLastModified(true);
+    }
+    
+    // Send booking confirmation email for a new booking which is not paid yet
+    if (
+      array_key_exists('created_at', $modified) && 
+      null === $modified['created_at'] && 
+      false === $this->is_paid &&
+      $this->UllUser->email
+    )
+    {
+      return true;
+    }    
+    
+    return false;
+  }
+  
+  /**
+   * Ask wether we should send a payment reiceived confirmation mail now.
+   */
+  public function shouldWeSendPaymentReceivedMail()
+  {
+    // lets support bookings unsaved, as well previously saved
+    if ($this->getModified())
+    {
+      $modified = $this->getModified();
+    }
+    else
+    {
+      $modified = $this->getLastModified();
+    }
+    
+    // Send booking confirmation email for a new booking which is not paid yet
+    if (
+      isset($modified['is_paid']) && 
+      true === $modified['is_paid'] &&
+      false === $this->is_supernumerary_paid &&
+      $this->UllUser->email
+    )
+    {
+      return true;
+    }    
+    
+    return false;
   }  
   
   /**

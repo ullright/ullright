@@ -108,9 +108,10 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
       new ullValidatorSchemaUllCourseTariff('ull_course_tariff_id', 'ull_course_id')
     );
     
-    $form->mergePostValidator(
-      new sfValidatorCallback(array('callback' => array($this, 'validatePaymentType')))
-    );    
+    // Disabled at the moment, until payment type is necessary
+//    $form->mergePostValidator(
+//      new sfValidatorCallback(array('callback' => array($this, 'validatePaymentType')))
+//    );    
   }
   
   /**
@@ -143,13 +144,8 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   {
     $booking = $this->generator->getRow();
     
-    $oldLastModified = $booking->getLastModified(true);
-    
     // Send booking confirmation email for a new booking which is not paid yet
-    if (array_key_exists('created_at', $oldLastModified) && 
-      null === $oldLastModified['created_at'] && 
-      false === $booking->is_paid &&
-      $booking->UllUser->email)
+    if ($booking->shouldWeSendConfirmationMail())
     {
       $booking->sendConfirmationMail();
       
@@ -158,13 +154,8 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
       );
     }
     
-    $lastModified = $booking->getLastModified();
-    
     // Send payment received email if its no supernumerary booking
-    if (isset($lastModified['is_paid']) && 
-      true === $lastModified['is_paid'] &&
-      false === $booking->is_supernumerary_paid &&
-      $booking->UllUser->email)
+    if ($booking->shouldWeSendPaymentReceivedMail())
     {
       $booking->sendPaymentReceivedMail();
       

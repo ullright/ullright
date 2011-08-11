@@ -133,5 +133,27 @@ class PluginUllCourseBookingTable extends UllRecordTable
     ;
     
     return $q->execute();    
-  }  
+  }
+
+  
+  /**
+   * Listen to the ull_table_tool.update_single_column event
+   * 
+   * If "is_paid" was updated, check if we need to send a confirmation mail  
+   *  
+   * @param sfEvent $event
+   */
+  public static function listenToUpdateSingleColumnEvent(sfEvent $event)
+  {
+    $params = $event->getParameters();
+    
+    $column = $params['column'];
+    $booking = $params['object'];
+    
+    // Send payment received email if its no supernumerary booking
+    if ('is_paid' == $column && $booking->shouldWeSendPaymentReceivedMail())
+    {
+      $booking->sendPaymentReceivedMail();
+    }    
+  }
 }
