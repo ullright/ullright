@@ -232,6 +232,7 @@ UllCourseBookingStatus:
 # Access rights
     
 UllPermission:
+
   # UllCourse
   ull_permission_ull_course_list:
     namespace:              ull_course
@@ -271,7 +272,6 @@ UllPermission:
     slug:                   ull_course_mail
     
   # UllCourseBooking
-  
   ull_permission_ull_course_booking_list:
     namespace:              ull_course
     slug:                   ull_course_booking_list
