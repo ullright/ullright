@@ -103,10 +103,30 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   {
     // check if the selected tarif is valid for the selected course
     $form = $this->generator->getForm();
+    
     $form->mergePostValidator(
       new ullValidatorSchemaUllCourseTariff('ull_course_tariff_id', 'ull_course_id')
     );
     
+    $form->mergePostValidator(
+      new sfValidatorCallback(array('callback' => array($this, 'validatePaymentType')))
+    );    
+  }
+  
+  /**
+   * Make the payment type mandatory if is_paid is checked
+   */
+  public function validatePaymentType($validator, $values)
+  {
+    if ($values['is_paid'] && !$values['ull_payment_type_id'])
+    {
+      $error = new sfValidatorError($validator, 'required');
+   
+      // throw an error bound to the password field
+      throw new sfValidatorErrorSchema($validator, array('ull_payment_type_id' => $error));
+    }
+   
+    return $values;
   }
   
   /**

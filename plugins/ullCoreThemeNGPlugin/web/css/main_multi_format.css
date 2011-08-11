@@ -947,7 +947,7 @@ span.ull_widget_time {
   white-space: nowrap;
 }
  
-table span.ull_widget_time {
+.list_table span.ull_widget_time {
   display: block;
   text-align: right;
 }

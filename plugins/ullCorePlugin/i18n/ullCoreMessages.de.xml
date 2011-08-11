@@ -122,7 +122,12 @@
       <trans-unit id="25">
       <source>Salutation</source>
       <target>Anrede</target>
-      </trans-unit>    
+      </trans-unit>
+      
+      <trans-unit id="26">
+      <source>Payment type</source>
+      <target>Zahlungsart</target>
+      </trans-unit>  
       
       <!--  edit action -->
 

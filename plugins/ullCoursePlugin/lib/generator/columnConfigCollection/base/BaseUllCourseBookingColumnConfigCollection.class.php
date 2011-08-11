@@ -43,6 +43,11 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
       ->setAccess('r');
     ;
     
+    $this['ull_payment_type_id']
+      ->setLabel(__('Payment type', null, 'ullCoreMessages'))
+      ->setWidgetOption('add_empty', true)
+    ;    
+    
     $this['are_terms_of_use_accepted']
       ->setLabel(__('Terms of use accepted', null, 'ullCourseMessages') . '?')
       ->setAccess('r')
@@ -91,6 +96,7 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
         'ull_course_tariff_id',
         'ull_user_id',
         'is_paid',
+        'ull_payment_type_id',
       ),
       'optional' => array(
         'ull_course_booking_status_id',

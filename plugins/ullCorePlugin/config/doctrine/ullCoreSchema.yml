@@ -395,3 +395,19 @@ UllCloneUser:
     extends: UllUser
     type: column_aggregation
     keyValue: clone_user
+    
+UllPaymentType:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name]
+  columns:
+    name:
+      type: string(255)
+      notnull: true   

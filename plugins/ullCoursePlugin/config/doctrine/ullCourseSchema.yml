@@ -155,6 +155,8 @@ UllCourseBooking:
     ull_course_booking_status_id:
       type: integer
       notnull: true
+    ull_payment_type_id:
+      type: integer
     are_terms_of_use_accepted:
       type: boolean
       default: false
@@ -194,7 +196,8 @@ UllCourseBooking:
     UllCourse:
     UllUser:
     UllCourseTariff:
-    UllCourseBookingStatus:   
+    UllCourseBookingStatus:
+    UllPaymentType:   
 
 UllCourseBookingStatus:
   package: ullCoursePlugin.lib.model.doctrine

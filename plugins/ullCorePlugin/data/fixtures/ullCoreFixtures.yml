@@ -516,3 +516,17 @@ UllUserStatus:
     is_active:  false
     is_absent:  true
     namespace:  test
+
+UllPaymentType:
+  ull_payment_type_cash:
+   Translation:
+    en:
+      name:     Cash
+    de:
+      name:     Bar     
+  ull_payment_type_bank_transfer:
+   Translation:
+    en:
+      name:     Bank transfer
+    de:
+      name:     Überweisung           
