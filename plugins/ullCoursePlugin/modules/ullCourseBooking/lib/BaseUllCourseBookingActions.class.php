@@ -128,17 +128,29 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     // Send booking confirmation email for a new booking which is not paid yet
     if (array_key_exists('created_at', $oldLastModified) && 
       null === $oldLastModified['created_at'] && 
-      false === $booking->is_paid)
+      false === $booking->is_paid &&
+      $booking->UllUser->email)
     {
       $booking->sendConfirmationMail();
+      
+      $this->getUser()->setFlash('message',
+        __('An email containing the payment information has been sent', null, 'ullCourseMessages') 
+      );
     }
     
     $lastModified = $booking->getLastModified();
     
-    // Send payment received email 
-    if (isset($lastModified['is_paid']) && true === $lastModified['is_paid'])
+    // Send payment received email if its no supernumerary booking
+    if (isset($lastModified['is_paid']) && 
+      true === $lastModified['is_paid'] &&
+      false === $booking->is_supernumerary_paid &&
+      $booking->UllUser->email)
     {
       $booking->sendPaymentReceivedMail();
+      
+      $this->getUser()->setFlash('message',
+        __('An email confirming the received payment has been sent', null, 'ullCourseMessages') 
+      );      
     }
     
     // save only

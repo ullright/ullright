@@ -421,6 +421,31 @@
         <target>Wir freuen uns darauf Sie am %date% um %time% begrüßen zu dürfen</target>
       </trans-unit>     
       
+      <trans-unit id="86">
+        <source>An email containing the payment information has been sent</source>
+        <target>Ein E-Mail mit den Zahlungsinformationen wurde gesendet</target>
+      </trans-unit>     
+      
+      <trans-unit id="87">
+        <source>An email confirming the received payment has been sent</source>
+        <target>Ein E-Mail mit der Bestätigung des Zahlungseinganges wurde gesendet</target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
       <trans-unit id="">
         <source></source>
         <target></target>
