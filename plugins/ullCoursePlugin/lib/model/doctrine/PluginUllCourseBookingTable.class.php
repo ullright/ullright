@@ -150,8 +150,13 @@ class PluginUllCourseBookingTable extends UllRecordTable
     $column = $params['column'];
     $booking = $params['object'];
     
+    if (!$booking instanceof UllCourseBooking && 'is_paid' != $column)
+    {
+      return;
+    }
+    
     // Send payment received email if its no supernumerary booking
-    if ('is_paid' == $column && $booking->shouldWeSendPaymentReceivedMail())
+    if ($booking->shouldWeSendPaymentReceivedMail())
     {
       $booking->sendPaymentReceivedMail();
     }    
