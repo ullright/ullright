@@ -113,67 +113,73 @@ class AddUllCourseData extends Doctrine_Migration_Base
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_list';
     $permission->save();
-    $ull_course_list = $permission;
+    $ull_permission_ull_course_list = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_edit';
     $permission->save();
-    $ull_course_edit = $permission;
+    $ull_permission_ull_course_edit = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_delete';
     $permission->save();
-    $ull_course_delete = $permission;
+    $ull_permission_ull_course_delete = $permission;
     
+    $permission = new UllPermission;
+    $permission['namespace'] = 'ull_course';
+    $permission['slug'] = 'ull_course_offering';
+    $permission->save();
+    $ull_permission_ull_course_offering = $permission;
+        
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_show';
     $permission->save();
-    $ull_course_show = $permission;
+    $ull_permission_ull_course_show = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_select_tariff';
     $permission->save();
-    $ull_course_select_tariff = $permission;
+    $ull_permission_ull_course_select_tariff = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_confirmation';
     $permission->save();
-    $ull_course_confirmation = $permission;
+    $ull_permission_ull_course_confirmation = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_info';
     $permission->save();
-    $ull_course_info = $permission;
+    $ull_permission_ull_course_info = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_booked';
     $permission->save();
-    $ull_course_booked = $permission;
+    $ull_permission_ull_course_booked = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_trainers';
     $permission->save();
-    $ull_course_trainers = $permission;
+    $ull_permission_ull_course_trainers = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_cancel';
     $permission->save();
-    $ull_course_cancel = $permission;
+    $ull_permission_ull_course_cancel = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_mail';
     $permission->save();
-    $ull_course_mail = $permission;
+    $ull_permission_ull_course_mail = $permission;
     
     //ullCourseBooking
     
@@ -181,19 +187,19 @@ class AddUllCourseData extends Doctrine_Migration_Base
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_booking_list';
     $permission->save();
-    $ull_course_booking_list = $permission;
+    $ull_permission_ull_course_booking_list = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_booking_edit';
     $permission->save();
-    $ull_course_booking_edit = $permission;
+    $ull_permission_ull_course_booking_edit = $permission;
     
     $permission = new UllPermission;
     $permission['namespace'] = 'ull_course';
     $permission['slug'] = 'ull_course_booking_show';
     $permission->save();
-    $ull_course_booking_show = $permission;
+    $ull_permission_ull_course_booking_show = $permission;
     
 
     /*
@@ -318,6 +324,19 @@ class AddUllCourseData extends Doctrine_Migration_Base
     $group_permission['UllPermission'] = $ull_permission_ull_course_booking_edit;
     $group_permission->save();
     
+    
+    // ull payment type
+    $type = new UllPaymentType;
+    $type['namespace'] = 'ull_core';
+    $type['Translation']['en']['name'] = 'Cash';
+    $type['Translation']['de']['name'] = 'Bar';
+    $type->save();
+    
+    $type = new UllPaymentType;
+    $type['namespace'] = 'ull_core';
+    $type['Translation']['en']['name'] = 'Bank transfer';
+    $type['Translation']['de']['name'] = 'Überweisung';
+    $type->save();    
         
   }
   
