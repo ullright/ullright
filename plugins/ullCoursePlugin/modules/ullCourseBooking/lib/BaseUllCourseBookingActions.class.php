@@ -56,15 +56,12 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     
     return parent::executeList($request);
   }
-  
-  
-  public function executeEdit(sfRequest $request) 
-  {
-    $this->checkPermission('ull_course_booking_edit');
-    
-    return parent::executeEdit($request);
-  }
-  
+
+  /**
+   * modifyGeneratorBeforeBuildForm
+   * 
+   * @param unknown_type $row
+   */
   protected function modifyGeneratorBeforeBuildForm($row)
   {
     if ('list' == $this->getActionName())
@@ -91,7 +88,16 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
       ;      
       
     }
+  }  
+  
+  public function executeEdit(sfRequest $request) 
+  {
+    $this->checkPermission('ull_course_booking_edit');
+    
+    return parent::executeEdit($request);
   }
+  
+
   
   protected function modifyGeneratorAfterBuildForm($row)
   {
@@ -115,14 +121,40 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
    */
   protected function executePostSave(Doctrine_Record $row, sfRequest $request)
   {
-    $return = parent::executePostSave($row, $request);
+    $booking = $this->generator->getRow();
     
-    $booking->sendConfirmationMail();
+    $oldLastModified = $booking->getLastModified(true);
     
-    // TODO: condition when to send payment
-    $booking->sendPaymentReceivedMail();
+    // Send booking confirmation email for a new booking which is not paid yet
+    if (array_key_exists('created_at', $oldLastModified) && 
+      null === $oldLastModified['created_at'] && 
+      false === $booking->is_paid)
+    {
+      $booking->sendConfirmationMail();
+    }
     
-    return $return;
+    $lastModified = $booking->getLastModified();
+    
+    // Send payment received email 
+    if (isset($lastModified['is_paid']) && true === $lastModified['is_paid'])
+    {
+      $booking->sendPaymentReceivedMail();
+    }
+    
+    // save only
+    if ($request->getParameter('action_slug') == 'save_only') 
+    {
+      $this->redirect(ullCoreTools::appendParamsToUri(
+        $this->edit_base_uri, 
+        'id=' . $this->generator->getForm()->getObject()->id
+      ));
+    }
+    elseif ($request->getParameter('action_slug') == 'save_new') 
+    {
+      $this->redirect($this->create_base_uri);
+    }
+            
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));       
   }  
 
   public function executeShow(sfRequest $request) 

@@ -1,7 +1,7 @@
 <?php /* The first line is the subject */ echo __('Payment received', null, 'ullCourseMessages') ?> 
 <?php include_partial('ullCourse/mailGreeting') ?> 
     
-<?php echo __('thank your for your payment of %price% for course "%course"', array(
+<?php echo __('thank you for your payment of %price% for course "%course%"', array(
   '%course%' => $booking->UllCourse->name,
   '%price%' => format_currency($booking->price_negotiated, 'EUR'),
 ), 'ullCourseMessages') ?>.    
