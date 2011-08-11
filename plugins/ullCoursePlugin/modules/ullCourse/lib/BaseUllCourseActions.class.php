@@ -275,6 +275,11 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
 //    
 //  }
   
+  /**
+   * Booking landing page ("Thank you, we sent you an email with payment info")
+   * 
+   * @param sfRequest $request
+   */
   public function executeBooked(sfRequest $request)
   {
     $this->checkPermission('ull_course_booked');
@@ -341,6 +346,11 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->setVar('course', $course, true);
   }
   
+  /**
+   * Send a generic mail to all course recipients
+   * 
+   * @param sfRequest $request
+   */
   public function executeMail(sfRequest $request)
   {
     $this->checkPermission('ull_course_mail');

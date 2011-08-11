@@ -189,6 +189,10 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     $this->setVar('doc', $doc, true);
   }  
   
+  /**
+   * Called via ajax to get a list of UllCourseTariff ids for the given course
+   * @param sfRequest $request
+   */
   public function executeFindTariffsForCourse(sfRequest $request)
   {
     $this->checkPermission('ull_course_booking_edit');

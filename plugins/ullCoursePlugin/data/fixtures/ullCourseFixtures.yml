@@ -1,5 +1,6 @@
 UllCourse:
   course_1:
+    namespace:              test
     Trainer:                test_user
     begin_date:             <?php echo "'" . date('Y-m-d', strtotime('+1 week ')) . "'\n" ?>
     end_date:               <?php echo "'" . date('Y-m-d', strtotime('+2 month')) . "'\n" ?>
@@ -19,6 +20,7 @@ UllCourse:
         description:        "<b>Lerne es richtig!</b><br />Unsere Trainer werden dir die Wadln viere richtn."
         
   course_2:
+    namespace:              test
     Trainer:                admin_user
     begin_date:             <?php echo "'" . date('Y-m-d', strtotime('tomorrow')) . "'\n" ?>
     end_date:               <?php echo "'" . date('Y-m-d', strtotime('tomorrow')) . "'\n" ?>
@@ -38,50 +40,58 @@ UllCourse:
     
 UllCourseStatus:
   ull_course_status_planned:
-   Translation:
-    en:
-      name:               Planned
-    de:
-      name:               Geplant
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Planned
+      de:
+        name:               Geplant
   ull_course_status_announced:
-   Translation:
-    en:
-      name:               Announced
-    de:
-      name:               Angekündigt
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Announced
+      de:
+        name:               Angekündigt
   ull_course_status_active:
-   Translation:
-    en:
-      name:               Active
-    de:
-      name:               Aktiv
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Active
+      de:
+        name:               Aktiv
   ull_course_status_finished:
-   Translation:
-    en:
-      name:               Finished
-    de:
-      name:               Beendet
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Finished
+      de:
+        name:               Beendet
   ull_course_status_insufficient_participants:
-   Translation:
-    en:
-      name:               Insufficient participants
-    de:
-      name:               Zu wenig Teilnehmer
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Insufficient participants
+      de:
+        name:               Zu wenig Teilnehmer
   ull_course_status_overbooked:
-   Translation:
-    en:
-      name:               Overbooked
-    de:
-      name:               Überbucht
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Overbooked
+      de:
+        name:               Überbucht
   ull_course_status_canceled:
-   Translation:
-    en:
-      name:               Canceled
-    de:
-      name:               Abgesagt
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Canceled
+      de:
+        name:               Abgesagt
     
 UllCourseTariff:
   tariff_1:
+    namespace:              test
     price:                  239.90
     Translation:
       en:
@@ -89,6 +99,7 @@ UllCourseTariff:
       de:
         name:               Normalpreis
   tariff_2:
+    namespace:              test
     price:                  159.90
     Translation:
       en:
@@ -96,6 +107,7 @@ UllCourseTariff:
       de:
         name:               Vergünstigter Preis
   tariff_3:
+    namespace:              test
     price:                  29.90
     Translation:
       en:
@@ -103,6 +115,7 @@ UllCourseTariff:
       de:
         name:               Normalpreis
   tariff_4:
+    namespace:              test
     price:                  19.90
     Translation:
       en:
@@ -112,21 +125,26 @@ UllCourseTariff:
                 
 UllCourseTariffCourse:
   tariff_course_1:
+    namespace:              test
     UllCourse:              course_1
     UllCourseTariff:        tariff_1                
   tariff_course_2:          
+    namespace:              test
     UllCourse:              course_1
     UllCourseTariff:        tariff_2
   tariff_course_3:
+    namespace:              test
     UllCourse:              course_2
     UllCourseTariff:        tariff_3
   tariff_course_4:
+    namespace:              test
     UllCourse:              course_2
     UllCourseTariff:        tariff_4   
 
 # Booking 
 UllCourseBooking:
   booking_1:
+    namespace:              test
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_1
@@ -134,6 +152,7 @@ UllCourseBooking:
     are_terms_of_use_accepted: true
     is_paid:                true    
   booking_2:
+    namespace:              test
     UllCourse:              course_1
     UllUser:                test_user
     UllCourseTariff:        tariff_2
@@ -142,6 +161,7 @@ UllCourseBooking:
     is_paid:                true
     comment:                For my daughter Lina 
   booking_3:
+    namespace:              test
     UllCourse:              course_1
     UllUser:                admin_user
     UllCourseTariff:        tariff_2
@@ -149,6 +169,7 @@ UllCourseBooking:
     price_paid:             149.90
     are_terms_of_use_accepted: true
   booking_4:
+    namespace:              test
     UllCourse:              course_2
     UllUser:                test_user
     UllCourseTariff:        tariff_4
@@ -156,119 +177,193 @@ UllCourseBooking:
     
 UllCourseBookingStatus:
   ull_course_booking_status_booked:
-   Translation:
-    en:
-      name:               Booked
-    de:
-      name:               Gebucht    
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Booked
+      de:
+        name:               Gebucht    
   ull_course_booking_status_paid:
-   Translation:
-    en:
-      name:               Paid
-    de:
-      name:               Bezahlt
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Paid
+      de:
+        name:               Bezahlt
   ull_course_booking_status_underpaid:
-   Translation:
-    en:
-      name:               Underpaid
-    de:
-      name:               Zuwenig überwiesen
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Underpaid
+      de:
+        name:               Zuwenig überwiesen
   ull_course_booking_status_overpaid:
-   Translation:
-    en:
-      name:               Overpaid
-    de:
-      name:               Zuviel überwiesen     
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Overpaid
+      de:
+        name:               Zuviel überwiesen     
   ull_course_booking_status_supernumerary_booked:
-   slug:                  supernumerary-booked
-   Translation:
-    en:
-      name:               Supernumerary booking
-    de:
-      name:               Überzählige Buchung
+    namespace:              ull_course
+    slug:                  supernumerary-booked
+    Translation:
+      en:
+        name:               Supernumerary booking
+      de:
+        name:               Überzählige Buchung
   ull_course_booking_status_supernumerary_paid:
-   slug:                  supernumerary-paid
-   Translation:
-    en:
-      name:               Supernumerary participant
-    de:
-      name:               Überzähliger Teilnehmer
+    namespace:              ull_course
+    slug:                  supernumerary-paid
+    Translation:
+      en:
+        name:               Supernumerary participant
+      de:
+        name:               Überzähliger Teilnehmer
   ull_course_booking_status_supernumerary_deleted:
-   Translation:
-    en:
-      name:               Deleted
-    de:
-      name:               Gelöscht                            
+    namespace:              ull_course
+    Translation:
+      en:
+        name:               Deleted
+      de:
+        name:               Gelöscht                            
+
+################
+# Access rights
     
 UllPermission:
+  # UllCourse
   ull_permission_ull_course_list:
+    namespace:              ull_course
     slug:                   ull_course_list
-    namespace:          ullCourse         
   ull_permission_ull_course_edit:
+    namespace:              ull_course
     slug:                   ull_course_edit
-    namespace:          ullCourse
   ull_permission_ull_course_delete:
+    namespace:              ull_course
     slug:                   ull_course_delete
-    namespace:          ullCourse
   ull_permission_ull_course_offering:
+    namespace:              ull_course
     slug:                   ull_course_offering
-    namespace:          ullCourse
   ull_permission_ull_course_show:
+    namespace:              ull_course
     slug:                   ull_course_show
-    namespace:          ullCourse
   ull_permission_ull_course_select_tariff:
+    namespace:              ull_course
     slug:                   ull_course_select_tariff
-    namespace:          ullCourse
   ull_permission_ull_course_confirmation:
+    namespace:              ull_course
     slug:                   ull_course_confirmation
-    namespace:          ullCourse          
+  ull_permission_ull_course_info:
+    namespace:              ull_course
+    slug:                   ull_course_info
+  ull_permission_ull_course_booked:
+    namespace:              ull_course
+    slug:                   ull_course_booked
+  ull_permission_ull_course_trainers:
+    namespace:              ull_course
+    slug:                   ull_course_trainers
+  ull_permission_ull_course_cancel:
+    namespace:              ull_course
+    slug:                   ull_course_cancel
+  ull_permission_ull_course_mail:
+    namespace:              ull_course
+    slug:                   ull_course_mail
+    
+  # UllCourseBooking
+  
+  ull_permission_ull_course_booking_list:
+    namespace:              ull_course
+    slug:                   ull_course_booking_list
+  ull_permission_ull_course_booking_edit:
+    namespace:              ull_course
+    slug:                   ull_course_booking_edit
+  ull_permission_ull_course_booking_show:
+    namespace:              ull_course
+    slug:                   ull_course_booking_show    
+    
     
 UllGroup:
   ull_group_ull_course_admins:
-    display_name:       CourseAdmins    
-    namespace:          ullCourse
+    namespace:              ull_course
+    display_name:           CourseAdmins    
   ull_group_ull_course_trainers:
-    display_name:       Trainers 
-    namespace:          ullCourse
+    namespace:              ull_course
+    display_name:           Trainers 
 
 # Test user becomes a ullCourse trainer    
 UllEntityGroup:
   ull_entity_group_ull_course_1:
-    UllUser:            test_user
-    UllGroup:           ull_group_ull_course_trainers
+    namespace:              test
+    UllUser:                test_user
+    UllGroup:               ull_group_ull_course_trainers
     
 UllGroupPermission: 
   # Public stuff
   ull_group_permission_ull_course_1:
-    UllGroup:           ull_group_everyone
-    UllPermission:      ull_permission_ull_course_offering
-    namespace:          ullCourse
+    namespace:              ull_course
+    UllGroup:               ull_group_everyone
+    UllPermission:          ull_permission_ull_course_offering
   ull_group_permission_ull_course_2:
-    UllGroup:           ull_group_everyone
-    UllPermission:      ull_permission_ull_course_show
-    namespace:          ullCourse
+    namespace:              ull_course
+    UllGroup:               ull_group_everyone
+    UllPermission:          ull_permission_ull_course_show
     
   # Logged in stuff
   ull_group_permission_ull_course_21:
-    UllGroup:           ull_group_logged_in_users
-    UllPermission:      ull_permission_ull_course_select_tariff
-    namespace:          ullCourse
-    
+    namespace:              ull_course
+    UllGroup:               ull_group_logged_in_users
+    UllPermission:          ull_permission_ull_course_select_tariff
   ull_group_permission_ull_course_22:
-    UllGroup:           ull_group_logged_in_users
-    UllPermission:      ull_permission_ull_course_confirmation
-    namespace:          ullCourse        
+    namespace:              ull_course
+    UllGroup:               ull_group_logged_in_users
+    UllPermission:          ull_permission_ull_course_confirmation
+  ull_group_permission_ull_course_23:
+    namespace:              ull_course
+    UllGroup:               ull_group_logged_in_users
+    UllPermission:          ull_permission_ull_course_booked
+    
   
   # ullCourse admin stuff
   ull_group_permission_ull_course_3:
-    UllGroup:           ull_group_ull_course_admins
-    UllPermission:      ull_permission_ull_course_list
-    namespace:          ullCourse       
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_list
   ull_group_permission_ull_course_4:
-    UllGroup:           ull_group_ull_course_admins
-    UllPermission:      ull_permission_ull_course_edit
-    namespace:          ullCourse                      
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_edit
   ull_group_permission_ull_course_5:
-    UllGroup:           ull_group_ull_course_admins
-    UllPermission:      ull_permission_ull_course_delete
-    namespace:          ullCourse            
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_delete
+  ull_group_permission_ull_course_6:
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_info
+  ull_group_permission_ull_course_7:
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_delete
+  ull_group_permission_ull_course_8:
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_trainers
+  ull_group_permission_ull_course_9:
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_cancel
+  ull_group_permission_ull_course_10:
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_mail
+    
+  # ullCourseBooking admin stuff
+  ull_group_permission_ull_course_20:
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_booking_list      
+  ull_group_permission_ull_course_21:
+    namespace:              ull_course
+    UllGroup:               ull_group_ull_course_admins
+    UllPermission:          ull_permission_ull_course_booking_edit
