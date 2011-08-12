@@ -476,6 +476,51 @@
         <target>Beginndatum übernehmen</target>
       </trans-unit>     
       
+      <trans-unit id="97">
+        <source>Minimum</source>
+        <target>Minimum</target>
+      </trans-unit>     
+      
+      <trans-unit id="98">
+        <source>Paid</source>
+        <target>Bezahlt</target>
+      </trans-unit>     
+      
+      <trans-unit id="99">
+        <source>Applied</source>
+        <target>Anmeld.</target>
+      </trans-unit>
+      
+      <trans-unit id="99">
+        <source>Applied</source>
+        <target>Anmeld.</target>
+      </trans-unit>              
+      
+      <trans-unit id="100">
+        <source>Begin</source>
+        <target>Beginn</target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
       <trans-unit id="">
         <source></source>
         <target></target>

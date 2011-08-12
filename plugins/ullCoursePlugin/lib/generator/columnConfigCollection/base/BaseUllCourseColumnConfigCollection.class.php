@@ -203,6 +203,24 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       $this['name']
         ->setMetaWidgetClassName('ullMetaWidgetLink')
       ;
+      
+      $this['begin_date']
+        ->setLabel(__('Begin', null, 'ullCourseMessages'))
+      ;      
+      
+      $this['min_number_of_participants']
+        ->setLabel(__('Minimum', null, 'ullCourseMessages'))
+      ;
+      
+      $this['proxy_number_of_participants_applied']
+        ->setLabel(__('Applied', null, 'ullCourseMessages'))
+      ;
+      
+      $this['proxy_number_of_participants_paid']
+        ->setLabel(__('Paid', null, 'ullCourseMessages'))
+      ;
+      
+      
     }
   }
  
