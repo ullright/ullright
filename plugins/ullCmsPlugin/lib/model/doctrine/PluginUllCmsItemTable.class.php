@@ -53,7 +53,7 @@ class PluginUllCmsItemTable extends UllRecordTable
    * @param unknown_type $parentSlug
    * @param unknown_type $currentSlug
    * @param unknown_type $depth
-   * @return unknown_type
+   * @return ullTreeNode
    */
   public static function getSubMenuFor($parentSlug, $currentSlug, $depth = 999999999)
   {
