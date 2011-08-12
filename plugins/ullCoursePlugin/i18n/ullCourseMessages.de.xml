@@ -441,6 +441,36 @@
         <target>Buchung erstellen</target>
       </trans-unit>     
       
+      <trans-unit id="90">
+        <source>Manage trainers</source>
+        <target>Verwalte Kursleiter</target>
+      </trans-unit>     
+      
+      <trans-unit id="91">
+        <source>Manage tariffs</source>
+        <target>Verwalte Tarife</target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
       <trans-unit id="">
         <source></source>
         <target></target>

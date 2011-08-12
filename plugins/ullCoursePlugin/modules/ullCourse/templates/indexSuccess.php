@@ -30,10 +30,17 @@
         <li>
           <?php echo ull_tc_task_link(
             '/ullCoreThemeNGPlugin/images/action_icons/create_24x24', 
-            'ullCourseBooking/create', 
-            __('Manage Trainers', null, 'ullCourseMessages')) ?>
+            'ullTableTool/list?table=UllEntityGroup&filter[ull_group_id]=' .
+              UllGroupTable::findIdByDisplayName('Trainers'), 
+            __('Manage trainers', null, 'ullCourseMessages')) ?>
         </li> 
-      </ul>
+        <li>
+          <?php echo ull_tc_task_link(
+            '/ullCoreThemeNGPlugin/images/action_icons/create_24x24', 
+            'ullTableTool/list?table=UllCourseTariff',
+            __('Manage tariffs', null, 'ullCourseMessages')) ?>
+        </li> 
+      </ul>      
 
     </div>    
     
