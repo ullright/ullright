@@ -12,8 +12,13 @@ class UllEntityGroupColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('User', null, 'common'))
       ->setOption('show_search_box', true)
       ->setOption('entity_classes', array('UllUser'))
+      ->setOption('enable_inline_editing', true)
+      ->setWidgetOption('add_empty', true)
     ;
       
-    $this['ull_group_id']->setOption('show_search_box', true);
+    $this['ull_group_id']
+      ->setOption('show_search_box', true)
+      ->setWidgetOption('add_empty', true)
+    ;
   }
 }

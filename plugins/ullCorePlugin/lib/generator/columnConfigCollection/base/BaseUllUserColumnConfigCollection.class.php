@@ -266,6 +266,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'phone_number',
         'fax_number',
         'website',
+        'duplicate_tags_for_search'
       ));
       
       $this['photo']->setAutoRender(false);

@@ -15,9 +15,28 @@ class BaseUllEntityTableConfiguration extends ullTableConfiguration
   {
     $this
       ->setName(__('Users', null, 'ullCoreMessages'))
-      ->setSearchColumns(array('id', 'display_name', 'username', 'email', 'UllLocation->name', 'UllDepartment->name', 'duplicate_tags_for_search'))
+      ->setSearchColumns(array(
+        'id', 
+        'display_name', 
+        'username', 
+        'email', 
+        'UllLocation->name', 
+        'UllDepartment->name', 
+        'duplicate_tags_for_search'
+      ))
       ->setOrderBy('last_name, first_name')
-      ->setListColumns(array('id', 'first_name', 'last_name', 'username', 'email', 'UllLocation->name', 'UllDepartment->name'))
+      ->setListColumns(array(
+        'id', 
+        'first_name', 
+        'last_name', 
+        'username', 
+        'email', 
+        'UllLocation->name', 
+        'UllDepartment->name'
+      ))
+//      ->setFilterColumns(array(
+//        'UllGroup->display_name' => ''
+//      ))
       ->setForeignRelationName(__('User', null, 'ullCoreMessages'))
       ->setToStringColumn('display_name');
     ;

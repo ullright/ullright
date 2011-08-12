@@ -14,8 +14,28 @@ class UllEntityGroupTableConfiguration extends ullTableConfiguration
   protected function applyCustomSettings()
   {
     $this->setName(__('Group memberships', null, 'ullCoreMessages'));
-    $this->setSearchColumns(array('UllGroup->display_name', 'UllEntity->display_name'));
-    $this->setOrderBy('ull_group_id');
+    $this->setListColumns(array(
+      'UllUser->display_name',
+      'UllGroup->display_name',
+    ));    
+    $this->setSearchColumns(array(
+      'UllGroup->display_name', 
+      'UllEntity->display_name',
+    ));
+    $this->setOrderBy('UllGroup->display_name, UllUser->display_name');
+//    $this->setOrderBy('ull_group_id');
+    
+
+//    $this->setSearchColumns(array(
+//      'display_name', 
+//      'email'
+//    ));
+    $this->setFilterColumns(array(
+      'ull_group_id' => '_all_', 
+//      'ull_entity_id' => '_all_',
+    ));
+    
+    
   }
   
 }
