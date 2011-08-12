@@ -1,5 +1,6 @@
   <!-- header -->
   
+  <colgroup>
   <?php
     $renderIconHeader = !(isset($add_icon_th) && $add_icon_th == false) ? true : false;
     //$columnCount = count($generator->getAutoRenderedLabels());
@@ -13,6 +14,7 @@
       echo '<col class="col_' . $field_name . '_header" />';
     }
   ?>
+  </colgroup>
   
   <thead>
   <tr>  
@@ -30,7 +32,7 @@
       
       foreach ($generator->getAutoRenderedLabelsWithDefaultOrder() as $field_name => $field): ?>
       
-      <th class="color_dark_bg">
+      <th class="color_dark_bg <?php echo 'th_' . $field_name?>">
       <?php
         if (isset($unsortable_columns[$field_name]))
         {
