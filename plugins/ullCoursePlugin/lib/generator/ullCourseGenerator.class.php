@@ -23,13 +23,12 @@ class ullCourseGenerator extends ullTableToolGenerator
         ->setListColumns(array(
           'name', 
           'trainer_ull_user_id',
+//          'duplicate_tags_for_search',
           'begin_date',
-          'end_date' 
+//          'end_date' 
         ))      
         ->setFilterColumns(array())
       ;      
-      
-      
     }
   }
 }

@@ -89,6 +89,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   /**
    * Public offering of courses
    * 
+   * @see: ullCourseGenerator::customizeTableConfig() for configuration
+   * 
    * @param sfRequest $request
    */
   public function executeOffering(sfRequest $request) 
@@ -98,6 +100,10 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     return  parent::executeList($request);    
   }
   
+  /**
+   * Tariff selection
+   * @param sfRequest $request
+   */
   public function executeSelectTariff(sfRequest $request)
   {
     $this->checkPermission('ull_course_select_tariff');   

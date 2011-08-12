@@ -16,4 +16,21 @@ class PluginUllCourseTable extends UllRecordTable
     {
         return Doctrine_Core::getTable('PluginUllCourse');
     }
+    
+    /**
+     * Get the number of courses with the given tags (string)
+     * 
+     * @param string $tags    tags separated by blanks " "
+     * @return number
+     */
+    public static function countWithTags($tags)
+    {
+      $q = new ullQuery('UllCourse');
+      $q
+        ->addSearch($tags, array('duplicate_tags_for_search'))
+        ->addWhere('is_active = ?', true)
+      ;
+      
+      return $q->count();
+    }
 }

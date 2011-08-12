@@ -1,14 +1,9 @@
-<h1><?php echo $generator->getTableConfig()->getName() ?></h1>
+<div class="cms_content">
+
+<h1 class="ull_cms_content_heading"><?php echo $generator->getTableConfig()->getName() ?></h1>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
-
-<p>
-<?php echo ull_link_to(
-          __('All courses', null, 'ullCourseMessages'), 
-          array('filter[search]' => '')
-        )?>
-</p>
 
 <?php include_partial('ullCourse/offeringQuickFilter') ?>
 
@@ -76,7 +71,10 @@
   
 <?php endif ?>
 
-<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?> 
+<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?>
+
+</div> 
+<!-- end of "cms_content" -->
 
 <?php use_javascripts_for_form($filter_form) ?>
 <?php use_stylesheets_for_form($filter_form) ?>
