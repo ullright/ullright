@@ -34,7 +34,18 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
    */
   public function executeIndex(sfRequest $request)
   {    
-    $this->redirect('ullCourse/list');
+    $this->checkPermission('ull_course_index');
+    
+    $this->form = new ullFilterForm;
+
+    $this->named_queries = new ullNamedQueriesUllNewsletter;
+
+    $q = new Doctrine_Query();
+    $q
+      ->from('UllNewsletterMailingList')
+      ->orderBy('name')
+    ;
+    $this->mailing_lists = $q->execute();    
   }  
   
   /**
