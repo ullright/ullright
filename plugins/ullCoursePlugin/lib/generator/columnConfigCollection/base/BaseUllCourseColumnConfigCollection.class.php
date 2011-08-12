@@ -202,6 +202,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     {
       $this['name']
         ->setMetaWidgetClassName('ullMetaWidgetLink')
+        ->setLabel(__('Course', null, 'ullCourseMessages'))
       ;
       
       $this['begin_date']

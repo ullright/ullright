@@ -1,4 +1,4 @@
-<div id="ull_course_trainers">
+<div class="cms_content">
 
   <h1><?php echo __('Trainers', null, 'ullCourseMessages') ?></h1>
   
