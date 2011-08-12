@@ -23,6 +23,8 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
 //      ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')      
 //      ->setWidgetOption('width', 650)
 //      ->setWidgetOption('height', 250)
+      ->setWidgetAttribute('cols', 80)
+      ->setWidgetAttribute('rows', 10)
       ->setIsRequired(true)
     ;    
     

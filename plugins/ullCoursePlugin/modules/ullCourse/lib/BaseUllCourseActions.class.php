@@ -72,13 +72,9 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_edit');
     
-    $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseSaveAndShow($this));
-    $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseMail($this));
-    $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseCancel($this));
+    $return = parent::executeEdit($request);
     
-    $this->setTableToolTemplate('edit');
     
-    return parent::executeEdit($request);
   }
 
   public function executeShow(sfRequest $request) 
@@ -482,6 +478,17 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
         ->setMetaWidgetClassName('ullMetaWidgetCourseStatus')
       ;
       
+    }
+    
+    if (in_array($this->getActionName(), array('create', 'edit')))
+    {
+      $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseSaveAndShow($this));
+      
+      if ($object->exists())
+      {
+      $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseMail($this));
+      $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseCancel($this));
+      }
     }
         
   } 
