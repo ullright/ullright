@@ -30,11 +30,11 @@
 </form>
 */ ?>
 
-<?php include_partial('ullTableTool/ullPagerTop', array(
+<?php /* include_partial('ullTableTool/ullPagerTop', array(
   'pager'         => $pager, 
   'paging'        => $paging,
   'enable_export'  => false,
-)); ?>
+)) */?>
 
 <?php if ($generator->getRow()->exists()): ?>
   <table class='list_table'>
@@ -71,7 +71,7 @@
   
 <?php endif ?>
 
-<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)); ?>
+<?php include_partial('ullTableTool/ullPagerBottom', array('pager' => $pager)) ?>
 
 </div> 
 <!-- end of "cms_content" -->
