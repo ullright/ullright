@@ -84,10 +84,12 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     
     $this['min_number_of_participants']
       ->setLabel(__('Min. participants', null, 'ullCourseMessages'))
+      ->setIsRequired(true)
     ;
     
     $this['max_number_of_participants']
       ->setLabel(__('Max. participants', null, 'ullCourseMessages'))
+      ->setIsRequired(true)
     ;
     
     $this['proxy_number_of_participants_applied']
