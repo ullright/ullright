@@ -451,24 +451,24 @@
         <target>Verwalte Tarife</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="92">
+        <source>Search courses</source>
+        <target>Kurs-Suche</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="93">
+        <source>Search bookings</source>
+        <target>Buchungs-Suche</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="94">
+        <source>All courses</source>
+        <target>Alle Kurse</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="95">
+        <source>All bookings</source>
+        <target>Alle Buchungen</target>
       </trans-unit>     
       
       <trans-unit id="">
