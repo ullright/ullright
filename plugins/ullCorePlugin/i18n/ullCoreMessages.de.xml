@@ -810,7 +810,14 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       <trans-unit id="3701">
         <source>Manage entries</source>
         <target>Einträge verwalten</target>
-      </trans-unit>            
+      </trans-unit>      
+      
+      <!-- ullWidgetFCKEditor -->
+      <trans-unit id="3801">
+        <source>[SHIFT %arrow%] - [ENTER] creates a single line break</source>
+        <target>[SHIFT %arrow%] - [ENTER] erzeugt einen einfachen Zeilenumbruch</target>
+      </trans-unit>         
+            
       
       
     </body>

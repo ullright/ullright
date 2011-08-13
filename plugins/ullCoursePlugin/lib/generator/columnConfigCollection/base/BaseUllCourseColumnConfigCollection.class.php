@@ -19,12 +19,13 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     ;    
     
     $this['description']
-//      ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
-//      ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')      
-//      ->setWidgetOption('width', 650)
-//      ->setWidgetOption('height', 250)
-      ->setWidgetAttribute('cols', 80)
-      ->setWidgetAttribute('rows', 10)
+      ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
+      ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')      
+      ->setWidgetOption('width', 650)
+      ->setWidgetOption('height', 350)
+      ->setHelp(__('[SHIFT %arrow%] - [ENTER] creates a single line break', array('%arrow%' => '&#8657;'), 'ullCoreMessages'))
+//      ->setWidgetAttribute('cols', 80)
+//      ->setWidgetAttribute('rows', 10)
       ->setIsRequired(true)
     ;    
     
