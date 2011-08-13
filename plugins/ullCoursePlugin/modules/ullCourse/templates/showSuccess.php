@@ -15,7 +15,7 @@
       'onclick' => 'this.href="#";popup("' . url_for($popupLink) . '", "Popup", "width=600, height=350,scrollbars=auto,resizable=yes");return false;'
     ) ?>
     <?php echo link_to(
-      $doc['Trainer']['display_name'],
+      $doc['Trainer']['first_name'] . ' ' . $doc['Trainer']['last_name'],
       $popupLink,
       $popupOptions
      ) ?>

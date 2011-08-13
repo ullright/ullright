@@ -501,9 +501,9 @@
         <target>Beginn</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="101">
+        <source>Tarif selection</source>
+        <target>Tarifauswahl</target>
       </trans-unit>     
       
       <trans-unit id="">

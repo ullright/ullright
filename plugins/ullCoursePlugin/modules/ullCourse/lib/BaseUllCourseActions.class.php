@@ -106,9 +106,20 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
    */
   public function executeSelectTariff(sfRequest $request)
   {
-    $this->checkPermission('ull_course_select_tariff');   
-
     $doc = $this->getDocFromRequest();
+    
+    // Skip tariff selection for a single tariff 
+    if (1 == count($doc->UllCourseTariff))
+    {
+      $id = $doc->UllCourseTariff->getFirst()->id;
+      
+      $this->redirect(
+        'ullCourse/confirmation?slug=' . $request->getParameter('slug') .
+        '&ull_course_tariff_id=' . $id
+      );
+    }
+    
+    $this->checkPermission('ull_course_select_tariff');
     
     $this->setVar('doc', $doc, true);
   }
