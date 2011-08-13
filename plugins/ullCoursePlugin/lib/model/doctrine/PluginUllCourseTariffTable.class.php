@@ -17,7 +17,12 @@ class PluginUllCourseTariffTable extends UllRecordTable
         return Doctrine_Core::getTable('PluginUllCourseTariff');
     }
     
-    
+    /**
+     * Find list of tariff ids for the given course
+     * 
+     * @param integer $courseId
+     * @return array
+     */
     public static function findIdsByCourseId($courseId)
     {
       $q = new Doctrine_Query();
@@ -29,8 +34,15 @@ class PluginUllCourseTariffTable extends UllRecordTable
         ->orderBy('t.id')
       ;
       
-      $result = $q->execute(null, Doctrine::HYDRATE_SINGLE_SCALAR);
+      $results = $q->execute(null, Doctrine::HYDRATE_NONE);
       
-      return $result;
+      $return = array();
+      
+      foreach ($results as $result)
+      {
+        $return[] = $result[0];
+      }
+      
+      return $return;
     }
 }
