@@ -1,7 +1,7 @@
 <?php /* The first line is the subject */ echo __('Payment information', null, 'ullCourseMessages') ?> 
 <?php include_partial('ullCourse/mailGreeting') ?> 
     
-<?php echo __('thank you for booking our course', null, 'ullCourseMessages') ?> "<?php echo $booking->UllCourse->name ?>".    
+<?php echo __('thank you for booking our course', null, 'ullCourseMessages') ?> "<?php echo ullCoreTools::esc_decode($booking->UllCourse->name) ?>".    
     
 <?php $price = format_currency($booking->UllCourseTariff->price, 'EUR') ?>    
 <?php echo __('Please transfer %amount% to our bank account', 
