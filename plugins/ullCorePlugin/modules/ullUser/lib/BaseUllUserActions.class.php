@@ -269,7 +269,14 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeSignedUp(sfRequest $request)
   {
-      
+    $this->checkLoggedIn();
+    
+    $this->return_url = '@homepage';
+    
+    if ($this->getUriMemory()->has('login', 'ullUser'))
+    {
+      $this->return_url = $this->getUriMemory()->getAndDelete('login', 'ullUser');
+    }
   } 
   
   
@@ -738,7 +745,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         }
       }
 
-      $this->getUser()->setFlash('message',  __('Login failed. Please try again:'));
+      $this->getUser()->setFlash('message',  __('Login failed. Please try again:'), false);
     }
   }
 

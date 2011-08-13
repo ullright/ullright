@@ -113,7 +113,7 @@
     <?php echo link_to(
       __('Book this course', null, 'ullCourseMessages'),
       'ullCourse/selectTariff?slug=' . $doc['slug'],
-      array('class' => 'ull_course_show_book_link')
+      array('class' => 'ull_course_show_book_link big_button')
       )
        ?>
   </div>  
