@@ -5,6 +5,10 @@ ull_course_offering:
 ull_course_show:
   url:     /course/:slug
   param:    { module: ullCourse, action: show }
+
+ull_course_trainer:
+  url:     /ullCourse/trainer/:id
+  param:    { module: ullCourse, action: trainer }  
   
 ull_course_select_tariff:
   url:     /ullCourse/selectTariff/:slug

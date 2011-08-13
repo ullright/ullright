@@ -415,9 +415,9 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
    */
   public function executeTrainer(sfRequest $request)
   {
-    $username = $request->getParameter('username');
+    $id = $request->getParameter('id');
     
-    $trainer = Doctrine::getTable('UllUser')->findOneByUsername($username);
+    $trainer = Doctrine::getTable('UllUser')->findOneById($id);
     $this->forward404Unless($trainer);
     
     if (!UllUserTable::hasGroup('Trainers', $trainer['id'], false))
