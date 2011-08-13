@@ -145,7 +145,10 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function updatePricePaid()
   {
-    if ($this->is_paid && !$this->price_paid)
+    // The form returns an empty price as string '0.00'
+    $price_paid = floatval($this->price_paid);
+    
+    if ($this->is_paid && empty($price_paid))
     {
       $this->price_paid = $this->UllCourseTariff->price;
     }    

@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(20, new lime_output_color, $configuration);
+$t = new myTestCase(21, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -64,6 +64,12 @@ $t->diag('pre save updatePricePaid()');
   $booking->price_paid = 999.99;
   $booking->save();
   $t->is($booking->price_paid, 999.99, 'Ignores a manual price_paid upon update');  
+  
+  $booking = newBooking();
+  $booking->is_paid = true;
+  $booking->price_paid = '0.00'; // Simulates what the form sets
+  $booking->save();
+  $t->is($booking->price_paid, 239.90, 'Form simulation works');
 
   
 $t->diag('pre save validateTarif()');
