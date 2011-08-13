@@ -14,10 +14,10 @@
       'title' => __('More about %name%', array('%name%' => $doc['Trainer']['display_name']), 'ullCourseMessages'),
       'onclick' => 'this.href="#";popup("' . url_for($popupLink) . '", "Popup", "width=600, height=350,scrollbars=auto,resizable=yes");return false;'
     ) ?>
-    <?php echo link_to(
+    <?php echo ull_link_to(
       $doc['Trainer']['first_name'] . ' ' . $doc['Trainer']['last_name'],
       $popupLink,
-      $popupOptions
+      array_merge($popupOptions, array('link_new_window' => true))
      ) ?>
   </p>
   
