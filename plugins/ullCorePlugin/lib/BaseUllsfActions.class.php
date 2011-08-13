@@ -104,9 +104,12 @@ abstract class BaseUllsfActions extends sfActions
    */
   public function checkLoggedIn()
   {
-    $this->getUriMemory()->setUri('login', 'ullUser');
+    if (!$this->getUser()->getAttribute('user_id'))
+    {
+      $this->getUriMemory()->setUri('login', 'ullUser');
 
-    $this->redirectToNoAccessUnless($this->getUser()->getAttribute('user_id'));
+      $this->redirectToNoAccessUnless($this->getUser()->getAttribute('user_id'));
+    }
   }
 
   /**

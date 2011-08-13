@@ -8,7 +8,7 @@
   array('%amount%' => $price), 'ullCourseMessages') ?>:
   
 <?php echo __(sfConfig::get('app_ull_course_payment_information'), null, 'custom') ?>
-
+<?php $bookingNumber = '12345' . str_pad($booking->id, 7, '0', STR_PAD_LEFT) ?>
 - <?php echo __('Customer data', null, 'ullCourseMessages') ?>: <?php echo  $bookingNumber ?> 
 
 
@@ -16,7 +16,6 @@
 
 - <?php echo __('Your name', null, 'ullCourseMessages') ?>: <?php echo $booking->UllUser->display_name ?> 
 - <?php echo __('Your booking number', null, 'ullCourseMessages') ?>: <?php echo $booking->id ?> 
-<?php $bookingNumber = '12345' . str_pad($booking->id, 7, '0', STR_PAD_LEFT) ?>
   
 <?php echo __('Bookings are orderd by the incoming tranfer date', null, 'ullCourseMessages') ?>.  
 

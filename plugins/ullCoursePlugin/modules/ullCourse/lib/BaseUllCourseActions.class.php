@@ -82,8 +82,14 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_course_show');
     
     $doc = $this->getDocFromRequest();
+
+    $this->getResponse()->setTitle(
+      __('Course', null, 'ullCourseMessages') .
+      ' ' . $doc->name
+    );
     
     $this->setVar('doc', $doc, true);
+    
   }  
   
   /**
@@ -96,6 +102,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   public function executeOffering(sfRequest $request) 
   {
     $this->checkPermission('ull_course_offering');
+    
+    $this->getResponse()->setTitle(__('Courses', null, 'ullCourseMessages'));
     
     return  parent::executeList($request);    
   }
@@ -120,6 +128,10 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     }
     
     $this->checkPermission('ull_course_select_tariff');
+    
+    $this->getResponse()->setTitle(
+      __('Tariff selection', null, 'ullCourseMessages')
+    );    
     
     $this->setVar('doc', $doc, true);
   }
@@ -263,6 +275,10 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
       }
     }
     
+    $this->getResponse()->setTitle(
+      __('Booking confirmation', null, 'ullCourseMessages')
+    );   
+    
     $this->setVar('form', $generator->getForm(), true);
     $this->setVar('generator', $generator, true);
     
@@ -303,6 +319,10 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   public function executeBooked(sfRequest $request)
   {
     $this->checkPermission('ull_course_booked');
+    
+    $this->getResponse()->setTitle(
+      __('Thank you for your booking', null, 'ullCourseMessages')
+    );   
   }
   
   /**
@@ -315,6 +335,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_course_trainers');
     
     $this->trainers = UllUserTable::findByGroup('Trainers');
+    
+    $this->getResponse()->setTitle(__('Trainers', null, 'ullCourseMessages'));
   }
   
   
@@ -437,6 +459,11 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     }
     
     $this->setEmptyLayout();
+    
+    $this->getResponse()->setTitle(
+      ' ' . $trainer['first_name'] .
+      ' ' . $trainer['last_name']
+    );   
     
     $this->trainer = $trainer;
   }  
