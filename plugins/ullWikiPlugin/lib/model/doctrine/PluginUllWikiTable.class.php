@@ -5,7 +5,8 @@
 class PluginUllWikiTable extends UllRecordTable
 {
 
-  public static function setOldDocsDeleted($docid) {
+  public static function setOldDocsDeleted($docid) 
+  {
     $q = new Doctrine_Query;
     /*
     $q->delete('UllWiki w')
@@ -20,7 +21,8 @@ class PluginUllWikiTable extends UllRecordTable
     ;
   }
 
-  public static function getNextFreeDocid() {
+  public static function getNextFreeDocid() 
+  {
 
     $q = new Doctrine_Query;
     $q->from('UllWiki w')
@@ -35,7 +37,57 @@ class PluginUllWikiTable extends UllRecordTable
     } else {
       $docid = $ullwiki->getDocid() + 1;
     }
+    
     return $docid;
-
   }
+  
+  /**
+   * Add query where clauses for read access check 
+   *
+   * @param Doctrine_Query $q
+   */
+  public static function queryReadAccess(Doctrine_Query $q)
+  {
+    // Master Admin always has read access 
+    if (UllUserTable::hasGroup('MasterAdmins'))
+    {
+      return $q;
+    }
+    
+    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
+    
+    $q->leftJoin('x.UllWikiAccessLevel.UllWikiAccessLevelAccess a');
+    $q->leftJoin('a.UllGroup ag');
+    
+    // check public access
+    $where = '
+      a.UllPrivilege.slug = ?
+        AND ag.display_name = ?  
+    ';
+    $values = array('read', 'Everyone');
+    
+    if ($userId)
+    {
+      // check access for any "logged in user"
+      $where .= '
+        OR a.UllPrivilege.slug = ?
+          AND ag.display_name = ?  
+      ';
+      $values = array_merge($values, array('read', 'Logged in users'));      
+      
+      // check group membership
+      $where .= '
+        OR a.UllPrivilege.slug = ? 
+          AND ag.UllUser.id = ?
+      ';     
+      $values = array_merge($values, array('read', $userId));
+    }
+    
+//    var_dump($where);
+//    var_dump($values);
+    
+    $q->addWhere($where, $values);
+
+    return $q;
+  }  
 }

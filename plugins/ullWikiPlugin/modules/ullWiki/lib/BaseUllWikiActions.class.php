@@ -419,55 +419,13 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
       $this->q->addWhere('is_outdated = false');
     }
     
-    self::queryReadAccess($this->q->getDoctrineQuery());    
+    UllWikiTable::queryReadAccess($this->q->getDoctrineQuery());    
   }
   
   
   
   
-  public static function queryReadAccess(Doctrine_Query $q)
-  {
-    if (UllUserTable::hasGroup('MasterAdmins'))
-    {
-      return $q;
-    }
-    
-    $userId = sfContext::getInstance()->getUser()->getAttribute('user_id');
-    
-    $q->leftJoin('x.UllWikiAccessLevel.UllWikiAccessLevelAccess a');
-    $q->leftJoin('a.UllGroup ag');
-    
-    // check public access
-    $where = '
-      a.UllPrivilege.slug = ?
-        AND ag.display_name = ?  
-    ';
-    $values = array('read', 'Everyone');
-    
-    if ($userId)
-    {
-      // check access for any "logged in user"
-      $where .= '
-        OR a.UllPrivilege.slug = ?
-          AND ag.display_name = ?  
-      ';
-      $values = array_merge($values, array('read', 'Logged in users'));      
-      
-      // check group membership
-      $where .= '
-        OR a.UllPrivilege.slug = ? 
-          AND ag.UllUser.id = ?
-      ';     
-      $values = array_merge($values, array('read', $userId));
-    }
-    
-//    var_dump($where);
-//    var_dump($values);
-    
-    $q->addWhere($where, $values);
 
-    return $q;
-  }
   
   /**
    * Query popular tags for the index action
@@ -478,7 +436,7 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
     $q->from('Tagging tg, tg.Tag t, tg.UllWiki x');
     $q->addWhere('x.is_outdated = ?', false);
     $q->limit(sfConfig::get('app_sfDoctrineActAsTaggablePlugin_limit', 100));
-    $q = $this->queryReadAccess($q);
+    $q = UllWikiTable::queryReadAccess($q);
     $this->tags_pop = TagTable::getPopulars($q, array('model' => 'UllWiki'));
     $this->tagurl = str_replace('%25', '%', ull_url_for(array('action' => 'list', 'filter[search]' => '%s')));
   }

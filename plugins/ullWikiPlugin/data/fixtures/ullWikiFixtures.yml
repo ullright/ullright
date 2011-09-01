@@ -46,9 +46,6 @@ UllGroup:
     namespace:          ullWiki
 
 UllPermission:
-  ull_wiki_edit:
-    slug:               ull_wiki_edit
-    namespace:          ullWiki
   ull_wiki_delete:
     slug:               ull_wiki_delete
     namespace:          ullWiki
@@ -60,10 +57,6 @@ UllEntityGroup:
     namespace:          test
     
 UllGroupPermission:
-  ull_group_permission_ull_wiki_1:
-    UllGroup:           wiki_admin_group
-    UllPermission:      ull_wiki_edit
-    namespace:          ullWiki
   ull_group_permission_ull_wiki_2:
     UllGroup:           wiki_admin_group
     UllPermission:      ull_wiki_delete
