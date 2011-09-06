@@ -1,0 +1,47 @@
+Index: lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Template/Listener/Sluggable.php
+===================================================================
+--- lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Template/Listener/Sluggable.php	(revision 3066)
++++ lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Template/Listener/Sluggable.php	(working copy)
+@@ -154,18 +154,33 @@
+     {
+         /* fix for use with Column Aggregation Inheritance */
+         if ($record->getTable()->getOption('inheritanceMap')) {
+-          $parentTable = $record->getTable()->getOption('parents');
+-          $i = 0;
+-          // Be sure that you do not instanciate an abstract class;
+-          $reflectionClass = new ReflectionClass($parentTable[$i]);
+-          while ($reflectionClass->isAbstract()) {
+-            $i++;
+-            $reflectionClass = new ReflectionClass($parentTable[$i]);
++          
++          $class = get_class($record);
++          
++          // loop through parent classes and search for a non-abstract class
++          // which has subclasses. we assume this to be the correct parent class
++          while (get_parent_class($class))
++          {
++            $class = get_parent_class($class);
++            
++            //Be sure that you do not instanciate an abstract class;
++            $reflectionClass = new ReflectionClass($class);
++            if ($reflectionClass->isAbstract()) {
++              continue;
++            }
++            
++            $table = Doctrine::getTable($class);
++            
++            if ($table->getOption('subclasses')){
++              break;
++            }
++            
+           }
+-          $table = Doctrine_Core::getTable($parentTable[$i]);
++          
+         } else {
++          
+           $table = $record->getTable();
+-        }
++        }        
+ 
+         $name = $table->getFieldName($this->_options['name']);
+         $proposal =  call_user_func_array($this->_options['builder'], array($slugFromFields, $record));
