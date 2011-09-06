@@ -71,6 +71,12 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     
     if (isset($object->parent_ull_cms_item_id) && ($object->parent_ull_cms_item_id != null))
     {
+      // Load parent in case the object is not yet loaded (insert) 
+      if (!$object->Parent->id)
+      {
+        $object->refreshRelated('Parent');
+      }
+      
       $return = array_merge($this->buildFullPathName($object->Parent, $lang), $return);
     }
 
@@ -84,6 +90,7 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
       }
       $object->refreshRelated('Translation');
     }
+    
     if ($lang && !$object->Translation[$lang]->name)
     {
       // Necessary for fixture loading
