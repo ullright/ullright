@@ -75,14 +75,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setIsRequired(true)
     ;        
     
-    $this['is_equipment_included']
-      ->setLabel(__('Equipment included', null, 'ullCourseMessages') . '?')
-    ;
-    
-    $this['is_admission_included']
-      ->setLabel(__('Admission included', null, 'ullCourseMessages') . '?')
-    ;    
-    
     $this['min_number_of_participants']
       ->setLabel(__('Min. participants', null, 'ullCourseMessages'))
       ->setIsRequired(true)
@@ -146,8 +138,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         ),
         'service' => array(
           'UllCourseTariff',
-          'is_equipment_included',
-          'is_admission_included',
           'min_number_of_participants',
           'max_number_of_participants',
         ),                                
