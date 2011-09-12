@@ -24,7 +24,7 @@ class sfTestFunctionalTask extends sfTestBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
+      new sfCommandArgument('application_or_plugin', sfCommandArgument::REQUIRED, 'The application or plugin name'),
       new sfCommandArgument('controller', sfCommandArgument::OPTIONAL | sfCommandArgument::IS_ARRAY, 'The controller name'),
     ));
 
@@ -38,11 +38,15 @@ class sfTestFunctionalTask extends sfTestBaseTask
 
     $this->detailedDescription = <<<EOF
 The [test:functional|INFO] task launches functional tests for a
-given application:
+given application or plugin:
 
   [./symfony test:functional frontend|INFO]
 
-The task launches all tests found in [test/functional/%application%|COMMENT].
+The task launches all tests found in [test/functional/frontend|COMMENT].
+
+  [./symfony test:functional myPlugin|INFO]
+  
+The task launches all tests found in [plugins/myPlugin/test/functional/|COMMENT].  
 
 If some tests fail, you can use the [--trace|COMMENT] option to have more
 information about the failures:
@@ -70,7 +74,19 @@ EOF;
    */
   protected function execute($arguments = array(), $options = array())
   {
-    $app = $arguments['application'];
+    $applicationOrPlugin = $arguments['application_or_plugin'];
+ 
+    if (file_exists(sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$applicationOrPlugin))
+    {
+      // the application_or_plugin is an application name
+      $baseDir = sfConfig::get('sf_test_dir').DIRECTORY_SEPARATOR.'functional'.DIRECTORY_SEPARATOR.$applicationOrPlugin;
+    }
+    else
+    {
+      // the application_or_plugin is a plugin name
+      $baseDir = sfConfig::get('sf_plugins_dir').DIRECTORY_SEPARATOR.$applicationOrPlugin.DIRECTORY_SEPARATOR.'test'.DIRECTORY_SEPARATOR.'functional';
+    }
+    
 
     if (count($arguments['controller']))
     {
@@ -79,7 +95,8 @@ EOF;
       foreach ($arguments['controller'] as $controller)
       {
         $finder = sfFinder::type('file')->follow_link()->name(basename($controller).'Test.php');
-        $files = array_merge($files, $finder->in(sfConfig::get('sf_test_dir').'/functional/'.$app.'/'.dirname($controller)));
+//        $files = array_merge($files, $finder->in(sfConfig::get('sf_test_dir').'/functional/'.$app.'/'.dirname($controller)));
+        $files = array_merge($files, $finder->in($baseDir));
       }
 
       if($allFiles = $this->filterTestFiles($files, $arguments, $options))
@@ -103,11 +120,11 @@ EOF;
         'verbose'      => isset($options['trace']) && $options['trace'],
       ));
       $h->addPlugins(array_map(array($this->configuration, 'getPluginConfiguration'), $this->configuration->getPlugins()));
-      $h->base_dir = sfConfig::get('sf_test_dir').'/functional/'.$app;
+      $h->base_dir = sfConfig::get('sf_test_dir').'/functional/'.$applicationOrPlugin;
 
       // filter and register functional tests
       $finder = sfFinder::type('file')->follow_link()->name('*Test.php');
-      $h->register($this->filterTestFiles($finder->in($h->base_dir), $arguments, $options));
+      $h->register($this->filterTestFiles($finder->in($baseDir), $arguments, $options));
 
       $ret = $h->run() ? 0 : 1;
 

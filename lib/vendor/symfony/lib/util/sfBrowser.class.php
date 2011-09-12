@@ -164,6 +164,20 @@ class sfFakeRenderingFilter extends sfFilter
   {
     $filterChain->execute();
 
+    //ullright patch: block is copied from sfRenderingFilter
+    
+    // hack to rethrow sfForm and|or sfFormField __toString() exceptions (see sfForm and sfFormField)
+    if (sfForm::hasToStringException())
+    {
+      throw sfForm::getToStringException();
+    }
+    else if (sfFormField::hasToStringException())
+    {
+      throw sfFormField::getToStringException();
+    }
+    
+    //end ullright patch
+    
     $this->context->getResponse()->sendContent();
   }
 }
