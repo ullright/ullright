@@ -31,10 +31,6 @@ UllCourse:
     # e.g 10 units every friday from september till december
     number_of_units:
       type: integer
-    is_equipment_included:
-      type: boolean
-    is_admission_included:
-      type: boolean
     # Actually this is labeled "Is online" for the users, but we use the built-in
     # ullright functionalty for "is_active"
     is_active:
