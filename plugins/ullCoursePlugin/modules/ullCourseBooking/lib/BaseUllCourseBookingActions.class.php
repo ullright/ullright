@@ -150,7 +150,8 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
       $booking->sendConfirmationMail();
       
       $this->getUser()->setFlash('message',
-        __('An email containing the payment information has been sent', null, 'ullCourseMessages') 
+        __('An email containing the payment information has been sent', null, 'ullCourseMessages'),
+        false 
       );
     }
     
@@ -160,7 +161,8 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
       $booking->sendPaymentReceivedMail();
       
       $this->getUser()->setFlash('message',
-        __('An email confirming the received payment has been sent', null, 'ullCourseMessages') 
+        __('An email confirming the received payment has been sent', null, 'ullCourseMessages'),
+        false 
       );      
     }
     

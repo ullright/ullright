@@ -225,7 +225,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function shouldWeSendConfirmationMail()
   {
-    // lets support bookings unsaved, as well previously saved
+    // lets support bookings unsaved, as well as previously saved
     if ($this->getModified())
     {
       $modified = $this->getModified(true);
@@ -254,7 +254,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function shouldWeSendPaymentReceivedMail()
   {
-    // lets support bookings unsaved, as well previously saved
+    // lets support bookings unsaved, as well as previously saved
     if ($this->getModified())
     {
       $modified = $this->getModified();

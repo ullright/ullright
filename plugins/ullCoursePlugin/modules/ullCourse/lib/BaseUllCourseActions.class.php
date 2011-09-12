@@ -155,6 +155,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
         'comment',
         'UllCourse->is_active',
       );
+      
+    $generator = new ullTableToolGenerator('UllCourseBooking', 'r', 'list', $columns);      
     
     $columnsConfig = $generator->getColumnsConfig();
     $columnsConfig
@@ -187,6 +189,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
 
     $this->setVar('course', $course, true);
     $this->setVar('generator', $generator, true);
+    
+    $this->breadcrumbForInfo();
   }  
   
 //  public function executeSelectTariffX(sfRequest $request)
@@ -600,6 +604,24 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $breadcrumb_tree->add(__('Show', null, 'common'));
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
   }  
+  
+  /**
+   * Handles breadcrumb for info action
+   */
+  protected function breadcrumbForInfo()
+  {
+    $breadcrumb_tree = new ullCourseBreadcrumbTree();
+    if ($referer = $this->getUriMemory()->get('list'))
+    {
+      $breadcrumb_tree->add(__('Result list', null, 'common'), $referer);
+    }
+    else
+    {
+      $breadcrumb_tree->addDefaultListEntry();
+    }  
+    $breadcrumb_tree->add(__('Info', null, 'ullCourseMessages'));
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }    
   
   /**
    * Handles breadcrumb for edit action

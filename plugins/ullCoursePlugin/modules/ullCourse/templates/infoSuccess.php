@@ -1,3 +1,4 @@
+<?php echo $breadcrumb_tree ?>
 <h1><?php echo $course['name']?></h1>
 
 <p>

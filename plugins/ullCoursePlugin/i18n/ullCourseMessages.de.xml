@@ -506,9 +506,9 @@
         <target>Tarifauswahl</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="102">
+        <source>Add or edit trainers as normal users in the %admin% by making them members of the group "Trainers" and by using the "Comment" field for the introduction</source>
+        <target>Kursleiter als normale Benutzer in der %admin% hinzufügen oder bearbeiten. Zudem Gruppenmitgliedschaft "Trainers" einstellen und das "Kommentar"-Feld zur Vorstellung verwenden</target>
       </trans-unit>     
       
       <trans-unit id="">

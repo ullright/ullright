@@ -35,6 +35,9 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('show_search_box', true)
       ->setWidgetOption('add_empty', true)
       ->setIsRequired(true)
+      ->setHelp(__('Add or edit trainers as normal users in the %admin% by making them members of the group "Trainers" and by using the "Comment" field for the introduction', 
+        array('%admin%' => ull_link_to(__('Admininistration', null, 'ullCoreMessages'), 'ullAdmin/index', array('link_new_window' => true))),
+        'ullCourseMessages')) 
     ;
 
     $this['begin_date']
