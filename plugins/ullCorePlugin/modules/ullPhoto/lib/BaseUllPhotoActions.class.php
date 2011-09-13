@@ -250,7 +250,8 @@ class BaseUllPhotoActions extends ullsfActions
               __('There are no photos left to be processed', null, 'ullCoreMessages'));
               
             $referer = $this->getUriMemory()->get('index');
-            if (strstr($referer, 'ullTableTool/edit/table/UllUser'))
+            
+            if (strstr($referer, 'ullUser/edit'))
             {
               $this->redirect($referer);
             }              

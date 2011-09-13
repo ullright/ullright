@@ -50,7 +50,11 @@ class ullWidgetPhoto extends ullWidget
       if ($id)
       {
         $username = UllUserTable::findUsernameById($id);
-        $return .= link_to(__('Edit photo', null, 'ullCoreMessages'), 'ullPhoto/index?username=' . $username);
+        $return .= ull_link_to(
+          __('Edit photo', null, 'ullCoreMessages'), 
+          'ullPhoto/index?username=' . $username,
+          array('ull_js_observer_confirm' => true)
+        );
       }
       else
       {
