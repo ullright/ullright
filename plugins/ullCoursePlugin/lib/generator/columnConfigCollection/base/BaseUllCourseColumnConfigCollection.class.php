@@ -48,6 +48,11 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     $this['end_date']
       ->setLabel(__('End date', null, 'ullCourseMessages'))
       ->setIsRequired(true)
+    ;
+
+    $this['is_bookable']
+      ->setLabel(__('Is bookable', null, 'ullCourseMessages'))
+      ->setHelp(__('Allow customers to book this course', null, 'ullCourseMessages'))
     ;    
     
     $this['is_active']
@@ -155,6 +160,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'trainer_ull_user_id',
           'duplicate_tags_for_search',
           'is_active',        
+          'is_bookable',
         ),
 
 

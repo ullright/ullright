@@ -31,6 +31,9 @@ UllCourse:
     # e.g 10 units every friday from september till december
     number_of_units:
       type: integer
+    is_bookable:
+      type: boolean
+      default: true
     # Actually this is labeled "Is online" for the users, but we use the built-in
     # ullright functionalty for "is_active"
     is_active:

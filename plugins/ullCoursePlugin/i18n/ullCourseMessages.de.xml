@@ -147,8 +147,8 @@
       </trans-unit>       
 
       <trans-unit id="29">
-        <source>%current% from %total% spots available</source>
-        <target>%current% von %total% Plätzen verfügbar</target>
+        <source>[1]1 spot available|(1,+Inf]%current% spots available</source>
+        <target>[1]1 Platz verfügbar|(1,+Inf]%current% Plätze verfügbar</target>
       </trans-unit>
           
       <trans-unit id="30">
@@ -509,6 +509,21 @@
       <trans-unit id="102">
         <source>Add or edit trainers as normal users in the %admin% by making them members of the group "Trainers" and by using the "Comment" field for the introduction</source>
         <target>Kursleiter als normale Benutzer in der %admin% hinzufügen oder bearbeiten. Zudem Gruppenmitgliedschaft "Trainers" einstellen und das "Kommentar"-Feld zur Vorstellung verwenden</target>
+      </trans-unit>     
+      
+      <trans-unit id="103">
+        <source>Is bookable</source>
+        <target>Ist buchbar</target>
+      </trans-unit>     
+      
+      <trans-unit id="104">
+        <source>Allow customers to book this course</source>
+        <target>Kunden können diesen Kurs buchen</target>
+      </trans-unit>     
+      
+      <trans-unit id="105">
+        <source>This course cannot be booked directly. Please refer to the description for details.</source>
+        <target>Dieser Kurs kann nicht direkt gebucht werden. Details stehen in der Kursbeschreibung.</target>
       </trans-unit>     
       
       <trans-unit id="">

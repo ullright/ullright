@@ -32,6 +32,7 @@
 </div>
 <!-- end of trainer -->
 
+
 <div class="ull_course_show_date">
   <h2><?php echo __('Date', null, 'common')?></h2>
   
@@ -60,64 +61,78 @@
 
 
 <div class="ull_course_show_description">
-
-<h2><?php echo __('Description', null, 'common') ?></h2>
-
-<p><?php echo $doc['description'] ?></p>
-
+  <h2><?php echo __('Description', null, 'common') ?></h2>
+  
+  <p><?php echo $doc['description'] ?></p>
 </div>
+
+
+<div class="ull_course_show_tariffs">
+  <h2><?php echo __('Tariffs', null, 'ullCourseMessages') ?></h2>
+  
+  <ul>
+  <?php foreach ($doc->UllCourseTariff as $tariff): ?>
+    <li><?php echo $tariff['name'] ?>: <?php echo format_currency($tariff['price'], 'EUR') ?></li>
+  <?php endforeach ?>
+  </ul> 
+</div>  
 
 
 <div class="ull_course_show_booking">
   <h2><?php echo __('Booking', null, 'ullCourseMessages') ?></h2>
   
-  <?php if (!$doc->isFullyBooked()): ?>
-    <p>
-      <?php echo __(
-        '%current% from %total% spots available', 
-        array(
-          '%current%' => $doc->getSpotsAvailable(), 
-          '%total%' => $doc['max_number_of_participants']
-        ), 
-        'ullCourseMessages') 
-      ?>
+  <?php if ($doc->is_bookable): ?>
+  
+    <?php if (!$doc->isFullyBooked()): ?>
+      <p>
+        <?php echo format_number_choice(
+          '[1]1 spot available|(1,+Inf]%current% spots available', 
+          array('%current%' => $doc->getSpotsAvailable()), 
+          $doc->getSpotsAvailable(),
+          'ullCourseMessages' 
+        ) ?>
+      </p>
+    <?php endif ?>
+    
+    <?php if ($doc->isInsufficientParticipants()): ?>
+      <p class="ull_course_insufficient_participants">
+        <?php echo __('Not enough participants yet', null, 'ullCourseMessages') ?>.
+        <?php echo __('A minimum of %min% bookings are necessary', 
+          array('%min%' => $doc['min_number_of_participants']), 'ullCourseMessages') ?>.
+      </p>
+    <?php endif ?>  
+    
+    <?php if ($doc->isFullyBooked()): ?>
+      <p class="ull_course_fully_booked">
+        <em><?php echo __('Fully booked', null, 'ullCourseMessages') ?>!</em>
+      </p>
+    <?php endif ?>
+  
+  
+    <?php if (!$doc->isFullyBooked()): ?>  
+      <div class="ull_course_show_book">
+        <?php echo link_to(
+          __('Book this course', null, 'ullCourseMessages'),
+          'ullCourse/selectTariff?slug=' . $doc['slug'],
+          array('class' => 'ull_course_show_book_link big_button')
+          )
+           ?>
+      </div>  
+    <?php endif ?>
+    
+    
+  <?php else: ?>
+    <p class="ull_course_show_not_bookable">
+      <?php echo __('This course cannot be booked directly. Please refer to the description for details.', null, 'ullCourseMessages') ?>
     </p>
+    
   <?php endif ?>
   
-  <?php if ($doc->isInsufficientParticipants()): ?>
-    <p class="ull_course_insufficient_participants">
-      <?php echo __('Not enough participants yet', null, 'ullCourseMessages') ?>.
-      <?php echo __('A minimum of %min% bookings are necessary', 
-        array('%min%' => $doc['min_number_of_participants']), 'ullCourseMessages') ?>.
-    </p>
-  <?php endif ?>  
-  
-  <?php if ($doc->isFullyBooked()): ?>
-    <p class="ull_course_fully_booked">
-      <em><?php echo __('Fully booked', null, 'ullCourseMessages') ?>!</em>
-    </p>
-  <?php endif ?>  
 </div>
 <!-- end of booking -->
   
-<h2><?php echo __('Tariffs', null, 'ullCourseMessages') ?></h2>
 
-<ul>
-<?php foreach ($doc->UllCourseTariff as $tariff): ?>
-  <li><?php echo $tariff['name'] ?>: <?php echo format_currency($tariff['price'], 'EUR') ?></li>
-<?php endforeach ?>
-</ul> 
+
   
-<?php if (!$doc->isFullyBooked()): ?>  
-  <div class="ull_course_show_book">
-    <?php echo link_to(
-      __('Book this course', null, 'ullCourseMessages'),
-      'ullCourse/selectTariff?slug=' . $doc['slug'],
-      array('class' => 'ull_course_show_book_link big_button')
-      )
-       ?>
-  </div>  
-<?php endif ?>
-  
-</div>
+
 <!-- end of "cms_content" -->  
