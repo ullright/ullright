@@ -2,7 +2,7 @@
 <?php include_partial('ullCourse/mailGreeting') ?> 
     
 <?php echo __('thank you for your payment of %price% for course "%course%"', array(
-  '%course%' => $booking->UllCourse->name,
+  '%course%' => $booking->UllCourse->name . ' (' . $booking->UllCourse->Trainer->display_name . ')',
   '%price%' => format_currency($booking->price_negotiated, 'EUR'),
 ), 'ullCourseMessages') ?>.    
 

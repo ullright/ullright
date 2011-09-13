@@ -86,11 +86,11 @@
     <?php if (!$doc->isFullyBooked()): ?>
       <p>
         <?php echo format_number_choice(
-          '[1]1 spot available|(1,+Inf]%current% spots available', 
+          '[0]|[1]1 spot available|(1,+Inf]%current% spots available', 
           array('%current%' => $doc->getSpotsAvailable()), 
           $doc->getSpotsAvailable(),
           'ullCourseMessages' 
-        ) ?>
+        ) ?>.
       </p>
     <?php endif ?>
     

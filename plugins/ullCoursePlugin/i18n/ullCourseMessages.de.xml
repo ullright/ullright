@@ -147,8 +147,8 @@
       </trans-unit>       
 
       <trans-unit id="29">
-        <source>[1]1 spot available|(1,+Inf]%current% spots available</source>
-        <target>[1]1 Platz verfügbar|(1,+Inf]%current% Plätze verfügbar</target>
+        <source>[0]|[1]1 spot available|(1,+Inf]%current% spots available</source>
+        <target>[0]|[1]1 Platz frei|(1,+Inf]%current% Plätze frei</target>
       </trans-unit>
           
       <trans-unit id="30">
