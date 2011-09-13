@@ -72,11 +72,10 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_edit');
     
-    $return = parent::executeEdit($request);
-    
-    
+    return parent::executeEdit($request);
   }
 
+  
   public function executeShow(sfRequest $request) 
   {
     $this->checkPermission('ull_course_show');
