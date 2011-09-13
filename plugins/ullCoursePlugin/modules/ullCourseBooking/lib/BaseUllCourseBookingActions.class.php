@@ -47,14 +47,24 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_course_booking_list');
     
     $this->course = null;
+    
     $filter = $request->getParameter('filter');
+    
     if (isset($filter['ull_course_id']))
     {
       $courseId = $filter['ull_course_id'];
-      $this->course = Doctrine::getTable('UllCourse')->findOneById($courseId); 
+      $this->course = Doctrine::getTable('UllCourse')->findOneById($courseId);
     }
     
-    return parent::executeList($request);
+    $return = parent::executeList($request);
+    
+    // preselect course for create button
+    if ($this->course)
+    {
+      $this->create_base_uri = 'ullCourseBooking/create?course=' . $this->course->slug; 
+    } 
+    
+    return $return;
   }
 
   /**
@@ -94,7 +104,16 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_booking_edit');
     
-    return parent::executeEdit($request);
+    $return = parent::executeEdit($request);
+    
+    // Preselect course if given
+    if ($courseSlug = $request->getParameter('course'))
+    {
+      $course = Doctrine::getTable('UllCourse')->findOneBySlug($courseSlug);
+      $this->generator->getForm()->setDefault('ull_course_id', $course->id);
+    }
+    
+    return $return;
   }
   
 

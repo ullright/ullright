@@ -526,9 +526,9 @@
         <target>Dieser Kurs kann nicht direkt gebucht werden. Details stehen in der Kursbeschreibung.</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="106">
+        <source>More about</source>
+        <target>Infos zu</target>
       </trans-unit>     
       
       <trans-unit id="">

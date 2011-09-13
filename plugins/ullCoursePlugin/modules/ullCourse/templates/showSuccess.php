@@ -15,7 +15,7 @@
       'onclick' => 'this.href="#";popup("' . url_for($popupLink) . '", "Popup", "width=600, height=350,scrollbars=auto,resizable=yes");return false;'
     ) ?>
     <?php echo ull_link_to(
-      $doc['Trainer']['first_name'] . ' ' . $doc['Trainer']['last_name'],
+      __('More about', null, 'ullCourseMessages') . ' ' . $doc['Trainer']['first_name'] . ' ' . $doc['Trainer']['last_name'],
       $popupLink,
       array_merge($popupOptions, array('link_new_window' => true))
      ) ?>

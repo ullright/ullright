@@ -51,7 +51,5 @@ function filterTariffs(object) {
 
 }
 
-  
-
 
 ') ?>
