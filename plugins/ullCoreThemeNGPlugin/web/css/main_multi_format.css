@@ -296,6 +296,12 @@ ul.tc_tasks li img {
   margin-top: 1em; 
 }
 
+/* correct the list action icons margins when using edit, delete and print */
+.ull_icon_print {
+  margin-left: 5px;	
+  margin-right: 1em;
+}
+
 /*
  * ************************************************
  *  list action buttons
