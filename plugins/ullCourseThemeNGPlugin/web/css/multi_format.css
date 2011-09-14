@@ -87,6 +87,21 @@
 }
 
 /*
+ * edit
+ */
+ 
+/* spacer to structure action buttons */
+
+ul li.ull_generator_edit_action_button_course_show_bookings {
+  margin-top: 1.5em;	
+}
+
+ul li.ull_generator_edit_action_button_course_mail {
+  margin-top: 1.5em;
+}
+ 
+
+/*
  * show
  */
  
