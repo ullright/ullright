@@ -42,6 +42,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
 
     $this['begin_date']
       ->setLabel(__('Begin date', null, 'ullCourseMessages'))
+      ->setOption('show_weekday', true)
       ->setIsRequired(true)
     ;       
     

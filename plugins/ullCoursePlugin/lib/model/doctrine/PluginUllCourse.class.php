@@ -12,6 +12,11 @@
  */
 abstract class PluginUllCourse extends BaseUllCourse
 {
+  public function __toString()
+  {
+    return (string) $this->name . ' - ' . $this->Trainer->short_name . ' - ' . ull_format_date($this->begin_date);  
+  }
+  
   /**
    * Pre save hook
    * @param unknown_type $event

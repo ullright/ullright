@@ -19,7 +19,7 @@ class ullCourseGenerator extends ullTableToolGenerator
     if (sfContext::getInstance()->getActionName() == 'offering')
     {
       $this->getTableConfig()
-        ->setOrderBy('begin_date desc')      
+        ->setOrderBy('begin_date')      
         ->setListColumns(array(
           'name', 
           'trainer_ull_user_id',
