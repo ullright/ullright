@@ -17,7 +17,13 @@
 - <?php echo __('Your name', null, 'ullCourseMessages') ?>: <?php echo $booking->UllUser->display_name ?> 
 - <?php echo __('Your booking number', null, 'ullCourseMessages') ?>: <?php echo $booking->id ?> 
   
-<?php echo __('Bookings are orderd by the incoming tranfer date', null, 'ullCourseMessages') ?>.  
+  
+<?php echo __('Please note', null, 'ullCourseMessages') ?>:
+  
+<?php echo __('Please transfer the amount as soon as possible, as your spot is only fixed after payment', null, 'ullCourseMessages')?>.
+
+<?php echo __('The spots are assigned in order of the payment date', null, 'ullCourseMessages')?>.
+  
 
 <?php include_partial('ullCourse/mailFooter', array('booking' => $booking)) ?>
 

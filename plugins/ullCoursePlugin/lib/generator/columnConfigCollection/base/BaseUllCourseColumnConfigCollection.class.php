@@ -60,7 +60,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
     ;
     
     $this['is_canceled']
-      ->disable()
+      ->setLabel(__('Is canceled', null, 'ullCourseMessages'))
     ;    
     
     $this['ull_course_status_id']
@@ -161,6 +161,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'duplicate_tags_for_search',
           'is_active',        
           'is_bookable',
+          'is_canceled',
         ),
 
 

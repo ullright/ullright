@@ -206,11 +206,6 @@
         <target>Wenn Sie einen Kurs für eine andere Person buchen, bitte hier den Namen angeben</target>
       </trans-unit>       
       
-      <trans-unit id="41">
-        <source>For reduced prices please give the reason for the reduction</source>
-        <target>Für vergünstigte Tarife bitte den Grund angeben</target>
-      </trans-unit>       
-      
       <trans-unit id="42">
         <source>I hereby accept the</source>
         <target>Ich akzeptiere hiermit die</target>
@@ -531,20 +526,66 @@
         <target>Infos zu</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="107">
+        <source>Are you booking for another person</source>
+        <target>Buchen Sie für jemand anderen</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="108">
+        <source>If you book a course for another person please note the name here</source>
+        <target>Wenn Sie für jemanden anderen wie z.B. für Ihr Kind buchen geben Sie bitte hier den Namen an</target>
       </trans-unit>     
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="109">
+        <source>Other comments</source>
+        <target>Sonstige Anmerkungen</target>
+      </trans-unit>     
+      
+      <trans-unit id="110">
+        <source>Please transfer the amount as soon as possible, as your spot is only fixed after payment</source>
+        <target>Wir ersuchen um umgehende Überweisung des Kursbeitrages, da Ihr gewünschter Kursplatz erst nach erfolgter Bezahlung fix ist</target>
+      </trans-unit>   
+      
+      <trans-unit id="111">
+        <source>The spots are assigned in order of the payment date</source>
+        <target>Die Vergabe der Plätze erfolgt gereiht nach dem Datum der Zahlungseingänge</target>
+      </trans-unit>     
+      
+      <trans-unit id="112">
+        <source>Please note</source>
+        <target>Bitte beachten</target>
+      </trans-unit>     
+      
+      <trans-unit id="113">
+        <source>Participant</source>
+        <target>Teilnehmer</target>
       </trans-unit>
+      
+      <trans-unit id="114">
+        <source>Booking comment</source>
+        <target>Buchungsbemerkung</target>
+      </trans-unit>     
+      
+      <trans-unit id="115">
+        <source>A booking with a special comment has been sent for course "%course%"</source>
+        <target>Eine Buchung mit einer speziellen Bemerkung wurde gesendet für Kurs "%course%"</target>
+      </trans-unit>     
+      
+			<trans-unit id="116">
+				<source>Is canceled</source>
+				<target>Ist abgesagt</target>
+			</trans-unit>      
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>      
+      
       
       
         

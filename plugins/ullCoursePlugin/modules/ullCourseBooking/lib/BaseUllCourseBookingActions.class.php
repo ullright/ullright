@@ -257,52 +257,47 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
   {
     return new ullTableToolGenerator('UllCourseBooking', 'w');
   } 
+  
+  /**
+   * Handles breadcrumb for list action
+   */
+  protected function breadcrumbForList()
+  {
+    $breadcrumb_tree = new ullCourseBreadcrumbTree();
+    $breadcrumb_tree->add(__('Result list', null, 'common') . ' ' . __('Bookings', null, 'ullCourseMessages', 'ullCourseBooking/list'));
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }    
 
-//  /**
-//   * Handles breadcrumb for list action
-//   */
-//  protected function breadcrumbForList()
-//  {
-//    $breadcrumb_tree = new breadcrumbTree();
-//    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-//    $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('News entries', null, 'ullNewsMessages'));
-//    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullNews/list');
-//    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-//  }  
-//  
-//  /**
-//   * Handles breadcrumb for edit action
-//   *
-//   */
-//  protected function breadcrumbForEdit()
-//  {
-//    $breadcrumb_tree = new breadcrumbTree();
-//    $breadcrumb_tree->setEditFlag(true);
-//    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-//    $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('News entries', null, 'ullNewsMessages'));
-//    // display result list link only when there is a referer containing 
-//    //  the list action 
-//    if ($referer = $this->getUriMemory()->get('list'))
-//    {
-//      $breadcrumb_tree->add(__('Result list', null, 'common'), $referer);
-//    }
-//    else
-//    {
-//      $breadcrumb_tree->addDefaultListEntry();
-//    }    
-//    
-////    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullUser/list');  
-//    if ($this->id) 
-//    {
-//      $breadcrumb_tree->add(__('Edit', null, 'common'));
-//    }
-//    else
-//    {
-//      $breadcrumb_tree->add(__('Create', null, 'common'));
-//    }
-//    
-//    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-//  }  
+  /**
+   * Handles breadcrumb for edit action
+   *
+   */
+  protected function breadcrumbForEdit()
+  {
+    $breadcrumb_tree = new ullCourseBreadcrumbTree();
+    $breadcrumb_tree->setEditFlag(true);
+    // display result list link only when there is a referer containing 
+    //  the list action 
+    if ($referer = $this->getUriMemory()->get('list'))
+    {
+      $breadcrumb_tree->add(__('Result list', null, 'common') . ' ' . __('Bookings', null, 'ullCourseMessages'), $referer);
+    }
+    else
+    {
+      $breadcrumb_tree->add(__('Result list', null, 'common') . ' ' . __('Bookings', null, 'ullCourseMessages'), 'ullCourseBooking/list');
+    }    
+    
+    if ($this->id) 
+    {
+      $breadcrumb_tree->add(__('Edit', null, 'common'));
+    }
+    else
+    {
+      $breadcrumb_tree->add(__('Create', null, 'common'));
+    }
+    
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
   
   
   /**

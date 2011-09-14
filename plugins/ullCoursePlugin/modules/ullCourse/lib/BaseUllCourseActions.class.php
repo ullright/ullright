@@ -238,17 +238,12 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     $cc = $generator->getColumnsConfig();
     
-//    var_dump($cc);die;
-    
     $cc['are_terms_of_use_accepted']
       ->setAccess('w')
       ->setIsRequired(true)
     ;
     
-//    $cc->disableAllExcept(array(
-//      'ull_course_tariff_id',
-//      'comment',
-//    ));
+    $cc->create('participant');
     
     $booking = new UllCourseBooking();
     $booking->UllCourse = $course;
@@ -267,8 +262,9 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
           $request->getParameter('fields')
         )
       ))
-      { 
-//        $this->dispatcher->connect('ull_course.booked', array('ullCourseActions', 'listenToBookedEvent'));
+      {
+
+        $this->handleParticipantName($generator, $booking);
         
         $booking->sendConfirmationMail();
         
@@ -289,6 +285,46 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     $this->setVar('tariff', $tariff, true);
   }
 
+  
+  /**
+   * Add the participant name to the comment field, and notify the
+   * course admin in case of any other comment
+   * 
+   * @param UllGenerator $generator
+   * @param UllCourseBooking $booking
+   */
+  protected function handleParticipantName(UllGenerator $generator, UllCourseBooking $booking)
+  {
+    $participant = $generator->getForm()->getValue('participant');
+    
+    $originalComment = $booking->comment;
+    
+    if ($participant)
+    {
+      $booking->comment = __('Participant', null, 'ullCourseMessages') . 
+        ': ' . $participant;
+      
+      $booking->save();
+    }
+
+    if ($originalComment)
+    {
+      $mail = new ullsfMail('ull_course_notify_comment');
+    
+      $mail->setFrom(
+        $booking->UllUser->email,
+        $booking->UllUser->display_name
+      );
+      $mail->addAddress(sfConfig::get('app_ull_course_from_address'));
+  
+      $mail->usePartial('ullCourse/notifyCommentMail', array(
+        'booking' => $booking,
+        'original_comment' => $originalComment
+      ));
+      
+      $mail->send();      
+    }
+  }
 
   
   /**

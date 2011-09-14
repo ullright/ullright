@@ -20,7 +20,12 @@ class ullGeneratorEditActionButtonCourseCancel extends ullGeneratorEditActionBut
     {
       return ull_submit_tag(
         __('Cancel course', null, 'ullCourseMessages'),
-        array('name' => 'submit|action_slug=cancel', 'display_as_link' => true, 'form_id' => 'display_as_link')
+        array(
+          'name' => 'submit|action_slug=cancel', 
+          'form_id' => 'ull_tabletool_form',
+          'confirm' => __('Are you sure?', null, 'common'),
+          'display_as_link' => true,
+        )
       );
     }      
   }

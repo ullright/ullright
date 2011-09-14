@@ -48,15 +48,27 @@
   
   <?php echo form_tag('ullCourse/confirmation?slug=' . $course['slug'] . '&ull_course_tariff_id=' . $tariff['id']) ?>
   
-  <h2><?php echo __('Comment', null, 'common') ?></h2>
+  <h2><?php echo __('Are you booking for another person', null, 'ullCourseMessages') ?>?</h2>
+  
+  <p><?php echo __('If you book a course for another person please note the name here', null, 'ullCourseMessages') ?>:</p>
+  <p>
+  <?php echo $form['participant']->render() ?>
+  <?php echo $form['participant']->renderError() ?>
+  </p>  
+  
+    
+  <h2><?php echo __('Other comments', null, 'ullCourseMessages') ?></h2>
   
   <p>
   <?php echo $form['comment']->render() ?>
   <?php echo $form['comment']->renderError() ?>
   </p>
+  
+  <h2><?php echo __('Please note', null, 'ullCourseMessages') ?></h2>
+  
   <p>
-    <?php echo __('If you book a course for another person please note the name here', null, 'ullCourseMessages')?>.<br />
-    <?php echo __('For reduced prices please give the reason for the reduction', null, 'ullCourseMessages')?>.
+    <?php echo __('Please transfer the amount as soon as possible, as your spot is only fixed after payment', null, 'ullCourseMessages')?>.<br />
+    <?php echo __('The spots are assigned in order of the payment date', null, 'ullCourseMessages')?>.
   </p>
   
   <p>
