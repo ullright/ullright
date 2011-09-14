@@ -3,7 +3,7 @@
 <?php if (isset($buttons) && count($buttons)): ?>
   <?php foreach ($buttons as $button): ?>
     <?php if ($button->isPrimary()):?>      
-        <li>
+        <li class="<?php echo sfInflector::underscore(get_class($button)) ?>">
           <?php echo $button->render() ?>
         </li>
     <?php endif ?>
