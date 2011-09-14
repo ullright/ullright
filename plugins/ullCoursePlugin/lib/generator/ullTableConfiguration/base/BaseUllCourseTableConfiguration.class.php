@@ -22,7 +22,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
       ))
       ->setOrderBy('name')
       ->setListColumns(array(
-        'link_to_bookings',
+//        'link_to_bookings',
         'id', 
         'name', 
         'trainer_ull_user_id',

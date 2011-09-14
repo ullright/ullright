@@ -6,7 +6,7 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class ullGeneratorEditActionButtonCourseMail extends ullGeneratorEditActionButton
+class ullGeneratorEditActionButtonCourseShowBookings extends ullGeneratorEditActionButton
 {
   
   /**
@@ -17,8 +17,8 @@ class ullGeneratorEditActionButtonCourseMail extends ullGeneratorEditActionButto
   public function render()
   {
     return ull_submit_tag(
-      __('Send email to participants', null, 'ullCourseMessages'),
-      array('name' => 'submit|action_slug=mail', 'display_as_link' => true, 'form_id' => 'display_as_link')
+      __('Show bookings', null, 'ullCourseMessages'),
+      array('name' => 'submit|action_slug=show_bookings')
     );
   }
   
@@ -29,10 +29,10 @@ class ullGeneratorEditActionButtonCourseMail extends ullGeneratorEditActionButto
    */
   public function executePostFormBindAndSave()
   {
-    if ($this->action->getRequest()->getParameter('action_slug') == 'mail') 
+    if ($this->action->getRequest()->getParameter('action_slug') == 'show_bookings') 
     {
       $course = $this->action->generator->getRow();
-      $this->action->redirect('ullCourse/mail?slug=' . $course->slug);
+      $this->action->redirect('ullCourseBooking/list?filter[ull_course_id]=' . $course->id);
     }   
   }
   

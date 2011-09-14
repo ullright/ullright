@@ -43,10 +43,10 @@
   <tbody>
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-    <?php $form['link_to_bookings']->getWidget()->setAttribute('rel',
-      $form->getObject()->id) ?>
+    <?php /* $form['link_to_bookings']->getWidget()->setAttribute('rel',
+      $form->getObject()->id) */ ?>
     <?php $form['name']->getWidget()->setAttribute('href', 
-      url_for('ullCourse/info?slug=' . $form->getObject()->slug)) ?>  
+      url_for('ullCourse/show?slug=' . $form->getObject()->slug)) ?>  
     <?php $id_url_params = $generator->getIdentifierUrlParams($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
       <td class='no_wrap'>          
@@ -55,6 +55,7 @@
           <?php echo ull_link_to(ull_image_tag('delete'), ullCoreTools::appendParamsToUri($delete_base_uri, $id_url_params), 
                 'confirm=' . __('Are you sure?', null, 'common')); ?>
         <?php endif ?>
+        <?php echo link_to(ull_image_tag('print', array('class' => 'ull_icon_print')), 'ullCourse/info?slug=' . $form->getObject()->slug) ?>
       </td>
       <?php echo $form ?>
     </tr>

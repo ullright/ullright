@@ -533,8 +533,10 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
       
       if ($object->exists())
       {
-      $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseMail($this));
-      $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseCancel($this));
+        $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseShowBookings($this));        
+        
+        $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseMail($this, false));
+        $this->registerEditActionButton(new ullGeneratorEditActionButtonCourseCancel($this, false));
       }
     }
         

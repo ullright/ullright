@@ -121,13 +121,13 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('tagging_options', array('model' => 'UllCourse'))
     ;    
     
-    $this->create('link_to_bookings')
-      ->setMetaWidgetClassName('ullMetaWidgetLinkCourseToBooking')
-      ->setLabel(' ')
-      ->setIsArtificial(true)
-      ->setAccess('r')
-      ->setInjectIdentifier(true)
-    ;
+//    $this->create('link_to_bookings')
+//      ->setMetaWidgetClassName('ullMetaWidgetLinkCourseToBooking')
+//      ->setLabel(' ')
+//      ->setIsArtificial(true)
+//      ->setAccess('r')
+//      ->setInjectIdentifier(true)
+//    ;
 
     if ($this->isCreateOrEditAction())
     {
@@ -154,7 +154,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'proxy_number_of_participants_applied',
           'proxy_number_of_participants_paid',
           'proxy_turnover',
-          'link_to_bookings'
+//          'link_to_bookings'
         ),
         'status' => array(
           'trainer_ull_user_id',
@@ -173,7 +173,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         'proxy_number_of_participants_applied',
         'proxy_number_of_participants_paid',
         'proxy_turnover',
-        'link_to_bookings',
+//        'link_to_bookings',
         'ull_course_status_id',
         'is_canceled',
       ));
