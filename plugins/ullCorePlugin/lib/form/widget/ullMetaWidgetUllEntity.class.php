@@ -16,7 +16,6 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
 {
   protected
     $readWidget = 'ullWidgetForeignKey',
-//    $writeWidget = 'sfWidgetFormSelectWithOptionAttributes',
     $writeWidget = 'ullWidgetFormChoiceUllEntity',
     $validator = 'sfValidatorChoice'
   ;

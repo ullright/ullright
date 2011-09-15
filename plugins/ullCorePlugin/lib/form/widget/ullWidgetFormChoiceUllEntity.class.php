@@ -17,8 +17,6 @@ class ullWidgetFormChoiceUllEntity extends ullWidgetFormDoctrineChoice
    */
   public function __construct($options = array(), $attributes = array())
   {
-    $options['renderer_class'] = 'sfWidgetFormSelectWithOptionAttributes';
-    
     // Remember optional choices because sfWidgetFormDoctrineChoice deletes them
     $choices = array();
     if (isset($options['choices']))
@@ -33,5 +31,17 @@ class ullWidgetFormChoiceUllEntity extends ullWidgetFormDoctrineChoice
       $this->setOption('choices', $choices);
     }
   }
+  
+  /**
+   * Constructor.
+   *
+   * @see sfWidgetFormSelect
+   */
+  protected function configure($options = array(), $attributes = array())
+  {
+    parent::configure($options, $attributes);
+    
+    $this->addOption('renderer_class', 'sfWidgetFormSelectWithOptionAttributes');
+  }    
   
 }
