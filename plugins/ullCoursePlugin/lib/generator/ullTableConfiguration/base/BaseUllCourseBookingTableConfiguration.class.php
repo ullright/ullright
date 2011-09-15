@@ -27,11 +27,11 @@ class BaseUllCourseBookingTableConfiguration extends ullTableConfiguration
         'UllCourse->name', 
         'UllUser->display_name',
         'comment',
-        'created_at',
+//        'created_at',
 //        'is_approved', 
         'UllCourseBookingStatus->name',
         'is_paid',
-        'price_negotiated',
+//        'price_negotiated',
         'price_paid',
          
         
