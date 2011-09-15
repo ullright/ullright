@@ -106,11 +106,15 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     
     $return = parent::executeEdit($request);
     
+    $courseSlug = $request->getParameter('course');
+    
     // Preselect course if given
-    if ($courseSlug = $request->getParameter('course'))
+    if ($courseSlug)
     {
       $course = Doctrine::getTable('UllCourse')->findOneBySlug($courseSlug);
       $this->generator->getForm()->setDefault('ull_course_id', $course->id);
+      
+      $this->form_uri = ullCoreTools::appendParamsToUri($this->form_uri, 'course=' . $courseSlug); 
     }
     
     return $return;
@@ -195,6 +199,12 @@ class BaseUllCourseBookingActions extends BaseUllGeneratorActions
     }
     elseif ($request->getParameter('action_slug') == 'save_new') 
     {
+      // Preselect course if given
+      if ($courseSlug = $request->getParameter('course'))
+      {
+        $this->redirect('ullCourseBooking/create?course=' . $courseSlug);
+      }
+            
       $this->redirect($this->create_base_uri);
     }
             
