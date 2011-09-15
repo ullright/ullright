@@ -2,7 +2,7 @@
 <?php /* The statement above loads the html head */ ?>
 <?php /* The file is located in apps/frontend/templates/_html_head.php */ ?>
 
-<body class="<?php 
+<body class="empty_layout <?php 
   echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();
 ?>">
 
