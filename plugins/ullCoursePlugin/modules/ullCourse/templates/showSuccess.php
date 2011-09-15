@@ -67,15 +67,17 @@
 </div>
 
 
-<div class="ull_course_show_tariffs">
-  <h2><?php echo __('Tariffs', null, 'ullCourseMessages') ?></h2>
-  
-  <ul>
-  <?php foreach ($doc->UllCourseTariff as $tariff): ?>
-    <li><?php echo $tariff['name'] ?>: <?php echo format_currency($tariff['price'], 'EUR') ?></li>
-  <?php endforeach ?>
-  </ul> 
-</div>  
+<?php if (count($doc->UllCourseTariff)): ?>
+  <div class="ull_course_show_tariffs">
+    <h2><?php echo __('Tariffs', null, 'ullCourseMessages') ?></h2>
+    
+    <ul>
+    <?php foreach ($doc->UllCourseTariff as $tariff): ?>
+      <li><?php echo $tariff['name'] ?>: <?php echo format_currency($tariff['price'], 'EUR') ?></li>
+    <?php endforeach ?>
+    </ul> 
+  </div>  
+<?php endif ?>
 
 
 <div class="ull_course_show_booking">
