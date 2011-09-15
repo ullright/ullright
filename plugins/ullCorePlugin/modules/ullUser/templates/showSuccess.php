@@ -63,14 +63,16 @@
 
 <?php include_partial('ullTableTool/editTable', array('generator' => $generator)) ?>
 
-<table class="edit_table">
-<tbody>
-<tr class="edit_table_spacer_row"><td colspan="3"></td></tr>
-</tbody>
-</table>
-
-<?php if ($is_user): ?>
-  <?php include_partial('ullTableTool/editTable', array('generator' => $location_generator)) ?>
+<?php if (sfConfig::get('app_ull_user_user_popup_show_location', true)): ?>
+  <table class="edit_table">
+  <tbody>
+  <tr class="edit_table_spacer_row"><td colspan="3"></td></tr>
+  </tbody>
+  </table>
+  
+  <?php if ($is_user): ?>
+    <?php include_partial('ullTableTool/editTable', array('generator' => $location_generator)) ?>
+  <?php endif ?>
 <?php endif ?>
 
 </div>

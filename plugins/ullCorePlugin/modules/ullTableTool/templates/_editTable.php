@@ -43,7 +43,9 @@
 </tbody>
 </table>
 
-<dfn><?php echo __('Fields marked with * are mandatory', null, 'ullCoreMessages')?></dfn>
+<?php if ($generator->getDefaultAccess() == 'w'):?>
+  <dfn><?php echo __('Fields marked with * are mandatory', null, 'ullCoreMessages')?></dfn>
+<?php endif ?>
 
 
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js') ?>
