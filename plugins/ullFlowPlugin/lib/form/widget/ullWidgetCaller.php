@@ -9,6 +9,20 @@
 class ullWidgetCaller extends sfWidgetFormSelectWithOptionAttributes
 {
 
+  /**
+   * Constructor.
+   *
+   * @see sfWidgetFormSelect
+   */
+  protected function configure($options = array(), $attributes = array())
+  {
+    parent::configure($options, $attributes);
+    
+    $this->addOption('show_inventory_link', true);
+  }   
+  
+  
+  
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     $return = parent::render($name, $value, $attributes, $errors);
@@ -44,23 +58,28 @@ class ullWidgetCaller extends sfWidgetFormSelectWithOptionAttributes
         w.focus();
       }
     ');
+
     
-    $return .= ' &nbsp; ';
-    
-    $return .= link_to_function(__('Inventory', null, 'ullVentoryMessages')
-      , "caller_inv_link(\"$id\")"      
-    );
-    
-    
-    
-    $return .= javascript_tag('
-      function caller_inv_link(id) {
-        var value = document.getElementById(id).value;
-        var link = "' . url_for('ullVentory/list') . '/filter[ull_entity_id]/" + value;
-        var w=window.open(link, "Inv Popup");
-        w.focus();
-      }
-    ');  
+    // Inventory link
+    if ($this->getOption('show_inventory_link'))
+    {
+      $return .= ' &nbsp; ';
+      
+      $return .= link_to_function(__('Inventory', null, 'ullVentoryMessages')
+        , "caller_inv_link(\"$id\")"      
+      );
+      
+      
+      
+      $return .= javascript_tag('
+        function caller_inv_link(id) {
+          var value = document.getElementById(id).value;
+          var link = "' . url_for('ullVentory/list') . '/filter[ull_entity_id]/" + value;
+          var w=window.open(link, "Inv Popup");
+          w.focus();
+        }
+      ');  
+    }
     
     return $return;
   }

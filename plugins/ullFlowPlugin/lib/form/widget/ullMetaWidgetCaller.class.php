@@ -9,9 +9,9 @@
  */
 class ullMetaWidgetCaller extends ullMetaWidgetUllEntity
 {
-  protected 
-    $writeWidget = 'ullWidgetCaller'
-  ; 
+//  protected 
+//    $writeWidget = 'ullWidgetCaller'
+//  ; 
   
   protected function configureWriteMode()
   {
@@ -31,6 +31,7 @@ class ullMetaWidgetCaller extends ullMetaWidgetUllEntity
     }
     
     $this->columnConfig->setWidgetOption('add_empty', true);
+    $this->columnConfig->setWidgetOption('renderer_class', 'ullWidgetCaller');
     
     parent::configureWriteMode();
   }
