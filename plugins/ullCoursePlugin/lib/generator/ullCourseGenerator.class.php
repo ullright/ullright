@@ -25,6 +25,8 @@ class ullCourseGenerator extends ullTableToolGenerator
           'trainer_ull_user_id',
 //          'duplicate_tags_for_search',
           'begin_date',
+          'begin_time',
+          'end_time',
 //          'end_date' 
         ))      
         ->setFilterColumns(array())

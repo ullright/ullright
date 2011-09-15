@@ -576,6 +576,21 @@
 				<target>Ist abgesagt</target>
 			</trans-unit>      
       
+      <trans-unit id="117">
+        <source>starting at</source>
+        <target>beginnend am</target>
+      </trans-unit>     
+      
+      <trans-unit id="118">
+        <source>With</source>
+        <target>Mit</target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
       <trans-unit id="">
         <source></source>
         <target></target>

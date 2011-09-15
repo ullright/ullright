@@ -37,37 +37,51 @@
 )) */?>
 
 <?php if ($generator->getRow()->exists()): ?>
-  <table class='list_table'>
+
+  <div class='ull_course_offering_list'>
   
-  <?php include_partial('ullTableTool/ullResultListHeader', array(
-      'generator' => $generator,
-      'order'     => $order,
-      'add_icon_th' => false,
-  )); ?>
-  
-  <!-- data -->
-  
-  <tbody>
-  <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-    <?php $form['name']->getWidget()->setAttribute('href', 
-      url_for('ullCourse/show?slug=' . $form->getObject()->slug)) ?>
-    <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>
-      <?php /*
-      <td class='no_wrap'>          
-        <?php echo ull_link_to(ull_image_tag('edit'), ullCoreTools::appendParamsToUri($edit_base_uri, $id_url_params)); ?>
-        <?php if ($generator->getAllowDelete()): ?>
-          <?php echo ull_link_to(ull_image_tag('delete'), ullCoreTools::appendParamsToUri($delete_base_uri, $id_url_params), 
-                'confirm=' . __('Are you sure?', null, 'common')); ?>
-        <?php endif ?>
-      </td>
-      */ ?>
-      <?php echo $form ?>
-    </tr>
+  
+    <?php $object = $form->getObject() ?>
+  
+    <div class="ull_course_offering_item" style="cursor:pointer;" onclick="document.location.href = 
+        '<?php echo url_for('ullCourse/show?slug=' . $object->slug) ?>'">
+    
+      <div class="ull_course_offering_item_photo">
+        <?php $photoWidget = new ullWidgetPhoto() ?>
+        <?php echo $photoWidget->render(null, $object['Trainer']['photo']) ?>
+      </div>
+      
+      <div class="ull_course_offering_item_content">
+        <h2>
+          <?php echo link_to($object->name, 'ullCourse/show?slug=' . $object->slug)?>
+        </h2>
+        <h3>
+          <?php echo __('With', null, 'ullCourseMessages') ?>
+          <?php echo $object->Trainer->first_name?> <?php echo $object->Trainer->last_name?>
+        </h3>
+        <p class="ull_course_offering_item_date">
+        
+          <?php if ($object->isMultiDay()): ?>
+            <?php echo __('%units% units', array('%units%' => $object['number_of_units']), 'ullCourseMessages') ?>
+            <?php echo __('starting at', null, 'ullCourseMessages') ?>
+          <?php endif ?>
+            
+          <?php echo $form['begin_date']->render() ?>
+          
+          <?php echo __('from', null, 'common') ?>
+          <?php echo $form['begin_time']->render() ?>
+          <?php echo __('to', null, 'common')?>
+          <?php echo $form['end_time']->render() ?>
+          
+          <?php ?>
+        </p>
+      </div>
+    
+    </div>
   <?php endforeach; ?>
   
-  </tbody>
-  </table>
+  </div>
   
 <?php endif ?>
 

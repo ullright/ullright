@@ -19,6 +19,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
         'id', 
         'name', 
         'duplicate_tags_for_search',
+        'Trainer->display_name',
       ))
       ->setOrderBy('name')
       ->setListColumns(array(
