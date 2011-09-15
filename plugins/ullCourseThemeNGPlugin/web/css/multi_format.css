@@ -115,3 +115,45 @@ ul li.ull_generator_edit_action_button_course_mail {
   margin-top: 0;
 }  
 
+/*
+ * offering
+ */
+ 
+.ull_course_offering_list {
+	margin-top: 3em;
+}
+ 
+.ull_course_offering_item {
+  overflow: hidden;	
+  margin-bottom: 2em;
+}
+
+.ull_course_offering_item_photo {
+  float: left;
+  width: 100px;
+  height: 100px;	
+  margin-right: 2em;
+}
+
+.ull_course_offering_item_photo img{
+  width: 100px;
+  heigth: auto;  
+}
+
+div.ull_course_offering_item_content h2 {
+	font-size: 1.3em;
+	margin-top: .5em;
+}
+
+div.ull_course_offering_item_content h3 {
+  font-size: 1.2em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+div.ull_course_offering_item_content p {
+  margin-top: .8em;
+}
+
+
+ 
