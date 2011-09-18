@@ -686,39 +686,35 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <target>Ich akzeptiere hiermit die allgemeinen Geschäftsbedingungen.</target>
       </trans-unit>
       
+      <trans-unit id="3126">
+        <source>Your account data for %site%</source>
+        <target>Ihre Zugangsdaten für %site%</target>
+      </trans-unit>      
+      
+       
+      
       
       
        <!-- Reset password -->
-      
-      <trans-unit id="3201">
-        <source>Hello %name%,
-
-Here's your new password for %home_url%
-    
-Username: %username%
-Password: %password%
-
-Please change your password at %edit_account_url%
-</source>
-        <target>Hallo %name%,
-
-Hier ist Ihr neues Passwort für %home_url%
-    
-Benutzername: %username%
-Passwort: %password%
-
-Bitte ändern Sie Ihr Passwort unter %edit_account_url%
-</target>
-      </trans-unit>    
-          
-      <trans-unit id="3202">
-        <source>Your new password</source>
-        <target>Ihr neues Passwort</target>
+       
+      <trans-unit id="3200">
+        <source>Someone, possibly you, requested the login details for %site%</source>
+        <target>Jemand, wahrscheinlich Sie selbst, hat die Zugangsdaten für %site% angefordert</target>
       </trans-unit>
       
+      <trans-unit id="3201">
+        <source>If you did not request your login details please ignore this email</source>
+        <target>Bitte ignorieren Sie dieses E-Mail wenn Sie keine Zugangsdaten angefordert haben.</target>
+      </trans-unit>  
+      
+      <trans-unit id="3202">
+        <source>Your email address is used in multiple accounts. Please choose your account:</source>
+        <target>Ihre E-Mailadresse wir mehrfach verwendet. Bitte wählen Sie Ihren Benutzer:</target>
+      </trans-unit>     
+      
       <trans-unit id="3203">
-        <source>Please enter your username</source>
-        <target>Bitte geben Sie Ihren Benutzernamen ein</target>
+        <source>Enter a new password</source>
+        <target>Ein neues Passwort eingeben</target>
       </trans-unit> 
       
       <trans-unit id="3204">
@@ -727,8 +723,8 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       </trans-unit> 
       
       <trans-unit id="3205">
-        <source>Your new password has been sent to your email address</source>
-        <target>Ihr neues Passwort wurde Ihnen per E-Mail zugesandt</target>
+        <source>Your login details have been sent to your email address</source>
+        <target>Ihre Zugangsdaten wurden Ihnen per E-Mail zugesendet</target>
       </trans-unit>
       
       <trans-unit id="3206">
@@ -736,9 +732,11 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
         <target>Benutzername existiert nicht</target>
       </trans-unit>
       
+      
+      
       <trans-unit id="3207">
-        <source>I forgot my password</source>
-        <target>Ich habe mein Passwort vergessen</target>
+        <source>I forgot my login details</source>
+        <target>Ich habe meinen Zugangsdaten vergessen</target>
       </trans-unit>
       
       <trans-unit id="3208">
@@ -747,19 +745,34 @@ Bitte ändern Sie Ihr Passwort unter %edit_account_url%
       </trans-unit>
       
       <trans-unit id="3209">
-        <source>Send me a new password</source>
-        <target>Neues Passwort zusenden</target>
+        <source>Send me my login details</source>
+        <target>Zugangsdaten zusenden</target>
       </trans-unit>  
       
       <trans-unit id="3210">
-        <source>Please enter your username and email address</source>
-        <target>Bitte geben Sie Ihren Benutzernamen und Ihre E-Mail Adresse ein</target>
+        <source>Please enter your email address</source>
+        <target>Bitte geben Sie Ihre E-Mailadresse ein</target>
       </trans-unit>
       
       <trans-unit id="3211">
         <source>Invalid username and email address</source>
         <target>Ungültiger Benutzername und E-Mail Adresse</target>
       </trans-unit>
+      
+      <trans-unit id="3212">
+        <source>Sorry, the given email address could not be found. Please try again.</source>
+        <target>Leider konnte die angegebene E-Mailadresse nicht gefunden werden. Bitte versuchen Sie es noch einmal.</target>
+      </trans-unit>
+      
+      <trans-unit id="3212">
+        <source>Your login details for %site%</source>
+        <target>Ihre Zugangsdaten für %site%</target>
+      </trans-unit>
+      
+      <trans-unit id="3213">
+        <source>Sorry, this request is invalid. Please request your login details again.</source>
+        <target>Dieser Aufruf ist leider ungültig. Bitte fordern Sie Ihre Zugangsdaten erneut an.</target>
+      </trans-unit>  
       
       <!-- login Form -->
           

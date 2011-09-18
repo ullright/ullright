@@ -506,10 +506,11 @@ class ullsfMail extends Swift_Message
    * @param string $partial     A valid symfony partial name e.g. ullMail/testMail 
    *                            @see get_partial()
    * @param array $vars         optional, array of partial variables
+   * @param boolean $html       Send a html email? default = false
    * 
    * @return self
    */
-  public function usePartial($partial, $vars = array())
+  public function usePartial($partial, $vars = array(), $html = false)
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
     
@@ -522,7 +523,14 @@ class ullsfMail extends Swift_Message
     
     $body = implode("\n", $lines); 
     
-    $this->setBody($body);
+    if (!$html)
+    {
+      $this->setBody($body);
+    }
+    else 
+    {
+      $this->setHtmlBody($body);
+    }
 
     return $this;
   }

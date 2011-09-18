@@ -410,4 +410,27 @@ UllPaymentType:
   columns:
     name:
       type: string(255)
-      notnull: true   
+      notnull: true
+    
+# This tokens are used for password reset.
+# A token is created, then a link with the token is sent to the user.
+# The token allows a one time login to change the password.      
+UllUserOneTimeToken:
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete   
+  columns:
+    ull_user_id:
+      type: integer
+      notnull: true
+    token:
+      type: string(16)
+      notnull: true
+    is_used_up:
+      type: boolean
+      default: false
+  relations:
+    UllUser:
+    
+    

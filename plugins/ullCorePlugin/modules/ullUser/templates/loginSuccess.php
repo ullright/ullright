@@ -36,7 +36,7 @@
         if(sfConfig::get('app_ull_user_enable_reset_password', false))
         {
           echo '<li>' . ull_link_to(
-            __('I forgot my password', null, 'ullCoreMessages'),
+            __('I forgot my login details', null, 'ullCoreMessages'),
              'ullUser/resetPassword'
           ) . '</li>'; 
         }

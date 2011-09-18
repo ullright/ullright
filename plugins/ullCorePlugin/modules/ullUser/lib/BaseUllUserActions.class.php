@@ -217,7 +217,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   
   
   /**
-   * Executes resetting password
+   * Request login details
    *
    * @param sfWebRequest $request
    */
@@ -230,6 +230,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     }    
     
     $resetPasswordData = $request->getParameter('resetPassword');
+    
     $this->form = new ResetPasswordForm();
 
     if ($request->isMethod('post'))
@@ -238,28 +239,65 @@ class BaseUllUserActions extends BaseUllGeneratorActions
       
       if ($this->form->isValid())
       {
-        $username = $this->form->getValue('username');
         $email = $this->form->getValue('email');
-        $user = Doctrine::getTable('UllUser')->findOneByUsername($username);
-        if (!$user || ($user['email'] != $email))
+        
+        $users = Doctrine::getTable('UllUser')->findByEmail($email);
+        
+        if (!$users)
         {
-          $this->getUser()->setFlash('message', __('Invalid username and email address', null, 'ullCoreMessages'));
+          $this->getUser()->setFlash('message', __(
+            'Sorry, the given email address could not be found. Please try again.', 
+            null, 'ullCoreMessages')
+          );
           $this->redirect($request->getUri());
         }
         else
         {
-          $newPassword = rand(1000,9999);
-          $user['password'] = md5($newPassword);
-          $user->save();
-          
-          $this->sendResetPasswordEmail($user, $newPassword);
+          $this->sendResetPasswordEmail($users);
   
-          $this->getUser()->setFlash('message',  __('Your new password has been sent to your email address', null, 'ullCoreMessages'));
+          $this->getUser()->setFlash('message',  __('Your login details have been sent to your email address', null, 'ullCoreMessages'));
           $this->redirect('ullUser/login');
         }
       }
     }
-  }    
+  }
+
+  /**
+   * Parses the link sent by resetPassword action, and if valid logs the user
+   * in to allow password change
+   * 
+   * @param sfRequest $request
+   */
+  public function executeNewPassword(sfRequest $request)
+  {
+    $userId = $request->getParameter('s_user_id');
+    $token = $request->getParameter('token');
+    
+    $user = UllUserTable::findById($userId);
+    
+    $this->forward404Unless($user, 'User not found');
+
+    // Security check, this cannot be used for admins, because they can set access rights
+    $this->forward404If(UllUserTable::hasGroup('MasterAdmins', $userId), 'Not allowed');
+    $this->forward404If(UllUserTable::hasGroup('UserAdmins', $userId), 'Not allowed');
+    
+    if (UllUserOneTimeTokenTable::isValidAndUseUp($token, $userId))
+    {
+      // Token is valid, log the user in
+      $this->getUser()->setAttribute('user_id', $userId);
+      
+      $this->redirect('ullUser/editAccount');
+    }
+    else
+    {
+      $this->getUser()->setFlash('message',
+        __('Sorry, this request is invalid. Please request your login details again.', 
+          null, 'ullCoreMessages')
+      );
+      $this->redirect('ullUser/resetPassword');
+    }
+    
+  }
   
   
   /**
@@ -1012,9 +1050,18 @@ You can edit your account at %edit_account_url%
 /**
    * Send email for reset password
    */
-  protected function sendResetPasswordEmail($user, $password)
+  protected function sendResetPasswordEmail($users)
   {
-    $name = $user->first_name . ' ' . $user->last_name;
+    // Multiple users can have the same email address e.g. parent and children.
+    // We send one email with all the users included
+    if ($users instanceof UllUser)
+    {
+      $firstUser = $users;
+    }
+    else
+    {
+      $firstUser = $users->getFirst();
+    }
     
     $mail = new ullsfMail();
 
@@ -1023,26 +1070,10 @@ You can edit your account at %edit_account_url%
       sfConfig::get('app_ull_user_reset_password_sender_name', 'No reply')
     );
     $mail->addAddress(
-      $user->email, 
-      $name
+      $firstUser->email
     );
-    $mail->setSubject(__('Your new password', null, 'ullCoreMessages'));
     
-    $mail->setBody(__('Hello %name%,
-
-Here\'s your new password for %home_url%
-    
-Username: %username%
-Password: %password%
-
-Please change your password at %edit_account_url%
-', array(
-  '%name%'              => $name,
-  '%home_url%'          => url_for('@homepage', true),
-  '%username%'          => $user->username,
-  '%password%'          => $password,
-  '%edit_account_url%'  => url_for('ullUser/editAccount', true),
-    ), 'ullCoreMessages'));
+    $mail->usePartial('ullUser/resetPasswordMail', array('users' => $users), true);
     
     $mail->send();
   }

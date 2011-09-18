@@ -930,4 +930,25 @@ class ullCoreTools
 
     return $upload_mb;
   }
+  
+  /**
+   * Create a random string using numbers, upper and lower case letters
+   * 
+   * From http://snippets.dzone.com/posts/show/3123
+   * 
+   * @param integer $length
+   */
+  public static function randomString($length = 16)
+  {
+    $base = 'ABCDEFGHKLMNOPQRSTWXYZabcdefghjkmnpqrstwxyz123456789';
+    $max = strlen($base) - 1;
+    $string = '';
+    
+    while (strlen($string) < $length)
+    {
+      $string .= $base{mt_rand(0, $max)};
+    }
+      
+    return $string;
+  }
 }

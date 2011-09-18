@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(45, new lime_output_color);
+$t = new lime_test(46, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -174,4 +174,10 @@ $t->diag('base64_decode_urlsafe()');
   $t->is(ullCoreTools::base64_decode_urlsafe('Zrw_4QS-Lfr6-g'), $string, ' base64_decode_urlsafe decodes correctly');
   
 $t->diag('escapeSingleQuotes');
-  $t->is(ullCoreTools::escapeSingleQuotes("This \"is\" 'cool'"), "This \"is\" \'cool\'", 'Quotes only single quotes');  
+  $t->is(ullCoreTools::escapeSingleQuotes("This \"is\" 'cool'"), "This \"is\" \'cool\'", 'Quotes only single quotes');
+
+$t->diag('randomString');
+
+  var_dump(ullCoreTools::randomString());
+  $t->is(strlen(ullCoreTools::randomString()), 16, 'String has the correct length');
+  
