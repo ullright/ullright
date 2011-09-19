@@ -177,7 +177,5 @@ $t->diag('escapeSingleQuotes');
   $t->is(ullCoreTools::escapeSingleQuotes("This \"is\" 'cool'"), "This \"is\" \'cool\'", 'Quotes only single quotes');
 
 $t->diag('randomString');
-
-  var_dump(ullCoreTools::randomString());
   $t->is(strlen(ullCoreTools::randomString()), 16, 'String has the correct length');
   
