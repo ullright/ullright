@@ -166,7 +166,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
       return;
     }
     
-    if ($this->price_paid && $this->price_paid < $this->price_negotiated)
+    if (floatval($this->price_paid) && $this->price_paid < $this->price_negotiated)
     {
       $this->UllCourseBookingStatus = $this->findStatus('underpaid');
       
@@ -180,7 +180,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
       return;      
     }
     
-    if ($this->price_paid && $this->price_paid > $this->price_negotiated)
+    if (floatval($this->price_paid) && $this->price_paid > $this->price_negotiated)
     {
       $this->UllCourseBookingStatus = $this->findStatus('overpaid');
       
