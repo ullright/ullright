@@ -72,6 +72,12 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_edit');
     
+    // Redirect back when coming from the course offering
+    if (strstr($_SERVER['HTTP_REFERER'], 'courses/'))
+    {
+      $this->getUriMemory()->setReferer('list');
+    }
+    
     return parent::executeEdit($request);
   }
 
