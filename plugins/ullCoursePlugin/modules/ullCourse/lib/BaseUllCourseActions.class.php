@@ -110,7 +110,11 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     $this->getResponse()->setTitle(__('Courses', null, 'ullCourseMessages'));
     
-    return  parent::executeList($request);    
+    $return = parent::executeList($request);
+
+    $this->allow_edit = UllUserTable::hasPermission('ull_course_edit');
+    
+    return $return;
   }
   
   /**

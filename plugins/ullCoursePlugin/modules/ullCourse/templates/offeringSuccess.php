@@ -77,6 +77,19 @@
           
           <?php ?>
         </p>
+        <?php if ($allow_edit): ?>
+          <p class="ull_course_offering_item_admin">
+            <?php echo link_to(
+              __('Show bookings', null, 'ullCourseMessages'),
+              'ullCourseBooking/list?filter[ull_course_id]=' . $object->id
+            )?>
+            | 
+            <?php echo link_to(
+              __('Create booking', null, 'ullCourseMessages'),
+              'ullCourseBooking/create?course=' . $object->slug
+            )?>            
+          </p>           
+        <?php endif ?>        
       </div>
     
     </div>
