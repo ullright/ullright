@@ -373,7 +373,14 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_course_trainers');
     
-    $this->trainers = UllUserTable::findByGroup('Trainers');
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllUser u, u.UllGroup g')
+      ->where('g.display_name = ?','Trainers' )
+      ->orderBy('u.last_name, u.first_name')
+    ;
+
+    $this->trainers = $q->execute();
     
     $this->getResponse()->setTitle(__('Trainers', null, 'ullCourseMessages'));
   }
