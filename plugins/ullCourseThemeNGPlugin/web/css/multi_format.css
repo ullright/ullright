@@ -140,6 +140,10 @@ ul li.ull_generator_edit_action_button_course_mail {
   heigth: auto;  
 }
 
+div.ull_course_offering_item_content {
+  margin-left: 125px;
+}
+
 div.ull_course_offering_item_content h2 {
 	font-size: 1.2em;
 	margin-top: .5em;
