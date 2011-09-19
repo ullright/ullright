@@ -243,7 +243,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         
         $users = Doctrine::getTable('UllUser')->findByEmail($email);
         
-        if (!$users)
+        if (!count($users))
         {
           $this->getUser()->setFlash('message', __(
             'Sorry, the given email address could not be found. Please try again.', 
