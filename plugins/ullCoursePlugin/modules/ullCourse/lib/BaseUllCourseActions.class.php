@@ -549,7 +549,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     if ('list' == $this->getActionName())
     {
-//      die('whoo');
       $columnsConfig = $this->generator->getColumnsConfig();
       $filter = $this->getRequestParameter('filter');
       if (
