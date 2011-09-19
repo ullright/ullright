@@ -708,7 +708,7 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       </trans-unit>  
       
       <trans-unit id="3202">
-        <source>Your email address is used in multiple accounts. Please choose your account:</source>
+        <source>Your email address is used in multiple accounts. Please choose yours:</source>
         <target>Ihre E-Mailadresse wir mehrfach verwendet. Bitte wählen Sie Ihren Benutzer:</target>
       </trans-unit>     
       

@@ -27,7 +27,7 @@
       'Your email address is used in multiple accounts. Please choose yours:',
       null,
       'ullCoreMessages'
-    ) ?>.
+    ) ?>
   </p>
 <?php endif ?>
 
