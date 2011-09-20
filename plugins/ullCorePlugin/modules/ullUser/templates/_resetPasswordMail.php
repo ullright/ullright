@@ -7,16 +7,8 @@
 ?> 
 <p>
   <?php echo __(
-    'Someone, possibly you, requested the login details for %site%',
+    'Here are your login details for %site%',
     array('%site%' => sfConfig::get('app_server_name', 'www.example.com')),
-    'ullCoreMessages'
-  ) ?>.
-</p>
-
-<p>
-  <?php echo __(
-    'If you did not request your login details please ignore this email',
-    null,
     'ullCoreMessages'
   ) ?>.
 </p>

@@ -253,7 +253,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
         }
         else
         {
-          $this->sendResetPasswordEmail($users);
+          self::sendResetPasswordEmail($users);
   
           $this->getUser()->setFlash('message',  __('Your login details have been sent to your email address', null, 'ullCoreMessages'));
           $this->redirect('ullUser/login');
@@ -1050,13 +1050,14 @@ You can edit your account at %edit_account_url%
 /**
    * Send email for reset password
    */
-  protected function sendResetPasswordEmail($users)
+  public static function sendResetPasswordEmail($users)
   {
     // Multiple users can have the same email address e.g. parent and children.
     // We send one email with all the users included
     if ($users instanceof UllUser)
     {
       $firstUser = $users;
+      $users = array($users);
     }
     else
     {
@@ -1064,7 +1065,7 @@ You can edit your account at %edit_account_url%
     }
     
     $mail = new ullsfMail();
-
+    
     $mail->setFrom(
       sfConfig::get('app_ull_user_reset_password_sender_address', 'noreply@example.com'),
       sfConfig::get('app_ull_user_reset_password_sender_name', 'No reply')
@@ -1074,7 +1075,7 @@ You can edit your account at %edit_account_url%
     );
     
     $mail->usePartial('ullUser/resetPasswordMail', array('users' => $users), true);
-    
+      
     $mail->send();
   }
   

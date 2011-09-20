@@ -698,14 +698,9 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
        <!-- Reset password -->
        
       <trans-unit id="3200">
-        <source>Someone, possibly you, requested the login details for %site%</source>
-        <target>Jemand, wahrscheinlich Sie selbst, hat die Zugangsdaten für %site% angefordert</target>
+        <source>Here are your login details for %site%</source>
+        <target>Hier sind Ihre Zugangsdaten für %site%</target>
       </trans-unit>
-      
-      <trans-unit id="3201">
-        <source>If you did not request your login details please ignore this email</source>
-        <target>Bitte ignorieren Sie dieses E-Mail wenn Sie keine Zugangsdaten angefordert haben.</target>
-      </trans-unit>  
       
       <trans-unit id="3202">
         <source>Your email address is used in multiple accounts. Please choose yours:</source>
