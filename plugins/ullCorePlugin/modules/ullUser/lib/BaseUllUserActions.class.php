@@ -21,7 +21,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeList(sfRequest $request) 
   {
-    $this->checkAccess(array('MasterAdmins', 'UserAdmins'));
+    $this->checkPermission('ull_user_edit');
     
     $this->loadNamedQueries();
     
@@ -156,7 +156,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeEdit(sfRequest $request) 
   {
-    $this->checkAccess(array('MasterAdmins', 'UserAdmins'));
+    $this->checkPermission('ull_user_edit');
     
     parent::executeEdit($request);
     
@@ -479,7 +479,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeDelete(sfRequest $request)
   { 
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission('ull_user_delete');
     
     parent::executeDelete($request);
   }  
@@ -503,7 +503,7 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   public function executeDeleteFutureVersion(sfRequest $request)
   { 
-    $this->checkAccess('MasterAdmins');
+    $this->checkPermission('ull_user_delete_future_version');
     
     parent::executeDeleteFutureVersion($request);
   }
