@@ -195,7 +195,7 @@ UllGroupPermission:
     UllPermission:      ull_permission_ull_employment_type
     namespace:          ull_core
   ull_group_permission_10:
-    UllGroup:           ull_admin_group
+    UllGroup:           admin_group
     UllPermission:      ull_permission_ull_admin_index
     namespace:          ull_core   
   ull_group_permission_11:
@@ -203,7 +203,7 @@ UllGroupPermission:
     UllPermission:      ull_permission_ull_employment_type
     namespace:          ull_core
   ull_group_permission_12:
-    UllGroup:           ull_admin_group
+    UllGroup:           admin_group
     UllPermission:      ull_permission_ull_user_list
     namespace:          ull_core   
   ull_group_permission_13:
@@ -211,7 +211,7 @@ UllGroupPermission:
     UllPermission:      ull_permission_ull_user_list
     namespace:          ull_core
   ull_group_permission_14:
-    UllGroup:           ull_admin_group
+    UllGroup:           admin_group
     UllPermission:      ull_permission_ull_user_edit
     namespace:          ull_core   
   ull_group_permission_15:
@@ -219,11 +219,11 @@ UllGroupPermission:
     UllPermission:      ull_permission_ull_user_edit
     namespace:          ull_core
   ull_group_permission_16:
-    UllGroup:           ull_admin_group
+    UllGroup:           admin_group
     UllPermission:      ull_permission_ull_user_delete
     namespace:          ull_core  
   ull_group_permission_17:
-    UllGroup:           ull_admin_group
+    UllGroup:           admin_group
     UllPermission:      ull_permission_ull_user_delete_future_version
     namespace:          ull_core                                     
 
