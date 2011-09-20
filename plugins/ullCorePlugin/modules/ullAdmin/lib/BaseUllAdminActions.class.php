@@ -13,7 +13,7 @@ class BaseUllAdminActions extends ullsfActions
 
   public function executeIndex() 
   {
-    $this->checkAccess('ull_admin_index');
+    $this->checkPermission('ull_admin_index');
     
     $this->breadcrumbForIndex();
     
