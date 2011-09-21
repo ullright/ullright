@@ -938,8 +938,8 @@ class ullCoreTools
    */
   public static function randomString($length = 16)
   {
-    $bytes = openssl_random_pseudo_bytes($length / 2);
-    $string = bin2hex($bytes);
+    $bytes = openssl_random_pseudo_bytes($length);
+    $string = substr(ullCoreTools::base64_encode_urlsafe($bytes), 0, $length);
       
     return $string;
   }
