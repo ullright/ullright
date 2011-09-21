@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(46, new lime_output_color);
+$t = new lime_test(47, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -178,4 +178,5 @@ $t->diag('escapeSingleQuotes');
 
 $t->diag('randomString');
   $t->is(strlen(ullCoreTools::randomString()), 16, 'String has the correct length');
+  $t->is(strlen(ullCoreTools::randomString(20)), 20, 'String has the correct length');
   
