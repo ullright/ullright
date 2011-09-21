@@ -932,7 +932,7 @@ class ullCoreTools
   }
   
   /**
-   * Create a random hex string
+   * Create a random string using numbers, uppercase, lowercase, '_' and '-'
    * 
    * @param integer $length
    */
