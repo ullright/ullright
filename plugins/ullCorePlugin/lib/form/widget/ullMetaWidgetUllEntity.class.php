@@ -17,6 +17,7 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
   protected
     $readWidget = 'ullWidgetForeignKey',
     $writeWidget = 'ullWidgetFormChoiceUllEntity',
+    $writeAjaxWidget = 'ullWidgetUllEntityAjaxWrite',
     $validator = 'sfValidatorChoice'
   ;
 
@@ -31,11 +32,63 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
   
   protected function configureWriteMode()
   {
-    // set default entity class
-    if (!($this->columnConfig->getOption('entity_classes')))
+    // Global mode switch between classic select box and ajax autocomplete mode
+    $enableAjaxAutocomplete = sfConfig::get('app_ull_user_enable_ajax_autocomple_widget', false);
+    
+    // Override per widget via columnConfig
+    if ($this->columnConfig->getOption('enable_ajax_autocomplete'))
     {
-      $this->columnConfig->setOption('entity_classes', array('UllUser', 'UllGroup'));
+      $enableAjaxAutocomplete = $this->getOption('enable_ajax_autocomplete');
     }
+    
+    if ($enableAjaxAutocomplete)
+    {
+      $this->configureWriteModeAjax();
+    }
+    else
+    {
+      $this->configureWriteModeClassic();
+    }
+  }
+  
+  /**
+   * Configure write mode with ajax autocomplete
+   * 
+   */
+  protected function configureWriteModeAjax()
+  {
+    $this->defaultEntityClasses();
+    
+    //Pass options to widget
+    $this->columnConfig->setWidgetOption('entity_classes', 
+      $this->columnConfig->getOption('entity_classes'));
+    $this->columnConfig->setWidgetOption('hide_choices', 
+      $this->columnConfig->getOption('hide_choices'));
+    $this->columnConfig->setWidgetOption('filter_users_by_group', 
+      $this->columnConfig->getOption('filter_users_by_group'));
+      
+    //Remove unsupported options
+    $this->columnConfig->removeWidgetOption('add_empty');
+    $this->columnConfig->removeWidgetOption('renderer_options');
+    $this->columnConfig->removeWidgetOption('renderer_class');
+    
+    $this->addWidget(new ullWidgetUllEntityAjaxWrite(
+      $this->columnConfig->getWidgetOptions(),
+      $this->columnConfig->getWidgetAttributes()
+    ));
+    
+    $this->addValidator(new sfValidatorPass());
+        
+  }
+
+  /**
+   * Configure write mode for classic select box
+   * 
+   * @throws InvalidArgumentException
+   */
+  protected function configureWriteModeClassic()
+  {
+    $this->defaultEntityClasses();
     
     if ($this->columnConfig->getWidgetOption('add_empty'))
     {
@@ -125,7 +178,20 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     
     $this->addValidator(new $this->validator(
         array_merge(array('choices' => array_keys($choices)), $this->columnConfig->getValidatorOptions()))
-    );
+    );    
+  }
+  
+  /**
+   * Set default entity classes if none given
+   * 
+   */
+  protected function defaultEntityClasses()
+  {
+    // Set default entity classes
+    if (!$this->columnConfig->getOption('entity_classes'))
+    {
+      $this->columnConfig->setOption('entity_classes', array('UllUser', 'UllGroup'));
+    }       
   }
   
   public function getSearchType()

@@ -829,6 +829,58 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     $this->message = __('Login not possible. Please activate cookies in your browser.', null, 'ullCoreMessages');
   }
   
+  public function executeAjaxAutoComplete(sfRequest $request)
+  {
+    sfConfig::set('sf_web_debug',false);
+    
+    // All params except the term are encrypted together to prevent misuse
+    $data = unserialize($request->getParameter('s_data'));
+    
+    $this->checkPermission($data['permission']);
+    
+    $term = $request->getParameter('term');
+    
+    $results = array();
+
+    // Get results from all specified UllEntity child classes, e.g. UllUser, UllGroup, ...
+    foreach ($data['entity_classes'] as $class)
+    {
+      $className = $class . 'Table';
+      
+      if (method_exists($className, 'findChoicesAjax'))
+      {
+        if ('UllUser' == $class && isset($data['filter_users_by_group']))
+        {
+          $results += call_user_func(array($className, 'findChoicesAjax'), $term, $filterUsersByGroup);
+        }
+        else
+        {
+          $results += call_user_func(array($className, 'findChoicesAjax'), $term);
+        }
+      }
+      else
+      {
+        throw new InvalidArgumentException('The given entity table class has no "findChoicesAjax()" method implemented: ' . $class);
+      }
+    }
+
+    // Shall we hide some choices?
+    // Example usage: do not allow to select yourself as superior
+    if (isset($data['hide_choices']))
+    {
+      $results = array_diff_key($results, array_flip($data['hide_choices']));
+    }
+    
+    // Reindex array to create proper json 
+    $results = array_values($results);
+    
+//    var_dump($results);
+//    var_dump(json_encode($results));
+//    die;
+    
+    return $this->renderText(json_encode($results));
+  }
+  
   
   /**
    * Get user by username from request

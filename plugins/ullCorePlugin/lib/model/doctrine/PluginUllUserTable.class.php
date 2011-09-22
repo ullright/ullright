@@ -174,7 +174,7 @@ class PluginUllUserTable extends UllEntityTable
   }  
   
   /**
-   * Return choices for UllMetaWidgetEntity
+   * Return choices for UllMetaWidgetEntity classic mode
    * 
    * @return array
    */
@@ -213,6 +213,32 @@ class PluginUllUserTable extends UllEntityTable
     return $result;
   }  
   
+  
+  /**
+   * Return choices for UllMetaWidgetEntity ajax mode
+   * 
+   * @return array
+   */
+  public static function findChoicesAjax($term, $filterUsersByGroup = null)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('u.id, u.display_name as value, u.display_name as label')
+      ->from('UllUser u')
+      ->where('u.last_name_first LIKE ?', '%' . $term . '%')
+      ->orderBy('u.last_name, u.first_name')
+      ->limit(sfConfig::get('app_ull_user_ajax_autocomple_widget_limit', 12));
+    ;
+    
+    if ($filterUsersByGroup)
+    {
+      $q->addWhere('u.UllGroup.display_name = ?', $filterUsersByGroup);
+    }    
+    
+    $results = $q->execute(null, Doctrine::HYDRATE_ARRAY);
+    
+    return $results;
+  }    
   
   /**
    * Find username by id

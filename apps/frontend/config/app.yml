@@ -77,8 +77,14 @@ all:
   ull_user:
     display_name_length_limit:              22
     display_name_first_name_length_limit:   10
+    
     # Which UllUser field to use in select boxes 
     select_field:                           last_name_first
+    # Globally switch all entity (user, group,...) select fields to ajax autocomplete mode
+    enable_ajax_autocomple_widget:          false
+    # Number of results in autocomplete result list
+    ajax_autocomple_widget_limit:           12
+    
     clone_user_columns:                     [ 'ull_company_id', 'ull_location_id', 'ull_department_id', 'ull_job_title_id', 'superior_ull_user_id', 'phone_extension', 'fax_extension', 'ull_user_status_id', 'comment' ]
     phone_book_show_columns:                [ 'last_name_first', 'phone_extension', 'mobile_number', 'email', 'UllLocation->name',  'UllDepartment->name', 'UllJobTitle->name' ]
     phone_book_search_columns:              [ 'first_name', 'last_name', 'UllLocation->name', 'UllLocation->short_name', 'UllLocation->phone_base_no', 'UllDepartment->name', 'UllJobTitle->name' ]

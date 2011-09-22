@@ -208,6 +208,11 @@ ul.tc_tasks li img {
   margin-bottom: 1.5em;
 }
 
+#tc_search #filter_id_ajax {
+  width: 200px;
+}
+  
+
 /*  Queries
     The right column containing queries.
  */
@@ -1084,4 +1089,23 @@ span.ull_widget_time {
 .ull_widget_datetime_alert {
   border-left: 1.3em solid red;
   padding-left: .5em;
+}
+
+/*
+ * ************************************************
+ *  ullWidgetUllEntityAjaxWrite
+ * ************************************************
+ */
+
+/*
+input.ull_widget_ull_entity_ajax_write_search {
+  background-image: url(/ullCoreThemeNGPlugin/images/action_icons/search_16x16_light.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position: 99% 60%;
+}
+*/
+
+.ui-autocomplete-loading { 
+	background: white url(/ullCoreThemeNGPlugin/images/indicator.gif) right center no-repeat; 
 }

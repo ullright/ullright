@@ -68,6 +68,9 @@ abstract class BaseUllsfActions extends sfActions
    *
    *
    * @param group mixed   group id, group name or array of group ids/names (not mixed!)
+   
+   * @deprecated use checkPermission() instead
+   * 
    * @return none
    */
   public function checkAccess($group)
@@ -92,6 +95,11 @@ abstract class BaseUllsfActions extends sfActions
     $this->getUriMemory()->setUri('login', 'ullUser');
      
     $this->redirectToNoAccessUnless(UllUserTable::hasPermission($permission));
+    
+    // Save the main permission from the action in the context
+    // This is e.g. used for ullMetaWidgetUllEntity ajax autocomplete mode to 
+    // pass the encrypted permission to the ajax action
+    $this->getContext()->set('permission', $permission);
   }
 
 

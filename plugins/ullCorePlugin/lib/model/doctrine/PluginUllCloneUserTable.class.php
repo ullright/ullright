@@ -23,4 +23,24 @@ class PluginUllCloneUserTable extends UllEntityTable
     return $result;
   }  
   
+  /**
+   * Return choices for UllMetaWidgetEntity ajax mode
+   * 
+   * @return array
+   */
+  public static function findChoicesAjax($term)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('u.id, u.display_name as value, u.display_name as label')
+      ->from('UllCloneUser u')
+      ->where('u.display_name LIKE ?', '%' . $term . '%')
+      ->orderBy('u.display_name')
+    ;
+    
+    $results = $q->execute(null, Doctrine::HYDRATE_ARRAY);
+
+    return $results;
+  }     
+  
 }
