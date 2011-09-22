@@ -33,8 +33,8 @@
     <?php echo ull_format_time($course['end_time']) ?>  
   <br />
     <?php echo __('Trainer', null, 'ullCourseMessages') ?>: 
-    <?php echo $course['Trainer']['display_name'] ?>, 
-    <?php echo auto_link_text($course['Trainer']['email']) ?>, 
+    <?php echo $course['Trainer']['display_name'] ?> &nbsp; 
+    <?php echo auto_link_text($course['Trainer']['email']) ?> &nbsp;  
     <?php echo $course['Trainer']['mobile_number'] ?>
   </p>
 
