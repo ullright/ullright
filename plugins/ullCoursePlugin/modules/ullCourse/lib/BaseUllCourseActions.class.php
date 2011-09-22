@@ -93,6 +93,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
       ' ' . $doc->name
     );
     
+    $this->allow_edit = UllUserTable::hasPermission('ull_course_edit');
+    
     $this->setVar('doc', $doc, true);
     
   }  

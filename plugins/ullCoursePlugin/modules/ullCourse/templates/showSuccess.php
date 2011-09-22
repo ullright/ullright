@@ -5,6 +5,20 @@
   <?php echo $doc['name'] ?>
 </h1>
 
+<?php if ($allow_edit): ?>
+  <p class="ull_course_offering_item_admin">
+    <?php echo link_to(
+      __('Show bookings', null, 'ullCourseMessages'),
+      'ullCourseBooking/list?filter[ull_course_id]=' . $doc->id
+    )?>
+    | 
+    <?php echo link_to(
+      __('Create booking', null, 'ullCourseMessages'),
+      'ullCourseBooking/create?course=' . $doc->slug
+    )?>            
+  </p>           
+<?php endif ?>   
+
 <div class="ull_course_show_trainer">
   <h2><?php echo __('Trainer', null, 'ullCourseMessages') ?></h2>
   
