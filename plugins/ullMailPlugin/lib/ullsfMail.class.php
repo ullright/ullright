@@ -330,8 +330,10 @@ class ullsfMail extends Swift_Message
    * Commences mail sending process, using the realtime transport
    * by default. Optionally uses the queue.
    * 
+   * You can also use sfContext::getInstance()->getMailer()->send($ullsfMail) 
+   * instead, which is the swift mailer way now.
+   * 
    * @param boolean $queue true/false => common/realtime transport
-   * @deprecated use sfContext::getInstance()->getMailer()->send() instead.
    */
   public function send($queue = false) 
   {
