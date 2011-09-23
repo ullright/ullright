@@ -4,6 +4,9 @@
  * User select box with additional links to user popup and inventory
  * 
  * @author klemens.ullmann-marx@ull.at
+ * 
+ * @deprecated: Use ullWidgetFormChoiceUllEntity with option show_user_link,
+ *   show_inventory link instead.
  *
  */
 class ullWidgetCaller extends sfWidgetFormSelectWithOptionAttributes

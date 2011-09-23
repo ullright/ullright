@@ -27,12 +27,12 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     ;
 
     $this['ull_user_id']
-      ->setMetaWidgetClassName('ullMetaWidgetCaller')
+      ->setMetaWidgetClassName('ullMetaWidgetUllEntity')
       ->setLabel(__('Person', null, 'ullCoreMessages'))
       ->setOption('show_search_box', true)
       ->setOption('enable_inline_editing', true)
       ->setWidgetOption('add_empty', true)
-      ->setWidgetOption('renderer_options', array('show_inventory_link' => false))
+      ->setWidgetOption('show_user_link', true)
     ;    
     
     $this['ull_course_tariff_id']
