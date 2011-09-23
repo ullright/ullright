@@ -293,8 +293,10 @@ function ullOverlay_' . $id .'(action) {
   public function renderPostWidgetReload($id, $name)
   {
     $return = '
-// Select added entry
+// Set / select added entry
 $("#' . $id . '").val(window.overlayId);
+// trigger change event (e.g. used by ullWidgetUllEntityAjaxWrite) 
+$("#' . $id. '").triggerHandler("change");
 ';
     
     return $return;

@@ -22,10 +22,18 @@ class ullWidgetUllEntityAjaxWrite extends ullWidget
     $this->addRequiredOption('entity_classes');
     $this->addOption('hide_choices');
     $this->addOption('filter_users_by_group');
+    // Not used, but necessary for compatibility with ullWidgetFormChoiceUllEntity
+    //   to share inline editing support
+    $this->addOption('choices');
 
     parent::configure($options, $attributes);
   }
 
+  /**
+   * Render code
+   * 
+   * @see plugins/ullCorePlugin/lib/form/widget/ullWidget::render()
+   */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     // Generate id
@@ -93,11 +101,21 @@ $(function() {
     
     select: function( event, ui ) {
       /* Set the entity id in the original form field */
-      $("#' . $id. '").val(ui.item.id); 
+      $("#' . $id. '").val(ui.item.id);
+      
       /* If onchange=submit() is supplied, submit the correct field */' .
       ($onchangeSubmit ? ('this.form.submit();') : '') . '        
     }    
   });
+
+  // Support for inline editing: try to get a string value from the overlay result
+  $("#' . $id . '").change(function () {
+    if (window.overlayString != null) {
+      $("#' . $id . '_ajax").val(window.overlayString);
+    }
+  });
+  
+  
   
 });    
     ');

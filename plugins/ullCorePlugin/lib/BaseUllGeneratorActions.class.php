@@ -192,7 +192,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
         if ($this->is_ajax)
         {
           // Everything's fine, no validation error occured
-          return $this->renderText(json_encode(array('id' => $row->id)));
+          return $this->renderText(json_encode(array('id' => $row->id, 'string' => $row->__toString())));
 
           // Note: Otherwhise the normal html markup (form + error msgs) is returned
         }

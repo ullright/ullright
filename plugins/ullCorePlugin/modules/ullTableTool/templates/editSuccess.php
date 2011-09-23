@@ -49,6 +49,7 @@
                         var json = jQuery.parseJSON(data);
                         // save object id for overlay creator (=original edit page) 
                         window.overlayId = json.id;
+                        window.overlayString = json.string;
                         // save modified status for overlay creator to trigger widget reload
                         window.overlayIsModified = true;
                         $("#overlay").overlay().close();

@@ -35,7 +35,6 @@ class sfWidgetFormSelectWithOptionAttributes extends sfWidgetFormSelect
     parent::configure($options, $attributes);
     
     $this->addOption('show_search_box', false);
-//    $this->addOption('show_ull_entity_popup', false);
   }  
 
   /**

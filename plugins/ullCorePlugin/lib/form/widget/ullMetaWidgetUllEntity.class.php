@@ -55,10 +55,12 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     $enableAjaxAutocomplete = sfConfig::get('app_ull_user_enable_ajax_autocomple_widget', false);
     
     // Override per widget via columnConfig
-    if ($this->columnConfig->getOption('enable_ajax_autocomplete'))
+    if (null !== $this->columnConfig->getOption('enable_ajax_autocomplete'))
     {
-      $enableAjaxAutocomplete = $this->getOption('enable_ajax_autocomplete');
+      $enableAjaxAutocomplete = $this->columnConfig->getOption('enable_ajax_autocomplete');
     }
+    
+    $this->handleInlineEditing();
     
     if ($enableAjaxAutocomplete)
     {
@@ -79,20 +81,20 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
    */
   protected function configureWriteModeAjax()
   {
-    //Pass options to widget
-    $this->columnConfig->setWidgetOption('entity_classes', 
-      $this->columnConfig->getOption('entity_classes'));
-    $this->columnConfig->setWidgetOption('hide_choices', 
-      $this->columnConfig->getOption('hide_choices'));
-    $this->columnConfig->setWidgetOption('filter_users_by_group', 
-      $this->columnConfig->getOption('filter_users_by_group'));
+    $this->columnConfig->setWidgetOption('renderer_class', $this->writeAjaxWidget);
+    
+    $rendererOptions = array(
+      'entity_classes' => $this->columnConfig->getOption('entity_classes'),
+      'hide_choices' => $this->columnConfig->getOption('hide_choices'),
+      'filter_users_by_group' => $this->columnConfig->getOption('filter_users_by_group')
+    );
+    
+    $this->columnConfig->setWidgetOption('renderer_options', $rendererOptions);
       
     //Remove unsupported options
     $this->columnConfig->removeWidgetOption('add_empty');
-    $this->columnConfig->removeWidgetOption('renderer_options');
-    $this->columnConfig->removeWidgetOption('renderer_class');
     
-    $this->addWidget(new $this->writeAjaxWidget(
+    $this->addWidget(new $this->writeWidget(
       $this->columnConfig->getWidgetOptions(),
       $this->columnConfig->getWidgetAttributes()
     ));
@@ -106,55 +108,6 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
    */
   protected function configureWriteModeClassic()
   {
-    // Handle 'add_empty' option
-    $choices = array();
-    if ($this->columnConfig->getWidgetOption('add_empty'))
-    {
-      $choices = array('' => array('name' => ''));
-    }
-    $this->columnConfig->removeWidgetOption('add_empty');
-    
-    $filterUsersByGroup = $this->columnConfig->getOption('filter_users_by_group');
-    
-    // Build choices
-    foreach($this->columnConfig->getOption('entity_classes') as $class)
-    {
-      $className = $class . 'Table';
-      
-      if (method_exists($className, 'findChoices'))
-      {
-        $choices += ($class == 'UllUser' && $filterUsersByGroup !== null) ? 
-         call_user_func(array($className, 'findChoices'), $filterUsersByGroup) :
-         call_user_func(array($className, 'findChoices'));
-      }
-      else
-      {
-        throw new InvalidArgumentException('The given entity table class has no "findChoices()" method implemented: ' . $class);
-      }
-    }
-    
-    // Shall we hide some choices?
-    if ($hideChoices = $this->columnConfig->getOption('hide_choices'))
-    {
-      $choices = array_diff_key($choices, array_flip($hideChoices));
-    }
-    
-    // Limit entry label length
-    $lengthLimit = sfConfig::get('app_ull_user_display_name_length_limit', 22);
-    foreach($choices as &$choice)
-    {
-      $oldName = $choice['name'];
-      if (strlen($oldName) > $lengthLimit)
-      {
-        $newName = substr($oldName, 0, $lengthLimit);
-        if (substr($newName, -1) == '-')
-        {
-          $newName = substr($newName, 0, -1);
-        }
-        $choice['name'] = $newName . '.';
-      }
-    }
-
     // Handle js search box
     $this->columnConfig->setWidgetOption('show_search_box', false);
     if ($this->columnConfig->getOption('show_search_box'))
@@ -162,28 +115,14 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       $this->columnConfig->setWidgetOption('show_search_box', true);
     }
     
-    // Inline editing
-
-    $this->columnConfig->setWidgetOption('enable_inline_editing', false);
-    // ullWidgetFormDoctrineChoice demands the 'model' option
-    $this->columnConfig->setWidgetOption('model', 'irrelevant');
+    $choices = $this->getChoices();
     
-    if ($this->columnConfig->getOption('enable_inline_editing'))
-    {
-      $entityClasses = $this->columnConfig->getOption('entity_classes');
-      
-      if (count($entityClasses) > 1)
-      {
-        throw new InvalidArgumentException('option "enable_inline_editing" is only allowed for a sinlge entity_class');
-      }      
-      
-      $this->columnConfig->setWidgetOption('enable_inline_editing', true);
-      $this->columnConfig->setWidgetOption('model', reset($entityClasses));
-    }
+    $this->columnConfig->setWidgetOption('renderer_class', 'sfWidgetFormSelectWithOptionAttributes');
     
     // Set widget
     $this->addWidget(new $this->writeWidget(
         array_merge(array('choices' => $choices), $this->columnConfig->getWidgetOptions()),
+        $this->columnConfig->getWidgetOptions(),
         $this->columnConfig->getWidgetAttributes()
     ));
     
@@ -220,7 +159,95 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     $this->addValidator(new $this->validator(
         $this->columnConfig->getValidatorOptions()
     ));     
-  }  
+  }
+
+  
+  /**
+   * Build choices for classic select box mode
+   * 
+   * @throws InvalidArgumentException
+   * @return array
+   */
+  protected function getChoices()
+  {
+    $choices = array();
+    
+    // Handle 'add_empty' option
+    if ($this->columnConfig->getWidgetOption('add_empty'))
+    {
+      $choices = array('' => array('name' => ''));
+    }
+    $this->columnConfig->removeWidgetOption('add_empty');
+    
+    $filterUsersByGroup = $this->columnConfig->getOption('filter_users_by_group');
+    
+    // Build choices
+    foreach ($this->columnConfig->getOption('entity_classes') as $class)
+    {
+      $className = $class . 'Table';
+      
+      if (method_exists($className, 'findChoices'))
+      {
+        $choices += ($class == 'UllUser' && $filterUsersByGroup !== null) ? 
+         call_user_func(array($className, 'findChoices'), $filterUsersByGroup) :
+         call_user_func(array($className, 'findChoices'));
+      }
+      else
+      {
+        throw new InvalidArgumentException('The given entity table class has no "findChoices()" method implemented: ' . $class);
+      }
+    }
+    
+    // Shall we hide some choices?
+    if ($hideChoices = $this->columnConfig->getOption('hide_choices'))
+    {
+      $choices = array_diff_key($choices, array_flip($hideChoices));
+    }
+    
+    // Limit entry label length
+    $lengthLimit = sfConfig::get('app_ull_user_display_name_length_limit', 22);
+    foreach ($choices as &$choice)
+    {
+      $oldName = $choice['name'];
+      if (strlen($oldName) > $lengthLimit)
+      {
+        $newName = substr($oldName, 0, $lengthLimit);
+        if (substr($newName, -1) == '-')
+        {
+          $newName = substr($newName, 0, -1);
+        }
+        $choice['name'] = $newName . '.';
+      }
+    }
+    
+    return $choices;
+  }
+  
+  /**
+   * Handle inline editing option
+   * 
+   * @throws InvalidArgumentException
+   */
+  protected function handleInlineEditing()
+  {
+    // Inline editing
+    $this->columnConfig->setWidgetOption('enable_inline_editing', false);
+    // ullWidgetFormDoctrineChoice demands the 'model' option
+    $this->columnConfig->setWidgetOption('model', 'irrelevant');
+    
+    if ($this->columnConfig->getOption('enable_inline_editing'))
+    {
+      $entityClasses = $this->columnConfig->getOption('entity_classes');
+      
+      if (count($entityClasses) > 1)
+      {
+        throw new InvalidArgumentException('option "enable_inline_editing" is only allowed for a sinlge entity_class');
+      }      
+      
+      $this->columnConfig->setWidgetOption('enable_inline_editing', true);
+      $this->columnConfig->setWidgetOption('model', reset($entityClasses));
+    }    
+  }
   
   public function getSearchType()
   {
