@@ -82,8 +82,25 @@ class BaseUllMailActions extends BaseUllGeneratorActions
     {
       $dbh = Doctrine_Manager::getInstance()->getCurrentConnection()->getDbh();
 
-      $q = "INSERT INTO ull_entity (type, first_name, last_name, email, created_at, updated_at) VALUES
-        ('user', 'First name {$i}', 'Last name {$i}', '{$i}@example.com', NOW(), NOW())";
+      $q = "INSERT INTO ull_entity (
+          type, 
+          first_name, 
+          last_name, 
+          display_name, 
+          last_name_first, 
+          email, 
+          created_at, 
+          updated_at) 
+        VALUES (
+          'user', 
+          'First name {$i}', 
+          'Last name {$i}',
+          'First name {$i} Last name {$i}',
+          'Last name {$i} First name {$i}',
+          '{$i}@example.com', 
+          NOW(), 
+          NOW()
+        )";
       $dbh->exec($q);
       
       $id = $dbh->lastInsertId();
