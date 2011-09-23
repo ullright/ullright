@@ -338,10 +338,14 @@ $("#' . $id. '").triggerHandler("change");
    */
   public function getJavaScripts()
   {
-    return array(
+    $return = parent::getJavaScripts();
+    
+    $return = array_merge($return, array(
       '/ullCorePlugin/js/jq/jquery-min.js', 
       '/ullCorePlugin/js/jq/jquery.add_select_filter.js',
       '/ullCorePlugin/js/jq/jquery.tools.min.js', // for overlay
-    );   
+    ));   
+    
+    return $return;
   }  
 }
