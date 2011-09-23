@@ -314,7 +314,11 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     if ($participant)
     {
       $booking->comment = __('Participant', null, 'ullCourseMessages') . 
-        ': ' . $participant;
+        ': ' . 
+        $participant .
+        "\n" .
+        $originalComment;
+      ;
       
       $booking->save();
     }

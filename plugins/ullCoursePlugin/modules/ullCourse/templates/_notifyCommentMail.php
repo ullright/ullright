@@ -7,7 +7,7 @@
 
 
 
-<?php echo __('Booking', null, 'common') ?>:
+<?php echo __('Booking', null, 'ullCourseMessages') ?>:
 <?php echo url_for('ullCourseBooking/edit?id=' . $booking->id, true) ?> 
     
 
