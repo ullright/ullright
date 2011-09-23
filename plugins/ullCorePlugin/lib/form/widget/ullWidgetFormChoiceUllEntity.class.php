@@ -42,7 +42,6 @@ class ullWidgetFormChoiceUllEntity extends ullWidgetFormDoctrineChoice
   {
     parent::configure($options, $attributes);
     
-//    $this->addOption('renderer_class', 'sfWidgetFormSelectWithOptionAttributes');
     $this->addOption('show_user_link', false);
     $this->addOption('show_inventory_link', false);
   }    
