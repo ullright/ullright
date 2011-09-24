@@ -99,6 +99,28 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
       $this->columnConfig->getWidgetAttributes()
     ));
     
+    // Add autocomplete help text directly into form (without ullGenerator)
+    if (!$this->form->getWidgetSchema()->getHelp($this->columnName))
+    {
+      $this->form->getWidgetSchema()->setHelp($this->columnName, __(
+        'Autocomplete. Begin to type your search term and select an entry from the appearing list', 
+        null, 
+        'ullCoreMessages') . 
+        '.'
+      );
+    }       
+    
+    // Add autocomplete help text to columnConfig (for use with ullGenerator)
+    if (!$this->columnConfig->getHelp())
+    {
+      $this->columnConfig->setHelp(__(
+        'Autocomplete. Begin to type your search term and select an entry from the appearing list', 
+        null, 
+        'ullCoreMessages') . 
+        '.'
+      );
+    }    
+    
   }
 
   /**
