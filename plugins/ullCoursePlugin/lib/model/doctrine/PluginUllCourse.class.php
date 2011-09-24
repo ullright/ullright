@@ -38,6 +38,18 @@ abstract class PluginUllCourse extends BaseUllCourse
     $this->updateSupernumeraryBookings();
   }  
   
+  public function getName()
+  {
+    $name = $this->_get('name');
+    
+    if ($this->isFullyBooked())
+    {
+      $name .= ' ' . strtoupper(__('Fully booked', null, 'ullCourseMessages')) . '!';
+    }
+    
+    return $name;
+  }
+  
   
   /**
    * Update the proxy fields
@@ -134,7 +146,7 @@ abstract class PluginUllCourse extends BaseUllCourse
    */
   public function isFullyBooked() 
   { 
-    return(boolean) ($this['proxy_number_of_participants_paid'] >= $this['max_number_of_participants']);
+    return(boolean) ($this['proxy_number_of_participants_applied'] >= $this['max_number_of_participants']);
   }
   
   /**
@@ -142,7 +154,7 @@ abstract class PluginUllCourse extends BaseUllCourse
    */
   public function isInsufficientParticipants() 
   {
-    return (boolean) ($this['proxy_number_of_participants_paid'] < $this['min_number_of_participants']);
+    return (boolean) ($this['proxy_number_of_participants_applied'] < $this['min_number_of_participants']);
   }
 
   /**
@@ -150,7 +162,7 @@ abstract class PluginUllCourse extends BaseUllCourse
    */
   public function getSpotsAvailable() 
   {
-    return(integer) $this['max_number_of_participants'] - $this['proxy_number_of_participants_paid'];
+    return(integer) $this['max_number_of_participants'] - $this['proxy_number_of_participants_applied'];
   }
   
   /**
@@ -172,14 +184,14 @@ abstract class PluginUllCourse extends BaseUllCourse
       return;
     }      
 
-    if ($this->is_active && $this->proxy_number_of_participants_paid < $this->min_number_of_participants)
+    if ($this->is_active && $this->proxy_number_of_participants_applied < $this->min_number_of_participants)
     {
       $this->UllCourseStatus = $this->findStatus('insufficient-participants');
       
       return;
     }       
     
-    if ($this->is_active && $this->proxy_number_of_participants_paid > $this->max_number_of_participants)
+    if ($this->is_active && $this->proxy_number_of_participants_applied > $this->max_number_of_participants)
     {
       $this->UllCourseStatus = $this->findStatus('overbooked');
       
