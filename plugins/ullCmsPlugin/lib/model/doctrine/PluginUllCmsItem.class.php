@@ -71,9 +71,9 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
     
     if ($object->parent_ull_cms_item_id)
     {
-      // Load parent object in case only a parent id is set, but the not loaded yet (new currect object)
+      // Load parent object in case only a parent id is set, but the not loaded yet (new current object)
       // (The html form sets only the id of the parent) 
-      if (is_integer($object->parent_ull_cms_item_id) && !$object->Parent->id)
+      if (is_numeric($object->parent_ull_cms_item_id) && null === $object->Parent->id)
       {
         $object->refreshRelated('Parent');
       }
