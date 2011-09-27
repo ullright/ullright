@@ -99,4 +99,25 @@ class ullValidatorUllEntity extends sfValidatorBase
     return $classes;
   }
 
+  
+  /**
+   * Returns true if the value is empty.
+   *
+   * @param  mixed $value  The input value
+   *
+   * @return bool true if the value is empty, false otherwise
+   */
+  protected function isEmpty($value)
+  {
+    // Handle filter form empty entry
+    // TODO: this does not belong here. Refactor logic to translate _all_ to empty
+    // outside of the validator
+    if ('_all_' == $value)
+    {
+      return true;
+    }    
+    
+    return parent::isEmpty($value);
+  }  
+  
 }

@@ -10,7 +10,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(14, new lime_output_color, $configuration);
+$t = new myTestCase(16, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -137,4 +137,21 @@ $t->diag('clean() for invalid option combination');
     $t->pass('Throws an exception for a invalid option combination');
   }      
   
+$t->diag('clean() for _all_');
+
+  $v = new ullValidatorUllEntity(array('entity_classes' => array('UllUser'), 'required' => false));
+
+  $t->is($v->clean('_all_'), '', 'Allows filter form "empty" value for required = false');
+  
+  $v = new ullValidatorUllEntity(array('entity_classes' => array('UllUser'), 'required' => true));
+  
+  try
+  {
+    $v->clean('_all_');
+    $t->fail('Does not throw an exception for an empty value');
+  }
+  catch (Exception $e)
+  {
+    $t->pass('Throws an exception for an empty value');
+  }    
   
