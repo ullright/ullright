@@ -19,7 +19,7 @@
   padding-left: .5em;
 }
 
-.ull_course_status_announced {
+.ull_course_status_fully_booked {
   border-left: 1.3em solid #B2D519;
   padding-left: .5em;
 }
@@ -34,7 +34,7 @@
   padding-left: .5em;
 }
 
-.ull_course_status_insufficient_participants {
+.ull_course_status_spots_available {
   border-left: 1.3em solid #ffaa00;
   padding-left: .5em;
 }
@@ -159,5 +159,13 @@ div.ull_course_offering_item_content p {
   margin-top: .8em;
 }
 
+/* course summary partial */
 
+.ull_course_summary {
+	margin: 1em 0;
+}
+
+.ull_course_summary p {
+  margin: .2em 0;	
+}
  
