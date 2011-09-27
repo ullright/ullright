@@ -4,12 +4,18 @@ class UpdateUllCourse extends Doctrine_Migration_Base
 {
   public function up()
   {
-    // Refresh all courses to update status etc
-    $courses = Doctrine::getTable('UllCourseBooking')->findAll();
+    // Load the ullCourse data only if the module is enabled
+    $enabledModules = sfConfig::get('sf_enabled_modules');
     
-    foreach ($courses as $course)
+    if (in_array('ullCourse', $enabledModules))
     {
-      $course->save();
+      // Refresh all courses to update status etc
+      $courses = Doctrine::getTable('UllCourseBooking')->findAll();
+      
+      foreach ($courses as $course)
+      {
+        $course->save();
+      }
     }
   }
 
