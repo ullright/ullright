@@ -144,7 +144,6 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     // Set widget
     $this->addWidget(new $this->writeWidget(
         array_merge(array('choices' => $choices), $this->columnConfig->getWidgetOptions()),
-        $this->columnConfig->getWidgetOptions(),
         $this->columnConfig->getWidgetAttributes()
     ));
     
