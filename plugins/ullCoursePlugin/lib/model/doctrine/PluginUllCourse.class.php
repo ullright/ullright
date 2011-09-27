@@ -150,8 +150,14 @@ abstract class PluginUllCourse extends BaseUllCourse
    * Check if the course is full
    */
   public function isFullyBooked() 
-  { 
-    return(boolean) ($this['proxy_number_of_participants_applied'] >= $this['max_number_of_participants']);
+  {
+    // Course is never full without a limit set
+    if (null === $this['max_number_of_participants'])
+    {
+      return false;
+    }
+    
+    return (boolean) ($this['proxy_number_of_participants_applied'] >= $this['max_number_of_participants']);
   }
   
   /**

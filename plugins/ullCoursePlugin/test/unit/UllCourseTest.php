@@ -8,8 +8,9 @@ class myTestCase extends sfDoctrineTestCase
 
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
+sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(19, new lime_output_color, $configuration);
+$t = new myTestCase(24, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -91,3 +92,36 @@ $t->begin('post update updateSupernumeraryBookings()');
   $t->is($bookings[1]->is_supernumerary_paid, true, 'Marks the second paid booking a supernumerary because the max_number_of_pariticpants was changed');
   
   
+$t->diag('isFullyBooked()');
+
+  $course = Doctrine::getTable('UllCourse')->findOneById(1);
+  $course->max_number_of_participants = 10;
+  $course->save();
+  
+  $t->is($course->isFullyBooked(), false, 'Course 1 is not fully booked');
+  
+  $course->max_number_of_participants = 1;
+  $course->save();
+  
+  $t->is($course->isFullyBooked(), true, 'Course 1 is now fully booked');
+
+  
+$t->diag('getNameFullyBooked()');
+
+  $course = Doctrine::getTable('UllCourse')->findOneById(1);
+  $course->max_number_of_participants = 10;
+  $course->save();
+  
+  $t->is($course->getNameFullyBooked(), 'Course 1', 'Returns the normal name when not fully booked');
+  
+  $course->max_number_of_participants = 1;
+  $course->save();
+  
+  $t->is($course->getNameFullyBooked(), 'Course 1 FULLY BOOKED!', 'Appends "fully booked"');
+  
+  $course = new UllCourse;
+  $course->name = 'Test 1';
+  $course->is_bookable = false;
+  $course->save();
+
+  $t->is($course->getNameFullyBooked(), 'Test 1', 'Returns the normal name even when is_bookable is set to false');
