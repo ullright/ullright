@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(21, new lime_output_color, $configuration);
+$t = new myTestCase(24, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -128,7 +128,30 @@ $t->begin('pre save updateStatus()');
   $booking->save();
   $t->is($booking->UllCourseBookingStatus->slug, 'supernumerary-booked', 'Sets correct status supernumerary-booked');  
 
+  
+$t->begin('post save/delete updateProxies()');
 
+  $course = Doctrine::getTable('UllCourse')->findOneById(1);
+  
+  $t->is($course->proxy_number_of_participants_applied, 3, 'The correct number of bookings is set in the course');
+  
+  $booking = newBooking();
+  $booking->comment = 'Catholic schoolgirls rule';
+  $booking->save(); 
+  
+  $t->is($course->proxy_number_of_participants_applied, 4, 'The correct number of bookings is set in the course is increased by 1');
+  
+  $booking->delete();
+  $t->is($course->proxy_number_of_participants_applied, 3, 'The correct number of bookings is set in the course is decreased by 1');
+  
+
+/**
+ * Helper function to create a booking
+ * 
+ * @param unknown_type $courseId
+ * @param unknown_type $userId
+ * @param unknown_type $tariffId
+ */
 function newBooking($courseId = 1, $userId = 1, $tariffId = 1)
 {
   $course = Doctrine::getTable('UllCourse')->findOneById($courseId);

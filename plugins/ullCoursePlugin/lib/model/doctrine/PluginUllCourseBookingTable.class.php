@@ -71,6 +71,14 @@ class PluginUllCourseBookingTable extends UllRecordTable
         $booking->is_supernumerary_booked = true;
         $booking->save();
       }
+      else 
+      {
+        if (true == $booking->is_supernumerary_booked)
+        {
+          $booking->is_supernumerary_booked = false;
+          $booking->save();
+        }
+      }
       
       $i++;
     }
@@ -86,6 +94,14 @@ class PluginUllCourseBookingTable extends UllRecordTable
         $paidBooking->is_supernumerary_paid = true;
         $paidBooking->save();
       }
+      else 
+      {
+        if (true == $paidBooking->is_supernumerary_paid)
+        {
+          $paidBooking->is_supernumerary_paid = false;
+          $paidBooking->save();
+        }
+      }      
       
       $i++;
     }    

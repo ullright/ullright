@@ -62,7 +62,7 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
    */
   public function postDelete($event)
   {
-    $this->updateSupernumerary();
+    UllCourseBookingTable::updateSupernumerary($this->UllCourse->id);
     
     $this->UllCourse->updateProxies();    
   }  

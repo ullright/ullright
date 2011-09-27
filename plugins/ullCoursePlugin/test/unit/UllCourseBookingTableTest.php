@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(15, new lime_output_color, $configuration);
+$t = new myTestCase(17, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -18,12 +18,14 @@ $t->begin('findBookingsByCourseOrderedByBookingDate()');
   $t->is(count($bookings), 1, 'Returns 1 booking');
   $t->is($bookings[0]->id, 3, 'Returns the correct booking');
   
+  
 $t->diag('findPaidBookingsByCourseOrderedByPaidDate()');
   $bookings = UllCourseBookingTable::findPaidBookingsByCourseOrderedByPaidDate(1);
   $t->is(count($bookings), 2, 'Returns 2 paid bookings');
   $t->is($bookings[0]->id, 1, 'Returns the correct booking');  
   $t->is($bookings[1]->id, 2, 'Returns the correct booking');
 
+  
 $t->diag('updateSupernumerary()');
 
   $booking = Doctrine::getTable('UllCourseBooking')->findOneById(1);
@@ -57,6 +59,10 @@ $t->diag('updateSupernumerary()');
   $t->is($bookings[9]->is_supernumerary_booked, false, 'The 10th booking is not marked as supernumerary');  
   $t->is($bookings[10]->is_supernumerary_booked, true, 'The 11th booking is marked as supernumerary');  
   
+  $bookings[9]->delete();
+  
+  $t->is($bookings[10]->is_supernumerary_booked, false, 'The (former) 11th booking not anymore marked as supernumerary after the deletion of the 10th booking');
+  
   // create 9 paid bookings
   $booking = new UllCourseBooking;
   $booking['UllCourse'] = $course;
@@ -76,9 +82,11 @@ $t->diag('updateSupernumerary()');
   $t->is($bookings[9]->is_supernumerary_paid, false, 'The 10th booking is not marked as supernumerary paid');  
   $t->is($bookings[10]->is_supernumerary_paid, true, 'The 11th booking is marked as supernumerary paid');  
   
+  $bookings[9]->delete();
   
+  $t->is($bookings[10]->is_supernumerary_paid, false, 'The (former) 11th booking not anymore marked as supernumerary after the deletion of the 10th booking');  
   
-  
+ 
   
 
   
