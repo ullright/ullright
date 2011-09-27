@@ -339,12 +339,6 @@ abstract class ullMetaWidget
    */
   protected function handleAddEmptyForValidator(sfValidatorBase $validator)
   {  
-    // why isn't it necesarry to add "empty" also to the validators?
-    
-//    if ($widget instanceof sfWidgetFormDoctrineSelect && $this->getColumnConfig()->getAccess() == 's')
-//    {
-//      $widget->setOption('add_empty', true); 
-//    }
     if ($this->getColumnConfig()->getAccess() == 's')
     {
       if ($validator instanceof sfValidatorChoice)
