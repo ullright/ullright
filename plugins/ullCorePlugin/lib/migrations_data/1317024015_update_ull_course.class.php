@@ -28,9 +28,6 @@ class UpdateUllCourse extends Doctrine_Migration_Base
     
     foreach ($courses as $course)
     {
-      $editor = $course->updator_user_id;
-      $editdate = $course->updated_at;
-      
       $course->save();
     }
     
