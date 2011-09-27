@@ -1,6 +1,6 @@
 <?php
 
-class UpdateUllCourse extends Doctrine_Migration_Base
+class UpdateUllCourseBooking extends Doctrine_Migration_Base
 {
   public function up()
   {
