@@ -51,15 +51,15 @@ $t->diag('pre save updateStatus())');
 
   $course = Doctrine::getTable('UllCourse')->findOneById(1);
   
-  $t->is($course->UllCourseStatus->slug, 'spots-available', 'Course 1 from the fixtures has status insufficient participants');
+  $t->is($course->UllCourseStatus->slug, 'spots-available', 'Course 1 from the fixtures has status spots-available');
   
-  $course->proxy_number_of_participants_paid = 11;
+  $course->proxy_number_of_participants_applied = 11;
   $course->save();
   $t->is($course->UllCourseStatus->slug, 'overbooked', 'Set correct status overbooked');
   
-  $course->proxy_number_of_participants_paid = 7;
+  $course->proxy_number_of_participants_applied = 7;
   $course->save();
-  $t->is($course->UllCourseStatus->slug, 'fully-booked', 'Set correct status announced');    
+  $t->is($course->UllCourseStatus->slug, 'fully-booked', 'Set correct status fully-booked');    
 
   $course->begin_date = date('Y-m-d', strtotime('tomorrow'));
   $course->is_active = false;
