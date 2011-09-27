@@ -70,6 +70,7 @@ abstract class PluginUllCourse extends BaseUllCourse
 
     $this->updateParticipantsApplied();
     $this->updateParticipantsPaid();
+    $this->updateFreeSpots();
     $this->updateTurnover();
     
     $this->save();
@@ -113,6 +114,14 @@ abstract class PluginUllCourse extends BaseUllCourse
     ;
     
     $this->proxy_number_of_participants_paid = $q->count();
+  }
+  
+  /**
+   * Calculate free spots
+   */
+  public function updateFreeSpots()
+  {
+    $this->proxy_number_of_spots_free = $this->max_number_of_participants - $this->proxy_number_of_participants_applied;
   }
 
   /*

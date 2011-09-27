@@ -591,6 +591,16 @@
         <target>Ihre Bemerkung</target>
       </trans-unit>     
       
+      <trans-unit id="120">
+        <source>Free spots</source>
+        <target>Plätze frei</target>
+      </trans-unit>     
+      
+      <trans-unit id="121">
+        <source>Free</source>
+        <target>Frei</target>
+      </trans-unit>           
+      
       <trans-unit id="">
         <source></source>
         <target></target>
@@ -599,7 +609,7 @@
       <trans-unit id="">
         <source></source>
         <target></target>
-      </trans-unit>      
+      </trans-unit>
       
       
       

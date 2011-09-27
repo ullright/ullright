@@ -101,6 +101,11 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel(__('Participants paid', null, 'ullCourseMessages'))
       ->setAccess('r')
     ;
+    
+    $this['proxy_number_of_spots_free']
+      ->setLabel(__('Free spots', null, 'ullCourseMessages'))
+      ->setAccess('r')
+    ;    
 
     $this['proxy_turnover']
       ->setLabel(__('Turnover', null, 'ullCourseMessages'))
@@ -130,6 +135,10 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
 
     if ($this->isCreateOrEditAction())
     {
+      $this->disable(array(
+        'link_to_bookings',
+      ));      
+      
       $this->order(array(
         'basics' => array(
           'id',
@@ -152,8 +161,8 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'ull_course_status_id',
           'proxy_number_of_participants_applied',
           'proxy_number_of_participants_paid',
+          'proxy_number_of_spots_free',
           'proxy_turnover',
-//          'link_to_bookings'
         ),
         'status' => array(
           'trainer_ull_user_id',
@@ -162,7 +171,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
           'is_bookable',
           'is_canceled',
         ),
-
 
       ));
     }
@@ -173,7 +181,6 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
         'proxy_number_of_participants_applied',
         'proxy_number_of_participants_paid',
         'proxy_turnover',
-//        'link_to_bookings',
         'ull_course_status_id',
         'is_canceled',
       ));

@@ -36,7 +36,9 @@
     <?php echo $course->proxy_number_of_participants_applied ?> &nbsp;
   <?php echo __('Paid', null, 'ullCourseMessages') ?>: 
     <?php echo $course->proxy_number_of_participants_paid ?> &nbsp;
-  <?php echo __('Status', null, common) ?>: <?php echo $course->UllCourseStatus ?>
+  <?php echo __('Free spots', null, 'ullCourseMessages') ?>: 
+    <?php echo $course->proxy_number_of_spots_free ?> &nbsp;    
+  <?php echo __('Status', null, 'common') ?>: <?php echo $course->UllCourseStatus ?>
 </p>
 
 </div>

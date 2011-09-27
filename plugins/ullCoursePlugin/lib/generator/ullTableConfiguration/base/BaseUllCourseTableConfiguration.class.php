@@ -31,10 +31,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
         'begin_date', 
         'UllCourseStatus->name',
         'is_active',
-        'proxy_number_of_participants_applied',
-        'proxy_number_of_participants_paid',
-        'min_number_of_participants',
-        'proxy_turnover',      
+        'proxy_number_of_spots_free',
       ))
       ->setForeignRelationName(__('Course', null, 'ullCourseMessages'))
 //      ->setToStringColumn('display_name');

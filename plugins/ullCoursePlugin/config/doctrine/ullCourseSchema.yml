@@ -49,6 +49,8 @@ UllCourse:
       type: integer
     proxy_number_of_participants_paid:
       type: integer
+    proxy_number_of_spots_free:
+      type: integer      
     proxy_turnover:
       type: decimal
       length: 15
