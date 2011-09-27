@@ -120,13 +120,13 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('tagging_options', array('model' => 'UllCourse'))
     ;    
     
-//    $this->create('link_to_bookings')
-//      ->setMetaWidgetClassName('ullMetaWidgetLinkCourseToBooking')
-//      ->setLabel(' ')
-//      ->setIsArtificial(true)
-//      ->setAccess('r')
-//      ->setInjectIdentifier(true)
-//    ;
+    $this->create('link_to_bookings')
+      ->setMetaWidgetClassName('ullMetaWidgetLinkCourseToBooking')
+      ->setLabel(' ')
+      ->setIsArtificial(true)
+      ->setAccess('r')
+      ->setInjectIdentifier(true)
+    ;
 
     if ($this->isCreateOrEditAction())
     {

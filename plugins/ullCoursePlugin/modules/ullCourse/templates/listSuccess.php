@@ -43,8 +43,8 @@
   <tbody>
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
-    <?php /* $form['link_to_bookings']->getWidget()->setAttribute('rel',
-      $form->getObject()->id) */ ?>
+    <?php $form['link_to_bookings']->getWidget()->setAttribute('rel',
+      $form->getObject()->id) ?>
     <?php $form['name']->getWidget()->setAttribute('href', 
       url_for('ullCourse/show?slug=' . $form->getObject()->slug)) ?>  
     <?php $id_url_params = $generator->getIdentifierUrlParams($row); ?>

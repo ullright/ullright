@@ -9,35 +9,7 @@
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
 <?php if ($course): ?>
-  <p>
-    <?php if ($course->isMultiDay()): ?>
-      <?php echo __('%units% units', array('%units%' => $course['number_of_units']), 'ullCourseMessages') ?>
-    <?php endif ?>   
-    
-    <?php if ($course->isMultiDay()): ?>
-      <?php echo __('from', null, 'common') ?>
-    <?php else: ?>
-      <?php echo __('on', null, 'common') ?>
-    <?php endif ?>
-    
-    <?php echo ull_format_date($course['begin_date'], false, true) ?>
-    
-    <?php if ($course->isMultiDay()): ?>
-      <?php echo __('to', null, 'common') ?>
-      <?php echo ull_format_date($course['end_date'], false, true) ?>
-    <?php endif?>
-    
-    <?php echo __('Time', null, 'common') ?>:
-    <?php echo ull_format_time($course['begin_time']) ?> 
-    <?php echo __('to', null, 'common') ?>
-    <?php echo ull_format_time($course['end_time']) ?>  
-  <br />
-    <?php echo __('Trainer', null, 'ullCourseMessages') ?>: 
-    <?php echo $course['Trainer']['display_name'] ?> &nbsp; 
-    <?php echo auto_link_text($course['Trainer']['email']) ?> &nbsp;  
-    <?php echo $course['Trainer']['mobile_number'] ?>
-  </p>
-
+  <?php include_partial('ullCourse/courseSummary', array('course' => $course)) ?>
 <?php endif ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>

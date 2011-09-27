@@ -38,7 +38,12 @@ abstract class PluginUllCourse extends BaseUllCourse
     $this->updateSupernumeraryBookings();
   }  
   
-  public function getName()
+  
+  /** 
+   * Get the name of the course with appended "fully booked" status
+   * 
+   */
+  public function getNameFullyBooked()
   {
     $name = $this->_get('name');
     
@@ -186,7 +191,7 @@ abstract class PluginUllCourse extends BaseUllCourse
 
     if ($this->is_active && $this->proxy_number_of_participants_applied < $this->min_number_of_participants)
     {
-      $this->UllCourseStatus = $this->findStatus('insufficient-participants');
+      $this->UllCourseStatus = $this->findStatus('spots-available');
       
       return;
     }       
@@ -204,7 +209,7 @@ abstract class PluginUllCourse extends BaseUllCourse
     }
     elseif ($this->is_active && date('Y-m-d') < $this->begin_date)
     {
-      $this->UllCourseStatus = $this->findStatus('announced');
+      $this->UllCourseStatus = $this->findStatus('fully-booked');
     }
     elseif ($this->is_active && date('Y-m-d') >= $this->begin_date && date('Y-m-d') <= $this->end_date)
     {

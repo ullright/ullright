@@ -1,38 +1,7 @@
 <?php echo $breadcrumb_tree ?>
 <h1><?php echo $course['name']?></h1>
 
-<p>
-  <?php if ($course->isMultiDay()): ?>
-    <?php echo __('%units% units', array('%units%' => $course['number_of_units']), 'ullCourseMessages') ?>
-  <?php endif ?>   
-  
-  <?php if ($course->isMultiDay()): ?>
-    <?php echo __('from', null, 'common') ?>
-  <?php else: ?>
-    <?php echo __('on', null, 'common') ?>
-  <?php endif ?>
-  
-  <?php echo ull_format_date($course['begin_date'], false, true) ?>
-  
-  <?php if ($course->isMultiDay()): ?>
-    <?php echo __('to', null, 'common') ?>
-    <?php echo ull_format_date($course['end_date'], false, true) ?>
-  <?php endif?>
-  
-  <?php echo __('Time', null, 'common') ?>:
-  <?php echo ull_format_time($course['begin_time']) ?> 
-  <?php echo __('to', null, 'common') ?>
-  <?php echo ull_format_time($course['end_time']) ?>  
-</p>
-
-<p>
-  <?php echo __('Trainer', null, 'ullCourseMessages') ?>: 
-  <?php echo $course['Trainer']['display_name'] ?>, 
-  <?php echo $course['Trainer']['email'] ?>, 
-  <?php echo $course['Trainer']['mobile_number'] ?>
-</p>
-
-
+<?php include_partial('ullCourse/courseSummary', array('course' => $course)) ?>
 
 <h2><?php echo __('Participants', null, 'ullCourseMessages') ?></h2>
 

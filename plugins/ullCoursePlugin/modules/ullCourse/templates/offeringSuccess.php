@@ -55,7 +55,7 @@
       <div class="ull_course_offering_item_content">
         <h2>
           <?php include_component('ullCourse', 'editLink', array('doc' => $object)) ?>
-          <?php echo link_to($object->name, 'ullCourse/show?slug=' . $object->slug)?>
+          <?php echo link_to($object->getNameFullyBooked(), 'ullCourse/show?slug=' . $object->slug)?>
         </h2>
         <h3>
           <?php echo __('With', null, 'ullCourseMessages') ?>

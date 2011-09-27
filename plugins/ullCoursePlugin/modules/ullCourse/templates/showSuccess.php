@@ -2,7 +2,7 @@
 
 <h1>
   <?php include_component('ullCourse', 'editLink', array('doc' => $doc)) ?>
-  <?php echo $doc['name'] ?>
+  <?php echo $doc->getNameFullyBooked() ?>
 </h1>
 
 <?php if ($allow_edit): ?>
