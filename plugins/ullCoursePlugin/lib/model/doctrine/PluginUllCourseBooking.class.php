@@ -56,6 +56,18 @@ abstract class PluginUllCourseBooking extends BaseUllCourseBooking
   }
   
   /**
+   * post delete hook
+   * 
+   * @param unknown_type $event
+   */
+  public function postDelete($event)
+  {
+    $this->updateSupernumerary();
+    
+    $this->UllCourse->updateProxies();    
+  }  
+  
+  /**
    * Send booking confirmation and payment information 
    */
   public function sendConfirmationMail()
