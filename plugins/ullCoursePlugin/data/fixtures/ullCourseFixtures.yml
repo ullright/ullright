@@ -46,13 +46,13 @@ UllCourseStatus:
         name:               Planned
       de:
         name:               Geplant
-  ull_course_status_announced:
+  ull_course_status_fully_booked:
     namespace:              ull_course
     Translation:
       en:
-        name:               Announced
+        name:               Fully booked
       de:
-        name:               Angekündigt
+        name:               Ausgebucht
   ull_course_status_active:
     namespace:              ull_course
     Translation:
@@ -67,13 +67,13 @@ UllCourseStatus:
         name:               Finished
       de:
         name:               Beendet
-  ull_course_status_insufficient_participants:
+  ull_course_status_spots_available:
     namespace:              ull_course
     Translation:
       en:
-        name:               Insufficient participants
+        name:               Spots available
       de:
-        name:               Zu wenig Teilnehmer
+        name:               Plätze frei
   ull_course_status_overbooked:
     namespace:              ull_course
     Translation:
