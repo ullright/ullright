@@ -42,7 +42,6 @@ $b
   ->get('ullAdmin/index')
   ->loginAs('test_master')
   ->responseContains('Logged in as    ' . ull_link_entity_popup('test_master', $testUserId))
-  ->responseContains('Admin Home')
 ;
 
 $b
