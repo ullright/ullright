@@ -21,7 +21,7 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
         'duplicate_tags_for_search',
         'Trainer->display_name',
       ))
-      ->setOrderBy('name')
+      ->setOrderBy('begin_date')
       ->setListColumns(array(
         'link_to_bookings',
         'id', 
