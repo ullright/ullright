@@ -96,8 +96,8 @@ class BaseUllCourseBookingColumnConfigCollection extends ullColumnConfigCollecti
     $this->order(array(
       'basic' => array(
         'ull_course_id',
-        'ull_course_tariff_id',
         'ull_user_id',
+        'ull_course_tariff_id',
         'is_paid',
         'ull_payment_type_id',
       ),
