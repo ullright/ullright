@@ -38,6 +38,7 @@ class BaseUllCourseColumnConfigCollection extends ullColumnConfigCollection
       ->setHelp(__('Add or edit trainers as normal users in the %admin% by making them members of the group "Trainers" and by using the "Comment" field for the introduction', 
         array('%admin%' => ull_link_to(__('Admininistration', null, 'ullCoreMessages'), 'ullAdmin/index', array('link_new_window' => true))),
         'ullCourseMessages')) 
+      ->setOption('enable_ajax_autocomplete', false)
     ;
 
     $this['begin_date']
