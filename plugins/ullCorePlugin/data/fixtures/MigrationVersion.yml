@@ -1,7 +1,8 @@
-#This is not actually a yaml file,
-#we just need this executed at fixture
-#insertion time :)
-#TODO: Create proper install script
+# Set current migration version numbers
+#
+# This is not actually a yaml file,
+# we just need this executed at fixture
+# insertion time :)
 
 <?php
   $dm = new Doctrine_Migration(sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR . 'migration' . DIRECTORY_SEPARATOR . 'doctrine');
@@ -16,4 +17,15 @@
   #This forces the creation of the migration_version table
   $dm->getCurrentVersion();
   $conn->exec("INSERT INTO " . $dm->getTableName() . " VALUES(" . $dm->getLatestVersion() . ")");
+
+  
+  $dm = new Data_Doctrine_Migration(sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR . 'migration' . DIRECTORY_SEPARATOR . 'data');
+  $conn = Doctrine_Manager::connection();
+  #This forces the creation of the migration_version table
+  $dm->getCurrentVersion();
+  $conn->exec("INSERT INTO " . $dm->getTableName() . " VALUES(" . $dm->getLatestVersion() . ")");
+  
+  
+  $dm = new PreBuildModel_Doctrine_Migration(sfConfig::get('sf_lib_dir') . DIRECTORY_SEPARATOR . 'migration' . DIRECTORY_SEPARATOR . 'pre_build_model');
+  $dm->setCurrentVersion($dm->getLatestVersion());
 ?>
