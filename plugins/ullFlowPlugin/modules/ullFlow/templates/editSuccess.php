@@ -76,7 +76,7 @@
         
       <?php else: ?>
         <p class='no_access_info'>
-          <?php echo __('You cannot perfom any workflow actions at the moment, because the document is not assigned to you.') ?>
+          <?php echo __('You cannot perfom any workflow action at the moment, because the document is not assigned to you.') ?>
         </p>         
       <?php endif; ?>
   
