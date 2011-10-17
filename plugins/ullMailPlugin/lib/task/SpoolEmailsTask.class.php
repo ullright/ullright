@@ -132,7 +132,7 @@ EOF;
       
       $this->releaseLock($lockingManager, $edition, $uniqueId);
       
-      $this->logNoisySectionBlock($this->name, "Queued {$numSent} of " . count($recipients) . ' messages');
+      $this->logNoisySection($this->name, "Queued {$numSent} of " . count($recipients) . ' messages');
       
       if (count($failedRecipients) > 0)
       {
