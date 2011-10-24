@@ -40,12 +40,6 @@
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllSelect', 'ullCore', 'ull_admin_24x24') ?></li>
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllSelectChild', 'ullCore', 'ull_admin_24x24') ?></li>
         </ul>
-        <!-- Users won't usually add column types
-        <h3><?php //echo __('Table Administration') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php //echo ullTableConfiguration::renderTaskCenterLink('UllColumnType', 'ullCore', 'ull_admin_24x24', __('Manage field types (ullMetaWidgets)')) ?></li>
-        </ul> 
-        //-->
         
         <?php /* Load admin link partials for enabled modules 
           (Defined in .../myModule/templates/_adminLinks.php) */ ?>
@@ -96,10 +90,6 @@
           ?>      
         </div>        
       
-      <!-- 
-      <div class="tc_search_tag_top color_medium_bg"><h3>Tags</h3></div>
-      <div class="tc_search_tag_bottom color_light_bg"><br /><br /><br /><br />tba<br /></div>
-      -->
       </form>
     </div>
     
