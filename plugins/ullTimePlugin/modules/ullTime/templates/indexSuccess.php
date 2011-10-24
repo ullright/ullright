@@ -49,7 +49,19 @@
           <?php endif ?>            
           <li><?php echo ull_tc_task_link('/ullTimeThemeNGPlugin/images/action_icons/create_24x24', array('action' => 'list', 'period' => $period->slug), $period->name) ?></li>
         <?php endforeach ?>
-      </ul>      
+      </ul>   
+      
+      
+      <?php if (UllUserTable::hasPermission('ull_time_admin')): ?>
+        <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
+        <ul class="tc_tasks">
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProject', 'ullTime', 'ull_time_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllProjectManager', 'ullTime', 'ull_time_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllTimePeriod', 'ullTime', 'ull_time_24x24') ?></li>
+        </ul>
+      <?php endif ?>         
+      
+         
     </div>
     
     <div id="tc_search">
