@@ -8,10 +8,20 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
+    
       <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/action_icons/create_24x24', 'ullWiki/create', __('Create', null, 'common')) ?></li>
       </ul>
+      
+      <?php if (UllUserTable::hasPermission('ull_wiki_admin')): ?>
+        <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
+        <ul class="tc_tasks">
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevel', 'ullWiki', 'ull_wiki_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevelAccess', 'ullWiki', 'ull_wiki_24x24') ?></li>        
+        </ul>
+      <?php endif ?>          
+      
     </div>
     
     <div id="tc_search">
