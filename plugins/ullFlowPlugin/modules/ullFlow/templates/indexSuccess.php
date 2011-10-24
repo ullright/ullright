@@ -31,6 +31,21 @@
         <?php endforeach; ?>
      <?php endif ?>
      </ul>
+     
+     
+      <?php if (UllUserTable::hasPermission('ull_flow_admin')): ?>
+        <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
+        <ul class="tc_tasks">
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowApp', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAppAccess', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowColumnConfig', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStep', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStepAction', 'ullFlow', 'ull_flow_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAction', 'ullFlow', 'ull_flow_24x24') ?></li>       
+        </ul>
+      <?php endif ?>      
+     
+     
     </div>
     
     <div id="tc_search">
