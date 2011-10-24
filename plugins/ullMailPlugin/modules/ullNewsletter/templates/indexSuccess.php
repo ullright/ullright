@@ -22,6 +22,14 @@
             $mailing_list) ?></li>
         <?php endforeach; ?>
       </ul>
+      
+      <?php if (UllUserTable::hasPermission('ull_newsletter_admin')): ?>
+        <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
+        <ul class="tc_tasks">
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterMailingList', 'ullMail', 'ull_mail_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterLayout', 'ullMail', 'ull_mail_24x24') ?></li>
+        </ul>
+      <?php endif ?>      
 
     </div>    
     
