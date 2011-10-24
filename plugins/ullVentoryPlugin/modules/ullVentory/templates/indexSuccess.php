@@ -6,10 +6,28 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
+    
       <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
         <li><?php echo ull_tc_task_link('/ullVentoryThemeNGPlugin/images/action_icons/create_24x24', 'ullVentory/create', __('Enlist new item', null, 'ullVentoryMessages')) ?></li>
       </ul>
+      
+      <?php if (UllUserTable::hasPermission('ull_ventory_admin')): ?>
+        <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
+        <ul class="tc_tasks">
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemType', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemManufacturer', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemModel', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemAttribute', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryItemTypeAttribute', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentorySoftware', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentorySoftwareLicense', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryOriginDummyUser', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryStatusDummyUser', 'ullVentory', 'ull_ventory_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllVentoryTaking', 'ullVentory', 'ull_ventory_24x24') ?></li>        
+        </ul>
+      <?php endif ?>            
+      
     </div>
     
     <div id="tc_search">
