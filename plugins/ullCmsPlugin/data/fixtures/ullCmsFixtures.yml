@@ -502,15 +502,15 @@ UllGroupPermission:
     
     
   ull_group_permission_ull_cms_content_block_1:
-    UllGroup:           ull_group_cms_content_block_admins
+    UllGroup:           ull_group_cms_admins
     UllPermission:      ull_permission_cms_content_block_list
     namespace:          ull_cms         
   ull_group_permission_ull_cms_content_block_2:
-    UllGroup:           ull_group_cms_content_block_admins
+    UllGroup:           ull_group_cms_admins
     UllPermission:      ull_permission_cms_content_block_edit
     namespace:          ull_cms
   ull_group_permission_ull_cms_content_block_3:
-    UllGroup:           ull_group_cms_content_block_admins
+    UllGroup:           ull_group_cms_admins
     UllPermission:      ull_permission_cms_content_block_delete
     namespace:          ull_cms    
         
