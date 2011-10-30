@@ -59,7 +59,9 @@ class BaseUllCmsComponents extends sfComponents
       'menu',
       new $renderClass($navigation, $this->getVar('renderUlTag'), $topLevelHtmlTag),
       true
-    );    
+    );   
+
+    $this->html_class = str_replace('-', '_', $this->slug);
   }  
   
   
