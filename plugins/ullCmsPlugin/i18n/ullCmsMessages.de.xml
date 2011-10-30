@@ -20,7 +20,7 @@
 
 <trans-unit id="4">
 <source>Menu entry</source>
-<target>Menüeintrag</target>
+<target>Menü-Eintrag</target>
 </trans-unit>
 
 <trans-unit id="5">
@@ -40,7 +40,7 @@
 
 <trans-unit id="8">
 <source>Menu entries</source>
-<target>Menüeinträge</target>
+<target>Menü-Einträge</target>
 </trans-unit>
 
 <trans-unit id="9">
@@ -76,6 +76,61 @@
 <trans-unit id="15">
 <source>Image</source>
 <target>Bild</target>
+</trans-unit>
+
+<trans-unit id="16">
+<source>Create page</source>
+<target>Erstelle Seite</target>
+</trans-unit>
+
+<trans-unit id="17">
+<source>Content block</source>
+<target>Content-Block</target>
+</trans-unit>
+
+<trans-unit id="18">
+<source>Content blocks</source>
+<target>Content-Blöcke</target>
+</trans-unit>
+
+<trans-unit id="19">
+<source>Content types</source>
+<target>Content-Typen</target>
+</trans-unit>
+
+<trans-unit id="20">
+<source>All pages</source>
+<target>Alle Seiten</target>
+</trans-unit>
+
+<trans-unit id="21">
+<source>"page" or "content_block"</source>
+<target>"page" oder "content_block"</target>
+</trans-unit>
+
+<trans-unit id="22">
+<source>Content type</source>
+<target>Content-Typ</target>
+</trans-unit>
+
+<trans-unit id="23">
+<source>Please select the content block type you wish to create</source>
+<target>Bitte wählen Sie welche Art von Content Block Sie erstellen möchten</target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
 </trans-unit>
 
 

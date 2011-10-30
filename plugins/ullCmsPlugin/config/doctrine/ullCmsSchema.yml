@@ -1,4 +1,4 @@
-# Common base for menu items and pages
+# Common base for menu items, pages and content blocks
 UllCmsItem:
   package: ullCmsPlugin.lib.model.doctrine
   inheritance:
@@ -11,6 +11,7 @@ UllCmsItem:
       unique: true
       fields: [name]
   columns:
+    # Name in the menu
     name:
       type: string(128)
       notnull: true  
@@ -26,7 +27,6 @@ UllCmsItem:
       notnull: true
     sequence:
       type: integer
-      
     preview_image:
       type: string(255)
     image:
@@ -46,11 +46,18 @@ UllCmsItem:
     body:
       type: clob
       notnull: true
+    
+    # page and content_block columns
+    ull_cms_content_type_id:
+      type: integer
+      
+      
   relations:      
     Parent:
       class: UllCmsItem
       local: parent_ull_cms_item_id
       foreign: id
+    UllCmsContentType:
   
 
 # Menu items
@@ -80,6 +87,41 @@ UllCmsPage:
       foreign: taggable_id
       foreignType: one
       type: many
+
+      
+# Content blocks
+UllCmsContentBlock:
+  package: ullCmsPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllCmsItem
+    type: column_aggregation
+    keyValue: content_block
+      
+      
+# Content type
+# Used for pages and content blocks
+# Example: Product page, simple page, team member content block, ...       
+UllCmsContentType:
+  package: ullCmsPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]
+    Sluggable:
+      unique: true
+      fields: [name]
+  columns:
+    name:
+      type: string(255)
+      notnull: true  
+    type:
+      type: enum
+      values: [page, content_block]
+      notnull: true
+      default: page
+        
     
 # Frontpage news entries
 UllNews:

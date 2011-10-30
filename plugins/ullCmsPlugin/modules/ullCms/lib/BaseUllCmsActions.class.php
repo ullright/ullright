@@ -33,6 +33,23 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   }    
   
   /**
+   * Executes index action
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeIndex(sfRequest $request) 
+  {
+    $this->checkPermission('ull_cms_index');
+    
+    $this->form = new ullFilterForm;
+    
+    $this->named_queries = new ullNamedQueriesUllCms;
+    
+    $this->breadcrumbForIndex();
+  }    
+  
+  
+  /**
    * Executes list action
    *
    * @param sfWebRequest $request
@@ -153,15 +170,24 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   } 
   
   /**
+   * Create breadcrumbs for index action
+   * 
+   */
+  protected function breadcrumbForIndex() 
+  {
+    $breadcrumbTree = new ullCmsBreadcrumbTree();
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
+  }
+    
+  
+  /**
    * Handles breadcrumb for list action
    */
   protected function breadcrumbForList()
   {
-    $breadcrumb_tree = new breadcrumbTree();
-    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-    $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('CMS pages', null, 'ullCmsMessages'));
-    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullCms/list');
-    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+    $breadcrumbTree = new ullCmsBreadcrumbTree();
+    $breadcrumbTree->add(__('Result list', null, 'common'), 'ullCms/list');
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }  
   
   /**
@@ -170,32 +196,30 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForEdit()
   {
-    $breadcrumb_tree = new breadcrumbTree();
-    $breadcrumb_tree->setEditFlag(true);
-    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
-    $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('CMS pages', null, 'ullCmsMessages'));
+    $breadcrumbTree = new ullCmsBreadcrumbTree();
+    $breadcrumbTree->setEditFlag(true);
     // display result list link only when there is a referer containing 
     //  the list action 
     if ($referer = $this->getUriMemory()->get('list'))
     {
-      $breadcrumb_tree->add(__('Result list', null, 'common'), $referer);
+      $breadcrumbTree->add(__('Result list', null, 'common'), $referer);
     }
     else
     {
-      $breadcrumb_tree->addDefaultListEntry();
+      $breadcrumbTree->addDefaultListEntry();
     }    
     
 //    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullUser/list');  
     if ($this->id) 
     {
-      $breadcrumb_tree->add(__('Edit', null, 'common'));
+      $breadcrumbTree->add(__('Edit', null, 'common'));
     }
     else
     {
-      $breadcrumb_tree->add(__('Create', null, 'common'));
+      $breadcrumbTree->add(__('Create', null, 'common'));
     }
     
-    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   } 
   
   

@@ -14,27 +14,6 @@ class ullWidgetFormDoctrineChoice extends sfWidgetFormDoctrineChoice
 {
   
   /**
-   * @see sfWidget
-   */
-  // Todo: check if this can be moved to ullWidgetFormChoiceUllEntity
-//  public function __construct($options = array(), $attributes = array())
-//  {
-//    // Optionaly support choices because sfWidgetFormDoctrineChoice removes them
-//    $choices = array();
-//    if (isset($options['choices']))
-//    {
-//      $choices = $options['choices'];
-//    }
-//    
-//    parent::__construct($options, $attributes);
-//    
-//    if ($choices)
-//    {
-//      $this->setOption('choices', $choices);
-//    }
-//  }
-  
-  /**
    * Constructor.
    *
    * @see sfWidgetFormSelect

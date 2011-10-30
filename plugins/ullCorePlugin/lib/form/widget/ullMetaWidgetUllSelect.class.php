@@ -45,6 +45,7 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
     // query only children for the given ull select box
     $ullSelect = $this->columnConfig->getWidgetOption('ull_select');
     $this->columnConfig->removeWidgetOption('ull_select');
+    
     $q = new Doctrine_Query;
     $q
       ->from('UllSelectChild a')
@@ -61,8 +62,11 @@ class ullMetaWidgetUllSelect extends ullMetaWidget
 
     $this->addWidget(new ullWidgetFormDoctrineChoice($this->columnConfig->getWidgetOptions(),
       $this->columnConfig->getWidgetAttributes()));
-    $this->columnConfig->setWidgetOption('ull_select', $ullSelect);
+    
     $this->addValidator(new sfValidatorDoctrineChoice($this->columnConfig->getValidatorOptions()));
+    
+    // Reset widget option
+    $this->columnConfig->setWidgetOption('ull_select', $ullSelect);
   }
   
   public function getSearchType()

@@ -1,0 +1,15 @@
+#!/bin/bash
+# test
+echo 'Do a complete refresh (svn update, load production db, migrate)'
+
+svn update
+php symfony cache:clear
+php symfony ullright:migrate-pre-build-model
+php symfony doctrine:build --model --forms --filters
+php symfony cache:clear
+php symfony ullright:get-and-load-production-database
+php symfony ullright:get-production-uploads
+php symfony doctrine:migrate
+php symfony ullright:migrate-custom
+php symfony ullright:migrate-data
+php symfony project:permissions

@@ -130,6 +130,8 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
       ->addSelect(array('name', '*'))
       ->addWhere('parent_ull_cms_item_id = ?', $this->id)
       ->addWhere('is_active = ?', true)
+      // Exclude content blocks, as they do not represent the site's structure
+      ->andWhereIn('type', array('page', 'menu_item'))
       ->addOrderby('sequence, name')
     ;
   

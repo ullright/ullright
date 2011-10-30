@@ -145,5 +145,14 @@ class BaseUllCmsComponents extends sfComponents
   public function executeEditLink()
   {
     $this->allow_edit = UllUserTable::hasPermission('ull_cms_edit');  
+    
+    if ($this->doc instanceof UllCmsPage)
+    {
+      $this->module = 'ullCms';
+    }
+    elseif ($this->doc instanceof UllCmsContentBlock)
+    {
+      $this->module = 'ullCmsContentBlock';
+    }
   }
 }

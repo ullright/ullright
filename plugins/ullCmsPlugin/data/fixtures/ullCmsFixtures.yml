@@ -27,12 +27,13 @@
 # "Menu only" entries - no content page
 UllCmsMenuItem:
   main_menu:
-    sequence:               10
     Translation:
       en:
         name:               Main menu
       de:
         name:               Hauptmenü
+    sequence:               10
+    namespace:              test        
   wiki:
     Translation:
       en:
@@ -42,13 +43,16 @@ UllCmsMenuItem:
     link:                   ullWiki/list
     Parent:                 main_menu
     sequence:               100
+    namespace:              test
   courses_advanced:
+    namespace:              test
     Translation:
       en:
         name:               Advanced courses
       de:
         name:               Advanced Kurse
-    Parent:                 courses            
+    Parent:                 courses
+    namespace:              test            
   inactive_entry:
     Translation:
       en:
@@ -57,6 +61,7 @@ UllCmsMenuItem:
         name:               Inaktiver Eintrag
     Parent:                 main_menu
     is_active:              false
+    namespace:              test
 
   sidebar_blocks:
     sequence:               20
@@ -66,6 +71,7 @@ UllCmsMenuItem:
         name:               Sidebar blocks
       de:                   
         name:               Sidebar-Blöcke
+    namespace:              test        
         
   admin_menu:
     sequence:               99
@@ -75,6 +81,7 @@ UllCmsMenuItem:
         name:               Admin menu
       de:                   
         name:               Admin-Menü
+    namespace:              test        
   manage_content:
     slug:                   manage-content
     Parent:                 admin_menu
@@ -83,6 +90,7 @@ UllCmsMenuItem:
         name:               Manage content
       de:
         name:               Inhalte verwalten
+    namespace:              test        
   manage_pages:
     slug:                   manage-pages
     Parent:                 manage_content
@@ -93,6 +101,7 @@ UllCmsMenuItem:
         name:               Pages
       de:
         name:               Seiten
+    namespace:              test        
   manage_news:
     slug:                   manage-news
     Parent:                 manage_content
@@ -102,7 +111,8 @@ UllCmsMenuItem:
       en:
         name:               News
       de:
-        name:               News            
+        name:               News
+    namespace:              test                    
   manage_menu_items:
     slug:                   manage-menu-items
     Parent:                 manage_content
@@ -113,6 +123,7 @@ UllCmsMenuItem:
         name:               Menu items
       de:
         name:               Menüeinträge
+    namespace:              test        
         
   tools:
     slug:                   tools
@@ -122,6 +133,7 @@ UllCmsMenuItem:
         name:               Tools
       de:
         name:               Tools
+    namespace:              test        
   admin:
     slug:                   admin
     Parent:                 tools
@@ -130,7 +142,8 @@ UllCmsMenuItem:
       en:
         name:               Admin
       de:
-        name:               Admin        
+        name:               Admin
+    namespace:              ull_core                
   newsletter:
     slug:                   newsletter
     Parent:                 tools
@@ -140,6 +153,7 @@ UllCmsMenuItem:
         name:               Newsletter
       de:
         name:               Newsletter
+    namespace:              ull_core        
   inventory:
     slug:                   inventory
     Parent:                 tools
@@ -149,6 +163,7 @@ UllCmsMenuItem:
         name:               Inventory
       de:
         name:               Inventur
+    namespace:              ull_core        
   phone_directory:
     slug:                   phone-directory
     Parent:                 tools
@@ -158,6 +173,7 @@ UllCmsMenuItem:
         name:               Phone directory
       de:
         name:               Telefonbuch
+    namespace:              ull_core        
   orgchart:
     slug:                   orgchart
     Parent:                 tools
@@ -167,6 +183,7 @@ UllCmsMenuItem:
         name:               Orgchart
       de:
         name:               Organigramm
+    namespace:              ull_core        
   wiki1:
     slug:                   wiki1
     Parent:                 tools
@@ -176,6 +193,7 @@ UllCmsMenuItem:
         name:               Wiki
       de:
         name:               Wiki
+    namespace:              ull_core        
   workflows:
     slug:                   workflows
     Parent:                 tools
@@ -185,6 +203,7 @@ UllCmsMenuItem:
         name:               Workflows
       de:
         name:               Workflows       
+    namespace:              ull_core        
   time_reporting:
     slug:                   time-reporting
     Parent:                 tools
@@ -193,7 +212,8 @@ UllCmsMenuItem:
       en:
         name:               Time reporting
       de:
-        name:               Zeiterfassung           
+        name:               Zeiterfassung    
+    namespace:              ull_core               
 
              
   
@@ -205,6 +225,7 @@ UllCmsMenuItem:
         name:               Footer
       de:
         name:               Fußzeile
+    namespace:              test        
 
         
  
@@ -236,6 +257,7 @@ UllCmsPage:
     Parent:                 main_menu
     sequence:               10
     slug:                   homepage
+    namespace:              test    
   about_us:
     Translation:
       en:
@@ -245,7 +267,8 @@ UllCmsPage:
         title:              Über uns            
         body:               '<em>Wir entwicklen die besten Webanwendungen seit 1877</em>'
     Parent:                 main_menu
-    sequence:               20   
+    sequence:               20  
+    namespace:              test     
   team:
     Translation:
       en:
@@ -255,6 +278,7 @@ UllCmsPage:
         title:              Team            
         body:               '<ul><li>Chef</li><li>Mitarbeiter</li></ul>'
     Parent:                 about_us
+    namespace:              test    
   location:
     Translation:
       en:
@@ -263,7 +287,8 @@ UllCmsPage:
       de:
         title:              Standort            
         body:               '<a href="http://maps.google.com">Google Karten</a>'
-    Parent:                 about_us         
+    Parent:                 about_us
+    namespace:              test             
   contact:
     Translation:
       en:
@@ -274,6 +299,7 @@ UllCmsPage:
         body:               'office@example.com'
     Parent:                 main_menu
     sequence:               90
+    namespace:              test    
   courses:
     Translation:
       en:
@@ -284,6 +310,7 @@ UllCmsPage:
         body:               '<p>Wir bieten interessante Kurse...</p><p>Bitte wählen Sie aus dem Menü</p>'
     Parent:                 main_menu
     sequence:               50
+    namespace:              test    
   advanced_course_1:
     Translation:
       en:
@@ -292,7 +319,8 @@ UllCmsPage:
       de:
         title:              Fortgeschrittenen Kurs 1            
         body:               'Für Fortgeschrittene...'
-    Parent:                 courses_advanced      
+    Parent:                 courses_advanced
+    namespace:              test          
   imprint:
     Translation:
       en:
@@ -301,7 +329,8 @@ UllCmsPage:
       de:
         title:              Impressum            
         body:               '<cite>Nach dem Gesetz der...</cite>'
-    Parent:                 footer_menu    
+    Parent:                 footer_menu
+    namespace:              test        
 
   # sidebar blocks
   sidebar_block_address:
@@ -314,6 +343,7 @@ UllCmsPage:
       de:
         title:              Adresse            
         body:               <address>Leiseweg 7<br />12345 Neustadt</address>
+    namespace:              test        
 
   sidebar_block_facebook:
     slug:                    sidebar-block-facebook
@@ -325,6 +355,49 @@ UllCmsPage:
       de:
         title:              Facebook            
         body:               <a title="ull.at" target="_blank" href="http://www.facebook.com/pages/Wien/ullat/133839889986466"><img width="120" height="96" alt="Facebook" style="border: 0px none;" src="http://badge.facebook.com/badge/133839889986466.1052.554780483.png" /></a>
+    namespace:              test        
+
+
+UllCmsContentType:
+  content_type_simple_block:
+    Translation:
+      en:
+        name:               Text only
+      de:
+        name:               Nur Text
+    type:                   content_block
+    namespace:              ull_cms    
+
+
+UllCmsContentBlock:
+  content_block_footer:
+    #content blocks used in the layout use the homepage as parent
+    Parent:                 home   
+    Translation:
+      en:
+        title:              Powered by
+        body:               |
+          Powered by the enterprise 2.0 platform 
+          <a href="http://www.ullright.org" ull_js_observer_confirm="true" target="_blank" class="link_external">
+            ullright
+          </a>
+          |
+          <a href="/ullAdmin/about" ull_js_observer_confirm="true" target="_blank" class="link_external">
+            About
+          </a>
+      de:
+        title:              Powered by
+        body:               |
+          Powered by the enterprise 2.0 platform 
+          <a href="http://www.ullright.org" ull_js_observer_confirm="true" target="_blank" class="link_external">
+            ullright
+          </a>
+          |
+          <a href="/ullAdmin/about" ull_js_observer_confirm="true" target="_blank" class="link_external">
+            Info
+          </a>
+    UllCmsContentType:      content_type_simple_block
+    namespace:              test    
 
     
 UllNews:
@@ -341,6 +414,7 @@ UllNews:
     link_url:               http://google.com
     activation_date:       '2010-03-12'
     image_upload:          employee.jpg
+    namespace:              test    
   second_entry:
     Translation:
       en:
@@ -357,9 +431,13 @@ UllNews:
                              Zum Einloggen bitte admin/admin verwenden
     activation_date:       '2010-03-14'
     image_upload:          ullright-image-small.png
+    namespace:              test    
    
     
 UllPermission:
+  ull_permission_cms_index:
+    slug:               ull_cms_list
+    namespace:          ull_cms
   ull_permission_cms_list:
     slug:               ull_cms_list
     namespace:          ull_cms
@@ -372,6 +450,18 @@ UllPermission:
   ull_permission_cms_delete:
     slug:               ull_cms_delete
     namespace:          ull_cms
+    
+
+  ull_permission_cms_content_block_list:
+    slug:               ull_cms_content_block_list
+    namespace:          ull_cms
+  ull_permission_cms_content_block_edit:
+    slug:               ull_cms_content_block_edit
+    namespace:          ull_cms    
+  ull_permission_cms_content_block_delete:
+    slug:               ull_cms_content_block_delete
+    namespace:          ull_cms    
+    
     
   ull_permission_news_list:
     slug:               ull_news_list
@@ -409,6 +499,21 @@ UllGroupPermission:
     UllGroup:           ull_group_cms_admins
     UllPermission:      ull_permission_cms_delete
     namespace:          ull_cms    
+    
+    
+  ull_group_permission_ull_cms_content_block_1:
+    UllGroup:           ull_group_cms_content_block_admins
+    UllPermission:      ull_permission_cms_content_block_list
+    namespace:          ull_cms         
+  ull_group_permission_ull_cms_content_block_2:
+    UllGroup:           ull_group_cms_content_block_admins
+    UllPermission:      ull_permission_cms_content_block_edit
+    namespace:          ull_cms
+  ull_group_permission_ull_cms_content_block_3:
+    UllGroup:           ull_group_cms_content_block_admins
+    UllPermission:      ull_permission_cms_content_block_delete
+    namespace:          ull_cms    
+        
 
   ull_group_permission_ull_news_1:
     UllGroup:           ull_group_cms_admins
@@ -425,4 +530,5 @@ UllGroupPermission:
   ull_group_permission_ull_news_4:
     UllGroup:           ull_group_everyone
     UllPermission:      ull_permission_news_newsList
-    namespace:          ull_news    
+    namespace:          ull_news
+    

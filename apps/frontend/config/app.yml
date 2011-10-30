@@ -185,5 +185,5 @@ all:
     module_links_order: [ 'ullNewsletter', 'ullMail', 'ullVentory', 'ullWiki', 'ullCms', 'ullNews', 'ullFlow', 'ullTime' ]
 
   ull_widgets:
-    many_to_many_write_:
+    many_to_many_write:
       ajax_mode_threshold:      1000

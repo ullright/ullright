@@ -1,3 +1,7 @@
+<?php /* Set defaults */ ?>
+<?php if (!isset($form_html_id)) { $form_html_id = 'ull_tabletool_form'; } ?>
+<?php if (!isset($is_ajax)) { $is_ajax = false; } ?>
+
 <?php echo $breadcrumb_tree ?>
 
 <?php include_partial('ullTableTool/globalError', array('form' => $generator->getForm())) ?>
