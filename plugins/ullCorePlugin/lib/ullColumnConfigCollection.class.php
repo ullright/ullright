@@ -783,6 +783,22 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
       }
     }
   }
+  
+  /**
+   * Disable all columns except the given ones, and the columns
+   * hidden by default (id, slug, created and updated info)
+   * 
+   * @param array $array
+   */
+  public function disableAllExceptCommonHiddenAnd(array $array)
+  {
+    $list = array_merge(
+      $this->getCommonHiddenColumns(),
+      $array
+    );
+    
+    $this->disableAllExcept($list);
+  }
 
   /**
    * Completely removes the given columns from this
@@ -1002,6 +1018,15 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
     
     return $this;
   }
+  
+  /**
+   * Get the columns hidden by default (id, slug, create, edit info)
+   */
+  public function getCommonHiddenColumns()
+  {
+    return $this->showOnlyInEditModeAndReadOnly;
+  }
+  
   
   /**
    * Debugging output
