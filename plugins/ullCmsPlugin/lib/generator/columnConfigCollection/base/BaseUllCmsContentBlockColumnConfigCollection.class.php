@@ -59,13 +59,6 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
   {
     parent::applyCustomSettings();
     
-    $this->disable(array(
-      'name',
-      'link', 
-      'duplicate_tags_for_search',
-      'ull_cms_content_type_id'
-    ));
-    
     $this['parent_ull_cms_item_id']
       ->setLabel(__('Parent', null, 'ullCmsMessages'))
       ->setIsRequired(true)
@@ -75,6 +68,19 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
       ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')
     ;
+
+    $this->disableAllExceptCommonHiddenAnd(array(
+      'title',
+      'body',
+      'parent_ull_cms_item_id',
+    ));
+    
+    if ($this->isEditAction())
+    {
+      $this['parent_ull_cms_item_id']
+        ->markAsAdvancedField(true)
+      ;
+    }
     
     $this->order(array(
       array(
@@ -82,11 +88,11 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
         'body',
       ),
       array(
-        'parent_ull_cms_item_id',
         'sequence',
         'is_active',
       ),
       array(
+        'parent_ull_cms_item_id',
         'slug',
         'id',
         'creator_user_id',

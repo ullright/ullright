@@ -12,12 +12,6 @@ class UllCmsContentBlockTextOnlyColumnConfigCollection extends UllCmsContentBloc
   protected function applyCustomSettings()
   {
     parent::applyCustomSettings();
-    
-    $this->disable(array(
-      'parent_ull_cms_item_id',
-      'sequence',
-      'is_active',
-    ));
   }    
   
   

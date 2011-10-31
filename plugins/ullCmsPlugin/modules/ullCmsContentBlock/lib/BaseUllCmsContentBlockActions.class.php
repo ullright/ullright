@@ -104,7 +104,15 @@ class BaseUllCmsContentBlockActions extends BaseUllGeneratorActions
       }
     }
     
-    $this->setVar('form_uri', $this->getEditFormUri(), true);
+    $form_uri = $this->getEditFormUri();
+    
+    if (!$row->exists())
+    {
+      $form_uri = ullCoreTools::appendParamsToUri($form_uri,
+        'content_type=' . $row->UllCmsContentType->slug); 
+    }
+    
+    $this->setVar('form_uri', $form_uri);
 
     $this->setVar('generator', $this->generator, true);
     
