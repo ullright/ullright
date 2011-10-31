@@ -28,6 +28,13 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       "<head>\n" . $layoutHead . "\n</head>\n" . 
       "\n<body>\n" . strtr($layoutBody, array('[CONTENT]' => $body)) . "\n</body>" .
       "\n</html>";
+
+    // Create absolute image urls
+    $body = str_replace(
+      ' src="/',
+      ' src="http://' . sfConfig::get('app_server_name') . '/',
+      $body 
+    ); 
     
     return $body; 
   }

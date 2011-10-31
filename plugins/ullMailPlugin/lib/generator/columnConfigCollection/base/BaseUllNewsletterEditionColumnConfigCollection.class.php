@@ -20,7 +20,11 @@ class BaseUllNewsletterEditionColumnConfigCollection extends ullColumnConfigColl
     
     $this['body']
       ->setLabel(__('Text', null, 'common'))
-      ->setHelp(__('Every user database field can be used as placeholder for personalization. 
+      ->setHelp(
+        __('[SHIFT %arrow%] - [ENTER] creates single line breaks', 
+          array('%arrow%' => '&uArr;'), 'ullCoreMessages')
+        . " \n" .
+        __('Every user database field can be used as placeholder for personalization. 
 Examples: [FIRST_NAME], [LAST_NAME], [TITLE], ...', null, 'ullMailMessages'))       
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
     ;
