@@ -132,9 +132,16 @@
       <!--  edit action -->
 
       <trans-unit id="100">
-      <source>Fields marked with * are mandatory</source>
-      <target>Mit * markierte Felder sind Pflichtfelder</target>
-      </trans-unit>       
+	      <source>Fields marked with * are mandatory</source>
+	      <target>Mit * markierte Felder sind Pflichtfelder</target>
+      </trans-unit>
+      
+      <trans-unit id="101">
+	      <source>[SHIFT %arrow%] - [ENTER] creates single line breaks</source>
+	      <target>[SHIFT %arrow%] - [ENTER] erzeugt einfache Zeilenumbrüche</target>
+      </trans-unit>     
+      
+            
       
       
       <!-- table config -->
