@@ -22,8 +22,15 @@ abstract class PluginUllMailLoggedMessage extends BaseUllMailLoggedMessage
     if (!$this['first_read_at'])
     {
       $this['first_read_at'] = date('c');
-      $readCount = $this->UllNewsletterEdition['num_read_emails'];
-      $this->UllNewsletterEdition['num_read_emails'] = $readCount + 1;
+      
+      // We have to check if the related UllNewsletterEdition exists
+      // Otherwise we would create (!!!) it (In case the newsletter was deleted)
+      // TODO: It would be nicer to update the num_read_emails with a actual db count
+      if ($this->UllNewsletterEdition->exists())
+      {
+        $readCount = $this->UllNewsletterEdition['num_read_emails'];
+        $this->UllNewsletterEdition['num_read_emails'] = $readCount + 1;
+      }
     }
   }
   
