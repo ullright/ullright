@@ -12,7 +12,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
     parent::applyCustomSettings();
     
     $this->disable(array(
-      'link', 'duplicate_tags_for_search'
+      'link', 'duplicate_tags_for_search', 'ull_cms_content_type_id'
     ));
     
     $this['name']
@@ -27,6 +27,9 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
     $this['body']
       ->setMetaWidgetClassName('ullMetaWidgetFCKEditor')
       ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')
+      ->setHelp(__('[SHIFT %arrow%] - [ENTER] creates single line breaks', 
+          array('%arrow%' => '&uArr;'), 'ullCoreMessages'))
+            
     ;
     
     $this['duplicate_tags_for_search']
