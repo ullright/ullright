@@ -20,16 +20,7 @@
     </tr>
   <?php endif?>
   
-  <?php // Handle translated column ?>
-  <?php if ($columns_config->getTranslated()): ?>
-    <?php $cultures = ullGenerator::getDefaultCultures() ?>
-    <?php foreach ($cultures as $culture): ?>
-      <?php $translation_column_name = $column_name . '_translation_' . $culture ?>
-      <?php echo $generator->getForm()->offsetGet($translation_column_name)->renderRow(); ?>
-    <?php endforeach ?>
-  <?php else: ?>
-    <?php echo $generator->getForm()->offsetGet($column_name)->renderRow(); ?>
-  <?php endif ?>
+  <?php echo $generator->getForm()->offsetGet($column_name)->renderRow(); ?>
 
   <?php // Ignore sections when set to null ?>  
   <?php if ($columns_config->getSection() !== null): ?>

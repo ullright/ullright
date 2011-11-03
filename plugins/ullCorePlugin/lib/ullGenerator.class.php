@@ -643,8 +643,18 @@ abstract class ullGenerator extends ullGeneratorBase
         // But we also want fields that have no column config
         if (!in_array($formField, array_keys($this->getColumnsConfig()->getCollection())))
         {
-          $columns[$formField] = new ullColumnConfiguration;
-          $columns[$formField]->setSection(null);
+          // Also translated fields have no column config
+          // Get the columnConfig for them
+          if (strpos($formField, '_translation_'))
+          {
+            $originalFormField = substr($formField, 0, -15);
+            $columns[$formField] = $this->columnsConfig[$originalFormField];
+          }
+          else
+          {
+            $columns[$formField] = new ullColumnConfiguration;
+            $columns[$formField]->setSection(null);
+          }
         }
       }      
     }
