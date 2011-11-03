@@ -121,17 +121,23 @@ abstract class PluginUllCmsItem extends BaseUllCmsItem
    * Get the sub items for current item
    *
    * @param boolean $hydration
+   * @param array $types          List of cms item types. Default = 'page', 'menu_item'
    * @return mixed
    */
-  public function getSubs($hydrationMode = null)
+  public function getSubs($hydrationMode = null, array $types = array())
   {
+    if (!count($types))
+    {
+      $types = array('page', 'menu_item');
+    }
+    
     $q = new ullQuery('UllCmsItem');
     $q
       ->addSelect(array('name', '*'))
       ->addWhere('parent_ull_cms_item_id = ?', $this->id)
       ->addWhere('is_active = ?', true)
       // Exclude content blocks, as they do not represent the site's structure
-      ->andWhereIn('type', array('page', 'menu_item'))
+      ->andWhereIn('type', $types)
       ->addOrderby('sequence, name')
     ;
   
