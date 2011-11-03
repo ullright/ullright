@@ -11,10 +11,10 @@ class ullMetaWidgetFCKEditor extends ullMetaWidget
     if ($this->isWriteMode())
     {
       $defaults = array(
-        'width'                    => '800',
-        'height'                   => '400',
-        'CustomConfigurationsPath' => '/ullCorePlugin/js/FCKeditor_config.js',
-        'BasePath'                 => '/ullCorePlugin/js/fckeditor/',
+        'CustomConfigurationsPath' => '/ullCorePlugin/js/CKeditor_config.js',
+//        'width'                    => '800',
+//        'height'                   => '400',
+//        'BasePath'                 => '/ullCorePlugin/js/fckeditor/',
       );
 
       $this->columnConfig->removeWidgetOption('decode_mime');
