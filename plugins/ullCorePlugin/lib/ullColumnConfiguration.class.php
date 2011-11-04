@@ -378,12 +378,22 @@ class ullColumnConfiguration
   {
     return $this->defaultValue;
   }
+  
+  public function getDefault()
+  {
+    return $this->getDefaultValue();
+  }
 
   public function setDefaultValue($defaultValue)
   {
     $this->defaultValue = $defaultValue;
     
     return $this;
+  }
+  
+  public function setDefault($default)
+  {
+    return $this->setDefaultValue($default);
   }
 
   public function getAllowCreate()
