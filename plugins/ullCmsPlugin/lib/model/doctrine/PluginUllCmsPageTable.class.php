@@ -9,6 +9,8 @@ class PluginUllCmsPageTable extends UllCmsItemTable
    * @param string $slug
    * 
    * @return Doctrine_Collection
+   
+   * TODO: why order desc?
    */
   public static function findByParentSlug($slug, $limit = null)
   {
@@ -52,6 +54,18 @@ class PluginUllCmsPageTable extends UllCmsItemTable
     $result = $q->execute();
     
     return $result;
+  }
+  
+  /**
+   * Returns the web image base path of images uploaded by ullMetaWidgetSimpleUpload
+   * Enter description here ...
+   */
+  public static function getImagePath()
+  {
+    $imagePath = sfConfig::get('sf_upload_dir') . '/tableTool/UllCmsPage/';
+    $imagePath = ullCoreTools::absoluteToWebPath($imagePath);
+
+    return $imagePath;
   }
   
 }

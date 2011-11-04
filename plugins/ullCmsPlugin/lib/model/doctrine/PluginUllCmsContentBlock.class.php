@@ -20,11 +20,14 @@ abstract class PluginUllCmsContentBlock extends BaseUllCmsContentBlock
    */
   public function preSave($event)
   {
-    // Automatically set the name field
+    // Automatically set the name field if empty
     foreach ($this->Translation as $lang => $translation)
     {
-      $this->Translation[$lang]->name = $this->Translation[$lang]->title;
-    }
+      if (!$this->Translation[$lang]->name)
+      {
+        $this->Translation[$lang]->name = $this->Translation[$lang]->title;
+      }
+    }    
     
     parent::preSave($event);
   }  

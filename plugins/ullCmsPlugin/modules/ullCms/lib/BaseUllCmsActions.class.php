@@ -90,6 +90,8 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->loadCustomAction($request);
     
     $this->loadCustomTemplate();
+    
+    $this->image_path = UllCmsPageTable::getImagePath();
   }
   
   /**
