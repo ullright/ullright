@@ -16,6 +16,10 @@ class UllVentoryOriginDummyUserTableConfiguration extends ullTableConfiguration
     $this->setName(__('Origin users', null, 'ullVentoryMessages'));
     $this->setSearchColumns(array('username', 'comment'));
     $this->setOrderBy('username');
+    $this
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')
+    ;    
   }
   
 }

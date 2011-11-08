@@ -43,6 +43,8 @@ class ullTableToolTestBrowser extends ullTestBrowser
     {
       $this->order = $options['order'] . (isset($options['desc']) ? '%3Adesc' : '%3Aasc');
     }
+    
+    sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
     parent::__construct(null, null, array('configuration' => $configuration));
   }
@@ -76,11 +78,8 @@ class ullTableToolTestBrowser extends ullTestBrowser
       ->diag('login')
     	->get('ullAdmin/index')
       ->loginAsAdmin()
+      ->get($this->getStartUri())
       ->isStatusCode(200)
-      ->with('request')->begin()   
-        ->isParameter('module', 'ullAdmin')
-        ->isParameter('action', 'index')
-      ->end()
     ;
     $this
       ->diag('list: '. $this->label)
@@ -246,4 +245,29 @@ class ullTableToolTestBrowser extends ullTestBrowser
       ;
     }
   }
+  
+  /**
+   * Try to figure out the start uri 
+   */
+  protected function getStartUri()
+  {
+    $tableConfig = ullTableConfiguration::buildFor($this->table);
+    
+    $breadcrumbClass = $tableConfig->getBreadcrumbClass();
+    
+    if ($breadcrumbClass)
+    {
+      $breadcrumb = new $breadcrumbClass;
+      $tree = $breadcrumb->getBreadcrumbTree();
+      
+      $first = reset($tree);
+      $uri = $first['internal_uri'];
+    }
+    else 
+    {
+      $uri = 'ullAdmin/index';
+    }
+     
+    return $uri;
+  }  
 }

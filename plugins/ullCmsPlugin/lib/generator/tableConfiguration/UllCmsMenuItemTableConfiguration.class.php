@@ -20,6 +20,10 @@ class UllCmsMenuItemTableConfiguration extends UllCmsItemTableConfiguration
     $this->setOrderBy('full_path, sequence');
     $this->setListColumns(array('full_path', 'is_active'));
 //    $this->setFilterColumns(array('allow_sub_items' => 'checked'));
+    $this
+      ->setPlugin('ullCmsPlugin')
+      ->setBreadcrumbClass('ullCmsBreadcrumbTree')
+    ;          
   }
   
 }

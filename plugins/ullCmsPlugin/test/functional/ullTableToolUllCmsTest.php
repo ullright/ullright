@@ -2,6 +2,9 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/functional.php';
 
+//TODO: write normal test, too specific for tabletool test
+
+/*
 $selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
       array(
         'edit_delete',      
@@ -42,4 +45,4 @@ $b->setCreateValues($createValues);
 $b->setEditValues($editValues);
 $b->executeTest();
 
-
+*/

@@ -18,6 +18,8 @@ class UllVentoryItemModelTableConfiguration extends ullTableConfiguration
       ->setForeignRelationName(__('Model', null, 'ullVentoryMessages'))
       ->setSearchColumns(array('name'))
       ->setOrderBy('ull_ventory_item_type_id, ull_ventory_item_manufacturer_id, name')
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')      
     ;
   }
   

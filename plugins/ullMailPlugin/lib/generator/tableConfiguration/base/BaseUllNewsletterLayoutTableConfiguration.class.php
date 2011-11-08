@@ -21,6 +21,9 @@ class BaseUllNewsletterLayoutTableConfiguration extends UllTableConfiguration
       'name',
       'is_default',
     ));
+    
+    $this->setPlugin('ullMailPlugin');
+    $this->setBreadcrumbClass('ullNewsletterBreadcrumbTree');    
   }  
   
 }

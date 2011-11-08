@@ -32,6 +32,41 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     $this->getUriMemory()->setDefault($this->list_base_uri);
     
     $this->getTablefromRequest();
+    
+    $this->addPluginStylesheet();
+    $this->getBreadcrumbBase();
+  }
+  
+
+  /**
+   * Added plugin stylesheet accorting to table config
+   */
+  protected function addPluginStylesheet()
+  {
+    if (($plugin = $this->table_config->getPlugin()) &&
+      ($this->getActionName() !== 'show')) 
+    {
+      $plugin = str_replace('Plugin', '', $plugin);
+      $path =  '/' . $plugin . 'Theme' .  sfConfig::get('app_theme_package', 'NG') . "Plugin/css/main.css";
+      
+      $this->getResponse()->addStylesheet($path, 'last', array('media' => 'all'));
+    }    
+  }
+  
+  
+  /**
+   * Get the breadcrumb base class
+   */
+  protected function getBreadcrumbBase()
+  {
+    if ($breadcrumbClass = $this->table_config->getBreadcrumbClass())
+    {
+      $this->breadcrumb_base = new $breadcrumbClass;
+    }
+    else 
+    {
+      $this->breadcrumb_base = new ullTableToolBreadcrumbTree();      
+    }
   }
   
   
@@ -400,6 +435,8 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
         class_exists($this->table_name),
         'Database table not found: ' . $this->table_name
     );
+    
+    $this->table_config = ullTableConfiguration::buildFor($this->table_name);
 
     return true;
   }
@@ -428,5 +465,43 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
       __(ucfirst($this->getRequestParameter('action')), null, 'common')
     );
   }
+  
+  /**
+   * Handles breadcrumb for list action
+   *
+   */
+  protected function breadcrumbForList()
+  {
+    $breadcrumb_tree = $this->breadcrumb_base;
+//    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $breadcrumb_tree->add($this->generator->getTableConfig()->getName());
+    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullTableTool/list?table=' . $this->table_name);
+    
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }
+  
+  
+  /**
+   * Handles breadcrumb for edit action
+   *
+   */
+  protected function breadcrumbForEdit()
+  {
+    $breadcrumb_tree = new $this->breadcrumb_base;
+    $breadcrumb_tree->setEditFlag(true);
+//    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $breadcrumb_tree->add($this->generator->getTableConfig()->getName());
+    $breadcrumb_tree->add(__('Result list', null, 'common'), $this->getUriMemory()->get('list'));    
+    if ($this->id) 
+    {
+      $breadcrumb_tree->add(__('Edit', null, 'common'));
+    }
+    else
+    {
+      $breadcrumb_tree->add(__('Create', null, 'common'));
+    }
+    
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
   
 }

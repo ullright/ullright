@@ -96,7 +96,19 @@ class ullTableConfiguration
     /**
      * Configures for which columns filter inputs are displayed
      */
-    $filterColumns = array()
+    $filterColumns = array(),
+    
+    /**
+     * Define to which symfony plugin this table belongs
+     * 
+     * Used e.g. to load the correct plugin stylesheet in tabletool
+     */
+    $plugin = null,
+
+    /**
+     * Breadcrumb class for tabletool
+     */
+    $breadcrumbClass = null
   ;
   
   
@@ -563,6 +575,50 @@ class ullTableConfiguration
     }
   }
   
+  /**
+   * Set to which symfony plugin this table belongs
+   * 
+   * @param string $plugin
+   */
+  public function setPlugin($plugin)
+  {
+    $this->plugin = $plugin;
+    
+    return $this;
+  }
+  
+  /**
+   * Get the symfony plugin name for this table
+   * 
+   * @param string $plugin
+   */
+  public function getPlugin()
+  {
+    return $this->plugin;
+  }
+  
+  /**
+   * Set tabletool breadcrumb class
+   * 
+   * @param string $breadcrumbs
+   */
+  public function setBreadcrumbClass($breadcrumbClass)
+  {
+    $this->breadcrumbClass = $breadcrumbClass;
+    
+    return $this;
+  }
+  
+  /**
+   * Get the tabletool breadcrumb class
+   * 
+   * @return string
+   */
+  public function getBreadcrumbClass()
+  {
+    return $this->breadcrumbClass;
+  }
+  
   
   /**
    * Helper function to render a task center link for the admin index action
@@ -573,9 +629,25 @@ class ullTableConfiguration
    * @param string $image
    * @return string
    */
-  public static function renderTaskCenterLink($modelName, $plugin, $image, $text = null)
+  public static function renderTaskCenterLink($modelName, $plugin = null, $image = null, $text = null)
   {
     $config = self::buildFor($modelName);
+    
+    if (!$plugin)
+    {
+      $plugin = $config->getPlugin();
+      $plugin = str_replace('Plugin', '', $plugin);
+    }
+    
+    if (!$plugin)
+    {
+      throw new InvalidArgumentException('$plugin must be given');
+    }
+    
+    if (!$image)
+    {
+      $image = 'action_icons/admin_24x24';
+    }
     
     $path =  '/' . $plugin . 'Theme' . sfConfig::get('app_theme_package', 'NG') . 'Plugin/images/' . $image;
     

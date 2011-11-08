@@ -16,6 +16,10 @@ class UllVentorySoftwareTableConfiguration extends ullTableConfiguration
     $this->setName(__('Software', null, 'ullVentoryMessages'));
     $this->setSearchColumns(array('name'));
     $this->setOrderBy('name');
+    $this
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')
+    ;    
   }
   
 }

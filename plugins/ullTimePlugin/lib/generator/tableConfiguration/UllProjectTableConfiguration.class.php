@@ -21,6 +21,10 @@ class UllProjectTableConfiguration extends ullTableConfiguration
       'is_active' => 'checked', 
       'is_routine' => null,
     ));
+    $this
+      ->setPlugin('ullTimePlugin')
+      ->setBreadcrumbClass('ullTimeBreadcrumbTree')
+    ;   
   }
   
 }

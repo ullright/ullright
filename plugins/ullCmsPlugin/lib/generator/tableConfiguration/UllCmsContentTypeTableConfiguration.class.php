@@ -20,6 +20,10 @@ class UllCmsContentTypeTableConfiguration extends ullTableConfiguration
     $this->setOrderBy('name');
     $this->setListColumns(array('name', 'type', 'Updator->display_name', 'updated_at'));
     $this->setForeignRelationName(__('Content type', null, 'ullCmsMessages'));
+    $this
+      ->setPlugin('ullCmsPlugin')
+      ->setBreadcrumbClass('ullCmsBreadcrumbTree')
+    ;       
   }
   
 }

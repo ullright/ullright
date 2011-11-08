@@ -17,7 +17,7 @@
       <h3><?php echo __('Mailing lists', null, 'ullMailMessages') ?></h3>
       <ul class="tc_tasks">
         <?php foreach ($mailing_lists as $mailing_list): ?>
-          <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/ull_mail_24x24',
+          <li><?php echo ull_tc_task_link('/ullMailThemeNGPlugin/images/ull_mail_group_24x24',
           	'ullNewsletter/list?filter[ull_newsletter_mailing_list_id]=' . $mailing_list['id'],
             $mailing_list) ?></li>
         <?php endforeach; ?>
@@ -26,8 +26,8 @@
       <?php if (UllUserTable::hasPermission('ull_newsletter_admin')): ?>
         <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
         <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterMailingList', 'ullMail', 'ull_mail_24x24') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterLayout', 'ullMail', 'ull_mail_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterMailingList') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllNewsletterLayout') ?></li>
         </ul>
       <?php endif ?>      
 

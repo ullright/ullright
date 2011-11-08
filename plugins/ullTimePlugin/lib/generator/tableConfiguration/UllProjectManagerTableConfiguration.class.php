@@ -18,6 +18,10 @@ class UllProjectManagerTableConfiguration extends ullTableConfiguration
     $this->setSearchColumns(array('UllProject->name', 'UllUser->display_name'));
     $this->setOrderBy('UllProject->name');
     $this->setFilterColumns(array('UllProject->is_active' => 'checked'));
+    $this
+      ->setPlugin('ullTimePlugin')
+      ->setBreadcrumbClass('ullTimeBreadcrumbTree')
+    ;       
     
   }
   

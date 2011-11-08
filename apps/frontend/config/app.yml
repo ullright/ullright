@@ -25,9 +25,6 @@ all:
   # Enable to specify a custom favicon. Per default the theme's favicon is used.
   #override_favicon: /images/favicon.ico
 
-  #Enable to use a custom layout located in apps/frontend/templates/my_layout.php
-  #override_layout: my_layout
-  
   error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
   error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
 

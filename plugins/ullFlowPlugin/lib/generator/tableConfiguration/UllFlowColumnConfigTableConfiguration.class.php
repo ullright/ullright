@@ -17,6 +17,10 @@ class UllFlowColumnConfigTableConfiguration extends ullTableConfiguration
     $this->setSearchColumns(array('slug'));
     $this->setOrderBy('ull_flow_app_id, sequence');
     $this->setFilterColumns(array('ull_flow_app_id' => ''));
+    $this
+      ->setPlugin('ullFlowPlugin')
+      ->setBreadcrumbClass('ullFlowBreadcrumbTree')
+    ;           
   }
   
 }

@@ -127,6 +127,28 @@
 <target>Beim Verfassen eines neuen Newsletter ist dieser Verteiler automatisch ausgewählt</target>
 </trans-unit>
 
+<trans-unit id="220">
+<source>Is public</source>
+<target>Ist öffentlich</target>
+</trans-unit>
+
+<trans-unit id="221">
+<source>Anyone can see and subscribe this mailing list</source>
+<target>Jeder kann diesen Verteiler sehen und abonnieren</target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
+
+
 
 <!-- named queries -->
 

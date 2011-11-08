@@ -16,6 +16,10 @@ class UllVentorySoftwareLicenseTableConfiguration extends ullTableConfiguration
     $this->setName(__('Software licenses', null, 'ullVentoryMessages'));
     $this->setSearchColumns(array('supplier', 'license_key', 'comment'));
     $this->setOrderBy('ull_ventory_software_id');
+    $this
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')
+    ;    
   }
   
 }

@@ -96,6 +96,11 @@ UllNewsletterMailingList:
       default: true
     is_default:
       type: boolean
+      default: false
+    # Mailinglist can be subscribed and is not hidden from the public
+    is_public:
+      type: boolean
+      default: true
   relations:
     Subscribers:
       #NOTE: change this to UllEntity if there are problems when importing fixtures during testing

@@ -27,6 +27,10 @@ class UllFlowStepActionTableConfiguration extends ullTableConfiguration
 //    $this->setFilterColumns(array('UllFlowStep->ull_flow_app_id' => ''));
     $this->setCustomRelationName('UllFlowStep->UllFlowApp', __('Workflow', null, 'ullFlowMessages'));
     $this->setCustomRelationName('UllFlowStep', __('Step', null, 'ullFlowMessages'));
+    $this
+      ->setPlugin('ullFlowPlugin')
+      ->setBreadcrumbClass('ullFlowBreadcrumbTree')
+    ;           
   }
   
 }

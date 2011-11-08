@@ -18,6 +18,8 @@ class UllVentoryItemManufacturerTableConfiguration extends ullTableConfiguration
       ->setSearchColumns(array('name'))
       ->setOrderBy('name')
       ->setForeignRelationName(__('Manufacturer', null, 'ullVentoryMessages'))
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')      
     ;
   }
   

@@ -20,6 +20,8 @@ class UllVentoryItemTypeTableConfiguration extends ullTableConfiguration
       ->setSearchColumns(array('slug'))
       ->setOrderBy('slug')
       ->setForeignRelationName(__('Type', null, 'ullVentoryMessages'))
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')
     ;
   }
   

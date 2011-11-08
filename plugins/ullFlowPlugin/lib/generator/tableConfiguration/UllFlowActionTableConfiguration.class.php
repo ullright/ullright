@@ -16,5 +16,9 @@ class UllFlowActionTableConfiguration extends ullTableConfiguration
     $this->setName(__('Actions', null, 'ullFlowMessages'));
     $this->setSearchColumns(array('slug'));
     $this->setOrderBy('slug');
+    $this
+      ->setPlugin('ullFlowPlugin')
+      ->setBreadcrumbClass('ullFlowBreadcrumbTree')
+    ;           
   }
 }

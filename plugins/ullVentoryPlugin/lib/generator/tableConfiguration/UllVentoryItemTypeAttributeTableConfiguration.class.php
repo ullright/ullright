@@ -16,6 +16,10 @@ class UllVentoryItemTypeAttributeTableConfiguration extends ullTableConfiguratio
     $this->setName(__('Attributes per item type', null, 'ullVentoryMessages'));
     $this->setSearchColumns(array('id'));
     $this->setOrderBy('ull_ventory_item_type_id, ull_ventory_item_attribute_id');
+    $this
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')
+    ;
   }
   
 }

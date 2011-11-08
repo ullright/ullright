@@ -16,6 +16,10 @@ class UllVentoryTakingTableConfiguration extends ullTableConfiguration
     $this->setName(__('Inventory takings', null, 'ullVentoryMessages'));
     $this->setSearchColumns(array('name'));
     $this->setOrderBy('name');
+    $this
+      ->setPlugin('ullVentoryPlugin')
+      ->setBreadcrumbClass('ullVentoryBreadcrumbTree')
+    ;    
   }
   
 }

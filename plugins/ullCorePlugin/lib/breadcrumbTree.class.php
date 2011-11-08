@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Managing breadcrumb tree
+ * Breadcrumb tree
  *
  * @package    weflow
  * @author     Klemens Ullmann
@@ -59,7 +59,7 @@ class breadcrumbTree
  * @return array
  */ 
   public function getBreadcrumbTree() {
-    return $this->breadcrumTree;
+    return $this->breadcrumbTree;
   }
   
 /**

@@ -19,6 +19,12 @@ class BaseUllNewsletterMailingListColumnConfigCollection extends ullColumnConfig
       ->setHelp(__('This mailing list is automatically selected when composing a newsletter',
         null, 'ullMailMessages'))
     ;
+    
+    $this['is_public']
+      ->setLabel(__('Is public', null, 'ullMailMessages'))
+      ->setHelp(__('Anyone can see and subscribe this mailing list',
+        null, 'ullMailMessages'))
+    ;    
 
     $this->order(array(
       'id',
@@ -26,6 +32,7 @@ class BaseUllNewsletterMailingListColumnConfigCollection extends ullColumnConfig
       'description',
       'is_subscribed_by_default',
       'is_default',
+      'is_public',
     ));    
     
     if ($this->isCreateOrEditAction())
@@ -42,6 +49,7 @@ class BaseUllNewsletterMailingListColumnConfigCollection extends ullColumnConfig
         'Subscribers',
         'is_subscribed_by_default',
         'is_default',
+        'is_public',
       ));
     }
   }

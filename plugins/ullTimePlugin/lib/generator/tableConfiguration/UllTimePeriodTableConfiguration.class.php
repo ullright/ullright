@@ -16,6 +16,10 @@ class UllTimePeriodTableConfiguration extends ullTableConfiguration
     $this->setName(__('Periods', null, 'ullTimeMessages'));
     $this->setSearchColumns(array('slug'));
     $this->setOrderBy('from_date');
+    $this
+      ->setPlugin('ullTimePlugin')
+      ->setBreadcrumbClass('ullTimeBreadcrumbTree')
+    ;           
   }
   
 }

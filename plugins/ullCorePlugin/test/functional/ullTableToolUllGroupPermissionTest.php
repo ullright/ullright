@@ -14,7 +14,7 @@ $b = new ullTableToolTestBrowser(
 	'UllGroupPermission', 
 	'Group permissions', 
 	'Manage Group permissions', 
-  26, 
+  29, 
   $s, 
   $configuration,
   array('order' => 'created_at', 'desc' => true)

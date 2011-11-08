@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers(array('I18N', 'ull'));
 
-$t = new myTestCase(36, new lime_output_color, $configuration);
+$t = new myTestCase(38, new lime_output_color, $configuration);
 
 class TestTableWithoutTableConfiguration extends sfDoctrineRecord
 {
@@ -160,4 +160,12 @@ $t->diag('set/getEditColumns()');
 
 $t->diag('set/getFilterColumns()');
   $config->setFilterColumns(array('user_name', 'email'));
-  $t->is($config->getFilterColumns(), array('user_name', 'email'), 'Returns the correct filter columns');   
+  $t->is($config->getFilterColumns(), array('user_name', 'email'), 'Returns the correct filter columns');  
+  
+$t->diag('set/getBreadcrumbClass()');
+  $config->setBreadcrumbClass('ullNewsletterBreadcrumbTree');
+  $t->is($config->getBreadcrumbClass(),'ullNewsletterBreadcrumbTree', 'Returns the correct breadcrumb class name');   
+  
+$t->diag('set/getPlugin()');
+  $config->setPlugin('ullMailPlugin');
+  $t->is($config->getPlugin(), 'ullMailPlugin', 'Returns the correct symfony plugin name');  

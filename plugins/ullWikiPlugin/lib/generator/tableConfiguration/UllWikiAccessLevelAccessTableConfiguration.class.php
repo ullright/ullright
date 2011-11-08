@@ -16,6 +16,10 @@ class UllWikiAccessLevelAccessTableConfiguration extends ullTableConfiguration
     $this->setName(__('Access rights', null, 'ullWikiMessages'));
     $this->setSearchColumns(array('ull_group_id'));
     $this->setOrderBy('ull_group_id');
+    $this
+      ->setPlugin('ullWikiPlugin')
+      ->setBreadcrumbClass('ullWikiBreadcrumbTree')
+    ;       
   }
   
 }
