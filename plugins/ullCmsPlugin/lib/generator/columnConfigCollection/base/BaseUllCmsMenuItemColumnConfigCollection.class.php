@@ -17,6 +17,7 @@ class BaseUllCmsMenuItemColumnConfigCollection extends UllCmsItemColumnConfigCol
       'duplicate_tags_for_search',
       'image',
       'preview_image',
+      'ull_cms_content_type_id'
     ));
   }
 }
