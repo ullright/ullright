@@ -112,6 +112,8 @@ EOF;
           {
             $this->logNoisySection($this->name, 'Invalid address: ' . $recipient['email']);
             $failedRecipients[] = $recipient['email'];
+            
+            $this->createFailedLoggedMessage($currentMail, $recipient);
           }
         }  
         
@@ -184,6 +186,30 @@ EOF;
     {
       $this->log($dle->getMessage());
     }
+  }
+  
+  /**
+   * Create a UllMailLoggedMessage entry for an invalid email address for logging
+
+   * @param UllNewsletteredition $edition
+   * @param UllUser $user
+   */
+  protected function createFailedLoggedMessage(ullsfmail $mail, UllUser $recipient)
+  {
+    $edition = Doctrine::getTable('UllNewsletterEdition')->findOneById($mail->getNewsletterEditionId());
+    
+    $log = new UllMailLoggedMessage();
+    $log->UllNewsletterEdition = $edition;
+    $log->sender = $edition->Sender->getEmailTo();
+    $log->MainRecipient = $recipient;
+    $log->to_list = $recipient->getEmailTo();
+    $log->subject = $edition->subject;
+    $log->html_body = $edition->getBody();
+    $log->failed_at = new Doctrine_Expression('NOW()');
+    $log->last_error_message = 'spoolEmailsTask: invalid address: ' . $recipient->email;
+    $log->UllMailError = Doctrine::getTable('UllMailError')->findOneBySlug('invalid-email-address');
+    $log->save();
+     
   }
 }
 
