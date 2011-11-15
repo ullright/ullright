@@ -16,7 +16,12 @@ class PluginUllNewsletterEditionTable extends UllRecordTable
     {
         return Doctrine_Core::getTable('PluginUllNewsletterEdition');
     }
+
     
+    /**
+     * Find editions which are ready to be spooled
+     * 
+     */
     public static function findEditionsToBeSpooled()
     {
       $q = new Doctrine_Query;
