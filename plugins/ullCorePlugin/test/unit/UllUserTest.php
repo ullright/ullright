@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new myTestCase(8, new lime_output_color, $configuration);
+$t = new myTestCase(9, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
 
@@ -17,6 +17,10 @@ $t->begin('getLastNameFirst()');
 
   $user = Doctrine::getTable('UllUser')->find(1);
   $t->is($user->getLastNameFirst(), 'Admin Master', 'returns the correct string');
+  
+$t->diag('getEmailTo()');
+
+  $t->is($user->getEmailTo(), 'Master Admin <admin@example.com>', 'Returns the correct email format');  
   
 $t->diag('isLoggedIn()');
 
@@ -43,3 +47,4 @@ $t->diag('reset num_email_bounces on email update');
   $user->email = 'new@example.com';
   $user->save();
   $t->is($user->num_email_bounces, 0, 'num_email_bounces is reseted');
+  

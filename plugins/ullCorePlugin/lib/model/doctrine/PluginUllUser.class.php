@@ -206,4 +206,19 @@ abstract class PluginUllUser extends BaseUllUser
     $this->UllUserStatus = Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive');
   }
   
+  /**
+   * Return the correct format for an email to: field
+   * 
+   * Example: "Master Admin <admin@example.com>"
+   */
+  public function getEmailTo()
+  {
+    return $this->first_name . 
+      ' ' .
+      $this->last_name . 
+      ' <' .
+      $this->email .
+      '>';
+  }
+  
 }
