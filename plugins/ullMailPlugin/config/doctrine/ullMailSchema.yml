@@ -49,6 +49,10 @@ UllMailLoggedMessage:
       type: integer
     failed_at:
       type: timestamp
+    ull_mail_error_id:
+      type: integer
+    last_error_message:
+      type: clob
   relations:
     UllNewsletterEdition:
       local: ull_newsletter_edition_id
@@ -57,7 +61,27 @@ UllMailLoggedMessage:
       class: UllUser
       local: main_recipient_ull_user_id
       foreign: id
-
+    UllMailError:
+      
+# List of mail errors      
+UllMailError:      
+  package: ullMailPlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete
+  actAs:
+    I18n:
+      fields: [name]  
+    Sluggable:
+      unique: true
+      fields: [name]
+  columns:
+    name:
+      type: string(255)
+      notnull: true
+    severity:
+      type: string(255)
+    
 # Queue for batch mailing
 UllMailQueuedMessage:
   package: ullMailPlugin.lib.model.doctrine

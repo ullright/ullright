@@ -30,6 +30,10 @@ EOF;
   }
 
 
+  /**
+   * Execute task
+   * @see lib/vendor/symfony/lib/task/sfTask::execute()
+   */
   protected function execute($arguments = array(), $options = array())
   {
     if ($options['dry-run'])

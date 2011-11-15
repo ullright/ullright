@@ -1,0 +1,55 @@
+UllMailError:
+  ull_mail_error_invalid_address:
+    Translation:
+      en:
+        name:             Invalid email address
+      de:
+        name:             Ungültige E-Mailadresse
+    severity:             permanent
+    namespace:            ull_mail
+  
+  ull_mail_error_out_of_office:
+    Translation:
+      en:
+        name:             Out of office
+      de:
+        name:             Abwesenheitsnotiz
+    severity:             none
+    namespace:            ull_mail
+    
+  ull_mail_error_over_quota:
+    Translation:
+      en:
+        name:             Over quota
+      de:
+        name:             Postfachgröße überschritten
+    severity:             temporary
+    namespace:            ull_mail
+    
+  ull_mail_error_user_unknown:
+    Translation:
+      en:
+        name:             User unknown
+      de:
+        name:             Benutzer unbekannt
+    severity:             permanent
+    namespace:            ull_mail
+    
+  ull_mail_error_invalid_domain:
+    Translation:
+      en:
+        name:             Invalid domain
+      de:
+        name:             Ungültige Domäne
+    severity:             permanent
+    namespace:            ull_mail
+    
+  ull_mail_error_unknown:
+    Translation:
+      en:
+        name:             Unknown
+      de:
+        name:             Unbekannt
+    severity:             permanent
+    namespace:            ull_mail                
+        

@@ -146,6 +146,13 @@ EOF;
     }        
   }
   
+  /**
+   * Helper function to get a doctrine lock
+   * 
+   * @param unknown_type $lockingManager
+   * @param unknown_type $edition
+   * @param unknown_type $uniqueId
+   */
   protected function requestLock($lockingManager, $edition, $uniqueId)
   {
     try
@@ -155,10 +162,18 @@ EOF;
     catch (Doctrine_Locking_Exception $dle)
     {
       $this->log($dle->getMessage());
+      
       return false;
     }
   }
   
+  /**
+   * Helper function to release a lock
+   * 
+   * @param unknown_type $lockingManager
+   * @param unknown_type $edition
+   * @param unknown_type $uniqueId
+   */
   protected function releaseLock($lockingManager, $edition, $uniqueId)
   {
     try
