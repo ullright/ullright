@@ -5,6 +5,19 @@
  */
 abstract class PluginUllMailLoggedMessage extends BaseUllMailLoggedMessage
 {
+  
+  /**
+   * Notify a symfony event upon post save
+   * 
+   * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record::postSave()
+   */
+  public function postSave($event)
+  {
+    $dispatcher = sfProjectConfiguration::getActive()->getEventDispatcher();
+    
+    $dispatcher->notify(new sfEvent($this, 'ull_mail_logged_message.post_save'));
+  }
+  
   /**
    * Handles tracking for an incoming request, usually originating
    * from online view mode or directly from the email client (loading

@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(8, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(9, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -35,9 +35,9 @@ $t->diag('Spooling...');
 
 echo shell_exec('php symfony ull_mail:spool-emails frontend test');
 
-$t->diag('Checking result');
+$t->diag('Checking results');
 
-  $t->is(count(Doctrine::getTable('UllMailQueuedMessage')->findAll()), 1, 'Only queued message as one address is invalid');
+  $t->is(count(Doctrine::getTable('UllMailQueuedMessage')->findAll()), 1, 'Only one queued message as one address is invalid');
   $t->is(empty($msg->queued_at), false, 'The edition is now set as queued');
   
   $t->is(count(Doctrine::getTable('UllMailLoggedMessage')->findAll()), 3, '3 logged messages from fixtures, 2 from fixtures, one failed with invalid email address');
@@ -46,7 +46,6 @@ $t->diag('Checking result');
   $t->is($failedMessage->UllMailError->slug, 'invalid-email-address', 'Failed messag has the correct error set');
   $t->is($failedMessage->last_error_message, 'spoolEmailsTask: invalid address: invalid.@example.com', 'Failed message has the correct error msg set');
   
-
-// test edition->failed_num
+  $t->is($msg->num_failed_emails, 1, 'UllMailEdition::num_failed_emails is set to 1');
 
 

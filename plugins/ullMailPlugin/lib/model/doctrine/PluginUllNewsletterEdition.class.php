@@ -88,6 +88,29 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
   }
   
 
+  /**
+   * Count the failed logged messages for this edition
+   */
+  public function countLoggedMessagesFailed()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllMailLoggedMessage m')
+      ->where('m.ull_newsletter_edition_id = ?', $this->id)
+      ->addWhere('m.failed_at IS NOT NULL')
+    ;
+    
+    return $q->count();
+  }  
+  
+  /**
+   * Update the num_failed_emails proxy field by recounting the failed logged messages
+   */
+  public function updateNumFailedEmails()
+  {
+    $this->num_failed_emails = $this->countLoggedMessagesFailed();
+  }
+
   
   /**
    * Get mailing lists for the current edition and the given user
@@ -199,5 +222,21 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
 
     //return original body with replaced tags
     return strtr($body, $dictionary);
+  }
+  
+  /**
+   * Recount num_failed_emails proxy field
+   * 
+   * @param sfEvent $event
+   */
+  public static function listenToUllMailLoggedMessagePostSaveEvent(sfEvent $event)
+  {
+    $loggedMessage = $event->getSubject();
+    
+    if ($loggedMessage->ull_newsletter_edition_id)
+    {
+      $loggedMessage->UllNewsletterEdition->updateNumFailedEmails();
+      $loggedMessage->UllNewsletterEdition->save();
+    }
   }
 }

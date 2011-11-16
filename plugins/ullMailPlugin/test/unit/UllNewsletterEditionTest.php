@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(14, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(16, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -26,7 +26,7 @@ $t->diag('countRecipients()');
   $recipients = $edition->countRecipients();
   
   $t->is($edition->countRecipients(), 2, 'Returns the correct number of recipients');
-  
+
   
 $t->diag('findMailingListsForUser()');
 
@@ -71,4 +71,17 @@ $t->diag('createMailMessage()');
     'Returns the correct body'
   );
   $t->is($mail->getNewsletterEditionId(), 1, 'Returns the newsletter edition id');
+  
+  
+$t->diag('countLoggedMessagesFailed()');
+  $edition = Doctrine::getTable('UllNewsletterEdition')->findOneById(1); // 1 = ullright presents "ullMail"
+  $t->is($edition->countLoggedMessagesFailed(), 0, 'No logged messages that failed for this edition');
+  
+  $msg = new UllMailLoggedMessage();
+  $msg->subject = 'UllNewletterEditionTest';
+  $msg->UllNewsletterEdition = $edition;
+  $msg->failed_at = new Doctrine_Expression('NOW()');
+  $msg->save();
+  $t->is($edition->countLoggedMessagesFailed(), 1, 'Now we got one logged messages that failed for this edition');  
+  
   

@@ -40,7 +40,13 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     //this behavior is beneficial to us: we modify the mailing configuration
     //(sfConfig variables) during testing. these changes apply after this
     //initialize() gets called, but before configureMailingSystem().
-    $this->dispatcher->connect('mailer.configure', array($this, 'configureMailingSystem'));
+    $this->dispatcher->connect('mailer.configure', 
+      array($this, 'configureMailingSystem'));
+    
+    // Connect UllNewsletterEdition to UllMailLoggedMessage postSave event
+    // To recount the stats (num_failed_emails, ...)
+    $this->dispatcher->connect('ull_mail_logged_message.post_save', 
+      array('UllNewsletterEdition', 'listenToUllMailLoggedMessagePostSaveEvent'));
   }
 
   
