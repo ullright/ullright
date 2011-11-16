@@ -81,7 +81,7 @@ EOF;
     $this->logNoisySectionIf(
       $userBounces, 
       $this->name, 
-      "User bounce status: \n " . implode("\n", $userBounces),
+      "User bounce status: \n " . print_r($userBounces, true),
       999999
     );
     $this->logNoisySectionIf(
@@ -171,8 +171,8 @@ EOF;
       $status = imap_createmailbox($this->mbox, $unprocessableFolder);
     }
     
-    //array with mail numbers (sorted by date)
-    $mailNumbers = imap_sort($this->mbox, SORTDATE, 0);
+    //array with mail numbers (sorted by date, newest first)
+    $mailNumbers = imap_sort($this->mbox, SORTARRIVAL, 1);
     
     //to decrypt the ullMailLoggedMessage id
     $ullCrypt = ullCrypt::getInstance();
@@ -246,9 +246,8 @@ EOF;
         $header = imap_headerinfo($this->mbox, $mailNumber);
         $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
         $body = imap_body($this->mbox, $mailNumber);
-//        var_dump($body);
-//        die;
-//        $ullMailLoggedMessage->last_error_message = imap_body($this->mbox, $mailNumber);
+        $ullMailLoggedMessage->last_error_message = $body;
+        $ullMailLoggedMessage->UllMailError = $this->guessUllMailError($body);
         $ullMailLoggedMessage->save();
         
         // Move to processed
@@ -309,7 +308,7 @@ EOF;
           $user->save();
         }
         
-        $userBounces[$user->display_name . ' <' . $user->email . '>'] = $user->num_email_bounces;
+        $userBounces[$user->getEmailTo()] = $user->num_email_bounces;
       }
     }
     
@@ -333,7 +332,7 @@ EOF;
       $userEmails[] = $user->email;
     }
     
-    if (isset($userEmails))
+    if (count($userEmails))
     {
       $resetUsers = array();
       
@@ -342,13 +341,18 @@ EOF;
       
       foreach ($userEmails as $userEmail)
       {
+        // Get the latest mail from the log for the current user
         $ullMailLoggedMessage = UllMailLoggedMessageTable::findLatestLogByEmail($userEmail);
         
+        // Check if the latest mail was bounced
         if ($ullMailLoggedMessage && (! $ullMailLoggedMessage->failed_at))
         {
           //get email address from ullMailLoggedMessage
-          preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
-          $toResetUsers = Doctrine::getTable('UllUser')->findByEmail($matches[1]);
+          // KU: why??? we already know the emailaddress!
+          //preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
+//          $toResetUsers = Doctrine::getTable('UllUser')->findByEmail($matches[1]);
+          
+          $toResetUsers = Doctrine::getTable('UllUser')->findByEmail($userEmail);
           
           foreach ($toResetUsers as $toResetUser)
           {
@@ -358,7 +362,7 @@ EOF;
               $toResetUser->save();
             }
             
-            $resetUsers[] = $toResetUser->display_name . ' <' . $toResetUser->email . '>';
+            $resetUsers[] = $toResetUser->getEmailTo();
           }
         }
       }
@@ -415,6 +419,64 @@ EOF;
         sfConfig::get('app_ull_mail_bounce_unprocessable_folder', 'INBOX.unprocessable')
       );
     }    
+  }
+  
+  
+  /**
+   * Try to categorize mail errors
+   * 
+   * @param string $body
+   */
+  public function guessUllMailError($body)
+  {
+    $dictionary = array(
+      'out-of-office' => array(
+        'out of office',
+        'out of the office',
+        'abwesenheitsnotiz',
+        'Abwesenheitsmitteilung',
+        'automated',
+        'auto-reply',
+        'auto:',
+      ),
+      'over-quota' => array(
+        'over quota',
+      ),
+      'user-unknown' => array(
+        'user unknown',
+        'unknown user',
+        'existiert nicht',
+        'does not exist',
+        'requested action not taken',
+        'mailbox not found',
+        'mailbox unknown',
+        'not found',
+        'unknown recipient',
+        'no such recipient',
+      ),
+      'invalid-domain' => array(
+        'unrouteable address',
+        'connection refused',
+        'non-existent hosts',
+        'couldn\'t find any host named',
+      ),
+    );
+    
+    $result = 'unknown';
+    
+    foreach ($dictionary as $errorSlug => $terms)
+    {
+      foreach ($terms as $term)
+      {
+        if (stristr($body, $term))
+        {
+          $result = $errorSlug;
+          break 2;
+        }
+      }
+    }
+    
+    return Doctrine::getTable('UllMailError')->findOneBySlug($result);
   }
   
   
