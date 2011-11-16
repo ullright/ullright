@@ -91,6 +91,10 @@ EOF;
     );       
 
     
+    /*
+     * Deactivated at the moment 
+     * @see http://www.ullright.org/ullFlow/edit/app/bug_tracking/order/priority/order_dir/asc/doc/1548
+     * 
     $resetUsers = $this->resetBounceCounter($arguments, $options);
     $this->logNoisySectionIf(
       $resetUsers, 
@@ -103,9 +107,12 @@ EOF;
       $this->name, 
       'Number of users with reset bounce counter: ' . count($resetUsers)
     );
+    */
     
     
-    
+    /*
+     * Also deactivated at the moment. Further monitoring needed
+     *
     $deletedUsers = $this->deleteMailAddressesOnBounceMax($arguments, $options);
     $this->logNoisySectionIf(
       $deletedUsers, 
@@ -118,6 +125,7 @@ EOF;
       $this->name, 
       'Number of users with deleted email address: ' . count($deletedUsers)
     );
+    */
     
     if (!$this->isDryRun())
     {
