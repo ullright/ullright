@@ -11,7 +11,7 @@ class ProcessBouncedEmailsTask extends ullBaseTask
     The [{$this->name} task|INFO] processes bounces newsletter emails.
     
     1) Get a list of failed email addresses
-    2) Increase the bounce counter of the particular UllUser
+    2) Increase the bounce counter of the particular UllUser(s)
     3) Reset bounce counter for UllUsers with temporary errors
     4) Delete emailaddress for UllUsers with exceeded bounce counter
     
@@ -131,7 +131,7 @@ EOF;
   
   
  /** 
-   * Connects to the bounce mailserver and checks for new undelivered mails
+   * Connect to the bounce mailserver and check for new undelivered mails
    * 
    * @param array optional $arguments
    * @param array optional $options
@@ -245,6 +245,10 @@ EOF;
         //saves the date of receiving the "undeliverable message"
         $header = imap_headerinfo($this->mbox, $mailNumber);
         $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
+        $body = imap_body($this->mbox, $mailNumber);
+//        var_dump($body);
+//        die;
+//        $ullMailLoggedMessage->last_error_message = imap_body($this->mbox, $mailNumber);
         $ullMailLoggedMessage->save();
         
         // Move to processed

@@ -60,7 +60,7 @@ $t->diag('set counter to max and delete mail address');
   $test_user->refresh();
   $t->is($test_user->email, '', 'The email address is deleted');
   $t->is($test_user->num_email_bounces, '0', 'Bounce counter is reset');
-    
+    runTask
 $t->diag('two users have the same mail address (increase counter, reset, delete address)');
   // reset test_user
   $test_user->num_email_bounces = 0;
@@ -98,7 +98,7 @@ $t->diag('two users have the same mail address (increase counter, reset, delete 
    //send message to test_user with a delivery error and increase bounce counter to limit
   fakeMailSending($admin, $test_user, 'test5', true);
   for ($i = 0; $i < sfConfig::get('app_ull_mail_bounce_deactivation_threshold', 3); $i++)
-  {
+  {runTask
     runTask(array($test_user->email));
   }
   
@@ -210,12 +210,12 @@ function runTask($undeliveredMailAddresses = array())
   
   
 // write a record in the UllMailLoggedMessage table  
-function fakeMailSending($sender, $recipient, $subject, $failed = false)
+function fakeMailSending(UllUser $sender, UllUser $recipient, $subject, $failed = false)
 {
   $fakeMail = new UllMailLoggedMessage();
-  $fakeMail['sender'] = getMailAddress($sender);
+  $fakeMail['sender'] = $sender->getEmailTo();
   $fakeMail['main_recipient_ull_user_id'] = $recipient->id;
-  $fakeMail['to_list'] = getMailAddress($recipient);
+  $fakeMail['to_list'] = $recipient->getEmailTo();
   $fakeMail['subject'] = $subject;
   $fakeMail['sent_at'] = new Doctrine_Expression('NOW()');
   if($failed)
@@ -223,9 +223,4 @@ function fakeMailSending($sender, $recipient, $subject, $failed = false)
     $fakeMail['failed_at'] = new Doctrine_Expression('NOW()');
   }
   $fakeMail->save();
-}
-
-function getMailAddress($user)
-{
-  return $user->display_name . ' <' . $user->email . '>';
 }
