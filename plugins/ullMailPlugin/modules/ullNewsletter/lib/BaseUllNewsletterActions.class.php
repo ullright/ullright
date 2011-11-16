@@ -246,8 +246,9 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     $loggedMessage = Doctrine::getTable('UllMailLoggedMessage')
       ->findOneById($ullCrypt->decryptBase64($request->getParameter('mid'), true));
-    
-    if ($loggedMessage !== false)
+
+    if ($loggedMessage !== false  && 
+      $loggedMessage->UllNewsletterEdition->exists())
     {
       //make use of the information that the user opened the mail
       //and that the mail client requested the tracking image

@@ -233,7 +233,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
   {
     $loggedMessage = $event->getSubject();
     
-    if ($loggedMessage->ull_newsletter_edition_id)
+    if ($loggedMessage->ull_newsletter_edition_id && $loggedMessage->UllNewsletterEdition->exists())
     {
       $loggedMessage->UllNewsletterEdition->updateNumFailedEmails();
       $loggedMessage->UllNewsletterEdition->save();
