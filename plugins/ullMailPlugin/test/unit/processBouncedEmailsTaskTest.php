@@ -60,7 +60,7 @@ $t->diag('set counter to max and delete mail address');
   $test_user->refresh();
   $t->is($test_user->email, '', 'The email address is deleted');
   $t->is($test_user->num_email_bounces, '0', 'Bounce counter is reset');
-    runTask
+    
 $t->diag('two users have the same mail address (increase counter, reset, delete address)');
   // reset test_user
   $test_user->num_email_bounces = 0;
@@ -98,7 +98,7 @@ $t->diag('two users have the same mail address (increase counter, reset, delete 
    //send message to test_user with a delivery error and increase bounce counter to limit
   fakeMailSending($admin, $test_user, 'test5', true);
   for ($i = 0; $i < sfConfig::get('app_ull_mail_bounce_deactivation_threshold', 3); $i++)
-  {runTask
+  {
     runTask(array($test_user->email));
   }
   
