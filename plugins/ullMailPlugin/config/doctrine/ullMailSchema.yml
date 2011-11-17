@@ -112,12 +112,15 @@ UllNewsletterMailingList:
       notnull: true
     description:
       type: string(3000)
+    # When creating a new user, he is automatically subscribed to this mailinglist
     is_subscribed_by_default:
       type: boolean
       default: false
     is_active:
       type: boolean
       default: true
+    # When creating a newsletter, this mailinglist is selected by default
+    # Note: Multiple mailinglists can be marked as default! 
     is_default:
       type: boolean
       default: false
@@ -173,8 +176,10 @@ UllNewsletterLayout:
     html_body:
       type: string(3000)
       notnull: true
+    # Note: is_default is made unique in the model
     is_default:
       type: boolean
+      
 
 # Instance of a newsletter list, e.g. "Product news - December 2010" 
 UllNewsletterEdition: 

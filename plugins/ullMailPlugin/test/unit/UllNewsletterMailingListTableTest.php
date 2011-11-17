@@ -14,7 +14,7 @@ $t->begin('getSubscribedByDefaultIds()');
   $t->is(UllNewsletterMailingListTable::getSubscribedByDefaultIds(), array(101), 'Returns the correct ids');
 
 
-$t->diag('create two ullNewsletterMailingList objects, check default MailingList');
+$t->diag('getDefaultIds()');
   $listOne = new UllNewsletterMailingList();
   $listOne->name = 'testListOne';
   $listOne->save();
