@@ -51,6 +51,9 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->breadcrumbForIndex();
   }
   
+  /**
+   * Execute show action
+   */
   public function executeShow(sfRequest $request)
   {
     $this->checkPermission('ull_newsletter_show');
@@ -82,7 +85,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   }
   
   /**
-   * Executes list action
+   * Execute list action
    *
    * @param sfWebRequest $request
    */
@@ -95,7 +98,11 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->setTableToolTemplate('list');
   }
   
-  
+  /**
+   * Execute edit action
+   * 
+   * @param sfWebRequest $request
+   */  
   public function executeEdit(sfRequest $request) 
   {
     $this->checkPermission('ull_newsletter_edit');
@@ -178,8 +185,130 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->redirect($this->getUriMemory()->getAndDelete('list'));
     
     
-  }  
+  }
+
+  /**
+   * Execute "public" action
+   * 
+   * Typical page to be publicly included on website
+   * Features subscription and archive
+   * 
+   * @param sfRequest $request
+   */
+  public function executePublic(sfRequest $request)
+  {
+    $this->checkPermission('ull_newsletter_public');
+    
+    $userGenerator = new ullUserGenerator('w');
+    
+    $this->adjustPublicUserColumnsConfig($userGenerator);
+    
+    $user = new UllUser;
+    $userGenerator->buildForm($user);
+    
+    if ($request->isMethod('post'))
+    {
+      $fields = $request->getParameter('fields');
+      $fields = $this->handlePublicSubscriptionDefaultMailingLists($userGenerator, $fields);
+      
+      if ($userGenerator->getForm()->bindAndSave($fields))
+      {
+        $this->getUser()->setFlash('message', __('Thank you for your subscription!', null, 'ullMailMessages'));
+        $this->redirect('ullNewsletter/public');
+      }
+      else 
+      {
+        $errorSchema = $userGenerator->getForm()->getErrorSchema();
+        $emailError = $errorSchema['email'];
+        
+        if ($emailError && get_class($emailError->getValidator()) == 'sfValidatorDoctrineUnique')
+        {
+          $this->getUser()->setFlash('message', __('You\'re already subscribed.', null, 'ullMailMessages'));
+          $this->redirect('ullNewsletter/public');
+        }
+      }
+    }    
+    
+    $this->setVar('user_generator', $userGenerator, true);
+    
+    $this->setVar('mailing_lists', UllNewsletterMailingListTable::findPublic());
+    
+  }
   
+  /**
+   * Adjust newsletter subscription columnsConfig for public action
+   *
+   * @param ullUserGenerator $generator
+   */
+  protected function adjustPublicUserColumnsConfig(ullUserGenerator $generator)
+  {
+    $columnsConfig = $generator->getColumnsConfig();
+    $columns = sfConfig::get('app_ull_newsletter_public_subscription_columns',
+      array(
+        'id',
+        'first_name',
+        'last_name',
+        'email',
+      )
+    );
+    
+    $columnsConfig->disableAllExcept(array_merge($columns, array('UllNewsletterMailingList')));
+    
+    // Don't disable UllNewsletterMailingList but do not render it
+    if (!in_array('UllNewsletterMailingList', $columns))
+    {
+      $columnsConfig['UllNewsletterMailingList']->setAutoRender(false);
+    }
+    
+    $columnsConfig->order($columns);
+    
+    $required = sfConfig::get('app_ull_newsletter_public_subscription_required_columns',
+      array(
+        'email',
+      )
+    );
+    
+    foreach($columns as $column)
+    {
+      $columnsConfig[$column]->setIsRequired(false);
+    }
+    
+    foreach($required as $column)
+    {
+      $columnsConfig[$column]->setIsRequired(true);
+    }
+    
+    $columnsConfig['email']->setUnique(true);
+
+    
+  }
+
+  /**
+   * Subscribe to the default lists if the mailing list selection is disabled
+   * 
+   * @param ullUserGenerator $generator
+   * @param array $fields
+   */
+  protected function handlePublicSubscriptionDefaultMailingLists(ullUserGenerator $generator, $fields)
+  {
+    $active = array_keys($generator->getAutoRenderedColumns());
+    
+    if (!in_array('UllNewsletterMailingList', $active))
+    {
+      $ids = UllNewsletterMailingListTable::getSubscribedByDefaultIds();
+      $fields['UllNewsletterMailingList'] = $ids;
+    }
+    
+    return $fields;
+  }
+  
+  
+  
+  /**
+   * Execute unsubscribe action
+   * 
+   * @param sfRequest $request
+   */
   public function executeUnsubscribe(sfRequest $request)
   {
     $list = Doctrine::getTable('UllNewsletterMailingList')->findOneBySlug(

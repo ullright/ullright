@@ -116,7 +116,73 @@ abstract class PluginUllUser extends BaseUllUser
     
     // Set tags in taggable behaviour
     $this->setTags($this->duplicate_tags_for_search);
+    
+    $this->createUsername();
   }
+  
+
+  /**
+   * Auto create a username if none given
+   */
+  public function createUsername()
+  {
+    // create username
+    if (!$this->username)
+    {
+      if ($this->first_name || $this->last_name)
+      {
+        $proposal = $this->first_name . ' ' . $this->last_name;
+      }
+      else
+      {
+        $parts = explode('@', $this->email);
+        $proposal = $parts[0];
+      }  
+      
+      $proposal = str_replace(
+        array('Ä', 'ä', 'Ö', 'ö', 'Ü', 'ü', 'ß'),
+        array('Ae', 'ae', 'Oe', 'oe', 'ue', 'ue', 'ss'),
+        $proposal
+      );
+      $proposal = ullCoreTools::sluggify($proposal);
+      $proposal = str_replace('-', '_', $proposal);
+      while (strstr($proposal, '__'))
+      {
+        $proposal = str_replace('__', '_', $proposal);
+      }
+      
+      $this->username = $this->createUniqueUsername($proposal);
+    }
+    
+  }
+  
+  
+  /**
+   * Create a unique username
+   * 
+   * @param string $proposal
+   * @param mixed $suffix      null or integer
+   */
+  protected function createUniqueUsername($proposal, $suffix = null)
+  {
+    if (!$proposal)
+    {
+      $proposal = 'user';
+    }
+    
+    if (UllUserTable::findIdByUsername($proposal . $suffix))
+    { 
+      if (!$suffix)
+      {
+        $suffix = 0;
+      }
+      
+      return $this->createUniqueUsername($proposal, $suffix + 1);
+    }
+    
+    return $proposal . $suffix;
+  }
+    
   
   /**
    * get User's Shortname

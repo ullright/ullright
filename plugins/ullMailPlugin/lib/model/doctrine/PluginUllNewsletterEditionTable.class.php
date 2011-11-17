@@ -34,4 +34,21 @@ class PluginUllNewsletterEditionTable extends UllRecordTable
     
     return $q->execute();
   }
+
+  /**
+   * Find editions by UllNewsletterMailingList->id ordered by submitted_at desc
+   * 
+   * @param integer $mailingListId
+   */
+  public static function findByMailingListIdNewestFirst($mailingListId)
+  {
+    $q = new UllQuery('UllNewsletterEdition');
+    $q
+      ->addWhere('UllNewsLetterEditionMailingList.ull_newsletter_mailing_list_id = ?', $mailingListId)
+      ->addWhere('submitted_at IS NOT NULL')
+      ->addOrderBy('submitted_at DESC')
+    ;
+    
+    return $q->execute();
+  }
 }

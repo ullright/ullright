@@ -20,6 +20,8 @@ class PluginUllNewsletterMailingListTable extends UllRecordTable
   /**
    * Returns an array with the default ullNewsLetterMailingList ids or an empty array
    * 
+   * TODO: normaly only one list should by the default! why "defaultS" ?
+   * 
    * @return array
    */
   public static function getDefaultIds()
@@ -33,5 +35,39 @@ class PluginUllNewsletterMailingListTable extends UllRecordTable
     $mailingLists = $q->fetchArray();
     
     return array_keys($mailingLists);
+  }
+  
+  
+  /**
+   * Returns an array with is_subscribed_by_default = true ullNewsLetterMailingList ids
+   * 
+   * @return array
+   */
+  public static function getSubscribedByDefaultIds()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllNewsletterMailingList m INDEXBY m.id')
+      ->where('m.is_subscribed_by_default = ?', true)
+    ;
+    
+    $mailingLists = $q->fetchArray();
+    
+    return array_keys($mailingLists);
+  }  
+  
+  
+  /**
+   * Find public lists order by name
+   */
+  public static function findPublic()
+  {
+    $q = new ullQuery('UllNewsletterMailingList');
+    $q
+      ->addWhere('is_public = ?', true)
+      ->addOrderBy('name')
+    ;
+    
+    return $q->execute();
   }
 }

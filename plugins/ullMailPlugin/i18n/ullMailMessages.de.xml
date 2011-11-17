@@ -137,6 +137,31 @@
 <target>Jeder kann diesen Verteiler sehen und abonnieren</target>
 </trans-unit>
 
+<trans-unit id="222">
+<source>Thank you for your subscription!</source>
+<target>Danke für Ihre Anmeldung!</target>
+</trans-unit>
+
+<trans-unit id="223">
+<source>Subscribe</source>
+<target>Anmelden</target>
+</trans-unit>
+
+<trans-unit id="224">
+<source>You're already subscribed.</source>
+<target>Sie sind bereits angemeldet.</target>
+</trans-unit>
+
+<trans-unit id="225">
+<source>Subscription</source>
+<target>Anmeldung</target>
+</trans-unit>
+
+<trans-unit id="226 ">
+<source>Archive</source>
+<target>Nachlese</target>
+</trans-unit>
+
 <trans-unit id="">
 <source></source>
 <target></target>
@@ -146,6 +171,13 @@
 <source></source>
 <target></target>
 </trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
+
 
 
 

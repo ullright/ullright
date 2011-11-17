@@ -146,6 +146,11 @@ all:
   ull_newsletter:
     from_address:       newsletter@example.com
     from_name:          Example Newsletter
+    # Which columns to show on the public page for subscription
+    # If 'UllNewsletterMailingList' is not given the user is subscribed to all m
+    #   mailing lists with "is_subscribed_by_default" = true
+    public_subscription_columns: [ 'first_name', 'last_name', 'email', 'UllNewsletterMailingList' ]
+    public_subscription_required_columns: [ 'email', 'UllNewsletterMailingList' ]
     
   ull_mail:
     bounce_mail_address:            bounce@example.com
