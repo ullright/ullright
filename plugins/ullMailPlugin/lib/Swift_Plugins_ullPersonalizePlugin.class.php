@@ -37,7 +37,7 @@ class Swift_Plugins_ullPersonalizePlugin
       $user = UllEntityTable::findById($mail->getRecipientUllUserId());
       
       // Generic personalization, not newsletter specific
-      $this->personalizeBody($mail, $user);
+      $mail->setBody(self::personalizeBody($mail->getBody(), $user));
       
       if ($editionId = $mail->getNewsletterEditionId())
       {
@@ -58,28 +58,25 @@ class Swift_Plugins_ullPersonalizePlugin
      
   } 
   
+  
   /**
    * Personalizes the email body for the current UllUser
    * replacing tags like [FIRST_NAME] with the Users first_name
+   * 
+   * @param string $body
+   * @param ullUser $user
    */
-  public function personalizeBody(ullsfMail $mail, ullUser $user)
+  public static function personalizeBody($body, ullUser $user)
   {
     $dictionary = array();
     
-    //if a user was given, replace user-specific tags
-    if ($user)
+    //look for UllUser column names (used as tags) and replace them
+    //with the their matching value
+    foreach ($user as $field => $value)
     {
-      //look for UllUser column names (used as tags) and replace them
-      //with the their matching value
-      foreach ($user as $field => $value)
-      {
-        $dictionary['[' .strtoupper($field) . ']'] = $value;
-      }
+      $dictionary['[' .strtoupper($field) . ']'] = $value;
     }
     
-    $newbody = strtr($mail->getBody(), $dictionary);
-      
-    //return original body with replaced tags
-    $mail->setBody($newbody);
+    return strtr($body, $dictionary);
   }    
 }

@@ -67,7 +67,17 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         $this->redirect404();
       }
       
+      $guest = new UllUser();
+      $originalCulture = $this->getUser()->getCulture();
+      $this->getUser()->setCulture($edition->sender_culture);
+      $guest->last_name = __('Guest', null, 'ullMailMessages');
+      $this->getUser()->setCulture($originalCulture);
+      
+      $body = Swift_Plugins_ullPersonalizePlugin::personalizeBody($edition->body, $guest);
+      
       $this->setVar('edition', $edition, true);
+      $this->setVar('body', $body, true);
+      
         
     }
     else 
