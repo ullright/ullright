@@ -59,29 +59,45 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_newsletter_show');
     $this->breadcrumbForShow();
     
-    $ullCrypt = ullCrypt::getInstance();
+    if ($id = $request->getParameter('id'))
+    {
+      $edition = Doctrine::getTable('UllNewsletterEdition')->findOneById($id);
+      if (!$edition)
+      {
+        $this->redirect404();
+      }
+      
+      $this->setVar('edition', $edition, true);
+        
+    }
+    else 
+    {
+      $ullCrypt = ullCrypt::getInstance();
+      
+      $loggedMessage = Doctrine::getTable('UllMailLoggedMessage')
+        ->findOneById($ullCrypt->decryptBase64($request->getParameter('mid'), true));
+      $this->forward404If($loggedMessage === false); 
+      
+      //make use of the information that the user clicked on the read-online link     
+      $loggedMessage->handleTrackingRequest($request);
+      $loggedMessage->save();
+      
+      //remove online link and tracking beacon (since we are in online
+      //view mode anyway and tracking was already handled) 
+      $body = $loggedMessage['html_body'];
+      
+      $body = preg_replace(
+      '/<span.*?id\s*=\s*"ull_newsletter_show_online_link".*?>.*?<\/span>/',
+      	'', $body);
+      
+      $body = preg_replace(
+      '/<img.*?id\s*=\s*"ull_newsletter_beacon".*?\/>/',
+      	'', $body);
+      
+      return $this->renderText($body);
+    }
     
-    $loggedMessage = Doctrine::getTable('UllMailLoggedMessage')
-      ->findOneById($ullCrypt->decryptBase64($request->getParameter('mid'), true));
-    $this->forward404If($loggedMessage === false); 
     
-    //make use of the information that the user clicked on the read-online link     
-    $loggedMessage->handleTrackingRequest($request);
-    $loggedMessage->save();
-    
-    //remove online link and tracking beacon (since we are in online
-    //view mode anyway and tracking was already handled) 
-    $onlineBody = $loggedMessage['html_body'];
-    
-    $onlineBody = preg_replace(
-    '/<span.*?id\s*=\s*"ull_newsletter_show_online_link".*?>.*?<\/span>/',
-    	'', $onlineBody);
-    
-    $onlineBody = preg_replace(
-    '/<img.*?id\s*=\s*"ull_newsletter_beacon".*?\/>/',
-    	'', $onlineBody);
-    
-    return $this->renderText($onlineBody);
   }
   
   /**

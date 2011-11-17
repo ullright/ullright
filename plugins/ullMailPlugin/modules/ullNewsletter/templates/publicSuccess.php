@@ -55,7 +55,7 @@
         <?php foreach ($editions as $edition): ?>
           <li>
             <?php echo ull_format_date($edition->submitted_at)?> - 
-            <?php echo $edition->subject?>
+            <?php echo link_to($edition->subject, 'ullNewsletter/show?id=' . $edition->id) ?>
           </li>
         <?php endforeach ?>
         
