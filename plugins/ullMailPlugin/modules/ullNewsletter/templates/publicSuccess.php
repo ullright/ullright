@@ -1,3 +1,5 @@
+<div class="ull_cms_content">
+
 <h1><?php echo __('Newsletter', null, 'ullMailMessages')?></h1>
 
 <div id="ull_newsletter_subscription">
@@ -68,6 +70,8 @@
 <!-- end of ull_newsletter_archive -->  
 </div>     
 
+<!-- end of ull_cms_content -->
+</div>
 
 <?php echo ull_js_observer("ull_tabletool_form") ?>  
 <?php echo hide_advanced_form_fields() ?>
