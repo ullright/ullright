@@ -25,12 +25,17 @@
   position: fixed;
   bottom: 0;
   height: 7em;
-  width: 600px;
+  width: 720px;
   border: 2px solid silver;
   border-bottom: none;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
   box-shadow: 2px 2px 12px #666;
+  overflow: auto;
+}
+
+.ull_user_edit  .edit_action_buttons {
+  height: 8em;
 }
 
 
