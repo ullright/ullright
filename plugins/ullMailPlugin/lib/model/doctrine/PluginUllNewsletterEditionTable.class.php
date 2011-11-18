@@ -46,6 +46,7 @@ class PluginUllNewsletterEditionTable extends UllRecordTable
     $q
       ->addWhere('UllNewsLetterEditionMailingList.ull_newsletter_mailing_list_id = ?', $mailingListId)
       ->addWhere('submitted_at IS NOT NULL')
+      ->addWhere('is_active = ?', true)
       ->addOrderBy('submitted_at DESC')
     ;
     
