@@ -83,6 +83,7 @@ class ullTreeMenuRenderer
           $uri = url_for($subNode->getData()->link);
         }
         
+        // TODO: find out why we use non_clickable here instead of no link. Javascript hide expand?
         $return .= ($uri) ? '<a href="' . $uri . '" class="ull_menu_entry_' . ullCoreTools::htmlId($subNode->getData()->slug) . '">' : '<a href="#" class="ull_menu_non_clickable" onclick="return false;">';
         $return .= $subNode->getData()->name;
         $return .= '</a>';
