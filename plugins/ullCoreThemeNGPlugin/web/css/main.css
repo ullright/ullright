@@ -21,7 +21,9 @@
 }
 
 
-.edit_action_buttons {
+.ull_cms_edit .edit_action_buttons
+.ull_user_edit .edit_action_buttons, 
+{
   position: fixed;
   bottom: 0;
   height: 7em;
