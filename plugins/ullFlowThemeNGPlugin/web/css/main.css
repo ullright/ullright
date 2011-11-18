@@ -106,3 +106,8 @@ table.ull_flow_upload {
   background-color: #eeeeee;
 }
 
+
+.ull_flow_edit .edit_action_buttons {
+  height: 12em;
+}
+
