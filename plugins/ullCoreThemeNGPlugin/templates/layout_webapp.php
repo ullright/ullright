@@ -99,9 +99,24 @@
       </div>
       
       <div id="footer_links">
-        <?php $block = UllCmsContentBlockTable::findOneBySlug('powered-by') ?>
-        <?php include_component('ullCms', 'editLink', array('doc' => $block)) ?>
-        <?php echo $block->body ?>
+        <?php if (ullCoreTools::isModuleEnabled('ullCms')): ?>
+          <?php $block = UllCmsContentBlockTable::findOneBySlug('powered-by') ?>
+          <?php include_component('ullCms', 'editLink', array('doc' => $block)) ?>
+          <?php echo $block->body ?>
+        <?php else: ?>
+          Powered by the enterprise 2.0 platform 
+          <?php echo ull_link_to(
+            'ullright', 
+            'http://www.ullright.org', 
+            'ull_js_observer_confirm=true link_external=true'
+          ) ?>
+          |
+          <?php echo ull_link_to(
+            __('About', null, 'ullCoreMessages'), 
+            'ullAdmin/about', 
+            'ull_js_observer_confirm=true'
+          ) ?>        
+        <?php endif ?>
       </div>
     
     <!-- End of footer -->  
