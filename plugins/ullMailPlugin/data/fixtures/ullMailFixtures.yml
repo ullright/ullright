@@ -107,7 +107,10 @@ UllPermission:
     namespace:          ull_newsletter    
   ull_permission_newsletter_show:
     slug:               ull_newsletter_show
-    namespace:          ull_newsletter          
+    namespace:          ull_newsletter
+  ull_permission_newsletter_public:
+    slug:               ull_newsletter_public
+    namespace:          ull_newsletter                 
    
 UllGroupPermission:
   ull_group_permission_ull_newsletter_1:
@@ -126,3 +129,7 @@ UllGroupPermission:
     UllGroup:           ull_group_everyone
     UllPermission:      ull_permission_newsletter_show
     namespace:          ull_newsletter
+  ull_group_permission_ull_newsletter_6:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_newsletter_public
+    namespace:          ull_newsletter    
