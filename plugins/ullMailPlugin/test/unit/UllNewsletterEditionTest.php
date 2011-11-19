@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(16, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(19, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -83,5 +83,21 @@ $t->diag('countLoggedMessagesFailed()');
   $msg->failed_at = new Doctrine_Expression('NOW()');
   $msg->save();
   $t->is($edition->countLoggedMessagesFailed(), 1, 'Now we got one logged messages that failed for this edition');  
+  
+  
+$t->diag('countLoggedMessagesSent()');
+  $edition = Doctrine::getTable('UllNewsletterEdition')->findOneById(2);
+  $t->is($edition->countLoggedMessagesSent(), 0, 'No sent messages for this edition');
+  
+  $msg = new UllMailLoggedMessage();
+  $msg->subject = 'UllNewletterEditionTest 2   #Test#';
+  $msg->transport_sent_status = true;
+  $msg->UllNewsletterEdition = $edition;
+  $msg->save();
+  $t->is($edition->countLoggedMessagesSent(), 0, 'Send one msg as test - still no sent messages count for this edition');
+  
+  $msg->subject = 'UllNewletterEditionTest 2';
+  $msg->save();
+  $t->is($edition->countLoggedMessagesSent(), 1, 'Now we got one sent msg');  
   
   

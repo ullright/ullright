@@ -87,7 +87,16 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     return $q->execute(array(), $hydrationMode);
   }
   
+  
+  /**
+   * Update the num_failed_emails proxy field by recounting the failed logged messages
+   */
+  public function updateNumFailedEmails()
+  {
+    $this->num_failed_emails = $this->countLoggedMessagesFailed();
+  }  
 
+  
   /**
    * Count the failed logged messages for this edition
    */
@@ -99,17 +108,42 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       ->where('m.ull_newsletter_edition_id = ?', $this->id)
       ->addWhere('m.failed_at IS NOT NULL')
     ;
+    $result = $q->count();
     
-    return $q->count();
+    return ($result) ? $result : null;
   }  
   
+  
   /**
-   * Update the num_failed_emails proxy field by recounting the failed logged messages
+   * Update the num_sent_recipients proxy field by recounting the sent logged messages
    */
-  public function updateNumFailedEmails()
+  public function updateNumSentRecipients()
   {
-    $this->num_failed_emails = $this->countLoggedMessagesFailed();
-  }
+    $this->num_sent_recipients = $this->countLoggedMessagesSent();
+  }  
+
+  
+  /**
+   * Count the sent logged messages for this edition
+   */
+  public function countLoggedMessagesSent()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllMailLoggedMessage m')
+      ->where('m.ull_newsletter_edition_id = ?', $this->id)
+      ->addWhere('m.failed_at IS NULL')
+      ->addWhere('m.subject NOT LIKE ?', '%#Test#')
+      ->addWhere('transport_sent_status = ?', true)
+    ;
+    
+    $result = $q->count();
+    
+    return ($result) ? $result : null; 
+  }    
+  
+  
+
 
   
   /**
@@ -236,6 +270,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     if ($loggedMessage->ull_newsletter_edition_id && $loggedMessage->UllNewsletterEdition->exists())
     {
       $loggedMessage->UllNewsletterEdition->updateNumFailedEmails();
+      $loggedMessage->UllNewsletterEdition->updateNumSentRecipients();
       $loggedMessage->UllNewsletterEdition->save();
     }
   }

@@ -139,6 +139,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   }
   
   
+  /**
+   * (non-PHPdoc)
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions::executePostSave()
+   */
   protected function executePostSave(Doctrine_Record $row, sfRequest $request)
   { 
     $user = UllUserTable::findLoggedInUser();
@@ -148,6 +152,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     if ($request->getParameter('action_slug') == 'send_test')
     {
       $mail->addAddress($user);
+      $mail->setSubject($mail->getSubject() . '   #Test#');
       $this->getMailer()->send($mail);  
       
       $this->getUser()->setFlash('message', 
@@ -170,7 +175,6 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         ));
       }
       
-//      $recipients = $row->findRecipients(Doctrine::HYDRATE_ARRAY);
       $numOfRecipients = $row->countRecipients();
       
       if (!$numOfRecipients)

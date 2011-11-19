@@ -21,10 +21,14 @@ class Swift_Plugins_ullAuditPlugin
 { 
   protected $mailsInTransfer;
   
+  /**
+   * Constructor
+   */
   public function __construct()
   {
     $this->mailsInTransfer = array();
   }
+  
   
   /**
    * @param Swift_Events_SendEvent $evt
@@ -37,7 +41,6 @@ class Swift_Plugins_ullAuditPlugin
     $loggedMessage = UllMailLoggedMessage::fromSwiftMessage($mail);
     
     //set the transport status flag
-    //$columnName = (($evt->getTransport() instanceof Swift_SpoolTransport) ? 'spool' : 'realtime') . '_sent_status';
     $loggedMessage['transport_sent_status'] = false;
     
     if ($mail instanceof ullsfMail && $mail->getRecipientUllUserId())
@@ -105,7 +108,6 @@ class Swift_Plugins_ullAuditPlugin
       $loggedMessage = $this->mailsInTransfer[spl_object_hash($mail)];
 
       //set the transport status flag
-      //$columnName = (($evt->getTransport() instanceof Swift_SpoolTransport) ? 'spool' : 'realtime') . '_sent_status';
       $loggedMessage['transport_sent_status'] = true;
       
       //set the 'sent' timestamp
@@ -113,40 +115,6 @@ class Swift_Plugins_ullAuditPlugin
       
       $loggedMessage->save();
       unset($this->mailsInTransfer[spl_object_hash($mail)]);
-      
-      
-      //update newsletter edition sent count
-      if ($loggedMessage['ull_newsletter_edition_id'])
-      {
-        $newsletterEdition = Doctrine::getTable('UllNewsletterEdition')
-          ->find($loggedMessage['ull_newsletter_edition_id']);
-        if ($newsletterEdition)
-        {
-          $q = new Doctrine_Query();
-          $q->from('UllMailLoggedMessage')
-            ->where('ull_newsletter_edition_id = ?', $loggedMessage['ull_newsletter_edition_id'])
-            ->andWhere('transport_sent_status = ?', true)
-            /*  _   _     _       ____   _  __    
-               |'| |'|U  /"\  uU /"___| |"|/ /    
-              /| |_| |\\/ _ \/ \| | u   | ' /     
-              U|  _  |u/ ___ \  | |/__U/| . \\u   
-               |_| |_|/_/   \_\  \____| |_|\_\    
-               //   \\ \\    >> _// \\,-,>> \\,-. 
-              (_") ("_)__)  (__)__)(__)\.)   (_/  
-              
-              considering test messages are most likely sent by 'real'
-              users (i.e. users with user id != 1) the following
-              prevents these test messages from counting as 'sent messages'
-              
-              68 kittens were killed during production of this code line
-            */
-            ->andWhere('creator_user_id = ?', 1)
-          ;
-          
-          $newsletterEdition['num_sent_recipients'] = $q->count();
-          $newsletterEdition->save();
-        }
-      }
     }
   }
 }
