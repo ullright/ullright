@@ -6,4 +6,4 @@
  * @author klemens.ullmann-marx@ull.at
  *
  */
-class ullNamedQueriesUllMailLog extends BaseUllNamedQueriesUllMailLog {}
+class ullNamedQueriesUllNewsletter extends BaseUllNamedQueriesUllNewsletter {}

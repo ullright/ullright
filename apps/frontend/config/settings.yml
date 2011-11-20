@@ -85,7 +85,7 @@ all:
 #
 #    # Activated modules from plugins or from the symfony core
 #    enabled_modules:        [default]
-    enabled_modules:        [taggableComplete, default, ullAdmin, ullCloneUser, ullCms, ullCmsContentBlock, ullCore, ullCourse, ullCourseBooking, ullFlow, ullMail, ullNews, ullNewsletter, ullOrgchart, ullPhoto, ullPhone, ullTableTool, ullTime, ullUser, ullVentory, ullWiki]
+    enabled_modules:        [taggableComplete, default, ullAdmin, ullCloneUser, ullCms, ullCmsContentBlock, ullCore, ullCourse, ullCourseBooking, ullFlow, ullMail, ullMailLog, ullNews, ullNewsletter, ullOrgchart, ullPhoto, ullPhone, ullTableTool, ullTime, ullUser, ullVentory, ullWiki]
 #
 #    # Charset used for the response
 #    charset:                utf-8

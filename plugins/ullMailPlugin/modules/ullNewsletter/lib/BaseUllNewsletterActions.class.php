@@ -41,12 +41,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
 
     $this->named_queries = new ullNamedQueriesUllNewsletter;
 
-    $q = new Doctrine_Query();
-    $q
-      ->from('UllNewsletterMailingList')
-      ->orderBy('name')
-    ;
-    $this->mailing_lists = $q->execute();
+    $this->mailing_lists = UllNewsletterMailingListTable::findActive();
     
     $this->breadcrumbForIndex();
   }
@@ -120,8 +115,6 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     $this->checkPermission('ull_newsletter_list');
     
     parent::executeList($request);
-
-    $this->setTableToolTemplate('list');
   }
   
   /**

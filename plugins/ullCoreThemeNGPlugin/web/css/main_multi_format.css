@@ -229,6 +229,7 @@ ul.tc_tasks li img {
 
 .tc_query_box ul {
   list-style-type: none;
+  margin-bottom: 2em;
 }
 
 .tc_query_box ul li {

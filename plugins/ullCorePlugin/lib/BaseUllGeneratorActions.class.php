@@ -416,8 +416,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
       }
     }
     
-      //namedQueries may not have the correct filter, but
-    //namedQueriesCustom should.
+    //namedQueries may not have the correct filter, but
+    //  namedQueriesCustom should.
     if (isset($this->named_queries)) 
     {
       try

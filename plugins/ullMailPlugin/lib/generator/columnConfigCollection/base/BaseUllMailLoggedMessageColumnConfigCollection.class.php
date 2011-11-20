@@ -20,6 +20,20 @@ class BaseUllMailLoggedMessageColumnConfigCollection extends ullColumnConfigColl
       ->setWidgetOption('decode_mime', true)
     ;
     
+    $this['first_read_at']
+      ->setLabel(__('First read at', null, 'ullMailMessages'))
+    ;
+    
+    $this['num_of_readings']
+      ->setLabel(__('Read counter', null, 'ullMailMessages'))
+    ;    
+    
+    $this['last_user_agent']
+      ->setLabel(__('Last app', null, 'ullMailMessages'))
+    ;      
+    
+    
+    
     foreach($this->getCollection() as $item)
     {
       $item->setAccess('r');

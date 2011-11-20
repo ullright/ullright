@@ -121,5 +121,14 @@ Examples: [FIRST_NAME], [LAST_NAME], [TITLE], ...', null, 'ullMailMessages'))
         ->setWidgetOption('default', PluginUllNewsletterMailingListTable::getDefaultIds());
       ;
     }
+    
+    
+    if ($this->isListAction())
+    {
+      $this['num_read_emails']
+        ->setMetaWidgetClassName('ullMetaWidgetLink')
+      ;
+    }    
+    
   }
 }

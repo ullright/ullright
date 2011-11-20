@@ -172,13 +172,40 @@
 <target>Absender</target>
 </trans-unit>
 
+<trans-unit id="229">
+<source>Recipient</source>
+<target>Empfänger</target>
+</trans-unit>
+
+<trans-unit id="230">
+<source>First read at</source>
+<target>Zuerst gelesen am</target>
+</trans-unit>
+
+<trans-unit id="231">
+<source>Read counter</source>
+<target>Abrufe</target>
+</trans-unit>
+
+<trans-unit id="232">
+<source>Last app</source>
+<target>Letzte Anwendung</target>
+</trans-unit>
+
 <trans-unit id="">
 <source></source>
 <target></target>
 </trans-unit>
 
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
 
-
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
 
 
 
@@ -188,6 +215,18 @@
 <source>All newsletters</source>
 <target>Alle Newsletter</target>
 </trans-unit>
+
+<trans-unit id="301">
+<source>Newsletter per mailing list</source>
+<target>Newsletter per Verteiler</target>
+</trans-unit>
+
+<trans-unit id="302">
+<source>Read newsletters</source>
+<target>Gelesene Newsletter</target>
+</trans-unit>
+
+
 
 
 <!--  edit -->

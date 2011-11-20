@@ -110,7 +110,14 @@ UllPermission:
     namespace:          ull_newsletter
   ull_permission_newsletter_public:
     slug:               ull_newsletter_public
-    namespace:          ull_newsletter                 
+    namespace:          ull_newsletter    
+    
+  ull_permission_mail_log_list:
+    slug:               ull_mail_log_list
+    namespace:          ull_mail    
+  ull_permission_mail_log_edit:
+    slug:               ull_mail_logt
+    namespace:          ull_mail                     
    
 UllGroupPermission:
   ull_group_permission_ull_newsletter_1:
@@ -133,3 +140,12 @@ UllGroupPermission:
     UllGroup:           ull_group_everyone
     UllPermission:      ull_permission_newsletter_public
     namespace:          ull_newsletter    
+    
+  ull_group_permission_ull_newsletter_7:
+    UllGroup:           ull_group_everyone
+    UllPermission:      ull_permission_mail_log_list
+    namespace:          ull_newsletter    
+  ull_group_permission_ull_newsletter_8:
+    UllGroup:           ull_group_newsletter_admins
+    UllPermission:      ull_permission_mail_log_edit
+    namespace:          ull_newsletter        

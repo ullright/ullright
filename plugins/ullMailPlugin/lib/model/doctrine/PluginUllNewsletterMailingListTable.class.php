@@ -58,15 +58,31 @@ class PluginUllNewsletterMailingListTable extends UllRecordTable
   
   
   /**
-   * Find public lists order by name
+   * Find public lists ordered by name
    */
   public static function findPublic()
   {
     $q = new ullQuery('UllNewsletterMailingList');
     $q
       ->addWhere('is_public = ?', true)
+      ->addWhere('is_active = ?', true)
       ->addOrderBy('name')
     ;
+    
+    return $q->execute();
+  }
+  
+  /**
+   * Find all active mailing lists ordered by name
+   */
+  public static function findActive()
+  {
+    $q = new Doctrine_Query();
+    $q
+      ->from('UllNewsletterMailingList')
+      ->addWhere('is_active = ?', true)
+      ->orderBy('name')
+    ;    
     
     return $q->execute();
   }
