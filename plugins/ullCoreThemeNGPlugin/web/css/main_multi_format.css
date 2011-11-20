@@ -308,6 +308,10 @@ ul.tc_tasks li img {
   margin-right: 1em;
 }
 
+.ull_list_chart {
+	margin-bottom: 2em;
+}
+
 /*
  * ************************************************
  *  list action buttons
