@@ -1,9 +1,11 @@
 <?php echo $breadcrumb_tree ?>
 
-<h3><?php echo $generator->getTableConfig()->getName() ?></h3>
-<p><?php echo $generator->getTableConfig()->getDescription() ?></p>
+<h3>
+  <?php echo $generator->getTableConfig()->getName() ?>
+  "<?php echo $ull_newsletter_edition->subject ?>"
+</h3>
 
-<?php echo image_tag(ullCoreTools::absoluteToWebPath($dir . '/test.png')) ?>
+<?php echo image_tag($chart, array('class' => 'ull_list_chart')) ?>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 

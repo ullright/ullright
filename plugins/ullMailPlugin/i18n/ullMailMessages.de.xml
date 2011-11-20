@@ -188,18 +188,18 @@
 </trans-unit>
 
 <trans-unit id="232">
-<source>Last app</source>
-<target>Letzte Anwendung</target>
+<source>Last used application</source>
+<target>Zuletzt benutzte Anwendung</target>
 </trans-unit>
 
-<trans-unit id="">
-<source></source>
-<target></target>
+<trans-unit id="233">
+<source>Readers per hour</source>
+<target>Leser pro Stunde</target>
 </trans-unit>
 
-<trans-unit id="">
-<source></source>
-<target></target>
+<trans-unit id="234">
+<source>Readers of newsletter</source>
+<target>Leser des Newsletter</target>
 </trans-unit>
 
 <trans-unit id="">

@@ -35,6 +35,7 @@ class BaseUllMailLoggedMessageTableConfiguration extends UllTableConfiguration
     switch ($query) 
     {
       case 'read':
+        $this->setName(__('Readers of newsletter', null, 'ullMailMessages'));
         $this->setListColumns(array(
           'MainRecipient->display_name',
           'MainRecipient->email',
@@ -42,7 +43,7 @@ class BaseUllMailLoggedMessageTableConfiguration extends UllTableConfiguration
           'num_of_readings',
           'last_user_agent',
         ));
-        $this->setOrderBy('MainRecipient->display_name', 'MainRecipient->email');
+        $this->setOrderBy('num_of_readings DESC, MainRecipient->display_name, MainRecipient->email');
 //        $this->setFilterColumns(array(
 //          'ull_newsletter_edition_id' => ''
 //        ));               
