@@ -149,9 +149,13 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
 //      'total_closed' => array(),
     );
     
+//    $sent_at = $this->ull_newsletter_edition->sent_at;
+    
+    
+    
     $q = new ullQuery('UllMailLoggedMessage');
     $q
-      ->addSelect('COUNT(*) as sum, SUBSTR(created_at, 1, 13) as hour')
+      ->addSelect('COUNT(*) as sum, CONCAT(SUBSTR(first_read_at, 1, 13), "h") as hour')
       ->addWhere('ull_newsletter_edition_id = ?', $this->ull_newsletter_edition->id)
       ->addWhere('first_read_at IS NOT NULL')
       ->addGroupBy('hour') 
@@ -180,12 +184,14 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
 
     
     // Dataset definition
-    $Test = new mtChart(950,350);
-    $Test->enableCaching(null, $this->dir . '/');
+    $Test = new mtChart(950,400);
+    
+//    $Test->enableCaching(null, $this->dir . '/');
+    
 //    $Test->addPoint(array(1,4,3,2,3,3,2,1,0,7,4,3,2,3,3,5,1,0,7));
     $Test->addPoint($data['per_hour'], 'per_hour');
 //    $Test->addPoint($data['per_month_closed'], 'per_month_closed');
-    $Test->addPoint($data['total'], 'total');
+//    $Test->addPoint($data['total'], 'total');
 //    $Test->addPoint($data['total_closed'], 'total_closed');
     $Test->addPoint($data['hour'], 'legend');
     
@@ -212,12 +218,13 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
     
     // Initialise the graph
     $Test->setFontProperties('DejaVuSansCondensed',10);
-    $Test->setGraphArea(55,30,850,300);
+    $Test->setGraphArea(70,30,850,300);
 //    $Test->drawGraphArea(252,252,252,TRUE);
     // 6th param = angle of x-axis labels
     $Test->setInterval(3);
-    $Test->setFixedScale(0, 100);
+//    $Test->setFixedScale(0, 100);
     $Test->drawScale(SCALE_NORMAL,150,150,150,TRUE,45,1);
+//    $Test->drawLegend(100, 100);
     $Test->drawGrid(4,true,230,230,230,70);
     
 //    $Test->setFontProperties("DejaVuSansCondensed",6);  
@@ -251,7 +258,7 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
     
     // Finish the graph
     $Test->setFontProperties('DejaVuSansCondensed',10);
-    $Test->drawLegend(45,35,255,255,255);
+    $Test->drawLegend(700,35,255,255,255);
     $Test->setFontProperties('DejaVuSansCondensed',10);
 //    $Test->drawTitle(50,22,"Tickets",50,50,50);
 
