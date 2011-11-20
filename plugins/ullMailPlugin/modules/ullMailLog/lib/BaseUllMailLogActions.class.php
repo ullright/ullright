@@ -149,7 +149,12 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
 //      'total_closed' => array(),
     );
     
-//    $sent_at = $this->ull_newsletter_edition->sent_at;
+    $sentAt = $this->ull_newsletter_edition->submitted_at;
+    $sentAtStamp = strtotime($sentAt);
+    $endDateStamp = strtotime('+1 week', $sentAtStamp);
+    $endDate = date('Y-m-d H:i:s', $endDateStamp);
+    
+//    var_dump($endDate);die;
     
     
     
@@ -158,6 +163,7 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
       ->addSelect('COUNT(*) as sum, CONCAT(SUBSTR(first_read_at, 1, 13), "h") as hour')
       ->addWhere('ull_newsletter_edition_id = ?', $this->ull_newsletter_edition->id)
       ->addWhere('first_read_at IS NOT NULL')
+      ->addWhere('first_read_at < ?', $endDate)
       ->addGroupBy('hour') 
     ;    
     
