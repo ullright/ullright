@@ -149,6 +149,8 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
       mkdir($this->dir, '0777', true);
     }
     
+    $this->chart = ullCoreTools::absoluteToWebPath($this->dir . '/read.png');
+    
     $data = array(
       'hour' => array(),
       'per_hour' => array(),
@@ -170,8 +172,6 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
       ->orderBy('first_read_at')
     ;    
     $result = $q->execute(array(), Doctrine::HYDRATE_SCALAR);
-    
-//    $oldday = null;
     
     foreach ($result as $value)
     {
@@ -217,12 +217,9 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
     $Test->drawPlotGraph(3,2,255,255,255, true);
     
     // Finish the graph
-    $Test->drawLegend(570,35,255,255,255);
+    $Test->drawLegend(570,10,255,255,255);
     
     $Test->render($this->dir . '/read.png');
-    
-    $this->chart = ullCoreTools::absoluteToWebPath($this->dir . '/read.png');
-
   }    
   
 }
