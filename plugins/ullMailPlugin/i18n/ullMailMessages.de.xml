@@ -167,9 +167,9 @@
 <target>Gast</target>
 </trans-unit>
 
-<trans-unit id="">
-<source></source>
-<target></target>
+<trans-unit id="228">
+<source>Sender</source>
+<target>Absender</target>
 </trans-unit>
 
 <trans-unit id="">

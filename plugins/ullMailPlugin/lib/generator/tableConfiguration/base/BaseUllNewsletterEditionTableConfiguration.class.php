@@ -30,7 +30,7 @@ class BaseUllNewsletterEditionTableConfiguration extends UllTableConfiguration
       'submitted_at',
       'Sender->display_name',
     ));
-//    $this->setForeignRelationName(__('Layout', null, 'ullMailMessages'));
+    $this->setCustomRelationName('Sender', __('Sender', null, 'ullMailMessages'));
   }  
   
 }
