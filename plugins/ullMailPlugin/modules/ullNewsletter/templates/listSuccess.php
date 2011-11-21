@@ -42,10 +42,20 @@
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
   
+    <?php if(isset($form['num_sent_recipients'])): ?>
+      <?php $form['num_sent_recipients']->getWidget()->setAttribute('href', 
+        url_for('ullMailLog/list?query=sent&ull_newsletter_edition_id=' . $form->getObject()->id)) ?>
+    <?php endif ?>
+    
     <?php if(isset($form['num_read_emails'])): ?>
       <?php $form['num_read_emails']->getWidget()->setAttribute('href', 
         url_for('ullMailLog/list?query=read&ull_newsletter_edition_id=' . $form->getObject()->id)) ?>
     <?php endif ?>  
+    
+    <?php if(isset($form['num_failed_emails'])): ?>
+      <?php $form['num_failed_emails']->getWidget()->setAttribute('href', 
+        url_for('ullMailLog/list?query=failed&ull_newsletter_edition_id=' . $form->getObject()->id)) ?>
+    <?php endif ?>            
   
     <?php $id_url_params = $generator->getIdentifierUrlParams($row); ?>
     <tr <?php echo ($odd) ? $odd = '' : $odd = 'class="odd"' ?>>

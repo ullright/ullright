@@ -57,6 +57,8 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
     {
       $this->renderReadChart();
     }
+    
+    $this->breadcrumb_tree->add($this->generator->getTableConfig()->getName());
   }
   
   /**
@@ -221,5 +223,16 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
     
     $Test->render($this->dir . '/read.png');
   }    
+  
+  /**
+   * Handles breadcrumb for list action
+   *
+   */
+  protected function breadcrumbForList()
+  {
+    $breadcrumb_tree = new ullMailLogBreadcrumbTree();
+    
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }  
   
 }

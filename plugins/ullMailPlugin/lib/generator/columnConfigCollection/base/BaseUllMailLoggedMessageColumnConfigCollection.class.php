@@ -30,7 +30,13 @@ class BaseUllMailLoggedMessageColumnConfigCollection extends ullColumnConfigColl
     
     $this['last_user_agent']
       ->setLabel(__('Last used application', null, 'ullMailMessages'))
-    ;      
+    ;
+    
+    $this['sent_at']
+      ->setLabel(__('Sent at', null, 'ullMailMessages'))
+    ;    
+
+    
     
     
     

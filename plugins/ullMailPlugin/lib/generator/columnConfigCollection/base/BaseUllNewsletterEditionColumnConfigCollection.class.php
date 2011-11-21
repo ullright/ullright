@@ -125,9 +125,17 @@ Examples: [FIRST_NAME], [LAST_NAME], [TITLE], ...', null, 'ullMailMessages'))
     
     if ($this->isListAction())
     {
+      $this['num_sent_recipients']
+        ->setMetaWidgetClassName('ullMetaWidgetLink')
+      ;
+      
       $this['num_read_emails']
         ->setMetaWidgetClassName('ullMetaWidgetLink')
       ;
+
+      $this['num_failed_emails']
+        ->setMetaWidgetClassName('ullMetaWidgetLink')
+      ;      
     }    
     
   }

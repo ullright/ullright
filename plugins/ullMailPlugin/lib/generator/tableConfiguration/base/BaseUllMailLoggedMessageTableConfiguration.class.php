@@ -34,6 +34,17 @@ class BaseUllMailLoggedMessageTableConfiguration extends UllTableConfiguration
     
     switch ($query) 
     {
+      case 'sent':
+        $this->setName(__('Sent newsletter', null, 'ullMailMessages'));
+        $this->setListColumns(array(
+          'MainRecipient->display_name',
+          'MainRecipient->email',
+          'sent_at',
+        ));
+        $this->setOrderBy('sent_at DESC, MainRecipient->display_name, MainRecipient->email');
+        
+        break;
+        
       case 'read':
         $this->setName(__('Readers of newsletter', null, 'ullMailMessages'));
         $this->setListColumns(array(
@@ -44,10 +55,20 @@ class BaseUllMailLoggedMessageTableConfiguration extends UllTableConfiguration
           'last_user_agent',
         ));
         $this->setOrderBy('num_of_readings DESC, MainRecipient->display_name, MainRecipient->email');
-//        $this->setFilterColumns(array(
-//          'ull_newsletter_edition_id' => ''
-//        ));               
+        
         break;
+
+      case 'failed':
+        $this->setName(__('Failed newsletter', null, 'ullMailMessages'));
+        $this->setListColumns(array(
+          'MainRecipient->display_name',
+          'MainRecipient->email',
+          'failed_at',
+          'UllMailError->name',
+        ));
+        $this->setOrderBy('failed_at DESC, MainRecipient->display_name, MainRecipient->email');
+        
+        break;         
     }
     
     

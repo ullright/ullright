@@ -34,12 +34,12 @@
 
 <trans-unit id="201">
 <source>Sent at</source>
-<target>Gesendet am</target>
+<target>Versendet am</target>
 </trans-unit>
 
 <trans-unit id="202">
 <source>Mails sent</source>
-<target>Gesendete E-Mails</target>
+<target>Versendete E-Mails</target>
 </trans-unit>
 
 <trans-unit id="203">
@@ -202,6 +202,26 @@
 <target>Leser des Newsletter</target>
 </trans-unit>
 
+<trans-unit id="235">
+<source>Newsletter list</source>
+<target>Newsletter Liste</target>
+</trans-unit>
+
+<trans-unit id="236">
+<source>Sent at</source>
+<target>Versendet am</target>
+</trans-unit>
+
+<trans-unit id="237">
+<source>Sent newsletter</source>
+<target>Versendete Newsletter </target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
 <trans-unit id="">
 <source></source>
 <target></target>
@@ -226,6 +246,15 @@
 <target>Gelesene Newsletter</target>
 </trans-unit>
 
+<trans-unit id="303">
+<source>Sent newsletter</source>
+<target>Versendete Newsletter</target>
+</trans-unit>
+
+<trans-unit id="304">
+<source>Failed newsletter</source>
+<target>Unzustellbare Newsletter</target>
+</trans-unit>
 
 
 
@@ -243,7 +272,7 @@
 
 <trans-unit id="402">
 <source>This newsletter has already been sent</source>
-<target>Dieser Newsletter wurde bereits gesendet</target>
+<target>Dieser Newsletter wurde bereits versendet</target>
 </trans-unit>
 
 <trans-unit id="403">
@@ -254,7 +283,7 @@
 
 <trans-unit id="404">
 <source>Test newsletter was sent to %email%</source>
-<target>Test-Newsletter wurde an %email% gesendet</target>
+<target>Test-Newsletter wurde an %email% versendet</target>
 </trans-unit>
 
 <trans-unit id="405">

@@ -17,6 +17,7 @@ class BaseUllNamedQueriesUllMailLog extends ullNamedQueries
       ->setI18nCatalogue('ullMailMessages')
       ->add('ullNamedQueryUllMailLogSent')
       ->add('ullNamedQueryUllMailLogRead')
+      ->add('ullNamedQueryUllMailLogFailed')
     ;
   }
   

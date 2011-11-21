@@ -11,7 +11,7 @@ class ullNamedQueryUllMailLogRead extends ullNamedQuery
   
   public function configure()
   {
-    $this->name       = 'Read newsletters';
+    $this->name       = 'Read newsletter';
     $this->identifier = 'read';
   }
   
