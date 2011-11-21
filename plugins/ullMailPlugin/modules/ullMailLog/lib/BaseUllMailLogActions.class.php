@@ -235,4 +235,16 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
   }  
   
+  /**
+   * Handles breadcrumb for list action
+   *
+   */
+  protected function breadcrumbForEdit()
+  {
+    $breadcrumb_tree = new ullMailLogBreadcrumbTree();
+    $breadcrumb_tree->add(__('Report', null, 'common'), $this->uriMemory->get('list', 'ullMailLog'));
+    $breadcrumb_tree->add(__('Show', null, 'common'));
+    
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }    
 }

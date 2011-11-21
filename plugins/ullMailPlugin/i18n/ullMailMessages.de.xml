@@ -217,10 +217,46 @@
 <target>Versendete Newsletter </target>
 </trans-unit>
 
-<trans-unit id="">
-<source></source>
-<target></target>
+<trans-unit id="238">
+<source>To</source>
+<target>An</target>
 </trans-unit>
+
+<trans-unit id="239">
+<source>Headers</source>
+<target>Kopfzeilen</target>
+</trans-unit>
+
+<trans-unit id="240">
+<source>Plaintext body</source>
+<target>Textversion</target>
+</trans-unit>
+
+<trans-unit id="241">
+<source>Html body</source>
+<target>Html-Version</target>
+</trans-unit>
+
+<trans-unit id="242">
+<source>Last used IP-address</source>
+<target>Letzte IP-Adresse</target>
+</trans-unit>
+
+<trans-unit id="243">
+<source>Failed at</source>
+<target>Fehlgeschlagen am</target>
+</trans-unit>
+
+<trans-unit id="244">
+<source>Error</source>
+<target>Fehler</target>
+</trans-unit>
+
+<trans-unit id="245">
+<source>Last error message</source>
+<target>Letzte Fehlermeldung</target>
+</trans-unit>
+
 
 <trans-unit id="">
 <source></source>
