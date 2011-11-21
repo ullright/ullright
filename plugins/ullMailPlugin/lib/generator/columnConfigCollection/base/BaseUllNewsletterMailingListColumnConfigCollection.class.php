@@ -52,5 +52,16 @@ class BaseUllNewsletterMailingListColumnConfigCollection extends ullColumnConfig
         'is_public',
       ));
     }
+    
+    if ($this->isListAction())
+    {
+      $this->create('link')
+        ->setLabel(__('Subscribers', null, 'ullMailMessages'))
+        ->setMetaWidgetClassName('ullMetaWidgetLinkNewsletterListToSubscriber')
+        ->setIsArtificial(true)
+        ->setInjectIdentifier(true)
+      ;
+          
+    }
   }
 }

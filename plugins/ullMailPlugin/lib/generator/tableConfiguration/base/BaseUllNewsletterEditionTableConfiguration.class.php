@@ -25,7 +25,7 @@ class BaseUllNewsletterEditionTableConfiguration extends UllTableConfiguration
       'num_sent_recipients',
       'num_read_emails',
       'num_failed_emails',
-      'UllNewsletterEditionMailingLists',
+//      'UllNewsletterEditionMailingLists',
       'is_active',
       'submitted_at',
       'Sender->display_name',

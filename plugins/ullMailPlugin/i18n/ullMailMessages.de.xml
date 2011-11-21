@@ -257,6 +257,25 @@
 <target>Letzte Fehlermeldung</target>
 </trans-unit>
 
+<trans-unit id="246">
+<source>Newsletter subscribers</source>
+<target>Newsletter Abonnenten</target>
+</trans-unit>
+
+<trans-unit id="247">
+<source>Mailing list</source>
+<target>Verteiler</target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
 
 <trans-unit id="">
 <source></source>

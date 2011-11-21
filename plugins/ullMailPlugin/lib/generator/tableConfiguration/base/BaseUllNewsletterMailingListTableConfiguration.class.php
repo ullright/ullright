@@ -19,6 +19,16 @@ class BaseUllNewsletterMailingListTableConfiguration extends UllTableConfigurati
     $this->setOrderBy('name');
     $this->setFilterColumns(array('is_active' => null));
     
+    $this->setListColumns(array(
+      'name',
+      'description',
+      'link',
+      'is_default',
+      'is_subscribed_by_default',
+      'is_public',
+      'is_active',
+    ));
+    
     $this->setPlugin('ullMailPlugin');
     $this->setBreadcrumbClass('ullNewsletterBreadcrumbTree');
     

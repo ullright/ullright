@@ -4,6 +4,6 @@
  * 
  *
  */
-class UllNewsletterMailingListTableConfiguration extends BaseUllNewsletterMailingListTableConfiguration
+class UllNewsletterMailingListSubscriberTableConfiguration extends BaseUllNewsletterMailingListSubscriberTableConfiguration
 {
 }
