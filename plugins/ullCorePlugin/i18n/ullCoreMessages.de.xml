@@ -253,7 +253,7 @@
       
       <trans-unit id="941">
         <source>Number of bounced emails</source>
-        <target>Anzahl der abgewiesenen E-Mails</target>
+        <target>Anzahl der unzustellbaren E-Mails</target>
       </trans-unit>        
       
       <!--  ullPhoto -->
