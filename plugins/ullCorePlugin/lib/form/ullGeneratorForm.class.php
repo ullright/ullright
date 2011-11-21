@@ -188,12 +188,20 @@ class ullGeneratorForm extends sfFormDoctrine
       )
       {
         
+        //TODO: why do we need a default to inject the identifier?
         if (array_key_exists($fieldName, $defaults))
         {
           $defaults[$fieldName] = array(
             'value' => $defaults[$fieldName], 
             'id' => $this->getObject()->id
           );
+        }
+        // Also artificial columns without a default value can need the identifier
+        else
+        {
+          $defaults[$fieldName] = array(
+            'id' => $this->getObject()->id
+          );          
         }
       }
     }
