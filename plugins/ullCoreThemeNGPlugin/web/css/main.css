@@ -22,6 +22,7 @@
 
 
 .ull_cms_edit .edit_action_buttons,
+.ull_newsletter_edit .edit_action_buttons,
 .ull_user_edit .edit_action_buttons
 {
   position: fixed;
