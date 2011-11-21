@@ -365,6 +365,11 @@
 <target>Inkl. veraltete Einträge</target>
 </trans-unit>
 
+<trans-unit id="1013">
+<source>Report</source>
+<target>Bericht</target>
+</trans-unit>
+
 
 <!-- Common list action phrases-->
 
