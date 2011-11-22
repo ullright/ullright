@@ -216,11 +216,24 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       //[UNSUBSCRIBE]
 //      $lists = $this->findMailingListsForUser($user['id']);
       $lists = $user->UllNewsletterMailingLists;
+      
+      $editionLists = array();
+      foreach ($this->UllNewsletterMailingLists as $list)
+      {
+        $editionLists[] = $list->id;
+      }
+      
       $unsubscribe = array();
       
       //note: s_uid as param name results in encrypted user ids (=secure params)
       foreach ($lists as $list)
       {
+        // Skip lists that are not used for this newsletter
+        if (!in_array($list->id, $editionLists))
+        {
+          continue;
+        }
+        
         $unsubscribeLink = link_to(
           __('Unsubscribe from list "%list%"', array('%list%' => $list['name']), 'ullMailMessages'),
           'ullNewsletter/unsubscribe?list=' . $list['slug'] . '&s_uid=' . $user['id'],
