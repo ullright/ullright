@@ -441,10 +441,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     }
     
     //serve the 1x1 transparent gif
-    $this->getResponse()->setContentType('image/gif');
+    $this->getResponse()->setContentType('image/png');
     
-    $imagePath = sfConfig::get('sf_root_dir') . '/plugins/ullCoreTheme' .
-      sfConfig::get('app_theme_package', 'NG') . 'Plugin/web/images/beacon.gif';
+    $imagePath = sfConfig::get('sf_root_dir') . '/plugins/ullMailTheme' .
+      sfConfig::get('app_theme_package', 'NG') . 'Plugin/web/images/beacon.png';
     $beaconImage = file_get_contents($imagePath);
     print ($beaconImage);
     
