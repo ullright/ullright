@@ -27,7 +27,7 @@ $msg->subject = 'Spool test';
 $msg->body = 'Body count';
 $msg->submitted_at = new Doctrine_Expression('NOW()');
 $msg->Sender = $testUser;
-$msg->UllNewsletterEditionMailingLists[] = 
+$msg->UllNewsletterMailingLists[] = 
   Doctrine::getTable('UllNewsletterMailingList')->findOneBySlug('product-news');
 $msg->save();
 

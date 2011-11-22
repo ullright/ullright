@@ -21,6 +21,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
   public function getDecoratedBody()
   {
     $body = $this['body'];
+    
     $layoutHead = $this['UllNewsletterLayout']['html_head'];
     $layoutBody = $this['UllNewsletterLayout']['html_body'];
     
@@ -213,17 +214,23 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     if ($user !== null)
     {
       //[UNSUBSCRIBE]
-      $lists = $this->findMailingListsForUser($user['id']);
+//      $lists = $this->findMailingListsForUser($user['id']);
+      $lists = $user->UllNewsletterMailingLists;
       $unsubscribe = array();
       
       //note: s_uid as param name results in encrypted user ids (=secure params)
       foreach ($lists as $list)
       {
-        $unsubscribe[] = link_to(
+        $unsubscribeLink = link_to(
           __('Unsubscribe from list "%list%"', array('%list%' => $list['name']), 'ullMailMessages'),
-            'ullNewsletter/unsubscribe?list=' . $list['slug'] . '&s_uid=' . $user['id'],
-            array('absolute' => true)
-          );
+          'ullNewsletter/unsubscribe?list=' . $list['slug'] . '&s_uid=' . $user['id'],
+          array('absolute' => true)
+        );
+          
+        $unsubscribeLink = '<span id="ull_newsletter_unsubscribe">'
+          . $unsubscribeLink . '</span>';
+          
+        $unsubscribe[] = $unsubscribeLink;
       }
         
       $dictionary['[UNSUBSCRIBE]'] = implode('<br />', $unsubscribe);

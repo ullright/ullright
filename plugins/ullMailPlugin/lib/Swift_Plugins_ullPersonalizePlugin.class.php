@@ -79,4 +79,68 @@ class Swift_Plugins_ullPersonalizePlugin
     
     return strtr($body, $dictionary);
   }    
+  
+  /**
+   * Remove online link tag
+   *
+   * @param string $body
+   */
+  public static function removeOnlineLinkTag($body)
+  {
+    // unpersonalized
+    $body = str_replace('[ONLINE_LINK]', '', $body);
+    
+    // personalized
+    $body = preg_replace(
+    '/<span.*?id\s*=\s*"ull_newsletter_show_online_link".*?>.*?<\/span>/',
+      '', $body);
+    
+    return $body;
+  }
+  
+  /**
+   * Remove unsubscribe tag
+   *
+   * @param string $body
+   */  
+  public static function removeUnsubscribeTag($body)
+  {
+    $body = str_replace('[UNSUBSCRIBE]', '', $body);
+    
+    $body = preg_replace(
+    '/<span.*?id\s*=\s*"ull_newsletter_unsubscribe".*?>.*?<\/span>/',
+      '', $body);
+    
+    return $body;
+  }
+
+  /**
+   * Remove tracking beacon tag
+   *
+   * @param string $body
+   */  
+  public static function removeTrackingBeaconTag($body)
+  {
+    $body = str_replace('[TRACKING]', '', $body);
+    
+    $body = preg_replace(
+    '/<img.*?id\s*=\s*"ull_newsletter_beacon".*?\/>/',
+      '', $body);    
+    
+    return $body;
+  }    
+  
+  /**
+   * Remove all personalization fields except UllUser fields.
+   *
+   * @param unknown_type $body
+   */
+  public static function removePersonalisationTags($body)
+  {
+    $body = self::removeTrackingBeaconTag($body);
+    $body = self::removeOnlineLinkTag($body);
+    $body = self::removeUnsubscribeTag($body);
+    
+    return $body;
+  }  
 }

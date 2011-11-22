@@ -54,8 +54,17 @@
               array('name' => 'submit|action_slug=save_only', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
             ); 
           ?>
-        </li>    
+        </li>
         
+        <li>
+          <?php 
+            echo ull_submit_tag(
+              __('Save and show', null, 'common'), 
+              array('name' => 'submit|action_slug=save_show', 'form_id' => 'ull_tabletool_form', 'display_as_link' => true)
+            ); 
+          ?>
+        </li>
+                
         <li>
           <?php             
             echo ull_submit_tag(

@@ -52,8 +52,9 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   public function executeShow(sfRequest $request)
   {
     $this->checkPermission('ull_newsletter_show');
-    $this->breadcrumbForShow();
+//    $this->breadcrumbForShow();
     
+    // Normal show action
     if ($id = $request->getParameter('id'))
     {
       $edition = Doctrine::getTable('UllNewsletterEdition')->findOneById($id);
@@ -62,19 +63,49 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         $this->redirect404();
       }
       
-      $guest = new UllUser();
+      if (UllUserTable::hasPermission('ull_newsletter_edit'))
+      {
+        $edition->body = '<span class="ull_cms_content_heading_edit_link">' .
+          link_to(ull_image_tag('edit'), 'ullNewsletter' . '/edit?id=' . $edition->id) .
+          '</span>' . 
+          $edition->body;
+      }
+      
+      
       $originalCulture = $this->getUser()->getCulture();
       $this->getUser()->setCulture($edition->sender_culture);
+
+      $guest = new UllUser();
       $guest->last_name = __('Guest', null, 'ullMailMessages');
+      $guest->id = 999999999;
+      $guest->UllNewsletterMailingLists = $edition->getUllNewsletterMailingLists();
+      
       $this->getUser()->setCulture($originalCulture);
       
-      $body = Swift_Plugins_ullPersonalizePlugin::personalizeBody($edition->body, $guest);
+      $body = $edition->getDecoratedBody();
+      $body = $edition->getPersonalizedBody($body, $guest);
+      $body = Swift_Plugins_ullPersonalizePlugin::personalizeBody($body, $guest);
+      
+      $this->allow_edit = false;
+      
+      if ($request->hasParameter('preview'))
+      {
+        $body = Swift_Plugins_ullPersonalizePlugin::removeTrackingBeaconTag($body);
+      }
+      else
+      {
+        $body = Swift_Plugins_ullPersonalizePlugin::removePersonalisationTags($body);
+      }
       
       $this->setVar('edition', $edition, true);
       $this->setVar('body', $body, true);
       
-        
+      $this->getResponse()->setTitle(__('Newsletter', null, 'ullMailMessages') . ' "' . $edition->subject . '"');
+      
+      return $this->renderText($body);
     }
+    
+    // Via online view link in email
     else 
     {
       $ullCrypt = ullCrypt::getInstance();
@@ -91,13 +122,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       //view mode anyway and tracking was already handled) 
       $body = $loggedMessage['html_body'];
       
-      $body = preg_replace(
-      '/<span.*?id\s*=\s*"ull_newsletter_show_online_link".*?>.*?<\/span>/',
-      	'', $body);
+      $body = Swift_Plugins_ullPersonalizePlugin::removeOnlineLinkTag($body);
+      $body = Swift_Plugins_ullPersonalizePlugin::removeTrackingBeaconTag($body);
       
-      $body = preg_replace(
-      '/<img.*?id\s*=\s*"ull_newsletter_beacon".*?\/>/',
-      	'', $body);
+      $this->getResponse()->setTitle(__('Newsletter', null, 'ullMailMessages') . ' "' . $loggedMessage->subject . '"');
       
       return $this->renderText($body);
     }
@@ -192,7 +220,12 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         __('The newsletter is being sent to %number% recipients', 
           array('%number%' => $row['num_total_recipients']), 'ullMailMessages') . '.'
       );
-    }      
+    }    
+
+    if ($request->getParameter('action_slug') == 'save_show')
+    {
+      $this->redirect('ullNewsletter/show?preview=true&id=' . $row->id);
+    }
     
     if (
       $request->getParameter('action_slug') == 'send_test' ||
@@ -200,8 +233,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     ) 
     {
       $this->redirect(ullCoreTools::appendParamsToUri(
-        $this->edit_base_uri, 
-        'id=' . $this->generator->getForm()->getObject()->id
+        $this->edit_base_uri, 'id=' . $row->id
       ));
     }
     
@@ -433,7 +465,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       
       if ($mailingList !== false)
       {
-        $this->q->addWhere('UllNewsletterEditionMailingLists->id = ?', $mailingListId);
+        $this->q->addWhere('UllNewsletterMailingLists->id = ?', $mailingListId);
         
         $this->ull_filter->add('filter[ull_newsletter_mailing_list_id]',
           __('Mailing list', null, 'ullMailMessages') . ': ' . $mailingList);

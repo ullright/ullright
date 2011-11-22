@@ -59,14 +59,14 @@ Examples: [FIRST_NAME], [LAST_NAME], [TITLE], ...', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
 
-    $this->useManyToManyRelation('UllNewsletterEditionMailingLists');
-    $this['UllNewsletterEditionMailingLists']
+    $this->useManyToManyRelation('UllNewsletterMailingLists');
+    $this['UllNewsletterMailingLists']
       ->setLabel(__('Mailing lists', null, 'ullMailMessages'))
     ;
     
     $this->order(array(
       'basics' => array(
-        'UllNewsletterEditionMailingLists',
+        'UllNewsletterMailingLists',
         'subject',
         'body',
         'ull_newsletter_layout_id',
@@ -117,7 +117,7 @@ Examples: [FIRST_NAME], [LAST_NAME], [TITLE], ...', null, 'ullMailMessages'))
         ->setWidgetOption('default', PluginUllNewsletterLayoutTable::getDefaultId());
       ;
       
-      $this['UllNewsletterEditionMailingLists']
+      $this['UllNewsletterMailingLists']
         ->setWidgetOption('default', PluginUllNewsletterMailingListTable::getDefaultIds());
       ;
     }

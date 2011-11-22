@@ -135,6 +135,7 @@ UllNewsletterMailingList:
       refClass: UllNewsletterMailingListSubscriber
       local: ull_newsletter_mailing_list_id
       foreign: ull_user_id
+      foreignAlias: UllNewsletterMailingLists
  
 # m:n table for newsletter lists <-> UllUsers
 UllNewsletterMailingListSubscriber: 
@@ -221,7 +222,7 @@ UllNewsletterEdition:
     num_sent_recipients:
       type: integer
   relations:
-    UllNewsletterEditionMailingLists:
+    UllNewsletterMailingLists:
       class: UllNewsletterMailingList
       refClass: UllNewsletterEditionMailingList
       local: ull_newsletter_edition_id
