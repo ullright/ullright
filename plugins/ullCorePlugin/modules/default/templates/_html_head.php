@@ -16,7 +16,7 @@
   '/ullCoreTheme' . 
   sfConfig::get('app_theme_package', 'NG') . 
   'Plugin/images/favicon.ico') ?>
-<link rel="shortcut icon" href="<?php echo $favicon_uri ?>" type="image/vnd.microsoft.icon" />
+<link rel="shortcut icon" href="<?php echo $favicon_uri ?>" />
 
 <?php // Load default ullright stylesheet ?> 
 <?php use_stylesheet('/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') . 
