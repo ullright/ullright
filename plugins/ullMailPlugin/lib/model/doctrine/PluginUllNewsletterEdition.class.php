@@ -25,9 +25,14 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     $layoutHead = $this['UllNewsletterLayout']['html_head'];
     $layoutBody = $this['UllNewsletterLayout']['html_body'];
     
+    if ($layoutBody)
+    {
+      $body = str_replace('[CONTENT]', $body, $layoutBody);
+    }
+    
     $body = "<html>\n" .
       "<head>\n" . $layoutHead . "\n</head>\n" . 
-      "\n<body>\n" . strtr($layoutBody, array('[CONTENT]' => $body)) . "\n</body>" .
+      "\n<body>\n" . $body . "\n</body>" .
       "\n</html>";
 
     // Create absolute image urls
