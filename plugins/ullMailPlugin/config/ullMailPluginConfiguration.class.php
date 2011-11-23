@@ -43,10 +43,15 @@ class ullMailPluginConfiguration extends sfPluginConfiguration
     $this->dispatcher->connect('mailer.configure', 
       array($this, 'configureMailingSystem'));
     
-    // Connect UllNewsletterEdition to UllMailLoggedMessage postSave event
+    // Connect UllNewsletterEdition to UllMailLoggedMessage post_save event
     // To recount the stats (num_failed_emails, ...)
     $this->dispatcher->connect('ull_mail_logged_message.post_save', 
       array('UllNewsletterEdition', 'listenToUllMailLoggedMessagePostSaveEvent'));
+      
+    // Connect UllNewsletterEdition to UllMailLoggedMessage read_detected event
+    // (Handle tracking request)
+    $this->dispatcher->connect('ull_mail_logged_message.read_detected', 
+      array('UllNewsletterEdition', 'listenToUllMailLoggedMessageReadDetectedEvent'));      
   }
 
   

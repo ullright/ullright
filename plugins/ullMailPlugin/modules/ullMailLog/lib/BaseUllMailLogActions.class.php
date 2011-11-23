@@ -159,7 +159,7 @@ class BaseUllMailLogActions extends BaseUllGeneratorActions
     );
     
     // Calculate end date (one week)
-    $sentAt = $this->ull_newsletter_edition->submitted_at;
+    $sentAt = $this->ull_newsletter_edition->created_at;
     $sentAtStamp = strtotime($sentAt);
     $endDateStamp = strtotime('+5 days', $sentAtStamp);
     $endDate = date('Y-m-d H:i:s', $endDateStamp);

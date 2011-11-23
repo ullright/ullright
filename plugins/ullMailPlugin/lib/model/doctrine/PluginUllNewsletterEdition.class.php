@@ -51,7 +51,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     $q = new Doctrine_Query;
     $q
       ->select('DISTINCT u.email')
-      ->from('UllUser u, u.UllUserStatus s, u.UllNewsletterMailingList ml, ml.UllNewsletterEdition e')
+      ->from('UllUser u, u.UllUserStatus s, u.UllNewsletterMailingLists ml, ml.UllNewsletterEdition e')
       ->addWhere('s.is_active = ?', true)
       ->addWhere('e.id = ?', $this->id)
       ->addWhere('u.email IS NOT NULL')
@@ -144,8 +144,33 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
   }    
   
   
+  
+  /**
+   * Update the num_read_emails proxy field by recounting the read logged messages
+   */
+  public function updateNumReadEmails()
+  {
+    $this->num_read_emails = $this->countLoggedMessagesRead();
+  }  
 
-
+  
+  /**
+   * Count the read logged messages for this edition
+   */
+  public function countLoggedMessagesRead()
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllMailLoggedMessage m')
+      ->where('m.ull_newsletter_edition_id = ?', $this->id)
+      ->addWhere('m.subject NOT LIKE ?', '%#Test#')
+      ->addWhere('m.first_read_at IS NOT NULL')
+    ;
+    $result = $q->count();
+    
+    return ($result) ? $result : null;
+  }    
+  
   
   /**
    * Get mailing lists for the current edition and the given user
@@ -278,8 +303,9 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     return strtr($body, $dictionary);
   }
   
+  
   /**
-   * Recount num_failed_emails proxy field
+   * Listen to mail log post_save event
    * 
    * @param sfEvent $event
    */
@@ -294,4 +320,22 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
       $loggedMessage->UllNewsletterEdition->save();
     }
   }
+  
+  
+  /**
+   * Listen to mail log read_detected event
+   * 
+   * @param sfEvent $event
+   */
+  public static function listenToUllMailLoggedMessageReadDetectedEvent(sfEvent $event)
+  {
+    $loggedMessage = $event->getSubject();
+    
+    if ($loggedMessage->ull_newsletter_edition_id && 
+      $loggedMessage->UllNewsletterEdition->exists()) 
+    {
+      $loggedMessage->UllNewsletterEdition->updateNumReadEmails();
+      $loggedMessage->UllNewsletterEdition->save();
+    }
+  }  
 }

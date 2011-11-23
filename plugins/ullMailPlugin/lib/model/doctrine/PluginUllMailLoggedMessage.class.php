@@ -35,17 +35,13 @@ abstract class PluginUllMailLoggedMessage extends BaseUllMailLoggedMessage
     if (!$this['first_read_at'])
     {
       $this['first_read_at'] = date('c');
-      
-      // We have to check if the related UllNewsletterEdition exists
-      // Otherwise we would create (!!!) it (In case the newsletter was deleted)
-      // TODO: It would be nicer to update the num_read_emails with a actual db count
-      if ($this->UllNewsletterEdition->exists())
-      {
-        $readCount = $this->UllNewsletterEdition['num_read_emails'];
-        $this->UllNewsletterEdition['num_read_emails'] = $readCount + 1;
-      }
     }
+    
+    $dispatcher = sfProjectConfiguration::getActive()->getEventDispatcher();
+    
+    $dispatcher->notify(new sfEvent($this, 'ull_mail_logged_message.read_detected'));
   }
+  
   
   /**
    * Returns a new (unsaved) PluginUllMailLoggedMessage instance generated

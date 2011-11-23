@@ -18,6 +18,7 @@ class ullNamedQueryUllMailLogRead extends ullNamedQuery
   public function modifyQuery($q)
   {
     $q->addWhere('first_read_at IS NOT NULL');
+    $q->addWhere('subject NOT LIKE ?', '%#Test#');
   }
   
 }

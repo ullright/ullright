@@ -100,4 +100,19 @@ $t->diag('countLoggedMessagesSent()');
   $msg->save();
   $t->is($edition->countLoggedMessagesSent(), 1, 'Now we got one sent msg');  
   
+$t->diag('countLoggedMessagesRead()');
+  $edition = Doctrine::getTable('UllNewsletterEdition')->findOneById(2);
+  $t->is($edition->countLoggedMessagesSent(), 0, 'No read messages for this edition');
+  
+  $msg = new UllMailLoggedMessage();
+  $msg->subject = 'UllNewletterEditionTest 3 #Test#';
+  $msg->UllNewsletterEdition = $edition;
+  $msg->first_read_at = '2011-11-23 10:08:23';
+  $msg->save();
+  $t->is($edition->countLoggedMessagesSent(), 0, 'Send one msg as test - still no read messages count for this edition');
+  
+  $msg->subject = 'UllNewletterEditionTest 3';
+  $msg->save();
+  $t->is($edition->countLoggedMessagesSent(), 1, 'Now we got one read msg');   
+  
   
