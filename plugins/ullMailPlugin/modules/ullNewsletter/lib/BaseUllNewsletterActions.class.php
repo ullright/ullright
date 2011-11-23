@@ -307,12 +307,12 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       )
     );
     
-    $columnsConfig->disableAllExcept(array_merge($columns, array('UllNewsletterMailingList')));
+    $columnsConfig->disableAllExcept(array_merge($columns, array('UllNewsletterMailingLists')));
     
     // Don't disable UllNewsletterMailingList but do not render it
-    if (!in_array('UllNewsletterMailingList', $columns))
+    if (!in_array('UllNewsletterMailingLists', $columns))
     {
-      $columnsConfig['UllNewsletterMailingList']->setAutoRender(false);
+      $columnsConfig['UllNewsletterMailingLists']->setAutoRender(false);
     }
     
     $columnsConfig->order($columns);
@@ -348,10 +348,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   {
     $active = array_keys($generator->getAutoRenderedColumns());
     
-    if (!in_array('UllNewsletterMailingList', $active))
+    if (!in_array('UllNewsletterMailingLists', $active))
     {
       $ids = UllNewsletterMailingListTable::getSubscribedByDefaultIds();
-      $fields['UllNewsletterMailingList'] = $ids;
+      $fields['UllNewsletterMailingLists'] = $ids;
     }
     
     return $fields;
