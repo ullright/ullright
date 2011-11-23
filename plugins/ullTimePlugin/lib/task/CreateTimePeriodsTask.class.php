@@ -5,7 +5,7 @@ class CreateTimePeriodsTask extends sfBaseTask
 
   protected function configure()
   {
-    $this->namespace        = 'ullright';
+    $this->namespace        = 'ull_time';
     $this->name             = 'create-time-periods';
     $this->briefDescription = 'Create time periods';
     $this->detailedDescription = <<<EOF
@@ -39,7 +39,16 @@ EOF;
     $arguments['application'], $arguments['env'], true);
     $databaseManager = new sfDatabaseManager($configuration);
     
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('ull'));
+    if (!sfContext::hasInstance())
+    {
+      $instance = sfContext::createInstance($configuration);
+    }
+    else
+    {
+      $instance = sfContext::getInstance();
+    }
+    
+    $instance->getConfiguration()->loadHelpers(array('ull'));
     
     if (!$options['end-date'])
     {
