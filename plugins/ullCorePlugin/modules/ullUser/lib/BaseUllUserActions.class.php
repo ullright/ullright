@@ -509,15 +509,15 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   }
 
   
-  /**
-   * Configure the ullFilter class name
-   * 
-   * @return string
-   */
-  public function getUllFilterClassName()
-  {
-    return 'ullUserFilterForm';
-  }  
+//  /**
+//   * Configure the ullFilter class name
+//   * 
+//   * @return string
+//   */
+//  public function getUllFilterClassName()
+//  {
+//    return 'ullUserFilterForm';
+//  }  
   
 
   /**

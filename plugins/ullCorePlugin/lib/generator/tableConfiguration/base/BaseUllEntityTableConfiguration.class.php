@@ -22,7 +22,7 @@ class BaseUllEntityTableConfiguration extends ullTableConfiguration
         'email', 
         'UllLocation->name', 
         'UllDepartment->name', 
-        'duplicate_tags_for_search'
+        'duplicate_tags_for_search',
       ))
       ->setOrderBy('last_name, first_name')
       ->setListColumns(array(
@@ -32,11 +32,12 @@ class BaseUllEntityTableConfiguration extends ullTableConfiguration
         'username', 
         'email', 
         'UllLocation->name', 
-        'UllDepartment->name'
+        'UllDepartment->name',
+        'ull_user_status_id',
       ))
-//      ->setFilterColumns(array(
-//        'UllGroup->display_name' => ''
-//      ))
+      ->setFilterColumns(array(
+        'ull_user_status_id' => 1,
+      ))
       ->setForeignRelationName(__('User', null, 'ullCoreMessages'))
       ->setToStringColumn('display_name');
     ;
