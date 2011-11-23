@@ -8,6 +8,17 @@
 @import "common.css";
 @import "main_multi_format.css";
 
+/*
+ * ************************************************
+ *  edit action
+ * ************************************************
+ */
+
+.edit_table td.label_column {
+  min-width: 10em;
+  width: 10em;
+}
+
 
 /*
  * ************************************************
@@ -36,7 +47,6 @@
   box-shadow: 2px 2px 12px #666;
   overflow: auto;
 }
-
 
 
 /*
