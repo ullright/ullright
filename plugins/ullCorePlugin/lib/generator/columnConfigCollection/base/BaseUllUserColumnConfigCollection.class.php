@@ -163,14 +163,14 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       ->setLabel(__('Group memberships', null, 'ullCoreMessages'))
     ;  
     
-    $this->useManyToManyRelation('UllNewsletterMailingList');
-    $this['UllNewsletterMailingList']
+    $this->useManyToManyRelation('UllNewsletterMailingLists');
+    $this['UllNewsletterMailingLists']
       ->setLabel(__('Newsletter', null, 'ullMailMessages'))
     ;
     
     // Set default subscriptions for new objects
     $newsletters = Doctrine::getTable('UllNewsletterMailingList')->findByIsSubscribedByDefault(true);
-    $this['UllNewsletterMailingList']
+    $this['UllNewsletterMailingLists']
       ->setDefaultValue($newsletters->getPrimaryKeys())
     ;    
     
@@ -209,7 +209,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'alternative_phone_extension',
         'fax_extension',
         'is_show_mobile_number_in_phonebook',
-        'UllNewsletterMailingList'
+        'UllNewsletterMailingLists'
       ),      
       'organizational' => array(
         'ull_company_id',
@@ -256,7 +256,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'is_superior',
         'is_assistant',
         'UllGroup',
-        'UllNewsletterMailingList',
+        'UllNewsletterMailingLists',
         'title',
         'birth_date',
         'street',
@@ -304,7 +304,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       'email',
       'username',
       'password',
-      'UllNewsletterMailingList',    
+      'UllNewsletterMailingLists',    
     );
     $this->disableAllExcept($showColumns);
     $this->order($showColumns);
@@ -321,7 +321,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'email',
         'username',
         'password',
-        'UllNewsletterMailingList',    
+        'UllNewsletterMailingLists',    
       );
     }
     else
@@ -331,7 +331,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'last_name',
         'email',
         'password',    
-        'UllNewsletterMailingList',
+        'UllNewsletterMailingLists',
       );
     }
     
