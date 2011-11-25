@@ -184,7 +184,9 @@ all:
     #target_dir:     /var/www/ullright_my_company 
 
   admin:
-    module_links_order: [ 'ullNewsletter', 'ullMail', 'ullVentory', 'ullWiki', 'ullCms', 'ullNews', 'ullFlow', 'ullTime' ]
+    # Define the order of global module admin links
+    # Global means that the admin links are not on the modul's index action
+    module_global_links_order: [ 'ullMail' ]
 
   ull_widgets:
     many_to_many_write:

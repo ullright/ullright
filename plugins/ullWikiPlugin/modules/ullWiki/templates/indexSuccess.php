@@ -14,13 +14,7 @@
         <li><?php echo ull_tc_task_link('/ullWikiThemeNGPlugin/images/action_icons/create_24x24', 'ullWiki/create', __('Create', null, 'common')) ?></li>
       </ul>
       
-      <?php if (UllUserTable::hasPermission('ull_wiki_admin')): ?>
-        <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevel') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllWikiAccessLevelAccess') ?></li>        
-        </ul>
-      <?php endif ?>          
+      <?php include_partial('ullWiki/adminLinks')?>
       
     </div>
     

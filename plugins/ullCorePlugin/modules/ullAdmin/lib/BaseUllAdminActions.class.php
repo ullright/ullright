@@ -11,6 +11,9 @@
 class BaseUllAdminActions extends ullsfActions
 {
 
+  /**
+   * Execute index action
+   */
   public function executeIndex() 
   {
     $this->checkPermission('ull_admin_index');
@@ -25,9 +28,13 @@ class BaseUllAdminActions extends ullsfActions
     
     $this->is_master_admin = UllUserTable::hasGroup('Masteradmins');
     
-    $this->loadModuleAdminLinks();
+    $this->loadOrderedEnabledModuleNames();
   }
   
+  
+  /**
+   * Execute about action
+   */
   public function executeAbout()
   {
     $text = file_get_contents(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/config/ullCorePluginConfiguration.class.php');
@@ -37,18 +44,36 @@ class BaseUllAdminActions extends ullsfActions
     $this->breadcrumbForAbout();
   }
   
-  protected function loadModuleAdminLinks()
+  
+  /**
+   * Load enabled module names for global module admin links
+   * Global means that the admin links are not on the modul's index action
+   */
+  protected function loadOrderedEnabledModuleNames()
   {
     $modules = sfConfig::get('sf_enabled_modules');
     ksort($modules);
     $modules = array_flip($modules);
     
-    $modules = ullCoreTools::orderArrayByArray($modules, sfConfig::get('app_admin_module_links_order', array()), false);
+    $modules = ullCoreTools::orderArrayByArray($modules, sfConfig::get('app_admin_module_global_links_order', array()), false);
     
     $this->modules = array_keys($modules);
-    
   }
 
+  
+  /**
+   * Load breadcrumbs for index action
+   */
+  protected function breadcrumbForIndex()
+  {
+    $breadcrumbTree = new ullAdminBreadcrumbTree;
+    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
+  }
+  
+  
+  /**
+   * Load breadcrumbs for about action
+   */
   protected function breadcrumbForAbout()
   {
     $breadcrumbTree = new ullAdminBreadcrumbTree;
@@ -56,11 +81,6 @@ class BaseUllAdminActions extends ullsfActions
     $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
   }
   
-  protected function breadcrumbForIndex()
-  {
-    $breadcrumbTree = new ullAdminBreadcrumbTree;
-    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
-  }
   
   /**
    * Load named queries for index and list action
@@ -80,6 +100,7 @@ class BaseUllAdminActions extends ullsfActions
       $this->named_queries_custom = null;
     }
   }  
+  
   
   /**
    * Query popular tags for the index action

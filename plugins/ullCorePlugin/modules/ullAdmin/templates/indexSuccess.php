@@ -41,10 +41,10 @@
           <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllSelectChild', 'ullCore', 'ull_admin_24x24') ?></li>
         </ul>
         
-        <?php /* Load admin link partials for enabled modules 
-          (Defined in .../myModule/templates/_adminLinks.php) */ ?>
+        <?php /* Load global admin link partials fore enabled modules 
+          (Defined in .../myModule/templates/_globalAdminLinks.php) */ ?>
         <?php foreach ($modules as $module): ?>
-          <?php try {include_partial($module . '/adminLinks');} catch (Exception $e) {} ?>
+          <?php try {include_partial($module . '/globalAdminLinks');} catch (Exception $e) {} ?>
         <?php endforeach ?>
          
       <?php endif ?>          

@@ -6,45 +6,35 @@
   </div>
   <div id="tc_container">
     <div id="tc_tasks">
-      <?php
-        if ($app)
-        {
-          echo '<h3>' . __('Actions', null, 'common') . '</h3>';	
-        }
-        else
-        {
-          echo '<h3>' . __('Workflows', null, 'ullFlowMessages') . '</h3>';
-        }
-      ?>
-
-      <ul class="tc_tasks">
+      <h3>
+        <?php if ($app): ?>
+          <?php echo __('Actions', null, 'common') ?>	
+        <?php else: ?>
+          <?php echo __('Workflows', null, 'ullFlowMessages') ?>
+        <?php endif ?>
+      </h3>
+      
+    <ul class="tc_tasks">
 			<?php if ($app): ?>
 			
-			<li><?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/action_icons/create_24x24',
-            array('action' => 'create'), __('Create %1%', array('%1%' => $app->doc_label)))
-           ?></li>
+        <li>
+			   <?php echo ull_tc_task_link('/ullFlowThemeNGPlugin/images/action_icons/create_24x24',
+            array('action' => 'create'), __('Create %1%', array('%1%' => $app->doc_label)))?>
+        </li>
 
-			 <?php else:
-			   foreach ($apps as $current_app): ?>
-          <li><?php echo ull_tc_task_link($current_app->getIconPath(24, 24),
-            'ullFlow/index?app=' . $current_app->slug, $current_app->label) ?></li>
-        <?php endforeach; ?>
-     <?php endif ?>
+			 <?php else: ?>
+			 
+			   <?php foreach ($apps as $current_app): ?>
+          <li>
+            <?php echo ull_tc_task_link($current_app->getIconPath(24, 24),
+            'ullFlow/index?app=' . $current_app->slug, $current_app->label) ?>
+          </li>
+          <?php endforeach ?>
+          
+        <?php endif ?>
      </ul>
      
-     
-      <?php if (UllUserTable::hasPermission('ull_flow_admin')): ?>
-        <h3><?php echo __('Administration', null, 'ullCoreMessages') ?></h3>
-        <ul class="tc_tasks">
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowApp') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAppAccess') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowColumnConfig') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStep') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowStepAction') ?></li>
-          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllFlowAction') ?></li>       
-        </ul>
-      <?php endif ?>      
-     
+     <?php include_partial('ullFlow/adminLinks')?>
      
     </div>
     
