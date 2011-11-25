@@ -7,8 +7,9 @@ $selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array
         'edit_delete',      
         'name',
         'description',
-        'is_subscribed_by_default',
+        'link_to_subscribers',
         'is_default',
+        'is_subscribed_by_default',
         'is_public',
         'is_active'
       )

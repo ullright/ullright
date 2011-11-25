@@ -16,6 +16,11 @@ class UllNewsTableConfiguration extends UllTableConfiguration
     $this->setName(__('News', null, 'ullNewsMessages'));
     $this->setSearchColumns(array('title'));
     $this->setOrderBy('activation_date DESC');
+    
+    $this->setPlugin('ullCmsPlugin');
+    $this->setBreadcrumbClass('ullCmsBreadcrumbTree');    
+    
+    
   }
   
 }

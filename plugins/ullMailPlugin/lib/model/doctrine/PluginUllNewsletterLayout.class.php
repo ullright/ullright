@@ -44,22 +44,29 @@ abstract class PluginUllNewsletterLayout extends BaseUllNewsletterLayout
    */
   public function writeCssFile()
   {
-    $dom = new DomDocument('1.0', 'utf-8');
-    $dom->loadHTML($this->html_head);
-
-    $c = new sfDomCssSelector($dom);
-    $styles = $c->matchAll('style')->getValue();
-    
-    $dir = sfConfig::get('sf_upload_dir'). '/css';
-    
-    if (!file_exists($dir))
+    if ($this->html_head)
     {
-      mkdir($dir, '0777', true);
-    }
+      $dom = new DomDocument('1.0', 'utf-8');
+      $dom->loadHTML($this->html_head);
+  
+      $c = new sfDomCssSelector($dom);
+      $nodes = $c->matchAll('style');
+      if ($nodes)
+      {
+        $styles = $nodes->getValue();
+      
+        $dir = sfConfig::get('sf_upload_dir'). '/css';
+        
+        if (!file_exists($dir))
+        {
+          mkdir($dir, '0777', true);
+        }
+        
+        $path = $dir . '/ull_newsletter_layout_' . $this->slug . '.css';
     
-    $path = $dir . '/ull_newsletter_layout_' . $this->slug . '.css';
-
-    file_put_contents($path, $styles);
+        file_put_contents($path, $styles);
+      }
+    }
   }
 
 }

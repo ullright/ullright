@@ -2,6 +2,9 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/functional.php';
 
+// Test fails because of strange i18n error. Doctrine does not check that column
+// "title" is translated....
+
 $selector = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
       array(
         'edit_delete',      

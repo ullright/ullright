@@ -24,12 +24,12 @@ $b->resetDatabase();
 $createValues = array(
   'name' => 'Test layout', 
   'html_body' => array('This is a test', false),
-  'html_head' => array('<style=" h1 {color: red}"', false)
+  'html_head' => array('<style>h1 {color: red};</style>"', false)
 );
 $editValues = array(
   'name' => 'Test layout update', 
   'html_body' => array('Another test', false),
-  'html_head' => array('<style=" h1 {color: green}"', false)
+  'html_head' => array('<style>h1 {color: green};</style>"', false)
 );
 
 $b->setCreateValues($createValues);

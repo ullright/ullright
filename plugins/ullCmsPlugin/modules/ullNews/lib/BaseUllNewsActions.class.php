@@ -118,8 +118,7 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForList()
   {
-    $breadcrumb_tree = new breadcrumbTree();
-    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
+    $breadcrumb_tree = new ullCmsBreadcrumbTree();
     $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('News entries', null, 'ullNewsMessages'));
     $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullNews/list');
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
@@ -131,9 +130,8 @@ class BaseUllNewsActions extends BaseUllGeneratorActions
    */
   protected function breadcrumbForEdit()
   {
-    $breadcrumb_tree = new breadcrumbTree();
+    $breadcrumb_tree = new ullCmsBreadcrumbTree();
     $breadcrumb_tree->setEditFlag(true);
-    $breadcrumb_tree->add('Admin' . ' ' . __('Home', null, 'common'), 'ullAdmin/index');
     $breadcrumb_tree->add(__('Manage', null, 'common') . ' ' . __('News entries', null, 'ullNewsMessages'));
     // display result list link only when there is a referer containing 
     //  the list action 

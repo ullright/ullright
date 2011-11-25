@@ -140,12 +140,8 @@ EOF;
       {
         $this->logNoisySection($this->name, 'Invalid recipients: ' . count($failedRecipients));
         $this->logNoisySection($this->name, print_r($failedRecipients, true));
-          
-        throw new ullMailSpoolingInvalidRecipientsException(
-        	'Encountered invalid recipient addresses while spooling: ' .
-          implode(' ', $failedRecipients));
       }
-    }        
+    } // end of foreach edition        
   }
   
   /**
@@ -212,5 +208,3 @@ EOF;
      
   }
 }
-
-class ullMailSpoolingInvalidRecipientsException extends Exception { }

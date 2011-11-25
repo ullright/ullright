@@ -33,7 +33,7 @@ $msg->save();
 
 $t->diag('Spooling...');
 
-echo shell_exec('php symfony ull_mail:spool-emails frontend test');
+$t->diag(shell_exec('php symfony ull_mail:spool-emails frontend test'));
 
 $t->diag('Checking results');
 
