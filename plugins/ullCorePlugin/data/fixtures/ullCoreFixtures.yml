@@ -76,18 +76,17 @@ UllGroup:
     namespace:          test
   ull_user_admin_group:
     display_name:       UserAdmins
-    namespace:          ull_core
     Creator:            admin_user
     Updator:            admin_user
+    namespace:          ull_core
   ull_group_everyone:
    display_name:        Everyone
    is_virtual_group:    true
    namespace:           ull_core
-   is_virtual_group:    true
   ull_group_logged_in_users:
    display_name:        Logged in users
    is_virtual_group:    true
-   namespace:          ull_core          
+   namespace:           ull_core          
 
 UllPermission:
   test_permission:
@@ -522,7 +521,7 @@ UllUserStatus:
         name:   Aktiv
     is_active:  true
     is_absent:  false
-    namespace:  test
+    namespace:  ull_core
   separated_status:
     slug:       inactive
     Translation:
@@ -532,7 +531,7 @@ UllUserStatus:
         name:   Inaktiv
     is_active:  false
     is_absent:  false
-    namespace:  test
+    namespace:  ull_core
   maternity_status:
     slug:       maternity_leave
     Translation:
@@ -542,7 +541,7 @@ UllUserStatus:
         name:   Karenz
     is_active:  false
     is_absent:  true
-    namespace:  test
+    namespace:  ull_core
   military_status:
     slug:       military_service
     Translation:
@@ -552,7 +551,7 @@ UllUserStatus:
         name:   Präsenzdienst
     is_active:  false
     is_absent:  true
-    namespace:  test
+    namespace:  ull_core
   civil_service:
     slug:       civilian_service
     Translation:
@@ -562,18 +561,20 @@ UllUserStatus:
         name:   Zivildienst
     is_active:  false
     is_absent:  true
-    namespace:  test
+    namespace:  ull_core
 
 UllPaymentType:
   ull_payment_type_cash:
-   Translation:
-    en:
-      name:     Cash
-    de:
-      name:     Bar     
+    Translation:
+      en:
+        name:     Cash
+      de:
+        name:     Bar     
+    namespace: ull_core
   ull_payment_type_bank_transfer:
-   Translation:
-    en:
-      name:     Bank transfer
-    de:
-      name:     Überweisung           
+    Translation:
+      en:
+        name:     Bank transfer
+      de:
+        name:     Überweisung
+    namespace: ull_core           
