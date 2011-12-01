@@ -60,15 +60,36 @@ textarea {
  * ************************************************
  */
 
-.edit_container {
-  background-color: white;
+table.edit_table {
+	width: 100%;
 }
+
+table.edit_table tr {
+	margin-bottom: .5em;
+}
+	
 
 table.edit_table td {
   display: block;
   padding: 2px;
   width: 100%;
+  background: #E9E9E9;
 }
+
+table.edit_table td.label_column {
+  width: 100%;
+  min-width: 0;
+  padding-top: .5em;
+}
+
+table.edit_table input[type="text"] {
+  width: 98%;
+}
+
+.form_error {
+	margin-bottom: 0;
+}
+
 
 .edit_action_buttons_left {
   float: none;
