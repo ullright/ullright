@@ -284,6 +284,11 @@
 <target>Ist online</target>
 </trans-unit>
 
+<trans-unit id="132">
+<source>Error</source>
+<target>Fehler</target>
+</trans-unit>
+
 <!-- Questions -->
 
 <trans-unit id="201">
