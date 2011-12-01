@@ -449,9 +449,11 @@ EOF;
       ),
       'over-quota' => array(
         'over quota',
+        'quota exceeded',
       ),
       'user-unknown' => array(
         'user unknown',
+        'user is unknown',
         'unknown user',
         'existiert nicht',
         'does not exist',
@@ -461,12 +463,20 @@ EOF;
         'not found',
         'unknown recipient',
         'no such recipient',
+        'invalid address',
+        'Invalid recipient',
+        'recipient address rejected',
+        'recipients failed',
+        'this user doesn\'t have a',
+        'no mailbox here by that name',
+        'action: failed',
       ),
       'invalid-domain' => array(
         'unrouteable address',
         'connection refused',
         'non-existent hosts',
         'couldn\'t find any host named',
+        'no SMTP service',
       ),
     );
     
