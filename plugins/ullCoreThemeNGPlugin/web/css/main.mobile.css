@@ -62,10 +62,11 @@ textarea {
 
 table.edit_table {
 	width: 100%;
+	background: #E9E9E9;
 }
 
 table.edit_table tr {
-	margin-bottom: .5em;
+  background: #E9E9E9;
 }
 	
 
