@@ -599,7 +599,12 @@
       <trans-unit id="121">
         <source>Free</source>
         <target>Frei</target>
-      </trans-unit>           
+      </trans-unit>        
+      
+			<trans-unit id="248">
+				<source>Please create a separate booking for every single person!</source>
+				<target>Bitte erstellen Sie eine separate Buchung pro Person!</target>
+			</trans-unit>         
       
       <trans-unit id="">
         <source></source>
