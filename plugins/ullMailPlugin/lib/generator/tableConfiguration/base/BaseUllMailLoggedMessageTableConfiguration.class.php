@@ -29,6 +29,8 @@ class BaseUllMailLoggedMessageTableConfiguration extends UllTableConfiguration
     $this->setPlugin('ullMailPlugin');
     $this->setBreadcrumbClass('ullNewsletterBreadcrumbTree');     
     $this->setCustomRelationName('MainRecipient', __('Recipient', null, 'ullMailMessages'));
+    $this->setCustomRelationName('UllMailError', __('Error', null, 'common'));
+    
     
     $query = sfContext::getInstance()->getRequest()->getParameter('query');
     
