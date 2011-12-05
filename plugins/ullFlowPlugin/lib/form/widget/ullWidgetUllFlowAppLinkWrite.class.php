@@ -56,6 +56,11 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
       
       $doc = Doctrine::getTable('UllFlowDoc')->findOneById($value);
       
+      if (!$doc)
+      {
+        return __('Not found, possibly deleted', null, 'ullFlowMessages') . ' (Id:' . $value . ')';
+      }
+      
 //      $return .= __('Status', null, 'ullFlowMessages') . ': ' . $doc['UllFlowAction']['label'];
 //      $return .= ' ' . __('by', null, 'ullFlowMessages') . ' ' . $doc['Updator'];
 //      $return .= ' ' . __('on', null, 'ullFlowMessages') . ' ' . ull_format_date($doc['updated_at']);
@@ -63,6 +68,7 @@ class ullWidgetUllFlowAppLinkWrite extends sfWidgetFormInputHidden
       $return .= __('Status', null, 'ullFlowMessages') . ': '; 
       $return .= __('In step', null, 'ullFlowMessages') .  ' "' . $doc['UllFlowStep']['label'] . '"';
       $return .= ', ' . strtolower($doc['UllFlowAction']['label']);
+      
       if ($doc->UllFlowAction->is_show_assigned_to)
       {
         $return .= ' ' . $doc['UllEntity'];

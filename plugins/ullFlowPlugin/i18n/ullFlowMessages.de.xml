@@ -233,7 +233,14 @@
       <trans-unit id="301">
         <source>in step</source>
         <target>im Schritt</target>
-      </trans-unit>   
+      </trans-unit>
+      
+      <trans-unit id="302">
+        <source>Not found, possibly deleted</source>
+        <target>Nicht gefunden, wahrscheinlich gelöscht</target>
+      </trans-unit>            
+      
+      
       
     </body>
   </file>
