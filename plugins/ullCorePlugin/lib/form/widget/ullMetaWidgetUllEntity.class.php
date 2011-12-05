@@ -139,7 +139,13 @@ class ullMetaWidgetUllEntity extends ullMetaWidget
     
     $choices = $this->getChoices();
     
-    $this->columnConfig->setWidgetOption('renderer_class', 'sfWidgetFormSelectWithOptionAttributes');
+    if (!$this->columnConfig->getWidgetOption('renderer_class'))
+    { 
+      $this->columnConfig->setWidgetOption('renderer_class', 'sfWidgetFormSelectWithOptionAttributes');
+    }
+    
+    //Remove unsupported options
+    $this->columnConfig->removeWidgetOption('entity_classes');
     
     // Set widget
     $this->addWidget(new $this->writeWidget(
