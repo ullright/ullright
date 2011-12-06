@@ -14,8 +14,9 @@
 
 body {
   background-color: white;
-  font-family: sans-serif;
   color: #232;
+  font-family: 'Metrophobic', sans-serif;
+  font-size: 80%;    
 }
 
 #container {
