@@ -99,8 +99,8 @@
       </div>
       
       <div id="footer_links">
-        <?php if (ullCoreTools::isModuleEnabled('ullCms')): ?>
-          <?php $block = UllCmsContentBlockTable::findOneBySlug('powered-by') ?>
+        <?php $block = UllCmsContentBlockTable::findOneBySlug('powered-by') ?>
+        <?php if ($block): ?>
           <?php include_component('ullCms', 'editLink', array('doc' => $block)) ?>
           <?php echo $block->body ?>
         <?php else: ?>
