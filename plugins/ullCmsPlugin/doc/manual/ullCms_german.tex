@@ -43,19 +43,6 @@
 %\definecolor{DocBlue}{rgb}{0.1, 0.42, 0.59}
 %\setsansfont[Color = DocBlue]{Ubuntu}
 
-%enables pdf linking and attributes
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,%
-    citecolor=black,%
-    filecolor=black,%
-    linkcolor=black,%
-    urlcolor=black,%
-    pdfauthor={ull.at},%
-    pdftitle={ullCms Handbuch},%
-    pdfsubject={ullright - ullCms}
-}
-
 \chapterstyle{veelo}
 \headstyles{komalike}
 \pagestyle{empty}
@@ -76,6 +63,19 @@
 \usepackage{titlesec}
 
 \definecolor{ullblue}{rgb}{0.1, 0.42, 0.59}
+
+%enables pdf linking and attributes
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=ullblue,%
+    urlcolor=ullblue,%
+    pdfauthor={ull.at},%
+    pdftitle={ullCms Handbuch},%
+    pdfsubject={ullright - ullCms}
+}
 
 \titleformat{\chapter}[display]
 {\color{ullblue}\normalfont\huge\bfseries}{\chaptertitlename\
@@ -122,20 +122,14 @@ ullCms -- Webseiten einfach selbst verwalten
 Ein Modul der ullright-Plattform -- www.ullright.org
 }
 
-\vspace{1cm}
+\vspace{2.5cm}
 
 %we do not use xelatex anymore
 {%\fontspec[Scale=0.8]{Gentium Basic}
 \footnotesize
-13.01.2011 -- Klemens Ullmann-Marx
+Online ausprobieren unter \href{http://demo.ullright.org}{demo.ullright.org}. 
 
-14.01.2011 -- Klemens Ullmann-Marx
-
-17.01.2011 -- Martin Leonhartsberger-Schrott
-
-24.01.2011 -- Klemens Ullmann-Marx
-
-28.02.2011 -- Klemens Ullmann-Marx
+Zuletzt geändert: 07.12.2011 -- Klemens Ullmann-Marx
 }
 
 \clearpage
@@ -161,13 +155,25 @@ ullCms ist ein Modul der ullright-Plattform zur Inhaltsverwaltung von Webseiten.
 
 CMS steht für "`Content Management System"' und bedeutet Inhaltsverwaltungssystem.
 
-Die Funktionen im Überblick:
+\subsection{Die Highlights im Überblick}
+
+\begin{itemize}
+\item One-Click Bearbeitung von Seiten direkt auf der Webseite
+\item Auch mehrere Bilder einfach einfügen mit automatischer Skalierung und Drag'n'Drop Sortierung
+\item Content-Blöcke erlauben eine besonders gute Anpassung des Bearbeitungsmodus für verschiedene Inhaltsbereiche
+\item Völlig flexibles Layout 
+\item Sehr praktische Bedienung da nur notwendige Bedienelemente angezeigt werden.
+\item Newsmodul um Neuigkeiten auf der Startseite anzuzeigen
+\end{itemize}
+
+\subsection{Standard-CMS-Funktionen im Überblick}
 
 \begin{itemize}
 \item Bearbeiten und Erstellen von einzelnen Seiten
 \item Bilder einfügen
 \item Links setzen
-\item Menüeinträge verwalten
+\item Struktur der Website und Menüeinträge verwalten
+\item Mehrsprachenfähig
 \end{itemize}
 
 
@@ -184,7 +190,7 @@ Um die Gruppenmitgliedschaften zu verwalten klicken Sie in der Admin-Menüleiste
 Mehr über die Benutzer- und Gruppenverwaltung finden Sie im Handbuch "`ullUser"'.
 
 
-\section{Direktes Bearbeiten von Inhalten}
+\section{One-Click Bearbeitung von Inhalten}
 
 \begin{figure}[htp]
 \centering
@@ -193,16 +199,56 @@ Mehr über die Benutzer- und Gruppenverwaltung finden Sie im Handbuch "`ullUser"
 \label{fig:direct_edit}
 \end{figure}
 
-Wenn Sie angemeldet sind und die nötigen Berechtigungen besitzen erscheint vor jeder Überschrift ein Stiftsymbol (Icon) (Siehe Abbildung \vref{fig:direct_edit}). Durch Klick auf das Icon können Sie den entsprechenden Text sofort bearbeiten.
-7777777777
+Wenn Sie angemeldet sind und die nötigen Berechtigungen besitzen erscheint praktischerweise vor jedem bearbeitbaren Inhalt ein Stiftsymbol (Icon) (Siehe Abbildung \vref{fig:direct_edit}). Durch Klick auf das Icon können Sie den entsprechenden Text sofort bearbeiten.
 Näheres zur Bearbeitung selbst erfahren Sie im Kapitel \vref{sec:edit}.
 
 
 
 
-\section{Seiten verwalten}
+\section{Inhaltsverwaltung}
 
-Klicken Sie in der Admin-Menüleiste auf den Menüpunkt "`Seiten verwalten"'. Sie sehen nun eine Liste aller CMS-Seiten (Abbildung \vref{fig:list}):
+Klicken Sie in der Admin-Menüleiste auf den Menüpunkt "`Inhalte verwalten"'. 
+
+Als Modul der ullright Plattform ist die `Startseite` wie üblich aufgebaut (Abbildung \vref{fig:index}):
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{index}
+\caption{Startseite der Inhaltsverwaltung}
+\label{fig:index}
+\end{figure}
+
+\subsection{Neue Seite erstellen}
+
+Klicken Sie auf der auf "`Erstelle Seite"' um eine neue CMS-Seite zu erstellen. Alles weitere erfahren Sie im Kapitel \vref{sec:edit}.
+
+\subsection{Administration - Verwalte News-Einträge}
+
+Erlaubt Ihnen die Verwaltung von Newseinträgen auf Ihrer Homepage. Nur sichtbar, wenn das ullNews Modul aktiviert ist.
+
+\subsection{Administration - Verwalte Menü-Einträge}
+
+Erstellen oder Bearbeiten vom Menüeinträgen. Betroffen sind nur Menüeinträge die keine Seite sind, also keinen Inhalt haben.
+Beispiele: "`Hauptmenü"', "`Fußzeile"', etc.
+
+\subsection{Administration - Verwalte Content-Blöcke}
+
+Siehe Kapitel \vref{sec:contentblock}.
+
+\subsection{Suche}
+
+Wenn Ihre Webseite aus vielen Seiten besteht kann die Suchfunktion (Abbildung \vref{fig:search}) hilfreich sein .
+
+Geben Sie eine Suchbegriff oder auch nur einen Teil davon in das Suchfeld ein und drücken Sie $\Enter$ oder klicken Sie das Lupen-Symbol an.
+Die Liste beschränkt sich nun auf die Seiten, die den Suchbegriff im Betreff enthalten. Der Suchbegriff erscheint zusätzlich als "`Filter"'. Durch Klick auf das Papierkorb-Symbol entfernen Sie das Filterkriterium.
+
+\subsection{Abfragen}
+
+Klicken Sie hier um eine Liste aller Seiten anzuzeigen. Siehe Kapitel \vref{sec:edit}.
+
+\section{Liste aller Seiten}
+
+Sie sehen eine Liste aller CMS-Seiten (Abbildung \vref{fig:list}):
 
 \begin{figure}[htp]
 \centering
@@ -214,7 +260,7 @@ Klicken Sie in der Admin-Menüleiste auf den Menüpunkt "`Seiten verwalten"'. Si
 
 \subsection{Spalten}
 
-Folgende Spalten werden in der Liste angezeigt:
+Folgende Spalten werden üblicherweise in der Liste angezeigt:
 
 \begin{itemize}
 \item Titel der Seite
@@ -260,11 +306,14 @@ Die Liste beschränkt sich nun auf die Seiten, die den Suchbegriff im Betreff en
 
 \subsection{Neue Seite erstellen}
 
-Klicken Sie auf "`Erstellen"' um eine neue CMS-Seite zu erstellen. Alles weitere erfahren Sie im Kapitel \vref{sec:edit}.
+Klicken Sie auf der auf "`Erstellen"' um eine neue CMS-Seite zu erstellen. Alles weitere erfahren Sie im Kapitel \vref{sec:edit}.
 
 
 \section{Seiten bearbeiten}
 \label{sec:edit}
+
+Eine der Stärken von ullCms ist, dass es komplett an die Bedürfnisse des Kunden angepasst werden kann.
+Deshalb werden sich die Datenfelder Ihrer Installation wahrscheinlich von dieser Dokumentation unterscheiden. Im folgenden werden häufig eingesetze Felder behandelt.
 
 \begin{figure}[htp]
 \centering
@@ -284,33 +333,108 @@ Klicken Sie auf "`Erstellen"' um eine neue CMS-Seite zu erstellen. Alles weitere
 
 Der Titel Ihrer Seite wie er auf der Seite selbst als Überschrift angezeigt werden soll.
 
+\subsection{Menütitel}
+
+Der Titel des Seite für die Anzeige im Menü. Standardmäßig wird hier der Titel übernommen. Es kann aber sinnvoll sein einen kürzeren Text für die Menüs zu verwenden.
+
 \subsection{Text}
 
 ullCms bietet einen komfortablen
-Editor, der ähnlich wie OpenOffice Writer oder MS Word funktioniert.
+Editor (FCK- bzw CK-Editor), der ähnlich wie OpenOffice Writer oder MS Word funktioniert.
 Auch das Einfügen von Bildern oder Anhängen ist einfach möglich. 
 
 Alles rund um die Bedienung des Editors erfahren Sie im Kapitel \vref{sec:editor}.
 
-\subsection{Menütitel}
+\subsection{Bild}
 
-Der Titel des Seite für die Anzeige in einem Menü. Standardmäßig wird hier der Titel übernommen. Es kann aber sinnvoll sein einen z.B. kürzeren Titel für die Menüs zu verwenden.
+Je nach Ihrer Konfiguration können ein oder mehrere separate Felder für Bilder vorhanden sein.
+
+Beispiele:
+
+\begin{itemize}
+\item Bild, dass an einer bestimmten Stelle der Seite angezeigt wird
+\item Vorschaubilder z.B. bei Produkten
+\end{itemize}
+
+Sie brauchen sich nicht um die Größe des Bildes zu kümmern. Die Bilder werden automatisch passend skaliert.
+Auch der Speicherort wird automatisch gewählt.
+
+\subsection{Galerie / Multi-Upload}
+\label{sec:gallery}
+
+Besonders benutzerfreundlich ist die Funktion zum Hochladen mehrerer Bilder z.B: für eine Galerie.
+
+Highlights:
+\begin{itemize}
+\item Mehrere Bilde auf einmal auswählen und hochladen
+\item Unter Firefox sogar mittels Drag'n'Drop: Einfach mehrere Bilder im Explorer markieren und in den Webbrowser ziehen und dort fallen lassen
+\item Die Bilder werden automatisch skaliert
+\item Kleine Vorschaubilder werden automatisch erstellt
+\item Die Bilder können mit der Maus in die richtige Reihenfolge gezogen werden.
+\item Auch andere Dateien wie z.B. PDF, Word, Excel, OpenOffice usw. werden unterstützt und sogar ein Vorschaubild wird automatisch generiert.
+\end{itemize}
+
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{gallery}
+\caption{Galerie / Multi-Upload}
+\label{fig:gallery}
+\end{figure}
+
+
+
+
+
 
 \subsection{Übergeordneter Menüeintrag}
 
-Wählen Sie hier an welchem Punkt der Struktur Ihrer Webseite die aktuelle seite plaziert wird. Beispiele: "`Hauptmenü"', "`Fußzeile"' oder als Untermenüpunkt wie z.B. die Seite "`Anfängerkurse"' als Unterpunkt von "`Kurse"'.
+Wählen Sie hier an welchem Punkt der Struktur Ihrer Webseite die aktuelle Seite plaziert wird. Beispiele: "`Hauptmenü"', "`Fußzeile"' oder als Untermenüpunkt wie z.B. die Seite "`Anfängerkurse"' als Unterpunkt von "`Kurse"'.
 
 \subsection{Reihenfolge}
 
 Normalerweise werden die einzelnen Einträge in einem Menü wie z.B. dem Hauptmenü alphabetisch sortiert. In dieses Feld können sie ganze Zahlen eingeben um die Sortierung zu beeinflussen. Tipp: verwenden sie ganze 10er oder 100er Zahlen um später Einträge einfügen zu können. 
 
+\subsection{Tags / Schlagworte}
+\label{sec:tagging}
+
+Sie können Ihren Seiten mittels Tags kategorisieren. Diese sind dann sowohl in der Suche als auch für erweiterte Features wie z.B. der Vorschlags-Funktion (siehe Kapitel \vref{sec:recommendation}) auswertbar.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{tagging}
+\caption{Tagging}
+\label{fig:tagging}
+\end{figure}
+
+Geben Sie einen neues Schlagwort ein und klicken Sie auf "`Hinzufügen, oder klicken Sie auf ein bereits vorhandenes Schlagwort in der "'Tag-Cloud"`.
+
+Ein Klick auf das Papierkorb-Symbol entfernt ein gewähltes Schlagwort.
+
 \subsection{Ist aktiv}
 
 Der Status der Seite. Setzen Sie den Status auf "`Inaktiv"' um eine Seite den Besuchern nicht mehr anzuzeigen.
 
-\subsection{Eindeutige Bezeichnung}
+
+
+
+\subsection{Weitere Felder anzeigen}
+
+Klicken Sie auf "`Weitere Felder anzeigen"' um selten benötigte Felder zu bearbeiten.
+
+\subsubsection{Eindeutige Bezeichnung}
 
 Der Name der Seite wie er in der Adresszeile (URL) angezeigt wird. Beispiel: "'anfaenger-kurse"`.
+
+\subsubsection{Erstellt von/am}
+
+Wer und wann die Seite erstellt hat.
+
+\subsubsection{Zuletzt bearbeitet von/am}
+
+Wer und wann die Seite zuletzt bearbeitet hat.
+
+
 
 \subsection{Aktionen}
 
@@ -324,10 +448,14 @@ Für das Bearbeiten oder Erstellen mehrerer Seiten bietet ullCms einige praktisc
 \item Speichern und News-Eintrag erstellen - Wenn Sie das ullNews Modul verwenden können Sie hier direkt einen neuen News-Eintrag erstellen der zur eben bearbeiteten CMS-Seite verlinkt ist
 \end{itemize}
 
+
+
 \section{Text bearbeiten mit dem "`WYSIWYG"' Editor}
 \label{sec:editor}
 
-"`WYSIWYG"' steht für "`What you see is what you get"' also dass man schon bei der Eingabe sieht wie der Text letztendlich aussehen wird.
+"`WYSIWYG"' steht für "`What you see is what you get"',  also dass man schon bei der Eingabe sieht wie der Text letztendlich aussehen wird.
+
+Die angezeigten Formatierungs-Möglichkeiten können sich je nach Konfiguration und Editor-Version von Ihrer Installation unterscheiden.
 
 \begin{figure}[htp]
 \centering
@@ -465,17 +593,35 @@ Um diesem unerwünschten Verhalten vorzubeugen empfiehlt sich ein PDF in einem P
 \end{itemize}
 
 
+\section{Erweiterte Funktionen}
 
-\section{Sidebar Blöcke}
+\subsection{Content-Blöcke}
+\label{sec:contentblock}
 
-Unter Sidebar-Blöcken versteht man die auf jeder Seite wiederkehrenden Blöcke wie in Abbildung \vref{fig:direct_edit}) auf der linken Seite ersichtlich ("`Terminvereinbarung"', "`Urlaub"', ...).
+Erstellen und Bearbeiten von Content-Blöcken. Content-Blöcke sind direkt bearbeitebare Inhaltsbereiche die keine Seite im eigentlichen Sinne sind.
 
-Die Verwaltung ist ganz einfach, da jeder Sidebar-Block eine ganz normale CMS-Seite ist.
+Beispiele:
 
-Eine CMS-Seite wird zu einem Sidebar-Block in dem man bei "`Übergeordneten Menüeintrag"' "`Sidebar-Blöcke"' auswählt. (Siehe Kapitel \vref{sec:edit} für Details zum Bearbeiten von Seiten)
+\begin{itemize}
+\item Auf mehreren Seiten wiederkehrende Elemente wie z.B. Sidebar-Blöcke
+\item Elemente einer komplexen Seite die aus mehreren Bereichen aufgebaut
+\item Strukturierte Elemente die mehrfach vorkommen wie z.B. Team-Mitglieder
+\end{itemize}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{content_block_show}
+\caption{Content Blöcke für strukturierte Inhalte (Partner)}
+\label{fig:content_block_show}
+\end{figure}
+
+Siehe auch Abbildung \vref{fig:direct_edit}). Dort sind Content-Blöcke auf der linken Seite ersichtlich ("`Terminvereinbarung"', "`Urlaub"', ...).
+
+Die Verwaltung ist ganz einfach, da jeder Content-Block ähnlich wie eine normale CMS-Seite behandelt wird.
+Allerding lässt sich die Bearbeitungsseite (welche Felder, welche Editor-Optionen, ...) eigens konfigurieren.
 
 
-\section{Menüstruktur}
+\subsection{Menüstruktur}
 
 ullCms verwendet eine sehr flexible Menüstruktur. 
 
@@ -485,9 +631,6 @@ Beispiel für eine typische Struktur:
 
 Das Hauptmenü mit Menüpunkten wie z.B. Home, Über uns, Produkte, Kontakt, usw
 
-\subsubsection{Sidebar-Blöcke}
-
-Blöcke auf der linken oder rechten Seite des Contents. Beispiele: Anfahrt, Aktuelles, Facebook, ...
 
 \subsubsection{Fußzeile}
 
@@ -502,8 +645,37 @@ Hier können Sie Seiten plazieren die in keinem der oben genannten Menüs aufsch
 Verschieben Sie veraltete oder nicht mehr benötigte Seiten hierher um Ihre Menüstruktur sauber zu halten
 
 
+\subsection{Vorschlagsfunktion}
+\label{sec:recommendation}
+
+Die Auswahl von Tags (Schlagworten - siehe auch Kapitel \vref{sec:tagging}) für einzelne Seiten kann z.B. im Fall von Produktseiten für eine Vorschlags-Funktion verwendet werden. Auf einer Seite werden dabei verwandte Seiten vorgeschlagen. Dies wird über die Vergabe von gleichen Tags gesteuert
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{tagging}
+\caption{Gewählte Schlagworte für die Vorschlagsfunktion)}
+\label{fig:tagging2}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{recommendation}
+\caption{Vorschläge für verwandte Seiten mittels der Vergabe gleicher Schlagworte (auf der linken Seite)}
+\label{fig:recommendation}
+\end{figure}
 
 
+
+\section{Quellenangaben}
+
+Danke an folgende ull.at Kunden, die Screenshots ihrer Webseiten zur Verfügung stellten:
+
+\begin{itemize}
+\item Andreas Etzelstorfer - \href{http://www.backraum.at}{www.backraum.at}
+\item Dr. Tamara Meissnitzer - \href{http://www.hautarzt.md}{www.hautarzt.md}
+\item INSEQ DESIGN - \href{http://www.inseq.com}{www.inseq.com}
+\item ullright Demoseite - \href{http://demo.ullright.org}{demo.ullright.org}
+\end{itemize}
 
 
 
