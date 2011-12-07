@@ -30,6 +30,7 @@
 <?php // use_javascript('/js/my_javascript.js') ?>
 
 <?php /* Add other html head statements here like webfonts, stats, ... */?>
+<link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css' />
 
 </head>
 <!--  End of html head -->
