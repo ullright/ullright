@@ -45,12 +45,12 @@
 \contentsline {subsubsection}{E-Mail Link}{17}{subsubsection*.9}
 \contentsline {subsection}{\numberline {1.7.6}Datei hochladen}{17}{subsection.1.7.6}
 \contentsline {subsection}{\numberline {1.7.7}Tip f\IeC {\"u}r PDF-Dateien}{17}{subsection.1.7.7}
-\contentsline {section}{\numberline {1.8}Erweiterte Funktionen}{18}{section.1.8}
-\contentsline {subsection}{\numberline {1.8.1}Content-Bl\IeC {\"o}cke}{18}{subsection.1.8.1}
-\contentsline {subsection}{\numberline {1.8.2}Men\IeC {\"u}struktur}{18}{subsection.1.8.2}
+\contentsline {section}{\numberline {1.8}Men\IeC {\"u}struktur}{18}{section.1.8}
 \contentsline {subsubsection}{Hauptmen\IeC {\"u}}{18}{subsubsection*.10}
-\contentsline {subsubsection}{Fu\IeC {\ss }zeile}{19}{subsubsection*.11}
-\contentsline {subsubsection}{Unsichtbar - scheint in keinem Men\IeC {\"u} auf}{19}{subsubsection*.12}
-\contentsline {subsubsection}{Papierkorb - F\IeC {\"u}r nicht mehr aktuelles}{19}{subsubsection*.13}
-\contentsline {subsection}{\numberline {1.8.3}Vorschlagsfunktion}{19}{subsection.1.8.3}
-\contentsline {section}{\numberline {1.9}Quellenangaben}{20}{section.1.9}
+\contentsline {subsubsection}{Fu\IeC {\ss }zeile}{18}{subsubsection*.11}
+\contentsline {subsubsection}{Unsichtbar - scheint in keinem Men\IeC {\"u} auf}{18}{subsubsection*.12}
+\contentsline {subsubsection}{Papierkorb - F\IeC {\"u}r nicht mehr aktuelles}{18}{subsubsection*.13}
+\contentsline {section}{\numberline {1.9}Erweiterte Funktionen}{19}{section.1.9}
+\contentsline {subsection}{\numberline {1.9.1}Content-Bl\IeC {\"o}cke}{19}{subsection.1.9.1}
+\contentsline {subsection}{\numberline {1.9.2}Vorschlagsfunktion}{20}{subsection.1.9.2}
+\contentsline {section}{\numberline {1.10}Quellenangaben}{20}{section.1.10}
