@@ -2,99 +2,11 @@
 %default a4 one-sided article page setup
 \documentclass[article, a4paper, oneside, 11pt]{memoir}
 
-%the following three commands are necessary when using pdflatex
-%(set input/output encoding)
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{helvet}
-%use sans serife font for body 
-\renewcommand*\familydefault{\sfdefault}
+\input{../../../ullCorePlugin/doc/manual/ullright_manual_styles}
 
-%but with more tech-doc like margins
-\setlrmarginsandblock{2.8cm}{2.8cm}{*}
-\checkandfixthelayout
-
-%for the german language
-\usepackage[ngerman]{babel}
-
-%including pictures
-\usepackage{graphicx}
-\graphicspath{{./figures/}}
-
-%wrapping text around figures
-\usepackage{wrapfig}
-
-%provides symbols for shift, enter, etc.
-\usepackage{keystroke}
-
-%url handling
-\usepackage{url}
-
-%for code examples
-\usepackage{listings}
-
-%elaborate references
-\usepackage[ngerman]{varioref}
-
-%we do not use xelatex anymore
-%allows convenient font/color specification
-%\usepackage{xcolor}
-%\usepackage{fontspec}
-%'classic' tex mappings, e.g. -- => en-dash
-%\defaultfontfeatures{Mapping=tex-text}
-%\setromanfont{Gentium Basic}
-%\definecolor{DocBlue}{rgb}{0.1, 0.42, 0.59}
-%\setsansfont[Color = DocBlue]{Ubuntu}
-
-%enables pdf linking and attributes
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,%
-    citecolor=black,%
-    filecolor=black,%
-    linkcolor=black,%
-    urlcolor=black,%
-    pdfauthor={ull.at},%
-    pdftitle={ullNewsletter Handbuch},%
-    pdfsubject={ullright - ullNewsletter}
-}
-
-%\chapterstyle{veelo}
-%\headstyles{komalike}
-\pagestyle{empty}
-
-%header and footer images on every page
-\usepackage{wallpaper}
-\ULCornerWallPaper{1.0}{header}
-\LLCornerWallPaper{1.0}{footer}
-
-%Precise figure placement
-% \usepackage{float}
-
-%padding for fbox borders
-%\setlength\fboxsep{0pt}
-
-%color headlines
-\usepackage{color}
-\usepackage{titlesec}
-
-\definecolor{ullblue}{rgb}{0.1, 0.42, 0.59}
-
-%\titleformat{\chapter}[display]{\color{ullblue}\normalfont\Huge\bfseries}
-%{\chaptertitlename\thechapter}{20pt}{\Huge}
-
-\titleformat{\chapter}{\color{ullblue}\normalfont\huge\bfseries}{\thechapter}{0.75em}{\huge}
-
-% Do not indent paragraphes but add newlines
-\usepackage{parskip}
-\setlength{\parindent}{0cm}
-\setlength{\parskip}{2mm}
-
-
-%memoir recommendation
-\clubpenalty=10000
-\widowpenalty=10000
-\raggedbottom
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Document starts here %
+%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{document}
@@ -108,34 +20,24 @@
 
 \vspace{3cm}
 
-%we do not use xelatex anymore
-{%\fontspec[Scale=1.4, Color = DocBlue]{Ubuntu Bold}
+
+{
 \huge
 \color{ullblue}
 ullNewsletter -- Erfolg durch informierte Kunden
 }
 
-\vspace{0.2cm}
-
-{%\fontspec[Scale=1.4, Color = DocBlue]{Ubuntu Bold}
-\large
-%\color{ullblue}
-Ein Modul der ullright-Plattform -- www.ullright.org
-}
-
 \vspace{1cm}
 
-%we do not use xelatex anymore
-{%\fontspec[Scale=0.8]{Gentium Basic}
-\footnotesize
-01.03.2011 -- Klemens Ullmann-Marx
-}
+Ein Modul der ullright-Plattform -- \href{http://www.ullright.org}{www.ullright.org}
+
+Online ausprobieren unter \href{http://demo.ullright.org}{demo.ullright.org}. 
+
+Zuletzt geändert: 07.12.2011 -- Klemens Ullmann-Marx
 
 \clearpage
 
 \pagestyle{plain}
-
-%\setcounter{page}{1}
 
 %number and include in toc up until subsections
 \setcounter{secnumdepth}{2}
@@ -148,7 +50,7 @@ Ein Modul der ullright-Plattform -- www.ullright.org
 
 ullNewsletter ist ein leistungsfähiges Modul der ullright Plattform zum Versand von E-Mail Newslettern.
 
-Hinter einer sehr einfachen Bedienoberfläche arbeitet ein komplexes System um Ihre Newsletter mit grösstmöglicher Sicherheit an Ihre Kunden zu versenden.
+Hinter einer sehr einfachen Bedienoberfläche arbeitet ein komplexes System um Ihre Newsletter verlässlich und mit größtmöglicher Sicherheit an Ihre Kunden zu versenden.
 
 Die wichtigsten Funktionen:
 
@@ -158,13 +60,79 @@ Die wichtigsten Funktionen:
  \item Mehrere Layouts können hinterlegt und beim Versand ausgewählt werden
  \item HTML-E-Mails und Grafiken werden unterstützt
  \item Einfache Abmeldung (Unsubscribe)
- \item Automatisierte Behandlung von Fehlern und Out-of-Office Antworten (Bounce-Management)
+ \item Automatisierte Behandlung von fehlerhaften Empfänger-Adressen und Out-of-Office Antworten (Bounce-Management)
  \item Online Version zum Ansehen des Newsletters auf Ihrer Website
- \item Tracking zur Nachverfolgung wieviele Empfänger Ihren Newsletter gelesen haben
+ \item Tracking zur Kontrolle des Erfolgs Ihrer Kampagne
 \end{itemize}
+
+\chapter{Startseite}
+
+Klicken Sie auf "`Newsletter"' um zur Startseite der Newsletter-Verwaltung zu gelangen
+
+Als Modul der ullright Plattform ist die `Startseite` wie üblich aufgebaut (Abbildung \vref{fig:index}):
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{index}
+\caption{Startseite der Newsletter-Verwaltung}
+\label{fig:index}
+\end{figure}
+
+
+\section{Newsletter verfassen}
+
+Klicken Sie auf der auf "`Newsletter verfassen"' um einen neuen Newsletter zu erstellen. Alles weitere erfahren Sie im Kapitel \vref{sec:edit}.
+
+\section{Administration - Verwalte Verteiler}
+
+Erstellen und Verwalten der verschiedenen Verteiler. Siehe Kapitel \vref{sec:mailinglists}. 
+
+\section{Administration - Verwalte Layouts}
+
+Erstellen und Verwalten von Layouts für Newsletter. Siehe Kapitel \vref{sec:layouts}. 
+
+
+\section{Suche}
+
+Durchsucht den Betreff der bisher versandten Newsletter.
+
+Geben Sie eine Suchbegriff oder auch nur einen Teil davon in das Suchfeld ein und drücken Sie $\Enter$ oder klicken Sie das Lupen-Symbol an.
+
+\section{Abfragen}
+
+Öffnen Sie eine Liste aller Newsletter, oder wählen Sie eine Liste eines bestimmten Verteilers. Siehe auch Kapitel \vref{sec:list}.
+
+
+
+\chapter{Listenansicht}
+\label{sec:list}
+
+In der Listenansicht sehen Sie einen Überblick Ihrer Newsletter.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{list}
+\caption{Liste der Newsletter}
+\label{fig:list}
+\end{figure}
+
+\section{Filtereinstellungen}
+
+Filter 
+
+Über die Filterleiste können Sie nach Newslettern suchen (Betreff und Text wird durchsucht), sich Newsletter nur an bestimmte Verteiler anzeigen lassen, oder auch inaktive (quasi gelöschte) Newsletter anzeigen lassen.
+
+\section{Liste}
+
+In der Liste selbst sehen Sie die wichtigsten Informationen zum Status der einzelnen Newsletter.
+
+
+
+Klicken Sie auf das Stiftsymbol um einen Newsletter zu bearbeiten. Siehe hierzu auch Kapitel \vref{sec:edit}.
 
 
 \chapter{Newsletter verfassen}
+\label{sec:edit}
 
 Klicken Sie auf der Newletter-Startseite, oder auf der Listenansicht auf "`Erstellen"'
 
@@ -249,10 +217,14 @@ Beispiel:
 
 Erhalten Sie 4-6 Mal jährlich interessante Produktneuigkeiten und Erfahrungsberichte aus dem Bereich des Gemüsehandels.
 
-\subsection{Standardmäßig angemeldet}
+\subsection{Automatisch anmelden}
 
 Hier geht es darum ob neu angelegte Benutzer automatisch für den aktuellen Newsletter angemeldet werden.
 Dabei ist es egal ob Sie einen Benutzer händisch anlegen oder ob sich der Benutzer selbst auf Ihrer Webseite registriert.
+
+\subsection{Standard-Verteiler}
+
+Wenn Sie dieses Feld anhaken wird beim Verfassen eines neuen Newsletter dieser Verteiler automatisch ausgewählt.
 
 \subsection{Ist aktiv}
 
@@ -320,6 +292,7 @@ Folgende Platzhalter stehen zur Verfügung:
  \item[\lbrack ONLINE\_LINK\rbrack] Fügt den Link zur Online-Version des Newsletters ein ("`Haben Sie Probleme mit der Ansicht des Newsletters klicken Sie hier..."')
  \item[\lbrack CONTENT\rbrack] Platzhalter für den eigentlichen Inhalt des Newsletters
  \item[\lbrack UNSUBSCRIBE\rbrack] Fügt die Unsubscribe-Links zur Abmeldung ein
+ \item[\lbrack TRACKING\rbrack] Fügt die Funktionalität für das Tracking ein ("`Wer hat den Newsletter gelesen"')
 \end{description}
 
 
@@ -335,6 +308,10 @@ Ein einfaches Beispiel:
 <p>[UNSUBSCRIBE]</p>
 <p>(C) 2011 by ull.at</p>
 \end{lstlisting}
+
+\subsection{Ist Standardlayout}
+
+Wenn Sie dieses Feld anhaken wird dieses Layout beim Verfassen eines neuen Newsletter automatisch vor-ausgewählt.
 
 \section{Bearbeiten}
 

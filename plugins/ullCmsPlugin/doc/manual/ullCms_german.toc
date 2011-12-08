@@ -1,56 +1,56 @@
 \select@language {ngerman}
-\contentsline {section}{\numberline {1.1}Einleitung}{4}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Die Highlights im \IeC {\"U}berblick}{4}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Standard-CMS-Funktionen im \IeC {\"U}berblick}{4}{subsection.1.1.2}
-\contentsline {section}{\numberline {1.2}Berechtigungen}{5}{section.1.2}
-\contentsline {section}{\numberline {1.3}One-Click Bearbeitung von Inhalten}{5}{section.1.3}
-\contentsline {section}{\numberline {1.4}Inhaltsverwaltung}{6}{section.1.4}
-\contentsline {subsection}{\numberline {1.4.1}Neue Seite erstellen}{6}{subsection.1.4.1}
-\contentsline {subsection}{\numberline {1.4.2}Administration - Verwalte News-Eintr\IeC {\"a}ge}{6}{subsection.1.4.2}
-\contentsline {subsection}{\numberline {1.4.3}Administration - Verwalte Men\IeC {\"u}-Eintr\IeC {\"a}ge}{6}{subsection.1.4.3}
-\contentsline {subsection}{\numberline {1.4.4}Administration - Verwalte Content-Bl\IeC {\"o}cke}{7}{subsection.1.4.4}
-\contentsline {subsection}{\numberline {1.4.5}Suche}{7}{subsection.1.4.5}
-\contentsline {subsection}{\numberline {1.4.6}Abfragen}{7}{subsection.1.4.6}
-\contentsline {section}{\numberline {1.5}Liste aller Seiten}{7}{section.1.5}
-\contentsline {subsection}{\numberline {1.5.1}Spalten}{7}{subsection.1.5.1}
-\contentsline {subsection}{\numberline {1.5.2}Sortieren}{7}{subsection.1.5.2}
-\contentsline {subsection}{\numberline {1.5.3}Bl\IeC {\"a}ttern}{8}{subsection.1.5.3}
-\contentsline {subsection}{\numberline {1.5.4}Suche}{9}{subsection.1.5.4}
-\contentsline {subsection}{\numberline {1.5.5}Neue Seite erstellen}{9}{subsection.1.5.5}
-\contentsline {section}{\numberline {1.6}Seiten bearbeiten}{9}{section.1.6}
-\contentsline {subsection}{\numberline {1.6.1}Titel}{9}{subsection.1.6.1}
-\contentsline {subsection}{\numberline {1.6.2}Men\IeC {\"u}titel}{10}{subsection.1.6.2}
-\contentsline {subsection}{\numberline {1.6.3}Text}{10}{subsection.1.6.3}
-\contentsline {subsection}{\numberline {1.6.4}Bild}{10}{subsection.1.6.4}
-\contentsline {subsection}{\numberline {1.6.5}Galerie / Multi-Upload}{11}{subsection.1.6.5}
-\contentsline {subsection}{\numberline {1.6.6}\IeC {\"U}bergeordneter Men\IeC {\"u}eintrag}{12}{subsection.1.6.6}
-\contentsline {subsection}{\numberline {1.6.7}Reihenfolge}{12}{subsection.1.6.7}
-\contentsline {subsection}{\numberline {1.6.8}Tags / Schlagworte}{13}{subsection.1.6.8}
-\contentsline {subsection}{\numberline {1.6.9}Ist aktiv}{13}{subsection.1.6.9}
-\contentsline {subsection}{\numberline {1.6.10}Weitere Felder anzeigen}{13}{subsection.1.6.10}
-\contentsline {subsubsection}{Eindeutige Bezeichnung}{13}{subsubsection*.2}
-\contentsline {subsubsection}{Erstellt von/am}{13}{subsubsection*.3}
-\contentsline {subsubsection}{Zuletzt bearbeitet von/am}{13}{subsubsection*.4}
-\contentsline {subsection}{\numberline {1.6.11}Aktionen}{14}{subsection.1.6.11}
-\contentsline {section}{\numberline {1.7}Text bearbeiten mit dem "`WYSIWYG"' Editor}{14}{section.1.7}
-\contentsline {subsection}{\numberline {1.7.1}Text schreiben}{14}{subsection.1.7.1}
-\contentsline {subsection}{\numberline {1.7.2}Text formatieren}{15}{subsection.1.7.2}
-\contentsline {subsection}{\numberline {1.7.3}Bild einf\IeC {\"u}gen}{15}{subsection.1.7.3}
-\contentsline {subsection}{\numberline {1.7.4}Bildeigenschaften \IeC {\"a}ndern}{15}{subsection.1.7.4}
-\contentsline {subsubsection}{Reiter "`Bild-Info"'}{16}{subsubsection*.5}
-\contentsline {subsubsection}{Reiter "`Erweitert"'}{16}{subsubsection*.6}
-\contentsline {subsection}{\numberline {1.7.5}Link erstellen}{16}{subsection.1.7.5}
-\contentsline {subsubsection}{Link zu einer Internetadresse (URL)}{16}{subsubsection*.7}
-\contentsline {subsubsection}{Link zu einer anderen CMS-Seite}{17}{subsubsection*.8}
-\contentsline {subsubsection}{E-Mail Link}{17}{subsubsection*.9}
-\contentsline {subsection}{\numberline {1.7.6}Datei hochladen}{17}{subsection.1.7.6}
-\contentsline {subsection}{\numberline {1.7.7}Tip f\IeC {\"u}r PDF-Dateien}{17}{subsection.1.7.7}
-\contentsline {section}{\numberline {1.8}Men\IeC {\"u}struktur}{18}{section.1.8}
-\contentsline {subsubsection}{Hauptmen\IeC {\"u}}{18}{subsubsection*.10}
-\contentsline {subsubsection}{Fu\IeC {\ss }zeile}{18}{subsubsection*.11}
-\contentsline {subsubsection}{Unsichtbar - scheint in keinem Men\IeC {\"u} auf}{18}{subsubsection*.12}
-\contentsline {subsubsection}{Papierkorb - F\IeC {\"u}r nicht mehr aktuelles}{18}{subsubsection*.13}
-\contentsline {section}{\numberline {1.9}Erweiterte Funktionen}{19}{section.1.9}
-\contentsline {subsection}{\numberline {1.9.1}Content-Bl\IeC {\"o}cke}{19}{subsection.1.9.1}
-\contentsline {subsection}{\numberline {1.9.2}Vorschlagsfunktion}{20}{subsection.1.9.2}
-\contentsline {section}{\numberline {1.10}Quellenangaben}{20}{section.1.10}
+\contentsline {chapter}{\chapternumberline {1}Einleitung}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}Die Highlights im \IeC {\"U}berblick}{4}{section.1.1}
+\contentsline {section}{\numberline {1.2}Standard-CMS-Funktionen im \IeC {\"U}berblick}{4}{section.1.2}
+\contentsline {chapter}{\chapternumberline {2}Berechtigungen}{5}{chapter.2}
+\contentsline {chapter}{\chapternumberline {3}One-Click Bearbeitung von Inhalten}{5}{chapter.3}
+\contentsline {chapter}{\chapternumberline {4}Inhaltsverwaltung}{5}{chapter.4}
+\contentsline {section}{\numberline {4.1}Neue Seite erstellen}{7}{section.4.1}
+\contentsline {section}{\numberline {4.2}Administration - Verwalte News-Eintr\IeC {\"a}ge}{7}{section.4.2}
+\contentsline {section}{\numberline {4.3}Administration - Verwalte Men\IeC {\"u}-Eintr\IeC {\"a}ge}{7}{section.4.3}
+\contentsline {section}{\numberline {4.4}Administration - Verwalte Content-Bl\IeC {\"o}cke}{7}{section.4.4}
+\contentsline {section}{\numberline {4.5}Suche}{7}{section.4.5}
+\contentsline {section}{\numberline {4.6}Abfragen}{7}{section.4.6}
+\contentsline {chapter}{\chapternumberline {5}Liste aller Seiten}{8}{chapter.5}
+\contentsline {section}{\numberline {5.1}Spalten}{8}{section.5.1}
+\contentsline {section}{\numberline {5.2}Sortieren}{9}{section.5.2}
+\contentsline {section}{\numberline {5.3}Bl\IeC {\"a}ttern}{9}{section.5.3}
+\contentsline {section}{\numberline {5.4}Suche}{9}{section.5.4}
+\contentsline {section}{\numberline {5.5}Neue Seite erstellen}{10}{section.5.5}
+\contentsline {chapter}{\chapternumberline {6}Seiten bearbeiten}{10}{chapter.6}
+\contentsline {section}{\numberline {6.1}Titel}{10}{section.6.1}
+\contentsline {section}{\numberline {6.2}Men\IeC {\"u}titel}{10}{section.6.2}
+\contentsline {section}{\numberline {6.3}Text}{11}{section.6.3}
+\contentsline {section}{\numberline {6.4}Bild}{11}{section.6.4}
+\contentsline {section}{\numberline {6.5}Galerie / Multi-Upload}{12}{section.6.5}
+\contentsline {section}{\numberline {6.6}\IeC {\"U}bergeordneter Men\IeC {\"u}eintrag}{13}{section.6.6}
+\contentsline {section}{\numberline {6.7}Reihenfolge}{13}{section.6.7}
+\contentsline {section}{\numberline {6.8}Tags / Schlagworte}{13}{section.6.8}
+\contentsline {section}{\numberline {6.9}Ist aktiv}{14}{section.6.9}
+\contentsline {section}{\numberline {6.10}Weitere Felder anzeigen}{14}{section.6.10}
+\contentsline {subsection}{\numberline {6.10.1}Eindeutige Bezeichnung}{14}{subsection.6.10.1}
+\contentsline {subsection}{\numberline {6.10.2}Erstellt von/am}{14}{subsection.6.10.2}
+\contentsline {subsection}{\numberline {6.10.3}Zuletzt bearbeitet von/am}{14}{subsection.6.10.3}
+\contentsline {section}{\numberline {6.11}Aktionen}{14}{section.6.11}
+\contentsline {chapter}{\chapternumberline {7}Text bearbeiten mit dem "`WYSIWYG"' Editor}{15}{chapter.7}
+\contentsline {section}{\numberline {7.1}Text schreiben}{15}{section.7.1}
+\contentsline {section}{\numberline {7.2}Text formatieren}{16}{section.7.2}
+\contentsline {section}{\numberline {7.3}Bild einf\IeC {\"u}gen}{16}{section.7.3}
+\contentsline {section}{\numberline {7.4}Bildeigenschaften \IeC {\"a}ndern}{17}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Reiter "`Bild-Info"'}{17}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Reiter "`Erweitert"'}{17}{subsection.7.4.2}
+\contentsline {section}{\numberline {7.5}Link erstellen}{17}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Link zu einer Internetadresse (URL)}{17}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}Link zu einer anderen CMS-Seite}{18}{subsection.7.5.2}
+\contentsline {subsection}{\numberline {7.5.3}E-Mail Link}{18}{subsection.7.5.3}
+\contentsline {section}{\numberline {7.6}Datei hochladen}{18}{section.7.6}
+\contentsline {section}{\numberline {7.7}Tip f\IeC {\"u}r PDF-Dateien}{19}{section.7.7}
+\contentsline {chapter}{\chapternumberline {8}Men\IeC {\"u}struktur}{19}{chapter.8}
+\contentsline {section}{\numberline {8.1}Hauptmen\IeC {\"u}}{19}{section.8.1}
+\contentsline {section}{\numberline {8.2}Fu\IeC {\ss }zeile}{19}{section.8.2}
+\contentsline {section}{\numberline {8.3}Unsichtbar - scheint in keinem Men\IeC {\"u} auf}{20}{section.8.3}
+\contentsline {section}{\numberline {8.4}Papierkorb - F\IeC {\"u}r nicht mehr aktuelles}{20}{section.8.4}
+\contentsline {chapter}{\chapternumberline {9}Erweiterte Funktionen}{20}{chapter.9}
+\contentsline {section}{\numberline {9.1}Content-Bl\IeC {\"o}cke}{20}{section.9.1}
+\contentsline {section}{\numberline {9.2}Vorschlagsfunktion}{21}{section.9.2}
+\contentsline {chapter}{\chapternumberline {10}Quellenangaben}{22}{chapter.10}

@@ -1,43 +1,55 @@
-\BOOKMARK [1][-]{section.1.1}{Einleitung}{}
-\BOOKMARK [2][-]{subsection.1.1.1}{Die Highlights im \334berblick}{section.1.1}
-\BOOKMARK [2][-]{subsection.1.1.2}{Standard-CMS-Funktionen im \334berblick}{section.1.1}
-\BOOKMARK [1][-]{section.1.2}{Berechtigungen}{}
-\BOOKMARK [1][-]{section.1.3}{One-Click Bearbeitung von Inhalten}{}
-\BOOKMARK [1][-]{section.1.4}{Inhaltsverwaltung}{}
-\BOOKMARK [2][-]{subsection.1.4.1}{Neue Seite erstellen}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.2}{Administration - Verwalte News-Eintr\344ge}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.3}{Administration - Verwalte Men\374-Eintr\344ge}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.4}{Administration - Verwalte Content-Bl\366cke}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.5}{Suche}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.6}{Abfragen}{section.1.4}
-\BOOKMARK [1][-]{section.1.5}{Liste aller Seiten}{}
-\BOOKMARK [2][-]{subsection.1.5.1}{Spalten}{section.1.5}
-\BOOKMARK [2][-]{subsection.1.5.2}{Sortieren}{section.1.5}
-\BOOKMARK [2][-]{subsection.1.5.3}{Bl\344ttern}{section.1.5}
-\BOOKMARK [2][-]{subsection.1.5.4}{Suche}{section.1.5}
-\BOOKMARK [2][-]{subsection.1.5.5}{Neue Seite erstellen}{section.1.5}
-\BOOKMARK [1][-]{section.1.6}{Seiten bearbeiten}{}
-\BOOKMARK [2][-]{subsection.1.6.1}{Titel}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.2}{Men\374titel}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.3}{Text}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.4}{Bild}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.5}{Galerie / Multi-Upload}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.6}{\334bergeordneter Men\374eintrag}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.7}{Reihenfolge}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.8}{Tags / Schlagworte}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.9}{Ist aktiv}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.10}{Weitere Felder anzeigen}{section.1.6}
-\BOOKMARK [2][-]{subsection.1.6.11}{Aktionen}{section.1.6}
-\BOOKMARK [1][-]{section.1.7}{Text bearbeiten mit dem \214WYSIWYG\215 Editor}{}
-\BOOKMARK [2][-]{subsection.1.7.1}{Text schreiben}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.2}{Text formatieren}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.3}{Bild einf\374gen}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.4}{Bildeigenschaften \344ndern}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.5}{Link erstellen}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.6}{Datei hochladen}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.7}{Tip f\374r PDF-Dateien}{section.1.7}
-\BOOKMARK [1][-]{section.1.8}{Men\374struktur}{}
-\BOOKMARK [1][-]{section.1.9}{Erweiterte Funktionen}{}
-\BOOKMARK [2][-]{subsection.1.9.1}{Content-Bl\366cke}{section.1.9}
-\BOOKMARK [2][-]{subsection.1.9.2}{Vorschlagsfunktion}{section.1.9}
-\BOOKMARK [1][-]{section.1.10}{Quellenangaben}{}
+\BOOKMARK [0][-]{chapter.1}{Einleitung}{}
+\BOOKMARK [1][-]{section.1.1}{Die Highlights im \334berblick}{chapter.1}
+\BOOKMARK [1][-]{section.1.2}{Standard-CMS-Funktionen im \334berblick}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{Berechtigungen}{}
+\BOOKMARK [0][-]{chapter.3}{One-Click Bearbeitung von Inhalten}{}
+\BOOKMARK [0][-]{chapter.4}{Inhaltsverwaltung}{}
+\BOOKMARK [1][-]{section.4.1}{Neue Seite erstellen}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{Administration - Verwalte News-Eintr\344ge}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Administration - Verwalte Men\374-Eintr\344ge}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Administration - Verwalte Content-Bl\366cke}{chapter.4}
+\BOOKMARK [1][-]{section.4.5}{Suche}{chapter.4}
+\BOOKMARK [1][-]{section.4.6}{Abfragen}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Liste aller Seiten}{}
+\BOOKMARK [1][-]{section.5.1}{Spalten}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{Sortieren}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{Bl\344ttern}{chapter.5}
+\BOOKMARK [1][-]{section.5.4}{Suche}{chapter.5}
+\BOOKMARK [1][-]{section.5.5}{Neue Seite erstellen}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Seiten bearbeiten}{}
+\BOOKMARK [1][-]{section.6.1}{Titel}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Men\374titel}{chapter.6}
+\BOOKMARK [1][-]{section.6.3}{Text}{chapter.6}
+\BOOKMARK [1][-]{section.6.4}{Bild}{chapter.6}
+\BOOKMARK [1][-]{section.6.5}{Galerie / Multi-Upload}{chapter.6}
+\BOOKMARK [1][-]{section.6.6}{\334bergeordneter Men\374eintrag}{chapter.6}
+\BOOKMARK [1][-]{section.6.7}{Reihenfolge}{chapter.6}
+\BOOKMARK [1][-]{section.6.8}{Tags / Schlagworte}{chapter.6}
+\BOOKMARK [1][-]{section.6.9}{Ist aktiv}{chapter.6}
+\BOOKMARK [1][-]{section.6.10}{Weitere Felder anzeigen}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.10.1}{Eindeutige Bezeichnung}{section.6.10}
+\BOOKMARK [2][-]{subsection.6.10.2}{Erstellt von/am}{section.6.10}
+\BOOKMARK [2][-]{subsection.6.10.3}{Zuletzt bearbeitet von/am}{section.6.10}
+\BOOKMARK [1][-]{section.6.11}{Aktionen}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Text bearbeiten mit dem \214WYSIWYG\215 Editor}{}
+\BOOKMARK [1][-]{section.7.1}{Text schreiben}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Text formatieren}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{Bild einf\374gen}{chapter.7}
+\BOOKMARK [1][-]{section.7.4}{Bildeigenschaften \344ndern}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.4.1}{Reiter \214Bild-Info\215}{section.7.4}
+\BOOKMARK [2][-]{subsection.7.4.2}{Reiter \214Erweitert\215}{section.7.4}
+\BOOKMARK [1][-]{section.7.5}{Link erstellen}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.5.1}{Link zu einer Internetadresse \(URL\)}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.2}{Link zu einer anderen CMS-Seite}{section.7.5}
+\BOOKMARK [2][-]{subsection.7.5.3}{E-Mail Link}{section.7.5}
+\BOOKMARK [1][-]{section.7.6}{Datei hochladen}{chapter.7}
+\BOOKMARK [1][-]{section.7.7}{Tip f\374r PDF-Dateien}{chapter.7}
+\BOOKMARK [0][-]{chapter.8}{Men\374struktur}{}
+\BOOKMARK [1][-]{section.8.1}{Hauptmen\374}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{Fu\337zeile}{chapter.8}
+\BOOKMARK [1][-]{section.8.3}{Unsichtbar - scheint in keinem Men\374 auf}{chapter.8}
+\BOOKMARK [1][-]{section.8.4}{Papierkorb - F\374r nicht mehr aktuelles}{chapter.8}
+\BOOKMARK [0][-]{chapter.9}{Erweiterte Funktionen}{}
+\BOOKMARK [1][-]{section.9.1}{Content-Bl\366cke}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{Vorschlagsfunktion}{chapter.9}
+\BOOKMARK [0][-]{chapter.10}{Quellenangaben}{}

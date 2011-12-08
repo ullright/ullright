@@ -1,27 +1,39 @@
 \BOOKMARK [0][-]{chapter.1}{\334berblick}{}
-\BOOKMARK [0][-]{chapter.2}{Listenansicht}{}
-\BOOKMARK [1][-]{section.2.1}{Filterleiste}{chapter.2}
-\BOOKMARK [1][-]{section.2.2}{Liste}{chapter.2}
-\BOOKMARK [0][-]{chapter.3}{Newsletter verfassen}{}
-\BOOKMARK [1][-]{section.3.1}{Felder}{chapter.3}
-\BOOKMARK [2][-]{subsection.3.1.1}{Verteiler}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.2}{Betreff}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.3}{Text}{section.3.1}
-\BOOKMARK [2][-]{subsection.3.1.4}{Layout}{section.3.1}
-\BOOKMARK [1][-]{section.3.2}{Senden}{chapter.3}
-\BOOKMARK [0][-]{chapter.4}{Verteiler}{}
-\BOOKMARK [1][-]{section.4.1}{Verwaltung}{chapter.4}
-\BOOKMARK [1][-]{section.4.2}{Erstellen}{chapter.4}
-\BOOKMARK [2][-]{subsection.4.2.1}{Name}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.2}{Beschreibung}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.3}{Automatisch anmelden}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.4}{Standard-Verteiler}{section.4.2}
-\BOOKMARK [2][-]{subsection.4.2.5}{Ist aktiv}{section.4.2}
-\BOOKMARK [0][-]{chapter.5}{Layouts}{}
+\BOOKMARK [0][-]{chapter.2}{Startseite}{}
+\BOOKMARK [1][-]{section.2.1}{Newsletter verfassen}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Administration - Verwalte Verteiler}{chapter.2}
+\BOOKMARK [1][-]{section.2.3}{Administration - Verwalte Layouts}{chapter.2}
+\BOOKMARK [1][-]{section.2.4}{Suche}{chapter.2}
+\BOOKMARK [1][-]{section.2.5}{Abfragen}{chapter.2}
+\BOOKMARK [0][-]{chapter.3}{Listenansicht}{}
+\BOOKMARK [1][-]{section.3.1}{Filtereinstellungen}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{Aktionsleiste}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{Liste}{chapter.3}
+\BOOKMARK [2][-]{subsection.3.3.1}{Bearbeiten}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.2}{Gesamtanzahl Empf\344nger}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.3}{Versandt}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.4}{Gelesen}{section.3.3}
+\BOOKMARK [2][-]{subsection.3.3.5}{Unzustellbar}{section.3.3}
+\BOOKMARK [0][-]{chapter.4}{Newsletter verfassen}{}
+\BOOKMARK [1][-]{section.4.1}{Felder}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.1.1}{Verteiler}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.2}{Betreff}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.3}{Text}{section.4.1}
+\BOOKMARK [2][-]{subsection.4.1.4}{Layout}{section.4.1}
+\BOOKMARK [1][-]{section.4.2}{Senden}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Verteiler}{}
 \BOOKMARK [1][-]{section.5.1}{Verwaltung}{chapter.5}
 \BOOKMARK [1][-]{section.5.2}{Erstellen}{chapter.5}
 \BOOKMARK [2][-]{subsection.5.2.1}{Name}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.2}{HTML-Head}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.3}{HTML-Body}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.4}{Ist Standardlayout}{section.5.2}
-\BOOKMARK [1][-]{section.5.3}{Bearbeiten}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.2.2}{Beschreibung}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.3}{Automatisch anmelden}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.4}{Standard-Verteiler}{section.5.2}
+\BOOKMARK [2][-]{subsection.5.2.5}{Ist aktiv}{section.5.2}
+\BOOKMARK [0][-]{chapter.6}{Layouts}{}
+\BOOKMARK [1][-]{section.6.1}{Verwaltung}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Erstellen}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.2.1}{Name}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.2}{HTML-Head}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.3}{HTML-Body}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.4}{Ist Standardlayout}{section.6.2}
+\BOOKMARK [1][-]{section.6.3}{Bearbeiten}{chapter.6}

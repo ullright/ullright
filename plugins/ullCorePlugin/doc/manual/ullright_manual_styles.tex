@@ -1,0 +1,81 @@
+%the following three commands are necessary when using pdflatex
+%(set input/output encoding)
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+%use sans serife font for body 
+\renewcommand*\familydefault{\sfdefault}
+
+%but with more tech-doc like margins
+\setlrmarginsandblock{2.8cm}{2.8cm}{*}
+\checkandfixthelayout
+
+%for the german language
+\usepackage[ngerman]{babel}
+
+%including pictures
+\usepackage{graphicx}
+\graphicspath{{./figures/}}
+
+%wrapping text around figures
+\usepackage{wrapfig}
+
+%provides symbols for shift, enter, etc.
+\usepackage{keystroke}
+
+%url handling
+\usepackage{url}
+
+%for code examples
+\usepackage{listings}
+
+%elaborate references
+\usepackage[ngerman]{varioref}
+
+%enables pdf linking and attributes
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=ullblue,%
+    urlcolor=ullblue,%
+    pdfauthor={ull.at},%
+    pdftitle={ullCms Handbuch},%
+    pdfsubject={ullright - ullCms}
+}
+
+\pagestyle{empty}
+
+%header and footer images on every page
+\usepackage{wallpaper}
+\ULCornerWallPaper{1.0}{../../../ullCorePlugin/doc/manual/figures/header}
+\LLCornerWallPaper{1.0}{../../../ullCorePlugin/doc/manual/figures/footer}
+
+%Precise figure placement
+% \usepackage{float}
+
+%padding for fbox borders
+%\setlength\fboxsep{0pt}
+
+%color headlines
+\usepackage{color}
+\usepackage{titlesec}
+
+\definecolor{ullblue}{rgb}{0.1, 0.42, 0.59}
+
+%\titleformat{\chapter}[display]{\color{ullblue}\normalfont\Huge\bfseries}
+%{\chaptertitlename\thechapter}{20pt}{\Huge}
+
+\titleformat{\chapter}{\color{ullblue}\normalfont\huge\bfseries}{\thechapter}{0.75em}{\huge}
+
+% Do not indent paragraphes but add newlines
+\usepackage{parskip}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{2mm}
+
+
+%memoir recommendation
+\clubpenalty=10000
+\widowpenalty=10000
+\raggedbottom
