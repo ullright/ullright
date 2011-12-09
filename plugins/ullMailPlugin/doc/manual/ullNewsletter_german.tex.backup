@@ -4,6 +4,11 @@
 
 \input{../../../ullCorePlugin/doc/manual/ullright_manual_styles}
 
+\hypersetup{
+    pdftitle={ullNewsletter Handbuch},%
+    pdfsubject={ullright - ullNewsletter}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Document starts here %
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,7 +90,7 @@ Klicken Sie auf der auf "`Newsletter verfassen"' um einen neuen Newsletter zu er
 
 \section{Administration - Verwalte Verteiler}
 
-Erstellen und Verwalten der verschiedenen Verteiler. Siehe Kapitel \vref{sec:mailinglists}. 
+Erstellen und Verwalten der verschiedenen Verteiler. Siehe Kapitel \vref{sec:verteiler}. 
 
 \section{Administration - Verwalte Layouts}
 
@@ -118,23 +123,57 @@ In der Listenansicht sehen Sie einen Überblick Ihrer Newsletter.
 
 \section{Filtereinstellungen}
 
-Filter 
+Filter schränken die Anzeige der Listenansicht nach verschiedenen Kriterien ein.
 
-Über die Filterleiste können Sie nach Newslettern suchen (Betreff und Text wird durchsucht), sich Newsletter nur an bestimmte Verteiler anzeigen lassen, oder auch inaktive (quasi gelöschte) Newsletter anzeigen lassen.
+Klicken Sie auf das Papierkorbsymbol eines Filters um es zu entfernen.
+
+\section{Aktionsleiste}
+
+In der Aktionsleiste können Sie einen neuen Newsletter verfassen ("`Erstellen"') oder die die Liste nach gewissen Kriterien filtern bzw. durchsuchen.
+
+Das Suchfeld sucht im Betreff der angezeigten Newsletter.
 
 \section{Liste}
 
 In der Liste selbst sehen Sie die wichtigsten Informationen zum Status der einzelnen Newsletter.
 
-
+\subsection{Bearbeiten}
 
 Klicken Sie auf das Stiftsymbol um einen Newsletter zu bearbeiten. Siehe hierzu auch Kapitel \vref{sec:edit}.
+
+\subsection{Gesamtanzahl Empfänger}
+
+Zeigt Ihnen die Anzahl der Empfänger. Diese Zahl ergibt sich aus der Summe der Abonnenten der jeweils für den Newsletter ausgewählten Verteiler.
+
+\subsection{Versandt}
+
+Zeigt die Anzahl der Newsletter die tatsächlich versandt wurden. Klicken Sie auf die Zahl um eine Liste aller Empfänger zu sehen.
+
+Falls die Zahl kleiner als die Gesamtanzahl der Empfänger ist, gibt es fehlerhafte E-Mailadressen. Klicken Sie in der gleichen Zeile auf die Zahl der unzustellbaren Newsletter um Näheres über die Fehler herauszufinden.
+
+\subsection{Gelesen}
+
+Hier sehen Sie wieviele Ihrer Empfänger den Newsletter gelesen haben. Klicken Sie auf die Zahl um Details anzuzeigen. Siehe dazu Kapitel \vref{sec:tracking}
+
+Bitte beachten Sie, dass es nicht alle E-Mailprogramme erlauben herauszufinden ob ein Empfänger den Newsletter gelesen hat. Daher ist diese Zahl mit Vorsicht zu genießen.
+
+\subsection{Unzustellbar}
+
+Zeigt wieviele Newsletter unzustellbar waren. Klicken Sie auf die Zahl um Details anzusehen. Details dazu finden Sie im Kapitel \vref{sec:undeliverable}
+
 
 
 \chapter{Newsletter verfassen}
 \label{sec:edit}
 
-Klicken Sie auf der Newletter-Startseite, oder auf der Listenansicht auf "`Erstellen"'
+Klicken Sie auf der Newletter-Startseite, oder in der Listenansicht auf "`Erstellen"'.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{edit}
+\caption{Newsletter verfassen}
+\label{fig:edit}
+\end{figure}
 
 \section{Felder}
 
@@ -151,7 +190,7 @@ Geben Sie einen Betreff ein.
 
 Den Inhalt Ihres Newsletter geben Sie im Feld "`Text"' ein. Es steht Ihnen eine WYSIWYG-Editor ähnlich wie von Word oder OpenOffice gewohnt zur Verfügung. Sie können also Überschriften, Aufzählunglisten und Schriftformatierungen wählen. Auch das Einfügen von Links und Bildern ist möglich.
 
-Ausführliche Informationen zum Editor erhalten Sie im Handbuch "`ullCms"'.
+Ausführliche Informationen zum Editor erhalten Sie im Kapitel \vref{sec:editor}
 
 Für personalisierte E-Mails können Sie eine Reihe von Platzhaltern verwenden.
 
@@ -170,31 +209,130 @@ Beispiel: Hallo [FIRST\_NAME] [LAST\_NAME]!
 
 Wählen Sie ein Layout aus der Liste. Im Normalfall ist Ihr Standardlayout bereits vor-ausgewählt.
 
-\section{Senden}
+\section{Aktionen}
 
-Wenn Sie mit dem Verfassen fertig sind, können Sie sich mittels "`Sende Test-Newsletter an mich"' einen Newsletter an Ihre eigene E-Mailadresse zusenden um die Darstellung zu überprüfen
+\subsection{Speichern und ansehen}
+
+Wenn Sie mit dem Verfassen fertig sind, können Sie sich mittels "`Speichern und ansehen"' eine Online-Vorschau ansehen. Aus der Online Vorschau gelangen Sie durch Klick auf das Stift-Icon zurück zum Bearbeitungsmodus.
+
+\subsection{Sende Test-Newsletter an mich}
+
+Des weiteren können SIe mit "`Sende Test-Newsletter an mich"' einen Newsletter an Ihre eigene E-Mailadresse zusenden um die Darstellung im E-Mailprogramm zu überprüfen.
+
+\subsection{Sende Newsletter}
 
 Sind Sie zufrieden senden Sie den Newsletter durch Klick auf "`Sende Newsletter"' ab. Bestätigen dazu die Sicherheitsabfrage.
 
 Sie werden nun zur Listenansicht weitergeleitet und erhalten eine Meldung an wieviele Empfänger der Aufrag zur Sendung des Newsletters entgegengenommen wurde.
 
-Je nach Anzahl der Empfänger kann das Versenden bis zu mehreren Stunden dauern. Sie können jederzeit nachsehen wieviele E-Mails bereits versendet wurden in dem Sie die Listenansicht aktualisieren (Taste [F5]).
+Je nach Anzahl der Empfänger kann das Versenden bis zu mehreren Stunden dauern. Sie können jederzeit nachsehen wieviele E-Mails bereits versendet wurden in dem Sie die Listenansicht aktualisieren (Taste $\keystroke{F5}$ im Webbrowser).
+
+
+\subsection{Zwischenspeichern}
+
+Wählen Sie "`Zwischenspeichern"' um während des Verfassens den bereits eingegebenen Text zu sichern.
+
+\subsection{Speichern und zurück zur Liste}
+
+Wenn Sie den Newsletter noch nicht versenden möchten, oder wenn Sie einen Fehler korrigiert haben gelangen Sie mit "`Speichern und zurück zur Liste"' zurück zur Listenansicht.
+
+Auch wenn Sie den Newsletter bereits losgeschickt haben kann es sinnvoll sein Fehler für die Darstellung im Online-Archiv zu korrigieren.
 
 
 
-\chapter{Verteiler}
+\chapter{Tracking}
+\label{sec:tracking}
+
+ullNewsletter erlaubt Ihnen eine Vielzahl an Information über die Leser Ihres Newsletters herauszufinden.
+
+Bitte beachten Sie, dass es nicht alle E-Mailprogramme erlauben herauszufinden ob ein Empfänger den Newsletter gelesen hat. Daher sind die Zahlen mit Vorsicht zu genießen.
+
+\section{Liste}
+
+Gehen Sie auf die Startseite der Newsletter-Verwaltung und wählen Sie "`Abfragen - Alle Newsletter"'. 
+
+Klicken Sie nun auf die Zahl in der Spalte "`Gelesen"' des gewünschten Newsletters.
+
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{tracking}
+\caption{Tracking}
+\label{fig:tracking}
+\end{figure}
+
+Zuoberst sehen Sie ein Diagramm, dass den zeitlichen Verlauf der Anzahl Ihrer Leser zeigt.
+
+Danach folgt eine Liste aller Leser Ihres Newsletters. 
+
+Benutzen Sie die Suchfunktion (Durchsucht Name und E-Mail der Empfänger), oder sortieren Sie nach einer der Spalten um mehr über Ihre Leserschaft herauszufinden.
+
+Klicken Sie auf das Stiftsymbol um alle Details anzuzeigen.
+
+
+
+\chapter{Unzustellbare Newsletter}
+\label{sec:undeliverable}
+
+ullNewsletter bietet eine komfortable, voll-automatisierte Behandlung von fehlerhaften Empfänger-Adressen und Out-of-Office Antworten (Bounce-Management).
+
+Nicht zustellbare Newsletter werden automatisch abgearbeitet und kategorisiert.
+Nach einer gewissen Anzahl (Standard: 3) an Fehlern, wird die E-Mailadresse automatisch bereinigt, sodass keine Newsletter mehr an dieses Fehlerhafte E-Mailadresse versendet werden.
+
+Selbstverständlich können Sie einen Liste der unzustellbaren E-Mails und deren Fehlergrund abrufen.
+
+\section{Liste}
+
+Gehen Sie auf die Startseite der Newsletter-Verwaltung und wählen Sie "`Abfragen - Alle Newsletter"'. 
+
+Klicken Sie nun auf die Zahl in der Spalte "`Unzustellbar"' des gewünschten Newsletters.
+
+Sie sehen nun eine Liste aller unzustellbaren Newsletters, neueste Fehlermeldungen oben.
+
+Benutzen Sie die Suchfunktion (Durchsucht Name und E-Mail der Empfänger), oder sortieren Sie nach einer der Spalten um mehr herauszufinden.
+
+Klicken Sie auf das Stiftsymbol um alle Details inklusive der vollständigen Fehlermeldung anzuzeigen.
+
+Nutzen Sie diese Daten um Fehler zu korrigieren, bzw die aktuelle E-Mailadressen Ihrer Empfänger herauszufinden um den maximalen Erfolg Ihrer Kampagnen zu gewährleisten.
+
+
+
+
+\chapter{Verteiler verwalten}
 \label{sec:verteiler}
 
-Legen Sie Verteiler für jede Zielgruppe an. Sie sprechen so jede Interessentengruppe gezielt an und vermeiden Abmeldungen wegen uniteressanten Informationen für Ihre Kunden.
+Legen Sie Verteiler für jede Zielgruppe an. Sie sprechen so jede Interessentengruppe gezielt an und vermeiden Abmeldungen wegen uninteressanten Informationen für Ihre Kunden.
 
-\section{Verwaltung}
+\section{Liste}
 
-Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Verteiler"'.
+Gehen Sie auf die Startseite der Newsletter-Verwaltung und wählen Sie "`Verwalte Newsletter Verteiler"'. Sie gelangen damit zur Listenansicht, wo Sie einen Überblick über Ihre Verteiler sehen.
 
-\section{Erstellen}
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{mailing_lists}
+\caption{Liste der Verteiler}
+\label{fig:mailing_lists}
+\end{figure}
+
+\subsection{Abonnenten}
+
+Klicken Sie in der Zeile des gewünschten Newsletters auf "`Abonnenten"' um eine Liste aller Personen abzurufen die diesen Newsletter abonniert haben.
+
+
+\section{Erstellen und Bearbeiten}
 \label{sec:create-mailing-list}
 
-Klicken Sie auf "`Erstellen"'
+Wählen Sie "`Erstellen"' um einen neuen Verteiler anzulegen.
+
+Klicken Sie auf das Stiftsymbol des gewünschten Verteilers um ihn zu bearbeiten.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=0.9\textwidth]{mailing_lists_edit}
+\caption{Verteiler Bearbeitungsmodus}
+\label{fig:mailing_lists_edit}
+\end{figure}
+
 
 \subsection{Name}
 
@@ -226,14 +364,20 @@ Dabei ist es egal ob Sie einen Benutzer händisch anlegen oder ob sich der Benut
 
 Wenn Sie dieses Feld anhaken wird beim Verfassen eines neuen Newsletter dieser Verteiler automatisch ausgewählt.
 
+\subsection{Ist öffentlich}
+
+Wenn Sie "`Ist öffentlich"' anhaken kann jeder diesen Verteiler sehen und abonnieren.
+
 \subsection{Ist aktiv}
 
-Damit steuern Sie ob der aktuelle Verteiler in der Liste Ihrer Verteiler aufscheint.
-
-Wenn dieses Feld nicht angekreuzt wird, können Kunden sich nicht für diesen Verteiler anmelden.
+Damit steuern Sie ob der aktuelle Verteiler aktiv ist. Entfernen Sie das Häkchen wenn Sie diesen Verteiler nicht mehr verwenden möchten.
 
 
-\chapter{Layouts}
+
+
+
+\chapter{Layouts verwalten}
+\label{sec:layouts}
 
 Ein Layout ist eine Art Formatvorlage um Ihren Newslettern ein einheitliches und attraktives Aussehen zu verleihen.
 
@@ -242,14 +386,16 @@ Im Normalfall genügt es einmal ein Layout im Stile Ihrer CI (Corporate Identity
 Sie können beliebig viele Layouts anlegen.
 
 
-\section{Verwaltung}
+\section{Liste}
 
-Gehen Sie in den Administrationsbereich ("`Admin"') und wählen Sie "`Verwalte Newsletter Layouts"'.
+Gehen Sie auf die Startseite der Newsletter-Verwaltung und wählen Sie "`Verwalte Newsletter Layouts"'. Sie gelangen damit zur Listenansicht, wo Sie einen Überblick über Ihre Layouts sehen.
 
-\section{Erstellen}
+\section{Erstellen und Bearbeiten}
 \label{sec:create-layout}
 
-Klicken Sie auf "`Erstellen"'
+Wählen Sie "`Erstellen"' um ein neues Layout anzulegen.
+
+Klicken Sie auf das Stiftsymbol des gewünschten Layouts um es zu bearbeiten.
 
 \subsection{Name}
 
@@ -273,16 +419,13 @@ Beispiel:
 </style>
 \end{lstlisting}
 
-Hinweis: Der "`<head>"' Tag ist nicht erforderlich.
+Hinweis: Der "`<head>"' Tag ist nicht erforderlich, er wird automatisch eingefügt.
 
 \subsection{HTML-Body}
 
 Geben Sie hier den HTML-Code für Ihr Layout ein.
 
-Sie können den grafischen WYSIWYG (What you see is what you get) Editor verwenden oder durck Klick auf den Button "`Quellcode"' zum HTML-Code umschalten.
-
-Tips und Tricks zur Verwendung des Editors erhalten Sie im ullCms Handbuch.
-
+Sie können den grafischen WYSIWYG (What you see is what you get) Editor (Siehe Kapitel \vref{sec:editor}) verwenden oder durck Klick auf den Button "`Quellcode"' zum HTML-Code umschalten.
 
 Folgende Platzhalter stehen zur Verfügung:
 
@@ -313,12 +456,18 @@ Ein einfaches Beispiel:
 
 Wenn Sie dieses Feld anhaken wird dieses Layout beim Verfassen eines neuen Newsletter automatisch vor-ausgewählt.
 
-\section{Bearbeiten}
 
-Klicken Sie in der Liste der Layouts auf das Stiftsymbol vor dem Eintrag den Sie bearbeiten möchte.
-
-Alles weitere erfahren Sie im Kapitel \vref{sec:create-layout}.
+\input{../../../ullCorePlugin/doc/manual/fckeditor_german}
 
 
+\chapter{Quellenangaben}
+
+Danke an folgende ull.at Kunden, die Screenshots ihrer Webseiten zur Verfügung stellten:
+
+\begin{itemize}
+\item Dr. Tamara Meissnitzer - \href{http://www.hautarzt.md}{www.hautarzt.md}
+\item Kletterzentrum Südwand - \href{http://http://www.kletterzentrum-suedwand.at/}{http://www.kletterzentrum-suedwand.at/}
+\item ullright Demoseite - \href{http://demo.ullright.org}{demo.ullright.org}
+\end{itemize}
 
 \end{document}

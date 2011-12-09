@@ -20,20 +20,49 @@
 \BOOKMARK [2][-]{subsection.4.1.2}{Betreff}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.3}{Text}{section.4.1}
 \BOOKMARK [2][-]{subsection.4.1.4}{Layout}{section.4.1}
-\BOOKMARK [1][-]{section.4.2}{Senden}{chapter.4}
-\BOOKMARK [0][-]{chapter.5}{Verteiler}{}
-\BOOKMARK [1][-]{section.5.1}{Verwaltung}{chapter.5}
-\BOOKMARK [1][-]{section.5.2}{Erstellen}{chapter.5}
-\BOOKMARK [2][-]{subsection.5.2.1}{Name}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.2}{Beschreibung}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.3}{Automatisch anmelden}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.4}{Standard-Verteiler}{section.5.2}
-\BOOKMARK [2][-]{subsection.5.2.5}{Ist aktiv}{section.5.2}
-\BOOKMARK [0][-]{chapter.6}{Layouts}{}
-\BOOKMARK [1][-]{section.6.1}{Verwaltung}{chapter.6}
-\BOOKMARK [1][-]{section.6.2}{Erstellen}{chapter.6}
-\BOOKMARK [2][-]{subsection.6.2.1}{Name}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.2}{HTML-Head}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.3}{HTML-Body}{section.6.2}
-\BOOKMARK [2][-]{subsection.6.2.4}{Ist Standardlayout}{section.6.2}
-\BOOKMARK [1][-]{section.6.3}{Bearbeiten}{chapter.6}
+\BOOKMARK [1][-]{section.4.2}{Aktionen}{chapter.4}
+\BOOKMARK [2][-]{subsection.4.2.1}{Speichern und ansehen}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.2}{Sende Test-Newsletter an mich}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.3}{Sende Newsletter}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.4}{Zwischenspeichern}{section.4.2}
+\BOOKMARK [2][-]{subsection.4.2.5}{Speichern und zur\374ck zur Liste}{section.4.2}
+\BOOKMARK [0][-]{chapter.5}{Tracking}{}
+\BOOKMARK [1][-]{section.5.1}{Liste}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Unzustellbare Newsletter}{}
+\BOOKMARK [1][-]{section.6.1}{Liste}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{Abonneten verwalten}{}
+\BOOKMARK [1][-]{section.7.1}{Person hinzuf\374gen \(Subscribe\)}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Person von Verteiler abmelden \(Unsubscribe\)}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.2.1}{Person vom Verteiler entfernen}{section.7.2}
+\BOOKMARK [2][-]{subsection.7.2.2}{Benutzer deaktivieren}{section.7.2}
+\BOOKMARK [0][-]{chapter.8}{Verteiler verwalten}{}
+\BOOKMARK [1][-]{section.8.1}{Liste}{chapter.8}
+\BOOKMARK [2][-]{subsection.8.1.1}{Abonnenten}{section.8.1}
+\BOOKMARK [1][-]{section.8.2}{Erstellen und Bearbeiten}{chapter.8}
+\BOOKMARK [2][-]{subsection.8.2.1}{Name}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.2}{Beschreibung}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.3}{Automatisch anmelden}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.4}{Standard-Verteiler}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.5}{Ist \366ffentlich}{section.8.2}
+\BOOKMARK [2][-]{subsection.8.2.6}{Ist aktiv}{section.8.2}
+\BOOKMARK [0][-]{chapter.9}{Layouts verwalten}{}
+\BOOKMARK [1][-]{section.9.1}{Liste}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{Erstellen und Bearbeiten}{chapter.9}
+\BOOKMARK [2][-]{subsection.9.2.1}{Name}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.2}{HTML-Head}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.3}{HTML-Body}{section.9.2}
+\BOOKMARK [2][-]{subsection.9.2.4}{Ist Standardlayout}{section.9.2}
+\BOOKMARK [0][-]{chapter.10}{Text bearbeiten mit dem \214WYSIWYG\215 Editor}{}
+\BOOKMARK [1][-]{section.10.1}{Text schreiben}{chapter.10}
+\BOOKMARK [1][-]{section.10.2}{Text formatieren}{chapter.10}
+\BOOKMARK [1][-]{section.10.3}{Bild einf\374gen}{chapter.10}
+\BOOKMARK [1][-]{section.10.4}{Bildeigenschaften \344ndern}{chapter.10}
+\BOOKMARK [2][-]{subsection.10.4.1}{Reiter \214Bild-Info\215}{section.10.4}
+\BOOKMARK [2][-]{subsection.10.4.2}{Reiter \214Erweitert\215}{section.10.4}
+\BOOKMARK [1][-]{section.10.5}{Link erstellen}{chapter.10}
+\BOOKMARK [2][-]{subsection.10.5.1}{Link zu einer Internetadresse \(URL\)}{section.10.5}
+\BOOKMARK [2][-]{subsection.10.5.2}{Link zu einer anderen CMS-Seite}{section.10.5}
+\BOOKMARK [2][-]{subsection.10.5.3}{E-Mail Link}{section.10.5}
+\BOOKMARK [1][-]{section.10.6}{Datei hochladen}{chapter.10}
+\BOOKMARK [1][-]{section.10.7}{Tip f\374r PDF-Dateien}{chapter.10}
+\BOOKMARK [0][-]{chapter.11}{Quellenangaben}{}
