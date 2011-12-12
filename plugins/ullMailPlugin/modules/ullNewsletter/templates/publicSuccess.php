@@ -44,31 +44,42 @@
 <!-- end of ull_newsletter_subscription -->  
 </div>   
 
-<div id="ull_newsletter_archive">
+<?php if (count($mailing_lists)): ?>
 
-  <h2><?php echo __('Archive', null, 'ullMailMessages')?></h2>
+  <div id="ull_newsletter_archive">
   
-  <?php foreach ($mailing_lists as $mailing_list): ?>
-    <?php $editions = UllNewsletterEditionTable::findByMailingListIdNewestFirst($mailing_list->id) ?>
-    <?php if (count($editions)): ?>
-      <div class="ull_newsletter_archive_mailing_list">
-        <h3><?php echo $mailing_list->name ?></h3>
-        <ul>
-        <?php foreach ($editions as $edition): ?>
-          <li>
-            <?php echo ull_format_date($edition->submitted_at)?> - 
-            <?php echo link_to($edition->subject, 'ullNewsletter/show?id=' . $edition->id) ?>
-          </li>
-        <?php endforeach ?>
-        
-        </ul>
-      </div>
-    <?php endif ?>
-  <?php endforeach ?>
+    <h2><?php echo __('Archive', null, 'ullMailMessages')?></h2>
+    
+    <?php foreach ($mailing_lists as $mailing_list): ?>
+      <?php $editions = UllNewsletterEditionTable::findByMailingListIdNewestFirst($mailing_list->id) ?>
+      <?php if (count($editions)): ?>
+        <div class="ull_newsletter_archive_mailing_list">
+          <h3><?php echo $mailing_list->name ?></h3>
+          <ul>
+          <?php foreach ($editions as $edition): ?>
+            <li>
+              <?php echo ull_format_date($edition->submitted_at)?> - 
+              <?php echo link_to($edition->subject, 'ullNewsletter/show?id=' . $edition->id) ?>
+            </li>
+          <?php endforeach ?>
+          
+          </ul>
+        </div>
+      <?php else:?>
+        <?php echo format_number_choice(
+    '[0]No results found|[1]1 result found|(1,+Inf]%1% results found',
+    array('%1%' => 0),
+    0
+    , 'common'
+  ) . '.' ?>
+      <?php endif ?>
+      
+    <?php endforeach ?>
+    
   
-
-<!-- end of ull_newsletter_archive -->  
-</div>     
+  <!-- end of ull_newsletter_archive -->  
+  </div>     
+<?php endif ?>
 
 <!-- end of ull_cms_content -->
 </div>
