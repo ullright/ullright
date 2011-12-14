@@ -1,23 +1,38 @@
-\BOOKMARK [1][-]{section.1.1}{Einf\374hrung}{}
-\BOOKMARK [1][-]{section.1.2}{Startseite}{}
-\BOOKMARK [2][-]{subsection.1.2.1}{Neues Dokument erstellen}{section.1.2}
-\BOOKMARK [2][-]{subsection.1.2.2}{Suchfunktionen}{section.1.2}
-\BOOKMARK [2][-]{subsection.1.2.3}{Abfragen}{section.1.2}
-\BOOKMARK [1][-]{section.1.3}{Ergebnisliste}{}
-\BOOKMARK [2][-]{subsection.1.3.1}{Anzahl der Ergebnisse und Bl\344ttern}{section.1.3}
-\BOOKMARK [2][-]{subsection.1.3.2}{Liste}{section.1.3}
-\BOOKMARK [2][-]{subsection.1.3.3}{Tipp: Die Browser Adresszeile als Kommandozeile}{section.1.3}
-\BOOKMARK [1][-]{section.1.4}{Erstellen und Bearbeiten}{}
-\BOOKMARK [2][-]{subsection.1.4.1}{WYSIWYG Editor}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.2}{Tags}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.3}{Zugriffsrecht}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.4}{Speichern}{section.1.4}
-\BOOKMARK [2][-]{subsection.1.4.5}{Automatisches Speichern}{section.1.4}
-\BOOKMARK [1][-]{section.1.5}{WYSIWYG Editor im Detail}{}
-\BOOKMARK [2][-]{subsection.1.5.1}{Bild einf\374gen}{section.1.5}
-\BOOKMARK [2][-]{subsection.1.5.2}{Link einf\374gen}{section.1.5}
-\BOOKMARK [1][-]{section.1.6}{Ansicht}{}
-\BOOKMARK [1][-]{section.1.7}{Administration - Zugriffrechte}{}
-\BOOKMARK [2][-]{subsection.1.7.1}{Anlegen}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.2}{Zugriffsrecht konfigurieren}{section.1.7}
-\BOOKMARK [2][-]{subsection.1.7.3}{Beispiel}{section.1.7}
+\BOOKMARK [0][-]{chapter.1}{Einf\374hrung}{}
+\BOOKMARK [0][-]{chapter.2}{Startseite}{}
+\BOOKMARK [1][-]{section.2.1}{Neues Dokument erstellen}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Suchfunktionen}{chapter.2}
+\BOOKMARK [1][-]{section.2.3}{Abfragen}{chapter.2}
+\BOOKMARK [1][-]{section.2.4}{Administration}{chapter.2}
+\BOOKMARK [0][-]{chapter.3}{Ergebnisliste}{}
+\BOOKMARK [1][-]{section.3.1}{Anzahl der Ergebnisse und Bl\344ttern}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{Liste}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{Tipp: Die Browser Adresszeile als Kommandozeile}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{Erstellen und Bearbeiten}{}
+\BOOKMARK [1][-]{section.4.1}{Text}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{Tags}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Zugriffsebene}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Speichern}{chapter.4}
+\BOOKMARK [1][-]{section.4.5}{Automatisches Speichern}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Text bearbeiten mit dem \214WYSIWYG\215 Editor}{}
+\BOOKMARK [1][-]{section.5.1}{Text schreiben}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{Text formatieren}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{Bild einf\374gen}{chapter.5}
+\BOOKMARK [1][-]{section.5.4}{Bildeigenschaften \344ndern}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.4.1}{Reiter \214Bild-Info\215}{section.5.4}
+\BOOKMARK [2][-]{subsection.5.4.2}{Reiter \214Erweitert\215}{section.5.4}
+\BOOKMARK [1][-]{section.5.5}{Link erstellen}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.5.1}{Link zu einer Internetadresse \(URL\)}{section.5.5}
+\BOOKMARK [2][-]{subsection.5.5.2}{Link zu einer anderen CMS-Seite}{section.5.5}
+\BOOKMARK [2][-]{subsection.5.5.3}{E-Mail Link}{section.5.5}
+\BOOKMARK [1][-]{section.5.6}{Datei hochladen}{chapter.5}
+\BOOKMARK [1][-]{section.5.7}{Tip f\374r PDF-Dateien}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Ansicht}{}
+\BOOKMARK [0][-]{chapter.7}{Administration - Zugriffrechte}{}
+\BOOKMARK [1][-]{section.7.1}{Zugriffsebenen verwalten}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Zugriffsrechte verwalten}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{Praktisches Beispiel}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.3.1}{Gruppe anlegen}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.2}{Benutzer anlegen}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.3}{Wiki-Zugriffsebene erstellen}{section.7.3}
+\BOOKMARK [2][-]{subsection.7.3.4}{Wiki-Zugriffsrechte einstellen}{section.7.3}

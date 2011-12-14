@@ -37,10 +37,8 @@ Die wichtigsten Formatierungen (von links nach rechts):
 \begin{itemize}
 \item Nummerierte Liste
 \item Liste mit Aufzählungszeichen
-\item Bilder und Links einfügen
-\item Formatierungen entfernen (Radiergummi-Symbol)
-\item Stile
-\item Format
+\item Stile: "`Important"' -- also "`Wichtig"' wird fett angezeigt
+\item Format: "`Überschrift"'
 \end{itemize}
 
 
