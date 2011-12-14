@@ -3,8 +3,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{helvet}
+
 %use sans serife font for body 
 \renewcommand*\familydefault{\sfdefault}
+
 
 %but with more tech-doc like margins
 \setlrmarginsandblock{2.8cm}{2.8cm}{*}
@@ -43,6 +45,7 @@
     pdfauthor={ull.at},%
 }
 
+%removes page number from frontpage
 \pagestyle{empty}
 
 %header and footer images on every page
@@ -62,10 +65,15 @@
 
 \definecolor{ullblue}{rgb}{0.1, 0.42, 0.59}
 
-%\titleformat{\chapter}[display]{\color{ullblue}\normalfont\Huge\bfseries}
-%{\chaptertitlename\thechapter}{20pt}{\Huge}
 
 \titleformat{\chapter}{\color{ullblue}\normalfont\huge\bfseries}{\thechapter}{0.75em}{\huge}
+
+%each chapter on a new page
+\let\stdchapter\chapter
+\renewcommand*{\chapter}{\clearpage\stdchapter}
+
+%each chapter title starts at the top of the page (reduce top margin)
+\titlespacing{\chapter}{0pt}{-3em}{2em}
 
 % Do not indent paragraphes but add newlines
 \usepackage{parskip}

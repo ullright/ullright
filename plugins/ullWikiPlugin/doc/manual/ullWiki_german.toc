@@ -1,39 +1,39 @@
 \select@language {ngerman}
 \contentsline {chapter}{\chapternumberline {1}Einf\IeC {\"u}hrung}{4}{chapter.1}
 \contentsline {chapter}{\chapternumberline {2}Startseite}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}Neues Dokument erstellen}{6}{section.2.1}
+\contentsline {section}{\numberline {2.1}Neues Dokument erstellen}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}Suchfunktionen}{6}{section.2.2}
 \contentsline {section}{\numberline {2.3}Abfragen}{6}{section.2.3}
 \contentsline {section}{\numberline {2.4}Administration}{6}{section.2.4}
-\contentsline {chapter}{\chapternumberline {3}Ergebnisliste}{6}{chapter.3}
+\contentsline {chapter}{\chapternumberline {3}Ergebnisliste}{7}{chapter.3}
 \contentsline {section}{\numberline {3.1}Anzahl der Ergebnisse und Bl\IeC {\"a}ttern}{7}{section.3.1}
-\contentsline {section}{\numberline {3.2}Liste}{7}{section.3.2}
+\contentsline {section}{\numberline {3.2}Liste}{8}{section.3.2}
 \contentsline {section}{\numberline {3.3}Tipp: Die Browser Adresszeile als Kommandozeile}{8}{section.3.3}
-\contentsline {chapter}{\chapternumberline {4}Erstellen und Bearbeiten}{8}{chapter.4}
-\contentsline {section}{\numberline {4.1}Text}{8}{section.4.1}
-\contentsline {section}{\numberline {4.2}Tags}{9}{section.4.2}
-\contentsline {section}{\numberline {4.3}Zugriffsebene}{9}{section.4.3}
+\contentsline {chapter}{\chapternumberline {4}Erstellen und Bearbeiten}{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}Text}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Tags}{10}{section.4.2}
+\contentsline {section}{\numberline {4.3}Zugriffsebene}{10}{section.4.3}
 \contentsline {section}{\numberline {4.4}Speichern}{10}{section.4.4}
-\contentsline {section}{\numberline {4.5}Automatisches Speichern}{10}{section.4.5}
-\contentsline {chapter}{\chapternumberline {5}Text bearbeiten mit dem "`WYSIWYG"' Editor}{11}{chapter.5}
-\contentsline {section}{\numberline {5.1}Text schreiben}{11}{section.5.1}
+\contentsline {section}{\numberline {4.5}Automatisches Speichern}{11}{section.4.5}
+\contentsline {chapter}{\chapternumberline {5}Text bearbeiten mit dem "`WYSIWYG"' Editor}{12}{chapter.5}
+\contentsline {section}{\numberline {5.1}Text schreiben}{12}{section.5.1}
 \contentsline {section}{\numberline {5.2}Text formatieren}{12}{section.5.2}
-\contentsline {section}{\numberline {5.3}Bild einf\IeC {\"u}gen}{12}{section.5.3}
+\contentsline {section}{\numberline {5.3}Bild einf\IeC {\"u}gen}{13}{section.5.3}
 \contentsline {section}{\numberline {5.4}Bildeigenschaften \IeC {\"a}ndern}{13}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Reiter "`Bild-Info"'}{13}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Reiter "`Erweitert"'}{13}{subsection.5.4.2}
-\contentsline {section}{\numberline {5.5}Link erstellen}{13}{section.5.5}
-\contentsline {subsection}{\numberline {5.5.1}Link zu einer Internetadresse (URL)}{13}{subsection.5.5.1}
-\contentsline {subsection}{\numberline {5.5.2}Link zu einer anderen CMS-Seite}{14}{subsection.5.5.2}
-\contentsline {subsection}{\numberline {5.5.3}E-Mail Link}{14}{subsection.5.5.3}
-\contentsline {section}{\numberline {5.6}Datei hochladen}{14}{section.5.6}
+\contentsline {subsection}{\numberline {5.4.1}Reiter "`Bild-Info"'}{14}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Reiter "`Erweitert"'}{14}{subsection.5.4.2}
+\contentsline {section}{\numberline {5.5}Link erstellen}{14}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Link zu einer Internetadresse (URL)}{14}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Link zu einer anderen CMS-Seite}{15}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}E-Mail Link}{15}{subsection.5.5.3}
+\contentsline {section}{\numberline {5.6}Datei hochladen}{15}{section.5.6}
 \contentsline {section}{\numberline {5.7}Tip f\IeC {\"u}r PDF-Dateien}{15}{section.5.7}
-\contentsline {chapter}{\chapternumberline {6}Ansicht}{15}{chapter.6}
-\contentsline {chapter}{\chapternumberline {7}Administration - Zugriffrechte}{16}{chapter.7}
-\contentsline {section}{\numberline {7.1}Zugriffsebenen verwalten}{16}{section.7.1}
-\contentsline {section}{\numberline {7.2}Zugriffsrechte verwalten}{17}{section.7.2}
-\contentsline {section}{\numberline {7.3}Praktisches Beispiel}{17}{section.7.3}
-\contentsline {subsection}{\numberline {7.3.1}Gruppe anlegen}{17}{subsection.7.3.1}
-\contentsline {subsection}{\numberline {7.3.2}Benutzer anlegen}{18}{subsection.7.3.2}
-\contentsline {subsection}{\numberline {7.3.3}Wiki-Zugriffsebene erstellen}{18}{subsection.7.3.3}
-\contentsline {subsection}{\numberline {7.3.4}Wiki-Zugriffsrechte einstellen}{18}{subsection.7.3.4}
+\contentsline {chapter}{\chapternumberline {6}Ansicht}{17}{chapter.6}
+\contentsline {chapter}{\chapternumberline {7}Administration - Zugriffrechte}{18}{chapter.7}
+\contentsline {section}{\numberline {7.1}Zugriffsebenen verwalten}{18}{section.7.1}
+\contentsline {section}{\numberline {7.2}Zugriffsrechte verwalten}{18}{section.7.2}
+\contentsline {section}{\numberline {7.3}Praktisches Beispiel}{19}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Gruppe anlegen}{19}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Benutzer anlegen}{19}{subsection.7.3.2}
+\contentsline {subsection}{\numberline {7.3.3}Wiki-Zugriffsebene erstellen}{20}{subsection.7.3.3}
+\contentsline {subsection}{\numberline {7.3.4}Wiki-Zugriffsrechte einstellen}{20}{subsection.7.3.4}
