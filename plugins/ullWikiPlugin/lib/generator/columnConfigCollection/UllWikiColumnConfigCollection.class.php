@@ -24,7 +24,7 @@ class UllWikiColumnConfigCollection extends ullColumnConfigCollection
       ->setLabel('Text');
     
     // configure access level
-    $this['ull_wiki_access_level_id']->setLabel(__('Access level'));
+    $this['ull_wiki_access_level_id']->setLabel(__('Access level', null, 'ullWikiMessages'));
     
     $this['is_outdated']->setLabel(__('Is outdated', null, 'ullWikiMessages'));
     
