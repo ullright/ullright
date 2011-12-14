@@ -6,7 +6,7 @@
 
       <trans-unit id="1">
         <source>Access level</source>
-        <target>Zugriffsrecht</target>
+        <target>Zugriffsebene</target>
       </trans-unit>
 
       <!-- ullWiki admin actions -->
