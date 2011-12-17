@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Simple importer for comma separated value files (csv)
+ * 
+ * - Features auto-detection of delimiter 
+ * - Currently supports comma, semicolon and tabs as delimiters
+ *
+ * Assumptions:
+ *
+ * - The first line of the csv file is assumed to be the column header names
+ * - Enclosure is currently fixed to double quotes "
+ * - Escape is currently fixed to backslash \
+ 
+ * @author klemens.ullmann-marx@ull.at
+ */
 class ullCsvImporter
 {
   protected
@@ -131,12 +145,4 @@ class ullCsvImporter
     return chr(key($array));
   }
     
-  
- 
-    
-    
-  
-  
-  
-  
 }
