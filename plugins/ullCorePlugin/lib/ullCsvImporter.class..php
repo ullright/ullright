@@ -82,7 +82,7 @@ class ullCsvImporter
     $return = array();
     
     // Note that the handle already points to the second line due to readHeaders()
-    while ($line = fgetcsv($this->handle ,0, $this->getDelimiter()))
+    while ($line = fgetcsv($this->handle, 0, $this->getDelimiter()))
     {
       // Ignore empty lines
       if (!(count($line) === 1 && $line[0] === null))
