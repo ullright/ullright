@@ -2,7 +2,7 @@
 
 include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 
-$t = new lime_test(6, new lime_output_color);
+$t = new lime_test(9, new lime_output_color);
 
 
 $t->diag('__construct()');
@@ -29,8 +29,7 @@ $t->diag('getHeaders()');
   
   $t->is($importer->getHeaders(), $reference, 'Returns the correct headers');
 
-  
-$t->diag('toArray()');
+$t->diag('toArray() with empty lines');
 
   $reference = array(
     array(
@@ -39,9 +38,14 @@ $t->diag('toArray()');
       'Email'       => 'k@ull.at',
     ),
     array(
+      'First name'  => null,
+      'Last name'   => null,
+      'Email'       =>  null,
+    ),      
+    array(
       'First name'  => 'Poor Guy',
       'Last name'   => 'NoEmail',
-      'Email'       =>  null
+      'Email'       =>  null,
     ),
     array(
       'First name'  => 'Trailing',
@@ -58,9 +62,47 @@ $t->diag('toArray()');
 //  var_dump($reference);
 //  
 //  var_dump($importer->toArray());
-  
+
   $t->is($importer->toArray(), $reference, 'Return correct array format');
   
+$t->diag('getIncludeEmptyLines()');
+  $t->is($importer->getIncludeEmptyLines(), true, 'Default setting = true');
+
+  $importer->setIncludeEmptyLines(false);
+  
+  $t->is($importer->getIncludeEmptyLines(), false, 'Now false');
+  
+
+$t->diag('toArray() without empty lines');
+
+  $reference = array(
+    array(
+      'First name'  => 'Klemens',
+      'Last name'   => 'Ullmann-Marx',
+      'Email'       => 'k@ull.at',
+    ),
+    array(
+      'First name'  => 'Poor Guy',
+      'Last name'   => 'NoEmail',
+      'Email'       =>  null,
+    ),
+    array(
+      'First name'  => 'Trailing',
+      'Last name'   => 'Charm',
+      'Email'       => 'charm@example.com',
+    ),
+    array(
+      'First name'  => 'Email',
+      'Last name'   => 'Error',
+      'Email'       => 'error;fatal@invalid',
+    ),
+  );
+  
+//  var_dump($reference);
+//  
+//  var_dump($importer->toArray());
+
+  $t->is($importer->toArray(), $reference, 'Return correct array format');  
   
   
 $t->diag('getDelimiter() with tabs delimiter');

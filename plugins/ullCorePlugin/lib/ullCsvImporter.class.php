@@ -25,7 +25,8 @@ class ullCsvImporter
       44,   // ','
       9,    // Tab
     ),
-    $headers
+    $headers,
+    $includeEmptyLines = true
   ;
   
   /**
@@ -67,9 +68,36 @@ class ullCsvImporter
    */
   public function readHeaders()
   {
+    rewind($this->handle);
+    
     $headers = fgetcsv($this->handle, 0, $this->getDelimiter());
     
     return $headers;
+  }
+  
+  
+  /**
+   * Set if empty lines should be included
+   * 
+   * By default empty lines are included to allow finding out the original
+   * line number
+   * 
+   * @param boolean $boolean
+   */
+  public function setIncludeEmptyLines($boolean)
+  {
+    $this->includeEmptyLines = (boolean) $boolean;
+    
+    return $this;
+  }
+
+  
+  /**
+   * Get setting of if empty lines should be included
+   */
+  public function getIncludeEmptyLines()
+  {
+    return $this->includeEmptyLines;
   }
   
   
@@ -79,13 +107,22 @@ class ullCsvImporter
    */
   public function toArray()
   {
+    // Rewind file handle pointer and set to beginning of first data line
+    rewind($this->handle);
+    fgetcsv($this->handle, 0, $this->getDelimiter());
+    
     $return = array();
     
     // Note: the handle already points to the second line due to readHeaders()
     while ($line = fgetcsv($this->handle, 0, $this->getDelimiter()))
     {
-      // Ignore empty lines
-      if (!(count($line) === 1 && $line[0] === null))
+      // Detect empty line
+      $isEmpty = (boolean) (count($line) === 1 && $line[0] === null);
+      
+      // Check includeEmptyLines setting
+      $includeLine = (boolean) ! ( !$this->getIncludeEmptyLines() && $isEmpty);
+      
+      if ($includeLine)
       {
         $returnLine = array();
         
