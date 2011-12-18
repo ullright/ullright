@@ -45,4 +45,98 @@ class myModuleActions extends ullsfActions
   }
   
   
+  
+  public function executeCsvUploadTest(sfRequest $request)
+  {
+    $this->checkPermission('csv_upload_test');
+    
+    $form = new ullCsvUploadForm();
+
+    $generatorErrors = array();
+    
+    if ($request->isMethod('post'))
+    {
+//      var_dump($request->getParameterHolder()->getAll());
+//      var_dump($this->getRequest()->getFiles());
+      
+      $form->bind(
+        $request->getParameter('fields'), 
+        $this->getRequest()->getFiles('fields')
+      );
+      
+      if ($form->isValid())
+      {
+        $file = $form->getValue('file');
+        $path = $file->getTempName();
+        
+        $importer = new ullCsvImporter($path);
+        $rows = $importer->toArray();
+        
+        unlink($path);
+        
+        foreach($rows as $rowNumber => $row)
+        {
+          $email = $row['E-Mail'];
+          $user = Doctrine::getTable('UllUser')->findOneByEmail($email);
+          
+          if (!$user)
+          {
+            $user = new UllUser;
+          }          
+          
+          $fields = array();
+          $fields['first_name'] = $row['Vorname'];
+          $fields['last_name']  = $row['Nachname'];
+          $fields['email']      = $email;          
+          
+          $generator = new ullUserGenerator('w');
+          $generator->getColumnsConfig()->disableAllExcept(array(
+            'first_name',
+            'last_name',
+            'email',
+          ));
+          $generator->getColumnsConfig()->offsetGet('email')->setIsRequired(true);
+          
+          
+          $generator->buildForm($user);
+
+          if ($generator->getForm()->bindAndSave($fields))
+          {
+          }
+          else 
+          {
+            $generatorErrors[$rowNumber] = $generator;
+          }
+
+          
+//          $mailingListName = $row['Verteiler'];
+//          
+//          if ($mailingListName) 
+//          {
+//            $mailingList = Doctrine::getTable('UllNewsletterMailingList')
+//              ->findOneByName($mailingListName);
+//              
+//            if (!$mailingList)
+//            {
+//              $errors[] = 'Unbekannter Verteiler: ' . $mailingListName . "\n"; 
+//            }
+//            else
+//            {
+//              $user->UllNewsletterMailingLists[] = $mailingList;
+//            }
+//          }
+//          
+//          $user->save();
+        }
+        
+      }
+      
+    }
+    
+        
+    $this->form = $form;
+    $this->generatorErrors = $generatorErrors;
+  }
+  
+  
 }

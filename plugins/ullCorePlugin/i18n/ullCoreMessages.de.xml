@@ -840,6 +840,43 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       </trans-unit>         
       
             
+      <!--  CSV import -->
+      
+      
+      <trans-unit id="4000">
+        <source>A CSV file separated by semicolons or tabs containing a column header row at the top.</source>
+        <target>Eine CSV-Datei mit Spaltenüberschriften, unterteilt mit Strichpunkten oder Tabulatoren.</target>
+      </trans-unit>
+      
+      <trans-unit id="4001">
+        <source>CSV file</source>
+        <target>CSV-Datei</target>
+      </trans-unit>         
+      
+      <trans-unit id="4002">
+        <source>The following rows could not be imported</source>
+        <target>Die folgenden Zeilen konnten nicht importiert werden</target>
+      </trans-unit>
+      
+      <trans-unit id="4003">
+        <source>CSV Import</source>
+        <target>CSV Import</target>
+      </trans-unit>
+      
+      <trans-unit id="4004">
+        <source>Line %number%</source>
+        <target>Zeile %number%</target>
+      </trans-unit>
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit> 
       
       
     </body>
