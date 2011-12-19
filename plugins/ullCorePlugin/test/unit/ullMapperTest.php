@@ -10,13 +10,13 @@ $t = new lime_test(6, new lime_output_color);
 $t->diag('__construct()');
 
   $data = array(
-    array(
+    1 => array(
       'First name'  => 'Klemens',
       'Last name'   => 'Ullmann-Marx',
       'Email'       => 'k@ull.at',
       'Mailing list'=> 'Product news',
     ),
-    array(
+    3 => array(
       'First name'  => 'Trailing',
       'Last name'   => 'Charm',
       'Invalid column' => 'foobar',
@@ -41,13 +41,13 @@ $t->diag('hasErrors() before doMapping()');
  $t->diag('doMapping()');   
   
   $reference = array(
-    array(
+    1 => array(
       'first_name'  => 'Klemens',
       'last_name'   => 'Ullmann-Marx',
       'email'       => 'k@ull.at',
       'UllNewsletterMailingList' => 'Product news',
     ),
-    array(
+    3 => array(
       'first_name'  => 'Trailing',
       'last_name'   => 'Charm',
       'email'       => null,

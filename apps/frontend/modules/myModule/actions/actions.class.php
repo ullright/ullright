@@ -53,6 +53,9 @@ class myModuleActions extends ullsfActions
     $form = new ullCsvUploadForm();
 
     $generatorErrors = array();
+    $mappingErrors = array();
+    $numberRowsImported = 0;
+    
     
     if ($request->isMethod('post'))
     {
@@ -74,9 +77,27 @@ class myModuleActions extends ullsfActions
         
         unlink($path);
         
-        foreach($rows as $rowNumber => $row)
+        $mapping = array(
+          'Vorname'       => 'first_name',
+          'Nachname'      => 'last_name',
+          'E-Mail'        => 'email',
+          'Verteiler'     => 'UllNewsletterMailingLists'
+        );
+        
+        $mapper = new ullMapper($rows, $mapping);
+        $rows = $mapper->doMapping();
+        $mappingErrors = $mapper->getErrors();
+        var_dump($mappingErrors);die;
+        
+        $generator = new ullUserGenerator('w');
+        $generator->getColumnsConfig()->disableAllExcept($mapping);
+        $generator->getColumnsConfig()->offsetGet('email')->setIsRequired(true);        
+        
+        foreach ($rows as $rowNumber => $row)
         {
-          $email = $row['E-Mail'];
+          $currentGenerator = clone $generator;
+          
+          $email = $row['email'];
           $user = Doctrine::getTable('UllUser')->findOneByEmail($email);
           
           if (!$user)
@@ -84,58 +105,45 @@ class myModuleActions extends ullsfActions
             $user = new UllUser;
           }          
           
-          $fields = array();
-          $fields['first_name'] = $row['Vorname'];
-          $fields['last_name']  = $row['Nachname'];
-          $fields['email']      = $email;          
-          
-          $generator = new ullUserGenerator('w');
-          $generator->getColumnsConfig()->disableAllExcept(array(
-            'first_name',
-            'last_name',
-            'email',
-          ));
-          $generator->getColumnsConfig()->offsetGet('email')->setIsRequired(true);
+          $mailingListName = $row['UllNewsletterMailingLists'];
           
           
-          $generator->buildForm($user);
-
-          if ($generator->getForm()->bindAndSave($fields))
+          if ($mailingListName) 
           {
+            $mailingList = Doctrine::getTable('UllNewsletterMailingList')
+              ->findOneByName($mailingListName);
+              
+            if ($mailingList)
+            {
+              $row['UllNewsletterMailingLists']= array($mailingList->id);
+            }
+            else
+            {
+              $row['UllNewsletterMailingLists'] = $mailingListName;
+            }
+          }          
+          
+          $currentGenerator->buildForm($user);
+
+          if ($currentGenerator->getForm()->bindAndSave($row))
+          {
+            unset($currentGenerator);
+            $numberRowsImported++;
           }
           else 
           {
-            $generatorErrors[$rowNumber] = $generator;
+            $generatorErrors[$rowNumber] = $currentGenerator;
           }
-
           
-//          $mailingListName = $row['Verteiler'];
-//          
-//          if ($mailingListName) 
-//          {
-//            $mailingList = Doctrine::getTable('UllNewsletterMailingList')
-//              ->findOneByName($mailingListName);
-//              
-//            if (!$mailingList)
-//            {
-//              $errors[] = 'Unbekannter Verteiler: ' . $mailingListName . "\n"; 
-//            }
-//            else
-//            {
-//              $user->UllNewsletterMailingLists[] = $mailingList;
-//            }
-//          }
-//          
-//          $user->save();
-        }
-        
-      }
-      
-    }
+        } // foreach row
+      } // end of if uploaded csv-file is valid
+    } // end of if post
     
         
     $this->form = $form;
     $this->generatorErrors = $generatorErrors;
+    $this->mappingErrors = $mappingErrors;
+    $this->numberRowsImported = $numberRowsImported;
   }
   
   

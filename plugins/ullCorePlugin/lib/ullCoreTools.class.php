@@ -748,6 +748,10 @@ class ullCoreTools
     $string = self::urlDotDecode($string);
   }
   
+  
+  /**
+   * @deprecated
+   */
   public static function convertCsvToDoctrineArray(
     $csv, 
     $mapping, 
@@ -943,4 +947,42 @@ class ullCoreTools
       
     return $string;
   }
+
+  /**
+   * Recursively flatten an array
+   * 
+   * @author SamGoody from http://stackoverflow.com/questions/526556/how-to-flatten-a-multi-dimensional-array-to-simple-one-in-php
+   * 
+   * @param $array
+   */
+  public static function array_flatten($array) 
+  { 
+    $flat = array();
+    
+    $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($array));
+    foreach ($iterator as $value)
+    {
+      $flat[] = $value;  
+    }
+    
+    return $flat;
+  }
+
+  /**
+   * Output similiar to print_r, but for ordinary "non-tech" persons
+   * 
+   * Arrays are flattend 
+   * 
+   */
+  public static function print_r_ordinary($value)
+  {
+    if (is_array($value))
+    {
+      return implode(', ', self::array_flatten($value));
+    }
+    
+    return $value;
+  }
+  
+  
 }

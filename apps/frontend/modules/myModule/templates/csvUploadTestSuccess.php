@@ -2,15 +2,33 @@
   <?php echo __('CSV Import', null, 'ullCoreMessages') ?>
 </h1>
 
+<?php if ($numberRowsImported): ?>
+  <p>
+    <?php echo __('%number% rows sucessfully imported', array('%number%' => $numberRowsImported), 'ullCoreMessages') ?>.
+  </p>
+<?php endif ?>
+
 <div id="csv_errors">
 
   <div id="csv_global_errors">
     <?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
   </div>
+  
+  
+  <div id="csv_mapping_errors">
+    <ul id="csv_mapping_error_list">
+      <?php foreach ($mappingErrors as $error): ?>
+        <li>
+          <?php echo $error ?>
+        </li>
+      <?php endforeach ?>  
+    </ul>
+  </div>
+    
 
   <div id="csv_row_errors">
     <?php if (count($generatorErrors)): ?>
-      <h2><?php echo __('The following rows could not be imported', null, 'ullCoreMessages') ?></h2>
+      <p><?php echo __('The following rows could not be imported', null, 'ullCoreMessages') ?>:</p>
     <?php endif ?>
     
     <?php foreach ($generatorErrors as $rowNumber => $generatorError): ?>
@@ -26,11 +44,11 @@
         <ul id="csv_row_error_list">
           <?php foreach ($generatorError->getForm()->getErrorSchema()->getErrors() as $fieldName => $error): ?>
             <li>
-            <?php echo str_replace(' *', '', $generatorError->getForm()->offsetGet($fieldName)->renderLabel()) ?>:  
-            <?php echo $generatorError->getForm()->offsetGet($fieldName)->renderError() ?>
-            <?php if ($value = $error->getValue()): ?>
-              "<?php echo $value ?>"
-            <?php endif ?>
+              <?php echo str_replace(' *', '', $generatorError->getForm()->offsetGet($fieldName)->renderLabel()) ?>:  
+              <?php echo $generatorError->getForm()->offsetGet($fieldName)->renderError() ?>
+              <?php if ($value = $error->getValue()): ?>
+                "<?php echo ullCoreTools::print_r_ordinary($value) ?>"
+              <?php endif ?>
             </li>
           <?php endforeach // error per row ?>  
         </ul>

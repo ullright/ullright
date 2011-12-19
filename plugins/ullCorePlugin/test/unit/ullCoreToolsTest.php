@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(47, new lime_output_color);
+$t = new lime_test(48, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -180,3 +180,16 @@ $t->diag('randomString');
   $t->is(strlen(ullCoreTools::randomString()), 16, 'String has the correct length');
   $t->is(strlen(ullCoreTools::randomString(20)), 20, 'String has the correct length');
   
+$t->diag('array_flatten()');
+
+  $array = array( 
+    'A' => array(
+      'B' => array(1, 2, 3)
+    ), 
+    'C' => array(4, 5),
+    'D' => 6 
+  ); 
+  
+  $reference = array(1, 2, 3, 4, 5, 6);
+  
+  $t->is(ullCoreTools::array_flatten($array), $reference, 'Correctly flattens the array');

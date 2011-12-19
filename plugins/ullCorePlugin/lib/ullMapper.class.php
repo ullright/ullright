@@ -59,12 +59,14 @@ class ullMapper
   {
     $result = array();
     
-    foreach ($this->data as $line)
+    foreach ($this->data as $key => $line)
     {
       $lineResult = array();
       
       foreach ($line as $name => $value)
       {
+         // This is wrong! rework error handling. think about what is interesting for the user
+        
         if (in_array($name, $this->getMappingSourceFields()))
         {
           $lineResult[$this->mapping[$name]] = $value;
@@ -85,7 +87,7 @@ class ullMapper
         $lineResult
       );
       
-      $result[] = $lineResult;
+      $result[$key] = $lineResult;
     } // end of foreach rows
     
     return $result;

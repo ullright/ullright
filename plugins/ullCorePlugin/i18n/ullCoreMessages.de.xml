@@ -845,7 +845,7 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       
       <trans-unit id="4000">
         <source>A CSV file separated by semicolons or tabs containing a column header row at the top.</source>
-        <target>Eine CSV-Datei mit Spaltenüberschriften, unterteilt mit Strichpunkten oder Tabulatoren.</target>
+        <target>Eine CSV-Datei mit Spaltenüberschriften, unterteilt durch Strichpunkte oder Tabulatoren.</target>
       </trans-unit>
       
       <trans-unit id="4001">
@@ -868,6 +868,16 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <target>Zeile %number%</target>
       </trans-unit>
       
+      <trans-unit id="4005">
+        <source>Warning: no column "%column%" found</source>
+        <target>Warnung: keine Spalte "%column%" gefunden</target>
+      </trans-unit>
+      
+      <trans-unit id="4006">
+        <source>%number% rows sucessfully imported</source>
+        <target>%number% Zeilen erfolgreich importiert</target>
+      </trans-unit> 
+      
       <trans-unit id="">
         <source></source>
         <target></target>
@@ -876,7 +886,13 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       <trans-unit id="">
         <source></source>
         <target></target>
-      </trans-unit> 
+      </trans-unit>
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      
       
       
     </body>
