@@ -39,7 +39,7 @@ $t->diag('toArray()');
       'Email'       => 'k@ull.at',
     ),
     3 => array(
-      'First name'  => 'Poor Guy',
+      'First name'  => "Poor \nGuy",
       'Last name'   => 'NoEmail',
       'Email'       =>  null
     ),

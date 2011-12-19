@@ -1,6 +1,7 @@
 First name;Last name;Email
 Klemens;Ullmann-Marx;k@ull.at
 
-Poor Guy;NoEmail
+"Poor 
+Guy";NoEmail
  Trailing ;Charm;charm@example.com
 Email;Error;"error;fatal@invalid"
