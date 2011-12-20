@@ -869,8 +869,8 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       </trans-unit>
       
       <trans-unit id="4005">
-        <source>Warning: no column "%column%" found</source>
-        <target>Warnung: keine Spalte "%column%" gefunden</target>
+        <source>Warning: no column "%column%" supplied</source>
+        <target>Warnung: Spalte "%column%" wurde nicht angegeben</target>
       </trans-unit>
       
       <trans-unit id="4006">

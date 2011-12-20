@@ -19,7 +19,7 @@ $t->diag('__construct()');
     3 => array(
       'First name'  => 'Trailing',
       'Last name'   => 'Charm',
-      'Invalid column' => 'foobar',
+      'Additional' => 'foobar',
     ),
   );
   
@@ -27,7 +27,8 @@ $t->diag('__construct()');
     'First name'    => 'first_name',
     'Last name'     => 'last_name',
     'Email'         => 'email',
-    'Mailing list'  => 'UllNewsletterMailingList'
+    'Mailing list'  => 'UllNewsletterMailingList',
+    'Unsupported'   => 'unsupported',
   );
   
   $mapper = new ullMapper($data, $mapping);
@@ -46,12 +47,14 @@ $t->diag('hasErrors() before doMapping()');
       'last_name'   => 'Ullmann-Marx',
       'email'       => 'k@ull.at',
       'UllNewsletterMailingList' => 'Product news',
+      'unsupported' => null,
     ),
     3 => array(
       'first_name'  => 'Trailing',
       'last_name'   => 'Charm',
       'email'       => null,
       'UllNewsletterMailingList' => null,
+      'unsupported' => null,
     )
   );
   
@@ -63,7 +66,7 @@ $t->diag('has/getErrors() after doMapping() with errors');
   $t->is($mapper->hasErrors(), true, 'Now we have errors');
   
   $reference = array(
-    'Invalid column' => 'Warning: no column "Invalid column" found',
+    'Unsupported' => 'Warning: no column "Unsupported" supplied',
   );
   
   $t->is($mapper->getErrors(), $reference, 'Returns the correct error');
@@ -76,6 +79,7 @@ $t->diag('getMappingSourceFields()');
     'Last name',
     'Email',
     'Mailing list',
+    'Unsupported',
   );
   
   $t->is($mapper->getMappingSourceFields(), $reference, 'Return the correct source columns');  
@@ -88,6 +92,7 @@ $t->diag('getEmptyTargetLine()');
     'last_name'     => null,
     'email'         => null,
     'UllNewsletterMailingList'  => null,
+    'unsupported'   => null,
   );
   
   $t->is($mapper->getEmptyTargetLine(), $reference, 'Returns the correct result');

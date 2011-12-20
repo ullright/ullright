@@ -57,27 +57,21 @@ class ullMapper
    */
   public function doMapping()
   {
+    // Investigate if mapped columns are not in the supplied data at all
+    $columnCheck = array();
+    
     $result = array();
     
     foreach ($this->data as $key => $line)
     {
       $lineResult = array();
       
-      foreach ($line as $name => $value)
+      foreach ($this->mapping as $sourceName => $targetName)
       {
-         // This is wrong! rework error handling. think about what is interesting for the user
-        
-        if (in_array($name, $this->getMappingSourceFields()))
+        if (isset($line[$sourceName]))
         {
-          $lineResult[$this->mapping[$name]] = $value;
-        }
-        else
-        {
-          $this->errors[$name] = __(
-            'Warning: no column "%column%" found', 
-            array('%column%' => $name),
-            'ullCoreMessages'
-          );
+          $lineResult[$targetName] = $line[$sourceName];
+          $columnCheck[$sourceName] = true;
         }
       } // end of foreach field
       
@@ -89,6 +83,20 @@ class ullMapper
       
       $result[$key] = $lineResult;
     } // end of foreach rows
+    
+    // Investigate if mapped columns are not in the supplied data at all 
+    // and populate the errors array if so
+    foreach ($this->getMappingSourceFields() as $sourceName)
+    {
+      if (!isset($columnCheck[$sourceName]))
+      {
+        $this->errors[$sourceName] = __(
+          'Warning: no column "%column%" supplied', 
+          array('%column%' => $sourceName),
+          'ullCoreMessages'
+        );
+      }
+    }    
     
     return $result;
   }
