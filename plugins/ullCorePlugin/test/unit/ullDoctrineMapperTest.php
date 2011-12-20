@@ -5,14 +5,59 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
+$t = new sfDoctrineTestCase(11, new lime_output_color, $configuration);
+$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
+$t->setFixturesPath($path);
+
+/**
+ * Test implementation of ullDoctrineMapper
+ *
+ */
 class ullDoctrineMapperTest extends ullDoctrineMapper
 {
   
-}
+  /**
+   * (non-PHPdoc)
+   * @see plugins/ullCorePlugin/lib/ullDoctrineMapper::getGenerator()
+   */
+  public function getGenerator()
+  {
+    $generator = new ullUserGenerator('w');
+    $generator->getColumnsConfig()->disableAllExcept($this->mapping);
+    $generator->getColumnsConfig()->offsetGet('email')->setIsRequired(true);  
+    
+    return $generator;
+  }
+  
+  /**
+   * (non-PHPdoc)
+   * @see plugins/ullCorePlugin/lib/ullDoctrineMapper::getObject()
+   */
+  public function getObject(array $row)
+  {
+    $email = $row['email'];
 
-$t = new lime_test(6, new lime_output_color);
-$path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
-$t->setFixturesPath($path);
+    // Warning: this means a new user is created when no email address
+    //   (=key) is found. Therefore the validation must require the email
+    //   address
+    if ($email)
+    {
+      $user = Doctrine::getTable('UllUser')->findOneByEmail($email);
+      
+      if (!$user)
+      {
+        $user = new UllUser;
+      }
+    }
+    else 
+    {
+      $user = new UllUser;
+    }
+    
+    return $user;
+  }
+  
+}  
 
 
 $t->begin('__construct()');
@@ -42,17 +87,23 @@ $t->begin('__construct()');
     'First name'    => 'first_name',
     'Last name'     => 'last_name',
     'Email'         => 'email',
-    'Unsupported'   => 'unsupported',
   );
   
-  $mapper = new ullDoctrineMapperTest($data, $mapping, 'UllUser');
+  $mapper = new ullDoctrineMapperTest($data, $mapping);
 
+$t->diag('getNumberImported()');
+
+  $t->is($mapper->getNumberImported(), 0, 'Nothing imported yet');
+  
+$t->diag('getGeneratorErrors()');
+
+  $t->is($mapper->getGeneratorErrors(), array(), 'No errors yet');
 
 $t->diag('getGenerator()');
 
-  $t->isa_ok($mapper->getGenerator(), 'UllUserGenerator');
+  $t->isa_ok($mapper->getGenerator(), 'ullUserGenerator', 'Returns the correct object');
   
-
+  
 $t->diag('mapValidateAndSave()');
 
   $mapper->mapValidateAndSave();
@@ -69,7 +120,12 @@ $t->diag('mapValidateAndSave()');
   $t->is($user->last_name, 'User Updated', 'Test: last name updated ok');
   
 
-$t->diag('getGeneratorErrors()');
+$t->diag('getNumberImported() after mapping');
+
+  $t->is($mapper->getNumberImported(), 2, '2 rows imported');
+  
+
+$t->diag('getGeneratorErrors() after mapping');
 
   $generatorErrors = $mapper->getGeneratorErrors();
   
@@ -77,8 +133,8 @@ $t->diag('getGeneratorErrors()');
   
   $generator = reset($generatorErrors);
   $error = $generator->getForm()->offsetGet('email')->renderError();
-  
-  $t->is($error, 'Required', 'Returns the correct error');
-  
+  $t->is(strpos($error, 'Required'), true, 'Returns the correct error');
   
   
+  
+
