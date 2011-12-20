@@ -87,7 +87,6 @@ class myModuleActions extends ullsfActions
         $mapper = new ullMapper($rows, $mapping);
         $rows = $mapper->doMapping();
         $mappingErrors = $mapper->getErrors();
-        var_dump($mappingErrors);die;
         
         $generator = new ullUserGenerator('w');
         $generator->getColumnsConfig()->disableAllExcept($mapping);

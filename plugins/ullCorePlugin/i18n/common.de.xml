@@ -533,6 +533,16 @@
 <target>Gewählte Tags</target>
 </trans-unit>
 
+<trans-unit id="4014">
+<source>Warnings</source>
+<target>Warnungen</target>
+</trans-unit>
+
+<trans-unit id="4015">
+<source>Errors</source>
+<target>Fehler</target>
+</trans-unit>
+
 
 <!-- common validation phrases -->
 

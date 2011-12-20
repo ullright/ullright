@@ -2,29 +2,46 @@
   <?php echo __('CSV Import', null, 'ullCoreMessages') ?>
 </h1>
 
+<?php if (isset($customMessage)): ?>
+  <div id="csv_custom_message">
+    <?php echo $customMessage ?>
+  </div>
+<?php endif?>
+
 <?php if ($numberRowsImported): ?>
-  <p>
-    <?php echo __('%number% rows sucessfully imported', array('%number%' => $numberRowsImported), 'ullCoreMessages') ?>.
-  </p>
+  <div id="csv_success">
+    <p>
+      <?php echo __('%number% rows sucessfully imported', array('%number%' => $numberRowsImported), 'ullCoreMessages') ?>.
+    </p>
+  </div>
 <?php endif ?>
 
+<?php if (count($mappingErrors)): ?>
+  <div id="csv_warnings">
+    
+    <h2><?php  echo __('Warnings', null, 'common') ?></h2>
+  
+    <div id="csv_mapping_errors">
+      <ul id="csv_mapping_error_list">
+        <?php foreach ($mappingErrors as $error): ?>
+          <li>
+            <?php echo $error ?>
+          </li>
+        <?php endforeach ?>  
+      </ul>
+    </div>
+  
+  </div>
+<?php endif ?>  
+  
+
 <div id="csv_errors">
+
+  <h2><?php  echo __('Errors', null, 'common') ?></h2>
 
   <div id="csv_global_errors">
     <?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
   </div>
-  
-  
-  <div id="csv_mapping_errors">
-    <ul id="csv_mapping_error_list">
-      <?php foreach ($mappingErrors as $error): ?>
-        <li>
-          <?php echo $error ?>
-        </li>
-      <?php endforeach ?>  
-    </ul>
-  </div>
-    
 
   <div id="csv_row_errors">
     <?php if (count($generatorErrors)): ?>
@@ -60,15 +77,6 @@
 <!-- end of csv_errors -->
 </div>
 
-
-
-<?php /* 
-<ul class="form_error">
-<?php foreach ($errors as $error): ?>
-  <li><?php echo $error?></li>  
-<?php endforeach ?>
-</ul>
-*/ ?>
 
 <?php echo form_tag('myModule/csvUploadTest', array('multipart' => 'true')) ?>
 

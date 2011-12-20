@@ -55,7 +55,7 @@ class ullMapper
    * 
    * @return: array
    */
-  public function doMapping()
+  public function map()
   {
     // Investigate if mapped columns are not in the supplied data at all
     $columnCheck = array();

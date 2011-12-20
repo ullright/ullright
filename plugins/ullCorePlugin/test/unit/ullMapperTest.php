@@ -39,7 +39,7 @@ $t->diag('hasErrors() before doMapping()');
   $t->is($mapper->hasErrors(), false, 'No errors');
   
   
- $t->diag('doMapping()');   
+ $t->diag('map()');   
   
   $reference = array(
     1 => array(
@@ -58,7 +58,7 @@ $t->diag('hasErrors() before doMapping()');
     )
   );
   
-  $t->is($mapper->doMapping(), $reference, 'Performs the correct mapping');
+  $t->is($mapper->map(), $reference, 'Performs the correct mapping');
   
   
 $t->diag('has/getErrors() after doMapping() with errors'); 
