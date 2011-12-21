@@ -460,13 +460,15 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_newsletter_csv_import');
     
-    $this->mapperClass = 'ullDoctrineMapperNewsletter'; 
-    $this->customMessage = __(
+    $this->mapper_class = 'ullDoctrineMapperNewsletter'; 
+    $this->custom_message = __(
       'Expected columns: %columns%', 
       array('%columns%' => '"First name", "Last name", "Email", "Mailing list"'),
       'ullMailMessages'
     );
     
+    $this->breadcrumb_tree = $this->breadcrumbForCsvImport();
+        
     parent::executeCsvImport($request);
   }  
   
@@ -582,5 +584,15 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
   }  
+  
+  /**
+   * Handles breadcrumb for show action
+   */
+  protected function breadcrumbForCsvImport()
+  {
+    $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
+    $breadcrumb_tree->add(__('Recipient import', null, 'ullMailMessages'));
+    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
+  }    
     
 }

@@ -111,6 +111,9 @@ UllPermission:
   ull_permission_newsletter_public:
     slug:               ull_newsletter_public
     namespace:          ull_newsletter    
+  ull_permission_newsletter_csv_import:
+    slug:               ull_newsletter_csv_import
+    namespace:          ull_newsletter     
     
   ull_permission_mail_log_list:
     slug:               ull_mail_log_list
@@ -121,11 +124,11 @@ UllPermission:
    
 UllGroupPermission:
   ull_group_permission_ull_newsletter_1:
-    UllGroup:           ull_group_everyone
+    UllGroup:           ull_group_newsletter_admins
     UllPermission:      ull_permission_newsletter_index
     namespace:          ull_newsletter
   ull_group_permission_ull_newsletter_2:
-    UllGroup:           ull_group_everyone
+    UllGroup:           ull_group_newsletter_admins
     UllPermission:      ull_permission_newsletter_list
     namespace:          ull_newsletter    
   ull_group_permission_ull_newsletter_3:
@@ -136,13 +139,17 @@ UllGroupPermission:
     UllGroup:           ull_group_everyone
     UllPermission:      ull_permission_newsletter_show
     namespace:          ull_newsletter
-  ull_group_permission_ull_newsletter_6:
+  ull_group_permission_ull_newsletter_5:
     UllGroup:           ull_group_everyone
     UllPermission:      ull_permission_newsletter_public
     namespace:          ull_newsletter    
+  ull_group_permission_ull_newsletter_6:
+    UllGroup:           ull_group_newsletter_admins
+    UllPermission:      ull_permission_newsletter_csv_import
+    namespace:          ull_newsletter        
     
   ull_group_permission_ull_newsletter_7:
-    UllGroup:           ull_group_everyone
+    UllGroup:           ull_group_newsletter_admins
     UllPermission:      ull_permission_mail_log_list
     namespace:          ull_newsletter    
   ull_group_permission_ull_newsletter_8:

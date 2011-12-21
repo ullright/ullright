@@ -284,7 +284,7 @@ abstract class BaseUllGeneratorActions extends ullsfActions
         unlink($path);
 
         
-        $mapper = new $this->mapperClass($rows);
+        $mapper = new $this->mapper_class($rows);
         $mapper->mapValidateAndSave();
         
         $generatorErrors = $mapper->getGeneratorErrors();
@@ -296,9 +296,9 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     
         
     $this->form = $form;
-    $this->generatorErrors = $generatorErrors;
-    $this->mappingErrors = $mappingErrors;
-    $this->numberRowsImported = $numberRowsImported;
+    $this->generator_errors = $generatorErrors;
+    $this->mapping_errors = $mappingErrors;
+    $this->number_rows_imported = $numberRowsImported;
     
     $this->setTableToolTemplate('csvImport');
   }  

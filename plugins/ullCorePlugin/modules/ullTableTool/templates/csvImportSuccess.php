@@ -1,23 +1,27 @@
+<?php if (isset($breadcrumb_tree)): ?>
+  <?php echo $breadcrumb_tree ?>
+<?php endif ?>
+
 <h1>
   <?php echo __('CSV Import', null, 'ullCoreMessages') ?>
 </h1>
 
-<?php if ($numberRowsImported): ?>
+<?php if ($number_rows_imported): ?>
   <div id="csv_success">
     <p>
-      <?php echo __('%number% rows sucessfully imported', array('%number%' => $numberRowsImported), 'ullCoreMessages') ?>.
+      <?php echo __('%number% rows sucessfully imported', array('%number%' => $number_rows_imported), 'ullCoreMessages') ?>.
     </p>
   </div>
 <?php endif ?>
 
-<?php if (count($mappingErrors)): ?>
+<?php if (count($mapping_errors)): ?>
   <div id="csv_warnings">
     
     <h2><?php  echo __('Warnings', null, 'common') ?></h2>
   
     <div id="csv_mapping_errors">
       <ul id="csv_mapping_error_list">
-        <?php foreach ($mappingErrors as $error): ?>
+        <?php foreach ($mapping_errors as $error): ?>
           <li>
             <?php echo $error ?>
           </li>
@@ -29,7 +33,7 @@
 <?php endif ?>  
   
 
-<?php if ($form->hasErrors() || count($generatorErrors)): ?>
+<?php if ($form->hasErrors() || count($generator_errors)): ?>
   <div id="csv_errors">
   
     <h2><?php  echo __('Errors', null, 'common') ?></h2>
@@ -39,25 +43,25 @@
     </div>
   
     <div id="csv_row_errors">
-      <?php if (count($generatorErrors)): ?>
+      <?php if (count($generator_errors)): ?>
         <p><?php echo __('The following rows could not be imported', null, 'ullCoreMessages') ?>:</p>
       <?php endif ?>
       
-      <?php foreach ($generatorErrors as $rowNumber => $generatorError): ?>
+      <?php foreach ($generator_errors as $row_number => $generator_error): ?>
         <div id="csv_row_error">
           <h3>
-            <?php echo __('Line %number%', array('%number%' => $rowNumber), 'ullCoreMessages') ?> 
-            <?php if ($toString = (string) $generatorError->getForm()->getObject()): ?>
-              "<?php echo $toString ?>"
+            <?php echo __('Line %number%', array('%number%' => $row_number), 'ullCoreMessages') ?> 
+            <?php if ($to_string = (string) $generator_error->getForm()->getObject()): ?>
+              "<?php echo $to_string ?>"
             <?php endif ?>
             :
           </h3> 
           
           <ul id="csv_row_error_list">
-            <?php foreach ($generatorError->getForm()->getErrorSchema()->getErrors() as $fieldName => $error): ?>
+            <?php foreach ($generator_error->getForm()->getErrorSchema()->getErrors() as $fieldName => $error): ?>
               <li>
-                <?php echo str_replace(' *', '', $generatorError->getForm()->offsetGet($fieldName)->renderLabel()) ?>:  
-                <?php echo $generatorError->getForm()->offsetGet($fieldName)->renderError() ?>
+                <?php echo str_replace(' *', '', $generator_error->getForm()->offsetGet($fieldName)->renderLabel()) ?>:  
+                <?php echo $generator_error->getForm()->offsetGet($fieldName)->renderError() ?>
                 <?php if ($value = $error->getValue()): ?>
                   "<?php echo ullCoreTools::print_r_ordinary($value) ?>"
                 <?php endif ?>
@@ -80,9 +84,9 @@
 
 <div class="edit_container">
 
-<?php if (isset($customMessage)): ?>
+<?php if (isset($custom_message)): ?>
   <p id="csv_custom_message">
-    <?php echo $customMessage ?>
+    <?php echo $custom_message ?>
   </p>
 <?php endif?>
 

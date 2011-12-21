@@ -425,6 +425,11 @@ Beispiele: [FIRST_NAME], [LAST_NAME], [TITLE], ...</target>
 <target>Erwartete Spalten: %columns%</target>
 </trans-unit>
 
+<trans-unit id="702">
+<source>Recipient import</source>
+<target>Empfänger importieren</target>
+</trans-unit>
+
 
     </body>
   </file>
