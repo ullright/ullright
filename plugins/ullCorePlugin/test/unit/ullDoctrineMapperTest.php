@@ -16,6 +16,15 @@ $t->setFixturesPath($path);
 class ullDoctrineMapperTest extends ullDoctrineMapper
 {
   
+  public function configureMapping()
+  {
+    $this->mapping = array(
+      'First name'    => 'first_name',
+      'Last name'     => 'last_name',
+      'Email'         => 'email',
+    );    
+  }
+  
   /**
    * (non-PHPdoc)
    * @see plugins/ullCorePlugin/lib/ullDoctrineMapper::getGenerator()
@@ -83,13 +92,7 @@ $t->begin('__construct()');
     )
   );
   
-  $mapping = array(
-    'First name'    => 'first_name',
-    'Last name'     => 'last_name',
-    'Email'         => 'email',
-  );
-  
-  $mapper = new ullDoctrineMapperTest($data, $mapping);
+  $mapper = new ullDoctrineMapperTest($data);
 
 $t->diag('getNumberImported()');
 

@@ -6,7 +6,7 @@
  * 
  * Discards unmapped fields in the source data.
  * 
- * @see unit test ullMapperTest.php for examples 
+ * @see unit test ullDoctrineMapperTest.php for examples 
  * @author klemens.ullmann-marx@ull.at
  */
 abstract class ullDoctrineMapper extends ullMapper
@@ -14,7 +14,7 @@ abstract class ullDoctrineMapper extends ullMapper
   protected
     $numberImported = 0,
     $generatorErrors = array()
-  ;
+  ; 
   
   /**
    * Constructor 
@@ -22,11 +22,26 @@ abstract class ullDoctrineMapper extends ullMapper
    * @param array $data     The input data
    * @param array $mapping  The mapping with format "input key" => "output key"
    */
-  public function __construct(array $data, array $mapping)
+  public function __construct(array $data)
   {
     $this->data = $data;
-    $this->mapping = $mapping;
+    
+    $this->configureMapping();
   }  
+
+  
+  /**
+   * METHODS TO BE CUSTOMIZED
+   */
+  
+  
+  /**
+   * Configure your mapping here and set it in $this->mapping
+   * 
+   * Format: "source name" => "target name"
+   */
+  abstract public function configureMapping();
+  
   
   /**
    * Return a generater for your model here 
@@ -35,6 +50,36 @@ abstract class ullDoctrineMapper extends ullMapper
    * @return ullGenerator
    */
   abstract public function getGenerator();
+
+
+  /**
+   * Find or create the doctrine record 
+   * 
+   * @param array $row
+   * 
+   * @return Doctrine_Record
+   */
+  abstract function getObject(array $row);  
+  
+  
+  /**
+   * Modify the row data before validation
+   * 
+   * Overwrite this method with custom logic if necessary
+   
+   * @param array $row
+   * 
+   * @return array 
+   */
+  public function modifyRowPreValidation(array $row)
+  {
+    return $row;
+  }  
+  
+  
+  /**
+   * OTHER METHODS
+   */  
   
   
   /**
@@ -56,31 +101,6 @@ abstract class ullDoctrineMapper extends ullMapper
     }   
 
     return $rows;
-  }
-  
-  
-  /**
-   * Find or create the doctrine record 
-   * 
-   * @param array $row
-   * 
-   * @return Doctrine_Record
-   */
-  abstract function getObject(array $row);
-  
-  
-  /**
-   * Modify the row data before validation
-   * 
-   * Overwrite this method with custom logic if necessary
-   
-   * @param array $row
-   * 
-   * @return array 
-   */
-  public function modifyRowPreValidation(array $row)
-  {
-    return $row;
   }
   
   

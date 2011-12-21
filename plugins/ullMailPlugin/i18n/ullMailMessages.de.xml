@@ -26,6 +26,8 @@
 </trans-unit>
 
 
+
+
 <!--  column names  -->
 <trans-unit id="200">
 <source>Layout</source>
@@ -415,6 +417,14 @@ Beispiele: [FIRST_NAME], [LAST_NAME], [TITLE], ...</target>
 <source>Read the newsletter online.</source>
 <target>Lesen Sie den Newsletter online.</target>
 </trans-unit>
+
+<!-- csv import -->
+
+<trans-unit id="701">
+<source>Expected columns: %columns%</source>
+<target>Erwartete Spalten: %columns%</target>
+</trans-unit>
+
 
     </body>
   </file>

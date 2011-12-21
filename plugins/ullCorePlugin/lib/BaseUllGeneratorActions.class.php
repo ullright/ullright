@@ -253,6 +253,58 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   
   
   /**
+   * Template action for generic csv import
+   * 
+   * Configuration: Supply $this->mapperClass and optionally $this->customMessage  
+   *
+   * @param sfRequest $request
+   */
+  protected function executeCsvImport(sfRequest $request)
+  {
+    $form = new ullCsvUploadForm();
+    
+    $generatorErrors = array();
+    $mappingErrors = array();
+    $numberRowsImported = 0;    
+
+    if ($request->isMethod('post'))
+    {
+      $form->bind(
+        $request->getParameter('fields'), 
+        $this->getRequest()->getFiles('fields')
+      );
+      
+      if ($form->isValid())
+      {
+        $file = $form->getValue('file');
+        $path = $file->getTempName();
+        
+        $importer = new ullCsvImporter($path);
+        $rows = $importer->toArray();
+        unlink($path);
+
+        
+        $mapper = new $this->mapperClass($rows);
+        $mapper->mapValidateAndSave();
+        
+        $generatorErrors = $mapper->getGeneratorErrors();
+        $mappingErrors = $mapper->getErrors();
+        $numberRowsImported = $mapper->getNumberImported();
+        
+      } // end of if uploaded csv-file is valid
+    } // end of if post
+    
+        
+    $this->form = $form;
+    $this->generatorErrors = $generatorErrors;
+    $this->mappingErrors = $mappingErrors;
+    $this->numberRowsImported = $numberRowsImported;
+    
+    $this->setTableToolTemplate('csvImport');
+  }  
+    
+  
+  /**
    * Template method to construct and configure an ullGenerator
    * 
    * @return ullGenerator

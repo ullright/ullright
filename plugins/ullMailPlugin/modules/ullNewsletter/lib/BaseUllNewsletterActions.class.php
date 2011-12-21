@@ -452,115 +452,24 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   }
   
   /**
-   * Apply custom modifications to the query
-   *  
-   * @return none
-   */
-  protected function modifyQueryForFilter()
-  {
-    //filter per mailing list
-    if ($mailingListId = $this->filter_form->getValue('ull_newsletter_mailing_list_id'))
-    {
-      $mailingList = Doctrine::getTable('UllNewsletterMailingList')->findOneById($mailingListId);
-      
-      if ($mailingList !== false)
-      {
-        $this->q->addWhere('UllNewsletterMailingLists->id = ?', $mailingListId);
-        
-        $this->ull_filter->add('filter[ull_newsletter_mailing_list_id]',
-          __('Mailing list', null, 'ullMailMessages') . ': ' . $mailingList);
-      }
-    }
-  } 
-  
-  /**
-   * Define generator for list action
+   * Import of recipients from a csv file
    * 
-   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getListGenerator()
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions::executeCsvUpload()
    */
-  protected function getListGenerator()
+  public function executeCsvImport(sfRequest $request)
   {
-    return new ullNewsletterGenerator('r', 'list', $this->columns);
-  }  
-  
-  /**
-   * Define generator for edit action
-   * 
-   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getEditGenerator()
-   */
-  protected function getEditGenerator()
-  {
-    return new ullNewsletterGenerator('w');
-  }
-
-  /**
-   * Define generator for delete action
-   * 
-   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions#getDeleteGenerator()
-   */
-  protected function getDeleteGenerator()
-  {
-    return new ullNewsletterGenerator('w');
-  } 
+    $this->checkPermission('ull_newsletter_csv_import');
     
-  
-  /**
-   * Create breadcrumbs for index action
-   * 
-   */
-  protected function breadcrumbForIndex() 
-  {
-    $breadcrumbTree = new ullNewsletterBreadcrumbTree();
-    $this->setVar('breadcrumb_tree', $breadcrumbTree, true);
+    $this->mapperClass = 'ullDoctrineMapperNewsletter'; 
+    $this->customMessage = __(
+      'Expected columns: %columns%', 
+      array('%columns%' => '"First name", "Last name", "Email", "Mailing list"'),
+      'ullMailMessages'
+    );
+    
+    parent::executeCsvImport($request);
   }
   
-  /**
-   * Handles breadcrumb for list action
-   */
-  protected function breadcrumbForList()
-  {
-    $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
-    $breadcrumb_tree->add(__('Result list', null, 'common'), 'ullNewsletter/list');
-    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-  }  
   
-  /**
-   * Handles breadcrumb for show action
-   */
-  protected function breadcrumbForShow()
-  {
-    $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
-    $breadcrumb_tree->add(__('Show', null, 'common'));
-    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-  }  
-  
-  /**
-   * Handles breadcrumb for edit action
-   *
-   */
-  protected function breadcrumbForEdit()
-  {
-    $breadcrumb_tree = new ullNewsletterBreadcrumbTree();
-    $breadcrumb_tree->setEditFlag(true);
-    if ($referer = $this->getUriMemory()->get('list'))
-    {
-      $breadcrumb_tree->add(__('Result list', null, 'common'), $referer);
-    }
-    else
-    {
-      $breadcrumb_tree->addDefaultListEntry();
-    }    
-    
-    if ($this->id) 
-    {
-      $breadcrumb_tree->add(__('Edit', null, 'common'));
-    }
-    else
-    {
-      $breadcrumb_tree->add(__('Create', null, 'common'));
-    }
-    
-    $this->setVar('breadcrumb_tree', $breadcrumb_tree, true);
-  }  
     
 }
