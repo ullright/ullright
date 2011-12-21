@@ -76,11 +76,13 @@
           <?php echo ull_link_to(__('Advanced search', null, 'common'), 'ullUser/search') ?>
         </div>
         
+        <!-- Temp disable: fix user selection in list view
         <div class="tc_box_with_bottom_spacer color_medium_bg">
           <h3><?php echo $form['id']->renderLabel() ?></h3>
           <?php echo $form['id']->render() ?><?php echo submit_image_tag(ull_image_path('search'), array('class' => 'tc_search_quick_top_img')) ?>
           <dfn><?php echo $form['id']->renderHelp() ?></dfn>
-        </div>      
+        </div>
+         -->      
         
         <div class="tc_search_tag_top color_medium_bg"><h3><?php echo __('By popular tags', null, 'common') ?></h3></div>
         <div class="tc_search_tag_bottom color_light_bg">
