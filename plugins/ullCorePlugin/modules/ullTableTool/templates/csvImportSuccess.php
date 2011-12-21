@@ -51,9 +51,8 @@
         <div id="csv_row_error">
           <h3>
             <?php echo __('Line %number%', array('%number%' => $row_number), 'ullCoreMessages') ?> 
-            <?php if ($to_string = (string) $generator_error->getForm()->getObject()): ?>
-              "<?php echo $to_string ?>"
-            <?php endif ?>
+            
+              "<?php echo ullCoreTools::print_r_ordinary($generator_error->getForm()->getTaintedValues()) ?>"
             :
           </h3> 
           
