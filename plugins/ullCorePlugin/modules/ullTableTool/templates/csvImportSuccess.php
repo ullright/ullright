@@ -47,24 +47,25 @@
         <p><?php echo __('The following rows could not be imported', null, 'ullCoreMessages') ?>:</p>
       <?php endif ?>
       
-      <?php foreach ($generator_errors as $row_number => $generator_error): ?>
+      <?php foreach ($generator_errors as $row_number => $row_generator): ?>
+        <?php $row_form = $row_generator->getForm() ?>
         <div id="csv_row_error">
           <h3>
             <?php echo __('Line %number%', array('%number%' => $row_number), 'ullCoreMessages') ?> 
             
-              "<?php echo ullCoreTools::print_r_ordinary($generator_error->getForm()->getTaintedValues()) ?>"
+              "<?php echo ullCoreTools::print_r_ordinary($row_form->getTaintedValues()) ?>"
             :
           </h3> 
           
           <ul id="csv_row_error_list">
-            <?php if ($generator_error->getForm()->hasGlobalErrors()): ?>
-              <li><?php echo $generator_error->getForm()->renderGlobalErrors()  ?></li>
+            <?php if ($row_form->hasGlobalErrors()): ?>
+              <li><?php echo $row_form->renderGlobalErrors()  ?></li>
             <?php endif ?>
           
-            <?php foreach ($generator_error->getForm()->getErrorSchema()->getErrors() as $fieldName => $error): ?>
-              <?php if ($generator_error->getForm()->offsetExists($fieldName)): ?>
+            <?php foreach ($row_form->getErrorSchema()->getErrors() as $fieldName => $error): ?>
+              <?php if ($row_form->offsetExists($fieldName)): ?>
                 <li>
-                  <?php $field = $generator_error->getForm()->offsetGet($fieldName) ?>
+                  <?php $field = $row_form->offsetGet($fieldName) ?>
                   <?php echo str_replace(' *', '', $field->renderLabel()) ?>:  
                   <?php echo $field->renderError() ?>
                   
