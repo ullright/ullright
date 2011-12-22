@@ -474,7 +474,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       );
     }
     
-    $this->breadcrumb_tree = $this->breadcrumbForCsvImport();
+    $this->breadcrumbForCsvImport();
         
     parent::executeCsvImport($request);
   }  
