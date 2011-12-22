@@ -57,14 +57,22 @@
           </h3> 
           
           <ul id="csv_row_error_list">
+            <?php if ($generator_error->getForm()->hasGlobalErrors()): ?>
+              <li><?php echo $generator_error->getForm()->renderGlobalErrors()  ?></li>
+            <?php endif ?>
+          
             <?php foreach ($generator_error->getForm()->getErrorSchema()->getErrors() as $fieldName => $error): ?>
-              <li>
-                <?php echo str_replace(' *', '', $generator_error->getForm()->offsetGet($fieldName)->renderLabel()) ?>:  
-                <?php echo $generator_error->getForm()->offsetGet($fieldName)->renderError() ?>
-                <?php if ($value = $error->getValue()): ?>
-                  "<?php echo ullCoreTools::print_r_ordinary($value) ?>"
-                <?php endif ?>
-              </li>
+              <?php if ($generator_error->getForm()->offsetExists($fieldName)): ?>
+                <li>
+                  <?php $field = $generator_error->getForm()->offsetGet($fieldName) ?>
+                  <?php echo str_replace(' *', '', $field->renderLabel()) ?>:  
+                  <?php echo $field->renderError() ?>
+                  
+                  <?php if ($value = $error->getValue()): ?>
+                    "<?php echo ullCoreTools::print_r_ordinary($value) ?>"
+                  <?php endif ?>
+                </li>                      
+              <?php endif ?>
             <?php endforeach // error per row ?>  
           </ul>
           
