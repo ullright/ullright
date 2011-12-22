@@ -266,8 +266,13 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       $fields = $request->getParameter('fields');
       $fields = $this->handlePublicSubscriptionDefaultMailingLists($userGenerator, $fields);
       
-      if ($userGenerator->getForm()->bindAndSave($fields))
+      $form = $userGenerator->getForm();
+      $form->bind($fields);
+      
+      if ($form->isValid())
       {
+        $this->handleSubscription($userGenerator);
+        
         $this->getUser()->setFlash('message', __('Thank you for your subscription!', null, 'ullMailMessages'));
         $this->redirect('ullNewsletter/public');
       }
@@ -288,6 +293,18 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     $this->setVar('mailing_lists', UllNewsletterMailingListTable::findPublic());
     
+  }
+  
+  /**
+   * Actual subscription for the public action.
+   * 
+   * Can be overwritten to customize
+   
+   * @param ullGenerator $generator
+   */
+  protected function handleSubscription(ullGenerator $generator)
+  {
+    $generator->getForm()->save();
   }
   
   /**
