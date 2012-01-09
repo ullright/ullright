@@ -5,6 +5,7 @@
   display: table;
   position: relative;
   margin-bottom: 0;
+  list-style: none;
 }
 
 .ull_widget_gallery_preview li {
