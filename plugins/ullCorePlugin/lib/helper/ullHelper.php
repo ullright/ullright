@@ -196,8 +196,11 @@ function ull_image_path($type, $width = null, $height = null, $plugin = null)
 function ull_image_tag($type, $options = array(), $width = null, $height = null, $plugin = null)
 {
   $mergedOptions = array_merge(
-    array('alt' => __(ucfirst($type), null, 'common'),
-    'title' => __(ucfirst($type), null, 'common')),
+    array(
+      'alt' => __(ucfirst($type), null, 'common'),
+      'title' => __(ucfirst($type), null, 'common'),
+      'class' => 'ull_action_icon',
+    ),
     $options
   );
   
