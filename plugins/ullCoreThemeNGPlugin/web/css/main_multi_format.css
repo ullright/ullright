@@ -31,7 +31,23 @@
 /* default grey for all modules */
 .color_light_bg_ull_core {
   background: #e1e2e2;
+}
+
+
+/*
+ * ************************************************
+ *  Generic stuff
+ * ************************************************
+ */
+
+.ull_action_icon {
+  opacity: .7;
 } 
+ 
+.ull_action_icon:hover {
+	opacity: 1;
+} 
+
  
 /*
  * ************************************************
