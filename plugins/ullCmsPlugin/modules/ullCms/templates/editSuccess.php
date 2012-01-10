@@ -53,20 +53,18 @@
         <?php if (isset($edit_action_buttons)): ?>
           <?php  include_partial('ullTableTool/editActionButtonsRight', array('buttons' => $edit_action_buttons)) ?>
         <?php endif ?>
-      <li>
+        
     <?php if ($generator->getRow()->exists()): ?>    
-          <?php 
-            if ($generator->getAllowDelete() && isset($table_name))
-            {
-	            echo link_to(
+      <?php if ($generator->getAllowDelete() && isset($table_name)): ?>
+        <li>
+          <?php echo link_to(
 	              __('Delete', null, 'common')
 	              , 'ullTableTool/delete?table=' . $table_name . '&' . $generator->getIdentifierUrlParams(0)
 	              , 'confirm='.__('Are you sure?', null, 'common')
-	              );
-            }
-          ?> &nbsp; 
-        <?php endif; ?>
-      </li>
+	              ) ?>
+        </li>            
+      <?php endif ?>
+    <?php endif ?>
       
     </ul>
   </div>
