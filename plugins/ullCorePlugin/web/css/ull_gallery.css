@@ -52,9 +52,12 @@
   right: 0;
   top: 0;
   background-color: white;
-  padding: 1em;
+  padding: .8em;
+  margin: 2px;
   opacity: .8;
   display: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px grey;
 }
 
 .ull_widget_gallery_control {
