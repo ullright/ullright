@@ -110,7 +110,7 @@
       </p>
     <?php endif ?>
     
-    <?php if ($doc->isInsufficientParticipants()): ?>
+    <?php if ($doc->isInsufficientParticipants() && sfConfig::get('app_ull_course_show_if_enough_participants', true)): ?>
       <p class="ull_course_insufficient_participants">
         <?php echo __('Not enough participants yet', null, 'ullCourseMessages') ?>.
         <?php echo __('A minimum of %min% bookings are necessary', 
