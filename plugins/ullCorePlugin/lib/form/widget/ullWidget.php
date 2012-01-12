@@ -19,7 +19,7 @@ class ullWidget extends sfWidgetForm
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if (is_array($value))
+    if (is_array($value) && isset($value['value']))
     {
       $value = $value['value'];
     }
