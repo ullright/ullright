@@ -173,17 +173,16 @@ $t->diag('ull_image_path()');
     '/ullWikiThemeNGPlugin/images/action_icons/search_16x16',
     'returns the correct result for default ull_image_tag() params');
   
-//TODO: re-enable  
 $t->diag('ull_image_tag()');
   $t->is(ull_image_tag('search', array(), null, null, 'ullWiki'),
-    '<img alt="Search" title="Search" src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
+    '<img alt="Search" title="Search" class="ull_action_icon" src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
     'returns the correct result for default ull_image_tag() params');
   
   clean_request_parameters();
   sfContext::getInstance()->getRequest()->setParameter('module', 'ullWiki');
   
   $t->is(ull_image_tag('search'),
-    '<img alt="Search" title="Search" src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
+    '<img alt="Search" title="Search" class="ull_action_icon" src="/ullWikiThemeNGPlugin/images/action_icons/search_16x16.png" />',
     'returns the correct result for default ull_image_tag() params');
   
 $t->diag('ull_tc_task_link()');
