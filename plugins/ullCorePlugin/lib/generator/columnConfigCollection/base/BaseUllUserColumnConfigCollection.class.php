@@ -11,7 +11,14 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
   {
     parent::applyCustomSettings();
     
-    $this->disable(array('type', 'is_virtual_group', 'display_name', 'last_name_first', 'parent_ull_user_id', 'selected_culture', 'num_email_bounces'));
+    $this->disable(array(
+      'type', 
+      'is_virtual_group', 
+      'display_name', 
+      'last_name_first', 
+      'parent_ull_user_id', 
+      'selected_culture', 
+    ));
     
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
     
@@ -151,6 +158,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     ;
     $this['num_email_bounces']
       ->setLabel(__('Number of bounced emails', null, 'ullCoreMessages'))
+      ->setAccess('r')
     ;
     
     $this['duplicate_tags_for_search']
@@ -189,6 +197,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
         'username',
         'password',
         'email',
+        'num_email_bounces',
         'type',
         'UllGroup'
       ),
