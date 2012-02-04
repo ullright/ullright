@@ -192,8 +192,8 @@ EOF;
     foreach ($mailNumbers as $mailNumber)
     {
       // get the id of the ullMailLogged entry for this message (it is saved in the email header)
-//      $found = preg_match("/X-ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
-      $found = preg_match("/ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
+      $found = preg_match("/X-ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
+//      $found = preg_match("/ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
       if (!$found)
       {
         $unprocessableLog[] = 'No mail_log_id found in message: ' . $mailNumber;
