@@ -25,7 +25,9 @@ EOF;
     $this->addOption('dry-run', null, sfCommandOption::PARAMETER_NONE,
       'Dry run - Don\'t do anything');
     $this->addOption('less-noisy', null, sfCommandOption::PARAMETER_NONE,
-      'Be less noisy. Output interesting stuff only. Used for cron jobs');    
+      'Be less noisy. Output interesting stuff only. Used for cron jobs');
+    $this->addOption('skip-failed-check', null, sfCommandOption::PARAMETER_NONE,
+      'Ignore the check if a message is already marked as failed (Normaly prevents double processing)');         
     
   }
 
@@ -52,7 +54,7 @@ EOF;
     {
       $bouncedEmailAddresses = $this->findBouncedEmailAddresses($arguments, $options);
     }
-    catch(RuntimeException $e)
+    catch (RuntimeException $e)
     {
       $this->logSection(
         $this->name, 
@@ -190,7 +192,8 @@ EOF;
     foreach ($mailNumbers as $mailNumber)
     {
       // get the id of the ullMailLogged entry for this message (it is saved in the email header)
-      $found = preg_match("/X-ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
+//      $found = preg_match("/X-ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
+      $found = preg_match("/ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
       if (!$found)
       {
         $unprocessableLog[] = 'No mail_log_id found in message: ' . $mailNumber;
@@ -239,7 +242,7 @@ EOF;
       
       
       // check if the the log entry is not already marked as failed (should not happen)
-      if ($ullMailLoggedMessage->failed_at)
+      if (!$options['skip-failed-check'] && $ullMailLoggedMessage->failed_at)
       {
         $unprocessableLog[] = 'Message already marked as failed: ' . $ullMailLoggedMessageId;
         $this->imapMoveToUnproccessable($mailNumber);
