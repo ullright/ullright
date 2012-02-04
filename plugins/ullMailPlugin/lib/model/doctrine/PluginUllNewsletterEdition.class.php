@@ -14,6 +14,21 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
 {
   
   /**
+   * Post update hook
+   * 
+   * Update proxy fields
+   * 
+   * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record::postUpdate()
+   */
+  public function postUpdate($event)
+  {
+    $this->updateNumSentRecipients();
+    $this->updateNumReadEmails();
+    $this->updateNumFailedEmails();
+    $this->save();
+  }
+  
+  /**
    * Decorate the body with the selected template
    * 
    * @return string
@@ -138,9 +153,9 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     $q
       ->from('UllMailLoggedMessage m')
       ->where('m.ull_newsletter_edition_id = ?', $this->id)
-      ->addWhere('m.failed_at IS NULL')
+      ->addWhere('m.transport_sent_status = ?', true)
+      // Exclude test emails (Send preview to me)
       ->addWhere('m.subject NOT LIKE ?', '%#Test#')
-      ->addWhere('transport_sent_status = ?', true)
     ;
     
     $result = $q->count();
