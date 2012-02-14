@@ -53,6 +53,11 @@ class sfWidgetFormTextareaCKEditor extends sfWidgetFormTextarea
    */
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    if (is_array($value) && array_key_exists('value', $value))
+    {
+      $value = $value['value'];
+    }
+    
     //cols and rows are only specified for XHTML compliancy
   	$textarea = parent::renderContentTag('textarea', $value, array_merge(
         array('name' => $name, 'rows' => '8', 'cols' => '80'), $attributes));
