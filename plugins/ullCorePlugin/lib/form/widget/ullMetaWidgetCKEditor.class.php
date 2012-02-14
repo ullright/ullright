@@ -32,7 +32,7 @@ class ullMetaWidgetCKEditor extends ullMetaWidget
         $this->columnConfig->removeWidgetOption($option);
       }
       
-      $this->addWidget(new ullWidgetCKEditorRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
+      $this->addWidget(new ullWidgetFCKEditorRead($this->columnConfig->getWidgetOptions(), $this->columnConfig->getWidgetAttributes()));
       $this->addValidator(new sfValidatorPass());
     }
 
