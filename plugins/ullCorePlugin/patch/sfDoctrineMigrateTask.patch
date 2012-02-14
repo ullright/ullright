@@ -1,0 +1,29 @@
+Index: lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/task/sfDoctrineMigrateTask.class.php
+===================================================================
+--- lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/task/sfDoctrineMigrateTask.class.php	(révision 29718)
++++ lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/task/sfDoctrineMigrateTask.class.php	(copie de travail)
+@@ -100,7 +100,23 @@
+     $this->logSection('doctrine', sprintf('Migrating from version %s to %s%s', $from, $version, $options['dry-run'] ? ' (dry run)' : ''));
+     try
+     {
+-      $migration->migrate($version, $options['dry-run']);
++      $migration_classes = $migration->getMigrationClasses();
++      if($version < $from)
++      {
++        for($i = (int)$from - 1; $i >= (int)$version; $i--)
++        {
++          $this->logSection('doctrine', 'executing migration : '.$i .', class: '.$migration_classes[$i]);
++          $migration->migrate($i, $options['dry-run']);
++        }
++      }
++      else
++      {
++        for($i = (int)$from + 1; $i <= (int)$version; $i++)
++        {
++          $this->logSection('doctrine', 'executing migration : '.$i.', class: '.$migration_classes[$i]);
++          $migration->migrate($i, $options['dry-run']);
++        }
++      }
+     }
+     catch (Exception $e)
+     {
