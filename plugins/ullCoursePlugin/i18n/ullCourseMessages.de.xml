@@ -606,9 +606,9 @@
 				<target>Bitte erstellen Sie eine separate Buchung pro Person!</target>
 			</trans-unit>         
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="249">
+        <source>Participant list</source>
+        <target>Teilnehmerliste</target>
       </trans-unit>     
       
       <trans-unit id="">
