@@ -169,3 +169,14 @@ div.ull_course_offering_item_content p {
   margin: .2em 0;	
 }
  
+/* course admin links partial */
+ 
+.ull_course_admin_links ul {
+	list-style: none;
+}
+
+.ull_course_admin_links li {
+  display: inline;
+  margin: 0 1.5em 0 0;
+  padding: 0;
+}
