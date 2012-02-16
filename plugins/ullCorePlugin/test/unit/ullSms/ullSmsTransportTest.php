@@ -20,8 +20,6 @@ class ullSmsTransportTest extends ullSmsTransport
     $return .= $sms->getTo() . "\n";
     $return .= $sms->getText();
     
-//    var_dump($return);
-    
     $GLOBALS['smsLog'][] = $return;
   }
 }
