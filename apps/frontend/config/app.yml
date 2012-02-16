@@ -4,17 +4,25 @@ prod:
     send_debug_cc: true
     # blacklist of ullsfMail "slugs" (no bcc debug copy sent for these)
     debug_cc_exclude_list: [ 'ull_newsletter' ]
+  sms:
+    # send a bcc sms to debug_mobile_number
+    send_debug_bcc: true
 
 test:
   mailing:
     # completely disable mail sending during testing
     # this must always be set to false
     enable:        false
+  sms:
+    enable:        false
 
 dev:
   mailing:
     # reroute emails to the developers' email address 
     reroute:       true
+  sms:
+    # reroute all sms to  debug_mobile_number (for dev environment) 
+    reroute:        false
 
 # default values
 all:
@@ -53,6 +61,15 @@ all:
     debug_cc_exclude_list: []
     # send a copy of each mail to the debugger's email address
     send_debug_cc: false
+    
+  sms:
+    transport:      ullSmsTransportMyCustomTransport
+    enable:         true
+    # reroute all sms to  debug_mobile_number (for dev environment) 
+    reroute:        false
+    # send a bcc sms to debug_mobile_number
+    send_debug_bcc: false
+    debug_mobile_number: +66 777 888 999    
     
   auth:
     function:             default
