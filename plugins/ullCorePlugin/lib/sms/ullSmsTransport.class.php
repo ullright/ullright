@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Abstract base class for ullSms transports
+ * 
+ * Subclass and define doSend for your needs
+ * 
+ * Supports dev rerouting and production bcc
+ * 
+ * See ullSmsTransportTest.php for an implementation example
+ * 
+ * @author klemens.ullmann-marx@ull.at
+ *
+ */
 abstract class ullSmsTransport
 {
   protected 
@@ -9,11 +21,19 @@ abstract class ullSmsTransport
     $debug_mobile_number = ''
   ;
   
+  /**
+   * Constructor
+   * 
+   */
   public function __construct()
   {
     $this->loadConfig();
   }
   
+  /**
+   * Load config
+   * 
+   */
   protected function loadConfig()
   {
     $this->enable = sfConfig::get('app_sms_enable', false);
@@ -22,8 +42,21 @@ abstract class ullSmsTransport
     $this->debug_mobile_number = sfConfig::get('app_sms_debug_mobile_number', '');
   }
   
+  /**
+   * Template function for the actual sms sending.
+   * 
+   * Implement the actual functionality in your subclass here
+   *
+   * @param ullSms $sms
+   */
   abstract protected function doSend(ullSms $sms);
   
+  
+  /**
+   * Send a given ullSms
+   *
+   * @param ullSms $sms
+   */
   public function send(ullSms $sms)
   {
     if (! $this->enable)
@@ -37,6 +70,12 @@ abstract class ullSmsTransport
     
   }
   
+  
+  /**
+   * Send the real Sms to the recipient
+   * 
+   * @param ullSms $sms
+   */
   protected function sendReal(ullSms $sms)
   {
     if ($this->reroute)
@@ -48,6 +87,11 @@ abstract class ullSmsTransport
     
   }
   
+  /**
+   * Send debugging sms
+   *
+   * @param ullSms $sms
+   */
   protected function sendDebug(ullSms $sms)
   {
     //Send debug copy only when rerouting or debug bcc
@@ -56,11 +100,13 @@ abstract class ullSmsTransport
       return false;
     }
     
-    $number = ullSms::normalizeNumber($this->debug_mobile_number);
-    $sms->setTo($number);
+    // Don't modify the original sms
+    $debugSms = clone $sms;
     
-    $this->doSend($sms);
+    $number = ullSms::normalizeNumber($this->debug_mobile_number);
+    $debugSms->setTo($number);
+    
+    $this->doSend($debugSms);
   }
-  
   
 }
