@@ -402,6 +402,11 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   }
   
   
+  /**
+   * Cancel a course action
+   *
+   * @param sfRequest $request
+   */
   public function executeCancel(sfRequest $request)
   {
     $this->checkPermission('ull_course_cancel');
@@ -414,7 +419,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     if ($request->isMethod('get'))
     {
-      
       $form->setDefaults(array(
         'recipients'  => $mail->getAddressesAsString(),
         'subject'     => $mail->getSubject(),
@@ -434,6 +438,10 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
           $mail->setBody($form->getValue('body'));
           
           $this->getMailer()->batchSend($mail);
+          
+          $this->dispatcher->notify(new sfEvent($this, 'ull_course.cancel_course', array(
+            'object'        => $course
+          )));
           
           $this->redirect('ullCourse/list');
         }        
