@@ -423,6 +423,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
         'recipients'  => $mail->getAddressesAsString(),
         'subject'     => $mail->getSubject(),
         'body'        => $mail->getBody(),
+        'sms'         => get_partial('ullCourse/smsCancel')
       ));
     }
     
