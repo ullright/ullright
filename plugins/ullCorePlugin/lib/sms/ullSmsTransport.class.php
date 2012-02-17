@@ -103,8 +103,11 @@ abstract class ullSmsTransport
     // Don't modify the original sms
     $debugSms = clone $sms;
     
+    $originalTo = $debugSms->getTo();
+    
     $number = ullSms::normalizeNumber($this->debug_mobile_number);
     $debugSms->setTo($number);
+    $debugSms->setText('Original to: ' . $originalTo . '. ' . $debugSms->getText());
     
     $this->doSend($debugSms);
   }
