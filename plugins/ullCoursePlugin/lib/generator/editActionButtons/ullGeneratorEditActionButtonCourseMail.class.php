@@ -17,7 +17,7 @@ class ullGeneratorEditActionButtonCourseMail extends ullGeneratorEditActionButto
   public function render()
   {
     return ull_submit_tag(
-      __('Send email to participants', null, 'ullCourseMessages'),
+      __('Send info to participants', null, 'ullCourseMessages'),
       array(
         'name' => 'submit|action_slug=mail', 
         'form_id' => 'ull_tabletool_form',

@@ -392,8 +392,8 @@
       </trans-unit>     
       
       <trans-unit id="81">
-        <source>Send email to participants</source>
-        <target>E-Mail an Teilnehmer senden</target>
+        <source>Send info to participants</source>
+        <target>Info an Teilnehmer senden</target>
       </trans-unit>     
       
       <trans-unit id="82">

@@ -5,8 +5,6 @@ class ullCourseEmailForm extends sfForm
 
   public function configure()
   {
-    sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
-    
     $this->setWidgets(array(
       'recipients'  => new ullWidget(),
       'subject'    => new sfWidgetFormInput(array(), array('size' => 60)),
@@ -32,11 +30,6 @@ class ullCourseEmailForm extends sfForm
       'sms'    => __('Leave empty if you do not want to send SMS', null, 'ullCourseMessages'),
     ));
     
-    $this->getWidgetSchema()->setDefaults(array(
-      'sms'    => get_partial('ullCourse/smsCancel') 
-    ));    
-    
-   
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
     $this->getWidgetSchema()->setFormFormatterName('ullTable');
   }

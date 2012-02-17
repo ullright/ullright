@@ -439,7 +439,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
           
           $this->getMailer()->batchSend($mail);
           
-          $this->sendCancelSms($course, $form->getValue('sms'));
+          $this->sendSms($course, $form->getValue('sms'));
           
           $this->dispatcher->notify(new sfEvent($this, 'ull_course.cancel_course', array(
             'object'        => $course
@@ -461,7 +461,7 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   }
   
   /**
-   * Send a generic mail to all course recipients
+   * Send a generic mail (and sms) to all course recipients
    * 
    * @param sfRequest $request
    */
@@ -477,7 +477,6 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     
     if ($request->isMethod('get'))
     {
-      
       $form->setDefaults(array(
         'recipients'  => $mail->getAddressesAsString(),
         'subject'     => $mail->getSubject(),
@@ -497,6 +496,12 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
           $mail->setBody($form->getValue('body'));
           
           $this->getMailer()->batchSend($mail);
+          
+          $this->sendSms($course, $form->getValue('sms'));
+          
+          $this->dispatcher->notify(new sfEvent($this, 'ull_course.info_mail', array(
+            'object'        => $course,
+          )));          
           
           $this->redirect('ullCourse/list');
         }        
@@ -744,15 +749,16 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
     return new ullCourseGenerator('r', 'list', $this->columns);
   } 
   
+
   
   /**
-   * Send sms in case of a course cancellation
+   * Send sms. Used for info and course cancellation 
    * 
    * If no text is supplied, no action is performed
    * 
    * @param ullCourse $course
    */
-  public function sendCancelSms(ullCourse $course, $text)
+  public function sendSms(ullCourse $course, $text)
   {
     if (!$text)
     {
