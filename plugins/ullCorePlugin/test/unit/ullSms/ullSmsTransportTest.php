@@ -96,7 +96,7 @@ Hello. Hope you are ullright';
 
   $reference = '00431234567890
 0066777888999
-Hello. Hope you are ullright';
+Original to: 00430987654321. Hello. Hope you are ullright';
   $t->is($GLOBALS['smsLog'][1], $reference, 'Sent correct debug sms with normalized number');
   
   
@@ -118,7 +118,7 @@ $t->diag('send() with reroute option (dev environment)');
   
   $reference = '00431234567890
 0066777888999
-Hello. Hope you are ullright';
+Original to: 00430987654321. Hello. Hope you are ullright';
   $t->is($GLOBALS['smsLog'][0], $reference, 'Sent correct debug sms with normalized number');  
 
 
@@ -158,6 +158,6 @@ Hello. Hope you are ullright';
 
   $reference = '00431234567890
 0066777888999
-Hello. Hope you are ullright';
+Original to: 00430987654321. Hello. Hope you are ullright';
   $t->is($GLOBALS['smsLog'][1], $reference, 'Sent correct debug sms with normalized number');  
 
