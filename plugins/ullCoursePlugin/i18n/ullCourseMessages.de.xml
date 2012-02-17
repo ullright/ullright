@@ -611,6 +611,31 @@
         <target>Teilnehmerliste</target>
       </trans-unit>     
       
+      <trans-unit id="250">
+        <source>SMS text</source>
+        <target>SMS Text</target>
+      </trans-unit>     
+      
+      <trans-unit id="251">
+        <source>Leave empty if you do not want to send SMS</source>
+        <target>Frei lassen um keine SMS zu versenden</target>
+      </trans-unit>     
+      
+      <trans-unit id="252">
+        <source>Sorry, your course has been canceled. More details by email. Regards, %from_name%</source>
+        <target>Leider wurde Ihr Kurs abgesagt. Nähere Infos per E-Mail. Gruß, %from_name%</target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>     
+      
       <trans-unit id="">
         <source></source>
         <target></target>

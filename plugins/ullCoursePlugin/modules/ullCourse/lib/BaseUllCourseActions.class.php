@@ -439,6 +439,8 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
           
           $this->getMailer()->batchSend($mail);
           
+          $this->sendCancelSms($course, $form->getValue('sms'));
+          
           $this->dispatcher->notify(new sfEvent($this, 'ull_course.cancel_course', array(
             'object'        => $course
           )));
@@ -741,5 +743,43 @@ class BaseUllCourseActions extends BaseUllGeneratorActions
   {
     return new ullCourseGenerator('r', 'list', $this->columns);
   } 
+  
+  
+  /**
+   * Send sms in case of a course cancellation
+   * 
+   * If no text is supplied, no action is performed
+   * 
+   * @param ullCourse $course
+   */
+  public function sendCancelSms(ullCourse $course, $text)
+  {
+    if (!$text)
+    {
+      return false;
+    }
+    
+    $smsCounter = 0;
+    
+    foreach ($course->UllCourseBooking as $booking)
+    {
+      $user = $booking->UllUser;
+      
+      if ($mobileNumber = $user->phone_number)
+      {
+        $sms = new ullSms();
+        $sms->setFrom(sfConfig::get('app_ull_course_from_mobile_number'));
+        $sms->setTo($mobileNumber);
+        $sms->setText($text);
+        
+        $sms->send();
+        
+        $smsCounter++;
+      } 
+    }
+    
+    $flash = sfContext::getInstance()->getUser()->getFlash('message');
+    sfContext::getInstance()->getUser()->setFlash('message', $flash . ' ' . $smsCounter . ' Sms versendet.');
+  }  
   
 }
