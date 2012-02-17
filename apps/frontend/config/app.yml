@@ -182,6 +182,8 @@ all:
   ull_course:
     from_address:       courses@example.com
     from_name:          Example Company
+    # for sms sending
+    from_mobile_number: +43 123 4567890
     terms_of_use_link:  ullAdmin/about
     # Translation possible using the custom dictionary (apps/frontend/i18n/custom.XX.xml)
     payment_information: |
