@@ -16,6 +16,24 @@ class ullSms
   ;
   
   /**
+   * Return the sms in string format like this:
+   * 
+   *   sender number
+   *   recipient number
+   *   text
+   * 
+   */
+  public function __toString() 
+  {
+    $return = '';
+    $return .= $this->getFrom() . "\n";
+    $return .= $this->getTo() . "\n";
+    $return .= $this->getText(); 
+    
+    return $return;
+  }
+  
+  /**
    * Set the from number
    * 
    * @param string $from

@@ -15,20 +15,15 @@ class ullSmsTransportTest extends ullSmsTransport
 {
   protected function doSend(ullSms $sms)
   {
-    $return = '';
-    $return .= $sms->getFrom() . "\n";
-    $return .= $sms->getTo() . "\n";
-    $return .= $sms->getText();
-    
-    $GLOBALS['smsLog'][] = $return;
+    $GLOBALS['smsLog'][] = (string) $sms;
   }
 }
 
 
 /*
- * Test message
+ * Generate a test message
  */
-function getSms() 
+function breedSms() 
 {
   $sms = new ullSms;
   $sms->setFrom('00431234567890');
@@ -49,7 +44,7 @@ $t->diag('send() with smsing disabled');
   sfConfig::set('app_sms_enable', false);
   
   $GLOBALS['smsLog'] = array();
-  $sms = getSms(); 
+  $sms = breedSms(); 
   
   $transport = new ullSmsTransportTest;
   $transport->send($sms);
@@ -66,7 +61,7 @@ $t->diag('send() in production environment');
   sfConfig::set('app_sms_debug_mobile_number', '0066999');
   
   $GLOBALS['smsLog'] = array();
-  $sms = getSms(); 
+  $sms = breedSms(); 
   
   $transport = new ullSmsTransportTest;
   $transport->send($sms);
@@ -87,7 +82,7 @@ $t->diag('send() in production environment with bcc');
   sfConfig::set('app_sms_debug_mobile_number', '+66 777 888 999');
   
   $GLOBALS['smsLog'] = array();
-  $sms = getSms(); 
+  $sms = breedSms(); 
   
   $transport = new ullSmsTransportTest;
   $transport->send($sms);
@@ -114,7 +109,7 @@ $t->diag('send() with reroute option (dev environment)');
   sfConfig::set('app_sms_debug_mobile_number', '+66 777 888 999');
   
   $GLOBALS['smsLog'] = array();
-  $sms = getSms(); 
+  $sms = breedSms(); 
   
   $transport = new ullSmsTransportTest;
   $transport->send($sms);
@@ -150,7 +145,7 @@ $t->diag('ullSms::send() shortcut function (production env)');
   sfConfig::set('app_sms_debug_mobile_number', '+66 777 888 999');
 
   $GLOBALS['smsLog'] = array();
-  $sms = getSms(); 
+  $sms = breedSms(); 
   
   $sms->send();
   
