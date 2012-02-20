@@ -34,9 +34,24 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_time_index');
     
-    // clean potentially saved list view uri 
+    // when loading the index action let's clean potentially saved list view uri 
     $this->getUriMemory()->delete('list');
     
+    $this->handleIndexActionActAsUser($request);
+    
+    $this->breadcrumbForIndex();
+    
+    $this->loadPeriodsForIndexAction();
+  }
+  
+  
+  /**
+   * Act as user functionality
+   * 
+   * @param sfRequest $request
+   */
+  protected function handleIndexActionActAsUser(sfRequest $request)
+  {
     $this->act_as_user_form = new ullTimeActAsUserForm();
     
     if ($request->isMethod('post'))
@@ -47,8 +62,10 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       {
         $username = UllUserTable::findUsernameById($this->act_as_user_form->getValue('ull_user_id'));
         // TODO: why is the new url displayed with "?" and "=" instead of the
-        // usual symfony style with "/" ? 
-        $this->redirect('ullTime/index' . (($username) ? '?username=' . $username : ''));
+        // usual symfony style with "/" ?
+        $uri = 'ullTime/index' . (($username) ? '?username=' . $username : '');
+        
+        $this->redirect($uri);
       }
     }
     else
@@ -57,10 +74,16 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       {
         $this->act_as_user_form->setDefault('ull_user_id', UllUserTable::findIdByUsername($username));
       }
-    }       
-
-    $this->breadcrumbForIndex();
-    
+    }     
+  }
+  
+  
+  /**
+   * Load time periods for index action
+   * Enter description here ...
+   */
+  protected function loadPeriodsForIndexAction()
+  {
     $this->periods = UllTimePeriodTable::findCurrentAndPast();
     
     if (UllUserTable::hasPermission('ull_time_enter_future_periods'))
@@ -70,7 +93,7 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
       {
         $this->future_periods = $futurePeriods;
       }
-    }
+    }    
   }
   
   
@@ -146,7 +169,8 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->forward('ullTime', 'edit');
   }
   
-   /**
+  
+  /**
    * Execute edit action
    * 
    */
@@ -165,24 +189,12 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->generator->buildForm($this->doc);
     $this->addGlobalValidators();
     
-    //$this->sum_time = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
-    //$this->is_today = ($request->getParameter('date') == date("Y-m-d",time()));
     $this->break_1_duration = $this->doc->getBreakDuration(1);
     $this->break_2_duration = $this->doc->getBreakDuration(2);
     $this->break_3_duration = $this->doc->getBreakDuration(3);
-    $this->up_to_now = strtotime(date("H:i",time())) - strtotime($this->doc->begin_work_at) - $this->doc->total_break_seconds;
     
-    $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
-    if (($request->getParameter('date') != date("Y-m-d",time())) || !$this->doc->begin_work_at)
-    {
-      $this->up_to_now = 0;
-    }
-    
-    if($sumTime > 0)
-    {
-      $this->up_to_now = $sumTime;
-    }
-    
+    $this->calculateUpToNowTime($request);
+
     $this->breadcrumbForEdit();
     
     if ($request->isMethod('post'))
@@ -203,15 +215,70 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   }
   
   
+  /** 
+   * Get time report according to request params
+   * 
+   * Used by executeEdit()
+   */
+  protected function getDocFromRequestOrCreate()
+  {
+    $this->getDateFromRequest();
+    $this->getUserFromRequest();
+    
+    $this->doc = UllTimeReportingTable::findByDateAndUserId($this->date, $this->user->id);
+    
+    if ($this->getRequestParameter('action') == 'create')
+    {
+      if ($this->doc)
+      {
+        $this->redirect('ullTime/edit?date=' . $this->date . '&username=' . $this->user->username);
+      }
+      else
+      {
+        $this->doc = new UllTimeReporting;
+        $this->doc->ull_user_id = $this->user->id;
+        $this->doc->date = $this->date;      
+      }
+    }
+  }  
+  
+  
+  /**
+   * Calculate the up to now time for today.
+   * 
+   * Example: If I checked in this morning at 8am, and now it is 9:30am
+   * then I already worked (up to now) 1:30h
+   * 
+   * @param sfRequest $request
+   */
+  protected function calculateUpToNowTime(sfRequest $request)
+  {
+    $this->up_to_now = strtotime(date("H:i")) - strtotime($this->doc->begin_work_at) - $this->doc->total_break_seconds;
+    
+    $sumTime = UllTimeReportingTable::findTotalWorkSecondsByDateAndUserId($request->getParameter('date'), $this->user_id);
+    
+    if (($request->getParameter('date') != date('Y-m-d')) || !$this->doc->begin_work_at)
+    {
+      $this->up_to_now = 0;
+    }
+    
+    if ($sumTime > 0)
+    {
+      $this->up_to_now = $sumTime;
+    }    
+  }
+  
     
   /**
    * Execute create action
+   * 
+   * @param sfRequest $request
    */
   public function executeCreateProject(sfRequest $request) 
   {
     //previously we just forwarded to editProject,
     //but now that we have create-only fields (recurring
-    //until) we need that information in the action
+    //until) we need to preserve that information
     $return = $this->handleProjectEffort($request);
     
     $this->setTemplate('editProject');
@@ -219,16 +286,33 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     return $return;
   }
   
+  
   /**
-   * Execute edit action
+   * Execute edit project effort action
+   * 
+   * @param sfRequest $request
    */
   public function executeEditProject(sfRequest $request) 
   {
     return $this->handleProjectEffort($request);
   } 
 
+  
   /**
-   * Handles create and edit for project efforts
+   * Handles create and edit action for project efforts
+   * 
+   * Supports differen request modes:
+   * 
+   *   1) Give a date and optional a user
+   *      - Display already entered efforts for the given day (= $docs / $list_generator)
+   *      - Allow to create or edit project efforts (= $doc / $edit_generator)
+   *      
+   *   2) Give only a project effort id (UllProjectReporting::id)
+   *      - Edit a project effort. Usually coming from reporting (= $doc / $edit_generator)
+   *      
+   *   3) A mixture of 1) and 2) occurs when editing a project effort from the dayly list
+   * 
+   * @param sfRequest $request
    */
   protected function handleProjectEffort(sfRequest $request)
   {
@@ -345,53 +429,35 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   }
   
   
-  /** 
-   * Get timeReport according to request params
-   * @return unknown_type
-   */
-  protected function getDocFromRequestOrCreate()
-  {
-    $this->getDateFromRequest();
-    $this->getUserFromRequest();
-    
-    $this->doc = UllTimeReportingTable::findByDateAndUserId($this->date, $this->user->id);
-    
-    if ($this->getRequestParameter('action') == 'create')
-    {
-      if ($this->doc)
-      {
-        $this->redirect('ullTime/edit?date=' . $this->date . '&username=' . $this->user->username);
-      }
-      else
-      {
-        $this->doc = new UllTimeReporting;
-        $this->doc->ull_user_id = $this->user->id;
-        $this->doc->date = $this->date;      
-      }
-    }
-  }
-  
-  
   /**
    * Gets projectReports according to request params
    * 
    */
   protected function getProjectReportingFromRequestOrCreate()
   {
+    /* Load doc for edit by id */
+    if ($id = $this->getRequestParameter('id'))
+    {
+      $this->doc = Doctrine::getTable('UllProjectReporting')->findOneById($id);
+      
+      $this->forward404Unless($this->doc, 'Invalid project effort id given: ' . $id);
+      
+      // Force request username when giving a project effort id
+      $this->getRequest()->setParameter('username', $this->doc->UllUser->username);
+    }    
+    
     $this->getDateFromRequest();
+    
     $this->getUserFromRequest();
     
-    $this->docs = UllProjectReportingTable::findByDateAndUserId($this->date, $this->user_id);
+    $this->docs = UllProjectReportingTable::findByDateAndUserId($this->date, $this->user->id);
     
-    if ($this->getRequestParameter('action') == 'createProject')
+    // Create a new doc for create
+    if (!$this->doc)
     {
       $this->doc = new UllProjectReporting;
       $this->doc->ull_user_id = $this->user->id;
       $this->doc->date = $this->date;      
-    }
-    else
-    {
-      $this->forward404Unless($this->doc = Doctrine::getTable('UllProjectReporting')->findOneById($this->getRequestParameter('id')));
     }
   }
   
@@ -399,7 +465,6 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
   /**
    * Get date from Request
    * 
-   * @return unknown_type
    */
   protected function getDateFromRequest()
   {

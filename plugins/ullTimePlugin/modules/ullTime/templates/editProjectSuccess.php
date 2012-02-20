@@ -11,6 +11,13 @@
   <?php echo $user_widget->render('ull_user_id', $user_id); ?>
 </h3>
 
+
+<?php
+/*
+ *  Rendering list of already entered efforts 
+ */   
+?>
+
 <?php if ($list_generator->getRow()->exists()):?>
   <table class='list_table' id='ull_time_edit_list'>
   
@@ -75,6 +82,12 @@
 	</p>
 <?php endif ?>
   
+  
+<?php
+/*
+ *  Rendering create/edit functionality for a project effort 
+ */   
+?>  
 
 <?php if ($edit_generator->getDefaultAccess() == 'w'): ?>
 
@@ -94,19 +107,20 @@
   <table class="edit_table">
   <tbody>
   
-  <?php
-    foreach ($edit_generator->getForm()->getWidgetSchema()->getPositions() as $column_name)
-    {
-      $hide_rows = array('ull_user_id');
-      if (!in_array($column_name, $hide_rows))
-      {
-        echo $edit_generator->getForm()->offsetGet($column_name)->renderRow();
-      }
-    }
-  ?>
+  <?php foreach ($edit_generator->getForm()->getWidgetSchema()->getPositions() as $column_name): ?>
+    <?php $hide_rows = array('ull_user_id') ?>
+      
+    <?php if (!in_array($column_name, $hide_rows)): ?>
+      <?php echo $edit_generator->getForm()->offsetGet($column_name)->renderRow() ?>
+    <?php endif ?>
+    
+  <?php endforeach ?>
   
   </tbody>
   </table>
+  
+  
+  <?php /* action buttons */ ?>
   
   <div class='edit_action_buttons color_light_bg'>
     <h3><?php echo __('Actions', null, 'common')?></h3>
@@ -150,6 +164,7 @@
   
 <?php elseif (!$list_generator->getRow()->exists()) : // else of if edit_generator ?>  
   <?php echo __('No results found', null, 'common') . '.'; ?>
+  
 <?php endif; // end of if edit_generator ?>
   
   
