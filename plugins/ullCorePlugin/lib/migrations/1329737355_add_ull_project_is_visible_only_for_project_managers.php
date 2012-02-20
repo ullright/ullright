@@ -4,11 +4,11 @@ class AddUllProjectIsVisibleOnlyForProjectManagers extends Doctrine_Migration_Ba
 {
   public function up()
   {
-    $this->addColumn('ull_project', 'is_visible_only_for_project_managers', 'boolean');
+    $this->addColumn('ull_project', 'is_visible_only_for_project_manager', 'boolean');
   }
 
   public function down()
   {
-    $this->removeColumn('ull_project', 'is_visible_only_for_project_managers');
+    $this->removeColumn('ull_project', 'is_visible_only_for_project_manager');
   }
 }
