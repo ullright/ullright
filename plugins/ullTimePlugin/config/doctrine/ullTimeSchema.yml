@@ -23,7 +23,7 @@ UllProject:
       type: boolean
       default: false
   relations:
-    Managers:
+    Manager:
       class: UllEntity #should be UllUser -> problems when importing fixtures during testing
       refClass: UllProjectManager
       local: ull_project_id
@@ -31,7 +31,8 @@ UllProject:
     #is_default:
     #  type: boolean
     #  unique: true      
-      
+
+# Project Manager are allowed to query their projects in reporting      
 UllProjectManager:
   package: ullTimePlugin.lib.model.doctrine
   inheritance:
@@ -48,7 +49,8 @@ UllProjectManager:
     UllUser:
     UllProject:
       onDelete: CASCADE
-         
+
+# Project efforts         
 UllProjectReporting:
   package: ullTimePlugin.lib.model.doctrine
   inheritance:
@@ -79,7 +81,8 @@ UllProjectReporting:
     UllUser:
     UllProject:
       onDelete: CASCADE
-      
+
+# Time reporting      
 UllTimeReporting:
   package: ullTimePlugin.lib.model.doctrine
   inheritance:

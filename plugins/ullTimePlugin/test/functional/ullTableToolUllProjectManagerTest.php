@@ -12,8 +12,8 @@ $s = new ullDomGridSelector('table.list_table > tbody', 'tr', 'td', array(),
 
 $b = new ullTableToolTestBrowser(
 	'UllProjectManager', 
-	'Project Managers', 
-	'Manage Project Managers', 
+	'Project Manager', 
+	'Manage Project Manager', 
   0, 
   $s, 
   $configuration,

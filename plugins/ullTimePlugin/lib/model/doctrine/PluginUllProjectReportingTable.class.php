@@ -166,10 +166,10 @@ class PluginUllProjectReportingTable extends UllRecordTable
     
     // my own efforts
     $q->addWhere('ull_user_id = ?', $userId);
-    $q->getDoctrineQuery()->openParenthesisBeforeLastPart();
     
     // project manager
     // use doctrine query because of conditional join above
+    $q->getDoctrineQuery()->openParenthesisBeforeLastPart();
     $q->getDoctrineQuery()->orWhere('pm.ull_user_id = ?', $userId);
     $q->getDoctrineQuery()->closeParenthesis();
     

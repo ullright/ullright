@@ -20,14 +20,14 @@ class BaseUllProjectColumnConfigCollection extends ullColumnConfigCollection
     {
       //TODO: giving the model shouldn't be necessary.
       //It's only necessary because of a workaround (see schema)
-      $this->useManyToManyRelation('Managers', 'UllUser');
+      $this->useManyToManyRelation('Manager', 'UllUser');
       
       $this->order(array(
         'name',
         'description',
         'is_active',
         'is_routine',
-        'Managers'
+        'Manager'
       ));      
     }
 

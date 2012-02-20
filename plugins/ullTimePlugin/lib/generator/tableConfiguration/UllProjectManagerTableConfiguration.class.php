@@ -13,7 +13,7 @@ class UllProjectManagerTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setName(__('Project Managers', null, 'ullTimeMessages'));
+    $this->setName(__('Project Manager', null, 'ullTimeMessages'));
     $this->setListColumns(array('UllProject->name', 'UllUser->display_name', 'UllProject->is_active'));
     $this->setSearchColumns(array('UllProject->name', 'UllUser->display_name'));
     $this->setOrderBy('UllProject->name');
