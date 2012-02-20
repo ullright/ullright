@@ -239,6 +239,16 @@
 <target>Das Datum dieses Aufwands ändern</target>
 </trans-unit>
 
+<trans-unit id="48">
+<source>Is visible only for project manager</source>
+<target>Nur sichtbar für Projektmanager</target>
+</trans-unit>
+
+<trans-unit id="49">
+<source>If checked other users cannot see or select this project</source>
+<target>Wenn angehakt können andere Benutzer dieses Projekt weder sehen noch auswählen</target>
+</trans-unit>
+
     </body>
   </file>
 </xliff>

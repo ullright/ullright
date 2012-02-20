@@ -25,6 +25,7 @@ class BaseUllProjectReportingColumnConfigCollection extends ullColumnConfigColle
       $this['ull_user_id']->setAccess('r');
       $this['date']->setAccess('r');
     }
+    
     $this['ull_project_id']
       ->setMetaWidgetClassName('ullMetaWidgetUllProject')
       ->setLabel(__('Project', null, 'ullTimeMessages'))

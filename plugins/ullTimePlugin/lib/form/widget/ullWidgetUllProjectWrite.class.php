@@ -10,11 +10,36 @@ class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineChoice
   
   public function __construct($options = array(), $attributes = array())
   {
-    $q = new Doctrine_Query;
-    $q->from('UllProject p, p.Translation t');
-    $q->where('p.is_active = ?', true);
-    $q->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2));
-    $q->orderBy('t.name');
+    $userId = UllUserTable::findLoggedInUser()->id;
+    
+    $q = new ullDoctrineQuery;
+    $q
+      ->from('UllProject p, p.Translation t')
+      ->leftJoin('p.UllProjectManager pm WITH pm.ull_user_id = ?', $userId)
+      
+      ->where('p.is_active = ?', true)
+      ->addWhere('t.lang = ?', substr(sfContext::getInstance()->getUser()->getCulture(), 0, 2))
+      
+      
+      ->addWhere('p.is_visible_only_for_project_manager = ?', false)
+      ->openParenthesisBeforeLastPart()
+      
+      ->orWhere('p.is_visible_only_for_project_manager = ?', true)
+      ->openParenthesisBeforeLastPart()
+        ->andWhere('pm.ull_user_id = ?', $userId)
+      ->closeParenthesis()
+      
+      ->closeParenthesis()
+      
+      ->orderBy('t.name')
+    ;
+    
+//    var_dump($q->getSqlQuery());
+//    var_dump($q->getParams());
+//    
+//    var_dump($q->execute()->toArray());
+//    
+//    die('ullWidgetUllProjectWrite');
     
     $options['query'] = $q;
     

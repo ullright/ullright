@@ -20,10 +20,11 @@ $manager->UllProject = Doctrine::getTable('UllProject')->findOneBySlug('introduc
 $manager->save();
 
 // Appoint a second project manager for project "introduce-ullright"
-$manager = new UllProjectManager;
-$manager->UllUser = Doctrine::getTable('UllUser')->findOneByUsername('admin');
-$manager->UllProject = Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright');
-$manager->save();
+$manager1 = new UllProjectManager;
+$manager1->UllUser = Doctrine::getTable('UllUser')->findOneByUsername('admin');
+$manager1->UllProject = Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright');
+$manager1->save();
+
 
 $b
   ->diag('ullTime Home')
@@ -62,3 +63,30 @@ $b
 ;
 
 
+$b->diag('*** Test UllProjectReporting::is_visible_only_for_project_managers');
+
+$project = Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright');
+$project->is_visible_only_for_project_manager = true;
+$project->save();
+
+$b
+  ->diag('Our test_user can see the project in the project list because he is manager')
+  ->get('ullTime/createProject')
+  ->with('response')->begin()
+    ->checkElement('select[id="fields_ull_project_id"] > option[value="' . 
+      Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id . 
+      '"]', true)
+  ->end()
+;  
+
+$manager->delete();
+
+$b
+  ->diag('Now delete test_user as project manager. He now should not ee the project in the project list')
+  ->get('ullTime/createProject')
+  ->with('response')->begin()
+    ->checkElement('select[id="fields_ull_project_id"] > option[value="' . 
+      Doctrine::getTable('UllProject')->findOneBySlug('introduce-ullright')->id . 
+      '"]', false)
+  ->end()
+; 

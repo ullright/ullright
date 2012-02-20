@@ -22,6 +22,9 @@ UllProject:
     is_routine:
       type: boolean
       default: false
+    is_visible_only_for_project_manager:
+      type: boolean
+      default: false
   relations:
     Manager:
       class: UllEntity #should be UllUser -> problems when importing fixtures during testing
