@@ -111,6 +111,8 @@ $t->diag('send() with reroute option (dev environment)');
   $GLOBALS['smsLog'] = array();
   $sms = breedSms(); 
   
+  $sms->setText('Hi, this is a test message. Much too long  long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long');
+  
   $transport = new ullSmsTransportTest;
   $transport->send($sms);
   
@@ -118,8 +120,8 @@ $t->diag('send() with reroute option (dev environment)');
   
   $reference = '00431234567890
 0066777888999
-Original to: 00430987654321. Hello. Hope you are ullright';
-  $t->is($GLOBALS['smsLog'][0], $reference, 'Sent correct debug sms with normalized number');  
+Original to: 00430987654321. Hi, this is a test message. Much too long  long long long long long long long long long long long long long long long long long lon';
+  $t->is($GLOBALS['smsLog'][0], $reference, 'Sent correct debug sms with normalized number and a limit of 160 chars');  
 
 
 $t->diag('ullSms::send() shortcut function without configured tranport');

@@ -82,7 +82,7 @@ class ullSms
    */
   public function setText($text)
   {
-    $this->text = $text;
+    $this->text = substr($text, 0, 160);
     
     return $this;
   }

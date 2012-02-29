@@ -6,7 +6,7 @@ include dirname(__FILE__) . '/../../../../../test/bootstrap/unit.php';
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 //$request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(6, new lime_output_color);
+$t = new lime_test(8, new lime_output_color);
 
 $sms = new ullSms();
 
@@ -20,6 +20,10 @@ $t->is($sms->getTo(), '00431234567890', 'Gets/sets the recipient correctly');
 
 $sms->setTo('+43 123/45-678-90');
 $t->is($sms->getTo(), '00431234567890', 'Overwrited the to number correctly, and correctly converts the number');
+
+$sms->setText('Hi, this is a test message. Much too long  long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long');
+$t->is($sms->getText(), 'Hi, this is a test message. Much too long  long long long long long long long long long long long long long long long long long long long long long long long lo', 'Limits the text messag to 160 characters');
+$t->is(strlen($sms->getText()), 160, 'Returned exactly 160 characters');
 
 $sms->setText('Hi, this is a test message. Here are also a few umlauts: äÄß');
 $t->is($sms->getText(), 'Hi, this is a test message. Here are also a few umlauts: äÄß', 'Gets/sets the message correctly');
