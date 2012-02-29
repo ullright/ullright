@@ -617,8 +617,8 @@
       </trans-unit>     
       
       <trans-unit id="251">
-        <source>Leave empty if you do not want to send SMS</source>
-        <target>Frei lassen um keine SMS zu versenden</target>
+        <source>Leave empty if you do not want to send SMS. Limited to 160 characters.</source>
+        <target>Frei lassen um keine SMS zu versenden. Maximal 160 Zeichen.</target>
       </trans-unit>     
       
       <trans-unit id="252">

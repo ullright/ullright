@@ -16,7 +16,7 @@ class ullCourseEmailForm extends sfForm
       'recipients' => new sfValidatorPass(),
       'subject'  => new sfValidatorString(array('required' => true)),
       'body'    => new sfValidatorString(array('required' => true)),
-      'sms'    => new sfValidatorString(),
+      'sms'    => new sfValidatorString(array('max_length' => 160)),
     ));
     
     $this->getWidgetSchema()->setLabels(array(
@@ -27,7 +27,7 @@ class ullCourseEmailForm extends sfForm
     ));
     
     $this->getWidgetSchema()->setHelps(array(
-      'sms'    => __('Leave empty if you do not want to send SMS', null, 'ullCourseMessages'),
+      'sms'    => __('Leave empty if you do not want to send SMS. Limited to 160 characters.', null, 'ullCourseMessages'),
     ));
     
     $this->getWidgetSchema()->setNameFormat('fields[%s]');
