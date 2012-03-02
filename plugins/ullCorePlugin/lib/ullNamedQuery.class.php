@@ -123,6 +123,9 @@ abstract class ullNamedQuery extends ullNamedQueryCommon
    * @param ullQuery $q
    * @return ullQuery
    */
-  abstract public function modifyQuery($q);
+  public function modifyQuery($q)
+  {
+    
+  }
   
 }

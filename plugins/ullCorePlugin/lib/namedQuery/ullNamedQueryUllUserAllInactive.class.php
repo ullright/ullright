@@ -15,9 +15,14 @@ class ullNamedQueryUllUserAllInactive extends ullNamedQuery
     $this->identifier = 'all_inactive';
   }
   
-  public function modifyQuery($q)
+  public function getUri()
   {
-    $q->addWhere('UllUserStatus->is_active = ?', false);
+    //this is overridden because we don't actually want to
+    //modify the query, we use uri params instead
+    return ullCoreTools::appendParamsToUri(
+      $this->getBaseUri(),
+      'filter[ull_user_status_id]=' . Doctrine::getTable('UllUserStatus')->findOneBySlug('inactive')->id
+    );
   }
   
 }
