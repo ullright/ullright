@@ -2,7 +2,7 @@
 
 <div class="pager" id="pager_top">
 
-  <div class="pager_right">
+  <div class="pager_right no_print">
     <?php include_partial('ullTableTool/ullPager',
             array('pager' => $pager)); ?>  
   </div>
@@ -22,7 +22,7 @@
   
   <?php if (!$disable_paging_hint): ?>
   
-    <span class="paging_hint">
+    <span class="paging_hint no_print">
       <?php if ($paging == 'false'): ?>
         <?php $list[] = ull_link_to(__('Enable paging', null, 'common'),
           array('paging' => null)) ?>
@@ -38,7 +38,7 @@
   <?php $enable_export = (!isset($enable_export) ? true : $enable_export)?>
   <?php if ($pager->getNumResults() && $enable_export) : ?>
     <?php $list[] = ull_link_to(__('Export as spreadsheet', null, 'common'),
-      array('export_csv' => 'true'))?>
+      array('export_csv' => 'true'), array('class' => 'no_print'))?>
 	<?php endif ?>
       
   <div class="pager_left">
