@@ -304,6 +304,7 @@ abstract class ullGenerator extends ullGeneratorBase
     foreach ($filterColumns as $filterColumn => $defaultValue)
     {
       $columnConfig = clone $this->columnsConfig[$filterColumn];
+      
       $columnConfig->setAccess('s');
       
       $ullMetaWidgetClassName = $columnConfig->getMetaWidgetClassName();
@@ -378,6 +379,12 @@ abstract class ullGenerator extends ullGeneratorBase
           $filterParams[$fieldName] = $value;
         }
       }
+    }
+    
+    // Convert url token "_all_" for empty to blank
+    foreach ($filterParams as $fieldName => $value)
+    {
+      $filterParams[$fieldName] = str_replace('_all_', '', $value);
     }
     
     return $filterParams;

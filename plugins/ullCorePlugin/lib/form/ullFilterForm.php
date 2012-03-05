@@ -86,6 +86,8 @@ class ullFilterForm extends sfForm
   {
     $output = array();
     
+    $output[] = 'Filter form class: ' . get_class($this);
+    
     $output['generic_info'] = array('num_of_fields' => count($this->getFormFieldSchema()));
     
     foreach($this->getFormFieldSchema() as $key => $value)

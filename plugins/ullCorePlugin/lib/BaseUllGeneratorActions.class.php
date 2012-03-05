@@ -427,6 +427,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     }
     
 //    $this->filter_form->debug();
+//    var_dump($filterParams);
+//    die;
     
     $this->filter_form->bind($filterParams);
     
