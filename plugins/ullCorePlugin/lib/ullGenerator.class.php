@@ -382,9 +382,12 @@ abstract class ullGenerator extends ullGeneratorBase
     }
     
     // Convert url token "_all_" for empty to blank
-    foreach ($filterParams as $fieldName => $value)
+    if (is_array($filterParams))
     {
-      $filterParams[$fieldName] = str_replace('_all_', '', $value);
+      foreach ($filterParams as $fieldName => $value)
+      {
+        $filterParams[$fieldName] = str_replace('_all_', '', $value);
+      }
     }
     
     return $filterParams;
