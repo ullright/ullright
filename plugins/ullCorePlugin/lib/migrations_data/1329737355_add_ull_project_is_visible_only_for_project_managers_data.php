@@ -1,6 +1,6 @@
 <?php
 
-class AddUllProjectIsVisibleOnlyForProjectManagers extends Doctrine_Migration_Base
+class AddUllProjectIsVisibleOnlyForProjectManagersData extends Doctrine_Migration_Base
 {
   public function up()
   {
