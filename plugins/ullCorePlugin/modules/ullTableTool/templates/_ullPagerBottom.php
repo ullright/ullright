@@ -2,7 +2,7 @@
 
   <div class="pager" id="pager_bottom">
   
-    <div class="pager_right">
+    <div class="pager_right no_print">
       <?php include_partial('ullTableTool/ullPager',
               array('pager' => $pager)
             ); ?>  
