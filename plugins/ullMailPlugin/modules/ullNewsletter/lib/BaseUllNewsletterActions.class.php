@@ -425,6 +425,8 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
           __('You have been successfully unsubscribed from list "%list%"', 
             array('%list%' => $list['name']), 'ullMailMessages') . '.'
         , false);
+
+        $this->notifyUnsubscribe($user, $list);
       }
       else
       {
@@ -434,6 +436,45 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         , false);      
       }
     }
+  }
+  
+  /**
+   * Send notify when someone unssubscribes from a mailing list
+   * @param UllUser $user
+   * @param UllNewsletterMailingList $list
+   */
+  protected function notifyUnsubscribe(UllUser $user, UllNewsletterMailingList $list)
+  {
+    if (! sfConfig::get('app_ull_newsletter_enable_unsubscribe_notify', true))
+    {
+      return;
+    }
+    
+    $mail = new ullsfMail('ull_newsletter_unsubscribe_notify');
+    $mail->addAddress(sfConfig::get('app_ull_newsletter_unsubscribe_notify_email'));
+    $mail->setSubject(__(
+      '%email% unsubscribed from list %list%',
+      array('%email%' => $user->email, '%list%' => (string) $list),
+      'ullMailMessages'
+    ));
+    $mail->setBody(__(
+      'The following user unsubscribed:
+    
+Name:  %name%
+Email: %email%
+List:  %list%
+
+User details: %url%',
+      array(
+        '%user%' => (string) $user,
+        '%email%' => $user->email, 
+        '%list%' => (string) $list,
+        '%url%' => url_for('ullUser/show?username=' . $user->username, true)
+      ),
+      'ullMailMessages'
+    ));
+    
+    $mail->send();
   }
 
   /**
