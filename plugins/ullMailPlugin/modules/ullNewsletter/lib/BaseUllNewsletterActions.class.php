@@ -479,7 +479,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     
     if (!$this->mapper_class)
     {
-     $this->mapper_class = 'ullDoctrineMapperNewsletter';
+      $this->mapper_class = 'ullDoctrineMapperNewsletter';
     }
 
     if (!$this->custom_message)
