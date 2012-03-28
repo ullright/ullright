@@ -451,6 +451,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
     }
     
     $mail = new ullsfMail('ull_newsletter_unsubscribe_notify');
+    $mail->setFrom(sfConfig::get('app_ull_newsletter_from_address'));
     $mail->addAddress(sfConfig::get('app_ull_newsletter_unsubscribe_notify_email'));
     $mail->setSubject(__(
       '%email% unsubscribed from list %list%',
@@ -466,7 +467,7 @@ List:  %list%
 
 User details: %url%',
       array(
-        '%user%' => (string) $user,
+        '%name%' => (string) $user,
         '%email%' => $user->email, 
         '%list%' => (string) $list,
         '%url%' => url_for('ullUser/show?username=' . $user->username, true)

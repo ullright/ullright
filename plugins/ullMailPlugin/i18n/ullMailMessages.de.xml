@@ -401,6 +401,32 @@ Beispiele: [FIRST_NAME], [LAST_NAME], [TITLE], ...</target>
 <target>Zurück zum Newsletter-Archiv</target>
 </trans-unit>
 
+<trans-unit id="508">
+<source>%email% unsubscribed from list %list%</source>
+<target>%email% hat sich von Liste %list% abgemeldet</target>
+</trans-unit>
+
+<trans-unit id="508">
+<source>The following user unsubscribed:
+    
+Name:  %name%
+Email: %email%
+List:  %list%
+
+User details: %url%</source>
+<target>Der folgende Benutzer hat sich abgemeldet:
+    
+Name:   %name%
+E-Mail: %email%
+Liste:  %list%
+
+Benutzer-Details: %url%</target>
+</trans-unit>
+
+
+
+
+
 <!-- online link -->
 
 <trans-unit id="601">
