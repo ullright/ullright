@@ -121,11 +121,18 @@ abstract class ullDoctrineMapper extends ullMapper
     if ($generator->getForm()->bindAndSave($row))
     {
       $this->numberImported++;
+      
+      $object->free(true);
+      unset($object);
+      unset($generator);
     }
     else 
     {
       $this->generatorErrors[$rowIdentifier] = $generator;
     }    
+    
+    sfContext::getInstance()->getLogger()->info('ullDoctrineMapper::validateAndSave() numberImported: ' . $this->numberImported);
+    sfContext::getInstance()->getLogger()->info('ullDoctrineMapper::validateAndSave() generatorError: ' . count($this->generatorErrors));
   }
   
   
