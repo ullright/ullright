@@ -283,23 +283,6 @@ class PluginUllUserTable extends UllEntityTable
 
   
   /**
-   * Get the username of the logged in user
-   * 
-   * @return mixed
-   */
-  public static function findLoggedInUsername()
-  {
-    $user = self::findLoggedInUser();
-    
-    if ($user)
-    {
-      return $user->username;
-    }
-    
-    return false;
-  }
-  
-  /**
    * Get the currently logged in user
    * 
    * @return mixed
@@ -324,6 +307,36 @@ class PluginUllUserTable extends UllEntityTable
 
     return $result;   
   }
+  
+  
+  /**
+   * Get the currently logged in user's id
+   * 
+   * @return mixed
+   */
+  public static function findLoggedInUserId()
+  {
+    
+    return sfContext::getInstance()->getUser()->getAttribute('user_id');
+  }
+    
+  
+  /**
+   * Get the username of the logged in user
+   * 
+   * @return mixed
+   */
+  public static function findLoggedInUsername()
+  {
+    $user = self::findLoggedInUser();
+    
+    if ($user)
+    {
+      return $user->username;
+    }
+    
+    return false;
+  }  
   
   public static function isActiveByUserId($userId)
   {
