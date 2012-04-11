@@ -168,6 +168,8 @@ all:
     #   mailing lists with "is_subscribed_by_default" = true
     public_subscription_columns: [ 'first_name', 'last_name', 'email', 'UllNewsletterMailingList' ]
     public_subscription_required_columns: [ 'email', 'UllNewsletterMailingList' ]
+    enable_unsubscribe_notify:  true
+    unsubscribe_notify_email:   newsletter@example.com
     
   ull_mail:
     bounce_mail_address:            bounce@example.com
