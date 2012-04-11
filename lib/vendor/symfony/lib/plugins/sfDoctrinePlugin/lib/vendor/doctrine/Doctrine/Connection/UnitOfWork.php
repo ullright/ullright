@@ -785,6 +785,19 @@ class Doctrine_Connection_UnitOfWork extends Doctrine_Connection_Module
                 }
             }
         }
+        
+        /* This hack puts UllUser at the first position
+         * Reason: Every UllRecord has a relation to UllUser in the form
+         * of Creator and Updator.
+         * 
+         * UllUser has a lot of local key relations itself (e.g. UllLocation)
+         * It still works, because the constraints for UllUser
+         * are not exported to the database because Mysql 5 cannot delete
+         * records with self constraints 
+         */
+        $UllUserIndex = array_search('UllUser', $flushList);
+        unset($flushList[$UllUserIndex]);
+        array_unshift($flushList, 'UllUser');
 
         return array_values($flushList);
     }
