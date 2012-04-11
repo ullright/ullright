@@ -10,7 +10,7 @@ class ullWidgetUllProjectWrite extends ullWidgetFormDoctrineChoice
   
   public function __construct($options = array(), $attributes = array())
   {
-    $userId = UllUserTable::findLoggedInUser()->id;
+    $userId = UllUserTable::findLoggedInUserId();
     
     $q = new ullDoctrineQuery;
     $q
