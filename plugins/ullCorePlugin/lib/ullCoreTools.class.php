@@ -62,6 +62,11 @@ class ullCoreTools
       }
       else
       {
+        if (key_exists($key, $ordered))
+        {
+          throw new InvalidArgumentException('Duplicate key given: ' . $key);
+        }
+        
         if ($strict)
         {
           throw new InvalidArgumentException('Invalid key given: ' . $key);
