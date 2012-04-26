@@ -104,6 +104,12 @@ class ullFlowGenerator extends ullGenerator
       }
     }
     
+    //only the user to whom the document is assigned to is allowed to perform workflow actions
+    if ($this->getRow()->exists() && !(UllEntityTable::has($this->getRow()->UllEntity)))
+    {
+      $this->ullFlowActionHandlers = array();
+    }    
+    
     //Always allow the master admin to perform "assign to" action
     if (UllUserTable::hasGroup('MasterAdmins') &&
       !in_array('assign_to_user', array_keys($this->ullFlowActionHandlers)) &&
@@ -111,15 +117,17 @@ class ullFlowGenerator extends ullGenerator
       )
     {
       $this->ullFlowActionHandlers['assign_to_user'] = new ullFlowActionHandlerAssignToUser($this);
-      return;
     }
-  
-    //only the user to whom the document is assigned to is allowed to perform workflow actions
-    if ($this->getRow()->exists() && !(UllEntityTable::has($this->getRow()->UllEntity)))
+    
+    //Always allow the master admin to perform "force close" action
+    if (UllUserTable::hasGroup('MasterAdmins') &&
+      sfConfig::get('app_ull_flow_enable_master_admin_force_close', true)
+      )
     {
-      $this->ullFlowActionHandlers = array();
-      return;
-    }
+      $this->ullFlowActionHandlers['force_close'] = new ullFlowActionHandlerForceClose($this);
+    }    
+  
+
   }    
   
   
