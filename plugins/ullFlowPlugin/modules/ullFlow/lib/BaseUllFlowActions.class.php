@@ -462,6 +462,10 @@ class BaseUllFlowActions extends ullsfActions
     $q->addOrderBy('x.priority ASC');
     $q->addOrderBy('x.created_at DESC');
     
+    $q = sfContext::getInstance()->getEventDispatcher()->filter(
+        new sfEvent($this, 'ull_flow.assignment_overview_query'), $q
+    )->getReturnValue();    
+    
     $docs = $q->execute();
 
     $this->generator->buildForm($docs);
