@@ -134,14 +134,28 @@ abstract class ullFlowRule
     }
   }   
   
+  /**
+   * Shortcut to get the current step slug
+   */
   public function getStep()
   {
     return (string) $this->doc->UllFlowStep->slug;
   }
-  
+
+  /**
+   * Shortcut to get the current action slug
+   */
   public function getAction()
   {
     return (string) $this->doc->UllFlowAction->slug;
+  }
+  
+  /**
+   * Get the current workflow doc
+   */
+  public function getDoc()
+  {
+    return $this->doc;
   }
   
 }
