@@ -4,6 +4,7 @@
  * 
  * Supply the following widgetOptions:
  *   'name'    column name to display the link name
+ *   'model'   doctrine model name
  *   'uri'     symfony uri containing strtr variables 
  *             Example: 'myModule/myAction?slug=%slug%'
  *   'params'  strtr params for the uri. The value has to be a column name of the given model 
