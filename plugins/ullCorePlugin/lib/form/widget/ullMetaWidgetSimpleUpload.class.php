@@ -140,4 +140,19 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
   {
     return sfConfig::get('sf_upload_dir') . '/tableTool/' . get_class($object);
   }
+  
+  
+  /**
+   * Return the complete web path for a given object and column 
+   * 
+   * @param Doctrine_Record $object
+   * @param string $column
+   */
+  public static function getWebImagePath(Doctrine_Record $object, $column)
+  {
+    $path = self::calculateUploadPath($object);
+    $webPath = ullCoreTools::absoluteToWebPath($path);
+    
+    return $webPath . '/' . $object->$column;
+  }
 }
