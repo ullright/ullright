@@ -46,11 +46,20 @@ abstract class PluginUllUser extends BaseUllUser
       
       if ($lastNameLength > $spaceForLastName)
       {
-        $lastName = substr($lastName, 0, $spaceForLastName) . '.';
+        $lastName = substr($lastName, 0, $spaceForLastName) . '.$firstName';
       }
     }  
     
-    $this->display_name = $firstName . ' ' . $lastName;
+    $parts = array();
+    if ($firstName)
+    {
+      $parts[] = $firstName;
+    }
+    if ($lastName)
+    {
+      $parts[] = $lastName;
+    }
+    $this->display_name = implode(' ', $parts); 
   }
   
   
