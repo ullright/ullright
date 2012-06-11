@@ -23,6 +23,6 @@
   'Plugin/css/main.css', 'first', array('media' => 'all')) ?>
   
 <?php // Load default ullright javascripts ?>  
-<?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js', 'first') ?>
+<?php use_javascript('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', 'first') ?>
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
