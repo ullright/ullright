@@ -11,6 +11,10 @@ class BaseUllCmsMenuItemColumnConfigCollection extends UllCmsItemColumnConfigCol
   {
     parent::applyCustomSettings();
     
+    $this['is_active']
+      ->setAjaxUpdate(true);
+    ;
+    
     $this->disable(array(
       'title', 
       'body', 

@@ -15,6 +15,10 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       'link', 'duplicate_tags_for_search', 'ull_cms_content_type_id'
     ));
     
+    $this['is_active']
+      ->setAjaxUpdate(true);
+    ;    
+    
     $this['name']
       ->setHelp(__('By default the page title is used here. Change it if you want e.g. a shorter title in the menu', null, 'ullCmsMessages'))
     ;

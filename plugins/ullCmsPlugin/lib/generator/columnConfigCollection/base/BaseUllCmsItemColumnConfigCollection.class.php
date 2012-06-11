@@ -13,6 +13,10 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
       'full_path', 'type', 'preview_image', 'image'
     ));
     
+    $this['is_active']
+      ->setAjaxUpdate(true);
+    ;    
+    
     $this['name']
       ->setLabel(__('Menu title', null, 'ullCmsMessages'))
     ;
