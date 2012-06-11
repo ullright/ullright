@@ -61,6 +61,7 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
     
     $this['parent_ull_cms_item_id']
       ->setLabel(__('Parent', null, 'ullCmsMessages'))
+      ->setHelp(__('Select the page on which this content block is most frequently used', null, 'ullCmsMessages'))
       ->setIsRequired(true)
     ;
     
