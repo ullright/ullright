@@ -141,6 +141,8 @@ all:
     rss_title:              'Example RSS-Feed'
     rss_author:             'Author'
     rss_logo:               'http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png'
+    # symfony or absolute url the rss feed links to
+    rss_link:	            '@homepage'
     rss_number_of_entries:  10
     
   ull_cms:
@@ -159,6 +161,9 @@ all:
 
     # Always display the "assign to user" action for master admins
     enable_master_admin_assign_to_user: true
+
+    # Always display the "force close" action for master admins
+    enable_master_admin_force_close: true
  
   ull_newsletter:
     from_address:       newsletter@example.com
