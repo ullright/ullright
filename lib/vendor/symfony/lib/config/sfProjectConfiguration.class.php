@@ -24,8 +24,10 @@ class sfProjectConfiguration
     $dispatcher            = null,
     $plugins               = array(),
     $pluginPaths           = array(),
+    $pluginPathsWithKeys   = array(),
     $overriddenPluginPaths = array(),
     $pluginConfigurations  = array(),
+    $testedPlugins         = array(),
     $pluginsLoaded         = false;
 
   static protected
@@ -319,6 +321,7 @@ class sfProjectConfiguration
     $this->plugins = $plugins;
 
     $this->pluginPaths = array();
+    $this->pluginPathsWithKeys = array();
   }
 
   /**
@@ -375,6 +378,7 @@ class sfProjectConfiguration
     }
 
     $this->pluginPaths = array();
+    $this->pluginPathsWithKeys = array();
   }
 
   /**
@@ -437,23 +441,36 @@ class sfProjectConfiguration
 
   /**
    * Gets the paths to plugins root directories, minding overloaded plugins.
+   * Can return an associative array with plugin names as keys if needed.
    *
+   * @param boolean $withKeys sets plugin names as keys if true, sets no keys otherwise
+   * 
    * @return array The plugin root paths.
    *
    * @throws InvalidArgumentException If an enabled plugin does not exist
    */
-  public function getPluginPaths()
+  public function getPluginPaths($withKeys = false)
   {
-    if (!isset($this->pluginPaths['']))
+    $arrayName = ($withKeys) ? 'pluginPathsWithKeys' : 'pluginPaths';
+    $pathArray = &$this->$arrayName;
+    
+    if (!isset($pathArray['']))
     {
       $pluginPaths = $this->getAllPluginPaths();
 
-      $this->pluginPaths[''] = array();
+      $pathArray[''] = array();
       foreach ($this->getPlugins() as $plugin)
       {
         if (isset($pluginPaths[$plugin]))
         {
-          $this->pluginPaths[''][] = $pluginPaths[$plugin];
+          if ($withKeys)
+          {
+            $pathArray[''][$plugin] = $pluginPaths[$plugin];
+          }
+          else
+          {
+            $pathArray[''][] = $pluginPaths[$plugin];
+          }
         }
         else
         {
@@ -462,7 +479,7 @@ class sfProjectConfiguration
       }
     }
 
-    return $this->pluginPaths[''];
+    return $pathArray[''];
   }
 
   /**
@@ -632,4 +649,29 @@ class sfProjectConfiguration
 
     return $event->getReturnValue();
   }
+  
+  /**
+   * Enables unit and functional tests for the given plugin(s).
+   * 
+   * The first parameter can either be a single plugin name or an array of
+   * plugin names.
+   * 
+   * @param mixed $plugins
+   */
+  public function enablePluginTests($plugins)
+  {
+    $this->testedPlugins = (array)$plugins;
+  }
+  
+  /**
+   * Returns the names of the plugins for which unit and functional tests are
+   * enabled.
+   * 
+   * @return array
+   */
+  public function getTestedPlugins()
+  {
+    return $this->testedPlugins;
+  }
+  
 }
