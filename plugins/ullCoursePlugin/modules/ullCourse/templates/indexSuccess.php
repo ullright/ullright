@@ -10,13 +10,13 @@
     <div id="tc_tasks">
       <h3><?php echo __('Actions', null, 'common') ?></h3>
       <ul class="tc_tasks">
-        <li>
+        <li id="ull_course_index_create_course">
           <?php echo ull_tc_task_link(
             '/ullCoreThemeNGPlugin/images/action_icons/create_24x24', 
             'ullCourse/create', 
             __('Create course', null, 'ullCourseMessages')) ?>
         </li>
-        <li>
+        <li id="ull_course_index_create_booking">
           <?php echo ull_tc_task_link(
             '/ullCoreThemeNGPlugin/images/action_icons/create_24x24', 
             'ullCourseBooking/create', 
@@ -24,23 +24,24 @@
         </li>        
       </ul>
       
-      
-      <h3><?php echo __('Administration', null, 'common') ?></h3>
-      <ul class="tc_tasks">
-        <li>
-          <?php echo ull_tc_task_link(
-            '/ullCoreThemeNGPlugin/images/ull_user_24x24', 
-            'ullTableTool/list?table=UllEntityGroup&filter[ull_group_id]=' .
-              UllGroupTable::findIdByDisplayName('Trainers'), 
-            __('Manage trainers', null, 'ullCourseMessages')) ?>
-        </li> 
-        <li>
-          <?php echo ull_tc_task_link(
-            '/ullCoreThemeNGPlugin/images/ull_admin_24x24.png', 
-            'ullTableTool/list?table=UllCourseTariff',
-            __('Manage tariffs', null, 'ullCourseMessages')) ?>
-        </li> 
-      </ul>      
+      <div id="ull_course_index_administration">
+        <h3><?php echo __('Administration', null, 'common') ?></h3>
+        <ul class="tc_tasks">
+          <li id="ull_course_index_manage_trainers">
+            <?php echo ull_tc_task_link(
+              '/ullCoreThemeNGPlugin/images/ull_user_24x24', 
+              'ullTableTool/list?table=UllEntityGroup&filter[ull_group_id]=' .
+                UllGroupTable::findIdByDisplayName('Trainers'), 
+              __('Manage trainers', null, 'ullCourseMessages')) ?>
+          </li> 
+          <li id="ull_course_index_manage tariffs">
+            <?php echo ull_tc_task_link(
+              '/ullCoreThemeNGPlugin/images/ull_admin_24x24.png', 
+              'ullTableTool/list?table=UllCourseTariff',
+              __('Manage tariffs', null, 'ullCourseMessages')) ?>
+          </li> 
+        </ul> 
+      </div>     
 
     </div>    
     
@@ -48,7 +49,7 @@
     <div id="tc_search">
     
     <?php echo ull_form_tag(array('action' => 'list')); ?>
-      <div class="tc_box_with_bottom_spacer color_medium_bg">
+      <div class="tc_box_with_bottom_spacer color_medium_bg" id="ull_course_index_search_courses">
         <h3><?php echo __('Search courses', null, 'ullCourseMessages') ?></h3>    
         <?php echo $form['search']->render() ?><?php echo submit_image_tag(
           ull_image_path('search'), 
@@ -57,7 +58,7 @@
     </form>
       
     <?php echo ull_form_tag(array('module' => 'ullCourseBooking', 'action' => 'list')); ?>
-      <div class="tc_box_with_bottom_spacer color_medium_bg">
+      <div class="tc_box_with_bottom_spacer color_medium_bg" id="ull_course_index_search_bookings">
         <h3><?php echo __('Search bookings', null, 'ullCourseMessages') ?></h3>    
         <?php echo $form['search']->render(array('id' => 'search_bookings')) ?><?php echo submit_image_tag(
           ull_image_path('search'), 
@@ -94,8 +95,12 @@
         <h3>
          <?php echo __('Queries', null, 'common') ?>
         </h3>
-        <?php echo $named_queries_course->renderList(ESC_RAW) ?>
-        <?php echo $named_queries_booking->renderList(ESC_RAW) ?>
+        <div id="ull_course_index_course_queries">
+          <?php echo $named_queries_course->renderList(ESC_RAW) ?>
+        </div>
+        <div id="ull_course_index_booking_queries">
+          <?php echo $named_queries_booking->renderList(ESC_RAW) ?>
+        </div>
       </div>
       <!-- 
       <div class="tc_query_box color_light_bg">
