@@ -265,7 +265,7 @@
       
       <trans-unit id="101">
         <source>Please save once. Afterwards the photo can be edited.</source>
-        <target>Bitte einmal speichern. Danach kann das Foto bearbeitet werden.</target>
+        <target>Bitte einmal zwischen-speichern. Danach kann das Foto bearbeitet werden.</target>
       </trans-unit>
       
       <trans-unit id="102">
