@@ -7,72 +7,29 @@ abstract class PluginUllUser extends BaseUllUser
 {
   
   /**
-   * Record hook to generate the display_name
-   *
-   * @param unknown_type $event
-   */
-  public function preInsert($event)
-  {
-    $this->preUpdate($event);    
-  }
-  
-  /**
-   * Record hook to generate the display_name
-   *
-   * @param unknown_type $event
-   */
-  public function preUpdate($event)
-  {
-    $firstName  = $this->first_name;
-    $lastName   = $this->last_name;
-    
-    $this->last_name_first = trim($lastName . ' ' . $firstName);
-    
-    $firstNameLength = strlen($firstName);
-    $lastNameLength = strlen($lastName);
-    
-    $limit = sfConfig::get('app_ull_user_display_name_length_limit', 22);
-    $firstNameLimit = sfConfig::get('app_ull_user_display_name_first_name_length_limit', 10);
-    
-    if ($firstNameLength + $lastNameLength > $limit)
-    { 
-      if ($firstNameLength > $firstNameLimit)
-      {
-        $firstName = substr($firstName, 0, $firstNameLimit) . '.';
-        $firstNameLength = strlen($firstName);
-      }
-      
-      $spaceForLastName = $limit - $firstNameLength;
-      
-      if ($lastNameLength > $spaceForLastName)
-      {
-        $lastName = substr($lastName, 0, $spaceForLastName) . '.$firstName';
-      }
-    }  
-    
-    $parts = array();
-    if ($firstName)
-    {
-      $parts[] = $firstName;
-    }
-    if ($lastName)
-    {
-      $parts[] = $lastName;
-    }
-    $this->display_name = implode(' ', $parts); 
-  }
-  
-  
-  /**
-   * Check for a future entry date.
-   * 
-   * If so, deactivate the user for the moment, and schedule the activation for the entry date
-   * 
-   * Also, reset the bounce counter, if the email address is updated
-   * 
    * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Doctrine_Record#postSave($event)
    */
   public function preSave($event)
+  {
+    $this->handleScheduledUpdates();
+    
+    $this->resetBounceCounter();
+    
+    // Set tags in taggable behaviour
+    $this->setTags($this->duplicate_tags_for_search);
+    
+    $this->createUsername();
+    
+    $this->createDisplayName();
+  }
+  
+  
+  /*
+   * Check for a future entry date. 
+   * 
+   * If so, deactivate the user for the moment, and schedule the activation for the entry date 
+   */
+  protected function handleScheduledUpdates()
   {
     if
     (
@@ -113,27 +70,27 @@ abstract class PluginUllUser extends BaseUllUser
         //handled it above
         $event->skipOperation();
       }
-    }
-    
-    //reset bounce counter if the email address is updated
-    
+    }    
+  } 
+  
+  
+  /**
+   * Reset bounce counter if the email address is updated
+   */
+  protected function resetBounceCounter()
+  {
     $old = $this->getModified(true);
     if(isset($old['email']) && ($old['email'] != $this['email']))
     {
       $this['num_email_bounces'] = 0;
-    }
-    
-    // Set tags in taggable behaviour
-    $this->setTags($this->duplicate_tags_for_search);
-    
-    $this->createUsername();
+    }    
   }
-  
 
+  
   /**
    * Auto create a username if none given
    */
-  public function createUsername()
+  protected function createUsername()
   {
     // create username
     if (!$this->username)
@@ -163,6 +120,50 @@ abstract class PluginUllUser extends BaseUllUser
       $this->username = $this->createUniqueUsername($proposal);
     }
     
+  }
+  
+  /** 
+   * Create the display_name
+   */
+  protected function createDisplayName()
+  {
+    $firstName  = $this->first_name;
+    $lastName   = $this->last_name;
+    
+    $this->last_name_first = trim($lastName . ' ' . $firstName);
+    
+    $firstNameLength = strlen($firstName);
+    $lastNameLength = strlen($lastName);
+    
+    $limit = sfConfig::get('app_ull_user_display_name_length_limit', 22);
+    $firstNameLimit = sfConfig::get('app_ull_user_display_name_first_name_length_limit', 10);
+    
+    if ($firstNameLength + $lastNameLength > $limit)
+    { 
+      if ($firstNameLength > $firstNameLimit)
+      {
+        $firstName = substr($firstName, 0, $firstNameLimit) . '.';
+        $firstNameLength = strlen($firstName);
+      }
+      
+      $spaceForLastName = $limit - $firstNameLength;
+      
+      if ($lastNameLength > $spaceForLastName)
+      {
+        $lastName = substr($lastName, 0, $spaceForLastName) . '.$firstName';
+      }
+    }  
+    
+    $parts = array();
+    if ($firstName)
+    {
+      $parts[] = $firstName;
+    }
+    if ($lastName)
+    {
+      $parts[] = $lastName;
+    }
+    $this->display_name = implode(' ', $parts);   
   }
   
   
