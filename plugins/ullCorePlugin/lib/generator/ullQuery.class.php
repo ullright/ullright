@@ -67,7 +67,7 @@ class ullQuery
    */
   public function select($columns)
   {
-    $this->handleSelect($columns, 'select');
+    $this->handleSelect($columns, 'addSelect');
     
     return $this;
   }  
