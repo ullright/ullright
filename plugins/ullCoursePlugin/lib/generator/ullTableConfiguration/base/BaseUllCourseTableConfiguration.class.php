@@ -41,6 +41,32 @@ class BaseUllCourseTableConfiguration extends ullTableConfiguration
         'is_active' => 'checked',
       ))
     ;
+    
+    $this->adjustForOffering();    
   }
+  
+  /**
+   * Adjust table config for "offering" action
+   */
+  protected function adjustForOffering()
+  {
+    if (sfContext::getInstance()->getActionName() == 'offering')
+    {
+      $this
+        ->setOrderBy('begin_date')      
+        ->setListColumns(array(
+          'name', 
+          'trainer_ull_user_id',
+          'begin_date',
+          'begin_time',
+          'end_time',
+        ))      
+        ->setFilterColumns(array())
+      ;      
+    }    
+  }
+  
+
+  
   
 }

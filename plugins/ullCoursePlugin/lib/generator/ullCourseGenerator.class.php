@@ -16,21 +16,6 @@ class ullCourseGenerator extends ullTableToolGenerator
   
   protected function customizeTableConfig()
   {
-    if (sfContext::getInstance()->getActionName() == 'offering')
-    {
-      $this->getTableConfig()
-        ->setOrderBy('begin_date')      
-        ->setListColumns(array(
-          'name', 
-          'trainer_ull_user_id',
-//          'duplicate_tags_for_search',
-          'begin_date',
-          'begin_time',
-          'end_time',
-//          'end_date' 
-        ))      
-        ->setFilterColumns(array())
-      ;      
-    }
+
   }
 }
