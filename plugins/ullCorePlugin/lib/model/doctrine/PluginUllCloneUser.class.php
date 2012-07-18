@@ -41,13 +41,13 @@ abstract class PluginUllCloneUser extends BaseUllCloneUser
 
   
   /**
-   * This record hook overrides the one from PluginUllUser,
-   * because we do not want to generate last_name_first.
+   * Overrides PluginUllUser
+   * We do not want to generate last_name_first for a clone user
    *
    */
-  public function preUpdate($event)
+  protected function createDisplayName()
   {
-  
+    
   }
   
   
