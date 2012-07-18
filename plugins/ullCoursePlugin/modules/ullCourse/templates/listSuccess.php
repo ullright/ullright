@@ -3,7 +3,7 @@
 <h1><?php echo $generator->getTableConfig()->getName() ?></h1>
 <p><?php echo $generator->getTableConfig()->getDescription() ?></p>
 
-<p><?php echo link_to(__('Show bookings', null, 'ullCourseMessages'), 'ullCourseBooking/list')?></p>
+<p id="ull_course_list_show_bookings_link"><?php echo link_to(__('Show bookings', null, 'ullCourseMessages'), 'ullCourseBooking/list')?></p>
 
 <?php include_partial('ullTableTool/flash', array('name' => 'message')) ?>
 
@@ -44,8 +44,10 @@
   <?php $odd = true; ?>
   <?php foreach($generator->getForms() as $row => $form): ?>
   
-    <?php $form['link_to_bookings']->getWidget()->setAttribute('rel',
-      $form->getObject()->id) ?>
+    <?php if (isset($form['link_to_bookings'])): ?> 
+      <?php $form['link_to_bookings']->getWidget()->setAttribute('rel',
+        $form->getObject()->id) ?>
+    <?php endif ?>
       
     <?php $form['name']->getWidget()->setAttribute('href', 
       url_for('ullCourse/show?slug=' . $form->getObject()->slug)) ?>  
