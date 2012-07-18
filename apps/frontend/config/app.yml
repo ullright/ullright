@@ -138,11 +138,13 @@ all:
     locking_timespan_days: 30
     
   ull_news:
+    # news image width scaling
+    image_width:            120
     rss_title:              'Example RSS-Feed'
     rss_author:             'Author'
     rss_logo:               'http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png'
     # symfony or absolute url the rss feed links to
-    rss_link:	            '@homepage'
+    rss_link:               '@homepage'
     rss_number_of_entries:  10
     
   ull_cms:
