@@ -6,15 +6,17 @@
 ?>
 <div class="ull_news">
 
-  <?php // create button ?>
+  <?php // create edit link ?>
   <?php if ($allow_edit): ?>
+    <div id="ull_news_create_link" class="ull_auth">
     <?php
-      echo ull_button_to(
+      echo link_to('<span class="ultra_big">+</span>' .
         __('Create news entry', null, 'ullNewsMessages'), 
         'ullNews/create', 
         array('id' => 'ull_news_create_news')
       );
     ?>              
+    </div>
   <?php endif ?>
        
   <?php // check if we have news entries at all ?>
