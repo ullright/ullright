@@ -24,15 +24,18 @@
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_group_membership_24x24', 'ullUser/massChangeSuperior', __('Superior mass change')) ?></li>
         <li><?php echo ull_tc_task_link('/ullCoreThemeNGPlugin/images/ull_photo_24x24', 'ullPhoto/index', __('Upload user photos', null, 'ullCoreMessages')) ?></li>
       </ul>
-      <h3><?php echo __('Organizational') ?></h3>
-      <ul class="tc_tasks">
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllCompany', 'ullCore', 'ull_admin_24x24') ?></li>
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllLocation', 'ullCore', 'ull_admin_24x24') ?></li>
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllDepartment', 'ullCore', 'ull_admin_24x24') ?></li>
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllJobTitle', 'ullCore', 'ull_admin_24x24') ?></li>
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEmploymentType', 'ullCore', 'ull_admin_24x24') ?></li>
-        <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllUserStatus', 'ullCore', 'ull_admin_24x24') ?></li>
-      </ul>
+      
+      <div id="ull_admin_index_organizational">
+        <h3><?php echo __('Organizational') ?></h3>
+        <ul class="tc_tasks">
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllCompany', 'ullCore', 'ull_admin_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllLocation', 'ullCore', 'ull_admin_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllDepartment', 'ullCore', 'ull_admin_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllJobTitle', 'ullCore', 'ull_admin_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllEmploymentType', 'ullCore', 'ull_admin_24x24') ?></li>
+          <li><?php echo ullTableConfiguration::renderTaskCenterLink('UllUserStatus', 'ullCore', 'ull_admin_24x24') ?></li>
+        </ul>
+      </div>
       
       <?php if($is_master_admin): ?>
         <h3><?php echo __('Select Boxes') ?></h3>
