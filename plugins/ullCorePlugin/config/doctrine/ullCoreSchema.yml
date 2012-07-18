@@ -206,6 +206,9 @@ UllGroup:
     is_virtual_group:
       type: boolean
       default: false
+    is_active:
+      type: boolean
+      default: true      
   
   relations:
     UllUser:

@@ -13,11 +13,22 @@ class UllGroupTableConfiguration extends ullTableConfiguration
    */
   protected function applyCustomSettings()
   {
-    $this->setName(__('Groups', null, 'ullCoreMessages'));
-    $this->setSearchColumns(array('display_name', 'email'));
-    $this->setOrderBy('display_name');
-    $this->setToStringColumn('display_name');
-    $this->setForeignRelationName(__('Group', null, 'ullCoreMessages'));
+    $this
+      ->setName(__('Groups', null, 'ullCoreMessages'))
+      ->setSearchColumns(array('display_name', 'email'))
+      ->setOrderBy('display_name')
+      ->setToStringColumn('display_name')
+      ->setForeignRelationName(__('Group', null, 'ullCoreMessages'))
+      ->setFilterColumns(array(
+        'is_active' => 'checked',
+      ))
+      ->setListColumns(array(
+        'id', 
+        'display_name', 
+        'email',
+        'is_active',
+      ))
+    ;
   }
   
 }

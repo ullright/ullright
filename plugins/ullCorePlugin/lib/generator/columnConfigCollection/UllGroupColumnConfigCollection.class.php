@@ -8,15 +8,24 @@ class UllGroupColumnConfigCollection extends UllEntityColumnConfigCollection
    */
   protected function applyCustomSettings()
   {
-    $this['email']->setMetaWidgetClassName('ullMetaWidgetEmail');
-    $this['is_virtual_group']->setLabel(__('Is a virtual group', null, 'ullCoreMessages'));
+    $this['email']
+      ->setMetaWidgetClassName('ullMetaWidgetEmail')
+    ;
     
-    $this->disableAllExcept(array('id', 'display_name', 'email', 'is_virtual_group',
-      'creator_user_id', 'created_at', 'updator_user_id', 'updated_at'));
+    $this['is_virtual_group']
+      ->setLabel(__('Is a virtual group', null, 'ullCoreMessages'))
+    ;
     
-    if ($this->isListAction())
-    {
-      $this->disableAllExcept(array('id', 'display_name', 'email'));
-    } 
+    $this->disableAllExcept(array(
+      'id', 
+      'display_name', 
+      'email', 
+      'is_virtual_group',
+      'is_active',
+      'creator_user_id', 
+      'created_at', 
+      'updator_user_id', 
+      'updated_at')
+    );
   }
 }

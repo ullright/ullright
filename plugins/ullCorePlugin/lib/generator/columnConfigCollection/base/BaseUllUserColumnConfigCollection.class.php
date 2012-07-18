@@ -18,6 +18,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       'last_name_first', 
       'parent_ull_user_id', 
       'selected_culture', 
+      'is_active'
     ));
     
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
