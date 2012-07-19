@@ -17,7 +17,7 @@ class BaseUllCmsComponents extends sfComponents
     $navigation = UllCmsItemTable::getMenuTree(
       $this->slug, 
       $request->getParameter('slug'),
-      $depth
+      ($this->depth) ? $this->depth : $depth
     );
     
     $this->setVar(
