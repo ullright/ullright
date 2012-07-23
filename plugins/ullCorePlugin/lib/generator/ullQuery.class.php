@@ -280,8 +280,9 @@ class ullQuery
   /**
    * Add ORDER BY
    * 
-   * @param string $orderBy the ORDER BY query part to add, can also be an array already transformed
-   *    by ullGeneratorTools::arrayizeOrderBy
+   * @param string $orderBy the ORDER BY query part to add like in Doctrine, 
+   *   can also be an array already transformed
+   *   by ullGeneratorTools::arrayizeOrderBy
    *    
    * @return self
    */
@@ -301,7 +302,7 @@ class ullQuery
    * ORDER BY location_name, last_name, first_name
    * 
    * @param $orderPrefix the ORDER BY query part to add
-   * @return unknown_type
+   * @return self
    */
   public function addOrderByPrefix($orderPrefix)
   {
@@ -313,9 +314,11 @@ class ullQuery
   /**
    * Handle ORDER BY
    * 
-   * @param string $orderBy the ORDER BY query part to add, can also be an array already transformed
+   * @param string $orderBy the ORDER BY query part like in Doctrine to add, 
+   *    can also be an array already transformed
    *    by ullGeneratorTools::arrayizeOrderBy
-   * @param boolean $addAsPrefix if true, adds $orderBy in front of the existing query part
+   * @param boolean $addAsPrefix if true, adds $orderBy in front of the existing 
+   *    query part
    * @return self
    */
   protected function handleOrderBy($orderBy, $method, $addAsPrefix = false)
@@ -326,14 +329,24 @@ class ullQuery
     //if we are adding prefixes, we need to invert
     //the new ORDER BY parts because we insert not
     //at the end but in front
-    if($addAsPrefix && count($orderByArray) >= 2)
+    if ($addAsPrefix && count($orderByArray) >= 2)
     {
       $orderByArray = array_reverse($orderByArray);
     }
     
+    // Fix for orderBy method. Internal method must be addOrderBy, otherwise
+    //   we overwrite previous order statements.
+    if ('orderBy' === $method)
+    {
+      $this->q->removeDqlQueryPart('orderby');
+      $method = 'addOrderBy';
+    }
+    
     foreach ($orderByArray as $orderBy)
     {
-      if ($orderByColumn = $this->relationStringToDoctrineQueryColumn($orderBy['column']))
+      $orderByColumn = $this->relationStringToDoctrineQueryColumn($orderBy['column']);
+      
+      if ($orderByColumn)
       {
         $newOrderString = $orderByColumn . ' ' . $orderBy['direction'];
         
