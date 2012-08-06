@@ -26,3 +26,6 @@
 <?php use_javascript('/ullCorePlugin/js/jq/jquery-min.js', 'first') ?>
 <?php use_javascript('/ullCorePlugin/js/miscellaneous.js') ?>
 
+<?php if (has_slot('html_head')): ?>
+  <?php include_slot('html_head') ?>
+<?php endif ?>
