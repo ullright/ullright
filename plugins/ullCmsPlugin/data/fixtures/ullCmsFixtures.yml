@@ -366,7 +366,15 @@ UllCmsContentType:
       de:
         name:               Nur Text
     type:                   content_block
-    namespace:              ull_cms    
+    namespace:              ull_cms
+  content_type_default_page:
+    Translation:
+      en:
+        name:               Default
+      de:
+        name:               Standard
+    type:                   page
+    namespace:              ull_cms          
 
 
 UllCmsContentBlock:

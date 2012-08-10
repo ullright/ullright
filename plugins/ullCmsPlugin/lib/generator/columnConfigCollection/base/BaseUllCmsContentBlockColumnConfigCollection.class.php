@@ -7,22 +7,34 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
     $contentType
   ;
   
+  /**
+   * Check for a content type specific column config collection 
+   * 
+   * Example class name: UllCmsContentBlockTextOnlyColumnConfigCollection
+   * where "TextOnly" is the classified (=camelcase) slug name
+   * 
+   * 
+   * @param UllCmsContentType $contentType
+   * @param string $defaultAccess
+   * @param string $requestAction
+   */
   public static function build($contentType = null, $defaultAccess = null, $requestAction = null)
   {
     // Check for custom content type column config collection
     // Example: 
-// apps/frontend/lib/generator/columnConfigCollection/UllCmsContentBlockTextOnlyColumnConfigCollection.class.php
-//<?php
-//
-//class UllCmsContentBlockTextOnlyColumnConfigCollectio extends UllCmsContentBlockColumnConfigCollection
-//{
-//  protected function applyCustomSettings()
-//  {
-//    parent::applyCustomSettings();
-//    
-//    // add custom code here... 
-//  }  
-//}
+    // apps/frontend/lib/generator/columnConfigCollection/UllCmsContentBlockTextOnlyColumnConfigCollection.class.php
+    // <?php
+    //
+    // class UllCmsContentBlockTextOnlyColumnConfigCollection extends UllCmsContentBlockColumnConfigCollection
+    // {
+    //   protected function applyCustomSettings()
+    //   {
+    //     parent::applyCustomSettings();
+    //    
+    //     // add custom code here... 
+    //   }  
+    // }
+    
     $className = '';
 
     if ($contentType !== null)
@@ -30,7 +42,7 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
       $className = 'UllCmsContentBlock' . sfInflector::classify($contentType->slug) . 'ColumnConfigCollection'; 
     }
     
-    
+    // Fallback    
     if (!class_exists($className))
     {
       $className = 'UllCmsContentBlockColumnConfigCollection';
@@ -43,6 +55,13 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
   } 
   
 
+  /**
+   * Constructor
+   * 
+   * @param string $contentType
+   * @param unknown_type $defaultAccess
+   * @param unknown_type $requestAction
+   */
   public function __construct($contentType = null, $defaultAccess = null, $requestAction = null)
   {
     $this->contentType = $contentType;

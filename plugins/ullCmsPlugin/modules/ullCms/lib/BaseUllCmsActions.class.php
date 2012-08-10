@@ -105,6 +105,47 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   }  
   
   
+  
+  /**
+   * Select content type for page upon creation
+   */
+  public function executeSelectContentType()
+  {
+    $this->types = UllCmsContentTypeTable::findForPages();
+    
+    $this->breadcrumbForEdit();
+  }
+  
+  
+  /**
+   * Create action
+   * 
+   * @see BaseUllGeneratorActions::executeCreate()
+   */
+  public function executeCreate(sfRequest $request)
+  {
+    // If we have only on content type, use it 
+    $single = UllCmsContentTypeTable::findOneAndOnlyPageType();
+    if ($single)
+    {
+      $this->getRequest()->setParameter('content_type', $single->slug);
+      
+      return parent::executeCreate($request);
+    }
+    
+    // Else: check if a content type was provided
+    // If not provided redirect to type selection
+    $content_type_slug = $request->getParameter('content_type');
+    
+    if (!$content_type_slug)
+    {
+      $this->redirect('ullCms/selectContentType');
+    }
+    
+    return parent::executeCreate($request);
+  }  
+    
+  
   /**
    * Executes edit action
    *
@@ -120,11 +161,51 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     {
       $this->registerEditActionButton(new ullGeneratorEditActionButtonCmsSaveAndCreateNews($this, false));
     }      
+        
+    $row = $this->getRowFromRequestOrCreate();
     
-    parent::executeEdit($request);
+    $this->generator = new ullCmsPageGenerator($row->UllCmsContentType, 'w');
+    
+    $this->generator->buildForm($row);
+    
+//    var_dump($this->generator->getColumnsConfig()->debug());die;
+//    var_dump($this->generator->getForm()->debug());die;
+
+    if ($request->isMethod('post'))
+    {
+//      var_dump($request->getParameterHolder()->getAll());
+//      var_dump($this->getRequest()->getFiles());
+//      die;
+      
+      if ($this->generator->getForm()->bindAndSave(
+        array_merge($request->getParameter('fields'), array('id' => $row->id)), 
+        $this->getRequest()->getFiles('fields')
+      ))
+      {
+        $this->processEditActionButtons($row, $request);
+        
+        return $this->executePostSave($row, $request);
+      }
+    }
+    
+    $form_uri = $this->getEditFormUri();
+    
+    if (!$row->exists())
+    {
+      $form_uri = ullCoreTools::appendParamsToUri($form_uri,
+        'content_type=' . $row->UllCmsContentType->slug); 
+    }
+    
+    $this->setVar('form_uri', $form_uri);
+
+    $this->setVar('generator', $this->generator, true);
+    
+    $this->setTableToolTemplate('edit');
     
     $this->cultures = ullGenerator::getDefaultCultures();
-  }   
+    
+    $this->breadcrumbForEdit();
+  }  
   
   
   /**
@@ -137,6 +218,48 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     return new ullCmsGenerator('w');
   }
 
+  
+  /**
+   * Handle content type in create mode
+   * 
+   * @see plugins/ullCorePlugin/lib/BaseUllGeneratorActions::getRowFromRequestOrCreate()
+   */
+  protected function getRowFromRequestOrCreate()
+  {
+    if ($id = $this->getRequest()->getParameter('id'))
+    {
+      $row = Doctrine::getTable('UllCmsPage')->findOneById($id);
+    }
+    else
+    {
+      $row = new UllCmsPage;
+    }
+    
+    if (!$row->exists())
+    {
+      $content_type_slug = $this->getRequest()->getParameter('content_type');
+      
+      if (!$content_type_slug)
+      {
+        $ullCmsContentType = new ullCmsContentType;
+        $ullCmsContentType->type = 'page';
+      }
+      else
+      {
+        $ullCmsContentType = Doctrine::getTable('UllCmsContentType')->findOneBySlug($content_type_slug);
+      }
+      
+      if (!$ullCmsContentType)
+      {
+        throw new InvalidArgumentException('Invalid UllCmsContentType::slug given: '. $content_type_slug);
+      }
+      
+      $row->UllCmsContentType = $ullCmsContentType;
+    }    
+    
+    return $row;
+  }  
+  
   /**
    * Load menues
    * 

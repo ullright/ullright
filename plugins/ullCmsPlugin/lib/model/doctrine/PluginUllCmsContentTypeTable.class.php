@@ -18,6 +18,50 @@ class PluginUllCmsContentTypeTable extends UllRecordTable
     }
     
     /**
+     * Find page types
+     * 
+     */
+    public static function findForPages()
+    {
+      $q = new UllQuery('UllCmsContentType');
+      $q
+        ->where('type = ?', 'page')
+        ->orderBy('name')
+      ;
+
+      return $q->execute();
+    }    
+
+    
+    /**
+     * Check if we have only one page type (=default)
+     * and if so return it. 
+     */
+    public static function findOneAndOnlyPageType()
+    {
+      $types = self::findForPages();
+      
+      if (count($types) == 1)
+      {
+        return $types->getFirst();
+      }
+    }
+    
+    /**
+     * Check if we have only one page type (=default)
+     * and if so return it. 
+     */
+    public static function countPageTypes()
+    {
+      $q = new UllQuery('UllCmsContentType');
+      $q
+        ->where('type = ?', 'page')
+      ;
+
+      return $q->count();
+    }    
+    
+    /**
      * Find content block types
      * 
      */

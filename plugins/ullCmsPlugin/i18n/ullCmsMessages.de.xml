@@ -123,9 +123,9 @@
 <target>Wählen Sie die Seite, auf der dieser Content-Block am häufigsten verwendet wird</target>
 </trans-unit>
 
-<trans-unit id="">
-<source></source>
-<target></target>
+<trans-unit id="25">
+<source>Please select type of page you wish to create</source>
+<target>Bitte wählen Sie welche Art von Seite Sie erstellen möchten</target>
 </trans-unit>
 
 <trans-unit id="">

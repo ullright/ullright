@@ -2,7 +2,74 @@
 
 class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollection
 {
+  
+  protected 
+    $contentType
+  ;
+  
+  /**
+   * Check for a content type specific column config collection 
+   * 
+   * Example class name: UllCmsPageContactColumnConfigCollection
+   * where "Contact" is the classified (=camelcase) slug name
+   * 
+   * 
+   * @param UllCmsContentType $contentType
+   * @param string $defaultAccess
+   * @param string $requestAction
+   */
+  public static function build($contentType = null, $defaultAccess = null, $requestAction = null)
+  {
+    // Check for custom content type column config collection
+    // Example: 
+    // apps/frontend/lib/generator/columnConfigCollection/UllCmsPageContactColumnConfigCollection.class.php
+    // <?php
+    //
+    // class UllCmsPageContactColumnConfigCollection extends UllCmsPageColumnConfigCollection
+    // {
+    //   protected function applyCustomSettings()
+    //   {
+    //     parent::applyCustomSettings();
+    //    
+    //     // add custom code here... 
+    //   }  
+    // }
+    
+    $className = '';
 
+    if ($contentType !== null)
+    {
+      $className = 'UllCmsPage' . sfInflector::classify($contentType->slug) . 'ColumnConfigCollection'; 
+    }
+    
+    // Fallback
+    if (!class_exists($className))
+    {
+      $className = 'UllCmsPageColumnConfigCollection';
+    }
+    
+    $c = new $className($contentType, $defaultAccess, $requestAction);
+    $c->buildCollection();
+
+    return $c;
+  } 
+  
+
+  /**
+   * Constructor
+   * 
+   * @param string $contentType
+   * @param unknown_type $defaultAccess
+   * @param unknown_type $requestAction
+   */
+  public function __construct($contentType = null, $defaultAccess = null, $requestAction = null)
+  {
+    $this->contentType = $contentType;
+    
+    parent::__construct('UllCmsContentBlock', $defaultAccess, $requestAction);
+  }    
+
+  
   /**
    * Applies model specific custom column configuration
    * 
