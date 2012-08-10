@@ -46,7 +46,14 @@
  
 .ull_action_icon:hover {
 	opacity: 1;
-} 
+}
+
+/* non clickable links */
+a.ull_menu_non_clickable,
+a.ull_menu_non_clickable:hover {
+  text-decoration: none;
+  cursor: default;
+}
 
  
 /*
