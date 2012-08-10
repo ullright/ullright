@@ -7,8 +7,27 @@ $request = sfContext::getInstance()->getRequest();
 sfContext::getInstance()->getConfiguration()->loadHelpers('ull');
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new lime_test(27, new lime_output_color);
+$t = new lime_test(29, new lime_output_color);
 
+$t->diag('ull_path_add_filename_suffix()');
+
+  $t->is(
+    ull_path_add_filename_suffix('/var/www/xyz/web/images/logo.png', '_resized'),
+    '/var/www/xyz/web/images/logo_resized.png',
+    'Returns the correct path with suffix'
+  );
+  
+
+$t->diag('ull_image_tag_resize()');
+
+  $t->is(
+    ull_image_tag_resize('/uploads/assets/image/test_image.png', array('width' => 10)),
+    '<img src="/uploads/assets/image/test_image_width_10.png" alt="Test_image_width_10" />',
+    'Produces the correct output name' 
+  );
+  
+  unlink(ullCoreTools::webToAbsolutePath('/uploads/assets/image/test_image_width_10.png'));
+  
 $t->diag('_ull_reqpass_array_clean');
 
   $test = array(

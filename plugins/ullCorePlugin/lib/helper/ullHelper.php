@@ -283,14 +283,130 @@ function ull_image_tag_indicator()
 
 function ull_reqpass_icon($merge_array = array(), $icon, $alt = null, $link_option = null) {
 
-//  ullCoreTools::printR($merge_array);
-  
   $params = _ull_reqpass_initialize($merge_array);  
 
   $link = _ull_reqpass_build_url($params);
   
   return ull_icon($link, $icon, $alt, $link_option);
   
+}
+
+
+/**
+ * Like image_tag(), but supports inline resizing of the source image
+ *   by giving the options width and/or height as interger (pixel)
+ *   
+ * Supports caching of the resized image
+ *   
+ * @param string $source
+ * @param array $options
+ */
+function ull_image_tag_resize($source, $options)
+{
+  // Fallback to original image_tag
+  if (!key_exists('width', $options) && !key_exists('height', $options))
+  {
+    return image_tag($source, $options);
+  }
+  
+  $webPath = image_path($source);  // symfony helper
+  $path = ullCoreTools::webToAbsolutePath($webPath);
+  
+  $newPath = ull_image_resize_build_filename($path, $options);
+  
+  if (!file_exists($newPath))
+  {
+    ull_image_resize($path, $options);  
+  }
+  
+  $newWebPath = ullCoreTools::absoluteToWebPath($newPath);
+  
+  unset($options['width']);
+  unset($options['height']);
+  
+  return image_tag($newWebPath, $options);
+}
+
+/**
+ * Resize an image with cache function
+ * 
+ * @param string $path
+ * @param array $options
+ * @return string
+ */
+function ull_image_resize($path, $options)
+{
+  $newPath = ull_image_resize_build_filename($path, $options);
+  
+  $width = (isset($options['width'])) ? $options['width'] : 0;
+  $height = (isset($options['height'])) ? $options['height'] : 0;
+  
+  //Not jpg necessarly. Just a mandatory sfImage option
+  $image = new sfImage($path, 'image/jpg');  
+  $image->resize($width, $height);
+  $image->saveAs($newPath);
+  
+  return $newPath;
+}
+
+
+/**
+ * Build the filename for ull_image_resize()
+ * 
+ * @param string $path    Absolute path
+ * @param array $options  Containing options "width" and or "height"
+ * 
+ * @return string         Absolute path
+ */
+function ull_image_resize_build_filename($path, $options)
+{
+  $width = (isset($options['width'])) ? $options['width'] : 0;
+  $height = (isset($options['height'])) ? $options['height'] : 0;
+  
+  $suffixParts = array();
+  
+  if ($width)
+  {
+    $suffixParts[] = 'width_' . $width;
+  }
+  
+  if ($height)
+  {
+    $suffixParts[] = 'height_' . $height;
+  }  
+  
+  $suffix = '_' . implode('_', $suffixParts);
+
+  return ull_path_add_filename_suffix($path, $suffix); 
+} 
+
+
+/**
+ * Helper to add a suffix to a filename
+ * 
+ * Example: 
+ *   $path   = '/var/www/xyz/web/images/logo.png'
+ *   $suffix = '_resized'
+ *   
+ *   result  = '/var/www/xyz/web/images/logo_resized.png'
+ * 
+ * @param string $path
+ * @param string $suffix
+ */
+function ull_path_add_filename_suffix($path, $suffix)
+{
+  $parts = pathinfo($path);
+
+  $return = 
+    $parts['dirname'] .
+    '/' .
+    $parts['filename'] .
+    $suffix .
+    '.' .
+    $parts['extension']
+  ;
+
+  return $return;
 }
 
 
