@@ -4,11 +4,14 @@
 
 
 <!--  Begin of html body -->
-<?php /*  Adds a css selector for the current request (module + action name) 
-  Example: <body class="ullCms_show"> */ ?>
-<body class="<?php 
-  echo sfInflector::underscore($sf_context->getModuleName()) . '_' . $sf_context->getActionName();
-?>">
+<!--  Begin of html body -->
+<?php /*  Adds a css selector for the current request (module + action name)
+  as well es separatly for module and action 
+  Example: <body class="ull_cms_show module_ull_cms action_show"> */ ?>
+<body class="<?php echo sfInflector::underscore(
+  $sf_context->getModuleName()) . '_' . $sf_context->getActionName()?> <?php 
+  echo 'module_' . sfInflector::underscore($sf_context->getModuleName()) ?> <?php 
+  echo 'action_' . $sf_context->getActionName() ?>">
 
 <!-- Top-level box containing all subsequent elements -->
 <div id="container">
