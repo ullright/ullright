@@ -479,7 +479,7 @@ UllPermission:
     
 UllGroup:
   ull_group_cms_admins:
-    display_name:       cmsAdmins
+    display_name:       CmsAdmins
     namespace:          ull_cms        
       
 UllGroupPermission:
