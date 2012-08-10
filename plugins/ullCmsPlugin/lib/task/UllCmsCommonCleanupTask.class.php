@@ -89,17 +89,17 @@ EOF;
     $adminEntry = $entry;
     
     $entry = new UllCmsMenuItem;
-    $entry->Translation['en']->name = 'Manage users';
-    $entry->Translation['de']->name = 'Verwalte Benutzer';
+    $entry->Translation['en']->name = 'Users';
+    $entry->Translation['de']->name = 'Benutzer';
     $entry->link = 'ullUser/list?single_redirect=false';
     $entry->sequence = 10;
     $entry->Parent = $adminEntry;
     $entry->save();
     
     $entry = new UllCmsMenuItem;
-    $entry->Translation['en']->name = 'Manage groups';
-    $entry->Translation['de']->name = 'Verwalte Gruppen';
-    $entry->link = 'ullUser/list?single_redirect=false';
+    $entry->Translation['en']->name = 'Groups';
+    $entry->Translation['de']->name = 'Gruppen';
+    $entry->link = 'ullTableTool/list?table=UllGroup';
     $entry->sequence = 20;
     $entry->Parent = $adminEntry;
     $entry->save();    
