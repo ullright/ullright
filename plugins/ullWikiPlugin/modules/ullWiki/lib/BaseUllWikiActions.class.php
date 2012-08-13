@@ -74,7 +74,9 @@ class BaseUllWikiActions extends BaseUllGeneratorActions
   {
     $this->getDocFromRequest();
     $this->appendToTitle($this->doc);
-    
+
+    // Workaround fo missing soft_delete behaviour
+    $this->forward404If($this->doc->deleted_at);
     
     $accessType = $this->doc->checkAccess();
     $this->redirectToNoAccessUnless($accessType);    

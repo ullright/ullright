@@ -253,6 +253,20 @@ $b
 ;
 
 $b
+  ->diag('make sure a deleted entry is not accessible via direct url using id')
+  ->get('ullWiki/show/docid/3')
+  ->isStatusCode(404)
+;
+
+$b
+  ->diag('make sure a deleted entry is not accessible via direct url using slug')
+  ->get('ullWiki/show/my-new-test-subject')
+  ->isStatusCode(404)
+;
+
+
+
+$b
   ->diag('create values with tags in it (check output escaping)')
   ->get('ullWiki/index')
   ->click('New entries')
