@@ -27,10 +27,6 @@ UllCmsItem:
       notnull: true
     sequence:
       type: integer
-    preview_image:
-      type: string(255)
-    image:
-      type: string(255)
       
     # Child columns are defined here, because mixing parent and child translations
     # (i18n behavior) does not work
@@ -46,6 +42,12 @@ UllCmsItem:
     body:
       type: clob
       notnull: true
+    preview_image:
+      type: string(255)
+    image:
+      type: string(255)
+    gallery:
+      type: string(4000)      
     
     # page and content_block columns
     ull_cms_content_type_id:

@@ -18,9 +18,10 @@ class BaseUllCmsMenuItemColumnConfigCollection extends UllCmsItemColumnConfigCol
     $this->disable(array(
       'title', 
       'body', 
-      'duplicate_tags_for_search',
       'image',
       'preview_image',
+      'gallery',
+      'duplicate_tags_for_search',
       'ull_cms_content_type_id'
     ));
   }

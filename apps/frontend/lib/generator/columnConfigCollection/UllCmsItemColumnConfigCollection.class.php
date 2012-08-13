@@ -15,8 +15,9 @@ class UllCmsItemColumnConfigCollection extends BaseUllCmsItemColumnConfigCollect
   protected function applyCustomSettings()
   {
     parent::applyCustomSettings();
+    
+    // Your code here...
 
-    //$this->enable(array('preview_image', 'image'));
   }  
   
 }

@@ -128,6 +128,21 @@
 <target>Bitte wählen Sie welche Art von Seite Sie erstellen möchten</target>
 </trans-unit>
 
+<trans-unit id="26">
+<source>Gallery</source>
+<target>Galerie</target>
+</trans-unit>
+
+<trans-unit id="27">
+<source>Images are automatically resized. Drag images around to sort.</source>
+<target>Bilder werden automatisch skaliert. Reihenfolge mit Klick+Ziehen ändern.</target>
+</trans-unit>
+
+<trans-unit id="">
+<source></source>
+<target></target>
+</trans-unit>
+
 <trans-unit id="">
 <source></source>
 <target></target>

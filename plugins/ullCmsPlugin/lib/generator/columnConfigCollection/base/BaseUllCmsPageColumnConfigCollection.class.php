@@ -79,7 +79,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
     parent::applyCustomSettings();
     
     $this->disable(array(
-      'link', 'duplicate_tags_for_search', 'ull_cms_content_type_id'
+      'link', 'ull_cms_content_type_id'
     ));
     
     $this['is_active']
@@ -115,9 +115,15 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
         'body',
       ),
       array(
+        'preview_image',
+        'image',
+        'gallery',
+      ),        
+      array(
         'parent_ull_cms_item_id',
         'sequence',
         'is_active',
+        'duplicate_tags_for_search',          
       ),
       array(
         'slug',

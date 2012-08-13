@@ -10,7 +10,7 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
   protected function applyCustomSettings()
   {
     $this->disable(array(
-      'full_path', 'type', 'preview_image', 'image'
+      'full_path', 'type'
     ));
     
     $this['is_active']
@@ -48,6 +48,17 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
           sfConfig::get('app_ull_cms_image_width', 640)
         )
     ;    
+    
+    $this['gallery']
+      ->setLabel(__('Gallery', null, 'ullCmsMessages'))
+      ->setMetaWidgetClassName('ullMetaWidgetGallery')
+      ->setOption('image_width', 450)
+      ->setOption('image_height', 300)
+      ->setOption('generate_thumbnails', true)
+      ->setOption('thumbnail_width', 150)
+      ->setOption('thumbnail_height', 100)      
+      ->setHelp('Images are automatically resized. Drag images around to sort.')
+    ;       
     
     
   }
