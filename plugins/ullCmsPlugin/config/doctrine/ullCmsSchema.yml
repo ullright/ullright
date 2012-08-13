@@ -41,7 +41,6 @@ UllCmsItem:
       notnull: true
     body:
       type: clob
-      notnull: true
     preview_image:
       type: string(255)
     image:
