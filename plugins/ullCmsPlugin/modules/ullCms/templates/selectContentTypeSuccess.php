@@ -1,6 +1,6 @@
 <?php echo $breadcrumb_tree ?>
 
-<h3><?php echo __('Please select type of page you wish to create', null, 'ullCmsMessages') ?>:</h3>
+<h3><?php echo __('Please select the type of page you wish to create', null, 'ullCmsMessages') ?>:</h3>
 
 <ul>
   <?php foreach ($types as $type): ?>
