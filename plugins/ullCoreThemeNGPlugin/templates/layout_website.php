@@ -4,7 +4,6 @@
 
 
 <!--  Begin of html body -->
-<!--  Begin of html body -->
 <?php /*  Adds a css selector for the current request (module + action name)
   as well es separatly for module and action 
   Example: <body class="ull_cms_show module_ull_cms action_show"> */ ?>
