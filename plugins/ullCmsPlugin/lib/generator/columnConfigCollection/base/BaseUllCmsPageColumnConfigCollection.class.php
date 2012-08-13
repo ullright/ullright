@@ -66,7 +66,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
   {
     $this->contentType = $contentType;
     
-    parent::__construct('UllCmsContentBlock', $defaultAccess, $requestAction);
+    parent::__construct('UllCmsPage', $defaultAccess, $requestAction);
   }    
 
   
