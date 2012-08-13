@@ -32,6 +32,10 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOption('show_search_box', true)      
     ;
     
+    $this['sequence']
+      ->setHelp('Sort the items. Enter integer numbers. Entries with higher numbers are listed behind those with lower numbers. Use steps of 10 or 100 to allow inserting items in between.')
+    ;
+    
     $this['preview_image']
       ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
       ->setLabel(__('Preview image', null, 'ullCmsMessages'))

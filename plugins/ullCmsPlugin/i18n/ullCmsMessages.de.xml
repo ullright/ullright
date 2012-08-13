@@ -138,9 +138,9 @@
 <target>Bilder werden automatisch skaliert. Reihenfolge mit Klick+Ziehen ändern.</target>
 </trans-unit>
 
-<trans-unit id="">
-<source></source>
-<target></target>
+<trans-unit id="28">
+<source>Sort the items. Enter integer numbers. Entries with higher numbers are listed behind those with lower numbers. Use steps of 10 or 100 to allow inserting items in between.</source>
+<target>Geben Sie ganze Zahlen ein. Einträge werden nach dieser Nummer absteigend sortiert - größere Zahlen weiter hinten. Verwenden Sie 10 oder 100er Schritte um Einträge dazwischen einfügen zu können.</target>
 </trans-unit>
 
 <trans-unit id="">
