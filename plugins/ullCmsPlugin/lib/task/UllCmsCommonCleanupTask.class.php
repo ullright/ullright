@@ -72,6 +72,13 @@ EOF;
     Doctrine::getTable('UllCmsPage')->findOneBySlug('courses')->delete();
     
     // Restructure admin menu
+    
+    $entry = new UllCmsMenuItem;
+    $entry->Translation['en']->name = 'Invisible';
+    $entry->Translation['de']->name = 'Unsichtbar';
+    $entry->sequence = 99;
+    $entry->save();    
+    
     $entry = Doctrine::getTable('UllCmsMenuItem')->findOneBySlug('tools');
     $entry->Translation['en']->name = 'Demo versions';
     $entry->Translation['de']->name = 'Demo Versionen';
