@@ -207,6 +207,46 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     $this->breadcrumbForEdit();
   }  
   
+  /**
+   * Execute actions to be performed after successfully saving the object
+   * 
+   * Usually used for redirects
+   * 
+   * @param Doctrine_Record $row
+   * @param sfRequest $request
+   * 
+   * @return boolean
+   */
+  protected function executePostSave(Doctrine_Record $row, sfRequest $request)
+  {
+    // save only
+    if ($request->getParameter('action_slug') == 'save_only') 
+    {
+      $this->redirect(ullCoreTools::appendParamsToUri(
+        $this->edit_base_uri, 
+        'id=' . $this->generator->getForm()->getObject()->id
+      ));
+    }
+    elseif ($request->getParameter('action_slug') == 'save_new') 
+    {
+      $createUrl = $this->create_base_uri;
+      
+      if ($contentType = $request->getParameter('content_type'));
+      {
+        $createUrl = ullCoreTools::appendParamsToUri(
+          $createUrl, 
+          'content_type=' . $contentType
+        );
+      }
+      
+      $this->redirect($createUrl);
+    }
+            
+    $this->redirect($this->getUriMemory()->getAndDelete('list'));   
+
+    return true;
+  }  
+  
   
   /**
    * Define generator for edit action
