@@ -85,6 +85,7 @@ UllCmsMenuItem:
   manage_content:
     slug:                   manage-content
     Parent:                 admin_menu
+    link:                   ullCms/index
     Translation:
       en:
         name:               Manage content
