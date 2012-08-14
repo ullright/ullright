@@ -247,6 +247,13 @@ class PluginUllCmsItemTable extends UllRecordTable
     return $tree;
   }
   
+  /**
+   * Find id by slug
+   * 
+   * @param string $slug
+   * 
+   * @return integer
+   */
   public static function findIdBySlug($slug)
   {
     $q = new ullQuery('UllCmsItem');
