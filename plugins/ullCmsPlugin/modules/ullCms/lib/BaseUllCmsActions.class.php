@@ -194,8 +194,15 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     {
       $form_uri = ullCoreTools::appendParamsToUri($form_uri,
         'content_type=' . $row->UllCmsContentType->slug); 
+
+      if ($parentSlug = $request->getParameter('parent_slug'))
+      {
+        $form_uri = ullCoreTools::appendParamsToUri($form_uri,
+          'parent_slug=' . $parentSlug);        
+      }
     }
     
+    $form_uri = url_for($form_uri); // Why is this necessary?
     $this->setVar('form_uri', $form_uri);
 
     $this->setVar('generator', $this->generator, true);
@@ -231,12 +238,20 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     {
       $createUrl = $this->create_base_uri;
       
-      if ($contentType = $request->getParameter('content_type'));
+      if ($contentType = $request->getParameter('content_type'))
       {
         $createUrl = ullCoreTools::appendParamsToUri(
           $createUrl, 
           'content_type=' . $contentType
         );
+      }
+      
+      if ($parentSlug = $request->getParameter('parent_slug'))
+      {
+        $createUrl = ullCoreTools::appendParamsToUri(
+          $createUrl, 
+          'parent_slug=' . $parentSlug
+        );        
       }
       
       $this->redirect($createUrl);
