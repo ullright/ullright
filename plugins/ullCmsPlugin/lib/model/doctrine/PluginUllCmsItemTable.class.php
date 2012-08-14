@@ -247,4 +247,17 @@ class PluginUllCmsItemTable extends UllRecordTable
     return $tree;
   }
   
+  public static function findIdBySlug($slug)
+  {
+    $q = new ullQuery('UllCmsItem');
+    $q
+      ->select('id')
+      ->where('slug = ?', $slug)
+    ;
+    
+    $result = $q->execute(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0][0];
+  }
+  
 }

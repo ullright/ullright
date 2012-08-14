@@ -273,6 +273,12 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     else
     {
       $row = new UllCmsPage;
+      
+      // allow to give the parent cms item
+      if ($parentSlug = $this->getRequest()->getParameter('parent_slug'))
+      {
+        $row->parent_ull_cms_item_id = UllCmsItemTable::findIdBySlug($parentSlug);
+      }
     }
     
     if (!$row->exists())
