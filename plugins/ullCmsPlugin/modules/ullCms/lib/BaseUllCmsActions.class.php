@@ -451,4 +451,13 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     }
   }
   
+  public function executeToggleInlineEditing(sfRequest $request)
+  {
+    $inline_editing = (boolean) intval($request->getParameter('inline_editing'));
+    
+    $this->getUser()->setAttribute('inline_editing', $inline_editing);
+    
+    return $this->renderText($inline_editing);
+  }
+  
 }
