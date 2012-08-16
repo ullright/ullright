@@ -429,26 +429,67 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   
   
   /**
-   * Look for a custom page-specific template 
+   * Select the correct template 
    * 
-   * Put the template in apps/frontend/modules/ullCms/templates/
-   * and name it $slugSuccess.php
+   * Currently supported:
+   * - Content type specific template
+   * - Page specific custom template
+   * 
+   * Put the templates in apps/frontend/modules/ullCms/templates/
+   * 
+   * Syntax: $contentSlug . $pageSlug . 'Success.php'
+   * Camel-cased with a small initial letter
    *
+   * Example: 
+   * - content slug:  product-page
+   * - cms page slug: yellow-racebicycle
+   * - template name: productPageYellowRacebicycleSuccess.php
+   * 
+   * Also supported: to give only one option:
+   * - productPageSuccess.php
+   * - yellowRaceBicycleSuccess.php
+   *
+   */
+  protected function loadTemplate()
+  {
+    $dir = sfConfig::get('sf_app_dir') . DIRECTORY_SEPARATOR . 
+      'modules'. DIRECTORY_SEPARATOR . 
+      'ullCms' . DIRECTORY_SEPARATOR .
+      'templates' . DIRECTORY_SEPARATOR
+    ;
+    
+    $page = sfInflector::classify($this->doc->slug);
+    $suffix = 'Success.php';    
+    
+    $contentTypeSlug = $this->doc->UllCmsContentType->slug;
+    $contentType = lcfirst(sfInflector::classify($contentTypeSlug));
+      
+    $contentTypeAndPage = $dir . $contentType . $page;
+    $contentTypeOnly = $dir . $contentType;
+    $pageOnly = $dir . lcfirst($page); 
+      
+    if (file_exists($contentTypeAndPage . $suffix))
+    {
+      $this->setTemplate($contentTypeAndPage);
+    }      
+    elseif (file_exists($contentTypeOnly . $suffix))
+    {
+      $this->setTemplate($contentTypeOnly);
+    }
+    elseif (file_exists($pageOnly . $suffix))
+    {
+      $this->setTemplate($pageOnly);
+    }
+    
+  }
+  
+  /**
+   * For backwards compatibility
+   * @deprecated
    */
   protected function loadCustomTemplate()
   {
-    $filename = sfConfig::get('sf_app_dir') . DIRECTORY_SEPARATOR . 
-      'modules'. DIRECTORY_SEPARATOR . 
-      'ullCms' . DIRECTORY_SEPARATOR .
-      'templates' . DIRECTORY_SEPARATOR .
-      $this->doc->slug; 
-    
-//     var_dump($filename);
-
-    if (file_exists($filename . 'Success.php'))
-    {
-      $this->setTemplate($filename);
-    }
+    $this->loadTemplate();
   }
   
   public function executeToggleInlineEditing(sfRequest $request)
