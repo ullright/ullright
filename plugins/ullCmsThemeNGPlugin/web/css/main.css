@@ -52,6 +52,31 @@ a:visited {
   margin-bottom: 1em;
 }
 
+/**
+ * inline editing on/off switch
+ */
+ 
+#ull_cms_switch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+#ull_cms_switch a {
+  display: block;
+  padding: 8px 15px 15px 8px;
+  border-bottom-right-radius: 40px;
+}
+
+#ull_cms_switch_off {
+  background-color: #c9eff3;
+}
+
+#ull_cms_switch_on {
+  background-color: #ddd;
+} 
+
 
 /**
  * sidebar
