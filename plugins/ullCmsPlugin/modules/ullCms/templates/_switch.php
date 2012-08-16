@@ -19,8 +19,6 @@
 
 <?php $inline_editing = $sf_user->getAttribute('inline_editing') ?>
 
-<?php var_dump($inline_editing) ?>
-
 <?php if ($inline_editing): ?>
   <?php echo javascript_tag('
     $(document).ready(function() {
