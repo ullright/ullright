@@ -1,5 +1,7 @@
 <?php // Switch between inline editing view and visitor view ?>
 
+<?php use_stylesheet('/ullCmsThemeNGPlugin/css/inline_editing.css', 'first') ?>
+
 <?php if (UllUserTable::hasPermission('ull_cms_edit')): ?>
   <div id="ull_cms_switch">
     <?php echo link_to_function(
