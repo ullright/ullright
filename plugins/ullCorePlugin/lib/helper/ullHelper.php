@@ -309,7 +309,7 @@ function ull_image_tag_resize($source, $options)
     return image_tag($source, $options);
   }
   
-  $webPath = image_path($source);  // symfony helper
+  $webPath = image_path($source);  // image_path() is a symfony helper!
   $path = ullCoreTools::webToAbsolutePath($webPath);
   
   $newPath = ull_image_resize_build_filename($path, $options);
@@ -336,14 +336,36 @@ function ull_image_tag_resize($source, $options)
  */
 function ull_image_resize($path, $options)
 {
-  $newPath = ull_image_resize_build_filename($path, $options);
+  $image = new sfImage($path, 'image/jpg');
   
   $width = (isset($options['width'])) ? $options['width'] : 0;
   $height = (isset($options['height'])) ? $options['height'] : 0;
   
+  // Preserve aspect ration when giving both width and height
+  if ($width && $height)
+  {
+    if (($image->getWidth() / $width) > ($image->getHeight() / $height))
+    {
+      $height = 0;
+    }
+    else
+    {
+      $width = 0;
+    }      
+  }
+  
   //Not jpg necessarly. Just a mandatory sfImage option
-  $image = new sfImage($path, 'image/jpg');  
   $image->resize($width, $height);
+  
+  $newPath = ull_image_resize_build_filename($path, $options);
+  
+  $dir = dirname($newPath);
+  
+  if (!file_exists($dir))
+  {
+    mkdir($dir, 0777);
+  }
+  
   $image->saveAs($newPath);
   
   return $newPath;
@@ -377,7 +399,10 @@ function ull_image_resize_build_filename($path, $options)
   
   $suffix = '_' . implode('_', $suffixParts);
 
-  return ull_path_add_filename_suffix($path, $suffix); 
+  $suffixPath = ull_path_add_filename_suffix($path, $suffix);
+  $subDirPath = ull_path_add_sub_directory($suffixPath, 'resized_images');
+
+  return $subDirPath;
 } 
 
 
@@ -399,7 +424,7 @@ function ull_path_add_filename_suffix($path, $suffix)
 
   $return = 
     $parts['dirname'] .
-    '/' .
+    DIRECTORY_SEPARATOR .
     $parts['filename'] .
     $suffix .
     '.' .
@@ -407,6 +432,36 @@ function ull_path_add_filename_suffix($path, $suffix)
   ;
 
   return $return;
+}
+
+/**
+ * Helper to add subdirectory(ies) to a path
+ * 
+ * Example:
+ *   $path = '/var/www/xyz/web/images/logo.png'
+ *   $directory = 'cache/foo'
+ *   
+ *   result = '/var/www/xyz/web/images/cache/foo/logo.png'
+ * 
+ * @param unknown_type $path
+ * @param unknown_type $directory
+ */
+function ull_path_add_sub_directory($path, $directory)
+{
+  $parts = pathinfo($path);
+
+  $return = 
+    $parts['dirname'] .
+    DIRECTORY_SEPARATOR .
+    $directory .
+    DIRECTORY_SEPARATOR .
+    $parts['filename'] .
+    '.' .
+    $parts['extension']
+  ;
+
+  return $return;  
+  
 }
 
 
