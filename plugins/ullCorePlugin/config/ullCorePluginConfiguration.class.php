@@ -134,13 +134,20 @@ class ullCorePluginConfiguration extends sfPluginConfiguration
      * Exclude from matching:
      * 
      * iPad: Apple iPad
+     * GT-: Samsung Galaxy Tab
      * 
      */
+    
+    $userAgent = $request->getHttpHeader('User-Agent');
+    
     if (preg_match(
       '#^(?!.*iPad).*(Mobile|Jasmine|Symbian|NetFront|BlackBerry|Opera Mini).*$#i',
-      $request->getHttpHeader('User-Agent')))
+      $userAgent))
     {
-      $request->setRequestFormat('mobile');
+      if (!strpos($userAgent,'GT-'))
+      {
+        $request->setRequestFormat('mobile');
+      }
     }
  
     return $parameters;
