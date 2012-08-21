@@ -386,4 +386,35 @@ abstract class ullBaseTask extends sfBaseTask
   }  
   
   
+  /**
+   * Export a file from the generic ullright svn repository (trunk)
+   * 
+   * @param string $path      A path relative to the project root
+   *                          Example: 'apps/frontend/config/app.yml'
+   * @param string $targetDir optional A directory path relative to the project 
+   *                                   root without trailing slash
+   *                                   Example: 'apps/backend/config'
+   */
+  public static function svnExportFromUllright($path, $targetDir = null)
+  {
+    // Get ullright repo root path
+    $infoXml = shell_exec('svn info --xml plugins/ullCorePlugin/');
+    $infoArray = simplexml_load_string($infoXml);
+    $root = $infoArray->entry->repository->root;
+    
+    // Calculate target path
+    if (!$targetDir)
+    {
+      $targetDir = dirname($path);
+    }
+    
+    $filename = basename($path);
+    
+    $cmd = 'svn export ' . $root . '/trunk/' . $path . 
+      ' ' . $targetDir . '/' . $filename;
+    
+    return shell_exec($cmd);
+  }
+  
+  
 }
