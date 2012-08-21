@@ -4,6 +4,9 @@ Default CKEditor config for ullright
 
 CKEDITOR.editorConfig = function( config )
 {
+	// Set a content area body css class
+	config.bodyClass = 'ull_cms_content';	
+	
 	// Configure Stylesheets for edit area
 	config.contentsCss = [ '/ullCoreThemeNGPlugin/css/common.css', '/css/custom.css' ];
 	
@@ -28,6 +31,15 @@ CKEDITOR.editorConfig = function( config )
 	
 	// Remove dom elements path from the bottom status bar
 	config.removePlugins = 'elementspath'; 
+	
+	// shy button (Conditional hyphen)
+//	config.extraPlugins = 'shybutton';
+//	config.keystrokes =config.keystrokes.concat([ [ CKEDITOR.CTRL + 109 /*-*/,
+//	                                                'insertshy' ] ]);
+//	config.toolbar_MyToolbar =
+//		[
+//			{ name: 'misc', items : [ 'Shybutton' ] }
+//		];		
 	
   // Remove bottom status bar completely
 //	config.resize_enabled = false;	
