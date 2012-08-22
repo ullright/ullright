@@ -1,6 +1,6 @@
 <?php
 
-class AddUllCmsGallery extends Doctrine_Migration_Base
+class AddUllCmsGalleryCCC extends Doctrine_Migration_Base
 {
   public function up()
   {
