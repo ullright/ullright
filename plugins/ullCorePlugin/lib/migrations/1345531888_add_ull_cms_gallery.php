@@ -15,36 +15,9 @@ class AddUllCmsGallery extends Doctrine_Migration_Base
     catch (Exception $e)
     {
        $this->addColumn('ull_cms_item', 'gallery', 'string', 4000);
-       
-       $this->disableGalleryInColumnsConfig();
     }
     
   }
-  
-  protected function disableGalleryInColumnsConfig()
-  {
-    $file = 'apps/frontend/lib/generator/columnConfigCollection/' .
-      'UllCmsItemColumnConfigCollection.class.php';
-    
-    if (!file_exists($file))
-    {
-      var_dump(ullBaseTask::svnExportFromUllright($file));
-    }
-    
-    $content = file_get_contents($file);
-    
-    $content = str_replace('parent::applyCustomSettings();', 
-        "parent::applyCustomSettings();\n" .
-          "\n" .
-          '    $this->disable(array(\'gallery\'));' . "\n" .
-          "\n"
-        , 
-        $content
-    );
-    
-    file_put_contents($file, $content);    
-  }
-  
   
   public function postUp()
   {
