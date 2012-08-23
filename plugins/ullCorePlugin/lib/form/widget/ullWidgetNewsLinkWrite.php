@@ -56,7 +56,8 @@ $(document).ready(function() {
     }
     else
     {
-      var url = "' . url_for('ullCms/show') . '/" + $(this).val();
+      var url = "' . url_for('@ull_cms_show?slug=replace_me') . '";
+      var url = url.replace("replace_me", $(this).val());
     }
   
     $("#' . $id .'").val(url);
