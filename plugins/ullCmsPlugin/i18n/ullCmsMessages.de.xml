@@ -143,11 +143,11 @@
 <target>Geben Sie ganze Zahlen ein. Einträge werden nach dieser Nummer absteigend sortiert - größere Zahlen weiter hinten. Verwenden Sie 10 oder 100er Schritte um Einträge dazwischen einfügen zu können.</target>
 </trans-unit>
 
+
 <trans-unit id="">
 <source></source>
 <target></target>
 </trans-unit>
-
 
     </body>
   </file>

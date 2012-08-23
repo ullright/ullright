@@ -36,6 +36,10 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
       ->setHelp('Sort the items. Enter integer numbers. Entries with higher numbers are listed behind those with lower numbers. Use steps of 10 or 100 to allow inserting items in between.')
     ;
     
+    $this['ull_cms_content_type_id']
+      ->setLabel(__('Content type', null, 'ullCmsMessages'))
+    ;
+    
     $this['preview_image']
       ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
       ->setLabel(__('Preview image', null, 'ullCmsMessages'))
@@ -44,6 +48,7 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
           sfConfig::get('app_ull_cms_preview_image_width', 140)
         )
     ;
+    
     $this['image']
       ->setMetaWidgetClassName('ullMetaWidgetSimpleUpload')
       ->setLabel(__('Image', null, 'ullCmsMessages'))
@@ -61,9 +66,16 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('generate_thumbnails', true)
       ->setOption('thumbnail_width', 150)
       ->setOption('thumbnail_height', 100)      
-      ->setHelp('Images are automatically resized. Drag images around to sort.')
+      ->setHelp(__('Images are automatically resized. Drag images around to sort.', 
+        null, 'ullCmsMessages'))
     ;       
     
+    if ($this->isEditAction())
+    {
+      $this['ull_cms_content_type_id']
+        ->markAsAdvancedField(true)
+      ;      
+    }
     
   }
 }

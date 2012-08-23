@@ -283,40 +283,33 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
   {
     if ($id = $this->getRequest()->getParameter('id'))
     {
-      $row = Doctrine::getTable('UllCmsPage')->findOneById($id);
-    }
-    else
-    {
-      $row = new UllCmsPage;
-      
-      // allow to give the parent cms item
-      if ($parentSlug = $this->getRequest()->getParameter('parent_slug'))
-      {
-        $row->parent_ull_cms_item_id = UllCmsItemTable::findIdBySlug($parentSlug);
-      }
+      return Doctrine::getTable('UllCmsPage')->findOneById($id);
     }
     
-    if (!$row->exists())
+    // Create mode
+    $row = new UllCmsPage;
+    
+    // allow to give the parent cms item as request param
+    if ($parentSlug = $this->getRequest()->getParameter('parent_slug'))
     {
-      $content_type_slug = $this->getRequest()->getParameter('content_type');
-      
-      if (!$content_type_slug)
-      {
-        $ullCmsContentType = new ullCmsContentType;
-        $ullCmsContentType->type = 'page';
-      }
-      else
-      {
-        $ullCmsContentType = Doctrine::getTable('UllCmsContentType')->findOneBySlug($content_type_slug);
-      }
-      
-      if (!$ullCmsContentType)
-      {
-        throw new InvalidArgumentException('Invalid UllCmsContentType::slug given: '. $content_type_slug);
-      }
-      
-      $row->UllCmsContentType = $ullCmsContentType;
-    }    
+      $row->parent_ull_cms_item_id = UllCmsItemTable::findIdBySlug($parentSlug);
+    }
+    
+    // allow to give the content type as request param
+    $content_type_slug = $this->getRequest()->getParameter('content_type');
+    
+    if ($content_type_slug)
+    {
+      $ullCmsContentType = Doctrine::getTable('UllCmsContentType')->
+        findOneBySlug($content_type_slug);
+    }
+    
+    if (!$ullCmsContentType)
+    {
+      throw new InvalidArgumentException('Invalid UllCmsContentType::slug given: '. $content_type_slug);
+    }
+    
+    $row->UllCmsContentType = $ullCmsContentType;
     
     return $row;
   }  

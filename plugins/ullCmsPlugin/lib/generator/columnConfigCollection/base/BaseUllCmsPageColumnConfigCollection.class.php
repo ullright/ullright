@@ -79,7 +79,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
     parent::applyCustomSettings();
     
     $this->disable(array(
-      'link', 'ull_cms_content_type_id'
+      'link'
     ));
     
     $this['is_active']
@@ -128,6 +128,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       array(
         'slug',
         'id',
+        'ull_cms_content_type_id',          
         'creator_user_id',
         'created_at',
         'updator_user_id',

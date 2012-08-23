@@ -115,6 +115,7 @@ class BaseUllCmsContentBlockColumnConfigCollection extends UllCmsItemColumnConfi
         'parent_ull_cms_item_id',
         'slug',
         'id',
+        'ull_cms_content_type_id',          
         'creator_user_id',
         'created_at',
         'updator_user_id',
