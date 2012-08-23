@@ -1,8 +1,20 @@
 # UllPage
-ull_cms_show:
+
+ull_cms_show_deprecated:
   url:     /ullCms/show/:slug
   class:   sfDoctrineRoute
   options: { model: UllCmsPage, type: object }
   param:   { module: ullCms, action: show }
   requirements:
     sf_method: [get, post]
+
+ull_cms_show:
+  url:     /page/:slug
+  class:   sfDoctrineRoute
+  options: { model: UllCmsPage, type: object }
+  param:   { module: ullCms, action: show }
+  requirements:
+    sf_method: [get, post]
+
+
+    
