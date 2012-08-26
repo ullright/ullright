@@ -37,7 +37,7 @@ class ullGeneratorEditActionButtonCmsSaveAndShow extends ullGeneratorEditActionB
         $this->action->redirect($this->action->getUriMemory()->get('show'));
       }
       
-      $this->action->redirect('ullCms/show?slug=' . $this->action->generator->getRow()->slug);
+      $this->action->redirect('@ull_cms_show?slug=' . $this->action->generator->getRow()->slug);
     }   
     
     
