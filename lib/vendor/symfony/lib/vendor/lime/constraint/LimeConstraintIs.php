@@ -30,8 +30,6 @@ array_slice($new, $nmax, $maxlen),
 diff(array_slice($old, $omax + $maxlen), array_slice($new, $nmax + $maxlen)));
 }
 
-require(sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/lib/vendor/finediff/finediff.php');
-
 /**
  * Tests that a value equals another.
  *
