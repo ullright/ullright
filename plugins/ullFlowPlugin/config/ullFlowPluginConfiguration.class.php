@@ -17,7 +17,7 @@ class ullFlowPluginConfiguration extends sfPluginConfiguration
   {
     $currentModule = sfContext::getInstance()->getModuleName();
     
-    // Don't do anything if it's no UllFlowDoc
+    // Don't do anything if it's not a UllFlowDoc
     if ('UllFlowDoc' == $values['model'])
     {
       $columnName = $values['column'];
