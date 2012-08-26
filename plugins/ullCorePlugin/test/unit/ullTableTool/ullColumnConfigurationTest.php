@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(26, new lime_output_color, $configuration);
+$t = new myTestCase(28, new lime_output_color, $configuration);
 
 $cc = new ullColumnConfiguration();
 $cc->setAccess('r');
@@ -27,6 +27,11 @@ $t->diag('set/getModelName()');
   $t->is($cc->getModelName(), '', 'empty per default');
   $cc->setModelName('my_model');
   $t->is($cc->getModelName(), 'my_model', 'Returns the correct model name');
+  
+$t->diag('set/getColumnsConfigClass()');
+  $t->is($cc->getColumnsConfigClass(), '', 'empty per default');
+  $cc->setColumnsConfigClass('my_ccc_class');
+  $t->is($cc->getColumnsConfigClass(), 'my_ccc_class', 'Returns the correct columns config name');  
   
 $t->diag('set/getSection()');
   $t->is($cc->getSection(), '', 'empty per default');

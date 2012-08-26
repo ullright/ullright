@@ -9,7 +9,7 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(85,  new lime_output_color, $configuration);
+$t = new myTestCase(89,  new lime_output_color, $configuration);
 
 $t->diag('buildFor()');
 
@@ -32,6 +32,7 @@ $t->diag('buildFor() - createColumnConfigs');
 $t->diag('buildFor() - applyCommonSettings');
   $t->is($c['my_email']->getColumnName(), 'my_email', 'sets column name');
   $t->is($c['my_email']->getModelName(), 'TestTable', 'sets model name');
+  $t->is($c['my_email']->getColumnsConfigClass(), 'TestTableColumnConfigCollection', 'sets parent\'s column config class name');
   $t->is($c['my_email']->getAccess(), 'w', 'defaultAccess mode is set to "w" because of default action "edit"');
   $t->is($c['creator_user_id']->getAccess(), 'r', 'access is set to "r" for defined readOnly columns');
   $t->is($c['namespace']->getAccess(), null, 'blacklisted columns are disabled');
@@ -71,6 +72,15 @@ $t->diag('buildFor() - Label');
 
 $t->diag('buildFor() - applyCustomSettings');
   $t->is($c['my_string']->getLabel(), 'My custom string label', 'applies custom label set in applyCustomColumnConfigSettings()');  
+  
+
+$t->diag('buildCollection()');
+  $c = new TestTableColumnConfigCollection('TestTable');
+  $t->isa_ok($c, 'TestTableColumnConfigCollection', 'Creates the correct type');
+  $t->is(isset($c['my_email']), false, 'Not yet built');    
+  $c->buildCollection();  
+  $t->is($c['my_email']->getColumnsConfigClass(), 'TestTableColumnConfigCollection', 'sets parent\'s column config class name');
+  
   
 $columnConfig = new ullColumnConfiguration;
 $columnConfig->setColumnName('my_email');  
@@ -250,7 +260,7 @@ $t->diag('useManyToManyRelation()');
   $t->isa_ok($q, 'ullQuery', 'Returns a ull query to support translated columns');
   $t->is(
     $q->getSqlQuery(), 
-    "SELECT u.id AS u__id, u.type AS u__type, u.display_name AS u__display_name FROM ull_entity u WHERE (u.type = 'group') ORDER BY u.display_name asc", 
+    "SELECT u.id AS u__id, u.type AS u__type, u.display_name AS u__display_name FROM ull_entity u WHERE (u.is_active = ? AND (u.type = 'group')) ORDER BY u.display_name asc", 
     'Returns the correct query'
   );
   $t->is($cc->getWidgetOption('key_method'), 'id', 'Returns the corret widget option "key_method"');

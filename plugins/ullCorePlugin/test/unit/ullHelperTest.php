@@ -22,11 +22,13 @@ $t->diag('ull_image_tag_resize()');
 
   $t->is(
     ull_image_tag_resize('/uploads/assets/image/test_image.png', array('width' => 10)),
-    '<img src="/uploads/assets/image/test_image_width_10.png" alt="Test_image_width_10" />',
+    '<img src="/uploads/assets/image/resized_images/test_image_width_10.png" alt="Test_image_width_10" />',
     'Produces the correct output name' 
   );
   
-  unlink(ullCoreTools::webToAbsolutePath('/uploads/assets/image/test_image_width_10.png'));
+  
+  unlink(ullCoreTools::webToAbsolutePath('/uploads/assets/image/resized_images/test_image_width_10.png'));
+  rmdir(ullCoreTools::webToAbsolutePath('/uploads/assets/image/resized_images'));
   
 $t->diag('_ull_reqpass_array_clean');
 
