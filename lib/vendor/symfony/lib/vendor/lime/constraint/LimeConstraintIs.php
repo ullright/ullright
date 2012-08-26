@@ -53,21 +53,11 @@ class LimeConstraintIs extends LimeConstraint
     }
     catch (LimeAssertionFailedException $e)
     {
-      $file1 = sfConfig::get('sf_cache_dir') . '/lime_diff1.txt';
-      $file2 = sfConfig::get('sf_cache_dir') . '/lime_diff2.txt';
-      
-      $from = substr($e->getActual(), 1, -1);
-      $to = substr($e->getExpected(), 1, -1);
-      
-      file_put_contents($file1, $from);
-      file_put_contents($file2, $to);
-      
-      $diff = shell_exec('colordiff ' . $file1 . ' ' . $file2);
-      
-      unlink($file1);
-      unlink($file2);
 
-      echo "Colordiff output for the following assertion:\n" . $diff;
+      if (strpos($e->getActual(), "\n"))
+      {
+        echo $this->colordiff($e);
+      }
       
       $text = sprintf(
         "     got: %s\nexpected: %s", 
@@ -77,5 +67,29 @@ class LimeConstraintIs extends LimeConstraint
       
       throw new LimeConstraintException($text);
     }
+  }
+  
+  /**
+   * Additional output for multi line strings 
+   * 
+   * @param unknown_type $e
+   */
+  protected function colordiff($e)
+  {
+    $file1 = sfConfig::get('sf_cache_dir') . '/lime_diff1.txt';
+    $file2 = sfConfig::get('sf_cache_dir') . '/lime_diff2.txt';
+    
+    $from = substr($e->getActual(), 1, -1);
+    $to = substr($e->getExpected(), 1, -1);
+    
+    file_put_contents($file1, $from);
+    file_put_contents($file2, $to);
+    
+    $diff = shell_exec('colordiff ' . $file1 . ' ' . $file2);
+    
+    unlink($file1);
+    unlink($file2);
+
+    return "Colordiff output for the following assertion:\n" . $diff;    
   }
 }
