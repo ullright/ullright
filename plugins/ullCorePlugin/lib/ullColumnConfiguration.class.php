@@ -7,10 +7,11 @@ class ullColumnConfiguration
 {
   protected
     //manual
-    $columnName, //db column name
+    $columnName,           //db column name
     $modelName,  
+    $columnsConfigClass,   //parent column config collection class name
     $label, 
-    $help, //'description' in ull_column_config table
+    $help,                 //'description' in ull_column_config table
     $metaWidgetClassName    = 'ullMetaWidgetString',
     $isInList               = true,    // deprecated, since column config collections can configure for different actions
     $widgetOptions          = array(), //'options' in ull_column_config table
@@ -97,6 +98,18 @@ class ullColumnConfiguration
   public function setModelName($modelName)
   {
     $this->modelName = $modelName;
+    
+    return $this;
+  }
+  
+  public function getColumnsConfigClass()
+  {
+    return $this->columnsConfigClass;
+  }
+
+  public function setColumnsConfigClass($class)
+  {
+    $this->columnsConfigClass = $class;
     
     return $this;
   }

@@ -7,6 +7,7 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden
   {
     $this->addOption('model');
     $this->addOption('column');
+    $this->addOption('columns_config_class');
     
     parent::__construct($options, $attributes);
   }
@@ -138,7 +139,9 @@ $(document).ready(function() {
     runtimes: "html5",
     browse_button: "ull_widget_gallery_add_files_' . $id . '",
     drop_element: "' . $id . '_content",
-    url: "' . url_for('ullPhoto/imageUpload?model=' . $this->getOption('model') . '&column=' . $this->getOption('column')) . '",
+    url: "' . url_for('ullPhoto/imageUpload?s_m=' . $this->getOption('model') .
+      '&s_ccc=' . $this->getOption('columns_config_class') . 
+      '&s_c=' . $this->getOption('column')) . '",
     max_file_size: "' . ullCoreTools::getMaxPhpUploadSize() . 'mb"
   });
   

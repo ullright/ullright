@@ -59,6 +59,10 @@ class ullMetaWidgetGallery extends ullMetaWidget
   {
     $this->columnConfig->setWidgetOption('model', $this->columnConfig->getModelName());
     $this->columnConfig->setWidgetOption('column', $this->columnConfig->getColumnName());
+    $this->columnConfig->setWidgetOption('columns_config_class', 
+      $this->columnConfig->getColumnsConfigClass());
+        
+    
     
     $this->addWidget(new ullWidgetGalleryWrite(
       $this->columnConfig->getWidgetOptions(), 

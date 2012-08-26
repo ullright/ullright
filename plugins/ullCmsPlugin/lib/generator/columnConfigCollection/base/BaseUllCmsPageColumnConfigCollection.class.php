@@ -50,7 +50,7 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
     
     $c = new $className($contentType, $defaultAccess, $requestAction);
     $c->buildCollection();
-
+    
     return $c;
   } 
   

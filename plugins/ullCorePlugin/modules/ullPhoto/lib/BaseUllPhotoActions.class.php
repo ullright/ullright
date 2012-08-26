@@ -406,10 +406,11 @@ class BaseUllPhotoActions extends ullsfActions
   {
     sfConfig::set('sf_web_debug', false);
     
-    $model = $request->getParameter('model');
-    $column = $request->getParameter('column');
+    $model = $request->getParameter('s_m');
+    $column = $request->getParameter('s_c');
+    $columnsConfig = $request->getParameter('s_ccc');
     
-    $columnConfig = $this->buildColumnConfig($model, $column);
+    $columnConfig = $this->buildColumnConfig($model, $column, $columnsConfig);
     
     // let columnConfig be modified by metaWidget (defaults etc)
     $metaWidgetClassName = $columnConfig->getMetaWidgetClassName();
@@ -451,10 +452,11 @@ class BaseUllPhotoActions extends ullsfActions
   /**
    * Build column config for upload
    * 
-   * @param $model
-   * @param $column
+   * @param string $model
+   * @param string $column
+   * @param string $columnsConfigClass
    */
-  protected function buildColumnConfig($model, $column)
+  protected function buildColumnConfig($model, $column, $columnsConfigClass)
   {
     // Try to get a custom columns config via event dispatching
     // Used e.g. for ullFlow
@@ -472,7 +474,10 @@ class BaseUllPhotoActions extends ullsfActions
     }
     else
     {
-      $columnsConfig = ullColumnConfigCollection::buildFor($model);
+//       $columnsConfig = ullColumnConfigCollection::buildFor($model);
+
+      $columnsConfig = new $columnsConfigClass();
+      $columnsConfig->buildCollection();
     }
     
     return $columnsConfig[$column];    

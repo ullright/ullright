@@ -35,4 +35,32 @@ abstract class PluginUllCmsPage extends BaseUllCmsPage
     parent::preSave($event);
   }
   
+  
+  /**
+   * Helper function to get ullMetaWidgetGallery images as array
+   * 
+   * TODO: cleanup, refactor
+   * 
+   * @param integer $column
+   * 
+   * @return array
+   */
+  public function getGalleryAsArray($column = 'gallery')
+  {
+    // ullMetaWidgetGallery can produce empty lines -> cleanup
+    $lines = explode("\n", $this->$column);
+    $lines = str_replace("\r", '', $lines);
+    
+    $photos = array();
+    foreach ($lines as $line)
+    {
+      if ($line)
+      {
+        $photos[] = $line;
+      }
+    }
+
+    return $photos;
+  }
+  
 }
