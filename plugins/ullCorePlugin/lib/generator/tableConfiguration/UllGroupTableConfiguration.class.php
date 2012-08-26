@@ -23,7 +23,6 @@ class UllGroupTableConfiguration extends ullTableConfiguration
         'is_active' => 'checked',
       ))
       ->setListColumns(array(
-        'id', 
         'display_name', 
         'email',
         'is_active',
