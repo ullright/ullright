@@ -966,7 +966,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
    */
   protected function redirectToEditIfSingleResult()
   {
-    if (count($this->docs) == 1 && $this->getRequestParameter('single_redirect', 'true') == 'true')
+    if (
+      count($this->docs) == 1 && 
+      $this->getRequestParameter('single_redirect', 'true') == 'true'
+    ) 
     {
       $this->getUser()->setFlash('message', __(
         'Redirected from the result list because there was only a single result. Click on "result list" in the breadcrumb navigation above to return to the list view.', 
