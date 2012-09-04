@@ -3,7 +3,7 @@
  */
  
 #ull_cms_switch {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
