@@ -464,15 +464,16 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
     if (file_exists($contentTypeAndPage . $suffix))
     {
       $this->setTemplate($contentTypeAndPage);
-    }      
-    elseif (file_exists($contentTypeOnly . $suffix))
-    {
-      $this->setTemplate($contentTypeOnly);
     }
     elseif (file_exists($pageOnly . $suffix))
     {
       $this->setTemplate($pageOnly);
+    }          
+    elseif (file_exists($contentTypeOnly . $suffix))
+    {
+      $this->setTemplate($contentTypeOnly);
     }
+
     
   }
   
