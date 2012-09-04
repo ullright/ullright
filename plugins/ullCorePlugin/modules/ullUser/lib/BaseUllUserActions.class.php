@@ -739,7 +739,11 @@ class BaseUllUserActions extends BaseUllGeneratorActions
             }
             else
             {
-              $this->getUser()->setAttribute('user_id', $user->getId());      
+              $this->getUser()->setAttribute('user_id', $user->getId());   
+
+              $this->dispatcher->notify(
+                new sfEvent($this, 'ull_user.log_in_success', array())
+              );
 
               //if the user has a set culture, use it
               if ($user['selected_culture'] !== null)
@@ -798,6 +802,10 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     {
       $this->getUser()->getAttributeHolder()->remove($key);
     }
+    
+    $this->dispatcher->notify(
+      new sfEvent($this, 'ull_user.log_out', array())
+    );    
     
     $this->redirect('@homepage');
   }
