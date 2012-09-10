@@ -70,6 +70,13 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
         null, 'ullCmsMessages'))
     ;       
     
+    if ($this->isCreateAction())
+    {
+      $this['ull_cms_content_type_id']
+        ->disable()
+      ;      
+    }    
+    
     if ($this->isEditAction())
     {
       $this['ull_cms_content_type_id']

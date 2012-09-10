@@ -207,8 +207,6 @@ class BaseUllCmsActions extends BaseUllGeneratorActions
 
     $this->setVar('generator', $this->generator, true);
     
-    $this->setTableToolTemplate('edit');
-    
     $this->cultures = ullGenerator::getDefaultCultures();
     
     $this->breadcrumbForEdit();
