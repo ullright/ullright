@@ -52,12 +52,36 @@ class ullWidgetCmsElementsWrite extends ullWidget
   }
   
   
+  /**
+   * Render element html markup
+   * The templates are symfony partials.
+   * 
+   * Naming convention for the partial:
+   *   '_element' . $camelCasedElementName . '.php
+   * Path: apps/frontend/modules/ullCms/templates/
+   *   
+   * Example: apps/frontend/modules/ullCms/templates/_elementTextWithImage.php
+   * 
+   * Available variables in the partial:
+   *  - $element - element type
+   *  - $id      - a unique id
+   *  - $values  - array of field values e.g. "headline", "body", "image", ... 
+   * 
+   * @param array $elementData cms element data array
+   * @return string
+   */
   protected function renderElementPartial($elementData)
   {
-    $partialName = 'ullCms/' . 'element' . sfInflector::classify($elementData['element']);
+    $partialName = 'ullCms/' . 'element' . 
+      sfInflector::classify($elementData['element']);
     
-    $html = get_partial($partialName, array('values' => $elementData['values']));
+    $html = get_partial($partialName, array(
+      'element'  => $elementData['element'],
+      'id'       => $elementData['id'],
+      'values'   => $elementData['values'],
+    ));
     
+    // Decorate with a div
     $html = '<div class="cms_element element_' . $elementData['element'] . '" '.
       'id="element_' . $elementData['id'] . '" >' .
       $html . '</div>';

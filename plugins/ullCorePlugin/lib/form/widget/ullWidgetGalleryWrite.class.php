@@ -238,8 +238,7 @@ $(document).ready(function()
   }
   
   /**
-   * Get array of images from the fields's value format
-   * 
+   * Get array of images by the fields's value format
    * 
    * @param string $value
    */
@@ -261,6 +260,7 @@ $(document).ready(function()
     
     return $return;
   }
+  
   
   /**
    * Gets the JavaScript paths associated with the widget.
