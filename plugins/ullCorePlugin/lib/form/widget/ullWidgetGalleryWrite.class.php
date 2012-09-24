@@ -237,6 +237,30 @@ $(document).ready(function()
     return $return;
   }
   
+  /**
+   * Get array of images from the fields's value format
+   * 
+   * 
+   * @param string $value
+   */
+  public static function getImagesAsArray($value)
+  {
+    $images = str_replace("\r", '', $value);
+    $images = explode("\n", $images);
+    
+    $return = array();
+    
+    foreach ($images as $image)
+    {
+      // Ignore blank lines
+      if ($image)  
+      {
+        $return[] = $image;
+      }
+    }
+    
+    return $return;
+  }
   
   /**
    * Gets the JavaScript paths associated with the widget.

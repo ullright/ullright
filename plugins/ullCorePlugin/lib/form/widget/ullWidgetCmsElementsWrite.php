@@ -18,26 +18,50 @@ class ullWidgetCmsElementsWrite extends ullWidget
       throw new InvalidArgumentException('List of elements must be given as array');
     }
     
+    $elementsData = $this->extractElementsData($value);
+    
+    foreach ($elementsData as &$elementData)
+    {
+      $elementData['html'] = $this->renderElementPartial($elementData);
+    }
+    
+    var_dump($elementsData);
+    
+    
+    return '<textarea cols="80" rows="20">' . $value . '</textarea>';
+  }
+  
+  /**
+   * Extract the element's data values from the input/type=hidden fields
+   * 
+   * @param string $value
+   */
+  protected function extractElementsData($value)
+  {
     $qp = new QueryPath($value);
     $dataFields = $qp->find('input[type="hidden"]');
     
-    foreach($dataFields as $input)
+    $data = array();
+    
+    foreach($dataFields as $dataField)
     {
-      $data = json_decode($input->attr('value'), true);
-      var_dump($data);
+      $data[] = json_decode($dataField->attr('value'), true);
     }
+
+    return $data;
+  }
+  
+  
+  protected function renderElementPartial($elementData)
+  {
+    $partialName = 'ullCms/' . 'element' . sfInflector::classify($elementData['element']);
     
+    $html = get_partial($partialName, array('values' => $elementData['values']));
     
-//     var_dump($x);
+    $html = '<div class="cms_element element_' . $elementData['element'] . '" '.
+      'id="element_' . $elementData['id'] . '" >' .
+      $html . '</div>';
     
-//     $dom = new DomDocument('1.0', 'utf-8');
-//     $dom->validateOnParse = true;
-//     $dom->loadHTML($value);
-//     $c = new sfDomCssSelector($dom);
-//     var_dump($c->matchAll('input[type="hidden"]')->getValues());
-    
-        
-        
-    return $value . '<textarea cols="80" rows="20">' . $value . '</textarea>';
+    return $html;
   }
 }

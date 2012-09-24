@@ -41,9 +41,9 @@ $html = '
 
 
 $data = array(
-  'element'   => 'preface',
+  'element'   => 'text_with_image',
   'id'        => 'xyz123',
-  'fields'    => array(
+  'values'    => array(
     'headline'  => 'Good news everyone!',
     'image'     => '/upload/images/foo.jpg',
     'body'      => '<p>
@@ -59,7 +59,7 @@ var_dump($json);
 $data = array(
   'element'   => 'gallery',
   'id'        => 'abx890',
-  'fields'    => array(
+  'values'    => array(
     'gallery'   => "/uploads/images/123.jpg\n/uploads/images/124.jpg",
   ),
 );
