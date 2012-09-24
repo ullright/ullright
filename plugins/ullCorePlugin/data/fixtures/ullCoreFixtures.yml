@@ -396,6 +396,31 @@ TestTable:
     my_email:     foobar@example.com
     my_select_box: 2
     my_useless_column: bla
+    my_elements:  |
+      <div class="element_text_with_image" id="element_text_with_image_xyz123">
+        <h1>Good news everyone!</h1>
+        <img src="/upload/images/foo.jpg" alt="image" />
+        <p>
+          Wow<br />cool <b>bold!</b>
+        </p>
+        <input type="hidden" value="{&quot;element&quot;:&quot;preface&quot;,&quot;id&quot;:&quot;xyz123&quot;,&quot;fields&quot;:{&quot;headline&quot;:&quot;Good news everyone!&quot;,&quot;image&quot;:&quot;\/upload\/images\/foo.jpg&quot;,&quot;body&quot;:&quot;&lt;p&gt;\n      Wow&lt;br \/&gt;cool &lt;b&gt;bold!&lt;\/b&gt;\n      &lt;\/p&gt;&quot;}}" />
+      </div>
+      
+      <div class="element_gallery gallery" id="element_gallery_abx890">
+        <div class="gallery_image">
+          <a href="/uploads/images/123.jpg">
+            <img src="/uploads/images/123_thumbnail.jpg" alt="image" />
+          </a>
+        </div>
+        <div class="gallery_image">
+          <a href="/uploads/images/124.jpg">
+            <img src="/uploads/images/124_thumbnail.jpg" alt="image" />
+          </a>
+        </div>  
+        <input type="hidden" value="{&quot;element&quot;:&quot;gallery&quot;,&quot;id&quot;:&quot;abx890&quot;,&quot;fields&quot;:{&quot;gallery&quot;:&quot;\/uploads\/images\/123.jpg\n\/uploads\/images\/124.jpg&quot;}}" />
+      </div> 
+    
+    
     UllUser:      admin_user
     namespace:    test
     Creator:      admin_user

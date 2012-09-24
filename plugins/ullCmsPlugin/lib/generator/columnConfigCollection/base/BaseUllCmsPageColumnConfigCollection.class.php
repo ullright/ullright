@@ -100,7 +100,6 @@ class BaseUllCmsPageColumnConfigCollection extends UllCmsItemColumnConfigCollect
       ->setWidgetOption('CustomConfigurationsPath', '/ullCmsPlugin/js/FCKeditor_config.js')
       ->setHelp(__('[SHIFT %arrow%] - [ENTER] creates single line breaks', 
           array('%arrow%' => '&uArr;'), 'ullCoreMessages'))
-            
     ;
     
     $this['duplicate_tags_for_search']

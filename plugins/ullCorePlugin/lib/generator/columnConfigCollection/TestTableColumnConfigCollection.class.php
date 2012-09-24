@@ -16,6 +16,14 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOption('add_empty', true)
     ;
     
+    $this['my_elements']
+      ->setMetaWidgetClassName('ullMetaWidgetCmsElements')
+      ->setWidgetOption('elements', array(
+        'text_with_image',
+        'gallery',
+      ))
+    ;       
+    
     $this->disable(array('my_useless_column'));
   }
 }

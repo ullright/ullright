@@ -73,6 +73,8 @@ TestTable:
       type: integer
     my_useless_column:
       type: string(64)
+    my_elements:
+      type: clob
     ull_user_id:
       type: integer
   relations:
