@@ -155,16 +155,3 @@ UllNews:
     deactivation_date:
       type: date
 
-# Pseudo table for cms elements widget to allow usage of doctrine-dependent
-# ull-Infrastructure like ullGenerator etc
-# This table is actually never used in the database as storage      
-UllCmsElement:   
-  package: ullCmsPlugin.lib.model.doctrine
-  inheritance:
-    extends: UllRecord
-    type: concrete  
-  columns:
-    element_type:
-      type: string(255)
-    id:
-      type: string(255)

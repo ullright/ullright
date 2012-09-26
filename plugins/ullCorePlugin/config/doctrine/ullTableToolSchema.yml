@@ -49,6 +49,22 @@ UllSelectChild:
     UllSelect:
       foreignAlias: UllSelectChildren
 
+
+# Pseudo table for content elements widget to allow usage of doctrine-dependent
+# ull-Infrastructure like ullGenerator etc
+# This table is actually never used in the database as storage      
+UllContentElement:   
+  package: ullCorePlugin.lib.model.doctrine
+  inheritance:
+    extends: UllRecord
+    type: concrete  
+  columns:
+    element_type:
+      type: string(255)
+    id:
+      type: string(255)
+
+
 TestTable:
   inheritance:
     extends: UllRecord
@@ -73,7 +89,7 @@ TestTable:
       type: integer
     my_useless_column:
       type: string(64)
-    my_elements:
+    my_content_elements:
       type: clob
     ull_user_id:
       type: integer

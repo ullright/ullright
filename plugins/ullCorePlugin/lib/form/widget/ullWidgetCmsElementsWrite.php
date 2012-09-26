@@ -109,7 +109,7 @@ class ullWidgetCmsElementsWrite extends ullWidget
     ));
     
     // Decorate with a div
-    $html = '<div class="cms_element element_' . $elementData['element'] . '" '.
+    $html = '<div class="content_element element_' . $elementData['element'] . '" '.
       'id="element_' . $elementData['id'] . '" >' . "\n" .
       $html . "\n" . '</div>';
     
@@ -136,7 +136,7 @@ class ullWidgetCmsElementsWrite extends ullWidget
     $form->setDefaults($elementData['values']);
     
     $return = "\n\n";
-    $return .= '<div class="cms_element_form element_form_' . $elementData['element'] . '" '.
+    $return .= '<div class="content_element_form element_form_' . $elementData['element'] . '" '.
       'id="element_form_' . $elementData['id'] . '" >' . "\n";
     $return .= '<form id="element_' . $elementData['id'] . '">' . "\n";
     $return .= get_partial('ullTableTool/editTable', array(

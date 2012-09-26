@@ -1139,21 +1139,21 @@ input.ull_widget_ull_entity_ajax_write_search {
  * ************************************************
  */
 
-.cms_element_controls {
+.content_element_controls {
   border: blue 1px solid;
   overflow: hidden;
 }
 
-.cms_element_control {
+.content_element_control {
 	float: left;
 	padding: 5px;
 }
 
-.cms_element {
+.content_element {
 	border: green 1px solid;
 }
 
-.cms_element_form {
+.content_element_form {
   border: red 1px solid;
 }
 
