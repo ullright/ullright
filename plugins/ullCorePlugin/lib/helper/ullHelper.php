@@ -217,6 +217,8 @@ function ull_image_tag($type, $options = array(), $width = null, $height = null,
  * @param unknown_type $linkOptions
  * @param unknown_type $imageOptions
  * @param unknown_type $plugin
+ * 
+ * @deprecated  Is this still in use? Current function is ull_image_tag()
  */
 function ull_icon($link, $type, $linkOptions = array(), $imageOptions = array(), $plugin = null) 
 {
@@ -234,6 +236,8 @@ function ull_icon($link, $type, $linkOptions = array(), $imageOptions = array(),
  * @param alt string          optional, 'alt' and 'title' caption, default = icons filename
  * @param link_option string  optional, link_to() option (3rd argument)
  * @return string             html
+ * 
+ * @deprecated  Is this still in use?
  */
 
 function ull_icon_to_function($function, $icon, $alt = null, $link_option = null) 

@@ -20,16 +20,27 @@ class ullWidgetCmsElementsWrite extends ullWidget
     
     $elementsData = $this->extractElementsData($value);
     
+    $return = '';
+    
     foreach ($elementsData as &$elementData)
     {
+      $elementData['controls'] = $this->renderElementControls($elementData);
       $elementData['html'] = $this->renderElementPartial($elementData);
+      $elementData['form'] = $this->renderElementForm($elementData);
+      
+      $return .= $elementData['controls'];
+      $return .= $elementData['html'];
+      $return .= $elementData['form'];
+      
     }
+
+    $return .= '<textarea cols="80" rows="20">' . $value . '</textarea>';
     
-    var_dump($elementsData);
+//     var_dump($return);die;
     
-    
-    return '<textarea cols="80" rows="20">' . $value . '</textarea>';
+    return $return;
   }
+  
   
   /**
    * Extract the element's data values from the input/type=hidden fields
@@ -51,6 +62,22 @@ class ullWidgetCmsElementsWrite extends ullWidget
     return $data;
   }
   
+  
+  /**
+   * Render element controls
+   * 
+   * @param array $elementData cms element data array
+   * @return string
+   */
+  protected function renderElementControls($elementData)
+  {
+    $html = get_partial('ullCms/elementControls', array(
+      'element'  => $elementData['element'],
+      'id'       => $elementData['id'],
+    ));    
+    
+    return $html;
+  }  
   
   /**
    * Render element html markup
@@ -83,9 +110,44 @@ class ullWidgetCmsElementsWrite extends ullWidget
     
     // Decorate with a div
     $html = '<div class="cms_element element_' . $elementData['element'] . '" '.
-      'id="element_' . $elementData['id'] . '" >' .
-      $html . '</div>';
+      'id="element_' . $elementData['id'] . '" >' . "\n" .
+      $html . "\n" . '</div>';
     
     return $html;
+  }
+  
+  
+  /**
+   * Render element edit form
+   * 
+   * An element's form is configured by a columnsConfig
+   * 
+   * @see BaseUllCmsElementColumnConfigCollection
+   * 
+   * @param array $elementData cms element data array
+   * @return string
+   */
+  protected function renderElementForm($elementData)
+  {
+    $generator = new ullCmsElementGenerator($elementData['element']);
+    $generator->buildForm(new UllCmsElement());
+    
+    $form = $generator->getForm();
+    $form->setDefaults($elementData['values']);
+    
+    $return = "\n\n";
+    $return .= '<div class="cms_element_form element_form_' . $elementData['element'] . '" '.
+      'id="element_form_' . $elementData['id'] . '" >' . "\n";
+    $return .= '<form id="element_' . $elementData['id'] . '">' . "\n";
+    $return .= get_partial('ullTableTool/editTable', array(
+      'generator' => $generator
+    ));
+//     $return .= '<table>' . "\n";
+//     $return .= $form->render() . "\n";
+//     $return .= '</table>' . "\n";
+    $return .= '</form>' . "\n";
+    $return .= '</div>' . "\n";
+    
+    return $return;
   }
 }

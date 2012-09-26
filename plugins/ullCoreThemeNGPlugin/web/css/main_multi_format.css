@@ -1132,3 +1132,28 @@ input.ull_widget_ull_entity_ajax_write_search {
 .ui-autocomplete-loading { 
 	background: white url(/ullCoreThemeNGPlugin/images/indicator.gif) right center no-repeat; 
 }
+
+/*
+ * ************************************************
+ *  ullWidgetCmsElements
+ * ************************************************
+ */
+
+.cms_element_controls {
+  border: blue 1px solid;
+  overflow: hidden;
+}
+
+.cms_element_control {
+	float: left;
+	padding: 5px;
+}
+
+.cms_element {
+	border: green 1px solid;
+}
+
+.cms_element_form {
+  border: red 1px solid;
+}
+

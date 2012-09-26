@@ -399,25 +399,25 @@ TestTable:
     my_elements:  |
       <div>
         <h1>Good news everyone!</h1>
-        <img src="/upload/images/foo.jpg" alt="image" />
+        <img src="/ullCoreThemeNG/images/logo120.png" alt="image" />
         <p>
           Wow<br />cool <b>bold!</b>
         </p>
-        <input type="hidden" value="{&quot;element&quot;:&quot;text_with_image&quot;,&quot;id&quot;:&quot;xyz123&quot;,&quot;values&quot;:{&quot;headline&quot;:&quot;Good news everyone!&quot;,&quot;image&quot;:&quot;\/upload\/images\/foo.jpg&quot;,&quot;body&quot;:&quot;&lt;p&gt;\n      Wow&lt;br \/&gt;cool &lt;b&gt;bold!&lt;\/b&gt;\n      &lt;\/p&gt;&quot;}}" />
+        <input type="hidden" value="{&quot;element&quot;:&quot;text_with_image&quot;,&quot;id&quot;:&quot;xyz123&quot;,&quot;values&quot;:{&quot;headline&quot;:&quot;Good news everyone!&quot;,&quot;image&quot;:&quot;\/ullCoreThemeNG\/images\/logo120.png&quot;,&quot;body&quot;:&quot;&lt;p&gt;\n      Wow&lt;br \/&gt;cool &lt;b&gt;bold!&lt;\/b&gt;\n      &lt;\/p&gt;&quot;}}" />
       </div>
       
       <div class="gallery">
         <div class="gallery_image">
-          <a href="/uploads/images/123.jpg">
-            <img src="/uploads/images/123_thumbnail.jpg" alt="image" />
+          <a href="/uploads/userPhotos/001.jpg">
+            <img src="/uploads/userPhotos/001.jpg" alt="image" />
           </a>
         </div>
         <div class="gallery_image">
-          <a href="/uploads/images/124.jpg">
-            <img src="/uploads/images/124_thumbnail.jpg" alt="image" />
+          <a href="/uploads/userPhotos/001.jpg">
+            <img src="/uploads/userPhotos/001.jpg" alt="image" />
           </a>
         </div>  
-        <input type="hidden" value="{&quot;element&quot;:&quot;gallery&quot;,&quot;id&quot;:&quot;abx890&quot;,&quot;values&quot;:{&quot;gallery&quot;:&quot;\/uploads\/images\/123.jpg\n\/uploads\/images\/124.jpg&quot;}}" />
+        <input type="hidden" value="{&quot;element&quot;:&quot;gallery&quot;,&quot;id&quot;:&quot;abx890&quot;,&quot;values&quot;:{&quot;gallery&quot;:&quot;\/uploads\/userPhotos\/001.jpg\n\/uploads\/userPhotos\/002.jpg&quot;}}" />
       </div> 
     
     

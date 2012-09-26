@@ -16,7 +16,7 @@ $t = new myTestCase(3, new lime_output_color, $configuration);
 $html = '
       <div class="element_text_with_image" id="element_text_with_image_xyz123">
         <h1>Good news everyone!</h1>
-        <img src="/upload/images/foo.jpg" alt="image" />
+        <img src="/ullCoreThemeNG/images/logo120.png" alt="image" />
         <p>
           Wow<br />cool <b>bold!</b>
         </p>
@@ -26,7 +26,7 @@ $html = '
       <div class="element_gallery gallery" id="element_gallery_abx890">
         <div class="gallery_image">
           <a href="/uploads/images/123.jpg">
-            <img src="/uploads/images/123_thumbnail.jpg" alt="image" />
+            <img src="/uploads/userPhotos/001.jpg" alt="image" />
           </a>
         </div>
         <div class="gallery_image">
@@ -45,7 +45,7 @@ $data = array(
   'id'        => 'xyz123',
   'values'    => array(
     'headline'  => 'Good news everyone!',
-    'image'     => '/upload/images/foo.jpg',
+    'image'     => '/ullCoreThemeNG/images/logo120.png',
     'body'      => '<p>
       Wow<br />cool <b>bold!</b>
       </p>',
@@ -60,7 +60,7 @@ $data = array(
   'element'   => 'gallery',
   'id'        => 'abx890',
   'values'    => array(
-    'gallery'   => "/uploads/images/123.jpg\n/uploads/images/124.jpg",
+    'gallery'   => "/uploads/userPhotos/001.jpg\n/uploads/userPhotos/002.jpg",
   ),
 );
 
