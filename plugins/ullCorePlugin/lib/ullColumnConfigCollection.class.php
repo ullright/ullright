@@ -730,6 +730,8 @@ class ullColumnConfigCollection extends ullGeneratorBase implements ArrayAccess,
   {
     $this->collection[$columnName] = new UllColumnConfiguration;    
     $this->collection[$columnName]
+      ->setColumnsConfigClass(get_class($this))
+      ->setModelName($this->getModelName())
       ->setColumnName($columnName)
       ->setAccess($this->defaultAccess)
     ;
