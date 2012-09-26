@@ -15,7 +15,7 @@ function formHideAdvancedOptions(message)
       advancedFields.hide();
       var linkId = $(this).attr('id') + '_show_advanced';
       var showLink = '<a href="#" id="' + linkId + '">' + message + '</a>';
-      $(this).find('table > tbody').append('<tr><td>' + showLink + '</td></tr>');
+      $(this).find('table:first > tbody').append('<tr><td>' + showLink + '</td></tr>');
       $('#' + linkId).click(function()
       {
         $(this).hide();
