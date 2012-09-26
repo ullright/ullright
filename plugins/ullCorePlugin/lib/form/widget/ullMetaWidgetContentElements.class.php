@@ -7,11 +7,11 @@
  * @author klemens
  *
  */
-class ullMetaWidgetCmsElements extends ullMetaWidget
+class ullMetaWidgetContentElements extends ullMetaWidget
 {
   protected function configureWriteMode($withValidator = true)
   {
-    $this->addWidget(new ullWidgetCmsElementsWrite(
+    $this->addWidget(new ullWidgetContentElementsWrite(
       $this->columnConfig->getWidgetOptions(), 
       $this->columnConfig->getWidgetAttributes()
     ));

@@ -16,9 +16,8 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOption('add_empty', true)
     ;
     
-    $this['my_elements']
-//           ->setMetaWidgetClassName('ullMetaWidgetString')
-      ->setMetaWidgetClassName('ullMetaWidgetCmsElements')
+    $this['my_content_elements']
+      ->setMetaWidgetClassName('ullMetaWidgetContentElements')
       ->setWidgetOption('elements', array(
         'text_with_image',
         'gallery',

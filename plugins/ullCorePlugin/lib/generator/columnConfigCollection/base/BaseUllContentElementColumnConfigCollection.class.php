@@ -1,6 +1,6 @@
 <?php 
 
-class BaseUllCmsElementColumnConfigCollection extends ullColumnConfigCollection
+class BaseUllContentElementColumnConfigCollection extends ullColumnConfigCollection
 {
   
   protected 
@@ -10,7 +10,7 @@ class BaseUllCmsElementColumnConfigCollection extends ullColumnConfigCollection
   /**
    * Load the element type specific column config collection 
    * 
-   * Example class name: UllCmsElementPageWithImageColumnConfigCollection
+   * Example class name: UllContentElementPageWithImageColumnConfigCollection
    * where "PageWithImage" is the camel-cased element type
    * 
    * 
@@ -22,10 +22,10 @@ class BaseUllCmsElementColumnConfigCollection extends ullColumnConfigCollection
   {
     // Check for element type specific column config collection
     // Example: 
-    // apps/frontend/lib/generator/columnConfigCollection/UllCmsElementPageWithImageColumnConfigCollection.class.php
+    // apps/frontend/lib/generator/columnConfigCollection/UllContentElementPageWithImageColumnConfigCollection.class.php
     // <?php
     //
-    // class UllCmsElementPageWithImageColumnConfigCollection extends UllCmsElementColumnConfigCollection
+    // class UllContentElementPageWithImageColumnConfigCollection extends UllContentElementColumnConfigCollection
     // {
     //   protected function applyCustomSettings()
     //   {
@@ -35,7 +35,7 @@ class BaseUllCmsElementColumnConfigCollection extends ullColumnConfigCollection
     //   }  
     // }
     
-    $className = 'UllCmsElement' . sfInflector::classify($elementType) . 
+    $className = 'UllContentElement' . sfInflector::classify($elementType) . 
       'ColumnConfigCollection'; 
     
     $c = new $className($elementType, $defaultAccess, $requestAction);
@@ -56,7 +56,7 @@ class BaseUllCmsElementColumnConfigCollection extends ullColumnConfigCollection
   {
     $this->elementType = $elementType;
     
-    parent::__construct('UllCmsElement', $defaultAccess, $requestAction);
+    parent::__construct('UllContentElement', $defaultAccess, $requestAction);
   }    
   
   protected function applyCustomSettings()

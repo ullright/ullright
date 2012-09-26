@@ -1,6 +1,6 @@
 <?php
 
-class ullCmsElementGenerator extends ullTableToolGenerator
+class ullContentElementGenerator extends ullTableToolGenerator
 {
   protected
     $elementType
@@ -10,7 +10,7 @@ class ullCmsElementGenerator extends ullTableToolGenerator
   {
     $this->elementType = $elementType;
     
-    parent::__construct('UllCmsElement', $defaultAccess, $requestAction, $columns);
+    parent::__construct('UllContentElement', $defaultAccess, $requestAction, $columns);
   }
   
   
@@ -21,7 +21,7 @@ class ullCmsElementGenerator extends ullTableToolGenerator
    */
   protected function buildColumnsConfig()
   {
-    $this->columnsConfig = ullCmsElementColumnConfigCollection::build(
+    $this->columnsConfig = ullContentElementColumnConfigCollection::build(
       $this->elementType, $this->defaultAccess, $this->requestAction);
     
     $this->customizeColumnsConfig();

@@ -1,6 +1,6 @@
 <?php
     
-class UllCmsElementGalleryColumnConfigCollection extends UllCmsElementColumnConfigCollection
+class UllContentElementGalleryColumnConfigCollection extends UllContentElementColumnConfigCollection
 {
   protected function applyCustomSettings()
   {

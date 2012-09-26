@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetCmsElementsWrite extends ullWidget
+class ullWidgetContentElementsWrite extends ullWidget
 {
   public function __construct($options = array(), $attributes = array())
   {
@@ -71,7 +71,7 @@ class ullWidgetCmsElementsWrite extends ullWidget
    */
   protected function renderElementControls($elementData)
   {
-    $html = get_partial('ullCms/elementControls', array(
+    $html = get_partial('ullTableTool/contentElementControls', array(
       'element'  => $elementData['element'],
       'id'       => $elementData['id'],
     ));    
@@ -85,9 +85,9 @@ class ullWidgetCmsElementsWrite extends ullWidget
    * 
    * Naming convention for the partial:
    *   '_element' . $camelCasedElementName . '.php
-   * Path: apps/frontend/modules/ullCms/templates/
+   * Path: apps/frontend/modules/ullTableTool/templates/
    *   
-   * Example: apps/frontend/modules/ullCms/templates/_elementTextWithImage.php
+   * Example: apps/frontend/modules/ullTableTool/templates/_elementTextWithImage.php
    * 
    * Available variables in the partial:
    *  - $element - element type
@@ -99,7 +99,7 @@ class ullWidgetCmsElementsWrite extends ullWidget
    */
   protected function renderElementPartial($elementData)
   {
-    $partialName = 'ullCms/' . 'element' . 
+    $partialName = 'ullTableTool/' . 'contentElement' . 
       sfInflector::classify($elementData['element']);
     
     $html = get_partial($partialName, array(
@@ -109,8 +109,8 @@ class ullWidgetCmsElementsWrite extends ullWidget
     ));
     
     // Decorate with a div
-    $html = '<div class="content_element element_' . $elementData['element'] . '" '.
-      'id="element_' . $elementData['id'] . '" >' . "\n" .
+    $html = '<div class="content_element content_element_' . $elementData['element'] . '" '.
+      'id="content_element_' . $elementData['id'] . '" >' . "\n" .
       $html . "\n" . '</div>';
     
     return $html;
@@ -122,23 +122,23 @@ class ullWidgetCmsElementsWrite extends ullWidget
    * 
    * An element's form is configured by a columnsConfig
    * 
-   * @see BaseUllCmsElementColumnConfigCollection
+   * @see BaseUllContentElementColumnConfigCollection
    * 
    * @param array $elementData cms element data array
    * @return string
    */
   protected function renderElementForm($elementData)
   {
-    $generator = new ullCmsElementGenerator($elementData['element']);
-    $generator->buildForm(new UllCmsElement());
+    $generator = new ullContentElementGenerator($elementData['element']);
+    $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();
     $form->setDefaults($elementData['values']);
     
     $return = "\n\n";
-    $return .= '<div class="content_element_form element_form_' . $elementData['element'] . '" '.
-      'id="element_form_' . $elementData['id'] . '" >' . "\n";
-    $return .= '<form id="element_' . $elementData['id'] . '">' . "\n";
+    $return .= '<div class="content_element_form content_element_form_' . $elementData['element'] . '" '.
+      'id="content_element_form_' . $elementData['id'] . '" >' . "\n";
+    $return .= '<form id="content_element_' . $elementData['id'] . '">' . "\n";
     $return .= get_partial('ullTableTool/editTable', array(
       'generator' => $generator
     ));

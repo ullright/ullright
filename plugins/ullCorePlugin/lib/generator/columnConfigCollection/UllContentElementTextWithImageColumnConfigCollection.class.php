@@ -1,6 +1,6 @@
 <?php
     
-class UllCmsElementTextWithImageColumnConfigCollection extends UllCmsElementColumnConfigCollection
+class UllContentElementTextWithImageColumnConfigCollection extends UllContentElementColumnConfigCollection
 {
   protected function applyCustomSettings()
   {

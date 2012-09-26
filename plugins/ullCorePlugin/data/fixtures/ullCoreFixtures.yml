@@ -382,76 +382,7 @@ UllSelect:
         sequence: 1000
         namespace:    test
 
-# for tabletool testing
-TestTable:
-  tt_1:
-    Translation:
-      en:
-        my_string:    Foo Bar
-        my_text:      Hello, this is my text
-      de:
-        my_string:    Foo Bar Deutsch
-        my_text:    Hallo, das ist mein Text
-    my_boolean:   true
-    my_email:     foobar@example.com
-    my_select_box: 2
-    my_useless_column: bla
-    my_elements:  |
-      <div>
-        <h1>Good news everyone!</h1>
-        <img src="/ullCoreThemeNG/images/logo120.png" alt="image" />
-        <p>
-          Wow<br />cool <b>bold!</b>
-        </p>
-        <input type="hidden" value="{&quot;element&quot;:&quot;text_with_image&quot;,&quot;id&quot;:&quot;xyz123&quot;,&quot;values&quot;:{&quot;headline&quot;:&quot;Good news everyone!&quot;,&quot;image&quot;:&quot;\/ullCoreThemeNG\/images\/logo120.png&quot;,&quot;body&quot;:&quot;&lt;p&gt;\n      Wow&lt;br \/&gt;cool &lt;b&gt;bold!&lt;\/b&gt;\n      &lt;\/p&gt;&quot;}}" />
-      </div>
-      
-      <div class="gallery">
-        <div class="gallery_image">
-          <a href="/uploads/userPhotos/001.jpg">
-            <img src="/uploads/userPhotos/001.jpg" alt="image" />
-          </a>
-        </div>
-        <div class="gallery_image">
-          <a href="/uploads/userPhotos/001.jpg">
-            <img src="/uploads/userPhotos/001.jpg" alt="image" />
-          </a>
-        </div>  
-        <input type="hidden" value="{&quot;element&quot;:&quot;gallery&quot;,&quot;id&quot;:&quot;abx890&quot;,&quot;values&quot;:{&quot;gallery&quot;:&quot;\/uploads\/userPhotos\/001.jpg\n\/uploads\/userPhotos\/002.jpg&quot;}}" />
-      </div> 
-    
-    
-    UllUser:      admin_user
-    namespace:    test
-    Creator:      admin_user
-    Updator:      admin_user
-    #created_at:   2008-01-01 00:00:00
-    namespace:    test
 
-  tt_2:
-    Translation:
-      en:
-        my_string:    Foo Bar More
-        my_text:      Hello, this is more of my text
-      de:
-        my_string:    Foo Bar More Deutsch
-        my_text:      Hallo, das ist mehr von meinem Text
-    my_boolean:   false
-    my_email:     foobar.more@example.com
-    my_useless_column: even more bla
-    UllUser:      test_user
-    namespace:    test
-    Creator:      admin_user
-    Updator:      test_user
-    namespace:    test
-    #created_at:   2008-01-01 00:00:00
-#<?php
-#for ($i = 1; $i <= 100; $i++)
-#{
-#  echo "  x_$i:\n";
-#  echo "    my_string: blabla$i\n";
-#}
-#?>
 
 UllJobTitle:
   programmer_jt:
@@ -602,4 +533,75 @@ UllPaymentType:
         name:     Bank transfer
       de:
         name:     Überweisung
-    namespace: ull_core           
+    namespace: ull_core
+    
+# for tabletool testing
+TestTable:
+  tt_1:
+    Translation:
+      en:
+        my_string:    Foo Bar
+        my_text:      Hello, this is my text
+      de:
+        my_string:    Foo Bar Deutsch
+        my_text:    Hallo, das ist mein Text
+    my_boolean:   true
+    my_email:     foobar@example.com
+    my_select_box: 2
+    my_useless_column: bla
+    my_content_elements:  |
+      <div>
+        <h1>Good news everyone!</h1>
+        <img src="/ullCoreThemeNG/images/logo120.png" alt="image" />
+        <p>
+          Wow<br />cool <b>bold!</b>
+        </p>
+        <input type="hidden" value="{&quot;element&quot;:&quot;text_with_image&quot;,&quot;id&quot;:&quot;xyz123&quot;,&quot;values&quot;:{&quot;headline&quot;:&quot;Good news everyone!&quot;,&quot;image&quot;:&quot;\/ullCoreThemeNG\/images\/logo120.png&quot;,&quot;body&quot;:&quot;&lt;p&gt;\n      Wow&lt;br \/&gt;cool &lt;b&gt;bold!&lt;\/b&gt;\n      &lt;\/p&gt;&quot;}}" />
+      </div>
+      
+      <div class="gallery">
+        <div class="gallery_image">
+          <a href="/uploads/userPhotos/001.jpg">
+            <img src="/uploads/userPhotos/001.jpg" alt="image" />
+          </a>
+        </div>
+        <div class="gallery_image">
+          <a href="/uploads/userPhotos/001.jpg">
+            <img src="/uploads/userPhotos/001.jpg" alt="image" />
+          </a>
+        </div>  
+        <input type="hidden" value="{&quot;element&quot;:&quot;gallery&quot;,&quot;id&quot;:&quot;abx890&quot;,&quot;values&quot;:{&quot;gallery&quot;:&quot;\/uploads\/userPhotos\/001.jpg\n\/uploads\/userPhotos\/002.jpg&quot;}}" />
+      </div> 
+    
+    
+    UllUser:      admin_user
+    namespace:    test
+    Creator:      admin_user
+    Updator:      admin_user
+    #created_at:   2008-01-01 00:00:00
+    namespace:    test
+
+  tt_2:
+    Translation:
+      en:
+        my_string:    Foo Bar More
+        my_text:      Hello, this is more of my text
+      de:
+        my_string:    Foo Bar More Deutsch
+        my_text:      Hallo, das ist mehr von meinem Text
+    my_boolean:   false
+    my_email:     foobar.more@example.com
+    my_useless_column: even more bla
+    UllUser:      test_user
+    namespace:    test
+    Creator:      admin_user
+    Updator:      test_user
+    namespace:    test
+    #created_at:   2008-01-01 00:00:00
+#<?php
+#for ($i = 1; $i <= 100; $i++)
+#{
+#  echo "  x_$i:\n";
+#  echo "    my_string: blabla$i\n";
+#}
+#?>               
