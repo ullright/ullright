@@ -374,31 +374,42 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   {
     $element = $request->getParameter('element');
     $id = $request->getParameter('id');
-    $fields = $request->getParameter($element . '_fields');
+    $values = $request->getParameter($element . '_fields');
        
     $generator = new ullContentElementGenerator($element);
     $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();
-    $form->bind($fields);    
+    $form->bind($values);    
+    $status = ($form->isValid()) ? 'valid' : 'invalid';
     
-    if ($form->isValid())
-    {
-      return $this->renderPartial('ullTableTool/contentElementHtml', array(
-        'element'  => $element,
-        'id'       => $id,
-        'values'   => $fields,
-      ));
-    }
-    else
-    {
-      return $this->renderPartial('ullTableTool/contentElementForm', array(
-        'element'    => $element,
-        'id'         => $id,
-        'generator'  => $generator,
-      ));              
-    }
-   
+    $html = $this->getPartial('ullTableTool/contentElementHtml', array(
+      'element'  => $element,
+      'id'       => $id,
+      'values'   => $values,
+    ));      
+    
+    $form = $this->getPartial('ullTableTool/contentElementForm', array(
+      'element'    => $element,
+      'id'         => $id,
+      'generator'  => $generator,
+    ));
+
+    $data = array(
+      'element'   => $element,
+      'id'        => $id,
+      'values'    => $values,
+    );
+      
+    $return = array(
+      'status' => $status,
+      'html'  => $html,
+      'form'  => $form,
+      'data'  => $data
+    );
+      
+    return $this->renderText(json_encode($return));
+
   }
   
   /**

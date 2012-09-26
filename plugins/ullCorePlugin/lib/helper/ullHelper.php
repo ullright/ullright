@@ -264,12 +264,12 @@ function ull_icon_to_function($function, $icon, $alt = null, $link_option = null
 /**
  * Render ajax indicator
  */
-function ull_image_tag_indicator()
+function ull_image_tag_indicator($options = null)
 {
   $path =  '/ullCoreTheme' . sfConfig::get('app_theme_package', 'NG') .
            'Plugin/images/indicator.gif';
 
-  return image_tag($path);
+  return image_tag($path, $options);
 }
 
 /**

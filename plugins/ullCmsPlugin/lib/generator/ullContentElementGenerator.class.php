@@ -34,6 +34,23 @@ class ullContentElementGenerator extends ullTableToolGenerator
 
   }  
   
+  
+  /**
+   * Globally change the name format
+   * 
+   * We do it here, because it would be difficult to inject the element type
+   * into a custom form
+   *
+   * @return ullGeneratorForm
+   */
+  public function getForm()
+  {
+    $form = parent::getForm();
+    $form->getWidgetSchema()->setNameFormat($this->elementType . '_fields[%s]');
+    
+    return $form;
+  }  
+  
 
   
 }

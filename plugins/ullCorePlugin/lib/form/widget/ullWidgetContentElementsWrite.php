@@ -125,7 +125,6 @@ class ullWidgetContentElementsWrite extends ullWidget
     $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();
-    $form->getWidgetSchema()->setNameFormat($elementData['element'] . '_fields[%s]');
     $form->setDefaults($elementData['values']);
     
     $html = get_partial('ullTableTool/contentElementForm', array(

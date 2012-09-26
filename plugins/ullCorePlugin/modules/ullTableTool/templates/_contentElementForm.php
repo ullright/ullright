@@ -1,6 +1,8 @@
 <div class="content_element_form content_element_form_<?php echo $element ?>"
   id="content_element_form_<?php echo $id ?>">
   
+  <?php // Note that we have no form tag, as nesting is not allowed ?>
+  
   <?php include_partial('ullTableTool/globalError', array(
     'form' => $generator->getForm()
   )) ?>
@@ -11,6 +13,7 @@
   
   <div class='edit_action_buttons'>
   
+    <?php // Note that the "table" param is not actually used ?>
     <?php $url = url_for('ullTableTool/contentElement?' .
         'table=UllContentElement&' .
         'element=' . $element . '&' .
@@ -24,7 +27,12 @@
         '"' . $url . '"' .
       ')'
     ) ?>
-    <?php // Note: that the "table" param above is not actually used ?>
+    
+    <?php echo ull_image_tag_indicator(array(
+      'style' => 'display: none;',
+      'id'    => 'content_element_indicator_' . $id,
+    )) ?>
+    
   </div>
       
 </div>
