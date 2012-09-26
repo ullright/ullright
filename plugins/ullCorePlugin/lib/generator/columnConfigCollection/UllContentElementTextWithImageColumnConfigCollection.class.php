@@ -16,11 +16,12 @@ class UllContentElementTextWithImageColumnConfigCollection extends UllContentEle
     
     $this->create('body')
       ->setLabel('Body')
-      ->setMetaWidgetClassName('ullMetaWidgetCKEditor')
-      ->setWidgetOption('CustomConfigurationsPath', '/js/CKeditor_config.js')
-      ->setWidgetAttribute('class', 'ull_cms_content')    
-      ->setWidgetOption('width', '400px')
-      ->setWidgetOption('height', '150px')      
+      ->setMetaWidgetClassName('ullMetaWidgetstring')
+//       ->setMetaWidgetClassName('ullMetaWidgetCKEditor')
+//       ->setWidgetOption('CustomConfigurationsPath', '/js/CKeditor_config.js')
+//       ->setWidgetAttribute('class', 'ull_cms_content')    
+//       ->setWidgetOption('width', '400px')
+//       ->setWidgetOption('height', '150px')      
       ->setIsRequired(true)
     ;    
     

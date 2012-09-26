@@ -99,19 +99,11 @@ class ullWidgetContentElementsWrite extends ullWidget
    */
   protected function renderElementPartial($elementData)
   {
-    $partialName = 'ullTableTool/' . 'contentElement' . 
-      sfInflector::classify($elementData['element']);
-    
-    $html = get_partial($partialName, array(
+    $html = get_partial('ullTableTool/contentElementHtml', array(
       'element'  => $elementData['element'],
       'id'       => $elementData['id'],
       'values'   => $elementData['values'],
     ));
-    
-    // Decorate with a div
-    $html = '<div class="content_element content_element_' . $elementData['element'] . '" '.
-      'id="content_element_' . $elementData['id'] . '" >' . "\n" .
-      $html . "\n" . '</div>';
     
     return $html;
   }
@@ -133,22 +125,16 @@ class ullWidgetContentElementsWrite extends ullWidget
     $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();
+    $form->getWidgetSchema()->setNameFormat($elementData['element'] . '_fields[%s]');
     $form->setDefaults($elementData['values']);
     
-    $return = "\n\n";
-    $return .= '<div class="content_element_form content_element_form_' . $elementData['element'] . '" '.
-      'id="content_element_form_' . $elementData['id'] . '" >' . "\n";
-    $return .= '<form id="content_element_' . $elementData['id'] . '">' . "\n";
-    $return .= get_partial('ullTableTool/editTable', array(
-      'generator' => $generator
-    ));
-//     $return .= '<table>' . "\n";
-//     $return .= $form->render() . "\n";
-//     $return .= '</table>' . "\n";
-    $return .= '</form>' . "\n";
-    $return .= '</div>' . "\n";
+    $html = get_partial('ullTableTool/contentElementForm', array(
+      'generator'  => $generator,
+      'element'    => $elementData['element'],
+      'id'         => $elementData['id'],
+    ));    
     
-    return $return;
+    return $html;
   }
   
   /**

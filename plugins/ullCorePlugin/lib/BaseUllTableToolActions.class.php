@@ -369,6 +369,37 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
 //    
 //    return $defaultsForValidation;
 //  }
+
+  public function executeContentElement(sfRequest $request)
+  {
+    $element = $request->getParameter('element');
+    $id = $request->getParameter('id');
+    $fields = $request->getParameter($element . '_fields');
+       
+    $generator = new ullContentElementGenerator($element);
+    $generator->buildForm(new UllContentElement());
+    
+    $form = $generator->getForm();
+    $form->bind($fields);    
+    
+    if ($form->isValid())
+    {
+      return $this->renderPartial('ullTableTool/contentElementHtml', array(
+        'element'  => $element,
+        'id'       => $id,
+        'values'   => $fields,
+      ));
+    }
+    else
+    {
+      return $this->renderPartial('ullTableTool/contentElementForm', array(
+        'element'    => $element,
+        'id'         => $id,
+        'generator'  => $generator,
+      ));              
+    }
+   
+  }
   
   /**
    * Setup ullGenerator

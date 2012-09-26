@@ -1275,7 +1275,7 @@ function ull_js_observer($form_id) {
  */
 function hide_advanced_form_fields()
 {
-  // Disable this functionalty for edit pages loaded via ajay (overlay)
+  // Disable this functionalty for edit pages loaded via ajax (overlay)
   // because it has sideeffects on the originating page
   // TODO: implement proper solution which works also for overlays
   if (!sfContext::getInstance()->getRequest()->isXmlHttpRequest())
