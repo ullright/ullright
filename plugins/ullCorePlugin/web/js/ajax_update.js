@@ -20,14 +20,12 @@ function ajax_update(control, indicator_id, url) {
   });
   
   // normalize different input types
-  /* why?
   if ('checkbox' === $(control).attr('type')) {
-    var value = $(control).attr('checked')
+    var value = $(control).is(':checked')
   }  
   else {
-  */
     var value = $(control).val();
-  //}
+  }
   
   $.ajax({
     url: url,
