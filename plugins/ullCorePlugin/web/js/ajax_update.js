@@ -11,48 +11,40 @@
  * 
  * @return nothing
  */
-function ajax_update(control, indicator_id, url)
-{
+function ajax_update(control, indicator_id, url) {
 	
   var indicator = $('#' + indicator_id);
 	
-  $(control).fadeOut(300, function()
-  {
+  $(control).fadeOut(300, function() {
     $(indicator).fadeIn(300);
-  })
+  });
   
   // normalize different input types
-  if ('checkbox' === $(control).attr('type'))
-  {
-	var value = $(control).attr('checked')
+  /* why?
+  if ('checkbox' === $(control).attr('type')) {
+    var value = $(control).attr('checked')
   }  
-  else
-  {
-	var value = $(control).val();
-  }
+  else {
+  */
+    var value = $(control).val();
+  //}
   
-  $.ajax(
-  {
-    url : url,
-    data :
-    {
+  $.ajax({
+    url: url,
+    data: {
       'value' : value
     },
     cache : false,
-    success : function(data, textStatus, XMLHttpRequest)
-    {
-      $(indicator).fadeOut(300, function()
-      {
+    success : function(data, textStatus, XMLHttpRequest) {
+      $(indicator).fadeOut(300, function() {
         $(control).attr("checked", !$(control).attr('checked'));
         $(control).fadeIn(300);
       });
     },
-    error : function(XMLHttpRequest, textStatus, errorThrown)
-    {
+    error : function(XMLHttpRequest, textStatus, errorThrown) {
       alert('Sorry, your change could not be processed.');
 
-      $(indicator).fadeOut(function()
-       {
+      $(indicator).fadeOut(function() {
         $(control).fadeIn();
       });
     }

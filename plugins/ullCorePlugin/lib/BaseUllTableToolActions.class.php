@@ -259,6 +259,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     }
     else
     {
+//       ullCoreTools::debugFormError($this->generator->getForm());
       throw new Exception('Validation failed');
     }
   }  
