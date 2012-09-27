@@ -1,15 +1,29 @@
 <div class="content_element content_element_<?php echo $element ?>"
-  id="content_element_<?php echo $id ?>">
+  id="content_element_<?php echo $element_id ?>">
   
   <?php $values = $sf_data->getRaw('values') ?>
   
   <?php $partial_name = 'ullTableTool/' . 'contentElement' . 
-      sfInflector::classify($element) ?>
+    sfInflector::classify($element) ?>
   
   <?php include_partial($partial_name, array(
-    'element'  => $element,
-    'id'       => $id,
-    'values'   => $values,
+    'element'    => $element,
+    'element_id' => $element_id,
+    'values'     => $values,
   )) ?>
+  
+  <?php $data = array(
+    'element'     => $element,
+    'element_id'  => $element_id,
+    'values'      => $values,
+  ) ?>
+  
+  <?php $json = htmlentities(json_encode($data)) ?>
+  
+  <?php echo input_hidden_tag(
+    'content_element_data_' . $element_id,
+    $json,
+    array('id' => 'content_element_data_' . $element_id)    
+  ) ?>
   
 </div>  

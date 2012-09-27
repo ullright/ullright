@@ -1,5 +1,5 @@
 <div class="content_element_form content_element_form_<?php echo $element ?>"
-  id="content_element_form_<?php echo $id ?>">
+  id="content_element_form_<?php echo $element_id ?>">
   
   <?php // Note that we have no form tag, as nesting is not allowed ?>
   
@@ -17,20 +17,22 @@
     <?php $url = url_for('ullTableTool/contentElement?' .
         'table=UllContentElement&' .
         'element=' . $element . '&' .
-        'id=' . $id
+        'element_id=' . $element_id . '&' .
+        'field_id=' . $field_id
     ) ?>
   
     <?php echo button_to_function(
       __('Apply', null, 'ullCoreMessages'),
       'contentElementSubmit(' .
-        '"' . $id . '", ' .
-        '"' . $url . '"' .
+        '"' . $element_id . '", ' .
+        '"' . $url . '",' .
+        '"' . $field_id . '"' .
       ')'
     ) ?>
     
     <?php echo ull_image_tag_indicator(array(
       'style' => 'display: none;',
-      'id'    => 'content_element_indicator_' . $id,
+      'id'    => 'content_element_indicator_' . $element_id,
     )) ?>
     
   </div>

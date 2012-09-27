@@ -42,7 +42,7 @@ $html = '
 
 $data = array(
   'element'   => 'text_with_image',
-  'id'        => 'xyz123',
+  'element_id'=> 'xyz123',
   'values'    => array(
     'headline'  => 'Good news everyone!',
     'image'     => '/ullCoreThemeNG/images/logo120.png',
@@ -58,7 +58,7 @@ var_dump($json);
 
 $data = array(
   'element'   => 'gallery',
-  'id'        => 'abx890',
+  'element_id'=> 'abx890',
   'values'    => array(
     'gallery'   => "/uploads/userPhotos/001.jpg\n/uploads/userPhotos/002.jpg",
   ),

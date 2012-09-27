@@ -6,9 +6,9 @@ $(document).ready(function() {
 
 
 
-function contentElementEdit(id) {
+function contentElementEdit(element_id) {
 
-  // Apply darkeing page cover
+  // Apply darkening page cover
   $("body").prepend('<div id="pagecover"></div>');
   $("#pagecover").css({
       position: "fixed",
@@ -21,12 +21,12 @@ function contentElementEdit(id) {
       left: 0
   });
 
-  var controlsClass = '#content_element_controls_' + id;
+  var controlsClass = '#content_element_controls_' + element_id;
   $(controlsClass).fadeOut(300);
   
-  var htmlClass = '#content_element_' + id;
+  var htmlClass = '#content_element_' + element_id;
   $(htmlClass).fadeOut(300, function () {
-    var formClass = '#content_element_form_' + id;
+    var formClass = '#content_element_form_' + element_id;
     
     $(formClass).css({
       position: "relative",
@@ -39,12 +39,12 @@ function contentElementEdit(id) {
   
 }
 
-function contentElementSubmit(id, url) {
+function contentElementSubmit(element_id, url, field_id) {
 	
-  var htmlClass = '#content_element_' + id;
-  var formClass = '#content_element_form_' + id;
-  var controlsClass = '#content_element_controls_' + id;
-  var indicatorClass = '#content_element_indicator_' + id;
+  var htmlClass = '#content_element_' + element_id;
+  var formClass = '#content_element_form_' + element_id;
+  var controlsClass = '#content_element_controls_' + element_id;
+  var indicatorClass = '#content_element_indicator_' + element_id;
   
   $.ajax({  
     type: "POST",  
@@ -63,10 +63,18 @@ function contentElementSubmit(id, url) {
         if (json.status == 'valid')
         {
           $(htmlClass).replaceWith(json.html);
-          $(formClass).replaceWith(json.form);          
+          $(formClass).replaceWith(json.form);
           
+          // replace content in original form field proxy field
+          var proxyClass = '#' + field_id + '_proxy' + ' ' + htmlClass;
+          $(proxyClass).replaceWith(json.html);
+          
+          // replace actual value in original form_field
+          var fieldClass = '#' + field_id;
+          $(fieldClass).val($(proxyClass).parent().html());
+
+          // fade
           $(formClass).fadeOut(300, function () {
-            
             $(controlsClass).fadeIn(300);
             $(htmlClass).fadeIn(300);
           });
@@ -83,42 +91,6 @@ function contentElementSubmit(id, url) {
       }
     }
   });
-  
-  /*
-	
-    $.ajax({  
-        type: "POST",  
-        url: url,
-        data: $(formClass).serialize(), 
-        success: function(data) {
-          // A json response containing the id of the object means ok
-          
-          alert('ok');
-          
-          try {
-            var json = jQuery.parseJSON(data);
-            // save object id for overlay creator (=original edit page) 
-            window.overlayId = json.id;
-            window.overlayString = json.string;
-            // save modified status for overlay creator to trigger widget reload
-            window.overlayIsModified = true;
-            $("#overlay").overlay().close();
-          }
-          
-          // Otherwise a validation error occured.
-          // We got the normal html markup (form with error msgs) and
-          //   re-render it 
-          
-//          catch (e) {
-//            var wrap = $("#overlay").overlay().getOverlay().find(".overlayContentWrap");
-//            wrap.html(data);
-//            wrap.scrollTop(0);
-//          }  
-        }  
-      });
-      
-      	*/
-	
 }
 
 /* @projectDescription jQuery Serialize Anything - Serialize anything (and not just forms!)

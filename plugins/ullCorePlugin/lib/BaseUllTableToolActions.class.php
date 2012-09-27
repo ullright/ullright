@@ -372,42 +372,45 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
 
   public function executeContentElement(sfRequest $request)
   {
-    $element = $request->getParameter('element');
-    $id = $request->getParameter('id');
-    $values = $request->getParameter($element . '_fields');
+    $element     = $request->getParameter('element');
+    $element_id  = $request->getParameter('element_id');
+    $field_id    = $request->getParameter('field_id');
+    $values      = $request->getParameter($element . '_fields');
        
     $generator = new ullContentElementGenerator($element);
     $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();
-    $form->bind($values);    
-    $status = ($form->isValid()) ? 'valid' : 'invalid';
+    $form->bind($values);
     
-    $html = $this->getPartial('ullTableTool/contentElementHtml', array(
-      'element'  => $element,
-      'id'       => $id,
-      'values'   => $values,
-    ));      
+    $return = array();
     
-    $form = $this->getPartial('ullTableTool/contentElementForm', array(
+    $form_html = $this->getPartial('ullTableTool/contentElementForm', array(
       'element'    => $element,
-      'id'         => $id,
+      'element_id' => $element_id,
+      'field_id'   => $field_id,
       'generator'  => $generator,
     ));
 
-    $data = array(
-      'element'   => $element,
-      'id'        => $id,
-      'values'    => $values,
-    );
+    $return['form'] = $form_html;
+
+    if ($form->isValid())
+    {
+      $return['status'] = 'valid';
       
-    $return = array(
-      'status' => $status,
-      'html'  => $html,
-      'form'  => $form,
-      'data'  => $data
-    );
-      
+      $html = $this->getPartial('ullTableTool/contentElementHtml', array(
+        'element'    => $element,
+        'element_id' => $element_id,
+        'values'     => $form->getValues()
+      ));
+
+      $return['html'] = $html;
+    }
+    else
+    {
+      $return['status'] = 'invalid';
+    }
+    
     return $this->renderText(json_encode($return));
 
   }

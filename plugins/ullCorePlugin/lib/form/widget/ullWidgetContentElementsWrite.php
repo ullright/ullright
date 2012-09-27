@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetContentElementsWrite extends ullWidget
+class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
 {
   public function __construct($options = array(), $attributes = array())
   {
@@ -8,9 +8,28 @@ class ullWidgetContentElementsWrite extends ullWidget
     
     parent::__construct($options, $attributes);
   }
+  
+  /**
+   * Configures the current widget.
+   *
+   * @param array $options     An array of options
+   * @param array $attributes  An array of default HTML attributes
+   *
+   * @see sfWidgetForm
+   */
+  protected function configure($options = array(), $attributes = array())
+  {
+    $this->setAttribute('rows', 20);
+    $this->setAttribute('cols', 80);
+  }  
+  
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
+    // populate field's html id attribute
+    $this->setAttribute('name', $name);
+    $this->setAttributes($this->fixFormId($this->getAttributes()));
+    
     $elements = $this->getOption('elements');
     
     if (!is_array($elements))
@@ -24,19 +43,20 @@ class ullWidgetContentElementsWrite extends ullWidget
     
     foreach ($elementsData as &$elementData)
     {
-      $elementData['controls'] = $this->renderElementControls($elementData);
-      $elementData['html'] = $this->renderElementPartial($elementData);
-      $elementData['form'] = $this->renderElementForm($elementData);
-      
-      $return .= $elementData['controls'];
-      $return .= $elementData['html'];
-      $return .= $elementData['form'];
-      
+      $return .= $this->renderElementControls($elementData);
+      $return .= $this->renderElementHtml($elementData);
+      $return .= $this->renderElementForm($elementData);
     }
-
-    $return .= '<textarea cols="80" rows="20">' . $value . '</textarea>';
     
-//     var_dump($return);die;
+    // This is a proxy field to build / modify the elements actual form field
+    // since we cannot perform this in the form field directly
+    $return .= $this->renderContentTag('div', $value, array(
+      'id'    => $this->getAttribute('id') . '_proxy',
+      'style' => 'display: none;',
+    ));
+
+    // Render the the actual form field
+    $return .= parent::render($name, $value, $attributes, $errors);
     
     return $return;
   }
@@ -72,8 +92,8 @@ class ullWidgetContentElementsWrite extends ullWidget
   protected function renderElementControls($elementData)
   {
     $html = get_partial('ullTableTool/contentElementControls', array(
-      'element'  => $elementData['element'],
-      'id'       => $elementData['id'],
+      'element'    => $elementData['element'],
+      'element_id' => $elementData['element_id'],
     ));    
     
     return $html;
@@ -90,19 +110,19 @@ class ullWidgetContentElementsWrite extends ullWidget
    * Example: apps/frontend/modules/ullTableTool/templates/_elementTextWithImage.php
    * 
    * Available variables in the partial:
-   *  - $element - element type
-   *  - $id      - a unique id
-   *  - $values  - array of field values e.g. "headline", "body", "image", ... 
+   *  - $element    - element type
+   *  - $element_id - a unique id foreach element
+   *  - $values     - array of field values e.g. "headline", "body", "image", ... 
    * 
    * @param array $elementData cms element data array
    * @return string
    */
-  protected function renderElementPartial($elementData)
+  protected function renderElementHtml($elementData)
   {
     $html = get_partial('ullTableTool/contentElementHtml', array(
-      'element'  => $elementData['element'],
-      'id'       => $elementData['id'],
-      'values'   => $elementData['values'],
+      'element'    => $elementData['element'],
+      'element_id' => $elementData['element_id'],
+      'values'     => $elementData['values'],
     ));
     
     return $html;
@@ -130,7 +150,8 @@ class ullWidgetContentElementsWrite extends ullWidget
     $html = get_partial('ullTableTool/contentElementForm', array(
       'generator'  => $generator,
       'element'    => $elementData['element'],
-      'id'         => $elementData['id'],
+      'element_id' => $elementData['element_id'],
+      'field_id'   => $this->getAttribute('id'),
     ));    
     
     return $html;
