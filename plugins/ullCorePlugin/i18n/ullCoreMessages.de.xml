@@ -837,7 +837,13 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       <trans-unit id="3901">
         <source>Autocomplete. Begin to type your search term and select an entry from the appearing list</source>
         <target>Automatische Vervollständigung. Geben Sie einige Zeichen des gewünschten Suchbegriffes ein uns wählen Sie dann einen Eintrag aus der Liste</target>
-      </trans-unit>         
+      </trans-unit>       
+      
+      <!-- ullWidgetContentElements -->
+      <trans-unit id="3950">
+        <source>Add an element</source>
+        <target>Element hinzufügen</target>
+      </trans-unit>  
       
             
       <!--  CSV import -->
@@ -878,10 +884,7 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <target>%number% Zeilen erfolgreich importiert</target>
       </trans-unit> 
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
-      </trans-unit>
+
       
       <trans-unit id="">
         <source></source>

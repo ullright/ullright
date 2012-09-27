@@ -373,8 +373,8 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
   public function executeContentElement(sfRequest $request)
   {
     $element     = $request->getParameter('element');
-    $element_id  = $request->getParameter('element_id');
     $field_id    = $request->getParameter('field_id');
+    $element_id  = $request->getParameter('element_id');
     $values      = $request->getParameter($element . '_fields');
        
     $generator = new ullContentElementGenerator($element);
@@ -412,6 +412,28 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     }
     
     return $this->renderText(json_encode($return));
+
+  }  
+
+  public function executeContentElementAdd(sfRequest $request)
+  {
+    $element     = $request->getParameter('element');
+    $elements    = json_decode($request->getParameter('elements'), true);
+    $field_id    = $request->getParameter('field_id');
+    $element_id  = uniqid();
+    
+    $generator = new ullContentElementGenerator($element);
+    $generator->buildForm(new UllContentElement());
+    
+    $return = $this->getPartial('ullTableTool/contentElementAddMarkup', array(
+      'element'    => $element,
+      'element_id' => $element_id,
+      'elements'   => $elements,
+      'field_id'   => $field_id,
+      'generator'  => $generator,
+    ));
+
+    return $this->renderText($return);
 
   }
   

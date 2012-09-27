@@ -1,7 +1,7 @@
+<?php $values = $sf_data->getRaw('values') ?>
+
 <div class="content_element content_element_<?php echo $element ?>"
   id="content_element_<?php echo $element_id ?>">
-  
-  <?php $values = $sf_data->getRaw('values') ?>
   
   <?php $partial_name = 'ullTableTool/' . 'contentElement' . 
     sfInflector::classify($element) ?>

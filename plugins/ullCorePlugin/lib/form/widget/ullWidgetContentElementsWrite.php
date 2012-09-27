@@ -47,6 +47,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
       $elementsMarkup[$element_id] = '';
       $elementsMarkup[$element_id] .= $this->renderElementControls($elementData);
       $elementsMarkup[$element_id] .= $this->renderElementHtml($elementData);
+      $elementsMarkup[$element_id] .= $this->renderElementAdd($elementData, $elements);
       $elementsMarkup[$element_id] .= $this->renderElementForm($elementData);
     }
     
@@ -55,6 +56,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
       'field'          => parent::render($name, $value, $attributes, $errors),
       'value'          => $value,
       'elements_markup'=> $elementsMarkup,
+      'elements'       => $elements,
     ));
     
     return $return;
@@ -128,6 +130,23 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
     return $html;
   }
   
+  /**
+   * Render element add controls
+   * 
+   * @param array $elementData cms element data array
+   * @return string
+   */
+  protected function renderElementAdd($elementData, $elements)
+  {
+    $html = get_partial('ullTableTool/contentElementAdd', array(
+      'element'    => $elementData['element'],
+      'element_id' => $elementData['element_id'],
+      'elements'   => $elements,
+      'field_id'   => $this->getAttribute('id'),
+    ));    
+    
+    return $html;
+  }   
   
   /**
    * Render element edit form
