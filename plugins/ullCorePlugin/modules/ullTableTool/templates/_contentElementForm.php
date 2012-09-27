@@ -22,7 +22,7 @@
     ) ?>
   
     <?php echo button_to_function(
-      __('Apply', null, 'ullCoreMessages'),
+      __('Save', null, 'common'),
       'contentElementSubmit(' .
         '"' . $element_id . '", ' .
         '"' . $url . '",' .
@@ -34,6 +34,32 @@
       'style' => 'display: none;',
       'id'    => 'content_element_indicator_' . $element_id,
     )) ?>
+    
+    <?php echo link_to_function(
+      __('Cancel', null, 'common'),
+      'contentElementCancel(' .
+        '"' . $element_id . '" ' .
+      ')'
+    ) ?> 
+    
+    <?php /*
+    // all jQuery events are executed within the document ready function
+$(document).ready(function() {
+
+   $("input").bind("keydown", function(event) {
+      // track enter key
+      var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+      if (keycode == 13) { // keycode for enter key
+         // force the 'Enter Key' to implicitly click the Update button
+         document.getElementById('defaultActionButton').click();
+         return false;
+      } else  {
+         return true;
+      }
+   }); // end of function
+
+}); // end of document ready
+*/ ?>
     
   </div>
       

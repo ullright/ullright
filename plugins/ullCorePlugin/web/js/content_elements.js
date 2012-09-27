@@ -22,11 +22,12 @@ function contentElementEdit(element_id) {
   });
 
   var controlsClass = '#content_element_controls_' + element_id;
+  var htmlClass = '#content_element_' + element_id;
+  var formClass = '#content_element_form_' + element_id;
+  
   $(controlsClass).fadeOut(300);
   
-  var htmlClass = '#content_element_' + element_id;
   $(htmlClass).fadeOut(300, function () {
-    var formClass = '#content_element_form_' + element_id;
     
     $(formClass).css({
       position: "relative",
@@ -91,6 +92,128 @@ function contentElementSubmit(element_id, url, field_id) {
       }
     }
   });
+}
+
+
+function contentElementCancel(element_id) {
+  
+  var controlsClass = '#content_element_controls_' + element_id;
+  var htmlClass = '#content_element_' + element_id;
+  var formClass = '#content_element_form_' + element_id;
+  
+  $(formClass).fadeOut(300, function () {
+    
+    $('#pagecover').remove();
+    $(controlsClass).fadeIn(300);
+    $(htmlClass).fadeIn(300);
+  
+  });
+  
+}
+
+function contentElementDelete(element_id, field_id) {
+  
+  var controlsClass = '#content_element_controls_' + element_id;
+  var htmlClass = '#content_element_' + element_id;
+  var formClass = '#content_element_form_' + element_id;
+  var proxyClass = '#' + field_id + '_proxy'
+  var proxyFieldClass = proxyClass + ' ' + htmlClass;
+  var fieldClass = '#' + field_id;
+  
+  // delete content in original form field proxy field
+  $(proxyFieldClass).remove();
+  
+  // replace actual value in original form_field
+  $(fieldClass).val($(proxyClass).html());
+
+  // fade out...
+  $(controlsClass).fadeOut(500);
+  $(htmlClass).fadeOut(500, function () {
+    // ... and remove
+    $(controlsClass).remove();
+    $(htmlClass).remove();
+    $(formClass).remove();    
+  });
+}
+
+function contentElementMove(element_id, field_id, direction) {
+  
+  // Markup
+  var markupClass = '#content_element_markup_' + element_id;
+  
+  if (direction == 'down') {
+    var siblingElement = $(markupClass).next();
+  }
+  else {
+    var siblingElement = $(markupClass).prev();
+  }
+  
+  if ($(siblingElement).hasClass('content_element_markup')) {
+    var removedElement = $(markupClass).remove();
+    
+    if (direction == 'down') {
+      $(siblingElement).after(removedElement);
+    }
+    else {
+      $(siblingElement).before(removedElement);
+    }
+  }
+  
+  // Data
+  var htmlClass = '#content_element_' + element_id;
+  var proxyClass = '#' + field_id + '_proxy'
+  var proxyFieldClass = proxyClass + ' ' + htmlClass;
+  var fieldClass = '#' + field_id;
+  
+  if (direction == 'down') {
+    var siblingElement = $(proxyFieldClass).next();
+  }
+  else {
+    var siblingElement = $(proxyFieldClass).prev();
+  }
+  
+  if ($(siblingElement).hasClass('content_element')) {
+    var removedElement = $(proxyFieldClass).remove();
+    
+    if (direction == 'down') {
+      $(siblingElement).after(removedElement);
+    }
+    else {
+      $(siblingElement).before(removedElement);
+    }
+  }  
+  
+  // replace actual value in original form_field
+  $(fieldClass).val($(proxyClass).html());  
+  
+  
+  
+  
+  
+  
+  /*
+  var controlsClass = '#content_element_controls_' + element_id;
+  var htmlClass = '#content_element_' + element_id;
+  var formClass = '#content_element_form_' + element_id;
+  var proxyClass = '#' + field_id + '_proxy'
+  var proxyFieldClass = proxyClass + ' ' + htmlClass;
+  var fieldClass = '#' + field_id;
+  
+  // delete content in original form field proxy field
+  $(proxyFieldClass).remove();
+  
+  // replace actual value in original form_field
+  $(fieldClass).val($(proxyClass).html());
+
+  // fade out...
+  $(controlsClass).fadeOut(500);
+  $(htmlClass).fadeOut(500, function () {
+    // ... and remove
+    $(controlsClass).remove();
+    $(htmlClass).remove();
+    $(formClass).remove();    
+  });
+  */
 }
 
 /* @projectDescription jQuery Serialize Anything - Serialize anything (and not just forms!)

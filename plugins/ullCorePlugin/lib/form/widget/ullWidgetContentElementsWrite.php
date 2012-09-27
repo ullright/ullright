@@ -39,24 +39,23 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
     
     $elementsData = $this->extractElementsData($value);
     
-    $return = '';
+    $elementsMarkup = '';
     
-    foreach ($elementsData as &$elementData)
+    foreach ($elementsData as $elementData)
     {
-      $return .= $this->renderElementControls($elementData);
-      $return .= $this->renderElementHtml($elementData);
-      $return .= $this->renderElementForm($elementData);
+      $element_id = $elementData['element_id'];
+      $elementsMarkup[$element_id] = '';
+      $elementsMarkup[$element_id] .= $this->renderElementControls($elementData);
+      $elementsMarkup[$element_id] .= $this->renderElementHtml($elementData);
+      $elementsMarkup[$element_id] .= $this->renderElementForm($elementData);
     }
     
-    // This is a proxy field to build / modify the elements actual form field
-    // since we cannot perform this in the form field directly
-    $return .= $this->renderContentTag('div', $value, array(
-      'id'    => $this->getAttribute('id') . '_proxy',
-      'style' => 'display: none;',
+    $return = get_partial('ullTableTool/contentElements', array(
+      'field_id'       => $this->getAttribute('id'),
+      'field'          => parent::render($name, $value, $attributes, $errors),
+      'value'          => $value,
+      'elements_markup'=> $elementsMarkup,
     ));
-
-    // Render the the actual form field
-    $return .= parent::render($name, $value, $attributes, $errors);
     
     return $return;
   }
@@ -94,6 +93,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
     $html = get_partial('ullTableTool/contentElementControls', array(
       'element'    => $elementData['element'],
       'element_id' => $elementData['element_id'],
+      'field_id'   => $this->getAttribute('id'),
     ));    
     
     return $html;
