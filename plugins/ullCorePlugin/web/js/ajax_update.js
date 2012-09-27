@@ -35,6 +35,7 @@ function ajax_update(control, indicator_id, url) {
     cache : false,
     success : function(data, textStatus, XMLHttpRequest) {
       $(indicator).fadeOut(300, function() {
+        $(indicator).hide();
         $(control).attr("checked", !$(control).attr('checked'));
         $(control).fadeIn(300);
       });
