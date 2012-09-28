@@ -10,14 +10,13 @@
     <?php echo link_to_function(
       '+',
       'contentElementAddList(' .
-        '"' . $element_id . '", ' .
-        '"' . $field_id . '" ' .
+        '"' . $element_id . '" ' .
       ')'
     ) ?>
   </div>  
   
   <div class="content_element_controls_add_list">
-  <h2><?php echo __('Add an element', null, 'ullCoreMessages') ?></h2>
+  <h2><?php echo __('Add an element', null, 'ullCoreMessages') ?>:</h2>
   
   <ul>
     <?php $element_types_json = urlencode(json_encode($element_types)) ?>

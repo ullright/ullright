@@ -1,9 +1,16 @@
+/**
+ * Auto load on page load
+ */
 $(document).ready(function() {
   
   contentElementInitialize();
   
 });
 
+
+/**
+ * Do initialisation of the content elements
+ */
 function contentElementInitialize ()
 {
   $('.content_element_html_and_controls').hover(
@@ -23,6 +30,7 @@ function contentElementInitialize ()
       
       $(this).find('.content_element_controls_edit').hide();
       $(this).find('.content_element_controls_add_button').hide();      
+      $(this).find('.content_element_controls_add_list').hide();
     }    
   );
   
@@ -144,8 +152,12 @@ function contentElementSubmit(element_id, url, field_id) {
 }
 
 
-
-
+/**
+ * Delete an element
+ * 
+ * @param element_id
+ * @param field_id
+ */
 function contentElementDelete(element_id, field_id) {
   
   var elementClass = '#content_element_' + element_id;
@@ -154,12 +166,16 @@ function contentElementDelete(element_id, field_id) {
     $(elementClass).remove();
     contentElementUpdateFormField(field_id);  
   });
-  
     
 }
 
+
 /**
  * Move an element up or down
+ * 
+ * @param element_id
+ * @param field_id
+ * @param direction
  */
 function contentElementMove(element_id, field_id, direction) {
   
@@ -186,6 +202,14 @@ function contentElementMove(element_id, field_id, direction) {
   contentElementUpdateFormField(field_id);
 }
 
+
+function contentElementAddList(element_id) {
+  
+  var controlsAddClass = '#content_element_controls_add_' + element_id;
+  
+  $(controlsAddClass + ' .content_element_controls_add_list').fadeIn(250);
+  
+}
 
 function contentElementAdd(element, element_id, url, field_id) {
   
@@ -344,6 +368,7 @@ function darkeningCoverEnable() {
   
 }
 
+
 /**
  * Remove darkening page cover
  */
@@ -351,7 +376,6 @@ function darkeningCoverDisable()
 {
   $('#pagecover').remove();
 }
-
 
 
 /**
