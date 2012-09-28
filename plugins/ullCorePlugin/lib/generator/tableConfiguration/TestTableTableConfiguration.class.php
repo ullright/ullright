@@ -20,6 +20,11 @@ class TestTableTableConfiguration extends ullTableConfiguration
         __('Owner', null, 'common') . ' special location')
       ->setSearchColumns(array('id', 'my_email'))
       ->setOrderBy('id')
+      ->setListColumns(array(
+        'my_string',
+        'my_boolean',
+        'my_email',
+      ))
     ;
   }
   

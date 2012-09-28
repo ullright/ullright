@@ -84,7 +84,7 @@ TestTable:
     my_email:
       type: string(64)
       notnull: true
-      unique: true
+      #unique: true //TODO: check problem with unique validator 
     my_select_box:
       type: integer
     my_useless_column:
