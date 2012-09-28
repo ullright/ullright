@@ -1,9 +1,12 @@
-<?php $elements = $sf_data->getRaw('elements') ?>
+<?php $element_data = $sf_data->getRaw('element_data') ?>
+<?php $element_id = $element_data['id'] ?>
+<?php $element_types = $sf_data->getRaw('element_types') ?>
 
-<div class="content_element_add" 
-  id="content_element_add_<?php echo $element_id ?>" >
 
-  <div class="content_element_add_button">
+<div class="content_element_controls_add" 
+  id="content_element_controls_add_<?php echo $element_id ?>" >
+
+  <div class="content_element_controls_add_button">
     <?php echo link_to_function(
       '+',
       'contentElementAddList(' .
@@ -13,24 +16,24 @@
     ) ?>
   </div>  
   
-  <div class="content_element_add_list">
+  <div class="content_element_controls_add_list">
   <h2><?php echo __('Add an element', null, 'ullCoreMessages') ?></h2>
   
   <ul>
-    <?php $elements_json = urlencode(json_encode($elements)) ?>
-    <?php foreach($elements as $element => $name): ?>
+    <?php $element_types_json = urlencode(json_encode($element_types)) ?>
+    <?php foreach($element_types as $element_type => $name): ?>
     
       <?php $url = url_for('ullTableTool/contentElementAdd?' .
           'table=UllContentElement&' .
-          'element=' . $element . '&' .
           'field_id=' . $field_id. '&' .
-          'elements=' . $elements_json 
+          'element_type=' . $element_type . '&' .
+          'element_types=' . $element_types_json 
       ) ?>      
       
       <li>
         <?php echo link_to_function($name,
           'contentElementAdd(' .
-            '"' . $element . '", ' .
+            '"' . $element_type . '", ' .
             '"' . $element_id . '", ' .
             '"' . $url . '", ' .
             '"' . $field_id . '" ' .

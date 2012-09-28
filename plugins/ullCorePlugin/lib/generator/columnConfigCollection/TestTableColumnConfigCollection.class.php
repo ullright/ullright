@@ -18,7 +18,7 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
     
     $this['my_content_elements']
       ->setMetaWidgetClassName('ullMetaWidgetContentElements')
-      ->setWidgetOption('elements', array(
+      ->setWidgetOption('element_types', array(
         'text_with_image' => __('Text with image'),
         'gallery'         => __('Gallery'),
       ))

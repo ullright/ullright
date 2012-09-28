@@ -1,7 +1,47 @@
 $(document).ready(function() {
-
-	$(".content_element_form").hide();
-	
+  
+  $('.content_element_html_and_controls').hover(
+    function () {
+      $(this).css('border', '1px solid silver');
+      $(this).css('border-radius', '8px');
+      $(this).css('background', '#f9f9f9');
+      
+      $(this).find('.content_element_controls_edit').fadeIn(300);
+      $(this).find('.content_element_controls_add_button').fadeIn(300);
+      
+    },
+    function () {
+      $(this).css('border', 'none');
+      $(this).css('border-radius', 'none');
+      $(this).css('background', 'inherit');
+      
+      $(this).find('.content_element_controls_edit').hide();
+      $(this).find('.content_element_controls_add_button').hide();      
+    }    
+  );
+  
+  $('.content_element_controls_edit').hover(
+      function () {
+        $(this).css('border-radius', '8px');
+        $(this).css('background', '#eee');
+      },
+      function () {
+        $(this).css('border-radius', 'none');
+        $(this).css('background', 'inherit');
+      }    
+    );    
+  
+  $('.content_element_controls_add_button').hover(
+    function () {
+      $(this).css('border-radius', '8px');
+      $(this).css('background', '#eee');
+    },
+    function () {
+      $(this).css('border-radius', 'none');
+      $(this).css('background', 'inherit');
+    }    
+  );  
+  
 });
 
 
@@ -11,18 +51,18 @@ function contentElementEdit(element_id) {
   // Apply darkening page cover
   $("body").prepend('<div id="pagecover"></div>');
   $("#pagecover").css({
-      position: "fixed",
-      width: "100%",
-      height: "100%",
-      "background-color": "#000",
-      "z-index": 999,
-      opacity: 0.5,
-      top: 0,
-      left: 0
+    position: "fixed",
+    width: "100%",
+    height: "100%",
+    "background-color": "#000",
+    "z-index": 999,
+    opacity: 0.5,
+    top: 0,
+    left: 0
   });
 
   var controlsClass = '#content_element_controls_' + element_id;
-  var htmlClass = '#content_element_' + element_id;
+  var htmlClass = '#content_element_html_' + element_id;
   var formClass = '#content_element_form_' + element_id;
   
   $(controlsClass).fadeOut(300);
@@ -42,7 +82,7 @@ function contentElementEdit(element_id) {
 
 function contentElementSubmit(element_id, url, field_id) {
 	
-  var htmlClass = '#content_element_' + element_id;
+  var htmlClass = '#content_element_html_' + element_id;
   var formClass = '#content_element_form_' + element_id;
   var controlsClass = '#content_element_controls_' + element_id;
   var indicatorClass = '#content_element_indicator_' + element_id;
@@ -98,7 +138,7 @@ function contentElementSubmit(element_id, url, field_id) {
 function contentElementCancel(element_id) {
   
   var controlsClass = '#content_element_controls_' + element_id;
-  var htmlClass = '#content_element_' + element_id;
+  var htmlClass = '#content_element_html_' + element_id;
   var formClass = '#content_element_form_' + element_id;
   
   $(formClass).fadeOut(300, function () {
@@ -114,7 +154,7 @@ function contentElementCancel(element_id) {
 function contentElementDelete(element_id, field_id) {
   
   var controlsClass = '#content_element_controls_' + element_id;
-  var htmlClass = '#content_element_' + element_id;
+  var htmlClass = '#content_element_html_' + element_id;
   var formClass = '#content_element_form_' + element_id;
   var proxyClass = '#' + field_id + '_proxy'
   var proxyFieldClass = proxyClass + ' ' + htmlClass;
@@ -139,7 +179,7 @@ function contentElementDelete(element_id, field_id) {
 function contentElementMove(element_id, field_id, direction) {
   
   // Markup
-  var markupClass = '#content_element_markup_' + element_id;
+  var markupClass = '#content_element_' + element_id;
   
   if (direction == 'down') {
     var siblingElement = $(markupClass).next();
@@ -148,7 +188,7 @@ function contentElementMove(element_id, field_id, direction) {
     var siblingElement = $(markupClass).prev();
   }
   
-  if ($(siblingElement).hasClass('content_element_markup')) {
+  if ($(siblingElement).hasClass('content_element')) {
     var removedElement = $(markupClass).remove();
     
     if (direction == 'down') {
@@ -160,7 +200,7 @@ function contentElementMove(element_id, field_id, direction) {
   }
   
   // Data
-  var htmlClass = '#content_element_' + element_id;
+  var htmlClass = '#content_element_html_' + element_id;
   var proxyClass = '#' + field_id + '_proxy'
   var proxyFieldClass = proxyClass + ' ' + htmlClass;
   var fieldClass = '#' + field_id;
@@ -172,7 +212,7 @@ function contentElementMove(element_id, field_id, direction) {
     var siblingElement = $(proxyFieldClass).prev();
   }
   
-  if ($(siblingElement).hasClass('content_element')) {
+  if ($(siblingElement).hasClass('content_element_html')) {
     var removedElement = $(proxyFieldClass).remove();
     
     if (direction == 'down') {
@@ -195,11 +235,11 @@ function contentElementAdd(element, element_id, url, field_id) {
     url: url,
     success: function(data) {
 
-      var markupClass = '#content_element_markup_' + element_id;
+      var markupClass = '#content_element_' + element_id;
       
       $(markupClass).after(data);
       
-      alert($(markupClass).next().find('.content_element').parent().html());
+      alert($(markupClass).next().find('.content_element_html').parent().html());
       
       var proxyClass = '#' + field_id + '_proxy'
       var proxyFieldClass = proxyClass + ' ' + htmlClass;

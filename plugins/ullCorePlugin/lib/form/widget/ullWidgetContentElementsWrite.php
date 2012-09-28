@@ -4,7 +4,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
 {
   public function __construct($options = array(), $attributes = array())
   {
-    $this->addRequiredOption('elements');
+    $this->addRequiredOption('element_types');
     
     parent::__construct($options, $attributes);
   }
@@ -21,6 +21,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
   {
     $this->setAttribute('rows', 20);
     $this->setAttribute('cols', 80);
+    $this->setAttribute('class', 'content_elements_value');
   }  
   
 
@@ -30,33 +31,22 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
     $this->setAttribute('name', $name);
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     
-    $elements = $this->getOption('elements');
+    $elementTypes = $this->getOption('element_types');
     
-    if (!is_array($elements))
+    if (!is_array($elementTypes))
     {
       throw new InvalidArgumentException('List of elements must be given as array');
     }
     
     $elementsData = $this->extractElementsData($value);
     
-    $elementsMarkup = '';
+    $field = parent::render($name, $value, $attributes, $errors);
     
-    foreach ($elementsData as $elementData)
-    {
-      $element_id = $elementData['element_id'];
-      $elementsMarkup[$element_id] = '';
-      $elementsMarkup[$element_id] .= $this->renderElementControls($elementData);
-      $elementsMarkup[$element_id] .= $this->renderElementHtml($elementData);
-      $elementsMarkup[$element_id] .= $this->renderElementAdd($elementData, $elements);
-      $elementsMarkup[$element_id] .= $this->renderElementForm($elementData);
-    }
-    
-    $return = get_partial('ullTableTool/contentElements', array(
+    $return = get_partial('ullTableTool/ullContentElements', array(
       'field_id'       => $this->getAttribute('id'),
-      'field'          => parent::render($name, $value, $attributes, $errors),
-      'value'          => $value,
-      'elements_markup'=> $elementsMarkup,
-      'elements'       => $elements,
+      'field'          => $field,
+      'element_types'  => $elementTypes,
+      'elements_data'  => $elementsData,
     ));
     
     return $return;
@@ -77,6 +67,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
     
     foreach($dataFields as $dataField)
     {
+      // attr(value) is the value of the input type=hidden field
       $data[] = json_decode($dataField->attr('value'), true);
     }
 

@@ -1139,22 +1139,57 @@ input.ull_widget_ull_entity_ajax_write_search {
  * ************************************************
  */
 
-.content_element_controls {
-  border: blue 1px solid;
-  overflow: hidden;
+.content_elements {
+  background-color: white;
+  border-radius: 1em;
+  padding: .5em;
 }
 
-.content_element_control {
+.content_element {
+  margin-bottom: 2em;
+}
+
+.content_element_controls_edit {
+  overflow: hidden;
+  display: none;
+  float: right;
+}
+
+.content_element_control_edit {
 	float: left;
 	padding: 5px;
 }
 
-.content_element {
-	border: green 1px solid;
+.content_element_html {
+  padding: .5em;
+}
+
+.content_element_controls_add_button {
+  display: none;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  line-heigth: 1em;
+}
+
+.content_element_controls_add_list {
+  display: none;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  line-heigth: 1.2em;
 }
 
 .content_element_form {
-  border: red 1px solid;
+  border: 1px solid silver;
+  border-radius: 8px;
+  padding: .5em;
   background: white;
+  display: none;
 }
+
+.content_elements_value {
+  margin-top: 4em;
+}
+
 

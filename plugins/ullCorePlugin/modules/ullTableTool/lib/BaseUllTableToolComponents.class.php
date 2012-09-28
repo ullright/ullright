@@ -16,4 +16,18 @@ class BaseUllTableToolComponents extends sfComponents
     $this->subject = (isset($this->subject)) ? $this->subject: null; 
   }  
   
+  /**
+   * For ullWidgetContentElements
+   */
+  public function executeUllContentElementForm()
+  {
+    $generator = new ullContentElementGenerator($this->element_data['type']);
+    $generator->buildForm(new UllContentElement());
+    
+    $form = $generator->getForm();
+    $form->setDefaults($this->element_data['values']);  
+
+    $this->setVar('generator', $generator, true);
+  }
+  
 }

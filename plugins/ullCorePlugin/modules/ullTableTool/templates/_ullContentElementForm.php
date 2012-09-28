@@ -1,4 +1,8 @@
-<div class="content_element_form content_element_form_<?php echo $element ?>"
+<?php $element_data = $sf_data->getRaw('element_data') ?>
+<?php $element_id = $element_data['id'] ?>
+<?php $element_type = $element_data['type'] ?>
+
+<div class="content_element_form content_element_form_<?php echo $element_type ?>"
   id="content_element_form_<?php echo $element_id ?>">
   
   <?php // Note that we have no form tag, as nesting is not allowed ?>
@@ -16,7 +20,7 @@
     <?php // Note that the "table" param is not actually used ?>
     <?php $url = url_for('ullTableTool/contentElement?' .
         'table=UllContentElement&' .
-        'element=' . $element . '&' .
+        'element_type=' . $element_type . '&' .
         'element_id=' . $element_id . '&' .
         'field_id=' . $field_id
     ) ?>
