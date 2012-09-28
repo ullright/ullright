@@ -133,7 +133,13 @@ function contentElementSubmit(element_id, url, field_id) {
           $(formClass).fadeOut(300, function () {
             
             $(elementClass).replaceWith(json.markup);
-            $('#pagecover').remove();
+            $('#pagecover').fadeOut(1000, function () {
+              darkeningCoverDisable()  
+            });
+            
+            
+            $(elementClass).hide();
+            $(elementClass).fadeIn(2000);
             
             contentElementInitialize();
             contentElementUpdateFormField(field_id);
@@ -278,8 +284,11 @@ function darkeningCoverEnable() {
     "z-index": 999,
     opacity: 0.5,
     top: 0,
-    left: 0
+    left: 0,
+    display: "none"
   });
+  
+  $("#pagecover").fadeIn(1000);
   
 }
 

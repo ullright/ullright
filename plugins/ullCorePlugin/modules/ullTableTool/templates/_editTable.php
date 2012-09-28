@@ -1,4 +1,6 @@
-<table class="edit_table">
+<?php $edit_table_id = (isset($edit_table_id)) ? $edit_table_id : uniqid() ?>
+
+<table class="edit_table" id="edit_table_<?php echo $edit_table_id ?>">
 <tbody>
 
 <?php $old_section = '' ?>
@@ -40,7 +42,7 @@
 
 
 <?php echo javascript_tag('
-  $("table.edit_table :input:visible:enabled:first").focus();
+  $("#edit_table_' . $edit_table_id . ' :input:visible:enabled:first").focus();
   
   markErrorFormFields();
 ')?>
