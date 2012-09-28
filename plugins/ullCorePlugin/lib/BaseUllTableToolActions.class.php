@@ -373,12 +373,21 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
 
   public function executeContentElement(sfRequest $request)
   {
-    $element     = $request->getParameter('element');
-    $field_id    = $request->getParameter('field_id');
-    $element_id  = $request->getParameter('element_id');
-    $values      = $request->getParameter($element . '_fields');
+//     var_dump($request->getParameterHolder()->getAll());die;
+    
+    $elementTypes  = json_decode($request->getParameter('element_types'), true);
+    $elementType   = $request->getParameter('element_type');
+    $elementId     = $request->getParameter('element_id');
+    $fieldId       = $request->getParameter('field_id');
+    $values        = $request->getParameter($elementType . '_fields');
+    
+    
+    $elementData = array(
+      'type'    => $elementType,
+      'id'      => $elementId,    
+    );    
        
-    $generator = new ullContentElementGenerator($element);
+    $generator = new ullContentElementGenerator($elementType);
     $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();
@@ -386,31 +395,31 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     
     $return = array();
     
-    $form_html = $this->getPartial('ullTableTool/contentElementForm', array(
-      'element'    => $element,
-      'element_id' => $element_id,
-      'field_id'   => $field_id,
-      'generator'  => $generator,
-    ));
-
-    $return['form'] = $form_html;
-
     if ($form->isValid())
     {
+      $elementData['values'] = $form->getValues();
+      
+      $return['markup'] = $this->getPartial('ullTableTool/ullContentElement', array(
+        'element_data'    => $elementData,
+        'element_types'   => $elementTypes,          
+        'field_id'        => $fieldId,
+      ));      
+      
       $return['status'] = 'valid';
       
-      $html = $this->getPartial('ullTableTool/contentElementHtml', array(
-        'element'    => $element,
-        'element_id' => $element_id,
-        'values'     => $form->getValues()
-      ));
-
-      $return['html'] = $html;
+      return $this->renderText(json_encode($return));
+      
     }
-    else
-    {
-      $return['status'] = 'invalid';
-    }
+    
+    // Invalid: return form only
+//       $elementData['values'] = $values;
+    $return['markup'] = $this->getPartial('ullTableTool/contentElementForm', array(
+      'element_data'    => $elementData,
+      'field_id'        => $fieldId,
+      'generator'       => $generator,
+    ));
+    
+    $return['status'] = 'invalid';      
     
     return $this->renderText(json_encode($return));
 

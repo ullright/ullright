@@ -1,5 +1,11 @@
 $(document).ready(function() {
   
+  contentElementInitialize();
+  
+});
+
+function contentElementInitialize ()
+{
   $('.content_element_html_and_controls').hover(
     function () {
       $(this).css('border', '1px solid silver');
@@ -40,34 +46,23 @@ $(document).ready(function() {
       $(this).css('border-radius', 'none');
       $(this).css('background', 'inherit');
     }    
-  );  
-  
-});
+  );   
+}
 
 
-
+/**
+ * Switch from view to edit mode
+ * 
+ * @param element_id
+ */
 function contentElementEdit(element_id) {
 
-  // Apply darkening page cover
-  $("body").prepend('<div id="pagecover"></div>');
-  $("#pagecover").css({
-    position: "fixed",
-    width: "100%",
-    height: "100%",
-    "background-color": "#000",
-    "z-index": 999,
-    opacity: 0.5,
-    top: 0,
-    left: 0
-  });
+  darkeningCoverEnable();
 
-  var controlsClass = '#content_element_controls_' + element_id;
-  var htmlClass = '#content_element_html_' + element_id;
+  var htmlAndControlsClass = '#content_element_html_and_controls_' + element_id;
   var formClass = '#content_element_form_' + element_id;
   
-  $(controlsClass).fadeOut(300);
-  
-  $(htmlClass).fadeOut(300, function () {
+  $(htmlAndControlsClass).fadeOut(300, function () {
     
     $(formClass).css({
       position: "relative",
@@ -80,11 +75,36 @@ function contentElementEdit(element_id) {
   
 }
 
+/**
+ * Cancel edit and return to view mode
+ * 
+ * @param element_id
+ */
+function contentElementCancel(element_id) {
+  
+  var htmlAndControlsClass = '#content_element_html_and_controls_' + element_id;
+  var formClass = '#content_element_form_' + element_id;
+  
+  $(formClass).fadeOut(300, function () {
+    
+    darkeningCoverDisable();
+    $(htmlAndControlsClass).fadeIn(300);
+  
+  });
+  
+}
+
+/**
+ * Submit form data
+ * 
+ * @param element_id
+ * @param url
+ * @param field_id
+ */
 function contentElementSubmit(element_id, url, field_id) {
 	
-  var htmlClass = '#content_element_html_' + element_id;
+  var elementClass = '#content_element_' + element_id;
   var formClass = '#content_element_form_' + element_id;
-  var controlsClass = '#content_element_controls_' + element_id;
   var indicatorClass = '#content_element_indicator_' + element_id;
   
   $.ajax({  
@@ -101,29 +121,18 @@ function contentElementSubmit(element_id, url, field_id) {
       try {
         var json = jQuery.parseJSON(data);
       
-        if (json.status == 'valid')
-        {
-          $(htmlClass).replaceWith(json.html);
-          $(formClass).replaceWith(json.form);
-          
-          // replace content in original form field proxy field
-          var proxyClass = '#' + field_id + '_proxy' + ' ' + htmlClass;
-          $(proxyClass).replaceWith(json.html);
-          
-          // replace actual value in original form_field
-          var fieldClass = '#' + field_id;
-          $(fieldClass).val($(proxyClass).parent().html());
-
-          // fade
+        if (json.status == 'valid') {
           $(formClass).fadeOut(300, function () {
-            $(controlsClass).fadeIn(300);
-            $(htmlClass).fadeIn(300);
+            
+            $(elementClass).replaceWith(json.markup);
+            $('#pagecover').remove();
+            
+            contentElementInitialize();
+            contentElementUpdateFormField(field_id);
+            
           });
-          
-          $('#pagecover').remove();
         }
-        else
-        {
+        else {
           $(formClass).replaceWith(json.form);
         }
         
@@ -135,61 +144,36 @@ function contentElementSubmit(element_id, url, field_id) {
 }
 
 
-function contentElementCancel(element_id) {
-  
-  var controlsClass = '#content_element_controls_' + element_id;
-  var htmlClass = '#content_element_html_' + element_id;
-  var formClass = '#content_element_form_' + element_id;
-  
-  $(formClass).fadeOut(300, function () {
-    
-    $('#pagecover').remove();
-    $(controlsClass).fadeIn(300);
-    $(htmlClass).fadeIn(300);
-  
-  });
-  
-}
+
 
 function contentElementDelete(element_id, field_id) {
   
-  var controlsClass = '#content_element_controls_' + element_id;
-  var htmlClass = '#content_element_html_' + element_id;
-  var formClass = '#content_element_form_' + element_id;
-  var proxyClass = '#' + field_id + '_proxy'
-  var proxyFieldClass = proxyClass + ' ' + htmlClass;
-  var fieldClass = '#' + field_id;
+  var elementClass = '#content_element_' + element_id;
   
-  // delete content in original form field proxy field
-  $(proxyFieldClass).remove();
-  
-  // replace actual value in original form_field
-  $(fieldClass).val($(proxyClass).html());
-
-  // fade out...
-  $(controlsClass).fadeOut(500);
-  $(htmlClass).fadeOut(500, function () {
-    // ... and remove
-    $(controlsClass).remove();
-    $(htmlClass).remove();
-    $(formClass).remove();    
+  $(elementClass).fadeOut(500, function () {
+    $(elementClass).remove();
+    contentElementUpdateFormField(field_id);  
   });
+  
+    
 }
 
+/**
+ * Move an element up or down
+ */
 function contentElementMove(element_id, field_id, direction) {
   
-  // Markup
-  var markupClass = '#content_element_' + element_id;
+  var elementClass = '#content_element_' + element_id;
   
   if (direction == 'down') {
-    var siblingElement = $(markupClass).next();
+    var siblingElement = $(elementClass).next();
   }
   else {
-    var siblingElement = $(markupClass).prev();
+    var siblingElement = $(elementClass).prev();
   }
   
   if ($(siblingElement).hasClass('content_element')) {
-    var removedElement = $(markupClass).remove();
+    var removedElement = $(elementClass).detach();
     
     if (direction == 'down') {
       $(siblingElement).after(removedElement);
@@ -199,32 +183,7 @@ function contentElementMove(element_id, field_id, direction) {
     }
   }
   
-  // Data
-  var htmlClass = '#content_element_html_' + element_id;
-  var proxyClass = '#' + field_id + '_proxy'
-  var proxyFieldClass = proxyClass + ' ' + htmlClass;
-  var fieldClass = '#' + field_id;
-  
-  if (direction == 'down') {
-    var siblingElement = $(proxyFieldClass).next();
-  }
-  else {
-    var siblingElement = $(proxyFieldClass).prev();
-  }
-  
-  if ($(siblingElement).hasClass('content_element_html')) {
-    var removedElement = $(proxyFieldClass).remove();
-    
-    if (direction == 'down') {
-      $(siblingElement).after(removedElement);
-    }
-    else {
-      $(siblingElement).before(removedElement);
-    }
-  }  
-  
-  // replace actual value in original form_field
-  $(fieldClass).val($(proxyClass).html());  
+  contentElementUpdateFormField(field_id);
 }
 
 
@@ -294,7 +253,7 @@ function contentElementAdd(element, element_id, url, field_id) {
   $.ajax({  
     type: "POST",  
     url: url,
-    data: $(formClass).serializeAnything(),
+    data: $(formClass).serializeAnything(),elementClass
     beforeSend: function() {
       $(indicatorClass).show();
     },
@@ -339,13 +298,69 @@ function contentElementAdd(element, element_id, url, field_id) {
   */
 }
 
-/* @projectDescription jQuery Serialize Anything - Serialize anything (and not just forms!)
+
+/**
+ * Update the parent form field with the current element's html data
+ * 
+ * @param field_id
+ */
+function contentElementUpdateFormField(field_id) {
+  
+  var elementsClass = '#content_elements_' + field_id;
+  var formFieldClass = '#' + field_id;
+  
+  // empty the form field
+  $(formFieldClass).val('');
+  
+  $(elementsClass).find('.content_element_html_container').each(function () {
+    
+    // Append the element's html
+    $(formFieldClass).val(
+      $(formFieldClass).val() + 
+      "\n" + 
+      $(this).html()
+    );
+    
+  });
+}
+
+
+/**
+ * Apply darkening page cover
+ */
+function darkeningCoverEnable() {
+  
+  $("body").prepend('<div id="pagecover"></div>');
+  $("#pagecover").css({
+    position: "fixed",
+    width: "100%",
+    height: "100%",
+    "background-color": "#000",
+    "z-index": 999,
+    opacity: 0.5,
+    top: 0,
+    left: 0
+  });
+  
+}
+
+/**
+ * Remove darkening page cover
+ */
+function darkeningCoverDisable()
+{
+  $('#pagecover').remove();
+}
+
+
+
+/**
+ * @projectDescription jQuery Serialize Anything - Serialize anything (and not just forms!)
  * @author Bramus! (Bram Van Damme)
  * @version 1.0
  * @website: http://www.bram.us/
  * @license : BSD
-*/
- 
+*/ 
 (function($) {
  
     $.fn.serializeAnything = function() {
@@ -365,3 +380,5 @@ function contentElementAdd(element, element_id, url, field_id) {
     }
  
 })(jQuery);
+
+

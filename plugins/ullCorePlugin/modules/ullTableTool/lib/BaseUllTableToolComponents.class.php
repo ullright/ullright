@@ -27,7 +27,7 @@ class BaseUllTableToolComponents extends sfComponents
     $form = $generator->getForm();
     $form->setDefaults($this->element_data['values']);  
 
-    $this->setVar('generator', $generator, true);
+    $this->generator = $generator;
   }
   
 }

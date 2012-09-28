@@ -1,3 +1,7 @@
+<?php /* Note: this file is used both as component and partial */ ?>
+
+<?php $generator = $sf_data->getRaw('generator') ?>
+<?php $element_types = $sf_data->getRaw('element_types') ?>
 <?php $element_data = $sf_data->getRaw('element_data') ?>
 <?php $element_id = $element_data['id'] ?>
 <?php $element_type = $element_data['type'] ?>
@@ -20,6 +24,7 @@
     <?php // Note that the "table" param is not actually used ?>
     <?php $url = url_for('ullTableTool/contentElement?' .
         'table=UllContentElement&' .
+        'element_types=' . urlencode(json_encode($element_types)) . '&' .
         'element_type=' . $element_type . '&' .
         'element_id=' . $element_id . '&' .
         'field_id=' . $field_id

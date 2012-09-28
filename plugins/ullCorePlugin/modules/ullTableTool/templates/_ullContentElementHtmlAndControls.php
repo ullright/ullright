@@ -2,7 +2,7 @@
 
 <div class="content_element_html_and_controls 
   content_element_html_and_controls_<?php echo $element_data['type'] ?>"
-  id="content_element_html_and_controls<?php echo $element_data['id'] ?>">
+  id="content_element_html_and_controls_<?php echo $element_data['id'] ?>">
   
   <?php include_partial('ullTableTool/ullContentElementControlsEdit', array(
     'element_data'    => $element_data,
