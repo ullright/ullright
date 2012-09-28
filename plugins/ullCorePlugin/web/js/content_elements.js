@@ -217,109 +217,24 @@ function contentElementAdd(element, element_id, url, field_id) {
     type: "POST",  
     url: url,
     success: function(data) {
-
-      var markupClass = '#content_element_' + element_id;
       
-      $(markupClass).after(data);
-      
-      alert($(markupClass).next().find('.content_element_html').parent().html());
-      
-      var proxyClass = '#' + field_id + '_proxy'
-      var proxyFieldClass = proxyClass + ' ' + htmlClass;
-      
-      
-      // replace actual value in original form_field
-//      $(fieldClass).val($(proxyClass).html()); 
-      
-      /*
       try {
         var json = jQuery.parseJSON(data);
-      
-        if (json.status == 'valid')
-        {
-          $(htmlClass).replaceWith(json.html);
-          $(formClass).replaceWith(json.form);
-          
-          // replace content in original form field proxy field
-          var proxyClass = '#' + field_id + '_proxy' + ' ' + htmlClass;
-          $(proxyClass).replaceWith(json.html);
-          
-          // replace actual value in original form_field
-          var fieldClass = '#' + field_id;
-          $(fieldClass).val($(proxyClass).parent().html());
 
-          // fade
-          $(formClass).fadeOut(300, function () {
-            $(controlsClass).fadeIn(300);
-            $(htmlClass).fadeIn(300);
-          });
-          
-          $('#pagecover').remove();
-        }
-        else
-        {
-          $(formClass).replaceWith(json.form);
-        }
+        var elementClass = '#content_element_' + element_id;
         
+        $(elementClass).after(json.markup);
+        
+        contentElementEdit(json.element_id);
+      
       } catch (e) {
         $(htmlClass).prepend(data);
       }
       
-      */
-    }
-  });
-  /*
-  var htmlClass = '#content_element_' + element_id;
-  var formClass = '#content_element_form_' + element_id;
-  var controlsClass = '#content_element_controls_' + element_id;
-  var indicatorClass = '#content_element_indicator_' + element_id;
-  
-  $.ajax({  
-    type: "POST",  
-    url: url,
-    data: $(formClass).serializeAnything(),elementClass
-    beforeSend: function() {
-      $(indicatorClass).show();
-    },
-    success: function(data) {
-      
-      $(indicatorClass).hide();
-      
-      try {
-        var json = jQuery.parseJSON(data);
-      
-        if (json.status == 'valid')
-        {
-          $(htmlClass).replaceWith(json.html);
-          $(formClass).replaceWith(json.form);
-          
-          // replace content in original form field proxy field
-          var proxyClass = '#' + field_id + '_proxy' + ' ' + htmlClass;
-          $(proxyClass).replaceWith(json.html);
-          
-          // replace actual value in original form_field
-          var fieldClass = '#' + field_id;
-          $(fieldClass).val($(proxyClass).parent().html());
 
-          // fade
-          $(formClass).fadeOut(300, function () {
-            $(controlsClass).fadeIn(300);
-            $(htmlClass).fadeIn(300);
-          });
-          
-          $('#pagecover').remove();
-        }
-        else
-        {
-          $(formClass).replaceWith(json.form);
-        }
-        
-      } catch (e) {
-        $(htmlClass).prepend(data);
-      }
     }
   });
-  */
+
 }
 
 
@@ -375,6 +290,19 @@ function darkeningCoverEnable() {
 function darkeningCoverDisable()
 {
   $('#pagecover').remove();
+}
+
+/**
+ * Helper function to enlarge the clickarea
+ * Used on the surrounding element via onclick="enlargeClickArea(this)"
+ * 
+ * @param element
+ */
+function enlargeClickArea(element) {
+//  var url = $(element).find('a').attr('href');
+//  if ('#' === url) {
+    $(element).find('a').triggerHandler('click');
+//  }
 }
 
 

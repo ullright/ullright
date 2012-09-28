@@ -1172,6 +1172,10 @@ input.ull_widget_ull_entity_ajax_write_search {
   line-heigth: 1.2em;
 }
 
+.content_element_controls_add_button a {
+  text-decoration: none;
+}
+
 .content_element_controls_add_list {
   padding: 5px;
   display: none;

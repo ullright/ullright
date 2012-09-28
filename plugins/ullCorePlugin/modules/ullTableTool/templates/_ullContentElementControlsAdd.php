@@ -6,7 +6,7 @@
 <div class="content_element_controls_add" 
   id="content_element_controls_add_<?php echo $element_id ?>" >
 
-  <div class="content_element_controls_add_button">
+  <div class="content_element_controls_add_button" onclick="enlargeClickArea(this)">
     <?php echo link_to_function(
       '+',
       'contentElementAddList(' .
@@ -29,7 +29,7 @@
           'element_types=' . $element_types_json 
       ) ?>      
       
-      <li>
+      <li onclick="enlargeClickArea(this)">
         <?php echo link_to_function($name,
           'contentElementAdd(' .
             '"' . $element_type . '", ' .
