@@ -1,16 +1,15 @@
 <?php
 
-class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
+class ullWidgetGalleryWrite2 extends sfWidgetFormInputHidden
 {
   
   public function __construct($options = array(), $attributes = array())
   {
-    $this->addOption('model');
-    $this->addOption('column');
-    $this->addOption('columns_config_class');
+    $this->addRequiredOption('config');
     
     parent::__construct($options, $attributes);
   }
+  
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
@@ -20,14 +19,13 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
     
     $field = parent::render($name, $value, $attributes, $errors);
     
-    $upload_url = url_for('ullPhoto/imageUpload?s_m=' . $this->getOption('model') .
-      '&s_ccc=' . $this->getOption('columns_config_class') . 
-      '&s_c=' . $this->getOption('column')
+    $upload_url = url_for('ullWidget/galleryUpload?' .
+      's_config=' . json_encode($this->getOption('config'))        
     );
     
     $preview_url = url_for('ullPhoto/renderGalleryPreview');
 
-    $markup = get_partial('ullTableTool/ullWidgetGalleryWrite2', array(
+    $markup = get_partial('ullWidget/gallery', array(
       'id'            => $id,
       'field'         => $field,
       'upload_url'    => $upload_url,
@@ -120,8 +118,8 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
       '/ullCorePlugin/js/jq/jquery-min.js',
       '/ullCorePlugin/js/jq/jquery-ui-min.js',
       '/ullCorePlugin/js/plupload/plupload.full.js',
-      '/ullCorePlugin/js/plupload/i18n/de.js',
-      '/ullCorePlugin/js/plupload/jquery.ui.plupload/jquery.ui.plupload.js',
+      //'/ullCorePlugin/js/plupload/i18n/de.js',
+      //'/ullCorePlugin/js/plupload/jquery.ui.plupload/jquery.ui.plupload.js',
       '/ullCorePlugin/js/ullWidgetGallery2.js',
     );
   }
@@ -132,7 +130,7 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
     return array(
       '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
       '/ullCorePlugin/css/ull_gallery.css' => 'all',
-      '/ullCorePlugin/js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css' => 'all',
+      //'/ullCorePlugin/js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css' => 'all',
     );
   }
   

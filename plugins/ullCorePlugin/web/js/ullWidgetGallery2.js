@@ -2,10 +2,15 @@
  * Initialize and configure plupload uploader
  */
 
-function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size, invalid_file_type_msg) {
+function ullWidgetGallery2Initialize(
+    id, 
+    upload_url, 
+    preview_url, 
+    max_file_size, 
+    invalid_file_type_msg 
+  ) {
 
   var uploader = new plupload.Uploader({
-    preinit: ullWidgetGallery2PluploadAttachCallbacks/* (id, preview_url) */,
     runtimes: "html5",
     browse_button: "ull_widget_gallery_add_files_" + id,
     drop_element: id + "_content",
@@ -18,29 +23,45 @@ function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size,
   // Bindings
   
   uploader.bind("FilesAdded", function () {
+    
     $("#ull_widget_gallery_control_indicator_" + id).show();
     uploader.start();
+    
+  });
+  
+  uploader.bind('FileUploaded', function(uploader, file, response) {
+    
+    if (200 === response.status)
+    {
+      // Add new image to the form field
+      $("#" + id).val(
+        $("#" + id).val() + 
+        "\n" + response.response
+      );
+      
+      ullWidgetGallery2RefreshPreview(id, preview_url);      
+    }
+    else {
+      alert('Sorry, an error has occured');
+    }
+    
+  });
+  
+  uploader.bind('UploadComplete', function(uploader, files) {
+    
+    $("#ull_widget_gallery_control_indicator_" + id).hide();
+    
   });
   
   uploader.bind("Error", function(up, err) {
-//    $("#filelist").append("<div>Error: " + err.code +
-//      ", Message: " + err.message +
-//      (err.file ? ", File: " + err.file.name : "") +
-//      "</div>"
-//    );
     
     $("#" + id + "_content").append("<div class=\"form_error\">" + 
         invalid_file_type_msg + ": " +
       (err.file ? err.file.name : "") + "</div>"
     );
     
-//    alert("' . __('Fehler: ungültiger Dateityp', null, 'ullCoreMessages') . ': " +
-//      (err.file ? err.file.name : "") 
-//    );
-    
     $("#ull_widget_gallery_control_indicator_" + id).hide();
     
-    //up.refresh(); // Reposition Flash/Silverlight
   });  
   
 
@@ -49,43 +70,35 @@ function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size,
 
 
 /**
- * Plupload uploader callbacks
+ * (Re-)render gallery preview
  */
-function ullWidgetGallery2PluploadAttachCallbacks(Uploader) {
-  
-  Uploader.bind("FileUploaded", function(up, file, response) {
-    
-    // Add new image to the form field
-    $("#" + id).val($("#" + id).val() + "\n" + response.response);
-    
-    refreshGalleryPreview(id, preview_url);
-
-    if ((Uploader.total.uploaded + 1) == Uploader.files.length)
-    {
-      $("#ull_widget_gallery_control_indicator_" + id).hide();
-    }
-    
-  });
-}
-
-
-/**
- * Re-render gallery preview
- */
-function ullWidgetGallery2RefreshPreview(id, preview_url) {
+function ullWidgetGallery2RefreshPreview(id, url) {
   
   var images = $("#" + id).val();
+
+  $.ajax({
+    url: url,
+    data: { images:  images },
+    success: function(data) {
+      $("#" + id).parents("td").find(".ull_widget_gallery_preview").html(data);
+      
+      ullWidgetGallery2Sortable(id);
+      ullWidgetGallery2ImageActionHover();
+      ullWidgetGallery2ImageDelete(id);      
+    }
+  });
   
+  /*
   $("#" + id).parents("td").find(".ull_widget_gallery_preview").load(
-    preview_url,
+    url,
     { images:  images },
     function () {
       ullWidgetGallery2Sortable(id);
       ullWidgetGallery2ImageActionHover();
-      imageDelete(id);
+      ullWidgetGallery2ImageDelete(id);
     }
   );
-  
+  */
 }
  
 /**
@@ -153,7 +166,8 @@ function ullWidgetGallery2ImageDelete(id, preview_url) {
           value = value.split(path).join("");
           $("#" + id).val(value);
           
-          refreshGalleryPreview(id, preview_url);
+          ullWidgetGallery2RefreshPreview(id, preview_url);
+
           $("#ull_widget_gallery_control_indicator_" + id).hide();
         }
       });

@@ -1,8 +1,8 @@
 <?php $field = $sf_data->getRaw('field') ?>
 
 
-<!-- ullWidgetGallery2 --> 
-<div id="<?php echo $id ?>">
+<!-- ullWidgetGallery --> 
+<div id="<?php echo $id ?>_container">
     
   <?php echo $field ?>
     
@@ -45,5 +45,5 @@ $(document).ready(function() {
 
 ') ?>
 
-<!-- End of ullWidgetGallery2 -->    
+<!-- End of ullWidgetGallery -->    
  </div>   

@@ -18,12 +18,13 @@ class ullMetaWidgetGallery2 extends ullMetaWidget
   {
     if (!$path = $this->columnConfig->getOption('path'))
     {
-      $path = sfConfig::get('sf_upload_dir') . '/tableTool/' .
+      // Note: sfConfig::get('sf_upload_dir') is prepended later on
+      // to avoid path tampering during the ajax call
+      $path =  '/tableTool/' .
         $this->columnConfig->getModelName() . '/' .
         $this->columnConfig->getColumnName()
       ;
     }
-
     $this->columnConfig->setOption('path', $path);    
 
     if (!$this->columnConfig->getOption('allow_multi'))
@@ -55,7 +56,8 @@ class ullMetaWidgetGallery2 extends ullMetaWidget
       $this->columnConfig->setOption('thumbnail_height', 120);
     }
     
-    
+    // Pass options to widget
+    $this->columnConfig->setWidgetOption('config', $this->columnConfig->getOptions());
   }
   
   
@@ -65,13 +67,6 @@ class ullMetaWidgetGallery2 extends ullMetaWidget
    */
   protected function configureWriteMode()
   {
-    $this->columnConfig->setWidgetOption('model', $this->columnConfig->getModelName());
-    $this->columnConfig->setWidgetOption('column', $this->columnConfig->getColumnName());
-    $this->columnConfig->setWidgetOption('columns_config_class', 
-      $this->columnConfig->getColumnsConfigClass());
-        
-    
-    
     $this->addWidget(new ullWidgetGalleryWrite2(
       $this->columnConfig->getWidgetOptions(), 
       $this->columnConfig->getWidgetAttributes()
