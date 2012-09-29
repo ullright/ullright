@@ -37,10 +37,10 @@ class sfWidgetFormTextareaCKEditor extends sfWidgetFormTextarea
   {
     $this->addOption('width', '100%');
     $this->addOption('height', '200px');
-//    $this->addOption('BasePath', '/CKeditor/');
     $this->addOption('CustomConfigurationsPath', '/config.js');
   }
 
+  
   /**
    * @param  string $name        The element name
    * @param  string $value       The value selected in this widget
@@ -67,63 +67,27 @@ class sfWidgetFormTextareaCKEditor extends sfWidgetFormTextarea
       $this->setAttribute('name', $name);
     }
     $this->setAttributes($this->fixFormId($this->getAttributes()));
-    $id = $this->getAttribute('id');     
+    $id = $this->getAttribute('id'); 
 
-//    $js = javascript_tag('
-//CKEDITOR.replace("' . $id . '", 
-//  {
-//    customConfig :  "' . $this->getOption('CustomConfigurationsPath') . '", 
-//    width:          "' . $this->getOption('width') . '",
-//    height:         "' . $this->getOption('height') . '"
-//  }
-//);
-//
-//');
-    
     $js = javascript_tag('
 
-$("#' . $id . '").ckeditor(
-  function() { /* callback code */ }, 
-  { 
-    customConfig :  "' . $this->getOption('CustomConfigurationsPath') . '", 
-    width:          "' . $this->getOption('width') . '",
-    height:         "' . $this->getOption('height') . '"
-  }  
-);
+  // Check if an instance is already running. If so, destroy it
+  // This is necessary if an CKEditor instance is replaced via ajax              
+  instance = CKEDITOR.instances["' . $id . '"];
+  if (instance) { 
+    instance.destroy(true);    
+  }
+  
+  $("#' . $id . '").ckeditor(
+    function() { /* callback code */ }, 
+    { 
+      customConfig :  "' . $this->getOption('CustomConfigurationsPath') . '", 
+      width:          "' . $this->getOption('width') . '",
+      height:         "' . $this->getOption('height') . '"
+    }  
+  );
 
 ');
-    
-    
-// var data = $( 'textarea.editor' ).val();
-
-    
-  	
-//    $js = sprintf(<<<EOF
-//<script type="text/javascript">
-//  var oCKeditor = new CKeditor( '%s' , '%s', '%s');
-//  oCKeditor.BasePath = "%s" ;
-//  oCKeditor.Config["CustomConfigurationsPath"] = "%s";
-//  oCKeditor.ReplaceTextarea();
-//
-////without this, IsDirty() returns true in the
-////wiki->create view, which causes the js observer
-////to warn about changes where there aren't any
-//
-//function CKeditor_OnComplete(editorInstance)
-//{
-//  editorInstance.ResetIsDirty();
-//}
-//
-//
-//</script>
-//EOF
-//    ,
-//      $id,
-//      $this->getOption('width'),
-//      $this->getOption('height'),
-//      $this->getOption('BasePath'),
-//      $this->getOption('CustomConfigurationsPath')
-//    );
 
     return $textarea . $js;
   }
