@@ -8,16 +8,17 @@
     
   <div class="ull_widget_gallery_control">
   
-    <input type="button" value="' . __('Add files', null, 'ullCoreMessages') . '" 
-      id="ull_widget_gallery_add_files_' . $id . '" />
+    <input type="button" 
+      value="<?php echo __('Add files', null, 'ullCoreMessages') ?>" 
+      id="ull_widget_gallery_add_files_<?php echo $id ?>" />
       
     <span class="ull_widget_gallery_control_drop">
-      ' . __('or drag and drop files here', null, 'ullCoreMessages');
-      (' .  __('Currently only with Firefox', null, 'ullCoreMessages') . ')
+      <?php echo __('or drag and drop files here', null, 'ullCoreMessages') ?>
+      (<?php echo __('Currently only with Firefox', null, 'ullCoreMessages') ?>)
     </span>
     
     <span class="ull_widget_gallery_control_indicator" 
-      id="ull_widget_gallery_control_indicator_' . $id . '">
+      id="ull_widget_gallery_control_indicator_<?php echo $id ?>">
       
       <img src="/ullCoreThemeNGPlugin/images/indicator.gif" alt="Indicator" />
       
@@ -34,7 +35,8 @@ $(document).ready(function() {
       
   ullWidgetGallery2Initialize(' . 
     '"' . $id . '", ' .
-    '"' . $url . '", ' .
+    '"' . $upload_url . '", ' .
+    '"' . $preview_url . '", ' .
     '"' . ullCoreTools::getMaxPhpUploadSize() . '", ' .
     '"' . __('Invalid file type', null, 'ullCoreMessages') . '"' .
   ');

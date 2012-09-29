@@ -20,13 +20,22 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
       ->setWidgetOption('add_empty', true)
     ;
     
-    $this['my_content_elements']
-      ->setMetaWidgetClassName('ullMetaWidgetContentElements')
-      ->setWidgetOption('element_types', array(
-        'text_with_image' => __('Text with image'),
-        'gallery'         => __('Gallery'),
-      ))
-    ;       
+    $this['my_gallery']
+      ->setMetaWidgetClassName('ullMetaWidgetGallery2')
+      ->setOption('image_width', 670)
+      ->setOption('image_height', 447)
+      ->setOption('create_thumbnails', false)
+    ;
+    
+    
+    
+//     $this['my_content_elements']
+//       ->setMetaWidgetClassName('ullMetaWidgetContentElements')
+//       ->setWidgetOption('element_types', array(
+//         'text_with_image' => __('Text with image'),
+//         'gallery'         => __('Gallery'),
+//       ))
+//     ;       
     
     $this->disable(array(
       'my_useless_column'

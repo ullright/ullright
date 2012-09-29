@@ -18,7 +18,7 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     $id = $this->getAttribute('id');   
     
-    $field .= parent::render($name, $value, $attributes, $errors);
+    $field = parent::render($name, $value, $attributes, $errors);
     
     $upload_url = url_for('ullPhoto/imageUpload?s_m=' . $this->getOption('model') .
       '&s_ccc=' . $this->getOption('columns_config_class') . 
@@ -122,6 +122,7 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
       '/ullCorePlugin/js/plupload/plupload.full.js',
       '/ullCorePlugin/js/plupload/i18n/de.js',
       '/ullCorePlugin/js/plupload/jquery.ui.plupload/jquery.ui.plupload.js',
+      '/ullCorePlugin/js/ullWidgetGallery2.js',
     );
   }
   

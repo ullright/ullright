@@ -8,7 +8,7 @@
  * 
  * Also supports single file upload
  */
-class ullMetaWidgetGallery extends ullMetaWidget
+class ullMetaWidgetGallery2 extends ullMetaWidget
 {
 
   /**

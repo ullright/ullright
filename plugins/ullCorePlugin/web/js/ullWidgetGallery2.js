@@ -10,7 +10,7 @@ function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size,
     browse_button: "ull_widget_gallery_add_files_" + id,
     drop_element: id + "_content",
     url: upload_url,
-    max_file_size: max_file_size + 'mb"
+    max_file_size: max_file_size + "mb"
   });
   
   uploader.init();
@@ -29,7 +29,7 @@ function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size,
 //      "</div>"
 //    );
     
-    $("#" + id "_content").append("<div class=\"form_error\">" + 
+    $("#" + id + "_content").append("<div class=\"form_error\">" + 
         invalid_file_type_msg + ": " +
       (err.file ? err.file.name : "") + "</div>"
     );
@@ -45,7 +45,7 @@ function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size,
   
 
   ullWidgetGallery2RefreshPreview(id, preview_url);
-});
+};
 
 
 /**
@@ -98,12 +98,12 @@ function ullWidgetGallery2Sortable(id) {
   
     // Update form field after sort action
     stop: function(event, ui) {
-      window.ull_widget_gallery_" + id + "_content = "";
+      var content = "window.ull_widget_gallery_" + id + "_content";
+      content = "";
       $(".ull_widget_gallery_preview_image").find("img").each(function() {
-        window.ull_widget_gallery_" + id + "_content = 
-          window.ull_widget_gallery_" + id + "_content + "\n" + $(this).attr("rel");   
+        content = content + "\n" + $(this).attr("rel");   
       });
-      $("#" + id).val(window.ull_widget_gallery_" + id + "_content);
+      $("#" + id).val(content);
     }
   });
   

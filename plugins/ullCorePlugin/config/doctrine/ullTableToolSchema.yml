@@ -91,6 +91,8 @@ TestTable:
       type: string(64)
     my_content_elements:
       type: clob
+    my_gallery:
+      type: clob
     ull_user_id:
       type: integer
   relations:
