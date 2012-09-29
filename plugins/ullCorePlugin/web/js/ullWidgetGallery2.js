@@ -5,12 +5,12 @@
 function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size, invalid_file_type_msg) {
 
   var uploader = new plupload.Uploader({
-    preinit: ullWidgetGallery2PluploadAttachCallbacks(id, preview_url),
+    preinit: ullWidgetGallery2PluploadAttachCallbacks/* (id, preview_url) */,
     runtimes: "html5",
     browse_button: "ull_widget_gallery_add_files_" + id,
     drop_element: id + "_content",
     url: upload_url,
-    max_file_size: max_file_size + "mb"
+    max_file_size: max_file_size + "mb",
   });
   
   uploader.init();
@@ -51,7 +51,8 @@ function ullWidgetGallery2Initialize(id, upload_url, preview_url, max_file_size,
 /**
  * Plupload uploader callbacks
  */
-function ullWidgetGallery2PluploadAttachCallbacks(Uploader, id, preview_url) {
+function ullWidgetGallery2PluploadAttachCallbacks(Uploader) {
+  
   Uploader.bind("FileUploaded", function(up, file, response) {
     
     // Add new image to the form field
