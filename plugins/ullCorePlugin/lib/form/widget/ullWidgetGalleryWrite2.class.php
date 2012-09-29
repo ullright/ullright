@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetGalleryWrite2 extends sfWidgetFormInputHidden
+class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
 {
   
   public function __construct($options = array(), $attributes = array())
@@ -20,29 +20,21 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormInputHidden
     
     $field .= parent::render($name, $value, $attributes, $errors);
     
-    $url = url_for('ullPhoto/imageUpload?s_m=' . $this->getOption('model') .
+    $upload_url = url_for('ullPhoto/imageUpload?s_m=' . $this->getOption('model') .
       '&s_ccc=' . $this->getOption('columns_config_class') . 
       '&s_c=' . $this->getOption('column')
-    );    
+    );
     
+    $preview_url = url_for('ullPhoto/renderGalleryPreview');
+
     $markup = get_partial('ullTableTool/ullWidgetGalleryWrite2', array(
       'id'            => $id,
       'field'         => $field,
-      'url'           => $url,
-      'max_file_size' => ullCoreTools::getMaxPhpUploadSize(),
+      'upload_url'    => $upload_url,
+      'preview_url'   => $preview_url,
     ));
-
-   
-    $return .= '
-<script type="text/javascript">
-//<![CDATA[
-
-
-
-
-    $return .= '</div><!-- end of widget content -->';
     
-    return $return;
+    return $markup;
   }
   
   
