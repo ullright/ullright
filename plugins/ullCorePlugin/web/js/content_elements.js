@@ -148,7 +148,14 @@ function contentElementSubmit(element_id, url, field_id) {
           });
         }
         else {
-          $(formClass).replaceWith(json.form);
+          $(formClass).replaceWith(json.markup);
+          
+          $(formClass).css({
+            position: "relative",
+            "z-index": 1000,
+          });       
+        
+          $(formClass).fadeIn(300);          
         }
         
       } catch (e) {

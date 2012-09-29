@@ -379,7 +379,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     $elementType   = $request->getParameter('element_type');
     $elementId     = $request->getParameter('element_id');
     $fieldId       = $request->getParameter('field_id');
-    $values        = $request->getParameter($elementType . '_fields');
+    $values        = $request->getParameter($elementType . '_' . $elementId . '_fields');
     
     
     $elementData = array(
