@@ -387,7 +387,7 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
       'id'      => $elementId,    
     );    
        
-    $generator = new ullContentElementGenerator($elementType);
+    $generator = new ullContentElementGenerator($elementType, $elementId);
     $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();
@@ -412,9 +412,9 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
     }
     
     // Invalid: return form only
-//       $elementData['values'] = $values;
-    $return['markup'] = $this->getPartial('ullTableTool/contentElementForm', array(
+    $return['markup'] = $this->getPartial('ullTableTool/ullContentElementForm', array(
       'element_data'    => $elementData,
+      'element_types'   => $elementTypes,
       'field_id'        => $fieldId,
       'generator'       => $generator,
     ));
@@ -439,17 +439,6 @@ class BaseUllTableToolActions extends BaseUllGeneratorActions
       'values'  => array(),    
     );     
     
-//     $generator = new ullContentElementGenerator($element);
-//     $generator->buildForm(new UllContentElement());
-    
-//     $return = $this->getPartial('ullTableTool/contentElementAddMarkup', array(
-//       'element'    => $element,
-//       'element_id' => $element_id,
-//       'elements'   => $elements,
-//       'field_id'   => $field_id,
-//       'generator'  => $generator,
-//     ));
-
     $return = array();
     
     $return['element_id'] = $elementId;

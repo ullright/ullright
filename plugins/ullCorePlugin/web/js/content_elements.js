@@ -133,6 +133,7 @@ function contentElementSubmit(element_id, url, field_id) {
           $(formClass).fadeOut(300, function () {
             
             $(elementClass).replaceWith(json.markup);
+            
             $('#pagecover').fadeOut(1000, function () {
               darkeningCoverDisable()  
             });

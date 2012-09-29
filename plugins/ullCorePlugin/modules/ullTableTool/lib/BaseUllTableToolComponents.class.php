@@ -21,7 +21,10 @@ class BaseUllTableToolComponents extends sfComponents
    */
   public function executeUllContentElementForm()
   {
-    $generator = new ullContentElementGenerator($this->element_data['type']);
+    $generator = new ullContentElementGenerator(
+      $this->element_data['type'],
+      $this->element_data['id']
+    );
     $generator->buildForm(new UllContentElement());
     
     $form = $generator->getForm();

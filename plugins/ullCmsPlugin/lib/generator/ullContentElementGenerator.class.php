@@ -3,12 +3,14 @@
 class ullContentElementGenerator extends ullTableToolGenerator
 {
   protected
-    $elementType
+    $elementType,
+    $fieldId
   ;
   
-  public function __construct($elementType = null, $defaultAccess = null, $requestAction = null, $columns = array())
+  public function __construct($elementType, $fieldId, $defaultAccess = null, $requestAction = null, $columns = array())
   {
     $this->elementType = $elementType;
+    $this->fieldId = $fieldId;
     
     parent::__construct('UllContentElement', $defaultAccess, $requestAction, $columns);
   }
@@ -46,7 +48,10 @@ class ullContentElementGenerator extends ullTableToolGenerator
   public function getForm()
   {
     $form = parent::getForm();
-    $form->getWidgetSchema()->setNameFormat($this->elementType . '_fields[%s]');
+    $form->getWidgetSchema()->setNameFormat(
+      $this->elementType . '_' .
+      $this->fieldId . 
+      '_fields[%s]');
     
     return $form;
   }  

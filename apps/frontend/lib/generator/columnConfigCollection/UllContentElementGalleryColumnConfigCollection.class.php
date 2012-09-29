@@ -8,7 +8,6 @@ class UllContentElementGalleryColumnConfigCollection extends UllContentElementCo
    
     $this->create('gallery')
       ->setLabel('Gallery')
-//       ->setMetaWidgetClassName('ullMetaWidgetstring')
       ->setMetaWidgetClassName('ullMetaWidgetGallery')
       ->setOption('image_width', 800)
       ->setOption('image_height', 800)
