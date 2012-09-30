@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetGalleryWrite extends sfWidgetFormHidden /*sfWidgetFormTextarea */
+class ullWidgetGalleryWrite extends sfWidgetFormInputHidden /*sfWidgetFormTextarea */
 {
   
   public function __construct($options = array(), $attributes = array())
