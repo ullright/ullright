@@ -7,7 +7,7 @@
     <?php $thumbnail = ullCoreTools::calculateThumbnailPath($image) ?>
     <?php $thumbnailAbsolutePath = ullCoreTools::webToAbsolutePath($thumbnail) ?>
     <?php if (!file_exists($thumbnailAbsolutePath)): ?>
-      <?php $thumbnail = $image; ?>
+      <?php $thumbnail = $image ?>
     <?php endif ?>
           
     <li>
@@ -17,8 +17,8 @@
             <img src="<?php echo $thumbnail ?>" alt="preview image" 
               rel="<?php echo $image ?>" />
           </a>
-        </div>';
-      </div>';
+        </div>
+      </div>
       <div class="ull_widget_gallery_actions">
         <?php echo ull_icon('ullWidget/galleryDelete?s_image=' . $image, 'delete') ?>
       </div>        
