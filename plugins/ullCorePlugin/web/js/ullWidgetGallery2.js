@@ -24,7 +24,7 @@ function ullWidgetGallery2Initialize(
   
   uploader.bind("FilesAdded", function () {
     
-    $("#ull_widget_gallery_control_indicator_" + id).show();
+    $("#ull_widget_gallery_indicator_" + id).show();
     uploader.start();
     
   });
@@ -49,7 +49,7 @@ function ullWidgetGallery2Initialize(
   
   uploader.bind('UploadComplete', function(uploader, files) {
     
-    $("#ull_widget_gallery_control_indicator_" + id).hide();
+    $("#ull_widget_gallery_indicator_" + id).hide();
     
   });
   
@@ -60,12 +60,12 @@ function ullWidgetGallery2Initialize(
       (err.file ? err.file.name : "") + "</div>"
     );
     
-    $("#ull_widget_gallery_control_indicator_" + id).hide();
+    $("#ull_widget_gallery_indicator_" + id).hide();
     
   });  
   
-
-  ullWidgetGallery2RefreshPreview(id, preview_url);
+  ullWidgetGallery2RefreshPreview(id, preview_url);  
+  
 };
 
 
@@ -74,31 +74,28 @@ function ullWidgetGallery2Initialize(
  */
 function ullWidgetGallery2RefreshPreview(id, url) {
   
-  var images = $("#" + id).val();
-
-  $.ajax({
-    url: url,
-    data: { images:  images },
-    success: function(data) {
-      $("#" + id).parents("td").find(".ull_widget_gallery_preview").html(data);
-      
-      ullWidgetGallery2Sortable(id);
-      ullWidgetGallery2ImageActionHover();
-      ullWidgetGallery2ImageDelete(id);      
-    }
-  });
+  //Load preview only if there are images/files
+  if ("" !== $("#" + id).val()) {
   
-  /*
-  $("#" + id).parents("td").find(".ull_widget_gallery_preview").load(
-    url,
-    { images:  images },
-    function () {
-      ullWidgetGallery2Sortable(id);
-      ullWidgetGallery2ImageActionHover();
-      ullWidgetGallery2ImageDelete(id);
-    }
-  );
-  */
+    var images = $("#" + id).val();
+  
+    $.ajax({
+      url: url,
+      data: { images:  images },
+      success: function(data) {
+        
+        $("#ull_widget_gallery_preview_" + id).html(data);
+        
+        ullWidgetGallery2Sortable(id);
+        ullWidgetGallery2ImageActionHover(id);
+        ullWidgetGallery2ImageDelete(id, url);      
+      }
+    });
+  } 
+  else {
+    // Empty the preview
+    $("#ull_widget_gallery_preview_" + id).html();
+  }
 }
  
 /**
@@ -108,15 +105,19 @@ function ullWidgetGallery2RefreshPreview(id, url) {
 function ullWidgetGallery2Sortable(id) {
   
   // TODO idize ?!?
-  $(".ull_widget_gallery_preview").sortable({
+  $("#ull_widget_gallery_preview_" + id).sortable({
   
     // Update form field after sort action
     stop: function(event, ui) {
-      var content = "window.ull_widget_gallery_" + id + "_content";
-      content = "";
-      $(".ull_widget_gallery_preview_image").find("img").each(function() {
-        content = content + "\n" + $(this).attr("rel");   
+//      var content = "window.ull_widget_gallery_" + id + "_content";
+      var content = "";
+      var selector = "#ull_widget_gallery_preview_" + id +
+        " .ull_widget_gallery_preview_image"; 
+        
+      $(selector).find("img").each(function() {
+        content = content + "\n" + $(this).attr("rel");   // TODO: why rel?
       });
+      
       $("#" + id).val(content);
     }
   });
@@ -127,17 +128,17 @@ function ullWidgetGallery2Sortable(id) {
 /**
  * Hover actions
  */
-function ullWidgetGallery2ImageActionHover() {
+function ullWidgetGallery2ImageActionHover(id) {
   
-  // TODO idize ?!?
+  var selector = "#ull_widget_gallery_preview_" + id + " li";
   
-  $(".ull_widget_gallery_preview li").each(function(index, element) {
+  $(selector).each(function(index, element) {
     $(element).mouseenter(function() {
       $(element).find(".ull_widget_gallery_actions").show();
     });
   });
   
-  $(".ull_widget_gallery_preview li").each(function(index, element) {
+  $(selector).each(function(index, element) {
     $(element).mouseleave(function() {
       $(element).find(".ull_widget_gallery_actions").hide();
     });
@@ -145,8 +146,9 @@ function ullWidgetGallery2ImageActionHover() {
   
 }   
 
+
 /**
- * Add delete bindung
+ * Add delete binding
  * 
  * @param id
  * @param preview_url
@@ -154,21 +156,27 @@ function ullWidgetGallery2ImageActionHover() {
  */
 function ullWidgetGallery2ImageDelete(id, preview_url) {
   
-  $(".ull_widget_gallery_actions a").each(function(index, element) {
+  var selector = "#ull_widget_gallery_preview_" + id +
+    " .ull_widget_gallery_actions a";
+  
+  $(selector).each(function(index, element) {
+    
     $(element).click(function(){
-      $("#ull_widget_gallery_control_indicator_" + id).show();
+      
+      $("#ull_widget_gallery_indicator_" + id).show();
+      
       $.ajax({
         url: $(element).attr("href"),
         success: function(){
           // delete image from form field
-          var path = $(element).parents("li").find("img").attr("rel");
+          var path = $(element).parents("li").find("img").attr("rel"); //TODO: why rel?
           var value = $("#" + id ).val();
           value = value.split(path).join("");
           $("#" + id).val(value);
           
           ullWidgetGallery2RefreshPreview(id, preview_url);
 
-          $("#ull_widget_gallery_control_indicator_" + id).hide();
+          $("#ull_widget_gallery_indicator_" + id).hide();
         }
       });
       

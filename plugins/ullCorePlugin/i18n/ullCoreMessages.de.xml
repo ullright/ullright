@@ -801,8 +801,8 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       </trans-unit>
       
       <trans-unit id="3503">
-        <source>Currently only with Firefox</source>
-        <target>Zur Zeit nur mit Firefox</target>
+        <source>With Firefox/Chrome/Safari</source>
+        <target>Mit Firefox/Chrome/Safari</target>
       </trans-unit>
       
       <trans-unit id="3504">
