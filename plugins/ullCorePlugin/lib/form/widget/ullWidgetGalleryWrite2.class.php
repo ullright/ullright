@@ -26,7 +26,7 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
       's_config=' . json_encode($this->getOption('config'))        
     );
     
-    $preview_url = url_for('ullPhoto/renderGalleryPreview');
+    $preview_url = url_for('ullWidget/galleryPreview');
 
     $markup = get_partial('ullWidget/gallery', array(
       'id'            => $id,
@@ -121,8 +121,6 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
       '/ullCorePlugin/js/jq/jquery-min.js',
       '/ullCorePlugin/js/jq/jquery-ui-min.js',
       '/ullCorePlugin/js/plupload/plupload.full.js',
-      //'/ullCorePlugin/js/plupload/i18n/de.js',
-      //'/ullCorePlugin/js/plupload/jquery.ui.plupload/jquery.ui.plupload.js',
       '/ullCorePlugin/js/ullWidgetGallery2.js',
     );
   }
@@ -133,7 +131,6 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
     return array(
       '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
       '/ullCorePlugin/css/ull_gallery.css' => 'all',
-      //'/ullCorePlugin/js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css' => 'all',
     );
   }
   

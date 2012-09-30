@@ -119,5 +119,36 @@ class BaseUllWidgetActions extends ullsfActions
   }
   
   
+  /**
+   * Ajax request to render gallery preview for ullWidgetGalleryWrite
+   * 
+   * 
+   */
+  public function executeGalleryPreview(sfRequest $request)
+  {
+    $images = $request->getParameter('images');
+
+    return $this->renderText(ullWidgetGalleryWrite::renderPreview($images));
+  }  
+  
+  
+  /**
+   * Ajax request to delete an gallery image
+   * 
+   * @param $request
+   */
+  public function executeImageDelete(sfRequest $request)
+  {
+    $image = $request->getParameter('s_image');
+    
+    $path = sfConfig::get('sf_web_dir') . $image;
+    
+    unlink($path);
+    
+    unlink(ullCoreTools::calculateThumbnailPath($path));
+    
+    return $this->renderText('');
+  }  
+  
   
 }
