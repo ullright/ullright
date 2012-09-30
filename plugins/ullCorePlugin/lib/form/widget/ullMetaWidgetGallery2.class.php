@@ -27,9 +27,9 @@ class ullMetaWidgetGallery extends ullMetaWidget
     }
     $this->columnConfig->setOption('path', $path);    
 
-    if (!$this->columnConfig->getOption('allow_multi'))
+    if (!$this->columnConfig->getOption('single'))
     {
-      $this->columnConfig->setOption('allow_multi', true);
+      $this->columnConfig->setOption('single', false);
     }    
     if (!$this->columnConfig->getOption('mime_types'))
     {

@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetGalleryWrite extends sfWidgetFormTextarea
+class ullWidgetGalleryWrite extends sfWidgetFormHidden /*sfWidgetFormTextarea */
 {
   
   public function __construct($options = array(), $attributes = array())
@@ -13,8 +13,8 @@ class ullWidgetGalleryWrite extends sfWidgetFormTextarea
   
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $attributes['cols'] = 80;
-    $attributes['rows'] = 10;
+//     $attributes['cols'] = 80;
+//     $attributes['rows'] = 10;
     
     $this->setAttribute('name', $name);
     $this->setAttributes($this->fixFormId($this->getAttributes()));
