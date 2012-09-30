@@ -21,7 +21,7 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
     ;
     
     $this['my_gallery']
-      ->setMetaWidgetClassName('ullMetaWidgetGallery2')
+      ->setMetaWidgetClassName('ullMetaWidgetGallery')
       ->setOption('image_width', 670)
       ->setOption('image_height', 447)
       ->setOption('create_thumbnails', false)

@@ -1,6 +1,6 @@
 <?php
 
-class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
+class ullWidgetGalleryWrite extends sfWidgetFormTextarea
 {
   
   public function __construct($options = array(), $attributes = array())
@@ -46,41 +46,15 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
    * @param boolean $renderUl
    * @return string
    */
-  public static function renderPreview($images)
+  public static function renderPreview($string)
   {
-    $return = '';
+    $images = self::getImagesAsArray($string);
     
-    $images = explode("\n", $images);
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
     
-    foreach ($images as $image)
-    {
-      // ignore empty lines
-      if (trim($image))
-      {
-        // ignore invalid stuff
-        if (file_exists(ullCoreTools::webToAbsolutePath($image)))
-        {
-          // Check for thumbnails
-          $thumbnail = ullCoreTools::calculateThumbnailPath($image);
-          $thumbnailAbsolutePath = ullCoreTools::webToAbsolutePath($thumbnail);
-          if (!file_exists(ullCoreTools::webToAbsolutePath($thumbnail)))
-          {
-            $thumbnail = $image;
-          }
-          
-          $return .= '<li>';
-          $return .= '<div class="ull_widget_gallery_preview_image_container">';
-          $return .= '  <div class="ull_widget_gallery_preview_image">';
-          $return .= '    <a href="'. $image . '" target="_blank"><img src="' . $thumbnail .'" alt="preview image" rel="' . $image . '" /></a>';
-          $return .= '  </div>';
-          $return .= '</div>';
-          $return .= '  <div class="ull_widget_gallery_actions">';
-          $return .= '    ' . ull_icon('ullPhoto/imageDelete?s_image=' . $image, 'delete');
-          $return .= '  </div>';        
-          $return .= '</li>';
-        }
-      }
-    }
+    $return = get_partial('ullWidget/galleryPreview', array(
+      'images'        => $images,
+    ));
     
     return $return;
   }
@@ -100,7 +74,7 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
     foreach ($images as $image)
     {
       // Ignore blank lines
-      if ($image)  
+      if (trim($image))  
       {
         $return[] = $image;
       }
@@ -121,7 +95,7 @@ class ullWidgetGalleryWrite2 extends sfWidgetFormTextarea
       '/ullCorePlugin/js/jq/jquery-min.js',
       '/ullCorePlugin/js/jq/jquery-ui-min.js',
       '/ullCorePlugin/js/plupload/plupload.full.js',
-      '/ullCorePlugin/js/ullWidgetGallery2.js',
+      '/ullCorePlugin/js/ullWidgetGallery.js',
     );
   }
   

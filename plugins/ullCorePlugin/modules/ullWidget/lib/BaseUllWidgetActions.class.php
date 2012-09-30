@@ -137,7 +137,7 @@ class BaseUllWidgetActions extends ullsfActions
    * 
    * @param $request
    */
-  public function executeImageDelete(sfRequest $request)
+  public function executeGalleryDelete(sfRequest $request)
   {
     $image = $request->getParameter('s_image');
     

@@ -2,7 +2,7 @@
  * Initialize and configure plupload uploader
  */
 
-function ullWidgetGallery2Initialize(
+function ullWidgetGalleryInitialize(
     id, 
     upload_url, 
     preview_url, 
@@ -39,7 +39,7 @@ function ullWidgetGallery2Initialize(
         "\n" + response.response
       );
       
-      ullWidgetGallery2RefreshPreview(id, preview_url);      
+      ullWidgetGalleryRefreshPreview(id, preview_url);      
     }
     else {
       alert('Sorry, an error has occured');
@@ -64,7 +64,7 @@ function ullWidgetGallery2Initialize(
     
   });  
   
-  ullWidgetGallery2RefreshPreview(id, preview_url);  
+  ullWidgetGalleryRefreshPreview(id, preview_url);  
   
 };
 
@@ -72,7 +72,7 @@ function ullWidgetGallery2Initialize(
 /**
  * (Re-)render gallery preview
  */
-function ullWidgetGallery2RefreshPreview(id, url) {
+function ullWidgetGalleryRefreshPreview(id, url) {
   
   //Load preview only if there are images/files
   if ("" !== $("#" + id).val()) {
@@ -86,9 +86,9 @@ function ullWidgetGallery2RefreshPreview(id, url) {
         
         $("#ull_widget_gallery_preview_" + id).html(data);
         
-        ullWidgetGallery2Sortable(id);
-        ullWidgetGallery2ImageActionHover(id);
-        ullWidgetGallery2ImageDelete(id, url);      
+        ullWidgetGallerySortable(id);
+        ullWidgetGalleryImageActionHover(id);
+        ullWidgetGalleryImageDelete(id, url);      
       }
     });
   } 
@@ -102,7 +102,7 @@ function ullWidgetGallery2RefreshPreview(id, url) {
  * Drag'n'drop sort 
  * 
  */
-function ullWidgetGallery2Sortable(id) {
+function ullWidgetGallerySortable(id) {
   
   // TODO idize ?!?
   $("#ull_widget_gallery_preview_" + id).sortable({
@@ -128,7 +128,7 @@ function ullWidgetGallery2Sortable(id) {
 /**
  * Hover actions
  */
-function ullWidgetGallery2ImageActionHover(id) {
+function ullWidgetGalleryImageActionHover(id) {
   
   var selector = "#ull_widget_gallery_preview_" + id + " li";
   
@@ -154,7 +154,7 @@ function ullWidgetGallery2ImageActionHover(id) {
  * @param preview_url
  * @returns
  */
-function ullWidgetGallery2ImageDelete(id, preview_url) {
+function ullWidgetGalleryImageDelete(id, preview_url) {
   
   var selector = "#ull_widget_gallery_preview_" + id +
     " .ull_widget_gallery_actions a";
@@ -174,7 +174,7 @@ function ullWidgetGallery2ImageDelete(id, preview_url) {
           value = value.split(path).join("");
           $("#" + id).val(value);
           
-          ullWidgetGallery2RefreshPreview(id, preview_url);
+          ullWidgetGalleryRefreshPreview(id, preview_url);
 
           $("#ull_widget_gallery_indicator_" + id).hide();
         }

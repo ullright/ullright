@@ -1,6 +1,6 @@
 <?php
 /**
- * ullMetaWidgetGallery2
+ * ullMetaWidgetGallery
  * 
  * New, improved version.
  *
@@ -8,7 +8,7 @@
  * 
  * Also supports single file upload
  */
-class ullMetaWidgetGallery2 extends ullMetaWidget
+class ullMetaWidgetGallery extends ullMetaWidget
 {
 
   /**
@@ -67,7 +67,7 @@ class ullMetaWidgetGallery2 extends ullMetaWidget
    */
   protected function configureWriteMode()
   {
-    $this->addWidget(new ullWidgetGalleryWrite2(
+    $this->addWidget(new ullWidgetGalleryWrite(
       $this->columnConfig->getWidgetOptions(), 
       $this->columnConfig->getWidgetAttributes()
     ));

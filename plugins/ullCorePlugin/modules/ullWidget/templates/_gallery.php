@@ -36,7 +36,7 @@
       
 $(document).ready(function() {
       
-  ullWidgetGallery2Initialize(' . 
+  ullWidgetGalleryInitialize(' . 
     '"' . $id . '", ' .
     '"' . $upload_url . '", ' .
     '"' . $preview_url . '", ' .
