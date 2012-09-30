@@ -13,9 +13,10 @@ function ullWidgetGalleryInitialize(
   var uploader = new plupload.Uploader({
     runtimes: "html5",
     browse_button: "ull_widget_gallery_add_files_" + id,
-    drop_element: id + "_content",
+    drop_element: "ull_widget_gallery_container_" + id,
     url: upload_url,
     max_file_size: max_file_size + "mb",
+    //multi_selection: false 
   });
   
   uploader.init();
