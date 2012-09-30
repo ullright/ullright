@@ -20,10 +20,12 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden /*sfWidgetFormTextar
     $this->setAttributes($this->fixFormId($this->getAttributes()));
     $id = $this->getAttribute('id');   
     
+    $config = $this->getOption('config');
+    
     $field = parent::render($name, $value, $attributes, $errors);
     
     $upload_url = url_for('ullWidget/galleryUpload?' .
-      's_config=' . json_encode($this->getOption('config'))        
+      's_config=' . json_encode($config)        
     );
     
     $preview_url = url_for('ullWidget/galleryPreview');
@@ -33,6 +35,7 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden /*sfWidgetFormTextar
       'field'         => $field,
       'upload_url'    => $upload_url,
       'preview_url'   => $preview_url,
+      'single'        => $config['single'],
     ));
     
     return $markup;

@@ -797,7 +797,7 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       
       <trans-unit id="3501">
         <source>or drag and drop files here</source>
-        <target>oder Bilder hierher ziehen und fallen lassen</target>
+        <target>oder Dateien hierher ziehen und fallen lassen</target>
       </trans-unit>
       
       <trans-unit id="3503">
@@ -813,7 +813,29 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       <trans-unit id="3505">
         <source>Invalid file type</source>
         <target>Ungültiger Dateityp</target>
-      </trans-unit>        
+      </trans-unit>
+      
+      <trans-unit id="3506">
+        <source>Please select only one file</source>
+        <target>Bitte wählen Sie nur eine Datei</target>
+      </trans-unit>
+      
+      <trans-unit id="3507">
+        <source>Please select only one file</source>
+        <target>Bitte wählen Sie nur eine Datei</target>
+      </trans-unit> 
+      
+      <trans-unit id="3508">
+        <source>Upload file</source>
+        <target>Datei hochladen</target>
+      </trans-unit> 
+      
+      <trans-unit id="3509">
+        <source>or drag and drop a file here</source>
+        <target>oder eine Datei hierher ziehen und fallen lassen</target>
+      </trans-unit>                       
+      
+      
       
       <!--  ullWidgetPhonenumber -->
       <trans-unit id="3601">

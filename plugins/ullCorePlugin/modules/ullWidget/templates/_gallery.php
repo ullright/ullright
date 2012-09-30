@@ -8,14 +8,22 @@
   <div id="ull_widget_gallery_control_<?php echo $id ?>" 
     class="ull_widget_gallery_control">
   
+    <?php if ($single): ?>
+      <?php $button_msg = __('Upload file', null, 'ullCoreMessages') ?>
+      <?php $drop_msg = __('or drag and drop a file here', null, 'ullCoreMessages') ?>
+    <?php else: ?>
+      <?php $button_msg = __('Add files', null, 'ullCoreMessages') ?>
+      <?php $drop_msg = __('or drag and drop files here', null, 'ullCoreMessages') ?>
+    <?php endif ?>    
+  
     <input type="button" 
-      value="<?php echo __('Add files', null, 'ullCoreMessages') ?>" 
+      value="<?php echo $button_msg ?>" 
       id="ull_widget_gallery_add_files_<?php echo $id ?>"
       class=" ull_widget_gallery_add_files"
     />
       
     <span class="ull_widget_gallery_control_drop">
-      <?php echo __('or drag and drop files here', null, 'ullCoreMessages') ?>
+      <?php echo $drop_msg ?>
       (<?php echo __('With Firefox/Chrome/Safari', null, 'ullCoreMessages') ?>)
     </span>
     
@@ -38,10 +46,12 @@ $(document).ready(function() {
       
   ullWidgetGalleryInitialize(' . 
     '"' . $id . '", ' .
+    '"' . $single . '", ' .
     '"' . $upload_url . '", ' .
     '"' . $preview_url . '", ' .
     '"' . ullCoreTools::getMaxPhpUploadSize() . '", ' .
-    '"' . __('Invalid file type', null, 'ullCoreMessages') . '"' .
+    '"' . __('Invalid file type', null, 'ullCoreMessages') . '", ' .
+      '"' . __('Please select only one file', null, 'ullCoreMessages') . '"' .
   ');
       
 });      
