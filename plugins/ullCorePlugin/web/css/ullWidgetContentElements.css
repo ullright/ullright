@@ -1,0 +1,84 @@
+/* For ullWidgetContentElements */
+
+.content_elements {
+  background-color: white;
+  border-radius: 1em;
+  padding: .5em;
+}
+
+.content_element {
+  margin-bottom: 2em;
+}
+
+.content_element_controls_edit {
+  overflow: hidden;
+  display: none;
+  float: right;
+}
+
+.content_element_control_edit {
+  float: left;
+  padding: 5px;
+}
+
+.content_element_html {
+  padding: .5em;
+}
+
+.content_element_controls_add_button {
+  display: none;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  line-heigth: 1.2em;
+}
+
+.content_element_controls_add_button a {
+  text-decoration: none;
+}
+
+.content_element_controls_add_list {
+  padding: 5px;
+  display: none;
+}
+
+.content_element_controls_add_list h2 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.content_element_controls_add_list ul {
+  list-style: none;
+}
+
+.content_element_controls_add_list ul li {
+  font-size: 1.1em;
+  margin-left: 1em;
+  padding: 0.5em;
+  border: 1px solid silver;
+  background-color: white;
+  width: 30%;
+  
+}
+
+.content_element_controls_add_list ul li:hover {
+  cursor: pointer;
+  border: 1px solid grey;
+  background-color: #fbfbfb;
+}
+
+.content_element_controls_add_list ul li a:hover {
+  text-decoration: none;
+}
+
+.content_element_form {
+  border: 1px solid silver;
+  border-radius: 8px;
+  padding: .5em;
+  background: white;
+  display: none;
+}
+
+.content_elements_value {
+  margin-top: 4em;
+}

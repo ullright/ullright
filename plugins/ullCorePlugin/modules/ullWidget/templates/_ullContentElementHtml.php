@@ -12,7 +12,7 @@
     id="content_element_html_<?php echo $element_id ?>">
     
     <?php if ($do_render_html): // do not render for "add" action ?>
-      <?php $partial_name = 'ullTableTool/' . 'contentElement' . 
+      <?php $partial_name = 'ullWidget/' . 'contentElement' . 
         sfInflector::classify($element_type) ?>
       
       <?php include_partial($partial_name, array(

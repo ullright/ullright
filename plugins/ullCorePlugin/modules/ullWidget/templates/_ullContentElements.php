@@ -6,7 +6,7 @@
 
   <?php foreach ($elements_data as $element_data): ?>
   
-      <?php include_partial('ullTableTool/ullContentElement', array(
+      <?php include_partial('ullWidget/ullContentElement', array(
         'element_data'    => $element_data,
         'element_types'   => $element_types,
         'field_id'        => $field_id,

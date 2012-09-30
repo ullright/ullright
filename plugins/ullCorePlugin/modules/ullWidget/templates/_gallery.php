@@ -42,23 +42,19 @@
   
   <?php echo javascript_tag('
       
-$(document).ready(function() {
-      
-  ullWidgetGalleryInitialize(' . 
-    '"' . $id . '", ' .
-    '"' . $single . '", ' .
-    '"' . $upload_url . '", ' .
-    '"' . $preview_url . '", ' .
-    '"' . ullCoreTools::getMaxPhpUploadSize() . '", ' .
-    '"' . __('Invalid file type', null, 'ullCoreMessages') . '", ' .
-      '"' . __('Please select only one file', null, 'ullCoreMessages') . '"' .
-  ');
-      
-});      
+ullWidgetGalleryInitialize(' . 
+  '"' . $id . '", ' .
+  '"' . $single . '", ' .
+  '"' . $upload_url . '", ' .
+  '"' . $preview_url . '", ' .
+  '"' . ullCoreTools::getMaxPhpUploadSize() . '", ' .
+  '"' . __('Invalid file type', null, 'ullCoreMessages') . '", ' .
+  '"' . __('Please select only one file', null, 'ullCoreMessages') . '"' .
+');
 
 ') ?>
   
   <?php echo $field ?>
 
 <!-- End of ullWidgetGallery -->    
- </div>   
+</div>   

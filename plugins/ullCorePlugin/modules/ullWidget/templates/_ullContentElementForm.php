@@ -21,9 +21,7 @@
   
   <div class='edit_action_buttons'>
   
-    <?php // Note that the "table" param is not actually used ?>
-    <?php $url = url_for('ullTableTool/contentElement?' .
-        'table=UllContentElement&' .
+    <?php $url = url_for('ullWidget/contentElement?' .
         'element_types=' . urlencode(json_encode($element_types)) . '&' .
         'element_type=' . $element_type . '&' .
         'element_id=' . $element_id . '&' .

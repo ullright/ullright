@@ -12,7 +12,6 @@ class UllContentElementGalleryColumnConfigCollection extends UllContentElementCo
       ->setOption('image_width', 800)
       ->setOption('image_height', 800)
       ->setOption('generate_thumbnails', false)
-      ->setHelp('Drag images around to sort.')
     ;    
   }  
 }

@@ -105,13 +105,14 @@ function ullWidgetGalleryRefreshPreview(id, url, single) {
         ullWidgetGallerySortable(id);
         ullWidgetGalleryImageActionHover(id);
         ullWidgetGalleryImageDelete(id, url, single);      
-        ullWidgetGalleryHideControls(id, single);
+        
       }
     });
   } 
   else {
     // Empty the preview
     $("#ull_widget_gallery_preview_" + id).html();
+    ullWidgetGalleryHideControls(id, single);
   }
 }
  

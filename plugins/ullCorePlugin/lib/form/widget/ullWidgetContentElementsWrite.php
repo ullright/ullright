@@ -42,7 +42,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
     
     $field = parent::render($name, $value, $attributes, $errors);
     
-    $return = get_partial('ullTableTool/ullContentElements', array(
+    $return = get_partial('ullWidget/ullContentElements', array(
       'field_id'       => $this->getAttribute('id'),
       'field'          => $field,
       'element_types'  => $elementTypes,
@@ -83,7 +83,14 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
   {
     return array(
       '/ullCorePlugin/js/jq/jquery-min.js',
-      '/ullCorePlugin/js/content_elements.js',
+      '/ullCorePlugin/js/ullWidgetContentElements.js',
+    );
+  }  
+  
+  public function getStylesheets()
+  {
+    return array(
+      '/ullCorePlugin/css/ullWidgetContentElements.css' => 'all',
     );
   }  
 }

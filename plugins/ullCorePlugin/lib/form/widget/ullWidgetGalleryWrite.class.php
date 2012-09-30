@@ -96,7 +96,6 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden /*sfWidgetFormTextar
   {
     return array(
       '/ullCorePlugin/js/jq/jquery-min.js',
-      '/ullCorePlugin/js/jq/jquery-ui-min.js',
       '/ullCorePlugin/js/plupload/plupload.full.js',
       '/ullCorePlugin/js/ullWidgetGallery.js',
     );
@@ -106,8 +105,7 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden /*sfWidgetFormTextar
   public function getStylesheets()
   {
     return array(
-      '/ullCorePlugin/css/jqui/jquery-ui.css' => 'all',
-      '/ullCorePlugin/css/ull_gallery.css' => 'all',
+      '/ullCorePlugin/css/ullWidgetGallery.css' => 'all',
     );
   }
   

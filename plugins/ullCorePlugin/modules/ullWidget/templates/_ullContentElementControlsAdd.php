@@ -22,8 +22,7 @@
     <?php $element_types_json = urlencode(json_encode($element_types)) ?>
     <?php foreach($element_types as $element_type => $name): ?>
     
-      <?php $url = url_for('ullTableTool/contentElementAdd?' .
-          'table=UllContentElement&' .
+      <?php $url = url_for('ullWidget/contentElementAdd?' .
           'field_id=' . $field_id. '&' .
           'element_type=' . $element_type . '&' .
           'element_types=' . $element_types_json 

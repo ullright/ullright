@@ -4,14 +4,14 @@
 
 <div class="content_element" id="content_element_<?php echo $element_data['id'] ?>">
 
-  <?php include_partial('ullTableTool/ullContentElementHtmlAndControls', array(
+  <?php include_partial('ullWidget/ullContentElementHtmlAndControls', array(
     'element_data'    => $element_data,
     'element_types'   => $element_types,
     'field_id'        => $field_id,
     'do_render_html'  => $do_render_html 
   )) ?>
   
-  <?php include_component('ullTableTool', 'ullContentElementForm', array(
+  <?php include_component('ullWidget', 'ullContentElementForm', array(
     'element_data'    => $element_data,
     'element_types'   => $element_types,
     'field_id'        => $field_id,
