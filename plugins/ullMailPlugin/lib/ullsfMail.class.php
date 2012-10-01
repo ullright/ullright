@@ -39,24 +39,6 @@ class ullsfMail extends Swift_Message
   }
   
   /**
-   * Perform a deep clone
-   * 
-   * Used for preparing a mail for multiple recipients.
-   * 
-   * Without it, the previous recipients are remembered 
-   */
-//  function __clone() 
-//  {
-//    foreach ($this as $key => $val) 
-//    {
-//      if (is_object($val) || (is_array($val))) 
-//      {
-//        $this->{$key} = unserialize(serialize($val));
-//      }
-//    }
-//  }  
-  
-  /**
    * Adds an address and a matching name, either to the
    * recipient list, the carbon copy list or the blind
    * carbon copy list. UllEntities are resolved to their
@@ -245,14 +227,7 @@ class ullsfMail extends Swift_Message
    */
   public function getHtmlBody()
   {
-//    if ($this->getContentType() == 'text/html')
-//    {
-      return $this->getBody();
-//    }
-//    else
-//    {
-//      throw new UnexpectedValueException('The main body is not of type html!');
-//    }
+    return $this->getBody();
   }
   
   /**
