@@ -74,6 +74,10 @@ class ullsfMail extends Swift_Message
         list($address, $name) = ullCoreTools::splitMailAddressWithName($address);
       }
       
+      //Remove spaces. Especially one blank causes an outlook mime bug
+      //@see http://www.ullright.org/ullWiki/show/outlook-displays-mime-multipart-as-plaintext-problem
+      $name = trim($name);
+      
       //call the appropriate method in Swift_Message ...
       $methodName = 'add' . $type;
       

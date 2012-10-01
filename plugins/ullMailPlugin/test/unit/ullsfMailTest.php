@@ -11,7 +11,7 @@ sfContext::createInstance($configuration);
 //sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
 
-$t = new myTestCase(36, new lime_output_color, $configuration);
+$t = new myTestCase(37, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -27,6 +27,12 @@ $t->diag('addAddress() for a UllUser');
   $reference = array('test.user@example.com' => 'Test User');
   $t->is($mail->getAddresses(), $reference, 'sets the correct to: address for a UllUser');
   $t->is($mail->getRecipientUllUserId(), $user->id, 'Also sets the correct recipient UllUserId');
+  
+$t->diag('addAddress() with a blank name (outlook mime bug)');
+  $mail = new ullsfMail();
+  $mail->addAddress('noname@example.com', ' ');
+  $reference = array('noname@example.com' => '');
+  $t->is($mail->getAddresses(), $reference, 'sets the correct to: address for a UllUser without a name');
   
 $t->diag('addAddress() for a UllGroup having a group email address');  
   
