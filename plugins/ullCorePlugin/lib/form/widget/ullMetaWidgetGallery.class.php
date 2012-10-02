@@ -71,7 +71,7 @@ class ullMetaWidgetGallery extends ullMetaWidget
       $this->columnConfig->getWidgetOptions(), 
       $this->columnConfig->getWidgetAttributes()
     ));
-    $this->addValidator(new sfValidatorString($this->columnConfig->getValidatorOptions()));
+    $this->addValidator(new ullValidatorGallery($this->columnConfig->getValidatorOptions()));
   }
   
   
