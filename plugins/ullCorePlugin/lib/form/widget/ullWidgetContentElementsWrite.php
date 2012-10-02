@@ -2,11 +2,18 @@
 
 class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
 {
+  protected 
+    $elementJavascripts,
+    $elementStylesheets
+  ;
+  
   public function __construct($options = array(), $attributes = array())
   {
     $this->addRequiredOption('element_types');
     
     parent::__construct($options, $attributes);
+    
+    $this->manageElementAssets($this->getOption('element_types'));
   }
   
   /**
@@ -22,6 +29,8 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
     $this->setAttribute('rows', 20);
     $this->setAttribute('cols', 80);
     $this->setAttribute('class', 'content_elements_value');
+    
+    
   }  
   
 
@@ -75,22 +84,68 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
   }
   
   /**
+   * Load javascripts and stylesheets from the used elements
+   * 
+   * @param array $types
+   */
+  protected function manageElementAssets($types)
+  {
+    $this->elementJavascripts = array();
+    $this->elementStylesheets = array();
+    
+    foreach ($types as $type => $name)
+    {
+      $generator = new ullContentElementGenerator(
+        $type,
+        'id'
+      );
+      $generator->buildForm(new UllContentElement());
+      
+      $form = $generator->getForm();
+      
+      $this->elementJavascripts = array_merge(
+        $this->elementJavascripts,
+        $form->getJavaScripts()
+      );  
+      
+      $this->elementStylesheets = array_merge(
+        $this->elementStylesheets,
+        $form->getStylesheets()
+      );      
+    }      
+  }
+  
+  /**
    * Gets the JavaScript paths associated with the widget.
    *
    * @return array An array of JavaScript paths
    */
   public function getJavaScripts()
   {
-    return array(
+    $javascripts = array(
       '/ullCorePlugin/js/jq/jquery-min.js',
       '/ullCorePlugin/js/ullWidgetContentElements.js',
     );
+    
+    $javascripts = array_merge(
+      $javascripts,
+      $this->elementJavascripts
+    );
+    
+    return $javascripts;
   }  
   
   public function getStylesheets()
   {
-    return array(
+    $stylesheets = array(
       '/ullCorePlugin/css/ullWidgetContentElements.css' => 'all',
     );
+    
+    $stylesheets = array_merge(
+      $stylesheets,
+      $this->elementStylesheets
+    );
+    
+    return $stylesheets;    
   }  
 }
