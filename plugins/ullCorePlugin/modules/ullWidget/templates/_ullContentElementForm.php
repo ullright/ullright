@@ -32,6 +32,7 @@
       __('Save', null, 'common'),
       'contentElementSubmit(' .
         '\'' . $element_id . '\', ' .
+        '\'' . $element_type . '\', ' .
         '\'' . $url . '\',' .
         '\'' . $field_id . '\'' .
       ')'

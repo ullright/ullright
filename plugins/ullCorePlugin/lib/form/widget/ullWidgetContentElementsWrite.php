@@ -100,7 +100,6 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
         'id'
       );
       $generator->buildForm(new UllContentElement());
-      
       $form = $generator->getForm();
       
       $this->elementJavascripts = array_merge(
