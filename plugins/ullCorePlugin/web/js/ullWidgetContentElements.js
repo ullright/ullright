@@ -3,46 +3,12 @@
  */
 function contentElementInitialize (field_id)
 {
-  
-//  $('.content_element_html_and_controls').hover(
-//    function () {
-//      $(this).find('.content_element_controls_edit').fadeIn(300);
-//      $(this).find('.content_element_controls_add_button').fadeIn(300);
-//      
-//    },
-//    function () {
-//      $(this).find('.content_element_controls_edit').hide();
-//      $(this).find('.content_element_controls_add_button').hide();      
-//      $(this).find('.content_element_controls_add_list').hide();
-//    }    
-//  );  
-  
-//  $('.content_element_html_and_controls').mouseout(function () {
-    $(this).find('.content_element_controls_add_list').hide();
-//  })
-  
-  
-//  // No content yet
-//  // Check hidden field value for "<" to dectect if there is content
-//  if (-1 === $('#' + field_id).val().indexOf('<')) {
-//    
-//    $('#content_element_html_and_controls_dummy_first_' + field_id)
-//      .unbind('mouseenter mouseleave');
-//    
-//    //Remove edit controls of the dummy element
-//    $('#content_element_controls_edit_dummy_first_' + field_id).remove();
-//    
-//    //Show add button of the dummy first element when we have no content yet
-//    $('#content_element_controls_add_dummy_first_' + field_id +
-//        ' .content_element_controls_add_button').show();
-//    
-//  }
+  $(this).find('.content_element_controls_add_list').hide();
   
   //Remove edit controls of the dummy element
   $('#content_element_controls_edit_dummy_first_' + field_id).remove();
   
   contentElementUpdateFormField(field_id);
-    
 }
 
 
@@ -275,7 +241,7 @@ function contentElementUpdateFormField(field_id) {
   $(formFieldClass).val('');
   
   // remove the dummy add element
-  var dummy = $('#content_element_dummy_first_fields_body').detach();
+  var dummy = $('#content_element_dummy_first_fields_body').remove();
   
   $(elementsClass).find('.content_element_html_container').each(function () {
     

@@ -16,6 +16,7 @@
     'element_types'   => $element_types, 
     'field_id'        => $field_id,
     'do_render_html'  => false,
+    'do_render_form'  => false,
   )) ?>
   
   <?php foreach ($elements_data as $element_data): ?>

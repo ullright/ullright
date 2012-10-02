@@ -71,12 +71,13 @@ class sfWidgetFormTextareaCKEditor extends sfWidgetFormTextarea
 
     $js = javascript_tag('
         
+     // TODO: 2012-10-02 check if this is still needed....
   // Check if an instance is already running. If so, destroy it
   // This is necessary if an CKEditor instance is replaced via ajax              
-  instance = CKEDITOR.instances["' . $id . '"];
-  if (instance) { 
-    instance.destroy(true);    
-  }
+//   instance = CKEDITOR.instances["' . $id . '"];
+//   if (instance) { 
+//     instance.destroy(true);    
+//   }
   
   $("#' . $id . '").ckeditor(
     function() { /* callback code */ }, 
