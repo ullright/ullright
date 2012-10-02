@@ -7,4 +7,7 @@
  */
 class UllNewsLetterEditionColumnConfigCollection extends BaseUllNewsletterEditionColumnConfigCollection
 {
+  
+  
+  
 }
