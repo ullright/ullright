@@ -1,4 +1,5 @@
 <?php $element_data = $sf_data->getRaw('element_data') ?>
+<?php $element_types = $sf_data->getRaw('element_types') ?>
 <?php $do_render_html = (isset($do_render_html)) ? $do_render_html : true ?>
 
 <div class="content_element_html_and_controls 
