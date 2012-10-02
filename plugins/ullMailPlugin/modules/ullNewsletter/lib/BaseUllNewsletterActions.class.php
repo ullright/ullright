@@ -97,6 +97,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
         $body = Swift_Plugins_ullPersonalizePlugin::removePersonalisationTags($body);
       }
       
+      // Make relative links for images etc.
+      $absoluteUrlPart = 'http://' . sfConfig::get('app_server_name');
+      $body = str_replace($absoluteUrlPart, '', $body);
+      
       $this->setVar('edition', $edition, true);
       $this->setVar('body', $body, true);
       
