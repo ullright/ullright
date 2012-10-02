@@ -3,35 +3,44 @@
  */
 function contentElementInitialize (field_id)
 {
-  $('.content_element_html_and_controls').hover(
-    function () {
-      $(this).find('.content_element_controls_edit').fadeIn(300);
-      $(this).find('.content_element_controls_add_button').fadeIn(300);
-      
-    },
-    function () {
-      $(this).find('.content_element_controls_edit').hide();
-      $(this).find('.content_element_controls_add_button').hide();      
-      $(this).find('.content_element_controls_add_list').hide();
-    }    
-  );        
+  
+//  $('.content_element_html_and_controls').hover(
+//    function () {
+//      $(this).find('.content_element_controls_edit').fadeIn(300);
+//      $(this).find('.content_element_controls_add_button').fadeIn(300);
+//      
+//    },
+//    function () {
+//      $(this).find('.content_element_controls_edit').hide();
+//      $(this).find('.content_element_controls_add_button').hide();      
+//      $(this).find('.content_element_controls_add_list').hide();
+//    }    
+//  );  
+  
+//  $('.content_element_html_and_controls').mouseout(function () {
+    $(this).find('.content_element_controls_add_list').hide();
+//  })
   
   
-  // No content yet
-  // Check hidden field value for "<" to dectect if there is content
-  if (-1 === $('#' + field_id).val().indexOf('<')) {
-    
-    $('#content_element_html_and_controls_dummy_first_' + field_id)
-      .unbind('mouseenter mouseleave');
-    
-    //Remove edit controls of the dummy element
-    $('#content_element_controls_edit_dummy_first_' + field_id).remove();
-    
-    //Show add button of the dummy first element when we have no content yet
-    $('#content_element_controls_add_dummy_first_' + field_id +
-        ' .content_element_controls_add_button').show();
-    
-  }
+//  // No content yet
+//  // Check hidden field value for "<" to dectect if there is content
+//  if (-1 === $('#' + field_id).val().indexOf('<')) {
+//    
+//    $('#content_element_html_and_controls_dummy_first_' + field_id)
+//      .unbind('mouseenter mouseleave');
+//    
+//    //Remove edit controls of the dummy element
+//    $('#content_element_controls_edit_dummy_first_' + field_id).remove();
+//    
+//    //Show add button of the dummy first element when we have no content yet
+//    $('#content_element_controls_add_dummy_first_' + field_id +
+//        ' .content_element_controls_add_button').show();
+//    
+//  }
+  
+  //Remove edit controls of the dummy element
+  $('#content_element_controls_edit_dummy_first_' + field_id).remove();
+  
     
     
 }
@@ -214,6 +223,8 @@ function contentElementAddList(element_id) {
  */
 function contentElementAdd(element, element_id, url, field_id) {
   
+  $('.content_element_controls_add_list').fadeOut(300);
+  
   $.ajax({  
     type: "POST",  
     url: url,
@@ -295,19 +306,6 @@ function darkeningCoverEnable() {
 function darkeningCoverDisable()
 {
   $('#pagecover').remove();
-}
-
-/**
- * Helper function to enlarge the clickarea
- * Used on the surrounding element via onclick="enlargeClickArea(this)"
- * 
- * @param element
- */
-function enlargeClickArea(element) {
-//  var url = $(element).find('a').attr('href');
-//  if ('#' === url) {
-    $(element).find('a').triggerHandler('click');
-//  }
 }
 
 

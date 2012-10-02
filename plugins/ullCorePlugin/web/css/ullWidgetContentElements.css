@@ -12,13 +12,15 @@
 
 .content_element_controls_edit {
   overflow: hidden;
-  display: none;
   float: right;
 }
 
-.content_element_html_and_controls:hover {
+.content_element_html_and_controls {
   border: 1px solid silver;
   border-radius: 8px;
+}
+
+.content_element_html_and_controls:hover {
   background: #f9f9f9;
 }
 
@@ -40,7 +42,6 @@
 }
 
 .content_element_controls_add_button {
-  display: none;
   text-align: center;
   font-size: 2em;
   font-weight: bold;
@@ -95,4 +96,19 @@
 
 .content_elements_value {
   margin-top: 4em;
+  display: none;
+}
+
+
+.content_element_form td {
+  display: block;
+  padding: 2px;
+  width: 100%;
+  background: #E9E9E9;
+}
+
+.content_element_form td.label_column {
+  width: 100%;
+  min-width: 0;
+  padding-top: .5em;
 }

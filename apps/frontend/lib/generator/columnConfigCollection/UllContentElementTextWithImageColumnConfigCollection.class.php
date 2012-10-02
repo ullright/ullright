@@ -25,7 +25,7 @@ class UllContentElementTextWithImageColumnConfigCollection extends UllContentEle
     ;    
     
     $this->create('image')
-      ->setLabel('Images')
+      ->setLabel('Image')
       ->setMetaWidgetClassName('ullMetaWidgetGallery')
       ->setOption('image_width', 800)
       ->setOption('image_height', 800)

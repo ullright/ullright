@@ -6,13 +6,10 @@
 <div class="content_element_controls_add" 
   id="content_element_controls_add_<?php echo $element_id ?>" >
 
-  <div class="content_element_controls_add_button" onclick="enlargeClickArea(this)">
-    <?php echo link_to_function(
-      '+',
-      'contentElementAddList(' .
-        '\'' . $element_id . '\' ' .
-      ')'
-    ) ?>
+  <div class="content_element_controls_add_button" 
+    onclick="contentElementAddList('<?php echo $element_id ?>'); return false;"
+    style="cursor: pointer;">
+    +
   </div>  
   
   <div class="content_element_controls_add_list">
@@ -28,15 +25,13 @@
           'element_types=' . $element_types_json 
       ) ?>      
       
-      <li onclick="enlargeClickArea(this)">
-        <?php echo link_to_function($name,
-          'contentElementAdd(' .
-            '\'' . $element_type . '\', ' .
-            '\'' . $element_id . '\', ' .
-            '\'' . $url . '\', ' .
-            '\'' . $field_id . '\' ' .
-          ')'   
-        ) ?>
+      <li onclick="contentElementAdd(
+        '<?php echo $element_type ?>',
+        '<?php echo $element_id ?>',
+        '<?php echo $url ?>',
+        '<?php echo $field_id ?>'
+      ); return false;" style="cursor: pointer;">
+        <?php echo $name ?>
       </li>
     <?php endforeach ?>
   </ul>
