@@ -31,9 +31,9 @@
     <?php echo button_to_function(
       __('Save', null, 'common'),
       'contentElementSubmit(' .
-        '"' . $element_id . '", ' .
-        '"' . $url . '",' .
-        '"' . $field_id . '"' .
+        '\'' . $element_id . '\', ' .
+        '\'' . $url . '\',' .
+        '\'' . $field_id . '\'' .
       ')'
     ) ?>
     
@@ -45,7 +45,7 @@
     <?php echo link_to_function(
       __('Cancel', null, 'common'),
       'contentElementCancel(' .
-        '"' . $element_id . '" ' .
+        '\'' . $element_id . '\' ' .
       ')'
     ) ?> 
     

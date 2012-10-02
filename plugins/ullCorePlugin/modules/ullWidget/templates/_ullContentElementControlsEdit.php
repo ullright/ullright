@@ -7,16 +7,16 @@
   <div class="content_element_control_edit">
     <?php echo link_to_function(
       ull_image_tag('edit'),
-      'contentElementEdit("' . $element_id . '")'
-    ) ?>  
+      'contentElementEdit(\'' . $element_id . '\')'
+    ) ?>
   </div>
   
   <div class="content_element_control_edit">
     <?php echo link_to_function(
       ull_image_tag('delete'),
       'contentElementDelete(' .
-        '"' . $element_id . '", ' .
-        '"' . $field_id . '" ' .
+        '\'' . $element_id . '\', ' .
+        '\'' . $field_id . '\' ' .
       ')',
       'confirm=' . __('Are you sure?', null, 'common')        
     ) ?>
@@ -26,9 +26,9 @@
     <?php echo link_to_function(
       '&uArr;',
       'contentElementMove(' .
-        '"' . $element_id . '", ' .
-        '"' . $field_id . '", ' .
-        '"up"' .
+        '\'' . $element_id . '\', ' .
+        '\'' . $field_id . '\', ' .
+        '\'up\'' .
       ')'
     ) ?>
   </div>  
@@ -37,9 +37,9 @@
     <?php echo link_to_function(
       '&dArr;',
       'contentElementMove(' .
-        '"' . $element_id . '", ' .
-        '"' . $field_id . '", ' .
-        '"down"' .
+        '\'' . $element_id . '\', ' .
+        '\'' . $field_id . '\', ' .
+        '\'down\'' .
       ')'
     ) ?>
   </div>    

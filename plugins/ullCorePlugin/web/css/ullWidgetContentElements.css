@@ -16,10 +16,24 @@
   float: right;
 }
 
+.content_element_html_and_controls:hover {
+  border: 1px solid silver;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.content_element_controls_edit:hover,
+.content_element_controls_add_button:hover {
+  border-radius: 8px;
+  background: #eee;
+}
+
 .content_element_control_edit {
   float: left;
   padding: 5px;
 }
+
+
 
 .content_element_html {
   padding: .5em;

@@ -1,60 +1,39 @@
 /**
- * Auto load on page load
- */
-$(document).ready(function() {
-  
-  contentElementInitialize();
-  
-});
-
-
-/**
  * Do initialisation of the content elements
  */
-function contentElementInitialize ()
+function contentElementInitialize (field_id)
 {
   $('.content_element_html_and_controls').hover(
     function () {
-      $(this).css('border', '1px solid silver');
-      $(this).css('border-radius', '8px');
-      $(this).css('background', '#f9f9f9');
-      
       $(this).find('.content_element_controls_edit').fadeIn(300);
       $(this).find('.content_element_controls_add_button').fadeIn(300);
       
     },
     function () {
-      $(this).css('border', 'none');
-      $(this).css('border-radius', 'none');
-      $(this).css('background', 'inherit');
-      
       $(this).find('.content_element_controls_edit').hide();
       $(this).find('.content_element_controls_add_button').hide();      
       $(this).find('.content_element_controls_add_list').hide();
     }    
-  );
+  );        
   
-  $('.content_element_controls_edit').hover(
-      function () {
-        $(this).css('border-radius', '8px');
-        $(this).css('background', '#eee');
-      },
-      function () {
-        $(this).css('border-radius', 'none');
-        $(this).css('background', 'inherit');
-      }    
-    );    
   
-  $('.content_element_controls_add_button').hover(
-    function () {
-      $(this).css('border-radius', '8px');
-      $(this).css('background', '#eee');
-    },
-    function () {
-      $(this).css('border-radius', 'none');
-      $(this).css('background', 'inherit');
-    }    
-  );   
+  // No content yet
+  // Check hidden field value for "<" to dectect if there is content
+  if (-1 === $('#' + field_id).val().indexOf('<')) {
+    
+    $('#content_element_html_and_controls_dummy_first_' + field_id)
+      .unbind('mouseenter mouseleave');
+    
+    //Remove edit controls of the dummy element
+    $('#content_element_controls_edit_dummy_first_' + field_id).remove();
+    
+    //Show add button of the dummy first element when we have no content yet
+    $('#content_element_controls_add_dummy_first_' + field_id +
+        ' .content_element_controls_add_button').show();
+    
+  }
+    
+    
 }
 
 
@@ -225,6 +204,14 @@ function contentElementAddList(element_id) {
   
 }
 
+/**
+ * Add an element
+ * 
+ * @param element     Element type 
+ * @param element_id  The element_id of the element after which to add this new one
+ * @param url
+ * @param field_id
+ */
 function contentElementAdd(element, element_id, url, field_id) {
   
   $.ajax({  
@@ -234,18 +221,19 @@ function contentElementAdd(element, element_id, url, field_id) {
       
       try {
         var json = jQuery.parseJSON(data);
-
-        var elementClass = '#content_element_' + element_id;
-        
-        $(elementClass).after(json.markup);
-        
-        contentElementEdit(json.element_id);
-      
       } catch (e) {
-        $(htmlClass).prepend(data);
+        alert('Sorry, an error occured');
+        console.log('contentElementAdd(): Unable to parse json data');
+        console.log(data);
+        
+        return false;
       }
       
-
+      var elementClass = '#content_element_' + element_id;
+      
+      $(elementClass).after(json.markup);
+      
+      contentElementEdit(json.element_id);      
     }
   });
 

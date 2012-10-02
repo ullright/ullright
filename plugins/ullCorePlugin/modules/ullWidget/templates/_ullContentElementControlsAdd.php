@@ -10,7 +10,7 @@
     <?php echo link_to_function(
       '+',
       'contentElementAddList(' .
-        '"' . $element_id . '" ' .
+        '\'' . $element_id . '\' ' .
       ')'
     ) ?>
   </div>  
@@ -31,10 +31,10 @@
       <li onclick="enlargeClickArea(this)">
         <?php echo link_to_function($name,
           'contentElementAdd(' .
-            '"' . $element_type . '", ' .
-            '"' . $element_id . '", ' .
-            '"' . $url . '", ' .
-            '"' . $field_id . '" ' .
+            '\'' . $element_type . '\', ' .
+            '\'' . $element_id . '\', ' .
+            '\'' . $url . '\', ' .
+            '\'' . $field_id . '\' ' .
           ')'   
         ) ?>
       </li>

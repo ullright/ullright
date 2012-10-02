@@ -32,9 +32,11 @@
 }
 
 
-.ull_cms_edit .edit_action_buttons,
-.ull_newsletter_edit .edit_action_buttons,
-.ull_user_edit .edit_action_buttons
+/* The selector in the middle prevent the fixed action buttons for inline or
+   overlay forms */
+.ull_cms_edit form > .edit_container > .edit_action_buttons,
+.ull_newsletter_edit form > .edit_container > .edit_action_buttons,
+.ull_user_edit form > .edit_container > .edit_action_buttons
 {
   position: fixed;
   bottom: 0;

@@ -4,6 +4,9 @@
 <!-- ullWidgetGallery --> 
 <div id="ull_widget_gallery_container_<?php echo $id ?>" 
   class="ull_widget_gallery_container">
+  
+  <?php // Render the the actual form field ?>
+  <?php echo $field ?>  
     
   <div id="ull_widget_gallery_control_<?php echo $id ?>" 
     class="ull_widget_gallery_control">
@@ -40,18 +43,16 @@
     id="ull_widget_gallery_preview_<?php echo $id ?>">
   </ul>
   
-  <?php echo $field ?>
-  
   <?php echo javascript_tag('
       
 ullWidgetGalleryInitialize(' . 
-  '"' . $id . '", ' .
-  '"' . $single . '", ' .
-  '"' . $upload_url . '", ' .
-  '"' . $preview_url . '", ' .
-  '"' . ullCoreTools::getMaxPhpUploadSize() . '", ' .
-  '"' . __('Invalid file type', null, 'ullCoreMessages') . '", ' .
-  '"' . __('Please select only one file', null, 'ullCoreMessages') . '"' .
+  '\'' . $id . '\', ' .
+  '\'' . $single . '\', ' .
+  '\'' . $upload_url . '\', ' .
+  '\'' . $preview_url . '\', ' .
+  '\'' . ullCoreTools::getMaxPhpUploadSize() . '\', ' .
+  '\'' . __('Invalid file type', null, 'ullCoreMessages') . '\', ' .
+  '\'' . __('Please select only one file', null, 'ullCoreMessages') . '\'' .
 ');
 
 ') ?>

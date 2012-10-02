@@ -239,7 +239,7 @@ class BaseUllWidgetActions extends ullsfActions
       'field_id'        => $fieldId,
       'do_render_html'  => false,
     ));    
-
+    
     return $this->renderText(json_encode($return));
 
   }
