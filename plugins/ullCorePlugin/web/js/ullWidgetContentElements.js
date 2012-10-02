@@ -41,7 +41,7 @@ function contentElementInitialize (field_id)
   //Remove edit controls of the dummy element
   $('#content_element_controls_edit_dummy_first_' + field_id).remove();
   
-    
+  contentElementUpdateFormField(field_id);
     
 }
 
@@ -274,6 +274,9 @@ function contentElementUpdateFormField(field_id) {
   // empty the form field
   $(formFieldClass).val('');
   
+  // remove the dummy add element
+  var dummy = $('#content_element_dummy_first_fields_body').detach();
+  
   $(elementsClass).find('.content_element_html_container').each(function () {
     
     // Append the element's html
@@ -284,6 +287,9 @@ function contentElementUpdateFormField(field_id) {
     );
     
   });
+  
+  // re-insert the dummy add element
+  $('#'+ field_id).after(dummy);
 }
 
 

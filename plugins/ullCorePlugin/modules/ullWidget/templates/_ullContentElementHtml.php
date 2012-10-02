@@ -22,7 +22,7 @@
       )) ?>
       
       <?php $json = htmlentities(json_encode($element_data)) ?>
-      
+        
       <?php echo input_hidden_tag(
         'content_element_data_' . $element_id,
         $json,

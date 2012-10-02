@@ -158,6 +158,10 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_newsletter_edit');
     
+//     if ($request->isMethod('post')) {
+//       var_dump($request->getParameterHolder()->getAll());die;
+//     }
+    
     parent::executeEdit($request);
     
     $this->already_sent = (boolean) $this->generator->getRow()->submitted_at;
