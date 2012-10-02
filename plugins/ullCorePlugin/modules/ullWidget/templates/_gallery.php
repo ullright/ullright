@@ -40,6 +40,8 @@
     id="ull_widget_gallery_preview_<?php echo $id ?>">
   </ul>
   
+  <?php echo $field ?>
+  
   <?php echo javascript_tag('
       
 ullWidgetGalleryInitialize(' . 
@@ -54,7 +56,7 @@ ullWidgetGalleryInitialize(' .
 
 ') ?>
   
-  <?php echo $field ?>
+  
 
 <!-- End of ullWidgetGallery -->    
 </div>   

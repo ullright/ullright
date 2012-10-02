@@ -94,7 +94,7 @@ function ullWidgetGalleryRefreshPreview(id, url, single) {
   if ("" !== $("#" + id).val()) {
   
     var images = $("#" + id).val();
-  
+    
     $.ajax({
       url: url,
       data: { images:  images },
@@ -112,8 +112,9 @@ function ullWidgetGalleryRefreshPreview(id, url, single) {
   else {
     // Empty the preview
     $("#ull_widget_gallery_preview_" + id).html();
-    ullWidgetGalleryHideControls(id, single);
   }
+  
+  ullWidgetGalleryHideControls(id, single);
 }
  
 /**
