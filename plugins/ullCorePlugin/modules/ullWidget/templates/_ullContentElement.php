@@ -11,14 +11,16 @@
     'element_data'    => $element_data,
     'element_types'   => $element_types,
     'field_id'        => $field_id,
-    'do_render_html'  => $do_render_html 
+    'do_render_html'  => $do_render_html, 
+    'css_class'       => $css_class,
   )) ?>
   
   <?php include_component('ullWidget', 'ullContentElementForm', array(
     'element_data'    => $element_data,
     'element_types'   => $element_types,
     'field_id'        => $field_id,
-    'do_render_form'  => $do_render_form,      
+    'do_render_form'  => $do_render_form,
+    'css_class'       => $css_class,      
   )) ?>      
 
 </div>

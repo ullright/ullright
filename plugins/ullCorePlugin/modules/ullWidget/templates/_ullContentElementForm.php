@@ -5,6 +5,7 @@
 <?php $element_data = $sf_data->getRaw('element_data') ?>
 <?php $element_id = $element_data['id'] ?>
 <?php $element_type = $element_data['type'] ?>
+<?php $css_class = (isset($css_class)) ? $css_class : null ?>
 
 <div class="content_element_form content_element_form_<?php echo $element_type ?>"
   id="content_element_form_<?php echo $element_id ?>">
@@ -27,7 +28,8 @@
           'element_types=' . urlencode(json_encode($element_types)) . '&' .
           'element_type=' . $element_type . '&' .
           'element_id=' . $element_id . '&' .
-          'field_id=' . $field_id
+          'field_id=' . $field_id . '&' .
+          'css_class=' . $css_class
       ) ?>
     
       <?php echo button_to_function(

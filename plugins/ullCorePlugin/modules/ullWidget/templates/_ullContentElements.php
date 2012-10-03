@@ -17,6 +17,7 @@
     'field_id'        => $field_id,
     'do_render_html'  => false,
     'do_render_form'  => false,
+    'css_class'       => $css_class,
   )) ?>
   
   <?php foreach ($elements_data as $element_data): ?>

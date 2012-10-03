@@ -165,6 +165,7 @@ class BaseUllWidgetActions extends ullsfActions
     $elementId     = $request->getParameter('element_id');
     $fieldId       = $request->getParameter('field_id');
     $values        = $request->getParameter($elementType . '_' . $elementId . '_fields');
+    $css_class     = $request->getParameter('css_class');
     
     
     $elementData = array(
@@ -188,6 +189,7 @@ class BaseUllWidgetActions extends ullsfActions
         'element_data'    => $elementData,
         'element_types'   => $elementTypes,          
         'field_id'        => $fieldId,
+        'css_class'       => $css_class,
       ));      
       
       $return['status'] = 'valid';
@@ -202,6 +204,7 @@ class BaseUllWidgetActions extends ullsfActions
       'element_types'   => $elementTypes,
       'field_id'        => $fieldId,
       'generator'       => $generator,
+      'css_class'       => $css_class,
     ));
     
     $return['status'] = 'invalid';      
@@ -220,6 +223,7 @@ class BaseUllWidgetActions extends ullsfActions
     $elementTypes  = json_decode($request->getParameter('element_types'), true);
     $elementType   = $request->getParameter('element_type');
     $fieldId       = $request->getParameter('field_id');
+    $css_class     = $request->getParameter('css_class');
     
     $elementId  = uniqid();
     
@@ -238,6 +242,7 @@ class BaseUllWidgetActions extends ullsfActions
       'element_types'   => $elementTypes,
       'field_id'        => $fieldId,
       'do_render_html'  => false,
+      'css_class'       => $css_class,
     ));    
     
     return $this->renderText(json_encode($return));

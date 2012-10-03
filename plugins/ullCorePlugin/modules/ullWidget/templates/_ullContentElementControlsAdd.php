@@ -1,6 +1,7 @@
 <?php $element_data = $sf_data->getRaw('element_data') ?>
 <?php $element_id = $element_data['id'] ?>
 <?php $element_types = $sf_data->getRaw('element_types') ?>
+<?php $css_class = (isset($css_class)) ? $css_class : null ?>
 
 
 <div class="content_element_controls_add" 
@@ -22,7 +23,8 @@
       <?php $url = url_for('ullWidget/contentElementAdd?' .
           'field_id=' . $field_id. '&' .
           'element_type=' . $element_type . '&' .
-          'element_types=' . $element_types_json 
+          'element_types=' . $element_types_json . '&' . 
+          'css_class=' . $css_class          
       ) ?>      
       
       <li onclick="contentElementAdd(
