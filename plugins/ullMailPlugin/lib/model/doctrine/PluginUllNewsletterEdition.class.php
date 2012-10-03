@@ -47,7 +47,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     
     $body = "<html>\n" .
       "<head>\n" . $layoutHead . "\n</head>\n" . 
-      "\n<body>\n" . $body . "\n</body>" .
+      "\n<body class=\"newsletter_" . $this['UllNewsletterLayout']['slug'] . "\">\n" . $body . "\n</body>" .
       "\n</html>";
 
     // Create absolute image urls

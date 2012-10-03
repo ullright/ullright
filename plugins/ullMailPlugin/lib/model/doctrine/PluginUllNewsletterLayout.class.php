@@ -65,6 +65,55 @@ abstract class PluginUllNewsletterLayout extends BaseUllNewsletterLayout
         $path = $dir . '/ull_newsletter_layout_' . $this->slug . '.css';
     
         file_put_contents($path, $styles);
+        
+        // testing css 
+        
+        $css = new HTML_CSS();
+        $css->parseString($styles);        
+        $cssArray = $css->toArray();
+        
+        $outputArray = $cssArray;
+        
+        $outputArray = array();
+        
+        foreach ($cssArray as $baseSelector => $data)
+        {
+          $prefix = '.newsletter_' . $this->slug;
+          
+          // remove body tag
+          if ('body' === $baseSelector)
+          {
+            $outputArray[$prefix] = $data;
+          }
+          // handle comma separated lists
+          elseif (strpos($baseSelector, ','))
+          {
+            $parts = explode(',', $baseSelector);
+            foreach ($parts as &$part)
+            {
+              $part = trim($part);
+              $part = $prefix . ' ' . $part;
+            }
+            
+            $selector = implode(', ', $parts);
+            
+            $outputArray[$selector] = $data;
+          }
+          // "normal" prefixing
+          else
+          {  
+            $outputArray[$prefix . ' ' . $baseSelector] = $data;
+          }
+        }
+        
+        $css->fromArray($outputArray);
+        
+        $prefixedStyles = $css->toString();
+        
+        $path = $dir . '/ull_newsletter_layout_' . $this->slug . '_prefixed.css';
+    
+        file_put_contents($path, $prefixedStyles);        
+        
       }
     }
   }

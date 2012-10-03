@@ -10,10 +10,17 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
   public function __construct($options = array(), $attributes = array())
   {
     $this->addRequiredOption('element_types');
+    $this->addOption('css_class');
+    $this->addOption('stylesheet');
     
     parent::__construct($options, $attributes);
     
     $this->manageElementAssets($this->getOption('element_types'));
+    
+    if ($stylesheet = $this->getOption('stylesheet'))
+    {
+      $this->elementStylesheets[$stylesheet] = 'all';
+    }
   }
   
   /**
@@ -56,6 +63,7 @@ class ullWidgetContentElementsWrite extends sfWidgetFormTextarea
       'field'          => $field,
       'element_types'  => $elementTypes,
       'elements_data'  => $elementsData,
+      'css_class'      => $this->getOption('css_class'),
     ));
     
     return $return;

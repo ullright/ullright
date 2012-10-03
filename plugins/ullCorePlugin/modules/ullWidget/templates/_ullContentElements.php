@@ -25,6 +25,7 @@
         'element_data'    => $element_data,
         'element_types'   => $element_types,
         'field_id'        => $field_id,
+        'css_class'       => $css_class,
       )) ?>
       
   <?php endforeach ?>
