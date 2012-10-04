@@ -6,6 +6,18 @@
  * ************************************************
  */
 
+#content {
+  margin-top: 2em;
+}
+
+/**
+ * ullCms
+ */
+ 
+.ull_cms_content {
+  margin-top: 4em;
+} 
+
 
 /*
  * ************************************************
@@ -15,6 +27,18 @@
 
 #news {
   width: 650px;
+}
+
+#ull_news_create_link {
+  margin-bottom: 2em;
+}
+
+#ull_news_create_news {
+  overflow: hidden;
+} 
+
+#news_headline {
+  margin-top: 2em;
 }
 
 .ull_news_entry {
@@ -33,7 +57,7 @@
 }
 
 .ull_news_content {
-    margin-left: 140px;
+    margin-left: 160px;
 }
 
 .ull_news_title {
@@ -42,6 +66,10 @@
     font-weight: bold;
     margin-bottom: 1em;
     margin-top: 0;
+}
+
+.ull_news_date {
+  display: none;
 }
 
 #ull_news_create_news {
