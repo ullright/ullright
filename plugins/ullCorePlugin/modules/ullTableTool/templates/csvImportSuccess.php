@@ -37,7 +37,7 @@
   <div id="csv_errors">
   
     <h2><?php  echo __('Errors', null, 'common') ?></h2>
-  
+    
     <div id="csv_global_errors">
       <?php include_partial('ullTableTool/globalError', array('form' => $form)) ?>
     </div>
@@ -49,6 +49,20 @@
             array('%number%' => count($errors)), 'ullCoreMessages') ?>:
         </p>
       <?php endif ?>
+      
+      <?php echo ull_form_tag(array(
+        'action' => 'csvExport',
+        'filename' => $sf_params->get('module') . '_import_errors'
+      ), array('target' => '_blank')) ?>
+      
+        <input type="hidden" name="data" 
+          value="<?php echo htmlentities(json_encode($error_data)) ?>"
+        />
+        <input type="submit" 
+          value="<?php echo __('Download errors as csv file', null, 'ullCoreMessages') ?>"
+        />      
+      </form>
+      
       
       <?php foreach ($errors as $error): ?>
         <div id="csv_row_error">
@@ -64,14 +78,11 @@
               <li><?php echo $error['global_errors'] ?></li>
             <?php endif ?>
           
-            <?php foreach ($error['field_errors'] as $field_error): ?>
-              <?php var_dump($field_error) ?>
-              <li>
-                <b><?php echo $field_error['label'] ?>:</b>
-                <span class="form_error"><?php echo $field_error['error'] ?></span>
-                "<?php echo $field_error['value'] ?>"
-              </li>                      
-            <?php endforeach // error per row ?>  
+            <li>
+              <b><?php echo $error['field_error']['label'] ?>:</b>
+              <span class="form_error"><?php echo $error['field_error']['error'] ?></span>
+              "<?php echo $error['field_error']['value'] ?>"
+            </li>                      
           </ul>
           
         </div>

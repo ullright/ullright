@@ -80,6 +80,8 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     $this->getUriMemory()->setUri();
     
     $this->breadcrumbForList();
+    
+    $this->handleCsvExport();
   }
 
   /**
@@ -253,6 +255,31 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   
   
   /**
+   * Get param "data" as json_encoded array and return it as csv file
+   * 
+   * @param sfRequest $request
+   */
+  public function executeCsvExport(sfRequest $request)
+  {
+    if ($request->isMethod('post'))
+    {
+      $data = json_decode($request->getParameter('data'), true);
+      
+      $filename = $request->getParameter('filename');
+
+      if (!$filename)
+      {
+        $filename = uniqid();
+      }
+      
+      // For handleCsvExport()
+      $request->setParameter('export_csv', 'true');
+      $this->handleCsvExport($data, $filename);
+    }
+  }
+  
+  
+  /**
    * Template action for generic csv import
    * 
    * Configuration: Supply $this->mapperClass and optionally $this->customMessage  
@@ -289,6 +316,24 @@ abstract class BaseUllGeneratorActions extends ullsfActions
         $mappingErrors = $mapper->getErrors();
         $numberRowsImported = $mapper->getNumberImported();
         $errors = $mapper->getGeneratorErrorsArray();
+        
+        // Build error data
+        $errorData = array();
+        
+        $headers = $importer->getHeaders();
+        array_unshift($headers, 'Error');
+        $errorData[] = $headers;
+        
+        foreach ($errors as $error)
+        {
+          $row = $error['row_data'];
+          $errorString = implode(' ', $error['field_error']);
+          array_unshift($row, $errorString);
+          
+          $errorData[] = $row;
+        }
+        
+        $this->setVar('error_data', $errorData, true);
         
       } // end of if uploaded csv-file is valid
     } // end of if post

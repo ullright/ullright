@@ -46,19 +46,6 @@ abstract class BaseUllsfActions extends sfActions
   {
   }
   
-  /**
-   * Add csv export functionality for list and report views
-   * 
-   * TODO: move to BaseUllGeneratorActions when ullFlow is refactored to use 
-   *   BaseUllGeneratorActions
-   * 
-   * @see plugins/ullCorePlugin/lib/vendor/symfony/lib/action/sfAction#postExecute()
-   */
-  public function postExecute()
-  {
-    $this->handleCsvExport();
-  }  
-  
   
   /**
    * access check (group based)
@@ -356,20 +343,99 @@ abstract class BaseUllsfActions extends sfActions
   
   
   /**
-   * Prepare output for CSV export
+   * Prepare output for CSV export for list and report views
+   * 
+   * TODO: move to BaseUllGeneratorActions when ullFlow is refactored to use 
+   *   BaseUllGeneratorActions
+   * 
    */
-  protected function handleCsvExport()
+  protected function handleCsvExport($data = null, $filename = null)
   {
-    if (isset($this->generator) && $this->getRequestParameter('export_csv') == 'true')
+    
+    if ('true' !== $this->getRequestParameter('export_csv'))
     {
-      $this->setLayout(false);
-      sfConfig::set('sf_web_debug', false);
-      $this->setTemplate(sfConfig::get('sf_plugins_dir') . 
-        '/ullCorePlugin/modules/ullTableTool/templates/exportAsCsv');
-      $this->getResponse()->setContentType('application/csv');
-      $this->getResponse()->setHttpHeader('Content-Disposition',
-        'attachment;filename=' . ullCoreTools::sluggify($this->getResponse()->getTitle()) . '.csv;');
-    }     
+      return;
+    } 
+    
+    // Default filename for the csv file
+    if (null === $filename)
+    {
+      $filename = ullCoreTools::sluggify($this->getResponse()->getTitle());
+    }
+    
+    // For backward compatibility
+    if (isset($this->generator))
+    {
+      $data = $this->generator;
+      
+      // Handle template output escaping
+      if ($data instanceof sfOutputEscaperSafe)
+      {
+        $data = $data->getValue();
+      }
+    }
+    
+    // Support for ullGenerators
+    if ($data instanceof ullGenerator)
+    {
+      $data = $this->convertGeneratorToDataArrayForcsvExport($data);
+    }
+    
+    $this->data = $data;
+
+    $this->setLayout(false);
+    sfConfig::set('sf_web_debug', false);
+    
+    $this->setTemplate(sfConfig::get('sf_plugins_dir') . 
+      '/ullCorePlugin/modules/ullTableTool/templates/csvExport');
+    
+    $this->getResponse()->setContentType('application/csv');
+    $this->getResponse()->setHttpHeader('Content-Disposition',
+      'attachment;filename=' . $filename . '.csv;');
+  }
+  
+  
+  /**
+   * Convert list generator as array for csv export
+   * 
+   * @param ullGenerator $generator
+   */
+  protected function convertGeneratorToDataArrayForcsvExport($generator)
+  {
+    $data = array();
+    
+    // First row = headers
+    $data[] = $generator->getAutoRenderedLabels();
+    
+    // Add data rows
+    foreach ($generator->getForms() as $form)
+    {
+      $row = array();
+      
+      $cols = array_keys($generator->getAutoRenderedColumns());
+      
+      foreach ($cols as $columnName)
+      {
+        $row[] = $form[$columnName]->render();
+      }
+      
+      $data[] = $row;
+    }
+    
+    // Add sum row
+    if ($generator->getCalculateSums())
+    {
+      $row = array();
+      
+      foreach ($generator->getSumForm() as $widget)
+      {
+        $row[] = $widget->render();
+      }
+      
+      $data[] = $row;
+    }          
+    
+    return $data;
   }
   
   

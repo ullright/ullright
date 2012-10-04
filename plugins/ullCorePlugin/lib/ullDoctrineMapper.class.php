@@ -223,7 +223,7 @@ abstract class ullDoctrineMapper extends ullMapper
           
           $fieldError['label'] = str_replace(' *', '', $field->renderLabelName());
           $fieldError['error'] = ullCoreTools::print_r_ordinary(
-              $field->getError()->getMessage()
+              trim(strip_tags(str_replace("\n", ' ', $field->renderError())))
           );
           
           if ($value = $error->getValue())
@@ -231,14 +231,14 @@ abstract class ullDoctrineMapper extends ullMapper
             $fieldError['value'] = ullCoreTools::print_r_ordinary($value);
           }
           
-          $rowErrors['field_errors'] = $fieldError;
+          $rowErrors['field_error'] = $fieldError;
         }
       }
       
       $errors[] = $rowErrors;
     }
     
-    var_dump($errors);
+//     var_dump($errors);
     
     return $errors;
   }

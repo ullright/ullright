@@ -157,6 +157,8 @@ class BaseUllTimeActions extends BaseUllGeneratorActions
     $this->generator->buildForm($rows);
 
     $this->setVar('generator', $this->generator, true);
+    
+    $this->handleCsvExport();
   }
   
   
