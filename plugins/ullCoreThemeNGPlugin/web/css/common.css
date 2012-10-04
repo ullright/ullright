@@ -206,6 +206,12 @@ a.link_new_window {
   -webkit-box-shadow: #888888 5px 5px 20px;  	
 }
 
+.ultra_big {
+  font-size: 4em;
+  font-weight: bold;
+  line-height: 0.5em;
+}
+
 /* form errors */
 .has_error {
   border: 2px solid red;
