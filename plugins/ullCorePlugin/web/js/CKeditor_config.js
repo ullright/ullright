@@ -32,8 +32,6 @@ CKEDITOR.editorConfig = function( config )
 	// Remove dom elements path from the bottom status bar
 	config.removePlugins = 'elementspath'; 
 	
-	config.extraPlugins = 'stylesheetparser';
-	
 	// shy button (Conditional hyphen)
 //	config.extraPlugins = 'shybutton';
 //	config.keystrokes =config.keystrokes.concat([ [ CKEDITOR.CTRL + 109 /*-*/,

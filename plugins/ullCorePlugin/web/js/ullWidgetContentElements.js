@@ -89,12 +89,15 @@ function contentElementSubmit(element_id, element_type, url, field_id) {
             // Destroy CKEditor instances if there are any
             // We can only identify them by the element_id, so we loop through all
             // TODO: this does not belong here. Refactor to event dispatcher
-            $.each(CKEDITOR.instances, function (index, value) {
-              if (index.indexOf(element_id) !== -1)
-              {
-                CKEDITOR.instances[index].destroy(true);
-              }
-            });
+            if (window.CKEDITOR !== undefined)
+            {
+              $.each(CKEDITOR.instances, function (index, value) {
+                if (index.indexOf(element_id) !== -1)
+                {
+                  CKEDITOR.instances[index].destroy(true);
+                }
+              });
+            }
             
             $(elementClass).replaceWith(json.markup);
             
