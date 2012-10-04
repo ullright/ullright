@@ -48,6 +48,8 @@
 ullWidgetGalleryInitialize(' . 
   '\'' . $id . '\', ' .
   '\'' . $single . '\', ' .
+  '\'' . $width . '\', ' .
+  '\'' . $height . '\', ' .            
   '\'' . $upload_url . '\', ' .
   '\'' . $preview_url . '\', ' .
   '\'' . ullCoreTools::getMaxPhpUploadSize() . '\', ' .

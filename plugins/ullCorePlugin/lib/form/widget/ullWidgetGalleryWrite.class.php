@@ -36,6 +36,8 @@ class ullWidgetGalleryWrite extends sfWidgetFormInputHidden /*sfWidgetFormTextar
       'upload_url'    => $upload_url,
       'preview_url'   => $preview_url,
       'single'        => $config['single'],
+      'width'         => $config['image_width'],
+      'height'        => $config['image_height'],
     ));
     
     return $markup;

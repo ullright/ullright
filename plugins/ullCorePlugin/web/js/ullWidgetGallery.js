@@ -5,6 +5,8 @@
 function ullWidgetGalleryInitialize(
     id, 
     single,
+    width,
+    height,
     upload_url, 
     preview_url, 
     max_file_size, 
@@ -18,7 +20,8 @@ function ullWidgetGalleryInitialize(
     drop_element: "ull_widget_gallery_container_" + id,
     url: upload_url,
     max_file_size: max_file_size + "mb",
-    multi_selection: !single 
+    multi_selection: !single,
+    resize : {width : width, height : height, quality : 90},
   });
   
   uploader.init();
