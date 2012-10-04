@@ -906,11 +906,9 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <target>%number% Zeilen erfolgreich importiert</target>
       </trans-unit> 
       
-
-      
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="4007">
+        <source>Download errors as csv file</source>
+        <target>Fehlerhafte Daten als CSV-Datei zum Korrigieren herunterladen</target>
       </trans-unit>
       
       <trans-unit id="">
