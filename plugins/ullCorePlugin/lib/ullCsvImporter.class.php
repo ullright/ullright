@@ -3,15 +3,35 @@
 /**
  * Simple importer for comma separated value files (csv)
  * 
+ * - Currently takes a path to a file 
  * - Features auto-detection of delimiter 
  * - Currently supports comma, semicolon and tabs as delimiters
+ * - Returns an array with the column headers as keys:
+ * 
+ * csv:
+ *  "First name","Email"
+ *  "Claudio","claudio@example.com"
+ *  "Hugo",
+ * 
+ * array:
+ *    1 => 
+ *      'First name' => 'Claudio'
+ *      'Email' => 'claudio@example.com'
+ *    2 => 
+ *      'First name' => 'Hugo'
+ *      'Email' => null
+ *      
+ * @see unit test ullCsvImporterTest.php for more examples
  *
  * Assumptions:
  *
- * - The first line of the csv file is assumed to be the column header names
+ * - The first line of the csv file are the column header names
  * - Enclosure is currently fixed to double quotes "
  * - Escape is currently fixed to backslash \
- 
+ * 
+ *
+ * @todo allow to give csv as string, allow config of enclosure
+ *
  * @author klemens.ullmann-marx@ull.at
  */
 class ullCsvImporter
@@ -83,6 +103,8 @@ class ullCsvImporter
   {
     // Rewind file handle pointer and set to beginning of first data line 
     rewind($this->handle); 
+    
+    // TODO: KU 2012-10-04 is this line necessary?
     fgetcsv($this->handle, 0, $this->getDelimiter());
     
     $return = array();
@@ -121,12 +143,14 @@ class ullCsvImporter
   
   
   /**
-   * Try to detect the used csv delimiter
+   * Try to detect the used csv delimiter by doing a bit of statistics
+   * on the most commonly used separater characters
    * 
    * Choose the most often used delimiter
    */
   protected function detectDelimiter()
   {
+    // Get the first 1024 characters
     $csv = file_get_contents($this->path, false, null, -1, 1024);
     
     $array = array();

@@ -16,7 +16,6 @@ class ullMapper
     $mapping = array(),
     $errors = array()
   ;
-  
  
   /**
    * Constructor 

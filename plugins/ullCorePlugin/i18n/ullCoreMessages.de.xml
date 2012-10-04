@@ -911,9 +911,9 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
         <target>Fehlerhafte Daten als CSV-Datei zum Korrigieren herunterladen</target>
       </trans-unit>
       
-      <trans-unit id="">
-        <source></source>
-        <target></target>
+      <trans-unit id="4008">
+        <source>Please be patient, this can take some time</source>
+        <target>Bitte um Geduld, das kann einige Zeit dauern</target>
       </trans-unit>
       
       

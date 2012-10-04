@@ -128,6 +128,8 @@
             <?php             
               echo ull_submit_tag(__('Upload', null, 'common'))  
             ?>
+            &nbsp; &nbsp; <?php echo __('Please be patient, this can take some time', 
+              null, 'ullCoreMessages') ?>
           </li>
       </ul>
   </div>
