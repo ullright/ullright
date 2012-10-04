@@ -882,8 +882,8 @@ Sie können Ihr Konto unter %edit_account_url% bearbeiten.
       </trans-unit>         
       
       <trans-unit id="4002">
-        <source>The following rows could not be imported</source>
-        <target>Die folgenden Zeilen konnten nicht importiert werden</target>
+        <source>The following %number% rows could not be imported</source>
+        <target>Die folgenden %number% Zeilen konnten nicht importiert werden</target>
       </trans-unit>
       
       <trans-unit id="4003">

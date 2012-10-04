@@ -442,8 +442,8 @@ Benutzer-Details: %url%</target>
 <!-- csv import -->
 
 <trans-unit id="701">
-<source>Expected columns: %columns%</source>
-<target>Erwartete Spalten: %columns%</target>
+<source>Upload a csv file with your data and the following column headers: %columns%</source>
+<target>Laden Sie eine csv-Datei mit Ihren Daten und folgenden Spaltenüberschriften hoch: %columns%</target>
 </trans-unit>
 
 <trans-unit id="702">

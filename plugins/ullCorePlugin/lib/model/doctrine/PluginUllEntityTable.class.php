@@ -102,6 +102,51 @@ class PluginUllEntityTable extends UllRecordTable
       return $entity->id;
     }
   }
+  
+  /**
+   * Find a user by email
+   * 
+   * Attention: returns only one result in case of ambiguous email
+   * 
+   * @param string $email
+   * @return UllEntity
+   */
+  public static function findByEmail($email)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->from('UllEntity e')
+      ->where('e.email = ?', $email)
+      ->limit(1)
+      ->useResultCache(true)
+    ;
+    // Note: there seems to be no noticable performance gain with hydrate on demand
+    $result = $q->execute(null, Doctrine::HYDRATE_ON_DEMAND)->getFirst();
+    
+    return $result;
+  }  
+  
+  /**
+   * Return id by email
+   * 
+   * Performance optimized
+   * 
+   * @param string $email
+   * @return integer
+   */
+  public static function findIdByEmail($email)
+  {
+    $q = new Doctrine_Query;
+    $q
+      ->select('e.id')
+      ->from('UllEntity e')
+      ->where('e.email = ?', $email)
+      ->useResultCache(true)
+    ;
+    $result = $q->execute(null, Doctrine::HYDRATE_NONE);
+    
+    return $result[0][0];
+  }
 
 
   /**

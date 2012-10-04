@@ -47,4 +47,3 @@ $t->diag('getSubordinates()');
 
   $t->is(count($subordinates), 0, 'Returns no subordinate to be shown in the orgchart');
     
-  

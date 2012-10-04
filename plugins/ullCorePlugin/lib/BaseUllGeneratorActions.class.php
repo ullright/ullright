@@ -263,9 +263,9 @@ abstract class BaseUllGeneratorActions extends ullsfActions
   {
     $form = new ullCsvUploadForm();
     
-    $generatorErrors = array();
     $mappingErrors = array();
     $numberRowsImported = 0;    
+    $errors = null;
 
     if ($request->isMethod('post'))
     {
@@ -282,23 +282,22 @@ abstract class BaseUllGeneratorActions extends ullsfActions
         $importer = new ullCsvImporter($path);
         $rows = $importer->toArray();
         unlink($path);
-
         
         $mapper = new $this->mapper_class($rows);
         $mapper->mapValidateAndSave();
         
-        $generatorErrors = $mapper->getGeneratorErrors();
         $mappingErrors = $mapper->getErrors();
         $numberRowsImported = $mapper->getNumberImported();
+        $errors = $mapper->getGeneratorErrorsArray();
         
       } // end of if uploaded csv-file is valid
     } // end of if post
     
         
-    $this->form = $form;
-    $this->generator_errors = $generatorErrors;
-    $this->mapping_errors = $mappingErrors;
     $this->number_rows_imported = $numberRowsImported;
+    $this->warnings = $mappingErrors;
+    $this->setVar('errors', $errors, true);
+    $this->form = $form;
     
     $this->setTableToolTemplate('csvImport');
   }  

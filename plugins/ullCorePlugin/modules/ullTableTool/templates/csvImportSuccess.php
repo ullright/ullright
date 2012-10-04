@@ -14,16 +14,16 @@
   </div>
 <?php endif ?>
 
-<?php if (count($mapping_errors)): ?>
+<?php if (count($warnings)): ?>
   <div id="csv_warnings">
     
     <h2><?php  echo __('Warnings', null, 'common') ?></h2>
   
     <div id="csv_mapping_errors">
       <ul id="csv_mapping_error_list">
-        <?php foreach ($mapping_errors as $error): ?>
+        <?php foreach ($warnings as $warning): ?>
           <li>
-            <?php echo $error ?>
+            <?php echo $warning ?>
           </li>
         <?php endforeach ?>  
       </ul>
@@ -33,7 +33,7 @@
 <?php endif ?>  
   
 
-<?php if ($form->hasErrors() || count($generator_errors)): ?>
+<?php if ($form->hasErrors() || count($errors)): ?>
   <div id="csv_errors">
   
     <h2><?php  echo __('Errors', null, 'common') ?></h2>
@@ -43,37 +43,34 @@
     </div>
   
     <div id="csv_row_errors">
-      <?php if (count($generator_errors)): ?>
-        <p><?php echo __('The following rows could not be imported', null, 'ullCoreMessages') ?>:</p>
+      <?php if (count($errors)): ?>
+        <p>
+          <?php echo __('The following %number% rows could not be imported',
+            array('%number%' => count($errors)), 'ullCoreMessages') ?>:
+        </p>
       <?php endif ?>
       
-      <?php foreach ($generator_errors as $row_number => $row_generator): ?>
-        <?php $row_form = $row_generator->getForm() ?>
+      <?php foreach ($errors as $error): ?>
         <div id="csv_row_error">
           <h3>
-            <?php echo __('Line %number%', array('%number%' => $row_number), 'ullCoreMessages') ?> 
+            <?php echo __('Line %number%', array('%number%' => $error['row_number']), 'ullCoreMessages') ?> 
             
-              "<?php echo ullCoreTools::print_r_ordinary($row_form->getTaintedValues()) ?>"
+              "<?php echo ullCoreTools::print_r_ordinary($error['row_data']) ?>"
             :
           </h3> 
           
           <ul id="csv_row_error_list">
-            <?php if ($row_form->hasGlobalErrors()): ?>
-              <li><?php echo $row_form->renderGlobalErrors()  ?></li>
+            <?php if (array_key_exists('global_errors', $error)): ?>
+              <li><?php echo $error['global_errors'] ?></li>
             <?php endif ?>
           
-            <?php foreach ($row_form->getErrorSchema()->getErrors() as $fieldName => $error): ?>
-              <?php if ($row_form->offsetExists($fieldName)): ?>
-                <li>
-                  <?php $field = $row_form->offsetGet($fieldName) ?>
-                  <?php echo str_replace(' *', '', $field->renderLabel()) ?>:  
-                  <?php echo $field->renderError() ?>
-                  
-                  <?php if ($value = $error->getValue()): ?>
-                    "<?php echo ullCoreTools::print_r_ordinary($value) ?>"
-                  <?php endif ?>
-                </li>                      
-              <?php endif ?>
+            <?php foreach ($error['field_errors'] as $field_error): ?>
+              <?php var_dump($field_error) ?>
+              <li>
+                <b><?php echo $field_error['label'] ?>:</b>
+                <span class="form_error"><?php echo $field_error['error'] ?></span>
+                "<?php echo $field_error['value'] ?>"
+              </li>                      
             <?php endforeach // error per row ?>  
           </ul>
           

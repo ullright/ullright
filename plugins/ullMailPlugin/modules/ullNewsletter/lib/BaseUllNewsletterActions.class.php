@@ -535,8 +535,8 @@ User details: %url%',
     if (!$this->custom_message)
     {
       $this->custom_message = __(
-        'Expected columns: %columns%', 
-        array('%columns%' => '"First name", "Last name", "Email", "Mailing list"'),
+        'Upload a csv file with your data and the following column headers: %columns%', 
+        array('%columns%' => '| First name | Last name | Email | Mailing list |'),
         'ullMailMessages'
       );
     }

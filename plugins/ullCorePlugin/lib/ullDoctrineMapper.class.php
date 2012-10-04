@@ -12,6 +12,7 @@
 abstract class ullDoctrineMapper extends ullMapper
 {
   protected
+    $originalMappedData,
     $numberImported = 0,
     $generatorErrors = array()
   ; 
@@ -92,6 +93,7 @@ abstract class ullDoctrineMapper extends ullMapper
   public function mapValidateAndSave()
   {
     $rows = $this->map();
+    $this->originalMappedData = $rows;
 
     foreach ($rows as $rowNumber => $row)
     {
@@ -105,7 +107,7 @@ abstract class ullDoctrineMapper extends ullMapper
   
   
   /**
-   * Built an model-specifig sfFormDoctrine, bind and save it 
+   * Foreach row built an model-specifig sfFormDoctrine, bind and save it 
    *
    * @param array $row
    * @param integer $rowIdentifier  optional
@@ -135,6 +137,14 @@ abstract class ullDoctrineMapper extends ullMapper
     sfContext::getInstance()->getLogger()->info('ullDoctrineMapper::validateAndSave() generatorError: ' . count($this->generatorErrors));
   }
   
+  /**
+   * Return the original mapped data before beeing modified by 
+   * modifyRowPreValidation()
+   */
+  public function getOriginalMappedData()
+  {
+    return $this->originalMappedData;
+  }
   
   /**
    * Get the number of imported rows
@@ -157,5 +167,82 @@ abstract class ullDoctrineMapper extends ullMapper
   {
     return $this->generatorErrors;
   }
+  
+  /**
+   * Get generator errors as array
+   * 
+   * Example return:
+   * 
+   * array
+   *   0 => 
+   *     array
+   *       'row_number' => 10
+   *       'row_data' => 
+   *         array
+   *           'first_name' => string 'Andrea'
+   *           'last_name' => string 'Hüber'
+   *           'email' => string 'hüber@example.com'
+   *           'UllNewsletterMailingLists' => string 'Product news'
+   *       'global_errors => optional
+   *       'field_errors' => 
+   *         array
+   *           'label' => string 'E-Mail'
+   *           'error' => string 'Invalid.'
+   *           'value' => string 'hüber@example.com'
+   * 
+   * @return array
+   */
+  public function getGeneratorErrorsArray()
+  {
+    $generators = $this->getGeneratorErrors();
+    $originalData = $this->getOriginalMappedData();
+    
+    $errors = array();
+    
+    foreach ($generators as $rowNumber => $generator)
+    {
+      $rowErrors = array();
+      
+      $form = $generator->getForm();
+      
+      $rowErrors['row_number'] = $rowNumber + 1;
+      $rowErrors['row_data'] = $originalData[$rowNumber];
+      
+      if ($form->hasGlobalErrors())
+      {
+        $rowErrors['global_errors'] = $form->renderGlobalErrors();
+      }
+      
+      foreach ($form->getErrorSchema()->getErrors() as $fieldName => $error)
+      {
+        if ($form->offsetExists($fieldName)) 
+        {
+          $field = $form->offsetGet($fieldName);
+          
+          $fieldError = array();
+          
+          $fieldError['label'] = str_replace(' *', '', $field->renderLabelName());
+          $fieldError['error'] = ullCoreTools::print_r_ordinary(
+              $field->getError()->getMessage()
+          );
+          
+          if ($value = $error->getValue())
+          {
+            $fieldError['value'] = ullCoreTools::print_r_ordinary($value);
+          }
+          
+          $rowErrors['field_errors'] = $fieldError;
+        }
+      }
+      
+      $errors[] = $rowErrors;
+    }
+    
+    var_dump($errors);
+    
+    return $errors;
+  }
+  
+  
   
 }

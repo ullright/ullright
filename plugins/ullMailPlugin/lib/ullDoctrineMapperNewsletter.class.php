@@ -6,6 +6,11 @@
  */
 class ullDoctrineMapperNewsletter extends ullDoctrineMapper
 {
+  
+  protected 
+    $mailingListCache = array()
+  ;
+  
   /**
    * (non-PHPdoc)
    * @see plugins/ullCorePlugin/lib/ullDoctrineMapper::configureMapping()
@@ -46,7 +51,7 @@ class ullDoctrineMapperNewsletter extends ullDoctrineMapper
     //   address
     if ($email)
     {
-      $user = Doctrine::getTable('UllUser')->findOneByEmail($email);
+      $user = UllUserTable::findByEmail($email);
       
       if (!$user)
       {
@@ -68,17 +73,37 @@ class ullDoctrineMapperNewsletter extends ullDoctrineMapper
    */
   public function modifyRowPreValidation(array $row)
   {
+    // Resolve the newsletter mailing list relation
     $mailingListName = $row['UllNewsletterMailingLists'];
     
     if ($mailingListName) 
     {
-      $mailingList = Doctrine::getTable('UllNewsletterMailingList')
-        ->findOneByName($mailingListName);
-        
-      if ($mailingList)
+      $mailingListId = null;
+      
+      // check cache
+      if (array_key_exists($mailingListName, $this->mailingListCache))
       {
-        $row['UllNewsletterMailingLists']= array($mailingList->id);
+        $mailingListId = $this->mailingListCache[$mailingListName];
       }
+      else
+      {
+        $mailingList = Doctrine::getTable('UllNewsletterMailingList')
+          ->findOneByName($mailingListName);
+        
+        if ($mailingList)
+        {
+          $mailingListId = $mailingList->id;
+        }
+      }
+        
+      $this->mailingListCache[$mailingListName] = $mailingListId;
+        
+      if ($mailingListId)
+      {
+        $row['UllNewsletterMailingLists'] = array($mailingListId);
+      }
+      // By supplying the name we trigger a validation error and pass the name
+      // of the errorneous mailing list
       else
       {
         $row['UllNewsletterMailingLists'] = $mailingListName;
