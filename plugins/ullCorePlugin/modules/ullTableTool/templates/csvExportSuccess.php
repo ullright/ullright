@@ -13,6 +13,6 @@ if (count($data))
     
     $row = implode(';', $columns);
     
-    echo $row . "\n";  
+    echo utf8_decode($row) . "\n";  
   }
 }
