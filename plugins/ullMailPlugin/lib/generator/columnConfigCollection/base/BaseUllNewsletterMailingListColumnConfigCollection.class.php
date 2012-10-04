@@ -12,18 +12,25 @@ class BaseUllNewsletterMailingListColumnConfigCollection extends ullColumnConfig
       ->setLabel(__('Subscribed by default', null, 'ullMailMessages'))
       ->setHelp(__('New users are automatically subscribed to this mailing list',
         null, 'ullMailMessages'))
+      ->setAjaxUpdate(true)
     ;
 
     $this['is_default']
       ->setLabel(__('Default mailing list', null, 'ullMailMessages'))
       ->setHelp(__('This mailing list is automatically selected when composing a newsletter',
         null, 'ullMailMessages'))
+      ->setAjaxUpdate(true)
     ;
     
     $this['is_public']
       ->setLabel(__('Is public', null, 'ullMailMessages'))
       ->setHelp(__('Anyone can see and subscribe this mailing list',
         null, 'ullMailMessages'))
+      ->setAjaxUpdate(true)
+    ;    
+    
+    $this['is_active']
+      ->setAjaxUpdate(true)
     ;    
 
     $this->order(array(

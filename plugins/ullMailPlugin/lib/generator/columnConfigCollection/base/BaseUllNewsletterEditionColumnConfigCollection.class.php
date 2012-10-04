@@ -58,6 +58,10 @@ Examples: [FIRST_NAME], [LAST_NAME], [TITLE], ...', null, 'ullMailMessages'))
       ->setLabel(__('Sent', null, 'ullMailMessages'))
       ->setAccess('r')
     ;
+    
+    $this['is_active']
+      ->setAjaxUpdate(true)
+    ;
 
     $this->useManyToManyRelation('UllNewsletterMailingLists');
     $this['UllNewsletterMailingLists']

@@ -17,7 +17,7 @@ class BaseUllNewsletterMailingListTableConfiguration extends UllTableConfigurati
     $this->setName(__('Newsletter mailing list', null, 'ullMailMessages'));
     $this->setSearchColumns(array('name'));
     $this->setOrderBy('name');
-    $this->setFilterColumns(array('is_active' => null));
+    $this->setFilterColumns(array('is_active' => 'checked'));
     
     $this->setListColumns(array(
       'name',
