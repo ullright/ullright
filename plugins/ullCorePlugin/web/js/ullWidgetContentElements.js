@@ -32,6 +32,9 @@ function contentElementEdit(element_id) {
     });       
 	
 	  $(formClass).fadeIn(300);
+	  
+	  // scroll edit window to the top
+	  $(window).scrollTop($(formClass).position().top - 20);
   
   });
   
@@ -105,12 +108,10 @@ function contentElementSubmit(element_id, element_type, url, field_id) {
               darkeningCoverDisable()  
             });
             
-            
-            $(elementClass).hide();
-            $(elementClass).fadeIn(2000);
-            
             contentElementInitialize();
             contentElementUpdateFormField(field_id);
+            
+            $(window).scrollTop($(elementClass).position().top - 50);            
             
           });
         }
