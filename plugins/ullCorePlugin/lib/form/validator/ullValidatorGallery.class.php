@@ -2,6 +2,7 @@
 
 /**
  * ullValidatorGallery cleans empty lines
+ * and checks it the files do exists
  */
 class ullValidatorGallery extends sfValidatorString
 {
@@ -18,7 +19,11 @@ class ullValidatorGallery extends sfValidatorString
     {
       if ($trimmed = trim($line))
       {
-        $cleanLines[] = $trimmed;
+        $filename = ullCoreTools::webToAbsolutePath($trimmed);
+        if (file_exists($filename))
+        {
+          $cleanLines[] = $trimmed;
+        }
       }
     }
     
