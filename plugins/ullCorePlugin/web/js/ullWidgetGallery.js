@@ -95,6 +95,7 @@ function ullWidgetGalleryRefreshPreview(id, url, single) {
   
   //Load preview only if there are images/files
   if ("" !== $("#" + id).val()) {
+//    console.log('refresh: yes we have files: ', $("#" + id).val());
   
     var images = $("#" + id).val();
     
@@ -107,17 +108,21 @@ function ullWidgetGalleryRefreshPreview(id, url, single) {
         
         ullWidgetGallerySortable(id);
         ullWidgetGalleryImageActionHover(id);
-        ullWidgetGalleryImageDelete(id, url, single);      
+        ullWidgetGalleryImageDelete(id, url, single);
         
+        ullWidgetGalleryHideControls(id, single);
       }
     });
   } 
   else {
+//    console.log('refresh: no, we do not have files');
     // Empty the preview
-    $("#ull_widget_gallery_preview_" + id).html();
+    $("#ull_widget_gallery_preview_" + id).html('');
+    
+    ullWidgetGalleryHideControls(id, single);
   }
   
-  ullWidgetGalleryHideControls(id, single);
+  
 }
  
 /**
@@ -183,18 +188,26 @@ function ullWidgetGalleryImageDelete(id, preview_url, single) {
   
   $(selector).each(function(index, element) {
     
-    $(element).click(function(){
+    $(element).click(function() {
       
       $("#ull_widget_gallery_indicator_" + id).show();
       
       $.ajax({
         url: $(element).attr("href"),
-        success: function(){
+        success: function() {
           // delete image from form field
           var path = $(element).parents("li").find("img").attr("rel"); //TODO: why rel?
+//          console.log('delete: file to delete: ', path);
+          
           var value = $("#" + id ).val();
+//          console.log('delete: files before deleting: ', value);
+          
           value = value.split(path).join("");
+//          console.log('delete: new value: ', value);
+          
           $("#" + id).val(value);
+          
+//          console.log('delete: value: ', $("#" + id).val());
           
           ullWidgetGalleryRefreshPreview(id, preview_url, single);
 
@@ -209,7 +222,7 @@ function ullWidgetGalleryImageDelete(id, preview_url, single) {
 }
 
 /**
- * Handle controlls visibility
+ * Hide controls in single mode, when one file was already uploaded
  * 
  * @param id
  * @param single
@@ -218,17 +231,25 @@ function ullWidgetGalleryHideControls(id, single) {
   
   var selector = "#ull_widget_gallery_control_" + id;
   
+  // Do not hide anything for multi file upload mode
   if (!single) {
+    
+//    console.log('hide: we are in multi mode -> show!');
+    
     $(selector).show();
     return true;
   }
   
   var count = $("#ull_widget_gallery_preview_" + id).children().length;
   
+//  console.log('hide: count: ', count);
+  
   if (count > 0) {
+//    console.log('hide: we have a single image -> hide!');
     $(selector).hide();
   }
   else {
+//    console.log('hide: we do not have a single image -> show!');
     $(selector).show();
   }
 }

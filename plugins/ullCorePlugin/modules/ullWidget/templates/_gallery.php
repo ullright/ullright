@@ -3,7 +3,9 @@
 
 <!-- ullWidgetGallery --> 
 <div id="ull_widget_gallery_container_<?php echo $id ?>" 
-  class="ull_widget_gallery_container">
+  class="ull_widget_gallery_container 
+  <?php echo ($single) ? 'ull_widget_gallery_single' : '' ?>"
+>
   
   <?php // Render the the actual form field ?>
   <?php echo $field ?>  
@@ -25,10 +27,10 @@
       class=" ull_widget_gallery_add_files"
     />
       
-    <span class="ull_widget_gallery_control_drop">
+    <dfn class="ull_widget_gallery_control_drop">
       <?php echo $drop_msg ?>
       (<?php echo __('With Firefox/Chrome/Safari', null, 'ullCoreMessages') ?>)
-    </span>
+    </dfn>
     
     <span class="ull_widget_gallery_indicator" 
       id="ull_widget_gallery_indicator_<?php echo $id ?>">

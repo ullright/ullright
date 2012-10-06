@@ -25,7 +25,7 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('image_width', 670)
       ->setOption('image_height', 447)
       ->setOption('create_thumbnails', false)
-//       ->setOption('single', true)
+      ->setOption('single', true)
     ;
     
     
@@ -36,6 +36,7 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
         'gallery'         => __('Gallery'),
         'text_with_image' => __('Text with image'),          
       ))
+      ->disable()
     ;       
     
     $this->disable(array(
