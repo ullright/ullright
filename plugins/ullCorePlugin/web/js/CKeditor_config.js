@@ -17,7 +17,7 @@ CKEDITOR.editorConfig = function( config )
 	config.toolbar = 'MyToolbar';
 	config.toolbar_MyToolbar =
 	[
-		{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+		{ name: 'clipboard', items : [ 'Cut','Copy','PasteText','PasteFromWord','-','Undo','Redo' ] },
 		{ name: 'editing', items : [ 'Find','Replace' ] },
 		{ name: 'insert', items : [ 'Image','Table','HorizontalRule' ] },
                 '/',
@@ -29,17 +29,39 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'document', items : [ 'Source' ] }
 	];
 	
-	// Remove dom elements path from the bottom status bar
-	config.removePlugins = 'elementspath'; 
+
+  /*
+   *  Word import
+   */
+  
+  // Force word import cleanup on every paste, not only word
+  // From http://stackoverflow.com/questions/5227140/ckeditor-use-pastefromword-filtering-on-all-pasted-content/8379364#8379364
+  CKEDITOR.on('instanceReady', function(ev) {
+    ev.editor.on('paste', function(evt) {    
+        evt.data['html'] = '<!--class="Mso"-->'+evt.data['html'];
+    }, null, null, 9);
+  });
+  
+  config.pasteFromWordPromptCleanup = false;
+  config.pasteFromWordRemoveFontStyles = true;
+  config.pasteFromWordRemoveStyles = true;
+  
+  /*
+   * Plugin management
+   */
+  
+  // Remove dom elements path from the bottom status bar
+  config.removePlugins = 'elementspath';  
+  
+  // Add shy button (Conditional hyphen) 
+  config.extraPlugins = 'shybutton';
+  
+  // Shy button key binding
+  config.keystrokes =config.keystrokes.concat([ [ CKEDITOR.CTRL + 109 /*-*/,
+                                                  'insertshy' ] ]); 
 	
-	// shy button (Conditional hyphen)
-//	config.extraPlugins = 'shybutton';
-//	config.keystrokes =config.keystrokes.concat([ [ CKEDITOR.CTRL + 109 /*-*/,
-//	                                                'insertshy' ] ]);
-//	config.toolbar_MyToolbar =
-//		[
-//			{ name: 'misc', items : [ 'Shybutton' ] }
-//		];		
+	
+	
 	
   // Remove bottom status bar completely
 //	config.resize_enabled = false;	
