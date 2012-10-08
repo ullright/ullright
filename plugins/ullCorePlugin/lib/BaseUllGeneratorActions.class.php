@@ -717,10 +717,26 @@ abstract class BaseUllGeneratorActions extends ullsfActions
     }
     else 
     {
-      $modelName = $this->generator->getModelName();
-      return new $modelName;
+      // copy from new functionality
+      // currently only id field is supported
+      if ($clone = $this->getRequestParameter('clone'))
+      {
+        $original = Doctrine::getTable($this->generator->getModelName())->findOneById($clone);
+        if ($original)
+        {
+          if (method_exists($original, 'copyAsNew'))
+          {
+            $copy = $original->copyAsNew();
+            return $copy;
+          }
+        }
+      }
     }
     
+    // Create a new object
+    $modelName = $this->generator->getModelName();
+        
+    return new $modelName;
     
   }  
        

@@ -35,7 +35,9 @@
               );  
             ?>
           <?php else: ?>
-            <?php echo __('This newsletter has already been sent', null, 'ullMailMessages') ?>
+            <?php echo __('This newsletter has already been sent', null, 'ullMailMessages') ?><br />
+            <?php echo link_to(__('Copy the content of this newsletter into a new one', null, 'ullMailMessages'), 
+              'ullNewsletter/create?clone=' . $generator->getRow()->id) ?> 
           <?php endif ?>
         </li>
         

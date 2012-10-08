@@ -29,6 +29,18 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
   }
   
   /**
+   * Create a new Newsletter with some data copied from the current
+   */
+  public function copyAsNew()
+  {
+    $new = new UllNewsletterEdition();
+    $new->subject = $this->subject; 
+    $new->body = $this->body;
+    
+    return $new;
+  }
+  
+  /**
    * Decorate the body with the selected template
    * 
    * @return string

@@ -364,6 +364,12 @@ Beispiele: [FIRST_NAME], [LAST_NAME], [TITLE], ...</target>
 </trans-unit>
 
 
+<trans-unit id="408">
+<source>Copy the content of this newsletter into a new one</source>
+<target>Inhalt dieses Newsletter in einen neuen kopieren</target>
+</trans-unit>
+
+
 <!-- unsubscribe -->
 
 <trans-unit id="501">
