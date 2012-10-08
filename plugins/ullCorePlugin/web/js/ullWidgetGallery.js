@@ -18,13 +18,13 @@ function ullWidgetGalleryInitialize(
     runtimes: "html5",
     browse_button: "ull_widget_gallery_add_files_" + id,
     drop_element: "ull_widget_gallery_container_" + id,
+    /* flash_swf_url : '/ullCorePlugin/js/plupload/plupload.flash.swf', */
     url: upload_url,
     max_file_size: max_file_size + "mb",
     multi_selection: !single,
     resize : {width : width, height : height, quality : 90},
   });
   
-  uploader.init();
   
   // Bindings
   
@@ -74,14 +74,26 @@ function ullWidgetGalleryInitialize(
   
   uploader.bind("Error", function(up, err) {
     
-    $("#" + id + "_content").append("<div class=\"form_error\">" + 
-        invalid_file_type_msg + ": " +
-      (err.file ? err.file.name : "") + "</div>"
+    if (err.file) 
+    {
+      var msg = invalid_file_type_msg + ": " +
+        (err.file ? err.file.name : "");
+    }  
+    
+    else
+    {
+      var msg = 'Sorry, an error occured. Please make sure you\'re using a modern browser which supports html5 like Firefox, Chrome or Safari'; 
+    }
+    
+    $("#ull_widget_gallery_control_" + id).append("<div class=\"form_error\">" + 
+       msg + "</div>"
     );
     
     $("#ull_widget_gallery_indicator_" + id).hide();
     
   });  
+  
+  uploader.init();
   
   ullWidgetGalleryRefreshPreview(id, preview_url, single);  
   

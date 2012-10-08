@@ -12,7 +12,6 @@
   <?php if (!$user['display_name']): ?>
     <?php continue ?>
   <?php endif ?>
-
   <h3>
     <?php echo ull_link_to(
       $user['display_name'] . '(' . $user['num'] . ')' , 
