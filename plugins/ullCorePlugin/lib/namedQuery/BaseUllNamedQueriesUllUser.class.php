@@ -19,6 +19,7 @@ class BaseUllNamedQueriesUllUser extends ullNamedQueries
       ->add('ullNamedQueryUllUserAllActive')
       ->add('ullNamedQueryUllUserAllInactive')
       ->add('ullNamedQueryUllUserModifiedToday')
+      ->add('ullNamedQueryUllUserDuplicate')
     ;
   }
   

@@ -412,6 +412,31 @@ class BaseUllUserActions extends BaseUllGeneratorActions
   
   
   /**
+   * Report with duplicate users
+   */
+  public function executeFindDuplicateUsers()
+  {
+    $this->checkPermission('ull_user_edit');
+    
+    $concat = 'CONCAT(u.first_name, " ", u.last_name)';
+    
+    $q = new Doctrine_Query;
+    $q
+      ->select($concat . ' as person')
+      ->addSelect('u.display_name')
+      ->addSelect('COUNT(' . $concat . ') as num') 
+      ->from('UllUser u')
+      ->groupBy('person')
+      ->where('u.ull_user_status_id = ?', 1)
+      ->having('num > 1')
+      ->orderBy('person')
+    ;
+    
+    $this->users = $q->execute(null, Doctrine::HYDRATE_ARRAY);
+  }  
+  
+  
+  /**
    * Common functionality for registering / account editing
    *  
    * @param sfRequest $request

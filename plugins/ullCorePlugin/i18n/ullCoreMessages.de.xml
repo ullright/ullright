@@ -152,8 +152,18 @@
       </trans-unit>
       
       <trans-unit id="">
-        <source></source>
-        <target></target>
+        <source>List of duplicate users</source>
+        <target>Doppelte Benutzer</target>
+      </trans-unit>
+      
+      <trans-unit id="">
+        <source>Found %num% users with duplicate names</source>
+        <target>%num% Benutzer mit gleichem Namen gefunden</target>
+      </trans-unit>
+      
+      <trans-unit id="">
+        <source>Duplicate users</source>
+        <target>Doppelte Benutzer</target>
       </trans-unit>
       
       
