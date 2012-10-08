@@ -164,8 +164,50 @@ class BaseUllUserActions extends BaseUllGeneratorActions
     {
       $this->generator->getForm()->setDefault('password_confirmation', '********');
     }
-
-    $this->setTableToolTemplate('edit');
+  }  
+  
+  
+  
+  /**
+   * Ajax action to check to avoid duplicate ullUsers
+   */
+  public function executeCheckUserExists(sfRequest $request)
+  {
+    $this->checkPermission('ull_user_edit');
+    
+    if ($request->isXmlHttpRequest())
+    {
+      $firstName = $request->getParameter('first_name');
+      $lastName = $request->getParameter('last_name');
+      
+      $q = new UllQuery('UllUser');
+      $q
+        ->addSelect('id')
+        ->addWhere('first_name = ?', $firstName)
+        ->addWhere('last_name = ?', $lastName)
+        ->addWhere('UllUserStatus->is_active = ?', true)
+      ;
+      
+      $results = $q->execute(array(), Doctrine::HYDRATE_ARRAY);
+      
+      if (count($results))
+      {        
+        return $this->renderText($this->getPartial('ullUser/checkUserExists', array(
+          'first_name' => $firstName,
+          'last_name'  => $lastName,
+          'results'    => $results,
+        )));
+      }
+      else
+      {
+        return $this->renderText('');
+      }
+      
+    }
+    else
+    {
+      throw new RuntimeException('This action is only for ajax calls');
+    }       
   }  
   
   

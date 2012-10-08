@@ -140,6 +140,22 @@
 	      <source>[SHIFT %arrow%] - [ENTER] creates single line breaks</source>
 	      <target>[SHIFT %arrow%] - [ENTER] erzeugt einfache Zeilenumbrüche</target>
       </trans-unit>     
+
+      <trans-unit id="102">
+        <source>Attention: found one or more users with the same name</source>
+        <target>Achtung: Benutzer mit dem selben Namen gefunden</target>
+      </trans-unit> 
+      
+      <trans-unit id="103">
+        <source>View user data of %name%</source>
+        <target>Benutzerdaten von %name% anzeigen</target>
+      </trans-unit>
+      
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      
       
             
       
