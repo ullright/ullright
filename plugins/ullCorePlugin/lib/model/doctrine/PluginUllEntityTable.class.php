@@ -111,7 +111,7 @@ class PluginUllEntityTable extends UllRecordTable
    * @param string $email
    * @return UllEntity
    */
-  public static function findByEmail($email)
+  public static function findOneByEmail($email)
   {
     $q = new Doctrine_Query;
     $q
