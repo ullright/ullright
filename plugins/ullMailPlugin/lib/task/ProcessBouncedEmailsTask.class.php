@@ -112,9 +112,6 @@ EOF;
     */
     
     
-    /*
-     * Also deactivated at the moment. Further monitoring needed
-     *
     $deletedUsers = $this->deleteMailAddressesOnBounceMax($arguments, $options);
     $this->logNoisySectionIf(
       $deletedUsers, 
@@ -127,7 +124,7 @@ EOF;
       $this->name, 
       'Number of users with deleted email address: ' . count($deletedUsers)
     );
-    */
+    
     
     if (!$this->isDryRun())
     {
