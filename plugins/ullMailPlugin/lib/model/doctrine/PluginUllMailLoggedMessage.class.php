@@ -23,6 +23,9 @@ abstract class PluginUllMailLoggedMessage extends BaseUllMailLoggedMessage
    * from online view mode or directly from the email client (loading
    * the beacon image)
    * 
+   * Also updates the read counter in UllNewsletterEdition via event dispatching
+   * @see: UllNewsletterEdition::listenToUllMailLoggedMessageReadDetectedEvent()
+   * 
    * @param sfRequest $request the incoming request
    */
   public function handleTrackingRequest(sfRequest $request)
@@ -36,6 +39,8 @@ abstract class PluginUllMailLoggedMessage extends BaseUllMailLoggedMessage
     {
       $this['first_read_at'] = date('c');
     }
+    
+    $this->save();
     
     $dispatcher = sfProjectConfiguration::getActive()->getEventDispatcher();
     

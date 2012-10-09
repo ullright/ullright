@@ -120,7 +120,6 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
       
       //make use of the information that the user clicked on the read-online link     
       $loggedMessage->handleTrackingRequest($request);
-      $loggedMessage->save();
       
       //remove online link and tracking beacon (since we are in online
       //view mode anyway and tracking was already handled) 
@@ -504,18 +503,23 @@ User details: %url%',
       //make use of the information that the user opened the mail
       //and that the mail client requested the tracking image
       $loggedMessage->handleTrackingRequest($request);
-      $loggedMessage->save();
+      
+      $this->getLogger()->crit('ullNewsletter: handled beacon ok: ' . $loggedMessage->id);
+
     }
+    else
+    {
+      $this->getLogger()->crit('ullNewsletter: beacon failed');
+    }
+    
+    $imagePath = sfConfig::get('sf_root_dir') . '/plugins/ullMailTheme' .
+      sfConfig::get('app_theme_package', 'NG') . 'Plugin/web/images/beacon.png';
+    $beaconImage = file_get_contents($imagePath);          
     
     //serve the 1x1 transparent gif
     $this->getResponse()->setContentType('image/png');
     
-    $imagePath = sfConfig::get('sf_root_dir') . '/plugins/ullMailTheme' .
-      sfConfig::get('app_theme_package', 'NG') . 'Plugin/web/images/beacon.png';
-    $beaconImage = file_get_contents($imagePath);
-    print ($beaconImage);
-    
-    return sfView::NONE;
+    return $this->renderText($beaconImage);
   }
   
   /**
