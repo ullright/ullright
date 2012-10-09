@@ -25,6 +25,8 @@ function ullWidgetGalleryInitialize(
     resize : {width : width, height : height, quality : 90},
   });
   
+  uploader.init();
+  
   
   // Bindings
   
@@ -92,8 +94,6 @@ function ullWidgetGalleryInitialize(
     $("#ull_widget_gallery_indicator_" + id).hide();
     
   });  
-  
-  uploader.init();
   
   ullWidgetGalleryRefreshPreview(id, preview_url, single);  
   
