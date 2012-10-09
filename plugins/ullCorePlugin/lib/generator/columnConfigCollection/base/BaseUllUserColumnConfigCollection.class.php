@@ -178,7 +178,8 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     ;
     
     // Set default subscriptions for new objects
-    $newsletters = Doctrine::getTable('UllNewsletterMailingList')->findByIsSubscribedByDefault(true);
+    $newsletters = Doctrine::getTable('UllNewsletterMailingList')
+      ->findByIsSubscribedByDefault(true);
     $this['UllNewsletterMailingLists']
       ->setDefaultValue($newsletters->getPrimaryKeys())
     ;    
