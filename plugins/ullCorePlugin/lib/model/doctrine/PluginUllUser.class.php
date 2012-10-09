@@ -150,11 +150,12 @@ abstract class PluginUllUser extends BaseUllUser
       
       if ($lastNameLength > $spaceForLastName)
       {
-        $lastName = substr($lastName, 0, $spaceForLastName) . '.$firstName';
+        $lastName = substr($lastName, 0, $spaceForLastName) . '.';
       }
     }  
     
     $parts = array();
+    
     if ($firstName)
     {
       $parts[] = $firstName;
@@ -163,7 +164,8 @@ abstract class PluginUllUser extends BaseUllUser
     {
       $parts[] = $lastName;
     }
-    $this->display_name = implode(' ', $parts);   
+    
+    $this->display_name = trim(implode(' ', $parts));   
   }
   
   
