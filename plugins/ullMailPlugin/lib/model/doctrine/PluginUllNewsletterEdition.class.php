@@ -47,7 +47,7 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
    */
   public function getDecoratedBody()
   {
-    $body = $this['body'];
+    $body = $this->cleanBody($this['body']);
     
     $layoutHead = $this['UllNewsletterLayout']['html_head'];
     $layoutBody = $this['UllNewsletterLayout']['html_body'];
@@ -70,6 +70,24 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
     ); 
     
     return $body; 
+  }
+  
+  
+  /**
+   * Perform cleaning
+   * 
+   * @param string $body
+   */
+  public function cleanBody($body)
+  {
+    //Search for a way to remove ullWidgetContentElement input hidden tags
+    
+//     $qp = new QueryPath($body);
+//     $qp->remove('input[type="hidden"]');
+    
+//     $body = $qp->find('body')->html();
+    
+    return $body;
   }
   
   
