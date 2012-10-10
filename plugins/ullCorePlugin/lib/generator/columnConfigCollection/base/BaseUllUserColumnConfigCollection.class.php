@@ -169,6 +169,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     
     // Used only for the versionable history
     $this['log']
+      ->setMetaWidgetClassName('ullMetaWidgetUllUserLog')
       ->setLabel(__('Log entry', null, 'ullCoreMessages'))
       ->disable()
     ;

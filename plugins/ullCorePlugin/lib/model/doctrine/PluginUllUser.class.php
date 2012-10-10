@@ -255,7 +255,7 @@ abstract class PluginUllUser extends BaseUllUser
    * @see BaseUllEntity::setLog()
    * @see __()
    */
-  public function setLog($text, $args = array(), $catalogue = 'messages')
+  public function setLogEntry($text, $args = array(), $catalogue = 'messages')
   {
     $array = array();
     
@@ -263,7 +263,7 @@ abstract class PluginUllUser extends BaseUllUser
     $array['args'] = $args;
     $array['catalogue'] = $catalogue;
     
-    $this->_set('log', json_encode($array));
+    $this->log = json_encode($array);
   }
   
   
@@ -272,25 +272,9 @@ abstract class PluginUllUser extends BaseUllUser
    * 
    * @see BaseUllEntity::setLog()
    */  
-  public function getLog()
+  public function getLogEntry()
   {
-    // Ignore when loading fixtures (no instance at fixture loading)
-    if (sfContext::hasInstance())
-    {
-      sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
-      
-      $value = $this->_get('log');
-      
-      if ($value)
-      {
-        $array = json_decode($value, true);
-        
-        if (array_key_exists('text', $array))
-        {
-          return __($array['text'], $array['args'], $array['catalogue']);
-        }
-      }
-    }
+    return self::decodeLog($this->log);
   }  
   
   /**
@@ -344,5 +328,37 @@ abstract class PluginUllUser extends BaseUllUser
       $this->email .
       '>';
   }
+  
+  
+  /**
+   * Decode the json format and translate the value
+   * 
+   * @param string $value
+   */
+  public static function decodeLog($value)
+  {
+    // Ignore when loading fixtures (no instance at fixture loading)
+    if (sfContext::hasInstance())
+    {
+      sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
+      
+      if ($value)
+      {
+        $array = json_decode($value, true);
+
+        // Check format
+        if (array_key_exists('text', $array) &&
+          array_key_exists('args', $array) &&
+          array_key_exists('catalogue', $array) &&
+          is_array($array['args'])
+        )
+        {
+          return __($array['text'], $array['args'], $array['catalogue']);
+        }
+      }
+    }
+  }
+  
+  
   
 }

@@ -24,7 +24,7 @@ abstract class PluginUllNewsletterMailingListSubscriber extends BaseUllNewslette
     // This seems to be necessary - why?
     $user->refresh(true);
     
-    $user->setLog('Subscribed to newsletter mailing list "%list%"',
+    $user->setLogEntry('Subscribed to newsletter mailing list "%list%"',
       array('%list%' => $this->UllNewsletterMailingList->name),
       'ullMailMessages'
     );
@@ -41,7 +41,7 @@ abstract class PluginUllNewsletterMailingListSubscriber extends BaseUllNewslette
   public function preDelete($event)
   {
     $user = $this->UllUser;
-    $user->setLog('Unsubscribed from newsletter mailing list "%list%"',
+    $user->setLogEntry('Unsubscribed from newsletter mailing list "%list%"',
       array('%list%' => $this->UllNewsletterMailingList->name),
       'ullMailMessages'
     );
