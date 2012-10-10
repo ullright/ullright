@@ -228,11 +228,12 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
         {
           $q = new Doctrine_Query();
           $q
-            ->delete($relation->getAssociationTable()->getComponentName())
+            ->from($relation->getAssociationTable()->getComponentName())
             ->where($relation->getLocalRefColumnName() . ' = ?', $this->object->id)
             ->andWhere($relation->getForeignRefColumnName() . ' = ?', $unlinkValue)
           ;
-          $q->execute();
+          $result = $q->execute();
+          $result->delete();
         }
       }
       
