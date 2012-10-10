@@ -160,6 +160,13 @@ UllUser:
       
     duplicate_tags_for_search:
       type: string(4000)      
+    
+    # Used to log events for a user. 
+    # The field is hidden in the form,
+    # but visible in the changelog (Versionable).
+    # Simply overwrite the field with a new message and save
+    log:
+      type: string(4000)
 
   relations:
     UllGroup:

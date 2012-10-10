@@ -412,7 +412,7 @@ Beispiele: [FIRST_NAME], [LAST_NAME], [TITLE], ...</target>
 <target>%email% hat sich von Liste %list% abgemeldet</target>
 </trans-unit>
 
-<trans-unit id="508">
+<trans-unit id="509">
 <source>The following user unsubscribed:
     
 Name:  %name%
@@ -429,8 +429,16 @@ Liste:  %list%
 Benutzer-Details: %url%</target>
 </trans-unit>
 
+<trans-unit id="510">
+<source>Unsubscribed from newsletter mailing list "%list%"</source>
+<target>Von Newsletter-Verteiler "%list%" abgemeldet</target>
+</trans-unit>
 
 
+<trans-unit id="511">
+<source>Subscribed to newsletter mailing list "%list%"</source>
+<target>Für Newsletter-Verteiler "%list%" angemeldet</target>
+</trans-unit>
 
 
 <!-- online link -->
@@ -456,6 +464,13 @@ Benutzer-Details: %url%</target>
 <source>Recipient import</source>
 <target>Empfänger importieren</target>
 </trans-unit>
+
+<!-- bounce mgmt -->
+<trans-unit id="702">
+<source>Removed email "%email%" because of %number% undeliverable errors (Bounce handling).</source>
+<target>E-Mailadresse "%email%" entfernt wegen %number% Unzustellbar-Fehlern (Bounce Handling).</target>
+</trans-unit>
+
 
 
     </body>

@@ -12,6 +12,51 @@
  */
 abstract class PluginUllNewsletterMailingList extends BaseUllNewsletterMailingList
 {
+  
+  /**
+   * Subscribe the given users to the current list
+   * 
+   * @param mixed $users (record or record collection)
+   * 
+   * @return integer The number of new subscriptions
+   */
+  public function subscribeUsers($userOrUsers)
+  {
+    // Normalize
+    $users = $userOrUsers;
+    
+    if (!$userOrUsers instanceof Doctrine_Collection)
+    {
+      $users = array($userOrUsers);
+    }
+    
+    $count = 0;
+    
+    foreach ($users as $user)
+    {
+      // Check if the association exists
+      $q = new Doctrine_Query;
+      $q
+        ->from('UllNewsletterMailingListSubscriber s')
+        ->where('s.ull_user_id = ?', $user['id'])
+        ->addWhere('s.ull_newsletter_mailing_list_id = ?', $this['id'])
+      ;      
+      
+      // Add only, if the association does not exist
+      if (!$q->count())
+      {
+        $subscriber = new UllNewsletterMailingListSubscriber;
+        $subscriber->UllUser = $user;
+        $subscriber->UllNewsletterMailingList = $this;
+        $subscriber->save();
+        
+        $count ++;
+      }
+    }
+    
+    return $count;
+  }
+  
   /**
    * Unsubscribe the given users from the current list
    * 
@@ -19,30 +64,35 @@ abstract class PluginUllNewsletterMailingList extends BaseUllNewsletterMailingLi
    * 
    * @return integer The number of unsubscribed entries
    */
-  public function unsubscribeUsers($users)
+  public function unsubscribeUsers($userOrUsers)
   {
     $userIds = array();
     
-    if ($users instanceof Doctrine_Record) //single user?
+    if ($userOrUsers instanceof Doctrine_Record)
     {
-      $userIds[] = $users['id'];
+      $userIds[] = $userOrUsers['id'];
     }
-    else //record collection
+    else
     {
-      foreach ($users as $user)
+      foreach ($userOrUsers as $user)
       {
         $userIds[] = $user['id'];
       }
     }
     
+    // Select and then delete to trigger UllNewsletterMailingListSubscriber hooks
     $q = new Doctrine_Query;
     $q
-      ->delete('UllNewsletterMailingListSubscriber s')
+      ->from('UllNewsletterMailingListSubscriber s')
       ->whereIn('s.ull_user_id', $userIds)
       ->addWhere('s.ull_newsletter_mailing_list_id = ?', $this['id'])
     ;
     
-    return $q->execute();
-  }
-  
+    $result = $q->execute();
+    $count = count($result);
+    $result->delete();
+    
+    return $count;
+  }  
+
 }

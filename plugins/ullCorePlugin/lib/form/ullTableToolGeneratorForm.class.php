@@ -158,6 +158,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
     }
   }
   
+  
   /**
    * Override parent's doSave() to provide support for many
    * to many relationships (also see saveManyToMany()).
@@ -193,7 +194,7 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       throw $this->getErrorSchema();
     }
 
-    if (!isset($this->widgetSchema[$columnName]))
+    if ( !isset($this->widgetSchema[$columnName]))
     {
       // somebody has unset this widget
       return;
@@ -204,16 +205,21 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
       $connection = $this->getConnection();
     }
 
-    $existing = $this->getPrimaryKeysEfficiently($this->object, $columnName);
+    // Normalize values
     $values = $this->getValue($columnName);
     if (!is_array($values))
     {
       $values = array();
     }
+    
+    $existing = $this->getPrimaryKeysEfficiently($this->object, $columnName);
 
+    // Calculate associations to be deleted
     $unlink = array_diff($existing, $values);
+    
     if (count($unlink))
     {
+      // Delete associations in the database
       if ($this->object->exists())
       {
         $relation = $this->object->getTable()->getRelation($columnName);
@@ -229,19 +235,21 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
           $q->execute();
         }
       }
-      else
-      {
-         $this->object->unlink($columnName, array_values($unlink));
-      }
+      
+      // Removes Doctrine object relations 
+      $this->object->unlink($columnName, array_values($unlink));
     }
 
+    // Calculates associations which need to be added
     $link = array_diff($values, $existing);
+    
     if (count($link))
     {
+      // Create associations in the database
       if ($this->object->exists())
       {
         $relation = $this->object->getTable()->getRelation($columnName);
-        $associationObjectName = $relation->getAssociationTable()->getComponentName();
+        $associationObjectName = $relation->getAssociationTable()->getComponentName();        
         
         foreach (array_values($link) as $linkValue)
         {
@@ -251,11 +259,13 @@ class ullTableToolGeneratorForm extends ullGeneratorForm
           $associationObject->save();        
         }
       }
-      else
-      {
-        $this->object->link($columnName, array_values($link));
-      }
+      
+      // Create Doctrine object relations 
+      $this->object->link($columnName, array_values($link));
+      // Refresh relations
+      $this->object->refreshRelated($columnName);
     }
+    
   }
   
   /**

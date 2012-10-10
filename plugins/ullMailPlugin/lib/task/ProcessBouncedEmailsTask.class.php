@@ -398,9 +398,13 @@ EOF;
     {
       $userList[] = $user->display_name . ' <' . $user->email . '>';
       
-      $user->email = '';
+      $user->setLog('Removed email "%email%" because of %number% undeliverable errors (Bounce handling).',
+        array('%email%' => $user->email, '%number%' => $user->num_email_bounces),
+        'ullMailMessages'
+      );
       $user->num_email_bounces = 0;
-      
+      $user->email = '';
+        
       if (!$this->isDryRun())
       {
         $user->save();

@@ -12,5 +12,40 @@
  */
 abstract class PluginUllNewsletterMailingListSubscriber extends BaseUllNewsletterMailingListSubscriber
 {
+  
+  /**
+   * Add an subscribe log entry for ullUser 
+   * 
+   * @see Doctrine_Record::preDelete()
+   */
+  public function postInsert($event)
+  {
+    $user = $this->UllUser;
+    // This seems to be necessary - why?
+    $user->refresh(true);
+    
+    $user->setLog('Subscribed to newsletter mailing list "%list%"',
+      array('%list%' => $this->UllNewsletterMailingList->name),
+      'ullMailMessages'
+    );
+  
+    $user->save();
+  }
+  
+  
+  /**
+   * Add an unsubscribe log entry for ullUser 
+   * 
+   * @see Doctrine_Record::preDelete()
+   */
+  public function preDelete($event)
+  {
+    $user = $this->UllUser;
+    $user->setLog('Unsubscribed from newsletter mailing list "%list%"',
+      array('%list%' => $this->UllNewsletterMailingList->name),
+      'ullMailMessages'
+    );
+    $user->save();
+  }  
 
 }

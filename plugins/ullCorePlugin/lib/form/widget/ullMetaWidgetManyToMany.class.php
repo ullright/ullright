@@ -2,6 +2,10 @@
 
 /**
  * This meta widget provides support for many to many relationships.
+ * 
+ * This widget implies the use of ullTableToolGeneratorForm.
+ * The form's value handling is handled there by doSave() / saveManyToMany()
+ * 
  * Both widget and validator need the 'model' option set.
  */
 class ullMetaWidgetManyToMany extends ullMetaWidget

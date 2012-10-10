@@ -18,7 +18,7 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
       'last_name_first', 
       'parent_ull_user_id', 
       'selected_culture', 
-      'is_active'
+      'is_active',
     ));
     
     $this['sex']->setMetaWidgetClassName('ullMetaWidgetSex');
@@ -163,8 +163,14 @@ class BaseUllUserColumnConfigCollection extends UllEntityColumnConfigCollection
     ;
     
     $this['duplicate_tags_for_search']
-      ->setLabel('Tags')
+      ->setLabel(__('Tags', null, 'ullCoreMessages'))
       ->setMetaWidgetClassName('ullMetaWidgetTaggable')
+    ;
+    
+    // Used only for the versionable history
+    $this['log']
+      ->setLabel(__('Log entry', null, 'ullCoreMessages'))
+      ->disable()
     ;
     
     $this->useManyToManyRelation('UllGroup');

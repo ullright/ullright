@@ -129,6 +129,11 @@
       <target>Zahlungsart</target>
       </trans-unit>  
       
+      <trans-unit id="27">
+      <source>Log entry</source>
+      <target>Protokoll-Eintrag</target>
+      </trans-unit>        
+      
       <!--  edit action -->
 
       <trans-unit id="100">

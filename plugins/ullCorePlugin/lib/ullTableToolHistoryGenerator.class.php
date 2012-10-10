@@ -86,6 +86,13 @@ class ullTableToolHistoryGenerator extends ullTableToolGenerator
       'created_at',
       'creator_user_id',  
     ), $this->ignoreRelations), true);
+    
+    // Hack: specific for UllUser -> refactor by allowing custom history 
+    //   columnConfigs
+    if ($this->columnsConfig->offsetExists('log'))
+    {
+      $this->columnsConfig['log']->setAccess('r');
+    }
 
     if ($enableFutureVersions)
     {
