@@ -4,7 +4,7 @@ include dirname(__FILE__) . '/../../../../../test/bootstrap/unit.php';
 
 class myTestCase extends sfDoctrineTestCase
 {
-  protected $columnsConfigMock = array();
+  protected $reference = array();
   
   public function initialize() 
   {
@@ -15,7 +15,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setAccess(false);
     $columnConfig->setUnique(true);
     $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
-    $this->columnsConfigMock['id'] = $columnConfig;
+    $this->reference['id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_string');
     $columnConfig->setWidgetAttributes(array('maxlength' => 64));
@@ -23,24 +23,24 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('My custom string label');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setTranslated(true);
-    $this->columnsConfigMock['my_string'] = $columnConfig;    
+    $this->reference['my_string'] = $columnConfig;    
     
     $columnConfig = new ullColumnConfiguration('my_text');
     $columnConfig->setLabel('My text');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetTextarea');
     $columnConfig->setTranslated(true);
-    $this->columnsConfigMock['my_text'] = $columnConfig;    
+    $this->reference['my_text'] = $columnConfig;    
     
     $columnConfig = new ullColumnConfiguration('namespace');
     $columnConfig->setAccess(null);
     $columnConfig->setWidgetAttributes(array('maxlength' => 32));
     $columnConfig->setValidatorOptions(array('required' => false, 'max_length' => 32));
-    $this->columnsConfigMock['namespace'] = $columnConfig;
+    $this->reference['namespace'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_boolean');
     $columnConfig->setLabel('My boolean');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetCheckbox');
-    $this->columnsConfigMock['my_boolean'] = $columnConfig;
+    $this->reference['my_boolean'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_email');
     $columnConfig->setWidgetAttributes(array('maxlength' => 64));
@@ -48,27 +48,49 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setLabel('My email');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetEmail');
     $columnConfig->setUnique(true);
-    $this->columnsConfigMock['my_email'] = $columnConfig;
+    $this->reference['my_email'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('my_select_box');
     $columnConfig->setWidgetOptions(array('ull_select' => 'my-test-select-box', 'add_empty' => true));
     $columnConfig->setWidgetAttributes(array());
     $columnConfig->setLabel('My select box');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllSelect');
-    $this->columnsConfigMock['my_select_box'] = $columnConfig;
-  
-    $columnConfig = new ullColumnConfiguration('my_useless_column');
+    $this->reference['my_select_box'] = $columnConfig;
+    
+    $columnConfig = new ullColumnConfiguration('my_useless_column');  
     $columnConfig->setWidgetAttributes(array('maxlength' => 64));
     $columnConfig->setValidatorOption('max_length', 64);
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetString');
     $columnConfig->setAccess(false);
-    $this->columnsConfigMock['my_useless_column'] = $columnConfig;
-  
+    $this->reference['my_useless_column'] = $columnConfig;    
+    
+    $columnConfig = new ullColumnConfiguration('my_content_elements');
+    $columnConfig->setWidgetOptions(array(
+      'element_types' => array(
+        'gallery'         => __('Gallery'),
+        'text_with_image' => __('Text with image'),          
+      ),
+    ));
+    $columnConfig->setLabel('My content elements');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetContentElements');
+    $this->reference['my_content_elements'] = $columnConfig;
+
+    $columnConfig = new ullColumnConfiguration('my_gallery');
+    $columnConfig->setOptions(array(
+      'image_width' => 670,
+      'image_height' => 447,
+      'create_thumbnails' => false,
+      'single' => true,  
+    ));
+    $columnConfig->setLabel('My gallery');
+    $columnConfig->setMetaWidgetClassName('ullMetaWidgetGallery');
+    $this->reference['my_gallery'] = $columnConfig;      
+    
     $columnConfig = new ullColumnConfiguration('ull_user_id');
     $columnConfig->setLabel('User');
     $columnConfig->setMetaWidgetClassName('ullMetaWidgetUllEntity');
     $columnConfig->setRelation(array('alias' => 'UllUser', 'model' => 'UllUser', 'foreign_id' => 'id'));
-    $this->columnsConfigMock['ull_user_id'] = $columnConfig;
+    $this->reference['ull_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('creator_user_id');
     $columnConfig->setLabel('Created by');
@@ -76,7 +98,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setAccess(null);
     $columnConfig->setRelation(array('alias' => 'Creator', 'model' => 'UllUser', 'foreign_id' => 'id'));
     $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
-    $this->columnsConfigMock['creator_user_id'] = $columnConfig;
+    $this->reference['creator_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('created_at');
     $columnConfig->setLabel('Created at');
@@ -84,7 +106,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setAccess(null);
     $columnConfig->setValidatorOption('required', true);
     $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
-    $this->columnsConfigMock['created_at'] = $columnConfig;
+    $this->reference['created_at'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updator_user_id');
     $columnConfig->setLabel('Updated by');
@@ -92,7 +114,7 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setAccess(null);
     $columnConfig->setRelation(array('alias' => 'Updator', 'model' => 'UllUser', 'foreign_id' => 'id'));
     $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
-    $this->columnsConfigMock['updator_user_id'] = $columnConfig;
+    $this->reference['updator_user_id'] = $columnConfig;
     
     $columnConfig = new ullColumnConfiguration('updated_at');
     $columnConfig->setWidgetOptions(array());
@@ -102,30 +124,30 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig->setAccess(null);
     $columnConfig->setValidatorOption('required', true);
     $columnConfig->setWidgetAttribute('class', ' advanced_form_field');
-    $this->columnsConfigMock['updated_at'] = $columnConfig;
+    $this->reference['updated_at'] = $columnConfig;
   }      
 
-  public function getColumnsConfigMock()
+  public function getReference()
   {
-    return $this->columnsConfigMock;
+    return $this->reference;
   }
   
-  public function compareSingleColumnConfig($columnConfig, $columnConfigMock)
+  public function compareSingleColumnConfig($columnConfig, $columnConfigReference)
   {
     $this->diag('Now comparing: ' . $columnConfig->getColumnName());
     
     //compare some of the more common values
-    $this->is_deeply($columnConfig->getWidgetOptions(), $columnConfigMock->getWidgetOptions(), 'widget options ok');
-    $this->is_deeply($columnConfig->getWidgetAttributes(), $columnConfigMock->getWidgetAttributes(), 'widget attributes ok');
-    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfigMock->getValidatorOptions(), 'validator attributes ok');
-    $this->is($columnConfig->getLabel(), $columnConfigMock->getLabel(), 'label ok');
-    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfigMock->getMetaWidgetClassName(), 'meta widget class name ok');
-    $this->is($columnConfig->getAccess(), $columnConfigMock->getAccess(), 'access ok');
+    $this->is_deeply($columnConfig->getWidgetOptions(), $columnConfigReference->getWidgetOptions(), 'widget options ok');
+    $this->is_deeply($columnConfig->getWidgetAttributes(), $columnConfigReference->getWidgetAttributes(), 'widget attributes ok');
+    $this->is_deeply($columnConfig->getValidatorOptions(), $columnConfigReference->getValidatorOptions(), 'validator attributes ok');
+    $this->is($columnConfig->getLabel(), $columnConfigReference->getLabel(), 'label ok');
+    $this->is($columnConfig->getMetaWidgetClassName(), $columnConfigReference->getMetaWidgetClassName(), 'meta widget class name ok');
+    $this->is($columnConfig->getAccess(), $columnConfigReference->getAccess(), 'access ok');
     //we don't need this anymore, compare access to null instead
-    //$this->is($columnConfig->getIsInList(), $columnConfigMock->getIsInList(), 'isInList ok');
-    $this->is_deeply($columnConfig->getRelation(), $columnConfigMock->getRelation(), 'relation ok');
-    $this->is($columnConfig->getUnique(), $columnConfigMock->getUnique(), 'unique ok');
-    $this->is($columnConfig->getTranslated(), $columnConfigMock->getTranslated(), 'translation ok');
+    //$this->is($columnConfig->getIsInList(), $columnConfigReference->getIsInList(), 'isInList ok');
+    $this->is_deeply($columnConfig->getRelation(), $columnConfigReference->getRelation(), 'relation ok');
+    $this->is($columnConfig->getUnique(), $columnConfigReference->getUnique(), 'unique ok');
+    $this->is($columnConfig->getTranslated(), $columnConfigReference->getTranslated(), 'translation ok');
   }
 }
 
@@ -133,15 +155,15 @@ class myTestCase extends sfDoctrineTestCase
 sfContext::createInstance($configuration);
 sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 
-$t = new myTestCase(151, new lime_output_color, $configuration);
+$t = new myTestCase(171, new lime_output_color, $configuration);
 $path = sfConfig::get('sf_root_dir') . '/plugins/ullCorePlugin/data/fixtures/';
 $t->setFixturesPath($path);
-
-$tests = Doctrine::getTable('TestTable')->findAll();
 
 $t->initialize();
 
 $t->begin('__construct()');
+
+  $tests = Doctrine::getTable('TestTable')->findAll();
   
   $tableTool = new ullTableToolGenerator('TestTable', 'w');
   $t->isa_ok($tableTool, 'ullTableToolGenerator', '__construct() returns the correct object');
@@ -167,16 +189,16 @@ $t->diag('getColumnConfig()');
   $columnsConfig = $tableTool->getColumnsConfig();
   $t->isa_ok($columnsConfig, 'TestTableColumnConfigCollection',
     'columnsConfig is an TestTableColumnConfigCollection object');
-  $t->is(count($columnsConfig), 13, 'columnsConfig has the correct number of columns');
+  $t->is(count($columnsConfig), 15, 'columnsConfig has the correct number of columns');
 
-  $mocks = $t->getColumnsConfigMock();
+  $references = $t->getReference();
   foreach($columnsConfig as $columnConfig)
   {
-    $columnConfigMock = current($mocks);
-    next($mocks);
+    $columnConfigReference = current($references);
+    next($references);
     
     $t->isa_ok($columnConfig, 'ullColumnConfiguration', 'column configuration is correct class');
-    $t->compareSingleColumnConfig($columnConfig, $columnConfigMock);
+    $t->compareSingleColumnConfig($columnConfig, $columnConfigReference);
   }
 
 $t->diag('getIdentifierUrlParams() without calling buildForm()');

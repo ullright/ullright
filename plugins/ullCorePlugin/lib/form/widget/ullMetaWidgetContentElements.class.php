@@ -22,7 +22,7 @@ class ullMetaWidgetContentElements extends ullMetaWidget
   
   protected function configureReadMode()
   {
-    $this->columnConfig->removeWidgetOption('elements');
+    $this->columnConfig->removeWidgetOption('element_types');
     
     parent::configureReadMode();
   }

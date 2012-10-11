@@ -79,12 +79,11 @@ class ullMetaWidgetGallery extends ullMetaWidget
    * (non-PHPdoc)
    * @see plugins/ullCorePlugin/lib/form/widget/ullMetaWidget#configureReadMode()
    */
-//  protected function configureReadMode()
-//  {
-//    $this->addWidget(new ullWidgetGalleryRead(
-//      array_merge($this->columnConfig->getWidgetOptions(), array('path' => $this->path)), 
-//      $this->columnConfig->getWidgetAttributes()
-//    ));
-//    $this->addValidator(new sfValidatorPass());    
-//  }  
+ protected function configureReadMode()
+ {
+    $this->columnConfig->removeWidgetOption('config');
+    
+    parent::configureReadMode();
+ }
+ 
 }
