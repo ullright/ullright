@@ -22,8 +22,11 @@ class TestTableTableConfiguration extends ullTableConfiguration
       ->setOrderBy('id')
       ->setListColumns(array(
         'my_string',
+        'my_text', 
         'my_boolean',
         'my_email',
+        'my_select_box',
+        'ull_user_id', 
       ))
     ;
   }

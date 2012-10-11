@@ -55,7 +55,7 @@ $b
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'create')
   ->isRequestParameter('table', 'TestTable')
-  ->checkResponseElement('table tr', 6) // number of displayed fields
+  ->checkResponseElement('table tr', 8) // number of displayed fields
   ->checkResponseElement('select#fields_my_select_box > option', 3) // number of options for the my_select_box field
   ->checkResponseElement('select#fields_my_select_box > option', true)
   ->checkResponseElement('select#fields_my_select_box > option + option', 'My first option')
@@ -263,7 +263,7 @@ $b
   ->isRequestParameter('table', 'TestTable')
   ->isRequestParameter('id', 1)
   ->responseContains('Foo Bar')
-  ->click('Delete')
+  ->click('Delete', array(), array('position' => 2))
   ->isRedirected()
   ->isRequestParameter('module', 'ullTableTool')
   ->isRequestParameter('action', 'delete')
