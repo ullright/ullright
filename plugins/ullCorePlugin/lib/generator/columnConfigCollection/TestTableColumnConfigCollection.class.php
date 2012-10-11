@@ -28,15 +28,12 @@ class TestTableColumnConfigCollection extends ullColumnConfigCollection
       ->setOption('single', true)
     ;
     
-    
-    
     $this['my_content_elements']
       ->setMetaWidgetClassName('ullMetaWidgetContentElements')
       ->setWidgetOption('element_types', array(
         'gallery'         => __('Gallery'),
         'text_with_image' => __('Text with image'),          
       ))
-      ->disable()
     ;       
     
     $this->disable(array(
