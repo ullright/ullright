@@ -112,6 +112,7 @@ $t->diag('mapValidateAndSave()');
   $mapper->mapValidateAndSave();
 
   $user = Doctrine::getTable('UllUser')->findOneByEmail('k@ull.at');
+  
   $t->is($user->first_name, 'Klemens', 'Klemens: first name ok');
   $t->is($user->last_name, 'Ullmann-Marx', 'Klemens: last name ok');
   

@@ -51,7 +51,7 @@ class ullDoctrineMapperNewsletter extends ullDoctrineMapper
     //   address
     if ($email)
     {
-      $user = UllUserTable::findOneByEmail($email);
+      $user = UllUserTable::findOneByEmailCached($email);
       
       if (!$user)
       {
