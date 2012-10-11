@@ -8,10 +8,7 @@ inactive_users:
 
 i18n:
   class: i18nFilter
-#referer:
-#  class: refererFilter
-theme:
-  class: themeFilter
+
 
 cache:     ~
 common:
