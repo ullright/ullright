@@ -58,12 +58,12 @@ $t->begin('ullUser log subscription entry');
   
 $t->diag('ullUser log entry upon subscription');
   $list->subscribeUsers($user);
-  $t->is($user->log, 'Subscribed to newsletter mailing list "Product news"', 'Creates ullUser log entry');
+  $t->is($user->getLogEntry(), 'Subscribed to newsletter mailing list "Product news"', 'Creates ullUser log entry');
   
   
 $t->diag('ullUser log entry upon unsubscription');
   $list->unsubscribeUsers($user);
-  $t->is($user->log, 'Unsubscribed from newsletter mailing list "Product news"', 'Creates ullUser log entry');
+  $t->is($user->getLogEntry(), 'Unsubscribed from newsletter mailing list "Product news"', 'Creates ullUser log entry');
   
   
   

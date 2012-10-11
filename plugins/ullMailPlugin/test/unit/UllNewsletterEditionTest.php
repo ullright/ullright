@@ -64,7 +64,7 @@ $t->diag('createMailMessage()');
 <style type="text/css">h1 {color: red;} </style>
 </head>
 
-<body>
+<body class="newsletter_ullright-layout">
 [TRACKING]<img src="http://www.ullright.org/ullCoreThemeNGPlugin/images/logo_120.png" /><br /><h1>ullright News</h1><p>Hello [FIRST_NAME] [LAST_NAME],</p><p>we are proud to present our newsletter system. Here are the main features:</p><ul><li>Newsletter categories</li><li>Web-archive</li><li>Tracking</li></ul><img src="http://www.ullright.org/ullMailThemeNGPlugin/images/ull_mail_32x32.png" /><p>Have a nice day.</p><small><p>[ONLINE_LINK]</p><p>[UNSUBSCRIBE]</p><p>(C) 2011 by ull.at</p></small>
 </body>
 </html>', 
