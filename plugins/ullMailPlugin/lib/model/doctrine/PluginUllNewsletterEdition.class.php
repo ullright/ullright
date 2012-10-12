@@ -336,8 +336,9 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
         
       //[TRACKING]
       $trackingTag = '<img src="' . url_for('newsletter_web_beacon',
-          array('mid' => '_-_LOGGED_MESSAGE_ID_-_'),
-          array('absolute' => true)) . '" id="ull_newsletter_beacon" alt="" />';
+        array('mid' => '_-_LOGGED_MESSAGE_ID_-_'),
+        array('absolute' => true)) . 
+        '" id="ull_newsletter_beacon" alt="" width="1" height="1" />';
 
       $dictionary['[TRACKING]'] = $trackingTag;
     }
