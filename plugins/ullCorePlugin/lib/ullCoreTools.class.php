@@ -990,4 +990,32 @@ class ullCoreTools
   }
   
   
+  /**
+   * Detect if a string is UTF-8
+   * 
+   * @param string $string
+   * @return boolean
+   */
+  public static function detectUtf8($string)
+  {
+    return (mb_detect_encoding($string, 'UTF-8', true) === 'UTF-8') ? true : false;
+  }
+
+  
+  /**
+   * UTF-8 encode a string if it is not UTF-8 encoded
+   * 
+   * @param string $string
+   * @return string
+   */
+  public static function encodeToUtf8($string)
+  {
+    if (self::detectUtf8($string))
+    {
+      return $string; 
+    }
+    
+    return utf8_encode($string);
+  }
+  
 }

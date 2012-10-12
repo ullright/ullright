@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 sfContext::createInstance($configuration);
 $request = sfContext::getInstance()->getRequest();
 
-$t = new lime_test(48, new lime_output_color);
+$t = new lime_test(52, new lime_output_color);
 
 $t->diag('sluggify()');
 
@@ -193,3 +193,21 @@ $t->diag('array_flatten()');
   $reference = array(1, 2, 3, 4, 5, 6);
   
   $t->is(ullCoreTools::array_flatten($array), $reference, 'Correctly flattens the array');
+
+  
+$t->diag('detectUtf8()');
+  $path = sfConfig::get('sf_plugins_dir') . '/ullCorePlugin/test/unit/';
+  $utf8 = file_get_contents($path . 'utf8.csv');
+  $iso = file_get_contents($path . 'iso.csv');
+  
+  $t->is(ullCoreTools::detectUtf8($utf8), true, 'Correctly detects UTF-8');
+  $t->is(ullCoreTools::detectUtf8($iso), false, 'Correctly non-UTF-8');
+
+  
+$t->diag('encodeToUtf8()');
+  $reference = "Vorname,Nachname\nÖtto,Glübschlig\n";
+  
+  $t->is(ullCoreTools::encodeToUtf8($utf8), $reference, 'Already UTF-8, nothing changed');
+  $t->is(ullCoreTools::encodeToUtf8($iso), $reference, 'Correctly encoded in UTF-8');  
+  
+  
