@@ -91,6 +91,11 @@ class ullCsvImporter
     
     $headers = fgetcsv($this->handle, 0, $this->getDelimiter());
     
+    foreach ($headers as &$header)
+    {
+      $header = ullCoreTools::encodeToUtf8($header);
+    }
+    
     return $headers;
   }
   
@@ -120,9 +125,11 @@ class ullCsvImporter
         // Create index names also for empty cells
         foreach ($this->headers as $columnNum => $name)
         {
-          if (isset($line[$columnNum]))
+          $value = ullCoreTools::encodeToUtf8($line[$columnNum]);
+          
+          if (isset($value))
           {
-            $value = trim($line[$columnNum]);
+            $value = trim($value);
           }
           else
           {
