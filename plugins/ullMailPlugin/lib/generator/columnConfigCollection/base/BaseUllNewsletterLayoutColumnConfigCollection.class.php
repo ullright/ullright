@@ -12,6 +12,14 @@ class BaseUllNewsletterLayoutColumnConfigCollection extends ullColumnConfigColle
       ->setLabel(__('HTML head', null, 'ullMailMessages'))
       ->setWidgetOption('rows', 20)
       ->setWidgetOption('cols', 80)
+      ->setDefault("<style type=\"text/css\">
+          
+  body {
+    margin: 5;
+  }
+
+</style>          
+    ");
     ;    
     $this['html_body']
       ->setLabel(__('HTML body', null, 'ullMailMessages'))
