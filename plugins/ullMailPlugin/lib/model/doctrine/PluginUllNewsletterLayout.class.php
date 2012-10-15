@@ -39,8 +39,8 @@ abstract class PluginUllNewsletterLayout extends BaseUllNewsletterLayout
   /**
    * Write styles from html_head into css file for usage in wysiwyg editor
    * 
-   * File is located in web/upload/css/ull_newsletter_layout_SLUG.css where SLUG is
-   * the current slug
+   * File is located in web/css/ull_newsletter_layout_SLUG.css where SLUG is
+   * the current layout slug
    */
   public function writeCssFile()
   {
@@ -55,7 +55,7 @@ abstract class PluginUllNewsletterLayout extends BaseUllNewsletterLayout
       {
         $styles = $nodes->getValue();
       
-        $dir = sfConfig::get('sf_upload_dir'). '/css';
+        $dir = sfConfig::get('sf_web_dir'). '/css';
         
         if (!file_exists($dir))
         {
@@ -65,9 +65,10 @@ abstract class PluginUllNewsletterLayout extends BaseUllNewsletterLayout
         $path = $dir . '/ull_newsletter_layout_' . $this->slug . '.css';
     
         file_put_contents($path, $styles);
-        
-        // testing css 
-        
+
+        // Generating css file with layout specific prefixes
+        // Used e.g. by ullContentElements
+        // @see  http://www.ullright.org/ullWiki/show/content-elements
         $css = new HTML_CSS();
         $css->parseString($styles);        
         $cssArray = $css->toArray();
