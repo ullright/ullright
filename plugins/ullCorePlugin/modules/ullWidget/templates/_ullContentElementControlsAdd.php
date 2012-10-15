@@ -18,7 +18,7 @@
   
   <ul>
     <?php $element_types_json = urlencode(json_encode($element_types)) ?>
-    <?php foreach($element_types as $element_type => $name): ?>
+    <?php foreach($element_types as $element_type => $element_config): ?>
     
       <?php $url = url_for('ullWidget/contentElementAdd?' .
           'field_id=' . $field_id. '&' .
@@ -33,7 +33,7 @@
         '<?php echo $url ?>',
         '<?php echo $field_id ?>'
       ); return false;" style="cursor: pointer;">
-        <?php echo $name ?>
+        <?php echo $element_config['label'] ?>
       </li>
     <?php endforeach ?>
   </ul>
