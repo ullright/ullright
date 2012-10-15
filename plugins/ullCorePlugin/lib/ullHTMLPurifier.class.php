@@ -75,4 +75,20 @@ class ullHTMLPurifier
         
     return self::getPurifierInstance()->purify($value, $config);
   }
+  
+  
+  /**
+   * Remove all input tags
+   * 
+   * @param String $value
+   * @return String purified $value
+   */
+  public static function removeInputTags($value)
+  {
+    $config = self::getDefaultConfiguration();
+    $config->set('Attr.EnableID', true);
+    $config->set('HTML.ForbiddenElements', 'input');
+        
+    return self::getPurifierInstance()->purify($value, $config);
+  }  
 }

@@ -80,12 +80,8 @@ abstract class PluginUllNewsletterEdition extends BaseUllNewsletterEdition
    */
   public function cleanBody($body)
   {
-    //Search for a way to remove ullWidgetContentElement input hidden tags
-    
-//     $qp = new QueryPath($body);
-//     $qp->remove('input[type="hidden"]');
-    
-//     $body = $qp->find('body')->html();
+    //Remove ullWidgetContentElement input hidden tags
+    $body = ullHTMLPurifier::removeInputTags($body);
     
     return $body;
   }
