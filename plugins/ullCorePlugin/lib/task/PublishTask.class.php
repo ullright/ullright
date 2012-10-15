@@ -29,8 +29,10 @@ EOF;
     $this->addArgument('env', sfCommandArgument::OPTIONAL,
       'The environment', 'cli');
     
-    $this->addOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 
+    $this->addOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE,
       'Skip confirmation question');
+    $this->addOption('only-files', null, sfCommandOption::PARAMETER_NONE, 
+      'Tranfer only files, no model builiding, no migrations');    
     
   }
 
@@ -50,19 +52,22 @@ EOF;
     
     $this->executeRemoteSymfonyTask('cache:clear', true);
     
-    $this->executeRemoteSymfonyTask('doctrine:build --model --forms --filters', true);
+    if (!$options['only-files'])
+    {
+      $this->executeRemoteSymfonyTask('doctrine:build --model --forms --filters', true);
+      
+      $this->executeRemoteSymfonyTask('cache:clear', true);
+      
+      $this->executeRemoteSymfonyTask('doctrine:migrate');
+      
+      $this->executeRemoteSymfonyTask('ullright:migrate-custom');
+      
+      $this->executeRemoteSymfonyTask('ullright:migrate-data');
     
-    $this->executeRemoteSymfonyTask('cache:clear', true);
-    
-    $this->executeRemoteSymfonyTask('doctrine:migrate');
-    
-    $this->executeRemoteSymfonyTask('ullright:migrate-custom');
-    
-    $this->executeRemoteSymfonyTask('ullright:migrate-data');
-    
-    $this->executeRemoteSymfonyTask('project:permissions', true);
-    
-    $this->executeRemoteCommand('chmod o-rwx . -R ');
+      $this->executeRemoteSymfonyTask('project:permissions', true);
+      
+      $this->executeRemoteCommand('chmod o-rwx . -R ');
+    }
   }
   
   
