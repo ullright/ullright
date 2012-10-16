@@ -452,7 +452,7 @@ class BaseUllNewsletterActions extends BaseUllGeneratorActions
    */
   protected function notifyUnsubscribe(UllUser $user, UllNewsletterMailingList $list)
   {
-    if (! sfConfig::get('app_ull_newsletter_enable_unsubscribe_notify', true))
+    if (!sfConfig::get('app_ull_newsletter_unsubscribe_notify_email'))
     {
       return;
     }
@@ -477,7 +477,7 @@ User details: %url%',
         '%name%' => (string) $user,
         '%email%' => $user->email, 
         '%list%' => (string) $list,
-        '%url%' => url_for('ullUser/show?username=' . $user->username, true)
+        '%url%' => url_for('ullUser/edit?id=' . $user->id, true)
       ),
       'ullMailMessages'
     ));
