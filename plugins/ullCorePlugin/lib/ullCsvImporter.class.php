@@ -125,11 +125,9 @@ class ullCsvImporter
         // Create index names also for empty cells
         foreach ($this->headers as $columnNum => $name)
         {
-          $value = ullCoreTools::encodeToUtf8($line[$columnNum]);
-          
-          if (isset($value))
+          if (array_key_exists($columnNum, $line))
           {
-            $value = trim($value);
+            $value = trim(ullCoreTools::encodeToUtf8($line[$columnNum]));
           }
           else
           {
