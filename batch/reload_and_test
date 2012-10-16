@@ -3,4 +3,4 @@
 echo 'Reload and testing'
 
 batch/reload
-php symfony test:all
+php symfony test:unit
