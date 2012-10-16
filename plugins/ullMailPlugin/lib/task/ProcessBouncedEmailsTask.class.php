@@ -65,18 +65,22 @@ EOF;
       exit();
     }
     
+    foreach ($bouncedEmailAddresses['by_severity'] as $severity => $emails)
+    { 
+      $this->logNoisySectionIf(
+        $emails, 
+        $this->name, 
+        count($emails) . ' bounced email addresses with severity ' . 
+          $severity . ": \n " . implode("\n", $emails),
+        999999
+      );
+    }
+    
     $this->logNoisySectionIf(
-      $bouncedEmailAddresses, 
+      $bouncedEmailAddresses['all'], 
       $this->name, 
-      "Bounced email addresses: \n " . implode("\n", $bouncedEmailAddresses),
-      999999
+      'Total number of bounced emails: ' . count($bouncedEmailAddresses['all'])
     );
-    $this->logNoisySectionIf(
-      $bouncedEmailAddresses, 
-      $this->name, 
-      'Number of bounced emails: ' . count($bouncedEmailAddresses)
-    );
-
     
     
     $userBounces = $this->increaseBounceCounter($bouncedEmailAddresses, $arguments, $options);
@@ -185,12 +189,12 @@ EOF;
     $ullCrypt = ullCrypt::getInstance();
     
     $unprocessableLog = array();
+    $bouncedEmailAddresses = array();
     
     foreach ($mailNumbers as $mailNumber)
     {
       // get the id of the ullMailLogged entry for this message (it is saved in the email header)
       $found = preg_match("/X-ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
-//      $found = preg_match("/ull-mail-logged-id:\s(.*)\s/i", imap_body($this->mbox, $mailNumber), $matches);
       if (!$found)
       {
         $unprocessableLog[] = 'No mail_log_id found in message: ' . $mailNumber;
@@ -248,14 +252,16 @@ EOF;
         continue;
       }        
       
+      
+      //saves the date of receiving the "undeliverable message"
+      $header = imap_headerinfo($this->mbox, $mailNumber);
+      $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
+      $body = imap_body($this->mbox, $mailNumber);
+      $ullMailLoggedMessage->last_error_message = $body;
+      $ullMailLoggedMessage->UllMailError = $this->guessUllMailError($body);  
+
       if (!$this->isDryRun())
       {
-        //saves the date of receiving the "undeliverable message"
-        $header = imap_headerinfo($this->mbox, $mailNumber);
-        $ullMailLoggedMessage->failed_at = date('Y-m-d H:i:s', $header->udate);
-        $body = imap_body($this->mbox, $mailNumber);
-        $ullMailLoggedMessage->last_error_message = $body;
-        $ullMailLoggedMessage->UllMailError = $this->guessUllMailError($body);
         $ullMailLoggedMessage->save();
         
         // Move to processed
@@ -265,7 +271,10 @@ EOF;
       // extract email address
       preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
       // and remember it
-      $bouncedEmailAddresses[] = $matches[1];
+      $email = $matches[1];
+      $bouncedEmailAddresses['all'][] = $email;
+      $bouncedEmailAddresses['by_severity']
+        [$ullMailLoggedMessage->UllMailError->severity][] = $email;
       
     } // end of foreach email in inbox
     
@@ -291,8 +300,22 @@ EOF;
    */
   public function increaseBounceCounter($bouncedEmailAddresses, $arguments = array(), $options = array())
   {
+    if (!array_key_exists('by_severity', $bouncedEmailAddresses))
+    {
+      return array();
+    }
+    
+    $bySeverity = $bouncedEmailAddresses['by_severity'];
+    
+    if (!array_key_exists('permanent', $bySeverity))
+    {
+      return array();
+    }    
+    
+    $permanentErrors = $bySeverity['permanent'];
+    
     //uniquify the array
-    $bouncedEmailAddresses = array_values(array_unique($bouncedEmailAddresses));
+    $bouncedEmailAddresses = array_values(array_unique($permanentErrors));
     
     $userBounces = array();
     
@@ -454,7 +477,18 @@ EOF;
       'over-quota' => array(
         'over quota',
         'quota exceeded',
+        'allowed quota',
+        'mailbox is full',
+        ']: 552 ', //  Requested mail action aborted: exceeded storage allocation
       ),
+      'invalid-domain' => array(
+        'unrouteable address',
+        'connection refused',
+        'non-existent hosts',
+        'couldn\'t find any host named',
+        'no SMTP service',
+        'allowed rcpthosts',
+      ),        
       'user-unknown' => array(
         'user unknown',
         'user is unknown',
@@ -474,14 +508,19 @@ EOF;
         'this user doesn\'t have a',
         'no mailbox here by that name',
         'action: failed',
+        'inactive recipient rejected',
+        'fatal delivery errors',
+        'address(es) failed',
+        'Undelivered Message',
+        'account has been disabled',
+        'Address rejected',
+        'Mailbox is not available',
+        'No such user',
+        ']: 550 ', // Requested action not taken: mailbox unavailable
+        ']: 553 ', // Requested action not taken: mailbox name not allowed
+        ']: 554 ', // Transaction failed
       ),
-      'invalid-domain' => array(
-        'unrouteable address',
-        'connection refused',
-        'non-existent hosts',
-        'couldn\'t find any host named',
-        'no SMTP service',
-      ),
+        
     );
     
     $result = 'unknown';
