@@ -5,7 +5,7 @@ include dirname(__FILE__) . '/../../../../test/bootstrap/unit.php';
 // create context since it is required by ->getUser() etc.
 sfContext::createInstance($configuration);
 
-$t = new sfDoctrineTestCase(20, new lime_output_color, $configuration);
+$t = new sfDoctrineTestCase(12, new lime_output_color, $configuration);
 $path = dirname(__FILE__);
 $t->setFixturesPath($path);
 
@@ -15,53 +15,59 @@ $t->begin('process bounced emails');
 $test_user = Doctrine::getTable('UllUser')->findOneByUsername('test_user');
 $admin = Doctrine::getTable('UllUser')->findOneByUsername('admin');
 
-$t->diag('send mail with delivery error');
-  //send a fake mail with an delivery error
-  fakeMailSending($admin, $test_user, 'test1', true);
-  $t->is(
-    Doctrine::getTable('UllMailLoggedMessage')->findLatestEntryByUser($test_user)->subject,
-    'test1',
-    'Check for latest entry ok'
-  );
-  
-$t->diag('check if bounce counter increases for test_user');
+$t->diag('Check initialisation state');
 
-  $t->is($test_user->num_email_bounces, null, 'Bounce counter is NULL');
+  $t->is($test_user->num_email_bounces, null, 'Bounce counter is NULL for test user before running the task');
   
-  //increase two times (fake two delivery errors)
-  runTask(array($test_user->email));
-  runTask(array($test_user->email));
+  
+$t->diag('Simulate temporary error and run task');  
+  
+  $undeliverableAddresses = array(
+    'all' =>  $test_user->email,
+    'by_severity' => array(
+      'temporary' => array($test_user->email),
+    ),
+  );
+  runTask($undeliverableAddresses);
     
   //refreshes the ullUser object
   $test_user->refresh();
-  $t->is($test_user->num_email_bounces, '2', 'Bounce counter is 2');
+  $t->is($test_user->num_email_bounces, null, 'Bounce counter is still NULL, because of temporary error (e.g. mailbox full)');
   
-$t->diag('send mail which resets the bounce counter');
   
-  //send a mail without a delivery error
-  fakeMailSending($admin, $test_user, 'test2');
+$t->diag('Simulate permanent error and run task');  
   
-  //should reset the bounce counter
-  runTask();
-  
-  //refresh
-  $test_user->refresh();
-  $t->is($test_user->num_email_bounces, '0', 'Bounce counter is reset');
-  
-$t->diag('set counter to max and delete mail address');
-  
-  //set the bounce counter to limit
-  fakeMailSending($admin, $test_user, 'test1', true);
-  for ($i = 0; $i < sfConfig::get('app_ull_mail_bounce_deactivation_threshold', 3); $i++)
-  {
-    runTask(array($test_user->email));
-  }
-  
-  $test_user->refresh();
-  $t->is($test_user->email, '', 'The email address is deleted');
-  $t->is($test_user->num_email_bounces, '0', 'Bounce counter is reset');
+  $undeliverableAddresses = array(
+    'all' =>  $test_user->email,
+    'by_severity' => array(
+      'permanent' => array($test_user->email),
+    ),
+  );
+  runTask($undeliverableAddresses);
     
-$t->diag('two users have the same mail address (increase counter, reset, delete address)');
+  //refreshes the ullUser object
+  $test_user->refresh();
+  $t->is($test_user->num_email_bounces, 1, 'Bounce counter is now 1, because of permanent error');
+  
+  runTask($undeliverableAddresses);
+    
+  //refreshes the ullUser object
+  $test_user->refresh();
+  $t->is($test_user->num_email_bounces, 2, 'Bounce counter is now 2, because of one more permanent error');
+  
+  
+  
+$t->diag('Test deleteMailAddressesOnBounceMax()');
+
+  runTask($undeliverableAddresses);
+  
+  $test_user->refresh();
+  $t->is($test_user->num_email_bounces, '0', 'Bounce exceeded limit of 3 - counter was reseted');
+  $t->is($test_user->email, '', 'And the email address was deleted');
+  
+  
+$t->diag('Test two users with the same mail address');
+
   // reset test_user
   $test_user->num_email_bounces = 0;
   $test_user->email = 'test@example.com';
@@ -72,139 +78,39 @@ $t->diag('two users have the same mail address (increase counter, reset, delete 
   $foo_user->username = 'foo_user';
   $foo_user->save();
   
-  //send message to test_user with a delivery error
-  fakeMailSending($admin, $test_user, 'test3', true);
-  
-  //should increase the bounce counter
-  runTask(array($test_user->email));
+  // Simulate permanent error for test user and run task
+  $undeliverableAddresses = array(
+    'all' =>  $test_user->email,
+    'by_severity' => array(
+      'permanent' => array($test_user->email),
+    ),
+  );
+  runTask($undeliverableAddresses);
     
-  //refreshes the ullUser objects
   $test_user->refresh();
   $foo_user->refresh();
-  $t->is($test_user->num_email_bounces, '1', 'Bounce counter for test_user is 1');
-  $t->is($foo_user->num_email_bounces, '1', 'Bounce counter for foo_user is 1');
-  
-  //send message to foo_user without an error
-  fakeMailSending($admin, $foo_user, 'test4');
-  
-  //should reset the bounce counter
-  runTask();
-  
-  $test_user->refresh();
-  $foo_user->refresh();
-  $t->is($test_user->num_email_bounces, '0', 'Bounce counter for test_user is reset');
-  $t->is($foo_user->num_email_bounces, '0', 'Bounce counter for foo_user is reset');
-  
-   //send message to test_user with a delivery error and increase bounce counter to limit
-  fakeMailSending($admin, $test_user, 'test5', true);
-  for ($i = 0; $i < sfConfig::get('app_ull_mail_bounce_deactivation_threshold', 3); $i++)
-  {
-    runTask(array($test_user->email));
-  }
-  
+  $t->is($test_user->num_email_bounces, '1', 'A failed email increased bounce counter for user 1...');
+  $t->is($foo_user->num_email_bounces, '1', '...and also for user 2');
+
+  runTask($undeliverableAddresses);
+  runTask($undeliverableAddresses);
   
   $test_user->refresh();
   $foo_user->refresh();
   
-  $t->is($test_user->email, '', 'The email address for test_user is deleted');
-  $t->is($test_user->num_email_bounces, '0', 'Bounce counter for test_user is reset');
+  $t->is($test_user->num_email_bounces, '0', 'Exceeding the bounce counter resets the counter for user 1...');
+  $t->is($foo_user->num_email_bounces, '0', '...and the same for user 2');
   
-  $t->is($foo_user->email, '', 'The email address for foo_user is deleted');
-  $t->is($foo_user->num_email_bounces, '0', 'Bounce counter for test_user is reset');
-  
-$t->diag('two users have the same mail address, increase counter, change one mail address, reset counter');
-  // reset test_user
-  $test_user->num_email_bounces = 0;
-  $test_user->email = 'test@example.com';
-  $test_user->save();
-  
-  // reset foo_user
-  $foo_user->num_email_bounces = 0;
-  $foo_user->email = 'test@example.com';
-  $foo_user->save();
-  
-  //send message to test_user with a delivery error
-  fakeMailSending($admin, $test_user, 'test3', true);
-  
-  //should increase the bounce counter
-  runTask(array($test_user->email));
-    
-  //refreshes the ullUser objects
-  $test_user->refresh();
-  $foo_user->refresh();
-  $t->is($test_user->num_email_bounces, '1', 'Bounce counter for test_user is 1');
-  $t->is($foo_user->num_email_bounces, '1', 'Bounce counter for foo_user is 1');
-  
-  //change mail address
-  $foo_user->email = 'foo@example.com';
-  $foo_user->save();
-  
-  //send mail to foo_user
-  fakeMailSending($admin, $foo_user, 'test3');
-  
-  //should reset the bounce counter
-  runTask();
-  
-  $test_user->refresh();
-  $foo_user->refresh();
-  $t->is($test_user->num_email_bounces, '1', 'Bounce counter for test_user is not reset');
-  $t->is($foo_user->num_email_bounces, '0', 'Bounce counter for foo_user is reset');
-  
-$t->diag('send multiple email (last one with an error, others are irrelevant). Counter should be 1');
-  // reset test_user
-  $test_user->num_email_bounces = 0;
-  $test_user->email = 'testuser@example.com';
-  $test_user->save();
-  
-  //send message to test_user with a delivery error
-  fakeMailSending($admin, $test_user, 'test', true);
-  
-  //send message to test_user without a delivery error
-  fakeMailSending($admin, $test_user, 'test');
-  
-  //send message to test_user with a delivery error
-  fakeMailSending($admin, $test_user, 'test', true);
-  
-  //send message to test_user with a delivery error
-  fakeMailSending($admin, $test_user, 'test', true);
-  
-  //send message to test_user without a delivery error
-  fakeMailSending($admin, $test_user, 'test');
-  
-  //send message to test_user with a delivery error
-  fakeMailSending($admin, $test_user, 'test', true);
-  
-  runTask(array($test_user->email, $test_user->email, $test_user->email, $test_user->email));
-  
-  $test_user->refresh();
-  $t->is($test_user->num_email_bounces, '1', 'Bounce increases to 1');
-  
-$t->diag('don\'t increase the counter, if the last mail was correct');
-  // reset test_user
-  $test_user->num_email_bounces = 0;
-  $test_user->email = 'test@example.com';
-  $test_user->save();
-  
-  //send message to test_user with a delivery error
-  fakeMailSending($admin, $test_user, 'test', true);
-  
-  //send message to test_user without a delivery error
-  fakeMailSending($admin, $test_user, 'test');
-  
-  runTask(array($test_user->email));
-  
-  $test_user->refresh();
-  $t->is($test_user->num_email_bounces, '0', 'Bounce counter did not increase');
-  
+  $t->is($test_user->email, '', 'Also, the email address for user 1 was deleted...');
+  $t->is($foo_user->email, '', '...and also for user 2');
   
 
   
-  
+// Simulate the run of the bounce task  
 function runTask($undeliveredMailAddresses = array())
 {
   $task = new ProcessBouncedEmailsTask(new sfEventDispatcher(), new sfFormatter());
   $task->increaseBounceCounter($undeliveredMailAddresses);
-  $task->resetBounceCounter();
   $task->deleteMailAddressesOnBounceMax();
 }
   

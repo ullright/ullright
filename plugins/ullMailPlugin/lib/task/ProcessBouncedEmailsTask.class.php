@@ -97,24 +97,6 @@ EOF;
     );       
 
     
-    /*
-     * Deactivated at the moment 
-     * @see http://www.ullright.org/ullFlow/edit/app/bug_tracking/order/priority/order_dir/asc/doc/1548
-     * 
-    $resetUsers = $this->resetBounceCounter($arguments, $options);
-    $this->logNoisySectionIf(
-      $resetUsers, 
-      $this->name, 
-      "Users with reset bounce counter: \n " . implode("\n", $resetUsers),
-      999999
-    );
-    $this->logNoisySectionIf(
-      $resetUsers, 
-      $this->name, 
-      'Number of users with reset bounce counter: ' . count($resetUsers)
-    );
-    */
-    
     
     $deletedUsers = $this->deleteMailAddressesOnBounceMax($arguments, $options);
     $this->logNoisySectionIf(
@@ -345,63 +327,6 @@ EOF;
     
     return ($userBounces);
   }
-  
-  /**
-   * Reset bounce counter in case user successfully received an email since the last error
-   * 
-   * @param array optional $arguments
-   * @param array optiona $options 
-   * 
-   * @return array list of users with reset bounce counter
-   */
-  public function resetBounceCounter($arguments = array(), $options = array())
-  {
-    $users = UllUserTable::findWithBounces();
-    
-    foreach ($users as $user)
-    {
-      $userEmails[] = $user->email;
-    }
-    
-    if (count($userEmails))
-    {
-      $resetUsers = array();
-      
-      //uniquify the array
-      $userEmails = array_values(array_unique($userEmails));
-      
-      foreach ($userEmails as $userEmail)
-      {
-        // Get the latest mail from the log for the current user
-        $ullMailLoggedMessage = UllMailLoggedMessageTable::findLatestLogByEmail($userEmail);
-        
-        // Check if the latest mail was bounced
-        if ($ullMailLoggedMessage && (! $ullMailLoggedMessage->failed_at))
-        {
-          //get email address from ullMailLoggedMessage
-          // KU: why??? we already know the emailaddress!
-          //preg_match("/<(.*)>/i", $ullMailLoggedMessage->to_list, $matches);
-//          $toResetUsers = Doctrine::getTable('UllUser')->findByEmail($matches[1]);
-          
-          $toResetUsers = Doctrine::getTable('UllUser')->findByEmail($userEmail);
-          
-          foreach ($toResetUsers as $toResetUser)
-          {
-            $toResetUser->num_email_bounces = 0;
-            if (!$this->isDryRun())
-            {
-              $toResetUser->save();
-            }
-            
-            $resetUsers[] = $toResetUser->getEmailTo();
-          }
-        }
-      }
-      
-      return $resetUsers;
-    }
-  }
-  
   
   /**
    * If a bounce counter reaches the maximum, delete the mail address of this ullUser
