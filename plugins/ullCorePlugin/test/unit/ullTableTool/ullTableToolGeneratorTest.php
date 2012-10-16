@@ -67,8 +67,8 @@ class myTestCase extends sfDoctrineTestCase
     $columnConfig = new ullColumnConfiguration('my_content_elements');
     $columnConfig->setWidgetOptions(array(
       'element_types' => array(
-        'gallery'         => __('Gallery'),
-        'text_with_image' => __('Text with image'),          
+        'gallery'         => array('label' => __('Gallery')),
+        'text_with_image' => array('label' => __('Text with image')),          
       ),
     ));
     $columnConfig->setLabel('My content elements');
