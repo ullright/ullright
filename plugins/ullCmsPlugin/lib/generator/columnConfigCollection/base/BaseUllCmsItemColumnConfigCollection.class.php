@@ -33,7 +33,10 @@ class BaseUllCmsItemColumnConfigCollection extends ullColumnConfigCollection
     ;
     
     $this['sequence']
-      ->setHelp('Sort the items. Enter integer numbers. Entries with higher numbers are listed behind those with lower numbers. Use steps of 10 or 100 to allow inserting items in between.')
+      ->setHelp(__(
+        'Sort the items. Enter integer numbers. Entries with higher numbers are listed behind those with lower numbers. Use steps of 100 to allow inserting items in between.'
+        , null, 'ullCoreMessages')
+      )
     ;
     
     $this['ull_cms_content_type_id']
