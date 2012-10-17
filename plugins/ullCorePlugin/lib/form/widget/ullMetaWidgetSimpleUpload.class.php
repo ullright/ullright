@@ -103,7 +103,17 @@ class ullMetaWidgetSimpleUpload extends ullMetaWidget
       $simpleUploadDeleteFieldName = 'simple_upload_delete_' . $this->columnConfig->getColumnName();
       
       $simpleUploadDeleteWidget = new ullWidgetCheckboxWrite();
-      $simpleUploadDeleteWidget->setLabel($this->columnConfig->getOption('delete_label'));
+      
+      $deleteLabel = $this->columnConfig->getOption('delete_label');
+      if (!$deleteLabel)
+      { 
+        $deleteLabel = __(
+          'Delete "%label%"',  
+          array('%label%' => $this->columnConfig->getLabel()),
+          'ullCoreMessages'
+        );
+      }
+      $simpleUploadDeleteWidget->setLabel($deleteLabel);
       
       $this->addWidget(
         $simpleUploadDeleteWidget, 

@@ -162,4 +162,27 @@ class BaseUllCmsComponents extends sfComponents
       $this->module = 'ullCmsContentBlock';
     }
   }
+  
+  
+  /**
+   * Delete link component
+   */
+  public function executeDeleteLink()
+  {
+    $this->allow_delete = UllUserTable::hasPermission('ull_cms_delete');
+
+    if (!$this->doc)
+    {
+      throw new InvalidArgumentException('Please give a UllCmsPage or a UllCmsContentBlock as $doc');
+    }
+    
+    if ($this->doc instanceof UllCmsPage)
+    {
+      $this->module = 'ullCms';
+    }
+    elseif ($this->doc instanceof UllCmsContentBlock)
+    {
+      $this->module = 'ullCmsContentBlock';
+    }
+  }  
 }

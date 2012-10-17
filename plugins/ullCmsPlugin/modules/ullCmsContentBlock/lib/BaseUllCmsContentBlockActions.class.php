@@ -227,6 +227,8 @@ class BaseUllCmsContentBlockActions extends BaseUllGeneratorActions
   {
     $this->checkPermission('ull_cms_content_block_delete');
     
+    $this->getUriMemory()->setReferer('list');
+    
     parent::executeDelete($request);
   }
   

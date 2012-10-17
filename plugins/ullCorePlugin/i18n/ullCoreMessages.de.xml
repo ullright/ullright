@@ -513,9 +513,12 @@ Gültige Dateitypen sind jpg und png.</target>
       <trans-unit id="1002">
       <source>Sort the items. Enter integer numbers. Entries with higher numbers are listed behind those with lower numbers. Use steps of 100 to allow inserting items in between.</source>
       <target>Sortierung der Einträge. Geben Sie ganze Zahlen ein. Je größer die Zahl desto weiter hinten wird der Eintrag gereiht. Verwenden Sie 100er-Schritte um später Einträge dazwischen einfügen zu können.</target>
-      </trans-unit>        
+      </trans-unit>   
       
-         
+      <trans-unit id="1003">
+      <source>Delete "%label%"</source>
+      <target>"%label%" löschen</target>
+      </trans-unit>           
       
       <!--  ullRateable -->
       
