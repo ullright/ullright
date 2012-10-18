@@ -26,7 +26,7 @@
 class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
 {
   protected
-    $mailsPerMinute = 120
+    $mailsPerMinute = 240
   ;
   
   /**
@@ -41,7 +41,7 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
     $model = 'UllMailQueuedMessage', 
     $column = 'message', 
     $method = 'querySpooledMessages',
-    $mailsPerMinute = 120
+    $mailsPerMinute = 240
   )
   {
     parent::__construct($model, $column, $method);
@@ -97,7 +97,12 @@ class Swift_UllDoctrineSpool extends Swift_DoctrineSpool
 
     //retrieve ids of mails to send, up to $messageLimit
     $table = Doctrine_Core::getTable($this->model);
-    $ids = $table->{$this->method}()->select('id')->limit($messageLimit)->execute(array(), DOCTRINE::HYDRATE_NONE);
+    $ids = $table
+      ->{$this->method}()
+      ->select('id')
+      ->limit($messageLimit)
+      ->execute(array(), DOCTRINE::HYDRATE_NONE)
+    ;
     
     $this->log("Beginning to process " . count($ids) . " messages\n");
     
