@@ -33,8 +33,13 @@ all:
   # Enable to specify a custom favicon. Per default the theme's favicon is used.
   #override_favicon: /images/favicon.ico
 
-  error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
-  error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
+
+  # You can set additional custom error messages here. 
+  # Translations go into apps/frontend/i18n/messages.XX.xml
+  #error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
+  error_404_text: ''
+  #error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
+  error_500_text: ''
 
   #The following server name is used in situations where
   #a server name cannot be determined automatically, e.g.
