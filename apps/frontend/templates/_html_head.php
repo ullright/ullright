@@ -1,14 +1,30 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="<?php echo $sf_user->getCulture() ?>">
 
 <!--  Begin of html head -->
 <head>
 
-<?php /* Load default ullright html head */ ?>
-<?php include_partial('default/html_head')?>
+<?php /* Load ullright html head statements*/ ?>
+<?php /* Located in plugins/ullCorePlugin/modules/default/templates/_ullright_html_head.php */ ?>
+<?php include_partial('default/ullright_html_head')?>
 
 
-<?php /* Add custom html head statements here... */ ?>
+<!--  Begin of custom html head statements -->
+
+<?php /* Do not use a <title> tag, as this is handled by symfony */ ?>
+
+<!-- custom meta information -->
+<meta name="author" content="Klemens Ullmann-Marx and the ull.at team" />
+<meta name="description" content="ullright is an opensource platform for websites & applications initiated by ull.at" />
+<meta name="keywords" content="ullright, ullCms, ullUser, ullNewsletter, website, CMS, content management system, email newsletter, framework, ull.at" />
+
+<meta charset="utf-8" />
+<meta name="robots" content="index,follow" />
+<meta name="generator" content="ullright">
+
+<!-- Favicon -->
+<?php /* located in web/images/favicon.ico */ ?>
+<link rel="shortcut icon" href="/images/favicon.ico" />
 
 <!-- ullNews RSS feed -->
 <?php include_component('ullNews', 'rssFeed') ?>
@@ -31,6 +47,8 @@
 
 <?php /* Add other html head statements here like webfonts, stats, ... */?>
 <link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css' />
+
+<!--  End of custom html head statements -->
 
 </head>
 <!--  End of html head -->

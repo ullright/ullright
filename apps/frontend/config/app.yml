@@ -1,54 +1,17 @@
-prod:
-  mailing:
-    # send a copy of each mail to the developers' email address
-    send_debug_cc: true
-    # blacklist of ullsfMail "slugs" (no bcc debug copy sent for these)
-    debug_cc_exclude_list: [ 'ull_newsletter' ]
-  sms:
-    # send a bcc sms to debug_mobile_number
-    send_debug_bcc: true
+# This is the main custom configuration file 
 
-test:
-  mailing:
-    # completely disable mail sending during testing
-    # this must always be set to false
-    enable:        false
-  sms:
-    enable:        false
-
-dev:
-  mailing:
-    # reroute emails to the developers' email address 
-    reroute:       true
-  sms:
-    # reroute all sms to  debug_mobile_number (for dev environment) 
-    reroute:        false
-
-# default values
+# Settings for all environments (dev, prod, ...)
 all:
-  theme_package:    NG
-  sidebar_logo:     /ullCoreThemeNGPlugin/images/logo_120
-  sidebar_toggle:   true
 
-  # Enable to specify a custom favicon. Per default the theme's favicon is used.
-  #override_favicon: /images/favicon.ico
-
-
-  # You can set additional custom error messages here. 
-  # Translations go into apps/frontend/i18n/messages.XX.xml
-  #error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
-  error_404_text: ''
-  #error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
-  error_500_text: ''
-
-  #The following server name is used in situations where
-  #a server name cannot be determined automatically, e.g.
-  #when mailing from the command line
+  # The following server name is used in situations where
+  # a server name cannot be determined automatically, e.g.
+  # when mailing from the command line
   server_name: www.example.com
   
-  #Enable specialied mobile version rendering for smartphones etc
+  # Enable mobile version rendering for smartphones etc
   enable_mobile_version: true
-
+  
+  # If you remove 'en', set the default language in settings.yml!
   i18n:  
     supported_languages: [ 'de', 'en' ]
   
@@ -67,6 +30,26 @@ all:
     # send a copy of each mail to the debugger's email address
     send_debug_cc: false
     
+  ull_newsletter:
+    from_address:       newsletter@example.com
+    from_name:          Example Newsletter
+    # Which columns to show on the public page for subscription
+    # If 'UllNewsletterMailingList' is not given the user is subscribed to all m
+    #   mailing lists with "is_subscribed_by_default" = true
+    public_subscription_columns: [ 'first_name', 'last_name', 'email', 'UllNewsletterMailingList' ]
+    public_subscription_required_columns: [ 'email', 'UllNewsletterMailingList' ]
+    unsubscribe_notify_email:   newsletter@example.com
+    
+  ull_mail:
+    bounce_mail_address:            bounce@example.com
+    bounce_mailbox_base:            '{imap.example.com}'
+    bounce_inbox_folder:            'INBOX'
+    bounce_handled_folder:          'INBOX.processed'
+    bounce_unprocessable_folder:    'INBOX.unprocessable'
+    bounce_username:                'user'
+    bounce_password:                'password'
+    bounce_deactivation_threshold:   3    
+    
   sms:
     transport:      ullSmsTransportMyCustomTransport
     enable:         true
@@ -75,23 +58,6 @@ all:
     # send a bcc sms to debug_mobile_number
     send_debug_bcc: false
     debug_mobile_number: +66 777 888 999    
-    
-  auth:
-    function:             default
-    fileshare_share:      '//my_samba_server/my_auth_share\$'
-    fileshare_domain:     my_domain
-    fileshare_checkfile:  checkfile-do_not_delete.txt   
-    imap_mailbox:         '{127.0.0.1:143/notls}INBOX'
-    ldap_account_suffix:  '@my_company.local'
-    ldap_base_dn:         'DC=my_company,DC=local'
-    ldap_domain_controllers: [ 'dc.my_company.local' ]    
-    
-  pager:
-    max_per_page:   30
-    sliding_range:  5
-    
-  sfDoctrineActAsTaggablePlugin:
-    limit:          16
     
   ull_user:
     display_name_length_limit:              22
@@ -125,17 +91,6 @@ all:
     
     # Supply a custom "nobody" image to show for a user without photo
     #nobody_image:                           /images/nobody.png
-    
-  ull_photo:
-    upload_path:    /uploads/userPhotos
-    # displayed height of the uploaded image before cropping 
-    display_height:     400
-    width:              200
-    height:             200
-    crop_aspect_ratio:  1:1 #or 3:4, ...
-    
-  ull_orgchart:
-    ceo_user_id:        1
     
   ull_time:
     # How long can the user change his entered data in days?
@@ -172,26 +127,6 @@ all:
     # Always display the "force close" action for master admins
     enable_master_admin_force_close: true
  
-  ull_newsletter:
-    from_address:       newsletter@example.com
-    from_name:          Example Newsletter
-    # Which columns to show on the public page for subscription
-    # If 'UllNewsletterMailingList' is not given the user is subscribed to all m
-    #   mailing lists with "is_subscribed_by_default" = true
-    public_subscription_columns: [ 'first_name', 'last_name', 'email', 'UllNewsletterMailingList' ]
-    public_subscription_required_columns: [ 'email', 'UllNewsletterMailingList' ]
-    unsubscribe_notify_email:   newsletter@example.com
-    
-  ull_mail:
-    bounce_mail_address:            bounce@example.com
-    bounce_mailbox_base:            '{imap.example.com}'
-    bounce_inbox_folder:            'INBOX'
-    bounce_handled_folder:          'INBOX.processed'
-    bounce_unprocessable_folder:    'INBOX.unprocessable'
-    bounce_username:                'user'
-    bounce_password:                'password'
-    bounce_deactivation_threshold:   3
-    
   ull_course:
     from_address:       courses@example.com
     from_name:          Example Company
@@ -208,6 +143,17 @@ all:
       Example Company
       - Email: office@example.com
       - Phone: +1 2 345678-90
+      
+  ull_photo:
+    upload_path:    /uploads/userPhotos
+    # displayed height of the uploaded image before cropping 
+    display_height:     400
+    width:              200
+    height:             200
+    crop_aspect_ratio:  1:1 #or 3:4, ...
+    
+  ull_orgchart:
+    ceo_user_id:        1      
  
   publish:
     # Set the following options if you want to use the ullright:publish task
@@ -219,7 +165,70 @@ all:
     # Define the order of global module admin links
     # Global means that the admin links are not on the modul's index action
     module_global_links_order: [ 'ullMail' ]
+    
+  auth:
+    function:             default
+    fileshare_share:      '//my_samba_server/my_auth_share\$'
+    fileshare_domain:     my_domain
+    fileshare_checkfile:  checkfile-do_not_delete.txt   
+    imap_mailbox:         '{127.0.0.1:143/notls}INBOX'
+    ldap_account_suffix:  '@my_company.local'
+    ldap_base_dn:         'DC=my_company,DC=local'
+    ldap_domain_controllers: [ 'dc.my_company.local' ]    
+    
+  pager:
+    max_per_page:   30
+    sliding_range:  5
+    
+  # You can set additional custom error messages here. 
+  # Translations go into apps/frontend/i18n/messages.XX.xml
+  #error_404_text: 'If you need further assistance, please do not hesitate to contact helpdesk@example.com.'
+  error_404_text: ''
+  #error_500_text: 'If the problem persists, please do not hesitate to contact it.department@example.com.'
+  error_500_text: ''
+  
+  # Default html head title
+  base_html_title: ullright - %title% 
+    
+  sfDoctrineActAsTaggablePlugin:
+    limit:          16    
 
   ull_widgets:
     many_to_many_write:
       ajax_mode_threshold:      1000
+
+
+  #ullright "as webapp" settings using the webapp layout
+  theme_package:    NG
+  sidebar_logo:     /ullCoreThemeNGPlugin/images/logo_120
+  sidebar_toggle:   true  
+  
+  
+  
+# Environment specific settings  
+  
+prod:
+  mailing:
+    # send a copy of each mail to the developers' email address
+    send_debug_cc: true
+    # blacklist of ullsfMail "slugs" (no bcc debug copy sent for these)
+    debug_cc_exclude_list: [ 'ull_newsletter' ]
+  sms:
+    # send a bcc sms to debug_mobile_number
+    send_debug_bcc: true
+
+test:
+  mailing:
+    # completely disable mail sending during testing
+    # this must always be set to false
+    enable:        false
+  sms:
+    enable:        false
+
+dev:
+  mailing:
+    # reroute emails to the developers' email address 
+    reroute:       true
+  sms:
+    # reroute all sms to debug_mobile_number (for dev environment) 
+    reroute:        false  

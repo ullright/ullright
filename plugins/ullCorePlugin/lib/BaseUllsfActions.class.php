@@ -26,12 +26,8 @@ abstract class BaseUllsfActions extends sfActions
 
     $this->uriMemory = new UriMemory();
     
-    $this->getResponse()->setTitle(
-      $this->getModuleName() . 
-      ' - ' . 
-      __(ucfirst($this->getRequestParameter('action')), null, 'common')
-    );
-
+    $this->handleTitle();
+    
     $this->ullpreExecute();
   }
   
@@ -209,6 +205,29 @@ abstract class BaseUllsfActions extends sfActions
       $this->getUser()->getAttributeHolder()->remove($moduleName . '_searchFormEntries');
       $this->redirect($this->getUriMemory()->get('search'));
     }
+  }
+  
+  
+  /**
+   * Build a default html title
+   */
+  protected function handleTitle()
+  {
+    // Default title = module + action
+    $title = $this->getModuleName() . 
+      ' - ' . 
+      __(ucfirst($this->getRequestParameter('action')), null, 'common')
+    ;
+    
+    // Decorate with base title setting from app.yml
+    // TODO: this is overwritten e.g. by ullCms. But setting in postExecute
+    // isn't a good idea because you loose control
+    if ($baseTitle = sfConfig::get('app_base_html_title'))
+    {
+      $title = strtr($baseTitle, array('%title%' => $title));
+    } 
+    
+    $this->getResponse()->setTitle($title);    
   }
   
   

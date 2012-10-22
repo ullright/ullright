@@ -1,17 +1,5 @@
+# ullright does not use view.yml per default. Everything is set in _html_head.php
 default:
-  http_metas:
-    content-type: text/html
-
-  metas:
-    title:        ullright
-    robots:       index, follow
-    description:  ullright is an opensource web framework initiated by ull.at business websolutions 
-    keywords:     ullright ull.at business websolutions workflow management open source
-#    language:     de
-
-  stylesheets:    []
-
-  javascripts:    []
 
   has_layout:     true
   layout:         layout
