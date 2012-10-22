@@ -16,7 +16,7 @@ EOF;
     $replace = <<<EOF
   response:
     class: ullWebResponse
-EOF;  
+EOF;
 
     $file = str_replace($search, $replace, $file);
       
