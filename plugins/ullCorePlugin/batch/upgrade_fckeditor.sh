@@ -2,7 +2,7 @@
 #
 # Upgrade script for fckeditor used in ullWikiPlugin and others
 # klemens.ullmann@ull.at 2008-05-28
-# klemens.ullmann-marx@ull.at 2010-03-19
+# klemens.ullmann-marx@ull.at 2010-03-19 
 #
 
 DATE=`date +%Y-%m-%d-%H-%M-%S`
