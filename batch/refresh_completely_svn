@@ -1,9 +1,8 @@
 #!/bin/bash
-#
-echo 'Do a complete refresh (pull git repositories, load production db, migrate)'
+# test
+echo 'Do a complete refresh (svn update, load production db, migrate)'
 
-git pull origin master
-git pull ullright master
+svn update
 php symfony cache:clear
 php symfony ullright:migrate-pre-build-model
 php symfony doctrine:build --model --forms --filters
